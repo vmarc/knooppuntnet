@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { Stat } from '../domain/stat';
-import { OverviewService } from './overview.service';
+import { OverviewConfigurationService } from './overview-configuration.service';
 
 @Component({
   selector: 'kpn-overview-list',
@@ -18,10 +18,12 @@ export class OverviewListComponent implements OnInit {
 
   stats: Stat[];
 
-  constructor(private overviewService: OverviewService) {}
+  constructor(
+    private overviewConfigurationService: OverviewConfigurationService
+  ) {}
 
   ngOnInit(): void {
-    this.stats = this.overviewService.statisticConfigurations
+    this.stats = this.overviewConfigurationService.statisticConfigurations
       .toArray()
       .flatMap((configuration) => {
         return this.statistics

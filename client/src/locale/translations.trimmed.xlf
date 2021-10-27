@@ -61,7 +61,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">74</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
@@ -212,7 +212,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">74</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
@@ -3830,14 +3830,568 @@
         <source>Overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="overview-page.title">
         <source>Overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.km.name">
+        <source>Length (km)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">33,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.km.comment">
+        <source>Total length in kilometers.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-count.name">
+        <source>NetworkCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">44,45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-count.comment">
+        <source>Number of networks.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.node-count.name">
+        <source>Node count</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.node-count.comment">
+        <source>Number of network nodes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">56,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-count.name">
+        <source>Route count</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">66,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-count.comment">
+        <source>Number of routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">67,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-not-continious-network-count.name">
+        <source>RouteNotContiniousNetworkCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">77,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-not-continious-network-count.comment">
+        <source>Number of networks with broken routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">78,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-not-continious.name">
+        <source>RouteNotContinious</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">88,89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-not-continious.comment">
+        <source>Number of broken routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">89,90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-not-continious-percentage.name">
+        <source>RouteNotContiniousPercentage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">99,100</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-not-continious-percentage.comment">
+        <source>Percentage of broken routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">100,101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-broken-network-count.name">
+        <source>RouteBrokenNetworkCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">110,111</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-broken-network-count.comment">
+        <source>Number of networks containing routes with issues.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">111,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-broken-count.name">
+        <source>RouteBrokenCount</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">121,122</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-broken-count.comment">
+        <source>Number of routes with issues.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">122,123</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-broken-percentage.name">
+        <source>RouteBrokenPercentage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">132,133</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-broken-percentage.comment">
+        <source>Percentage of routes with issues.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">133,134</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-incomplete.name">
+        <source>RouteIncomplete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">143,144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-incomplete.comment">
+        <source>Number of routes that are marked as having an incomplete definition.\
+          A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
+          value *"incomplete"* in the route relation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">144,148</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-incomplete-ok.name">
+        <source>RouteIncompleteOk</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">157,158</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-incomplete-ok.comment">
+        <source>Number of routes that are marked as having an incomplete definition, but
+          that look ok after analysis.\
+          A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
+          value *"incomplete"* in the route relation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">158,163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-fixmetodo.name">
+        <source>RouteFixmetodo</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">172,173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-fixmetodo.comment">
+        <source>Number of routes that are marked with *"fixmetodo"*.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">173,174</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.orphan-node-count.name">
+        <source>Orphan nodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">183,184</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.orphan-node-count.comment">
+        <source>Number of network nodes that do not belong to a network.\
+          The [node](docs/en.html#glossary-node "node in glossary") was not added as a member to a valid
+          [network relation](docs/en.html#glossary-network-relation "relation in glossary")
+          and also not added as a member to a valid
+          [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
+          (that itself was added as a member to a valid network relation or is a free route).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">184,191</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.orphan-route-count.name">
+        <source>Free routes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">200,201</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.orphan-route-count.comment">
+        <source>Number of network routes that do not belong to a network.\
+          The route was not added as a member to a valid
+          [network relation](docs/en.html#glossary-network-relation "network relation in glossary").</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">201,205</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.orphan-route-km.name">
+        <source>Free route length (km)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">214,215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.orphan-route-km.comment">
+        <source>Total length (km) of the free routes (not included in network length above).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">215,216</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-network-count.name">
+        <source>IntegrityCheck</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">225,226</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-network-count.comment">
+        <source>Number of networks that include integrity check.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">226,227</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check.name">
+        <source>IntegrityCheck</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">236,237</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check.comment">
+        <source>Number of nodes with integrity check.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">237,238</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-failed.name">
+        <source>IntegrityCheckFailed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">247,248</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-failed.comment">
+        <source>Number of failed integrity checks.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">248,249</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-pass-rate.name">
+        <source>IntegrityCheckPassRate</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">258,259</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-pass-rate.comment">
+        <source>Integrity check pass rate (percentage of ok checks).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">259,260</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-coverage.name">
+        <source>IntegrityCheckCoverage</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">269,270</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.integrity-check-coverage.comment">
+        <source>Integrity check coverage (percentage of nodes that do have integrity check information).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">270,272</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-unused-segments.name">
+        <source>RouteUnusedSegments</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">281,282</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-unused-segments.comment">
+        <source>Number of routes where one or more of the ways (or part of ways) are not used in the
+          forward or backward path or in one of the tentacles.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">282,285</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-node-missing-in-ways.name">
+        <source>RouteNodeMissingInWays</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">294,295</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-node-missing-in-ways.comment">
+        <source>Number of routes for which there is a least one node is not found in any of the ways of the route.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">295,297</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-redundant-nodes.name">
+        <source>RouteRedundantNodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">306,307</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-redundant-nodes.comment">
+        <source>Number of routes where the ways of the route contain extra nodes other than the start and end nodes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">307,309</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-without-nodes.name">
+        <source>RouteWithoutNodes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">318,319</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-without-nodes.comment">
+        <source>Routes without network nodes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">319,321</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-without-ways.name">
+        <source>RouteWithoutWays</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">330,331</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-without-ways.comment">
+        <source>Routes without ways (a route is expected to have at least 1 way).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">331,333</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-name-missing.name">
+        <source>RouteNameMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">342,343</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-name-missing.comment">
+        <source>Routes without the required tags from which the route name can be derived.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">343,344</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-tag-missing.name">
+        <source>RouteTagMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">353,354</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-tag-missing.comment">
+        <source>The route relation does not contain a *"route"* tag.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">354,355</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-tag-invalid.name">
+        <source>RouteTagInvalid</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">364,365</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-tag-invalid.comment">
+        <source>The value in the *"route"* tag in the route relation is unexpected.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">365,367</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-unexpected-node.name">
+        <source>RouteUnexpectedNode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">376,377</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-unexpected-node.comment">
+        <source>Number of routes with one or more unexpected node members.\
+          In route relations we expect only nodes with tags that make it a valid network node.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">377,380</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-unexpected-relation.name">
+        <source>RouteUnexpectedRelation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">389,390</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-unexpected-relation.comment">
+        <source>Number of routes with one or more unexpected members.\In route relations we expect
+          only members of type *"way"*, or members of type *"node"* with tags
+          that make it a valid network node.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">390,394</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-extra-member-node.name">
+        <source>NetworkExtraMemberNode</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">403,404</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-extra-member-node.comment">
+        <source>Number of network relation members of type *"node"* that are unexpected (expect only
+          [network nodes](docs/en.html#glossary-node "node in glossary")
+          or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
+          in the network relation).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">404,409</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-extra-member-way.name">
+        <source>NetworkExtraMemberWay</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">418,419</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-extra-member-way.comment">
+        <source>Number of network relation members of type *"way"* (expect only route relations
+          or network nodes as members in the node network relation).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">419,422</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-extra-member-relation.name">
+        <source>NetworkExtraMemberRelation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">431,432</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.network-extra-member-relation.comment">
+        <source>Number of network relation members of type *"relation"* that are unexpected (expect only
+          valid route relations or network nodes as members in the node network relation).</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">432,435</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.node-member-missing.name">
+        <source>NodeMemberMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">444,445</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.node-member-missing.comment">
+        <source>Number of nodes that are not included in the network relation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">445,446</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.name-missing.name">
+        <source>NameMissing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">455,456</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.name-missing.comment">
+        <source>Number of networks without *"name"* tag in the network relation.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">456,457</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-inaccessible.name">
+        <source>RouteInaccessible</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">466,467</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-inaccessible.comment">
+        <source>Number of [inaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">467,469</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-node-name-mismatch.name">
+        <source>RouteNodeNameMismatch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">478,479</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-node-name-mismatch.comment">
+        <source>Routes where the route name does not match with the names of the start node and the end node. The
+          route name is expected to contain the start node name and the end node name, separated by a dash.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">479,482</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="overview.total">
@@ -3845,6 +4399,55 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-list-stat-table.component.ts</context>
           <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.display-options">
+        <source>Display options</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.list.title">
+        <source>Show overview in list format</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.list">
+        <source>List</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.table.title">
+        <source>Show overview in table format</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.table">
+        <source>Table</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.automatic.title">
+        <source>Use list or table format depending on page width</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="overview.sidebar.table.automatic">
+        <source>Automatic selection</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-sidebar.component.ts</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="overview-table.detail">
@@ -3866,560 +4469,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">39</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.km.name">
-        <source>Length (km)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">33,34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.km.comment">
-        <source>Total length in kilometers.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">34,35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-count.name">
-        <source>NetworkCount</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">44,45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-count.comment">
-        <source>Number of networks.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">45,46</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.node-count.name">
-        <source>Node count</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">55,56</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.node-count.comment">
-        <source>Number of network nodes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">56,57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-count.name">
-        <source>Route count</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">66,67</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-count.comment">
-        <source>Number of routes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">67,68</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-not-continious-network-count.name">
-        <source>RouteNotContiniousNetworkCount</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">77,78</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-not-continious-network-count.comment">
-        <source>Number of networks with broken routes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">78,79</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-not-continious.name">
-        <source>RouteNotContinious</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">88,89</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-not-continious.comment">
-        <source>Number of broken routes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">89,90</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-not-continious-percentage.name">
-        <source>RouteNotContiniousPercentage</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">99,100</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-not-continious-percentage.comment">
-        <source>Percentage of broken routes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">100,101</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-broken-network-count.name">
-        <source>RouteBrokenNetworkCount</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">110,111</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-broken-network-count.comment">
-        <source>Number of networks containing routes with issues.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">111,112</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-broken-count.name">
-        <source>RouteBrokenCount</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">121,122</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-broken-count.comment">
-        <source>Number of routes with issues.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">122,123</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-broken-percentage.name">
-        <source>RouteBrokenPercentage</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">132,133</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-broken-percentage.comment">
-        <source>Percentage of routes with issues.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">133,134</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-incomplete.name">
-        <source>RouteIncomplete</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">143,144</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-incomplete.comment">
-        <source>Number of routes that are marked as having an incomplete definition.\
-          A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
-          value *"incomplete"* in the route relation.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">144,148</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-incomplete-ok.name">
-        <source>RouteIncompleteOk</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">157,158</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-incomplete-ok.comment">
-        <source>Number of routes that are marked as having an incomplete definition, but
-          that look ok after analysis.\
-          A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
-          value *"incomplete"* in the route relation.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">158,163</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-fixmetodo.name">
-        <source>RouteFixmetodo</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">172,173</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-fixmetodo.comment">
-        <source>Number of routes that are marked with *"fixmetodo"*.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">173,174</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.orphan-node-count.name">
-        <source>Orphan nodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">183,184</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.orphan-node-count.comment">
-        <source>Number of network nodes that do not belong to a network.\
-          The [node](docs/en.html#glossary-node "node in glossary") was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation "relation in glossary")
-          and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
-          (that itself was added as a member to a valid network relation or is a free route).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">184,191</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.orphan-route-count.name">
-        <source>Free routes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">200,201</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.orphan-route-count.comment">
-        <source>Number of network routes that do not belong to a network.\
-          The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation "network relation in glossary").</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">201,205</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.orphan-route-km.name">
-        <source>Free route length (km)</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">214,215</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.orphan-route-km.comment">
-        <source>Total length (km) of the free routes (not included in network length above).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">215,216</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-network-count.name">
-        <source>IntegrityCheck</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">225,226</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-network-count.comment">
-        <source>Number of networks that include integrity check.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">226,227</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check.name">
-        <source>IntegrityCheck</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">236,237</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check.comment">
-        <source>Number of nodes with integrity check.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">237,238</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-failed.name">
-        <source>IntegrityCheckFailed</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">247,248</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-failed.comment">
-        <source>Number of failed integrity checks.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">248,249</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-pass-rate.name">
-        <source>IntegrityCheckPassRate</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">258,259</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-pass-rate.comment">
-        <source>Integrity check pass rate (percentage of ok checks).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">259,260</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-coverage.name">
-        <source>IntegrityCheckCoverage</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">269,270</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.integrity-check-coverage.comment">
-        <source>Integrity check coverage (percentage of nodes that do have integrity check information).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">270,272</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-unused-segments.name">
-        <source>RouteUnusedSegments</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">281,282</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-unused-segments.comment">
-        <source>Number of routes where one or more of the ways (or part of ways) are not used in the
-          forward or backward path or in one of the tentacles.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">282,285</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-node-missing-in-ways.name">
-        <source>RouteNodeMissingInWays</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">294,295</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-node-missing-in-ways.comment">
-        <source>Number of routes for which there is a least one node is not found in any of the ways of the route.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">295,297</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-redundant-nodes.name">
-        <source>RouteRedundantNodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">306,307</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-redundant-nodes.comment">
-        <source>Number of routes where the ways of the route contain extra nodes other than the start and end nodes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">307,309</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-without-nodes.name">
-        <source>RouteWithoutNodes</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">318,319</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-without-nodes.comment">
-        <source>Routes without network nodes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">319,321</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-without-ways.name">
-        <source>RouteWithoutWays</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">330,331</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-without-ways.comment">
-        <source>Routes without ways (a route is expected to have at least 1 way).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">331,333</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-name-missing.name">
-        <source>RouteNameMissing</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">342,343</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-name-missing.comment">
-        <source>Routes without the required tags from which the route name can be derived.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">343,344</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-tag-missing.name">
-        <source>RouteTagMissing</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">353,354</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-tag-missing.comment">
-        <source>The route relation does not contain a *"route"* tag.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">354,355</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-tag-invalid.name">
-        <source>RouteTagInvalid</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">364,365</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-tag-invalid.comment">
-        <source>The value in the *"route"* tag in the route relation is unexpected.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">365,367</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-unexpected-node.name">
-        <source>RouteUnexpectedNode</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">376,377</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-unexpected-node.comment">
-        <source>Number of routes with one or more unexpected node members.\
-          In route relations we expect only nodes with tags that make it a valid network node.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">377,380</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-unexpected-relation.name">
-        <source>RouteUnexpectedRelation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">389,390</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-unexpected-relation.comment">
-        <source>Number of routes with one or more unexpected members.\In route relations we expect
-          only members of type *"way"*, or members of type *"node"* with tags
-          that make it a valid network node.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">390,394</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-extra-member-node.name">
-        <source>NetworkExtraMemberNode</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">403,404</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-extra-member-node.comment">
-        <source>Number of network relation members of type *"node"* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node "node in glossary")
-          or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
-          in the network relation).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">404,409</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-extra-member-way.name">
-        <source>NetworkExtraMemberWay</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">418,419</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-extra-member-way.comment">
-        <source>Number of network relation members of type *"way"* (expect only route relations
-          or network nodes as members in the node network relation).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">419,422</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-extra-member-relation.name">
-        <source>NetworkExtraMemberRelation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">431,432</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.network-extra-member-relation.comment">
-        <source>Number of network relation members of type *"relation"* that are unexpected (expect only
-          valid route relations or network nodes as members in the node network relation).</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">432,435</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.node-member-missing.name">
-        <source>NodeMemberMissing</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">444,445</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.node-member-missing.comment">
-        <source>Number of nodes that are not included in the network relation.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">445,446</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.name-missing.name">
-        <source>NameMissing</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">455,456</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.name-missing.comment">
-        <source>Number of networks without *"name"* tag in the network relation.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">456,457</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-inaccessible.name">
-        <source>RouteInaccessible</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">466,467</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-inaccessible.comment">
-        <source>Number of [inaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">467,469</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-node-name-mismatch.name">
-        <source>RouteNodeNameMismatch</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">478,479</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="stats.route-node-name-mismatch.comment">
-        <source>Routes where the route name does not match with the names of the start node and the end node. The
-          route name is expected to contain the start node name and the end node name, separated by a dash.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/overview.service.ts</context>
-          <context context-type="linenumber">479,482</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.route-not-found">

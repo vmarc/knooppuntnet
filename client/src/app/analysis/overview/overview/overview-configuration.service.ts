@@ -7,7 +7,7 @@ import { StatisticConfiguration } from '../domain/statistic-configuration';
 @Injectable({
   providedIn: 'root',
 })
-export class OverviewService {
+export class OverviewConfigurationService {
   statisticConfigurations: List<StatisticConfiguration> = List(
     this.buildStatisticConfigurations()
   );

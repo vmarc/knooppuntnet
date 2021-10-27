@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { Stat } from '../domain/stat';
-import { OverviewService } from './overview.service';
+import { OverviewConfigurationService } from './overview-configuration.service';
 
 @Component({
   selector: 'kpn-overview-table',
@@ -24,7 +24,7 @@ export class OverviewTableComponent implements OnInit {
 
   stats: Stat[];
 
-  constructor(private overviewService: OverviewService) {}
+  constructor(private overviewService: OverviewConfigurationService) {}
 
   ngOnInit(): void {
     this.stats = this.overviewService.statisticConfigurations
