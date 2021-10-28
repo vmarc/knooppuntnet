@@ -8,9 +8,9 @@ import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
 import kpn.core.analysis.TagInterpreter
+import kpn.core.doc.Label
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
-import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
@@ -220,18 +220,14 @@ class RouteChangeProcessorImpl(
       !TagInterpreter.isRouteRelation(relationAfter.tags)
 
     masterRouteAnalyzer.analyze(relationBefore) match {
-      case None =>
-        throw new IllegalStateException("TODO MONGO need to further analyze?")
-        None
+      case None => None
       case Some(before) =>
         if (lostRouteTags) {
           processLostRouteTags(context, before, relationAfter, routeId)
         }
         else {
           masterRouteAnalyzer.analyze(relationAfter) match {
-            case None =>
-              throw new IllegalStateException("TODO MONGO need to further analyze?")
-              None
+            case None => None
             case Some(after) =>
               tileChangeAnalyzer.analyzeRouteChange(before, after)
 
@@ -300,8 +296,6 @@ class RouteChangeProcessorImpl(
               )
           }
         }
-
-
     }
   }
 
@@ -309,7 +303,7 @@ class RouteChangeProcessorImpl(
 
     analysisContext.watched.routes.delete(routeId)
 
-    // TODO add tiles!! tileChangeAnalyzer.analyzeRouteChange(before, after)
+    // TODO MONGO add tiles!! tileChangeAnalyzer.analyzeRouteChange(before, after)
 
     //    val routeUpdate = new RouteDiffAnalyzer(before, after).analysis
     //

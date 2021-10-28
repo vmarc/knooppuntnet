@@ -3,10 +3,9 @@ package kpn.database.actions.subsets
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
+import kpn.core.util.Log
 import kpn.database.actions.subsets.MongoQuerySubsetChanges.log
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
-import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
@@ -19,7 +18,7 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object MongoQuerySubsetChanges extends MongoQuery {
+object MongoQuerySubsetChanges {
   private val log = Log(classOf[MongoQuerySubsetChanges])
 }
 

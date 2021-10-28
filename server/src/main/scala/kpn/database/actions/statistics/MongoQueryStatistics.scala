@@ -18,7 +18,7 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object MongoQueryStatistics extends MongoQuery {
+object MongoQueryStatistics {
 
   private val log = Log(classOf[MongoQueryStatistics])
 
@@ -59,5 +59,4 @@ class MongoQueryStatistics(database: Database) {
       (s"${values.size} values", values)
     }
   }
-
 }

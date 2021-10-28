@@ -1,10 +1,9 @@
 package kpn.database.actions.changes
 
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import kpn.database.util.Mongo
 
-object MongoQueryChangeSetCountsDemo extends MongoQuery {
+object MongoQueryChangeSetCountsDemo {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { database =>

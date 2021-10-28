@@ -4,10 +4,9 @@ import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.database.actions.nodes.MongoQueryNodeChangeCounts
 import kpn.database.actions.routes.MongoQueryRouteChangeCounts
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import kpn.database.util.Mongo
 
-object MongoQueryChangeCountsDemo extends MongoQuery {
+object MongoQueryChangeCountsDemo {
 
   def main(args: Array[String]): Unit = {
     println("MongoQueryChangeCountsDemo")

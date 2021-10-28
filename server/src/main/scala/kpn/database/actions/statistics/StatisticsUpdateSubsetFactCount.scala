@@ -1,11 +1,10 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.statistics.StatisticValue
-import kpn.database.actions.statistics.StatisticsUpdateSubsetFactCount.log
-import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.database.actions.statistics.StatisticsUpdateSubsetFactCount.log
+import kpn.database.base.Database
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
@@ -27,7 +26,7 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object StatisticsUpdateSubsetFactCount extends MongoQuery {
+object StatisticsUpdateSubsetFactCount {
   private val log = Log(classOf[StatisticsUpdateSubsetFactCount])
 }
 

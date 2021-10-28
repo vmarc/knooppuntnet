@@ -1,17 +1,16 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.statistics.StatisticValues
+import kpn.core.util.Log
 import kpn.database.actions.statistics.MongoQueryStatistics.groupValues
 import kpn.database.actions.statistics.StatisticsUpdateSubsetChangeCount.log
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
-import kpn.core.util.Log
 import org.mongodb.scala.Document
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.unwind
 
-object StatisticsUpdateSubsetChangeCount extends MongoQuery {
+object StatisticsUpdateSubsetChangeCount {
   private val log = Log(classOf[StatisticsUpdateSubsetChangeCount])
 }
 

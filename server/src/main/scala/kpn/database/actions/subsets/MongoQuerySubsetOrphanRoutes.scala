@@ -1,11 +1,10 @@
 package kpn.database.actions.subsets
 
 import kpn.api.custom.Subset
-import kpn.database.base.Database
-import kpn.database.base.Id
-import kpn.database.base.MongoQuery
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.util.Log
+import kpn.database.base.Database
+import kpn.database.base.Id
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -13,7 +12,7 @@ import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-object MongoQuerySubsetOrphanRoutes extends MongoQuery {
+object MongoQuerySubsetOrphanRoutes {
   private val log = Log(classOf[MongoQuerySubsetOrphanRoutes])
 }
 

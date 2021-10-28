@@ -3,9 +3,9 @@ package kpn.database.actions.subsets
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.custom.Subset
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.in
 
@@ -67,5 +67,4 @@ class MongoQuerySubsetInfo(database: Database) {
       ).map(_.value).sum
     }.sum
   }
-
 }

@@ -4,27 +4,23 @@ import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
+import kpn.core.doc.OrphanRouteDoc
+import kpn.core.util.Log
 import kpn.database.actions.subsets.MongoQuerySubsetInfo
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanRoutes
 import kpn.database.base.Database
-import kpn.core.doc.OrphanRouteDoc
-import kpn.core.util.Log
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import org.springframework.stereotype.Component
 
 @Component
-class SubsetOrphanRoutesPageBuilder(
-  database: Database
-) {
+class SubsetOrphanRoutesPageBuilder(database: Database) {
 
   private val log = Log(classOf[SubsetOrphanRoutesPageBuilder])
 
   def build(subset: Subset): SubsetOrphanRoutesPage = {
-    buildPage(subset)
-  }
 
-  private def buildPage(subset: Subset): SubsetOrphanRoutesPage = {
     val subsetInfo = new MongoQuerySubsetInfo(database).execute(subset, log)
+
     val routes = new MongoQuerySubsetOrphanRoutes(database)
       .execute(subset, log)
       .map(toInfo)
@@ -48,5 +44,4 @@ class SubsetOrphanRoutesPageBuilder(
       lastUpdated = doc.lastUpdated
     )
   }
-
 }

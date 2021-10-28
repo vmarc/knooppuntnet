@@ -2,13 +2,12 @@ package kpn.database.actions.graph
 
 import kpn.api.common.common.TrackPathKey
 import kpn.api.custom.NetworkType
-import kpn.database.actions.graph.MongoQueryGraphEdges.log
-import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import kpn.core.doc.Label
-import kpn.database.util.Mongo
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.util.Log
+import kpn.database.actions.graph.MongoQueryGraphEdges.log
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import kpn.server.repository.GraphEdges
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -28,7 +27,8 @@ case class RouteGraphEdge(
   meters: Long
 )
 
-object MongoQueryGraphEdges extends MongoQuery {
+object MongoQueryGraphEdges {
+
   private val log = Log(classOf[MongoQueryGraphEdges])
 
   def main(args: Array[String]): Unit = {

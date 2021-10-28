@@ -1,11 +1,10 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.statistics.StatisticValues
+import kpn.core.util.Log
 import kpn.database.actions.statistics.MongoQueryStatistics.groupValues
 import kpn.database.actions.statistics.StatisticsUpdateSubsetNetworkCount.log
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
-import kpn.core.util.Log
 import org.mongodb.scala.Document
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
@@ -14,7 +13,7 @@ import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
 
-object StatisticsUpdateSubsetNetworkCount extends MongoQuery {
+object StatisticsUpdateSubsetNetworkCount {
   private val log = Log(classOf[StatisticsUpdateSubsetNetworkCount])
 }
 

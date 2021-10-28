@@ -1,12 +1,11 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.statistics.StatisticValues
+import kpn.core.doc.Label
+import kpn.core.util.Log
 import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteFacts.log
 import kpn.database.base.Database
-import kpn.core.doc.Label
 import kpn.database.base.MongoProjections.concat
-import kpn.database.base.MongoQuery
-import kpn.core.util.Log
 import org.mongodb.scala.Document
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Accumulators.sum
@@ -26,11 +25,12 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object StatisticsUpdateSubsetRouteFacts extends MongoQuery {
+object StatisticsUpdateSubsetRouteFacts {
   private val log = Log(classOf[StatisticsUpdateSubsetRouteFacts])
 }
 
 class StatisticsUpdateSubsetRouteFacts(database: Database) {
+
   def execute(): Unit = {
     log.debugElapsed {
 
