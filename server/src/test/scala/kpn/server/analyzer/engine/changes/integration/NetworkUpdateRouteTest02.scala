@@ -113,12 +113,6 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
         1,
         "name",
         networkDataUpdate = None,
-        //  Some( TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
         routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")

@@ -105,8 +105,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       newNodeDoc(
         1003,
         labels = Seq(
-          // Label.facts, TODO MONGO
-          // "fact-Deleted",
           Label.networkType(NetworkType.hiking)
         ),
         active = false,
@@ -121,7 +119,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           )
         ),
         tags = newNodeTags("03"),
-        // TODO MONGO facts = Seq(Fact.Deleted)
         routeReferences = Seq(
           Reference(NetworkType.hiking, NetworkScope.regional, 12, "02-03")
         )
@@ -139,12 +136,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         1,
         "name",
         networkDataUpdate = None,
-        //  Some( TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1003, "03")
@@ -268,7 +259,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
             )
           )
         ),
-
         routeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,

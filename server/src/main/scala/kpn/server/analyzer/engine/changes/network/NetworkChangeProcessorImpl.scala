@@ -11,6 +11,7 @@ import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
+import kpn.server.analyzer.engine.changes.RawRelationChange
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
@@ -147,24 +148,15 @@ class NetworkChangeProcessorImpl(
   }
 
   def processUpdate(context: ChangeSetContext, before: RawRelation, after: RawRelation): NetworkChange = {
+
+    context.elementChanges.relationAdd(RawRelationChange(before, after))
+
     analysisContext.watched.networks.add(after.id)
     database.networks.save(NetworkDoc.from(after))
+
     val key = context.buildChangeKey(after.id)
 
-    val nodesBefore = before.nodeMembers.map(_.ref).toSet
-    val nodesAfter = after.nodeMembers.map(_.ref).toSet
-    val nodesAdded = (nodesAfter -- nodesBefore).toSeq.sorted
-    val nodesRemoved = (nodesBefore -- nodesAfter).toSeq.sorted
-
-    val waysBefore = before.wayMembers.map(_.ref).toSet
-    val waysAfter = after.wayMembers.map(_.ref).toSet
-    val waysAdded = (waysAfter -- waysBefore).toSeq.sorted
-    val waysRemoved = (waysBefore -- waysAfter).toSeq.sorted
-
-    val relationsBefore = before.relationMembers.map(_.ref).toSet
-    val relationsAfter = after.relationMembers.map(_.ref).toSet
-    val relationsAdded = (relationsAfter -- relationsBefore).toSeq.sorted
-    val relationsRemoved = (relationsBefore -- relationsAfter).toSeq.sorted
+    val relationDiffAnalyzer = new NetworkRelationDiffAnalyzer(before, after)
 
     val networkNameBefore = NetworkNameAnalyzer.name(before.tags)
     val networkNameAfter = NetworkNameAnalyzer.name(after.tags)
@@ -200,18 +192,9 @@ class NetworkChangeProcessorImpl(
       networkName = networkNameAfter,
       changeType = ChangeType.Create,
       networkDataUpdate = networkDataUpdate,
-      nodes = IdDiffs(
-        added = nodesAdded,
-        removed = nodesRemoved
-      ),
-      ways = IdDiffs(
-        added = waysAdded,
-        removed = waysRemoved
-      ),
-      relations = IdDiffs(
-        added = relationsAdded,
-        removed = relationsRemoved
-      )
+      nodes = relationDiffAnalyzer.nodeDiffs,
+      ways = relationDiffAnalyzer.wayDiffs,
+      relations = relationDiffAnalyzer.relationDiffs
     )
   }
 }

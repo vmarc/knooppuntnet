@@ -208,6 +208,10 @@ class NodeChangeProcessorImpl(
       }
     }
 
+    val removedFromNetwork = context.changes.networkChanges.filter { networkChange =>
+      networkChange.nodes.removed.contains(nodeDoc._id)
+    }.map(_.toRef)
+
     Some(
       analyzed(
         NodeChange(
@@ -227,7 +231,7 @@ class NodeChangeProcessorImpl(
           addedToRoute = Seq.empty,
           removedFromRoute = nodeDoc.routeReferences.map(_.toRef),
           addedToNetwork = Seq.empty,
-          removedFromNetwork = Seq.empty,
+          removedFromNetwork = removedFromNetwork,
           factDiffs = None,
           facts = Seq(Fact.Deleted),
           initialTags = None,

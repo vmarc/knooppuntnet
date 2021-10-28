@@ -120,9 +120,9 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         before = Some(
           newMetaData()
         ),
-        //  removedFromNetwork = Seq(  TODO MONGO missing?
-        //    Ref(1, "network1")
-        //  ),
+        removedFromNetwork = Seq(
+          Ref(1, "network1")
+        ),
         facts = Seq(Fact.Deleted),
         investigate = true,
         impact = true,

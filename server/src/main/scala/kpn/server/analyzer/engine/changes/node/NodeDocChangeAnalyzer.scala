@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.node
 
 import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.NodeChange
+import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -24,6 +25,31 @@ class NodeDocChangeAnalyzer(
 
   def analyze(): Option[NodeChange] = {
 
+    val nodeId = before._id
+
+    val roleConnectionChanges = context.changes.networkChanges.flatMap { networkChange =>
+      if (networkChange.nodes.updated.contains(nodeId)) {
+        context.elementChanges.relationGet(networkChange.networkId) match {
+          case Some(rawRelationChange) =>
+            val connectionBefore = rawRelationChange.before.nodeMembers.filter(_.ref == nodeId).exists(_.role.contains("connection"))
+            val connectionAfter = rawRelationChange.after.nodeMembers.filter(_.ref == nodeId).exists(_.role.contains("connection"))
+            if (connectionBefore != connectionAfter) {
+              Some(
+                RefBooleanChange(networkChange.toRef, connectionAfter)
+              )
+            }
+            else {
+              None
+            }
+
+          case _ => None
+        }
+      }
+      else {
+        None
+      }
+    }
+
     val addedToNetwork = context.changes.networkChanges.filter { networkChange =>
       networkChange.nodes.added.contains(before._id)
     }.map(_.toRef)
@@ -44,7 +70,7 @@ class NodeDocChangeAnalyzer(
       hasNodeBefore && !hasNodeAfter
     }.map(_.toRef)
 
-    if (before.isSameAs(after) && addedToNetwork.isEmpty && removedFromNetwork.isEmpty && addedToRoute.isEmpty && removedFromRoute.isEmpty) {
+    if (before.isSameAs(after) && addedToNetwork.isEmpty && removedFromNetwork.isEmpty && addedToRoute.isEmpty && removedFromRoute.isEmpty && roleConnectionChanges.isEmpty) {
       None
     }
     else {
@@ -77,7 +103,7 @@ class NodeDocChangeAnalyzer(
             before = Some(before.toMeta),
             after = Some(after.toMeta),
             connectionChanges = Seq.empty,
-            roleConnectionChanges = Seq.empty,
+            roleConnectionChanges = roleConnectionChanges,
             definedInNetworkChanges = Seq.empty,
             tagDiffs = tagDiffs,
             nodeMoved = nodeMoved,

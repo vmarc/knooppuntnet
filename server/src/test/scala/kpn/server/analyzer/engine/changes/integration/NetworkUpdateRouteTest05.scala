@@ -95,16 +95,7 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        //  orphanRoutes = RefChanges( TODO MONGO
-        //    oldRefs = Seq(Ref(11, "01-02"))
-        //  ),
         networkDataUpdate = None,
-        //  Some( TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
         routeDiffs = RefDiffs(
           added = Seq(
             Ref(11, "01-02")
@@ -154,7 +145,6 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
         ),
         before = Some(routeData),
         after = Some(routeData),
-        // TODO MONGO facts = Seq(Fact.WasOrphan),
         impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,

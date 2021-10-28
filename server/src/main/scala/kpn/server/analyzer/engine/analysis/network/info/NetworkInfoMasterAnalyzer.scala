@@ -87,7 +87,8 @@ class NetworkInfoMasterAnalyzer(
             case Some(doc) =>
               database.networkInfos.save(doc, log)
               Some(doc)
-            case None => None
+            case None =>
+              None
           }
         }
         ("updated", networkInfoDoc)

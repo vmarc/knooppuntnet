@@ -93,7 +93,6 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "network1",
-        // TODO MONGO orphanRoutes = RefChanges(newRefs = Seq(Ref(11, "01-02"))),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01"),
@@ -150,7 +149,6 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "network1")),
         before = Some(routeData),
         after = Some(routeData),
-        // TODO MONGO facts = Seq(Fact.BecomeOrphan),
         impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true

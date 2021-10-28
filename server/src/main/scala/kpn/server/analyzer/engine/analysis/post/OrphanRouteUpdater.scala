@@ -43,62 +43,14 @@ class OrphanRouteUpdater(database: Database) {
   }
 
   private def findAllRouteIds(): Seq[Long] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("labels", Label.active),
-            exists("summary.country")
-          )
-        ),
-        project(
-          fields(
-            include("_id")
-          )
-        )
-      )
-      val ids = database.routes.aggregate[Id](pipeline, log)
-      (s"${ids.size} routes in total", ids.map(_._id))
-    }
+    new OrphanRouteUpdater_AllRouteIds(database, log).execute()
   }
 
   private def findRouteIdsReferencedInNetworks(): Seq[Long] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(equal("active", true)),
-        unwind("$routes"),
-        project(
-          fields(
-            computed("_id", "$routes.id")
-          )
-        )
-      )
-      val ids = database.networkInfos.aggregate[Id](pipeline, log).map(_._id).distinct
-      (s"${ids.size} routes referenced in networks", ids)
-    }
+    new OrphanRouteUpdater_ReferencesInNetworks(database, log).execute()
   }
 
   private def updateOrphanRoutes(routeIds: Seq[Long]): Unit = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          in("_id", routeIds: _*)
-        ),
-        project(
-          fields(
-            computed("country", "$summary.country"),
-            computed("networkType", "$summary.networkType"),
-            computed("name", "$summary.name"),
-            computed("meters", "$summary.meters"),
-            computed("facts", "$facts"),
-            computed("lastSurvey", "$lastSurvey"),
-            computed("lastUpdated", "$lastUpdated")
-          )
-        ),
-        out(database.orphanRoutes.name)
-      )
-      val orphanRoutes = database.routes.aggregate[OrphanRouteDoc](pipeline, log)
-      (s"${orphanRoutes.size} orphan routes", ())
-    }
+    new OrphanRouteUpdater_Update(database, log).execute(routeIds)
   }
 }

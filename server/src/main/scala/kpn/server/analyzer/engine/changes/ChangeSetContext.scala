@@ -11,7 +11,8 @@ case class ChangeSetContext(
   replicationId: ReplicationId,
   changeSet: ChangeSet,
   elementIds: ElementIds,
-  changes: ChangeSetChanges = ChangeSetChanges()
+  changes: ChangeSetChanges = ChangeSetChanges(),
+  elementChanges: ElementChangeMap = new ElementChangeMap()
 ) {
 
   def timestampBefore: Timestamp = changeSet.timestampBefore

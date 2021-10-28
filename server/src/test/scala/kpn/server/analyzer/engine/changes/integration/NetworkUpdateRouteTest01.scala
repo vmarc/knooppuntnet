@@ -215,11 +215,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        //  orphanRoutes = RefChanges( TODO MONGO
-        //    Seq.empty,
-        //    Seq(Ref(11, "01-02")
-        //    )
-        //  ),
         networkDataUpdate = Some(
           NetworkDataUpdate(
             Some(
@@ -284,7 +279,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "name")),
         before = Some(routeData),
         after = Some(routeData),
-        // TODO MONGO facts = Seq(Fact.BecomeOrphan),
         impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true

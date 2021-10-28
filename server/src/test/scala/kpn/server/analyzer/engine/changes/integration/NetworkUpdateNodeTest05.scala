@@ -100,12 +100,6 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
         1,
         "name",
         networkDataUpdate = None,
-        //  Some( // TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
         nodeDiffs = RefDiffs(
           removed = Seq(Ref(1002, "02"))
         ),

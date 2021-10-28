@@ -54,7 +54,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      // TODO MONGO assert(database.orphanNodes.isEmpty)
+      assert(database.orphanNodes.findAll().isEmpty)
 
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))
@@ -86,16 +86,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         NetworkType.hiking,
         1,
         "name",
-        //  orphanNodes = RefChanges( TODO MONGO
-        //    oldRefs = Seq(Ref(1002, "02"))
-        //  ),
         networkDataUpdate = None,
-        //  Some( TODO MONGO
-        //    NetworkDataUpdate(
-        //      newNetworkData(name = "name"),
-        //      newNetworkData(name = "name")
-        //    )
-        //  ),
         nodeDiffs = RefDiffs(
           added = Seq(Ref(1002, "02"))
         ),
@@ -118,7 +109,6 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
           newMetaData()
         ),
         addedToNetwork = Seq(Ref(1, "name")),
-        // TODO MONGO facts = Seq(Fact.WasOrphan),
         happy = true,
         impact = true
       )

@@ -221,7 +221,7 @@ class RouteChangeProcessorImpl(
 
     masterRouteAnalyzer.analyze(relationBefore) match {
       case None =>
-        throw new IllegalStateException("TODO MONGO need to futher analyze?")
+        throw new IllegalStateException("TODO MONGO need to further analyze?")
         None
       case Some(before) =>
         if (lostRouteTags) {
@@ -230,7 +230,7 @@ class RouteChangeProcessorImpl(
         else {
           masterRouteAnalyzer.analyze(relationAfter) match {
             case None =>
-              throw new IllegalStateException("TODO MONGO need to futher analyze?")
+              throw new IllegalStateException("TODO MONGO need to further analyze?")
               None
             case Some(after) =>
               tileChangeAnalyzer.analyzeRouteChange(before, after)
