@@ -78,6 +78,6 @@ trait DatabaseCollection[T] {
 
   def countDocuments(filter: Bson, log: Log = collectionLog): Long
 
-  def updateOne(filter: Bson, update: Seq[Bson]): Unit
+  def updateOne(filter: Bson, update: Seq[Bson], log: Log = collectionLog): Unit
 
 }

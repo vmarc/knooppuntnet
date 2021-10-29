@@ -5,6 +5,7 @@ import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
 import kpn.core.doc.NetworkInfoDoc
+import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.database.actions.networks.MongoQueryNetworkChanges
 import kpn.database.base.Database
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Component
 
 @Component
 class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepository {
+
+  private val log = Log(classOf[NetworkInfoRepositoryImpl])
 
   override def findById(networkId: Long): Option[NetworkInfoDoc] = {
     database.networkInfos.findById(networkId)
@@ -44,6 +47,6 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
       set("summary.changeCount", changesCount)
     )
 
-    database.networkInfos.updateOne(filter, update)
+    database.networkInfos.updateOne(filter, update, log)
   }
 }

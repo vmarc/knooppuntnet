@@ -15,6 +15,7 @@ import org.mongodb.scala.model.ReplaceOptions
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
+import scala.concurrent.Awaitable
 import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
 
@@ -31,7 +32,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       log.trace(Mongo.pipelineString(pipeline))
     }
     val future = collection.aggregate[R](pipeline).toFuture()
-    Await.result(future, duration)
+    awaitAggregateResult(future, duration, pipeline, log)
   }
 
   override def optionAggregate[R: ClassTag](
@@ -43,7 +44,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       log.trace(Mongo.pipelineString(pipeline))
     }
     val future = collection.aggregate[R](pipeline).headOption()
-    Await.result(future, duration)
+    awaitAggregateResult(future, duration, pipeline, log)
   }
 
   override def stringPipelineAggregate[R: ClassTag](
@@ -61,38 +62,38 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       log.trace(Mongo.pipelineString(pipeline))
     }
     val future = collection.aggregate[R](pipeline).toFuture()
-    Await.result(future, duration)
+    awaitAggregateResult(future, duration, pipeline, log)
   }
 
   override def findOne[R: ClassTag](filter: Bson, log: Log): Option[R] = {
     log.debugElapsed {
       val future = collection.find[R](filter).headOption()
-      val doc = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"find - collection: '${collection.namespace.getCollectionName}'", doc)
+      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"find - collection: '$collectionName'", doc)
     }
   }
 
   override def find[R: ClassTag](filter: Bson, log: Log): Seq[R] = {
     log.debugElapsed {
       val future = collection.find[R](filter).toFuture()
-      val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"find - collection: '${collection.namespace.getCollectionName}', docs= ${docs.size}", docs)
+      val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"find - collection: '$collectionName', docs= ${docs.size}", docs)
     }
   }
 
   override def findById(_id: Long, log: Log): Option[T] = {
     log.debugElapsed {
       val future = collection.find[T](equal("_id", _id)).headOption()
-      val doc = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"findById - collection: '${collection.namespace.getCollectionName}', _id: ${_id}", doc)
+      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"findById - collection: '$collectionName', _id: ${_id}", doc)
     }
   }
 
   override def findByStringId(_id: String, log: Log): Option[T] = {
     log.debugElapsed {
       val future = collection.find[T](equal("_id", _id)).headOption()
-      val doc = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"findById - collection: '${collection.namespace.getCollectionName}', _id: ${_id}", doc)
+      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"findById - collection: '$collectionName', _id: ${_id}", doc)
     }
   }
 
@@ -101,8 +102,8 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       log.debugElapsed {
         val filter = in("_id", ids: _*)
         val future = collection.find[T](filter).toFuture()
-        val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
-        (s"findByIds - collection: '${collection.namespace.getCollectionName}', ids: ${ids.mkString(", ")}", docs)
+        val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+        (s"findByIds - collection: '$collectionName', ids: ${ids.mkString(", ")}", docs)
       }
     }
     else {
@@ -113,8 +114,8 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def findAll(log: Log): Seq[T] = {
     log.debugElapsed {
       val future = collection.find[T]().toFuture()
-      val docs = Await.result(future, Duration(30, TimeUnit.SECONDS))
-      (s"find - collection: '${collection.namespace.getCollectionName}', docs: ${docs.size}", docs)
+      val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"find - collection: '$collectionName', docs: ${docs.size}", docs)
     }
   }
 
@@ -126,7 +127,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
         case _ => throw new IllegalArgumentException("document does not have een id")
       }
       val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
-      val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
       (s"save - collection: '$collectionName', _id: $id", result)
     }
   }
@@ -142,7 +143,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
         ReplaceOneModel[T](filter, doc, ReplaceOptions().upsert(true))
       }
       val future = native.bulkWrite(requests).toFuture()
-      Await.result(future, Duration(2, TimeUnit.MINUTES))
+      awaitResult(future, Duration(2, TimeUnit.MINUTES), log)
     }
   }
 
@@ -150,7 +151,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     log.debugElapsed {
       val filter = equal("_id", _id)
       val future = collection.deleteOne(filter).toFuture()
-      val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
       (s"delete - collection: '$collectionName', _id: ${_id}", result)
     }
   }
@@ -159,7 +160,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     log.debugElapsed {
       val filter = equal("_id", _id)
       val future = collection.deleteOne(filter).toFuture()
-      val result = Await.result(future, Duration(30, TimeUnit.SECONDS))
+      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
       (s"delete - collection: '$collectionName', _id: ${_id}", result)
     }
   }
@@ -167,7 +168,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def ids(log: Log): Seq[Long] = {
     log.debugElapsed {
       val future = collection.find[Id]().projection(fields(include("_id"))).toFuture()
-      val docs = Await.result(future, Duration(15, TimeUnit.MINUTES))
+      val docs = awaitResult(future, Duration(15, TimeUnit.MINUTES), log)
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
@@ -175,7 +176,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def stringIds(log: Log): Seq[String] = {
     log.debugElapsed {
       val future = collection.find[StringId]().projection(fields(include("_id"))).toFuture()
-      val docs = Await.result(future, Duration(15, TimeUnit.MINUTES))
+      val docs = awaitResult(future, Duration(15, TimeUnit.MINUTES), log)
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
   }
@@ -189,7 +190,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
           case _ => "?"
         }
         val future = collection.insertMany(docs).toFuture()
-        val result = Await.result(future, Duration(1, TimeUnit.MINUTES))
+        val result = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
         val resultString = if (!result.wasAcknowledged()) {
           ", not acknowledged"
         }
@@ -208,7 +209,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def countDocuments(log: Log): Long = {
     log.debugElapsed {
       val future = collection.countDocuments().toFuture()
-      val count = Await.result(future, Duration(1, TimeUnit.MINUTES))
+      val count = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
       val message = s"countDocuments - collection: '$collectionName' : $count"
       (message, count)
     }
@@ -217,18 +218,45 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def countDocuments(filter: Bson, log: Log): Long = {
     log.debugElapsed {
       val future = collection.countDocuments(filter).toFuture()
-      val count = Await.result(future, Duration(1, TimeUnit.MINUTES))
+      val count = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
       val message = s"countDocuments - collection: '$collectionName' : $count"
       (message, count)
     }
   }
 
-  override def updateOne(filter: Bson, update: Seq[Bson]): Unit = {
+  override def updateOne(filter: Bson, update: Seq[Bson], log: Log): Unit = {
     val future = collection.updateOne(filter, update).toFuture()
-    val updateResult = Await.result(future, Duration(1, TimeUnit.MINUTES))
+    val updateResult = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
     val message = s"update - collection: '$collectionName' : ${updateResult.getModifiedCount}"
     (message, ())
   }
 
   private def collectionName: String = collection.namespace.getCollectionName
+
+  private def awaitAggregateResult[A](awaitable: Awaitable[A], duration: Duration, pipeline: Seq[Bson], log: Log): A = {
+    try {
+      Await.result(awaitable, duration)
+    }
+    catch {
+      case e: Exception =>
+        val pipelineString = Mongo.pipelineString(pipeline)
+        val message = s"Error executing aggregation pipeline on collection '$collectionName'\n$pipelineString"
+        val wrapperException = new RuntimeException(message, e)
+        log.error("mongdb error", wrapperException)
+        throw wrapperException
+    }
+  }
+
+  private def awaitResult[A](awaitable: Awaitable[A], duration: Duration, log: Log): A = {
+    try {
+      Await.result(awaitable, duration)
+    }
+    catch {
+      case e: Exception =>
+        val message = s"Error in collection '$collectionName'"
+        val wrapperException = new RuntimeException(message, e)
+        log.error("mongdb error", wrapperException)
+        throw wrapperException
+    }
+  }
 }
