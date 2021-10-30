@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component
 
 object OrphanRouteUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
+    Mongo.executeIn("kpn") { database =>
       new OrphanRouteUpdater(database).update()
     }
   }

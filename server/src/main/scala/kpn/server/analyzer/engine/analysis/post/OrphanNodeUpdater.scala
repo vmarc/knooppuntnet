@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 
 object OrphanNodeUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
+    Mongo.executeIn("kpn") { database =>
       new OrphanNodeUpdater(database).update()
     }
   }

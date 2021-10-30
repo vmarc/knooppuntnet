@@ -4,9 +4,12 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
 import org.mongodb.scala.bson.BsonDocument
+import org.mongodb.scala.model.Accumulators.first
 import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.out
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.replaceRoot
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
@@ -37,6 +40,16 @@ class OrphanNodeUpdater_Update(database: Database, log: Log) {
             computed("facts", "$facts")
           )
         ),
+        group(
+          "$_id",
+          /*
+             Pick up first document only if there are multiple documents with the
+             same network type but different network scopes (otherwise "duplicate key error"
+             when inserting in orphanNodes collection).
+          */
+          first("firstResult", "$$ROOT")
+        ),
+        replaceRoot("$firstResult"),
         out(
           database.orphanNodes.name
         )

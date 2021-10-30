@@ -11,7 +11,16 @@ import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteDistance
 import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteFacts
 import kpn.database.base.Database
 import kpn.core.util.Log
+import kpn.database.util.Mongo
 import org.springframework.stereotype.Component
+
+object StatisticsUpdater {
+  def main(args: Array[String]): Unit = {
+    Mongo.executeIn("kpn") { database =>
+      new StatisticsUpdater(database).update()
+    }
+  }
+}
 
 @Component
 class StatisticsUpdater(database: Database) {
