@@ -37,16 +37,18 @@ export class PdfColourBox {
     if (colourSets.length > 0) {
       const colours = colourSets[0];
       const colourHeight = this.size / colours.length;
-      colours.forEach((colour, index) => {
-        this.doc.setFillColor(colours[index]);
-        this.doc.rect(
-          this.x,
-          this.y + colourHeight * index,
-          this.size,
-          colourHeight,
-          'F'
-        );
-      });
+      colours
+        .map((c) => (c === 'grey' ? 'gray' : c))
+        .forEach((colour, index) => {
+          this.doc.setFillColor(colour);
+          this.doc.rect(
+            this.x,
+            this.y + colourHeight * index,
+            this.size,
+            colourHeight,
+            'F'
+          );
+        });
       this.doc.rect(this.x, this.y, this.size, this.size, 'S');
     }
   }
