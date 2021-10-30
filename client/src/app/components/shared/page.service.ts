@@ -28,6 +28,7 @@ export class PageService {
     pageWidthService.current$.subscribe(() => this.pageWidthChanged());
     this._toolbarBackgroundColor$ = new BehaviorSubject<string>(null);
     this.toolbarBackgroundColor$ = this._toolbarBackgroundColor$.asObservable();
+    this.initializing = false;
   }
 
   defaultMenu() {

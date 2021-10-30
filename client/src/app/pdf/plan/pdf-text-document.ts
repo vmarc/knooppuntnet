@@ -1,12 +1,12 @@
-import {jsPDF} from 'jspdf';
-import {Plan} from '@app/map/planner/plan/plan';
-import {PdfFooter} from './pdf-footer';
-import {PdfPage} from './pdf-page';
-import {PdfSideBar} from './pdf-side-bar';
-import {PdfTextDocumentModel} from "@app/pdf/plan/pdf-text-document-model";
-import {PdfPlanBuilder} from "@app/pdf/plan/pdf-plan-builder";
-import {PdfPlanNode} from "@app/pdf/plan/pdf-plan-node";
-import {PlannerService} from "@app/map/planner.service";
+import { PlannerService } from '@app/map/planner.service';
+import { Plan } from '@app/map/planner/plan/plan';
+import { PdfPlanBuilder } from '@app/pdf/plan/pdf-plan-builder';
+import { PdfPlanNode } from '@app/pdf/plan/pdf-plan-node';
+import { PdfTextDocumentModel } from '@app/pdf/plan/pdf-text-document-model';
+import { jsPDF } from 'jspdf';
+import { PdfFooter } from './pdf-footer';
+import { PdfPage } from './pdf-page';
+import { PdfSideBar } from './pdf-side-bar';
 
 export class PdfTextDocument {
   private readonly doc = new jsPDF();
@@ -55,14 +55,17 @@ export class PdfTextDocument {
           columnIndex
         );
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-
-          const nodeIndex = this.model.nodeIndex(pageIndex, columnIndex, rowIndex)
+          const nodeIndex = this.model.nodeIndex(
+            pageIndex,
+            columnIndex,
+            rowIndex
+          );
           const node = this.model.node(pageIndex, columnIndex, rowIndex);
           const y = PdfPage.yContentsTop + this.model.rowHeight * rowIndex;
           this.drawNode(xLeft, y, node);
           if (nodeIndex < this.model.nodes.size - 1) {
             // draw line between nodes
-            const x1 = xLeft + this.model.xCircleCenter
+            const x1 = xLeft + this.model.xCircleCenter;
             const x2 = x1;
             const y1 = y + this.model.circleRadius + this.model.circleRadius;
             const y2 = y + this.model.rowHeight;
@@ -75,20 +78,36 @@ export class PdfTextDocument {
   }
 
   private drawNode(x: number, y: number, node: PdfPlanNode): void {
-
     const yNode = y + this.model.circleRadius;
     const circleHeigth = this.model.circleRadius * 2;
-    const yRoute = y + circleHeigth + ((this.model.rowHeight - circleHeigth) / 2);
+    const yRoute = y + circleHeigth + (this.model.rowHeight - circleHeigth) / 2;
 
     this.doc.setFontSize(8);
-    this.doc.text(node.cumulativeDistance, x + this.model.xCumulativeDistance, yNode, {
-      align: 'left',
-      baseline: 'middle',
-      lineHeightFactor: 1,
-    });
+    this.doc.text(
+      node.cumulativeDistance,
+      x + this.model.xCumulativeDistance,
+      yNode,
+      {
+        align: 'left',
+        baseline: 'middle',
+        lineHeightFactor: 1,
+      }
+    );
 
-    this.doc.setLineWidth(0.5);
-    this.doc.circle(x + this.model.xCircleCenter, yNode, this.model.circleRadius, 'S');
+    if (node.flag) {
+      this.doc.setLineWidth(0.8);
+      this.doc.setFillColor(235, 235, 235);
+    } else {
+      this.doc.setLineWidth(0.5);
+      this.doc.setFillColor(255, 255, 255);
+    }
+
+    this.doc.circle(
+      x + this.model.xCircleCenter,
+      yNode,
+      this.model.circleRadius,
+      'FD'
+    );
 
     this.doc.text(node.nodeName, x + this.model.xNodeName, yNode, {
       align: 'left',
@@ -96,22 +115,29 @@ export class PdfTextDocument {
       lineHeightFactor: 1,
     });
 
-    const colour = this.plannerService.colour(node.colour);
+    if (node.distance !== null) {
+      let routeInfo = node.distance;
+      if (node.colour) {
+        const translatedColour = this.plannerService.colour(node.colour);
+        routeInfo = routeInfo + '   ' + translatedColour;
+      }
 
-    const routeInfo = node.distance + "   " + colour;
+      const routeInfoSplitted = this.doc.splitTextToSize(
+        routeInfo,
+        this.model.routeInfoWidth
+      );
 
-    const routeInfoSplitted = this.doc.splitTextToSize(routeInfo, this.model.routeInfoWidth);
+      let yRouteInfo = yRoute;
+      if (routeInfoSplitted.length > 1) {
+        yRouteInfo = yRouteInfo - 1.5;
+      }
 
-    let yRouteInfo = yRoute;
-    if (routeInfoSplitted.length > 1) {
-      yRouteInfo = yRouteInfo - 1.5;
+      this.doc.text(routeInfoSplitted, x + this.model.xRouteInfo, yRouteInfo, {
+        align: 'left',
+        baseline: 'middle',
+        lineHeightFactor: 1,
+      });
     }
-
-    this.doc.text(routeInfoSplitted, x + this.model.xRouteInfo, yRouteInfo, {
-      align: 'left',
-      baseline: 'middle',
-      lineHeightFactor: 1,
-    });
   }
 
   private drawLaneLine(x: number): void {

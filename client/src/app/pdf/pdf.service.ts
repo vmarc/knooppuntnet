@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PdfTextDocument } from '@app/pdf/plan/pdf-text-document';
 import { PlannerService } from '../map/planner.service';
 import { DirectionsAnalyzer } from '../map/planner/directions/directions-analyzer';
 import { Plan } from '../map/planner/plan/plan';
@@ -20,6 +21,10 @@ export class PdfService {
 
   printStripDocument(plan: Plan, name: string): void {
     new PdfStripDocument(plan, name, this.iconService).print();
+  }
+
+  printTextDocument(plan: Plan, name: string): void {
+    new PdfTextDocument(plan, name, this.plannerService).print();
   }
 
   printInstructions(plan: Plan, name: string): void {

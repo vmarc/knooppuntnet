@@ -39,17 +39,16 @@ class LegBuilderImpl(
     }
   }
 
-  override def plan(networkType: NetworkType, planString: String, encoded: Boolean, proposed: Boolean): Option[PlanLegDetail] = {
+  override def plan(networkType: NetworkType, planString: String, encoded: Boolean, proposed: Boolean): Option[Seq[PlanLegDetail]] = {
     graphRepository.graph(networkType) match {
       case Some(graph) =>
         val legEnds = LegEnd.fromPlanString(planString, encoded)
         val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq.empty, proposed)
-        if (planLegDetails.isEmpty) {
-          None
+        if (planLegDetails.nonEmpty) {
+          Some(planLegDetails)
         }
         else {
-          val allRoutes = planLegDetails.flatMap(_.routes)
-          Some(PlanLegDetail(legEnds.head, legEnds.last, allRoutes))
+          None
         }
 
       case None =>

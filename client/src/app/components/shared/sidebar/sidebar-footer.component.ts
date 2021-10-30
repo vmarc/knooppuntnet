@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { VersionService } from '../../../services/version.service';
@@ -21,13 +22,13 @@ import { VersionService } from '../../../services/version.service';
         {{ version() }}
       </p>
 
-      <p *ngIf="isLoggedIn()">
+      <p *ngIf="loginEnabled && isLoggedIn()">
         {{ currentUser() }}
         <br />
         <kpn-link-logout></kpn-link-logout>
       </p>
 
-      <p *ngIf="!isLoggedIn()">
+      <p *ngIf="loginEnabled && !isLoggedIn()">
         <kpn-link-login></kpn-link-login>
       </p>
     </div>
@@ -49,6 +50,8 @@ import { VersionService } from '../../../services/version.service';
   ],
 })
 export class SidebarFooterComponent {
+  @Input() loginEnabled = false;
+
   constructor(
     private router: Router,
     private userService: UserService,

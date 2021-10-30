@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { PlannerCommand } from '../commands/planner-command';
 import { PlannerCommandStack } from '../commands/planner-command-stack';
+import { PlanPrinter } from '../debug/plan-printer';
 import { PlannerDragFlag } from '../interaction/planner-drag-flag';
 import { Plan } from '../plan/plan';
 import { PlanLeg } from '../plan/plan-leg';

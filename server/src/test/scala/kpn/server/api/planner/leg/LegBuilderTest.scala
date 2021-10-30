@@ -138,11 +138,13 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   test("load node1 > node2") {
 
     legBuilder().plan(NetworkType.hiking, "1001-1002", encoded = false, proposed = false).value should matchTo(
-      PlanLegDetail(
-        source = LegEnd.node(1001),
-        sink = LegEnd.node(1002),
-        routes = Seq(
-          planRoute(planNode("10001", 1), planNode("10002", 2)),
+      Seq(
+        PlanLegDetail(
+          source = LegEnd.node(1001),
+          sink = LegEnd.node(1002),
+          routes = Seq(
+            planRoute(planNode("10001", 1), planNode("10002", 2)),
+          )
         )
       )
     )

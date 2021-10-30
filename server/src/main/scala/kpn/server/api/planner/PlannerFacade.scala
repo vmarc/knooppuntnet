@@ -22,5 +22,5 @@ trait PlannerFacade {
 
   def leg(user: Option[String], params: LegBuildParams): ApiResponse[PlanLegDetail]
 
-  def plan(user: Option[String], networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[PlanLegDetail]
+  def plan(user: Option[String], networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[Seq[PlanLegDetail]]
 }

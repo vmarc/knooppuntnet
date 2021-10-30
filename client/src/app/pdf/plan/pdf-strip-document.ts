@@ -71,26 +71,48 @@ export class PdfStripDocument {
       xCircleCenter + this.model.circleRadius + PdfPage.spacer;
     const yDistance = yCircleCenter + this.model.circleRadius + PdfPage.spacer;
 
-    this.doc.setLineWidth(0.05);
-    this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius, 'S');
+    if (node.flag) {
+      this.doc.setLineWidth(0.4);
+      this.doc.setFillColor(240, 240, 240);
+    } else {
+      this.doc.setLineWidth(0.1);
+      this.doc.setFillColor(255, 255, 255);
+    }
+
+    this.doc.circle(
+      xCircleCenter,
+      yCircleCenter,
+      this.model.circleRadius,
+      'FD'
+    );
+
+    const nodeName =
+      node.nodeName.length <= 3 ? node.nodeName : node.nodeName.slice(0, 3);
 
     this.doc.setFontSize(12);
-    this.doc.text(node.nodeName, xCircleCenter, yCircleCenter, {
+    this.doc.text(nodeName, xCircleCenter, yCircleCenter, {
       align: 'center',
       baseline: 'middle',
       lineHeightFactor: 1,
     });
 
-    this.doc.setFontSize(8);
-    this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {
-      baseline: 'middle',
-      lineHeightFactor: 1,
-    });
-    this.doc.text(node.distance, xCircleCenter, yDistance, {
-      align: 'center',
-      baseline: 'top',
-      lineHeightFactor: 1,
-    });
+    if (node.distance !== null) {
+      this.doc.setFontSize(8);
+      this.doc.text(
+        node.cumulativeDistance,
+        xCumulativeDistance,
+        yCircleCenter,
+        {
+          baseline: 'middle',
+          lineHeightFactor: 1,
+        }
+      );
+      this.doc.text(node.distance, xCircleCenter, yDistance, {
+        align: 'center',
+        baseline: 'top',
+        lineHeightFactor: 1,
+      });
+    }
   }
 
   private drawLaneLine(x: number): void {
