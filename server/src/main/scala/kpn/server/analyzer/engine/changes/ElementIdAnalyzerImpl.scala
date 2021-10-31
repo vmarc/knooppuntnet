@@ -44,5 +44,4 @@ class ElementIdAnalyzerImpl(
     val futuresSeq = Future.sequence(futures)
     Await.result(futuresSeq, Duration(1, TimeUnit.MINUTES)).flatten.toSet
   }
-
 }

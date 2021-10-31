@@ -53,7 +53,7 @@ class AnalyzerEngineImpl(
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
-        changeSets.foreach { changeSet =>
+        val changeSetElementCount = changeSets.map { changeSet =>
           Log.context(s"${changeSet.id}") {
             val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
             val context = ChangeSetContext(
@@ -62,8 +62,9 @@ class AnalyzerEngineImpl(
               elementIds
             )
             changeProcessor.process(context)
+            elementIds.size
           }
-        }
+        }.sum
 
         if (analyzerTileUpdateEnabled) {
           tileUpdater.update(11)
@@ -72,7 +73,10 @@ class AnalyzerEngineImpl(
         }
 
         analysisRepository.saveLastUpdated(timestamp)
-        (osmChange.timestampFrom.map(_.iso).getOrElse(""), ())
+
+        val osmChangeTimestamp =  osmChange.timestampFrom.map(_.iso).getOrElse("")
+        val message = s"$osmChangeTimestamp - ${changeSets.size} changesets, $changeSetElementCount elements"
+        (message, ())
       }
     }
   }

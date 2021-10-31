@@ -1,9 +1,9 @@
 package kpn.database.actions.nodes
 
 import kpn.api.common.common.Reference
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -42,19 +42,24 @@ class MongoQueryNodeNetworkReferences(database: Database) {
   }
 
   def executeNodeIds(nodeIds: Seq[Long], log: Log = MongoQueryNodeNetworkReferences.log): Seq[Long] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(equal("active", true)),
-        unwind("$relationMembers"),
-        filter(in("relationMembers.nodeId", nodeIds: _*)),
-        project(
-          fields(
-            include("_id")
+    if (nodeIds.nonEmpty) {
+      log.debugElapsed {
+        val pipeline = Seq(
+          filter(equal("active", true)),
+          unwind("$relationMembers"),
+          filter(in("relationMembers.nodeId", nodeIds: _*)),
+          project(
+            fields(
+              include("_id")
+            )
           )
         )
-      )
-      val ids = database.networks.aggregate[Id](pipeline, log).map(_._id)
-      (s"network references: ${ids.size}", ids)
+        val ids = database.networks.aggregate[Id](pipeline, log).map(_._id)
+        (s"network references: ${ids.size}", ids)
+      }
+    }
+    else {
+      Seq.empty
     }
   }
 }

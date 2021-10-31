@@ -1,13 +1,12 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.common.Reference
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import kpn.core.util.Log
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
@@ -43,19 +42,24 @@ class MongoQueryRouteNetworkReferences(database: Database) {
   }
 
   def executeRouteIds(routeIds: Seq[Long], log: Log = MongoQueryRouteNetworkReferences.log): Seq[Long] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(equal("active", true)),
-        unwind("$relationMembers"),
-        filter(in("relationMembers.relationId", routeIds: _*)),
-        project(
-          fields(
-            include("_id")
+    if (routeIds.nonEmpty) {
+      log.debugElapsed {
+        val pipeline = Seq(
+          filter(equal("active", true)),
+          unwind("$relationMembers"),
+          filter(in("relationMembers.relationId", routeIds: _*)),
+          project(
+            fields(
+              include("_id")
+            )
           )
         )
-      )
-      val networkIds = database.networks.aggregate[Id](pipeline, log).map(_._id)
-      (s"network references: ${networkIds.size}", networkIds)
+        val networkIds = database.networks.aggregate[Id](pipeline, log).map(_._id)
+        (s"network references: ${networkIds.size}", networkIds)
+      }
+    }
+    else {
+      Seq.empty
     }
   }
 }
