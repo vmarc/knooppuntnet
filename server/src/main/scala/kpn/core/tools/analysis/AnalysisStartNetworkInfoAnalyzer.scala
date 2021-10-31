@@ -1,7 +1,6 @@
 package kpn.core.tools.analysis
 
 import kpn.api.common.changes.details.NetworkInfoChange
-import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.ChangeType
@@ -11,13 +10,15 @@ import kpn.core.util.Log
 class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfiguration) {
 
   def analyze(networkIds: Seq[Long]): Unit = {
-    networkIds.foreach { networkId =>
-      log.infoElapsed {
-        config.networkInfoMasterAnalyzer.updateNetwork(config.timestamp, networkId) match {
-          case Some(networkInfoDoc) => saveNetworkInfoChange(networkInfoDoc)
-          case None =>
+    networkIds.zipWithIndex.foreach { case (networkId, index) =>
+      Log.context(s"${index + 1}/${networkIds.size}") {
+        log.infoElapsed {
+          config.networkInfoMasterAnalyzer.updateNetwork(config.timestamp, networkId) match {
+            case Some(networkInfoDoc) => saveNetworkInfoChange(networkInfoDoc)
+            case None =>
+          }
+          (s"network $networkId", ())
         }
-        (s"network $networkId", ())
       }
     }
   }
