@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
-import { ChangeSetPageComponent } from './page/_change-set-page.component';
 import { ChangeSetRoutingModule } from './change-set-routing.module';
+import { ChangeSetPageComponent } from './page/_change-set-page.component';
 import { ChangeSetAnalysisComponent } from './page/change-set-analysis.component';
 import { ChangeSetHeaderComponent } from './page/change-set-header.component';
 import { ChangeSetLocationTreeNodeComponent } from './page/change-set-location-tree-node.component';
@@ -15,10 +15,6 @@ import { ChangeSetOrphanRouteChangesComponent } from './page/change-set-orphan-r
 import { CsNcNodesAddedComponent } from './page/network/cs-nc-nodes-added.component';
 import { CsNcNodesRemovedComponent } from './page/network/cs-nc-nodes-removed.component';
 import { CsNcNodesUpdatedComponent } from './page/network/cs-nc-nodes-updated.component';
-import { CsNcOrphanNodesNewComponent } from './page/network/cs-nc-orphan-nodes-new.component';
-import { CsNcOrphanNodesOldComponent } from './page/network/cs-nc-orphan-nodes-old.component';
-import { CsNcOrphanRoutesNewComponent } from './page/network/cs-nc-orphan-routes-new.component';
-import { CsNcOrphanRoutesOldComponent } from './page/network/cs-nc-orphan-routes-old.component';
 import { CsNcRelationsAddedComponent } from './page/network/cs-nc-relations-added.component';
 import { CsNcRelationsRemovedComponent } from './page/network/cs-nc-relations-removed.component';
 import { CsNcRelationsUpdatedComponent } from './page/network/cs-nc-relations-updated.component';
@@ -64,10 +60,6 @@ import { VersionChangeComponent } from './page/version-change.component';
     RouteDiffsUpdatedComponent,
     VersionChangeComponent,
     CsNcTypeComponent,
-    CsNcOrphanRoutesOldComponent,
-    CsNcOrphanRoutesNewComponent,
-    CsNcOrphanNodesOldComponent,
-    CsNcOrphanNodesNewComponent,
     CsNcComponent,
     CsNcNodesAddedComponent,
     CsNcNodesRemovedComponent,

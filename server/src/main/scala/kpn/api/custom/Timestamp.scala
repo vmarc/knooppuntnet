@@ -6,7 +6,7 @@ object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
   // val analysisStart: Timestamp = Timestamp(2019, 11, 1, 0, 0, 0)
-  val analysisStart: Timestamp = Timestamp(2021, 10, 1, 0, 0, 0)
+  val analysisStart: Timestamp = Timestamp(2021, 10, 1, 0, 0, 0) // 004 737 851
 
   implicit def timestampOrdering: Ordering[Timestamp] = (x: Timestamp, y: Timestamp) => {
     x.compareTo(y)

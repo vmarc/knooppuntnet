@@ -6,7 +6,6 @@ import { Country } from '../../../custom/country';
 import { IdDiffs } from '../../diff/id-diffs';
 import { MetaData } from '../../data/meta-data';
 import { NetworkType } from '../../../custom/network-type';
-import { RefChanges } from './ref-changes';
 import { RefDiffs } from '../../diff/ref-diffs';
 
 export interface NetworkChangeInfo {
@@ -19,8 +18,6 @@ export interface NetworkChangeInfo {
   readonly networkName: string;
   readonly before: MetaData;
   readonly after: MetaData;
-  readonly orphanRoutes: RefChanges;
-  readonly orphanNodes: RefChanges;
   readonly networkDataUpdated: boolean;
   readonly networkNodes: RefDiffs;
   readonly routes: RefDiffs;

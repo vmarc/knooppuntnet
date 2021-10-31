@@ -12,23 +12,6 @@ import { RouteDiffsData } from '../route-diffs/route-diffs-data';
   template: `
     <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo"></kpn-cs-nc-type>
 
-    <kpn-cs-nc-orphan-routes-new
-      [networkChangeInfo]="networkChangeInfo"
-      [knownElements]="page.knownElements"
-    ></kpn-cs-nc-orphan-routes-new>
-    <kpn-cs-nc-orphan-routes-old
-      [networkChangeInfo]="networkChangeInfo"
-      [knownElements]="page.knownElements"
-    ></kpn-cs-nc-orphan-routes-old>
-    <kpn-cs-nc-orphan-nodes-new
-      [networkChangeInfo]="networkChangeInfo"
-      [knownElements]="page.knownElements"
-    ></kpn-cs-nc-orphan-nodes-new>
-    <kpn-cs-nc-orphan-nodes-old
-      [networkChangeInfo]="networkChangeInfo"
-      [knownElements]="page.knownElements"
-    ></kpn-cs-nc-orphan-nodes-old>
-
     <div *ngIf="networkChangeInfo.after" class="kpn-detail">
       <kpn-version-change
         [before]="networkChangeInfo.before"

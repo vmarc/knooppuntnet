@@ -9,6 +9,8 @@ import { Timestamp } from '../../custom/timestamp';
 export interface NetworkDetail {
   readonly km: number;
   readonly meters: number;
+  readonly version: number;
+  readonly changeSetId: number;
   readonly lastUpdated: Timestamp;
   readonly relationLastUpdated: Timestamp;
   readonly lastSurvey: Day;

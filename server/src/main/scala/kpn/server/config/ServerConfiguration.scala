@@ -76,11 +76,6 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def analyzerHistory(@Value("${app.analyzer-history:false}") value: Boolean): Boolean = {
-    value
-  }
-
-  @Bean
   def analyzerTileUpdateEnabled(@Value("${app.analyzer-tile-update-enabled:false}") value: Boolean): Boolean = {
     value
   }

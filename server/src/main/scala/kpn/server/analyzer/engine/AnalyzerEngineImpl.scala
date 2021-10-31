@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalyzerEngineImpl(
-  analyzerHistory: Boolean,
   analyzerTileUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
@@ -64,9 +63,6 @@ class AnalyzerEngineImpl(
             )
             changeProcessor.process(context)
           }
-        }
-
-        if (!analyzerHistory) {
         }
 
         if (analyzerTileUpdateEnabled) {

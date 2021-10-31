@@ -28,7 +28,6 @@ object MonitorRouteAnalyzerTool {
       val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
       val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerFileImpl()
       val monitorChangeProcessor = new MonitorChangeProcessorImpl(
-        analyzerHistory = true,
         monitorAdminRouteRepository,
         monitorRouteLoader,
         monitorChangeImpactAnalyzer

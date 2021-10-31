@@ -54,7 +54,7 @@ class AnalysisDataInitializerImpl(
         analysisContext.watched.nodes.add(nodeId)
       }
       val nodeCount = analysisContext.watched.nodes.size
-      (s"$nodeCount counts", nodeCount)
+      (s"$nodeCount nodes", nodeCount)
     }
   }
 

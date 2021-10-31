@@ -23,7 +23,6 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorChangeProcessorImpl(
-  analyzerHistory: Boolean,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteLoader: MonitorRouteLoader,
   monitorChangeImpactAnalyzer: MonitorChangeImpactAnalyzer
