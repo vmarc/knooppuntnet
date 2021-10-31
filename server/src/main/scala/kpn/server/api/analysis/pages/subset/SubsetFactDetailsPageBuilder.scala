@@ -17,7 +17,6 @@ class SubsetFactDetailsPageBuilder(
 
   def build(subset: Subset, fact: Fact): SubsetFactDetailsPage = {
     val subsetInfo = subsetRepository.subsetInfo(subset)
-    val figures = overviewRepository.statisticValues()
     val networks = factRepository.factsPerNetwork(subset, fact)
     val postProcessedNetworks = networks.map { networkFactRefs =>
       if (networkFactRefs.networkName == "NodesInOrphanRoutes" || networkFactRefs.networkName == "OrphanNodes") {
@@ -30,5 +29,4 @@ class SubsetFactDetailsPageBuilder(
 
     SubsetFactDetailsPage(subsetInfo, fact, postProcessedNetworks)
   }
-
 }

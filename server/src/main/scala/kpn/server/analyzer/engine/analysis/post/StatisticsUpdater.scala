@@ -11,6 +11,7 @@ import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteDistance
 import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteFacts
 import kpn.database.base.Database
 import kpn.core.util.Log
+import kpn.database.actions.statistics.StatisticsUpdateSubsetNodeFacts
 import kpn.database.util.Mongo
 import org.springframework.stereotype.Component
 
@@ -33,6 +34,7 @@ class StatisticsUpdater(database: Database) {
       new StatisticsUpdateSubsetOrphanNodeCount(database).execute()
       new StatisticsUpdateSubsetRouteCount(database).execute()
       new StatisticsUpdateSubsetOrphanRouteCount(database).execute()
+      new StatisticsUpdateSubsetNodeFacts(database).execute()
       new StatisticsUpdateSubsetRouteFacts(database).execute()
       new StatisticsUpdateSubsetRouteDistance(database).execute()
       new StatisticsUpdateSubsetNetworkCount(database).execute()
