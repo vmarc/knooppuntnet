@@ -1,10 +1,10 @@
 package kpn.database.tools
 
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
 import kpn.database.tools.CreateIndexesTool.Index
 import kpn.database.util.Mongo
-import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.IndexOptions
 import org.mongodb.scala.model.Indexes
@@ -112,6 +112,13 @@ class CreateIndexesTool(database: Database) {
         "labels",
         "labels",
         "_id"
+      ),
+      Index(
+        database.routes,
+        "location-routes-page",
+        "labels",
+        "summary.name",
+        "summary.id"
       ),
       Index(
         database.routes,
