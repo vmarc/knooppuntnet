@@ -20,6 +20,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.api.custom.Timestamp2
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
@@ -65,6 +66,8 @@ object Json {
 
     b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
+
+    b.serializerByType(classOf[Timestamp2], new Timestamp2JsonSerializer())
 
     b.deserializerByType(classOf[Day], new DayJsonDeserializer())
     b.serializerByType(classOf[Day], new DayJsonSerializer())

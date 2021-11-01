@@ -230,11 +230,49 @@ class CreateIndexesTool(database: Database) {
       ),
       Index(
         database.changes,
-        "impact-time",
-        "impact",
-        "key.time.year",
-        "key.time.month",
-        "key.time.day"
+        "changes-impact-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "impact",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.changes,
+        "changes-time",
+        Indexes.descending(
+          "key.time"
+        )
+      ),
+      Index(
+        database.changes,
+        "changes-subset-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "subsets.country",
+            "subsets.networkType",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
+        database.changes,
+        "changes-subset-impact-time",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "impact",
+            "subsets.country",
+            "subsets.networkType",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
       ),
       Index(
         database.changes,
