@@ -239,7 +239,9 @@ export class AppService {
     return this.http.post(url, legBuildParams);
   }
 
-  public plan(planParams: PlanParams): Observable<ApiResponse<PlanLegDetail>> {
+  public plan(
+    planParams: PlanParams
+  ): Observable<ApiResponse<PlanLegDetail[]>> {
     const url = `/api/plan`;
     return this.http.post(url, planParams);
   }

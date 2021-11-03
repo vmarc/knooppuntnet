@@ -1,6 +1,7 @@
+import { Plan } from '@app/map/planner/plan/plan';
 import { jsPDF } from 'jspdf';
 import QRious from 'qrious';
-import { Plan } from '../../map/planner/plan/plan';
+import { PdfColourBox } from './pdf-colour-box';
 import { PdfDocumentModel } from './pdf-document-model';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';
@@ -105,8 +106,21 @@ export class PdfDocument {
           this.doc.setDrawColor(0);
           const xNodeNumberText = xColLeft + (xLegDistanceLeft - xColLeft) / 2;
           const yNodeNumberText = yTop + this.model.nodeNumberHeight / 2;
-          this.doc.setFontSize(20);
-          this.doc.text(node.nodeName, xNodeNumberText, yNodeNumberText, {
+
+          let nodeName = node.nodeName;
+          if (nodeName.length > 8) {
+            nodeName = nodeName.slice(0, 8);
+          }
+
+          if (nodeName.length <= 3) {
+            this.doc.setFontSize(20);
+          } else if (nodeName.length <= 6) {
+            this.doc.setFontSize(12);
+          } else {
+            this.doc.setFontSize(10);
+          }
+
+          this.doc.text(nodeName, xNodeNumberText, yNodeNumberText, {
             align: 'center',
             baseline: 'middle',
             lineHeightFactor: 1,
@@ -114,6 +128,7 @@ export class PdfDocument {
 
           const yCumulativeDistance =
             yBottom - this.model.cumulativeDistanceHeight / 2;
+
           this.doc.setFontSize(8);
           this.doc.text(
             node.cumulativeDistance,
@@ -122,16 +137,35 @@ export class PdfDocument {
             { align: 'center', baseline: 'middle', lineHeightFactor: 1 }
           );
 
-          const xLegDistance =
-            xLegDistanceLeft + this.model.legDistanceWidth / 2;
-          this.doc.setFontSize(8);
-          const widthLegDistanceText = this.doc.getTextWidth('1200 m');
-          const yLegDistance =
-            yTop + this.model.rowHeight / 2 + widthLegDistanceText / 2;
-          this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {
-            angle: 90,
-            lineHeightFactor: 1,
-          });
+          if (node.distance !== null) {
+            if (node.colour) {
+              new PdfColourBox(
+                this.doc,
+                xLegDistanceLeft + 0.3,
+                yBottom - this.model.legDistanceWidth + 0.3,
+                this.model.legDistanceWidth - 0.6,
+                node.colour
+              ).print();
+            }
+
+            const xLegDistance =
+              xLegDistanceLeft + this.model.legDistanceWidth / 2;
+            this.doc.setFontSize(8);
+            const widthLegDistanceText = this.doc.getTextWidth(node.distance);
+            let yLegDistance =
+              yTop + this.model.rowHeight / 2 + widthLegDistanceText / 2;
+            if (node.colour) {
+              yLegDistance =
+                yTop +
+                (this.model.rowHeight - this.model.legDistanceWidth) / 2 +
+                widthLegDistanceText / 2;
+            }
+
+            this.doc.text(node.distance, xLegDistance + 1, yLegDistance, {
+              angle: 90,
+              lineHeightFactor: 1,
+            });
+          }
         }
       }
     }

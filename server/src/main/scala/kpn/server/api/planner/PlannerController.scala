@@ -56,8 +56,12 @@ class PlannerController(plannerFacade: PlannerFacade) {
   }
 
   @PostMapping(path = Array("/api/plan"), consumes = Array("application/json"))
-  def plan(@RequestBody params: PlanParams): ApiResponse[PlanLegDetail] = {
-    plannerFacade.plan(CurrentUser.name, NetworkType.withName(params.networkType).get, params.planString, proposed = false)
+  def plan(@RequestBody params: PlanParams): ApiResponse[Seq[PlanLegDetail]] = {
+    plannerFacade.plan(
+      CurrentUser.name,
+      NetworkType.withName(params.networkType).get,
+      params.planString,
+      proposed = false
+    )
   }
-
 }

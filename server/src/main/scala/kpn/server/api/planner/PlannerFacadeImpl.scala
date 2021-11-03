@@ -64,7 +64,12 @@ class PlannerFacadeImpl(
     }
   }
 
-  override def plan(user: Option[String], networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[PlanLegDetail] = {
+  override def plan(
+    user: Option[String],
+    networkType: NetworkType,
+    planString: String,
+    proposed: Boolean
+  ): ApiResponse[Seq[PlanLegDetail]] = {
     val args = s"${networkType.name}: $planString"
     api.execute(user, "plan", args) {
       val legs = legBuilder.plan(networkType, planString, proposed = proposed)

@@ -4,15 +4,15 @@ import { ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { select } from '@ngrx/store';
 import { Util } from '../../components/shared/util';
+import { AppState } from '../../core/core.state';
+import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
 import { PdfService } from '../../pdf/pdf.service';
 import { GpxWriter } from '../../pdf/plan/gpx-writer';
 import { PlannerService } from '../planner.service';
 import { PlanUtil } from '../planner/plan/plan-util';
-import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
-import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
-import { AppState } from '../../core/core.state';
 
 @Component({
   selector: 'kpn-plan-output-dialog',
@@ -37,6 +37,16 @@ import { AppState } from '../../core/core.state';
             (blur)="nameChanged($event)"
           />
         </mat-form-field>
+
+        <button
+          mat-stroked-button
+          (click)="printTextDocument()"
+          title="Produce a route pdf file in 'text' format"
+          i18n-title="@@plan.output.text.tooltip"
+          i18n="@@plan.output.text-pdf"
+        >
+          Text
+        </button>
 
         <button
           mat-stroked-button
@@ -149,6 +159,13 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   printStripDocument(): void {
     this.pdfService.printStripDocument(
+      this.plannerService.context.plan,
+      this.routeName()
+    );
+  }
+
+  printTextDocument(): void {
+    this.pdfService.printTextDocument(
       this.plannerService.context.plan,
       this.routeName()
     );

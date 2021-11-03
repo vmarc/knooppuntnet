@@ -12,6 +12,7 @@ import { Component } from '@angular/core';
       <kpn-elevation-profile></kpn-elevation-profile>
       <kpn-map-sidebar-poi-configuration></kpn-map-sidebar-poi-configuration>
     -->
+    <kpn-sidebar-footer></kpn-sidebar-footer>
     <kpn-page-footer [settings]="false"></kpn-page-footer>
   `,
 })
