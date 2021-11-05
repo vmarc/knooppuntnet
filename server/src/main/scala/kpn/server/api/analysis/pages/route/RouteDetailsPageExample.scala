@@ -89,6 +89,7 @@ object RouteDetailsPageExample {
             1001,
             "01",
             "01.a",
+            None,
             "1",
             "1"
           ),
@@ -96,6 +97,7 @@ object RouteDetailsPageExample {
             1002,
             "02",
             "02.a",
+            None,
             "2",
             "2"
           )
@@ -105,6 +107,7 @@ object RouteDetailsPageExample {
             1001,
             "01",
             "01.a",
+            None,
             "1",
             "1"
           ),
@@ -112,6 +115,7 @@ object RouteDetailsPageExample {
             1002,
             "02",
             "02.a",
+            None,
             "2",
             "2"
           )
@@ -121,6 +125,7 @@ object RouteDetailsPageExample {
             1001,
             "01",
             "01.a",
+            None,
             "2",
             "2"
           ),
@@ -128,6 +133,7 @@ object RouteDetailsPageExample {
             1002,
             "02",
             "02.a",
+            None,
             "2",
             "2"
           )
@@ -137,6 +143,7 @@ object RouteDetailsPageExample {
             1001,
             "01",
             "01.a",
+            None,
             "1",
             "1"
           ),
@@ -144,6 +151,7 @@ object RouteDetailsPageExample {
             1002,
             "02",
             "02.a",
+            None,
             "2",
             "2"
           )
@@ -153,6 +161,7 @@ object RouteDetailsPageExample {
             1009,
             "09",
             "09",
+            None,
             "9",
             "9"
           )

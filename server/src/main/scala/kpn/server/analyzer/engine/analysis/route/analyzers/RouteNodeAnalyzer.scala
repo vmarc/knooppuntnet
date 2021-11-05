@@ -285,7 +285,15 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     val alternateName = alternateNameMap.getOrElse(routeNodeInfo.node.id, routeNodeInfo.name)
     val definedInRelation = nodesInRelation.contains(routeNodeInfo)
     val definedInWay = nodesInWays.contains(routeNodeInfo)
-    RouteNode(null, routeNodeInfo.node, routeNodeInfo.name, alternateName, definedInRelation, definedInWay)
+    RouteNode(
+      null,
+      routeNodeInfo.node,
+      routeNodeInfo.name,
+      alternateName,
+      routeNodeInfo.longName,
+      definedInRelation,
+      definedInWay
+    )
   }
 
   private def isProposed(routeNodeInfo: RouteNodeInfo): Boolean = {

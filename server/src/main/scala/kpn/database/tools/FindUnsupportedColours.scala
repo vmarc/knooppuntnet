@@ -1,10 +1,8 @@
 package kpn.database.tools
 
 import kpn.core.analysis.RouteColour
-import kpn.database.base.StringId
 import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.equal

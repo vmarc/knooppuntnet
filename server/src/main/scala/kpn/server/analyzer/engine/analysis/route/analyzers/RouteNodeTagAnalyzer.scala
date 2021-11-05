@@ -20,7 +20,7 @@ class RouteNodeTagAnalyzer(context: RouteAnalysisContext) {
     val routeNodeInfos = nodes.flatMap { node =>
       NodeTagAnalyzer.analyze(node.tags).flatMap { analysis =>
         analysis.nodeNames.find(_.scopedNetworkType == context.scopedNetworkType).map { nodeName =>
-          node.id -> RouteNodeInfo(node, nodeName.name)
+          node.id -> RouteNodeInfo(node, nodeName.name, nodeName.longName)
         }
       }
     }.toMap

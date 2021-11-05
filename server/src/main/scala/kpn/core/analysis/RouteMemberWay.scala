@@ -40,6 +40,7 @@ case class RouteMemberWay(
       rn.id,
       rn.name,
       rn.alternateName,
+      rn.longName,
       rn.node.latitude,
       rn.node.longitude
     )

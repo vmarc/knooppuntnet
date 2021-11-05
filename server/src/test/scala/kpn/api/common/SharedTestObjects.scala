@@ -661,6 +661,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long,
     name: String,
     alternateName: String = "",
+    longName: Option[String] = None,
     lat: String = "",
     lon: String = ""
   ): RouteNetworkNodeInfo = {
@@ -668,6 +669,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       name,
       alternateName,
+      longName,
       lat,
       lon
     )

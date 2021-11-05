@@ -115,6 +115,7 @@ object RouteAnalyzerFunctions {
         routeNode.id,
         routeNode.name,
         routeNode.alternateName,
+        routeNode.longName,
         routeNode.lat,
         routeNode.lon
       )
