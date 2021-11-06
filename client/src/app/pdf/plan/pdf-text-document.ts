@@ -109,7 +109,12 @@ export class PdfTextDocument {
       'FD'
     );
 
-    this.doc.text(node.nodeName, x + this.model.xNodeName, yNode, {
+    let nodeName = node.nodeName;
+    if (node.nodeLongName) {
+      nodeName = nodeName + '  -  ' + node.nodeLongName;
+    }
+
+    this.doc.text(nodeName, x + this.model.xNodeName, yNode, {
       align: 'left',
       baseline: 'middle',
       lineHeightFactor: 1,

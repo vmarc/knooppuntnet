@@ -134,6 +134,7 @@ export class PlanUtil {
   static planNode(
     nodeId: string,
     nodeName: string,
+    nodeLongName: string,
     latLon: LatLonImpl
   ): PlanNode {
     const coordinate = Util.latLonToCoordinate(latLon);
@@ -141,6 +142,7 @@ export class PlanUtil {
       featureId: FeatureId.next(),
       nodeId,
       nodeName,
+      nodeLongName,
       coordinate,
       latLon,
     };
@@ -149,6 +151,7 @@ export class PlanUtil {
   static planNodeWithCoordinate(
     nodeId: string,
     nodeName: string,
+    nodeLongName: string,
     coordinate: Coordinate
   ): PlanNode {
     const latLon = Util.latLonFromCoordinate(coordinate);
@@ -156,6 +159,7 @@ export class PlanUtil {
       featureId: FeatureId.next(),
       nodeId,
       nodeName,
+      nodeLongName,
       coordinate,
       latLon,
     };

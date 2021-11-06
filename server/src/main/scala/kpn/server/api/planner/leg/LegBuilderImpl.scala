@@ -225,6 +225,7 @@ class LegBuilderImpl(
       case Some(sourceRouteNetworkNodeInfo) =>
         val sourceNodeId = sourceRouteNetworkNodeInfo.id.toString
         val sourceNodeName = sourceRouteNetworkNodeInfo.name
+        val sourceNodeLongName = sourceRouteNetworkNodeInfo.longName
 
         val sourceCoordinate = PlanUtil.toCoordinate(sourceRouteNetworkNodeInfo.lat.toDouble, sourceRouteNetworkNodeInfo.lon.toDouble)
         val sourceLatLon = LatLonImpl(sourceRouteNetworkNodeInfo.lat, sourceRouteNetworkNodeInfo.lon)
@@ -233,6 +234,7 @@ class LegBuilderImpl(
           featureId.next,
           sourceNodeId,
           sourceNodeName,
+          sourceNodeLongName,
           sourceCoordinate,
           sourceLatLon
         )
@@ -242,6 +244,7 @@ class LegBuilderImpl(
           case Some(sinkRouteNetworkNodeInfo) =>
             val sinkNodeId = sinkRouteNetworkNodeInfo.id.toString
             val sinkNodeName = sinkRouteNetworkNodeInfo.name
+            val sinkNodeLongName = sinkRouteNetworkNodeInfo.longName
             val sinkCoordinate = PlanUtil.toCoordinate(sinkRouteNetworkNodeInfo.lat.toDouble, sinkRouteNetworkNodeInfo.lon.toDouble)
             val sinkLatLon = LatLonImpl(sinkRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
 
@@ -249,6 +252,7 @@ class LegBuilderImpl(
               featureId.next,
               sinkNodeId,
               sinkNodeName,
+              sinkNodeLongName,
               sinkCoordinate,
               sinkLatLon
             )

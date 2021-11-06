@@ -156,7 +156,7 @@ class FragmentAnalyzerTest extends UnitTest {
 
     val routeNodeInfos = data.nodes.values.flatMap { node =>
       node.tags(d.scopedNetworkType.nodeRefTagKey).map { ref =>
-        node.id -> RouteNodeInfo(node, ref)
+        node.id -> RouteNodeInfo(node, ref, None)
       }
     }.toMap
 

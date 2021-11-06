@@ -40,12 +40,21 @@ class NodeNameAnalyzer(analysis: NodeAnalysis) {
   private def findNodeNames(): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
       determineScopedName(scopedNetworkType).map { name =>
-        val longName = determineScopedLongName(scopedNetworkType)
+        val longNameOption = determineScopedLongName(scopedNetworkType) match {
+          case None => None
+          case Some(longName) =>
+            if (longName.name != name.name) {
+              Some(longName.name)
+            }
+            else {
+              None
+            }
+        }
         NodeName(
           scopedNetworkType.networkType,
           scopedNetworkType.networkScope,
           name.name,
-          longName.map(_.name),
+          longNameOption,
           proposed = name.proposed
         )
       }

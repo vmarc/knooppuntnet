@@ -22,6 +22,7 @@ class Issue114_LoopRoute extends UnitTest {
           47452329L,
           "04",
           "04",
+          None,
           "52.8022502",
           "4.7589098"
         )

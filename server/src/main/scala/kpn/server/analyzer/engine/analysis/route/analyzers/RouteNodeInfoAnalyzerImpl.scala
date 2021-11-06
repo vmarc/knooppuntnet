@@ -18,8 +18,20 @@ class RouteNodeInfoAnalyzerImpl(analysisContext: AnalysisContext, oldNodeAnalyze
       case _ => Seq.empty
     }
     Unique.filter(nodes).filter(node => analysisContext.isValidNetworkNode(node.raw)).flatMap { node =>
-      oldNodeAnalyzer.scopedName(loadedRoute.scopedNetworkType, node.tags).map { name =>
-        node.id -> RouteNodeInfo(node, name)
+      oldNodeAnalyzer.scopedName(loadedRoute.scopedNetworkType, node.tags) match {
+        case None => None
+        case Some(name) =>
+          val longName = oldNodeAnalyzer.scopedLongName(loadedRoute.scopedNetworkType, node.tags) match {
+            case None => None
+            case Some(scopedLongName) =>
+              if (name != scopedLongName) {
+                Some(scopedLongName)
+              }
+              else {
+                None
+              }
+          }
+          Some(node.id -> RouteNodeInfo(node, name, longName))
       }
     }.toMap
   }

@@ -12,9 +12,9 @@ describe('PlannerCommandRemoveViaPoint', () => {
   it('do and undo', () => {
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
-    const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
-    const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
+    const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', null, [2, 2]);
+    const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', null, [3, 3]);
 
     const startFlag = PlanFlag.start('startFlag', [1, 1]);
     const oldSinkFlag1 = PlanFlag.via('oldSinkFlag1', [2, 2]);
@@ -123,9 +123,9 @@ describe('PlannerCommandRemoveViaPoint', () => {
   it('do and undo - via route', () => {
     const setup = new PlannerTestSetup();
 
-    const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
-    const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
-    const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
+    const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 1]);
+    const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', null, [2, 2]);
+    const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', null, [3, 3]);
 
     const startFlag = PlanFlag.start('startFlag', [1, 1]);
     const oldViaFlag = PlanFlag.via('oldViaFlag', [15, 15]);

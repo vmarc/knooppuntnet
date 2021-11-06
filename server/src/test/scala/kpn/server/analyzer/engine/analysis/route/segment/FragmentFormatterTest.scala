@@ -38,7 +38,7 @@ class FragmentFormatterTest extends UnitTest with SharedTestObjects {
   }
 
   private def routeNode(alternateName: String): Option[RouteNode] = {
-    Some(RouteNode(RouteNodeType.Start, newNode(0), "", alternateName, false, false))
+    Some(RouteNode(RouteNodeType.Start, newNode(0), "", alternateName, None, false, false))
   }
 
   private def assertFormat(fragment: Fragment, expected: String): Unit = {

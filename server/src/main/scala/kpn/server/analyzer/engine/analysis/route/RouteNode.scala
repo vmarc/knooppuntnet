@@ -7,6 +7,7 @@ case class RouteNode(
   node: Node = null,
   name: String = "",
   alternateName: String = "",
+  longName: Option[String] = None,
   definedInRelation: Boolean = false,
   definedInWay: Boolean = false
 ) {

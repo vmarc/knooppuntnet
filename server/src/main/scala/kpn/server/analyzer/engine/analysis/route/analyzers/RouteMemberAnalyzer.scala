@@ -56,6 +56,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         val node = nodeMember.node
 
         val name = context.routeNodeInfos.get(node.id).map(_.name).getOrElse("")
+        val longName = context.routeNodeInfos.get(node.id).flatMap(_.longName)
 
         val number = if (nodeMap.isDefinedAt(node.id)) {
           nodeMap(node.id)
@@ -71,8 +72,14 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           case _ => name
         }
 
-        RouteMemberNode(name, alternateName, number.toString, nodeMember.role, node)
-
+        RouteMemberNode(
+          name,
+          alternateName,
+          longName,
+          number.toString,
+          nodeMember.role,
+          node
+        )
 
       case wayMember: WayMember =>
 

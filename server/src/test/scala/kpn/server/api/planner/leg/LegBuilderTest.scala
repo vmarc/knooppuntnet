@@ -219,6 +219,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
       "featureId",
       nodeId = node.id.toString,
       nodeName = node.name,
+      nodeLongName = None,
       coordinate = PlanCoordinate(0, 0),
       LatLonImpl(node.lat, node.lon)
     )
@@ -230,9 +231,9 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
       featureId,
       s"${nodeNumber + 1000}",
       f"$nodeNumber%02d",
+      None,
       coordinate,
       LatLonImpl(nodeNumber.toString, nodeNumber.toString)
     )
   }
-
 }

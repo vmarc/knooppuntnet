@@ -24,6 +24,7 @@ export class PdfPlanBuilder {
 
           const sourcePdfPlanNode = new PdfPlanNode(
             planRoute.sourceNode.nodeName,
+            planRoute.sourceNode.nodeLongName,
             distance,
             cumulDistance,
             colour,
@@ -36,6 +37,7 @@ export class PdfPlanBuilder {
             );
             const sinkPdfPlanNode = new PdfPlanNode(
               planRoute.sinkNode.nodeName,
+              planRoute.sinkNode.nodeLongName,
               'END',
               cumulDistance,
               null,

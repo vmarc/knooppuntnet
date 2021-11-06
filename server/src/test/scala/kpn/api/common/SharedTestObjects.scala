@@ -637,6 +637,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       name,
       alternateName,
+      None,
       lat,
       lon
     )

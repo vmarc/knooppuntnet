@@ -18,6 +18,7 @@ class Issue126_CircularRoute extends UnitTest {
           43052537L,
           "75",
           "75",
+          None,
           "51.5672438",
           "3.7800625"
         )
