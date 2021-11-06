@@ -42,8 +42,18 @@ describe('PlanReverser', () => {
   it('reverse plan with single node-to-node leg', () => {
     const setup = new PlannerTestSetup();
 
-    const sourceNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate(
+      '1002',
+      '02',
+      null,
+      [2, 2]
+    );
+    const sinkNode = PlanUtil.planNodeWithCoordinate(
+      '1001',
+      '01',
+      null,
+      [1, 1]
+    );
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const planRoute: PlanRoute = {
@@ -75,10 +85,30 @@ describe('PlanReverser', () => {
   it('reverse plan with multiple node-to-node legs', () => {
     const setup = new PlannerTestSetup();
 
-    const planNode1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
-    const planNode2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
-    const planNode3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
-    const planNode4 = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
+    const planNode1 = PlanUtil.planNodeWithCoordinate(
+      '1001',
+      '01',
+      null,
+      [1, 1]
+    );
+    const planNode2 = PlanUtil.planNodeWithCoordinate(
+      '1002',
+      '02',
+      null,
+      [2, 2]
+    );
+    const planNode3 = PlanUtil.planNodeWithCoordinate(
+      '1003',
+      '03',
+      null,
+      [3, 3]
+    );
+    const planNode4 = PlanUtil.planNodeWithCoordinate(
+      '1004',
+      '04',
+      null,
+      [4, 4]
+    );
 
     const legEnd1 = PlanUtil.legEndNode(+planNode1.nodeId);
     const legEnd2 = PlanUtil.legEndNode(+planNode2.nodeId);
@@ -156,8 +186,18 @@ describe('PlanReverser', () => {
   });
 
   const buildExpectedSingleViaRouteLeg = (setup: PlannerTestSetup): void => {
-    const sourceNode = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate(
+      '1003',
+      '03',
+      null,
+      [3, 3]
+    );
+    const sinkNode = PlanUtil.planNodeWithCoordinate(
+      '1001',
+      '01',
+      null,
+      [1, 1]
+    );
 
     const trackPathKey: TrackPathKey = {
       routeId: 10,
@@ -268,8 +308,18 @@ describe('PlanReverser', () => {
   });
 
   const buildExpectedViaRouteLeg = (setup: PlannerTestSetup): void => {
-    const sourceNode = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate(
+      '1004',
+      '04',
+      null,
+      [4, 4]
+    );
+    const sinkNode = PlanUtil.planNodeWithCoordinate(
+      '1002',
+      '02',
+      null,
+      [2, 2]
+    );
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndRoute([{ routeId: 10, pathId: 1 }]);
 
@@ -280,8 +330,18 @@ describe('PlanReverser', () => {
   };
 
   const buildExpectedNodeToNodeLeg = (setup: PlannerTestSetup): void => {
-    const sourceNode = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
-    const sinkNode = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
+    const sourceNode = PlanUtil.planNodeWithCoordinate(
+      '1002',
+      '02',
+      null,
+      [2, 2]
+    );
+    const sinkNode = PlanUtil.planNodeWithCoordinate(
+      '1001',
+      '01',
+      null,
+      [1, 1]
+    );
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 

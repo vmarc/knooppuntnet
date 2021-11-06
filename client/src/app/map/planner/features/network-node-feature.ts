@@ -11,11 +11,17 @@ export class NetworkNodeFeature extends MapFeature {
   static create(
     nodeId: string,
     nodeName: string,
+    nodeLongName: string,
     coordinate: Coordinate,
     proposed: boolean
   ) {
     return new NetworkNodeFeature(
-      PlanUtil.planNodeWithCoordinate(nodeId, nodeName, coordinate),
+      PlanUtil.planNodeWithCoordinate(
+        nodeId,
+        nodeName,
+        nodeLongName,
+        coordinate
+      ),
       proposed
     );
   }

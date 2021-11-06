@@ -116,8 +116,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
               "way",
               isWay = true,
               Seq(
-                RouteNetworkNodeInfo(1001, "01", "01", "0", "0"),
-                RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
+                RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
               ),
               "wn003",
               "1",
@@ -176,10 +176,10 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
               )
             ),
             startNodes = Seq(
-              RouteNetworkNodeInfo(1001, "01", "01", "0", "0")
+              RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0")
             ),
             endNodes = Seq(
-              RouteNetworkNodeInfo(1002, "02", "02", "0", "0")
+              RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
             )
           ),
           structureStrings = Seq(

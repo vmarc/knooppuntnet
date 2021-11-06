@@ -4,6 +4,7 @@ export interface RouteNetworkNodeInfo {
   readonly id: number;
   readonly name: string;
   readonly alternateName: string;
+  readonly longName: string;
   readonly lat: string;
   readonly lon: string;
 }

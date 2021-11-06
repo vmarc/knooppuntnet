@@ -46,15 +46,15 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
     val facts = ListBuffer[Fact]()
     util.alternateNames(facts, Seq.empty) should equal(Map.empty)
     val routeNodeInfos = Seq(
-      RouteNodeInfo(node(1, "01"), "01"),
-      RouteNodeInfo(node(2, "01"), "01"),
-      RouteNodeInfo(node(3, "01"), "01")
+      RouteNodeInfo(node(1, "01"), "01", None),
+      RouteNodeInfo(node(2, "01"), "01", None),
+      RouteNodeInfo(node(3, "01"), "01", None)
     )
     util.alternateNames(facts, routeNodeInfos) should equal(Map(1L -> "01.a", 2L -> "01.b", 3L -> "01.c"))
   }
 
   test("alternateNames for more than 2 * 26 nodes") {
-    val routeNodeInfos = (1 to 53).map(id => RouteNodeInfo(node(id, "01"), "01"))
+    val routeNodeInfos = (1 to 53).map(id => RouteNodeInfo(node(id, "01"), "01", None))
     val facts = ListBuffer[Fact]()
     util.alternateNames(facts, routeNodeInfos)
     facts.head should equal(Fact.RouteAnalysisFailed)

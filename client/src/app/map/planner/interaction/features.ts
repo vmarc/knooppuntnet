@@ -1,13 +1,13 @@
 import { List } from 'immutable';
+import { Coordinate } from 'ol/coordinate';
+import { FeatureLike } from 'ol/Feature';
+import Point from 'ol/geom/Point';
 import { FlagFeature } from '../features/flag-feature';
 import { LegFeature } from '../features/leg-feature';
 import { MapFeature } from '../features/map-feature';
 import { NetworkNodeFeature } from '../features/network-node-feature';
 import { PoiFeature } from '../features/poi-feature';
 import { RouteFeature } from '../features/route-feature';
-import { FeatureLike } from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import { Coordinate } from 'ol/coordinate';
 
 export class Features {
   static findFlag(features: List<MapFeature>): FlagFeature {
@@ -76,10 +76,21 @@ export class Features {
           name = nodeName;
         }
 
+        let nodeLongName = null;
+        if (nodeName && nodeRef) {
+          nodeLongName = nodeName;
+        }
+
         const point: Point = feature.getGeometry() as Point;
         const extent = point.getExtent();
         const coordinate: Coordinate = [extent[0], extent[1]];
-        return NetworkNodeFeature.create(nodeId, name, coordinate, proposed);
+        return NetworkNodeFeature.create(
+          nodeId,
+          name,
+          nodeLongName,
+          coordinate,
+          proposed
+        );
       }
 
       const layerType = feature.get('type');

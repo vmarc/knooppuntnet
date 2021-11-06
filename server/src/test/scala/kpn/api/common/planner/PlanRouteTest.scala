@@ -11,6 +11,7 @@ class PlanRouteTest extends UnitTest {
         featureId = "1001",
         nodeId = "1001",
         nodeName = "01",
+        nodeLongName = None,
         coordinate = PlanCoordinate(1, 1),
         LatLonImpl("1", "1")
       ),
@@ -18,6 +19,7 @@ class PlanRouteTest extends UnitTest {
         featureId = "1004",
         nodeId = "1004",
         nodeName = "04",
+        nodeLongName = None,
         coordinate = PlanCoordinate(4, 4),
         LatLonImpl("4", "4")
       ),
@@ -71,6 +73,7 @@ class PlanRouteTest extends UnitTest {
           featureId = "1004",
           nodeId = "1004",
           nodeName = "04",
+          None,
           coordinate = PlanCoordinate(4, 4),
           LatLonImpl("4", "4")
         ),
@@ -78,6 +81,7 @@ class PlanRouteTest extends UnitTest {
           featureId = "1001",
           nodeId = "1001",
           nodeName = "01",
+          None,
           coordinate = PlanCoordinate(1, 1),
           LatLonImpl("1", "1")
         ),

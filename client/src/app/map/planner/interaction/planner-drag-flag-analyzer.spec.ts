@@ -6,10 +6,10 @@ import { PlanUtil } from '../plan/plan-util';
 import { PlannerDragFlagAnalyzer } from './planner-drag-flag-analyzer';
 
 describe('PlannerDragFlagAnalyzer', () => {
-  const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 0]);
-  const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 0]);
-  const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 0]);
-  const node4 = PlanUtil.planNodeWithCoordinate('1004', '03', [4, 0]);
+  const node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 0]);
+  const node2 = PlanUtil.planNodeWithCoordinate('1002', '02', null, [2, 0]);
+  const node3 = PlanUtil.planNodeWithCoordinate('1003', '03', null, [3, 0]);
+  const node4 = PlanUtil.planNodeWithCoordinate('1004', '03', null, [4, 0]);
 
   const sourceFlag = PlanFlag.start('sourceFlag', node1.coordinate);
   const sinkFlag1 = PlanFlag.via('sinkFlag1', node2.coordinate);

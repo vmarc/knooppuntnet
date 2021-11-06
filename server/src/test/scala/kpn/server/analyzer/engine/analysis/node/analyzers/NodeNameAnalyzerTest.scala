@@ -247,7 +247,7 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
           networkType = NetworkType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
-          longName = Some("01"),
+          longName = None,
           proposed = false
         )
       )
@@ -267,7 +267,7 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
           networkType = NetworkType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
-          longName = Some("01"),
+          longName = None,
           proposed = true
         )
       )

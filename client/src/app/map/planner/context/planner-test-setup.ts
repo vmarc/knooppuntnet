@@ -33,10 +33,10 @@ export class PlannerTestSetup {
     null
   );
 
-  readonly node1 = PlanUtil.planNodeWithCoordinate('1001', '01', [1, 1]);
-  readonly node2 = PlanUtil.planNodeWithCoordinate('1002', '02', [2, 2]);
-  readonly node3 = PlanUtil.planNodeWithCoordinate('1003', '03', [3, 3]);
-  readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', [4, 4]);
+  readonly node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 1]);
+  readonly node2 = PlanUtil.planNodeWithCoordinate('1002', '02', null, [2, 2]);
+  readonly node3 = PlanUtil.planNodeWithCoordinate('1003', '03', null, [3, 3]);
+  readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', null, [4, 4]);
 
   constructor() {
     this.context.nextNetworkType(NetworkType.hiking);
