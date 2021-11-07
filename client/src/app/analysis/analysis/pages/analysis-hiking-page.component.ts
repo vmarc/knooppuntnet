@@ -49,6 +49,12 @@ import { AnalysisModeService } from './analysis-mode.service';
         i18n-title="@@country.fr"
         title="France"
       ></kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="esLink | async"
+        icon="spain"
+        i18n-title="@@country.es"
+        title="Spain"
+      ></kpn-icon-button>
     </kpn-icon-buttons>
   `,
 })
@@ -57,11 +63,13 @@ export class AnalysisHikingPageComponent {
   readonly beLink: Observable<string>;
   readonly deLink: Observable<string>;
   readonly frLink: Observable<string>;
+  readonly esLink: Observable<string>;
 
   constructor(private analysisModeService: AnalysisModeService) {
     this.nlLink = analysisModeService.link('hiking', 'nl');
     this.beLink = analysisModeService.link('hiking', 'be');
     this.deLink = analysisModeService.link('hiking', 'de');
     this.frLink = analysisModeService.link('hiking', 'fr');
+    this.esLink = analysisModeService.link('hiking', 'es');
   }
 }

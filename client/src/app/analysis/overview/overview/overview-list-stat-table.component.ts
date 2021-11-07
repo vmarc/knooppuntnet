@@ -99,7 +99,13 @@ import { Stat } from '../domain/stat';
           [stat]="stat"
           [country]="country.es"
           [networkType]="networkType.cycling"
-          [rowspan]="1"
+          [rowspan]="2"
+        ></kpn-overview-list-stat-row>
+
+        <kpn-overview-list-stat-row
+          [stat]="stat"
+          [country]="country.es"
+          [networkType]="networkType.hiking"
         ></kpn-overview-list-stat-row>
 
         <tr>
