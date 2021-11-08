@@ -1,5 +1,5 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { Coordinate } from 'mapbox-gl';
+import { Coordinate } from 'ol/coordinate';
 import { RouteFeature } from '../features/route-feature';
 import { PlannerHighlighter } from './planner-highlighter';
 

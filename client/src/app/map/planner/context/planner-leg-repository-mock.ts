@@ -8,7 +8,7 @@ import { PlanLegData } from './plan-leg-data';
 import { PlannerLegRepository } from './planner-leg-repository';
 
 export class PlannerLegRepositoryMock implements PlannerLegRepository {
-  private planLegDetails: Map<string, PlanLegData> = Map();
+  private planLegDetails: Map<string, PlanLegData> = Map<string, PlanLegData>();
 
   planLeg(
     networkType: NetworkType,

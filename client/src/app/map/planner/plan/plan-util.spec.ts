@@ -11,7 +11,7 @@ describe('PlanUtil', () => {
   });
 
   it('toUrlString - plan with source only', () => {
-    const startNode = PlanUtil.planNode('10', '', {
+    const startNode = PlanUtil.planNode('10', '', null, {
       latitude: '',
       longitude: '',
     });
@@ -21,19 +21,19 @@ describe('PlanUtil', () => {
   });
 
   it('toUrlString - plan with multiple legs', () => {
-    const startNode = PlanUtil.planNode('10', '', {
+    const startNode = PlanUtil.planNode('10', '', null, {
       latitude: '',
       longitude: '',
     });
-    const viaNode1 = PlanUtil.planNode('11', '', {
+    const viaNode1 = PlanUtil.planNode('11', '', null, {
       latitude: '',
       longitude: '',
     });
-    const viaNode2 = PlanUtil.planNode('12', '', {
+    const viaNode2 = PlanUtil.planNode('12', '', null, {
       latitude: '',
       longitude: '',
     });
-    const endNode = PlanUtil.planNode('13', '', {
+    const endNode = PlanUtil.planNode('13', '', null, {
       latitude: '',
       longitude: '',
     });

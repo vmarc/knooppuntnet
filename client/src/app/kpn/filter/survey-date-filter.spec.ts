@@ -9,11 +9,11 @@ describe('SurveyDateFilter', () => {
 
   const buildFilter = (kind: SurveyDateFilterKind): SurveyDateFilter<Day> => {
     const surveyDateInfo: SurveyDateInfo = {
-      now: { year: 2020, month: 5, day: 7 },
-      lastMonthStart: { year: 2020, month: 4, day: 7 },
-      lastHalfYearStart: { year: 2019, month: 11, day: 7 },
-      lastYearStart: { year: 2019, month: 5, day: 7 },
-      lastTwoYearsStart: { year: 2018, month: 5, day: 7 },
+      now: '2020-05-07',
+      lastMonthStart: '2020-04-07',
+      lastHalfYearStart: '2019-11-07',
+      lastYearStart: '2019-05-07',
+      lastTwoYearsStart: '2018-05-07',
     };
 
     return new SurveyDateFilter(
@@ -34,7 +34,7 @@ describe('SurveyDateFilter', () => {
     const filter = buildFilter(SurveyDateFilterKind.unknown);
 
     expect(filter.passes(null)).toBeTruthy();
-    expect(filter.passes(new Day(2020, 4, 1))).toBeFalsy();
+    expect(filter.passes('2020-04-01')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [null]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
@@ -49,11 +49,11 @@ describe('SurveyDateFilter', () => {
   it('last month', () => {
     const filter = buildFilter(SurveyDateFilterKind.lastMonth);
 
-    expect(filter.passes(new Day(2020, 5, 1))).toBeTruthy();
-    expect(filter.passes(new Day(2020, 4, 1))).toBeFalsy();
+    expect(filter.passes('2020-05-01')).toBeTruthy();
+    expect(filter.passes('2020-04-01')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Day(2020, 5, 1),
+      '2020-05-01',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
@@ -67,12 +67,12 @@ describe('SurveyDateFilter', () => {
   it('last half year', () => {
     const filter = buildFilter(SurveyDateFilterKind.lastHalfYear);
 
-    expect(filter.passes(new Day(2020, 4, 8))).toBeFalsy();
-    expect(filter.passes(new Day(2019, 11, 8))).toBeTruthy();
-    expect(filter.passes(new Day(2019, 11, 6))).toBeFalsy();
+    expect(filter.passes('2020-04-08')).toBeFalsy();
+    expect(filter.passes('2019-11-08')).toBeTruthy();
+    expect(filter.passes('2019-11-06')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Day(2019, 11, 8),
+      '2019-11-08',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
@@ -86,12 +86,12 @@ describe('SurveyDateFilter', () => {
   it('last year', () => {
     const filter = buildFilter(SurveyDateFilterKind.lastYear);
 
-    expect(filter.passes(new Day(2020, 4, 8))).toBeFalsy();
-    expect(filter.passes(new Day(2019, 5, 8))).toBeTruthy();
-    expect(filter.passes(new Day(2020, 5, 6))).toBeFalsy();
+    expect(filter.passes('2020-04-08')).toBeFalsy();
+    expect(filter.passes('2019-05-08')).toBeTruthy();
+    expect(filter.passes('2020-05-06')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Day(2019, 5, 8),
+      '2019-05-08',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
@@ -105,12 +105,12 @@ describe('SurveyDateFilter', () => {
   it('last two years', () => {
     const filter = buildFilter(SurveyDateFilterKind.lastTwoYears);
 
-    expect(filter.passes(new Day(2019, 5, 8))).toBeFalsy();
-    expect(filter.passes(new Day(2018, 5, 8))).toBeTruthy();
-    expect(filter.passes(new Day(2018, 5, 6))).toBeFalsy();
+    expect(filter.passes('2019-05-08')).toBeFalsy();
+    expect(filter.passes('2018-05-08')).toBeTruthy();
+    expect(filter.passes('2018-05-06')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Day(2018, 5, 8),
+      '2018-05-08',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown
@@ -124,11 +124,11 @@ describe('SurveyDateFilter', () => {
   it('older', () => {
     const filter = buildFilter(SurveyDateFilterKind.older);
 
-    expect(filter.passes(new Day(2018, 5, 8))).toBeFalsy();
-    expect(filter.passes(new Day(2018, 5, 6))).toBeTruthy();
+    expect(filter.passes('2018-05-08')).toBeFalsy();
+    expect(filter.passes('2018-05-06')).toBeTruthy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Day(2018, 5, 6),
+      '2018-05-06',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // unknown

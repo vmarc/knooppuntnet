@@ -2,10 +2,10 @@ import { List } from 'immutable';
 import { expectCoordinates } from '../../../util/test-support';
 import { expectStartFlag } from '../../../util/test-support';
 import { expectEndFlagCoordinate } from '../../../util/test-support';
-import { PlannerCommandReplaceLeg } from '../commands/planner-command-replace-leg';
 import { PlannerCommandMoveFirstLegSource } from '../commands/planner-command-move-first-leg-source';
 import { PlannerCommandMoveStartPoint } from '../commands/planner-command-move-start-point';
 import { PlannerCommandMoveViaPoint } from '../commands/planner-command-move-via-point';
+import { PlannerCommandReplaceLeg } from '../commands/planner-command-replace-leg';
 import { PlannerCommandSplitLeg } from '../commands/planner-command-split-leg';
 import { PlannerTestSetup } from '../context/planner-test-setup';
 import { FlagFeature } from '../features/flag-feature';
@@ -24,7 +24,7 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
 
-      const node = NetworkNodeFeature.create('1001', '01', [1, 1], false);
+      const node = NetworkNodeFeature.create('1001', '01', null, [1, 1], false);
       const features: List<MapFeature> = List([node]);
 
       // act
@@ -56,8 +56,20 @@ describe('PlannerEngine', () => {
       const setup = new PlannerTestSetup();
       const engine = new PlannerEngineImpl(setup.context);
 
-      const node1 = NetworkNodeFeature.create('1001', '01', [1, 1], false);
-      const node2 = NetworkNodeFeature.create('1002', '02', [2, 2], false);
+      const node1 = NetworkNodeFeature.create(
+        '1001',
+        '01',
+        null,
+        [1, 1],
+        false
+      );
+      const node2 = NetworkNodeFeature.create(
+        '1002',
+        '02',
+        null,
+        [2, 2],
+        false
+      );
 
       setup.createPlanLegData(setup.node1, setup.node2);
 
@@ -112,6 +124,7 @@ describe('PlannerEngine', () => {
       const newStartNodeFeature = NetworkNodeFeature.create(
         '1002',
         '02',
+        null,
         [2, 2],
         false
       );
@@ -226,6 +239,7 @@ describe('PlannerEngine', () => {
       const newStartNodeFeature = NetworkNodeFeature.create(
         '1003',
         '03',
+        null,
         [3, 3],
         false
       );
@@ -355,6 +369,7 @@ describe('PlannerEngine', () => {
       const newEndNodeFeature = NetworkNodeFeature.create(
         '1003',
         '03',
+        null,
         [3, 3],
         false
       );
@@ -490,6 +505,7 @@ describe('PlannerEngine', () => {
       const newViaNodeFeature = NetworkNodeFeature.create(
         '1004',
         '04',
+        null,
         [4, 4],
         false
       );
@@ -624,6 +640,7 @@ describe('PlannerEngine', () => {
       const newViaNodeFeature = NetworkNodeFeature.create(
         '1003',
         '03',
+        null,
         [3, 3],
         false
       );

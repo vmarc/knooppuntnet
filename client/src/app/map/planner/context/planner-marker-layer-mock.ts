@@ -6,7 +6,10 @@ import { PlanFlagType } from '../plan/plan-flag-type';
 import { PlannerMarkerLayer } from './planner-marker-layer';
 
 export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
-  private flags: PlanFlagMap<string, PlanFlag> = PlanFlagMap();
+  private flags: PlanFlagMap<string, PlanFlag> = PlanFlagMap<
+    string,
+    PlanFlag
+  >();
 
   addFlag(flag: PlanFlag): void {
     if (flag !== null) {
