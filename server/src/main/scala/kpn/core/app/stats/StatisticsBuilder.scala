@@ -80,7 +80,7 @@ object StatisticsBuilder {
             "-"
           ),
           CountryStatistic(
-            "-",
+            percentage(numerator.counts.getOrElse(Subset.esHiking, 0L), denominator.counts.getOrElse(Subset.esHiking, 0L)),
             percentage(numerator.counts.getOrElse(Subset.esBicycle, 0L), denominator.counts.getOrElse(Subset.esBicycle, 0L)),
             "-",
             "-",
@@ -141,7 +141,7 @@ object StatisticsBuilder {
             "-"
           ),
           CountryStatistic(
-            "-",
+            percentage(numerator.counts.getOrElse(Subset.esHiking, 0L), denominator.counts.getOrElse(Subset.esHiking, 0L)),
             percentage(numerator.counts.getOrElse(Subset.esBicycle, 0L), denominator.counts.getOrElse(Subset.esBicycle, 0L)),
             "-",
             "-",
@@ -201,7 +201,7 @@ object StatisticsBuilder {
             "-"
           ),
           CountryStatistic(
-            "-",
+            number(count.counts.getOrElse(Subset.esHiking, 0L) / 1000),
             number(count.counts.getOrElse(Subset.esBicycle, 0L) / 1000),
             "-",
             "-",
@@ -261,7 +261,7 @@ object StatisticsBuilder {
             "-"
           ),
           CountryStatistic(
-            "-",
+            number(count.counts.getOrElse(Subset.esHiking, 0L) / 1000),
             number(count.counts.getOrElse(Subset.esBicycle, 0L) / 1000),
             "-",
             "-",
@@ -327,7 +327,7 @@ object StatisticsBuilder {
             "-"
           ),
           CountryStatistic(
-            "-",
+            percentage(count.counts.getOrElse(Subset.esHiking, 0L) - failed.counts.getOrElse(Subset.atBicycle, 0L), count.counts.getOrElse(Subset.esHiking, 0L)),
             percentage(count.counts.getOrElse(Subset.esBicycle, 0L) - failed.counts.getOrElse(Subset.atBicycle, 0L), count.counts.getOrElse(Subset.esBicycle, 0L)),
             "-",
             "-",
@@ -388,7 +388,7 @@ object StatisticsBuilder {
             "-"
           ),
           CountryStatistic(
-            "-",
+            percentage(checkCount.counts.getOrElse(Subset.esHiking, 0L), nodeCount.counts.getOrElse(Subset.esHiking, 0L)),
             percentage(checkCount.counts.getOrElse(Subset.esBicycle, 0L), nodeCount.counts.getOrElse(Subset.esBicycle, 0L)),
             "-",
             "-",
@@ -399,5 +399,4 @@ object StatisticsBuilder {
       }
     }
   }
-
 }

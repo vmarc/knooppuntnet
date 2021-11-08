@@ -102,6 +102,13 @@ import { Stat } from '../domain/stat';
           [rowspan]="1"
         ></kpn-overview-list-stat-row>
 
+        <kpn-overview-list-stat-row
+          [stat]="stat"
+          [country]="country.es"
+          [networkType]="networkType.hiking"
+          [rowspan]="1"
+        ></kpn-overview-list-stat-row>
+
         <tr>
           <td colspan="2" i18n="@@overview.total">Total</td>
           <td class="value">

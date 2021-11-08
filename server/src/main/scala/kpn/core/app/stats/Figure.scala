@@ -54,7 +54,7 @@ case class Figure(
         "-"
       ),
       CountryStatistic(
-        "-",
+        number(counts.getOrElse(Subset.esHiking, 0)),
         number(counts.getOrElse(Subset.esBicycle, 0)),
         "-",
         "-",
