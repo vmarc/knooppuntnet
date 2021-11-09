@@ -5,6 +5,7 @@ import { LocationNode } from '@api/common/location/location-node';
 import { Country } from '@api/custom/country';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Util } from '../../../components/shared/util';
 import { LocationOption } from './location-option';
 
 @Component({
@@ -114,16 +115,24 @@ export class LocationSelectorComponent implements OnInit {
     return locationOption ? locationOption.locationName : undefined;
   }
 
-  private _filter(value: string): LocationOption[] {
-    const filterValue = value.toLowerCase();
+  private _filter(filterValue: string): LocationOption[] {
+    const normalizedFilterValue = Util.normalize(filterValue);
     return this.options.filter(
-      (option) => option.locationName.toLowerCase().indexOf(filterValue) >= 0
+      (option) =>
+        option.normalizedLocationName.indexOf(normalizedFilterValue) >= 0
     );
   }
 
   private toOptions(location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    locationOptions.push(new LocationOption(location.name, location.nodeCount));
+    const normalizedLocationName = Util.normalize(location.name);
+    locationOptions.push(
+      new LocationOption(
+        location.name,
+        normalizedLocationName,
+        location.nodeCount
+      )
+    );
     location.children.forEach((child) => {
       const childLocationOptions = this.toOptions(child);
       childLocationOptions.forEach((loc) => locationOptions.push(loc));
