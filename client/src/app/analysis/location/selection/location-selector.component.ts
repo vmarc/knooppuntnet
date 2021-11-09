@@ -145,19 +145,23 @@ export class LocationSelectorComponent implements OnInit {
 
   private toOptions(location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    const normalizedLocationName = Util.normalize(location.name);
-    locationOptions.push(
-      new LocationOption(
-        location.name,
-        normalizedLocationName,
-        location.nodeCount
-      )
-    );
-    location.children.forEach((child) => {
-      const childLocationOptions = this.toOptions(child);
-      childLocationOptions.forEach((loc) => locationOptions.push(loc));
-    });
-    locationOptions.sort((a, b) => (a.locationName > b.locationName ? 1 : -1));
+    if (location.nodeCount > 0) {
+      const normalizedLocationName = Util.normalize(location.name);
+      locationOptions.push(
+        new LocationOption(
+          location.name,
+          normalizedLocationName,
+          location.nodeCount
+        )
+      );
+      location.children.forEach((child) => {
+        const childLocationOptions = this.toOptions(child);
+        childLocationOptions.forEach((loc) => locationOptions.push(loc));
+      });
+      locationOptions.sort((a, b) =>
+        a.locationName > b.locationName ? 1 : -1
+      );
+    }
     return locationOptions;
   }
 }
