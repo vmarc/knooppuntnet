@@ -20,8 +20,8 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
       ></kpn-subset-network-happy>
     </div>
     <div i18n="@@subset-network.summary">
-      {{ network.km }} km, {{ network.nodeCount }} nodes,
-      {{ network.routeCount }} routes
+      {{ network.km | integer }} km, {{ network.nodeCount | integer }} nodes,
+      {{ network.routeCount | integer }} routes
     </div>
     <div>
       <kpn-osm-link-relation [relationId]="network.id"></kpn-osm-link-relation>

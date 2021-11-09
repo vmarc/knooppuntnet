@@ -7,16 +7,13 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="kpn-comma-list">
-      <span>
-        {{ page.attributes.km }}
-        <ng-container i18n="@@network-details.km">km</ng-container>
-      </span>
+      <span>{{ page.attributes.km | integer }} km</span>
       <span
-        >{{ page.summary.nodeCount }}
+        >{{ page.summary.nodeCount | integer }}
         <ng-container i18n="@@network-details.nodes">nodes</ng-container>
       </span>
       <span>
-        {{ page.summary.routeCount }}
+        {{ page.summary.routeCount | integer }}
         <ng-container i18n="@@network-details.routes">routes</ng-container>
       </span>
     </p>

@@ -137,6 +137,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
       }
 
       .distance {
+        white-space: nowrap;
         text-align: right;
         width: 100%;
       }

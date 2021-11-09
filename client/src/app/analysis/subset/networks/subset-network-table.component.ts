@@ -49,10 +49,10 @@ import { NetworkAttributes } from '@api/common/network/network-attributes';
             {{ network.km | integer }}
           </td>
           <td class="number-value">
-            {{ network.nodeCount }}
+            {{ network.nodeCount | integer }}
           </td>
           <td class="number-value">
-            {{ network.routeCount }}
+            {{ network.routeCount | integer }}
           </td>
           <td class="number-value">
             {{ network.brokenRouteCount }}
@@ -86,6 +86,7 @@ import { NetworkAttributes } from '@api/common/network/network-attributes';
       }
 
       .number-value {
+        white-space: nowrap;
         text-align: right;
       }
     `,

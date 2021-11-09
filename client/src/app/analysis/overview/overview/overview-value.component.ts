@@ -8,7 +8,7 @@ import { Stat } from '../domain/stat';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a *ngIf="hasLink()" [routerLink]="link()">{{ value() }}</a>
-    <span *ngIf="!hasLink()">{{ value() }}</span>
+    <span *ngIf="!hasLink()">{{ value() | statistic }}</span>
   `,
   styles: [
     `
@@ -26,7 +26,7 @@ export class OverviewValueComponent {
     return this.stat.configuration.linkFunction !== null;
   }
 
-  value() {
+  value(): number {
     return this.stat.value(this.subset);
   }
 

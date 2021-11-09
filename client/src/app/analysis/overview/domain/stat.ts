@@ -1,6 +1,5 @@
 import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { Subset } from '@api/custom/subset';
-import { IntegerFormatPipe } from '../../../components/shared/format/integer-format.pipe';
 import { StatisticConfiguration } from './statistic-configuration';
 
 export class Stat {
@@ -9,19 +8,18 @@ export class Stat {
     readonly configuration: StatisticConfiguration
   ) {}
 
-  total(): string {
+  total(): number {
     if (!this.statisticValues) {
-      return '-';
+      return undefined;
     }
-    const total = this.statisticValues.values.reduce((sum, statisticValue) => {
+    return this.statisticValues.values.reduce((sum, statisticValue) => {
       return sum + statisticValue.value;
     }, 0);
-    return this.format(total);
   }
 
-  value(subset: Subset): string {
+  value(subset: Subset): number {
     if (!this.statisticValues) {
-      return '-';
+      return undefined;
     }
     const subsetStatisticValue = this.statisticValues.values.find(
       (statisticValue) => {
@@ -31,14 +29,9 @@ export class Stat {
         );
       }
     );
-
-    if (subsetStatisticValue) {
-      return this.format(subsetStatisticValue.value);
+    if (!subsetStatisticValue) {
+      return undefined;
     }
-    return '-';
-  }
-
-  private format(value: number): string {
-    return new IntegerFormatPipe().transform(value);
+    return subsetStatisticValue.value;
   }
 }

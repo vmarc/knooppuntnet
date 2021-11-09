@@ -75,7 +75,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
               <td>
                 {{ member.role }}
               </td>
-              <td>
+              <td class="distance">
                 {{ member.length }}
               </td>
               <td>
@@ -120,6 +120,11 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
       .image-cell {
         padding: 0;
         height: 100%;
+      }
+
+      .distance {
+        white-space: nowrap;
+        text-align: right;
       }
     `,
   ],

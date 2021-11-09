@@ -3,8 +3,8 @@ import { Inject } from '@angular/core';
 import { PipeTransform } from '@angular/core';
 import { Pipe } from '@angular/core';
 
-@Pipe({ name: 'integer' })
-export class IntegerFormatPipe implements PipeTransform {
+@Pipe({ name: 'statistic' })
+export class StatisticPipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) public locale: string) {}
 
   transform(value: number): string {
@@ -17,6 +17,6 @@ export class IntegerFormatPipe implements PipeTransform {
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
     }
-    return '';
+    return '-';
   }
 }

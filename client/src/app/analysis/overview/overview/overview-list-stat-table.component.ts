@@ -111,7 +111,7 @@ import { Stat } from '../domain/stat';
         <tr>
           <td colspan="2" i18n="@@overview.total">Total</td>
           <td class="value">
-            {{ stat.total() }}
+            {{ stat.total() | statistic }}
           </td>
         </tr>
       </tbody>

@@ -3,7 +3,7 @@ import { PlanLeg } from '../plan/plan-leg';
 import { PlannerRouteLayer } from './planner-route-layer';
 
 export class PlannerRouteLayerMock extends PlannerRouteLayer {
-  private legs: Map<string, PlanLeg> = Map();
+  private legs: Map<string, PlanLeg> = Map<string, PlanLeg>();
 
   addPlanLeg(leg: PlanLeg): void {
     this.legs = this.legs.set(leg.featureId, leg);

@@ -10,7 +10,7 @@ export class SurveyDateValues {
   ) {}
 
   static from(surveyDateInfo: SurveyDateInfo): SurveyDateValues {
-    const pipe = new DayPipe();
+    const pipe = new DayPipe('en');
     return new SurveyDateValues(
       pipe.transform(surveyDateInfo.lastMonthStart),
       pipe.transform(surveyDateInfo.lastHalfYearStart),

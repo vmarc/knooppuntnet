@@ -9,11 +9,11 @@ export class DistancePipe implements PipeTransform {
       return `-`;
     }
     if (meters < 1000) {
-      return `${meters}m`;
+      return `${meters} m`;
     }
     if (meters < 9950) {
-      return `${+(meters / 1000).toFixed(1)}km`.replace('.', ',');
+      return `${+(meters / 1000).toFixed(1)} km`.replace('.', ',');
     }
-    return `${+(meters / 1000).toFixed()}km`;
+    return `${+(meters / 1000).toFixed()} km`;
   }
 }

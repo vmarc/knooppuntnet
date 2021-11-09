@@ -155,6 +155,7 @@ import { NetworkRoutesService } from './network-routes.service';
       }
 
       .distance {
+        white-space: nowrap;
         text-align: right;
         width: 100%;
       }
