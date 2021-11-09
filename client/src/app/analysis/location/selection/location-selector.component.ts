@@ -44,6 +44,13 @@ import { LocationOption } from './location-option';
       >
         Please make a selection in the field above
       </p>
+      <p
+        *ngIf="warningSelectionInvalid"
+        class="warning"
+        i18n="@@location.selector.warning-selection-invalid"
+      >
+        Please select a value from the list
+      </p>
       <button
         mat-stroked-button
         (submit)="select()"
@@ -78,6 +85,7 @@ export class LocationSelectorComponent implements OnInit {
   @Output() selection = new EventEmitter<string>();
 
   warningSelectionMandatory = false;
+  warningSelectionInvalid = false;
   options: LocationOption[] = [];
   locationInputControl = new FormControl();
   filteredOptions: Observable<LocationOption[]>;
@@ -100,10 +108,22 @@ export class LocationSelectorComponent implements OnInit {
 
   select(): void {
     if (this.locationInputControl.value) {
-      this.selection.emit(this.locationInputControl.value.locationName);
-      this.warningSelectionMandatory = false;
+      const selection = this.locationInputControl.value.locationName;
+      if (
+        this.options.filter(
+          (locationOption) => locationOption.locationName === selection
+        ).length > 0
+      ) {
+        this.selection.emit(selection);
+        this.warningSelectionMandatory = false;
+        this.warningSelectionInvalid = false;
+      } else {
+        this.warningSelectionMandatory = false;
+        this.warningSelectionInvalid = true;
+      }
     } else {
       this.warningSelectionMandatory = true;
+      this.warningSelectionInvalid = false;
     }
   }
 
