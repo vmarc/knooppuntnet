@@ -4,7 +4,7 @@ import { InterpretedTags } from './interpreted-tags';
 
 describe('TagFilter', () => {
   it('empty', () => {
-    const filter = InterpretedTags.networkTags(new Tags([]));
+    const filter = InterpretedTags.networkTags({ tags: [] });
     expect(filter.isEmpty()).toEqual(true);
     expect(filter.hasStandardTags()).toEqual(false);
     expect(filter.hasExtraTags()).toEqual(false);
@@ -13,25 +13,27 @@ describe('TagFilter', () => {
   });
 
   it('tags are filtered out and sorted', () => {
-    const unfiltered = new Tags([
-      new Tag('c', '6'),
-      new Tag('name', '3'),
-      new Tag('b', '5'),
-      new Tag('type', '2'),
-      new Tag('a', '4'),
-      new Tag('network', '1'),
-    ]);
+    const unfiltered: Tags = {
+      tags: [
+        { key: 'c', value: '6' },
+        { key: 'name', value: '3' },
+        { key: 'b', value: '5' },
+        { key: 'type', value: '2' },
+        { key: 'a', value: '4' },
+        { key: 'network', value: '1' },
+      ],
+    };
 
-    const expectedStandardTags = [
-      new Tag('network', '1'),
-      new Tag('type', '2'),
-      new Tag('name', '3'),
+    const expectedStandardTags: Tag[] = [
+      { key: 'network', value: '1' },
+      { key: 'type', value: '2' },
+      { key: 'name', value: '3' },
     ];
 
-    const expectedExtraTags = [
-      new Tag('a', '4'),
-      new Tag('b', '5'),
-      new Tag('c', '6'),
+    const expectedExtraTags: Tag[] = [
+      { key: 'a', value: '4' },
+      { key: 'b', value: '5' },
+      { key: 'c', value: '6' },
     ];
 
     const filter = InterpretedTags.networkTags(unfiltered);

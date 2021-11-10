@@ -11,10 +11,10 @@ describe('TimestampFilter', () => {
     kind: TimestampFilterKind
   ): TimestampFilter<Timestamp> => {
     const timeInfo: TimeInfo = {
-      now: new Timestamp(2020, 5, 7, 0, 0, 0),
-      lastWeekStart: new Timestamp(2020, 5, 1, 0, 0, 0),
-      lastMonthStart: new Timestamp(2020, 4, 7, 0, 0, 0),
-      lastYearStart: new Timestamp(2019, 5, 7, 0, 0, 0),
+      now: '2020-05-07 00:00:00',
+      lastWeekStart: '2020-05-01 00:00:00',
+      lastMonthStart: '2020-04-07 00:00:00',
+      lastYearStart: '2019-05-07 00:00:00',
     };
 
     return new TimestampFilter(
@@ -32,11 +32,11 @@ describe('TimestampFilter', () => {
   it('last week', () => {
     const filter = buildFilter(TimestampFilterKind.lastWeek);
 
-    expect(filter.passes(new Timestamp(2020, 5, 6, 0, 0, 0))).toBeTruthy();
-    expect(filter.passes(new Timestamp(2020, 4, 1, 0, 0, 0))).toBeFalsy();
+    expect(filter.passes('2020-05-06 00:00:00')).toBeTruthy();
+    expect(filter.passes('2020-04-01 00:00:00')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Timestamp(2020, 5, 6, 0, 0, 0),
+      '2020-05-06 00:00:00',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(1); // last week
@@ -48,12 +48,12 @@ describe('TimestampFilter', () => {
   it('last month', () => {
     const filter = buildFilter(TimestampFilterKind.lastMonth);
 
-    expect(filter.passes(new Timestamp(2020, 5, 2, 0, 0, 0))).toBeFalsy();
-    expect(filter.passes(new Timestamp(2020, 4, 8, 0, 0, 0))).toBeTruthy();
-    expect(filter.passes(new Timestamp(2020, 4, 6, 0, 0, 0))).toBeFalsy();
+    expect(filter.passes('2020-05-02 00:00:00')).toBeFalsy();
+    expect(filter.passes('2020-04-08 00:00:00')).toBeTruthy();
+    expect(filter.passes('2020-04-06 00:00:00')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Timestamp(2020, 4, 8, 0, 0, 0),
+      '2020-04-08 00:00:00',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // last week
@@ -65,12 +65,12 @@ describe('TimestampFilter', () => {
   it('last year', () => {
     const filter = buildFilter(TimestampFilterKind.lastYear);
 
-    expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeFalsy();
-    expect(filter.passes(new Timestamp(2019, 5, 8, 0, 0, 0))).toBeTruthy();
-    expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeFalsy();
+    expect(filter.passes('2019-05-06 00:00:00')).toBeFalsy();
+    expect(filter.passes('2019-05-08 00:00:00')).toBeTruthy();
+    expect(filter.passes('2019-05-06 00:00:00')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Timestamp(2019, 5, 8, 0, 0, 0),
+      '2019-05-08 00:00:00',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // last week
@@ -82,11 +82,11 @@ describe('TimestampFilter', () => {
   it('older', () => {
     const filter = buildFilter(TimestampFilterKind.older);
 
-    expect(filter.passes(new Timestamp(2019, 5, 6, 0, 0, 0))).toBeTruthy();
-    expect(filter.passes(new Timestamp(2019, 5, 8, 0, 0, 0))).toBeFalsy();
+    expect(filter.passes('2019-05-06 00:00:00')).toBeTruthy();
+    expect(filter.passes('2019-05-08 00:00:00')).toBeFalsy();
 
     const filterOptionGroup = filter.filterOptions(new Filters(), [
-      new Timestamp(2019, 5, 6, 0, 0, 0),
+      '2019-05-06 00:00:00',
     ]);
     expect(filterOptionGroup.options.get(0).count).toEqual(1); // all
     expect(filterOptionGroup.options.get(1).count).toEqual(0); // last week

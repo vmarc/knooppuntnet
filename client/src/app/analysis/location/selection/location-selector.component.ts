@@ -5,6 +5,7 @@ import { LocationNode } from '@api/common/location/location-node';
 import { Country } from '@api/custom/country';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Util } from '../../../components/shared/util';
 import { LocationOption } from './location-option';
 
 @Component({
@@ -43,6 +44,13 @@ import { LocationOption } from './location-option';
       >
         Please make a selection in the field above
       </p>
+      <p
+        *ngIf="warningSelectionInvalid"
+        class="warning"
+        i18n="@@location.selector.warning-selection-invalid"
+      >
+        Please select a value from the list
+      </p>
       <button
         mat-stroked-button
         (submit)="select()"
@@ -77,6 +85,7 @@ export class LocationSelectorComponent implements OnInit {
   @Output() selection = new EventEmitter<string>();
 
   warningSelectionMandatory = false;
+  warningSelectionInvalid = false;
   options: LocationOption[] = [];
   locationInputControl = new FormControl();
   filteredOptions: Observable<LocationOption[]>;
@@ -99,10 +108,22 @@ export class LocationSelectorComponent implements OnInit {
 
   select(): void {
     if (this.locationInputControl.value) {
-      this.selection.emit(this.locationInputControl.value.locationName);
-      this.warningSelectionMandatory = false;
+      const selection = this.locationInputControl.value.locationName;
+      if (
+        this.options.filter(
+          (locationOption) => locationOption.locationName === selection
+        ).length > 0
+      ) {
+        this.selection.emit(selection);
+        this.warningSelectionMandatory = false;
+        this.warningSelectionInvalid = false;
+      } else {
+        this.warningSelectionMandatory = false;
+        this.warningSelectionInvalid = true;
+      }
     } else {
       this.warningSelectionMandatory = true;
+      this.warningSelectionInvalid = false;
     }
   }
 
@@ -114,21 +135,33 @@ export class LocationSelectorComponent implements OnInit {
     return locationOption ? locationOption.locationName : undefined;
   }
 
-  private _filter(value: string): LocationOption[] {
-    const filterValue = value.toLowerCase();
+  private _filter(filterValue: string): LocationOption[] {
+    const normalizedFilterValue = Util.normalize(filterValue);
     return this.options.filter(
-      (option) => option.locationName.toLowerCase().indexOf(filterValue) >= 0
+      (option) =>
+        option.normalizedLocationName.indexOf(normalizedFilterValue) >= 0
     );
   }
 
   private toOptions(location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    locationOptions.push(new LocationOption(location.name, location.nodeCount));
-    location.children.forEach((child) => {
-      const childLocationOptions = this.toOptions(child);
-      childLocationOptions.forEach((loc) => locationOptions.push(loc));
-    });
-    locationOptions.sort((a, b) => (a.locationName > b.locationName ? 1 : -1));
+    if (location.nodeCount > 0) {
+      const normalizedLocationName = Util.normalize(location.name);
+      locationOptions.push(
+        new LocationOption(
+          location.name,
+          normalizedLocationName,
+          location.nodeCount
+        )
+      );
+      location.children.forEach((child) => {
+        const childLocationOptions = this.toOptions(child);
+        childLocationOptions.forEach((loc) => locationOptions.push(loc));
+      });
+      locationOptions.sort((a, b) =>
+        a.locationName > b.locationName ? 1 : -1
+      );
+    }
     return locationOptions;
   }
 }

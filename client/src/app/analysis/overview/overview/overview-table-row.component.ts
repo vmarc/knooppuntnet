@@ -11,7 +11,7 @@ import { Stat } from '../domain/stat';
       {{ stat.configuration.name }}
     </td>
     <td class="value-cell">
-      {{ total() }}
+      {{ total() | statistic }}
     </td>
     <td class="value-cell" *ngFor="let subset of subsets()">
       <kpn-overview-value [stat]="stat" [subset]="subset"></kpn-overview-value>
@@ -38,6 +38,11 @@ import { Stat } from '../domain/stat';
 
       ::ng-deep .comment-cell p:last-child {
         margin-bottom: 0;
+      }
+
+      .value-cell {
+        white-space: nowrap;
+        text-align: right;
       }
     `,
   ],

@@ -2,6 +2,7 @@ import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { NetworkType } from '@api/custom/network-type';
 import { List } from 'immutable';
+import { Subject } from 'rxjs';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
@@ -22,6 +23,7 @@ export class PlannerTestSetup {
   readonly elasticBand = new PlannerElasticBandMock();
   readonly highlighter = new PlannerHighlighterMock();
   readonly legRepository = new PlannerLegRepositoryMock();
+  readonly planProposed$ = new Subject<boolean>();
 
   readonly context = new PlannerContext(
     this.routeLayer,
@@ -30,7 +32,8 @@ export class PlannerTestSetup {
     this.elasticBand,
     this.highlighter,
     this.legRepository,
-    null
+    null,
+    this.planProposed$
   );
 
   readonly node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 1]);

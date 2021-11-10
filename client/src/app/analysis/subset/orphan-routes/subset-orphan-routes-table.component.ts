@@ -73,7 +73,9 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
         >
           Distance
         </th>
-        <td mat-cell *matCellDef="let route">{{ route.meters }}m</td>
+        <td mat-cell *matCellDef="let route" class="distance">
+          {{ route.meters | integer }} m
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
@@ -123,6 +125,11 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 
       td.mat-cell:first-of-type {
         padding-left: 10px;
+      }
+
+      .distance {
+        white-space: nowrap;
+        text-align: right !important;
       }
     `,
   ],

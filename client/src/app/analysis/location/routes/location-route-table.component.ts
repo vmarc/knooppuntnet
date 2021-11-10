@@ -77,12 +77,8 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         >
           Distance
         </th>
-        <td
-          mat-cell
-          *matCellDef="let route"
-          i18n="@@location-routes.table.distance.value"
-        >
-          {{ route.meters }}m
+        <td mat-cell *matCellDef="let route" class="distance">
+          {{ route.meters | integer }} m
         </td>
       </ng-container>
 
@@ -94,9 +90,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         >
           Survey
         </th>
-        <td mat-cell *matCellDef="let route">
-          {{ route.lastSurvey | day }}
-        </td>
+        <td mat-cell *matCellDef="let route">{{ route.lastSurvey | day }}</td>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
@@ -134,6 +128,11 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
     `
       .mat-column-nr {
         width: 4em;
+      }
+
+      .distance {
+        white-space: nowrap;
+        text-align: right !important;
       }
     `,
   ],

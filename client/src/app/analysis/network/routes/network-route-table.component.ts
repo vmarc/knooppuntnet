@@ -86,8 +86,8 @@ import { NetworkRoutesService } from './network-routes.service';
         >
           Distance
         </th>
-        <td mat-cell *matCellDef="let route">
-          {{ route.length + 'm' }}
+        <td mat-cell *matCellDef="let route" class="distance">
+          {{ route.length | integer }} m
         </td>
       </ng-container>
 
@@ -152,6 +152,11 @@ import { NetworkRoutesService } from './network-routes.service';
     `
       .mat-column-nr {
         width: 3rem;
+      }
+
+      .distance {
+        white-space: nowrap;
+        text-align: right !important;
       }
     `,
   ],

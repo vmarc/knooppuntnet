@@ -195,6 +195,13 @@ export class Util {
     return null;
   }
 
+  static normalize(value: string): string {
+    return value
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '');
+  }
+
   private static format(level: number): string {
     const integer = Math.floor(level);
     return (integer + 1000).toString().substr(1, 3);

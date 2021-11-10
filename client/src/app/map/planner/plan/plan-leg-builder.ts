@@ -87,6 +87,6 @@ export class PlanLegBuilder {
       latitude: routeLegNode.lat,
       longitude: routeLegNode.lon,
     };
-    return PlanUtil.planNode(nodeId, nodeName, latLon);
+    return PlanUtil.planNode(nodeId, nodeName, null, latLon);
   }
 }

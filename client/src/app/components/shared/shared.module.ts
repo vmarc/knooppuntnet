@@ -19,6 +19,8 @@ import { ErrorComponent } from './error/error.component';
 import { DayPipe } from './format/day.pipe';
 import { DistancePipe } from './format/distance.pipe';
 import { IntegerFormatPipe } from './format/integer-format.pipe';
+import { StatisticPipe } from './format/statistic.pipe';
+import { TimestampDayPipe } from './format/timestamp-day.pipe';
 import { TimestampPipe } from './format/timestamp-pipe';
 import { IconButtonComponent } from './icon/icon-button.component';
 import { IconButtonsComponent } from './icon/icon-buttons.component';
@@ -65,10 +67,10 @@ import { TimeoutComponent } from './link/timeout.component';
 import { PageMenuOptionComponent } from './menu/page-menu-option.component';
 import { PageMenuComponent } from './menu/page-menu.component';
 import { MetaDataComponent } from './meta-data.component';
+import { NetworkScopeNameComponent } from './network-scope-name.component';
 import { NetworkTypeIconComponent } from './network-type-icon.component';
 import { NetworkTypeNameComponent } from './network-type-name.component';
 import { NetworkTypeComponent } from './network-type.component';
-import { NetworkScopeNameComponent } from './network-scope-name.component';
 import { PageExperimentalComponent } from './page/page-experimental.component';
 import { PageFooterComponent } from './page/page-footer.component';
 import { PageHeaderComponent } from './page/page-header.component';
@@ -160,11 +162,13 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
+    StatisticPipe,
     BracketsComponent,
     DayPipe,
     DistancePipe,
     TimestampPipe,
     TimeoutComponent,
+    TimestampDayPipe,
     DialogComponent,
     WarningDialogComponent,
     ErrorComponent,
@@ -235,11 +239,13 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
+    StatisticPipe,
     BracketsComponent,
     DayPipe,
     DistancePipe,
     DialogComponent,
     TimestampPipe,
+    TimestampDayPipe,
     WarningDialogComponent,
     ErrorComponent,
     IntegrityIndicatorComponent,

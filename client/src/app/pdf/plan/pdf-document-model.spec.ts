@@ -9,7 +9,9 @@ describe('PdfDocumentModel', () => {
       const nodeName = (i + 1).toString();
       const distance = i === nodeCount - 1 ? 'END' : '10 m';
       const cumulativeDistance = i === 0 ? 'START' : `${i * 10} m`;
-      nodes.push(new PdfPlanNode(nodeName, distance, cumulativeDistance));
+      nodes.push(
+        new PdfPlanNode(nodeName, distance, cumulativeDistance, '', '', false)
+      );
     }
     return new PdfDocumentModel(List(nodes));
   };

@@ -12,6 +12,48 @@ export class TimestampUtil {
     return '';
   }
 
+  static year(timestamp: Timestamp): string {
+    if (timestamp) {
+      return timestamp.substr(0, 4);
+    }
+    return '';
+  }
+
+  static month(timestamp: Timestamp): string {
+    if (timestamp) {
+      return timestamp.substr(5, 2);
+    }
+    return '';
+  }
+
+  static dayPart(timestamp: Timestamp): string {
+    if (timestamp) {
+      return timestamp.substr(8, 2);
+    }
+    return '';
+  }
+
+  static hour(timestamp: Timestamp): string {
+    if (timestamp) {
+      return timestamp.substr(11, 2);
+    }
+    return '';
+  }
+
+  static minute(timestamp: Timestamp): string {
+    if (timestamp) {
+      return timestamp.substr(14, 2);
+    }
+    return '';
+  }
+
+  static second(timestamp: Timestamp): string {
+    if (timestamp) {
+      return timestamp.substr(17, 2);
+    }
+    return '';
+  }
+
   // youngerThan(timestamp1: Timestamp, other: Timestamp): boolean {
   //   if (timestamp1.year > other.year) {
   //     return true;
