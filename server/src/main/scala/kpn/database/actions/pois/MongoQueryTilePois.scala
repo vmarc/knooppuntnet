@@ -1,22 +1,41 @@
 package kpn.database.actions.pois
 
-import kpn.database.actions.pois.MongoQueryTilePois.log
-import kpn.database.actions.pois.MongoQueryTilePois.pipelineString
-import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
+import kpn.database.actions.pois.MongoQueryTilePois.log
+import kpn.database.base.Database
+import kpn.database.base.MongoQuery
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.unwind
+import org.mongodb.scala.model.Filters.in
+import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
 object MongoQueryTilePois extends MongoQuery {
   private val log = Log(classOf[MongoQueryTilePois])
-  private val pipelineString = readPipelineString("pipeline")
 }
 
 class MongoQueryTilePois(database: Database) {
   def execute(tileName: String): Seq[PoiInfo] = {
     log.debugElapsed {
-      val args = Map("@tileName" -> tileName)
-      val poiInfos = database.pois.stringPipelineAggregate[PoiInfo](pipelineString, args, log)
+      val pipeline = Seq(
+        filter(in("tiles", tileName)),
+        unwind("$layers"),
+        project(
+          fields(
+            excludeId(),
+            include("elementType"),
+            include("elementId"),
+            include("latitude"),
+            include("longitude"),
+            computed("layer", "$layers")
+          )
+        )
+      )
+      val poiInfos = database.pois.aggregate[PoiInfo](pipeline, log)
       (s"poiInfos: ${poiInfos.size}", poiInfos)
     }
   }
