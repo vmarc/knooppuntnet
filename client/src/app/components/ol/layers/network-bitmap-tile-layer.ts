@@ -13,7 +13,7 @@ export class NetworkBitmapTileLayer {
         source: new XYZ({
           minZoom: ZoomLevel.bitmapTileMinZoom,
           maxZoom: ZoomLevel.bitmapTileMaxZoom,
-          url: `/tiles/${networkType}/${mapType}/{z}/{x}/{y}.png`,
+          url: `/tiles-experimental/${networkType}/${mapType}/{z}/{x}/{y}.png`,
         }),
       })
     );

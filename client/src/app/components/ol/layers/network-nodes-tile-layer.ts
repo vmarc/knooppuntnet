@@ -57,7 +57,7 @@ export class NetworkNodesTileLayer {
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: `/tiles/${networkType}/analysis/{z}/{x}/{y}.png`,
+        url: `/tiles-experimental/${networkType}/analysis/{z}/{x}/{y}.png`,
       }),
     });
   }
@@ -68,7 +68,7 @@ export class NetworkNodesTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom - 1,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: '/tiles/' + networkType + '/{z}/{x}/{y}.mvt',
+      url: '/tiles-experimental/' + networkType + '/{z}/{x}/{y}.mvt',
     });
 
     return new VectorTileLayer({
