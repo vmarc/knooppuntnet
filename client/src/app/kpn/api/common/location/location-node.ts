@@ -2,6 +2,7 @@
 
 export interface LocationNode {
   readonly name: string;
+  readonly localName: string;
   readonly nodeCount: number;
   readonly children: LocationNode[];
 }

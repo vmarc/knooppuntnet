@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.Language
 import kpn.api.common.location.LocationNode
 import kpn.api.common.location.LocationsPage
 import kpn.api.custom.Country
@@ -18,11 +19,11 @@ class LocationsPageBuilderImpl(
 
   private val log = Log(classOf[LocationsPageBuilderImpl])
 
-  override def build(networkType: NetworkType, country: Country): Option[LocationsPage] = {
+  override def build(language: Language, networkType: NetworkType, country: Country): Option[LocationsPage] = {
     val locationNode = locationConfiguration.locations.find(_.name == country.domain) match {
       case Some(locationDefinition) =>
         val nodeCounts = locationRepository.countryLocations(networkType, country).map(l => l.name -> l.count).toMap
-        Some(toLocationNode(nodeCounts, locationDefinition))
+        Some(toLocationNode(language, nodeCounts, locationDefinition))
       case None =>
         log.error(s"No locations found for country ${country.domain}")
         None
@@ -32,11 +33,23 @@ class LocationsPageBuilderImpl(
     )
   }
 
-  private def toLocationNode(nodeCounts: Map[String, Long], locationDefinition: LocationDefinition): LocationNode = {
-    val name = locationDefinition.name // TODO get name that corresponds to requested language
-    val count = nodeCounts.getOrElse(locationDefinition.name, 0L)
-    val children = locationDefinition.children.map(ld => toLocationNode(nodeCounts, ld))
-    LocationNode(name, count, children)
-  }
+  private def toLocationNode(language: Language, nodeCounts: Map[String, Long], locationDefinition: LocationDefinition): LocationNode = {
+    val name = locationDefinition.name
+    val localName = {
+      locationDefinition.locationNames.get(language) match {
+        case None => None
+        case Some(localLocationName) =>
+          if (localLocationName != name) {
+            Some(localLocationName)
+          }
+          else {
+            None
+          }
+      }
+    }
 
+    val count = nodeCounts.getOrElse(locationDefinition.name, 0L)
+    val children = locationDefinition.children.map(ld => toLocationNode(language, nodeCounts, ld))
+    LocationNode(name, localName, count, children)
+  }
 }

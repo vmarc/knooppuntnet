@@ -53,10 +53,14 @@ class LocationDefinitionReader(root: String, country: Country) {
   }
 
   private def parseLocationNames(locationJson: LocationJson): Map[Language, String] = {
-    val name = locationJson.properties.name
+    val nameKey = locationJson.properties.name
     Languages.all.flatMap { language =>
       val key = "name:" + language.toString.toLowerCase
-      locationJson.properties.all_tags.get(key).filter(_ != name).map(value => language -> value)
+      val languageNameOption = locationJson.properties.all_tags.get(key) match {
+        case None => locationJson.properties.all_tags.get("name")
+        case Some(tagValue) => Some(tagValue)
+      }
+      languageNameOption.filter(_ != nameKey).map(value => language -> value)
     }.toMap
   }
 

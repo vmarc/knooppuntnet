@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import kpn.api.common.Language
 import kpn.api.common.NodeName
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
@@ -37,6 +38,9 @@ object Json {
 
     b.deserializerByType(classOf[Fact], new FactJsonDeserializer())
     b.serializerByType(classOf[Fact], new FactJsonSerializer())
+
+    b.deserializerByType(classOf[Language], new LanguageJsonDeserializer())
+    b.serializerByType(classOf[Language], new LanguageJsonSerializer())
 
     b.deserializerByType(classOf[NetworkType], new NetworkTypeJsonDeserializer())
     b.serializerByType(classOf[NetworkType], new NetworkTypeJsonSerializer())

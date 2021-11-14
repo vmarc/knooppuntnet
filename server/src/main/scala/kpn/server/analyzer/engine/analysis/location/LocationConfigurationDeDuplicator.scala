@@ -1,12 +1,15 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.api.common.Language
+import kpn.api.common.NL
+
 class LocationConfigurationDeDuplicator {
 
   private val alternatives: Map[String, String] = Map(
     // The Netherlands
     "nl/3/Netherlands" -> "nl",
-    "nl/4/Utrecht" -> "Utrecht provincie",
-    "nl/4/Groningen" -> "Groningen provincie",
+    "nl/4/Utrecht" -> "Utrecht province",
+    "nl/4/Groningen" -> "Groningen province",
     // Belgium
     "be/2/Belgium" -> "be",
     "be/7/Charleroi" -> "Charleroi arrondissement",
@@ -91,9 +94,34 @@ class LocationConfigurationDeDuplicator {
   private def deDuplicateLocationDefinition(locationDefinition: LocationDefinition): LocationDefinition = {
     val name = alternatives.getOrElse(locationDefinition.id, locationDefinition.name)
     val children = locationDefinition.children.map(deDuplicateLocationDefinition)
-    locationDefinition.copy(
-      name = name,
-      children = children
-    )
+
+    val postfixOption = if (name.endsWith(" province")) {
+      Some(" province")
+    }
+    else if (name.endsWith(" arrondissement")) {
+      Some(" arrondissement")
+    }
+    else Some(" Bundesland").filter(name.endsWith)
+
+    val locationNames: Map[Language, String] = postfixOption match {
+      case None => locationDefinition.locationNames
+      case Some(postfix) =>
+        locationDefinition.locationNames.map { case (language, localName) =>
+          val updatedName = if (postfix == " province" && language == NL) {
+            localName + " provincie"
+          }
+          else {
+            localName + postfix
+          }
+          language -> updatedName
+        }
+    }
+
+    locationDefinition
+      .copy(
+        name = name,
+        locationNames = locationNames,
+        children = children
+      )
   }
 }

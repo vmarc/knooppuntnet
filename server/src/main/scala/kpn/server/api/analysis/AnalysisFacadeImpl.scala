@@ -1,6 +1,7 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
+import kpn.api.common.Language
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -37,7 +38,6 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
-import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Statistics
 import kpn.api.custom.Subset
@@ -256,9 +256,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
+  override def locations(user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
     api.execute(user, "location", networkType.name) {
-      reply(locationsPageBuilder.build(networkType, country))
+      reply(locationsPageBuilder.build(language, networkType, country))
     }
   }
 

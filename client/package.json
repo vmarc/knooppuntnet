@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "3.2.18",
+  "version": "3.2.19",
   "license": "MIT",
   "scripts": {
     "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --proxy-config src/proxy-dev.conf.js",
@@ -9,9 +9,9 @@
     "test": "ng test",
     "lint": "node --max_old_space_size=8192 ./node_modules/.bin/ng lint",
     "extract-i18n": "ng extract-i18n --ivy --output-path src/locale && xliffmerge --profile xliffmerge.json",
-    "start:nl": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=nl --proxy-config src/proxy.conf.js",
-    "start:de": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=de --proxy-config src/proxy.conf.js",
-    "start:fr": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=fr --proxy-config src/proxy.conf.js",
+    "start:nl": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=nl --proxy-config src/proxy-dev.conf.js",
+    "start:de": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=de --proxy-config src/proxy-dev.conf.js",
+    "start:fr": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --configuration=fr --proxy-config src/proxy-dev.conf.js",
     "test-no-watch": "ng test --single-run",
     "buildstats": "rm -rf ./dist/*; node --max_old_space_size=3092 ./node_modules/.bin/ng build --prod --build-optimizer --stats-json",
     "analyze": "webpack-bundle-analyzer dist/knooppuntnet/en/stats.json",
