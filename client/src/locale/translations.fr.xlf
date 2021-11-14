@@ -870,9 +870,9 @@
       value that is frequently found, but not actually documented as a valid
       value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
       *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline*skates&quot;*.</source>
-        <target>Valeur non valide dans la balise requise _&quot;route&quot;_ dans la relation de route. 
+        <target>Valeur non valide dans la balise requise _&quot;route&quot;_ dans la relation de route.
 
-Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;vélo&quot;_ dans sa clé _&quot;itinéraire&quot;_. 
+Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;vélo&quot;_ dans sa clé _&quot;itinéraire&quot;_.
 
 Une relation d&apos;itinéraire de randonnée doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM.</target>
         <context-group purpose="location">
@@ -954,7 +954,7 @@ Une relation d&apos;itinéraire de randonnée doit avoir l&apos;une des valeurs 
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *&quot;fixme&quot;* with value *&quot;incomplete&quot;* in the route relation. But after analysis, the route seems to be ok.</source>
-        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire. 
+        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire.
 
 Mais après analyse, l&apos;itinéraire semble correct.</target>
         <context-group purpose="location">
@@ -7462,7 +7462,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="node.initial-value" datatype="html">
         <source>Oldest known state of node (at date of <x ctype="x-a" equiv-text="&lt;a           class=&quot;external&quot;           href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;           target=&quot;_blank&quot;           rel=&quot;nofollow noreferrer&quot;           &gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a         &gt;" id="CLOSE_LINK"/>).</source>
-        <target>Dernier état connu du nœud (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
+        <target>Dernier état connu du nœud</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/node-change.component.ts</context>
           <context context-type="linenumber">60,25</context>
@@ -7470,7 +7470,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="route-change.initial-value" datatype="html">
         <source>Oldest known state of route (at date of <x ctype="x-a" equiv-text="&lt;a           class=&quot;external&quot;           href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;           target=&quot;_blank&quot;           rel=&quot;nofollow noreferrer&quot;           &gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a         &gt;" id="CLOSE_LINK"/>).</source>
-        <target>Dernier état connu de l&apos;itinéraire (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
+        <target>Dernier état connu de l&apos;itinéraire</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/route-change.component.ts</context>
           <context context-type="linenumber">60,25</context>
@@ -7478,7 +7478,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="network-changes.network-initial-value" datatype="html">
         <source>Oldest known state of network (at date of <x ctype="x-a" equiv-text="&lt;a           class=&quot;external&quot;           href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;           target=&quot;_blank&quot;           rel=&quot;nofollow noreferrer&quot;           &gt;" id="START_LINK"/>license change<x ctype="x-a" equiv-text="&lt;/a         &gt;" id="CLOSE_LINK"/>).</source>
-        <target>Dernier état connu du réseau (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
+        <target>Dernier état connu du réseau </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">201,25</context>

@@ -1,4 +1,6 @@
 import { HttpClient } from '@angular/common/http';
+import { LOCALE_ID } from '@angular/core';
+import { Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ChangesPage } from '@api/common/changes-page';
 import { ChangeSetPage } from '@api/common/changes/change-set-page';
@@ -57,7 +59,11 @@ import { timeout } from 'rxjs/operators';
 
 @Injectable()
 export class AppService {
-  constructor(private http: HttpClient, markdownService: MarkdownService) {
+  constructor(
+    @Inject(LOCALE_ID) public locale: string,
+    private http: HttpClient,
+    markdownService: MarkdownService
+  ) {
     markdownService.renderer.link = (
       href: string,
       title: string,
@@ -250,7 +256,7 @@ export class AppService {
     networkType: NetworkType,
     country: Country
   ): Observable<ApiResponse<LocationsPage>> {
-    const url = `/api/locations/${networkType}/${country}`;
+    const url = `/api/locations/${this.locale}/${networkType}/${country}`;
     return this.http.get(url);
   }
 

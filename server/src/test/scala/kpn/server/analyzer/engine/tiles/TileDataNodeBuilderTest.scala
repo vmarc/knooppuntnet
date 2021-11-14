@@ -305,6 +305,20 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
     tileDataNode.surveyDate should equal(Some(Day(2020, 8, Some(11))))
   }
 
+  test("rwn_ref and rcn_ref") {
+
+    val node = newNodeDoc(
+      id = 1001,
+      tags = Tags.from(
+        "rwn_ref" -> "01",
+        "rcn_ref" -> "02"
+      )
+    )
+
+    pending
+    tileDataNodeBuilder.build(NetworkType.hiking, null /*node*/).flatMap(_.ref) should equal(Some("01"))
+    tileDataNodeBuilder.build(NetworkType.cycling, null /*node*/).flatMap(_.ref) should equal(Some("02"))
+  }
 
   private def buildTileDataNode(node: NodeDoc): TileDataNode = {
     pending

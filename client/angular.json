@@ -104,10 +104,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "outputPath": "dist/kpn-nl/",
-              "i18nFile": "src/locale/translations.nl.xlf",
-              "i18nLocale": "nl",
-              "i18nMissingTranslation": "error"
+              "outputPath": "dist/kpn-nl/"
             },
             "fr": {
               "budgets": [
@@ -116,10 +113,8 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "outputPath": "dist/kpn-fr/",
-              "i18nFile": "src/locale/translations.fr.xlf",
-              "i18nLocale": "fr",
-              "i18nMissingTranslation": "error"
+              "localize": ["fr"],
+              "outputPath": "dist/kpn-fr/"
             },
             "de": {
               "budgets": [
@@ -128,10 +123,7 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "outputPath": "dist/kpn-de/",
-              "i18nFile": "src/locale/translations.de.xlf",
-              "i18nLocale": "de",
-              "i18nMissingTranslation": "error"
+              "outputPath": "dist/kpn-de/"
             }
           },
           "defaultConfiguration": ""

@@ -1,6 +1,7 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
+import kpn.api.common.Language
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -89,7 +90,7 @@ trait AnalysisFacade {
 
   def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage]
 
-  def locations(user: Option[String], networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
+  def locations(user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 
   def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
 

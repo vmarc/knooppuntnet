@@ -1,6 +1,8 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.ChangesPage
+import kpn.api.common.EN
+import kpn.api.common.Languages
 import kpn.api.common.ReplicationId
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.ChangeSetPage
@@ -238,12 +240,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     ApiResponse(None, 1, Some(SurveyDateInfoBuilder.dateInfo))
   }
 
-  @GetMapping(value = Array("/api/locations/{networkType}/{country}"))
+  @GetMapping(value = Array("/api/locations/{language}/{networkType}/{country}"))
   def locations(
+    @PathVariable language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country
   ): ApiResponse[LocationsPage] = {
-    analysisFacade.locations(CurrentUser.name, networkType, country)
+    val lang = Languages.all.find(_.toString.toLowerCase == language).getOrElse(EN)
+    analysisFacade.locations(CurrentUser.name, lang, networkType, country)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/nodes"))

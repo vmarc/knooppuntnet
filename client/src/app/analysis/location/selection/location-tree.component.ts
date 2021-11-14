@@ -63,7 +63,7 @@ import { LocationFlatNode } from './location-flat-node';
         matTreeNodePadding
         [ngClass]="{ hidden: !all && leafNode.nodeCount === 0 }"
       >
-        <a (click)="select(leafNode.name)">{{ leafNode.name }}</a
+        <a (click)="select(leafNode.name)">{{ locationName(leafNode) }}</a
         ><span class="node-count">{{ leafNode.nodeCount }}</span>
       </mat-tree-node>
       <mat-tree-node
@@ -87,7 +87,9 @@ import { LocationFlatNode } from './location-flat-node';
             class="expand-collapse-icon"
           ></mat-icon>
         </div>
-        <a (click)="select(expandableNode.name)">{{ expandableNode.name }}</a
+        <a (click)="select(expandableNode.name)">{{
+          locationName(expandableNode)
+        }}</a
         ><span class="node-count">{{ expandableNode.nodeCount }}</span>
       </mat-tree-node>
     </mat-tree>
@@ -174,8 +176,20 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
       new LocationFlatNode(
         !!node.children && node.children.length > 0,
         node.name,
+        node.localName,
         node.nodeCount,
         level
       );
+  }
+
+  locationName(leafNode: LocationNode): string {
+    if (leafNode.name === 'Flanders') {
+      console.log(`${leafNode.name} ${leafNode.localName}`);
+    }
+
+    if (leafNode.localName) {
+      return leafNode.localName;
+    }
+    return leafNode.name;
   }
 }

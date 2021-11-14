@@ -109,12 +109,12 @@ export class LocationSelectorComponent implements OnInit {
   select(): void {
     if (this.locationInputControl.value) {
       const selection = this.locationInputControl.value.locationName;
-      if (
-        this.options.filter(
-          (locationOption) => locationOption.locationName === selection
-        ).length > 0
-      ) {
-        this.selection.emit(selection);
+      const selectedLocationOptions = this.options.filter(
+        (locationOption) => locationOption.locationName === selection
+      );
+      if (selectedLocationOptions.length > 0) {
+        const selectedLocationOption = selectedLocationOptions[0];
+        this.selection.emit(selectedLocationOption.name);
         this.warningSelectionMandatory = false;
         this.warningSelectionInvalid = false;
       } else {
@@ -146,10 +146,12 @@ export class LocationSelectorComponent implements OnInit {
   private toOptions(location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
     if (location.nodeCount > 0) {
-      const normalizedLocationName = Util.normalize(location.name);
+      const locationName = this.locationNodeName(location);
+      const normalizedLocationName = Util.normalize(locationName);
       locationOptions.push(
         new LocationOption(
           location.name,
+          locationName,
           normalizedLocationName,
           location.nodeCount
         )
@@ -163,5 +165,13 @@ export class LocationSelectorComponent implements OnInit {
       );
     }
     return locationOptions;
+  }
+
+  private locationNodeName(location: LocationNode): string {
+    let locationName = location.name;
+    if (location.localName) {
+      locationName = location.localName;
+    }
+    return locationName;
   }
 }
