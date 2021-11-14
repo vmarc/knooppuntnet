@@ -24,7 +24,7 @@ import { Ref } from '@api/common/common/ref';
         >
         </kpn-link-route-ref>
       </div>
-      <kpn-icon-investigate class="kpn-separate"></kpn-icon-investigate>
+      <kpn-icon-happy class="kpn-separate"></kpn-icon-happy>
     </div>
   `,
 })
