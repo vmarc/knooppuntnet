@@ -6,12 +6,10 @@ import kpn.database.util.Mongo
 object MongoQueryChangeSetCountsDemo {
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
-      val year: Int = 2020
-      val month: Option[Int] = Some(1)
+    Mongo.executeIn("kpn") { database =>
+      val year: Int = 2021
+      val month: Option[Int] = Some(10)
       val demo = new MongoQueryChangeSetCountsDemo(database)
-      demo.directAll()
-      demo.directAll()
       demo.directExecute(year, month)
       demo.all()
       demo.materializedExecute(year, month)
@@ -22,7 +20,7 @@ object MongoQueryChangeSetCountsDemo {
 class MongoQueryChangeSetCountsDemo(database: Database) {
 
   def materializedExecute(year: Int, month: Option[Int]): Unit = {
-    val materializedCollectionQuery = new MongoQueryChangeSetCounts(database)
+    val materializedCollectionQuery = new MongoQueryChangeSetStatsCounts(database)
     val result = materializedCollectionQuery.execute(year, month) // uses the materialized table
     println("Years")
     result.years.foreach(println)
@@ -33,12 +31,12 @@ class MongoQueryChangeSetCountsDemo(database: Database) {
   }
 
   def all(): Unit = {
-    val query = new MongoQueryChangeSetCounts(database)
+    val query = new MongoQueryChangeSetStatsCounts(database)
     query.allDays()
   }
 
   def directExecute(year: Int, month: Option[Int]): Unit = {
-    val materializedCollectionQuery = new MongoQueryChangeSetDirectCounts(database)
+    val materializedCollectionQuery = new MongoQueryChangeSetCounts(database)
     val result = materializedCollectionQuery.execute(year, month) // uses the materialized table
     println("Years")
     result.years.foreach(println)
@@ -48,10 +46,5 @@ class MongoQueryChangeSetCountsDemo(database: Database) {
       println("Days")
       result.days.foreach(println)
     }
-  }
-
-  def directAll(): Unit = {
-    val query = new MongoQueryChangeSetDirectCounts(database)
-    query.allDays()
   }
 }

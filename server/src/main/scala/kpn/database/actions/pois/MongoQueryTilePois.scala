@@ -4,7 +4,6 @@ import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryTilePois.log
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -14,7 +13,7 @@ import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-object MongoQueryTilePois extends MongoQuery {
+object MongoQueryTilePois {
   private val log = Log(classOf[MongoQueryTilePois])
 }
 

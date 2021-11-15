@@ -1,10 +1,9 @@
 package kpn.database.actions.changes
 
-import kpn.database.actions.changes.MongoQueryChangeSetDirectCounts.log
-import kpn.database.actions.changes.MongoQueryChangeSetDirectCounts.pipelineAll
-import kpn.database.actions.changes.MongoQueryChangeSetDirectCounts.pipelineDaysString
-import kpn.database.actions.changes.MongoQueryChangeSetDirectCounts.pipelineMonthsString
-import kpn.database.actions.changes.MongoQueryChangeSetDirectCounts.pipelineYears
+import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.log
+import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineAll
+import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineDaysString
+import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineMonthsString
 import kpn.database.actions.statistics.ChangeSetCount
 import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.Database
@@ -19,25 +18,20 @@ import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-object MongoQueryChangeSetDirectCounts extends MongoQuery {
-  private val log = Log(classOf[MongoQueryChangeSetDirectCounts])
+object MongoQueryChangeSetStatsCounts extends MongoQuery {
+  private val log = Log(classOf[MongoQueryChangeSetStatsCounts])
   private val pipelineYears = readPipeline("years").stages
   private val pipelineMonthsString = readPipelineString("months")
   private val pipelineDaysString = readPipelineString("days")
   private val pipelineAll = readPipeline("all").stages
 }
 
-class MongoQueryChangeSetDirectCounts(database: Database) {
-
-  def allDays(): Seq[ChangeSetCount] = {
-    log.debugElapsed {
-      val counts = database.changes.aggregate[ChangeSetCount](pipelineAll)
-      val sortedCounts = counts.sortBy(c => (c.year, c.month, c.day, c.impact))
-      (s"all days direct ${counts.size} counts", sortedCounts)
-    }
-  }
+// only use MongoQueryChangeSetCounts instead
+class MongoQueryChangeSetStatsCounts(database: Database) {
 
   def execute(year: Int, monthOption: Option[Int]): ChangeSetCounts = {
+
+    val pipelineYears = MongoQueryChangeSetStatsCounts.pipelineYears
 
     val pipelineMonths = {
       val string = pipelineMonthsString.replace("@year", s"$year")
@@ -72,10 +66,23 @@ class MongoQueryChangeSetDirectCounts(database: Database) {
     }
 
     log.debugElapsed {
-      val future = database.changes.native.aggregate[ChangeSetCounts](pipeline).allowDiskUse(true).first().toFuture()
+      val collection = database.getCollection("change-stats-summaries")
+      val future = collection.aggregate[ChangeSetCounts](pipeline).first().toFuture()
       val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
-      val result = s"executeDirectMultiPipeline: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
+      val result = s"year: $year, month: ${monthOption.getOrElse('-')}, results: years: ${counts.years.size}, months: ${counts.months.size}, days: ${counts.days.size}"
       (result, counts)
+    }
+  }
+
+  def allDays(): Seq[ChangeSetCount] = {
+    if (log.isTraceEnabled) {
+      log.trace(Mongo.pipelineString(pipelineAll))
+    }
+    log.debugElapsed {
+      val collection = database.getCollection("change-stats-summaries")
+      val future = collection.aggregate[ChangeSetCount](pipelineAll).toFuture()
+      val counts = Await.result(future, Duration(60, TimeUnit.SECONDS))
+      (s"all days materialized ${counts.size} counts", counts)
     }
   }
 }

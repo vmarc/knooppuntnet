@@ -75,6 +75,7 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
+import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -795,7 +796,7 @@ trait SharedTestObjects extends MockFactory {
   def newNetworkChange(
     key: ChangeKey = newChangeKey(),
     networkName: String = "",
-    changeType: ChangeType,
+    changeType: ChangeType = ChangeType.Update,
     networkDataUpdate: Option[NetworkDataUpdate] = None,
     nodes: IdDiffs = IdDiffs.empty,
     ways: IdDiffs = IdDiffs.empty,
@@ -1327,6 +1328,24 @@ trait SharedTestObjects extends MockFactory {
       lastUpdated
     )
   }
+
+  def newChangeSetCount(
+    year: Long,
+    month: Long = 0,
+    day: Long = 0
+  )(
+    impact: Long,
+    total: Long
+  ): ChangeSetCount2 = {
+    ChangeSetCount2(
+      year,
+      month,
+      day,
+      impact,
+      total
+    )
+  }
+
 
   private def updatedLabels(labels: Seq[String], active: Boolean): Seq[String] = {
     if (active && !labels.contains(Label.active)) {

@@ -4,7 +4,6 @@ import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryPoiElementIds.log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import kpn.database.base.MongoQuery
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
@@ -12,7 +11,7 @@ import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 
-object MongoQueryPoiElementIds extends MongoQuery {
+object MongoQueryPoiElementIds {
   private val log = Log(classOf[MongoQueryPoiElementIds])
 }
 

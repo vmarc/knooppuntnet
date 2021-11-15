@@ -3,12 +3,11 @@ package kpn.database.actions.pois
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryPoiAllTiles.log
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
 import kpn.database.base.StringId
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.unwind
 
-object MongoQueryPoiAllTiles extends MongoQuery {
+object MongoQueryPoiAllTiles {
   private val log = Log(classOf[MongoQueryPoiAllTiles])
 }
 

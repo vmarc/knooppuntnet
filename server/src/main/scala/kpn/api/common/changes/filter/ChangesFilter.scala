@@ -8,7 +8,7 @@ object ChangesFilter {
   def from(changeSetCounts: ChangeSetCounts, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
     val periods = changeSetCounts.years.map { yearChangeSetCount =>
       val monthPeriods = changeSetCounts.months.filter(_.year == yearChangeSetCount.year).map { monthChangeSetCount =>
-        val dayPeriods = changeSetCounts.days.filter(csc => csc.year == yearChangeSetCount.year && csc.month == yearChangeSetCount.month).map { dayChangeSetCount =>
+        val dayPeriods = changeSetCounts.days.filter(csc => csc.year == monthChangeSetCount.year && csc.month == monthChangeSetCount.month).map { dayChangeSetCount =>
           ChangesFilterPeriod(
             f"${dayChangeSetCount.day}%02d",
             dayChangeSetCount.total,

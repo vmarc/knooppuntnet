@@ -12,7 +12,7 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.core.common.Time
 import kpn.database.actions.changes.MongoQueryChangeSet
-import kpn.database.actions.changes.MongoQueryChangeSetDirectCounts
+import kpn.database.actions.changes.MongoQueryChangeSetCounts
 import kpn.database.actions.changes.MongoQueryChangeSetSummaries
 import kpn.database.actions.networks.MongoQueryNetworkChangeCount
 import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
@@ -107,7 +107,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
       case Some(year) => year.toInt
     }
     // TODO MONGO does not support subsetOption yet !!!
-    val changeSetCounts = new MongoQueryChangeSetDirectCounts(database).execute(year, monthOption.map(_.toInt))
+    val changeSetCounts = new MongoQueryChangeSetCounts(database).execute(year, monthOption.map(_.toInt))
     ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
   }
 
