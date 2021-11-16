@@ -13,11 +13,12 @@ class MongoQueryNetworkChangeCountsTest extends UnitTest with SharedTestObjects 
 
     withDatabase { database =>
 
-      change(database, 1, 2020, 1, 1, happy = false)
-      change(database, 2, 2021, 1, 1, happy = false)
-      change(database, 3, 2021, 1, 2, happy = false)
-      change(database, 4, 2021, 1, 3, happy = true)
-      change(database, 5, 2021, 2, 1, happy = false)
+      change(database, 1, 1, 2020, 1, 1, happy = false)
+      change(database, 2, 1, 2021, 1, 1, happy = false)
+      change(database, 3, 1, 2021, 1, 2, happy = false)
+      change(database, 4, 1, 2021, 1, 3, happy = true)
+      change(database, 5, 1, 2021, 2, 1, happy = false)
+      change(database, 6, 2, 2021, 2, 1, happy = false)
 
       val query = new MongoQueryNetworkChangeCounts(database)
 
@@ -54,14 +55,22 @@ class MongoQueryNetworkChangeCountsTest extends UnitTest with SharedTestObjects 
     }
   }
 
-  private def change(database: Database, replicationNumber: Int, year: Int, month: Int, day: Int, happy: Boolean): Unit = {
+  private def change(
+    database: Database,
+    replicationNumber: Int,
+    networkId: Long,
+    year: Int,
+    month: Int,
+    day: Int,
+    happy: Boolean
+  ): Unit = {
     database.networkInfoChanges.save(
       newNetworkInfoChange(
         key = newChangeKey(
           replicationNumber = replicationNumber,
           timestamp = Timestamp(year, month, day)
         ),
-        networkId = 1L,
+        networkId = networkId,
         happy = happy
       )
     )

@@ -13,11 +13,12 @@ class MongoQueryNodeChangeCountsTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      change(database, 1, 2020, 1, 1, happy = false)
-      change(database, 2, 2021, 1, 1, happy = false)
-      change(database, 3, 2021, 1, 2, happy = false)
-      change(database, 4, 2021, 1, 3, happy = true)
-      change(database, 5, 2021, 2, 1, happy = false)
+      change(database, 1, 1001, 2020, 1, 1, happy = false)
+      change(database, 2, 1001, 2021, 1, 1, happy = false)
+      change(database, 3, 1001, 2021, 1, 2, happy = false)
+      change(database, 4, 1001, 2021, 1, 3, happy = true)
+      change(database, 5, 1001, 2021, 2, 1, happy = false)
+      change(database, 6, 1002, 2021, 2, 1, happy = false)
 
       val query = new MongoQueryNodeChangeCounts(database)
 
@@ -54,13 +55,21 @@ class MongoQueryNodeChangeCountsTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def change(database: Database, replicationNumber: Int, year: Int, month: Int, day: Int, happy: Boolean): Unit = {
+  private def change(
+    database: Database,
+    replicationNumber: Int,
+    nodeId: Long,
+    year: Int,
+    month: Int,
+    day: Int,
+    happy: Boolean
+  ): Unit = {
     database.nodeChanges.save(
       newNodeChange(
         key = newChangeKey(
           replicationNumber = replicationNumber,
           timestamp = Timestamp(year, month, day),
-          elementId = 1001
+          elementId = nodeId
         ),
         happy = happy,
         impact = happy

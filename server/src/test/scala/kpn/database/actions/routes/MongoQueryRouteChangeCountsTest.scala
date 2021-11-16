@@ -13,11 +13,12 @@ class MongoQueryRouteChangeCountsTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      change(database, 1, 2020, 1, 1, happy = false)
-      change(database, 2, 2021, 1, 1, happy = false)
-      change(database, 3, 2021, 1, 2, happy = false)
-      change(database, 4, 2021, 1, 3, happy = true)
-      change(database, 5, 2021, 2, 1, happy = false)
+      change(database, 1, 11, 2020, 1, 1, happy = false)
+      change(database, 2, 11, 2021, 1, 1, happy = false)
+      change(database, 3, 11, 2021, 1, 2, happy = false)
+      change(database, 4, 11, 2021, 1, 3, happy = true)
+      change(database, 5, 11, 2021, 2, 1, happy = false)
+      change(database, 6, 12, 2021, 2, 1, happy = false)
 
       val query = new MongoQueryRouteChangeCounts(database)
 
@@ -54,13 +55,21 @@ class MongoQueryRouteChangeCountsTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def change(database: Database, replicationNumber: Int, year: Int, month: Int, day: Int, happy: Boolean): Unit = {
+  private def change(
+    database: Database,
+    replicationNumber: Int,
+    routeId: Long,
+    year: Int,
+    month: Int,
+    day: Int,
+    happy: Boolean
+  ): Unit = {
     database.routeChanges.save(
       newRouteChange(
         key = newChangeKey(
           replicationNumber = replicationNumber,
           timestamp = Timestamp(year, month, day),
-          elementId = 11
+          elementId = routeId
         ),
         happy = happy,
         impact = happy
