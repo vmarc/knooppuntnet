@@ -52,7 +52,7 @@ class PolygonBuilderTest extends UnitTest {
     val relations = Seq(r).map(r => r.id -> r).toMap
     val data: SkeletonData = SkeletonData(r.id, nodes, ways, relations)
 
-    val polygons = new PolygonBuilder(Country.be, data: SkeletonData).polygons()
+    val polygons = new PolygonBuilder(Country.be.domain, data: SkeletonData).polygons()
 
     polygons.size should equal(1)
     val polygon = polygons.head

@@ -8,7 +8,7 @@ import org.locationtech.jts.geom.impl.CoordinateArraySequence
 // https://wiki.openstreetmap.org/wiki/Relation:multipolygon
 // https://wiki.openstreetmap.org/wiki/Relation:multipolygon/Algorithm
 
-class PolygonBuilder(country: Country, data: SkeletonData) {
+class PolygonBuilder(element: String, data: SkeletonData) {
 
   private val factory: GeometryFactory = new GeometryFactory()
 
@@ -48,7 +48,7 @@ class PolygonBuilder(country: Country, data: SkeletonData) {
   private def log(rings: Seq[LinearRing], role: String): Unit = {
     rings.zipWithIndex.foreach { case(ring, index) =>
       val id = "%02d".format(index + 1)
-      val filename = s"/kpn/country/debug/${country.domain}-$role-$id.html"
+      val filename = s"/kpn/country/debug/$element-$role-$id.html"
       new RingWriter().write(filename, ring)
     }
   }

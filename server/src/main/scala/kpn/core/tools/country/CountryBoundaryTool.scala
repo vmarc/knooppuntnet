@@ -11,7 +11,7 @@ object CountryBoundaryTool {
   def main(args: Array[String]): Unit = {
     Country.all.foreach { country =>
       val data = load(country)
-      val polygons = new PolygonBuilder(country, data).polygons()
+      val polygons = new PolygonBuilder(country.domain, data).polygons()
       log(polygons)
       val writer = new WKTWriter()
       polygons.zipWithIndex.foreach { case (polygon, index) =>
