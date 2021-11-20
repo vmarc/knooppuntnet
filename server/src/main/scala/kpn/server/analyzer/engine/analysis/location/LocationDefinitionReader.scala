@@ -7,6 +7,7 @@ import kpn.server.json.Json
 import org.locationtech.jts.geom.Geometry
 
 import java.io.FileInputStream
+import java.io.FileReader
 import java.io.InputStreamReader
 import java.util.zip.GZIPInputStream
 
@@ -17,6 +18,11 @@ object LocationDefinitionReader {
   private case class LocationJson(properties: LocationJsonProperties, bbox: Seq[String], geometry: Geometry)
 
   private case class LocationsJson(features: Seq[LocationJson])
+
+  def read(filename: String): Geometry = {
+    val fileReader = new FileReader(filename)
+    Json.objectMapper.readValue(fileReader, classOf[LocationJson]).geometry
+  }
 }
 
 class LocationDefinitionReader(root: String, country: Country) {

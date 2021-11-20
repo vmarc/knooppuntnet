@@ -45,4 +45,7 @@ case class LocationDefinition(
     locationNames.keys.map(key => key.toString + "=" + locationNames(key)).toSeq
   }
 
+  def allChilderen(): Seq[LocationDefinition] = {
+    children ++ children.flatMap(_.allChilderen())
+  }
 }

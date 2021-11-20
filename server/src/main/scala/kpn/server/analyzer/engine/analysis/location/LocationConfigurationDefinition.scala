@@ -10,7 +10,7 @@ object LocationConfigurationDefinition {
 
   val excludedLocations = Seq(
     "nl/4/Caribbean Netherlands",
-    "fr/4/Corsica",
+    // "fr/4/Corsica",
     "es/4/Balearic Islands",
     "es/4/Canary Islands",
     "es/4/Melilla",
