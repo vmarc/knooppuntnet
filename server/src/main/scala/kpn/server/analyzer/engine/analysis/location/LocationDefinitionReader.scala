@@ -13,11 +13,11 @@ import java.util.zip.GZIPInputStream
 
 object LocationDefinitionReader {
 
-  private case class LocationJsonProperties(id: String, name: String, all_tags: Map[String, String])
+  case class LocationJsonProperties(id: String, name: String, all_tags: Map[String, String])
 
-  private case class LocationJson(properties: LocationJsonProperties, bbox: Seq[String], geometry: Geometry)
+  case class LocationJson(properties: LocationJsonProperties, bbox: Seq[String], geometry: Geometry)
 
-  private case class LocationsJson(features: Seq[LocationJson])
+  case class LocationsJson(features: Seq[LocationJson])
 
   def read(filename: String): Geometry = {
     val fileReader = new FileReader(filename)
@@ -30,25 +30,28 @@ class LocationDefinitionReader(root: String, country: Country) {
   import LocationDefinitionReader._
 
   def read(): Seq[LocationDefinition] = {
-
     val locationsJson = readLocationsJson()
+    locationsJson.features.map(toLocationDefinition)
+  }
 
-    locationsJson.features.map { locationJson =>
-      val name = locationJson.properties.name
-      val level = locationJson.properties.all_tags("admin_level").toInt
-      val id = s"${country.domain}/$level/$name"
-      val boundingBox = locationJson.geometry.getEnvelopeInternal
-      val locationNames = parseLocationNames(locationJson)
-
+  def franceCommunes(): Seq[LocationDefinition] = {
+    franceCommuneLocationJsons().map { locationJson =>
       LocationDefinition(
-        id,
-        name,
-        level,
-        locationNames,
-        boundingBox,
+        locationJson.properties.name,
+        locationJson.properties.name,
+        locationJson.properties.all_tags.getOrElse("admin_level", "0").toInt,
+        parseLocationNames(locationJson),
+        locationJson.geometry.getEnvelopeInternal,
         locationJson.geometry
       )
     }
+  }
+
+  def franceCommuneLocationJsons(): Seq[LocationJson] = {
+    val gzippedInputStream = new FileInputStream("/kpn/conf/locations/fr-communes.geojson.gz")
+    val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
+    val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
+    Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
   }
 
   private def readLocationsJson(): LocationsJson = {
@@ -68,6 +71,24 @@ class LocationDefinitionReader(root: String, country: Country) {
       }
       languageNameOption.filter(_ != nameKey).map(value => language -> value)
     }.toMap
+  }
+
+  private def toLocationDefinition(locationJson: LocationJson): LocationDefinition = {
+
+    val name = locationJson.properties.name
+    val level = locationJson.properties.all_tags("admin_level").toInt
+    val id = s"${country.domain}/$level/$name"
+    val boundingBox = locationJson.geometry.getEnvelopeInternal
+    val locationNames = parseLocationNames(locationJson)
+
+    LocationDefinition(
+      id,
+      name,
+      level,
+      locationNames,
+      boundingBox,
+      locationJson.geometry
+    )
   }
 
   private def countryFileName: String = {
