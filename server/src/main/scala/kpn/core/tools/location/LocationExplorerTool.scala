@@ -17,6 +17,8 @@ import kpn.server.analyzer.engine.analysis.location.LocationConfigurationDefinit
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader
+import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.LocationsJson
+import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
 import org.geotools.geometry.jts.GeometryClipper
 import org.locationtech.jts.geom.Geometry
@@ -26,7 +28,10 @@ import org.locationtech.jts.geom.Polygon
 
 import java.awt.Color
 import java.io.File
+import java.io.FileInputStream
+import java.io.InputStreamReader
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.zip.GZIPInputStream
 import scala.collection.parallel.CollectionConverters.ImmutableIterableIsParallelizable
 import scala.xml.XML
 
@@ -36,11 +41,12 @@ object LocationExplorerTool {
       new OverpassQueryExecutorRemoteImpl()
     )
     // tool.drawExistingConfigurationImages()
-    //tool.exploreCC()
+    // tool.exploreCC()
     // tool.determineDepartments()
     // tool.readCommuneIds()
-    // tool.communes()
-    tool.boundaryTagValues()
+    tool.communes()
+    // tool.boundaryTagValues()
+    tool.xx()
   }
 }
 
@@ -49,11 +55,26 @@ class LocationExplorerTool(overpassQueryExecutor: OverpassQueryExecutor) {
   private val dir = "/kpn/conf/locations/fr-cc"
   private val geomFactory = new GeometryFactory
 
+  def xx(): Unit = {
+    val gzippedInputStream = new FileInputStream("/kpn/conf/locations/fr-communes.geojson.gz")
+    val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
+    val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
+    val locationJsons = Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
+    val xxx = locationJsons.filter(_.properties.all_tags.get("boundary").contains("administrative"))
+
+    val values = xxx.map(_.properties.all_tags.contains("ref:INSEE"))
+    val valueCounts = values.groupBy(identity).map(e => e._1 -> e._2.size)
+    valueCounts.foreach { case (value, count) =>
+      println(s"$value -> $count")
+    }
+  }
+
+
   def boundaryTagValues(): Unit = {
     val locationJsons = new LocationDefinitionReader("", Country.fr).franceCommuneLocationJsons()
     val values = locationJsons.flatMap(_.properties.all_tags.get("boundary"))
     val valueCounts = values.groupBy(identity).map(e => e._1 -> e._2.size)
-    valueCounts.foreach { case(value, count) =>
+    valueCounts.foreach { case (value, count) =>
       println(s"$value -> $count")
     }
   }
@@ -195,7 +216,7 @@ class LocationExplorerTool(overpassQueryExecutor: OverpassQueryExecutor) {
     val france = new LocationConfigurationReader().read().locations.filter(_.name == "fr").head
     val franceGeometry = locationGeometry(france)
     val envelope = franceGeometry.getEnvelopeInternal
-    val imageWriter = new GeometryImageWriter(1000, 1000, envelope)
+    val imageWriter = new GeometryImageWriter(3000, 3000, envelope)
 
     france.children.foreach { department =>
       imageWriter.draw(department.geometry, Color.red, 2)
@@ -243,11 +264,11 @@ class LocationExplorerTool(overpassQueryExecutor: OverpassQueryExecutor) {
     }
 
     val communeLocations = new LocationDefinitionReader("", Country.fr).franceCommunes()
-    val communeColor = new Color(230, 230, 0, 128)
+    val communeColor = new Color(230, 230, 0, 48)
     communeLocations.foreach { communeLocation =>
       if (NonCdcCommunes.get.contains(communeLocation.name)) {
         imageWriter.fill(communeLocation.geometry, communeColor)
-        imageWriter.draw(communeLocation.geometry, new Color(0, 0, 0, 128), 1)
+        imageWriter.draw(communeLocation.geometry, new Color(0, 0, 0, 48), 1)
       }
     }
 

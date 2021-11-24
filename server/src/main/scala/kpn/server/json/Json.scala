@@ -80,6 +80,7 @@ object Json {
     b.serializerByType(classOf[WayDirection], new WayDirectionJsonSerializer())
 
     b.deserializerByType(classOf[Geometry], new GeometryJsonDeserializer())
+    b.serializerByType(classOf[Geometry], new GeometryJsonSerializer())
 
     b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
 

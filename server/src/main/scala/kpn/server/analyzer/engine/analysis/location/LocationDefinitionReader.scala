@@ -35,15 +35,17 @@ class LocationDefinitionReader(root: String, country: Country) {
   }
 
   def franceCommunes(): Seq[LocationDefinition] = {
-    franceCommuneLocationJsons().map { locationJson =>
-      LocationDefinition(
-        locationJson.properties.name,
-        locationJson.properties.name,
-        locationJson.properties.all_tags.getOrElse("admin_level", "0").toInt,
-        parseLocationNames(locationJson),
-        locationJson.geometry.getEnvelopeInternal,
-        locationJson.geometry
-      )
+    franceCommuneLocationJsons().flatMap { locationJson =>
+      locationJson.properties.all_tags.get("ref:INSEE").map { id =>
+        LocationDefinition(
+          id,
+          locationJson.properties.name,
+          locationJson.properties.all_tags.getOrElse("admin_level", "0").toInt,
+          parseLocationNames(locationJson),
+          locationJson.geometry.getEnvelopeInternal,
+          locationJson.geometry
+        )
+      }
     }
   }
 
@@ -51,7 +53,8 @@ class LocationDefinitionReader(root: String, country: Country) {
     val gzippedInputStream = new FileInputStream("/kpn/conf/locations/fr-communes.geojson.gz")
     val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
     val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
-    Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
+    val locationJsons = Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
+    locationJsons.filter(_.properties.all_tags.get("boundary").contains("administrative"))
   }
 
   private def readLocationsJson(): LocationsJson = {

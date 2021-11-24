@@ -76,7 +76,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def find[R: ClassTag](filter: Bson, log: Log): Seq[R] = {
     log.debugElapsed {
       val future = collection.find[R](filter).toFuture()
-      val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val docs = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
       (s"find - collection: '$collectionName', docs= ${docs.size}", docs)
     }
   }
@@ -127,7 +127,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
         case _ => throw new IllegalArgumentException("document does not have een id")
       }
       val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
-      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
       (s"save - collection: '$collectionName', _id: $id", result)
     }
   }
