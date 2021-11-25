@@ -9,6 +9,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.doc.LocationDoc
 import kpn.core.doc.LocationGeometryDoc
 import kpn.core.doc.LocationName
+import kpn.core.doc.LocationPath
 import kpn.core.loadOld.OsmDataXmlReader
 import kpn.core.tools.country.PolygonBuilder
 import kpn.core.tools.country.SkeletonData
@@ -41,30 +42,31 @@ import scala.xml.XML
 object LocationLoaderTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn") { database =>
-      new LocationLoaderTool(database).load()
+      new LocationLoaderTool(database).build()
     }
   }
 }
 
 class LocationLoaderTool(database: Database) {
 
+  private val updateLocationGeometryDocs = false
   private val dir = "/kpn/locations"
   private val log = Log(classOf[LocationLoaderTool])
 
-  def load(): Unit = {
-    loadFrance()
+  def build(): Unit = {
+    buildFrance()
   }
 
-  private def loadFrance(): Unit = {
+  private def buildFrance(): Unit = {
     Log.context("fr") {
-      loadFranceCountry()
-      loadFranceDepartments()
-      loadFranceCdcLocations()
+      buildFranceCountry()
+      buildFranceDepartments()
+      buildFranceCdcLocations()
       loadFranceCommunes()
     }
   }
 
-  private def loadFranceCountry(): Unit = {
+  private def buildFranceCountry(): Unit = {
     Log.context("country") {
       val locationJsons = loadLocationJsons("fr-regions.geojson.gz")
       val locationJson = locationJsons.filter(_.properties.name == "Metropolitan France").head
@@ -72,14 +74,16 @@ class LocationLoaderTool(database: Database) {
         LocationName(NL, "Frankrijk"),
         LocationName(DE, "Frankreich")
       )
-      val locationDoc = LocationDoc("fr", Seq.empty, "France", names)
+      val locationDoc = LocationDoc("fr", Seq.empty, Seq.empty, "France", names)
       database.locations.save(locationDoc)
-      val locationGeometryDoc = LocationGeometryDoc("fr", locationJson.geometry)
-      database.locationGeometries.save(locationGeometryDoc)
+      if (updateLocationGeometryDocs) {
+        val locationGeometryDoc = LocationGeometryDoc("fr", locationJson.geometry)
+        database.locationGeometries.save(locationGeometryDoc)
+      }
     }
   }
 
-  private def loadFranceDepartments(): Unit = {
+  private def buildFranceDepartments(): Unit = {
     Log.context("departments") {
 
       log.info("Read departments file")
@@ -100,15 +104,17 @@ class LocationLoaderTool(database: Database) {
         val name = department.properties.all_tags("name")
         log.info(s"$index/${departments.size} $id $name")
         val names = locationNames(department)
-        val locationDoc = LocationDoc(id, Seq("fr"), name, names)
+        val locationDoc = LocationDoc(id, Seq(LocationPath(Seq("fr"))), Seq("fr"), name, names)
         database.locations.save(locationDoc)
-        val locationGeometryDoc = LocationGeometryDoc(id, department.geometry)
-        database.locationGeometries.save(locationGeometryDoc)
+        if (updateLocationGeometryDocs) {
+          val locationGeometryDoc = LocationGeometryDoc(id, department.geometry)
+          database.locationGeometries.save(locationGeometryDoc)
+        }
       }
     }
   }
 
-  private def loadFranceCdcLocations(): Unit = {
+  private def buildFranceCdcLocations(): Unit = {
     Log.context("cdc") {
       log.info(s"Loading department geometries from database")
       val departmentGeometries = database.locationGeometries.find[LocationGeometryDoc](
@@ -171,10 +177,12 @@ class LocationLoaderTool(database: Database) {
                       }
 
                       val parents = departments.map(_._id)
-                      val locationDoc = LocationDoc(id, parents, name, names)
+                      val locationDoc = LocationDoc(id, Seq(LocationPath(parents)), parents, name, names)
                       database.locations.save(locationDoc)
-                      val locationGeometryDoc = LocationGeometryDoc(id, geometry)
-                      database.locationGeometries.save(locationGeometryDoc)
+                      if (updateLocationGeometryDocs) {
+                        val locationGeometryDoc = LocationGeometryDoc(id, geometry)
+                        database.locationGeometries.save(locationGeometryDoc)
+                      }
                   }
                 }
             }
@@ -231,13 +239,15 @@ class LocationLoaderTool(database: Database) {
             log.info(s"$id $name")
             val names = locationNames(commune)
             val parent = cdcGeometries.find(cdc => contains(cdc.geometry, commune.geometry)) match {
-              case None => s"fr/2/${inseeCode.substring(0, 2)}"
+              case None => s"fr/1/${inseeCode.substring(0, 2)}"
               case Some(cdc) => cdc._id
             }
-            val locationDoc = LocationDoc(id, Seq(parent), name, names)
+            val locationDoc = LocationDoc(id, Seq(LocationPath(Seq(parent))), Seq(parent), name, names)
             database.locations.save(locationDoc)
-            val locationGeometryDoc = LocationGeometryDoc(id, commune.geometry)
-            database.locationGeometries.save(locationGeometryDoc)
+            if (updateLocationGeometryDocs) {
+              val locationGeometryDoc = LocationGeometryDoc(id, commune.geometry)
+              database.locationGeometries.save(locationGeometryDoc)
+            }
           }
         }
       }

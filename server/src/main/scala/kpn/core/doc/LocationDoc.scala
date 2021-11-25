@@ -4,7 +4,18 @@ import kpn.api.base.WithStringId
 
 case class LocationDoc(
   _id: String,
+  paths: Seq[LocationPath],
   parents: Seq[String],
   name: String,
   names: Seq[LocationName]
-) extends WithStringId
+) extends WithStringId {
+
+  def matchesPath(path: LocationPath): Boolean = {
+    if (path.locationIds.nonEmpty) {
+      paths.contains(path)
+    }
+    else {
+      paths.isEmpty
+    }
+  }
+}
