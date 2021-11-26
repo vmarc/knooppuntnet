@@ -23,7 +23,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.Loc
 import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.LocationsJson
 import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
-import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Polygon
@@ -74,7 +73,7 @@ class LocationLoaderTool(database: Database) {
         LocationName(NL, "Frankrijk"),
         LocationName(DE, "Frankreich")
       )
-      val locationDoc = LocationDoc("fr", Seq.empty, Seq.empty, "France", names)
+      val locationDoc = LocationDoc("fr", Seq.empty, "France", names)
       database.locations.save(locationDoc)
       if (updateLocationGeometryDocs) {
         val locationGeometryDoc = LocationGeometryDoc("fr", locationJson.geometry)
@@ -86,14 +85,15 @@ class LocationLoaderTool(database: Database) {
   private def buildFranceDepartments(): Unit = {
     Log.context("departments") {
 
+      val countryGeometry = loadFranceGeometry()
       log.info("Read departments file")
       val locationJsons = loadLocationJsons("fr-departments.geojson.gz")
-      val countryGeometry = database.locationGeometries.findByStringId("fr").get.geometry
 
+      log.info("Filtering departments")
       val departments = locationJsons
         .filter(_.properties.all_tags.get("boundary").contains("administrative"))
         .filter(_.properties.all_tags.contains("ref:INSEE"))
-        .filter(department => contains(countryGeometry, department.geometry))
+        .filter(department => countryGeometry.contains(LocationGeometry("", department.geometry)))
         .sortBy(_.properties.all_tags("ref:INSEE"))
 
       val count = new AtomicInteger(0)
@@ -104,7 +104,7 @@ class LocationLoaderTool(database: Database) {
         val name = department.properties.all_tags("name")
         log.info(s"$index/${departments.size} $id $name")
         val names = locationNames(department)
-        val locationDoc = LocationDoc(id, Seq(LocationPath(Seq("fr"))), Seq("fr"), name, names)
+        val locationDoc = LocationDoc(id, Seq(LocationPath(Seq("fr"))), name, names)
         database.locations.save(locationDoc)
         if (updateLocationGeometryDocs) {
           val locationGeometryDoc = LocationGeometryDoc(id, department.geometry)
@@ -116,19 +116,10 @@ class LocationLoaderTool(database: Database) {
 
   private def buildFranceCdcLocations(): Unit = {
     Log.context("cdc") {
-      log.info(s"Loading department geometries from database")
-      val departmentGeometries = database.locationGeometries.find[LocationGeometryDoc](
-        and(
-          gt("_id", "fr/1/"),
-          lt("_id", "fr/2/")
-        ),
-        log
-      )
-      log.info(s"${departmentGeometries.size} department geometries loaded")
 
+      val departmentGeometries = loadFranceDepartmentGeometries()
       val geomFactory = new GeometryFactory
       val locationIds = franceCdcLocationIds()
-
       val count = new AtomicInteger(0)
       locationIds.par.foreach { locationId =>
         Log.context(locationId.toString) {
@@ -145,18 +136,18 @@ class LocationLoaderTool(database: Database) {
               case None => log.warn(s"$index/${locationIds.size} name not found")
               case Some(name) =>
                 log.info(s"$index/${locationIds.size} $name")
-                val geometry = new GeometryCollection(xxxx(data, relation).toArray, geomFactory)
-                val departments = departmentGeometries.filter { departmentGeometry =>
-                  overlap(departmentGeometry.geometry, geometry) > 0.05
-                }
-                if (departments.isEmpty) {
-                  log.warn(s"No department found")
-                }
-                else {
-                  relation.tags("ref:FR:SIREN") match {
-                    case None => log.warn(s"SIREN code not found")
-                    case Some(sirenCode) =>
-                      val id = s"fr/2/$sirenCode"
+                relation.tags("ref:FR:SIREN") match {
+                  case None => log.warn(s"SIREN code not found")
+                  case Some(sirenCode) =>
+                    val id = s"fr/2/$sirenCode"
+                    val geometry = LocationGeometry(id, new GeometryCollection(xxxx(data, relation).toArray, geomFactory))
+                    val departments = departmentGeometries.filter { departmentGeometry =>
+                      departmentGeometry.overlap(geometry) > 0.05
+                    }
+                    if (departments.isEmpty) {
+                      log.warn(s"No department found")
+                    }
+                    else {
                       val names = Languages.all.flatMap { language =>
                         val lang = language.toString.toLowerCase
                         relation.tags(s"name:$lang") match {
@@ -176,14 +167,14 @@ class LocationLoaderTool(database: Database) {
                         }
                       }
 
-                      val parents = departments.map(_._id)
-                      val locationDoc = LocationDoc(id, Seq(LocationPath(parents)), parents, name, names)
+                      val parents = departments.map(department => LocationPath(Seq("fr", department._id)))
+                      val locationDoc = LocationDoc(id, parents, name, names)
                       database.locations.save(locationDoc)
                       if (updateLocationGeometryDocs) {
-                        val locationGeometryDoc = LocationGeometryDoc(id, geometry)
+                        val locationGeometryDoc = LocationGeometryDoc(id, geometry.geometry)
                         database.locationGeometries.save(locationGeometryDoc)
                       }
-                  }
+                    }
                 }
             }
           }
@@ -194,25 +185,13 @@ class LocationLoaderTool(database: Database) {
 
   private def loadFranceCommunes(): Unit = {
     Log.context("communes") {
-
-      log.info(s"Loading CDC geometries from database")
-      val cdcGeometries = database.locationGeometries.find[LocationGeometryDoc](
-        and(
-          gt("_id", "fr/2/"),
-          lt("_id", "fr/3/")
-        ),
-        log
-      )
-      log.info(s"${cdcGeometries.size} CDC geometries loaded")
-
-
+      val departmentGeometries = loadFranceDepartmentGeometries()
+      val cdcGeometries = loadFranceCdcGeometries()
       log.info("Read communes file")
       val locationJsons = loadLocationJsons("fr-communes.geojson.gz")
       log.info(s"${locationJsons.size} communes loaded")
 
-      log.info("Load country geometry")
-      val countryGeometry = database.locationGeometries.findByStringId("fr").get.geometry
-      log.info("Country geometry loaded")
+      val countryGeometry = loadFranceGeometry()
 
       val communes = locationJsons
         .filter(_.properties.all_tags.get("boundary").contains("administrative"))
@@ -223,8 +202,10 @@ class LocationLoaderTool(database: Database) {
         val count = new AtomicInteger(0)
         communes.filter { commune =>
           val index = count.incrementAndGet()
-          log.info(s"$index/${communes.size}")
-          contains(countryGeometry, commune.geometry)
+          if ((index % 500) == 0) {
+            log.info(s"$index/${communes.size}")
+          }
+          countryGeometry.contains(LocationGeometry("", commune.geometry))
         }
       }
 
@@ -238,15 +219,20 @@ class LocationLoaderTool(database: Database) {
             val name = commune.properties.all_tags("name")
             log.info(s"$id $name")
             val names = locationNames(commune)
-            val parent = cdcGeometries.find(cdc => contains(cdc.geometry, commune.geometry)) match {
-              case None => s"fr/1/${inseeCode.substring(0, 2)}"
-              case Some(cdc) => cdc._id
-            }
-            val locationDoc = LocationDoc(id, Seq(LocationPath(Seq(parent))), Seq(parent), name, names)
-            database.locations.save(locationDoc)
-            if (updateLocationGeometryDocs) {
-              val locationGeometryDoc = LocationGeometryDoc(id, commune.geometry)
-              database.locationGeometries.save(locationGeometryDoc)
+            val communeGeometry = LocationGeometry("", commune.geometry)
+            departmentGeometries.find(department => department.contains(communeGeometry)) match {
+              case None => log.error("No parent found for commune")
+              case Some(department) =>
+                val parents = cdcGeometries.find(cdc => cdc.contains(communeGeometry)) match {
+                  case Some(cdc) => Seq("fr", department._id, cdc._id)
+                  case None => Seq("fr", department._id)
+                }
+                val locationDoc = LocationDoc(id, Seq(LocationPath(parents)), name, names)
+                database.locations.save(locationDoc)
+                if (updateLocationGeometryDocs) {
+                  val locationGeometryDoc = LocationGeometryDoc(id, commune.geometry)
+                  database.locationGeometries.save(locationGeometryDoc)
+                }
             }
           }
         }
@@ -259,17 +245,6 @@ class LocationLoaderTool(database: Database) {
     val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
     val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
     Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
-  }
-
-  private def contains(parentGeometry: Geometry, childGeometry: Geometry): Boolean = {
-    overlap(parentGeometry, childGeometry) > 0.95
-  }
-
-  private def overlap(parentGeometry: Geometry, childGeometry: Geometry): Double = {
-    val intersection = parentGeometry.intersection(childGeometry)
-    val intersectionArea = intersection.getArea
-    val childLocationArea = childGeometry.getArea
-    Math.abs(intersectionArea / childLocationArea)
   }
 
   private def locationNames(locationJson: LocationJson): Seq[LocationName] = {
@@ -291,6 +266,42 @@ class LocationLoaderTool(database: Database) {
             None
           }
       }
+    }
+  }
+
+  private def loadFranceDepartmentGeometries(): Seq[LocationGeometry] = {
+    log.infoElapsed {
+      log.info(s"Loading department geometries from database")
+      val departmentGeometries = database.locationGeometries.find[LocationGeometryDoc](
+        and(
+          gt("_id", "fr/1/"),
+          lt("_id", "fr/2/")
+        ),
+        log
+      ).map(LocationGeometry.from)
+      (s"${departmentGeometries.size} department geometries loaded", departmentGeometries)
+    }
+  }
+
+  private def loadFranceGeometry(): LocationGeometry = {
+    log.infoElapsed {
+      log.info("Load country geometry")
+      val geometry = LocationGeometry.from(database.locationGeometries.findByStringId("fr").get)
+      ("Country geometry loaded", geometry)
+    }
+  }
+
+  private def loadFranceCdcGeometries(): Seq[LocationGeometry] = {
+    log.infoElapsed {
+      log.info(s"Loading CDC geometries from database")
+      val geometries = database.locationGeometries.find[LocationGeometryDoc](
+        and(
+          gt("_id", "fr/2/"),
+          lt("_id", "fr/3/")
+        ),
+        log
+      ).map(LocationGeometry.from)
+      (s"${geometries.size} CDC geometries loaded", geometries)
     }
   }
 

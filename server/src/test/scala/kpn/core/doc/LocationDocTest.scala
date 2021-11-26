@@ -12,7 +12,7 @@ class LocationDocTest extends UnitTest {
       LocationName(NL, "Frankrijk"),
       LocationName(DE, "Frankreich")
     )
-    val doc = LocationDoc("fr", Seq.empty, Seq.empty, "France", names)
+    val doc = LocationDoc("fr", Seq.empty, "France", names)
     val json = Json.string(doc)
     Json.value(json, classOf[LocationDoc]) should equal(doc)
   }

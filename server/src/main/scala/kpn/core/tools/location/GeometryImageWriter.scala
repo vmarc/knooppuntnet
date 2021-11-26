@@ -53,7 +53,7 @@ class GeometryImageWriter(width: Int, height: Int, envelope: Envelope) {
     FileUtils.writeByteArrayToFile(new File(filename), out.toByteArray)
   }
 
-  def draw(geometry: Geometry, color: Color, width: Int): Unit = {
+  def draw(geometry: Geometry, color: Color, width: Float): Unit = {
     val shape = shapeWriter.toShape(geometry)
     g.setColor(color)
     g.setStroke(new BasicStroke(width))

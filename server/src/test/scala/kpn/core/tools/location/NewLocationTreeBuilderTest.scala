@@ -33,7 +33,7 @@ class NewLocationTreeBuilderTest extends UnitTest {
       location("fr/3/c5", Seq(LocationPath(Seq("fr", "fr/1/02", "fr/2/CDC-A")))),
     )
 
-    val trees = new NewLocationTreeBuilder().buildTree(locations)
+    val trees = new NewLocationTreeBuilder().buildTree(locations).children.get
     trees.foreach { tree =>
       printTree(locations, tree)
     }
@@ -54,7 +54,6 @@ class NewLocationTreeBuilderTest extends UnitTest {
     LocationDoc(
       _id,
       paths,
-      Seq.empty,
       "",
       Seq.empty
     )
