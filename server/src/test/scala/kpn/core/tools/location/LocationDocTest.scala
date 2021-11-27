@@ -1,7 +1,8 @@
-package kpn.core.doc
+package kpn.core.tools.location
 
 import kpn.api.common.DE
 import kpn.api.common.NL
+import kpn.core.doc.LocationName
 import kpn.core.util.UnitTest
 import kpn.server.json.Json
 

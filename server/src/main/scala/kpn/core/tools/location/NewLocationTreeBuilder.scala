@@ -1,6 +1,5 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationDoc
 import kpn.server.analyzer.engine.analysis.location.LocationTree
 
 class NewLocationTreeBuilder {

@@ -1,14 +1,10 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationDoc
 import kpn.core.util.Log
-import kpn.database.base.Database
-import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.AnalyzerEngineImpl
 import kpn.server.analyzer.engine.analysis.location.LocationTree
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.gte
-import org.mongodb.scala.model.Filters.lt
+import kpn.server.json.Json
+import org.apache.commons.io.FileUtils
 
 import java.io.File
 import java.io.FileWriter
@@ -19,32 +15,26 @@ object LocationTreePrintTool {
   private val log = Log(classOf[AnalyzerEngineImpl])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
-      val locations = loadLocations(database)
-      val tree = buildTree(locations)
-      printTree(locations, tree.children.get.head)
-    }
+    val locations = loadLocations()
+    val tree = loadTree()
+    printTree(locations, tree.children.get.head)
   }
 
-  private def loadLocations(database: Database): Seq[LocationDoc] = {
+  private def loadLocations(): Seq[LocationDoc] = {
     log.infoElapsed {
       log.info("Loading locations")
-      val result = database.locations.find[LocationDoc](
-        and(
-          gte("_id", "fr"),
-          lt("_id", "fz")
-        )
-      )
-      (s"Loaded ${result.size} locations", result)
+      val filename = "/kpn/locations/fr/locations.json"
+      val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+      val locationDocs = Json.objectMapper.readValue(string, classOf[LocationDocs])
+      val locs = locationDocs.locations
+      (s"Loaded ${locs.size} locations", locs)
     }
   }
 
-  private def buildTree(locations: Seq[LocationDoc]): LocationTree = {
-    log.infoElapsed {
-      log.info("Building location tree")
-      val tree = new NewLocationTreeBuilder().buildTree(locations)
-      (s"trees build", tree)
-    }
+  private def loadTree(): LocationTree = {
+    val filename = "/kpn/locations/fr/tree.json"
+    val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+    Json.objectMapper.readValue(string, classOf[LocationTree])
   }
 
   private def printTree(locations: Seq[LocationDoc], tree: LocationTree): Unit = {
@@ -66,7 +56,7 @@ class LocationTreePrintTool(out: PrintWriter) {
       val spaces = 1.to(level).map(_ => "  ").mkString
       val childCount = if (tree.children.isDefined) s" (${tree.children.get.size})" else ""
       out.println(s"$spaces - `${location._id}` ${location.name} $childCount")
-      tree.children.toSeq.flatten.foreach { child =>
+      tree.childLocations.foreach { child =>
         printTree(locations, child, level + 1)
       }
     }

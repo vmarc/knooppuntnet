@@ -10,13 +10,10 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
-import kpn.core.doc.LocationDoc
-import kpn.core.doc.LocationGeometryDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
-import kpn.core.doc.NodeRouteRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
@@ -94,9 +91,5 @@ trait Database {
   def status: DatabaseCollection[WithStringId]
 
   def blacklists: DatabaseCollection[Blacklist]
-
-  def locations: DatabaseCollection[LocationDoc]
-
-  def locationGeometries: DatabaseCollection[LocationGeometryDoc]
 
 }

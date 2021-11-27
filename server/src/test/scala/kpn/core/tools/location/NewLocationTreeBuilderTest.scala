@@ -1,6 +1,5 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationDoc
 import kpn.core.doc.LocationPath
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationTree

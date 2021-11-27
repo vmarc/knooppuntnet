@@ -1,22 +1,11 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationGeometryDoc
 import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
 
 object LocationGeometry {
-
-  def from(doc: LocationGeometryDoc): LocationGeometry = {
+  def apply(geometry: Geometry): LocationGeometry = {
     LocationGeometry(
-      doc._id,
-      doc.geometry,
-      doc.geometry.getEnvelopeInternal
-    )
-  }
-
-  def apply(_id: String, geometry: Geometry): LocationGeometry = {
-    LocationGeometry(
-      _id,
       geometry,
       geometry.getEnvelopeInternal
     )
@@ -24,7 +13,6 @@ object LocationGeometry {
 }
 
 case class LocationGeometry(
-  _id: String,
   geometry: Geometry,
   envelope: Envelope
 ) {

@@ -10,8 +10,6 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
-import kpn.core.doc.LocationDoc
-import kpn.core.doc.LocationGeometryDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
@@ -145,13 +143,5 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def blacklists: DatabaseCollection[Blacklist] = {
     new DatabaseCollectionImpl(database.getCollection[Blacklist]("blacklists"))
-  }
-
-  override def locations: DatabaseCollection[LocationDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[LocationDoc]("locations"))
-  }
-
-  override def locationGeometries: DatabaseCollection[LocationGeometryDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[LocationGeometryDoc]("location-geometries"))
   }
 }
