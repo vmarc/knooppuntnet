@@ -15,15 +15,28 @@ object LocationTreePrintTool {
   private val log = Log(classOf[AnalyzerEngineImpl])
 
   def main(args: Array[String]): Unit = {
-    val locations = loadLocations()
-    val tree = loadTree()
-    printTree(locations, tree.children.get.head)
+    printNl()
+    // printFr()
   }
 
-  private def loadLocations(): Seq[LocationDoc] = {
+  private def printNl(): Unit = {
+    val locations = loadLocations("nl")
+    val tree = loadTree("nl")
+    printTree(locations, tree.children.get.head, "/kpn/locations/netherlands.md")
+  }
+
+
+  private def printFr(): Unit = {
+    val locations = loadLocations("fr")
+    val tree = loadTree("fr")
+    printTree(locations, tree.children.get.head, "/kpn/locations/france.md")
+  }
+
+
+  private def loadLocations(country: String): Seq[LocationDoc] = {
     log.infoElapsed {
       log.info("Loading locations")
-      val filename = "/kpn/locations/fr/locations.json"
+      val filename = s"/kpn/locations/$country/locations.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
       val locationDocs = Json.objectMapper.readValue(string, classOf[LocationDocs])
       val locs = locationDocs.locations
@@ -31,14 +44,14 @@ object LocationTreePrintTool {
     }
   }
 
-  private def loadTree(): LocationTree = {
-    val filename = "/kpn/locations/fr/tree.json"
+  private def loadTree(country: String): LocationTree = {
+    val filename = s"/kpn/locations/$country/tree.json"
     val string = FileUtils.readFileToString(new File(filename), "UTF-8")
     Json.objectMapper.readValue(string, classOf[LocationTree])
   }
 
-  private def printTree(locations: Seq[LocationDoc], tree: LocationTree): Unit = {
-    val fw = new FileWriter(new File("/kpn/locations/france.md"))
+  private def printTree(locations: Seq[LocationDoc], tree: LocationTree, filename: String): Unit = {
+    val fw = new FileWriter(new File(filename))
     val out = new PrintWriter(fw)
     try {
       val printer = new LocationTreePrintTool(out)

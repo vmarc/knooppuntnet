@@ -16,6 +16,8 @@ class LocationBuilderTool {
   private val root = "/kpn/locations"
 
   def build(): Unit = {
+    save(s"$root/be", new LocationBuilderBelgium().build())
+    save(s"$root/nl", new LocationBuilderNetherlands().build())
     save(s"$root/fr", new LocationBuilderFrance().build())
   }
 
