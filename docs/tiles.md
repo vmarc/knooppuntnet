@@ -70,10 +70,9 @@ Reset previous database contents:
 
 Download OpenStreetMap data from geofabrik:
 
-    mkdir /kpn/tile-data // if not exists
     cd /kpn/tile-data
     rm *.pbf
-    ./download.sh    # 3 minutes
+    ./download.sh    # 8 minutes
     ./merge.sh       # 10 minutes
 
 Contents of download.sh:
@@ -140,12 +139,10 @@ Only first time:
 
 Prepare:
 
-  cd /kpn/openmaptiles
-	rm data/all.osm.pbf
-	rm data/tiles.mbtiles*
-  rm -rf data/borders
+  cd /kpn/openmaptiles/data
+	rm -rf *
 
-	mv /kpn/tile-data/all.osm.pbf data/
+	mv /kpn/tile-data/all.osm.pbf .
 
 Start up the database container:
 
@@ -188,11 +185,8 @@ Generate tiles:
 Copy tiles to kpn server, on kpn server:
 
 	cd /kpn/tiles-install
-	scp kpn-tiles:/kpn/openmaptiles/data/tiles.mbtiles .
+  rm -rf *
 
-On kpn server:
-
-	cd /kpn/tiles-install
 	/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
 Make productive:
