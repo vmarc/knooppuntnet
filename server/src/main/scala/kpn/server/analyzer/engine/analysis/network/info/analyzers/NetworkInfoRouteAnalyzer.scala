@@ -43,10 +43,13 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
       )
     }
     val sortedRouteDetails = NaturalSorting.sortBy(enrichedRouteDetails)(_.name)
+    val connectionCount = enrichedRouteDetails.count(_.roleConnection)
+
     context.copy(
       routeDetails = sortedRouteDetails,
+      connectionCount = connectionCount,
       meters = meters,
-      km = km,
+      km = km
     )
   }
 
