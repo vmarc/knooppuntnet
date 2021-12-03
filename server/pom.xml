@@ -5,22 +5,22 @@
 
     <groupId>knooppuntnet</groupId>
     <artifactId>server</artifactId>
-    <version>4.0.0-snapshot.8</version>
+    <version>4.0.0-snapshot.9</version>
     <name>server</name>
     <description>knooppuntnet server</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>2.5.6</version>
         <relativePath/>
     </parent>
 
     <properties>
         <java.version>1.8</java.version>
-        <spring-boot.version>2.5.3</spring-boot.version>
+        <spring-boot.version>2.5.6</spring-boot.version>
         <spring.security.version>5.5.1</spring.security.version>
-        <nimbus.jwt.version>9.11.1</nimbus.jwt.version>
+        <nimbus.jwt.version>9.15.2</nimbus.jwt.version>
     </properties>
 
     <dependencies>
@@ -57,13 +57,13 @@
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-core</artifactId>
-            <version>1.7.2</version>
+            <version>1.8.0</version>
         </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.7.2</version>
+            <version>1.8.0</version>
         </dependency>
 
         <dependency>
@@ -117,13 +117,13 @@
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
             <artifactId>scala-parallel-collections_2.13</artifactId>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
         </dependency>
 
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-scala_2.13</artifactId>
-            <version>2.11.4</version>
+            <version>2.13.0</version>
         </dependency>
 
         <dependency>
@@ -159,13 +159,13 @@
         <dependency>
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
-            <version>1.18.1</version>
+            <version>1.18.2</version>
         </dependency>
 
         <dependency>
             <groupId>org.locationtech.jts.io</groupId>
             <artifactId>jts-io-common</artifactId>
-            <version>1.18.1</version>
+            <version>1.18.2</version>
         </dependency>
 
         <dependency>
@@ -244,7 +244,7 @@
         <dependency>
             <groupId>com.sksamuel.scrimage</groupId>
             <artifactId>scrimage-core</artifactId>
-            <version>4.0.21</version>
+            <version>4.0.23</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
@@ -285,13 +285,13 @@
         <dependency>
             <groupId>com.softwaremill.diffx</groupId>
             <artifactId>diffx-scalatest_2.13</artifactId>
-            <version>0.5.6</version>
+            <version>0.6.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.mongodb.scala</groupId>
             <artifactId>mongo-scala-driver_2.13</artifactId>
-            <version>4.3.0</version>
+            <version>4.4.0</version>
         </dependency>
 
     </dependencies>
