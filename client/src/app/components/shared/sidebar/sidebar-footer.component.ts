@@ -50,7 +50,7 @@ import { VersionService } from '../../../services/version.service';
   ],
 })
 export class SidebarFooterComponent {
-  @Input() loginEnabled = false;
+  @Input() loginEnabled = true;
 
   constructor(
     private router: Router,
