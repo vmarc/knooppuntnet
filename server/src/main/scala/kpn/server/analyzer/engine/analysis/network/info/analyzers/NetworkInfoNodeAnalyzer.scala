@@ -1,8 +1,10 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.network.Integrity
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NodeDoc
+import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.database.base.Database
@@ -19,15 +21,15 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
   private val log = Log(classOf[NetworkInfoNodeAnalyzer])
 
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-
     val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
     val networkNodeIds = context.networkDoc.nodeMembers.map(_.nodeId)
     val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
     val nodeDocs = queryNodes(nodeIds)
     val nodeDetails = analyzeNetworkNodes(context, nodeDocs)
-
+    val integrity = analyzeIntegrity(context, nodeDocs)
     context.copy(
-      nodeDetails = nodeDetails
+      nodeDetails = nodeDetails,
+      integrity = integrity
     )
   }
 
@@ -51,6 +53,48 @@ class NetworkInfoNodeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
         nodeDoc.facts
       )
     }
+  }
+
+  private def analyzeIntegrity(context: NetworkInfoAnalysisContext, nodeDocs: Seq[NodeDoc]): Integrity = {
+    val networkNodeIntegrities = nodeDocs.flatMap { nodeDoc =>
+      nodeDoc.integrity.toSeq.flatMap { integrity =>
+        integrity.details.filter { nodeIntegrityDetail =>
+          nodeIntegrityDetail.networkType == context.scopedNetworkType.networkType &&
+            nodeIntegrityDetail.networkScope == context.scopedNetworkType.networkScope
+        }.map { nodeIntegrityDetail =>
+          NetworkNodeIntegrity(
+            nodeDoc._id,
+            nodeIntegrityDetail.expectedRouteCount,
+            nodeIntegrityDetail.routeRefs.size
+          )
+        }
+      }
+    }
+
+    val isOk = if (networkNodeIntegrities.isEmpty) {
+      true
+    }
+    else {
+      networkNodeIntegrities.forall(_.ok)
+    }
+    val hasChecks = networkNodeIntegrities.nonEmpty
+    val count = if (networkNodeIntegrities.isEmpty) "-" else networkNodeIntegrities.size.toString
+    val okCount = networkNodeIntegrities.count(_.ok)
+    val nokCount = networkNodeIntegrities.count(_.notOk)
+    val coverage = percentage(networkNodeIntegrities.size, nodeDocs.size)
+    val okRate = percentage(okCount, networkNodeIntegrities.size)
+    val nokRate = percentage(nokCount, networkNodeIntegrities.size)
+
+    Integrity(
+      isOk,
+      hasChecks,
+      count,
+      okCount,
+      nokCount,
+      coverage,
+      okRate,
+      nokRate
+    )
   }
 
   private def queryNodes(nodeIds: Seq[Long]): Seq[NodeDoc] = {
