@@ -13,13 +13,17 @@ import { Check } from '@api/common/check';
     >
       <thead>
         <tr>
+          <th class="nr"></th>
           <th i18n="@@network-facts.checks-table.node">Node</th>
           <th i18n="@@network-facts.checks-table.expected">Expected</th>
           <th i18n="@@network-facts.checks-table.actual">Actual</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let check of checks">
+        <tr *ngFor="let check of checks; let i = index">
+          <td>
+            <span class="kpn-thin">{{ i + 1 }}</span>
+          </td>
           <td>
             <kpn-link-node
               [nodeId]="check.nodeId"
@@ -36,6 +40,13 @@ import { Check } from '@api/common/check';
       </tbody>
     </table>
   `,
+  styles: [
+    `
+      .nr {
+        min-width: 2em;
+      }
+    `,
+  ],
 })
 export class NetworkFactChecksComponent {
   @Input() checks: Check[];

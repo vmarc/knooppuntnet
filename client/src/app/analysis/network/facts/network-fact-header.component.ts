@@ -12,11 +12,7 @@ import { Facts } from '../../fact/facts';
       <span class="kpn-thick">
         <kpn-fact-name [fact]="fact.name"></kpn-fact-name>
       </span>
-      <span
-        *ngIf="fact.elements && fact.elements.length > 0"
-        class="kpn-brackets"
-        >{{ factCount() }}</span
-      >
+      <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>
     </div>
     <div class="description">
