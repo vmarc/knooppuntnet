@@ -12,6 +12,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkInfoRouteDetail
+import kpn.core.doc.NodeDoc
 
 case class NetworkInfoAnalysisContext(
   analysisTimestamp: Timestamp,
@@ -22,6 +23,7 @@ case class NetworkInfoAnalysisContext(
   name: String = "",
   proposed: Boolean = false,
   facts: Seq[Fact] = Seq.empty,
+  nodeDocs: Seq[NodeDoc] = Seq.empty,
   networkFacts: Seq[NetworkFact] = Seq.empty,
   nodeDetails: Seq[NetworkInfoNodeDetail] = Seq.empty,
   routeDetails: Seq[NetworkInfoRouteDetail] = Seq.empty,

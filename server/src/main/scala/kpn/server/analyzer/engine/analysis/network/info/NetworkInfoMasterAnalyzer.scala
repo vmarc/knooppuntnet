@@ -11,7 +11,9 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoAna
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoFactAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeMemberMissingAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
@@ -29,7 +31,7 @@ import scala.annotation.tailrec
 class NetworkInfoMasterAnalyzer(
   database: Database,
   networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer,
-  networkInfoNodeAnalyzer: NetworkInfoNodeAnalyzer,
+  networkInfoNodeDocAnalyzer: NetworkInfoNodeDocAnalyzer,
   networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer,
   networkCountryAnalyzer: NetworkCountryAnalyzer,
   networkInfoExtraAnalyzer: NetworkInfoExtraAnalyzer
@@ -44,7 +46,9 @@ class NetworkInfoMasterAnalyzer(
     NetworkInfoTagAnalyzer,
     NetworkInfoProposedAnalyzer,
     networkInfoRouteAnalyzer,
-    networkInfoNodeAnalyzer,
+    networkInfoNodeDocAnalyzer,
+    NetworkInfoNodeAnalyzer,
+    NetworkInfoIntegrityAnalyzer,
     NetworkInfoFactAnalyzer,
     NetworkInfoNodeMemberMissingAnalyzer,
     networkInfoChangeAnalyzer,

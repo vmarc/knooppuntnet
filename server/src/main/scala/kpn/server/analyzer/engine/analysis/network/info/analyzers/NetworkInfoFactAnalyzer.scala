@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.Check
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
 import kpn.api.custom.Fact
@@ -7,6 +8,7 @@ import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.core.util.Formatter
+import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 object NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
@@ -23,7 +25,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
 
       val nodeFacts = collectNodeFacts(context)
       val routeFacts = collectRouteFacts(context)
-      val networkFacts = collectNetworkFacts(context)
+      val networkFacts = integrityFailedFacts(context)
 
       val facts = networkFacts ++ routeFacts ++ nodeFacts
       val brokenRouteCount = context.routeDetails.count(_.facts.exists(_.isError))
@@ -58,7 +60,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
         Some("node"),
         Some(nodeIds),
         Some(refs),
-        None // TODO MONGO checks: Option[Seq[Check]] = None ???
+        None
       )
     }
   }
@@ -84,23 +86,38 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
     }
   }
 
-  private def collectNetworkFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
+  private def integrityFailedFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
+    val checks = context.nodeDocs.flatMap { nodeDoc =>
+      nodeDoc.nodeIntegrityDetail(context.scopedNetworkType).flatMap { nodeIntegrityDetail =>
+        if (nodeIntegrityDetail.failed) {
+          val nodeName = nodeDoc.name(context.scopedNetworkType)
+          Some(
+            Check(
+              nodeDoc._id,
+              nodeName,
+              nodeIntegrityDetail.expectedRouteCount,
+              nodeIntegrityDetail.routeRefs.size
+            )
+          )
+        }
+        else {
+          None
+        }
+      }
+    }
 
-    //  context.networkDoc.networkFacts.integrityCheckFailed.toSeq.map { integrityCheckFailed =>
-    //    NetworkFact(
-    //      Fact.IntegrityCheckFailed.name,
-    //      checks = Some(
-    //        integrityCheckFailed.checks.map { c =>
-    //          Check(c.nodeId, c.nodeName, c.actual, c.expected)
-    //        }
-    //      )
-    //    )
-    //  },
-    //  context.networkDoc.networkFacts.nameMissing.toSeq.map { x =>
-    //    NetworkFact(Fact.NameMissing.name)
-    //  }
-
-    Seq.empty
+    if (checks.nonEmpty) {
+      val sortedChecks = NaturalSorting.sortBy(checks)(_.nodeName)
+      Seq(
+        NetworkFact(
+          Fact.IntegrityCheckFailed.name,
+          checks = Some(sortedChecks)
+        )
+      )
+    }
+    else {
+      Seq.empty
+    }
   }
 
   private def isIgnoredFact(fact: Fact): Boolean = {

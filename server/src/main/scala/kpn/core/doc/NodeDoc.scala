@@ -7,6 +7,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
+import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -85,5 +86,9 @@ case class NodeDoc(
     //  tiles == other.tiles &&
     //  integrity == other.integrity &&
     //  routeReferences == other.routeReferences
+  }
+
+  def nodeIntegrityDetail(scopedNetworkType: ScopedNetworkType): Option[NodeIntegrityDetail] = {
+    integrity.toSeq.flatMap(_.details).find(_.hasScopedNetworkType(scopedNetworkType))
   }
 }

@@ -4,7 +4,6 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -13,7 +12,7 @@ import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyze
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
@@ -122,7 +121,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer = {
 
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
-    val networkInfoNodeAnalyzer = new NetworkInfoNodeAnalyzer(database)
+    val networkInfoNodeDocAnalyzer = new NetworkInfoNodeDocAnalyzer(database)
     val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
@@ -130,7 +129,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     new NetworkInfoMasterAnalyzer(
       database,
       networkInfoRouteAnalyzer,
-      networkInfoNodeAnalyzer,
+      networkInfoNodeDocAnalyzer,
       networkInfoChangeAnalyzer,
       networkCountryAnalyzer,
       networkInfoExtraAnalyzer

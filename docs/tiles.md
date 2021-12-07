@@ -180,7 +180,7 @@ Adapt data/all.dc-config.yml, default zoom levels:
 
 Generate tiles:
 
-	/kpn/scripts/08-generate-tiles.sh     # 8 hours
+	/kpn/scripts/08-generate-tiles.sh     # 5 hours
 
 Copy tiles to kpn server, on kpn server:
 
