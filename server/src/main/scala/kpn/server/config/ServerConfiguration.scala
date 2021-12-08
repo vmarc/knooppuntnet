@@ -76,6 +76,11 @@ class ServerConfiguration() {
   }
 
   @Bean
+  def changeSetInfoEngineEnabled(@Value("${app.change-set-info-engine-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def analyzerTileUpdateEnabled(@Value("${app.analyzer-tile-update-enabled:false}") value: Boolean): Boolean = {
     value
   }

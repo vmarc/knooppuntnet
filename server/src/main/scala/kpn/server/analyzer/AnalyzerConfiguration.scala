@@ -39,7 +39,7 @@ class AnalyzerConfiguration {
   }
 
   @Bean
-  def ChangeSetInfoApi: ChangeSetInfoApi = {
+  def changeSetInfoApi: ChangeSetInfoApi = {
     new ChangeSetInfoApiImpl(dirs.changeSets)
   }
 
@@ -47,5 +47,4 @@ class AnalyzerConfiguration {
   def analysisContext: AnalysisContext = {
     new AnalysisContext()
   }
-
 }

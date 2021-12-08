@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-nohup /kpn/java/bin/java \
+sudo -H -u server nohup /kpn/java/bin/java \
   -Dname=server-experimental \
   -Xms512M \
   -Xmx6G \
