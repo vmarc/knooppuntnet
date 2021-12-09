@@ -3,6 +3,7 @@ package kpn.database.base
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.Poi
+import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
@@ -71,6 +72,8 @@ trait Database {
   def changeSets: DatabaseCollection[ChangeSetInfo]
 
   def pois: DatabaseCollection[Poi]
+
+  def poiStates: DatabaseCollection[PoiState]
 
   def tasks: DatabaseCollection[Task]
 

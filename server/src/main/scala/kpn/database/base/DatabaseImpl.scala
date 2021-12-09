@@ -3,6 +3,7 @@ package kpn.database.base
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.Poi
+import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
@@ -103,6 +104,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def pois: DatabaseCollection[Poi] = {
     new DatabaseCollectionImpl(database.getCollection[Poi]("pois"))
+  }
+
+  override def poiStates: DatabaseCollection[PoiState] = {
+    new DatabaseCollectionImpl(database.getCollection[PoiState]("poi-states"))
   }
 
   override def tasks: DatabaseCollection[Task] = {

@@ -12,7 +12,7 @@ class PoiImageRepositoryImpl {
     file(poiRef).exists()
   }
 
-  private def file(poiRef: PoiRef): File = {
+  def file(poiRef: PoiRef): File = {
     val s = poiRef.elementId.toString
     val dir = s"$root/${s(s.length - 2)}/${s(s.length - 1)}"
     new File(dir).mkdirs()

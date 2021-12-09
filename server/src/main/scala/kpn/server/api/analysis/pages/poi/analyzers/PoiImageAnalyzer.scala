@@ -10,10 +10,12 @@ object PoiImageAnalyzer extends PoiAnalyzer {
 
   val imagePrefixes = Seq(
     "File:",
+    "Datei:",
     "http://commons.wikimedia.org/wiki/File%3A",
     "https://commons.wikimedia.org/wiki/File%3A",
     "http://commons.wikimedia.org/wiki/File:",
-    "https://commons.wikimedia.org/wiki/File:"
+    "https://commons.wikimedia.org/wiki/File:",
+    "de.wikipedia.org/wiki/Datei:"
   )
 
   def analyze(context: PoiAnalysisContext): PoiAnalysisContext = {
@@ -42,7 +44,7 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
         }
 
         val fileName = PoiImageAnalyzer.imagePrefixes.flatMap { imagePrefix =>
-          if (tagValue.startsWith(imagePrefix)) {
+          if (tagValue.toLowerCase.startsWith(imagePrefix.toLowerCase)) {
             Some(tagValue.substring(imagePrefix.length))
           }
           else {
@@ -92,5 +94,4 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
     val name = tagValue.toLowerCase()
     name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif") || name.endsWith(".png")
   }
-
 }
