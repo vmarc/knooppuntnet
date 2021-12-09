@@ -28,6 +28,7 @@ import { NodeMapPage } from '@api/common/node/node-map-page';
 import { LegBuildParams } from '@api/common/planner/leg-build-params';
 import { PlanLegDetail } from '@api/common/planner/plan-leg-detail';
 import { PlanParams } from '@api/common/planner/plan-params';
+import { PoiDetail } from '@api/common/poi-detail';
 import { PoiPage } from '@api/common/poi-page';
 import { MapRouteDetail } from '@api/common/route/map-route-detail';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
@@ -338,6 +339,14 @@ export class AppService {
 
   public poiAreas(): Observable<ApiResponse<string>> {
     const url = '/api/poi/areas';
+    return this.http.get(url);
+  }
+
+  public poiDetail(
+    elementType: string,
+    elementId: number
+  ): Observable<ApiResponse<PoiDetail>> {
+    const url = `/api/poi-detail/${elementType}/${elementId}`;
     return this.http.get(url);
   }
 

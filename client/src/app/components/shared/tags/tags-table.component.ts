@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { Tags } from '@api/custom/tags';
 import { InterpretedTags } from './interpreted-tags';
 
 @Component({

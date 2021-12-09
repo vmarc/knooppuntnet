@@ -14,6 +14,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { QriousModule } from 'angular-qrious';
 import { ClipboardModule } from 'ngx-clipboard';
 import { OlModule } from '../components/ol/ol.module';
+import { PoiAnalysisModule } from '../components/poi/poi-analysis.module';
 import { SharedModule } from '../components/shared/shared.module';
 import { PdfModule } from '../pdf/pdf.module';
 import { MapRoutingModule } from './map-routing.module';
@@ -89,6 +90,7 @@ import { PlanComponent } from './sidebar/plan.component';
     PdfModule,
     ClipboardModule,
     QriousModule,
+    PoiAnalysisModule,
   ],
   declarations: [
     MapPageComponent,
