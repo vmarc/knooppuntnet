@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AnalysisModeService } from './analysis-mode.service';
+import { AnalysisModeService } from '../../mode/analysis-mode.service';
 
 @Component({
   selector: 'kpn-analysis-cycling-page',
@@ -21,8 +20,6 @@ import { AnalysisModeService } from './analysis-mode.service';
       </span>
       <span i18n="@@network-type.cycling">Cycling</span>
     </kpn-page-header>
-
-    <kpn-analysis-mode></kpn-analysis-mode>
 
     <kpn-icon-buttons>
       <kpn-icon-button
@@ -65,19 +62,12 @@ import { AnalysisModeService } from './analysis-mode.service';
   `,
 })
 export class AnalysisCyclingPageComponent {
-  readonly nlLink: Observable<string>;
-  readonly beLink: Observable<string>;
-  readonly deLink: Observable<string>;
-  readonly frLink: Observable<string>;
-  readonly atLink: Observable<string>;
-  readonly esLink: Observable<string>;
+  readonly nlLink = this.analysisModeService.link('cycling', 'nl');
+  readonly beLink = this.analysisModeService.link('cycling', 'be');
+  readonly deLink = this.analysisModeService.link('cycling', 'de');
+  readonly frLink = this.analysisModeService.link('cycling', 'fr');
+  readonly atLink = this.analysisModeService.link('cycling', 'at');
+  readonly esLink = this.analysisModeService.link('cycling', 'es');
 
-  constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link('cycling', 'nl');
-    this.beLink = analysisModeService.link('cycling', 'be');
-    this.deLink = analysisModeService.link('cycling', 'de');
-    this.frLink = analysisModeService.link('cycling', 'fr');
-    this.atLink = analysisModeService.link('cycling', 'at');
-    this.esLink = analysisModeService.link('cycling', 'es');
-  }
+  constructor(private analysisModeService: AnalysisModeService) {}
 }

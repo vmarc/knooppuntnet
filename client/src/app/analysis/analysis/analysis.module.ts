@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { SharedModule } from '../../components/shared/shared.module';
+import { AnalysisModeModule } from '../mode/mode.module';
 import { AnalysisRoutingModule } from './analysis-routing.module';
+import { AnalysisSidebarComponent } from './analysis-sidebar.component';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
 import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';
 import { AnalysisHikingPageComponent } from './pages/analysis-hiking-page.component';
 import { AnalysisHorseRidingPageComponent } from './pages/analysis-horse-riding-page.component';
 import { AnalysisInlineSkatingPageComponent } from './pages/analysis-inline-skating-page.component';
-import { AnalysisModeComponent } from './pages/analysis-mode.component';
-import { AnalysisModeService } from './pages/analysis-mode.service';
 import { AnalysisMotorboatPageComponent } from './pages/analysis-motorboat-page.component';
 import { AnalysisPageComponent } from './pages/analysis-page.component';
 
@@ -18,9 +18,10 @@ import { AnalysisPageComponent } from './pages/analysis-page.component';
   imports: [
     CommonModule,
     SharedModule,
-    AnalysisRoutingModule,
     MatRadioModule,
     MatIconModule,
+    AnalysisRoutingModule,
+    AnalysisModeModule,
   ],
   declarations: [
     AnalysisPageComponent,
@@ -30,8 +31,7 @@ import { AnalysisPageComponent } from './pages/analysis-page.component';
     AnalysisMotorboatPageComponent,
     AnalysisHorseRidingPageComponent,
     AnalysisCanoePageComponent,
-    AnalysisModeComponent,
+    AnalysisSidebarComponent,
   ],
-  providers: [AnalysisModeService],
 })
 export class AnalysisModule {}

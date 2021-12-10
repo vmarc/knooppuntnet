@@ -47,8 +47,6 @@ import { LocationSelectionService } from './location-selection.service';
         <kpn-country-name [country]="country"></kpn-country-name>
       </kpn-page-header>
 
-      <kpn-location-mode></kpn-location-mode>
-
       <div *ngIf="isModeName() | async">
         <kpn-location-selector
           [country]="country"

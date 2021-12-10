@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AnalysisModeService } from './analysis-mode.service';
+import { AnalysisModeService } from '../../mode/analysis-mode.service';
 
 @Component({
   selector: 'kpn-analysis-canoe-page',
@@ -22,11 +21,9 @@ import { AnalysisModeService } from './analysis-mode.service';
       <span i18n="@@network-type.canoe">Canoe</span>
     </kpn-page-header>
 
-    <kpn-analysis-mode></kpn-analysis-mode>
-
     <kpn-icon-buttons>
       <kpn-icon-button
-        [routerLink]="nlLink | async"
+        [routerLink]="nlLink$ | async"
         icon="netherlands"
         i18n-title="@@country.nl"
         title="The Netherlands"
@@ -35,9 +32,7 @@ import { AnalysisModeService } from './analysis-mode.service';
   `,
 })
 export class AnalysisCanoePageComponent {
-  readonly nlLink: Observable<string>;
+  readonly nlLink$ = this.analysisModeService.link('canoe', 'nl');
 
-  constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link('canoe', 'nl');
-  }
+  constructor(private analysisModeService: AnalysisModeService) {}
 }

@@ -1,0 +1,23 @@
+.sidebar-section {
+  width: 200px; /* filterWidth =  UiPage.sideBarWidth - (2 * paddingHorizontal) */
+  padding-top: 25px;
+  padding-left: 25px; /* paddingHorizontal.px */
+  padding-right: 15px; /* paddingHorizontal.px */
+}
+
+.sidebar-section-title {
+  display: inline-block;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+mat-radio-group {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+mat-radio-button {
+  display: block;
+  padding-bottom: 10px;
+}

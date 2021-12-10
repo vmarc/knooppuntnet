@@ -5,6 +5,7 @@ import { SubsetChangesService } from './subset-changes.service';
   selector: 'kpn-subset-changes-sidebar',
   template: `
     <kpn-sidebar>
+      <kpn-subset-analysis-mode></kpn-subset-analysis-mode>
       <kpn-change-filter
         [filterOptions]="subsetChangesService.filterOptions$ | async"
       ></kpn-change-filter>

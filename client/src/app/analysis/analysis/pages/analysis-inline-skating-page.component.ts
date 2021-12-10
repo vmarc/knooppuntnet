@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AnalysisModeService } from './analysis-mode.service';
+import { AnalysisModeService } from '../../mode/analysis-mode.service';
 
 @Component({
   selector: 'kpn-analysis-inline-skating-page',
@@ -22,8 +21,6 @@ import { AnalysisModeService } from './analysis-mode.service';
       <span i18n="@@network-type.inline-skating">Inline skating</span>
     </kpn-page-header>
 
-    <kpn-analysis-mode></kpn-analysis-mode>
-
     <kpn-icon-buttons>
       <kpn-icon-button
         [routerLink]="nlLink | async"
@@ -35,9 +32,7 @@ import { AnalysisModeService } from './analysis-mode.service';
   `,
 })
 export class AnalysisInlineSkatingPageComponent {
-  readonly nlLink: Observable<string>;
+  readonly nlLink = this.analysisModeService.link('inline-skating', 'nl');
 
-  constructor(private analysisModeService: AnalysisModeService) {
-    this.nlLink = analysisModeService.link('inline-skating', 'nl');
-  }
+  constructor(private analysisModeService: AnalysisModeService) {}
 }

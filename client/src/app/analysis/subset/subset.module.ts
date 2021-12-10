@@ -14,6 +14,7 @@ import { OlModule } from '../../components/ol/ol.module';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { FactModule } from '../fact/fact.module';
+import { AnalysisModeModule } from '../mode/mode.module';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
 import { SubsetChangesService } from './changes/subset-changes.service';
@@ -41,7 +42,9 @@ import { SubsetOrphanRoutesService } from './orphan-routes/subset-orphan-routes.
 import { SubsetEffects } from './store/subset.effects';
 import { subsetReducer } from './store/subset.reducer';
 import { subsetFeatureKey } from './store/subset.state';
+import { SubsetAnalysisModeComponent } from './subset-analysis-mode.component';
 import { SubsetRoutingModule } from './subset-routing.module';
+import { SubsetSidebarComponent } from './subset-sidebar.component';
 
 @NgModule({
   imports: [
@@ -61,6 +64,7 @@ import { SubsetRoutingModule } from './subset-routing.module';
     MarkdownModule,
     MatDialogModule,
     MatButtonModule,
+    AnalysisModeModule,
   ],
   declarations: [
     SubsetPageBreadcrumbComponent,
@@ -84,6 +88,8 @@ import { SubsetRoutingModule } from './subset-routing.module';
     SubsetChangesSidebarComponent,
     SubsetMapPageComponent,
     SubsetMapNetworkDialogComponent,
+    SubsetSidebarComponent,
+    SubsetAnalysisModeComponent,
   ],
   providers: [
     SubsetOrphanNodesService,

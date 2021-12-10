@@ -1,5 +1,11 @@
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { AnalysisMode } from './preferences.state';
+
+export const actionPreferencesAnalysisMode = createAction(
+  '[Preferences] AnalysisMode',
+  props<{ analysisMode: AnalysisMode }>()
+);
 
 export const actionPreferencesNetworkType = createAction(
   '[Preferences] NetworkType',

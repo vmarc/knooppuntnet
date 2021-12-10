@@ -7,36 +7,28 @@ import { LocationModeService } from './location-mode.service';
   selector: 'kpn-location-mode',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
-      <mat-radio-button
-        value="name"
-        title="Name"
-        i18n="@@analysis.location.search-by-name"
-      >
-        Search by name
-      </mat-radio-button>
-      <mat-radio-button
-        value="tree"
-        title="Tree"
-        i18n="@@analysis.location.select-from-tree"
-      >
-        Select from tree
-      </mat-radio-button>
-    </mat-radio-group>
+    <div class="sidebar-section">
+      <div class="sidebar-section-title">Location</div>
+
+      <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
+        <mat-radio-button
+          value="name"
+          title="Name"
+          i18n="@@analysis.location.search-by-name"
+        >
+          Search by name
+        </mat-radio-button>
+        <mat-radio-button
+          value="tree"
+          title="Tree"
+          i18n="@@analysis.location.select-from-tree"
+        >
+          Select from tree
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
   `,
-  styles: [
-    `
-      mat-radio-group {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        display: block;
-      }
-      mat-radio-button {
-        display: block;
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+  styleUrls: ['../../../components/shared/sidebar/sidebar.scss'],
 })
 export class LocationModeComponent {
   constructor(private locationModeService: LocationModeService) {}

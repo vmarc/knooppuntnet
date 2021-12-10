@@ -7,6 +7,7 @@ import { ChangesService } from './changes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
+      <kpn-analysis-mode></kpn-analysis-mode>
       <kpn-change-filter
         [filterOptions]="changesService.filterOptions$ | async"
       ></kpn-change-filter>

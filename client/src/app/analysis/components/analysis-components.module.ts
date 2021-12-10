@@ -14,6 +14,7 @@ import { OlModule } from '@app/components/ol/ol.module';
 import { SharedModule } from '@app/components/shared/shared.module';
 import { MarkdownModule } from 'ngx-markdown';
 import { FactModule } from '../fact/fact.module';
+import { AnalysisModeModule } from '../mode/mode.module';
 import { ChangeHeaderComponent } from './change-set/change-header.component';
 import { ChangeSetTagsComponent } from './change-set/change-set-tags.component';
 import { ChangesSetComponent } from './change-set/change-set.component';
@@ -71,6 +72,7 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     OlModule,
     FactModule,
     RouterModule,
+    AnalysisModeModule,
   ],
   declarations: [
     ChangeHeaderComponent,

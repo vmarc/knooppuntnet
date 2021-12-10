@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnalysisSidebarComponent } from '../../components/shared/sidebar/analysis-sidebar.component';
+import { AnalysisSidebarComponent } from './analysis-sidebar.component';
 import { Util } from '../../components/shared/util';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
 import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';

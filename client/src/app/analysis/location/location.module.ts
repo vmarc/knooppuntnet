@@ -21,6 +21,7 @@ import { OlModule } from '../../components/ol/ol.module';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { FactModule } from '../fact/fact.module';
+import { AnalysisModeModule } from '../mode/mode.module';
 import { LocationChangesPageComponent } from './changes/location-changes-page.component';
 import { LocationChangesComponent } from './changes/location-changes.component';
 import { LocationPageBreadcrumbComponent } from './components/location-page-breadcrumb.component';
@@ -30,7 +31,9 @@ import { LocationEditPageComponent } from './edit/location-edit-page.component';
 import { LocationEditComponent } from './edit/location-edit.component';
 import { LocationFactsPageComponent } from './facts/location-facts-page.component';
 import { LocationFactsComponent } from './facts/location-facts.component';
+import { LocationAnalysisModeComponent } from './location-analysis-mode.component';
 import { LocationRoutingModule } from './location-routing.module';
+import { LocationSidebarComponent } from './location-sidebar.component';
 import { LocationService } from './location.service';
 import { LocationMapPageComponent } from './map/location-map-page.component';
 import { LocationNodeAnalysisComponent } from './nodes/location-node-analysis.component';
@@ -49,6 +52,7 @@ import { LocationRoutesComponent } from './routes/location-routes.component';
 import { LocationModeComponent } from './selection/location-mode.component';
 import { LocationModeService } from './selection/location-mode.service';
 import { LocationSelectionPageComponent } from './selection/location-selection-page.component';
+import { LocationSelectionSidebarComponent } from './selection/location-selection-sidebar.component';
 import { LocationSelectionService } from './selection/location-selection.service';
 import { LocationSelectorComponent } from './selection/location-selector.component';
 import { LocationTreeComponent } from './selection/location-tree.component';
@@ -81,6 +85,7 @@ import { locationFeatureKey } from './store/location.state';
     MatSlideToggleModule,
     AnalysisComponentsModule,
     MarkdownModule,
+    AnalysisModeModule,
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -104,12 +109,15 @@ import { locationFeatureKey } from './store/location.state';
     LocationFactsComponent,
     LocationModeComponent,
     LocationSelectionPageComponent,
+    LocationSelectionSidebarComponent,
     LocationSelectorComponent,
     LocationTreeComponent,
     LocationEditPageComponent,
     LocationEditComponent,
     LocationNodeFactIndicatorComponent,
     LocationNodeFactIndicatorDialogComponent,
+    LocationSidebarComponent,
+    LocationAnalysisModeComponent,
   ],
   providers: [LocationService, LocationModeService, LocationSelectionService],
 })

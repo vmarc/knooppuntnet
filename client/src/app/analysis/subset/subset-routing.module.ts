@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnalysisSidebarComponent } from '../../components/shared/sidebar/analysis-sidebar.component';
 import { Util } from '../../components/shared/util';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
@@ -12,17 +11,18 @@ import { SubsetOrphanNodesPageComponent } from './orphan-nodes/_subset-orphan-no
 import { SubsetOrphanNodesSidebarComponent } from './orphan-nodes/subset-orphan-nodes-sidebar.component';
 import { SubsetOrphanRoutesPageComponent } from './orphan-routes/_subset-orphan-routes-page.component';
 import { SubsetOrphanRoutesSidebarComponent } from './orphan-routes/subset-orphan-routes-sidebar.component';
+import { SubsetSidebarComponent } from './subset-sidebar.component';
 
 const routes: Routes = [
   Util.routePath(
     ':networkType/:country/networks',
     SubsetNetworksPageComponent,
-    AnalysisSidebarComponent
+    SubsetSidebarComponent
   ),
   Util.routePath(
     ':networkType/:country/facts',
     SubsetFactsPageComponent,
-    AnalysisSidebarComponent
+    SubsetSidebarComponent
   ),
   Util.routePath(
     ':networkType/:country/orphan-nodes',
@@ -37,7 +37,7 @@ const routes: Routes = [
   Util.routePath(
     ':networkType/:country/map',
     SubsetMapPageComponent,
-    AnalysisSidebarComponent
+    SubsetSidebarComponent
   ),
   Util.routePath(
     ':networkType/:country/changes',
@@ -47,7 +47,7 @@ const routes: Routes = [
   Util.routePath(
     ':networkType/:country/facts/:fact',
     SubsetFactDetailsPageComponent,
-    AnalysisSidebarComponent
+    SubsetSidebarComponent
   ),
 ];
 
