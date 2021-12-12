@@ -134,5 +134,4 @@ class RouteChangeInfoBuilder {
       throw new IllegalStateException("Cannot derive RouteChangeInfo from RouteChange " + routeChange)
     }
   }
-
 }

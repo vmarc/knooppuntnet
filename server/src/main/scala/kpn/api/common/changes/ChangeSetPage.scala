@@ -1,5 +1,6 @@
 package kpn.api.common.changes
 
+import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.common.KnownElements
@@ -10,6 +11,8 @@ case class ChangeSetPage(
   summary: ChangeSetSummary,
   changeSetInfo: Option[ChangeSetInfo],
   networkChanges: Seq[NetworkChangeInfo],
+  orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
+  orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
   routeChanges: Seq[RouteChangeInfo],
   nodeChanges: Seq[NodeChangeInfo],
   knownElements: KnownElements

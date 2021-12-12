@@ -51,6 +51,8 @@ object ChangeSetPageExample {
       summary = changeSetSummary(),
       changeSetInfo = Some(changeSetInfo()),
       networkChanges = networkChanges(),
+      orphanRouteChanges = Seq.empty, // TODO add meaningful values here
+      orphanNodeChanges = Seq.empty, // TODO add meaningful values here
       routeChanges = routeChanges(),
       nodeChanges = nodeChanges(),
       knownElements = KnownElements(
