@@ -17,19 +17,21 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteSegmentData
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import org.locationtech.jts.densify.Densifier
+import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.MultiLineString
 import org.locationtech.jts.io.geojson.GeoJsonReader
 
 object MonitorDemoTool {
 
-  private val routeIds: Seq[Long] = Seq(
-    3121668L
+  private val routes: Seq[MonitorDemoRoute] = Seq(
+    MonitorDemoRoute(3121668L, "3121668.gpx")
+
   )
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn") { database =>
-      new MonitorDemoTool(database).setup(routeIds)
+      new MonitorDemoTool(database).setup(routes)
     }
   }
 }
@@ -41,59 +43,37 @@ class MonitorDemoTool(database: Database) {
   private val toleranceMeters = 10
   private val now = Timestamp(2021, 12, 1, 0, 0, 0)
 
-  def setup(routeIds: Seq[Long]): Unit = {
+  def setup(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
 
     val group = MonitorGroup("SGR", "Les Sentiers de Grande Randonnée")
     database.monitorGroups.save(group)
 
-    routeIds.foreach { routeId =>
-      val filename = s"/kpn/monitor-demo/$routeId.xml"
-      val routeRelation = readRelation(filename, routeId)
+    demoRoutes.foreach { demoRoute =>
+      val filename = s"/kpn/monitor-demo/${demoRoute.filename}"
+      val routeRelation = readRelation(filename, demoRoute.routeId)
 
-      val route = MonitorRouteAnalyzer.toRoute(group.name, routeRelation)
-      database.monitorRoutes.save(route)
+      val monitorRoute = MonitorRouteAnalyzer.toRoute(group.name, routeRelation)
+      database.monitorRoutes.save(monitorRoute)
 
-      val geometry = new MonitorRouteGpxReader().read(s"/kpn/monitor-demo/$routeId.gpx")
-      val geoJson = MonitorRouteAnalyzer.toGeoJson(geometry)
-      val envelope = geometry.getEnvelopeInternal
-      val bounds = BoundsI(
-        envelope.getMinY, // minLat
-        envelope.getMinX, // minLon
-        envelope.getMaxY, // maxLat
-        envelope.getMaxX, // maxLon
-      )
-      val routeReference = MonitorRouteReference(
-        s"$routeId:${now.key}",
-        routeId = routeId,
-        key = now.key,
-        created = now,
-        user = "vmarc",
-        bounds = bounds,
-        referenceType = "gpx", // "osm" | "gpx"
-        referenceTimestamp = Some(now),
-        segmentCount = 0,
-        filename = Some(filename),
-        geometry = geoJson
-      )
-
+      val routeReference = buildRouteReference(demoRoute)
       database.monitorRouteReferences.save(routeReference)
 
-      val routeSegments = MonitorRouteAnalyzer.toRouteSegments(routeRelation)
-      val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
-
-      val routeState = MonitorRouteState(
-        routeId,
-        routeAnalysis.relation.timestamp,
-        routeAnalysis.wayCount,
-        routeAnalysis.osmDistance,
-        routeAnalysis.gpxDistance,
-        routeAnalysis.bounds,
-        Some(routeReference.key),
-        routeAnalysis.osmSegments,
-        routeAnalysis.okGeometry,
-        routeAnalysis.nokSegments
-      )
-
+      val routeState = {
+        val routeSegments = MonitorRouteAnalyzer.toRouteSegments(routeRelation)
+        val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
+        MonitorRouteState(
+          demoRoute.routeId,
+          routeAnalysis.relation.timestamp,
+          routeAnalysis.wayCount,
+          routeAnalysis.osmDistance,
+          routeAnalysis.gpxDistance,
+          routeAnalysis.bounds,
+          Some(routeReference.key),
+          routeAnalysis.osmSegments,
+          routeAnalysis.okGeometry,
+          routeAnalysis.nokSegments
+        )
+      }
       database.monitorRouteStates.save(routeState)
     }
   }
@@ -143,11 +123,11 @@ class MonitorDemoTool(database: Database) {
         )
       }
 
-      val xx: Seq[MonitorRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
+      val routeNokSegments: Seq[MonitorRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
         s.copy(id = index + 1)
       }
 
-      (Some(ok), xx)
+      (Some(ok), routeNokSegments)
     }
 
     val gpxDistance = Math.round(toMeters(gpxLineString.getLength / 1000))
@@ -176,5 +156,34 @@ class MonitorDemoTool(database: Database) {
     val rawData = OsmDataXmlReader.read(filename)
     val data = new DataBuilder(rawData).data
     data.relations(routeId)
+  }
+
+  private def buildRouteReference(demoRoute: MonitorDemoRoute): MonitorRouteReference = {
+    val geometry = new MonitorRouteGpxReader().read(s"/kpn/monitor-demo/${demoRoute.filename}")
+    val bounds = geometryBounds(geometry)
+    val geoJson = MonitorRouteAnalyzer.toGeoJson(geometry)
+    MonitorRouteReference(
+      s"${demoRoute.routeId}:${now.key}",
+      routeId = demoRoute.routeId,
+      key = now.key,
+      created = now,
+      user = "vmarc",
+      bounds = bounds,
+      referenceType = "gpx", // "osm" | "gpx"
+      referenceTimestamp = Some(now),
+      segmentCount = 0,
+      filename = Some(demoRoute.filename),
+      geometry = geoJson
+    )
+  }
+
+  private def geometryBounds(geometry: Geometry): BoundsI = {
+    val envelope = geometry.getEnvelopeInternal
+    BoundsI(
+      envelope.getMinY, // minLat
+      envelope.getMinX, // minLon
+      envelope.getMaxY, // maxLat
+      envelope.getMaxX, // maxLon
+    )
   }
 }
