@@ -61,11 +61,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def routeReference(routeId: Long, key: String): Option[MonitorRouteReference] = {
-    database.monitorRouteReferences.findOne(
-      and(
-        equal("_id", routeId),
-        equal("key", key)
-      ),
+    database.monitorRouteReferences.findOne[MonitorRouteReference](
+      equal("_id", s"$routeId:$key"),
       log
     )
   }

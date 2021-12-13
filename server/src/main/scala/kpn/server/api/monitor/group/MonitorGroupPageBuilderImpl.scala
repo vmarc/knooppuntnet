@@ -31,7 +31,7 @@ class MonitorGroupPageBuilderImpl(
         group.description,
         sortedRoutes.map { route =>
           MonitorRouteDetail(
-            route.id,
+            route.routeId,
             route.ref,
             route.name,
             route.description,

@@ -7,58 +7,21 @@ import kpn.api.common.FR
 import kpn.api.common.Language
 import kpn.api.common.NL
 
-object MonitorRoute {
-
-  // for mongodb migration only
-  def apply(
-    _id: Long,
-    groupName: String,
-    name: String,
-    nameNl: Option[String],
-    nameEn: Option[String],
-    nameDe: Option[String],
-    nameFr: Option[String],
-    ref: Option[String],
-    description: Option[String],
-    operator: Option[String],
-    website: Option[String]
-  ): MonitorRoute = {
-    MonitorRoute(
-      _id,
-      _id,
-      groupName,
-      name,
-      nameNl,
-      nameEn,
-      nameDe,
-      nameFr,
-      ref,
-      description,
-      operator,
-      website
-    )
-  }
-}
-
 case class MonitorRoute(
-  _id: Long, // == id
-  id: Long,
+  _id: Long, // routeId
   groupName: String,
   name: String,
-  nameNl: Option[String],
-  nameEn: Option[String],
-  nameDe: Option[String],
-  nameFr: Option[String],
-  ref: Option[String],
-  description: Option[String],
-  operator: Option[String],
-  website: Option[String]
+  nameNl: Option[String] = None,
+  nameEn: Option[String] = None,
+  nameDe: Option[String] = None,
+  nameFr: Option[String] = None,
+  ref: Option[String] = None,
+  description: Option[String] = None,
+  operator: Option[String] = None,
+  website: Option[String] = None
 ) extends WithId {
 
-  // for mongodb migration only
-  def toMongo: MonitorRoute = {
-    copy(_id = id)
-  }
+  def routeId: Long = _id
 
   def translatedName(language: Language): String = {
     language match {

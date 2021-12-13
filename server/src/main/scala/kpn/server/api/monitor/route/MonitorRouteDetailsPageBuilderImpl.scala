@@ -16,7 +16,7 @@ class MonitorRouteDetailsPageBuilderImpl(
       monitorRouteRepository.routeState(routeId).flatMap { routeState =>
         monitorGroupRepository.group(route.groupName).map { group =>
           MonitorRouteDetailsPage(
-            route.id,
+            route.routeId,
             route.name,
             group.name,
             group.description,

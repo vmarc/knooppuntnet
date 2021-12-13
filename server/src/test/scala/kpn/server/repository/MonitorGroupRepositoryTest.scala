@@ -4,6 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorGroup
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.api.monitor.domain.MonitorRoute
 
 class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
@@ -36,6 +37,27 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
       repository.deleteGroup("name2")
       repository.groups() shouldBe empty
+    }
+  }
+
+  test("groupRoutes") {
+
+    withDatabase { database =>
+
+      val repository = new MonitorGroupRepositoryImpl(database)
+
+      repository.saveGroup(MonitorGroup("group-name", "group-description"))
+      database.monitorRoutes.save(MonitorRoute(1L, "group-name", "route 1"))
+      database.monitorRoutes.save(MonitorRoute(2L, "group-name", "route 2"))
+      database.monitorRoutes.save(MonitorRoute(3L, "group-name", "route 3"))
+
+      repository.groupRoutes("group-name") should matchTo(
+        Seq(
+          MonitorRoute(1L, "group-name", "route 1"),
+          MonitorRoute(2L, "group-name", "route 2"),
+          MonitorRoute(3L, "group-name", "route 3")
+        )
+      )
     }
   }
 }

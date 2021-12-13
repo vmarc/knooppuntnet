@@ -161,6 +161,7 @@ class MonitorChangeProcessorImpl(
       val groupName = monitorRouteRepository.route(routeId).map(_.groupName).getOrElse("")
 
       val change = MonitorRouteChange(
+        key.toId,
         key,
         groupName,
         afterRoute.wayCount,

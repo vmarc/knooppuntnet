@@ -13,7 +13,7 @@ class MonitorRouteGpxReader {
 
   def read(filename: String): LineString = {
 
-    val xml = XML.loadFile(new File("/kpn/gpx/" + filename))
+    val xml = XML.loadFile(new File(filename))
     val tracks = (xml \ "trk").map { trk =>
       (trk \ "trkseg").map { trkseg =>
         val coordinates = (trkseg \ "trkpt").map { trkpt =>

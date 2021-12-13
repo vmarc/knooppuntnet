@@ -54,10 +54,4 @@ case class MonitorRouteChange(
   referenceKey: String,
   happy: Boolean,
   investigate: Boolean
-) extends WithStringId {
-
-  // for mongodb migration only
-  def toMongo: MonitorRouteChange = {
-    copy(_id = key.toId)
-  }
-}
+) extends WithStringId

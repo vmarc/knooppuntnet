@@ -50,10 +50,4 @@ case class MonitorRouteReference(
   segmentCount: Long,
   filename: Option[String],
   geometry: String // osm | gpx
-) extends WithStringId {
-
-  // for mongodb migration only
-  def toMongo: MonitorRouteReference = {
-    copy(_id = MonitorRouteReference.id(routeId, key))
-  }
-}
+) extends WithStringId
