@@ -1,6 +1,6 @@
 package kpn.api.common.monitor
 
-import kpn.api.common.BoundsI
+import kpn.api.common.Bounds
 import kpn.api.common.changes.details.ChangeKey
 
 case class MonitorRouteChangeDetail(
@@ -13,7 +13,7 @@ case class MonitorRouteChangeDetail(
   osmDistance: Long,
   gpxDistance: Long,
   gpxFilename: String,
-  bounds: BoundsI,
+  bounds: Bounds,
   referenceJson: String,
   routeSegmentCount: Long,
   routeSegments: Seq[MonitorRouteSegment],

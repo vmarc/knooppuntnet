@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { BoundsI } from '../bounds-i';
+import { Bounds } from '../bounds';
 import { ChangeKey } from '../changes/details/change-key';
 import { MonitorRouteNokSegment } from './monitor-route-nok-segment';
 import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
@@ -16,7 +16,7 @@ export interface MonitorRouteChangePage {
   readonly waysRemoved: number;
   readonly waysUpdated: number;
   readonly osmDistance: number;
-  readonly bounds: BoundsI;
+  readonly bounds: Bounds;
   readonly routeSegmentCount: number;
   readonly routeSegments: MonitorRouteSegment[];
   readonly newNokSegments: MonitorRouteNokSegment[];

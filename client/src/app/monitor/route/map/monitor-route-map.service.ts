@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BoundsI } from '@api/common/bounds-i';
+import { Bounds } from '@api/common/bounds';
 import { Store } from '@ngrx/store';
 import { GeoJSON } from 'ol/format';
 import { Geometry } from 'ol/geom';
@@ -82,7 +82,7 @@ export class MonitorRouteMapService {
     this.map = map;
   }
 
-  focus(bounds: BoundsI): void {
+  focus(bounds: Bounds): void {
     if (this.map !== null) {
       this.map.getView().fit(Util.toExtent(bounds, 0.1));
     }

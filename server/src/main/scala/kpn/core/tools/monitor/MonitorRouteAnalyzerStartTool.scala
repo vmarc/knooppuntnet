@@ -1,9 +1,8 @@
 package kpn.core.tools.monitor
 
-import kpn.api.common.BoundsI
 import kpn.api.custom.Timestamp
-import kpn.database.util.Mongo
 import kpn.core.util.Util
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoader
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoaderFileImpl
@@ -68,7 +67,7 @@ class MonitorRouteAnalyzerStartTool(
           timestamp.key,
           timestamp,
           "vmarc",
-          bounds: BoundsI,
+          bounds,
           "osm", // "osm" | "gpx"
           Some(timestamp),
           segments.size,
@@ -84,5 +83,4 @@ class MonitorRouteAnalyzerStartTool(
   private def routeIds: Seq[Long] = {
     new File("/kpn/wrk/begin").list().toSeq.map(file => file.replace(".xml", "").toLong)
   }
-
 }

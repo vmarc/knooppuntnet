@@ -34,13 +34,4 @@ case class Bounds(
   minLon: Double = 0,
   maxLat: Double = 0,
   maxLon: Double = 0
-) {
-  def toBoundsI: BoundsI = {
-    BoundsI(
-      minLat,
-      minLon,
-      maxLat,
-      maxLon
-    )
-  }
-}
+)

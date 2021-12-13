@@ -93,18 +93,18 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public monitorAdminAddRouteGroup(group: MonitorGroup): Observable<Object> {
+  public monitorAdminAddRouteGroup(group: MonitorGroup): Observable<any> {
     const url = `/admin-api/monitor/groups`;
     return this.http.post(url, group);
   }
 
-  public monitorAdminDeleteRouteGroup(groupName: string): Observable<Object> {
+  public monitorAdminDeleteRouteGroup(groupName: string): Observable<any> {
     const url = `/admin-api/monitor/groups/${groupName}`;
     return this.http.delete(url);
   }
 
-  public monitorAdminUpdateRouteGroup(group: MonitorGroup): Observable<Object> {
-    const url = `/admin-api/monitor/groups/${group.name}`;
+  public monitorAdminUpdateRouteGroup(group: MonitorGroup): Observable<any> {
+    const url = `/admin-api/monitor/groups/${group._id}`;
     return this.http.put(url, group);
   }
 }

@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor
 
-import kpn.api.common.BoundsI
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.custom.Relation
@@ -111,7 +111,7 @@ class MonitorDemoTool(database: Database) {
 
         val lineString = MonitorRouteAnalyzer.toLineString(sampleCoordinates, segment)
         val meters: Long = Math.round(toMeters(lineString.getLength))
-        val bounds = MonitorRouteAnalyzer.toBounds(lineString.getCoordinates.toSeq).toBoundsI
+        val bounds = MonitorRouteAnalyzer.toBounds(lineString.getCoordinates.toSeq)
         val geoJson = MonitorRouteAnalyzer.toGeoJson(lineString)
 
         MonitorRouteNokSegment(
@@ -177,9 +177,9 @@ class MonitorDemoTool(database: Database) {
     )
   }
 
-  private def geometryBounds(geometry: Geometry): BoundsI = {
+  private def geometryBounds(geometry: Geometry): Bounds = {
     val envelope = geometry.getEnvelopeInternal
-    BoundsI(
+    Bounds(
       envelope.getMinY, // minLat
       envelope.getMinX, // minLon
       envelope.getMaxY, // maxLat

@@ -56,7 +56,7 @@ object MonitorRouteAnalyzer {
 
       val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
       val meters: Long = Math.round(toMeters(lineString.getLength))
-      val bounds = toBounds(lineString.getCoordinates.toSeq).toBoundsI
+      val bounds = toBounds(lineString.getCoordinates.toSeq)
       val geoJson = toGeoJson(lineString)
 
       MonitorRouteSegmentData(

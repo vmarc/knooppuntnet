@@ -1,4 +1,4 @@
-import { BoundsI } from '@api/common/bounds-i';
+import { Bounds } from '@api/common/bounds';
 import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroup } from '@api/common/monitor/monitor-group';
@@ -121,7 +121,7 @@ export const actionMonitorRouteMapMode = createAction(
 
 export const actionMonitorRouteMapFocus = createAction(
   '[Monitor] Focus',
-  props<{ bounds: BoundsI }>()
+  props<{ bounds: Bounds }>()
 );
 
 export const actionMonitorRouteMapReferenceVisible = createAction(

@@ -1,7 +1,7 @@
 package kpn.server.api.monitor.domain
 
 import kpn.api.base.WithStringId
-import kpn.api.common.BoundsI
+import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 
 object MonitorRouteReference {
@@ -11,7 +11,7 @@ object MonitorRouteReference {
     key: String,
     created: Timestamp,
     user: String,
-    bounds: BoundsI,
+    bounds: Bounds,
     referenceType: String,
     referenceTimestamp: Option[Timestamp],
     segmentCount: Long,
@@ -44,7 +44,7 @@ case class MonitorRouteReference(
   key: String, // YYYYMMDDHHMMSS derived from created Timestamp
   created: Timestamp,
   user: String,
-  bounds: BoundsI,
+  bounds: Bounds,
   referenceType: String, // "osm" | "gpx"
   referenceTimestamp: Option[Timestamp],
   segmentCount: Long,

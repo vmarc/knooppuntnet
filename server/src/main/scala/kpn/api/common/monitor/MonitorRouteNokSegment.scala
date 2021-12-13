@@ -1,11 +1,11 @@
 package kpn.api.common.monitor
 
-import kpn.api.common.BoundsI
+import kpn.api.common.Bounds
 
 case class MonitorRouteNokSegment(
   id: Long,
   meters: Long,
   distance: Long,
-  bounds: BoundsI,
+  bounds: Bounds,
   geoJson: String
 )

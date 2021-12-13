@@ -1,6 +1,6 @@
 package kpn.core.util
 
-import kpn.api.common.BoundsI
+import kpn.api.common.Bounds
 
 import java.lang.management.ManagementFactory
 import scala.annotation.tailrec
@@ -65,12 +65,12 @@ object Util {
 
   def classNameOf(obj: Any): String = obj.getClass.getSimpleName.filterNot(_ == '$')
 
-  def mergeBounds(boundss: Seq[BoundsI]): BoundsI = {
+  def mergeBounds(boundss: Seq[Bounds]): Bounds = {
     val minLat = boundss.map(_.minLat).min
     val maxLat = boundss.map(_.maxLat).max
     val minLon = boundss.map(_.minLon).min
     val maxLon = boundss.map(_.maxLon).max
-    BoundsI(
+    Bounds(
       minLat,
       minLon,
       maxLat,
@@ -91,5 +91,4 @@ object Util {
         split(separator, s._2.tail, tmp ++ Seq(s._1))
     }
   }
-
 }

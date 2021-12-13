@@ -1066,7 +1066,7 @@ trait SharedTestObjects extends MockFactory {
     wayCount: Long = 0,
     osmDistance: Long = 0,
     gpxDistance: Long = 0,
-    bounds: BoundsI = BoundsI(),
+    bounds: Bounds = Bounds(),
     referenceKey: Option[String] = None,
     osmSegments: Seq[MonitorRouteSegment] = Seq.empty,
     okGeometry: Option[String] = None,

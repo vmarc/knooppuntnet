@@ -1,7 +1,7 @@
 package kpn.server.api.monitor.domain
 
 import kpn.api.base.WithId
-import kpn.api.common.BoundsI
+import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Timestamp
@@ -12,7 +12,7 @@ case class MonitorRouteState(
   wayCount: Long,
   osmDistance: Long,
   gpxDistance: Long,
-  bounds: BoundsI,
+  bounds: Bounds,
   referenceKey: Option[String], // use this to pick up the reference geometry
   osmSegments: Seq[MonitorRouteSegment],
   okGeometry: Option[String],

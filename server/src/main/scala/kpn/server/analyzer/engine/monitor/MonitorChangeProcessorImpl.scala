@@ -240,7 +240,7 @@ class MonitorChangeProcessorImpl(
 
         val lineString = MonitorRouteAnalyzer.toLineString(sampleCoordinates, segment)
         val meters: Long = Math.round(toMeters(lineString.getLength))
-        val bounds = MonitorRouteAnalyzer.toBounds(lineString.getCoordinates.toSeq).toBoundsI
+        val bounds = MonitorRouteAnalyzer.toBounds(lineString.getCoordinates.toSeq)
         val geoJson = MonitorRouteAnalyzer.toGeoJson(lineString)
 
         MonitorRouteNokSegment(
