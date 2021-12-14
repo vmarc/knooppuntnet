@@ -6,7 +6,8 @@ class NewLocationTreeBuilder {
 
   def buildTree(locations: Seq[LocationDoc]): LocationTree = {
     val pathMap = buildPathMap(locations)
-    LocationTree("", Some(buildTrees(pathMap, "")))
+    val tree = LocationTree("", Some(buildTrees(pathMap, "")))
+    tree.childLocations.head
   }
 
   private def buildTrees(pathMap: Map[String, Seq[LocationDoc]], path: String): Seq[LocationTree] = {

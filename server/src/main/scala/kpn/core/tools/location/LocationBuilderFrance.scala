@@ -15,26 +15,19 @@ import kpn.core.tools.country.SkeletonNode
 import kpn.core.tools.country.SkeletonRelation
 import kpn.core.tools.country.SkeletonWay
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.LocationJson
-import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.LocationsJson
-import kpn.server.json.Json
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Polygon
 
 import java.io.File
-import java.io.FileInputStream
-import java.io.InputStreamReader
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.zip.GZIPInputStream
 import scala.collection.mutable.ListBuffer
 import scala.collection.parallel.CollectionConverters.ImmutableIterableIsParallelizable
 import scala.xml.XML
 
-class LocationBuilderFrance {
+class LocationBuilderFrance(dir: String) {
 
-  private val dir = "/kpn/locations"
   private val regionsFilename = s"$dir/fr-regions.geojson.gz"
   private val departmentsFilename = s"$dir/fr-departments.geojson.gz"
   private val communesFilename = s"$dir/fr-communes.geojson.gz"
@@ -54,8 +47,8 @@ class LocationBuilderFrance {
 
   private def buildCountry(): Unit = {
     Log.context("country") {
-      val locationJsons = loadLocationJsons(regionsFilename)
-      val locationJson = locationJsons.filter(_.properties.name == "Metropolitan France").head
+      val locationJsons = InterpretedLocationJson.load(regionsFilename)
+      val locationJson = locationJsons.filter(_.name == "Metropolitan France").head // TODO check if this is still ok
       val names = Seq(
         LocationName(NL, "Frankrijk"),
         LocationName(DE, "Frankreich")
@@ -75,16 +68,14 @@ class LocationBuilderFrance {
         case None => log.warn("Could not find 'fr' location")
         case Some(country) =>
           val departmentJsons = loadDepartmentJsons(country)
-          val count = new AtomicInteger(0)
-          departmentJsons.foreach { departmentJson =>
-            val index = count.incrementAndGet()
+          departmentJsons.zipWithIndex.foreach { case (departmentJson, index) =>
             val id = {
-              val inseeCode = departmentJson.properties.all_tags("ref:INSEE")
+              val inseeCode = departmentJson.tags("ref:INSEE")
               s"fr-1-$inseeCode"
             }
-            val name = departmentJson.properties.all_tags("name")
-            log.info(s"$index/${departmentJsons.size} $id $name")
-            val names = locationNames(departmentJson)
+            val name = departmentJson.tags("name")
+            log.info(s"${index + 1}/${departmentJsons.size} $id $name")
+            val names = departmentJson.names
             val data = LocationData(
               id,
               LocationDoc(id, Seq(LocationPath(Seq("fr"))), name, names),
@@ -102,8 +93,9 @@ class LocationBuilderFrance {
       val geomFactory = new GeometryFactory
       val locationIds = franceCdcLocationIds()
       val count = new AtomicInteger(0)
+      val context = Log.contextMessages
       locationIds.par.foreach { locationId =>
-        Log.context(locationId.toString) {
+        Log.context(context :+ locationId.toString) {
           val index = count.incrementAndGet()
           val rawData = OsmDataXmlReader.read(s"$dir/fr-cdc/$locationId.xml")
           val data = new DataBuilder(rawData).data
@@ -170,16 +162,17 @@ class LocationBuilderFrance {
       val cdcs = locationDatas.toSeq.filter(_.id.startsWith("fr-2"))
       val communeJsons = loadCommuneJsons()
       val count = new AtomicInteger(0)
+      val context = Log.contextMessages
       communeJsons.par.foreach { commune =>
         val index = count.incrementAndGet()
-        Log.context(s"$index/${communeJsons.size}") {
+        Log.context(context :+ s"$index/${communeJsons.size}") {
           val id = {
-            val inseeCode = commune.properties.all_tags("ref:INSEE")
+            val inseeCode = commune.tags("ref:INSEE")
             s"fr-3-$inseeCode"
           }
-          val name = commune.properties.all_tags("name")
+          val name = commune.tags("name")
           log.info(s"$id $name")
-          val names = locationNames(commune)
+          val names = commune.names
           val communeGeometry = LocationGeometry(commune.geometry)
           departments.find(department => department.geometry.contains(communeGeometry)) match {
             case None => log.error("No parent found for commune")
@@ -200,54 +193,25 @@ class LocationBuilderFrance {
     }
   }
 
-  private def loadDepartmentJsons(country: LocationData): Seq[LocationJson] = {
+  private def loadDepartmentJsons(country: LocationData): Seq[InterpretedLocationJson] = {
     log.info("Read departments file")
-    val locationJsons = loadLocationJsons(departmentsFilename)
+    val locationJsons = InterpretedLocationJson.load(departmentsFilename)
     log.info("Filtering departments")
     locationJsons
-      .filter(_.properties.all_tags.get("boundary").contains("administrative"))
-      .filter(_.properties.all_tags.contains("ref:INSEE"))
+      .filter(_.tags.get("boundary").contains("administrative"))
+      .filter(_.tags.contains("ref:INSEE"))
       .filter(department => country.geometry.contains(LocationGeometry(department.geometry)))
-      .sortBy(_.properties.all_tags("ref:INSEE"))
+      .sortBy(_.tags("ref:INSEE"))
   }
 
-  private def loadCommuneJsons(): Seq[LocationJson] = {
+  private def loadCommuneJsons(): Seq[InterpretedLocationJson] = {
     log.infoElapsed {
       log.info("Read communes file")
-      val locationJsons = loadLocationJsons(communesFilename)
-        .filter(_.properties.all_tags.get("boundary").contains("administrative"))
-        .filter(_.properties.all_tags.contains("ref:INSEE"))
-        .sortBy(_.properties.all_tags("ref:INSEE"))
+      val locationJsons = InterpretedLocationJson.load(communesFilename)
+        .filter(_.tags.get("boundary").contains("administrative"))
+        .filter(_.tags.contains("ref:INSEE"))
+        .sortBy(_.tags("ref:INSEE"))
       (s"${locationJsons.size} communes loaded", locationJsons)
-    }
-  }
-
-  private def loadLocationJsons(filename: String): Seq[LocationJson] = {
-    val gzippedInputStream = new FileInputStream(filename)
-    val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
-    val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
-    Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
-  }
-
-  private def locationNames(locationJson: LocationJson): Seq[LocationName] = {
-    val name = locationJson.properties.all_tags("name")
-    Languages.all.flatMap { language =>
-      val lang = language.toString.toLowerCase
-      locationJson.properties.all_tags.get(s"name:$lang") match {
-        case None => None
-        case Some(value) =>
-          if (value != name) {
-            Some(
-              LocationName(
-                language,
-                value
-              )
-            )
-          }
-          else {
-            None
-          }
-      }
     }
   }
 
