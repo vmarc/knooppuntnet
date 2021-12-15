@@ -870,9 +870,9 @@
       value that is frequently found, but not actually documented as a valid
       value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
       *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline*skates&quot;*.</source>
-        <target>Valeur invalide dans la balise requise _&quot;route&quot;_ dans la relation de route. 
+        <target>Valeur invalide dans la balise requise _&quot;route&quot;_ dans la relation de route.
 
-Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_. 
+Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_.
 
 Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM.</target>
         <context-group purpose="location">
@@ -954,7 +954,7 @@ Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suiv
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *&quot;fixme&quot;* with value *&quot;incomplete&quot;* in the route relation. But after analysis, the route seems to be ok.</source>
-        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire. 
+        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire.
 
 Mais après analyse, l&apos;itinéraire semble correct.</target>
         <context-group purpose="location">
@@ -1092,7 +1092,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="fact.description.lost-bicycle-node-tag" datatype="html">
         <source>This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.</source>
-        <target>Ce nœud n&apos;est plus un nœud 
+        <target>Ce nœud n&apos;est plus un nœud
 valide de réseau cyclable car la clé rcn_ref a été supprimée.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-lost-bicycle-node-tag.component.ts</context>
@@ -7452,7 +7452,7 @@ The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not adde
       </trans-unit>
       <trans-unit id="node.initial-value" datatype="html">
         <source>Oldest known state of the node.</source>
-        <target>Dernier état connu du nœud (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
+        <target>Dernier état connu du nœud.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/node-change.component.ts</context>
           <context context-type="linenumber">51</context>
@@ -7460,7 +7460,7 @@ The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not adde
       </trans-unit>
       <trans-unit id="route-change.initial-value" datatype="html">
         <source>Oldest known state of the route.</source>
-        <target>Dernier état connu de l&apos;itinéraire (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
+        <target>Dernier état connu de l&apos;itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/route-change.component.ts</context>
           <context context-type="linenumber">53</context>
@@ -7468,7 +7468,7 @@ The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not adde
       </trans-unit>
       <trans-unit id="network-changes.network-initial-value" datatype="html">
         <source>Oldest known state of the network.</source>
-        <target>Dernier état connu du réseau (à la date du <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>changement de licence<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>)</target>
+        <target>Dernier état connu du réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">240</context>
