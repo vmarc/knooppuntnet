@@ -69,11 +69,11 @@ class MonitorChangeProcessorImpl(
   }
 
   private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Unit = {
-    monitorRouteRepository.routeReferenceKey(routeId) match {
+    monitorRouteRepository.routeReferenceKey("TODO KEY" + routeId) match {
       case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
       case Some(referenceKey) =>
 
-        val referenceOption = monitorRouteRepository.routeReference(routeId, referenceKey)
+        val referenceOption = monitorRouteRepository.routeReference("TODO" + routeId, referenceKey)
         monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
           case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
           case Some(beforeRelation) =>
@@ -101,7 +101,13 @@ class MonitorChangeProcessorImpl(
     }
   }
 
-  private def analyze(context: ChangeSetContext, routeId: Long, beforeRelation: Relation, afterRelation: Relation, reference: MonitorRouteReference): Unit = {
+  private def analyze(
+    context: ChangeSetContext,
+    routeId: Long,
+    beforeRelation: Relation,
+    afterRelation: Relation,
+    reference: MonitorRouteReference
+  ): Unit = {
 
     val beforeRouteSegments = log.infoElapsed {
       ("toRouteSegments before", MonitorRouteAnalyzer.toRouteSegments(beforeRelation))
@@ -158,7 +164,7 @@ class MonitorChangeProcessorImpl(
         Seq.empty
       }
 
-      val groupName = monitorRouteRepository.route(routeId).map(_.groupName).getOrElse("")
+      val groupName = monitorRouteRepository.route("TODO" + routeId).map(_.groupName).getOrElse("")
 
       val change = MonitorRouteChange(
         key.toId,
@@ -189,6 +195,7 @@ class MonitorChangeProcessorImpl(
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
       val routeState = MonitorRouteState(
+        "TODO ID",
         routeId,
         afterRoute.relation.timestamp,
         afterRoute.wayCount,

@@ -4,6 +4,6 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 
 trait MonitorRouteDetailsPageBuilder {
 
-  def build(routeId: Long): Option[MonitorRouteDetailsPage]
+  def build(monitorRouteId: String): Option[MonitorRouteDetailsPage]
 
 }

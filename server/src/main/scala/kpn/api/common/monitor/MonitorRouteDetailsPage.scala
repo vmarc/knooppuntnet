@@ -1,6 +1,7 @@
 package kpn.api.common.monitor
 
 case class MonitorRouteDetailsPage(
+  monitorRouteId: String,
   routeId: Long,
   routeName: String,
   groupName: String,

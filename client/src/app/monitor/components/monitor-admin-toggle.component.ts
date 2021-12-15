@@ -12,6 +12,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   template: `
     <div class="toggle">
       <mat-slide-toggle
+        [disabled]="true"
         [checked]="admin$ | async"
         (change)="adminChanged($event)"
         >Admin</mat-slide-toggle

@@ -1001,8 +1001,10 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newMonitorRoute(
-    id: Long,
+    id: String,
+    routeId: Long,
     groupName: String,
+    routeName: String,
     name: String,
     nameNl: Option[String] = None,
     nameEn: Option[String] = None,
@@ -1014,17 +1016,19 @@ trait SharedTestObjects extends MockFactory {
     website: Option[String] = None
   ): MonitorRoute = {
     MonitorRoute(
-      id: Long,
-      groupName: String,
-      name: String,
-      nameNl: Option[String],
-      nameEn: Option[String],
-      nameDe: Option[String],
-      nameFr: Option[String],
-      ref: Option[String],
-      description: Option[String],
-      operator: Option[String],
-      website: Option[String]
+      id,
+      routeId,
+      groupName,
+      routeName,
+      name,
+      nameNl,
+      nameEn,
+      nameDe,
+      nameFr,
+      ref,
+      description,
+      operator,
+      website
     )
   }
 
@@ -1061,6 +1065,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newMonitorRouteState(
+    id: String,
     routeId: Long,
     timestamp: Timestamp = defaultTimestamp,
     wayCount: Long = 0,
@@ -1073,6 +1078,7 @@ trait SharedTestObjects extends MockFactory {
     nokSegments: Seq[MonitorRouteNokSegment] = Seq.empty
   ): MonitorRouteState = {
     MonitorRouteState(
+      id,
       routeId,
       timestamp,
       wayCount,

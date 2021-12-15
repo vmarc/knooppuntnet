@@ -113,6 +113,11 @@ export const selectMonitorRouteChangePage = createSelector(
   (state: MonitorState) => state.routeChangePage
 );
 
+export const selectMonitorMonitorRouteId = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.monitorRouteId
+);
+
 export const selectMonitorRouteId = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeId

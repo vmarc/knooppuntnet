@@ -22,15 +22,17 @@ trait MonitorRouteRepository {
 
   def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
 
-  def route(routeId: Long): Option[MonitorRoute]
+  def route(monitorRouteId: String): Option[MonitorRoute]
 
-  def routeState(routeId: Long): Option[MonitorRouteState]
+  def routeState(monitorRouteId: String): Option[MonitorRouteState]
 
-  def routeReference(routeId: Long, key: String): Option[MonitorRouteReference]
+  def routeReference(monitorRouteId: String, key: String): Option[MonitorRouteReference]
 
-  def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
+  def routeReference(monitorRouteId: String): Option[MonitorRouteReference]
 
-  def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry]
+  def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
+
+  def routeChangeGeometry(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry]
 
   def changesCount(parameters: MonitorChangesParameters): Long
 
@@ -40,9 +42,9 @@ trait MonitorRouteRepository {
 
   def groupChanges(groupName: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
-  def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long
+  def routeChangesCount(monitorRouteId: String, parameters: MonitorChangesParameters): Long
 
-  def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+  def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
 
   def routes(): Seq[MonitorRoute]
 
@@ -50,6 +52,6 @@ trait MonitorRouteRepository {
 
   def routeChangeGeometry(changeKey: ChangeKey): Option[MonitorRouteChangeGeometry]
 
-  def routeReferenceKey(routeId: Long): Option[String]
+  def routeReferenceKey(monitorRouteId: String): Option[String]
 
 }

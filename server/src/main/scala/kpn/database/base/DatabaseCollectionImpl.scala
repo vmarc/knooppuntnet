@@ -231,6 +231,11 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     (message, ())
   }
 
+  override def drop(log: Log): Unit = {
+    val future = collection.drop().toFuture()
+    awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
+  }
+
   private def collectionName: String = collection.namespace.getCollectionName
 
   private def awaitAggregateResult[A](awaitable: Awaitable[A], duration: Duration, pipeline: Seq[Bson], log: Log): A = {

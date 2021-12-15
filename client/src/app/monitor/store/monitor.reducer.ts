@@ -98,6 +98,8 @@ export const monitorReducer = createReducer(
     adminGroupPage: response,
   })),
   on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {
+    const monitorRouteId =
+      response.result?.monitorRouteId ?? state.monitorRouteId;
     const routeId = response.result?.routeId ?? state.routeId;
     const routeName = response.result?.routeName ?? state.routeName;
     const groupName = response.result?.groupName ?? state.groupName;
@@ -105,6 +107,7 @@ export const monitorReducer = createReducer(
       response.result?.groupDescription ?? state.groupDescription;
     return {
       ...state,
+      monitorRouteId,
       routeId,
       routeName,
       groupName,
@@ -113,19 +116,27 @@ export const monitorReducer = createReducer(
     };
   }),
   on(actionMonitorRouteMapPageLoaded, (state, { response }) => {
+    const monitorRouteId =
+      response.result?.monitorRouteId ?? state.monitorRouteId;
     const routeId = response.result?.routeId ?? state.routeId;
     const routeName = response.result?.routeName ?? state.routeName;
     const groupName = response.result?.groupName ?? state.groupName;
     const groupDescription =
       response.result?.groupDescription ?? state.groupDescription;
-    const mapGpxVisible = false;
     const mapGpxOkVisible = !!response.result?.okGeometry;
     const mapGpxNokVisible = (response.result?.nokSegments?.length ?? 0) > 0;
     const mapOsmRelationVisible =
       (response.result?.osmSegments?.length ?? 0) > 0;
 
+    const mapGpxVisible = !(
+      mapGpxOkVisible ||
+      mapGpxNokVisible ||
+      mapOsmRelationVisible
+    );
+
     return {
       ...state,
+      monitorRouteId,
       routeId,
       routeName,
       groupName,

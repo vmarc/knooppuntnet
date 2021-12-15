@@ -44,17 +44,17 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def route(user: Option[String], routeId: Long): ApiResponse[MonitorRouteDetailsPage] = {
-    val args = s"routeId=$routeId"
+  override def route(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteDetailsPage] = {
+    val args = s"monitorRouteId=$monitorRouteId"
     api.execute(user, "monitor-route", args) {
-      reply(monitorRouteDetailsPageBuilder.build(routeId))
+      reply(monitorRouteDetailsPageBuilder.build(monitorRouteId))
     }
   }
 
-  override def routeMap(user: Option[String], routeId: Long): ApiResponse[MonitorRouteMapPage] = {
-    val args = s"routeId=$routeId"
+  override def routeMap(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteMapPage] = {
+    val args = s"monitorRouteId=$monitorRouteId"
     api.execute(user, "monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(routeId, EN))
+      reply(monitorRouteMapPageBuilder.build(monitorRouteId, EN))
     }
   }
 
@@ -70,10 +70,10 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeChanges(user: Option[String], routeId: Long, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage] = {
-    val args = s"routeId=$routeId"
+  override def routeChanges(user: Option[String], monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage] = {
+    val args = s"monitorRouteId=$monitorRouteId"
     api.execute(user, "monitor-route-changes", args) {
-      reply(monitorRouteChangesPageBuilder.routeChanges(routeId, parameters))
+      reply(monitorRouteChangesPageBuilder.routeChanges(monitorRouteId, parameters))
     }
   }
 
@@ -89,5 +89,4 @@ class MonitorFacadeImpl(
     TimestampLocal.localize(response)
     response
   }
-
 }

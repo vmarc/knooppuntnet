@@ -15,32 +15,22 @@ class MonitorGroupPageBuilderImpl(
     monitorGroupRepository.group(groupName).map { group =>
 
       val routes = monitorGroupRepository.groupRoutes(groupName)
-      val sortedRoutes = routes.sortWith { (a, b) =>
-        val ref1 = a.ref.getOrElse("zz")
-        val ref2 = b.ref.getOrElse("zz")
-        if (ref1 == ref2) {
-          a.name < b.name
-        }
-        else {
-          ref1 < ref2
-        }
-      }
-
       MonitorGroupPage(
         groupName,
         group.description,
-        sortedRoutes.map { route =>
+        routes.map { route =>
           MonitorRouteDetail(
+            route._id,
             route.routeId,
             route.ref,
-            route.name,
+            route.routeName,
             route.description,
             route.operator,
             route.website,
-            0,
-            0,
-            0,
-            None,
+            wayCount = 0,
+            osmDistance = 0,
+            gpxDistance = 0,
+            gpxFilename = None,
             osmHappy = false,
             gpxHappy = false
           )

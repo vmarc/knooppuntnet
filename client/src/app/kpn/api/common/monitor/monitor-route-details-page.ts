@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 export interface MonitorRouteDetailsPage {
+  readonly monitorRouteId: string;
   readonly routeId: number;
   readonly routeName: string;
   readonly groupName: string;

@@ -3,6 +3,7 @@ package kpn.api.common.monitor
 import kpn.api.common.Bounds
 
 case class MonitorRouteMapPage(
+  monitorRouteId: String,
   routeId: Long,
   routeName: String,
   groupName: String,

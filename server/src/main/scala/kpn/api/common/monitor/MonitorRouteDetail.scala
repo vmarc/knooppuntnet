@@ -1,7 +1,8 @@
 package kpn.api.common.monitor
 
 case class MonitorRouteDetail(
-  id: Long,
+  monitorRouteId: String,
+  routeId: Long,
   ref: Option[String],
   name: String,
   description: Option[String],

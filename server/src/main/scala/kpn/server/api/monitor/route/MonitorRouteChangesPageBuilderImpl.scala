@@ -63,10 +63,10 @@ class MonitorRouteChangesPageBuilderImpl(
     }
   }
 
-  override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
-    val changes = build(monitorRouteRepository.routeChanges(routeId, parameters))
-    val totalChangeCount = monitorRouteRepository.routeChangesCount(routeId, parameters)
-    monitorRouteRepository.route(routeId).flatMap { route =>
+  override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
+    val changes = build(monitorRouteRepository.routeChanges(monitorRouteId, parameters))
+    val totalChangeCount = monitorRouteRepository.routeChangesCount(monitorRouteId, parameters)
+    monitorRouteRepository.route(monitorRouteId).flatMap { route =>
       monitorGroupRepository.group(route.groupName).map { group =>
         MonitorRouteChangesPage(
           route.routeId,

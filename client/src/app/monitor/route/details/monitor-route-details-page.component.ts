@@ -39,20 +39,28 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           </p>
         </kpn-data>
 
-        <kpn-data title="Operator">
+        <kpn-data title="Operator" *ngIf="route.operator">
           {{ route.operator }}
         </kpn-data>
 
         <kpn-data title="OSM">
           <p>{{ route.wayCount }} ways</p>
-          <p>{{ route.osmDistance }}km</p>
+          <p>{{ route.osmDistance }} km</p>
+
+          <p *ngIf="route.nameEn">{{ 'EN: ' + route.nameEn }}</p>
+          <p *ngIf="route.nameNl">{{ 'NL: ' + route.nameNl }}</p>
+          <p *ngIf="route.nameFr">{{ 'FR: ' + route.nameFr }}</p>
+          <p *ngIf="route.nameDe">{{ 'DE: ' + route.nameDe }}</p>
+          <p *ngIf="route.description">
+            {{ 'description: ' + route.description }}
+          </p>
         </kpn-data>
 
         <kpn-data title="GPX">
           <p>
             {{ route.gpxFilename }}
           </p>
-          <p>{{ route.gpxDistance }}km</p>
+          <p>{{ route.gpxDistance }} km</p>
         </kpn-data>
 
         <kpn-data title="Analysis">
@@ -62,8 +70,8 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           <div
             *ngIf="
               !route.gpxFilename &&
-              route.osmSegmentCount == 1 &&
-              route.gpxNokSegmentCount == 0
+              route.osmSegmentCount === 1 &&
+              route.gpxNokSegmentCount === 0
             "
           >
             <p>No GPX, so no known deviations.</p>

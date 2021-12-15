@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
-import { selectMonitorRouteId } from '../../store/monitor.selectors';
+import { selectMonitorMonitorRouteId } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
@@ -74,30 +74,31 @@ export class MonitorRoutePageHeaderComponent {
 
   readonly routeDetailLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorRouteId),
+    this.store.select(selectMonitorMonitorRouteId),
   ]).pipe(
     map(
-      ([groupName, routeId]) => `/monitor/groups/${groupName}/routes/${routeId}`
+      ([groupName, monitorRouteId]) =>
+        `/monitor/groups/${groupName}/routes/${monitorRouteId}`
     )
   );
 
   readonly routeMapLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorRouteId),
+    this.store.select(selectMonitorMonitorRouteId),
   ]).pipe(
     map(
-      ([groupName, routeId]) =>
-        `/monitor/groups/${groupName}/routes/${routeId}/map`
+      ([groupName, monitorRouteId]) =>
+        `/monitor/groups/${groupName}/routes/${monitorRouteId}/map`
     )
   );
 
   readonly routeChangesLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorRouteId),
+    this.store.select(selectMonitorMonitorRouteId),
   ]).pipe(
     map(
-      ([groupName, routeId]) =>
-        `/monitor/groups/${groupName}/routes/${routeId}/changes`
+      ([groupName, monitorRouteId]) =>
+        `/monitor/groups/${groupName}/routes/${monitorRouteId}/changes`
     )
   );
 

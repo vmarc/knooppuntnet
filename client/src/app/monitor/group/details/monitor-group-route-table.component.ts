@@ -16,9 +16,28 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   template: `
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef>Id</th>
+        <th mat-header-cell *matHeaderCellDef class="id">Id</th>
         <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeLink(route)">{{ route.id }}</a>
+          <a [routerLink]="routeLink(route)">{{ route.monitorRouteId }}</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="map">
+        <th mat-header-cell *matHeaderCellDef>Map</th>
+        <td mat-cell *matCellDef="let route">
+          <a [routerLink]="routeMapLink(route)">map</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="routeId">
+        <th mat-header-cell *matHeaderCellDef>Relation</th>
+        <td mat-cell *matCellDef="let route">
+          <kpn-osm-link-relation
+            *ngIf="route.routeId > 1"
+            [relationId]="route.routeId"
+            [title]="route.routeId.toString()"
+          >
+          </kpn-osm-link-relation>
         </td>
       </ng-container>
 
@@ -67,6 +86,10 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   `,
   styles: [
     `
+      .id {
+        width: 5em;
+      }
+
       .delete {
         padding-left: 1em;
         color: red;
@@ -85,9 +108,26 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   readonly displayedColumns$ = this.admin$.pipe(
     map((admin) => {
       if (admin) {
-        return ['id', 'name', 'description', 'distance', 'status', 'actions'];
+        return [
+          'id',
+          'map',
+          'routeId',
+          'name',
+          // 'description',
+          // 'distance',
+          // 'status',
+          // 'actions',
+        ];
       }
-      return ['id', 'name', 'description', 'distance', 'status'];
+      return [
+        'id',
+        'map',
+        'routeId',
+        'name',
+        // 'description',
+        // 'distance',
+        // 'status',
+      ];
     })
   );
 
@@ -101,14 +141,18 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   }
 
   routeLink(route: MonitorRouteDetail): string {
-    return `/monitor/groups/${this.groupName}/routes/${route.id}`;
+    return `/monitor/groups/${this.groupName}/routes/${route.monitorRouteId}`;
+  }
+
+  routeMapLink(route: MonitorRouteDetail): string {
+    return `/monitor/groups/${this.groupName}/routes/${route.monitorRouteId}/map`;
   }
 
   routeUpdateLink(route: MonitorRouteDetail): string {
-    return `/monitor/admin/groups/${this.groupName}/routes/${route.id}`;
+    return `/monitor/admin/groups/${this.groupName}/routes/${route.monitorRouteId}`;
   }
 
   routeDeleteLink(route: MonitorRouteDetail): string {
-    return `/monitor/admin/groups/${this.groupName}/routes/${route.id}/delete`;
+    return `/monitor/admin/groups/${this.groupName}/routes/${route.monitorRouteId}/delete`;
   }
 }

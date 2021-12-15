@@ -11,6 +11,6 @@ trait MonitorRouteChangesPageBuilder {
 
   def groupChanges(groupName: String, parameters: MonitorChangesParameters): Option[MonitorGroupChangesPage]
 
-  def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage]
+  def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage]
 
 }

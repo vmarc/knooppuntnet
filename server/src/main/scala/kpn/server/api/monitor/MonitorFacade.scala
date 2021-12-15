@@ -17,15 +17,15 @@ trait MonitorFacade {
 
   def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage]
 
-  def route(user: Option[String], routeId: Long): ApiResponse[MonitorRouteDetailsPage]
+  def route(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteDetailsPage]
 
-  def routeMap(user: Option[String], routeId: Long): ApiResponse[MonitorRouteMapPage]
+  def routeMap(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteMapPage]
 
   def changes(user: Option[String], parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage]
 
   def groupChanges(user: Option[String], groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage]
 
-  def routeChanges(user: Option[String], routeId: Long, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
+  def routeChanges(user: Option[String], monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
 
   def routeChange(user: Option[String], routeId: Long, changeSetId: Long, replicationId: Long): ApiResponse[MonitorRouteChangePage]
 

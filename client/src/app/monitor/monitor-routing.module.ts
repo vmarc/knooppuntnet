@@ -34,22 +34,22 @@ const routes: Routes = [
     SidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:routeId',
+    'groups/:groupName/routes/:monitorRouteId',
     MonitorRouteDetailsPageComponent,
     SidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:routeId/map',
+    'groups/:groupName/routes/:monitorRouteId/map',
     MonitorRouteMapPageComponent,
     MonitorRouteMapSidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:routeId/changes',
+    'groups/:groupName/routes/:monitorRouteId/changes',
     MonitorRouteChangesPageComponent,
     SidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:routeId/changes/:changeSetId/:replicationNumber',
+    'groups/:groupName/routes/:monitorRouteId/changes/:changeSetId/:replicationNumber',
     MonitorRouteChangePageComponent,
     SidebarComponent
   ),
@@ -74,12 +74,12 @@ const routes: Routes = [
     SidebarComponent
   ),
   Util.routePath(
-    'admin/groups/:groupName/routes/:routeId',
+    'admin/groups/:groupName/routes/:monitorRouteId',
     MonitorAdminRouteUpdatePageComponent,
     SidebarComponent
   ),
   Util.routePath(
-    'admin/groups/:groupName/routes/:routeId/delete',
+    'admin/groups/:groupName/routes/:monitorRouteId/delete',
     MonitorAdminRouteDeletePageComponent,
     SidebarComponent
   ),

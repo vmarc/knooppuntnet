@@ -25,13 +25,13 @@ class MonitorRouteChangePageBuilderImpl(
 
     val comment = changeSetInfoRepository.get(changeSetId).flatMap(_.tags("comment"))
 
-    monitorRouteRepository.routeChange(routeId, changeSetId, replicationNumber) match {
+    monitorRouteRepository.routeChange("TODO KEY" + routeId, changeSetId, replicationNumber) match {
       case None =>
         log.warn(s"Could not read routeChange routeId=$routeId, changeSetId=$changeSetId, replicationNumber=$replicationNumber")
         None
 
       case Some(routeChange) =>
-        monitorRouteRepository.routeChangeGeometry(routeId, changeSetId, replicationNumber) match {
+        monitorRouteRepository.routeChangeGeometry("TODO KEY" + routeId, changeSetId, replicationNumber) match {
           case None =>
             log.warn(s"Could not read routeChangeGeometry routeId=$routeId, changeSetId=$changeSetId, replicationNumber=$replicationNumber")
             None
@@ -43,7 +43,7 @@ class MonitorRouteChangePageBuilderImpl(
                 None
 
               case Some(group) =>
-                monitorRouteRepository.routeReference(routeId, routeChange.referenceKey) match {
+                monitorRouteRepository.routeReference("TODO KEY" + routeId, routeChange.referenceKey) match {
                   case None =>
                     log.warn(s"Could not routeReference routeId=$routeId, referenceKey=${routeChange.referenceKey}")
                     None

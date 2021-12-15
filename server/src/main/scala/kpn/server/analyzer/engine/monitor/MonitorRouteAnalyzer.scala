@@ -21,10 +21,12 @@ object MonitorRouteAnalyzer {
   private val geomFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteAnalyzer])
 
-  def toRoute(groupName: String, relation: Relation): MonitorRoute = {
+  def toRoute(monitorRouteId: String, groupName: String, routeName: String, relation: Relation): MonitorRoute = {
     MonitorRoute(
+      monitorRouteId,
       relation.id,
       groupName,
+      routeName,
       relation.tags("name").getOrElse("name"),
       relation.tags("name:nl"),
       relation.tags("name:en"),

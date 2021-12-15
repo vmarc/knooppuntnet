@@ -2,16 +2,14 @@ package kpn.server.repository
 
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
-import kpn.database.base.Database
-import kpn.database.util.Mongo
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import org.mongodb.scala.bson.conversions.Bson
-import org.mongodb.scala.model.Aggregates.addFields
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.skip
@@ -52,17 +50,24 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteChangeGeometries.save(routeChangeGeometry, log)
   }
 
-  override def route(routeId: Long): Option[MonitorRoute] = {
-    database.monitorRoutes.findById(routeId, log)
+  override def route(monitorRouteId: String): Option[MonitorRoute] = {
+    database.monitorRoutes.findByStringId(monitorRouteId, log)
   }
 
-  override def routeState(routeId: Long): Option[MonitorRouteState] = {
-    database.monitorRouteStates.findById(routeId, log)
+  override def routeState(monitorRouteId: String): Option[MonitorRouteState] = {
+    database.monitorRouteStates.findByStringId(monitorRouteId, log)
   }
 
-  override def routeReference(routeId: Long, key: String): Option[MonitorRouteReference] = {
+  override def routeReference(monitorRouteId: String, key: String): Option[MonitorRouteReference] = {
     database.monitorRouteReferences.findOne[MonitorRouteReference](
-      equal("_id", s"$routeId:$key"),
+      equal("_id", s"$monitorRouteId:$key"),
+      log
+    )
+  }
+
+  override def routeReference(monitorRouteId: String): Option[MonitorRouteReference] = {
+    database.monitorRouteReferences.findOne[MonitorRouteReference](
+      equal("monitorRouteId", monitorRouteId),
       log
     )
   }
@@ -93,23 +98,23 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     )
   }
 
-  override def routeReferenceKey(routeId: Long): Option[String] = {
+  override def routeReferenceKey(routeMonitorId: String): Option[String] = {
     // TODO MONGO should be looking for most recent entry here, instead of assuming there is always exactly 1 entry ???
     database.monitorRouteReferences.findOne(
       filter(
-        equal("routeId", routeId),
+        equal("routeId", routeMonitorId),
       ),
       log
     )
   }
 
-  override def routeChange(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange] = {
-    val _id = s"$routeId:$changeSetId:$replicationNumber"
+  override def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange] = {
+    val _id = s"$monitorRouteId:$changeSetId:$replicationNumber"
     database.monitorRouteChanges.findByStringId(_id, log)
   }
 
-  override def routeChangeGeometry(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry] = {
-    val _id = s"$routeId:$changeSetId:$replicationNumber"
+  override def routeChangeGeometry(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry] = {
+    val _id = s"$monitorRouteId:$changeSetId:$replicationNumber"
     database.monitorRouteChangeGeometries.findByStringId(_id, log)
   }
 
@@ -173,15 +178,15 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
   }
 
-  override def routeChangesCount(routeId: Long, parameters: MonitorChangesParameters): Long = {
-    val changesFilter = routeChangesCountFilter(routeId, parameters)
+  override def routeChangesCount(id: String, parameters: MonitorChangesParameters): Long = {
+    val changesFilter = routeChangesCountFilter(id, parameters)
     database.monitorRouteChanges.countDocuments(changesFilter, log)
   }
 
-  override def routeChanges(routeId: Long, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
+  override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Seq[MonitorRouteChange] = {
     val pipeline = Seq(
       filter(
-        routeChangesCountFilter(routeId, parameters)
+        routeChangesCountFilter(monitorRouteId, parameters)
       ),
       sort(orderBy(descending("key.time"))),
       skip((parameters.pageIndex * parameters.itemsPerPage).toInt),
@@ -205,10 +210,10 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     }
   }
 
-  private def routeChangesCountFilter(routeId: Long, parameters: MonitorChangesParameters): Bson = {
+  private def routeChangesCountFilter(monitorRouteId: String, parameters: MonitorChangesParameters): Bson = {
     if (parameters.impact) {
       and(
-        equal("key.elementId", routeId),
+        equal("key.elementId", monitorRouteId),
         or(
           equal("happy", true),
           equal("investigate", true)
@@ -216,7 +221,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     }
     else {
-      equal("key.elementId", routeId)
+      equal("key.elementId", monitorRouteId)
     }
   }
 

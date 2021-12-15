@@ -62,16 +62,16 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      routeRepository.routeChangesCount(101L, MonitorChangesParameters()) should equal(2)
-      routeRepository.routeChanges(101L, MonitorChangesParameters()) should matchTo(
+      routeRepository.routeChangesCount("TODO KEY" + 101L, MonitorChangesParameters()) should equal(2)
+      routeRepository.routeChanges("TODO KEY" + 101L, MonitorChangesParameters()) should matchTo(
         Seq(
           change2,
           change1
         )
       )
 
-      routeRepository.routeChangesCount(101L, MonitorChangesParameters(impact = true)) should equal(1)
-      routeRepository.routeChanges(101L, MonitorChangesParameters(impact = true)) should matchTo(
+      routeRepository.routeChangesCount("TODO KEY" + 101L, MonitorChangesParameters(impact = true)) should equal(1)
+      routeRepository.routeChanges("TODO KEY" + 101L, MonitorChangesParameters(impact = true)) should matchTo(
         Seq(
           change2
         )

@@ -51,33 +51,33 @@ export class MonitorService {
   }
 
   public monitorRoute(
-    routeId: string
+    monitorRouteId: string
   ): Observable<ApiResponse<MonitorRouteDetailsPage>> {
-    const url = `/api/monitor/routes/${routeId}`;
+    const url = `/api/monitor/routes/${monitorRouteId}`;
     return this.http.get(url);
   }
 
   public monitorRouteMap(
-    routeId: string
+    monitorRouteId: string
   ): Observable<ApiResponse<MonitorRouteMapPage>> {
-    const url = `/api/monitor/routes/${routeId}/map`;
+    const url = `/api/monitor/routes/${monitorRouteId}/map`;
     return this.http.get(url);
   }
 
   public monitorRouteChanges(
-    routeId: string,
+    monitorRouteId: string,
     parameters: MonitorChangesParameters
   ): Observable<ApiResponse<MonitorRouteChangesPage>> {
-    const url = `/api/monitor/routes/${routeId}/changes`;
+    const url = `/api/monitor/routes/${monitorRouteId}/changes`;
     return this.http.post(url, parameters);
   }
 
   public monitorRouteChange(
-    routeId: string,
+    monitorRouteId: string,
     changeSetId: string,
     replicationNumber: string
   ): Observable<ApiResponse<MonitorRouteChangePage>> {
-    const url = `/api/monitor/routes/${routeId}/changes/${changeSetId}/${replicationNumber}`;
+    const url = `/api/monitor/routes/${monitorRouteId}/changes/${changeSetId}/${replicationNumber}`;
     return this.http.get(url);
   }
 

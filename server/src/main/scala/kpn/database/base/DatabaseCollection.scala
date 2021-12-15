@@ -80,4 +80,5 @@ trait DatabaseCollection[T] {
 
   def updateOne(filter: Bson, update: Seq[Bson], log: Log = collectionLog): Unit
 
+  def drop(log: Log): Unit
 }

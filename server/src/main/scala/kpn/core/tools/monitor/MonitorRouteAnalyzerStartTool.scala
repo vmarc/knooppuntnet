@@ -37,7 +37,7 @@ class MonitorRouteAnalyzerStartTool(
     routeIds.foreach { routeId =>
       monitorRouteLoader.loadInitial(null, routeId).foreach { routeRelation =>
 
-        val route = MonitorRouteAnalyzer.toRoute("example", routeRelation)
+        val route = MonitorRouteAnalyzer.toRoute("TODO id", "example", "TODO routeName", routeRelation)
         monitorRouteRepository.saveRoute(route)
 
         val segments = MonitorRouteAnalyzer.toRouteSegments(routeRelation)
@@ -48,6 +48,7 @@ class MonitorRouteAnalyzerStartTool(
         val geoJson = MonitorRouteAnalyzer.toGeoJson(geometry)
 
         val routeState = MonitorRouteState(
+          "TODO ID",
           routeId,
           timestamp,
           wayCount = 0,
@@ -63,6 +64,8 @@ class MonitorRouteAnalyzerStartTool(
         monitorRouteRepository.saveRouteState(routeState)
 
         val routeReference = MonitorRouteReference(
+          "TODO ID",
+          "TODO ID",
           routeId,
           timestamp.key,
           timestamp,
