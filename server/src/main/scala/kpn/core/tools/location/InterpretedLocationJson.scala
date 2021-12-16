@@ -18,7 +18,7 @@ object InterpretedLocationJson {
     val ungzippedInputStream = new GZIPInputStream(gzippedInputStream)
     val fileReader = new InputStreamReader(ungzippedInputStream, "UTF-8")
     val locationJsons = Json.objectMapper.readValue(fileReader, classOf[LocationsJson]).features
-    locationJsons.map(locationJson => InterpretedLocationJson(locationJson))
+    locationJsons.map(locationJson => InterpretedLocationJson(locationJson)).filter(_.isAdministrativeBoundary)
   }
 }
 
@@ -56,5 +56,18 @@ case class InterpretedLocationJson(locationJson: LocationJson) {
 
   def tags: Map[String, String] = {
     locationJson.properties.all_tags
+  }
+
+  def isAdministrativeBoundary: Boolean = {
+    tags("boundary").contains("administrative")
+  }
+
+  def hasTag(key: String, allowedValues: String*): Boolean = {
+    if (allowedValues.nonEmpty) {
+      allowedValues.exists(value => tags.get(key).contains(value))
+    }
+    else {
+      tags.contains(key)
+    }
   }
 }

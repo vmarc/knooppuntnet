@@ -43,12 +43,12 @@ class MonitorDemoTool(database: Database) {
 
   def setup(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
 
-    database.monitorGroups.drop(log)
-    database.monitorRoutes.drop(log)
-    database.monitorRouteReferences.drop(log)
-    database.monitorRouteStates.drop(log)
-    database.monitorRouteChanges.drop(log)
-    database.monitorRouteChangeGeometries.drop(log)
+    //  database.monitorGroups.drop(log)
+    //  database.monitorRoutes.drop(log)
+    //  database.monitorRouteReferences.drop(log)
+    //  database.monitorRouteStates.drop(log)
+    //  database.monitorRouteChanges.drop(log)
+    //  database.monitorRouteChangeGeometries.drop(log)
 
     val group = MonitorGroup("SGR", "Les Sentiers de Grande Randonnée")
     database.monitorGroups.save(group)

@@ -4,6 +4,9 @@ import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.monitor.MonitorDemoRoute
+import org.apache.commons.io.FileUtils
+
+import java.io.File
 
 object ReadOverpassRelation {
 
@@ -27,6 +30,7 @@ object ReadOverpassRelation {
   private def saveRelation(timestamp: Option[Timestamp], filename: String, relationId: Long): Unit = {
     println(s"save $filename")
     val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-    println(overpassQueryExecutor.executeQuery(None, QueryRelation(11527464L)))
+    val xml = overpassQueryExecutor.executeQuery(timestamp, QueryRelation(relationId))
+    FileUtils.writeStringToFile(new File(filename), xml, "UTF-8")
   }
 }

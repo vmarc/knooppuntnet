@@ -2,13 +2,11 @@ package kpn.core.tools.monitor
 
 object MonitorDemoRoute {
 
-  // routeId mapping, see: https://wiki.openstreetmap.org/wiki/WikiProject_Belgium/Long_Distance_Walking_Routes
-
   val routes: Seq[MonitorDemoRoute] = Seq(
     MonitorDemoRoute("GR017", 0L, "2020-06-26_Projet-GR017_Lesse-Lomme.gpx"), // 6 tracks in file, not loaded for now
     MonitorDemoRoute("Amblève", 0L, "Amblève-par-les-GR_20170213.gpx"), // 12 tracks in file, not loaded for now
 
-    MonitorDemoRoute("GR005-a", 1L, "GR005_Parcours-principal_2021-05-06.gpx"),
+    MonitorDemoRoute("GR005-a", 3121668L, "GR005_Parcours-principal_2021-05-06.gpx"),
     MonitorDemoRoute("GR005-b", 1L, "GR005-573-576_Liaison_2015-12-29.gpx"),
     MonitorDemoRoute("GR005-c", 1L, "GR005-576_Liaison_2016-01-07.gpx"),
     MonitorDemoRoute("GR005-d", 1L, "GR005_Liaison_GR573-GR576_2015-12-29.gpx"),
@@ -125,7 +123,7 @@ object MonitorDemoRoute {
     MonitorDemoRoute("GR129-c", 1L, "GR129-GR122_Liaison-Haut-Pays_2021-02-05.gpx"),
     MonitorDemoRoute("GR129-d", 1L, "GR129-GRP125_Liaison-Beaumont_2021-02-05.gpx"),
 
-    MonitorDemoRoute("GR129S-a", 1L, "GR129S_Parcours-principal_2020-08-08.gpx"),
+    MonitorDemoRoute("GR129S-a", 2459527L, "GR129S_Parcours-principal_2020-08-08.gpx"),
     MonitorDemoRoute("GR129S-b", 1L, "GR129S_Itinéraire-de-substitution-peste-porcine_2020-05-06.gpx"),
     MonitorDemoRoute("GR129S-c", 1L, "GR129S_Liaison-gare-Arlon_2018-11-17.gpx"),
     MonitorDemoRoute("GR129S-d", 1L, "GR129S_Liaison-gare-Florenville_2017-11-17.gpx"),
@@ -178,7 +176,7 @@ object MonitorDemoRoute {
     MonitorDemoRoute("GR579-a", 53358L, "GR579-Parcours-principal_2020-11-09.gpx"), // OK
     MonitorDemoRoute("GR579-b", 53358L, "GR579-Parcours-principal_2021-09-28.gpx"), // OK - only keep this one?
     MonitorDemoRoute("GR579-c", 1L, "GR579_Laison_Jezus-Eik.gpx"),
-    MonitorDemoRoute("GR579-d", 1L, "GR579_Liaison-Amay.gpx"),
+    MonitorDemoRoute("GR579-d", 5470220L, "GR579_Liaison-Amay.gpx"),
     MonitorDemoRoute("GR579-e", 1L, "GR579_Variante-Dijleland.gpx"),
     MonitorDemoRoute("GR579-f", 1L, "GR579_Variante-Ottenburg.gpx"),
     // 1646736 GR579 Huldenberg - Wavre - Pécrot (22 km) Connection to GR121 at Wavre
@@ -196,7 +194,7 @@ object MonitorDemoRoute {
 
     MonitorDemoRoute("GRP125-a", 1L, "GRP125_Parcours-principal_ 2021-10-11.gpx"),
     MonitorDemoRoute("GRP125-b", 1L, "GRP125-126_Liaison-GareNamur_2016-08-11.gpx"),
-    MonitorDemoRoute("GRP125-c", 1L, "GRP125-GR129-N_Liaison-Beaumont_2020-04-05.gpx"),
+    MonitorDemoRoute("GRP125-c", 3472967L, "GRP125-GR129-N_Liaison-Beaumont_2020-04-05.gpx"),
     MonitorDemoRoute("GRP125-d", 1L, "GRP125_liaison-AJ-Rops_2017-10-25.gpx"),
     MonitorDemoRoute("GRP125-e", 1L, "GRP125_liaison-Gare-Namur_2018-02-19.gpx"),
     MonitorDemoRoute("GRP125-f", 1L, "GRP125_Liaison-Lac-du-Valjoly_2018-02-19.gpx"),
@@ -208,7 +206,7 @@ object MonitorDemoRoute {
     MonitorDemoRoute("GRP127-b", 34122L, "GRP127_Parcours-principal_2021-12-09.gpx"), // OK
     MonitorDemoRoute("GRP127-c", 10965514L, "GRP127_Var.Pluie-Quenast_2018-01-25.gpx"), // OK
 
-    MonitorDemoRoute("GRP151-a", 1L, "GRP151_Parcours-principal_2021-09-07.gpx"),
+    MonitorDemoRoute("GRP151-a", 6447988L, "GRP151_Parcours-principal_2021-09-07.gpx"),
     MonitorDemoRoute("GRP151-b", 1L, "GRP151_Liaison-AJ-Champlon-Est-Journal_2021-09-07.gpx"),
     MonitorDemoRoute("GRP151-c", 1L, "GRP151_Liaison-AJ-Champlon-Nord-Journal_2021-09-07.gpx"),
     MonitorDemoRoute("GRP151-d", 1L, "GRP151_Liaison-gare-Forrières_2021-09-07.gpx"),

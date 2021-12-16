@@ -23,9 +23,9 @@ class LocationBuilderTool {
     build("be", "belgium", locationsBelgium())
     build("nl", "netherlands", locationsNetherlands())
     build("de", "germany", locationsGermany())
-    // build("fr", "france", locationsFrance())
-    // build("at", "austria", locationsAustria())
-    // build("es", "spain", locationsSpain())
+    build("fr", "france", locationsFrance())
+    build("at", "austria", locationsAustria())
+    build("es", "spain", locationsSpain())
   }
 
   private def locationsBelgium(): Seq[LocationData] = {
@@ -54,8 +54,8 @@ class LocationBuilderTool {
 
   private def build(country: String, countryName: String, locationDatas: Seq[LocationData]): Unit = {
     val tree = buildTree(locationDatas)
-    saveLocations(s"$root/$country", locationDatas)
-    saveGeometries(s"$root/$country", locationDatas)
+    saveLocations(country, locationDatas)
+    saveGeometries(country, locationDatas)
     prettyWrite(s"$root/$country/tree.json", tree)
     printTree(locationDatas.map(_.doc), tree, s"$root/$countryName.md")
     if (country == "fr") {
@@ -70,18 +70,16 @@ class LocationBuilderTool {
     new NewLocationTreeBuilder().buildTree(datas.map(_.doc))
   }
 
-  private def saveLocations(dir: String, datas: Seq[LocationData]): Unit = {
-    prettyWrite(s"$dir/locations.json", LocationDocs(datas.map(_.doc)))
+  private def saveLocations(country: String, datas: Seq[LocationData]): Unit = {
+    prettyWrite(s"$root/$country/locations.json", LocationDocs(datas.map(_.doc)))
   }
 
-  private def saveGeometries(dir: String, datas: Seq[LocationData]): Unit = {
+  private def saveGeometries(country: String, datas: Seq[LocationData]): Unit = {
     datas.foreach { data =>
-      write(s"$dir/geometries/${data.id}.json", data.geometry.geometry)
+      val filename = s"$root/$country/geometries/${data.id}.json"
+      val geojson = Json.objectMapper.writeValueAsString(data.geometry.geometry)
+      FileUtils.writeStringToFile(new File(filename), geojson, "UTF-8")
     }
-  }
-
-  private def write(filename: String, obj: Object): Unit = {
-    FileUtils.writeStringToFile(new File(filename), Json.objectMapper.writeValueAsString(obj), "UTF-8")
   }
 
   private def prettyWrite(filename: String, obj: Object): Unit = {

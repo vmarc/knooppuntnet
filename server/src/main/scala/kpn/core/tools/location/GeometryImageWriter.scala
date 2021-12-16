@@ -11,6 +11,7 @@ import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics2D
+import java.awt.Point
 import java.awt.RenderingHints
 import java.awt.geom.Point2D
 import java.awt.image.BufferedImage
@@ -23,6 +24,7 @@ class ScaleTransformation(width: Int, height: Int, envelope: Envelope) extends P
   private val xScale = 0.66 // Math.abs(Math.cos((envelope.getMinY + envelope.getMaxY) / 2))
   private val xMin = envelope.getMinX * xScale
   private val yMin = envelope.getMinY
+  private val yMax = envelope.getMaxY
   private val envelopeWidth = (envelope.getMaxX * xScale) - (envelope.getMinX * xScale)
   private val envelopeHeight = envelope.getMaxY - envelope.getMinY
   private val envelopeScale = if (envelopeWidth > envelopeHeight) {
@@ -32,19 +34,28 @@ class ScaleTransformation(width: Int, height: Int, envelope: Envelope) extends P
     envelopeHeight
   }
 
+  private val scaledHeight = ((yMax - yMin) * height / envelopeScale)
+
   override def transform(coordinate: Coordinate, point2D: Point2D): Unit = {
     val x = (coordinate.x * xScale - xMin) * width / envelopeScale
-    val y = height - ((coordinate.y - yMin) * height / envelopeScale)
+    val y = scaledHeight - ((coordinate.y - yMin) * height / envelopeScale)
     point2D.setLocation(x, y)
   }
 }
 
 class GeometryImageWriter(width: Int, height: Int, envelope: Envelope) {
 
-  private val image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
-  val g = createGraphics(image)
   private val pointTransformation: PointTransformation = new ScaleTransformation(width, height, envelope)
-  val shapeWriter = new ShapeWriter(pointTransformation)
+  private val shapeWriter = new ShapeWriter(pointTransformation)
+
+  private val bottomRight = new Coordinate(envelope.getMaxX, envelope.getMinY)
+  private val bottomRightPoint = new Point()
+  pointTransformation.transform(bottomRight, bottomRightPoint)
+  private val imageWidth = bottomRightPoint.getX.toInt
+  private val imageHeight = bottomRightPoint.getY.toInt
+
+  private val image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB)
+  private val g = createGraphics(image)
 
   def write(filename: String): Unit = {
     val out = new ByteArrayOutputStream()

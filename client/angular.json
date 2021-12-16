@@ -5,18 +5,22 @@
   "projects": {
     "knooppuntnet": {
       "i18n": {
+        "sourceLocale": {
+          "code": "en",
+          "baseHref": "/en/"
+        },
         "locales": {
           "nl": {
             "translation": "src/locale/translations.nl.xlf",
-            "baseHref": ""
+            "baseHref": "/nl/"
           },
           "fr": {
             "translation": "src/locale/translations.fr.xlf",
-            "baseHref": ""
+            "baseHref": "/fr/"
           },
           "de": {
             "translation": "src/locale/translations.de.xlf",
-            "baseHref": ""
+            "baseHref": "/de/"
           }
         }
       },

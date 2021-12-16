@@ -22,7 +22,6 @@ import org.locationtech.jts.geom.Polygon
 
 import java.io.File
 import java.util.concurrent.atomic.AtomicInteger
-import scala.collection.mutable.ListBuffer
 import scala.collection.parallel.CollectionConverters.ImmutableIterableIsParallelizable
 import scala.xml.XML
 
@@ -31,7 +30,7 @@ class LocationBuilderFrance(dir: String) {
   private val regionsFilename = s"$dir/fr-regions.geojson.gz"
   private val departmentsFilename = s"$dir/fr-departments.geojson.gz"
   private val communesFilename = s"$dir/fr-communes.geojson.gz"
-  private val locationDatas = ListBuffer[LocationData]()
+  private val locationDatas = new LocationDatas()
 
   private val log = Log(classOf[LocationBuilderFrance])
 
@@ -58,13 +57,13 @@ class LocationBuilderFrance(dir: String) {
         LocationDoc("fr", Seq.empty, "France", names),
         LocationGeometry(locationJson.geometry)
       )
-      addLocation(data)
+      locationDatas.add(data)
     }
   }
 
   private def buildDepartments(): Unit = {
     Log.context("departments") {
-      locationDatas.find(_.id == "fr") match {
+      locationDatas.toSeq.find(_.id == "fr") match {
         case None => log.warn("Could not find 'fr' location")
         case Some(country) =>
           val departmentJsons = loadDepartmentJsons(country)
@@ -81,7 +80,7 @@ class LocationBuilderFrance(dir: String) {
               LocationDoc(id, Seq(LocationPath(Seq("fr"))), name, names),
               LocationGeometry(departmentJson.geometry)
             )
-            addLocation(data)
+            locationDatas.add(data)
           }
       }
     }
@@ -89,7 +88,7 @@ class LocationBuilderFrance(dir: String) {
 
   private def buildCdcs(): Unit = {
     Log.context("cdc") {
-      val departments = locationDatas.toSeq.filter(_.id.startsWith("fr-1"))
+      val departments = locationDatas.startingWith("fr-1")
       val geomFactory = new GeometryFactory
       val locationIds = franceCdcLocationIds()
       val count = new AtomicInteger(0)
@@ -146,7 +145,7 @@ class LocationBuilderFrance(dir: String) {
                         LocationDoc(id, parents, name, names),
                         LocationGeometry(geometry.geometry)
                       )
-                      addLocation(data)
+                      locationDatas.add(data)
                     }
                 }
             }
@@ -158,8 +157,8 @@ class LocationBuilderFrance(dir: String) {
 
   private def loadCommunes(): Unit = {
     Log.context("communes") {
-      val departments = locationDatas.toSeq.filter(_.id.startsWith("fr-1"))
-      val cdcs = locationDatas.toSeq.filter(_.id.startsWith("fr-2"))
+      val departments = locationDatas.startingWith("fr-1")
+      val cdcs = locationDatas.startingWith("fr-2")
       val communeJsons = loadCommuneJsons()
       val count = new AtomicInteger(0)
       val context = Log.contextMessages
@@ -174,10 +173,10 @@ class LocationBuilderFrance(dir: String) {
           log.info(s"$id $name")
           val names = commune.names
           val communeGeometry = LocationGeometry(commune.geometry)
-          departments.find(department => department.geometry.contains(communeGeometry)) match {
+          departments.find(_.contains(communeGeometry)) match {
             case None => log.error("No parent found for commune")
             case Some(department) =>
-              val parents = cdcs.find(cdc => cdc.geometry.contains(communeGeometry)) match {
+              val parents = cdcs.find(_.contains(communeGeometry)) match {
                 case Some(cdc) => Seq("fr", department.id, cdc.id)
                 case None => Seq("fr", department.id)
               }
@@ -186,7 +185,7 @@ class LocationBuilderFrance(dir: String) {
                 LocationDoc(id, Seq(LocationPath(parents)), name, names),
                 LocationGeometry(commune.geometry)
               )
-              addLocation(data)
+              locationDatas.add(data)
           }
         }
       }
@@ -198,9 +197,8 @@ class LocationBuilderFrance(dir: String) {
     val locationJsons = InterpretedLocationJson.load(departmentsFilename)
     log.info("Filtering departments")
     locationJsons
-      .filter(_.tags.get("boundary").contains("administrative"))
       .filter(_.tags.contains("ref:INSEE"))
-      .filter(department => country.geometry.contains(LocationGeometry(department.geometry)))
+      .filter(department => country.contains(department.geometry))
       .sortBy(_.tags("ref:INSEE"))
   }
 
@@ -208,7 +206,6 @@ class LocationBuilderFrance(dir: String) {
     log.infoElapsed {
       log.info("Read communes file")
       val locationJsons = InterpretedLocationJson.load(communesFilename)
-        .filter(_.tags.get("boundary").contains("administrative"))
         .filter(_.tags.contains("ref:INSEE"))
         .sortBy(_.tags("ref:INSEE"))
       (s"${locationJsons.size} communes loaded", locationJsons)
@@ -219,12 +216,6 @@ class LocationBuilderFrance(dir: String) {
     val xmlString = FileUtils.readFileToString(new File(s"$dir/fr-cdc/ids.xml"), "UTF-8")
     val xml = XML.loadString(xmlString)
     (xml \ "relation").map { n => (n \ "@id").text.toLong }.distinct.sorted
-  }
-
-  private def addLocation(data: LocationData): Unit = {
-    synchronized {
-      locationDatas += data
-    }
   }
 
   private def xxxx(data: Data, relation: Relation): Seq[Polygon] = {
