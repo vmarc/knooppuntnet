@@ -221,8 +221,8 @@ export class MonitorRouteMapService {
 
   private buildOsmRelationLayer(): VectorLayer<VectorSource<Geometry>> {
     const self = this;
-    const thinStyle = this.fixedStyle('yellow', 4);
-    const thickStyle = this.fixedStyle('yellow', 10);
+    const thinStyle = this.fixedStyle('gold', 4);
+    const thickStyle = this.fixedStyle('gold', 10);
 
     const styleFunction = (feature) => {
       if (self.mode === 'osm-segments') {

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-nohup /kpn/java/bin/java \
+sudo -H -u server nohup /kpn/java/bin/java \
   -Dname=server \
   -Dlog4j.configurationFile=/kpn/scripts/conf/server-log.xml \
   -Xms512M \

@@ -65,7 +65,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
         (change)="osmRelationVisibleChanged($event)"
       >
         <div class="kpn-line">
-          <kpn-legend-line color="yellow"></kpn-legend-line>
+          <kpn-legend-line color="gold"></kpn-legend-line>
           <span>OSM relation</span>
         </div>
       </mat-checkbox>

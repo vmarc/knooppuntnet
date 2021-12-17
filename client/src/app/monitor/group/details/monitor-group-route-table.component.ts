@@ -87,7 +87,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   styles: [
     `
       .id {
-        width: 5em;
+        width: 8em;
       }
 
       .delete {

@@ -22,8 +22,9 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
       <li>Route</li>
     </ul>
 
-    <h1 class="title">
-      {{ routeName$ | async }}
+    <h1 class="title" *ngIf="monitorRouteId$ | async">
+      <span class="kpn-label">{{ monitorRouteId$ | async }}</span>
+      <span>{{ routeName$ | async }}</span>
     </h1>
 
     <kpn-page-menu>
@@ -67,6 +68,7 @@ export class MonitorRoutePageHeaderComponent {
 
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly monitorRouteId$ = this.store.select(selectMonitorMonitorRouteId);
   readonly routeName$ = this.store.select(selectMonitorRouteName);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)

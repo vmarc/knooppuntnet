@@ -2,7 +2,7 @@ package kpn.core.tools.monitor
 
 object MonitorDemoValidationTool {
   def main(args: Array[String]): Unit = {
-    new MonitorDemoValidationTool().validateNonUnique(MonitorDemoRoute.routes)
+    new MonitorDemoValidationTool().gpxValidate(MonitorDemoRoute.routes)
   }
 }
 
@@ -26,7 +26,7 @@ class MonitorDemoValidationTool() {
 
   def gpxValidate(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
     demoRoutes.foreach { demoRoute =>
-      val filename = s"/kpn/monitor-demo/${demoRoute.filename}"
+      val filename = s"/kpn/monitor-demo/${demoRoute.filename}.gpx"
       try {
         val geometry = new MonitorRouteGpxReader().read(filename)
         println(s"${geometry.getLength} ${demoRoute.filename}")
