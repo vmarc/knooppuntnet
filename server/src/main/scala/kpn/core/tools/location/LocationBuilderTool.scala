@@ -20,12 +20,26 @@ class LocationBuilderTool {
   private val boundaryVersion = "osm-boundaries-2021-11-01"
 
   def build(): Unit = {
-    build("be", "belgium", locationsBelgium())
-    build("nl", "netherlands", locationsNetherlands())
-    build("de", "germany", locationsGermany())
-    build("fr", "france", locationsFrance())
-    build("at", "austria", locationsAustria())
+//    build("be", "belgium", locationsBelgium())
+//    build("nl", "netherlands", locationsNetherlands())
+//    build("de", "germany", locationsGermany())
+//    build("fr", "france", locationsFrance())
+//    build("at", "austria", locationsAustria())
     build("es", "spain", locationsSpain())
+  }
+
+  private def build(country: String, countryName: String, locationDatas: Seq[LocationData]): Unit = {
+    val tree = buildTree(locationDatas)
+    saveLocations(country, locationDatas)
+    saveGeometries(country, locationDatas)
+    prettyWrite(s"$root/$country/tree.json", tree)
+    printTree(locationDatas, tree, countryName)
+    if (country == "fr") {
+      new LocationImageWriter(locationDatas).printFrance(tree, s"$root/$countryName.png")
+    }
+    else {
+      new LocationImageWriter(locationDatas).printCountry(tree, s"$root/$countryName.png")
+    }
   }
 
   private def locationsBelgium(): Seq[LocationData] = {
@@ -52,26 +66,14 @@ class LocationBuilderTool {
     new LocationBuilderSpain(s"$root/$boundaryVersion").build()
   }
 
-  private def build(country: String, countryName: String, locationDatas: Seq[LocationData]): Unit = {
-    val tree = buildTree(locationDatas)
-    saveLocations(country, locationDatas)
-    saveGeometries(country, locationDatas)
-    prettyWrite(s"$root/$country/tree.json", tree)
-    printTree(locationDatas.map(_.doc), tree, s"$root/$countryName.md")
-    if (country == "fr") {
-      new LocationImageWriter(locationDatas).printFrance(tree, s"$root/$countryName.png")
-    }
-    else {
-      new LocationImageWriter(locationDatas).printCountry(tree, s"$root/$countryName.png")
-    }
-  }
-
   private def buildTree(datas: Seq[LocationData]): LocationTree = {
-    new NewLocationTreeBuilder().buildTree(datas.map(_.doc))
+    new NewLocationTreeBuilder().buildTree(datas)
   }
 
   private def saveLocations(country: String, datas: Seq[LocationData]): Unit = {
-    prettyWrite(s"$root/$country/locations.json", LocationDocs(datas.map(_.doc)))
+    val filename = s"$root/$country/locations.json"
+    val definitions = LocationNameDefinitions(datas.map(_.toLocationNameDefinition))
+    prettyWrite(filename, definitions)
   }
 
   private def saveGeometries(country: String, datas: Seq[LocationData]): Unit = {
@@ -87,7 +89,8 @@ class LocationBuilderTool {
     FileUtils.writeStringToFile(new File(filename), json.writeValueAsString(obj), "UTF-8")
   }
 
-  private def printTree(locations: Seq[LocationDoc], tree: LocationTree, filename: String): Unit = {
+  private def printTree(locations: Seq[LocationData], tree: LocationTree, countryName: String): Unit = {
+    val filename = s"$root/$countryName.md"
     val fw = new FileWriter(new File(filename))
     val out = new PrintWriter(fw)
     try {

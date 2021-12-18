@@ -4,25 +4,25 @@ import kpn.server.analyzer.engine.analysis.location.LocationTree
 
 class NewLocationTreeBuilder {
 
-  def buildTree(locations: Seq[LocationDoc]): LocationTree = {
+  def buildTree(locations: Seq[LocationData]): LocationTree = {
     val pathMap = buildPathMap(locations)
     val tree = LocationTree("", Some(buildTrees(pathMap, "")))
     tree.childLocations.head
   }
 
-  private def buildTrees(pathMap: Map[String, Seq[LocationDoc]], path: String): Seq[LocationTree] = {
+  private def buildTrees(pathMap: Map[String, Seq[LocationData]], path: String): Seq[LocationTree] = {
     pathMap.getOrElse(path, Seq.empty).map { location =>
-      val children = buildTrees(pathMap, path + ":" + location._id)
+      val children = buildTrees(pathMap, path + ":" + location.id)
       if (children.nonEmpty) {
-        LocationTree(location._id, Some(children))
+        LocationTree(location.id, Some(children))
       }
       else {
-        LocationTree(location._id)
+        LocationTree(location.id)
       }
     }
   }
 
-  private def buildPathMap(locations: Seq[LocationDoc]): Map[String, Seq[LocationDoc]] = {
+  private def buildPathMap(locations: Seq[LocationData]): Map[String, Seq[LocationData]] = {
     locations.flatMap { location =>
       if (location.paths.nonEmpty) {
         location.paths.map { path =>

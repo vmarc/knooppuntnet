@@ -52,12 +52,14 @@ class LocationBuilderFrance(dir: String) {
         LocationName(NL, "Frankrijk"),
         LocationName(DE, "Frankreich")
       )
-      val data = LocationData(
-        "fr",
-        LocationDoc("fr", Seq.empty, "France", names),
-        LocationGeometry(locationJson.geometry)
+      locationDatas.add(
+        LocationData(
+          "fr",
+          "France",
+          names,
+          LocationGeometry(locationJson.geometry)
+        )
       )
-      locationDatas.add(data)
     }
   }
 
@@ -75,12 +77,15 @@ class LocationBuilderFrance(dir: String) {
             val name = departmentJson.tags("name")
             log.info(s"${index + 1}/${departmentJsons.size} $id $name")
             val names = departmentJson.names
-            val data = LocationData(
-              id,
-              LocationDoc(id, Seq(LocationPath(Seq("fr"))), name, names),
-              LocationGeometry(departmentJson.geometry)
+            locationDatas.add(
+              LocationData.from(
+                id,
+                Seq("fr"),
+                name,
+                names,
+                LocationGeometry(departmentJson.geometry)
+              )
             )
-            locationDatas.add(data)
           }
       }
     }
@@ -140,12 +145,15 @@ class LocationBuilderFrance(dir: String) {
                       }
 
                       val parents = parentDepartments.map(department => LocationPath(Seq("fr", department.id)))
-                      val data = LocationData(
-                        id,
-                        LocationDoc(id, parents, name, names),
-                        LocationGeometry(geometry.geometry)
+                      locationDatas.add(
+                        LocationData(
+                          id,
+                          parents,
+                          name,
+                          names,
+                          LocationGeometry(geometry.geometry)
+                        )
                       )
-                      locationDatas.add(data)
                     }
                 }
             }
@@ -180,12 +188,15 @@ class LocationBuilderFrance(dir: String) {
                 case Some(cdc) => Seq("fr", department.id, cdc.id)
                 case None => Seq("fr", department.id)
               }
-              val data = LocationData(
-                id,
-                LocationDoc(id, Seq(LocationPath(parents)), name, names),
-                LocationGeometry(commune.geometry)
+              locationDatas.add(
+                LocationData.from(
+                  id,
+                  parents,
+                  name,
+                  names,
+                  LocationGeometry(commune.geometry)
+                )
               )
-              locationDatas.add(data)
           }
         }
       }

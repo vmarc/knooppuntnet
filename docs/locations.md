@@ -2,7 +2,9 @@
 
 ## Collecting location data
 
-Most of the location data is not read directly from the OpenStreetMap database, but from the osm-boundaries website, because this site contains boundaries that includes water rather than following the coastlines. This is better for performance.
+Most of the location data is not read directly from the OpenStreetMap database, but from the osm-boundaries website,
+because this site contains boundaries that includes water rather than following the coastlines. This is better for
+performance.
 
 The only exception is the France CDC's, these are read from OverpassApi.
 
@@ -32,7 +34,6 @@ Procedure:
 - /kpn/locations/osm-boundaries-2021-11-01/nl-level-4.geojson.gz: province boundaries
 - /kpn/locations/osm-boundaries-2021-11-01/nl-level-8.geojson.gz: municipality boundaries
 
-
 ### Belgium
 
 |location id|location type|
@@ -50,7 +51,6 @@ region and arondissement levels are skipped
 - /kpn/locations/osm-boundaries-2021-11-01/be-level-6.geojson.gz: province boundaries
 - /kpn/locations/osm-boundaries-2021-11-01/be-level-8.geojson.gz: municipality boundaries
 
-
 ### Germany
 
 - /kpn/locations/osm-boundaries-2021-11-01/de-level-2.geojson.gz: country boundaries
@@ -58,7 +58,6 @@ region and arondissement levels are skipped
 - /kpn/locations/osm-boundaries-2021-11-01/de-level-5.geojson.gz: state district boundaries (Regierungsbezirk)
 - /kpn/locations/osm-boundaries-2021-11-01/de-level-6.geojson.gz: county boundaries (Landkreis / Kreis / kreisfreie
   Stadt / Stadtkreis)
-
 
 ### France
 
@@ -83,7 +82,6 @@ France CDC boundaries
 
 - Overpass: relation['local_authority:FR'='CC'];out ids;
 
-
 ### Austria
 
 |---|---| |at|country| |at-1-{ref:at:gkz}|federal state (Bundesland)| |at-2-{ref:at:gkz}|district (Bezirk)|
@@ -93,7 +91,6 @@ Tag ref:at:gkz (GKZ=Gemeindekennziffer)
 - /kpn/locations/osm-boundaries-2021-11-01/at-level-2.geojson.gz: country boundaries
 - /kpn/locations/osm-boundaries-2021-11-01/at-level-4.geojson.gz: federal state boundaries
 - /kpn/locations/osm-boundaries-2021-11-01/at-level-6.geojson.gz: district boundaries
-
 
 ### Spain
 

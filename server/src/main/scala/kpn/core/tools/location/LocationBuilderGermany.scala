@@ -1,6 +1,5 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationPath
 import kpn.core.util.Log
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -29,12 +28,14 @@ class LocationBuilderGermany(dir: String) {
   private def buildCountry(): Unit = {
     Log.context("country") {
       val locationJson = InterpretedLocationJson.load(countryFilename).head
-      val data = LocationData(
-        "de",
-        LocationDoc("de", Seq.empty, locationJson.name, locationJson.names),
-        LocationGeometry(locationJson.geometry)
+      locationDatas.add(
+        LocationData(
+          "de",
+          locationJson.name,
+          locationJson.names,
+          LocationGeometry(locationJson.geometry)
+        )
       )
-      locationDatas.add(data)
     }
   }
 
@@ -46,12 +47,15 @@ class LocationBuilderGermany(dir: String) {
           case Some(tagValue) =>
             val id = s"de-1-$tagValue"
             log.info(s"${index + 1}/${federalStates.size} $id ${federalState.name}")
-            val data = LocationData(
-              id,
-              LocationDoc(id, Seq(LocationPath(Seq("de"))), federalState.name, federalState.names),
-              LocationGeometry(federalState.geometry)
+            locationDatas.add(
+              LocationData.from(
+                id,
+                Seq("de"),
+                federalState.name,
+                federalState.names,
+                LocationGeometry(federalState.geometry)
+              )
             )
-            locationDatas.add(data)
           case None =>
             log.error(s"federal state, no id found for ${federalState.name}")
         }
@@ -75,12 +79,15 @@ class LocationBuilderGermany(dir: String) {
             case None => log.error(s"No parent found for municipality $id ${district.name}")
             case Some(federalState) =>
               val parents = Seq("de", federalState.id)
-              val data = LocationData(
-                id,
-                LocationDoc(id, Seq(LocationPath(parents)), district.name, district.names),
-                LocationGeometry(district.geometry)
+              locationDatas.add(
+                LocationData.from(
+                  id,
+                  parents,
+                  district.name,
+                  district.names,
+                  LocationGeometry(district.geometry)
+                )
               )
-              locationDatas.add(data)
           }
         }
       }
@@ -117,17 +124,20 @@ class LocationBuilderGermany(dir: String) {
               val countyGeometry = LocationGeometry(county.geometry)
               districts.find(_.contains(countyGeometry)) match {
                 case Some(district) =>
-                  if (district.doc.paths.size == 1) {
-                    val parents = district.doc.paths.head.locationIds :+ district.id
-                    val data = LocationData(
-                      id,
-                      LocationDoc(id, Seq(LocationPath(parents)), county.name, county.names),
-                      LocationGeometry(county.geometry)
+                  if (district.paths.size == 1) {
+                    val parents = district.paths.head.locationIds :+ district.id
+                    locationDatas.add(
+                      LocationData.from(
+                        id,
+                        parents,
+                        county.name,
+                        county.names,
+                        LocationGeometry(county.geometry)
+                      )
                     )
-                    locationDatas.add(data)
                   }
                   else {
-                    log.error(s"unexpected number of paths in district ${district.id} ${district.doc.name}")
+                    log.error(s"unexpected number of paths in district ${district.id} ${district.name}")
                   }
 
                 case None =>
@@ -135,13 +145,16 @@ class LocationBuilderGermany(dir: String) {
                     case None =>
                       log.error(s"No parent found for county $id ${county.name}")
                     case Some(federalState) =>
-                      val parents = federalState.doc.paths.head.locationIds :+ federalState.id
-                      val data = LocationData(
-                        id,
-                        LocationDoc(id, Seq(LocationPath(parents)), county.name, county.names),
-                        LocationGeometry(county.geometry)
+                      val parents = federalState.paths.head.locationIds :+ federalState.id
+                      locationDatas.add(
+                        LocationData.from(
+                          id,
+                          parents,
+                          county.name,
+                          county.names,
+                          LocationGeometry(county.geometry)
+                        )
                       )
-                      locationDatas.add(data)
                   }
               }
           }

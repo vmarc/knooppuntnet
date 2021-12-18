@@ -1,6 +1,5 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationPath
 import kpn.core.poi.PoiLocation.belgiumAndNetherlands
 import kpn.core.util.Log
 import org.geotools.geometry.jts.JTS
@@ -38,12 +37,14 @@ class LocationBuilderNetherlands(dir: String) {
       val envelope = new Envelope(bb.xMin, bb.xMax, bb.yMin, bb.yMax)
       val geometry = locationJson.geometry.intersection(JTS.toGeometry(envelope))
 
-      val data = LocationData(
-        "nl",
-        LocationDoc("nl", Seq.empty, name, names),
-        LocationGeometry(geometry)
+      locationDatas.add(
+        LocationData(
+          "nl",
+          name,
+          names,
+          LocationGeometry(geometry)
+        )
       )
-      locationDatas.add(data)
     }
   }
 
@@ -54,12 +55,15 @@ class LocationBuilderNetherlands(dir: String) {
         val id = s"nl-1-${provinceJson.tags("ref").toLowerCase}"
         val name = provinceJson.tags("name")
         log.info(s"${index + 1}/${provinceJsons.size} $id $name")
-        val data = LocationData(
-          id,
-          LocationDoc(id, Seq(LocationPath(Seq("nl"))), name, provinceJson.names),
-          LocationGeometry(provinceJson.geometry)
+        locationDatas.add(
+          LocationData.from(
+            id,
+            Seq("nl"),
+            name,
+            provinceJson.names,
+            LocationGeometry(provinceJson.geometry)
+          )
         )
-        locationDatas.add(data)
       }
     }
   }
@@ -82,12 +86,15 @@ class LocationBuilderNetherlands(dir: String) {
             case None => log.error("No parent found for municipality $id")
             case Some(province) =>
               val parents = Seq("nl", province.id)
-              val data = LocationData(
-                id,
-                LocationDoc(id, Seq(LocationPath(parents)), name, names),
-                LocationGeometry(municipalityJson.geometry)
+              locationDatas.add(
+                LocationData.from(
+                  id,
+                  parents,
+                  name,
+                  names,
+                  LocationGeometry(municipalityJson.geometry)
+                )
               )
-              locationDatas.add(data)
           }
         }
       }

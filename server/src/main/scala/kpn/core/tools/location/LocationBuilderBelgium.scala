@@ -1,6 +1,5 @@
 package kpn.core.tools.location
 
-import kpn.core.doc.LocationPath
 import kpn.core.util.Log
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -29,12 +28,14 @@ class LocationBuilderBelgium(dir: String) {
   private def buildCountry(): Unit = {
     Log.context("country") {
       val locationJson = InterpretedLocationJson.load(countryFilename).head
-      val data = LocationData(
-        "be",
-        LocationDoc("be", Seq.empty, locationJson.name, locationJson.names),
-        LocationGeometry(locationJson.geometry)
+      locationDatas.add(
+        LocationData(
+          "be",
+          locationJson.name,
+          locationJson.names,
+          LocationGeometry(locationJson.geometry)
+        )
       )
-      locationDatas.add(data)
     }
   }
 
@@ -42,12 +43,15 @@ class LocationBuilderBelgium(dir: String) {
     Log.context("Brussels-Capital") {
       val regions = InterpretedLocationJson.load(regionsFilename)
       val locationJson = regions.find(_.hasTag("ref:INS", "04000")).get
-      val data = LocationData(
-        "be-1-04000",
-        LocationDoc("be-1-04000", Seq(LocationPath(Seq("be"))), locationJson.name, locationJson.names),
-        LocationGeometry(locationJson.geometry)
+      locationDatas.add(
+        LocationData.from(
+          "be-1-04000",
+          Seq("be"),
+          locationJson.name,
+          locationJson.names,
+          LocationGeometry(locationJson.geometry)
+        )
       )
-      locationDatas.add(data)
     }
   }
 
@@ -57,12 +61,15 @@ class LocationBuilderBelgium(dir: String) {
       provinceJsons.zipWithIndex.foreach { case (provinceJson, index) =>
         val id = s"be-1-${provinceJson.tags("ref:INS")}"
         log.info(s"${index + 1}/${provinceJsons.size} $id ${provinceJson.name}")
-        val data = LocationData(
-          id,
-          LocationDoc(id, Seq(LocationPath(Seq("be"))), provinceJson.name, provinceJson.names),
-          LocationGeometry(provinceJson.geometry)
+        locationDatas.add(
+          LocationData.from(
+            id,
+            Seq("be"),
+            provinceJson.name,
+            provinceJson.names,
+            LocationGeometry(provinceJson.geometry)
+          )
         )
-        locationDatas.add(data)
       }
     }
   }
@@ -83,13 +90,15 @@ class LocationBuilderBelgium(dir: String) {
             provinces.find(_.contains(municipalityGeometry)) match {
               case None => log.error(s"No parent found for municipality $id")
               case Some(province) =>
-                val parents = Seq("be", province.id)
-                val data = LocationData(
-                  id,
-                  LocationDoc(id, Seq(LocationPath(parents)), municipalityJson.name, municipalityJson.names),
-                  LocationGeometry(municipalityJson.geometry)
+                locationDatas.add(
+                  LocationData.from(
+                    id,
+                    Seq("be", province.id),
+                    municipalityJson.name,
+                    municipalityJson.names,
+                    LocationGeometry(municipalityJson.geometry)
+                  )
                 )
-                locationDatas.add(data)
             }
           }
         }
