@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkRelationAnalyzerImpl(
-  countryAnalyzer: CountryAnalyzer
+  locationAnalyzer: LocationAnalyzer
 ) extends NetworkRelationAnalyzer {
 
   def analyze(relation: Relation): NetworkRelationAnalysis = {
@@ -22,10 +22,10 @@ class NetworkRelationAnalyzerImpl(
     val networkRefs = networkRelations.map(_.id)
 
     val country = if (nodes.nonEmpty) {
-      countryAnalyzer.country(nodes)
+      locationAnalyzer.country(nodes)
     }
     else {
-      countryAnalyzer.relationCountry(relation)
+      locationAnalyzer.relationCountry(relation)
     }
 
     val lastUpdate: Timestamp = {

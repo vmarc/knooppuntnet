@@ -1,9 +1,9 @@
-package kpn.server.analyzer.engine.analysis.country
+package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.LatLon
 import kpn.api.custom.Country
 
-class CountryAnalyzerMock extends CountryAnalyzerAbstract {
+class LocationAnalyzerMock extends LocationAnalyzerAbstract {
 
   override def countries(latLon: LatLon): Seq[Country] = {
     if (latLon.latitude == "" || latLon.latitude == "0") {

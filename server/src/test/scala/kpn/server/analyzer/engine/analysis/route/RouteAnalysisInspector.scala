@@ -6,7 +6,7 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerFixed
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -72,8 +72,8 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
-    val countryAnalyzer = new CountryAnalyzerFixed()
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
+    val locationAnalyzer = new LocationAnalyzerFixed()
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     val routeLocationAnalyzer: RouteLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,

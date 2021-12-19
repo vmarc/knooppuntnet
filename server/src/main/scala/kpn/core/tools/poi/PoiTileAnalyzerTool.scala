@@ -1,7 +1,6 @@
 package kpn.core.tools.poi
 
 import kpn.api.common.Poi
-import kpn.database.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
@@ -10,7 +9,8 @@ import kpn.core.poi.PoiLoaderImpl
 import kpn.core.poi.PoiLocation
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculator
@@ -32,8 +32,8 @@ object PoiTileAnalyzerTool {
           }
           val poiRepository = new PoiRepositoryImpl(poiDatabase)
           val poiScopeAnalyzer = {
-            val countryAnalyzer = new CountryAnalyzerImpl()
-            new PoiScopeAnalyzerImpl(countryAnalyzer)
+            val locationAnalyzer = new LocationAnalyzerImpl(true)
+            new PoiScopeAnalyzerImpl(locationAnalyzer)
           }
           val tileCalculator: TileCalculator = new TileCalculatorImpl()
           val tool = new PoiTileAnalyzerTool(

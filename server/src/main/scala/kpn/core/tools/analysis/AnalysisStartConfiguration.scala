@@ -5,7 +5,7 @@ import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
@@ -68,12 +68,12 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
 
   private val locationConfiguration = new LocationConfigurationReader().read()
-  private val countryAnalyzer = new CountryAnalyzerImpl()
+  private val locationAnalyzer = new LocationAnalyzerImpl(true)
 
   private val tileCalculator = new TileCalculatorImpl()
 
   private val nodeAnalyzer: NodeAnalyzer = {
-    val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(countryAnalyzer)
+    val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(locationAnalyzer)
     val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
     val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationConfiguration, true)
@@ -101,7 +101,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val masterRouteAnalyzer: MasterRouteAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationConfiguration)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     new MasterRouteAnalyzerImpl(
       analysisContext,
       routeCountryAnalyzer,
@@ -123,7 +123,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
     val networkInfoNodeDocAnalyzer = new NetworkInfoNodeDocAnalyzer(database)
     val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
-    val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
+    val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
     new NetworkInfoMasterAnalyzer(

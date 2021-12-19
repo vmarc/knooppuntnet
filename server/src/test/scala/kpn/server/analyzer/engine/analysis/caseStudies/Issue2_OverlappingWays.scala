@@ -9,7 +9,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
@@ -76,8 +76,8 @@ class Issue2_OverlappingWays extends UnitTest {
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
-    val countryAnalyzer = new CountryAnalyzerNoop()
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
+    val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,

@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.country
+package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.custom.Country
 

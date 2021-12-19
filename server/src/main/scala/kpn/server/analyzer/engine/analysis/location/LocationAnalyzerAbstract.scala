@@ -1,11 +1,11 @@
-package kpn.server.analyzer.engine.analysis.country
+package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.LatLon
 import kpn.api.custom.Country
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
-abstract class CountryAnalyzerAbstract() extends CountryAnalyzer {
+abstract class LocationAnalyzerAbstract extends LocationAnalyzer {
 
   override def relationCountry(relation: Relation): Option[Country] = {
     val nodes = RelationAnalyzer.referencedNetworkNodes(relation)

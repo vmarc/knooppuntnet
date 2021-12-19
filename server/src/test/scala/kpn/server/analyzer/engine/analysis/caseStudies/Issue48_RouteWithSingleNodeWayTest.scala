@@ -6,7 +6,7 @@ import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerFixed
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -23,11 +23,11 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest {
   test("ignore ways with less than 2 nodes in route analysis") {
     val routeRelation = readRoute()
     val analysisContext = new AnalysisContext()
-    val countryAnalyzer = new CountryAnalyzerFixed()
+    val locationAnalyzer = new LocationAnalyzerFixed()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,

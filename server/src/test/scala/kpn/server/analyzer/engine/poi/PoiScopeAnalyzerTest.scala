@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.poi
 
 import kpn.api.common.LatLonImpl
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 
 class PoiScopeAnalyzerTest extends UnitTest {
 
   val poiScopeAnalyzer: PoiScopeAnalyzer = {
-    val countryAnalyzer = new CountryAnalyzerImpl()
+    val countryAnalyzer = LocationAnalyzerTest.locationAnalyzer
     new PoiScopeAnalyzerImpl(countryAnalyzer)
   }
 

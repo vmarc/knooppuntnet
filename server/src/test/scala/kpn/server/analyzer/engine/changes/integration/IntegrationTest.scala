@@ -11,7 +11,6 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawElement
 import kpn.api.custom.Change
 import kpn.api.custom.Relation
-import kpn.database.base.Database
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
@@ -21,26 +20,15 @@ import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerMock
+import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.Watched
 import org.scalamock.scalatest.MockFactory
-
-object IntegrationTest {
-
-  private var countryAnalyzerOption: Option[CountryAnalyzer] = None
-
-  def countryAnalyzer: CountryAnalyzer = {
-    if (countryAnalyzerOption.isEmpty) {
-      countryAnalyzerOption = Some(new CountryAnalyzerImpl())
-    }
-    countryAnalyzerOption.get
-  }
-}
 
 class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
 
@@ -50,22 +38,22 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     doTestIntegration(
       dataBefore,
       dataAfter,
-      IntegrationTest.countryAnalyzer
+      LocationAnalyzerTest.locationAnalyzer
     )(f)
   }
 
   def testIntegration(dataBefore: OverpassData, dataAfter: OverpassData)(f: => Unit): Unit = {
-    val countryAnalyzer = new CountryAnalyzerMock()
-    doTestIntegration(dataBefore, dataAfter, countryAnalyzer)(f)
+    val locationAnalyzer = new LocationAnalyzerMock()
+    doTestIntegration(dataBefore, dataAfter, locationAnalyzer)(f)
   }
 
   private def doTestIntegration(
     dataBefore: OverpassData,
     dataAfter: OverpassData,
-    countryAnalyzer: CountryAnalyzer
+    locationAnalyzer: LocationAnalyzer
   )(f: => Unit): Unit = {
     withDatabase { database =>
-      contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, countryAnalyzer))
+      contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
       try {
         context.fullAnalyzer.analyze(timestampBeforeValue)
         context.analysisDataInitializer.load()

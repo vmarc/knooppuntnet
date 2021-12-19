@@ -4,7 +4,7 @@ import kpn.core.data.Data
 import kpn.core.test.OverpassData
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzer
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
@@ -67,7 +67,7 @@ class IntegrationTestContext(
   val database: Database,
   dataBefore: OverpassData,
   dataAfter: OverpassData,
-  countryAnalyzer: CountryAnalyzer
+  locationAnalyzer: LocationAnalyzer
 ) extends MockFactory {
 
   val before: Data = dataBefore.data
@@ -92,7 +92,7 @@ class IntegrationTestContext(
   private val tileCalculator = new TileCalculatorImpl()
   private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
   private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
-  private val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
+  private val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
   private val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
   private val masterRouteAnalyzer = new MasterRouteAnalyzerImpl(
     analysisContext,
@@ -106,7 +106,7 @@ class IntegrationTestContext(
   val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
 
   private val nodeAnalyzer: NodeAnalyzer = {
-    val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(countryAnalyzer)
+    val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(locationAnalyzer)
     new NodeAnalyzerImpl(
       nodeCountryAnalyzer,
       new NodeTileAnalyzerNoop,
@@ -182,7 +182,7 @@ class IntegrationTestContext(
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
     val networkInfoNodeDocAnalyzer = new NetworkInfoNodeDocAnalyzer(database)
     val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
-    val networkCountryAnalyzer = new NetworkCountryAnalyzer(countryAnalyzer)
+    val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
     new NetworkInfoMasterAnalyzer(

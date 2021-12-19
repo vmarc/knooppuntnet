@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.custom.Relation
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
-import kpn.server.analyzer.engine.analysis.country.CountryAnalyzerFixed
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
@@ -22,11 +22,11 @@ object CaseStudy {
     val filename = s"/case-studies/$name.xml"
     val routeRelation = load(filename)
     val analysisContext = new AnalysisContext()
-    val countryAnalyzer = new CountryAnalyzerFixed()
+    val locationAnalyzer = new LocationAnalyzerFixed()
     val tileCalculator = new TileCalculatorImpl()
     val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(countryAnalyzer)
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MasterRouteAnalyzerImpl(
       analysisContext,
