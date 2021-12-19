@@ -28,14 +28,14 @@ class LocationBuilderNetherlands(dir: String) {
 
   private def buildCountry(): Unit = {
     Log.context("country") {
-      val locationJsons = InterpretedLocationJson.load(regionsFilename)
-      val locationJson = locationJsons.filter(_.name == "Nederland").head
-      val name = locationJson.tags("name")
-      val names = locationJson.names
+      val regions = InterpretedLocationJson.load(regionsFilename)
+      val country = regions.filter(_.name == "Nederland").head
+      val name = country.tags("name")
+      val names = country.names
 
       val bb = belgiumAndNetherlands
       val envelope = new Envelope(bb.xMin, bb.xMax, bb.yMin, bb.yMax)
-      val geometry = locationJson.geometry.intersection(JTS.toGeometry(envelope))
+      val geometry = country.geometry.intersection(JTS.toGeometry(envelope))
 
       locationDatas.add(
         LocationData(
@@ -50,18 +50,18 @@ class LocationBuilderNetherlands(dir: String) {
 
   private def buildProvinces(): Unit = {
     Log.context("provinces") {
-      val provinceJsons = InterpretedLocationJson.load(provincesFilename)
-      provinceJsons.zipWithIndex.foreach { case (provinceJson, index) =>
-        val id = s"nl-1-${provinceJson.tags("ref").toLowerCase}"
-        val name = provinceJson.tags("name")
-        log.info(s"${index + 1}/${provinceJsons.size} $id $name")
+      val provinces = InterpretedLocationJson.load(provincesFilename)
+      provinces.zipWithIndex.foreach { case (province, index) =>
+        val id = s"nl-1-${province.tags("ref").toLowerCase}"
+        val name = province.tags("name")
+        log.info(s"${index + 1}/${provinces.size} $id $name")
         locationDatas.add(
           LocationData.from(
             id,
             Seq("nl"),
             name,
-            provinceJson.names,
-            LocationGeometry(provinceJson.geometry)
+            province.names,
+            LocationGeometry(province.geometry)
           )
         )
       }
@@ -71,19 +71,19 @@ class LocationBuilderNetherlands(dir: String) {
   private def loadMunicipalities(): Unit = {
     Log.context("municipalities") {
       val provinces = locationDatas.startingWith("nl-1")
-      val municipalityJsons = InterpretedLocationJson.load(municipalitiesFilename).filter(_.tags.contains("ref:gemeentecode"))
+      val municipalities = InterpretedLocationJson.load(municipalitiesFilename).filter(_.tags.contains("ref:gemeentecode"))
       val count = new AtomicInteger(0)
       val context = Log.contextMessages
-      municipalityJsons.par.foreach { municipalityJson =>
+      municipalities.par.foreach { municipality =>
         val index = count.incrementAndGet()
-        Log.context(context :+ s"$index/${municipalityJsons.size}") {
-          val id = s"nl-2-${municipalityJson.tags("ref:gemeentecode").toLowerCase}"
-          val name = municipalityJson.tags("name")
+        Log.context(context :+ s"$index/${municipalities.size}") {
+          val id = s"nl-2-${municipality.tags("ref:gemeentecode").toLowerCase}"
+          val name = municipality.tags("name")
           log.info(s"$id $name")
-          val names = municipalityJson.names
-          val geometry = LocationGeometry(municipalityJson.geometry)
+          val names = municipality.names
+          val geometry = LocationGeometry(municipality.geometry)
           provinces.find(_.contains(geometry)) match {
-            case None => log.error("No parent found for municipality $id")
+            case None => throw new RuntimeException(s"Province not found for municipality $id $name")
             case Some(province) =>
               val parents = Seq("nl", province.id)
               locationDatas.add(
@@ -92,7 +92,7 @@ class LocationBuilderNetherlands(dir: String) {
                   parents,
                   name,
                   names,
-                  LocationGeometry(municipalityJson.geometry)
+                  LocationGeometry(municipality.geometry)
                 )
               )
           }

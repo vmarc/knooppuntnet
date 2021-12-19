@@ -20,11 +20,11 @@ class LocationBuilderTool {
   private val boundaryVersion = "osm-boundaries-2021-11-01"
 
   def build(): Unit = {
-//    build("be", "belgium", locationsBelgium())
-//    build("nl", "netherlands", locationsNetherlands())
-//    build("de", "germany", locationsGermany())
-//    build("fr", "france", locationsFrance())
-//    build("at", "austria", locationsAustria())
+    build("be", "belgium", locationsBelgium())
+    build("nl", "netherlands", locationsNetherlands())
+    build("de", "germany", locationsGermany())
+    build("fr", "france", locationsFrance())
+    build("at", "austria", locationsAustria())
     build("es", "spain", locationsSpain())
   }
 

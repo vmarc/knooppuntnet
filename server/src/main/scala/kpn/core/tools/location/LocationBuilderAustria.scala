@@ -63,7 +63,7 @@ class LocationBuilderAustria(dir: String) {
           log.info(s"$id ${district.name}")
           val districtGeometry = LocationGeometry(district.geometry)
           federalStates.find(_.contains(districtGeometry)) match {
-            case None => log.error(s"Federal state not found for district $id ${district.name}")
+            case None => throw new RuntimeException(s"Federal state not found for district $id ${district.name}")
             case Some(federalState) =>
               locationDatas.add(
                 LocationData.from(

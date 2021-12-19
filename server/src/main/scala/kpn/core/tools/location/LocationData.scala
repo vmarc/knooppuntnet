@@ -2,7 +2,6 @@ package kpn.core.tools.location
 
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationPath
-import org.locationtech.jts.geom.Geometry
 
 object LocationData {
 
@@ -58,11 +57,7 @@ case class LocationData(
     )
   }
 
-  def contains(otherGeometry: Geometry): Boolean = {
-    geometry.geometry.contains(otherGeometry)
-  }
-
   def contains(otherLocationGeometry: LocationGeometry): Boolean = {
-    geometry.geometry.contains(otherLocationGeometry.geometry)
+    geometry.contains(otherLocationGeometry)
   }
 }

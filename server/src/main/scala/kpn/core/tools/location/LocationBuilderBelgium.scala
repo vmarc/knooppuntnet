@@ -57,17 +57,17 @@ class LocationBuilderBelgium(dir: String) {
 
   private def buildProvinces(): Unit = {
     Log.context("provinces") {
-      val provinceJsons = InterpretedLocationJson.load(provincesFilename).filter(_.tags.contains("ref:INS"))
-      provinceJsons.zipWithIndex.foreach { case (provinceJson, index) =>
-        val id = s"be-1-${provinceJson.tags("ref:INS")}"
-        log.info(s"${index + 1}/${provinceJsons.size} $id ${provinceJson.name}")
+      val provinces = InterpretedLocationJson.load(provincesFilename).filter(_.tags.contains("ref:INS"))
+      provinces.zipWithIndex.foreach { case (province, index) =>
+        val id = s"be-1-${province.tags("ref:INS")}"
+        log.info(s"${index + 1}/${provinces.size} $id ${province.name}")
         locationDatas.add(
           LocationData.from(
             id,
             Seq("be"),
-            provinceJson.name,
-            provinceJson.names,
-            LocationGeometry(provinceJson.geometry)
+            province.name,
+            province.names,
+            LocationGeometry(province.geometry)
           )
         )
       }
@@ -77,26 +77,26 @@ class LocationBuilderBelgium(dir: String) {
   private def loadMunicipalities(): Unit = {
     Log.context("municipalities") {
       val provinces = locationDatas.startingWith("be-1")
-      val municipalityJsons = InterpretedLocationJson.load(municipalitiesFilename)
+      val municipalities = InterpretedLocationJson.load(municipalitiesFilename)
       val count = new AtomicInteger(0)
       val context = Log.contextMessages
-      municipalityJsons.par.foreach { municipalityJson =>
+      municipalities.par.foreach { municipality =>
         Log.context(context) {
           val index = count.incrementAndGet()
-          Log.context(s"$index/${municipalityJsons.size}") {
-            val id = s"be-2-${municipalityJson.tags("ref:INS")}"
-            log.info(s"$id ${municipalityJson.name}")
-            val municipalityGeometry = LocationGeometry(municipalityJson.geometry)
+          Log.context(s"$index/${municipalities.size}") {
+            val id = s"be-2-${municipality.tags("ref:INS")}"
+            log.info(s"$id ${municipality.name}")
+            val municipalityGeometry = LocationGeometry(municipality.geometry)
             provinces.find(_.contains(municipalityGeometry)) match {
-              case None => log.error(s"No parent found for municipality $id")
+              case None => throw new RuntimeException(s"No parent found for municipality $id")
               case Some(province) =>
                 locationDatas.add(
                   LocationData.from(
                     id,
                     Seq("be", province.id),
-                    municipalityJson.name,
-                    municipalityJson.names,
-                    LocationGeometry(municipalityJson.geometry)
+                    municipality.name,
+                    municipality.names,
+                    LocationGeometry(municipality.geometry)
                   )
                 )
             }

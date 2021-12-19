@@ -44,6 +44,7 @@ class LocationBuilderGermany(dir: String) {
       val federalStates = InterpretedLocationJson.load(federalStatesFilename)
       federalStates.zipWithIndex.foreach { case (federalState, index) =>
         federalState.tags.get("de:regionalschluessel") match {
+          case None => throw new RuntimeException(s"federal state, no id found for ${federalState.name}")
           case Some(tagValue) =>
             val id = s"de-1-$tagValue"
             log.info(s"${index + 1}/${federalStates.size} $id ${federalState.name}")
@@ -56,8 +57,6 @@ class LocationBuilderGermany(dir: String) {
                 LocationGeometry(federalState.geometry)
               )
             )
-          case None =>
-            log.error(s"federal state, no id found for ${federalState.name}")
         }
       }
     }
@@ -76,7 +75,7 @@ class LocationBuilderGermany(dir: String) {
           log.info(s"$id ${district.name}")
           val districtGeometry = LocationGeometry(district.geometry)
           federalStates.find(_.contains(districtGeometry)) match {
-            case None => log.error(s"No parent found for municipality $id ${district.name}")
+            case None => throw new RuntimeException(s"No parent found for municipality $id ${district.name}")
             case Some(federalState) =>
               val parents = Seq("de", federalState.id)
               locationDatas.add(
@@ -108,10 +107,9 @@ class LocationBuilderGermany(dir: String) {
             case Some(value) => Some(value)
             case None =>
               county.tags.get("de:regionalschluessel") match {
-                case Some(value) =>
-                  Some(value)
+                case Some(value) => Some(value)
                 case None =>
-                  log.error(s"Reference not found in county ${county.name}")
+                  throw new RuntimeException(s"Reference not found in county ${county.name}")
                   None
               }
           }
@@ -124,26 +122,23 @@ class LocationBuilderGermany(dir: String) {
               val countyGeometry = LocationGeometry(county.geometry)
               districts.find(_.contains(countyGeometry)) match {
                 case Some(district) =>
-                  if (district.paths.size == 1) {
-                    val parents = district.paths.head.locationIds :+ district.id
-                    locationDatas.add(
-                      LocationData.from(
-                        id,
-                        parents,
-                        county.name,
-                        county.names,
-                        LocationGeometry(county.geometry)
-                      )
+                  if (district.paths.size != 1) {
+                    throw new RuntimeException(s"unexpected number of paths in district ${district.id} ${district.name}")
+                  }
+                  val parents = district.paths.head.locationIds :+ district.id
+                  locationDatas.add(
+                    LocationData.from(
+                      id,
+                      parents,
+                      county.name,
+                      county.names,
+                      LocationGeometry(county.geometry)
                     )
-                  }
-                  else {
-                    log.error(s"unexpected number of paths in district ${district.id} ${district.name}")
-                  }
+                  )
 
                 case None =>
                   federalStates.find(_.contains(countyGeometry)) match {
-                    case None =>
-                      log.error(s"No parent found for county $id ${county.name}")
+                    case None => throw new RuntimeException(s"No parent found for county $id ${county.name}")
                     case Some(federalState) =>
                       val parents = federalState.paths.head.locationIds :+ federalState.id
                       locationDatas.add(
