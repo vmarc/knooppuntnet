@@ -26,14 +26,10 @@ object LocationDefinition {
   }
 }
 
-
 case class LocationDefinition(
   id: String,
   name: String,
-  level: Int,
   locationNames: Map[Language, String],
-  boundingBox: Envelope,
-  geometry: Geometry,
   children: Seq[LocationDefinition] = Seq.empty
 ) {
 

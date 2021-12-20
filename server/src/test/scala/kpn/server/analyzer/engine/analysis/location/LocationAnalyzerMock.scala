@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.LatLon
 import kpn.api.custom.Country
+import org.locationtech.jts.geom.Geometry
 
 class LocationAnalyzerMock extends LocationAnalyzerAbstract {
 
@@ -16,5 +17,13 @@ class LocationAnalyzerMock extends LocationAnalyzerAbstract {
 
   override def country(latLons: Iterable[LatLon]): Option[Country] = {
     doCountry(latLons)
+  }
+
+  override def findLocations(latitude: String, longitude: String): Seq[String] = {
+    Seq.empty
+  }
+
+  override def locateGeometries(geometries: Seq[Geometry]): Seq[LocationSelector] = {
+    Seq.empty
   }
 }

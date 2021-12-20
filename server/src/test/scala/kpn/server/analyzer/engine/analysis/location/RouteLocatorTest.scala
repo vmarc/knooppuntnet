@@ -10,15 +10,15 @@ import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 
 class RouteLocatorTest extends UnitTest with SharedTestObjects {
 
-  private val essen = Location(Seq("be", "Flanders", "Antwerp province", "Antwerp arrondissement", "Essen BE"))
-  private val kalmthout = Location(Seq("be", "Flanders", "Antwerp province", "Antwerp arrondissement", "Kalmthout"))
-  private val roosendaal = Location(Seq("nl", "North Brabant", "Roosendaal"))
-  private val rucphen = Location(Seq("nl", "North Brabant", "Rucphen"))
-  private val woensdrecht = Location(Seq("nl", "North Brabant", "Woensdrecht"))
+  private val essen = Location(Seq("be", "be-1-10000", "be-2-11016"))
+  private val kalmthout = Location(Seq("be", "be-1-10000", "be-2-11022"))
+  private val roosendaal = Location(Seq("nl", "nl-1-nb", "nl-2-1674"))
+  private val rucphen = Location(Seq("nl", "nl-1-nb", "nl-2-840"))
+  private val woensdrecht = Location(Seq("nl", "nl-1-nb", "nl-2-873"))
 
   test("way based locator") {
 
-    val locator = new RouteLocatorImpl(new LocationConfigurationReader().read())
+    val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
 
     // route 24-81
     locator.locate(route("28184").analysis.map) should matchTo(
@@ -30,15 +30,13 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
           LocationCandidate(woensdrecht, 2)
         ),
         Seq(
-          "Antwerp arrondissement",
-          "Antwerp province",
-          "Essen BE",
-          "Flanders",
-          "North Brabant",
-          "Roosendaal",
-          "Woensdrecht",
           "be",
-          "nl"
+          "be-1-10000", // Antwerp province
+          "be-2-11016", // Essen
+          "nl",
+          "nl-1-nb", // North Brabant
+          "nl-2-1674", // Roosendaal
+          "nl-2-873" // Woensdrecht
         )
       )
     )
@@ -53,15 +51,13 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
           LocationCandidate(essen, 16)
         ),
         Seq(
-          "Antwerp arrondissement",
-          "Antwerp province",
-          "Essen BE",
-          "Flanders",
-          "North Brabant",
-          "Roosendaal",
-          "Rucphen",
           "be",
-          "nl"
+          "be-1-10000", // Antwerp province
+          "be-2-11016", // Essen
+          "nl",
+          "nl-1-nb", // North Brabant
+          "nl-2-1674", // Roosendaal
+          "nl-2-840" // Rucphen
         )
       )
     )
@@ -75,12 +71,10 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
           LocationCandidate(essen, 15)
         ),
         Seq(
-          "Antwerp arrondissement",
-          "Antwerp province",
-          "Essen BE",
-          "Flanders",
-          "Kalmthout",
-          "be"
+          "be",
+          "be-1-10000", // Antwerp province
+          "be-2-11016", // Essen
+          "be-2-11022" // Kalmthout
         )
       )
     )
@@ -89,5 +83,4 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
   private def route(routeId: String): RouteDoc = {
     CaseStudy.routeAnalysis(routeId).route
   }
-
 }

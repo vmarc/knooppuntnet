@@ -21,7 +21,14 @@ class LocationStoreReader {
   private val root = "/kpn/locations"
 
   def read(): LocationStore = {
-    val countries = Country.all.map(loadCountry)
+    val countries: Seq[LocationStoreCountry] = Country.all.map { country =>
+      val locationStoreCountry = loadCountry(country)
+      val filename = s"$root/${country.domain}/tree.json"
+      val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+      val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
+      val location = toLocation(locationStoreCountry.dataMap, tree)
+      locationStoreCountry.copy(tree = location)
+    }
     LocationStore(countries)
   }
 
@@ -51,7 +58,8 @@ class LocationStoreReader {
 
     LocationStoreCountry(
       country,
-      dataMap
+      dataMap,
+      dataMap(country.domain)
     )
   }
 
@@ -77,6 +85,19 @@ class LocationStoreReader {
         }
 
       case _ => throw new RuntimeException("Unexpected location geometry type")
+    }
+  }
+
+  private def toLocation(locationDefinitionMap: Map[String, LocationStoreData], tree: LocationTree): LocationStoreData = {
+    if (tree.children.isEmpty) {
+      locationDefinitionMap(tree.name)
+    }
+    else {
+      locationDefinitionMap(tree.name).copy(
+        children = tree.children.get.map(child =>
+          toLocation(locationDefinitionMap, child)
+        )
+      )
     }
   }
 }

@@ -4,5 +4,6 @@ import kpn.api.custom.Country
 
 case class LocationStoreCountry(
   country: Country,
-  dataMap: Map[String, LocationStoreData]
+  dataMap: Map[String, LocationStoreData],
+  tree: LocationStoreData
 )

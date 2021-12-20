@@ -12,7 +12,7 @@ import org.locationtech.jts.geom.MultiLineString
 import org.springframework.stereotype.Component
 
 @Component
-class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends RouteLocator {
+class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator {
 
   private val geomFactory = new GeometryFactory
 
@@ -20,9 +20,7 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
 
     val routeGeometries: Seq[Geometry] = toGeometries(routeMap)
 
-    val candidates: Seq[LocationSelector] = locationConfiguration.locations.flatMap { location =>
-      doLocate(routeGeometries, Seq.empty, location)
-    }.toVector
+    val candidates: Seq[LocationSelector] = locationAnalyzer.locateGeometries(routeGeometries)
 
     val locationSelectorCandidates = candidates.map { candidate =>
       val distance = calculateDistance(routeGeometries, candidate)
@@ -50,27 +48,6 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
         locationNames
       )
     }
-  }
-
-  private def doLocate(routeGeometries: Seq[Geometry], foundLocations: Seq[LocationDefinition], location: LocationDefinition): Seq[LocationSelector] = {
-    if (routeIntersectsLocation(routeGeometries, location)) {
-      val newfoundLocations = foundLocations :+ location
-      if (location.children.isEmpty) {
-        Seq(LocationSelector(newfoundLocations))
-      }
-      else {
-        location.children.flatMap { child =>
-          doLocate(routeGeometries, newfoundLocations, child)
-        }
-      }
-    }
-    else {
-      Seq.empty
-    }
-  }
-
-  private def routeIntersectsLocation(routeGeometries: Seq[Geometry], location: LocationDefinition): Boolean = {
-    routeGeometries.exists(location.geometry.intersects)
   }
 
   private def toGeometries(routeMap: RouteMap): Seq[Geometry] = {
@@ -108,7 +85,6 @@ class RouteLocatorImpl(locationConfiguration: LocationConfiguration) extends Rou
   }
 
   private def calculateDistance(routeGeometries: Seq[Geometry], location: LocationSelector): Double = {
-    routeGeometries.map(_.intersection(location.leaf.geometry)).map(lineLength).sum
+    routeGeometries.map(_.intersection(location.leaf.geometry.geometry)).map(lineLength).sum
   }
-
 }

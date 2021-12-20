@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.core.util.UnitTest
-import org.locationtech.jts.geom.Envelope
 
 class LocationDefinitionTest extends UnitTest {
 
@@ -47,12 +46,8 @@ class LocationDefinitionTest extends UnitTest {
     LocationDefinition(
       id = "",
       name = name,
-      level = 0,
       locationNames = Map.empty,
-      boundingBox = new Envelope(),
-      geometry = null,
       children = children
     )
   }
-
 }

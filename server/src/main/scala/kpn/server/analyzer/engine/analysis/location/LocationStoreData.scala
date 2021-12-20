@@ -11,7 +11,8 @@ case class LocationStoreData(
   paths: Seq[LocationPath],
   name: String,
   geometry: LocationGeometry,
-  locators: Seq[IndexedPointInAreaLocator]
+  locators: Seq[IndexedPointInAreaLocator],
+  children: Seq[LocationStoreData] = Seq.empty
 ) {
 
   def contains(latitude: String, longitude: String): Boolean = {

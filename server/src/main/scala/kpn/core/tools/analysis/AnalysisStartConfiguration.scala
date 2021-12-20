@@ -6,7 +6,6 @@ import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
@@ -67,7 +66,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
 
-  private val locationConfiguration = new LocationConfigurationReader().read()
   private val locationAnalyzer = new LocationAnalyzerImpl(true)
 
   private val tileCalculator = new TileCalculatorImpl()
@@ -76,7 +74,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(locationAnalyzer)
     val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
-    val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationConfiguration, true)
+    val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationAnalyzer)
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
     new NodeAnalyzerImpl(
       nodeCountryAnalyzer: NodeCountryAnalyzer,
@@ -99,7 +97,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
 
   val masterRouteAnalyzer: MasterRouteAnalyzer = {
-    val routeLocator = new RouteLocatorImpl(locationConfiguration)
+    val routeLocator = new RouteLocatorImpl(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     new MasterRouteAnalyzerImpl(

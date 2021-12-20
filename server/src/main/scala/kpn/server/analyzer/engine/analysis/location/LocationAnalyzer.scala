@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.location
 import kpn.api.common.LatLon
 import kpn.api.custom.Country
 import kpn.api.custom.Relation
+import org.locationtech.jts.geom.Geometry
 
 trait LocationAnalyzer {
 
@@ -12,4 +13,7 @@ trait LocationAnalyzer {
 
   def relationCountry(relation: Relation): Option[Country]
 
+  def findLocations(latitude: String, longitude: String): Seq[String]
+
+  def locateGeometries(geometries: Seq[Geometry]): Seq[LocationSelector]
 }

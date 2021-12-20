@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.location.Location
 
-case class LocationSelector(locationDefinitions: Seq[LocationDefinition]) {
+case class LocationSelector(locationDefinitions: Seq[LocationStoreData]) {
 
   def name: String = locationDefinitions.map(_.name).mkString(" > ")
 
-  def toLocation: Location = Location(locationDefinitions.map(_.name))
+  def toLocation: Location = Location(locationDefinitions.map(_.id))
 
-  def leaf: LocationDefinition = locationDefinitions.last
+  def leaf: LocationStoreData = locationDefinitions.last
 }

@@ -2,26 +2,21 @@ package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 class NodeLocationsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("node locations") {
 
-    val analyzer = {
-      val configuration = new LocationConfigurationReader().read()
-      new NodeLocationsAnalyzerImpl(configuration, true)
-    }
+    val analyzer = new NodeLocationsAnalyzerImpl(LocationAnalyzerTest.locationAnalyzer)
 
     val essen = NodeAnalysis(newRawNode(latitude = "51.46774", longitude = "4.46839"))
     analyzer.analyze(essen).locations should equal(
       Seq(
         "be",
-        "Flanders",
-        "Antwerp province",
-        "Antwerp arrondissement",
-        "Essen BE"
+        "be-1-10000", // Antwerpen
+        "be-2-11016" // Essen
       )
     )
 
@@ -29,8 +24,8 @@ class NodeLocationsAnalyzerTest extends UnitTest with SharedTestObjects {
     analyzer.analyze(baarleNassau).locations should equal(
       Seq(
         "nl",
-        "North Brabant",
-        "Baarle-Nassau"
+        "nl-1-nb", // North Brabant
+        "nl-2-744" // Baarle-Nassau
       )
     )
 
@@ -38,10 +33,8 @@ class NodeLocationsAnalyzerTest extends UnitTest with SharedTestObjects {
     analyzer.analyze(baarleHertog).locations should equal(
       Seq(
         "be",
-        "Flanders",
-        "Antwerp province",
-        "Turnhout arrondissement",
-        "Baarle-Hertog"
+        "be-1-10000", // Antwerp province
+        "be-2-13002" // Baarle-Hertog
       )
     )
   }

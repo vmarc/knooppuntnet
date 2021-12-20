@@ -47,7 +47,6 @@ class LocationsPageBuilderImpl(
           }
       }
     }
-
     val count = nodeCounts.getOrElse(locationDefinition.name, 0L)
     val children = locationDefinition.children.map(ld => toLocationNode(language, nodeCounts, ld))
     LocationNode(name, localName, count, children)
