@@ -107,9 +107,9 @@ class AnalysisFacadeImpl(
   locationChangesPageBuilder: LocationChangesPageBuilder
 ) extends AnalysisFacade {
 
-  override def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage] = {
+  override def nodeDetails(user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage] = {
     api.execute(user, "node-details", s"$nodeId") {
-      reply(nodeDetailsPageBuilder.build(user, nodeId))
+      reply(nodeDetailsPageBuilder.build(user,language, nodeId))
     }
   }
 
@@ -125,9 +125,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def routeDetails(user: Option[String], routeId: Long): ApiResponse[RouteDetailsPage] = {
+  override def routeDetails(user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage] = {
     api.execute(user, "route-details", s"$routeId") {
-      reply(routePageBuilder.buildDetailsPage(user, routeId))
+      reply(routePageBuilder.buildDetailsPage(user, language, routeId))
     }
   }
 
@@ -253,46 +253,46 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def locationNodes(user: Option[String], key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
+  override def locationNodes(user: Option[String], language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val locationKey = s"${key.networkType.name}, ${key.country.domain}, ${key.name}, "
     val locationParameters = s"${parameters.locationNodesType.name}, ${parameters.itemsPerPage}, ${parameters.pageIndex}"
     api.execute(user, "location-nodes", locationKey + locationParameters) {
-      reply(locationNodesPageBuilder.build(key, parameters))
+      reply(locationNodesPageBuilder.build(language, key, parameters))
     }
   }
 
-  override def locationRoutes(user: Option[String], locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
+  override def locationRoutes(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute(user, "location-routes", args) {
-      reply(locationRoutesPageBuilder.build(locationKey, parameters))
+      reply(locationRoutesPageBuilder.build(language, locationKey, parameters))
     }
   }
 
-  override def locationFacts(user: Option[String], locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
+  override def locationFacts(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute(user, "location-facts", args) {
-      reply(locationFactsPageBuilder.build(locationKey))
+      reply(locationFactsPageBuilder.build(language, locationKey))
     }
   }
 
-  override def locationMap(user: Option[String], locationKey: LocationKey): ApiResponse[LocationMapPage] = {
+  override def locationMap(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute(user, "location-map", args) {
-      reply(locationMapPageBuilder.build(locationKey))
+      reply(locationMapPageBuilder.build(language, locationKey))
     }
   }
 
-  override def locationChanges(user: Option[String], locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage] = {
+  override def locationChanges(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute(user, "location-changes", args) {
-      reply(locationChangesPageBuilder.build(locationKey, parameters))
+      reply(locationChangesPageBuilder.build(language, locationKey, parameters))
     }
   }
 
-  override def locationEdit(user: Option[String], locationKey: LocationKey): ApiResponse[LocationEditPage] = {
+  override def locationEdit(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute(user, "location-edit", args) {
-      reply(locationEditPageBuilder.build(locationKey))
+      reply(locationEditPageBuilder.build(language, locationKey))
     }
   }
 

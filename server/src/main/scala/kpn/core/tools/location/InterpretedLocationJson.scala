@@ -2,8 +2,6 @@ package kpn.core.tools.location
 
 import kpn.api.common.Languages
 import kpn.core.doc.LocationName
-import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.LocationJson
-import kpn.server.analyzer.engine.analysis.location.LocationDefinitionReader.LocationsJson
 import kpn.server.json.Json
 import org.locationtech.jts.geom.Geometry
 

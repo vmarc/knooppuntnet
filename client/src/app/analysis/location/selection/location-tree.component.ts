@@ -1,21 +1,17 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy } from '@angular/core';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
-import {
-  MatTreeFlatDataSource,
-  MatTreeFlattener,
-} from '@angular/material/tree';
-import { LocationNode } from '@api/common/location/location-node';
+import { Component } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Output } from '@angular/core';
+import { MatTreeFlatDataSource } from '@angular/material/tree';
+import { MatTreeFlattener } from '@angular/material/tree';
 import { Country } from '@api/custom/country';
 import { NetworkType } from '@api/custom/network-type';
 import { Subscriptions } from '../../../util/Subscriptions';
+import { LocalLocationNode } from './local-location-node';
 import { LocationFlatNode } from './location-flat-node';
 
 @Component({
@@ -63,7 +59,7 @@ import { LocationFlatNode } from './location-flat-node';
         matTreeNodePadding
         [ngClass]="{ hidden: !all && leafNode.nodeCount === 0 }"
       >
-        <a (click)="select(leafNode.name)">{{ locationName(leafNode) }}</a
+        <a (click)="select(leafNode)">{{ leafNode.name }}</a
         ><span class="node-count">{{ leafNode.nodeCount }}</span>
       </mat-tree-node>
       <mat-tree-node
@@ -87,9 +83,7 @@ import { LocationFlatNode } from './location-flat-node';
             class="expand-collapse-icon"
           ></mat-icon>
         </div>
-        <a (click)="select(expandableNode.name)">{{
-          locationName(expandableNode)
-        }}</a
+        <a (click)="select(expandableNode)">{{ expandableNode.name }}</a
         ><span class="node-count">{{ expandableNode.nodeCount }}</span>
       </mat-tree-node>
     </mat-tree>
@@ -125,7 +119,7 @@ import { LocationFlatNode } from './location-flat-node';
 export class LocationTreeComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() country: Country;
-  @Input() locationNode: LocationNode;
+  @Input() locationNode: LocalLocationNode;
 
   @Output() selection = new EventEmitter<string>();
 
@@ -155,7 +149,12 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  select(locationName: string): void {
+  select(expandableNode: LocationFlatNode): void {
+    const locationName =
+      expandableNode.path.length > 0
+        ? expandableNode.path + ':' + expandableNode.name
+        : expandableNode.name;
+
     this.selection.emit(locationName);
   }
 
@@ -172,24 +171,13 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   }
 
   private transformer() {
-    return (node: LocationNode, level: number) =>
+    return (node: LocalLocationNode, level: number) =>
       new LocationFlatNode(
         !!node.children && node.children.length > 0,
+        node.path,
         node.name,
-        node.localName,
         node.nodeCount,
         level
       );
-  }
-
-  locationName(leafNode: LocationNode): string {
-    if (leafNode.name === 'Flanders') {
-      console.log(`${leafNode.name} ${leafNode.localName}`);
-    }
-
-    if (leafNode.localName) {
-      return leafNode.localName;
-    }
-    return leafNode.name;
   }
 }

@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.route
 
+import kpn.api.common.Language
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteChangesPage
@@ -7,6 +8,7 @@ import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteMapPage
 import kpn.core.doc.Label
+import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.analysis.route.RouteHistoryAnalyzer
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
@@ -18,14 +20,15 @@ class RoutePageBuilderImpl(
   routeRepository: RouteRepository,
   changeSetRepository: ChangeSetRepository,
   changeSetInfoRepository: ChangeSetInfoRepository,
+  locationService: LocationService
 ) extends RoutePageBuilder {
 
-  def buildDetailsPage(user: Option[String], routeId: Long): Option[RouteDetailsPage] = {
+  def buildDetailsPage(user: Option[String], language: Language, routeId: Long): Option[RouteDetailsPage] = {
     if (routeId == 1) {
       Some(RouteDetailsPageExample.page)
     }
     else {
-      doBuildDetailsPage(routeId)
+      doBuildDetailsPage(language, routeId)
     }
   }
 
@@ -47,10 +50,15 @@ class RoutePageBuilderImpl(
     }
   }
 
-  private def doBuildDetailsPage(routeId: Long): Option[RouteDetailsPage] = {
+  private def doBuildDetailsPage(language: Language, routeId: Long): Option[RouteDetailsPage] = {
     routeRepository.findById(routeId).map { route =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
       val networkReferences = routeRepository.networkReferences(routeId)
+
+      val routeAnalysis = route.analysis.copy(
+        locationAnalysis = locationService.replaceNames(language, route.analysis.locationAnalysis)
+      )
+
       val data = RouteDetailsPageData(
         route._id,
         route.labels.contains(Label.active),
@@ -62,7 +70,7 @@ class RoutePageBuilderImpl(
         route.lastSurvey,
         route.tags,
         route.facts,
-        route.analysis,
+        routeAnalysis,
         route.tiles,
         route.nodeRefs
       )
@@ -102,5 +110,4 @@ class RoutePageBuilderImpl(
       )
     }
   }
-
 }

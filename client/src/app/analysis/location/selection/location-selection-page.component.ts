@@ -9,6 +9,7 @@ import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { LocalLocationNode } from './local-location-node';
 import { LocationModeService } from './location-mode.service';
 import { LocationSelectionService } from './location-selection.service';
 
@@ -80,7 +81,7 @@ import { LocationSelectionService } from './location-selection.service';
   ],
 })
 export class LocationSelectionPageComponent implements OnInit {
-  locationNode$: Observable<LocationNode>;
+  locationNode$: Observable<LocalLocationNode>;
 
   networkType: NetworkType;
   country: Country;
@@ -117,8 +118,30 @@ export class LocationSelectionPageComponent implements OnInit {
           subset.networkType,
           subset.country
         )
-      )
+      ),
+      map((locationNode) => this.toLocalLocationNode([], locationNode))
     );
+  }
+
+  private toLocalLocationNode(
+    parents: LocationNode[],
+    locationNode: LocationNode
+  ): LocalLocationNode {
+    const localPath = parents.map((ln) => ln.name).join(':');
+    const childParents: LocationNode[] = [];
+    parents.forEach((parent) => childParents.push(parent));
+    childParents.push(locationNode);
+
+    const localChildren = locationNode.children.map((child) =>
+      this.toLocalLocationNode(childParents, child)
+    );
+
+    return {
+      path: localPath,
+      name: locationNode.name,
+      nodeCount: locationNode.nodeCount,
+      children: localChildren,
+    };
   }
 
   networkTypeLink(): string {

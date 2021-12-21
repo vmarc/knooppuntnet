@@ -7,7 +7,7 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <p i18n="@@route.meters">{{ (route.summary.meters | integer) + ' m' }}</p>
+      <p>{{ (route.summary.meters | integer) + ' m' }}</p>
 
       <p *ngIf="route.summary.country">
         <kpn-country-name [country]="route.summary.country"></kpn-country-name>

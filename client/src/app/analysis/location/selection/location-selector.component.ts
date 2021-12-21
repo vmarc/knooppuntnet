@@ -32,7 +32,7 @@ import { LocationOption } from './location-option';
             *ngFor="let option of filteredOptions | async"
             [value]="option"
           >
-            {{ option.locationName }}
+            {{ option.name }}
             <span class="node-count">({{ option.nodeCount }})</span>
           </mat-option>
         </mat-autocomplete>
@@ -98,7 +98,7 @@ export class LocationSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.options = this.toOptions(this.locationNode);
+    this.options = this.toOptions('', this.locationNode);
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(''),
       map((value) => (typeof value === 'string' ? value : value.locationName)),
@@ -110,7 +110,7 @@ export class LocationSelectorComponent implements OnInit {
     if (this.locationInputControl.value) {
       const selection = this.locationInputControl.value.locationName;
       const selectedLocationOptions = this.options.filter(
-        (locationOption) => locationOption.locationName === selection
+        (locationOption) => locationOption.name === selection
       );
       if (selectedLocationOptions.length > 0) {
         const selectedLocationOption = selectedLocationOptions[0];
@@ -132,7 +132,7 @@ export class LocationSelectorComponent implements OnInit {
   }
 
   displayName(locationOption?: LocationOption): string | undefined {
-    return locationOption ? locationOption.locationName : undefined;
+    return locationOption ? locationOption.name : undefined;
   }
 
   private _filter(filterValue: string): LocationOption[] {
@@ -143,35 +143,24 @@ export class LocationSelectorComponent implements OnInit {
     );
   }
 
-  private toOptions(location: LocationNode): LocationOption[] {
+  private toOptions(path: string, location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
     if (location.nodeCount > 0) {
-      const locationName = this.locationNodeName(location);
-      const normalizedLocationName = Util.normalize(locationName);
+      const normalizedLocationName = Util.normalize(location.name);
       locationOptions.push(
         new LocationOption(
           location.name,
-          locationName,
+          path,
           normalizedLocationName,
           location.nodeCount
         )
       );
+      const childPath = path + ':' + location.name;
       location.children.forEach((child) => {
-        const childLocationOptions = this.toOptions(child);
+        const childLocationOptions = this.toOptions(childPath, child);
         childLocationOptions.forEach((loc) => locationOptions.push(loc));
       });
-      locationOptions.sort((a, b) =>
-        a.locationName > b.locationName ? 1 : -1
-      );
     }
     return locationOptions;
-  }
-
-  private locationNodeName(location: LocationNode): string {
-    let locationName = location.name;
-    if (location.localName) {
-      locationName = location.localName;
-    }
-    return locationName;
   }
 }

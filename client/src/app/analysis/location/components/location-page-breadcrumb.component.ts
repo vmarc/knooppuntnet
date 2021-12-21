@@ -24,7 +24,7 @@ import { LocationKey } from '@api/custom/location-key';
           <kpn-country-name [country]="locationKey.country"></kpn-country-name>
         </a>
       </li>
-      <li>{{ locationKey.name }}</li>
+      <li>{{ locationName() }}</li>
     </ul>
   `,
 })
@@ -37,5 +37,10 @@ export class LocationPageBreadcrumbComponent {
 
   countryLink(): string {
     return `/analysis/${this.locationKey.networkType}/${this.locationKey.country}`;
+  }
+
+  locationName(): string {
+    const nameParts = this.locationKey.name.split(':');
+    return nameParts[nameParts.length - 1];
   }
 }

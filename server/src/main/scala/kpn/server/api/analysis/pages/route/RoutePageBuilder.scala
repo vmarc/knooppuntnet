@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.route
 
+import kpn.api.common.Language
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
@@ -7,7 +8,7 @@ import kpn.api.common.route.RouteMapPage
 
 trait RoutePageBuilder {
 
-  def buildDetailsPage(user: Option[String], routeId: Long): Option[RouteDetailsPage]
+  def buildDetailsPage(user: Option[String], language: Language, routeId: Long): Option[RouteDetailsPage]
 
   def buildMapPage(user: Option[String], routeId: Long): Option[RouteMapPage]
 

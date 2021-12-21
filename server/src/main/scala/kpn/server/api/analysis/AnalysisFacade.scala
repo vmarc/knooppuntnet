@@ -44,13 +44,13 @@ import kpn.api.custom.Subset
 
 trait AnalysisFacade {
 
-  def nodeDetails(user: Option[String], nodeId: Long): ApiResponse[NodeDetailsPage]
+  def nodeDetails(user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage]
 
   def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage]
 
   def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage]
 
-  def routeDetails(user: Option[String], routeId: Long): ApiResponse[RouteDetailsPage]
+  def routeDetails(user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage]
 
   def routeMap(user: Option[String], routeId: Long): ApiResponse[RouteMapPage]
 
@@ -92,16 +92,16 @@ trait AnalysisFacade {
 
   def locations(user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 
-  def locationNodes(user: Option[String], locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
+  def locationNodes(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
 
-  def locationRoutes(user: Option[String], locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage]
+  def locationRoutes(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage]
 
-  def locationFacts(user: Option[String], locationKey: LocationKey): ApiResponse[LocationFactsPage]
+  def locationFacts(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage]
 
-  def locationMap(user: Option[String], locationKey: LocationKey): ApiResponse[LocationMapPage]
+  def locationMap(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage]
 
-  def locationChanges(user: Option[String], locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage]
+  def locationChanges(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage]
 
-  def locationEdit(user: Option[String], locationKey: LocationKey): ApiResponse[LocationEditPage]
+  def locationEdit(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage]
 
 }

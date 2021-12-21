@@ -1,23 +1,29 @@
 package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Bounds
+import kpn.api.common.Language
 import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
+import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.LocationRepository
 import org.springframework.stereotype.Component
 
 @Component
-class LocationEditPageBuilderImpl(locationRepository: LocationRepository) extends LocationEditPageBuilder {
+class LocationEditPageBuilderImpl(
+  locationRepository: LocationRepository,
+  locationService: LocationService
+) extends LocationEditPageBuilder {
 
   private val maxNodes = 200L
 
-  override def build(locationKey: LocationKey): Option[LocationEditPage] = {
+  override def build(language: Language, locationKeyParam: LocationKey): Option[LocationEditPage] = {
 
+    val locationKey = locationService.translate(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
 
     if (summary.nodeCount > maxNodes) {

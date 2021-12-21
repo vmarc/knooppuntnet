@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { LocationKey } from '@api/custom/location-key';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -32,7 +33,7 @@ import { selectLocationKey } from '../store/location.selectors';
           [networkType]="locationKey.networkType"
         ></kpn-network-type-name>
         in
-        {{ locationKey.name }}
+        {{ locationName(locationKey) }}
       </kpn-page-header>
 
       <kpn-page-menu>
@@ -116,6 +117,11 @@ export class LocationPageHeaderComponent {
   );
 
   constructor(private store: Store<AppState>) {}
+
+  locationName(locationKey: LocationKey): string {
+    const nameParts = locationKey.name.split(':');
+    return nameParts[nameParts.length - 1];
+  }
 
   private link(target: string): Observable<string> {
     return this.locationKey$.pipe(

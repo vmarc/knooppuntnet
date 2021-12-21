@@ -1,5 +1,6 @@
 package kpn.core.util
 
+import kpn.api.common.Bounds
 import org.geotools.geometry.jts.GeometryClipper
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Envelope
@@ -28,5 +29,15 @@ object GeometryUtil {
     )
     val boundingBox = new LinearRing(new CoordinateArraySequence(coordinates.toArray), factory)
     boundingBox.getEnvelopeInternal
+  }
+
+  def bounds(geometry: Geometry): Bounds = {
+    val envelope = geometry.getEnvelopeInternal
+    Bounds(
+      envelope.getMinY, // minLat
+      envelope.getMinX, // minLon
+      envelope.getMaxY, // maxLat
+      envelope.getMaxX, // maxLon
+    )
   }
 }

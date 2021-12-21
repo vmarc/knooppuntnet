@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -164,7 +165,7 @@ export class AppService {
 
   nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
     const url = `/api/node/${nodeId}`;
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   nodeMap(nodeId: string): Observable<ApiResponse<NodeMapPage>> {
@@ -182,7 +183,7 @@ export class AppService {
 
   routeDetails(routeId: string): Observable<ApiResponse<RouteDetailsPage>> {
     const url = `/api/route/${routeId}`;
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   routeMap(routeId: string): Observable<ApiResponse<RouteMapPage>> {
@@ -261,19 +262,12 @@ export class AppService {
     return this.http.get(url);
   }
 
-  public locationEdit(
-    locationKey: LocationKey
-  ): Observable<ApiResponse<LocationEditPage>> {
-    const url = this.locationUrl(locationKey, 'edit');
-    return this.http.post(url, '');
-  }
-
   public locationNodes(
     locationKey: LocationKey,
     parameters: LocationNodesParameters
   ): Observable<ApiResponse<LocationNodesPage>> {
     const url = this.locationUrl(locationKey, 'nodes');
-    return this.http.post(url, parameters);
+    return this.http.post(url, parameters, { params: this.languageParams() });
   }
 
   public locationRoutes(
@@ -281,21 +275,21 @@ export class AppService {
     parameters: LocationRoutesParameters
   ): Observable<ApiResponse<LocationRoutesPage>> {
     const url = this.locationUrl(locationKey, 'routes');
-    return this.http.post(url, parameters);
+    return this.http.post(url, parameters, { params: this.languageParams() });
   }
 
   public locationFacts(
     locationKey: LocationKey
   ): Observable<ApiResponse<LocationFactsPage>> {
     const url = this.locationUrl(locationKey, 'facts');
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   public locationMap(
     locationKey: LocationKey
   ): Observable<ApiResponse<LocationMapPage>> {
     const url = this.locationUrl(locationKey, 'map');
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   public locationChanges(
@@ -303,7 +297,14 @@ export class AppService {
     parameters: LocationChangesParameters
   ): Observable<ApiResponse<LocationChangesPage>> {
     const url = this.locationUrl(locationKey, 'changes');
-    return this.http.post(url, parameters);
+    return this.http.post(url, parameters, { params: this.languageParams() });
+  }
+
+  public locationEdit(
+    locationKey: LocationKey
+  ): Observable<ApiResponse<LocationEditPage>> {
+    const url = this.locationUrl(locationKey, 'edit');
+    return this.http.post(url, '', { params: this.languageParams() });
   }
 
   public status(): Observable<ApiResponse<Status>> {
@@ -356,5 +357,9 @@ export class AppService {
 
   private subsetUrl(subset: Subset, target: string): string {
     return `/api/${subset.country}/${subset.networkType}/${target}`;
+  }
+
+  private languageParams(): HttpParams {
+    return new HttpParams().set('language', this.locale);
   }
 }

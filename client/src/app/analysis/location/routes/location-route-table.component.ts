@@ -77,11 +77,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         >
           Distance
         </th>
-        <td
-          mat-cell
-          *matCellDef="let route"
-          i18n="@@location-routes.table.distance.value"
-        >
+        <td mat-cell *matCellDef="let route">
           <div class="distance">{{ (route.meters | integer) + ' m' }}</div>
         </td>
       </ng-container>
