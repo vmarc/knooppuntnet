@@ -33,12 +33,9 @@ object PoiAnalyzerTool {
             new PoiLoaderImpl(overpassQueryExecutor)
           }
           val poiRepository = new PoiRepositoryImpl(poiDatabase)
-          val poiScopeAnalyzer = {
-            val locationAnalyzer = new LocationAnalyzerImpl(true)
-            new PoiScopeAnalyzerImpl(locationAnalyzer)
-          }
+          val locationAnalyzer = new LocationAnalyzerImpl(true)
+          val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
           val tileCalculator: TileCalculator = new TileCalculatorImpl()
-          val locationAnalyzer: LocationAnalyzer = new LocationAnalyzerImpl(true)
           val tool = new PoiAnalyzerTool(
             poiLoader,
             poiScopeAnalyzer,
