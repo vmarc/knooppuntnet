@@ -86,6 +86,11 @@ class ServerConfiguration() {
   }
 
   @Bean
+  def analyzerPoiUpdateEnabled(@Value("${app.analyzer-poi-update-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def analyzerReload(@Value("${app.analyzer-reload:false}") value: Boolean): Boolean = {
     value
   }

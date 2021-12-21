@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalyzerEngineImpl(
+  analyzerPoiUpdateEnabled: Boolean,
   analyzerTileUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
@@ -66,9 +67,12 @@ class AnalyzerEngineImpl(
           }
         }.sum
 
+        if (analyzerPoiUpdateEnabled) {
+          poiChangeAnalyzer.analyze(osmChange)
+        }
+
         if (analyzerTileUpdateEnabled) {
           tileUpdater.update(11)
-          poiChangeAnalyzer.analyze(osmChange)
           poiTileUpdater.update()
         }
 

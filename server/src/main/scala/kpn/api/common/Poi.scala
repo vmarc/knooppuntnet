@@ -1,6 +1,7 @@
 package kpn.api.common
 
 import kpn.api.base.WithStringId
+import kpn.api.common.location.Location
 import kpn.api.custom.Tags
 
 case class Poi(
@@ -11,5 +12,6 @@ case class Poi(
   longitude: String,
   layers: Seq[String],
   tags: Tags,
-  tiles: Seq[String] = Seq.empty
+  location: Location,
+  tiles: Seq[String]
 ) extends LatLon with WithStringId

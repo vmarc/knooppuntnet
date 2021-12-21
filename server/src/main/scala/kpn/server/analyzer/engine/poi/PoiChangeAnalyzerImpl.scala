@@ -7,10 +7,12 @@ import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.location.Location
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.tile.TileCalculator
 import kpn.server.repository.PoiRepository
@@ -24,7 +26,8 @@ class PoiChangeAnalyzerImpl(
   tileCalculator: TileCalculator,
   taskRepository: TaskRepository,
   poiScopeAnalyzer: PoiScopeAnalyzer,
-  poiQueryExecutor: PoiQueryExecutor
+  poiQueryExecutor: PoiQueryExecutor,
+  locationAnalyzer: LocationAnalyzer
 ) extends PoiChangeAnalyzer {
 
   private val log = Log(classOf[PoiChangeAnalyzerImpl])
@@ -81,6 +84,8 @@ class PoiChangeAnalyzerImpl(
 
   private def savePoi(poiRef: PoiRef, center: LatLon, tags: Tags, poiDefinitions: Seq[PoiDefinition]): Unit = {
 
+    val location = Location(locationAnalyzer.findLocations(center.latitude, center.longitude))
+
     val oldTileNames = poiRepository.get(poiRef).toSeq.flatMap(_.tiles)
     val newTileNames = tileCalculator.poiTiles(center, poiDefinitions)
     val allTileNames = (oldTileNames ++ newTileNames).sorted.distinct
@@ -93,13 +98,14 @@ class PoiChangeAnalyzerImpl(
       center.longitude,
       poiDefinitions.map(_.name),
       tags,
+      location,
       newTileNames
     )
 
     poiRepository.save(poi)
     allTileNames.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
     knownPoiCache.add(poiRef)
-    logPoi(poi, "add")
+    logPoi(poi, "add/update")
   }
 
   private def findMatchingPoiDefinitions(tags: Tags): Seq[PoiDefinition] = {

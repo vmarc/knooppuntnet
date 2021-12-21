@@ -1,9 +1,10 @@
 package kpn.server.analyzer.engine.poi
 
-import javax.annotation.PostConstruct
 import kpn.core.util.Log
 import kpn.server.repository.PoiRepository
 import org.springframework.stereotype.Component
+
+import javax.annotation.PostConstruct
 
 @Component
 class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) extends KnownPoiCache {
@@ -15,10 +16,14 @@ class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) 
   def loadKnownPois(): Unit = {
     if (analyzerEnabled) {
       log.info("Loading known poi ids")
-      val relationIds = loadRelationIds()
-      val wayIds = loadWayIds()
-      val nodeIds = loadNodeIds()
-      knownPois = KnownPois(nodeIds, wayIds, relationIds)
+      log.infoElapsed {
+        val relationIds = loadRelationIds()
+        val wayIds = loadWayIds()
+        val nodeIds = loadNodeIds()
+        knownPois = KnownPois(nodeIds, wayIds, relationIds)
+        val idCount = relationIds.size + wayIds.size + nodeIds.size
+        (s"Loaded $idCount poi ids", ())
+      }
     }
   }
 

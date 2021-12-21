@@ -972,6 +972,7 @@ trait SharedTestObjects extends MockFactory {
     longitude: String = "",
     layers: Seq[String] = Seq.empty,
     tags: Tags = Tags.empty,
+    location: Location = Location.empty,
     tiles: Seq[String] = Seq.empty
   ): Poi = {
     Poi(
@@ -982,6 +983,7 @@ trait SharedTestObjects extends MockFactory {
       longitude,
       layers,
       tags,
+      location,
       tiles
     )
   }

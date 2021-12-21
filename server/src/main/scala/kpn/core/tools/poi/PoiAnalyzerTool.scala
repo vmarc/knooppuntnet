@@ -1,6 +1,7 @@
 package kpn.core.tools.poi
 
 import kpn.api.common.Poi
+import kpn.api.common.location.Location
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
@@ -10,6 +11,7 @@ import kpn.core.poi.PoiLocation
 import kpn.core.poi.tags.TagExpressionFormatter
 import kpn.core.util.Log
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
@@ -18,11 +20,11 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
-object PoiTileAnalyzerTool {
+object PoiAnalyzerTool {
 
   def main(args: Array[String]): Unit = {
 
-    val exit = PoiTileAnalyzerToolOptions.parse(args) match {
+    val exit = PoiAnalyzerToolOptions.parse(args) match {
       case Some(options) =>
 
         Mongo.executeIn(options.poiDatabaseName) { poiDatabase =>
@@ -36,11 +38,13 @@ object PoiTileAnalyzerTool {
             new PoiScopeAnalyzerImpl(locationAnalyzer)
           }
           val tileCalculator: TileCalculator = new TileCalculatorImpl()
-          val tool = new PoiTileAnalyzerTool(
+          val locationAnalyzer: LocationAnalyzer = new LocationAnalyzerImpl(true)
+          val tool = new PoiAnalyzerTool(
             poiLoader,
             poiScopeAnalyzer,
             poiRepository,
-            tileCalculator
+            tileCalculator,
+            locationAnalyzer
           )
           tool.analyze()
         }
@@ -56,14 +60,15 @@ object PoiTileAnalyzerTool {
   }
 }
 
-class PoiTileAnalyzerTool(
+class PoiAnalyzerTool(
   poiLoader: PoiLoader,
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiRepository: PoiRepository,
-  tileCalculator: TileCalculator
+  tileCalculator: TileCalculator,
+  locationAnalyzer: LocationAnalyzer
 ) {
 
-  private val log = Log(classOf[PoiTileAnalyzerTool])
+  private val log = Log(classOf[PoiAnalyzerTool])
 
   def analyze(): Unit = {
     PoiConfiguration.instance.groupDefinitions.foreach { group =>
@@ -83,7 +88,14 @@ class PoiTileAnalyzerTool(
                     val layers = poiDefinitions.map(_.name).distinct.sorted
                     if (layers.nonEmpty) {
                       val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
-                      poiRepository.save(poi.copy(layers = layers, tiles = tileNames))
+                      val location = Location(locationAnalyzer.findLocations(poi.latitude, poi.longitude))
+                      poiRepository.save(
+                        poi.copy(
+                          layers = layers,
+                          location = location,
+                          tiles = tileNames
+                        )
+                      )
                     }
                   }
                 }

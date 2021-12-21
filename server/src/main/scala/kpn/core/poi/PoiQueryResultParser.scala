@@ -1,6 +1,7 @@
 package kpn.core.poi
 
 import kpn.api.common.Poi
+import kpn.api.common.location.Location
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 
@@ -21,7 +22,17 @@ class PoiQueryResultParser {
     val latitude = (xmlNode \ "@lat").text
     val longitude = (xmlNode \ "@lon").text
     val nodeId = id(xmlNode)
-    Poi(s"node:$nodeId", "node", nodeId, latitude, longitude, Seq(layer), tags(xmlNode))
+    Poi(
+      s"node:$nodeId",
+      "node",
+      nodeId,
+      latitude,
+      longitude,
+      Seq(layer),
+      tags(xmlNode),
+      Location.empty,
+      Seq.empty
+    )
   }
 
   private def way(layer: String, xmlNode: scala.xml.Node): Poi = {
@@ -29,7 +40,17 @@ class PoiQueryResultParser {
     val latitude = (center \ "@lat").text
     val longitude = (center \ "@lon").text
     val wayId = id(xmlNode)
-    Poi(s"way:$wayId", "way", wayId, latitude, longitude, Seq(layer), tags(xmlNode))
+    Poi(
+      s"way:$wayId",
+      "way",
+      wayId,
+      latitude,
+      longitude,
+      Seq(layer),
+      tags(xmlNode),
+      Location.empty,
+      Seq.empty
+    )
   }
 
   private def relation(layer: String, xmlNode: scala.xml.Node): Poi = {
@@ -37,7 +58,17 @@ class PoiQueryResultParser {
     val latitude = (center \ "@lat").text
     val longitude = (center \ "@lon").text
     val relationId = id(xmlNode)
-    Poi(s"relation:$relationId", "relation", relationId, latitude, longitude, Seq(layer), tags(xmlNode))
+    Poi(
+      s"relation:$relationId",
+      "relation",
+      relationId,
+      latitude,
+      longitude,
+      Seq(layer),
+      tags(xmlNode),
+      Location.empty,
+      Seq.empty
+    )
   }
 
   private def tags(node: scala.xml.Node): Tags = {

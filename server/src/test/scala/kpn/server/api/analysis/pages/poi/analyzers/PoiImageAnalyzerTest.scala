@@ -1,12 +1,12 @@
 package kpn.server.api.analysis.pages.poi.analyzers
 
-import kpn.api.common.Poi
 import kpn.api.common.PoiAnalysis
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 
-class PoiImageAnalyzerTest extends UnitTest {
+class PoiImageAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("image urls") {
 
@@ -21,13 +21,11 @@ class PoiImageAnalyzerTest extends UnitTest {
 
   private def imageTagValueToUrl(tagValue: String): Option[String] = {
 
-    val poi = Poi(
-      _id = "node:1000",
-      elementType = "node",
-      elementId = 1000,
-      latitude = "",
-      longitude = "",
-      layers = Seq.empty,
+    val poi = newPoi(
+      "node",
+      1000L,
+      "",
+      "",
       tags = Tags.from(
         "image" -> tagValue
       )

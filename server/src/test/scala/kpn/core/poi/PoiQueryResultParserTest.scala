@@ -1,12 +1,12 @@
 package kpn.core.poi
 
-import kpn.api.common.Poi
+import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 import scala.xml.XML
 
-class PoiQueryResultParserTest extends UnitTest {
+class PoiQueryResultParserTest extends UnitTest with SharedTestObjects {
 
   test("parse nodes") {
 
@@ -31,8 +31,22 @@ class PoiQueryResultParserTest extends UnitTest {
 
     pois should matchTo(
       Seq(
-        Poi("node:24347225", "node", 24347225L, "52.9596832", "0.7344434", Seq("windmill"), Tags.from("man_made" -> "windmill", "name" -> "one")),
-        Poi("node:27233617", "node", 27233617L, "52.7053088", "9.5934963", Seq("windmill"), Tags.from("man_made" -> "windmill", "name" -> "two"))
+        newPoi(
+          "node",
+          24347225L,
+          "52.9596832",
+          "0.7344434",
+          Seq("windmill"),
+          Tags.from("man_made" -> "windmill", "name" -> "one")
+        ),
+        newPoi(
+          "node",
+          27233617L,
+          "52.7053088",
+          "9.5934963",
+          Seq("windmill"),
+          Tags.from("man_made" -> "windmill", "name" -> "two")
+        )
       )
     )
   }
@@ -60,7 +74,14 @@ class PoiQueryResultParserTest extends UnitTest {
 
     pois should matchTo(
       Seq(
-        Poi("way:23218347", "way", 23218347L, "52.4041477", "13.0356714", Seq("windmill"), Tags.from("man_made" -> "windmill", "name" -> "one"))
+        newPoi(
+          "way",
+          23218347L,
+          "52.4041477",
+          "13.0356714",
+          Seq("windmill"),
+          Tags.from("man_made" -> "windmill", "name" -> "one")
+        )
       )
     )
   }
@@ -87,7 +108,14 @@ class PoiQueryResultParserTest extends UnitTest {
 
     pois should matchTo(
       Seq(
-        Poi("relation:8152175", "relation", 8152175L, "51.9915194", "6.9159526", Seq("bank"), Tags.from("amenity" -> "bank", "atm" -> "yes"))
+        newPoi(
+          "relation",
+          8152175L,
+          "51.9915194",
+          "6.9159526",
+          Seq("bank"),
+          Tags.from("amenity" -> "bank", "atm" -> "yes")
+        )
       )
     )
   }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" monitorInterval="30">
     <Appenders>
-        <RollingFile name="RollingFile" fileName="/kpn/logs/poi-tile-analyzer-tool.log"
-                     filePattern="/kpn/logs/poi-tile-analyzer-tool-%i.log.gz">
+        <RollingFile name="RollingFile" fileName="/kpn/logs/poi-analyzer-tool.log"
+                     filePattern="/kpn/logs/poi-analyzer-tool-%i.log.gz">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{1} - %x %msg%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="50 MB"/>
