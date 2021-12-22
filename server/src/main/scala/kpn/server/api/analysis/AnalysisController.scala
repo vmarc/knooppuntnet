@@ -225,18 +225,20 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/changeset/{changeSetId}/{replicationNumber}"))
   def changeSet(
+    @RequestParam language: String,
     @PathVariable changeSetId: Long,
     @PathVariable replicationNumber: Int
   ): ApiResponse[ChangeSetPage] = {
     val replicationId = ReplicationId(replicationNumber)
-    analysisFacade.changeSet(CurrentUser.name, changeSetId, Some(replicationId))
+    analysisFacade.changeSet(CurrentUser.name, toEnum(language), changeSetId, Some(replicationId))
   }
 
   @GetMapping(value = Array("/api/replication/{changeSetId}"))
   def replication(
+    @RequestParam language: String,
     @PathVariable changeSetId: Long
   ): ApiResponse[Long] = {
-    analysisFacade.replication(CurrentUser.name, changeSetId)
+    analysisFacade.replication(CurrentUser.name, toEnum(language), changeSetId)
   }
 
   @GetMapping(value = Array("/api/survey-date-info"))

@@ -209,7 +209,7 @@ export class AppService {
     replicationNumber: string
   ): Observable<ApiResponse<ChangeSetPage>> {
     const url = `/api/changeset/${changeSetId}/${replicationNumber}`;
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   public mapNodeDetail(

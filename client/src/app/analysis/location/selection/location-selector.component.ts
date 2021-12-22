@@ -108,13 +108,20 @@ export class LocationSelectorComponent implements OnInit {
 
   select(): void {
     if (this.locationInputControl.value) {
-      const selection = this.locationInputControl.value.locationName;
-      const selectedLocationOptions = this.options.filter(
-        (locationOption) => locationOption.name === selection
-      );
-      if (selectedLocationOptions.length > 0) {
-        const selectedLocationOption = selectedLocationOptions[0];
-        this.selection.emit(selectedLocationOption.name);
+      let selection = this.locationInputControl.value;
+      if (!(selection instanceof LocationOption)) {
+        const normalized = Util.normalize(selection);
+        const selectedLocationOptions = this.options.filter(
+          (locationOption) =>
+            locationOption.normalizedLocationName === normalized
+        );
+        if (selectedLocationOptions.length > 0) {
+          selection = selectedLocationOptions[0];
+        }
+      }
+      if (selection instanceof LocationOption) {
+        const selectedLocationName = selection.path + ':' + selection.name;
+        this.selection.emit(selectedLocationName);
         this.warningSelectionMandatory = false;
         this.warningSelectionInvalid = false;
       } else {
@@ -155,7 +162,8 @@ export class LocationSelectorComponent implements OnInit {
           location.nodeCount
         )
       );
-      const childPath = path + ':' + location.name;
+      const childPath =
+        path.length > 0 ? path + ':' + location.name : location.name;
       location.children.forEach((child) => {
         const childLocationOptions = this.toOptions(childPath, child);
         childLocationOptions.forEach((loc) => locationOptions.push(loc));

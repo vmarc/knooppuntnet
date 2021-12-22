@@ -129,6 +129,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
     (node) => node.level,
     (node) => node.expandable
   );
+
   treeFlattener = new MatTreeFlattener(
     this.transformer(),
     (node) => node.level,

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTreeModule } from '@angular/material/tree';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { ChangeSetRoutingModule } from './change-set-routing.module';
@@ -40,6 +41,7 @@ import { VersionChangeComponent } from './page/version-change.component';
     SharedModule,
     ChangeSetRoutingModule,
     AnalysisComponentsModule,
+    MatTreeModule,
   ],
   declarations: [
     ChangeSetPageComponent,

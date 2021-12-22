@@ -227,17 +227,17 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def changeSet(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage] = {
+  override def changeSet(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage] = {
     val args = s"changeSetId=$changeSetId, replicationId=${replicationId.map(_.name)}"
     api.execute(user, "change-set", args) {
-      reply(changeSetPageBuilder.build(user, changeSetId, replicationId))
+      reply(changeSetPageBuilder.build(user, language, changeSetId, replicationId))
     }
   }
 
-  override def replication(user: Option[String], changeSetId: Long): ApiResponse[Long] = {
+  override def replication(user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long] = {
     val args = s"changeSetId=$changeSetId}"
     api.execute(user, "change-set", args) {
-      reply(changeSetPageBuilder.build(Some("app"), changeSetId, None).map(_.summary.key.replicationNumber))
+      reply(changeSetPageBuilder.build(Some("app"), language, changeSetId, None).map(_.summary.key.replicationNumber))
     }
   }
 

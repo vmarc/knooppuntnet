@@ -84,9 +84,9 @@ trait AnalysisFacade {
 
   def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
 
-  def changeSet(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
+  def changeSet(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
 
-  def replication(user: Option[String], changeSetId: Long): ApiResponse[Long]
+  def replication(user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long]
 
   def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage]
 

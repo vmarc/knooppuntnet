@@ -3,6 +3,10 @@ package kpn.server.api.analysis.pages
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.Language
+import kpn.api.common.LocationChangesTree
+import kpn.api.common.LocationChangesTreeNode
+import kpn.api.common.LocationTreeItem
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.ChangeSetPage
@@ -16,6 +20,7 @@ import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Subset
+import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
@@ -30,10 +35,11 @@ class ChangeSetPageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository,
   changeSetRepository: ChangeSetRepository,
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository
+  routeRepository: RouteRepository,
+  locationService: LocationService
 ) extends ChangeSetPageBuilder {
 
-  def build(user: Option[String], changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
+  def build(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
 
     if (changeSetId == 1L) {
       Some(ChangeSetPageExample.page)
@@ -51,16 +57,31 @@ class ChangeSetPageBuilderImpl(
             val orphanRouteChanges = buildOrphanRouteChanges(changeSetData)
             val orphanNodeChanges = buildOrphanNodeChanges(changeSetData)
 
+            val trees = changeSetData.summary.trees.map { tree =>
+              tree.copy(
+                locationName = locationService.name(language, tree.locationName),
+                children = tree.children.map(child => translate(language, child))
+              )
+            }
+            val locations = changeSetData.summary.locations.map(loc => locationService.name(language, loc))
+
+            val summary = changeSetData.summary.copy(
+              trees = trees,
+              locations = locations
+            )
+
+            val treeItems: Seq[LocationTreeItem] = toTreeItems(trees)
             Some(
               ChangeSetPage(
-                changeSetData.summary,
+                summary,
                 changeSetInfo,
                 networkChanges,
                 orphanRouteChanges,
                 orphanNodeChanges,
                 routeChanges,
                 nodeChanges,
-                knownElements
+                knownElements,
+                treeItems
               )
             )
 
@@ -174,5 +195,72 @@ class ChangeSetPageBuilderImpl(
       nodeChange.happy,
       nodeChange.investigate
     )
+  }
+
+  private def translate(language: Language, locationChangesTreeNode: LocationChangesTreeNode): LocationChangesTreeNode = {
+    locationChangesTreeNode.copy(
+      locationName = locationService.name(language, locationChangesTreeNode.locationName),
+      children = locationChangesTreeNode.children.map(child => translate(language, child))
+    )
+  }
+
+  private def toTreeItems(trees: Seq[LocationChangesTree]): Seq[LocationTreeItem] = {
+    trees.map { tree =>
+      val children: Seq[LocationTreeItem] = toTreeItems2(1, tree.children)
+      LocationTreeItem(
+        level = 0,
+        locationName = tree.locationName,
+        happy = tree.happy,
+        investigate = tree.investigate,
+        networkType = Some(tree.networkType),
+        routeChanges = ChangeSetElementRefs.empty,
+        nodeChanges = ChangeSetElementRefs.empty,
+        expandable = children.nonEmpty,
+        children = children
+      )
+    }
+  }
+
+  private def toTreeItems2(level: Int, treeNodes: Seq[LocationChangesTreeNode]): Seq[LocationTreeItem] = {
+    treeNodes.map { locationChangesTreeNode =>
+      val treeChildren = toTreeItems2(level + 1, locationChangesTreeNode.children)
+      if (treeChildren.nonEmpty) {
+        LocationTreeItem(
+          level = level,
+          locationName = locationChangesTreeNode.locationName,
+          happy = locationChangesTreeNode.happy,
+          investigate = locationChangesTreeNode.investigate,
+          networkType = None,
+          routeChanges = locationChangesTreeNode.routeChanges,
+          nodeChanges = locationChangesTreeNode.nodeChanges,
+          expandable = treeChildren.nonEmpty,
+          children = treeChildren
+        )
+      }
+      else {
+        val child = LocationTreeItem(
+          level = level + 1,
+          locationName = locationChangesTreeNode.locationName,
+          happy = locationChangesTreeNode.happy,
+          investigate = locationChangesTreeNode.investigate,
+          networkType = None,
+          routeChanges = locationChangesTreeNode.routeChanges,
+          nodeChanges = locationChangesTreeNode.nodeChanges,
+          expandable = false,
+          children = Seq.empty
+        )
+        LocationTreeItem(
+          level = level,
+          locationName = locationChangesTreeNode.locationName,
+          happy = locationChangesTreeNode.happy,
+          investigate = locationChangesTreeNode.investigate,
+          networkType = None,
+          routeChanges = ChangeSetElementRefs(),
+          nodeChanges = ChangeSetElementRefs(),
+          expandable = true,
+          children = Seq(child)
+        )
+      }
+    }
   }
 }
