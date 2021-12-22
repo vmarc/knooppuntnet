@@ -109,9 +109,14 @@ class NodeNameAnalyzer(analysis: NodeAnalysis) {
   def analyze: NodeAnalysis = {
     val name = NodeNameAnalyzer.findName(analysis.node.tags)
     val nodeNames = NodeNameAnalyzer.findNodeNames(analysis.node.tags)
-    analysis.copy(
-      name = name,
-      nodeNames = nodeNames
-    )
+    if (name.isEmpty) {
+      analysis.copy(abort = true)
+    }
+    else {
+      analysis.copy(
+        name = name,
+        nodeNames = nodeNames
+      )
+    }
   }
 }

@@ -15,6 +15,7 @@ import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
@@ -110,7 +111,7 @@ class IntegrationTestContext(
     new NodeAnalyzerImpl(
       nodeCountryAnalyzer,
       new NodeTileAnalyzerNoop,
-      new NodeLocationsAnalyzerNoop,
+      new NodeLocationsAnalyzerImpl(locationAnalyzer),
       nodeRouteReferencesAnalyzer
     )
   }

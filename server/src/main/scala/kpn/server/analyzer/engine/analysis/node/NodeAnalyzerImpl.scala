@@ -7,6 +7,7 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNetworkTagAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzer
@@ -26,6 +27,7 @@ class NodeAnalyzerImpl(
   override def analyze(analysis: NodeAnalysis): Option[NodeAnalysis] = {
     Log.context("node=%07d".format(analysis.node.id)) {
       val analyzers = List(
+        NodeNetworkTagAnalyzer,
         nodeCountryAnalyzer,
         NodeNameAnalyzer,
         NodeSurveyAnalyzer,

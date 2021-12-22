@@ -34,11 +34,12 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
 
   private var contextOption: Option[IntegrationTestContext] = None
 
-  def simulate(dataBefore: OverpassData, dataAfter: OverpassData)(f: => Unit): Unit = {
+  def simulate(dataBefore: OverpassData, dataAfter: OverpassData, keepDatabaseAfterTest: Boolean = false)(f: => Unit): Unit = {
     doTestIntegration(
       dataBefore,
       dataAfter,
-      LocationAnalyzerTest.locationAnalyzer
+      LocationAnalyzerTest.locationAnalyzer,
+      keepDatabaseAfterTest
     )(f)
   }
 
@@ -50,9 +51,10 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
   private def doTestIntegration(
     dataBefore: OverpassData,
     dataAfter: OverpassData,
-    locationAnalyzer: LocationAnalyzer
+    locationAnalyzer: LocationAnalyzer,
+    keepDatabaseAfterTest: Boolean = false
   )(f: => Unit): Unit = {
-    withDatabase { database =>
+    withDatabase(keepDatabaseAfterTest) { database =>
       contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
       try {
         context.fullAnalyzer.analyze(timestampBeforeValue)

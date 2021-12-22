@@ -71,7 +71,7 @@ class FullNodeAnalyzerImpl(
     }.toSeq
 
     val loadIdFuturesSeq = Future.sequence(updateFutures)
-    val updateResult = Await.result(loadIdFuturesSeq, Duration(1, TimeUnit.HOURS))
+    val updateResult = Await.result(loadIdFuturesSeq, Duration(3, TimeUnit.HOURS))
     updateResult.flatten
   }
 

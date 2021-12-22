@@ -5,12 +5,7 @@ import { Component, Input } from '@angular/core';
   selector: 'kpn-page-menu-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a
-      [routerLink]="link"
-      [state]="state"
-      [ngClass]="{ active: active }"
-      class="link"
-    >
+    <a [routerLink]="link" [ngClass]="{ active: active }" class="link">
       <ng-content></ng-content>
       <span *ngIf="elementCount != null" class="element-count">
         ({{ elementCount }})</span

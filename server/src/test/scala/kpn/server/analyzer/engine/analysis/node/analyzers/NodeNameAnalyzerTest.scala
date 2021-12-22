@@ -296,6 +296,10 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
+  test("analysis is aborted when the node name cannot be determined") {
+    analyze(Tags.empty).abort should equal(true)
+  }
+
   private def analyze(tags: Tags): NodeAnalysis = {
     val nodeAnalysis = NodeAnalysis(newRawNode(tags = tags))
     NodeNameAnalyzer.analyze(nodeAnalysis)

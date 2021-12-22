@@ -15,10 +15,16 @@ export class InterpretedTags {
       });
     });
     const standardTagKeys: string[] = [];
-    prefixes.forEach((prefix) => standardTagKeys.push(`${prefix}n_ref`));
-    prefixes.forEach((prefix) =>
-      standardTagKeys.push(`expected_${prefix}n_route_relations`)
-    );
+    prefixes.forEach((prefix) => {
+      standardTagKeys.push(`${prefix}n_ref`);
+      standardTagKeys.push(`${prefix}n_name`);
+      standardTagKeys.push(`${prefix}n:name`);
+      standardTagKeys.push(`name:${prefix}n_ref`);
+      standardTagKeys.push(`proposed:${prefix}n_name`);
+      standardTagKeys.push(`proposed:${prefix}n:name`);
+      standardTagKeys.push(`proposed:name:${prefix}n_ref`);
+      standardTagKeys.push(`expected_${prefix}n_route_relations`);
+    });
     standardTagKeys.push('network:type');
     standardTagKeys.push('survey:date');
     return new InterpretedTags(standardTagKeys, tags);
