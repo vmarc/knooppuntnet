@@ -8,7 +8,6 @@ import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-chang
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { AppState } from '../../core/core.state';
 
 export const initialState: MonitorState = {
   admin: false,
@@ -63,7 +62,3 @@ export interface MonitorState {
 }
 
 export const monitorFeatureKey = 'monitor';
-
-export interface MonitorRootState extends AppState {
-  [monitorFeatureKey]: MonitorState;
-}

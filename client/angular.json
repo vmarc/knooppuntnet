@@ -38,8 +38,7 @@
           "flat": true
         },
         "@schematics/angular:service": {
-          "skipTests": true,
-          "lintFix": true
+          "skipTests": true
         }
       },
       "architect": {

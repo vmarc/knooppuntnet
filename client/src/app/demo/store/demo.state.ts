@@ -1,5 +1,3 @@
-import { AppState } from '../../core/core.state';
-
 export class VideoState {
   constructor(public video: string, public playing: boolean) {}
 }
@@ -13,12 +11,4 @@ export interface DemoState {
   videoPlayButtonEnabled: boolean;
 }
 
-export interface State extends AppState {
-  demo: DemoState;
-}
-
 export const demoFeatureKey = 'demo';
-
-export interface DemoRootState extends AppState {
-  [demoFeatureKey]: DemoState;
-}

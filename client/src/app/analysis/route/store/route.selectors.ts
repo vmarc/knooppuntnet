@@ -1,13 +1,10 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
-import { RouteRootState } from './route.state';
 import { routeFeatureKey } from './route.state';
 import { RouteState } from './route.state';
 
-export const selectRouteState = createFeatureSelector<
-  RouteRootState,
-  RouteState
->(routeFeatureKey);
+export const selectRouteState =
+  createFeatureSelector<RouteState>(routeFeatureKey);
 
 export const selectRouteDetailsPage = createSelector(
   selectRouteState,

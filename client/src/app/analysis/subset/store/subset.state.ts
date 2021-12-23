@@ -7,7 +7,6 @@ import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-pa
 import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Subset } from '@api/custom/subset';
-import { AppState } from '../../../core/core.state';
 
 export const initialState: SubsetState = {
   subset: null,
@@ -32,7 +31,3 @@ export interface SubsetState {
 }
 
 export const subsetFeatureKey = 'subset';
-
-export interface SubsetRootState extends AppState {
-  [subsetFeatureKey]: SubsetState;
-}

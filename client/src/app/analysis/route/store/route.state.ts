@@ -3,7 +3,6 @@ import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { NetworkType } from '@api/custom/network-type';
-import { AppState } from '../../../core/core.state';
 
 export const initialState: RouteState = {
   routeId: '',
@@ -26,7 +25,3 @@ export interface RouteState {
 }
 
 export const routeFeatureKey = 'route';
-
-export interface RouteRootState extends AppState {
-  [routeFeatureKey]: RouteState;
-}

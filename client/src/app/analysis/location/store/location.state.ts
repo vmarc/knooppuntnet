@@ -9,7 +9,6 @@ import { ApiResponse } from '@api/custom/api-response';
 import { LocationKey } from '@api/custom/location-key';
 import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { LocationRoutesType } from '@api/custom/location-routes-type';
-import { AppState } from '../../../core/core.state';
 
 export const initialState: LocationState = {
   locationKey: null,
@@ -44,7 +43,3 @@ export interface LocationState {
 }
 
 export const locationFeatureKey = 'location';
-
-export interface LocationRootState extends AppState {
-  [locationFeatureKey]: LocationState;
-}

@@ -5,7 +5,6 @@ import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
 import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { AppState } from '../../../core/core.state';
 
 export const initialState: NetworkState = {
   detailsPage: null,
@@ -26,7 +25,3 @@ export interface NetworkState {
 }
 
 export const networkFeatureKey = 'network';
-
-export interface NetworkRootState extends AppState {
-  [networkFeatureKey]: NetworkState;
-}

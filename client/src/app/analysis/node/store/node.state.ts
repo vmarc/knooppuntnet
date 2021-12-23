@@ -2,7 +2,6 @@ import { NodeChangesPage } from '@api/common/node/node-changes-page';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { NodeMapPage } from '@api/common/node/node-map-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { AppState } from '../../../core/core.state';
 
 export const initialState: NodeState = {
   nodeId: '',
@@ -23,7 +22,3 @@ export interface NodeState {
 }
 
 export const nodeFeatureKey = 'node';
-
-export interface NodeRootState extends AppState {
-  [nodeFeatureKey]: NodeState;
-}

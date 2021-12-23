@@ -1,13 +1,10 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { monitorFeatureKey } from './monitor.state';
-import { MonitorRootState } from './monitor.state';
 import { MonitorState } from './monitor.state';
 
-export const selectMonitorState = createFeatureSelector<
-  MonitorRootState,
-  MonitorState
->(monitorFeatureKey);
+export const selectMonitorState =
+  createFeatureSelector<MonitorState>(monitorFeatureKey);
 
 export const selectMonitorAdmin = createSelector(
   selectMonitorState,

@@ -9,6 +9,7 @@ import { tap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { withLatestFrom } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
+import { AppState } from '../../core/core.state';
 import { DemoService } from '../demo.service';
 import { actionDemoStartVideo } from './demo.actions';
 import { actionDemoVideoPlayerAvailable } from './demo.actions';
@@ -18,10 +19,9 @@ import { actionDemoPause } from './demo.actions';
 import { actionDemoPlay } from './demo.actions';
 import { actionDemoEnd } from './demo.actions';
 import { actionDemoControlPlay } from './demo.actions';
-import { selectDemoVideoSource } from './demo.selectors';
-import { selectCurrentVideoState } from './demo.selectors';
+import { selectDemoPlaying } from './demo.selectors';
+import { selectDemoVideo } from './demo.selectors';
 import { selectDemoEnabled } from './demo.selectors';
-import { State } from './demo.state';
 
 @Injectable()
 export class DemoEffects {
@@ -39,13 +39,10 @@ export class DemoEffects {
       this.actions$.pipe(
         ofType(actionDemoVideoPlayerAvailable),
         mergeMap(() =>
-          this.store.pipe(
-            filter(selectDemoEnabled),
-            select(selectDemoVideoSource)
-          )
+          this.store.pipe(filter(selectDemoEnabled), select(selectDemoVideo))
         ),
-        tap((videoSource: string) => {
-          this.demoService.setSource(videoSource);
+        tap((video: string) => {
+          this.demoService.setSource(`/videos/en/${video}.mp4`);
         })
       ),
     { dispatch: false }
@@ -97,13 +94,16 @@ export class DemoEffects {
   );
 
   controlPlay = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoControlPlay),
-        withLatestFrom(this.store.pipe(select(selectCurrentVideoState))),
-        tap(([action, videoState]) => {
-          if (action.video === videoState.video) {
-            if (videoState.playing) {
+        withLatestFrom(
+          this.store.select(selectDemoVideo),
+          this.store.select(selectDemoPlaying)
+        ),
+        tap(([action, video, playing]) => {
+          if (action.video === video) {
+            if (playing) {
               this.demoService.pause();
             } else {
               this.demoService.play();
@@ -112,13 +112,14 @@ export class DemoEffects {
             this.router.navigate(['/demo', action.video]);
           }
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   constructor(
     private actions$: Actions,
-    private store: Store<State>,
+    private store: Store<AppState>,
     private router: Router,
     private demoService: DemoService
   ) {}

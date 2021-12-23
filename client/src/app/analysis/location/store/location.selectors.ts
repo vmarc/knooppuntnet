@@ -1,14 +1,11 @@
 import { LocationSummary } from '@api/common/location/location-summary';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
-import { LocationRootState } from './location.state';
 import { locationFeatureKey } from './location.state';
 import { LocationState } from './location.state';
 
-export const selectLocationState = createFeatureSelector<
-  LocationRootState,
-  LocationState
->(locationFeatureKey);
+export const selectLocationState =
+  createFeatureSelector<LocationState>(locationFeatureKey);
 
 export const selectLocationKey = createSelector(
   selectLocationState,

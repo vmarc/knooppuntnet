@@ -31,19 +31,13 @@ export const localStorageSyncReducer = (
 
 export const metaReducers: MetaReducer<AppState>[] = [localStorageSyncReducer];
 
-export const selectPreferencesState = createFeatureSelector<
-  AppState,
-  PreferencesState
->('preferences');
+export const selectPreferencesState =
+  createFeatureSelector<PreferencesState>('preferences');
 
-export const selectSharedState = createFeatureSelector<AppState, SharedState>(
-  'shared'
-);
+export const selectSharedState = createFeatureSelector<SharedState>('shared');
 
-export const selectRouterState = createFeatureSelector<
-  AppState,
-  RouterReducerState<RouterStateUrl>
->('router');
+export const selectRouterState =
+  createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
 
 export const {
   // selectCurrentRoute,   // select the current route
