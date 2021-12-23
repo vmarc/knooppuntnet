@@ -16,7 +16,7 @@ import { NodeChangeInfo } from '@api/common/node/node-change-info';
       </div>
 
       <div
-        *ngIf="nodeMoved.distance == 0"
+        *ngIf="nodeMoved.distance === 0"
         class="kpn-detail"
         i18n="@@node-change.moved.less-than-1-meter"
       >

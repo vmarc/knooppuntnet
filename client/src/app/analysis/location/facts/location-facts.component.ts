@@ -34,7 +34,7 @@ import { Facts } from '../../fact/facts';
           ></kpn-fact-description>
         </div>
         <div
-          *ngIf="locationFact.elementType == 'route'"
+          *ngIf="locationFact.elementType === 'route'"
           class="elements kpn-comma-list"
         >
           <kpn-link-route
@@ -45,7 +45,7 @@ import { Facts } from '../../fact/facts';
           </kpn-link-route>
         </div>
         <div
-          *ngIf="locationFact.elementType == 'node'"
+          *ngIf="locationFact.elementType === 'node'"
           class="elements kpn-comma-list"
         >
           <kpn-link-node

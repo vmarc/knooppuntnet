@@ -10,7 +10,7 @@ import { ChangeKey } from '@api/common/changes/details/change-key';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span *ngIf="changeKey.changeSetId == 0" i18n="@@change-header.start">
+      <span *ngIf="changeKey.changeSetId === 0" i18n="@@change-header.start">
         Start
       </span>
       <kpn-link-changeset

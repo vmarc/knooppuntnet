@@ -29,11 +29,11 @@ import { RouteDiffsData } from './route-diffs-data';
               <div class="kpn-thin">
                 <ng-container
                   *ngIf="
-                    ref.routeChangeInfo.after.changeSetId == data.changeSetId
+                    ref.routeChangeInfo.after.changeSetId === data.changeSetId
                   "
                 >
                   <ng-container
-                    *ngIf="ref.routeChangeInfo.after.version == 1"
+                    *ngIf="ref.routeChangeInfo.after.version === 1"
                     i18n="@@route-diffs-added.new-relation"
                   >
                     New relation
@@ -49,7 +49,7 @@ import { RouteDiffsData } from './route-diffs-data';
                 </ng-container>
                 <ng-container
                   *ngIf="
-                    ref.routeChangeInfo.after.changeSetId != data.changeSetId
+                    ref.routeChangeInfo.after.changeSetId !== data.changeSetId
                   "
                 >
                   <ng-container

@@ -29,7 +29,7 @@ import { Subscriptions } from '../../../util/Subscriptions';
     >
     </kpn-paginator>
 
-    <div *ngIf="totalCount == 0" i18n="@@changes.no-changes">No changes</div>
+    <div *ngIf="totalCount === 0" i18n="@@changes.no-changes">No changes</div>
 
     <div *ngIf="changeCount > 0">
       <ng-content></ng-content>

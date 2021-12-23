@@ -7,7 +7,7 @@ import { Ref } from '@api/common/common/ref';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span
-      *ngIf="routes.length == 1"
+      *ngIf="routes.length === 1"
       i18n="@@network-facts.route"
       class="kpn-label"
       >Route</span

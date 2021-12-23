@@ -48,11 +48,11 @@ export class NetworkMapPositionService {
     const zoom = this.view.getZoom();
     const rotation = this.view.getRotation();
     const networkMapPosition: NetworkMapPosition = {
-      networkId: networkId,
-      zoom: zoom,
+      networkId,
+      zoom,
       x: center[0],
       y: center[1],
-      rotation: rotation,
+      rotation,
     };
     this.storage.set(
       this.networkMapPositionKey,

@@ -25,7 +25,7 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
         <tbody>
           <tr
             *ngFor="let tagDetail of tagDiffs.mainTags"
-            [ngClass]="{ same: tagDetail.action.name == 'Same' }"
+            [ngClass]="{ same: tagDetail.action.name === 'Same' }"
           >
             <td>
               <kpn-tag-diff-action
@@ -43,7 +43,7 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
 
           <tr
             *ngFor="let tagDetail of tagDiffs.extraTags"
-            [ngClass]="{ same: tagDetail.action.name == 'Same' }"
+            [ngClass]="{ same: tagDetail.action.name === 'Same' }"
           >
             <td>
               <kpn-tag-diff-action

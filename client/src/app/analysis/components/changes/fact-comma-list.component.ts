@@ -13,9 +13,9 @@ import { Fact } from '@api/custom/fact';
           <kpn-fact-name [fact]="fact"></kpn-fact-name>
         </span>
       </div>
-      <kpn-icon-happy *ngIf="icon == 'happy'"></kpn-icon-happy>
+      <kpn-icon-happy *ngIf="icon === 'happy'"></kpn-icon-happy>
       <kpn-icon-investigate
-        *ngIf="icon == 'investigate'"
+        *ngIf="icon === 'investigate'"
       ></kpn-icon-investigate>
     </div>
   `,
