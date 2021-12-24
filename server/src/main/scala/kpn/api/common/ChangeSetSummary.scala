@@ -77,12 +77,15 @@ case class ChangeSetSummary(
   subsets: Seq[Subset],
   timestampFrom: Timestamp,
   timestampUntil: Timestamp,
+  // network oriented analysis results:
   networkChanges: NetworkChanges,
-  routeChanges: Seq[ChangeSetSubsetElementRefs],
-  nodeChanges: Seq[ChangeSetSubsetElementRefs],
+  routeChanges: Seq[ChangeSetSubsetElementRefs], // orphan route changes
+  nodeChanges: Seq[ChangeSetSubsetElementRefs], // orphan node changes
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
+  // location oriented analysis results:
   trees: Seq[LocationChangesTree],
   locations: Seq[String],
+  // overall analysis results
   happy: Boolean,
   investigate: Boolean,
   impact: Boolean

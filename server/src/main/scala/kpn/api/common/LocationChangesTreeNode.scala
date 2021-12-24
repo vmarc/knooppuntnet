@@ -7,5 +7,4 @@ case class LocationChangesTreeNode(
   children: Seq[LocationChangesTreeNode], // empty for leaf nodes
   happy: Boolean,
   investigate: Boolean
-) {
-}
+)

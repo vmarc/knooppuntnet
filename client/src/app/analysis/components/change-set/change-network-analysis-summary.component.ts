@@ -5,14 +5,14 @@ import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
 import { ChangeSetNetworkAction } from './components/change-set-network.component';
 
 @Component({
-  selector: 'kpn-change-set',
+  selector: 'kpn-change-network-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="change-set">
       <kpn-change-header
-        [changeKey]="changeSet.summary.key"
-        [happy]="changeSet.summary.happy"
-        [investigate]="changeSet.summary.investigate"
+        [changeKey]="changeSet.key"
+        [happy]="changeSet.happy"
+        [investigate]="changeSet.investigate"
         [comment]="changeSet.comment"
       >
       </kpn-change-header>
@@ -23,13 +23,13 @@ import { ChangeSetNetworkAction } from './components/change-set-network.componen
         ></kpn-change-set-network>
       </div>
 
-      <div *ngFor="let orphanNodeChanges of changeSet.summary.nodeChanges">
+      <div *ngFor="let orphanNodeChanges of changeSet.network.nodeChanges">
         <kpn-change-set-orphan-nodes
           [subsetElementRefs]="orphanNodeChanges"
         ></kpn-change-set-orphan-nodes>
       </div>
 
-      <div *ngFor="let orphanRouteChanges of changeSet.summary.routeChanges">
+      <div *ngFor="let orphanRouteChanges of changeSet.network.routeChanges">
         <kpn-change-set-orphan-routes
           [subsetElementRefs]="orphanRouteChanges"
         ></kpn-change-set-orphan-routes>
@@ -45,7 +45,7 @@ import { ChangeSetNetworkAction } from './components/change-set-network.componen
     `,
   ],
 })
-export class ChangesSetComponent implements OnInit {
+export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
   @Input() changeSet: ChangeSetSummaryInfo;
   networkActions: ChangeSetNetworkAction[];
 
@@ -54,7 +54,7 @@ export class ChangesSetComponent implements OnInit {
   }
 
   private buildNetworkActions(): ChangeSetNetworkAction[] {
-    const networkChanges = this.changeSet.summary.networkChanges;
+    const networkChanges = this.changeSet.network.networkChanges;
     const creates = this.toNetworkActions('C', networkChanges.creates);
     const updates = this.toNetworkActions('U', networkChanges.updates);
     const deletes = this.toNetworkActions('D', networkChanges.deletes);
@@ -63,7 +63,7 @@ export class ChangesSetComponent implements OnInit {
 
   private toNetworkActions(action: string, networks: ChangeSetNetwork[]) {
     return networks.map(
-      (nc) => new ChangeSetNetworkAction(this.changeSet.summary.key, action, nc)
+      (nc) => new ChangeSetNetworkAction(this.changeSet.key, action, nc)
     );
   }
 }

@@ -12,6 +12,7 @@ import { PageService } from '../../../components/shared/page.service';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { selectPreferencesAnalysisMode } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { UserService } from '../../../services/user.service';
@@ -64,7 +65,14 @@ import { ChangesService } from '../../components/changes/filter/changes.service'
               *ngFor="let changeSet of page.changes; let i = index"
               [index]="rowIndex(i)"
             >
-              <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
+              <kpn-change-network-analysis-summary
+                *ngIf="changeSet.network"
+                [changeSet]="changeSet"
+              ></kpn-change-network-analysis-summary>
+              <kpn-change-location-analysis-summary
+                *ngIf="changeSet.location"
+                [changeSet]="changeSet"
+              ></kpn-change-location-analysis-summary>
             </kpn-item>
           </kpn-items>
         </kpn-changes>
@@ -135,22 +143,28 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
   }
 
   private reload() {
-    this.appService.changes(this.parameters).subscribe((response) => {
-      this.response = response;
-      if (response.result) {
-        this.changesService.setFilterOptions(
-          ChangeFilterOptions.from(
-            this.parameters,
-            this.response.result.filter,
-            (parameters: ChangesParameters) => {
-              this.store.dispatch(
-                actionPreferencesImpact({ impact: parameters.impact })
+    this.store
+      .select(selectPreferencesAnalysisMode)
+      .subscribe((analysisMode) => {
+        this.appService
+          .changes(analysisMode, this.parameters)
+          .subscribe((response) => {
+            this.response = response;
+            if (response.result) {
+              this.changesService.setFilterOptions(
+                ChangeFilterOptions.from(
+                  this.parameters,
+                  this.response.result.filter,
+                  (parameters: ChangesParameters) => {
+                    this.store.dispatch(
+                      actionPreferencesImpact({ impact: parameters.impact })
+                    );
+                    this.parameters = parameters;
+                  }
+                )
               );
-              this.parameters = parameters;
             }
-          )
-        );
-      }
-    });
+          });
+      });
   }
 }

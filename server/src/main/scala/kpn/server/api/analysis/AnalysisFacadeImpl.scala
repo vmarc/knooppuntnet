@@ -1,5 +1,6 @@
 package kpn.server.api.analysis
 
+import kpn.api.common.AnalysisMode
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
 import kpn.api.common.ReplicationId
@@ -109,7 +110,7 @@ class AnalysisFacadeImpl(
 
   override def nodeDetails(user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage] = {
     api.execute(user, "node-details", s"$nodeId") {
-      reply(nodeDetailsPageBuilder.build(user,language, nodeId))
+      reply(nodeDetailsPageBuilder.build(user, language, nodeId))
     }
   }
 
@@ -197,9 +198,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
+  override def subsetChanges(user: Option[String], language: Language, analysisMode: AnalysisMode, subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
     api.execute(user, "subset-changes", s"subset=${subset.name}, ${parameters.toDisplayString}") {
-      reply(subsetChangesPageBuilder.build(user, subset, parameters))
+      reply(subsetChangesPageBuilder.build(user, language, analysisMode, subset, parameters))
     }
   }
 
@@ -241,9 +242,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def changes(user: Option[String], parameters: ChangesParameters): ApiResponse[ChangesPage] = {
+  override def changes(user: Option[String], language: Language, analysisMode: AnalysisMode, parameters: ChangesParameters): ApiResponse[ChangesPage] = {
     api.execute(user, "changes", parameters.toDisplayString) {
-      reply(Some(changesPageBuilder.build(user, parameters)))
+      reply(Some(changesPageBuilder.build(user, language, analysisMode, parameters)))
     }
   }
 

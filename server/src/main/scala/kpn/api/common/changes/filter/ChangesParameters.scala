@@ -6,7 +6,7 @@ case class ChangesParameters(
   day: Option[String] = None,
   itemsPerPage: Long = 5,
   pageIndex: Long = 0,
-  impact: Boolean = false
+  impact: Boolean = false,
 ) {
 
   def toDisplayString: String = {

@@ -16,8 +16,9 @@ import { MarkdownModule } from 'ngx-markdown';
 import { FactModule } from '../fact/fact.module';
 import { AnalysisModeModule } from '../mode/mode.module';
 import { ChangeHeaderComponent } from './change-set/change-header.component';
+import { ChangeLocationAnalysisSummaryComponent } from './change-set/change-location-analysis-summary.component';
+import { ChangeNetworkAnalysisSummaryComponent } from './change-set/change-network-analysis-summary.component';
 import { ChangeSetTagsComponent } from './change-set/change-set-tags.component';
-import { ChangesSetComponent } from './change-set/change-set.component';
 import { ChangesSetElementRefComponent } from './change-set/components/change-set-element-ref.component';
 import { ChangesSetElementRefsComponent } from './change-set/components/change-set-element-refs.component';
 import { ChangesSetNetworkComponent } from './change-set/components/change-set-network.component';
@@ -77,7 +78,8 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
   declarations: [
     ChangeHeaderComponent,
     ChangeSetTagsComponent,
-    ChangesSetComponent,
+    ChangeNetworkAnalysisSummaryComponent,
+    ChangeLocationAnalysisSummaryComponent,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,
     ChangesSetOrphanRoutesComponent,
@@ -117,7 +119,8 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
   exports: [
     ChangeHeaderComponent,
     ChangeSetTagsComponent,
-    ChangesSetComponent,
+    ChangeNetworkAnalysisSummaryComponent,
+    ChangeLocationAnalysisSummaryComponent,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,
     ChangesSetOrphanRoutesComponent,

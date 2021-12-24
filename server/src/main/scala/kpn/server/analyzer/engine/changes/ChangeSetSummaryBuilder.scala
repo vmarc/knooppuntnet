@@ -23,8 +23,11 @@ class ChangeSetSummaryBuilder() {
   def build(context: ChangeSetContext): ChangeSetSummary = {
 
     val networkChanges = toNetworkChanges(context)
-    val routeChanges = toRouteChanges(context)
-    val nodeChanges = toNodeChanges(context)
+    val networkChangesReferencedRouteIds = routeIdsInNetworkChanges(networkChanges).toSet
+    val routeChanges = toRouteChanges(context, networkChangesReferencedRouteIds)
+    val networkChangesReferencedNodeIds = nodeIdsInNetworkChanges(networkChanges).toSet
+
+    val nodeChanges = toNodeChanges(context, networkChangesReferencedNodeIds)
 
     val trees = buildTrees(context)
 
@@ -91,16 +94,16 @@ class ChangeSetSummaryBuilder() {
     )
   }
 
-  private def toRouteChanges(context: ChangeSetContext): Seq[ChangeSetSubsetElementRefs] = {
+  private def toRouteChanges(context: ChangeSetContext, networkChangesReferencedRouteIds: Set[Long]): Seq[ChangeSetSubsetElementRefs] = {
 
-    val changes = context.changes.routeChanges
-    val subsets = changes.flatMap(_.subsets).distinct.sorted
+    val routeChanges = context.changes.routeChanges.filter(routeChange => !networkChangesReferencedRouteIds.contains(routeChange.id))
+    val subsets = routeChanges.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap { subset =>
 
-      val removed = toRouteChangeRefs(changes, subset, ChangeType.Delete)
-      val added = toRouteChangeRefs(changes, subset, ChangeType.Create)
-      val updated = toRouteChangeRefs(changes, subset, ChangeType.Update)
+      val removed = toRouteChangeRefs(routeChanges, subset, ChangeType.Delete)
+      val added = toRouteChangeRefs(routeChanges, subset, ChangeType.Create)
+      val updated = toRouteChangeRefs(routeChanges, subset, ChangeType.Update)
 
       if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
         Some(
@@ -133,16 +136,17 @@ class ChangeSetSummaryBuilder() {
     }
   }
 
-  private def toNodeChanges(context: ChangeSetContext): Seq[ChangeSetSubsetElementRefs] = {
+  private def toNodeChanges(context: ChangeSetContext, networkChangesReferencedNodeIds: Set[Long]): Seq[ChangeSetSubsetElementRefs] = {
 
-    val subsets: Seq[Subset] = context.changes.nodeChanges.flatMap(_.subsets).distinct.sorted
+    val nodeChanges = context.changes.nodeChanges.filter(nodeChange => !networkChangesReferencedNodeIds.contains(nodeChange.id))
+    val subsets = nodeChanges.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap {
       subset =>
 
-        val removed = toNodeChangeRefs(context.changes.nodeChanges, subset, ChangeType.Delete)
-        val added = toNodeChangeRefs(context.changes.nodeChanges, subset, ChangeType.Create)
-        val updated = toNodeChangeRefs(context.changes.nodeChanges, subset, ChangeType.Update)
+        val removed = toNodeChangeRefs(nodeChanges, subset, ChangeType.Delete)
+        val added = toNodeChangeRefs(nodeChanges, subset, ChangeType.Create)
+        val updated = toNodeChangeRefs(nodeChanges, subset, ChangeType.Update)
 
         if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
           Some(
@@ -273,6 +277,33 @@ class ChangeSetSummaryBuilder() {
       }
     }
   }
+
+  private def routeIdsInNetworkChanges(networkChanges: NetworkChanges): Seq[Long] = {
+    routeIdsIn(networkChanges.creates) ++
+      routeIdsIn(networkChanges.updates) ++
+      routeIdsIn(networkChanges.deletes)
+  }
+
+  private def nodeIdsInNetworkChanges(networkChanges: NetworkChanges): Seq[Long] = {
+    nodeIdsIn(networkChanges.creates) ++
+      nodeIdsIn(networkChanges.updates) ++
+      nodeIdsIn(networkChanges.deletes)
+  }
+
+  private def routeIdsIn(changeSetNetworks: Seq[ChangeSetNetwork]): Seq[Long] = {
+    changeSetNetworks.flatMap(changeSetNetwork => idsIn(changeSetNetwork.routeChanges))
+  }
+
+  private def nodeIdsIn(changeSetNetworks: Seq[ChangeSetNetwork]): Seq[Long] = {
+    changeSetNetworks.flatMap(changeSetNetwork => idsIn(changeSetNetwork.nodeChanges))
+  }
+
+  private def idsIn(changeSetElementRefs: ChangeSetElementRefs): Seq[Long] = {
+    changeSetElementRefs.removed.map(_.id) ++
+      changeSetElementRefs.added.map(_.id) ++
+      changeSetElementRefs.updated.map(_.id)
+  }
+
 
   private def toRef(nodeChange: NodeChange): ChangeSetElementRef = {
     ChangeSetElementRef(

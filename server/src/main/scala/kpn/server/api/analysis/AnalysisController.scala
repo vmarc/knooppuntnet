@@ -1,7 +1,9 @@
 package kpn.server.api.analysis
 
+import kpn.api.common.AnalysisMode
 import kpn.api.common.ChangesPage
 import kpn.api.common.EN
+import kpn.api.common.LOCATION
 import kpn.api.common.Language
 import kpn.api.common.Languages
 import kpn.api.common.ReplicationId
@@ -119,12 +121,20 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
+    @RequestParam language: String,
+    @RequestParam analysisMode: String,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
     val subset = Subset.of(country, networkType)
-    analysisFacade.subsetChanges(CurrentUser.name, subset.get, parameters)
+    analysisFacade.subsetChanges(
+      CurrentUser.name,
+      toLanguage(language),
+      toAnalysisMode(analysisMode),
+      subset.get,
+      parameters
+    )
   }
 
   @GetMapping(value = Array("/api/network/{networkId}"))
@@ -175,7 +185,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestParam language: String,
     @PathVariable nodeId: Long
   ): ApiResponse[NodeDetailsPage] = {
-    analysisFacade.nodeDetails(CurrentUser.name, toEnum(language), nodeId)
+    analysisFacade.nodeDetails(CurrentUser.name, toLanguage(language), nodeId)
   }
 
   @GetMapping(value = Array("/api/node/{nodeId}/map"))
@@ -198,7 +208,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestParam language: String,
     @PathVariable routeId: Long
   ): ApiResponse[RouteDetailsPage] = {
-    analysisFacade.routeDetails(CurrentUser.name, toEnum(language), routeId)
+    analysisFacade.routeDetails(CurrentUser.name, toLanguage(language), routeId)
   }
 
   @GetMapping(value = Array("/api/route/{routeId}/map"))
@@ -218,9 +228,16 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @PostMapping(value = Array("/api/changes"))
   def changes(
+    @RequestParam language: String,
+    @RequestParam analysisMode: String,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[ChangesPage] = {
-    analysisFacade.changes(CurrentUser.name, parameters)
+    analysisFacade.changes(
+      CurrentUser.name,
+      toLanguage(language),
+      toAnalysisMode(analysisMode),
+      parameters
+    )
   }
 
   @GetMapping(value = Array("/api/changeset/{changeSetId}/{replicationNumber}"))
@@ -230,7 +247,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable replicationNumber: Int
   ): ApiResponse[ChangeSetPage] = {
     val replicationId = ReplicationId(replicationNumber)
-    analysisFacade.changeSet(CurrentUser.name, toEnum(language), changeSetId, Some(replicationId))
+    analysisFacade.changeSet(CurrentUser.name, toLanguage(language), changeSetId, Some(replicationId))
   }
 
   @GetMapping(value = Array("/api/replication/{changeSetId}"))
@@ -238,7 +255,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestParam language: String,
     @PathVariable changeSetId: Long
   ): ApiResponse[Long] = {
-    analysisFacade.replication(CurrentUser.name, toEnum(language), changeSetId)
+    analysisFacade.replication(CurrentUser.name, toLanguage(language), changeSetId)
   }
 
   @GetMapping(value = Array("/api/survey-date-info"))
@@ -252,7 +269,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country
   ): ApiResponse[LocationsPage] = {
-    analysisFacade.locations(CurrentUser.name, toEnum(language), networkType, country)
+    analysisFacade.locations(CurrentUser.name, toLanguage(language), networkType, country)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/nodes"))
@@ -264,7 +281,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: LocationNodesParameters
   ): ApiResponse[LocationNodesPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationNodes(CurrentUser.name, toEnum(language), locationKey, parameters)
+    analysisFacade.locationNodes(CurrentUser.name, toLanguage(language), locationKey, parameters)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/routes"))
@@ -276,7 +293,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: LocationRoutesParameters
   ): ApiResponse[LocationRoutesPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationRoutes(CurrentUser.name, toEnum(language), locationKey, parameters)
+    analysisFacade.locationRoutes(CurrentUser.name, toLanguage(language), locationKey, parameters)
   }
 
   @GetMapping(value = Array("/api/{networkType}/{country}/{location}/facts"))
@@ -287,7 +304,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable location: String
   ): ApiResponse[LocationFactsPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationFacts(CurrentUser.name, toEnum(language), locationKey)
+    analysisFacade.locationFacts(CurrentUser.name, toLanguage(language), locationKey)
   }
 
   @GetMapping(value = Array("/api/{networkType}/{country}/{location}/map"))
@@ -298,7 +315,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable location: String
   ): ApiResponse[LocationMapPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationMap(CurrentUser.name, toEnum(language), locationKey)
+    analysisFacade.locationMap(CurrentUser.name, toLanguage(language), locationKey)
   }
 
   @PostMapping(value = Array("/api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es}/{location}/changes"))
@@ -310,7 +327,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: LocationChangesParameters
   ): ApiResponse[LocationChangesPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationChanges(CurrentUser.name, toEnum(language), locationKey, parameters)
+    analysisFacade.locationChanges(CurrentUser.name, toLanguage(language), locationKey, parameters)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/edit"))
@@ -321,10 +338,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable location: String
   ): ApiResponse[LocationEditPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationEdit(CurrentUser.name, toEnum(language), locationKey)
+    analysisFacade.locationEdit(CurrentUser.name, toLanguage(language), locationKey)
   }
 
-  private def toEnum(language: String): Language = {
+  private def toLanguage(language: String): Language = {
     Languages.all.find(_.toString.toLowerCase == language).getOrElse(EN)
+  }
+
+  private def toAnalysisMode(analysisMode: String): AnalysisMode = {
+    AnalysisMode.all.find(_.toString.toLowerCase == analysisMode).getOrElse(LOCATION)
   }
 }

@@ -57,7 +57,14 @@ import { SubsetChangesService } from './subset-changes.service';
               *ngFor="let changeSet of page.changes; let i = index"
               [index]="rowIndex(i)"
             >
-              <kpn-change-set [changeSet]="changeSet"></kpn-change-set>
+              <kpn-change-network-analysis-summary
+                *ngIf="changeSet.network"
+                [changeSet]="changeSet"
+              ></kpn-change-network-analysis-summary>
+              <kpn-change-location-analysis-summary
+                *ngIf="changeSet.location"
+                [changeSet]="changeSet"
+              ></kpn-change-location-analysis-summary>
             </kpn-item>
           </kpn-items>
         </kpn-changes>
