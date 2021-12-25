@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
-import { ChangeSetNetwork } from '@api/common/change-set-network';
+import { Component, Input } from '@angular/core';
 import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
-import { ChangeSetNetworkAction } from './components/change-set-network.component';
 
 @Component({
   selector: 'kpn-change-location-analysis-summary',
@@ -17,10 +15,33 @@ import { ChangeSetNetworkAction } from './components/change-set-network.componen
       >
       </kpn-change-header>
 
-      <pre>
-        {{ json }}
-      </pre
-      >
+      <div *ngFor="let locationChanges of changeSet.location.changes">
+        <div class="kpn-line">
+          <kpn-network-type-icon
+            [networkType]="locationChanges.networkType"
+          ></kpn-network-type-icon>
+          <div class="location-names">
+            <div
+              *ngFor="let locationName of locationChanges.locationNames"
+              class="location-name"
+            >
+              <span
+                ><a>{{ locationName }}</a></span
+              >
+            </div>
+          </div>
+        </div>
+
+        <kpn-change-set-element-refs
+          [elementType]="'node'"
+          [changeSetElementRefs]="locationChanges.nodeChanges"
+        ></kpn-change-set-element-refs>
+        <kpn-change-set-element-refs
+          [elementType]="'route'"
+          [changeSetElementRefs]="locationChanges.routeChanges"
+        >
+        </kpn-change-set-element-refs>
+      </div>
     </div>
   `,
   styles: [
@@ -29,15 +50,21 @@ import { ChangeSetNetworkAction } from './components/change-set-network.componen
         margin-top: 5px;
         margin-bottom: 5px;
       }
+
+      .location-names {
+        display: inline;
+      }
+
+      .location-name {
+        display: inline;
+      }
+
+      .location-names :not(:last-child):after {
+        content: ' \\2192 \\0020 ';
+      }
     `,
   ],
 })
-export class ChangeLocationAnalysisSummaryComponent implements OnInit {
+export class ChangeLocationAnalysisSummaryComponent {
   @Input() changeSet: ChangeSetSummaryInfo;
-
-  json: string;
-
-  ngOnInit(): void {
-    this.json = JSON.stringify(this.changeSet.location, null, 2);
-  }
 }

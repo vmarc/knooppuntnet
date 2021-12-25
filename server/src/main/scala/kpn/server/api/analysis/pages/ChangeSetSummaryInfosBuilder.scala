@@ -9,10 +9,12 @@ import kpn.api.common.ChangeSetSummaryLocationInfo
 import kpn.api.common.ChangeSetSummaryNetworkInfo
 import kpn.api.common.LOCATION
 import kpn.api.common.Language
+import kpn.api.common.LocationChanges
 import kpn.api.common.LocationChangesTree
 import kpn.api.common.LocationChangesTreeNode
 import kpn.api.common.NETWORK
 import kpn.api.common.NetworkChanges
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetInfoRepository
 import org.springframework.stereotype.Component
@@ -32,12 +34,8 @@ class ChangeSetSummaryInfosBuilder(
       }
       analysisMode match {
         case LOCATION =>
-          val trees: Seq[LocationChangesTree] = summary.trees.map { tree =>
-            tree.copy(
-              children = tree.children.map(child => translated(language, child))
-            )
-          }
 
+          val changes = locationChanges(language, summary.trees)
           ChangeSetSummaryInfo(
             _id = summary._id,
             key = summary.key,
@@ -46,7 +44,7 @@ class ChangeSetSummaryInfosBuilder(
             network = None,
             location = Some(
               ChangeSetSummaryLocationInfo(
-                trees
+                changes
               )
             ),
             happy = summary.happy,
@@ -84,6 +82,44 @@ class ChangeSetSummaryInfosBuilder(
       locationName = locationService.name(language, treeNode.locationName),
       children = treeNode.children.map(child => translated(language, child))
     )
+  }
+
+
+  private def locationChanges(language: Language, trees: Seq[LocationChangesTree]): Seq[LocationChanges] = {
+    trees.flatMap { tree =>
+      tree.children.flatMap { treeNode =>
+        childLocationChanges(
+          language,
+          tree.networkType,
+          Seq(locationService.name(language, tree.locationName)),
+          treeNode
+        )
+      }
+    }
+  }
+
+  private def childLocationChanges(language: Language, networkType: NetworkType, locationNames: Seq[String], treeNode: LocationChangesTreeNode): Seq[LocationChanges] = {
+
+    if (treeNode.children.isEmpty) {
+      Seq(
+        LocationChanges(
+          networkType = networkType,
+          locationNames = locationNames :+ locationService.name(language, treeNode.locationName),
+          treeNode.routeChanges,
+          treeNode.nodeChanges
+        )
+      )
+    }
+    else {
+      treeNode.children.flatMap { childTreeNode =>
+        childLocationChanges(
+          language,
+          networkType,
+          locationNames :+ locationService.name(language, treeNode.locationName),
+          childTreeNode
+        )
+      }
+    }
   }
 
   private def filterChangeSetSummary(summary: ChangeSetSummary): ChangeSetSummary = {

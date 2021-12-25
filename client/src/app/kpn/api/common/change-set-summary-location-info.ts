@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { LocationChangesTree } from './location-changes-tree';
+import { LocationChanges } from './location-changes';
 
 export interface ChangeSetSummaryLocationInfo {
-  readonly trees: LocationChangesTree[];
+  readonly changes: LocationChanges[];
 }
