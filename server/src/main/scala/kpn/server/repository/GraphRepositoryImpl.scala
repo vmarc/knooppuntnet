@@ -1,11 +1,11 @@
 package kpn.server.repository
 
 import kpn.api.custom.NetworkType
-import kpn.database.actions.graph.MongoQueryGraphEdges
-import kpn.database.base.Database
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.Log
+import kpn.database.actions.graph.MongoQueryGraphEdges
+import kpn.database.base.Database
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
