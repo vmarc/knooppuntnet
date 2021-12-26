@@ -13,8 +13,8 @@ object ChangeSetSummarySubsetFilter {
       updates = changeSetSummary.networkChanges.updates.filter(_.subsets.contains(subset)),
       deletes = changeSetSummary.networkChanges.deletes.filter(_.subsets.contains(subset))
     )
-    val filteredOrphanRouteChanges = changeSetSummary.routeChanges.filter(_.subset == subset)
-    val filteredOrphanNodeChanges = changeSetSummary.nodeChanges.filter(_.subset == subset)
+    val filteredOrphanRouteChanges = changeSetSummary.orphanRouteChanges.filter(_.subset == subset)
+    val filteredOrphanNodeChanges = changeSetSummary.orphanNodeChanges.filter(_.subset == subset)
 
     ChangeSetSummary(
       changeSetSummary.key,

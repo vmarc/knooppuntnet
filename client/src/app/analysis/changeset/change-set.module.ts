@@ -9,7 +9,7 @@ import { ChangeSetPageComponent } from './page/_change-set-page.component';
 import { ChangeSetAnalysisComponent } from './page/change-set-analysis.component';
 import { ChangeSetHeaderComponent } from './page/change-set-header.component';
 import { ChangeSetLocationTreeNodeComponent } from './page/change-set-location-tree-node.component';
-import { ChangeSetLocationTreeComponent } from './page/change-set-location-tree.component';
+import { ChangeSetLocationChangesComponent } from './page/change-set-location-changes.component';
 import { ChangeSetNetworkChangesComponent } from './page/change-set-network-changes.component';
 import { ChangeSetOrphanNodeChangesComponent } from './page/change-set-orphan-node-changes.component';
 import { ChangeSetOrphanRouteChangesComponent } from './page/change-set-orphan-route-changes.component';
@@ -50,7 +50,7 @@ import { VersionChangeComponent } from './page/version-change.component';
     ChangeSetNetworkChangesComponent,
     ChangeSetOrphanNodeChangesComponent,
     ChangeSetOrphanRouteChangesComponent,
-    ChangeSetLocationTreeComponent,
+    ChangeSetLocationChangesComponent,
     ChangeSetLocationTreeNodeComponent,
     NodeDiffsComponent,
     NodeDiffsRemovedComponent,

@@ -5,7 +5,7 @@
 
     <groupId>knooppuntnet</groupId>
     <artifactId>server</artifactId>
-    <version>4.0.0-snapshot.18</version>
+    <version>4.0.0-snapshot.19</version>
     <name>server</name>
     <description>knooppuntnet server</description>
 
@@ -27,7 +27,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -39,31 +38,28 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-core</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.1</version>
         </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.8.0</version>
+            <version>1.8.1</version>
         </dependency>
 
         <dependency>
@@ -265,7 +261,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <dependency>

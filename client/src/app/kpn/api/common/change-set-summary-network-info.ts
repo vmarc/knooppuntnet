@@ -5,6 +5,6 @@ import { NetworkChanges } from './network-changes';
 
 export interface ChangeSetSummaryNetworkInfo {
   readonly networkChanges: NetworkChanges;
-  readonly routeChanges: ChangeSetSubsetElementRefs[];
-  readonly nodeChanges: ChangeSetSubsetElementRefs[];
+  readonly orphanRouteChanges: ChangeSetSubsetElementRefs[];
+  readonly orphanNodeChanges: ChangeSetSubsetElementRefs[];
 }

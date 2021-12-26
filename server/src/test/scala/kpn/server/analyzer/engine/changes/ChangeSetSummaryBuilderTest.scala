@@ -5,8 +5,7 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.LocationChangesTree
-import kpn.api.common.LocationChangesTreeNode
+import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.location.Location
@@ -135,7 +134,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
         networkChanges = NetworkChanges(),
-        routeChanges = Seq(
+        orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
@@ -151,7 +150,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             )
           )
         ),
-        nodeChanges = Seq(
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
@@ -174,81 +173,64 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             investigate = true
           )
         ),
-        trees = Seq(
-          LocationChangesTree(
-            networkType = NetworkType.hiking,
-            locationName = "nl",
-            happy = true,
-            investigate = true,
-            children = Seq(
-              LocationChangesTreeNode(
-                locationName = "North Brabant",
-                routeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                nodeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                children = Seq(
-                  LocationChangesTreeNode(
-                    locationName = "Roosendaal",
-                    routeChanges = ChangeSetElementRefs(
-                      removed = Seq(
-                        ChangeSetElementRef(
-                          id = 11,
-                          name = "01-02",
-                          happy = false,
-                          investigate = true
-                        )
-                      ),
-                      added = Seq(
-                        ChangeSetElementRef(
-                          id = 12,
-                          name = "02-03",
-                          happy = true,
-                          investigate = false
-                        )
-                      ),
-                      updated = Seq(
-                        ChangeSetElementRef(
-                          id = 13,
-                          name = "03-04",
-                          happy = false,
-                          investigate = false
-                        )
-                      )
-                    ),
-                    nodeChanges = ChangeSetElementRefs(
-                      removed = Seq(
-                        ChangeSetElementRef(
-                          id = 1001,
-                          name = "01",
-                          happy = false,
-                          investigate = true
-                        )
-                      ),
-                      added = Seq(
-                        ChangeSetElementRef(
-                          id = 1002,
-                          name = "02",
-                          happy = true,
-                          investigate = false
-                        )
-                      ),
-                      updated = Seq(
-                        ChangeSetElementRef(
-                          id = 1003,
-                          name = "03",
-                          happy = false,
-                          investigate = false
-                        )
-                      )
-                    ),
-                    children = Seq.empty, // empty for leaf node
-                    happy = true,
-                    investigate = true
-                  )
-                ),
-                happy = true,
-                investigate = true
+        locationChanges = Seq(
+          LocationChanges(
+            NetworkType.hiking,
+            locationNames = Seq("nl", "North Brabant", "Roosendaal"),
+            routeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                ChangeSetElementRef(
+                  id = 11,
+                  name = "01-02",
+                  happy = false,
+                  investigate = true
+                )
+              ),
+              added = Seq(
+                ChangeSetElementRef(
+                  id = 12,
+                  name = "02-03",
+                  happy = true,
+                  investigate = false
+                )
+              ),
+              updated = Seq(
+                ChangeSetElementRef(
+                  id = 13,
+                  name = "03-04",
+                  happy = false,
+                  investigate = false
+                )
               )
-            )
+            ),
+            nodeChanges = ChangeSetElementRefs(
+              removed = Seq(
+                ChangeSetElementRef(
+                  id = 1001,
+                  name = "01",
+                  happy = false,
+                  investigate = true
+                )
+              ),
+              added = Seq(
+                ChangeSetElementRef(
+                  id = 1002,
+                  name = "02",
+                  happy = true,
+                  investigate = false
+                )
+              ),
+              updated = Seq(
+                ChangeSetElementRef(
+                  id = 1003,
+                  name = "03",
+                  happy = false,
+                  investigate = false
+                )
+              )
+            ),
+            happy = true,
+            investigate = true
           )
         ),
         locations = Seq(
@@ -290,7 +272,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1003),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.beHiking),
-            locations = Seq("be", "Antwerp province", "Antwerp arrondissement", "Essen BE"),
+            locations = Seq("be", "Antwerp", "Essen"),
             name = "03"
           )
         ),
@@ -299,7 +281,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             key = newChangeKey(elementId = 1004),
             changeType = ChangeType.Update,
             subsets = Seq(Subset.beBicycle),
-            locations = Seq("be", "Antwerp province", "Antwerp arrondissement", "Essen BE"),
+            locations = Seq("be", "Antwerp", "Essen"),
             name = "04"
           )
         )
@@ -327,8 +309,8 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
         timestampFrom = Timestamp(2015, 8, 11, 0, 0, 2),
         timestampUntil = Timestamp(2015, 8, 11, 0, 0, 3),
         networkChanges = NetworkChanges(),
-        routeChanges = Seq.empty,
-        nodeChanges = Seq(
+        orphanRouteChanges = Seq.empty,
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.beBicycle,
             ChangeSetElementRefs(
@@ -360,138 +342,50 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
           ChangeSetSubsetAnalysis(Subset.beHiking),
           ChangeSetSubsetAnalysis(Subset.nlHiking)
         ),
-        trees = Seq(
-          LocationChangesTree(
-            networkType = NetworkType.hiking,
-            locationName = "be",
-            happy = false,
-            investigate = false,
-            children = Seq(
-              LocationChangesTreeNode(
-                locationName = "Antwerp province",
-                routeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                nodeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                children = Seq(
-                  LocationChangesTreeNode(
-                    locationName = "Antwerp arrondissement",
-                    routeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                    nodeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                    children = Seq(
-                      LocationChangesTreeNode(
-                        locationName = "Essen BE",
-                        routeChanges = ChangeSetElementRefs(),
-                        nodeChanges = ChangeSetElementRefs(
-                          updated = Seq(
-                            ChangeSetElementRef(
-                              id = 1003,
-                              name = "03",
-                              happy = false,
-                              investigate = false
-                            ),
-                          )
-                        ),
-                        children = Seq.empty, // empty for leaf node
-                        happy = false,
-                        investigate = false
-                      )
-                    ),
-                    happy = false,
-                    investigate = false
-                  )
-                ),
-                happy = false,
-                investigate = false
+        locationChanges = Seq(
+          LocationChanges(
+            NetworkType.hiking,
+            locationNames = Seq("nl", "North Brabant", "Roosendaal"),
+            ChangeSetElementRefs(),
+            ChangeSetElementRefs(
+              updated = Seq(
+                ChangeSetElementRef(1001, "01", happy = false, investigate = false),
+                ChangeSetElementRef(1002, "02", happy = false, investigate = false)
               )
-            )
+            ),
+            happy = false,
+            investigate = false
           ),
-          LocationChangesTree(
-            networkType = NetworkType.hiking,
-            locationName = "nl",
-            happy = false,
-            investigate = false,
-            children = Seq(
-              LocationChangesTreeNode(
-                locationName = "North Brabant",
-                routeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                nodeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                children = Seq(
-                  LocationChangesTreeNode(
-                    locationName = "Roosendaal",
-                    routeChanges = ChangeSetElementRefs(),
-                    nodeChanges = ChangeSetElementRefs(
-                      updated = Seq(
-                        ChangeSetElementRef(
-                          id = 1001,
-                          name = "01",
-                          happy = false,
-                          investigate = false
-                        ),
-                        ChangeSetElementRef(
-                          id = 1002,
-                          name = "02",
-                          happy = false,
-                          investigate = false
-                        )
-                      )
-                    ),
-                    children = Seq.empty, // empty for leaf node
-                    happy = false,
-                    investigate = false
-                  )
-                ),
-                happy = false,
-                investigate = false
+          LocationChanges(
+            NetworkType.hiking,
+            locationNames = Seq("be", "Antwerp", "Essen"),
+            ChangeSetElementRefs(),
+            ChangeSetElementRefs(
+              List(),
+              List(),
+              List(
+                ChangeSetElementRef(1003, "03", happy = false, investigate = false)
               )
-            )
+            ),
+            happy = false,
+            investigate = false
           ),
-          LocationChangesTree(
-            networkType = NetworkType.cycling,
-            locationName = "be",
-            happy = false,
-            investigate = false,
-            children = Seq(
-              LocationChangesTreeNode(
-                locationName = "Antwerp province",
-                routeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                nodeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                children = Seq(
-                  LocationChangesTreeNode(
-                    locationName = "Antwerp arrondissement",
-                    routeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                    nodeChanges = ChangeSetElementRefs(), // empty because non-leaf node
-                    children = Seq(
-                      LocationChangesTreeNode(
-                        locationName = "Essen BE",
-                        routeChanges = ChangeSetElementRefs(),
-                        nodeChanges = ChangeSetElementRefs(
-                          updated = Seq(
-                            ChangeSetElementRef(
-                              id = 1004,
-                              name = "04",
-                              happy = false,
-                              investigate = false
-                            ),
-                          )
-                        ),
-                        children = Seq.empty, // empty for leaf node
-                        happy = false,
-                        investigate = false
-                      )
-                    ),
-                    happy = false,
-                    investigate = false
-                  )
-                ),
-                happy = false,
-                investigate = false
+          LocationChanges(
+            NetworkType.cycling,
+            locationNames = Seq("be", "Antwerp", "Essen"),
+            ChangeSetElementRefs(),
+            ChangeSetElementRefs(
+              updated = Seq(
+                ChangeSetElementRef(1004, "04", happy = false, investigate = false)
               )
-            )
+            ),
+            happy = false,
+            investigate = false
           )
         ),
         locations = Seq(
-          "Antwerp arrondissement",
-          "Antwerp province",
-          "Essen BE",
+          "Antwerp",
+          "Essen",
           "North Brabant",
           "Roosendaal",
           "be",

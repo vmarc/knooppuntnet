@@ -8,4 +8,6 @@ export interface LocationChanges {
   readonly locationNames: string[];
   readonly routeChanges: ChangeSetElementRefs;
   readonly nodeChanges: ChangeSetElementRefs;
+  readonly happy: boolean;
+  readonly investigate: boolean;
 }

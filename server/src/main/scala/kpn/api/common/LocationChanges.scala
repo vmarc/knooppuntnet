@@ -6,5 +6,7 @@ case class LocationChanges(
   networkType: NetworkType,
   locationNames: Seq[String],
   routeChanges: ChangeSetElementRefs,
-  nodeChanges: ChangeSetElementRefs
+  nodeChanges: ChangeSetElementRefs,
+  happy: Boolean,
+  investigate: Boolean
 )

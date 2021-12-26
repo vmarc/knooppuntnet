@@ -9,8 +9,11 @@ case class RouteNodeDiff(
   removed: Seq[Ref]
 ) {
 
+  def referencedNodeIds: Set[Long] = {
+    added.map(_.id).toSet ++ removed.map(_.id).toSet
+  }
+
   def referencedElements: ReferencedElements = {
-    val nodeIds = added.map(_.id) ++ removed.map(_.id)
-    ReferencedElements(nodeIds = nodeIds.toSet)
+    ReferencedElements(nodeIds = referencedNodeIds)
   }
 }

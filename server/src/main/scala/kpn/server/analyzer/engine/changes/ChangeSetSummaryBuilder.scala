@@ -5,8 +5,7 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.LocationChangesTree
-import kpn.api.common.LocationChangesTreeNode
+import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -22,14 +21,10 @@ class ChangeSetSummaryBuilder() {
 
   def build(context: ChangeSetContext): ChangeSetSummary = {
 
-    val networkChanges = toNetworkChanges(context)
-    val networkChangesReferencedRouteIds = routeIdsInNetworkChanges(networkChanges).toSet
-    val routeChanges = toRouteChanges(context, networkChangesReferencedRouteIds)
-    val networkChangesReferencedNodeIds = nodeIdsInNetworkChanges(networkChanges).toSet
-
-    val nodeChanges = toNodeChanges(context, networkChangesReferencedNodeIds)
-
-    val trees = buildTrees(context)
+    val networkChanges = buildNetworkChanges(context)
+    val orphanRouteChanges = buildOrphanRouteChanges(context)
+    val orphanNodeChanges = buildOrphanNodeChanges(context)
+    val locationChanges = buildLocationChanges(context)
 
     ChangeSetSummary(
       ChangeKey(
@@ -41,35 +36,47 @@ class ChangeSetSummaryBuilder() {
       context.changeSet.timestampFrom,
       context.changeSet.timestampUntil,
       networkChanges,
-      routeChanges,
-      nodeChanges,
-      trees
+      orphanRouteChanges,
+      orphanNodeChanges,
+      locationChanges
     )
   }
 
-  private def toNetworkChanges(context: ChangeSetContext): NetworkChanges = {
-    val creates = toChangeSetNetworks(context.changes.networkInfoChanges, ChangeType.Create)
-    val updates = toChangeSetNetworks(context.changes.networkInfoChanges, ChangeType.Update)
-    val deletes = toChangeSetNetworks(context.changes.networkInfoChanges, ChangeType.Delete)
+  private def buildNetworkChanges(context: ChangeSetContext): NetworkChanges = {
+    val creates = toChangeSetNetworks(context, context.changes.networkInfoChanges, ChangeType.Create)
+    val updates = toChangeSetNetworks(context, context.changes.networkInfoChanges, ChangeType.Update)
+    val deletes = toChangeSetNetworks(context, context.changes.networkInfoChanges, ChangeType.Delete)
     NetworkChanges(creates, updates, deletes)
   }
 
-  private def toChangeSetNetworks(networkChanges: Seq[NetworkInfoChange], changeType: ChangeType): Seq[ChangeSetNetwork] = {
+  private def toChangeSetNetworks(context: ChangeSetContext, networkChanges: Seq[NetworkInfoChange], changeType: ChangeType): Seq[ChangeSetNetwork] = {
 
     val changeTypeNetworkChanges = networkChanges.filter(_.changeType == changeType)
 
     changeTypeNetworkChanges.map { networkChange =>
 
       val routeChanges = ChangeSetElementRefs(
-        removed = networkChange.routeDiffs.removed.map(ref => toRef(ref, happy = false, investigate = true)),
-        added = networkChange.routeDiffs.added.map(ref => toRef(ref, happy = true, investigate = false)),
-        updated = networkChange.routeDiffs.updated.map(ref => toRef(ref, happy = false, investigate = false))
+        removed = networkChange.routeDiffs.removed.map { ref =>
+          toRef(ref, happy = false, investigate = true)
+        },
+        added = networkChange.routeDiffs.added.map { ref =>
+          toRef(ref, happy = true, investigate = isRouteInvestigate(context, ref.id))
+        },
+        updated = networkChange.routeDiffs.updated.map { ref =>
+          toRef(ref, happy = false, investigate = isRouteInvestigate(context, ref.id))
+        }
       )
 
       val nodeChanges = ChangeSetElementRefs(
-        removed = networkChange.nodeDiffs.removed.map(ref => toRef(ref, happy = false, investigate = true)),
-        added = networkChange.nodeDiffs.added.map(ref => toRef(ref, happy = true, investigate = false)),
-        updated = networkChange.nodeDiffs.updated.map(ref => toRef(ref, happy = false, investigate = false))
+        removed = networkChange.nodeDiffs.removed.map { ref =>
+          toRef(ref, happy = false, investigate = true)
+        },
+        added = networkChange.nodeDiffs.added.map { ref =>
+          toRef(ref, happy = true, investigate = isNodeInvestigate(context, ref.id))
+        },
+        updated = networkChange.nodeDiffs.updated.map { ref =>
+          toRef(ref, happy = false, investigate = isNodeInvestigate(context, ref.id))
+        }
       )
 
       ChangeSetNetwork(
@@ -94,16 +101,17 @@ class ChangeSetSummaryBuilder() {
     )
   }
 
-  private def toRouteChanges(context: ChangeSetContext, networkChangesReferencedRouteIds: Set[Long]): Seq[ChangeSetSubsetElementRefs] = {
+  private def buildOrphanRouteChanges(context: ChangeSetContext): Seq[ChangeSetSubsetElementRefs] = {
 
-    val routeChanges = context.changes.routeChanges.filter(routeChange => !networkChangesReferencedRouteIds.contains(routeChange.id))
-    val subsets = routeChanges.flatMap(_.subsets).distinct.sorted
+    val referencedRouteIds = context.changes.networkInfoChanges.flatMap(_.routeDiffs.ids)
+    val orphanRouteChanges = context.changes.routeChanges.filter(routeChange => !referencedRouteIds.contains(routeChange.id))
+    val subsets = orphanRouteChanges.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap { subset =>
 
-      val removed = toRouteChangeRefs(routeChanges, subset, ChangeType.Delete)
-      val added = toRouteChangeRefs(routeChanges, subset, ChangeType.Create)
-      val updated = toRouteChangeRefs(routeChanges, subset, ChangeType.Update)
+      val removed = toRouteChangeRefs(orphanRouteChanges, subset, ChangeType.Delete)
+      val added = toRouteChangeRefs(orphanRouteChanges, subset, ChangeType.Create)
+      val updated = toRouteChangeRefs(orphanRouteChanges, subset, ChangeType.Update)
 
       if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
         Some(
@@ -136,17 +144,17 @@ class ChangeSetSummaryBuilder() {
     }
   }
 
-  private def toNodeChanges(context: ChangeSetContext, networkChangesReferencedNodeIds: Set[Long]): Seq[ChangeSetSubsetElementRefs] = {
+  private def buildOrphanNodeChanges(context: ChangeSetContext): Seq[ChangeSetSubsetElementRefs] = {
 
-    val nodeChanges = context.changes.nodeChanges.filter(nodeChange => !networkChangesReferencedNodeIds.contains(nodeChange.id))
-    val subsets = nodeChanges.flatMap(_.subsets).distinct.sorted
+    val orphanNodeChanges = collectOrphanNodeChanges(context)
+    val subsets = orphanNodeChanges.flatMap(_.subsets).distinct.sorted
 
     subsets.flatMap {
       subset =>
 
-        val removed = toNodeChangeRefs(nodeChanges, subset, ChangeType.Delete)
-        val added = toNodeChangeRefs(nodeChanges, subset, ChangeType.Create)
-        val updated = toNodeChangeRefs(nodeChanges, subset, ChangeType.Update)
+        val removed = toNodeChangeRefs(orphanNodeChanges, subset, ChangeType.Delete)
+        val added = toNodeChangeRefs(orphanNodeChanges, subset, ChangeType.Create)
+        val updated = toNodeChangeRefs(orphanNodeChanges, subset, ChangeType.Update)
 
         if (removed.nonEmpty || added.nonEmpty || updated.nonEmpty) {
           Some(
@@ -179,7 +187,7 @@ class ChangeSetSummaryBuilder() {
     }
   }
 
-  private def buildTrees(context: ChangeSetContext): Seq[LocationChangesTree] = {
+  private def buildLocationChanges(context: ChangeSetContext): Seq[LocationChanges] = {
     NetworkType.all.flatMap { networkType =>
       val nodeChanges = context.changes.nodeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
       val routeChanges = context.changes.routeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
@@ -198,7 +206,7 @@ class ChangeSetSummaryBuilder() {
         (nodeLocations ++ routeLocations).distinct
       }
 
-      val leafNodes = locations.map { location =>
+      locations.map { location =>
         val leafNodeNodeChanges = {
           val locationNodeChanges = nodeChanges.filter(_.locations == location.names)
           val removed = locationNodeChanges.filter(_.changeType == ChangeType.Delete).map(toRef)
@@ -226,84 +234,24 @@ class ChangeSetSummaryBuilder() {
         val happy = leafNodeNodeChanges.removed.exists(_.happy) || leafNodeNodeChanges.added.exists(_.happy) || leafNodeNodeChanges.updated.exists(_.happy)
         val investigate = leafNodeNodeChanges.removed.exists(_.investigate) || leafNodeNodeChanges.added.exists(_.investigate) || leafNodeNodeChanges.updated.exists(_.investigate)
 
-        LocationChangesTreeNode(
-          locationName = location.names.last,
-          routeChanges = leafNodeRouteChanges,
-          nodeChanges = leafNodeNodeChanges,
-          children = Seq.empty,
-          happy = happy,
-          investigate = investigate
-        )
-      }
-
-      val locationRoots = locations.map(_.names.head).distinct.sorted
-
-      locationRoots.map { root =>
-        val locs = locations.filter(_.names.head == root)
-        val children = buildTree(1, locs, leafNodes)
-        val happy = children.exists(_.happy)
-        val investigate = children.exists(_.investigate)
-        LocationChangesTree(
-          networkType = networkType,
-          locationName = root,
-          happy = happy,
-          investigate = investigate,
-          children = children
+        LocationChanges(
+          networkType,
+          location.names,
+          leafNodeRouteChanges,
+          leafNodeNodeChanges,
+          happy,
+          investigate
         )
       }
     }
   }
 
-  private def buildTree(level: Int, locations: Seq[Location], leafNodes: Seq[LocationChangesTreeNode]): Seq[LocationChangesTreeNode] = {
-
-    val locationNames = locations.map(_.names(level)).distinct.sorted
-
-    locationNames.map { locationName =>
-      leafNodes.find(_.locationName == locationName) match {
-        case Some(leafNode) => leafNode
-        case None =>
-          val locs = locations.filter(_.names(level) == locationName)
-          val children = buildTree(level + 1, locs, leafNodes)
-          val happy = children.exists(_.happy)
-          val investigate = children.exists(_.investigate)
-          LocationChangesTreeNode(
-            locationName = locationName,
-            routeChanges = ChangeSetElementRefs(),
-            nodeChanges = ChangeSetElementRefs(),
-            children = children,
-            happy = happy,
-            investigate = investigate
-          )
-      }
-    }
+  private def collectOrphanNodeChanges(context: ChangeSetContext): Seq[NodeChange] = {
+    val networkChangeReferencedNodeIds = context.changes.networkInfoChanges.flatMap(_.nodeDiffs.ids)
+    val routeChangeReferencedNodeIds = context.changes.routeChanges.flatMap(_.diffs.nodeDiffs.map(_.referencedNodeIds))
+    val referencedNodeIds = networkChangeReferencedNodeIds ++ routeChangeReferencedNodeIds
+    context.changes.nodeChanges.filter(nodeChange => !referencedNodeIds.contains(nodeChange.id))
   }
-
-  private def routeIdsInNetworkChanges(networkChanges: NetworkChanges): Seq[Long] = {
-    routeIdsIn(networkChanges.creates) ++
-      routeIdsIn(networkChanges.updates) ++
-      routeIdsIn(networkChanges.deletes)
-  }
-
-  private def nodeIdsInNetworkChanges(networkChanges: NetworkChanges): Seq[Long] = {
-    nodeIdsIn(networkChanges.creates) ++
-      nodeIdsIn(networkChanges.updates) ++
-      nodeIdsIn(networkChanges.deletes)
-  }
-
-  private def routeIdsIn(changeSetNetworks: Seq[ChangeSetNetwork]): Seq[Long] = {
-    changeSetNetworks.flatMap(changeSetNetwork => idsIn(changeSetNetwork.routeChanges))
-  }
-
-  private def nodeIdsIn(changeSetNetworks: Seq[ChangeSetNetwork]): Seq[Long] = {
-    changeSetNetworks.flatMap(changeSetNetwork => idsIn(changeSetNetwork.nodeChanges))
-  }
-
-  private def idsIn(changeSetElementRefs: ChangeSetElementRefs): Seq[Long] = {
-    changeSetElementRefs.removed.map(_.id) ++
-      changeSetElementRefs.added.map(_.id) ++
-      changeSetElementRefs.updated.map(_.id)
-  }
-
 
   private def toRef(nodeChange: NodeChange): ChangeSetElementRef = {
     ChangeSetElementRef(
@@ -322,5 +270,12 @@ class ChangeSetSummaryBuilder() {
       investigate = routeChange.locationInvestigate
     )
   }
-}
 
+  private def isRouteInvestigate(context: ChangeSetContext, routeId: Long): Boolean = {
+    context.changes.routeChanges.filter(routeChange => routeChange.id == routeId).exists(_.investigate)
+  }
+
+  private def isNodeInvestigate(context: ChangeSetContext, nodeId: Long): Boolean = {
+    context.changes.nodeChanges.filter(nodeChange => nodeChange.id == nodeId).exists(_.investigate)
+  }
+}

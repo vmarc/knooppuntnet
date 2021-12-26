@@ -12,33 +12,33 @@ object ChangeSetSummary {
     timestampFrom: Timestamp,
     timestampUntil: Timestamp,
     networkChanges: NetworkChanges,
-    routeChanges: Seq[ChangeSetSubsetElementRefs],
-    nodeChanges: Seq[ChangeSetSubsetElementRefs],
-    trees: Seq[LocationChangesTree]
+    orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
+    orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
+    locationChanges: Seq[LocationChanges]
   ): ChangeSetSummary = {
 
-    val subsets = (networkChanges.subsets ++ routeChanges.map(_.subset) ++ nodeChanges.map(_.subset)).toSeq.sorted
-    val happy = networkChanges.happy || routeChanges.exists(_.happy) || nodeChanges.exists(_.happy)
-    val investigate = networkChanges.investigate || routeChanges.exists(_.investigate) || nodeChanges.exists(_.investigate)
+    val subsets = (networkChanges.subsets ++ orphanRouteChanges.map(_.subset) ++ orphanNodeChanges.map(_.subset)).toSeq.sorted
+    val happy = networkChanges.happy || orphanRouteChanges.exists(_.happy) || orphanNodeChanges.exists(_.happy)
+    val investigate = networkChanges.investigate || orphanRouteChanges.exists(_.investigate) || orphanNodeChanges.exists(_.investigate)
 
     val subsetAnalyses = subsets.map { subset =>
 
       val happy = networkChanges.creates.filter(_.subsets.contains(subset)).exists(_.happy) ||
         networkChanges.updates.filter(_.subsets.contains(subset)).exists(_.happy) ||
         networkChanges.deletes.filter(_.subsets.contains(subset)).exists(_.happy) ||
-        routeChanges.filter(_.subset == subset).exists(_.happy) ||
-        nodeChanges.filter(_.subset == subset).exists(_.happy)
+        orphanRouteChanges.filter(_.subset == subset).exists(_.happy) ||
+        orphanNodeChanges.filter(_.subset == subset).exists(_.happy)
 
       val investigate = networkChanges.creates.filter(_.subsets.contains(subset)).exists(_.investigate) ||
         networkChanges.updates.filter(_.subsets.contains(subset)).exists(_.investigate) ||
         networkChanges.deletes.filter(_.subsets.contains(subset)).exists(_.investigate) ||
-        routeChanges.filter(_.subset == subset).exists(_.investigate) ||
-        nodeChanges.filter(_.subset == subset).exists(_.investigate)
+        orphanRouteChanges.filter(_.subset == subset).exists(_.investigate) ||
+        orphanNodeChanges.filter(_.subset == subset).exists(_.investigate)
 
       ChangeSetSubsetAnalysis(subset, happy, investigate)
     }
 
-    val locations = locationsIn(trees)
+    val locations = locationChanges.flatMap(_.locationNames).distinct.sorted
 
     ChangeSetSummary(
       key.toShortId,
@@ -47,27 +47,15 @@ object ChangeSetSummary {
       timestampFrom,
       timestampUntil,
       networkChanges,
-      routeChanges,
-      nodeChanges,
+      orphanRouteChanges,
+      orphanNodeChanges,
       subsetAnalyses,
-      trees,
+      locationChanges,
       locations,
       happy,
       investigate,
       happy || investigate
     )
-  }
-
-  private def locationsIn(trees: Seq[LocationChangesTree]): Seq[String] = {
-    trees.flatMap { tree =>
-      locationsInTreeNodes(tree.children) :+ tree.locationName
-    }.distinct.sorted
-  }
-
-  private def locationsInTreeNodes(treeNodes: Seq[LocationChangesTreeNode]): Seq[String] = {
-    treeNodes.flatMap { treeNode =>
-      locationsInTreeNodes(treeNode.children) :+ treeNode.locationName
-    }
   }
 }
 
@@ -79,11 +67,11 @@ case class ChangeSetSummary(
   timestampUntil: Timestamp,
   // network oriented analysis results:
   networkChanges: NetworkChanges,
-  routeChanges: Seq[ChangeSetSubsetElementRefs], // orphan route changes
-  nodeChanges: Seq[ChangeSetSubsetElementRefs], // orphan node changes
+  orphanRouteChanges: Seq[ChangeSetSubsetElementRefs],
+  orphanNodeChanges: Seq[ChangeSetSubsetElementRefs],
   subsetAnalyses: Seq[ChangeSetSubsetAnalysis],
   // location oriented analysis results:
-  trees: Seq[LocationChangesTree],
+  locationChanges: Seq[LocationChanges],
   locations: Seq[String],
   // overall analysis results
   happy: Boolean,

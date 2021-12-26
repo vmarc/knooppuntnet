@@ -3,7 +3,7 @@
 import { ChangeKey } from './changes/details/change-key';
 import { ChangeSetSubsetAnalysis } from './change-set-subset-analysis';
 import { ChangeSetSubsetElementRefs } from './change-set-subset-element-refs';
-import { LocationChangesTree } from './location-changes-tree';
+import { LocationChanges } from './location-changes';
 import { NetworkChanges } from './network-changes';
 import { Subset } from '../custom/subset';
 import { Timestamp } from '../custom/timestamp';
@@ -15,10 +15,10 @@ export interface ChangeSetSummary {
   readonly timestampFrom: Timestamp;
   readonly timestampUntil: Timestamp;
   readonly networkChanges: NetworkChanges;
-  readonly routeChanges: ChangeSetSubsetElementRefs[];
-  readonly nodeChanges: ChangeSetSubsetElementRefs[];
+  readonly orphanRouteChanges: ChangeSetSubsetElementRefs[];
+  readonly orphanNodeChanges: ChangeSetSubsetElementRefs[];
   readonly subsetAnalyses: ChangeSetSubsetAnalysis[];
-  readonly trees: LocationChangesTree[];
+  readonly locationChanges: LocationChanges[];
   readonly locations: string[];
   readonly happy: boolean;
   readonly investigate: boolean;

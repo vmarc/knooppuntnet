@@ -1,5 +1,6 @@
 import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ChangesPage } from '@api/common/changes-page';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
@@ -92,7 +93,9 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
     private changesService: ChangesService,
     private pageService: PageService,
     private userService: UserService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   get parameters() {
@@ -159,6 +162,12 @@ export class ChangesPageComponent implements OnInit, OnDestroy {
                     this.store.dispatch(
                       actionPreferencesImpact({ impact: parameters.impact })
                     );
+
+                    this.router.navigate([], {
+                      relativeTo: this.route,
+                      queryParams: parameters,
+                    });
+
                     this.parameters = parameters;
                   }
                 )

@@ -58,8 +58,7 @@ object ChangeSetPageExample {
       knownElements = KnownElements(
         nodeIds = Set(nodeId1, nodeId2), // no link in page for any other node
         routeIds = Set(routeId1, routeId2) // no link in page for any other route
-      ),
-      Seq.empty
+      )
     )
   }
 
@@ -301,7 +300,7 @@ object ChangeSetPageExample {
       //            )
       //          )
       //        ),
-      routeChanges = Seq(
+      orphanRouteChanges = Seq(
         ChangeSetSubsetElementRefs(
           subset = Subset.nlHiking,
           elementRefs = ChangeSetElementRefs(
@@ -338,7 +337,7 @@ object ChangeSetPageExample {
           )
         )
       ),
-      nodeChanges = Seq(
+      orphanNodeChanges = Seq(
         ChangeSetSubsetElementRefs(
           subset = Subset.beBicycle,
           elementRefs = ChangeSetElementRefs(
@@ -388,7 +387,7 @@ object ChangeSetPageExample {
         )
       ),
       subsetAnalyses = Seq.empty,
-      trees = Seq.empty,
+      locationChanges = Seq.empty,
       locations = Seq.empty,
       happy = true,
       investigate = true,
