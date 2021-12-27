@@ -16,6 +16,7 @@ import kpn.api.common.location.Location
 import kpn.api.custom.ChangeType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.core.util.NaturalSorting
 
 class ChangeSetSummaryBuilder() {
 
@@ -49,35 +50,17 @@ class ChangeSetSummaryBuilder() {
     NetworkChanges(creates, updates, deletes)
   }
 
-  private def toChangeSetNetworks(context: ChangeSetContext, networkChanges: Seq[NetworkInfoChange], changeType: ChangeType): Seq[ChangeSetNetwork] = {
+  private def toChangeSetNetworks(context: ChangeSetContext, networkInfoChanges: Seq[NetworkInfoChange], changeType: ChangeType): Seq[ChangeSetNetwork] = {
 
-    val changeTypeNetworkChanges = networkChanges.filter(_.changeType == changeType)
+    val changeTypeNetworkChanges = networkInfoChanges.filter(_.changeType == changeType)
 
     changeTypeNetworkChanges.map { networkChange =>
 
-      val routeChanges = ChangeSetElementRefs(
-        removed = networkChange.routeDiffs.removed.map { ref =>
-          toRef(ref, happy = false, investigate = true)
-        },
-        added = networkChange.routeDiffs.added.map { ref =>
-          toRef(ref, happy = true, investigate = isRouteInvestigate(context, ref.id))
-        },
-        updated = networkChange.routeDiffs.updated.map { ref =>
-          toRef(ref, happy = false, investigate = isRouteInvestigate(context, ref.id))
-        }
-      )
+      val routeChanges = routeChangesIn(context, networkChange)
+      val nodeChanges = nodeChangesIn(context, networkChange)
 
-      val nodeChanges = ChangeSetElementRefs(
-        removed = networkChange.nodeDiffs.removed.map { ref =>
-          toRef(ref, happy = false, investigate = true)
-        },
-        added = networkChange.nodeDiffs.added.map { ref =>
-          toRef(ref, happy = true, investigate = isNodeInvestigate(context, ref.id))
-        },
-        updated = networkChange.nodeDiffs.updated.map { ref =>
-          toRef(ref, happy = false, investigate = isNodeInvestigate(context, ref.id))
-        }
-      )
+      val happy = networkChange.happy || routeChanges.happy || nodeChanges.happy
+      val investigate = networkChange.investigate || routeChanges.investigate || nodeChanges.investigate
 
       ChangeSetNetwork(
         networkChange.country,
@@ -86,8 +69,8 @@ class ChangeSetSummaryBuilder() {
         networkChange.networkName,
         routeChanges,
         nodeChanges,
-        networkChange.happy,
-        networkChange.investigate
+        happy,
+        investigate
       )
     }
   }
@@ -253,6 +236,57 @@ class ChangeSetSummaryBuilder() {
     context.changes.nodeChanges.filter(nodeChange => !referencedNodeIds.contains(nodeChange.id))
   }
 
+
+  private def routeChangesIn(context: ChangeSetContext, networkInfoChange: NetworkInfoChange): ChangeSetElementRefs = {
+
+    val removed = networkInfoChange.routeDiffs.removed.map { ref =>
+      toRef(ref, happy = false, investigate = true)
+    }
+
+    val added = networkInfoChange.routeDiffs.added.map { ref =>
+      toRef(ref, happy = true, investigate = isRouteInvestigate(context, ref.id))
+    }
+
+    val updated = networkInfoChange.routeDiffs.updated.map { ref =>
+      toRef(
+        ref,
+        happy = isRouteHappy(context, ref.id),
+        investigate = isRouteInvestigate(context, ref.id)
+      )
+    }
+
+    ChangeSetElementRefs(
+      removed = NaturalSorting.sortBy(removed)(_.name),
+      added = NaturalSorting.sortBy(added)(_.name),
+      updated = NaturalSorting.sortBy(updated)(_.name)
+    )
+  }
+
+  private def nodeChangesIn(context: ChangeSetContext, networkInfoChange: NetworkInfoChange): ChangeSetElementRefs = {
+
+    val removed = networkInfoChange.nodeDiffs.removed.map { ref =>
+      toRef(ref, happy = false, investigate = true)
+    }
+
+    val added = networkInfoChange.nodeDiffs.added.map { ref =>
+      toRef(ref, happy = true, investigate = isNodeInvestigate(context, ref.id))
+    }
+
+    val updated = networkInfoChange.nodeDiffs.updated.map { ref =>
+      toRef(
+        ref,
+        happy = isNodeHappy(context, ref.id),
+        investigate = isNodeInvestigate(context, ref.id)
+      )
+    }
+
+    ChangeSetElementRefs(
+      removed = NaturalSorting.sortBy(removed)(_.name),
+      added = NaturalSorting.sortBy(added)(_.name),
+      updated = NaturalSorting.sortBy(updated)(_.name)
+    )
+  }
+
   private def toRef(nodeChange: NodeChange): ChangeSetElementRef = {
     ChangeSetElementRef(
       id = nodeChange.key.elementId,
@@ -271,8 +305,16 @@ class ChangeSetSummaryBuilder() {
     )
   }
 
+  private def isRouteHappy(context: ChangeSetContext, routeId: Long): Boolean = {
+    context.changes.routeChanges.filter(routeChange => routeChange.id == routeId).exists(_.happy)
+  }
+
   private def isRouteInvestigate(context: ChangeSetContext, routeId: Long): Boolean = {
     context.changes.routeChanges.filter(routeChange => routeChange.id == routeId).exists(_.investigate)
+  }
+
+  private def isNodeHappy(context: ChangeSetContext, nodeId: Long): Boolean = {
+    context.changes.nodeChanges.filter(nodeChange => nodeChange.id == nodeId).exists(_.happy)
   }
 
   private def isNodeInvestigate(context: ChangeSetContext, nodeId: Long): Boolean = {
