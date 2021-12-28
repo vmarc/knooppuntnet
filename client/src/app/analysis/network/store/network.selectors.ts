@@ -35,3 +35,13 @@ export const selectNetworkChangesPage = createSelector(
   selectNetworkState,
   (state: NetworkState) => state.changesPage
 );
+
+export const selectNetworkChangesParameters = createSelector(
+  selectNetworkState,
+  (state: NetworkState) => state.changesParameters
+);
+
+export const selectNetworkChangesFilterOptions = createSelector(
+  selectNetworkState,
+  (state: NetworkState) => state.changesPage?.result?.filterOptions
+);

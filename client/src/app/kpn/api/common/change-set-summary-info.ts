@@ -6,7 +6,7 @@ import { ChangeSetSummaryNetworkInfo } from './change-set-summary-network-info';
 import { Subset } from '../custom/subset';
 
 export interface ChangeSetSummaryInfo {
-  readonly _id: string;
+  readonly rowIndex: number;
   readonly key: ChangeKey;
   readonly comment: string;
   readonly subsets: Subset[];

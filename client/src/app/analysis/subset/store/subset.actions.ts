@@ -7,6 +7,7 @@ import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-
 import { ApiResponse } from '@api/custom/api-response';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
+import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionSubsetNetworksPageInit = createAction(
   '[SubsetNetworksPage] Init'
@@ -56,4 +57,14 @@ export const actionSubsetChangesPageInit = createAction(
 export const actionSubsetChangesPageLoaded = createAction(
   '[SubsetChangesPage] Loaded',
   props<{ response: ApiResponse<SubsetChangesPage> }>()
+);
+
+export const actionSubsetChangesPageIndex = createAction(
+  '[SubsetChangesPage] Page index',
+  props<{ pageIndex: number }>()
+);
+
+export const actionSubsetChangesFilterOption = createAction(
+  '[SubsetChangesPage] Filter option',
+  props<{ option: ChangeOption }>()
 );

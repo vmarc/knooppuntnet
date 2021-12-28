@@ -65,7 +65,6 @@ import { RouteChangesService } from './route-changes.service';
             ></kpn-situation-on>
           </p>
           <kpn-changes
-            [(parameters)]="parameters"
             [totalCount]="page.totalCount"
             [changeCount]="page.changes.length"
           >

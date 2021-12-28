@@ -9,6 +9,7 @@ import { NetworkType } from '../../../custom/network-type';
 import { RefDiffs } from '../../diff/ref-diffs';
 
 export interface NetworkChangeInfo {
+  readonly rowIndex: number;
   readonly comment: string;
   readonly key: ChangeKey;
   readonly changeType: ChangeType;

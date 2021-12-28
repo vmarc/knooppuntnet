@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
 import { SubsetInfo } from '@api/common/subset/subset-info';
@@ -17,6 +18,7 @@ export const initialState: SubsetState = {
   orphanRoutesPage: null,
   mapPage: null,
   changesPage: null,
+  changesParameters: null,
 };
 
 export interface SubsetState {
@@ -28,6 +30,7 @@ export interface SubsetState {
   orphanRoutesPage: ApiResponse<SubsetOrphanRoutesPage>;
   mapPage: ApiResponse<SubsetMapPage>;
   changesPage: ApiResponse<SubsetChangesPage>;
+  changesParameters: ChangesParameters;
 }
 
 export const subsetFeatureKey = 'subset';

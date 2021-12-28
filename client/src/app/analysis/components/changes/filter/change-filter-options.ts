@@ -92,9 +92,9 @@ export class ChangeFilterOptions {
   private static updatedParameters(
     parameters: ChangesParameters,
     impact: boolean,
-    year: string = null,
-    month: string = null,
-    day: string = null
+    year: number = null,
+    month: number = null,
+    day: number = null
   ): ChangesParameters {
     return {
       year,
@@ -119,7 +119,7 @@ export class ChangeFilterOptions {
     );
 
     const all: ChangesFilterPeriod = {
-      name: 'All',
+      name: 0,
       totalCount,
       impactedCount,
       current: false,

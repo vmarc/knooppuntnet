@@ -30,6 +30,7 @@ import { FactDiffsComponent } from './changes/fact-diffs.component';
 import { ChangeFilterPeriodComponent } from './changes/filter/change-filter-period.component';
 import { ChangeFilterComponent } from './changes/filter/change-filter.component';
 import { ChangesSidebarComponent } from './changes/filter/changes-sidebar.component';
+import { MonthComponent } from './changes/filter/month.component';
 import { NodeChangeDetailComponent } from './changes/node/node-change-detail.component';
 import { NodeChangeMovedComponent } from './changes/node/node-change-moved.component';
 import { RouteChangeDetailComponent } from './changes/route/route-change-detail.component';
@@ -115,6 +116,7 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     RouteInvestigateIndicatorDialogComponent,
     RouteProposedIndicatorComponent,
     RouteProposedIndicatorDialogComponent,
+    MonthComponent,
   ],
   exports: [
     ChangeHeaderComponent,

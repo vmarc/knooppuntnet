@@ -17,7 +17,6 @@ import { FactModule } from '../fact/fact.module';
 import { AnalysisModeModule } from '../mode/mode.module';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
-import { SubsetChangesService } from './changes/subset-changes.service';
 import { SubsetPageBreadcrumbComponent } from './components/subset-page-breadcrumb.component';
 import { SubsetPageHeaderBlockComponent } from './components/subset-page-header-block.component';
 import { SubsetPageMenuComponent } from './components/subset-page-menu.component';
@@ -91,10 +90,6 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     SubsetSidebarComponent,
     SubsetAnalysisModeComponent,
   ],
-  providers: [
-    SubsetOrphanNodesService,
-    SubsetOrphanRoutesService,
-    SubsetChangesService,
-  ],
+  providers: [SubsetOrphanNodesService, SubsetOrphanRoutesService],
 })
 export class SubsetModule {}

@@ -16,17 +16,36 @@ import { actionPreferencesItemsPerPage } from './preferences.actions';
 import { actionPreferencesNetworkType } from './preferences.actions';
 import { actionPreferencesInstructions } from './preferences.actions';
 import { actionPreferencesExtraLayers } from './preferences.actions';
+import { AnalysisMode } from './preferences.state';
 import { initialState } from './preferences.state';
 
 export const preferencesReducer = createReducer(
   initialState,
   on(routerNavigatedAction, (state, action) => {
-    const params = Util.paramsIn(action.payload.routerState.root);
-    const networkType = params.get('networkType');
-    if (networkType) {
-      return { ...state, networkType };
+    if (action.payload.routerState.url.includes('/analysis/changes')) {
+      const queryParams = action.payload.routerState.root.queryParams;
+      const itemsPerPage = queryParams['itemsPerPage'];
+      const impact = queryParams['impact'];
+      let analysisMode: AnalysisMode;
+      if ('network' === queryParams['network']) {
+        analysisMode = AnalysisMode.network;
+      } else if ('location' === queryParams['location']) {
+        analysisMode = AnalysisMode.location;
+      }
+      return {
+        ...state,
+        analysisMode: analysisMode ?? state.analysisMode,
+        itemsPerPage: itemsPerPage ?? state.itemsPerPage,
+        impact: impact ?? state.impact,
+      };
+    } else {
+      const params = Util.paramsIn(action.payload.routerState.root);
+      const networkType = params.get('networkType');
+      if (networkType) {
+        return { ...state, networkType };
+      }
+      return state;
     }
-    return state;
   }),
   on(actionPreferencesAnalysisMode, (state, action) => ({
     ...state,

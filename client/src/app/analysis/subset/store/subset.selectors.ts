@@ -45,3 +45,13 @@ export const selectSubsetChangesPage = createSelector(
   selectSubsetState,
   (state: SubsetState) => state.changesPage
 );
+
+export const selectSubsetChangesFilterOptions = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.changesPage?.result?.filterOptions
+);
+
+export const selectSubsetChangesParameters = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.changesParameters
+);

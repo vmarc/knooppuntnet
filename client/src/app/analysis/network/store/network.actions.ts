@@ -7,6 +7,7 @@ import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
+import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionNetworkLink = createAction(
   '[Network] Link',
@@ -63,4 +64,14 @@ export const actionNetworkChangesPageInit = createAction(
 export const actionNetworkChangesPageLoaded = createAction(
   '[NetworkChangesPage] Loaded',
   props<{ response: ApiResponse<NetworkChangesPage> }>()
+);
+
+export const actionNetworkChangesPageIndex = createAction(
+  '[NetworkChangesPage] Page index',
+  props<{ pageIndex: number }>()
+);
+
+export const actionNetworkChangesFilterOption = createAction(
+  '[NetworkChangesPage] Filter option',
+  props<{ option: ChangeOption }>()
 );

@@ -1,26 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { SubsetInfo } from '@api/common/subset/subset-info';
-import { ApiResponse } from '@api/custom/api-response';
 import { Subset } from '@api/custom/subset';
 import { Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { first } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { PageService } from '../../../components/shared/page.service';
-import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
-import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
-import { Subsets } from '../../../kpn/common/subsets';
 import { SubsetCacheService } from '../../../services/subset-cache.service';
 import { UserService } from '../../../services/user.service';
-import { ChangeFilterOptions } from '../../components/changes/filter/change-filter-options';
-import { SubsetChangesService } from './subset-changes.service';
+import { actionSubsetChangesPageInit } from '../store/subset.actions';
+import { selectSubsetChangesPage } from '../store/subset.selectors';
 
 @Component({
   selector: 'kpn-subset-changes-page',
@@ -41,21 +31,20 @@ import { SubsetChangesService } from './subset-changes.service';
         .
       </div>
 
-      <div *ngIf="response?.result">
+      <div *ngIf="response$ | async as response">
         <p>
           <kpn-situation-on
             [timestamp]="response.situationOn"
           ></kpn-situation-on>
         </p>
         <kpn-changes
-          [(parameters)]="parameters"
-          [totalCount]="page.changeCount"
-          [changeCount]="page.changes.length"
+          [totalCount]="response.result.changeCount"
+          [changeCount]="response.result.changes.length"
         >
           <kpn-items>
             <kpn-item
-              *ngFor="let changeSet of page.changes; let i = index"
-              [index]="rowIndex(i)"
+              *ngFor="let changeSet of response.result.changes; let i = index"
+              [index]="changeSet.rowIndex"
             >
               <kpn-change-network-analysis-summary
                 *ngIf="changeSet.network"
@@ -75,80 +64,37 @@ import { SubsetChangesService } from './subset-changes.service';
 export class SubsetChangesPageComponent implements OnInit {
   subset: Subset;
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
-  response: ApiResponse<SubsetChangesPage>;
-  private _parameters: ChangesParameters;
+
+  response$ = this.store.select(selectSubsetChangesPage);
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private appService: AppService,
-    private subsetChangesService: SubsetChangesService,
     private pageService: PageService,
     private userService: UserService,
     private subsetCacheService: SubsetCacheService,
     private store: Store<AppState>
   ) {}
 
-  get parameters() {
-    return this._parameters;
-  }
-
-  set parameters(parameters: ChangesParameters) {
-    this._parameters = parameters;
-    if (this.isLoggedIn()) {
-      this.reload();
-    } else {
-      this.subsetChangesService.resetFilterOptions();
-    }
-  }
-
-  get page(): SubsetChangesPage {
-    return this.response.result;
-  }
-
   ngOnInit(): void {
-    combineLatest([
-      this.activatedRoute.params,
-      this.store.select(selectPreferencesItemsPerPage),
-      this.store.select(selectPreferencesImpact),
-    ])
-      .pipe(first())
-      .subscribe(([params, itemsPerPage, impact]) => {
-        this.subset = Util.subsetInRoute(params);
-        const initialParameters = Util.defaultChangesParameters();
-        this.parameters = { ...initialParameters, impact, itemsPerPage };
-      });
-  }
+    this.store.dispatch(actionSubsetChangesPageInit());
 
-  rowIndex(index: number): number {
-    return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
+    //   .subscribe(([params, itemsPerPage, impact]) => {
+    //     this.subset = Util.subsetInRoute(params);
+    //     const initialParameters = Util.defaultChangesParameters();
+    //     this.parameters = { ...initialParameters, impact, itemsPerPage };
+    //   });
   }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }
 
-  private reload() {
-    this.appService
-      .subsetChanges(this.subset, this.parameters)
-      .subscribe((response) => {
-        this.response = response;
-        this.subsetCacheService.setSubsetInfo(
-          Subsets.key(this.subset),
-          response.result.subsetInfo
-        );
-        this.subsetInfo$.next(response.result.subsetInfo);
-        this.subsetChangesService.setFilterOptions(
-          ChangeFilterOptions.from(
-            this.parameters,
-            this.response.result.filter,
-            (parameters: ChangesParameters) => {
-              this.store.dispatch(
-                actionPreferencesImpact({ impact: parameters.impact })
-              );
-              this.parameters = parameters;
-            }
-          )
-        );
-      });
-  }
+  //     .subscribe((response) => {
+  //       this.response$ = response;
+  //       this.subsetCacheService.setSubsetInfo(
+  //         Subsets.key(this.subset),
+  //         response.result.subsetInfo
+  //       );
+  //       this.subsetInfo$.next(response.result.subsetInfo);
 }
