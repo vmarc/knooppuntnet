@@ -1,5 +1,6 @@
 package kpn.core.common
 
+import kpn.api.common.TimeKey
 import kpn.api.custom.Timestamp
 
 import java.time.Instant
@@ -43,8 +44,16 @@ object TimestampUtil {
     )
   }
 
-  def toKey(timestamp: Timestamp): String = {
-    s"${timestamp.yearString}${timestamp.monthString}${timestamp.dayString}${timestamp.hourString}${timestamp.minuteString}${timestamp.secondString}"
+  def toKey(timestamp: Timestamp): TimeKey = {
+    val localTimestamp = toLocal(timestamp)
+    TimeKey(
+      localTimestamp.year,
+      localTimestamp.month,
+      localTimestamp.day,
+      localTimestamp.hour,
+      localTimestamp.minute,
+      localTimestamp.second
+    )
   }
 
   def relativeSeconds(timestamp: Timestamp, seconds: Int): Timestamp = {

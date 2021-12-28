@@ -2,6 +2,7 @@ package kpn.api.common.changes.details
 
 import kpn.api.common.TimeKey
 import kpn.api.custom.Timestamp
+import kpn.core.common.TimestampUtil
 
 object ChangeKey {
 
@@ -11,12 +12,13 @@ object ChangeKey {
     changeSetId: Long,
     elementId: Long
   ): ChangeKey = {
+    val key = TimestampUtil.toKey(timestamp)
     ChangeKey(
       replicationNumber,
       timestamp,
       changeSetId,
       elementId,
-      timestamp.toKey
+      key
     )
   }
 }
@@ -29,5 +31,6 @@ case class ChangeKey(
   time: TimeKey
 ) {
   def toId: String = s"$changeSetId:$replicationNumber:$elementId"
+
   def toShortId: String = s"$changeSetId:$replicationNumber"
 }
