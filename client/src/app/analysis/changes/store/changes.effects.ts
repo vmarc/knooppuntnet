@@ -44,7 +44,7 @@ export class ChangesEffects {
       ),
       map(
         ([
-          action,
+          {},
           preferencesAnalysisMode,
           preferencesImpact,
           preferencesItemsPerPage,
@@ -86,7 +86,7 @@ export class ChangesEffects {
     )
   );
 
-  changesPageUpdate$ = createEffect(() =>
+  changesPageUpdate = createEffect(() =>
     this.actions$.pipe(
       ofType(
         actionChangesPageIndex,
@@ -97,12 +97,12 @@ export class ChangesEffects {
       ),
       withLatestFrom(this.store.select(selectChangesPage)),
       // continue only if we are currently on the changes page!!
-      filter(([action, response]) => !!response),
+      filter(([{}, response]) => !!response),
       withLatestFrom(
         this.store.select(selectChangesAnalysisMode),
         this.store.select(selectChangesParameters)
       ),
-      mergeMap(([[action, response], analysisMode, changesParameters]) => {
+      mergeMap(([[{}, {}], analysisMode, changesParameters]) => {
         const promise = this.navigate(analysisMode, changesParameters);
         return from(promise).pipe(map(actionChangesPageInit));
       })

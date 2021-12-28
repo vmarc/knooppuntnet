@@ -1,3 +1,5 @@
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
@@ -8,8 +10,6 @@ import { AppState } from '../../../core/core.state';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { Subscriptions } from '../../../util/Subscriptions';
-import { actionChangesPageIndex } from '../../changes/store/changes.actions';
-import { selectChangesPageIndex } from '../../changes/store/changes.selectors';
 
 @Component({
   selector: 'kpn-changes',
@@ -24,7 +24,7 @@ import { selectChangesPageIndex } from '../../changes/store/changes.selectors';
 
     <kpn-paginator
       (page)="pageChanged($event)"
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex"
       [length]="totalCount"
       [showPageSizeSelection]="true"
     >
@@ -46,9 +46,10 @@ import { selectChangesPageIndex } from '../../changes/store/changes.selectors';
 export class ChangesComponent implements OnDestroy {
   @Input() changeCount: number;
   @Input() totalCount: number;
+  @Input() pageIndex: number;
+  @Output() pageIndexChanged = new EventEmitter<number>();
 
   readonly impact$ = this.store.select(selectPreferencesImpact);
-  readonly pageIndex$ = this.store.select(selectChangesPageIndex);
 
   private readonly subscriptions = new Subscriptions();
 
@@ -64,6 +65,6 @@ export class ChangesComponent implements OnDestroy {
 
   pageChanged(event: PageEvent) {
     window.scroll(0, 0);
-    this.store.dispatch(actionChangesPageIndex({ pageIndex: event.pageIndex }));
+    this.pageIndexChanged.emit(event.pageIndex);
   }
 }

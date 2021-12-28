@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkChangesPage
 import kpn.core.doc.NetworkInfoDoc
@@ -57,22 +58,7 @@ class NetworkChangesPageBuilder(
     else {
       Seq.empty
     }
-
-    val changeCount = {
-      if (filterOptions.nonEmpty) {
-        val filterOption = filterOptions.find(_.current).getOrElse(filterOptions.head)
-        if (parameters.impact) {
-          filterOption.impactedCount
-        }
-        else {
-          filterOption.totalCount
-        }
-      }
-      else {
-        0L
-      }
-    }
-
+    val changeCount = ChangesFilterOption.changesCount(filterOptions, parameters)
     val changeSetIds = changes.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds) // TODO include in aggregate !!!
     val networkUpdateInfos = changes.zipWithIndex.map { case (change, index) =>

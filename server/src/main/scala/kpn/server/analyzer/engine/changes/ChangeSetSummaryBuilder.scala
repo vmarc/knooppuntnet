@@ -236,7 +236,6 @@ class ChangeSetSummaryBuilder() {
     context.changes.nodeChanges.filter(nodeChange => !referencedNodeIds.contains(nodeChange.id))
   }
 
-
   private def routeChangesIn(context: ChangeSetContext, networkInfoChange: NetworkInfoChange): ChangeSetElementRefs = {
 
     val removed = networkInfoChange.routeDiffs.removed.map { ref =>

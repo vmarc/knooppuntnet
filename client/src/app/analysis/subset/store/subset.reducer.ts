@@ -7,8 +7,10 @@ import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
 import { Util } from '../../../components/shared/util';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionSubsetChangesPageIndex } from './subset.actions';
 import { actionSubsetChangesFilterOption } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
 import { actionSubsetFactsPageLoaded } from './subset.actions';
@@ -88,6 +90,21 @@ export const subsetReducer = createReducer(
       month: action.option.month,
       day: action.option.day,
       impact: action.option.impact,
+      pageIndex: 0,
+    },
+  })),
+  on(actionSubsetChangesPageIndex, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      pageIndex: action.pageIndex,
+    },
+  })),
+  on(actionPreferencesImpact, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      impact: action.impact,
       pageIndex: 0,
     },
   }))

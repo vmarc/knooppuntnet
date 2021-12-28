@@ -43,7 +43,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
-      mergeMap(([action, networkId]) =>
+      mergeMap(([{}, networkId]) =>
         this.appService
           .networkDetails(+networkId)
           .pipe(map((response) => actionNetworkDetailsPageLoaded({ response })))
@@ -55,7 +55,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkNodesPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
-      mergeMap(([action, networkId]) =>
+      mergeMap(([{}, networkId]) =>
         this.appService
           .networkNodes(+networkId)
           .pipe(map((response) => actionNetworkNodesPageLoaded({ response })))
@@ -67,7 +67,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
-      mergeMap(([action, networkId]) =>
+      mergeMap(([{}, networkId]) =>
         this.appService
           .networkRoutes(+networkId)
           .pipe(map((response) => actionNetworkRoutesPageLoaded({ response })))
@@ -79,7 +79,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkFactsPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
-      mergeMap(([action, networkId]) =>
+      mergeMap(([{}, networkId]) =>
         this.appService
           .networkFacts(+networkId)
           .pipe(map((response) => actionNetworkFactsPageLoaded({ response })))
@@ -91,7 +91,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkMapPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
-      mergeMap(([action, networkId]) =>
+      mergeMap(([{}, networkId]) =>
         this.appService
           .networkMap(+networkId)
           .pipe(map((response) => actionNetworkMapPageLoaded({ response })))
@@ -110,7 +110,7 @@ export class NetworkEffects {
       ),
       map(
         ([
-          action,
+          {},
           networkId,
           preferencesImpact,
           preferencesItemsPerPage,
@@ -152,9 +152,9 @@ export class NetworkEffects {
       ),
       withLatestFrom(this.store.select(selectNetworkChangesPage)),
       // continue only if we are currently on the changes page!!
-      filter(([action, response]) => !!response),
+      filter(([{}, response]) => !!response),
       withLatestFrom(this.store.select(selectNetworkChangesParameters)),
-      mergeMap(([[action, response], changesParameters]) => {
+      mergeMap(([[{}, response], changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(map(actionNetworkChangesPageInit));
       })

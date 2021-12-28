@@ -55,3 +55,8 @@ export const selectSubsetChangesParameters = createSelector(
   selectSubsetState,
   (state: SubsetState) => state.changesParameters
 );
+
+export const selectSubsetChangesPageIndex = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.changesParameters?.pageIndex
+);

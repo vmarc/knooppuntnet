@@ -107,19 +107,18 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
   }
 
   override def changesFilter(
-    subsetOption: Option[Subset],
-    yearOption: Option[Long],
-    monthOption: Option[Long],
-    dayOption: Option[Long]
+    subset: Option[Subset],
+    year: Option[Long],
+    month: Option[Long],
+    day: Option[Long]
   ): Seq[ChangesFilterOption] = {
 
-    val year = yearOption match {
+    val yearInt = year match {
       case None => Time.now.year
       case Some(year) => year.toInt
     }
-    // TODO MONGO does not support subsetOption yet !!!
-    val changeSetCounts = new MongoQueryChangeSetCounts(database).execute(year, monthOption.map(_.toInt))
-    changeSetCounts.toFilterOptions(yearOption, monthOption, dayOption)
+    val changeSetCounts = new MongoQueryChangeSetCounts(database).execute(subset, yearInt, month.map(_.toInt))
+    changeSetCounts.toFilterOptions(year, month, day)
   }
 
   override def subsetChanges(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary] = {

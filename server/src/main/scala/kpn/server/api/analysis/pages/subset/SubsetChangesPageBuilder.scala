@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.EN
 import kpn.api.common.NETWORK
+import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.custom.Subset
@@ -26,21 +27,7 @@ class SubsetChangesPageBuilder(
   ): Option[SubsetChangesPage] = {
     val subsetInfo = subsetRepository.subsetInfo(subset)
     val filterOptions = changeSetRepository.changesFilter(Some(subset), parameters.year, parameters.month, parameters.day)
-    val changeCount = {
-      if (filterOptions.nonEmpty) {
-        val filterOption = filterOptions.find(_.current).getOrElse(filterOptions.head)
-        if (parameters.impact) {
-          filterOption.impactedCount
-        }
-        else {
-          filterOption.totalCount
-        }
-      }
-      else {
-        0L
-      }
-    }
-
+    val changeCount = ChangesFilterOption.changesCount(filterOptions, parameters)
     val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {
       changeSetRepository.subsetChanges(subset, parameters)
     }

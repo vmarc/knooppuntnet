@@ -3,7 +3,7 @@ package kpn.api.common
 import kpn.api.common.changes.filter.ChangesFilterOption
 
 case class ChangesPage(
-  filterOptions: Seq[ChangesFilterOption],
-  changes: Seq[ChangeSetSummaryInfo],
-  changeCount: Long
+  filterOptions: Seq[ChangesFilterOption] = Seq.empty,
+  changes: Seq[ChangeSetSummaryInfo] = Seq.empty,
+  changeCount: Long = 0
 )

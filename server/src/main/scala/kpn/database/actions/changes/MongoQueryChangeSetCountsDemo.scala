@@ -37,7 +37,7 @@ class MongoQueryChangeSetCountsDemo(database: Database) {
 
   def directExecute(year: Int, month: Option[Int]): Unit = {
     val materializedCollectionQuery = new MongoQueryChangeSetCounts(database)
-    val result = materializedCollectionQuery.execute(year, month) // uses the materialized table
+    val result = materializedCollectionQuery.execute(None, year, month) // uses the materialized table
     println("Years")
     result.years.foreach(println)
     println("Months")
