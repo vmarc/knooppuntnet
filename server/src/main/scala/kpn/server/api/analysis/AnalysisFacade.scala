@@ -67,7 +67,7 @@ trait AnalysisFacade {
 
   def subsetMap(user: Option[String], subset: Subset): ApiResponse[SubsetMapPage]
 
-  def subsetChanges(user: Option[String], language: Language, analysisMode: AnalysisMode, subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
+  def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
 
   def networkDetails(user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage]
 

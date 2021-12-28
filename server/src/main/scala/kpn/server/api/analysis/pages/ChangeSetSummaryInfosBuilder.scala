@@ -8,6 +8,7 @@ import kpn.api.common.ChangeSetSummaryNetworkInfo
 import kpn.api.common.LOCATION
 import kpn.api.common.Language
 import kpn.api.common.NETWORK
+import kpn.api.common.changes.filter.ChangesParameters
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetInfoRepository
 import org.springframework.stereotype.Component
@@ -18,13 +19,17 @@ class ChangeSetSummaryInfosBuilder(
   locationService: LocationService
 ) {
 
-  def toChangeSetSummaryInfos(language: Language, analysisMode: AnalysisMode, changeSetSummaries: Seq[ChangeSetSummary]): Seq[ChangeSetSummaryInfo] = {
+  def toChangeSetSummaryInfos(
+    language: Language,
+    analysisMode: AnalysisMode,
+    parameters: ChangesParameters,
+    changeSetSummaries: Seq[ChangeSetSummary]
+  ): Seq[ChangeSetSummaryInfo] = {
     val changeSetIds = changeSetSummaries.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
-    changeSetSummaries.map { summary =>
-      val comment = changeSetInfos.find(s => s.id == summary.key.changeSetId).flatMap { changeSetInfo =>
-        changeSetInfo.tags("comment")
-      }
+    changeSetSummaries.zipWithIndex.map { case (summary, index) =>
+      val rowIndex = parameters.itemsPerPage * parameters.pageIndex + index
+      val comment = changeSetInfos.find(s => s.id == summary.key.changeSetId).flatMap(_.tags("comment"))
       analysisMode match {
         case LOCATION =>
 
@@ -33,17 +38,14 @@ class ChangeSetSummaryInfosBuilder(
               locationNames = locationChanges.locationNames.map(locationName => locationService.name(language, locationName))
             )
           }
+
           ChangeSetSummaryInfo(
-            _id = summary._id,
+            rowIndex = rowIndex,
             key = summary.key,
             comment = comment,
             subsets = summary.subsets,
             network = None,
-            location = Some(
-              ChangeSetSummaryLocationInfo(
-                changes
-              )
-            ),
+            location = Some(ChangeSetSummaryLocationInfo(changes)),
             happy = summary.happy,
             investigate = summary.investigate,
             impact = summary.impact,
@@ -52,7 +54,7 @@ class ChangeSetSummaryInfosBuilder(
         case NETWORK =>
 
           ChangeSetSummaryInfo(
-            _id = summary._id,
+            rowIndex = rowIndex,
             key = summary.key,
             comment = comment,
             subsets = summary.subsets,

@@ -1,9 +1,9 @@
 package kpn.api.common
 
-import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesFilterOption
 
 case class ChangesPage(
-  filter: ChangesFilter,
+  filterOptions: Seq[ChangesFilterOption],
   changes: Seq[ChangeSetSummaryInfo],
   changeCount: Long
 )

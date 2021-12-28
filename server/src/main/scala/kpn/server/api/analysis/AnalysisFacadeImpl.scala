@@ -198,9 +198,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def subsetChanges(user: Option[String], language: Language, analysisMode: AnalysisMode, subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
+  override def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
     api.execute(user, "subset-changes", s"subset=${subset.name}, ${parameters.toDisplayString}") {
-      reply(subsetChangesPageBuilder.build(user, language, analysisMode, subset, parameters))
+      reply(subsetChangesPageBuilder.build(user, subset, parameters))
     }
   }
 

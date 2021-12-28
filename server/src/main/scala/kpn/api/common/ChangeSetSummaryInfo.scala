@@ -4,7 +4,7 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.custom.Subset
 
 case class ChangeSetSummaryInfo(
-  _id: String,
+  rowIndex: Long,
   key: ChangeKey,
   comment: Option[String],
   subsets: Seq[Subset],

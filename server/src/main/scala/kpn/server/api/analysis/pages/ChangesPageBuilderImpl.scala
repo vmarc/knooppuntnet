@@ -14,16 +14,39 @@ class ChangesPageBuilderImpl(
   changeSetSummaryInfosBuilder: ChangeSetSummaryInfosBuilder
 ) extends ChangesPageBuilder {
 
-  override def build(user: Option[String], language: Language, analysisMode: AnalysisMode, parameters: ChangesParameters): ChangesPage = {
-    val changesFilter = changeSetRepository.changesFilter(None, parameters.year, parameters.month, parameters.day)
-    val changeCount = changesFilter.currentItemCount(parameters.impact)
+  override def build(
+    user: Option[String],
+    language: Language,
+    analysisMode: AnalysisMode,
+    parameters: ChangesParameters
+  ): ChangesPage = {
+    val filterOptions = changeSetRepository.changesFilter(None, parameters.year, parameters.month, parameters.day)
+    val changeCount = {
+      if (filterOptions.nonEmpty) {
+        val filterOption = filterOptions.find(_.current).getOrElse(filterOptions.head)
+        if (parameters.impact) {
+          filterOption.impactedCount
+        }
+        else {
+          filterOption.totalCount
+        }
+      }
+      else {
+        0
+      }
+    }
     val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {
       changeSetRepository.changes(parameters)
     }
     else {
       Seq.empty
     }
-    val changeSetSummaryInfos = changeSetSummaryInfosBuilder.toChangeSetSummaryInfos(language, analysisMode, changeSetSummaries)
-    ChangesPage(changesFilter, changeSetSummaryInfos, changeCount)
+    val changeSetSummaryInfos = changeSetSummaryInfosBuilder.toChangeSetSummaryInfos(
+      language,
+      analysisMode,
+      parameters,
+      changeSetSummaries
+    )
+    ChangesPage(filterOptions, changeSetSummaryInfos, changeCount)
   }
 }

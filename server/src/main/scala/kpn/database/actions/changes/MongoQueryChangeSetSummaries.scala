@@ -27,7 +27,7 @@ object MongoQueryChangeSetSummaries {
     Mongo.executeIn("kpn-test") { database =>
       val parameters = ChangesParameters(
         itemsPerPage = 15,
-        year = Some("2017")
+        year = Some(2017)
       )
       val query = new MongoQueryChangeSetSummaries(database)
       query.execute(parameters)

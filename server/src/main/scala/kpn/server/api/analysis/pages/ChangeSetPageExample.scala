@@ -417,6 +417,7 @@ object ChangeSetPageExample {
 
   private def networkCreated(): NetworkChangeInfo = {
     NetworkChangeInfo(
+      0,
       comment = None, // no need to populate here, comment already in ChangeSetInfo
       key = ChangeKey(
         replicationNumber = 1,
@@ -488,6 +489,7 @@ object ChangeSetPageExample {
 
   private def networkUpdated(): NetworkChangeInfo = {
     NetworkChangeInfo(
+      0,
       comment = None, // no need to populate here, comment already in ChangeSetInfo
       key = ChangeKey(
         replicationNumber = 1,
@@ -527,6 +529,7 @@ object ChangeSetPageExample {
 
   private def networkDeleted(): NetworkChangeInfo = {
     NetworkChangeInfo(
+      0,
       comment = None, // no need to populate here, comment already in ChangeSetInfo
       key = ChangeKey(
         replicationNumber = 1,

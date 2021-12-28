@@ -7,6 +7,7 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.changes.network.NetworkChange
@@ -27,7 +28,7 @@ trait ChangeSetRepository {
 
   def changes(changesParameters: ChangesParameters): Seq[ChangeSetSummary]
 
-  def changesFilter(subset: Option[Subset], year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
+  def changesFilter(subset: Option[Subset], year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption]
 
   def subsetChanges(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary]
 
@@ -39,13 +40,13 @@ trait ChangeSetRepository {
 
   def routeChanges(routeId: Long, parameters: ChangesParameters): Seq[RouteChange]
 
-  def routeChangesFilter(routeId: Long, year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
+  def routeChangesFilter(routeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): ChangesFilter
 
   def routeChangesCount(routeId: Long): Long
 
   def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange]
 
-  def nodeChangesFilter(nodeId: Long, year: Option[String], month: Option[String], day: Option[String]): ChangesFilter
+  def nodeChangesFilter(nodeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): ChangesFilter
 
   def nodeChangesCount(nodeId: Long): Long
 

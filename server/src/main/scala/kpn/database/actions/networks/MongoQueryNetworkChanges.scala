@@ -2,10 +2,9 @@ package kpn.database.actions.networks
 
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.database.actions.networks.MongoQueryNetworkChanges.log
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -19,29 +18,9 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object MongoQueryNetworkChanges {
+class MongoQueryNetworkChanges(database: Database) {
 
   private val log = Log(classOf[MongoQueryNetworkChanges])
-
-  def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-test") { database =>
-      val query = new MongoQueryNetworkChanges(database)
-
-      query.execute(9532813L, ChangesParameters(impact = true))
-      query.execute(9532813L, ChangesParameters(impact = true))
-      val changes = query.execute(9532813L, ChangesParameters(impact = true))
-
-      query.execute(9532813L, ChangesParameters())
-      query.execute(9532813L, ChangesParameters())
-
-      //      changes.map(_.key).foreach { key =>
-      //        println(s"${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
-      //      }
-    }
-  }
-}
-
-class MongoQueryNetworkChanges(database: Database) {
 
   def execute(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
 

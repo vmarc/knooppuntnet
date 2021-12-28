@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.changes.details.NetworkInfoChange
-import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
 import kpn.core.doc.NetworkInfoDoc
@@ -26,13 +26,19 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
     new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
 
-  override def networkChangesFilter(nodeId: Long, yearOption: Option[String], monthOption: Option[String], dayOption: Option[String]): ChangesFilter = {
+  override def networkChangesFilter(
+    networkId: Long,
+    yearOption: Option[Long],
+    monthOption: Option[Long],
+    dayOption: Option[Long]
+  ): Seq[ChangesFilterOption] = {
+
     val year = yearOption match {
       case None => Time.now.year
       case Some(year) => year.toInt
     }
-    val changeSetCounts = new MongoQueryNetworkChangeCounts(database).execute(nodeId, year, monthOption.map(_.toInt))
-    ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
+    val changeSetCounts = new MongoQueryNetworkChangeCounts(database).execute(networkId, year, monthOption.map(_.toInt))
+    changeSetCounts.toFilterOptions(yearOption, monthOption, dayOption)
   }
 
   def updateNetworkChangeCount(networkId: Long): Unit = {

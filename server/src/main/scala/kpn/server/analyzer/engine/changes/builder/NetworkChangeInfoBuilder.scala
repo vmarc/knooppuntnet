@@ -6,13 +6,12 @@ import kpn.api.common.changes.details.NetworkInfoChange
 
 class NetworkChangeInfoBuilder {
 
-  def build(change: NetworkInfoChange, changeSetInfos: Seq[ChangeSetInfo]): NetworkChangeInfo = {
+  def build(index: Long, change: NetworkInfoChange, changeSetInfos: Seq[ChangeSetInfo]): NetworkChangeInfo = {
 
-    val comment = changeSetInfos.find(s => s.id == change.key.changeSetId).flatMap { changeSetInfo =>
-      changeSetInfo.tags("comment")
-    }
+    val comment = changeSetInfos.find(s => s.id == change.key.changeSetId).flatMap(_.tags("comment"))
 
     NetworkChangeInfo(
+      index,
       comment,
       change.key,
       change.changeType,

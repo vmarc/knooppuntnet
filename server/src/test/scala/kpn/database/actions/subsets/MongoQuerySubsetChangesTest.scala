@@ -18,8 +18,8 @@ class MongoQuerySubsetChangesTest extends UnitTest with SharedTestObjects {
       changeSet(database, 3, Timestamp(2021, 8, 13), Subset.nlHiking, impact = false)
       changeSet(database, 4, Timestamp(2021, 8, 14), Subset.nlHiking, impact = false)
 
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"))) should equal(Seq(4, 3, 2, 1))
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"), impact = true)) should equal(Seq(2, 1))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021))) should equal(Seq(4, 3, 2, 1))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021), impact = true)) should equal(Seq(2, 1))
     }
   }
 
@@ -31,8 +31,8 @@ class MongoQuerySubsetChangesTest extends UnitTest with SharedTestObjects {
       changeSet(database, 3, Timestamp(2021, 8, 13), Subset.nlBicycle, impact = true)
       changeSet(database, 4, Timestamp(2021, 8, 14), Subset.nlBicycle, impact = true)
 
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"))) should equal(Seq(2, 1))
-      query(database, Subset.nlBicycle, ChangesParameters(Some("2021"))) should equal(Seq(4, 3))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021))) should equal(Seq(2, 1))
+      query(database, Subset.nlBicycle, ChangesParameters(Some(2021))) should equal(Seq(4, 3))
     }
   }
 
@@ -44,11 +44,11 @@ class MongoQuerySubsetChangesTest extends UnitTest with SharedTestObjects {
       changeSet(database, 3, Timestamp(2021, 9, 13), Subset.nlHiking, impact = true)
       changeSet(database, 4, Timestamp(2021, 9, 14), Subset.nlHiking, impact = true)
 
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"))) should equal(Seq(4, 3, 2, 1))
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"), Some("08"))) should equal(Seq(2, 1))
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"), Some("09"))) should equal(Seq(4, 3))
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"), Some("08"), Some("11"))) should equal(Seq(1))
-      query(database, Subset.nlHiking, ChangesParameters(Some("2021"), Some("08"), Some("12"))) should equal(Seq(2))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021))) should equal(Seq(4, 3, 2, 1))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021), Some(8))) should equal(Seq(2, 1))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021), Some(9))) should equal(Seq(4, 3))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021), Some(8), Some(11))) should equal(Seq(1))
+      query(database, Subset.nlHiking, ChangesParameters(Some(2021), Some(8), Some(12))) should equal(Seq(2))
     }
   }
 

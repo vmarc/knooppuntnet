@@ -121,8 +121,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
-    @RequestParam language: String,
-    @RequestParam analysisMode: String,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
     @RequestBody parameters: ChangesParameters
@@ -130,8 +128,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     val subset = Subset.of(country, networkType)
     analysisFacade.subsetChanges(
       CurrentUser.name,
-      toLanguage(language),
-      toAnalysisMode(analysisMode),
       subset.get,
       parameters
     )

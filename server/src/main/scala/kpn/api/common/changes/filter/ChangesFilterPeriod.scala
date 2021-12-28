@@ -1,7 +1,7 @@
 package kpn.api.common.changes.filter
 
 case class ChangesFilterPeriod(
-  name: String,
+  name: Long,
   totalCount: Long,
   impactedCount: Long,
   current: Boolean = false,

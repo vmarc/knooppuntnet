@@ -8,6 +8,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 
 case class NetworkChangeInfo(
+  rowIndex: Long,
   comment: Option[String],
   key: ChangeKey,
   changeType: ChangeType,

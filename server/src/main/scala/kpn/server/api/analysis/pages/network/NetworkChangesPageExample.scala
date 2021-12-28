@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NetworkFacts
 import kpn.api.common.changes.details.NetworkChangeInfo
-import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.network.NetworkChangesPage
 import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
@@ -35,7 +35,7 @@ object NetworkChangesPageExample {
       )
     )
 
-    val filter: ChangesFilter = ChangesFilter(Seq.empty)
+    val filterOptions: Seq[ChangesFilterOption] = Seq.empty
     val changes: Seq[NetworkChangeInfo] = Seq.empty
 
     NetworkChangesPage(
@@ -48,7 +48,7 @@ object NetworkChangesPageExample {
         3,
         4
       ),
-      filter,
+      filterOptions,
       changes,
       totalCount = 10
     )

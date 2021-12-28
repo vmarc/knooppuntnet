@@ -98,7 +98,7 @@ class ChangeSetPageBuilderImpl(
   }
 
   private def toNetworkChangeInfo(networkChange: NetworkInfoChange): NetworkChangeInfo = {
-    new NetworkChangeInfoBuilder().build(networkChange, Seq.empty)
+    new NetworkChangeInfoBuilder().build(0, networkChange, Seq.empty)
   }
 
   private def toRouteChangeInfo(routeChange: RouteChange): RouteChangeInfo = {

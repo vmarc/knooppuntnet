@@ -2,9 +2,9 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.network.NetworkChangesPage
-import kpn.database.base.Database
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.NetworkInfoRepository
@@ -28,15 +28,22 @@ class NetworkChangesPageBuilder(
     }
   }
 
-  private def buildPage(user: Option[String], networkId: Long, parameters: ChangesParameters): Option[NetworkChangesPage] = {
+  private def buildPage(
+    user: Option[String],
+    networkId: Long,
+    parameters: ChangesParameters
+  ): Option[NetworkChangesPage] = {
     database.networkInfos.findById(networkId, log).map { networkInfoDoc =>
       buildNetworkChangesPage(user, parameters, networkInfoDoc)
     }
   }
 
-  private def buildNetworkChangesPage(user: Option[String], parameters: ChangesParameters, networkInfoDoc: NetworkInfoDoc): NetworkChangesPage = {
-    val changesFilter = networkInfoRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
-    val totalCount = changesFilter.currentItemCount(parameters.impact)
+  private def buildNetworkChangesPage(
+    user: Option[String],
+    parameters: ChangesParameters,
+    networkInfoDoc: NetworkInfoDoc
+  ): NetworkChangesPage = {
+
     val changes = if (user.isDefined) {
       networkInfoRepository.networkChanges(networkInfoDoc._id, parameters)
     }
@@ -44,17 +51,39 @@ class NetworkChangesPageBuilder(
       Seq.empty
     }
 
+    val filterOptions = if (changes.nonEmpty) {
+      networkInfoRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
+    }
+    else {
+      Seq.empty
+    }
+
+    val changeCount = {
+      if (filterOptions.nonEmpty) {
+        val filterOption = filterOptions.find(_.current).getOrElse(filterOptions.head)
+        if (parameters.impact) {
+          filterOption.impactedCount
+        }
+        else {
+          filterOption.totalCount
+        }
+      }
+      else {
+        0L
+      }
+    }
+
     val changeSetIds = changes.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds) // TODO include in aggregate !!!
-    val networkUpdateInfos = changes.map { change =>
-      new NetworkChangeInfoBuilder().build(change, changeSetInfos)
+    val networkUpdateInfos = changes.zipWithIndex.map { case (change, index) =>
+      val rowIndex = parameters.itemsPerPage * parameters.pageIndex + index
+      new NetworkChangeInfoBuilder().build(rowIndex, change, changeSetInfos)
     }
     NetworkChangesPage(
       networkInfoDoc.summary,
-      changesFilter,
+      filterOptions,
       networkUpdateInfos,
-      totalCount
+      changeCount
     )
   }
-
 }
