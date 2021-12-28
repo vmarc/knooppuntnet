@@ -5,9 +5,12 @@ import { NetworkFactsPage } from '@api/common/network/network-facts-page';
 import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
 import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
+import { NetworkSummary } from '@api/common/network/network-summary';
 import { ApiResponse } from '@api/custom/api-response';
 
 export const initialState: NetworkState = {
+  networkId: null,
+  summary: null,
   detailsPage: null,
   nodesPage: null,
   routesPage: null,
@@ -18,6 +21,8 @@ export const initialState: NetworkState = {
 };
 
 export interface NetworkState {
+  networkId: number;
+  summary: NetworkSummary;
   detailsPage: ApiResponse<NetworkDetailsPage>;
   nodesPage: ApiResponse<NetworkNodesPage>;
   routesPage: ApiResponse<NetworkRoutesPage>;

@@ -25,6 +25,7 @@ import { Subscriptions } from '../../../util/Subscriptions';
           <span i18n="@@change-set.network-changes.network">Network</span>
           <kpn-link-network-details
             [networkId]="networkChangeInfo.networkId"
+            [networkType]="networkChangeInfo.networkType"
             [title]="networkChangeInfo.networkName"
           >
           </kpn-link-network-details>
@@ -41,7 +42,8 @@ import { Subscriptions } from '../../../util/Subscriptions';
   `,
 })
 export class ChangeSetNetworkChangesComponent
-  implements OnDestroy, AfterViewInit {
+  implements OnDestroy, AfterViewInit
+{
   @Input() page: ChangeSetPage;
 
   private readonly subscriptions = new Subscriptions();

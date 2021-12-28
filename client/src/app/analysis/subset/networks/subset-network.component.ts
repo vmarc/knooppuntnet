@@ -11,6 +11,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
     <div class="title">
       <kpn-link-network-details
         [networkId]="network.id"
+        [networkType]="network.networkType"
         [title]="network.name"
       ></kpn-link-network-details>
       <span class="percentage">{{ interpretedNetwork.percentageOk() }}</span>

@@ -20,6 +20,7 @@ import { actionPreferencesItemsPerPage } from '../../../core/preferences/prefere
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionNetworkId } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
 import { actionNetworkNodesPageInit } from './network.actions';
@@ -43,6 +44,9 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
+      tap(([{}, networkId]) => {
+        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+      }),
       mergeMap(([{}, networkId]) =>
         this.appService
           .networkDetails(+networkId)
@@ -55,6 +59,9 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkNodesPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
+      tap(([{}, networkId]) => {
+        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+      }),
       mergeMap(([{}, networkId]) =>
         this.appService
           .networkNodes(+networkId)
@@ -67,6 +74,9 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
+      tap(([{}, networkId]) => {
+        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+      }),
       mergeMap(([{}, networkId]) =>
         this.appService
           .networkRoutes(+networkId)
@@ -79,6 +89,9 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkFactsPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
+      tap(([{}, networkId]) => {
+        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+      }),
       mergeMap(([{}, networkId]) =>
         this.appService
           .networkFacts(+networkId)
@@ -91,6 +104,9 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkMapPageInit),
       withLatestFrom(this.store.select(selectRouteParam('networkId'))),
+      tap(([{}, networkId]) => {
+        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+      }),
       mergeMap(([{}, networkId]) =>
         this.appService
           .networkMap(+networkId)
@@ -108,6 +124,9 @@ export class NetworkEffects {
         this.store.select(selectPreferencesItemsPerPage),
         this.store.select(selectNetworkChangesParameters)
       ),
+      tap(([{}, networkId, {}, {}]) => {
+        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+      }),
       map(
         ([
           {},

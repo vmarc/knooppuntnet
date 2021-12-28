@@ -1,20 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NetworkFactsPage } from '@api/common/network/network-facts-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { NetworkService } from '../network.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionNetworkFactsPageInit } from '../store/network.actions';
+import { selectNetworkFactsPage } from '../store/network.selectors';
 
 @Component({
   selector: 'kpn-network-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-page-header
-      [networkId]="networkId$ | async"
       pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@network-facts.title"
@@ -46,32 +41,11 @@ import { NetworkService } from '../network.service';
   `,
 })
 export class NetworkFactsPageComponent implements OnInit {
-  networkId$: Observable<number>;
-  response$: Observable<ApiResponse<NetworkFactsPage>>;
+  readonly response$ = this.store.select(selectNetworkFactsPage);
 
-  constructor(
-    public networkService: NetworkService,
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.networkId$ = this.activatedRoute.params.pipe(
-      map((params) => +params['networkId']),
-      tap((networkId) => this.networkService.init(networkId)),
-      shareReplay()
-    );
-
-    this.response$ = this.networkId$.pipe(
-      mergeMap((networkId) =>
-        this.appService.networkFacts(networkId).pipe(
-          tap((response) => {
-            if (response.result) {
-              this.networkService.update(networkId, response.result.summary);
-            }
-          })
-        )
-      )
-    );
+    this.store.dispatch(actionNetworkFactsPageInit());
   }
 }

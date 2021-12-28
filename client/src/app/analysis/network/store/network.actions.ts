@@ -5,13 +5,19 @@ import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
 import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { NetworkType } from '@api/custom/network-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { ChangeOption } from '../../changes/store/changes.actions';
 
+export const actionNetworkId = createAction(
+  '[Network] Id',
+  props<{ networkId: number }>()
+);
+
 export const actionNetworkLink = createAction(
   '[Network] Link',
-  props<{ networkId: string; networkName: string }>()
+  props<{ networkId: number; networkName: string; networkType: NetworkType }>()
 );
 
 export const actionNetworkDetailsPageInit = createAction(

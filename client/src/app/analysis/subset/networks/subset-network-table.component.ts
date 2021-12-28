@@ -37,6 +37,7 @@ import { NetworkAttributes } from '@api/common/network/network-attributes';
           <td>
             <kpn-link-network-details
               [networkId]="network.id"
+              [networkType]="network.networkType"
               [title]="network.name"
             ></kpn-link-network-details>
           </td>

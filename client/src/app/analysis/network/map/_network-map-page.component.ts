@@ -1,21 +1,17 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { NetworkMapPage } from '@api/common/network/network-map-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
+import { Store } from '@ngrx/store';
 import { PageService } from '../../../components/shared/page.service';
-import { NetworkService } from '../network.service';
+import { AppState } from '../../../core/core.state';
+import { actionNetworkMapPageInit } from '../store/network.actions';
+import { selectNetworkId } from '../store/network.selectors';
+import { selectNetworkMapPage } from '../store/network.selectors';
 
 @Component({
   selector: 'kpn-network-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-page-header
-      [networkId]="networkId$ | async"
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@network-map.title"
@@ -36,36 +32,18 @@ import { NetworkService } from '../network.service';
   `,
 })
 export class NetworkMapPageComponent implements OnInit, OnDestroy {
-  networkId$: Observable<number>;
-  response$: Observable<ApiResponse<NetworkMapPage>>;
+  readonly networkId$ = this.store.select(selectNetworkId);
+  readonly response$ = this.store.select(selectNetworkMapPage);
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private pageService: PageService,
-    private networkService: NetworkService
+    private store: Store<AppState>,
+    private pageService: PageService
   ) {
     this.pageService.showFooter = false;
   }
 
   ngOnInit(): void {
-    this.networkId$ = this.activatedRoute.params.pipe(
-      map((params) => +params['networkId']),
-      tap((networkId) => this.networkService.init(networkId)),
-      shareReplay()
-    );
-
-    this.response$ = this.networkId$.pipe(
-      mergeMap((networkId) =>
-        this.appService.networkMap(networkId).pipe(
-          tap((response) => {
-            if (response.result) {
-              this.networkService.update(networkId, response.result.summary);
-            }
-          })
-        )
-      )
-    );
+    this.store.dispatch(actionNetworkMapPageInit());
   }
 
   ngOnDestroy(): void {

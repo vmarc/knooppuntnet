@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../core/core.state';
 import { NetworkCacheService } from '../../../services/network-cache.service';
@@ -14,7 +13,6 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-network-page-header
-      [networkId]="networkId$ | async"
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@network-changes.title"
@@ -60,7 +58,6 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
   `,
 })
 export class NetworkChangesPageComponent implements OnInit {
-  readonly networkId$: Observable<number>; // TODO
   readonly response$ = this.store.select(selectNetworkChangesPage);
 
   constructor(
@@ -72,12 +69,6 @@ export class NetworkChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkChangesPageInit());
-
-    //  TODO      if (response.result) {
-    //               this.networkService.update(
-    //                 networkId,
-    //                 response.result.network
-    //               );
   }
 
   isLoggedIn(): boolean {

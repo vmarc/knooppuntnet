@@ -1,4 +1,5 @@
 import { NetworkChangesPage } from '@api/common/network/network-changes-page';
+import { NetworkSummary } from '@api/common/network/network-summary';
 import { ApiResponse } from '@api/custom/api-response';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
@@ -6,6 +7,8 @@ import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
 import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { actionNetworkLink } from './network.actions';
+import { actionNetworkId } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
 import { actionNetworkChangesPageInit } from './network.actions';
@@ -35,24 +38,67 @@ export const networkReducer = createReducer(
       changesPage,
     };
   }),
+  on(actionNetworkId, (state, { networkId }) => {
+    if (networkId === state.networkId) {
+      return state;
+    }
+
+    const summary: NetworkSummary = {
+      name: null,
+      networkType: null,
+      networkScope: null,
+      factCount: 0,
+      nodeCount: 0,
+      routeCount: 0,
+      changeCount: 0,
+    };
+
+    return {
+      ...state,
+      networkId,
+      summary,
+    };
+  }),
+  on(actionNetworkLink, (state, { networkId, networkName, networkType }) => {
+    const summary: NetworkSummary = {
+      name: networkName,
+      networkType,
+      networkScope: null,
+      factCount: 0,
+      nodeCount: 0,
+      routeCount: 0,
+      changeCount: 0,
+    };
+
+    return {
+      ...state,
+      networkId,
+      summary,
+    };
+  }),
   on(actionNetworkDetailsPageLoaded, (state, { response }) => ({
     ...state,
+    summary: response.result.summary,
     detailsPage: response,
   })),
   on(actionNetworkNodesPageLoaded, (state, { response }) => ({
     ...state,
+    summary: response.result.summary,
     nodesPage: response,
   })),
   on(actionNetworkRoutesPageLoaded, (state, { response }) => ({
     ...state,
+    summary: response.result.summary,
     routesPage: response,
   })),
   on(actionNetworkFactsPageLoaded, (state, { response }) => ({
     ...state,
+    summary: response.result.summary,
     factsPage: response,
   })),
   on(actionNetworkMapPageLoaded, (state, { response }) => ({
     ...state,
+    summary: response.result.summary,
     mapPage: response,
   })),
   on(actionNetworkChangesPageInit, (state, {}) => ({
@@ -64,6 +110,7 @@ export const networkReducer = createReducer(
   })),
   on(actionNetworkChangesPageLoaded, (state, { response }) => ({
     ...state,
+    summary: response.result.network,
     changesPage: response,
   })),
   on(actionPreferencesImpact, (state, action) => ({

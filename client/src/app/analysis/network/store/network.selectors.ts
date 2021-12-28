@@ -6,6 +6,16 @@ import { NetworkState } from './network.state';
 export const selectNetworkState =
   createFeatureSelector<NetworkState>(networkFeatureKey);
 
+export const selectNetworkId = createSelector(
+  selectNetworkState,
+  (state: NetworkState) => state.networkId
+);
+
+export const selectNetworkSummary = createSelector(
+  selectNetworkState,
+  (state: NetworkState) => state.summary
+);
+
 export const selectNetworkDetailsPage = createSelector(
   selectNetworkState,
   (state: NetworkState) => state.detailsPage
