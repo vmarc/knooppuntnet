@@ -40,17 +40,18 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Réseau Pédestre - ",
     "Réseau pédestre de ",
     "Réseau pédestre du ",
-    "Réseau pédestre ",
     "Réseau pédestre des ",
     "Réseau pédestre d'",
     "Réseau pédestre de la ",
+    "Réseau pédestre ",
   )
 
   def name(tags: Tags): String = {
     val nameTagValue = tags("name").getOrElse("no-name")
     val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
     prefixOption match {
-      case Some(substring) => nameTagValue.replace(substring, "").trim
+      case Some(substring) =>
+        nameTagValue.replace(substring, "").trim
       case None => nameTagValue.trim
     }
   }
