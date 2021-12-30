@@ -38,10 +38,10 @@ object NetworkNameAnalyzer {
     "Réseau Pédestre - ",
     "Réseau pédestre de ",
     "Réseau pédestre du ",
-    "Réseau pédestre ",
     "Réseau pédestre des ",
     "Réseau pédestre d'",
     "Réseau pédestre de la ",
+    "Réseau pédestre ",
   )
 }
 
