@@ -18,7 +18,10 @@ object NetworkNameAnalyzer {
     "Knotenpunktnetzwerk ",
     "Knotenpunktsystem ",
     "Knotenpunktwegweisung ",
+    "Radknotenpunktsystem ",
+    "Radeln nach Zahlen ",
     "Wanderwegenetz ",
+    "Wandernetzwerk ",
     "Cycle node network ",
     "Ruiternetwerk ",
     "Ruiterroute ",
@@ -36,6 +39,9 @@ object NetworkNameAnalyzer {
     "Réseau pédestre de ",
     "Réseau pédestre du ",
     "Réseau pédestre ",
+    "Réseau pédestre des ",
+    "Réseau pédestre d'",
+    "Réseau pédestre de la ",
   )
 }
 
