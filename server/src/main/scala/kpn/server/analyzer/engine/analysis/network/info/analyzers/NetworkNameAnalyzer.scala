@@ -20,7 +20,10 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Knotenpunktnetzwerk ",
     "Knotenpunktsystem ",
     "Knotenpunktwegweisung ",
+    "Radknotenpunktsystem ",
+    "Radeln nach Zahlen ",
     "Wanderwegenetz ",
+    "Wandernetzwerk ",
     "Cycle node network ",
     "Ruiternetwerk ",
     "Ruiterroute ",
@@ -38,6 +41,9 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Réseau pédestre de ",
     "Réseau pédestre du ",
     "Réseau pédestre ",
+    "Réseau pédestre des ",
+    "Réseau pédestre d'",
+    "Réseau pédestre de la ",
   )
 
   def name(tags: Tags): String = {
