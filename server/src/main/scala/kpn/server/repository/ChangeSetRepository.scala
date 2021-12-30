@@ -40,13 +40,13 @@ trait ChangeSetRepository {
 
   def routeChanges(routeId: Long, parameters: ChangesParameters): Seq[RouteChange]
 
-  def routeChangesFilter(routeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): ChangesFilter
+  def routeChangesFilter(routeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption]
 
   def routeChangesCount(routeId: Long): Long
 
   def nodeChanges(nodeId: Long, parameters: ChangesParameters): Seq[NodeChange]
 
-  def nodeChangesFilter(nodeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): ChangesFilter
+  def nodeChangesFilter(nodeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption]
 
   def nodeChangesCount(nodeId: Long): Long
 

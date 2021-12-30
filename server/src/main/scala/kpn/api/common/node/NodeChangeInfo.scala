@@ -12,6 +12,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 
 case class NodeChangeInfo(
+  rowIndex: Long,
   id: Long,
   version: Option[Long],
   changeKey: ChangeKey,

@@ -47,11 +47,11 @@ import { selectNodeMapPage } from '../store/node.selectors';
   `,
 })
 export class NodeMapPageComponent implements OnInit, OnDestroy {
-  nodeId$ = this.store.select(selectNodeId);
-  nodeName$ = this.store.select(selectNodeName);
-  changeCount$ = this.store.select(selectNodeChangeCount);
+  readonly nodeId$ = this.store.select(selectNodeId);
+  readonly nodeName$ = this.store.select(selectNodeName);
+  readonly changeCount$ = this.store.select(selectNodeChangeCount);
 
-  response$ = this.store
+  readonly response$ = this.store
     .select(selectNodeMapPage)
     .pipe(filter((x) => x !== null));
 

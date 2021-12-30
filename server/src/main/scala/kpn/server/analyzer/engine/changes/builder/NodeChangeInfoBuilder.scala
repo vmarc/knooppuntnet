@@ -14,6 +14,7 @@ class NodeChangeInfoBuilder {
     val comment = changeSetInfo.flatMap(_.tags("comment"))
 
     NodeChangeInfo(
+      0,
       change.id,
       change.after.map(_.version),
       change.key,

@@ -62,31 +62,26 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
     new MongoQueryChangeSetSummaries(database).execute(parameters)
   }
 
-  override def nodeChangesFilter(nodeId: Long, yearOption: Option[Long], monthOption: Option[Long], dayOption: Option[Long]): ChangesFilter = {
-    val year = yearOption match {
+  override def nodeChangesFilter(nodeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption] = {
+    val yearInt = year match {
       case None => Time.now.year
       case Some(year) => year.toInt
     }
-    val changeSetCounts = new MongoQueryNodeChangeCounts(database).execute(nodeId, year, monthOption.map(_.toInt))
-    throw new RuntimeException("TODO")
-    // ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
-    throw new RuntimeException("TODO")
-    ChangesFilter(Seq.empty)
+    val changeSetCounts = new MongoQueryNodeChangeCounts(database).execute(nodeId, yearInt, month.map(_.toInt))
+    changeSetCounts.toFilterOptions(year, month, day)
   }
 
   override def nodeChangesCount(nodeId: Long): Long = {
     new MongoQueryNodeChangeCount(database).execute(nodeId)
   }
 
-  override def routeChangesFilter(routeId: Long, yearOption: Option[Long], monthOption: Option[Long], dayOption: Option[Long]): ChangesFilter = {
-    val year = yearOption match {
+  override def routeChangesFilter(routeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption] = {
+    val yearInt = year match {
       case None => Time.now.year
       case Some(year) => year.toInt
     }
-    val changeSetCounts = new MongoQueryRouteChangeCounts(database).execute(routeId, year, monthOption.map(_.toInt))
-    // ChangesFilter.from(changeSetCounts, Some(year.toString), monthOption, dayOption)
-    throw new RuntimeException("TODO")
-    ChangesFilter(Seq.empty)
+    val changeSetCounts = new MongoQueryRouteChangeCounts(database).execute(routeId, yearInt, month.map(_.toInt))
+    changeSetCounts.toFilterOptions(year, month, day)
   }
 
   override def routeChangesCount(routeId: Long): Long = {

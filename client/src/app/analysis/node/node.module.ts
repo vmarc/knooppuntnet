@@ -12,7 +12,6 @@ import { FactModule } from '../fact/fact.module';
 import { NodeChangesPageComponent } from './changes/_node-changes-page.component';
 import { NodeChangeComponent } from './changes/node-change.component';
 import { NodeChangesSidebarComponent } from './changes/node-changes-sidebar.component';
-import { NodeChangesService } from './changes/node-changes.service';
 import { NodePageHeaderComponent } from './components/node-page-header.component';
 import { NodeDetailsPageComponent } from './details/_node-details-page.component';
 import { NodeDetailsSidebarComponent } from './details/node-details-sidebar.component';
@@ -30,13 +29,13 @@ import { nodeFeatureKey } from './store/node.state';
 
 @NgModule({
   imports: [
-    NodeRoutingModule,
     CommonModule,
+    SharedModule,
+    NodeRoutingModule,
     StoreModule.forFeature(nodeFeatureKey, nodeReducer),
     EffectsModule.forFeature([NodeEffects]),
     MarkdownModule,
     OlModule,
-    SharedModule,
     AnalysisComponentsModule,
     FactModule,
     MatPaginatorModule,
@@ -57,6 +56,5 @@ import { nodeFeatureKey } from './store/node.state';
     NodeIntegrityComponent,
     NodeDetailsSidebarComponent,
   ],
-  providers: [NodeChangesService],
 })
 export class NodeModule {}

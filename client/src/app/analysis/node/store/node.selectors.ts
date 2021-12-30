@@ -34,3 +34,18 @@ export const selectNodeChangeCount = createSelector(
   selectNodeState,
   (state: NodeState) => state.changeCount
 );
+
+export const selectNodeChangesParameters = createSelector(
+  selectNodeState,
+  (state: NodeState) => state.changesParameters
+);
+
+export const selectNodeChangesFilterOptions = createSelector(
+  selectNodeState,
+  (state: NodeState) => state.changesPage?.result?.filterOptions
+);
+
+export const selectNodeChangesPageIndex = createSelector(
+  selectNodeState,
+  (state: NodeState) => state.changesParameters?.pageIndex
+);

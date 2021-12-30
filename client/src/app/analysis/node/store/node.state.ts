@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { NodeChangesPage } from '@api/common/node/node-changes-page';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { NodeMapPage } from '@api/common/node/node-map-page';
@@ -10,6 +11,7 @@ export const initialState: NodeState = {
   detailsPage: null,
   mapPage: null,
   changesPage: null,
+  changesParameters: null,
 };
 
 export interface NodeState {
@@ -19,6 +21,7 @@ export interface NodeState {
   detailsPage: ApiResponse<NodeDetailsPage>;
   mapPage: ApiResponse<NodeMapPage>;
   changesPage: ApiResponse<NodeChangesPage>;
+  changesParameters: ChangesParameters;
 }
 
 export const nodeFeatureKey = 'node';

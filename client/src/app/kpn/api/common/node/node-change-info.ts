@@ -12,6 +12,7 @@ import { TagDiffs } from '../diff/tag-diffs';
 import { Tags } from '../../custom/tags';
 
 export interface NodeChangeInfo {
+  readonly rowIndex: number;
   readonly id: number;
   readonly version: number;
   readonly changeKey: ChangeKey;

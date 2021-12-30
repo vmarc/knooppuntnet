@@ -23,7 +23,7 @@ object NodeChangesPageExample {
     NodeChangesPage(
       1L,
       "01 / 02",
-      ChangesFilter(Seq.empty),
+      Seq.empty,
       changes(),
       10,
       10
@@ -33,6 +33,7 @@ object NodeChangesPageExample {
   private def changes(): Seq[NodeChangeInfo] = {
     Seq(
       NodeChangeInfo(
+        0,
         1,
         Some(1),
         ChangeKey(

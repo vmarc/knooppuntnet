@@ -1,6 +1,10 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { actionNodeChangesPageIndex } from './node.actions';
+import { actionNodeChangesFilterOption } from './node.actions';
 import { actionNodeId } from './node.actions';
 import { actionNodeLink } from './node.actions';
 import { actionNodeDetailsPageLoaded } from './node.actions';
@@ -61,5 +65,39 @@ export const nodeReducer = createReducer(
       changeCount,
       changesPage: response,
     };
-  })
+  }),
+  on(actionPreferencesImpact, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      impact: action.impact,
+      pageIndex: 0,
+    },
+  })),
+  on(actionPreferencesItemsPerPage, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      itemsPerPage: action.itemsPerPage,
+      pageIndex: 0,
+    },
+  })),
+  on(actionNodeChangesPageIndex, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      pageIndex: action.pageIndex,
+    },
+  })),
+  on(actionNodeChangesFilterOption, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      year: action.option.year,
+      month: action.option.month,
+      day: action.option.day,
+      impact: action.option.impact,
+      pageIndex: 0,
+    },
+  }))
 );

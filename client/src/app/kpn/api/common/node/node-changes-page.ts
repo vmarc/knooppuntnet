@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
-import { ChangesFilter } from '../changes/filter/changes-filter';
+import { ChangesFilterOption } from '../changes/filter/changes-filter-option';
 import { NodeChangeInfo } from './node-change-info';
 
 export interface NodeChangesPage {
   readonly nodeId: number;
   readonly nodeName: string;
-  readonly filter: ChangesFilter;
+  readonly filterOptions: ChangesFilterOption[];
   readonly changes: NodeChangeInfo[];
   readonly totalCount: number;
   readonly changeCount: number;

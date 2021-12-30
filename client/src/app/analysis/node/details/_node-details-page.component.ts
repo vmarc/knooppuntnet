@@ -102,11 +102,11 @@ import { selectNodeChangeCount } from '../store/node.selectors';
   styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class NodeDetailsPageComponent implements OnInit {
-  nodeId$ = this.store.select(selectNodeId);
-  nodeName$ = this.store.select(selectNodeName);
-  changeCount$ = this.store.select(selectNodeChangeCount);
+  readonly nodeId$ = this.store.select(selectNodeId);
+  readonly nodeName$ = this.store.select(selectNodeName);
+  readonly changeCount$ = this.store.select(selectNodeChangeCount);
 
-  response$ = this.store
+  readonly response$ = this.store
     .select(selectNodeDetailsPage)
     .pipe(filter((x) => x !== null));
 

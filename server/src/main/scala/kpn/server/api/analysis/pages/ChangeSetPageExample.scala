@@ -619,6 +619,7 @@ object ChangeSetPageExample {
   private def nodeChanges(): Seq[NodeChangeInfo] = {
     Seq(
       NodeChangeInfo(
+        0,
         id = nodeId1,
         version = Some(3),
         changeKey = ChangeKey(
@@ -711,6 +712,7 @@ object ChangeSetPageExample {
         investigate = true
       ),
       NodeChangeInfo(
+        1,
         id = nodeId2,
         version = Some(3),
         changeKey = ChangeKey(
@@ -758,6 +760,7 @@ object ChangeSetPageExample {
         investigate = true
       ),
       NodeChangeInfo(
+        2,
         id = nodeId3,
         version = Some(3),
         changeKey = ChangeKey(

@@ -4,6 +4,7 @@ import { NodeMapPage } from '@api/common/node/node-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionNodeId = createAction(
   '[Node] Id',
@@ -34,4 +35,14 @@ export const actionNodeChangesPageInit = createAction('[NodeChangesPage] Init');
 export const actionNodeChangesPageLoaded = createAction(
   '[NodeChangesPage] Loaded',
   props<{ response: ApiResponse<NodeChangesPage> }>()
+);
+
+export const actionNodeChangesPageIndex = createAction(
+  '[NodeChangesPage] Page index',
+  props<{ pageIndex: number }>()
+);
+
+export const actionNodeChangesFilterOption = createAction(
+  '[NodeChangesPage] Filter option',
+  props<{ option: ChangeOption }>()
 );
