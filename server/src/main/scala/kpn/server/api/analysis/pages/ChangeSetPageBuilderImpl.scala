@@ -49,7 +49,7 @@ class ChangeSetPageBuilderImpl(
             val changeSetInfo = changeSetInfoRepository.get(changeSetId)
             val knownElements = findKnownElements(changeSetData.referencedElements)
             val networkChanges = changeSetData.networkChanges.map(toNetworkChangeInfo)
-            val routeChanges = changeSetData.routeChanges.map(toRouteChangeInfo)
+            val routeChanges = changeSetData.routeChanges.zipWithIndex.map{case (routeChange, index) => toRouteChangeInfo(index, routeChange)}
             val nodeChanges = changeSetData.nodeChanges.map(toNodeChangeInfo)
             val orphanRouteChanges = buildOrphanRouteChanges(changeSetData)
             val orphanNodeChanges = buildOrphanNodeChanges(changeSetData)
@@ -101,8 +101,8 @@ class ChangeSetPageBuilderImpl(
     new NetworkChangeInfoBuilder().build(0, networkChange, Seq.empty)
   }
 
-  private def toRouteChangeInfo(routeChange: RouteChange): RouteChangeInfo = {
-    new RouteChangeInfoBuilder().build(routeChange, Seq.empty)
+  private def toRouteChangeInfo(index: Int, routeChange: RouteChange): RouteChangeInfo = {
+    new RouteChangeInfoBuilder().build(index ,routeChange, Seq.empty)
   }
 
   private def toNodeChangeInfo(nodeChange: NodeChange): NodeChangeInfo = {

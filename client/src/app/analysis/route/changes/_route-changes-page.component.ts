@@ -1,39 +1,26 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { RouteChangesPage } from '@api/common/route/route-changes-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { NetworkType } from '@api/custom/network-type';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ReplaySubject } from 'rxjs';
-import { combineLatest } from 'rxjs';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { mergeMap } from 'rxjs/operators';
-import { switchMap } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { PageService } from '../../../components/shared/page.service';
-import { Util } from '../../../components/shared/util';
+import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesNetworkType } from '../../../core/preferences/preferences.actions';
-import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 import { UserService } from '../../../services/user.service';
-import { ChangeFilterOptions } from '../../components/changes/filter/change-filter-options';
-import { RouteChangesService } from './route-changes.service';
+import { actionRouteChangesPageIndex } from '../store/route.actions';
+import { actionRouteChangesPageInit } from '../store/route.actions';
+import { selectRouteChangesPage } from '../store/route.selectors';
+import { selectRouteNetworkType } from '../store/route.selectors';
+import { selectRouteChangesPageIndex } from '../store/route.selectors';
+import { selectRouteChangeCount } from '../store/route.selectors';
+import { selectRouteName } from '../store/route.selectors';
+import { selectRouteId } from '../store/route.selectors';
 
 @Component({
   selector: 'kpn-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
       <li>
-        <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+        <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
       </li>
       <li i18n="@@breadcrumb.route-changes">Route changes</li>
     </ul>
@@ -56,9 +43,10 @@ import { RouteChangesService } from './route-changes.service';
       </div>
 
       <div *ngIf="response$ | async as response">
-        <div *ngIf="!page" i18n="@@route.route-not-found">Route not found</div>
-
-        <div *ngIf="page">
+        <div *ngIf="!response.result" i18n="@@route.route-not-found">
+          Route not found
+        </div>
+        <div *ngIf="response.result as page">
           <p>
             <kpn-situation-on
               [timestamp]="response.situationOn"
@@ -66,12 +54,14 @@ import { RouteChangesService } from './route-changes.service';
           </p>
           <kpn-changes
             [totalCount]="page.totalCount"
-            [changeCount]="page.changes.length"
+            [changeCount]="page.changeCount"
+            [pageIndex]="pageIndex$ | async"
+            (pageIndexChanged)="pageIndexChanged($event)"
           >
             <kpn-items>
               <kpn-item
-                *ngFor="let routeChangeInfo of page.changes; let i = index"
-                [index]="rowIndex(i)"
+                *ngFor="let routeChangeInfo of page.changes"
+                [index]="routeChangeInfo.rowIndex"
               >
                 <kpn-route-change
                   [routeChangeInfo]="routeChangeInfo"
@@ -84,128 +74,34 @@ import { RouteChangesService } from './route-changes.service';
     </div>
   `,
 })
-export class RouteChangesPageComponent implements OnInit, OnDestroy {
-  response$: Observable<ApiResponse<RouteChangesPage>>;
+export class RouteChangesPageComponent implements OnInit {
+  readonly routeId$ = this.store.select(selectRouteId);
+  readonly routeName$ = this.store.select(selectRouteName);
+  readonly networkType$ = this.store.select(selectRouteNetworkType);
+  readonly changeCount$ = this.store.select(selectRouteChangeCount);
+  readonly totalCount$ = this.store.select(selectRouteChangeCount);
+  readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);
 
-  routeId$ = new ReplaySubject<string>(1);
-  routeName$ = new ReplaySubject<string>(1);
-  networkType$ = new ReplaySubject<NetworkType>(1);
-  changeCount$ = new ReplaySubject<number>(1);
-
-  page: RouteChangesPage;
+  readonly response$ = this.store
+    .select(selectRouteChangesPage)
+    .pipe(filter((x) => x !== null));
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private routeChangesService: RouteChangesService,
-    private pageService: PageService,
     private userService: UserService,
     private store: Store<AppState>
   ) {}
 
-  get parameters() {
-    return this.routeChangesService._parameters$.value;
-  }
-
-  set parameters(parameters: ChangesParameters) {
-    if (this.isLoggedIn()) {
-      this.routeChangesService.updateParameters(parameters);
-    }
-  }
-
   ngOnInit(): void {
-    this.routeName$.next(history.state.routeName);
-    this.changeCount$.next(history.state.changeCount);
-
-    combineLatest([
-      this.store.select(selectPreferencesItemsPerPage),
-      this.store.select(selectPreferencesImpact),
-    ])
-      .pipe(first())
-      .subscribe(([itemsPerPage, impact]) => {
-        this.response$ = this.activatedRoute.params.pipe(
-          map((params) => params['routeId']),
-          tap((routeId) => this.routeId$.next(routeId)),
-          tap((routeId) =>
-            this.updateParameters(routeId, itemsPerPage, impact)
-          ),
-          mergeMap((routeId) =>
-            combineLatest([
-              this.routeId$,
-              this.routeChangesService.parameters$,
-            ]).pipe(
-              switchMap(([nodeId, changeParameters]) =>
-                this.appService.routeChanges(nodeId, changeParameters).pipe(
-                  tap((response) => {
-                    if (response.result) {
-                      this.page = Util.safeGet(() => response.result);
-                      this.routeName$.next(
-                        Util.safeGet(
-                          () => response.result.routeNameInfo.routeName
-                        )
-                      );
-                      this.networkType$.next(
-                        Util.safeGet(
-                          () => response.result.routeNameInfo.networkType
-                        )
-                      );
-                      this.changeCount$.next(
-                        Util.safeGet(() => response.result.changeCount)
-                      );
-                      this.store.dispatch(
-                        actionPreferencesNetworkType({
-                          networkType: this.page.routeNameInfo.networkType,
-                        })
-                      );
-                      this.routeChangesService.setFilterOptions(
-                        ChangeFilterOptions.from(
-                          this.parameters,
-                          response.result.filter,
-                          (parameters: ChangesParameters) => {
-                            this.store.dispatch(
-                              actionPreferencesImpact({
-                                impact: parameters.impact,
-                              })
-                            );
-                            this.parameters = parameters;
-                          }
-                        )
-                      );
-                    }
-                  })
-                )
-              )
-            )
-          )
-        );
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.routeChangesService.resetFilterOptions();
+    if (this.isLoggedIn()) {
+      this.store.dispatch(actionRouteChangesPageInit());
+    }
   }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }
 
-  rowIndex(index: number): number {
-    return this.parameters.pageIndex * this.parameters.itemsPerPage + index;
-  }
-
-  private updateParameters(
-    routeId: string,
-    itemsPerPage: number,
-    impact: boolean
-  ) {
-    // TODO use spread
-    this.parameters = {
-      year: this.parameters.year,
-      month: this.parameters.month,
-      day: this.parameters.day,
-      itemsPerPage,
-      pageIndex: this.parameters.pageIndex,
-      impact,
-    };
+  pageIndexChanged(pageIndex: number): void {
+    this.store.dispatch(actionRouteChangesPageIndex({ pageIndex }));
   }
 }

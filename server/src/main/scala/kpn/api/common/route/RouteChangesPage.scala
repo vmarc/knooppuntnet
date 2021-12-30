@@ -1,10 +1,10 @@
 package kpn.api.common.route
 
-import kpn.api.common.changes.filter.ChangesFilter
+import kpn.api.common.changes.filter.ChangesFilterOption
 
 case class RouteChangesPage(
   routeNameInfo: RouteNameInfo,
-  filter: ChangesFilter,
+  filterOptions: Seq[ChangesFilterOption],
   changes: Seq[RouteChangeInfo],
   totalCount: Long,
   changeCount: Long

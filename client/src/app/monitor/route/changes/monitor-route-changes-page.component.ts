@@ -1,7 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
@@ -25,11 +24,11 @@ import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
         <mat-slide-toggle
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
-          >Impact</mat-slide-toggle
-        >
+          >Impact
+        </mat-slide-toggle>
 
         <kpn-paginator
-          (page)="pageChanged($event)"
+          (pageIndexChanged)="pageChanged($event)"
           [pageIndex]="response.result.pageIndex"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
@@ -61,10 +60,8 @@ export class MonitorRouteChangesPageComponent implements OnInit {
     this.store.dispatch(actionMonitorRouteChangesPageInit());
   }
 
-  pageChanged(event: PageEvent) {
+  pageChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(
-      actionMonitorRouteChangesPageIndex({ pageIndex: event.pageIndex })
-    );
+    this.store.dispatch(actionMonitorRouteChangesPageIndex({ pageIndex }));
   }
 }

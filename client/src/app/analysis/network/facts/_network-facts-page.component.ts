@@ -33,7 +33,10 @@ import { selectNetworkFactsPage } from '../store/network.selectors';
             *ngFor="let fact of response.result.facts; let i = index"
             [index]="i"
           >
-            <kpn-network-fact [fact]="fact"></kpn-network-fact>
+            <kpn-network-fact
+              [fact]="fact"
+              [networkType]="response.result.summary.networkType"
+            ></kpn-network-fact>
           </kpn-item>
         </kpn-items>
       </div>

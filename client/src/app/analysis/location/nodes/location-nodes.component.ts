@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { LocationNodesPage } from '@api/common/location/location-nodes-page';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
@@ -37,10 +36,8 @@ export class LocationNodesComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  pageChanged(event: PageEvent): void {
+  pageChanged(pageIndex: number): void {
     window.scroll(0, 0);
-    this.store.dispatch(
-      actionLocationNodesPageIndex({ pageIndex: event.pageIndex })
-    );
+    this.store.dispatch(actionLocationNodesPageIndex({ pageIndex }));
   }
 }

@@ -9,11 +9,13 @@ import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
 class RouteHistoryAnalyzer(routeChanges: Seq[RouteChange], changeSetInfos: Seq[ChangeSetInfo]) {
 
   def history: RouteChangeInfos = {
-    val changes = routeChanges.map(toRouteChangeInfo)
+    val changes = routeChanges.zipWithIndex.map { case (routeChange, index) =>
+      toRouteChangeInfo(index, routeChange)
+    }
     RouteChangeInfos(changes)
   }
 
-  private def toRouteChangeInfo(routeChange: RouteChange): RouteChangeInfo = {
-    new RouteChangeInfoBuilder().build(routeChange, changeSetInfos)
+  private def toRouteChangeInfo(index: Int, routeChange: RouteChange): RouteChangeInfo = {
+    new RouteChangeInfoBuilder().build(index, routeChange, changeSetInfos)
   }
 }

@@ -11,7 +11,7 @@ import kpn.api.common.route.WayGeometry
 
 class RouteChangeInfoBuilder {
 
-  def build(routeChange: RouteChange, changeSetInfos: Seq[ChangeSetInfo]): RouteChangeInfo = {
+  def build(index: Int, routeChange: RouteChange, changeSetInfos: Seq[ChangeSetInfo]): RouteChangeInfo = {
 
     val changeSetInfo = changeSetInfos.find(changeSetInfo => changeSetInfo.id == routeChange.key.changeSetId)
 
@@ -44,6 +44,7 @@ class RouteChangeInfoBuilder {
       }
 
       RouteChangeInfo(
+        index,
         after.id,
         after.relation.version,
         routeChange.key,
@@ -77,6 +78,7 @@ class RouteChangeInfoBuilder {
       }
 
       RouteChangeInfo(
+        index,
         routeData.id,
         routeData.relation.version,
         routeChange.key,
@@ -112,6 +114,7 @@ class RouteChangeInfoBuilder {
       }
 
       RouteChangeInfo(
+        index,
         routeData.id,
         routeData.relation.version,
         routeChange.key,

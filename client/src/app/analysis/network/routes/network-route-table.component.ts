@@ -73,6 +73,7 @@ import { NetworkRoutesService } from './network-routes.service';
           <kpn-link-route
             [routeId]="route.id"
             [title]="route.name"
+            [networkType]="route.networkType"
           ></kpn-link-route>
         </td>
       </ng-container>
@@ -143,10 +144,6 @@ import { NetworkRoutesService } from './network-routes.service';
         *matRowDef="let route; columns: displayedColumns$ | async"
       ></tr>
     </table>
-
-    <!--    <kpn-paginator-->
-    <!--      [length]="routes?.size">-->
-    <!--    </kpn-paginator>-->
   `,
   styles: [
     `

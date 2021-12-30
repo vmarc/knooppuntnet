@@ -2,6 +2,7 @@ import { routerNavigatedAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
 import { actionNodeChangesFilterOption } from '../../analysis/node/store/node.actions';
+import { actionRouteChangesFilterOption } from '../../analysis/route/store/route.actions';
 import { actionRouteChangesPageLoaded } from '../../analysis/route/store/route.actions';
 import { actionRouteMapPageLoaded } from '../../analysis/route/store/route.actions';
 import { actionRouteDetailsPageLoaded } from '../../analysis/route/store/route.actions';
@@ -117,6 +118,10 @@ export const preferencesReducer = createReducer(
     };
   }),
   on(actionNodeChangesFilterOption, (state, { option }) => ({
+    ...state,
+    impact: option.impact,
+  })),
+  on(actionRouteChangesFilterOption, (state, { option }) => ({
     ...state,
     impact: option.impact,
   }))

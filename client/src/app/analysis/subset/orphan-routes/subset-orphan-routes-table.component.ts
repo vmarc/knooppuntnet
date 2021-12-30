@@ -61,6 +61,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
           <kpn-link-route
             [routeId]="route.id"
             [title]="route.name"
+            [networkType]="networkType"
           ></kpn-link-route>
         </td>
       </ng-container>

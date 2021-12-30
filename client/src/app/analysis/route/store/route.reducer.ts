@@ -1,6 +1,10 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
+import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
+import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { actionRouteChangesFilterOption } from './route.actions';
+import { actionRouteChangesPageIndex } from './route.actions';
 import { actionRouteId } from './route.actions';
 import { actionRouteChangesPageLoaded } from './route.actions';
 import { actionRouteMapPageLoaded } from './route.actions';
@@ -10,7 +14,7 @@ import { initialState } from './route.state';
 
 export const routeReducer = createReducer(
   initialState,
-  on(routerNavigationAction, (state, action) => ({
+  on(routerNavigationAction, (state, {}) => ({
     ...state,
     detailsPage: null,
     mapPage: null,
@@ -20,10 +24,11 @@ export const routeReducer = createReducer(
     ...state,
     routeId,
   })),
-  on(actionRouteLink, (state, { routeId, routeName }) => ({
+  on(actionRouteLink, (state, { routeId, routeName, networkType }) => ({
     ...state,
     routeId,
     routeName,
+    networkType,
     changeCount: 0,
   })),
   on(actionRouteDetailsPageLoaded, (state, { response }) => {
@@ -65,12 +70,51 @@ export const routeReducer = createReducer(
     const routeName =
       response.result?.routeNameInfo.routeName ?? state.routeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
+    const networkType =
+      response.result?.routeNameInfo.networkType ?? state.networkType;
     return {
       ...state,
       routeId,
       routeName,
+      networkType,
       changeCount,
       changesPage: response,
     };
-  })
+  }),
+  on(actionPreferencesImpact, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      impact: action.impact,
+      pageIndex: 0,
+    },
+  })),
+  on(actionPreferencesItemsPerPage, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      itemsPerPage: action.itemsPerPage,
+      pageIndex: 0,
+    },
+  })),
+  on(actionRouteChangesPageIndex, (state, action) => {
+    return {
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: action.pageIndex,
+      },
+    };
+  }),
+  on(actionRouteChangesFilterOption, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      year: action.option.year,
+      month: action.option.month,
+      day: action.option.day,
+      impact: action.option.impact,
+      pageIndex: 0,
+    },
+  }))
 );

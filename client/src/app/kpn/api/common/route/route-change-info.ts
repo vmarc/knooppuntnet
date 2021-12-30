@@ -11,6 +11,7 @@ import { WayInfo } from '../diff/way-info';
 import { WayUpdate } from '../diff/way-update';
 
 export interface RouteChangeInfo {
+  readonly rowIndex: number;
   readonly id: number;
   readonly version: number;
   readonly changeKey: ChangeKey;

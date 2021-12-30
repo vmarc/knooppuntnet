@@ -18,7 +18,6 @@ import { NetworkType } from '@api/custom/network-type';
     <kpn-page-menu>
       <kpn-page-menu-option
         [link]="linkRouteDetails()"
-        [state]="state()"
         [active]="pageName === 'details'"
         i18n="@@route.menu.details"
       >
@@ -27,7 +26,6 @@ import { NetworkType } from '@api/custom/network-type';
 
       <kpn-page-menu-option
         [link]="linkRouteMap()"
-        [state]="state()"
         [active]="pageName === 'map'"
         i18n="@@route.menu.map"
       >
@@ -36,7 +34,6 @@ import { NetworkType } from '@api/custom/network-type';
 
       <kpn-page-menu-option
         [link]="linkRouteChanges()"
-        [state]="state()"
         [active]="pageName === 'changes'"
         [elementCount]="changeCount"
         i18n="@@route.menu.changes"
@@ -63,10 +60,6 @@ export class RoutePageHeaderComponent {
 
   linkRouteChanges(): string {
     return this.linkRoute('/changes');
-  }
-
-  state(): { [k: string]: any } {
-    return { routeName: this.routeName, changeCount: this.changeCount };
   }
 
   private linkRoute(suffix: string): string {

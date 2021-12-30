@@ -74,6 +74,7 @@ import { PlannerService } from '../../../planner.service';
           <kpn-link-route
             [routeId]="ref.id"
             [title]="ref.name"
+            [networkType]="ref.networkType"
           ></kpn-link-route>
         </div>
       </div>
@@ -81,7 +82,6 @@ import { PlannerService } from '../../../planner.service';
       <div class="more-details">
         <a
           [routerLink]="'/analysis/node/' + response.result.id"
-          [state]="{ nodeName: response.result.name }"
           i18n="@@map.node-popup.more-details"
         >
           More details

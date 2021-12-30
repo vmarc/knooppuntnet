@@ -564,6 +564,7 @@ object ChangeSetPageExample {
   private def routeChanges(): Seq[RouteChangeInfo] = {
     Seq(
       RouteChangeInfo(
+        0L,
         id = routeId1,
         version = 123,
         changeKey = ChangeKey(

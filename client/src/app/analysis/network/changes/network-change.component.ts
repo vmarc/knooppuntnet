@@ -70,6 +70,7 @@ import { ChangeType } from '@api/custom/change-type';
           <kpn-link-route
             [routeId]="ref.id"
             [title]="ref.name"
+            [networkType]="networkChangeInfo.networkType"
           ></kpn-link-route>
         </span>
       </div>
@@ -131,6 +132,7 @@ import { ChangeType } from '@api/custom/change-type';
           <kpn-link-route
             [routeId]="ref.id"
             [title]="ref.name"
+            [networkType]="networkChangeInfo.networkType"
           ></kpn-link-route>
         </span>
       </div>
@@ -183,6 +185,7 @@ import { ChangeType } from '@api/custom/change-type';
           <kpn-link-route
             [routeId]="ref.id"
             [title]="ref.name"
+            [networkType]="networkChangeInfo.networkType"
           ></kpn-link-route>
         </span>
       </div>
@@ -230,10 +233,6 @@ export class NetworkChangeComponent {
   }
 
   private isChangeType(changeType: ChangeType): boolean {
-    console.log(
-      'this.networkChangeInfo.changeType=' + this.networkChangeInfo.changeType
-    );
-
     return this.networkChangeInfo.changeType === changeType;
   }
 }

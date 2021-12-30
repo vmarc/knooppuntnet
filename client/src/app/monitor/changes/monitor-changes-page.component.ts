@@ -21,8 +21,8 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
+      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a [routerLink]="'/monitor'">Monitor</a></li>
       <li>Changes</li>
     </ul>
 
@@ -37,11 +37,11 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
         <mat-slide-toggle
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
-          >Impact</mat-slide-toggle
-        >
+          >Impact
+        </mat-slide-toggle>
 
         <kpn-paginator
-          (page)="pageChanged($event)"
+          (pageIndexChanged)="pageChanged($event)"
           [pageIndex]="response.result.pageIndex"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
@@ -61,12 +61,11 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
 export class MonitorChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectPreferencesImpact);
 
-  readonly response$: Observable<
-    ApiResponse<MonitorChangesPage>
-  > = this.store.pipe(
-    select(selectMonitorChangesPage),
-    filter((r) => r != null)
-  );
+  readonly response$: Observable<ApiResponse<MonitorChangesPage>> =
+    this.store.pipe(
+      select(selectMonitorChangesPage),
+      filter((r) => r != null)
+    );
 
   constructor(private store: Store<AppState>) {}
 
@@ -79,10 +78,8 @@ export class MonitorChangesPageComponent implements OnInit {
     this.store.dispatch(actionMonitorChangesPageInit());
   }
 
-  pageChanged(event: PageEvent) {
+  pageChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(
-      actionMonitorChangesPageIndex({ pageIndex: event.pageIndex })
-    );
+    this.store.dispatch(actionMonitorChangesPageIndex({ pageIndex }));
   }
 }

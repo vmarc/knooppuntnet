@@ -1,7 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -23,8 +22,8 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
+      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a [routerLink]="'/monitor'">Monitor</a></li>
       <li>Group changes</li>
     </ul>
 
@@ -43,11 +42,11 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
         <mat-slide-toggle
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
-          >Impact</mat-slide-toggle
-        >
+          >Impact
+        </mat-slide-toggle>
 
         <kpn-paginator
-          (page)="pageChanged($event)"
+          (pageIndexChanged)="pageChanged($event)"
           [pageIndex]="response.result.pageIndex"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
@@ -69,12 +68,11 @@ export class MonitorGroupChangesPageComponent implements OnInit {
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly impact$ = this.store.select(selectPreferencesImpact);
 
-  readonly response$: Observable<
-    ApiResponse<MonitorGroupChangesPage>
-  > = this.store.pipe(
-    select(selectMonitorGroupChangesPage),
-    filter((r) => r != null)
-  );
+  readonly response$: Observable<ApiResponse<MonitorGroupChangesPage>> =
+    this.store.pipe(
+      select(selectMonitorGroupChangesPage),
+      filter((r) => r != null)
+    );
 
   constructor(private store: Store<AppState>) {}
 
@@ -87,10 +85,8 @@ export class MonitorGroupChangesPageComponent implements OnInit {
     this.store.dispatch(actionMonitorGroupChangesPageInit());
   }
 
-  pageChanged(event: PageEvent) {
+  pageChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(
-      actionMonitorGroupChangesPageIndex({ pageIndex: event.pageIndex })
-    );
+    this.store.dispatch(actionMonitorGroupChangesPageIndex({ pageIndex }));
   }
 }

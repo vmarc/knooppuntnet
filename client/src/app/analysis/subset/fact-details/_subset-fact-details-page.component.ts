@@ -123,6 +123,7 @@ class SubsetFact {
                     *ngIf="hasRouteRefs()"
                     [routeId]="ref.id"
                     [title]="ref.name"
+                    [networkType]="(subsetInfo$ | async).networkType"
                   ></kpn-link-route>
                   <kpn-osm-link-node
                     *ngIf="hasOsmNodeRefs()"

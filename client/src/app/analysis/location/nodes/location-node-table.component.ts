@@ -6,7 +6,6 @@ import { Output } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { TimeInfo } from '@api/common/time-info';
@@ -24,7 +23,7 @@ import { AppState } from '../../../core/core.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      (page)="page.emit($event)"
+      (pageIndexChanged)="page.emit($event)"
       [length]="nodeCount"
       [pageIndex]="pageIndex"
       [showPageSizeSelection]="true"
@@ -148,7 +147,7 @@ import { AppState } from '../../../core/core.state';
     </table>
 
     <kpn-paginator
-      (page)="page.emit($event)"
+      (pageIndexChanged)="page.emit($event)"
       [length]="nodeCount"
       [pageIndex]="pageIndex"
     >
@@ -171,7 +170,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Input() nodes: LocationNodeInfo[];
   @Input() nodeCount: number;
   @Input() pageIndex: number;
-  @Output() page = new EventEmitter<PageEvent>();
+  @Output() page = new EventEmitter<number>();
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;

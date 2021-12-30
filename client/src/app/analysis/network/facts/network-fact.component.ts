@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
+import { NetworkType } from '@api/custom/network-type';
 
 @Component({
   selector: 'kpn-network-fact',
@@ -32,6 +33,7 @@ import { NetworkFact } from '@api/common/network-fact';
 
     <div *ngIf="fact.elements && fact.elementType === 'route'">
       <kpn-network-fact-routes
+        [networkType]="networkType"
         [routes]="fact.elements"
       ></kpn-network-fact-routes>
     </div>
@@ -42,5 +44,6 @@ import { NetworkFact } from '@api/common/network-fact';
   `,
 })
 export class NetworkFactComponent {
+  @Input() networkType: NetworkType;
   @Input() fact: NetworkFact;
 }

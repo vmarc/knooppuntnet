@@ -16,7 +16,7 @@ export const selectRouteMapPage = createSelector(
   (state: RouteState) => state.mapPage
 );
 
-export const selectNodeChangesPage = createSelector(
+export const selectRouteChangesPage = createSelector(
   selectRouteState,
   (state: RouteState) => state.changesPage
 );
@@ -39,4 +39,19 @@ export const selectRouteNetworkType = createSelector(
 export const selectRouteChangeCount = createSelector(
   selectRouteState,
   (state: RouteState) => state.changeCount
+);
+
+export const selectRouteChangesParameters = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.changesParameters
+);
+
+export const selectRouteChangesFilterOptions = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.changesPage?.result?.filterOptions
+);
+
+export const selectRouteChangesPageIndex = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.changesParameters?.pageIndex
 );

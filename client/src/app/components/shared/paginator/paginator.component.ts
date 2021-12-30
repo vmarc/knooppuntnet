@@ -9,6 +9,7 @@ import { AfterViewInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
@@ -18,10 +19,10 @@ import { selectPreferencesItemsPerPage } from '../../../core/preferences/prefere
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-paginator
-      (page)="itemsPerPageChanged($event)"
+      (page)="pageChanged($event)"
       [pageIndex]="pageIndex"
       [pageSize]="itemsPerPage$ | async"
-      [pageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
+      [pageSizeOptions]="[1, 10, 25, 50, 100, 250, 500, 1000]"
       [length]="length"
       [showFirstLastButtons]="showFirstLastButtons"
       [hidePageSize]="!showPageSizeSelection"
@@ -35,7 +36,7 @@ export class PaginatorComponent implements AfterViewInit {
   @Input() showFirstLastButtons = false;
   @Input() showPageSizeSelection = false;
 
-  @Output() page = new EventEmitter<PageEvent>();
+  @Output() pageIndexChanged = new EventEmitter<number>();
 
   @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
 
@@ -51,11 +52,20 @@ export class PaginatorComponent implements AfterViewInit {
     return this.matPaginator.pageIndex * this.matPaginator.pageSize + index + 1;
   }
 
-  itemsPerPageChanged(event: PageEvent): void {
-    this.store.dispatch(
-      actionPreferencesItemsPerPage({ itemsPerPage: event.pageSize })
-    );
-    this.page.emit(event);
+  pageChanged(event: PageEvent): void {
+    this.store
+      .select(selectPreferencesItemsPerPage)
+      .pipe(take(1))
+      .subscribe((currentItemsPerPage) => {
+        if (event.pageSize !== currentItemsPerPage) {
+          this.store.dispatch(
+            actionPreferencesItemsPerPage({ itemsPerPage: event.pageSize })
+          );
+        }
+        if (event.pageIndex !== event.previousPageIndex) {
+          this.pageIndexChanged.emit(event.pageIndex);
+        }
+      });
   }
 
   private initTranslations(): void {

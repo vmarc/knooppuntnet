@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { RouteChangesPage } from '@api/common/route/route-changes-page';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
@@ -12,6 +13,7 @@ export const initialState: RouteState = {
   detailsPage: null,
   mapPage: null,
   changesPage: null,
+  changesParameters: null,
 };
 
 export interface RouteState {
@@ -22,6 +24,7 @@ export interface RouteState {
   detailsPage: ApiResponse<RouteDetailsPage>;
   mapPage: ApiResponse<RouteMapPage>;
   changesPage: ApiResponse<RouteChangesPage>;
+  changesParameters: ChangesParameters;
 }
 
 export const routeFeatureKey = 'route';

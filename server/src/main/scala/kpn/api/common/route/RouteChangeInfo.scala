@@ -10,6 +10,7 @@ import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 
 case class RouteChangeInfo(
+  rowIndex: Long,
   id: Long,
   version: Long,
   changeKey: ChangeKey,

@@ -1,19 +1,32 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
-import { RouteChangesService } from './route-changes.service';
+import { Store } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
+import { AppState } from '../../../core/core.state';
+import { ChangeOption } from '../../changes/store/changes.actions';
+import { actionRouteChangesFilterOption } from '../store/route.actions';
+import { selectRouteChangesFilterOptions } from '../store/route.selectors';
 
 @Component({
   selector: 'kpn-route-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-change-filter [filterOptions]="filterOptions"></kpn-change-filter>
+      <kpn-change-filter
+        [filterOptions]="filterOptions$ | async"
+        (changeOption)="changed($event)"
+      ></kpn-change-filter>
     </kpn-sidebar>
   `,
 })
 export class RouteChangesSidebarComponent {
-  // TODO routeChangesService.filterOptions$ | async
-  filterOptions: ChangesFilterOption[] = [];
-  constructor(public routeChangesService: RouteChangesService) {}
+  filterOptions$ = this.store
+    .select(selectRouteChangesFilterOptions)
+    .pipe(filter((filterOptions) => !!filterOptions));
+
+  constructor(private store: Store<AppState>) {}
+
+  changed(option: ChangeOption): void {
+    this.store.dispatch(actionRouteChangesFilterOption({ option }));
+  }
 }

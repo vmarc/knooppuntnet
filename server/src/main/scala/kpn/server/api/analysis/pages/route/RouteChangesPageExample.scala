@@ -34,7 +34,7 @@ object RouteChangesPageExample {
         route.summary.name,
         route.summary.networkType
       ),
-      ChangesFilter(Seq.empty),
+      Seq.empty,
       changes(),
       totalCount = 3,
       changeCount = 3
@@ -44,6 +44,7 @@ object RouteChangesPageExample {
   def changes(): Seq[RouteChangeInfo] = {
     Seq(
       RouteChangeInfo(
+        0L,
         id = 1,
         version = 1,
         changeKey = ChangeKey(

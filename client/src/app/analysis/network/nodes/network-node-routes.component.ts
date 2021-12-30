@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
-import { NetworkNodeDetail } from '@api/common/network/network-node-detail';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
 
 @Component({
@@ -21,7 +20,11 @@ import { NetworkNodeRow } from '@api/common/network/network-node-row';
       class="kpn-comma-list route-list"
     >
       <span *ngFor="let ref of node.routeReferences">
-        <kpn-link-route [routeId]="ref.id" [title]="ref.name"></kpn-link-route>
+        <kpn-link-route
+          [routeId]="ref.id"
+          [title]="ref.name"
+          [networkType]="ref.networkType"
+        ></kpn-link-route>
       </span>
     </div>
   `,

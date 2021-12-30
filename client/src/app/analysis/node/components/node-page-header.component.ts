@@ -14,7 +14,6 @@ import { Component, Input } from '@angular/core';
     <kpn-page-menu>
       <kpn-page-menu-option
         [link]="linkNodeDetails()"
-        [state]="state()"
         [active]="pageName === 'details'"
         i18n="@@node.menu.details"
       >
@@ -23,7 +22,6 @@ import { Component, Input } from '@angular/core';
 
       <kpn-page-menu-option
         [link]="linkNodeMap()"
-        [state]="state()"
         [active]="pageName === 'map'"
         i18n="@@node.menu.map"
       >
@@ -32,7 +30,6 @@ import { Component, Input } from '@angular/core';
 
       <kpn-page-menu-option
         [link]="linkNodeChanges()"
-        [state]="state()"
         [active]="pageName === 'changes'"
         [elementCount]="changeCount"
         i18n="@@node.menu.changes"
@@ -58,10 +55,6 @@ export class NodePageHeaderComponent {
 
   linkNodeChanges(): string {
     return this.linkNode('/changes');
-  }
-
-  state(): { [k: string]: any } {
-    return { nodeName: this.nodeName, changeCount: this.changeCount };
   }
 
   private linkNode(suffix: string): string {

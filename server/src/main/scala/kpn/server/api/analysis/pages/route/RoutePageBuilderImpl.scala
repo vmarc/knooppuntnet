@@ -2,6 +2,7 @@ package kpn.server.api.analysis.pages.route
 
 import kpn.api.common.Language
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
@@ -87,9 +88,10 @@ class RoutePageBuilderImpl(
 
   private def doBuildChangesPage(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
     routeRepository.nameInfo(routeId).map { routeNameInfo =>
-      val changeCount = changeSetRepository.routeChangesCount(routeId)
-      val changesFilter = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
-      val totalCount = changesFilter.currentItemCount(parameters.impact)
+      val filterOptions = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
+      val totalCount = ChangesFilterOption.changesCount(filterOptions, parameters)
+      val changeCount = if (filterOptions.isEmpty) 0 else filterOptions.head.totalCount
+
       val routeChanges: Seq[RouteChange] = if (user.isDefined) {
         changeSetRepository.routeChanges(routeId, parameters)
       }
@@ -103,7 +105,7 @@ class RoutePageBuilderImpl(
       val history = new RouteHistoryAnalyzer(routeChanges, changeSetInfos).history
       RouteChangesPage(
         routeNameInfo,
-        changesFilter,
+        filterOptions,
         history.changes,
         totalCount,
         changeCount

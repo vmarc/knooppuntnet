@@ -6,7 +6,6 @@ import { Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationRouteInfo } from '@api/common/location/location-route-info';
 import { TimeInfo } from '@api/common/time-info';
@@ -21,7 +20,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      (page)="page.emit($event)"
+      (pageIndexChanged)="page.emit($event)"
       [pageIndex]="pageIndex"
       [length]="routeCount"
       [showPageSizeSelection]="true"
@@ -65,6 +64,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
           <kpn-link-route
             [routeId]="route.id"
             [title]="route.name"
+            [networkType]="networkType"
           ></kpn-link-route>
         </td>
       </ng-container>
@@ -120,7 +120,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
     </table>
 
     <kpn-paginator
-      (page)="page.emit($event)"
+      (pageIndexChanged)="page.emit($event)"
       [pageIndex]="pageIndex"
       [length]="routeCount"
     >
@@ -146,7 +146,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   @Input() timeInfo: TimeInfo;
   @Input() routes: LocationRouteInfo[];
   @Input() routeCount: number;
-  @Output() page = new EventEmitter<PageEvent>();
+  @Output() page = new EventEmitter<number>();
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;

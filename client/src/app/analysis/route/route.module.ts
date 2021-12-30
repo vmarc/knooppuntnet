@@ -11,7 +11,6 @@ import { FactModule } from '../fact/fact.module';
 import { RouteChangesPageComponent } from './changes/_route-changes-page.component';
 import { RouteChangeComponent } from './changes/route-change.component';
 import { RouteChangesSidebarComponent } from './changes/route-changes-sidebar.component';
-import { RouteChangesService } from './changes/route-changes.service';
 import { RoutePageHeaderComponent } from './components/route-page-header.component';
 import { RoutePageComponent } from './details/_route-page.component';
 import { LinkImageComponent } from './details/link-image.component';
@@ -63,6 +62,5 @@ import { routeFeatureKey } from './store/route.state';
     RouteLocationComponent,
     LinkImageComponent,
   ],
-  providers: [RouteChangesService],
 })
 export class RouteModule {}
