@@ -3,7 +3,9 @@ import { Store } from '@ngrx/store';
 import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { UserService } from '../../../services/user.service';
+import { actionChangesPageIndex } from '../store/changes.actions';
 import { actionChangesPageInit } from '../store/changes.actions';
+import { selectChangesPageIndex } from '../store/changes.selectors';
 import { selectChangesPage } from '../store/changes.selectors';
 
 @Component({
@@ -42,8 +44,10 @@ import { selectChangesPage } from '../store/changes.selectors';
           ></kpn-situation-on>
         </p>
         <kpn-changes
+          [pageIndex]="pageIndex$ | async"
           [totalCount]="page.changeCount"
           [changeCount]="page.changes.length"
+          (pageIndexChanged)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item
@@ -67,6 +71,7 @@ import { selectChangesPage } from '../store/changes.selectors';
 })
 export class ChangesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectChangesPage);
+  readonly pageIndex$ = this.store.select(selectChangesPageIndex);
 
   constructor(
     private pageService: PageService,
@@ -83,5 +88,9 @@ export class ChangesPageComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
+  }
+
+  pageIndexChanged(pageIndex: number): void {
+    this.store.dispatch(actionChangesPageIndex({ pageIndex }));
   }
 }

@@ -28,5 +28,5 @@ export const selectChangesAnalysisMode = createSelector(
 
 export const selectChangesPageIndex = createSelector(
   selectChangesState,
-  (state: ChangesState) => state.pageIndex
+  (state: ChangesState) => state.changesParameters.pageIndex
 );

@@ -7,14 +7,12 @@ export const initialState: ChangesState = {
   analysisMode: AnalysisMode.location,
   changesParameters: null,
   changesPage: null,
-  pageIndex: 0,
 };
 
 export interface ChangesState {
   analysisMode: AnalysisMode;
   changesParameters: ChangesParameters;
   changesPage: ApiResponse<ChangesPage>;
-  pageIndex: number;
 }
 
 export const changesFeatureKey = 'changes';

@@ -19,9 +19,9 @@ import { selectNodeChangeCount } from '../store/node.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
       <li>
-        <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+        <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
       </li>
       <li i18n="@@breadcrumb.node">Node</li>
     </ul>

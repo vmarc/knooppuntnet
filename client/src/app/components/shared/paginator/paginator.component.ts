@@ -57,12 +57,11 @@ export class PaginatorComponent implements AfterViewInit {
       .select(selectPreferencesItemsPerPage)
       .pipe(take(1))
       .subscribe((currentItemsPerPage) => {
-        if (event.pageSize !== currentItemsPerPage) {
+        if (event.pageSize !== +currentItemsPerPage) {
           this.store.dispatch(
             actionPreferencesItemsPerPage({ itemsPerPage: event.pageSize })
           );
-        }
-        if (event.pageIndex !== event.previousPageIndex) {
+        } else if (event.pageIndex !== event.previousPageIndex) {
           this.pageIndexChanged.emit(event.pageIndex);
         }
       });

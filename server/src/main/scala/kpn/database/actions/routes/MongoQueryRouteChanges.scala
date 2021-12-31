@@ -1,5 +1,23 @@
 package kpn.database.actions.routes
 
+import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.changes.filter.ChangesParameters
+import kpn.core.util.Log
+import kpn.database.base.Database
+import kpn.database.util.Mongo
+import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.limit
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.skip
+import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Sorts.descending
+import org.mongodb.scala.model.Sorts.orderBy
+
 class MongoQueryRouteChanges(database: Database) {
 
   private val log = Log(classOf[MongoQueryRouteChanges])

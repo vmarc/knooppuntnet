@@ -124,9 +124,17 @@ export class NetworkEffects {
         this.store.select(selectPreferencesItemsPerPage),
         this.store.select(selectNetworkChangesParameters)
       ),
-      tap(([{}, networkId, {}, {}]) => {
-        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
-      }),
+      tap(
+        ([
+          {},
+          networkId,
+          preferencesImpact,
+          preferencesItemsPerPage,
+          urlChangesParameters,
+        ]) => {
+          this.store.dispatch(actionNetworkId({ networkId: +networkId }));
+        }
+      ),
       map(
         ([
           {},

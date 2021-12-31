@@ -26,7 +26,7 @@ export const preferencesReducer = createReducer(
   on(routerNavigatedAction, (state, action) => {
     if (action.payload.routerState.url.includes('/analysis/changes')) {
       const queryParams = action.payload.routerState.root.queryParams;
-      const itemsPerPage = queryParams['itemsPerPage'];
+      const itemsPerPage = +queryParams['itemsPerPage'];
       const impact = queryParams['impact'];
       let analysisMode: AnalysisMode;
       if ('network' === queryParams['network']) {

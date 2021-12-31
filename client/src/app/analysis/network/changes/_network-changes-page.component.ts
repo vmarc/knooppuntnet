@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppService } from '../../../app.service';
 import { AppState } from '../../../core/core.state';
-import { NetworkCacheService } from '../../../services/network-cache.service';
 import { UserService } from '../../../services/user.service';
+import { actionNetworkChangesPageIndex } from '../store/network.actions';
 import { actionNetworkChangesPageInit } from '../store/network.actions';
 import { selectNetworkChangesPage } from '../store/network.selectors';
 
@@ -40,6 +39,7 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
           <kpn-changes
             [totalCount]="response.result.totalCount"
             [changeCount]="response.result.changes.length"
+            (pageIndexChanged)="pageIndexChanged($event)"
           >
             <kpn-items>
               <kpn-item
@@ -61,8 +61,6 @@ export class NetworkChangesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectNetworkChangesPage);
 
   constructor(
-    private appService: AppService,
-    private networkCacheService: NetworkCacheService, // TODO
     private userService: UserService,
     private store: Store<AppState>
   ) {}
@@ -73,5 +71,9 @@ export class NetworkChangesPageComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
+  }
+
+  pageIndexChanged(pageIndex: number): void {
+    this.store.dispatch(actionNetworkChangesPageIndex({ pageIndex }));
   }
 }
