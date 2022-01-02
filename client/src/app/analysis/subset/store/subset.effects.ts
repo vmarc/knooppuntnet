@@ -8,17 +8,19 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
 import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
+import { QueryParams } from '../../../base/query-params';
+import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionSubsetChangesPageLoaded } from './subset.actions';
+import { actionSubsetChangesPageSize } from './subset.actions';
+import { actionSubsetChangesPageImpact } from './subset.actions';
+import { actionSubsetChangesPageLoad } from './subset.actions';
 import { actionSubsetChangesFilterOption } from './subset.actions';
 import { actionSubsetChangesPageIndex } from './subset.actions';
 import { actionSubsetFactsPageInit } from './subset.actions';
@@ -27,14 +29,12 @@ import { actionSubsetOrphanNodesPageInit } from './subset.actions';
 import { actionSubsetMapPageInit } from './subset.actions';
 import { actionSubsetChangesPageInit } from './subset.actions';
 import { actionSubsetNetworksPageInit } from './subset.actions';
-import { actionSubsetChangesPageLoaded } from './subset.actions';
 import { actionSubsetMapPageLoaded } from './subset.actions';
 import { actionSubsetOrphanRoutesPageLoaded } from './subset.actions';
 import { actionSubsetOrphanNodesPageLoaded } from './subset.actions';
 import { actionSubsetFactsPageLoaded } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
 import { selectSubsetChangesParameters } from './subset.selectors';
-import { selectSubsetChangesPage } from './subset.selectors';
 import { selectSubset } from './subset.selectors';
 
 @Injectable()
@@ -108,55 +108,47 @@ export class SubsetEffects {
       ofType(actionSubsetChangesPageInit),
       withLatestFrom(
         this.store.select(selectSubset),
+        this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesPageSize),
-        this.store.select(selectSubsetChangesParameters)
+        this.store.select(selectPreferencesPageSize)
       ),
       map(
-        ([
-          {},
-          subset,
-          preferencesImpact,
-          preferencesPageSize,
-          urlChangesParameters,
-        ]) => {
-          const pageSize =
-            urlChangesParameters?.pageSize ?? preferencesPageSize;
-          const pageIndex = urlChangesParameters?.pageIndex ?? 0;
-          const impact = urlChangesParameters?.impact ?? preferencesImpact;
-          const changesParameters: ChangesParameters = {
-            ...urlChangesParameters,
-            pageSize,
-            pageIndex,
-            impact,
-          };
-          return { subset, changesParameters };
+        ([{}, subset, queryParams, preferencesImpact, preferencesPageSize]) => {
+          const queryParamsWrapper = new QueryParams(queryParams);
+          const changesParameters = queryParamsWrapper.changesParameters(
+            preferencesImpact,
+            preferencesPageSize
+          );
+          return actionSubsetChangesPageLoad({ subset, changesParameters });
         }
-      ),
-      tap(({ subset, changesParameters }) => this.navigate(changesParameters)),
-      mergeMap(({ subset, changesParameters }) => {
-        return this.appService
-          .subsetChanges(subset, changesParameters)
-          .pipe(map((response) => actionSubsetChangesPageLoaded({ response })));
-      })
+      )
     )
   );
 
-  subsetChangesPageUpdate = createEffect(() =>
+  subsetChangesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(
+        actionSubsetChangesPageLoad,
         actionSubsetChangesPageIndex,
-        actionPreferencesImpact,
-        actionPreferencesPageSize,
+        actionSubsetChangesPageImpact,
+        actionSubsetChangesPageSize,
         actionSubsetChangesFilterOption
       ),
-      withLatestFrom(this.store.select(selectSubsetChangesPage)),
-      // continue only if we are currently on the changes page!!
-      filter(([{}, response]) => !!response),
-      withLatestFrom(this.store.select(selectSubsetChangesParameters)),
-      mergeMap(([[{}, {}], changesParameters]) => {
+      withLatestFrom(
+        this.store.select(selectSubset),
+        this.store.select(selectSubsetChangesParameters)
+      ),
+      mergeMap(([{}, subset, changesParameters]) => {
         const promise = this.navigate(changesParameters);
-        return from(promise).pipe(map(actionSubsetChangesPageInit));
+        return from(promise).pipe(
+          mergeMap(() => {
+            return this.appService
+              .subsetChanges(subset, changesParameters)
+              .pipe(
+                map((response) => actionSubsetChangesPageLoaded({ response }))
+              );
+          })
+        );
       })
     )
   );

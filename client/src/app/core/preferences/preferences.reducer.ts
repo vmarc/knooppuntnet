@@ -10,6 +10,8 @@ import { actionRouteChangesFilterOption } from '../../analysis/route/store/route
 import { actionRouteChangesPageLoaded } from '../../analysis/route/store/route.actions';
 import { actionRouteMapPageLoaded } from '../../analysis/route/store/route.actions';
 import { actionRouteDetailsPageLoaded } from '../../analysis/route/store/route.actions';
+import { actionSubsetChangesPageSize } from '../../analysis/subset/store/subset.actions';
+import { actionSubsetChangesPageImpact } from '../../analysis/subset/store/subset.actions';
 import { Util } from '../../components/shared/util';
 import { actionPreferencesAnalysisMode } from './preferences.actions';
 import { actionPreferencesShowOptions } from './preferences.actions';
@@ -142,6 +144,14 @@ export const preferencesReducer = createReducer(
     impact,
   })),
   on(actionChangesPageSize, (state, { pageSize }) => ({
+    ...state,
+    pageSize,
+  })),
+  on(actionSubsetChangesPageImpact, (state, { impact }) => ({
+    ...state,
+    impact,
+  })),
+  on(actionSubsetChangesPageSize, (state, { pageSize }) => ({
     ...state,
     pageSize,
   }))

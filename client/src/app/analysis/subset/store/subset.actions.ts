@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
 import { SubsetMapPage } from '@api/common/subset/subset-map-page';
@@ -5,6 +6,7 @@ import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
 import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-page';
 import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { Subset } from '@api/custom/subset';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { ChangeOption } from '../../changes/store/changes.actions';
@@ -54,9 +56,24 @@ export const actionSubsetChangesPageInit = createAction(
   '[SubsetChangesPage] Init'
 );
 
+export const actionSubsetChangesPageLoad = createAction(
+  '[SubsetChangesPage] Load',
+  props<{ subset: Subset; changesParameters: ChangesParameters }>()
+);
+
 export const actionSubsetChangesPageLoaded = createAction(
   '[SubsetChangesPage] Loaded',
   props<{ response: ApiResponse<SubsetChangesPage> }>()
+);
+
+export const actionSubsetChangesPageImpact = createAction(
+  '[SubsetChangesPage] Impact',
+  props<{ impact: boolean }>()
+);
+
+export const actionSubsetChangesPageSize = createAction(
+  '[SubsetChangesPage] Page size',
+  props<{ pageSize: number }>()
 );
 
 export const actionSubsetChangesPageIndex = createAction(

@@ -7,9 +7,11 @@ import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
 import { Util } from '../../../components/shared/util';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionSubsetChangesPageLoad } from './subset.actions';
+import { actionSubsetChangesPageImpact } from './subset.actions';
+import { actionSubsetChangesPageSize } from './subset.actions';
 import { actionSubsetChangesPageIndex } from './subset.actions';
 import { actionSubsetChangesFilterOption } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
@@ -77,6 +79,11 @@ export const subsetReducer = createReducer(
     subsetInfo: response.result.subsetInfo,
     mapPage: response,
   })),
+  on(actionSubsetChangesPageLoad, (state, { subset, changesParameters }) => ({
+    ...state,
+    subset,
+    changesParameters,
+  })),
   on(actionSubsetChangesPageLoaded, (state, { response }) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
@@ -93,19 +100,27 @@ export const subsetReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionSubsetChangesPageIndex, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: action.pageIndex,
-    },
-  })),
-  on(actionPreferencesImpact, (state, action) => ({
+  on(actionSubsetChangesPageImpact, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,
       impact: action.impact,
       pageIndex: 0,
+    },
+  })),
+  on(actionSubsetChangesPageSize, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      pageSize: action.pageSize,
+      pageIndex: 0,
+    },
+  })),
+  on(actionSubsetChangesPageIndex, (state, action) => ({
+    ...state,
+    changesParameters: {
+      ...state.changesParameters,
+      pageIndex: action.pageIndex,
     },
   }))
 );

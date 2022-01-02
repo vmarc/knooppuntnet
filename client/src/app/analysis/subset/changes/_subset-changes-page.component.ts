@@ -9,9 +9,12 @@ import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { SubsetCacheService } from '../../../services/subset-cache.service';
 import { UserService } from '../../../services/user.service';
-import { selectChangesPageIndex } from '../../changes/store/changes.selectors';
+import { actionSubsetChangesPageSize } from '../store/subset.actions';
+import { actionSubsetChangesPageImpact } from '../store/subset.actions';
 import { actionSubsetChangesPageIndex } from '../store/subset.actions';
 import { actionSubsetChangesPageInit } from '../store/subset.actions';
+import { selectSubsetChangesPageImpact } from '../store/subset.selectors';
+import { selectSubsetChangesPageSize } from '../store/subset.selectors';
 import { selectSubsetChangesPageIndex } from '../store/subset.selectors';
 import { selectSubsetChangesPage } from '../store/subset.selectors';
 
@@ -41,10 +44,14 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
           ></kpn-situation-on>
         </p>
         <kpn-changes
+          [impact]="impact$ | async"
+          [pageSize]="pageSize$ | async"
+          [pageIndex]="pageIndex$ | async"
+          (impactChange)="onImpactChange($event)"
+          (pageSizeChange)="onPageSizeChange($event)"
+          (pageIndexChange)="onPageIndexChange($event)"
           [totalCount]="response.result.changeCount"
           [changeCount]="response.result.changes.length"
-          [pageIndex]="pageIndex$ | async"
-          (pageIndexChange)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item
@@ -70,8 +77,10 @@ export class SubsetChangesPageComponent implements OnInit {
   subset: Subset;
   subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
 
-  readonly response$ = this.store.select(selectSubsetChangesPage);
+  readonly impact$ = this.store.select(selectSubsetChangesPageImpact);
+  readonly pageSize$ = this.store.select(selectSubsetChangesPageSize);
   readonly pageIndex$ = this.store.select(selectSubsetChangesPageIndex);
+  readonly response$ = this.store.select(selectSubsetChangesPage);
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -104,7 +113,15 @@ export class SubsetChangesPageComponent implements OnInit {
   //       );
   //       this.subsetInfo$.next(response.result.subsetInfo);
 
-  pageIndexChanged(pageIndex: number): void {
+  onImpactChange(impact: boolean): void {
+    this.store.dispatch(actionSubsetChangesPageImpact({ impact }));
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.store.dispatch(actionSubsetChangesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number): void {
     this.store.dispatch(actionSubsetChangesPageIndex({ pageIndex }));
   }
 }

@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { subsetFeatureKey } from './subset.state';
@@ -56,7 +57,17 @@ export const selectSubsetChangesParameters = createSelector(
   (state: SubsetState) => state.changesParameters
 );
 
+export const selectSubsetChangesPageImpact = createSelector(
+  selectSubsetChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.impact
+);
+
+export const selectSubsetChangesPageSize = createSelector(
+  selectSubsetChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageSize
+);
+
 export const selectSubsetChangesPageIndex = createSelector(
-  selectSubsetState,
-  (state: SubsetState) => state.changesParameters?.pageIndex
+  selectSubsetChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageIndex
 );
