@@ -12,9 +12,9 @@ import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { actionRouteChangesFilterOption } from './route.actions';
 import { actionRouteChangesPageIndex } from './route.actions';
@@ -62,7 +62,7 @@ export class RouteEffects {
       withLatestFrom(
         this.store.select(selectRouteParam('routeId')),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectRouteChangesParameters)
       ),
       mergeMap(
@@ -70,16 +70,16 @@ export class RouteEffects {
           {},
           routeId,
           preferencesImpact,
-          preferencesItemsPerPage,
+          preferencesPageSize,
           urlChangesParameters,
         ]) => {
-          const itemsPerPage =
-            urlChangesParameters?.itemsPerPage ?? preferencesItemsPerPage;
+          const pageSize =
+            urlChangesParameters?.pageSize ?? preferencesPageSize;
           const pageIndex = urlChangesParameters?.pageIndex ?? 0;
           const impact = urlChangesParameters?.impact ?? preferencesImpact;
           const changesParameters: ChangesParameters = {
             ...urlChangesParameters,
-            itemsPerPage,
+            pageSize,
             pageIndex,
             impact,
           };
@@ -99,7 +99,7 @@ export class RouteEffects {
       ofType(
         actionRouteChangesPageIndex,
         actionPreferencesImpact,
-        actionPreferencesItemsPerPage,
+        actionPreferencesPageSize,
         actionRouteChangesFilterOption
       ),
       tap((action) =>

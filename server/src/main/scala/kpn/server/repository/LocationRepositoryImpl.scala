@@ -11,13 +11,13 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
+import kpn.core.doc.LocationNodeCount
 import kpn.database.actions.locations.MongoQueryLocationFactCount
 import kpn.database.actions.locations.MongoQueryLocationFacts
 import kpn.database.actions.locations.MongoQueryLocationNodeCounts
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.locations.MongoQueryLocationRoutes
 import kpn.database.base.Database
-import kpn.core.doc.LocationNodeCount
 import org.springframework.stereotype.Component
 
 @Component
@@ -37,8 +37,8 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
       locationKey.networkType,
       locationKey.name,
       parameters.locationNodesType,
-      parameters.pageIndex.toInt,
-      parameters.itemsPerPage.toInt
+      parameters.pageSize.toInt,
+      parameters.pageIndex.toInt
     )
   }
 
@@ -51,8 +51,8 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
       locationKey.networkType,
       locationKey.name,
       parameters.locationRoutesType,
-      parameters.pageIndex.toInt,
-      parameters.itemsPerPage.toInt
+      parameters.pageSize.toInt,
+      parameters.pageIndex.toInt
     )
   }
 

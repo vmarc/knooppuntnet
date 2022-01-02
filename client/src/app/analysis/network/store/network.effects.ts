@@ -17,11 +17,11 @@ import { selectQueryParams } from '../../../core/core.state';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { actionNetworkChangesLoad } from './network.actions';
 import { actionNetworkChangesImpact } from './network.actions';
-import { actionNetworkChangesItemsPerPage } from './network.actions';
+import { actionNetworkChangesPageSize } from './network.actions';
 import { actionNetworkId } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
@@ -124,7 +124,7 @@ export class NetworkEffects {
         this.store.select(selectRouteParams),
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesItemsPerPage)
+        this.store.select(selectPreferencesPageSize)
       ),
       map(
         ([
@@ -132,12 +132,12 @@ export class NetworkEffects {
           routeParams,
           queryParams,
           preferencesImpact,
-          preferencesItemsPerPage,
+          preferencesPageSize,
         ]) => {
           const queryParamsUtil = new QueryParams(queryParams);
           const changesParameters = queryParamsUtil.changesParameters(
             preferencesImpact,
-            preferencesItemsPerPage
+            preferencesPageSize
           );
           const networkId = +routeParams['networkId'];
           return actionNetworkChangesLoad({ networkId, changesParameters });
@@ -151,7 +151,7 @@ export class NetworkEffects {
       ofType(
         actionNetworkChangesLoad,
         actionNetworkChangesImpact,
-        actionNetworkChangesItemsPerPage,
+        actionNetworkChangesPageSize,
         actionNetworkChangesPageIndex,
         actionNetworkChangesFilterOption
       ),

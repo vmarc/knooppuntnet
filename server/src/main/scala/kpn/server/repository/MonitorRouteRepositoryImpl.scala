@@ -150,8 +150,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         None
       },
       Some(sort(orderBy(descending("key.time")))),
-      Some(skip((parameters.pageIndex * parameters.itemsPerPage).toInt)),
-      Some(limit(parameters.itemsPerPage.toInt))
+      Some(skip((parameters.pageSize * parameters.pageIndex).toInt)),
+      Some(limit(parameters.pageSize.toInt))
     ).flatten
 
     log.debugElapsed {
@@ -172,8 +172,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         groupChangesFilter(groupName, parameters)
       ),
       sort(orderBy(descending("key.time"))),
-      skip((parameters.pageIndex * parameters.itemsPerPage).toInt),
-      limit(parameters.itemsPerPage.toInt)
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt)
     )
     database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
   }
@@ -189,8 +189,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
         routeChangesCountFilter(monitorRouteId, parameters)
       ),
       sort(orderBy(descending("key.time"))),
-      skip((parameters.pageIndex * parameters.itemsPerPage).toInt),
-      limit(parameters.itemsPerPage.toInt)
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt)
     )
     database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
   }

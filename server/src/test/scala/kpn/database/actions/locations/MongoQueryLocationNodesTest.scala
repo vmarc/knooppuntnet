@@ -47,7 +47,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(2)
-      query.find(hiking, "be", LocationNodesType.all, 0, 5) should matchTo(
+      query.find(hiking, "be", LocationNodesType.all, 5, 0) should matchTo(
         Seq(
           LocationNodeInfo(
             1001L,
@@ -112,7 +112,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 0, 5)
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 5, 0)
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -152,7 +152,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.survey) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.survey, 0, 5)
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.survey, 5, 0)
       locationNodeInfos should matchTo(
         Seq(
           LocationNodeInfo(
@@ -205,7 +205,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 0, 5)
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 5, 0)
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -243,7 +243,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 0, 5)
+      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 5, 0)
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -284,7 +284,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryLocationNodes(database)
       query.countDocuments(hiking, "be", LocationNodesType.facts) should equal(1)
-      query.find(hiking, "be", LocationNodesType.facts, 0, 5) should matchTo(
+      query.find(hiking, "be", LocationNodesType.facts, 5, 0) should matchTo(
         Seq(
           LocationNodeInfo(
             1007L,
@@ -338,13 +338,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       val query = new MongoQueryLocationNodes(database)
 
       def find(page: Int, pageSize: Int): Seq[Long] = {
-        query.find(
-          hiking,
-          "be",
-          LocationNodesType.all,
-          page,
-          pageSize
-        ).map(_.id)
+        query.find(hiking, "be", LocationNodesType.all, pageSize, page).map(_.id)
       }
 
       query.countDocuments(hiking, "be", LocationNodesType.all) should equal(8)

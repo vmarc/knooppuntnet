@@ -44,8 +44,8 @@ object ChangesPipeline {
           )
         )
       ),
-      skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
-      limit(parameters.itemsPerPage.toInt),
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt),
       BsonDocument("""{"$set": { "changeSetId": "$key.changeSetId"}}"""),
       lookup(
         "changeset-comments",

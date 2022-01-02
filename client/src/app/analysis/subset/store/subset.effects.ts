@@ -15,9 +15,9 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { actionSubsetChangesFilterOption } from './subset.actions';
 import { actionSubsetChangesPageIndex } from './subset.actions';
@@ -109,7 +109,7 @@ export class SubsetEffects {
       withLatestFrom(
         this.store.select(selectSubset),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectSubsetChangesParameters)
       ),
       map(
@@ -117,16 +117,16 @@ export class SubsetEffects {
           {},
           subset,
           preferencesImpact,
-          preferencesItemsPerPage,
+          preferencesPageSize,
           urlChangesParameters,
         ]) => {
-          const itemsPerPage =
-            urlChangesParameters?.itemsPerPage ?? preferencesItemsPerPage;
+          const pageSize =
+            urlChangesParameters?.pageSize ?? preferencesPageSize;
           const pageIndex = urlChangesParameters?.pageIndex ?? 0;
           const impact = urlChangesParameters?.impact ?? preferencesImpact;
           const changesParameters: ChangesParameters = {
             ...urlChangesParameters,
-            itemsPerPage,
+            pageSize,
             pageIndex,
             impact,
           };
@@ -147,7 +147,7 @@ export class SubsetEffects {
       ofType(
         actionSubsetChangesPageIndex,
         actionPreferencesImpact,
-        actionPreferencesItemsPerPage,
+        actionPreferencesPageSize,
         actionSubsetChangesFilterOption
       ),
       withLatestFrom(this.store.select(selectSubsetChangesPage)),

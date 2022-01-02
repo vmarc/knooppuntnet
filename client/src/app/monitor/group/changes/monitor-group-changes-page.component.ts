@@ -46,7 +46,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
         </mat-slide-toggle>
 
         <kpn-paginator
-          (pageIndexChanged)="pageChanged($event)"
+          (pageIndexChange)="pageChanged($event)"
           [pageIndex]="response.result.pageIndex"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
@@ -54,8 +54,8 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
         </kpn-paginator>
 
         <kpn-monitor-changes
+          [pageSize]="response.result.pageSize"
           [pageIndex]="response.result.pageIndex"
-          [itemsPerPage]="response.result.itemsPerPage"
           [changes]="response.result.changes"
         >
         </kpn-monitor-changes>

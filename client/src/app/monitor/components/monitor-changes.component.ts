@@ -82,11 +82,11 @@ import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-cha
   ],
 })
 export class MonitorChangesComponent {
+  @Input() pageSize: number;
   @Input() pageIndex: number;
-  @Input() itemsPerPage: number;
   @Input() changes: MonitorRouteChangeSummary[];
 
   rowIndex(index: number): number {
-    return this.pageIndex * this.itemsPerPage + index;
+    return this.pageSize * this.pageIndex + index;
   }
 }

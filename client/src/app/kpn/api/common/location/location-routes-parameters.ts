@@ -4,6 +4,6 @@ import { LocationRoutesType } from '../../custom/location-routes-type';
 
 export interface LocationRoutesParameters {
   readonly locationRoutesType: LocationRoutesType;
-  readonly itemsPerPage: number;
+  readonly pageSize: number;
   readonly pageIndex: number;
 }

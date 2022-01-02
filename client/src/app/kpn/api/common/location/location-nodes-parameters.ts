@@ -4,6 +4,6 @@ import { LocationNodesType } from '../../custom/location-nodes-type';
 
 export interface LocationNodesParameters {
   readonly locationNodesType: LocationNodesType;
-  readonly itemsPerPage: number;
+  readonly pageSize: number;
   readonly pageIndex: number;
 }

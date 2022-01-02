@@ -15,12 +15,12 @@ import { withLatestFrom } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesAnalysisMode } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesAnalysisMode } from '../../../core/preferences/preferences.selectors';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { AnalysisMode } from '../../../core/preferences/preferences.state';
 import { actionChangesFilterOption } from './changes.actions';
 import { actionChangesPageLoaded } from './changes.actions';
@@ -38,7 +38,7 @@ export class ChangesEffects {
       withLatestFrom(
         this.store.select(selectPreferencesAnalysisMode),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectChangesAnalysisMode),
         this.store.select(selectChangesParameters)
       ),
@@ -47,7 +47,7 @@ export class ChangesEffects {
           {},
           preferencesAnalysisMode,
           preferencesImpact,
-          preferencesItemsPerPage,
+          preferencesPageSize,
           urlAnalysisMode,
           urlChangesParameters,
         ]) => {
@@ -56,15 +56,15 @@ export class ChangesEffects {
             analysisMode = preferencesAnalysisMode;
           }
 
-          let itemsPerPage: number = preferencesItemsPerPage;
-          if (urlChangesParameters?.itemsPerPage) {
-            itemsPerPage = +urlChangesParameters?.itemsPerPage;
+          let pageSize: number = preferencesPageSize;
+          if (urlChangesParameters?.pageSize) {
+            pageSize = +urlChangesParameters?.pageSize;
           }
           const pageIndex: number = urlChangesParameters?.pageIndex ?? 0;
           const impact = urlChangesParameters?.impact ?? preferencesImpact;
           const changesParameters: ChangesParameters = {
             ...urlChangesParameters,
-            itemsPerPage,
+            pageSize,
             pageIndex,
             impact,
           };
@@ -91,7 +91,7 @@ export class ChangesEffects {
       ofType(
         actionChangesPageIndex,
         actionPreferencesImpact,
-        actionPreferencesItemsPerPage,
+        actionPreferencesPageSize,
         actionPreferencesAnalysisMode,
         actionChangesFilterOption
       ),

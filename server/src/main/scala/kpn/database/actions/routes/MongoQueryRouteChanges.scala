@@ -53,8 +53,8 @@ class MongoQueryRouteChanges(database: Database) {
           )
         )
       ),
-      skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
-      limit(parameters.itemsPerPage.toInt),
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt),
       project(
         fields(
           excludeId()

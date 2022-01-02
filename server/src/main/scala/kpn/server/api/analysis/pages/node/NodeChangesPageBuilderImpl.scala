@@ -32,7 +32,7 @@ class NodeChangesPageBuilderImpl(
         val totalCount = if (filterOptions.isEmpty) 0 else filterOptions.head.totalCount
         val changeCount = ChangesFilterOption.changesCount(filterOptions, parameters)
         val changes = nodeChanges.zipWithIndex.map { case (change, index) =>
-          val rowIndex = parameters.itemsPerPage * parameters.pageIndex + index
+          val rowIndex = parameters.pageSize * parameters.pageIndex + index
           NodeChangeInfo(
             rowIndex,
             change.id,

@@ -6,8 +6,8 @@ case class MonitorRouteChangesPage(
   groupName: String,
   groupDescription: String,
   impact: Boolean,
+  pageSize: Long,
   pageIndex: Long,
-  itemsPerPage: Long,
   totalChangeCount: Long,
   changes: Seq[MonitorRouteChangeSummary]
 )

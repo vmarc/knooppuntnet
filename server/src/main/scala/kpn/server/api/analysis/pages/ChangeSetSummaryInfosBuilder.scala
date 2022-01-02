@@ -28,7 +28,7 @@ class ChangeSetSummaryInfosBuilder(
     val changeSetIds = changeSetSummaries.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
     changeSetSummaries.zipWithIndex.map { case (summary, index) =>
-      val rowIndex = parameters.itemsPerPage * parameters.pageIndex + index
+      val rowIndex = parameters.pageSize * parameters.pageIndex + index
       val comment = changeSetInfos.find(s => s.id == summary.key.changeSetId).flatMap(_.tags("comment"))
       analysisMode match {
         case LOCATION =>

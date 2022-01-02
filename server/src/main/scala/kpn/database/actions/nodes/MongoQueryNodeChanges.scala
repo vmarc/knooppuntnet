@@ -23,7 +23,7 @@ object MongoQueryNodeChanges {
       query.execute(257728810L, ChangesParameters(impact = true))
       query.execute(278003073L, ChangesParameters(impact = true))
       query.execute(278003073L, ChangesParameters(impact = true))
-      val changes = query.execute(44937914L, ChangesParameters(year = Some(2014), itemsPerPage = 25))
+      val changes = query.execute(44937914L, ChangesParameters(year = Some(2014), pageSize = 25))
       changes.map(_.key).zipWithIndex.foreach { case (key, index) =>
         println(s"${index + 1}  ${key.timestamp.yyyymmddhhmm}  ${key.replicationNumber}  ${key.changeSetId}")
       }

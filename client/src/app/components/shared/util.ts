@@ -130,7 +130,7 @@ export class Util {
       year: null,
       month: null,
       day: null,
-      itemsPerPage: 0,
+      pageSize: 0,
       pageIndex: 0,
       impact: false,
     };

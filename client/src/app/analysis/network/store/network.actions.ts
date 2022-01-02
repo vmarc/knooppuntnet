@@ -78,14 +78,14 @@ export const actionNetworkChangesPageLoaded = createAction(
   props<{ response: ApiResponse<NetworkChangesPage> }>()
 );
 
+export const actionNetworkChangesPageSize = createAction(
+  '[NetworkChangesPage] Page size',
+  props<{ pageSize: number }>()
+);
+
 export const actionNetworkChangesPageIndex = createAction(
   '[NetworkChangesPage] Page index',
   props<{ pageIndex: number }>()
-);
-
-export const actionNetworkChangesItemsPerPage = createAction(
-  '[NetworkChangesPage] Items per page',
-  props<{ itemsPerPage: number }>()
 );
 
 export const actionNetworkChangesImpact = createAction(

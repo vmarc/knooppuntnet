@@ -38,7 +38,7 @@ export class RoutingUtil {
     let year: number;
     let month: number;
     let day: number;
-    let itemsPerPage = 25;
+    let pageSize = 25;
     let pageIndex = 0;
     let impact = true;
 
@@ -51,8 +51,8 @@ export class RoutingUtil {
     if (queryParams['day']) {
       day = +queryParams['day'];
     }
-    if (queryParams['itemsPerPage']) {
-      itemsPerPage = +queryParams['itemsPerPage'];
+    if (queryParams['pageSize']) {
+      pageSize = +queryParams['pageSize'];
     }
     if (queryParams['pageIndex']) {
       pageIndex = +queryParams['pageIndex'];
@@ -65,7 +65,7 @@ export class RoutingUtil {
       year,
       month,
       day,
-      itemsPerPage,
+      pageSize,
       pageIndex,
       impact,
     };

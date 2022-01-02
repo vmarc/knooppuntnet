@@ -100,7 +100,7 @@ export class ChangeFilterOptions {
       year,
       month,
       day,
-      itemsPerPage: parameters.itemsPerPage,
+      pageSize: parameters.pageSize,
       pageIndex: parameters.pageIndex,
       impact,
     };

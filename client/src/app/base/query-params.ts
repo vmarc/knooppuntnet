@@ -6,12 +6,12 @@ export class QueryParams {
 
   changesParameters(
     preferencesImpact: boolean,
-    preferencesItemsPerPage: number
+    preferencesPageSize: number
   ): ChangesParameters {
     let year: number;
     let month: number;
     let day: number;
-    let itemsPerPage = 25;
+    let pageSize = 25;
     let pageIndex = 0;
     let impact = true;
 
@@ -24,10 +24,10 @@ export class QueryParams {
     if (this.queryParams['day']) {
       day = +this.queryParams['day'];
     }
-    if (this.queryParams['itemsPerPage']) {
-      itemsPerPage = +this.queryParams['itemsPerPage'];
+    if (this.queryParams['pageSize']) {
+      pageSize = +this.queryParams['pageSize'];
     } else {
-      itemsPerPage = preferencesItemsPerPage;
+      pageSize = preferencesPageSize;
     }
     if (this.queryParams['pageIndex']) {
       pageIndex = +this.queryParams['pageIndex'];
@@ -42,7 +42,7 @@ export class QueryParams {
       year,
       month,
       day,
-      itemsPerPage,
+      pageSize,
       pageIndex,
       impact,
     };

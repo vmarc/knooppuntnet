@@ -33,8 +33,8 @@ class MonitorRouteChangesPageBuilderImpl(
     Some(
       MonitorChangesPage(
         parameters.impact,
+        parameters.pageSize,
         parameters.pageIndex,
-        parameters.itemsPerPage,
         totalChangeCount,
         enrichedChanges
       )
@@ -55,8 +55,8 @@ class MonitorRouteChangesPageBuilderImpl(
         group.name,
         group.description,
         parameters.impact,
+        parameters.pageSize,
         parameters.pageIndex,
-        parameters.itemsPerPage,
         totalChangeCount,
         enrichedChanges
       )
@@ -74,8 +74,8 @@ class MonitorRouteChangesPageBuilderImpl(
           group.name,
           group.description,
           parameters.impact,
+          parameters.pageSize,
           parameters.pageIndex,
-          parameters.itemsPerPage,
           totalChangeCount,
           changes
         )

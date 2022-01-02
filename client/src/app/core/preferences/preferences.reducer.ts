@@ -1,7 +1,7 @@
 import { routerNavigatedAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
-import { actionNetworkChangesItemsPerPage } from '../../analysis/network/store/network.actions';
+import { actionNetworkChangesPageSize } from '../../analysis/network/store/network.actions';
 import { actionNetworkChangesImpact } from '../../analysis/network/store/network.actions';
 import { actionNodeChangesFilterOption } from '../../analysis/node/store/node.actions';
 import { actionRouteChangesFilterOption } from '../../analysis/route/store/route.actions';
@@ -16,7 +16,7 @@ import { actionPreferencesShowAppearanceOptions } from './preferences.actions';
 import { actionPreferencesPlanProposed } from './preferences.actions';
 import { actionPreferencesShowProposed } from './preferences.actions';
 import { actionPreferencesImpact } from './preferences.actions';
-import { actionPreferencesItemsPerPage } from './preferences.actions';
+import { actionPreferencesPageSize } from './preferences.actions';
 import { actionPreferencesNetworkType } from './preferences.actions';
 import { actionPreferencesInstructions } from './preferences.actions';
 import { actionPreferencesExtraLayers } from './preferences.actions';
@@ -28,7 +28,7 @@ export const preferencesReducer = createReducer(
   on(routerNavigatedAction, (state, action) => {
     if (action.payload.routerState.url.includes('/analysis/changes')) {
       const queryParams = action.payload.routerState.root.queryParams;
-      const itemsPerPage = +queryParams['itemsPerPage'];
+      const pageSize = +queryParams['pageSize'];
       const impact = queryParams['impact'];
       let analysisMode: AnalysisMode;
       if ('network' === queryParams['network']) {
@@ -39,7 +39,7 @@ export const preferencesReducer = createReducer(
       return {
         ...state,
         analysisMode: analysisMode ?? state.analysisMode,
-        itemsPerPage: itemsPerPage ?? state.itemsPerPage,
+        pageSize: pageSize ?? state.pageSize,
         impact: impact ?? state.impact,
       };
     } else {
@@ -67,9 +67,9 @@ export const preferencesReducer = createReducer(
     ...state,
     extraLayers: action.extraLayers,
   })),
-  on(actionPreferencesItemsPerPage, (state, action) => ({
+  on(actionPreferencesPageSize, (state, action) => ({
     ...state,
-    itemsPerPage: action.itemsPerPage,
+    pageSize: action.pageSize,
   })),
   on(actionPreferencesImpact, (state, action) => ({
     ...state,
@@ -131,8 +131,8 @@ export const preferencesReducer = createReducer(
     ...state,
     impact,
   })),
-  on(actionNetworkChangesItemsPerPage, (state, { itemsPerPage }) => ({
+  on(actionNetworkChangesPageSize, (state, { pageSize }) => ({
     ...state,
-    itemsPerPage,
+    pageSize,
   }))
 );

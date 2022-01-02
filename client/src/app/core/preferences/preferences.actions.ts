@@ -22,9 +22,9 @@ export const actionPreferencesExtraLayers = createAction(
   props<{ extraLayers: boolean }>()
 );
 
-export const actionPreferencesItemsPerPage = createAction(
-  '[Preferences] Items per page',
-  props<{ itemsPerPage: number }>()
+export const actionPreferencesPageSize = createAction(
+  '[Preferences] PageSize',
+  props<{ pageSize: number }>()
 );
 
 export const actionPreferencesImpact = createAction(

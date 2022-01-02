@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../core/core.state';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { actionLocationRoutesPageIndex } from './location.actions';
 import { actionLocationRoutesType } from './location.actions';
 import { actionLocationNodesPageIndex } from './location.actions';
@@ -47,14 +47,14 @@ export class LocationEffects {
       withLatestFrom(
         this.store.select(selectLocationKey),
         this.store.select(selectLocationNodesType),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationNodesPageIndex)
       ),
       mergeMap(
-        ([action, locationKey, locationNodesType, itemsPerPage, pageIndex]) => {
+        ([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
           const parameters: LocationNodesParameters = {
             locationNodesType,
-            itemsPerPage,
+            pageSize,
             pageIndex,
           };
           return this.appService
@@ -77,20 +77,14 @@ export class LocationEffects {
       withLatestFrom(
         this.store.select(selectLocationKey),
         this.store.select(selectLocationRoutesType),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationRoutesPageIndex)
       ),
       mergeMap(
-        ([
-          action,
-          locationKey,
-          locationRoutesType,
-          itemsPerPage,
-          pageIndex,
-        ]) => {
+        ([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
           const parameters: LocationRoutesParameters = {
             locationRoutesType,
-            itemsPerPage,
+            pageSize,
             pageIndex,
           };
           return this.appService
@@ -132,12 +126,12 @@ export class LocationEffects {
       ofType(actionLocationChangesPageInit),
       withLatestFrom(
         this.store.select(selectLocationKey),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationChangesPageIndex)
       ),
-      mergeMap(([action, locationKey, itemsPerPage, pageIndex]) => {
+      mergeMap(([action, locationKey, pageSize, pageIndex]) => {
         const parameters: LocationChangesParameters = {
-          itemsPerPage,
+          pageSize,
           pageIndex,
         };
         return this.appService

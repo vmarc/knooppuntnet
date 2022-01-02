@@ -13,7 +13,7 @@ import { mergeMap } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { selectRouteParams } from '../../core/core.state';
-import { selectPreferencesItemsPerPage } from '../../core/preferences/preferences.selectors';
+import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
@@ -101,13 +101,13 @@ export class MonitorEffects {
       ),
       withLatestFrom(
         this.store.select(selectRouteParam('groupName')),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectMonitorGroupChangesPageIndex),
         this.store.select(selectPreferencesImpact)
       ),
-      mergeMap(([action, groupName, itemsPerPage, pageIndex, impact]) => {
+      mergeMap(([action, groupName, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
-          itemsPerPage,
+          pageSize,
           pageIndex,
           impact,
         };
@@ -180,13 +180,13 @@ export class MonitorEffects {
       ),
       withLatestFrom(
         this.store.select(selectRouteParam('monitorRouteId')),
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectMonitorGroupChangesPageIndex),
         this.store.select(selectPreferencesImpact)
       ),
-      mergeMap(([action, monitorRouteId, itemsPerPage, pageIndex, impact]) => {
+      mergeMap(([action, monitorRouteId, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
-          itemsPerPage,
+          pageSize,
           pageIndex,
           impact,
         };
@@ -257,13 +257,13 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorChangesPageInit, actionMonitorChangesPageIndex),
       withLatestFrom(
-        this.store.select(selectPreferencesItemsPerPage),
+        this.store.select(selectPreferencesPageSize),
         this.store.select(selectMonitorChangesPageIndex),
         this.store.select(selectPreferencesImpact)
       ),
-      mergeMap(([action, itemsPerPage, pageIndex, impact]) => {
+      mergeMap(([action, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
-          itemsPerPage,
+          pageSize,
           pageIndex,
           impact,
         };

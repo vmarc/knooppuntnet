@@ -4,7 +4,7 @@ case class ChangesParameters(
   year: Option[Long] = None,
   month: Option[Long] = None,
   day: Option[Long] = None,
-  itemsPerPage: Long = 5,
+  pageSize: Long = 5,
   pageIndex: Long = 0,
   impact: Boolean = false,
 ) {
@@ -14,7 +14,7 @@ case class ChangesParameters(
       yearString,
       monthString,
       dayString,
-      itemsPerPageString,
+      pageSizeString,
       pageIndexString,
       impactString
     ).flatten.mkString
@@ -26,7 +26,7 @@ case class ChangesParameters(
 
   private def dayString = day.map(d => s"day=${d.toString}, ")
 
-  private def itemsPerPageString = Some(s"itemsPerPage=$itemsPerPage, ")
+  private def pageSizeString = Some(s"pageSize=$pageSize, ")
 
   private def pageIndexString = Some(s"pageIndex=$pageIndex, ")
 

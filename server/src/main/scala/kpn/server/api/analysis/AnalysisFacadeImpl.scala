@@ -256,7 +256,7 @@ class AnalysisFacadeImpl(
 
   override def locationNodes(user: Option[String], language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val locationKey = s"${key.networkType.name}, ${key.country.domain}, ${key.name}, "
-    val locationParameters = s"${parameters.locationNodesType.name}, ${parameters.itemsPerPage}, ${parameters.pageIndex}"
+    val locationParameters = s"${parameters.locationNodesType.name}, ${parameters.pageSize}, ${parameters.pageIndex}"
     api.execute(user, "location-nodes", locationKey + locationParameters) {
       reply(locationNodesPageBuilder.build(language, key, parameters))
     }

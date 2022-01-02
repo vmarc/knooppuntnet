@@ -75,7 +75,7 @@ object MongoQueryLocationNodes {
   def findNodesByLocation(query: MongoQueryLocationNodes): Unit = {
     println("nodes by location")
     val networkType = NetworkType.hiking
-    val locationNodeInfos = query.find(networkType, "Essen BE", LocationNodesType.survey, 0, 3)
+    val locationNodeInfos = query.find(networkType, "Essen BE", LocationNodesType.survey, 3, 0)
     locationNodeInfos.zipWithIndex.foreach { case (locationNodeInfo, index) =>
       println(s"  ${index + 1} id: ${locationNodeInfo.id}, name: ${locationNodeInfo.name}, survey: ${locationNodeInfo.lastSurvey}")
       locationNodeInfo.routeReferences.foreach { ref =>
@@ -87,8 +87,8 @@ object MongoQueryLocationNodes {
   def findNodesByLocationBelgium(query: MongoQueryLocationNodes): Unit = {
     println("nodes by location")
     val networkType = NetworkType.hiking
-    query.find(networkType, "be", LocationNodesType.all, 0, 1)
-    val locationNodeInfos = query.find(networkType, "be", LocationNodesType.integrityCheckFailed, 0, 5)
+    query.find(networkType, "be", LocationNodesType.all, 1, 0)
+    val locationNodeInfos = query.find(networkType, "be", LocationNodesType.integrityCheckFailed, 5, 0)
     locationNodeInfos.zipWithIndex.foreach { case (locationNodeInfo, index) =>
       print(s"  ${index + 1} id: ${locationNodeInfo.id}, name: ${locationNodeInfo.name}, survey: ${locationNodeInfo.lastSurvey},")
       println(s" expectedRouteCount: ${locationNodeInfo.expectedRouteCount}")
@@ -110,14 +110,14 @@ class MongoQueryLocationNodes(database: Database) {
     networkType: NetworkType,
     location: String,
     locationNodesType: LocationNodesType,
-    page: Int,
-    pageSize: Int
+    pageSize: Int,
+    pageIndex: Int
   ): Seq[LocationNodeInfo] = {
 
     val pipeline = Seq(
       filter(buildFilter(networkType, location, locationNodesType)),
       sort(orderBy(ascending("names.name", "_id"))),
-      skip(page * pageSize),
+      skip(pageSize * pageIndex),
       limit(pageSize),
       project(
         fields(

@@ -8,7 +8,7 @@ export interface PreferencesState {
   networkType: string;
   instructions: boolean;
   extraLayers: boolean;
-  itemsPerPage: number;
+  pageSize: number;
   impact: boolean;
   showAppearanceOptions: boolean;
   showLegend: boolean;
@@ -22,7 +22,7 @@ export const initialState: PreferencesState = {
   networkType: null,
   instructions: false,
   extraLayers: false,
-  itemsPerPage: 25,
+  pageSize: 25,
   impact: true,
   showAppearanceOptions: true,
   showLegend: true,

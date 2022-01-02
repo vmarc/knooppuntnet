@@ -4,12 +4,12 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { UserService } from '../../../services/user.service';
 import { actionNetworkChangesImpact } from '../store/network.actions';
-import { actionNetworkChangesItemsPerPage } from '../store/network.actions';
+import { actionNetworkChangesPageSize } from '../store/network.actions';
 import { actionNetworkChangesPageIndex } from '../store/network.actions';
 import { actionNetworkChangesPageInit } from '../store/network.actions';
-import { selectNetworkChangesParametersItemsPerPage } from '../store/network.selectors';
-import { selectNetworkChangesParametersImpact } from '../store/network.selectors';
-import { selectNetworkChangesParametersPageIndex } from '../store/network.selectors';
+import { selectNetworkChangesPageSize } from '../store/network.selectors';
+import { selectNetworkChangesImpact } from '../store/network.selectors';
+import { selectNetworkChangesPageIndex } from '../store/network.selectors';
 import { selectNetworkChangesPage } from '../store/network.selectors';
 
 @Component({
@@ -43,11 +43,11 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
           </p>
           <kpn-changes
             [impact]="impact$ | async"
-            (impactChange)="impactChanged($event)"
+            (impactChange)="onImpactChange($event)"
             [pageIndex]="pageIndex$ | async"
-            (pageIndexChange)="pageIndexChanged($event)"
-            [itemsPerPage]="itemsPerPage$ | async"
-            (itemsPerPageChange)="itemsPerPageChanged($event)"
+            (pageIndexChange)="onPageIndexChange($event)"
+            [pageSize]="pageSize$ | async"
+            (pageSizeChange)="onPageSizeChange($event)"
             [totalCount]="response.result.totalCount"
             [changeCount]="response.result.changes.length"
           >
@@ -69,13 +69,9 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
 })
 export class NetworkChangesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectNetworkChangesPage);
-  readonly impact$ = this.store.select(selectNetworkChangesParametersImpact);
-  readonly itemsPerPage$ = this.store.select(
-    selectNetworkChangesParametersItemsPerPage
-  );
-  readonly pageIndex$ = this.store.select(
-    selectNetworkChangesParametersPageIndex
-  );
+  readonly impact$ = this.store.select(selectNetworkChangesImpact);
+  readonly pageSize$ = this.store.select(selectNetworkChangesPageSize);
+  readonly pageIndex$ = this.store.select(selectNetworkChangesPageIndex);
 
   constructor(
     private userService: UserService,
@@ -90,15 +86,15 @@ export class NetworkChangesPageComponent implements OnInit {
     return this.userService.isLoggedIn();
   }
 
-  impactChanged(impact: boolean): void {
+  onImpactChange(impact: boolean): void {
     this.store.dispatch(actionNetworkChangesImpact({ impact }));
   }
 
-  pageIndexChanged(pageIndex: number): void {
+  onPageIndexChange(pageIndex: number): void {
     this.store.dispatch(actionNetworkChangesPageIndex({ pageIndex }));
   }
 
-  itemsPerPageChanged(itemsPerPage: number): void {
-    this.store.dispatch(actionNetworkChangesItemsPerPage({ itemsPerPage }));
+  onPageSizeChange(pageSize: number): void {
+    this.store.dispatch(actionNetworkChangesPageSize({ pageSize }));
   }
 }

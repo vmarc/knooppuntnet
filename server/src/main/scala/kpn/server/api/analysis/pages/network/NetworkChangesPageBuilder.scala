@@ -62,7 +62,7 @@ class NetworkChangesPageBuilder(
     val changeSetIds = changes.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds) // TODO include in aggregate !!!
     val networkUpdateInfos = changes.zipWithIndex.map { case (change, index) =>
-      val rowIndex = parameters.itemsPerPage * parameters.pageIndex + index
+      val rowIndex = parameters.pageSize * parameters.pageIndex + index
       new NetworkChangeInfoBuilder().build(rowIndex, change, changeSetInfos)
     }
     NetworkChangesPage(

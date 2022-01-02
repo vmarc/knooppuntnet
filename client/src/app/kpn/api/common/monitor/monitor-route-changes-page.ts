@@ -8,8 +8,8 @@ export interface MonitorRouteChangesPage {
   readonly groupName: string;
   readonly groupDescription: string;
   readonly impact: boolean;
+  readonly pageSize: number;
   readonly pageIndex: number;
-  readonly itemsPerPage: number;
   readonly totalChangeCount: number;
   readonly changes: MonitorRouteChangeSummary[];
 }

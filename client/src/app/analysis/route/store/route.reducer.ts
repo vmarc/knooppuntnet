@@ -1,7 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
-import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { actionRouteChangesFilterOption } from './route.actions';
 import { actionRouteChangesPageIndex } from './route.actions';
@@ -89,11 +89,11 @@ export const routeReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionPreferencesItemsPerPage, (state, action) => ({
+  on(actionPreferencesPageSize, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,
-      itemsPerPage: action.itemsPerPage,
+      pageSize: action.pageSize,
       pageIndex: 0,
     },
   })),

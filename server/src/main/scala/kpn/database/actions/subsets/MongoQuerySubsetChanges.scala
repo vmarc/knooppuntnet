@@ -27,7 +27,7 @@ object MongoQuerySubsetChanges {
       val changes = new MongoQuerySubsetChanges(database).execute(
         Subset.nlBicycle,
         ChangesParameters(
-          itemsPerPage = 100,
+          pageSize = 100,
           pageIndex = 0,
           impact = true,
         )
@@ -64,8 +64,8 @@ class MongoQuerySubsetChanges(database: Database) {
         and(filterElements: _*)
       ),
       sort(orderBy(descending("key.time"))),
-      skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
-      limit(parameters.itemsPerPage.toInt),
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt),
       project(
         fields(
           excludeId()

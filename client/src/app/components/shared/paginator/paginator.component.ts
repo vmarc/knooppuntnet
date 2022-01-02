@@ -15,7 +15,7 @@ import { MatPaginator } from '@angular/material/paginator';
     <mat-paginator
       (page)="pageChanged($event)"
       [pageIndex]="pageIndex"
-      [pageSize]="itemsPerPage"
+      [pageSize]="pageSize"
       [pageSizeOptions]="[1, 10, 25, 50, 100, 250, 500, 1000]"
       [length]="length"
       [showFirstLastButtons]="showFirstLastButtons"
@@ -25,14 +25,14 @@ import { MatPaginator } from '@angular/material/paginator';
   `,
 })
 export class PaginatorComponent implements AfterViewInit {
-  @Input() itemsPerPage: number;
+  @Input() pageSize: number;
   @Input() pageIndex: number;
   @Input() length: number;
   @Input() showFirstLastButtons = false;
   @Input() showPageSizeSelection = false;
 
-  @Output() itemsPerPageChanged = new EventEmitter<number>();
-  @Output() pageIndexChanged = new EventEmitter<number>();
+  @Output() pageSizeChange = new EventEmitter<number>();
+  @Output() pageIndexChange = new EventEmitter<number>();
 
   @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
 
@@ -41,14 +41,14 @@ export class PaginatorComponent implements AfterViewInit {
   }
 
   rowNumber(index: number): number {
-    return this.matPaginator.pageIndex * this.matPaginator.pageSize + index + 1;
+    return this.matPaginator.pageSize * this.matPaginator.pageIndex + index + 1;
   }
 
   pageChanged(event: PageEvent): void {
-    if (event.pageSize !== this.itemsPerPage) {
-      this.itemsPerPageChanged.emit(event.pageSize);
+    if (event.pageSize !== this.pageSize) {
+      this.pageSizeChange.emit(event.pageSize);
     } else if (event.pageIndex !== event.previousPageIndex) {
-      this.pageIndexChanged.emit(event.pageIndex);
+      this.pageIndexChange.emit(event.pageIndex);
     }
   }
 

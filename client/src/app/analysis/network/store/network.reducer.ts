@@ -7,7 +7,7 @@ import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
 import { actionNetworkChangesPageInit } from './network.actions';
 import { actionNetworkChangesLoad } from './network.actions';
-import { actionNetworkChangesItemsPerPage } from './network.actions';
+import { actionNetworkChangesPageSize } from './network.actions';
 import { actionNetworkChangesImpact } from './network.actions';
 import { actionNetworkLink } from './network.actions';
 import { actionNetworkId } from './network.actions';
@@ -139,11 +139,11 @@ export const networkReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionNetworkChangesItemsPerPage, (state, action) => ({
+  on(actionNetworkChangesPageSize, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,
-      itemsPerPage: action.itemsPerPage,
+      pageSize: action.pageSize,
       pageIndex: 0,
     },
   })),

@@ -52,18 +52,17 @@ export const selectNetworkChangesParameters = createSelector(
   (state: NetworkState) => state.changesParameters
 );
 
-export const selectNetworkChangesParametersImpact = createSelector(
+export const selectNetworkChangesImpact = createSelector(
   selectNetworkChangesParameters,
   (changesParameters: ChangesParameters) => changesParameters?.impact ?? true
 );
 
-export const selectNetworkChangesParametersItemsPerPage = createSelector(
+export const selectNetworkChangesPageSize = createSelector(
   selectNetworkChangesParameters,
-  (changesParameters: ChangesParameters) =>
-    changesParameters?.itemsPerPage ?? 10
+  (changesParameters: ChangesParameters) => changesParameters?.pageSize ?? 10
 );
 
-export const selectNetworkChangesParametersPageIndex = createSelector(
+export const selectNetworkChangesPageIndex = createSelector(
   selectNetworkChangesParameters,
   (changesParameters: ChangesParameters) => changesParameters?.pageIndex ?? 0
 );

@@ -38,14 +38,14 @@ class MongoQueryLocationRoutes(database: Database) {
     networkType: NetworkType,
     location: String,
     locationRoutesType: LocationRoutesType,
-    page: Int,
-    pageSize: Int
+    pageSize: Int,
+    pageIndex: Int
   ): Seq[LocationRouteInfo] = {
 
     val pipeline = Seq(
       filter(buildFilter(networkType, location, locationRoutesType)),
       sort(orderBy(ascending("summary.name", "summary.id"))),
-      skip(page * pageSize),
+      skip(pageSize * pageIndex),
       limit(pageSize),
       project(
         fields(

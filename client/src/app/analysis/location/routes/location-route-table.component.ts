@@ -20,7 +20,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      (pageIndexChanged)="page.emit($event)"
+      (pageIndexChange)="page.emit($event)"
       [pageIndex]="pageIndex"
       [length]="routeCount"
       [showPageSizeSelection]="true"
@@ -120,7 +120,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
     </table>
 
     <kpn-paginator
-      (pageIndexChanged)="page.emit($event)"
+      (pageIndexChange)="page.emit($event)"
       [pageIndex]="pageIndex"
       [length]="routeCount"
     >

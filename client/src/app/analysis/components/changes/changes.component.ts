@@ -17,9 +17,9 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
     <kpn-paginator
       [pageIndex]="pageIndex"
-      (pageIndexChanged)="onPageIndexChanged($event)"
-      [itemsPerPage]="itemsPerPage"
-      (itemsPerPageChanged)="onItemsPerPageChanged($event)"
+      (pageIndexChange)="onPageIndexChange($event)"
+      [pageSize]="pageSize"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="totalCount"
       [showPageSizeSelection]="true"
     >
@@ -37,23 +37,23 @@ export class ChangesComponent {
   @Input() totalCount: number;
 
   @Input() impact: boolean;
-  @Input() itemsPerPage: number;
+  @Input() pageSize: number;
   @Input() pageIndex: number;
 
   @Output() impactChange = new EventEmitter<boolean>();
-  @Output() itemsPerPageChange = new EventEmitter<number>();
+  @Output() pageSizeChange = new EventEmitter<number>();
   @Output() pageIndexChange = new EventEmitter<number>();
 
   onImpactChanged(event: MatSlideToggleChange) {
     this.impactChange.emit(event.checked);
   }
 
-  onPageIndexChanged(pageIndex: number) {
+  onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
     this.pageIndexChange.emit(pageIndex);
   }
 
-  onItemsPerPageChanged(itemsPerPage: number) {
-    this.itemsPerPageChange.emit(itemsPerPage);
+  onPageSizeChange(pageSize: number) {
+    this.pageSizeChange.emit(pageSize);
   }
 }

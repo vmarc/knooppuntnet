@@ -23,7 +23,7 @@ import { AppState } from '../../../core/core.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      (pageIndexChanged)="page.emit($event)"
+      (pageIndexChange)="page.emit($event)"
       [length]="nodeCount"
       [pageIndex]="pageIndex"
       [showPageSizeSelection]="true"
@@ -147,7 +147,7 @@ import { AppState } from '../../../core/core.state';
     </table>
 
     <kpn-paginator
-      (pageIndexChanged)="page.emit($event)"
+      (pageIndexChange)="page.emit($event)"
       [length]="nodeCount"
       [pageIndex]="pageIndex"
     >

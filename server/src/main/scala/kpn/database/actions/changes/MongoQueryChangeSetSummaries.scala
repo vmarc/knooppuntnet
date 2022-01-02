@@ -26,7 +26,7 @@ object MongoQueryChangeSetSummaries {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-test") { database =>
       val parameters = ChangesParameters(
-        itemsPerPage = 15,
+        pageSize = 15,
         year = Some(2017)
       )
       val query = new MongoQueryChangeSetSummaries(database)
@@ -43,8 +43,8 @@ class MongoQueryChangeSetSummaries(database: Database) {
 
     val unfilteredPipeline: Seq[Bson] = Seq(
       sort(orderBy(descending("key.time"))),
-      skip((parameters.itemsPerPage * parameters.pageIndex).toInt),
-      limit(parameters.itemsPerPage.toInt),
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt),
       project(
         fields(
           excludeId()
