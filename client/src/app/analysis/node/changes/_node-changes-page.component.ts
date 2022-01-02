@@ -62,7 +62,7 @@ import { selectNodeId } from '../store/node.selectors';
           [totalCount]="page.totalCount"
           [changeCount]="page.changes.length"
           [pageIndex]="pageIndex$ | async"
-          (pageIndexChanged)="pageIndexChanged($event)"
+          (pageIndexChange)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item

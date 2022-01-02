@@ -3,25 +3,23 @@ import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
-import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-slide-toggle
-      [checked]="impact$ | async"
-      (change)="impactChanged($event)"
+      [checked]="impact"
+      (change)="onImpactChanged($event)"
       i18n="@@changes.impact"
       >Impact
     </mat-slide-toggle>
 
     <kpn-paginator
-      (pageIndexChanged)="pageChanged($event)"
       [pageIndex]="pageIndex"
+      (pageIndexChanged)="onPageIndexChanged($event)"
+      [itemsPerPage]="itemsPerPage"
+      (itemsPerPageChanged)="onItemsPerPageChanged($event)"
       [length]="totalCount"
       [showPageSizeSelection]="true"
     >
@@ -37,19 +35,25 @@ import { selectPreferencesImpact } from '../../../core/preferences/preferences.s
 export class ChangesComponent {
   @Input() changeCount: number;
   @Input() totalCount: number;
+
+  @Input() impact: boolean;
+  @Input() itemsPerPage: number;
   @Input() pageIndex: number;
-  @Output() pageIndexChanged = new EventEmitter<number>();
 
-  readonly impact$ = this.store.select(selectPreferencesImpact);
+  @Output() impactChange = new EventEmitter<boolean>();
+  @Output() itemsPerPageChange = new EventEmitter<number>();
+  @Output() pageIndexChange = new EventEmitter<number>();
 
-  constructor(private store: Store<AppState>) {}
-
-  impactChanged(event: MatSlideToggleChange) {
-    this.store.dispatch(actionPreferencesImpact({ impact: event.checked }));
+  onImpactChanged(event: MatSlideToggleChange) {
+    this.impactChange.emit(event.checked);
   }
 
-  pageChanged(pageIndex: number) {
+  onPageIndexChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.pageIndexChanged.emit(pageIndex);
+    this.pageIndexChange.emit(pageIndex);
+  }
+
+  onItemsPerPageChanged(itemsPerPage: number) {
+    this.itemsPerPageChange.emit(itemsPerPage);
   }
 }

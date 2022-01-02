@@ -44,7 +44,7 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
           [totalCount]="response.result.changeCount"
           [changeCount]="response.result.changes.length"
           [pageIndex]="pageIndex$ | async"
-          (pageIndexChanged)="pageIndexChanged($event)"
+          (pageIndexChange)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item

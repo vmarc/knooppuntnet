@@ -9,13 +9,29 @@ case class ChangeSetCounts(
 ) {
 
   def toFilterOptions(yearOption: Option[Long], monthOption: Option[Long], dayOption: Option[Long]): Seq[ChangesFilterOption] = {
+
+    val totalCount = years.map(_.total).sum
+    val impactedCount = years.map(_.impact).sum
+
+    val all = ChangesFilterOption(
+      level = "all",
+      name = "all",
+      year = None,
+      month = None,
+      day = None,
+      totalCount = totalCount,
+      impactedCount = impactedCount,
+      current = yearOption.isEmpty && monthOption.isEmpty && dayOption.isEmpty
+    )
+
+    all +:
     years.flatMap { yearCount =>
-      val monthFilterOptions = months.flatMap { monthCount =>
-        val dayFilterOptions = days.map { dayCount =>
+      val monthFilterOptions = months.filter(_.year == yearCount.year).flatMap { monthCount =>
+        val dayFilterOptions = days.filter(day => day.year == yearCount.year && day.month == monthCount.month).map { dayCount =>
           ChangesFilterOption(
             level = "day",
             name = dayCount.day.toString,
-            year = yearCount.year,
+            year = Some(yearCount.year),
             month = Some(monthCount.month),
             day = Some(dayCount.day),
             totalCount = dayCount.total,
@@ -26,7 +42,7 @@ case class ChangeSetCounts(
         val monthFilterOption = ChangesFilterOption(
           level = "month",
           name = monthCount.month.toString,
-          year = yearCount.year,
+          year = Some(yearCount.year),
           month = Some(monthCount.month),
           day = None,
           totalCount = monthCount.total,
@@ -39,7 +55,7 @@ case class ChangeSetCounts(
       val yearFilterOption = ChangesFilterOption(
         level = "year",
         name = yearCount.year.toString,
-        year = yearCount.year,
+        year = Some(yearCount.year),
         month = None,
         day = None,
         totalCount = yearCount.total,

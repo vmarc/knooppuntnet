@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { networkFeatureKey } from './network.state';
@@ -49,6 +50,22 @@ export const selectNetworkChangesPage = createSelector(
 export const selectNetworkChangesParameters = createSelector(
   selectNetworkState,
   (state: NetworkState) => state.changesParameters
+);
+
+export const selectNetworkChangesParametersImpact = createSelector(
+  selectNetworkChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters?.impact ?? true
+);
+
+export const selectNetworkChangesParametersItemsPerPage = createSelector(
+  selectNetworkChangesParameters,
+  (changesParameters: ChangesParameters) =>
+    changesParameters?.itemsPerPage ?? 10
+);
+
+export const selectNetworkChangesParametersPageIndex = createSelector(
+  selectNetworkChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters?.pageIndex ?? 0
 );
 
 export const selectNetworkChangesFilterOptions = createSelector(

@@ -33,7 +33,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.nr">
           Nr
         </th>
-        <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
+        <td mat-cell *matCellDef="let route">{{ route.rowIndex }}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -169,10 +169,6 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
     if (changes['routes']) {
       this.dataSource.data = this.routes;
     }
-  }
-
-  rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
   }
 
   private displayedColumns() {

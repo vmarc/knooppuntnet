@@ -21,7 +21,7 @@ object ChangesFilterOption {
 case class ChangesFilterOption(
   level: String,
   name: String,
-  year: Long,
+  year: Option[Long],
   month: Option[Long],
   day: Option[Long],
   totalCount: Long,

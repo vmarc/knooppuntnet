@@ -56,7 +56,7 @@ import { selectRouteId } from '../store/route.selectors';
             [totalCount]="page.totalCount"
             [changeCount]="page.changeCount"
             [pageIndex]="pageIndex$ | async"
-            (pageIndexChanged)="pageIndexChanged($event)"
+            (pageIndexChange)="pageIndexChanged($event)"
           >
             <kpn-items>
               <kpn-item

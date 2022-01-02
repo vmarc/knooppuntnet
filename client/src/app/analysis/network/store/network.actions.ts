@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { NetworkChangesPage } from '@api/common/network/network-changes-page';
 import { NetworkDetailsPage } from '@api/common/network/network-details-page';
 import { NetworkFactsPage } from '@api/common/network/network-facts-page';
@@ -67,6 +68,11 @@ export const actionNetworkChangesPageInit = createAction(
   '[NetworkChangesPage] Init'
 );
 
+export const actionNetworkChangesLoad = createAction(
+  '[NetworkChangesPage] Load',
+  props<{ networkId: number; changesParameters: ChangesParameters }>()
+);
+
 export const actionNetworkChangesPageLoaded = createAction(
   '[NetworkChangesPage] Loaded',
   props<{ response: ApiResponse<NetworkChangesPage> }>()
@@ -75,6 +81,16 @@ export const actionNetworkChangesPageLoaded = createAction(
 export const actionNetworkChangesPageIndex = createAction(
   '[NetworkChangesPage] Page index',
   props<{ pageIndex: number }>()
+);
+
+export const actionNetworkChangesItemsPerPage = createAction(
+  '[NetworkChangesPage] Items per page',
+  props<{ itemsPerPage: number }>()
+);
+
+export const actionNetworkChangesImpact = createAction(
+  '[NetworkChangesPage] Impact',
+  props<{ impact: boolean }>()
 );
 
 export const actionNetworkChangesFilterOption = createAction(

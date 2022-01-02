@@ -5,13 +5,14 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
-import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { actionNetworkChangesPageInit } from './network.actions';
+import { actionNetworkChangesLoad } from './network.actions';
+import { actionNetworkChangesItemsPerPage } from './network.actions';
+import { actionNetworkChangesImpact } from './network.actions';
 import { actionNetworkLink } from './network.actions';
 import { actionNetworkId } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
-import { actionNetworkChangesPageInit } from './network.actions';
 import { actionNetworkDetailsPageLoaded } from './network.actions';
 import { actionNetworkNodesPageLoaded } from './network.actions';
 import { actionNetworkRoutesPageLoaded } from './network.actions';
@@ -108,12 +109,29 @@ export const networkReducer = createReducer(
       pageIndex: 0,
     },
   })),
+  on(actionNetworkChangesLoad, (state, { networkId, changesParameters }) => {
+    const summary: NetworkSummary = {
+      name: null,
+      networkType: null,
+      networkScope: null,
+      factCount: 0,
+      nodeCount: 0,
+      routeCount: 0,
+      changeCount: 0,
+    };
+    return {
+      ...state,
+      networkId,
+      summary,
+      changesParameters,
+    };
+  }),
   on(actionNetworkChangesPageLoaded, (state, { response }) => ({
     ...state,
     summary: response.result.network,
     changesPage: response,
   })),
-  on(actionPreferencesImpact, (state, action) => ({
+  on(actionNetworkChangesImpact, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,
@@ -121,7 +139,7 @@ export const networkReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionPreferencesItemsPerPage, (state, action) => ({
+  on(actionNetworkChangesItemsPerPage, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,

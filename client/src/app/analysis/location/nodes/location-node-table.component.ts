@@ -36,7 +36,7 @@ import { AppState } from '../../../core/core.state';
         <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.nr">
           Nr
         </th>
-        <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
+        <td mat-cell *matCellDef="let node">{{ node.rowIndex }}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -196,10 +196,6 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     if (changes['nodes']) {
       this.dataSource.data = this.nodes;
     }
-  }
-
-  rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
   }
 
   private displayedColumns() {

@@ -3,16 +3,10 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
-import { Store } from '@ngrx/store';
-import { take } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
-import { actionPreferencesItemsPerPage } from '../../../core/preferences/preferences.actions';
-import { selectPreferencesItemsPerPage } from '../../../core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-paginator',
@@ -21,7 +15,7 @@ import { selectPreferencesItemsPerPage } from '../../../core/preferences/prefere
     <mat-paginator
       (page)="pageChanged($event)"
       [pageIndex]="pageIndex"
-      [pageSize]="itemsPerPage$ | async"
+      [pageSize]="itemsPerPage"
       [pageSizeOptions]="[1, 10, 25, 50, 100, 250, 500, 1000]"
       [length]="length"
       [showFirstLastButtons]="showFirstLastButtons"
@@ -31,18 +25,16 @@ import { selectPreferencesItemsPerPage } from '../../../core/preferences/prefere
   `,
 })
 export class PaginatorComponent implements AfterViewInit {
+  @Input() itemsPerPage: number;
   @Input() pageIndex: number;
   @Input() length: number;
   @Input() showFirstLastButtons = false;
   @Input() showPageSizeSelection = false;
 
+  @Output() itemsPerPageChanged = new EventEmitter<number>();
   @Output() pageIndexChanged = new EventEmitter<number>();
 
   @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
-
-  readonly itemsPerPage$ = this.store.select(selectPreferencesItemsPerPage);
-
-  constructor(private element: ElementRef, private store: Store<AppState>) {}
 
   ngAfterViewInit(): void {
     this.initTranslations();
@@ -53,18 +45,11 @@ export class PaginatorComponent implements AfterViewInit {
   }
 
   pageChanged(event: PageEvent): void {
-    this.store
-      .select(selectPreferencesItemsPerPage)
-      .pipe(take(1))
-      .subscribe((currentItemsPerPage) => {
-        if (event.pageSize !== +currentItemsPerPage) {
-          this.store.dispatch(
-            actionPreferencesItemsPerPage({ itemsPerPage: event.pageSize })
-          );
-        } else if (event.pageIndex !== event.previousPageIndex) {
-          this.pageIndexChanged.emit(event.pageIndex);
-        }
-      });
+    if (event.pageSize !== this.itemsPerPage) {
+      this.itemsPerPageChanged.emit(event.pageSize);
+    } else if (event.pageIndex !== event.previousPageIndex) {
+      this.pageIndexChanged.emit(event.pageIndex);
+    }
   }
 
   private initTranslations(): void {

@@ -47,7 +47,7 @@ import { selectChangesPage } from '../store/changes.selectors';
           [pageIndex]="pageIndex$ | async"
           [totalCount]="page.changeCount"
           [changeCount]="page.changes.length"
-          (pageIndexChanged)="pageIndexChanged($event)"
+          (pageIndexChange)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item
