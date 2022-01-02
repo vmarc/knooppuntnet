@@ -3,8 +3,12 @@ import { Store } from '@ngrx/store';
 import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { UserService } from '../../../services/user.service';
+import { actionChangesPageSize } from '../store/changes.actions';
+import { actionChangesImpact } from '../store/changes.actions';
 import { actionChangesPageIndex } from '../store/changes.actions';
 import { actionChangesPageInit } from '../store/changes.actions';
+import { selectChangesImpact } from '../store/changes.selectors';
+import { selectChangesPageSize } from '../store/changes.selectors';
 import { selectChangesPageIndex } from '../store/changes.selectors';
 import { selectChangesPage } from '../store/changes.selectors';
 
@@ -44,10 +48,14 @@ import { selectChangesPage } from '../store/changes.selectors';
           ></kpn-situation-on>
         </p>
         <kpn-changes
+          [impact]="impact$ | async"
+          [pageSize]="pageSize$ | async"
           [pageIndex]="pageIndex$ | async"
+          (impactChange)="onImpactChange($event)"
+          (pageSizeChange)="onPageSizeChange($event)"
+          (pageIndexChange)="onPageIndexChange($event)"
           [totalCount]="page.changeCount"
           [changeCount]="page.changes.length"
-          (pageIndexChange)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item
@@ -71,6 +79,8 @@ import { selectChangesPage } from '../store/changes.selectors';
 })
 export class ChangesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectChangesPage);
+  readonly impact$ = this.store.select(selectChangesImpact);
+  readonly pageSize$ = this.store.select(selectChangesPageSize);
   readonly pageIndex$ = this.store.select(selectChangesPageIndex);
 
   constructor(
@@ -90,7 +100,15 @@ export class ChangesPageComponent implements OnInit {
     return this.userService.isLoggedIn();
   }
 
-  pageIndexChanged(pageIndex: number): void {
+  onImpactChange(impact: boolean): void {
+    this.store.dispatch(actionChangesImpact({ impact }));
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.store.dispatch(actionChangesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number): void {
     this.store.dispatch(actionChangesPageIndex({ pageIndex }));
   }
 }

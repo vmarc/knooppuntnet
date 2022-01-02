@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { createSelector } from '@ngrx/store';
 import { createFeatureSelector } from '@ngrx/store';
 import { changesFeatureKey } from './changes.state';
@@ -16,17 +17,27 @@ export const selectChangesFilterOptions = createSelector(
   (state: ChangesState) => state.changesPage?.result?.filterOptions
 );
 
-export const selectChangesParameters = createSelector(
-  selectChangesState,
-  (state: ChangesState) => state.changesParameters
-);
-
 export const selectChangesAnalysisMode = createSelector(
   selectChangesState,
   (state: ChangesState) => state.analysisMode
 );
 
-export const selectChangesPageIndex = createSelector(
+export const selectChangesParameters = createSelector(
   selectChangesState,
-  (state: ChangesState) => state.changesParameters.pageIndex
+  (state: ChangesState) => state.changesParameters
+);
+
+export const selectChangesImpact = createSelector(
+  selectChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.impact
+);
+
+export const selectChangesPageSize = createSelector(
+  selectChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageSize
+);
+
+export const selectChangesPageIndex = createSelector(
+  selectChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageIndex
 );

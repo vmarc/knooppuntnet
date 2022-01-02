@@ -8,27 +8,27 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { withLatestFrom } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
+import { QueryParams } from '../../../base/query-params';
+import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
-import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesAnalysisMode } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesAnalysisMode } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { AnalysisMode } from '../../../core/preferences/preferences.state';
+import { actionChangesAnalysisMode } from './changes.actions';
+import { actionChangesPageSize } from './changes.actions';
+import { actionChangesImpact } from './changes.actions';
+import { actionChangesPageLoad } from './changes.actions';
 import { actionChangesFilterOption } from './changes.actions';
 import { actionChangesPageLoaded } from './changes.actions';
 import { actionChangesPageIndex } from './changes.actions';
 import { actionChangesPageInit } from './changes.actions';
 import { selectChangesAnalysisMode } from './changes.selectors';
 import { selectChangesParameters } from './changes.selectors';
-import { selectChangesPage } from './changes.selectors';
 
 @Injectable()
 export class ChangesEffects {
@@ -36,75 +36,57 @@ export class ChangesEffects {
     this.actions$.pipe(
       ofType(actionChangesPageInit),
       withLatestFrom(
+        this.store.select(selectQueryParams),
         this.store.select(selectPreferencesAnalysisMode),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesPageSize),
-        this.store.select(selectChangesAnalysisMode),
-        this.store.select(selectChangesParameters)
+        this.store.select(selectPreferencesPageSize)
       ),
       map(
         ([
           {},
+          queryParams,
           preferencesAnalysisMode,
           preferencesImpact,
           preferencesPageSize,
-          urlAnalysisMode,
-          urlChangesParameters,
         ]) => {
-          let analysisMode: AnalysisMode = urlAnalysisMode;
-          if (!analysisMode) {
-            analysisMode = preferencesAnalysisMode;
+          let analysisMode: AnalysisMode = preferencesAnalysisMode;
+          if (queryParams['analysisMode']) {
+            analysisMode = queryParams['analysisMode'];
           }
-
-          let pageSize: number = preferencesPageSize;
-          if (urlChangesParameters?.pageSize) {
-            pageSize = +urlChangesParameters?.pageSize;
-          }
-          const pageIndex: number = urlChangesParameters?.pageIndex ?? 0;
-          const impact = urlChangesParameters?.impact ?? preferencesImpact;
-          const changesParameters: ChangesParameters = {
-            ...urlChangesParameters,
-            pageSize,
-            pageIndex,
-            impact,
-          };
-
-          return {
-            analysisMode,
-            changesParameters,
-          };
+          const queryParamsWrapper = new QueryParams(queryParams);
+          const changesParameters = queryParamsWrapper.changesParameters(
+            preferencesImpact,
+            preferencesPageSize
+          );
+          return actionChangesPageLoad({ analysisMode, changesParameters });
         }
-      ),
-      tap(({ analysisMode, changesParameters }) => {
-        this.navigate(analysisMode, changesParameters);
-      }),
-      mergeMap(({ analysisMode, changesParameters }) =>
-        this.appService
-          .changes(analysisMode, changesParameters)
-          .pipe(map((response) => actionChangesPageLoaded({ response })))
       )
     )
   );
 
-  changesPageUpdate = createEffect(() =>
+  changesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(
+        actionChangesPageLoad,
+        actionChangesImpact,
+        actionChangesPageSize,
         actionChangesPageIndex,
-        actionPreferencesImpact,
-        actionPreferencesPageSize,
-        actionPreferencesAnalysisMode,
+        actionChangesAnalysisMode,
         actionChangesFilterOption
       ),
-      withLatestFrom(this.store.select(selectChangesPage)),
-      // continue only if we are currently on the changes page!!
-      filter(([{}, response]) => !!response),
       withLatestFrom(
         this.store.select(selectChangesAnalysisMode),
         this.store.select(selectChangesParameters)
       ),
-      mergeMap(([[{}, {}], analysisMode, changesParameters]) => {
+      mergeMap(([{}, analysisMode, changesParameters]) => {
         const promise = this.navigate(analysisMode, changesParameters);
-        return from(promise).pipe(map(actionChangesPageInit));
+        return from(promise).pipe(
+          mergeMap(() => {
+            return this.appService
+              .changes(analysisMode, changesParameters)
+              .pipe(map((response) => actionChangesPageLoaded({ response })));
+          })
+        );
       })
     )
   );

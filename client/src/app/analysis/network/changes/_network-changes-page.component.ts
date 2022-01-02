@@ -43,11 +43,11 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
           </p>
           <kpn-changes
             [impact]="impact$ | async"
-            (impactChange)="onImpactChange($event)"
-            [pageIndex]="pageIndex$ | async"
-            (pageIndexChange)="onPageIndexChange($event)"
             [pageSize]="pageSize$ | async"
+            [pageIndex]="pageIndex$ | async"
+            (impactChange)="onImpactChange($event)"
             (pageSizeChange)="onPageSizeChange($event)"
+            (pageIndexChange)="onPageIndexChange($event)"
             [totalCount]="response.result.totalCount"
             [changeCount]="response.result.changes.length"
           >
@@ -90,11 +90,11 @@ export class NetworkChangesPageComponent implements OnInit {
     this.store.dispatch(actionNetworkChangesImpact({ impact }));
   }
 
-  onPageIndexChange(pageIndex: number): void {
-    this.store.dispatch(actionNetworkChangesPageIndex({ pageIndex }));
-  }
-
   onPageSizeChange(pageSize: number): void {
     this.store.dispatch(actionNetworkChangesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number): void {
+    this.store.dispatch(actionNetworkChangesPageIndex({ pageIndex }));
   }
 }
