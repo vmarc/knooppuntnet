@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -32,7 +32,7 @@ export class NodeEffects {
   nodeDetailsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('nodeId'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
       mergeMap(([{}, nodeId]) => {
         this.store.dispatch(actionNodeId({ nodeId }));
         return this.appService
@@ -45,7 +45,7 @@ export class NodeEffects {
   nodeMapPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeMapPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('nodeId'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
       mergeMap(([{}, nodeId]) => {
         this.store.dispatch(actionNodeId({ nodeId }));
         return this.appService
@@ -58,12 +58,12 @@ export class NodeEffects {
   nodeChangesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeChangesPageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectRouteParam('nodeId')),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectNodeChangesParameters)
-      ),
+        this.store.select(selectNodeChangesParameters),
+      ]),
       mergeMap(
         ([
           {},
@@ -99,7 +99,7 @@ export class NodeEffects {
         actionPreferencesPageSize,
         actionNodeChangesFilterOption
       ),
-      withLatestFrom(this.store.select(selectNodeChangesPage)),
+      concatLatestFrom(() => this.store.select(selectNodeChangesPage)),
       // continue only if we are currently on the changes page!!
       filter(([{}, response]) => !!response),
       map(([{}, {}]) => {

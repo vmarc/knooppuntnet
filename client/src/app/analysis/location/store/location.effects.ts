@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { LocationChangesParameters } from '@api/common/location/location-changes-parameters';
 import { LocationNodesParameters } from '@api/common/location/location-nodes-parameters';
 import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -44,26 +44,22 @@ export class LocationEffects {
         actionLocationNodesType,
         actionLocationNodesPageIndex
       ),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectLocationKey),
         this.store.select(selectLocationNodesType),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectLocationNodesPageIndex)
-      ),
-      mergeMap(
-        ([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
-          const parameters: LocationNodesParameters = {
-            locationNodesType,
-            pageSize,
-            pageIndex,
-          };
-          return this.appService
-            .locationNodes(locationKey, parameters)
-            .pipe(
-              map((response) => actionLocationNodesPageLoaded({ response }))
-            );
-        }
-      )
+        this.store.select(selectLocationNodesPageIndex),
+      ]),
+      mergeMap(([{}, locationKey, locationNodesType, pageSize, pageIndex]) => {
+        const parameters: LocationNodesParameters = {
+          locationNodesType,
+          pageSize,
+          pageIndex,
+        };
+        return this.appService
+          .locationNodes(locationKey, parameters)
+          .pipe(map((response) => actionLocationNodesPageLoaded({ response })));
+      })
     )
   );
 
@@ -74,34 +70,32 @@ export class LocationEffects {
         actionLocationRoutesType,
         actionLocationRoutesPageIndex
       ),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectLocationKey),
         this.store.select(selectLocationRoutesType),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectLocationRoutesPageIndex)
-      ),
-      mergeMap(
-        ([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
-          const parameters: LocationRoutesParameters = {
-            locationRoutesType,
-            pageSize,
-            pageIndex,
-          };
-          return this.appService
-            .locationRoutes(locationKey, parameters)
-            .pipe(
-              map((response) => actionLocationRoutesPageLoaded({ response }))
-            );
-        }
-      )
+        this.store.select(selectLocationRoutesPageIndex),
+      ]),
+      mergeMap(([{}, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+        const parameters: LocationRoutesParameters = {
+          locationRoutesType,
+          pageSize,
+          pageIndex,
+        };
+        return this.appService
+          .locationRoutes(locationKey, parameters)
+          .pipe(
+            map((response) => actionLocationRoutesPageLoaded({ response }))
+          );
+      })
     )
   );
 
   locationFactsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationFactsPageInit),
-      withLatestFrom(this.store.select(selectLocationKey)),
-      mergeMap(([action, locationKey]) => {
+      concatLatestFrom(() => this.store.select(selectLocationKey)),
+      mergeMap(([{}, locationKey]) => {
         return this.appService
           .locationFacts(locationKey)
           .pipe(map((response) => actionLocationFactsPageLoaded({ response })));
@@ -112,8 +106,8 @@ export class LocationEffects {
   locationMapPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationMapPageInit),
-      withLatestFrom(this.store.select(selectLocationKey)),
-      mergeMap(([action, locationKey]) => {
+      concatLatestFrom(() => this.store.select(selectLocationKey)),
+      mergeMap(([{}, locationKey]) => {
         return this.appService
           .locationMap(locationKey)
           .pipe(map((response) => actionLocationMapPageLoaded({ response })));
@@ -124,12 +118,12 @@ export class LocationEffects {
   locationChangesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationChangesPageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectLocationKey),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectLocationChangesPageIndex)
-      ),
-      mergeMap(([action, locationKey, pageSize, pageIndex]) => {
+        this.store.select(selectLocationChangesPageIndex),
+      ]),
+      mergeMap(([{}, locationKey, pageSize, pageIndex]) => {
         const parameters: LocationChangesParameters = {
           pageSize,
           pageIndex,
@@ -146,8 +140,8 @@ export class LocationEffects {
   locationEditPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationEditPageInit),
-      withLatestFrom(this.store.select(selectLocationKey)),
-      mergeMap(([action, locationKey]) => {
+      concatLatestFrom(() => this.store.select(selectLocationKey)),
+      mergeMap(([{}, locationKey]) => {
         return this.appService
           .locationEdit(locationKey)
           .pipe(map((response) => actionLocationEditPageLoaded({ response })));

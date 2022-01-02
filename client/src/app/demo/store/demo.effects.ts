@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
@@ -7,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { withLatestFrom } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
 import { DemoService } from '../demo.service';
@@ -52,7 +52,7 @@ export class DemoEffects {
     () =>
       this.actions$.pipe(
         ofType(actionDemoCanPlay),
-        tap((action) => this.demoService.play())
+        tap(() => this.demoService.play())
       ),
     { dispatch: false }
   );
@@ -70,7 +70,7 @@ export class DemoEffects {
     () =>
       this.actions$.pipe(
         ofType(actionDemoPause),
-        tap((action) => this.demoService.pause())
+        tap(() => this.demoService.pause())
       ),
     { dispatch: false }
   );
@@ -79,7 +79,7 @@ export class DemoEffects {
     () =>
       this.actions$.pipe(
         ofType(actionDemoPlay),
-        tap((action) => this.demoService.play())
+        tap(() => this.demoService.play())
       ),
     { dispatch: false }
   );
@@ -88,7 +88,7 @@ export class DemoEffects {
     () =>
       this.actions$.pipe(
         ofType(actionDemoEnd),
-        tap((action) => this.demoService.end())
+        tap(() => this.demoService.end())
       ),
     { dispatch: false }
   );
@@ -97,10 +97,10 @@ export class DemoEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionDemoControlPlay),
-        withLatestFrom(
+        concatLatestFrom(() => [
           this.store.select(selectDemoVideo),
-          this.store.select(selectDemoPlaying)
-        ),
+          this.store.select(selectDemoPlaying),
+        ]),
         tap(([action, video, playing]) => {
           if (action.video === video) {
             if (playing) {

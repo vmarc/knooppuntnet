@@ -3,12 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -42,7 +42,7 @@ export class SubsetEffects {
   networksPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
-      withLatestFrom(this.store.select(selectSubset)),
+      concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([{}, subset]) =>
         this.appService
           .subsetNetworks(subset)
@@ -54,7 +54,7 @@ export class SubsetEffects {
   factsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
-      withLatestFrom(this.store.select(selectSubset)),
+      concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([{}, subset]) =>
         this.appService
           .subsetFacts(subset)
@@ -66,7 +66,7 @@ export class SubsetEffects {
   orphanNodesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
-      withLatestFrom(this.store.select(selectSubset)),
+      concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([{}, subset]) =>
         this.appService
           .subsetOrphanNodes(subset)
@@ -80,7 +80,7 @@ export class SubsetEffects {
   orphanRoutesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
-      withLatestFrom(this.store.select(selectSubset)),
+      concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([{}, subset]) =>
         this.appService
           .subsetOrphanRoutes(subset)
@@ -94,7 +94,7 @@ export class SubsetEffects {
   mapPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
-      withLatestFrom(this.store.select(selectSubset)),
+      concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([{}, subset]) =>
         this.appService
           .subsetMap(subset)
@@ -106,12 +106,12 @@ export class SubsetEffects {
   changesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectSubset),
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesPageSize)
-      ),
+        this.store.select(selectPreferencesPageSize),
+      ]),
       map(
         ([{}, subset, queryParams, preferencesImpact, preferencesPageSize]) => {
           const queryParamsWrapper = new QueryParams(queryParams);
@@ -134,10 +134,10 @@ export class SubsetEffects {
         actionSubsetChangesPageSize,
         actionSubsetChangesFilterOption
       ),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectSubset),
-        this.store.select(selectSubsetChangesParameters)
-      ),
+        this.store.select(selectSubsetChangesParameters),
+      ]),
       mergeMap(([{}, subset, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(

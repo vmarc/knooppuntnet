@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { concatMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
@@ -62,11 +62,11 @@ export class MonitorEffects {
   monitorGroupsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupsPageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectRouteParams),
-        this.store.select(selectMonitorAdmin)
-      ),
-      mergeMap(([params, admin]) => {
+        this.store.select(selectMonitorAdmin),
+      ]),
+      mergeMap(([{}, admin]) => {
         if (admin) {
           return this.monitorService
             .monitorAdminGroups()
@@ -84,7 +84,7 @@ export class MonitorEffects {
   monitorGroupPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('groupName'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([action, groupName]) =>
         this.monitorService
           .monitorGroup(groupName)
@@ -99,13 +99,13 @@ export class MonitorEffects {
         actionMonitorGroupChangesPageInit,
         actionMonitorGroupChangesPageIndex
       ),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectMonitorGroupChangesPageIndex),
-        this.store.select(selectPreferencesImpact)
-      ),
-      mergeMap(([action, groupName, pageSize, pageIndex, impact]) => {
+        this.store.select(selectPreferencesImpact),
+      ]),
+      mergeMap(([{}, groupName, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
           pageSize,
           pageIndex,
@@ -123,7 +123,7 @@ export class MonitorEffects {
   monitorGroupDeleteInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupDeleteInit),
-      withLatestFrom(this.store.select(selectRouteParam('groupName'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([action, groupName]) =>
         this.monitorService
           .monitorAdminRouteGroup(groupName)
@@ -135,7 +135,7 @@ export class MonitorEffects {
   monitorGroupUpdateInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupUpdateInit),
-      withLatestFrom(this.store.select(selectRouteParam('groupName'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([action, groupName]) =>
         this.monitorService
           .monitorAdminRouteGroup(groupName)
@@ -147,8 +147,10 @@ export class MonitorEffects {
   monitorRouteDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteDetailsPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('monitorRouteId'))),
-      mergeMap(([action, monitorRouteId]) =>
+      concatLatestFrom(() =>
+        this.store.select(selectRouteParam('monitorRouteId'))
+      ),
+      mergeMap(([{}, monitorRouteId]) =>
         this.monitorService
           .monitorRoute(monitorRouteId)
           .pipe(
@@ -161,8 +163,10 @@ export class MonitorEffects {
   monitorRouteMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteMapPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('monitorRouteId'))),
-      mergeMap(([action, monitorRouteId]) =>
+      concatLatestFrom(() =>
+        this.store.select(selectRouteParam('monitorRouteId'))
+      ),
+      mergeMap(([{}, monitorRouteId]) =>
         this.monitorService
           .monitorRouteMap(monitorRouteId)
           .pipe(
@@ -178,13 +182,13 @@ export class MonitorEffects {
         actionMonitorRouteChangesPageInit,
         actionMonitorRouteChangesPageIndex
       ),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectRouteParam('monitorRouteId')),
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectMonitorGroupChangesPageIndex),
-        this.store.select(selectPreferencesImpact)
-      ),
-      mergeMap(([action, monitorRouteId, pageSize, pageIndex, impact]) => {
+        this.store.select(selectPreferencesImpact),
+      ]),
+      mergeMap(([{}, monitorRouteId, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
           pageSize,
           pageIndex,
@@ -202,12 +206,12 @@ export class MonitorEffects {
   monitorRouteChangePageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteChangePageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectRouteParam('monitorRouteId')),
         this.store.select(selectRouteParam('changeSetId')),
-        this.store.select(selectRouteParam('replicationNumber'))
-      ),
-      mergeMap(([action, monitorRouteId, changeSetId, replicationNumber]) =>
+        this.store.select(selectRouteParam('replicationNumber')),
+      ]),
+      mergeMap(([{}, monitorRouteId, changeSetId, replicationNumber]) =>
         this.monitorService
           .monitorRouteChange(monitorRouteId, changeSetId, replicationNumber)
           .pipe(
@@ -256,12 +260,12 @@ export class MonitorEffects {
   monitorChangesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorChangesPageInit, actionMonitorChangesPageIndex),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectMonitorChangesPageIndex),
-        this.store.select(selectPreferencesImpact)
-      ),
-      mergeMap(([action, pageSize, pageIndex, impact]) => {
+        this.store.select(selectPreferencesImpact),
+      ]),
+      mergeMap(([{}, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
           pageSize,
           pageIndex,

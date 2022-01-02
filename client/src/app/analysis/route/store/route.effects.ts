@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { withLatestFrom } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -33,7 +33,7 @@ export class RouteEffects {
   routeDetails = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('routeId'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
       mergeMap(([{}, routeId]) => {
         this.store.dispatch(actionRouteId({ routeId }));
         return this.appService
@@ -46,7 +46,7 @@ export class RouteEffects {
   routeMap = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteMapPageInit),
-      withLatestFrom(this.store.select(selectRouteParam('routeId'))),
+      concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
       mergeMap(([{}, routeId]) => {
         this.store.dispatch(actionRouteId({ routeId }));
         return this.appService
@@ -59,12 +59,12 @@ export class RouteEffects {
   routeChanges = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteChangesPageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectRouteParam('routeId')),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectRouteChangesParameters)
-      ),
+        this.store.select(selectRouteChangesParameters),
+      ]),
       mergeMap(
         ([
           {},
@@ -105,7 +105,7 @@ export class RouteEffects {
       tap((action) =>
         console.log(`routeChangesPageUpdate ` + JSON.stringify(action, null, 2))
       ),
-      withLatestFrom(this.store.select(selectRouteChangesPage)),
+      concatLatestFrom(() => this.store.select(selectRouteChangesPage)),
       // continue only if we are currently on the changes page!!
       filter(([{}, response]) => !!response),
       map(([{}, {}]) => {

@@ -3,13 +3,13 @@ import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { withLatestFrom } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { QueryParams } from '../../../base/query-params';
@@ -35,12 +35,12 @@ export class ChangesEffects {
   changesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionChangesPageInit),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesAnalysisMode),
         this.store.select(selectPreferencesImpact),
-        this.store.select(selectPreferencesPageSize)
-      ),
+        this.store.select(selectPreferencesPageSize),
+      ]),
       map(
         ([
           {},
@@ -74,10 +74,10 @@ export class ChangesEffects {
         actionChangesAnalysisMode,
         actionChangesFilterOption
       ),
-      withLatestFrom(
+      concatLatestFrom(() => [
         this.store.select(selectChangesAnalysisMode),
-        this.store.select(selectChangesParameters)
-      ),
+        this.store.select(selectChangesParameters),
+      ]),
       mergeMap(([{}, analysisMode, changesParameters]) => {
         const promise = this.navigate(analysisMode, changesParameters);
         return from(promise).pipe(
