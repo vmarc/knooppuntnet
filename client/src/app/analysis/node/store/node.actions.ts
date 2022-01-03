@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { NodeChangesPage } from '@api/common/node/node-changes-page';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { NodeMapPage } from '@api/common/node/node-map-page';
@@ -32,9 +33,24 @@ export const actionNodeMapPageLoaded = createAction(
 
 export const actionNodeChangesPageInit = createAction('[NodeChangesPage] Init');
 
+export const actionNodeChangesPageLoad = createAction(
+  '[NodeChangesPage] Load',
+  props<{ nodeId: string; changesParameters: ChangesParameters }>()
+);
+
 export const actionNodeChangesPageLoaded = createAction(
   '[NodeChangesPage] Loaded',
   props<{ response: ApiResponse<NodeChangesPage> }>()
+);
+
+export const actionNodeChangesPageImpact = createAction(
+  '[NodeChangesPage] Impact',
+  props<{ impact: boolean }>()
+);
+
+export const actionNodeChangesPageSize = createAction(
+  '[NodeChangesPage] Page size',
+  props<{ pageSize: number }>()
 );
 
 export const actionNodeChangesPageIndex = createAction(

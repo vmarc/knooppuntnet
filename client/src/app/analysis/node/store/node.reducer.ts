@@ -1,8 +1,9 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
-import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { actionNodeChangesPageLoad } from './node.actions';
+import { actionNodeChangesPageImpact } from './node.actions';
+import { actionNodeChangesPageSize } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';
 import { actionNodeChangesFilterOption } from './node.actions';
 import { actionNodeId } from './node.actions';
@@ -14,7 +15,7 @@ import { initialState } from './node.state';
 
 export const nodeReducer = createReducer(
   initialState,
-  on(routerNavigationAction, (state, action) => ({
+  on(routerNavigationAction, (state, {}) => ({
     ...state,
     detailsPage: null,
     mapPage: null,
@@ -54,6 +55,11 @@ export const nodeReducer = createReducer(
       mapPage: response,
     };
   }),
+  on(actionNodeChangesPageLoad, (state, { nodeId, changesParameters }) => ({
+    ...state,
+    nodeId,
+    changesParameters,
+  })),
   on(actionNodeChangesPageLoaded, (state, { response }) => {
     const nodeId = response.result?.nodeId.toString() ?? state.nodeId;
     const nodeName = response.result?.nodeName ?? state.nodeName;
@@ -66,7 +72,7 @@ export const nodeReducer = createReducer(
       changesPage: response,
     };
   }),
-  on(actionPreferencesImpact, (state, action) => ({
+  on(actionNodeChangesPageImpact, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,
@@ -74,7 +80,7 @@ export const nodeReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionPreferencesPageSize, (state, action) => ({
+  on(actionNodeChangesPageSize, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,

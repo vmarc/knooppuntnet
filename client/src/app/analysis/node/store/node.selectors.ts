@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { nodeFeatureKey } from './node.state';
@@ -45,7 +46,17 @@ export const selectNodeChangesFilterOptions = createSelector(
   (state: NodeState) => state.changesPage?.result?.filterOptions
 );
 
+export const selectNodeChangesPageImpact = createSelector(
+  selectNodeChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.impact
+);
+
+export const selectNodeChangesPageSize = createSelector(
+  selectNodeChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageSize
+);
+
 export const selectNodeChangesPageIndex = createSelector(
-  selectNodeState,
-  (state: NodeState) => state.changesParameters?.pageIndex
+  selectNodeChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageIndex
 );

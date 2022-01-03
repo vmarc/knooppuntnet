@@ -4,8 +4,12 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { UserService } from '../../../services/user.service';
+import { actionRouteChangesPageSize } from '../store/route.actions';
+import { actionRouteChangesPageImpact } from '../store/route.actions';
 import { actionRouteChangesPageIndex } from '../store/route.actions';
 import { actionRouteChangesPageInit } from '../store/route.actions';
+import { selectRouteChangesPageSize } from '../store/route.selectors';
+import { selectRouteChangesPageImpact } from '../store/route.selectors';
 import { selectRouteChangesPage } from '../store/route.selectors';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteChangesPageIndex } from '../store/route.selectors';
@@ -53,10 +57,14 @@ import { selectRouteId } from '../store/route.selectors';
             ></kpn-situation-on>
           </p>
           <kpn-changes
+            [impact]="impact$ | async"
+            [pageSize]="pageSize$ | async"
+            [pageIndex]="pageIndex$ | async"
+            (impactChange)="onImpactChange($event)"
+            (pageSizeChange)="onPageSizeChange($event)"
+            (pageIndexChange)="onPageIndexChange($event)"
             [totalCount]="page.totalCount"
             [changeCount]="page.changeCount"
-            [pageIndex]="pageIndex$ | async"
-            (pageIndexChange)="pageIndexChanged($event)"
           >
             <kpn-items>
               <kpn-item
@@ -80,6 +88,8 @@ export class RouteChangesPageComponent implements OnInit {
   readonly networkType$ = this.store.select(selectRouteNetworkType);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
   readonly totalCount$ = this.store.select(selectRouteChangeCount);
+  readonly impact$ = this.store.select(selectRouteChangesPageImpact);
+  readonly pageSize$ = this.store.select(selectRouteChangesPageSize);
   readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);
 
   readonly response$ = this.store
@@ -101,7 +111,15 @@ export class RouteChangesPageComponent implements OnInit {
     return this.userService.isLoggedIn();
   }
 
-  pageIndexChanged(pageIndex: number): void {
+  onImpactChange(impact: boolean): void {
+    this.store.dispatch(actionRouteChangesPageImpact({ impact }));
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.store.dispatch(actionRouteChangesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number): void {
     this.store.dispatch(actionRouteChangesPageIndex({ pageIndex }));
   }
 }

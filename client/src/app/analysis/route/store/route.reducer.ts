@@ -1,8 +1,9 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
-import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
-import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
+import { actionRouteChangesPageLoad } from './route.actions';
+import { actionRouteChangesPageImpact } from './route.actions';
+import { actionRouteChangesPageSize } from './route.actions';
 import { actionRouteChangesFilterOption } from './route.actions';
 import { actionRouteChangesPageIndex } from './route.actions';
 import { actionRouteId } from './route.actions';
@@ -64,12 +65,17 @@ export const routeReducer = createReducer(
       mapPage: response,
     };
   }),
+  on(actionRouteChangesPageLoad, (state, { routeId, changesParameters }) => ({
+    ...state,
+    routeId,
+    changesParameters,
+  })),
   on(actionRouteChangesPageLoaded, (state, { response }) => {
     const routeId =
       response.result?.routeNameInfo.routeId.toString() ?? state.routeId;
     const routeName =
       response.result?.routeNameInfo.routeName ?? state.routeName;
-    const changeCount = response.result?.changeCount ?? state.changeCount;
+    const changeCount = response.result?.changeCount ?? 0;
     const networkType =
       response.result?.routeNameInfo.networkType ?? state.networkType;
     return {
@@ -81,7 +87,7 @@ export const routeReducer = createReducer(
       changesPage: response,
     };
   }),
-  on(actionPreferencesImpact, (state, action) => ({
+  on(actionRouteChangesPageImpact, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,
@@ -89,7 +95,7 @@ export const routeReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionPreferencesPageSize, (state, action) => ({
+  on(actionRouteChangesPageSize, (state, action) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,

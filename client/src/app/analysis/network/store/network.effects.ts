@@ -8,6 +8,7 @@ import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { from } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
@@ -159,15 +160,17 @@ export class NetworkEffects {
         this.store.select(selectNetworkId),
         this.store.select(selectNetworkChangesParameters),
       ]),
-      tap(([{}, {}, changesParameters]) => {
-        this.navigate(changesParameters);
-      }),
       mergeMap(([{}, networkId, changesParameters]) => {
-        return this.appService
-          .networkChanges(+networkId, changesParameters)
-          .pipe(
-            map((response) => actionNetworkChangesPageLoaded({ response }))
-          );
+        const promise = this.navigate(changesParameters);
+        return from(promise).pipe(
+          mergeMap(() => {
+            return this.appService
+              .networkChanges(+networkId, changesParameters)
+              .pipe(
+                map((response) => actionNetworkChangesPageLoaded({ response }))
+              );
+          })
+        );
       })
     )
   );

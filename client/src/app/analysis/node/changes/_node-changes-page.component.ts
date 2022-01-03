@@ -4,8 +4,12 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { UserService } from '../../../services/user.service';
+import { actionNodeChangesPageSize } from '../store/node.actions';
+import { actionNodeChangesPageImpact } from '../store/node.actions';
 import { actionNodeChangesPageIndex } from '../store/node.actions';
 import { actionNodeChangesPageInit } from '../store/node.actions';
+import { selectNodeChangesPageSize } from '../store/node.selectors';
+import { selectNodeChangesPageImpact } from '../store/node.selectors';
 import { selectNodeChangesPageIndex } from '../store/node.selectors';
 import { selectNodeChangesPage } from '../store/node.selectors';
 import { selectNodeChangeCount } from '../store/node.selectors';
@@ -59,10 +63,14 @@ import { selectNodeId } from '../store/node.selectors';
           ></kpn-situation-on>
         </p>
         <kpn-changes
+          [impact]="impact$ | async"
+          [pageSize]="pageSize$ | async"
+          [pageIndex]="pageIndex$ | async"
+          (impactChange)="onImpactChange($event)"
+          (pageSizeChange)="onPageSizeChange($event)"
+          (pageIndexChange)="onPageIndexChange($event)"
           [totalCount]="page.totalCount"
           [changeCount]="page.changes.length"
-          [pageIndex]="pageIndex$ | async"
-          (pageIndexChange)="pageIndexChanged($event)"
         >
           <kpn-items>
             <kpn-item
@@ -84,6 +92,8 @@ export class NodeChangesPageComponent implements OnInit {
   readonly nodeName$ = this.store.select(selectNodeName);
   readonly changeCount$ = this.store.select(selectNodeChangeCount);
   readonly totalCount$ = this.store.select(selectNodeChangeCount);
+  readonly impact$ = this.store.select(selectNodeChangesPageImpact);
+  readonly pageSize$ = this.store.select(selectNodeChangesPageSize);
   readonly pageIndex$ = this.store.select(selectNodeChangesPageIndex);
 
   readonly response$ = this.store
@@ -105,7 +115,15 @@ export class NodeChangesPageComponent implements OnInit {
     return this.userService.isLoggedIn();
   }
 
-  pageIndexChanged(pageIndex: number): void {
+  onImpactChange(impact: boolean): void {
+    this.store.dispatch(actionNodeChangesPageImpact({ impact }));
+  }
+
+  onPageSizeChange(pageSize: number): void {
+    this.store.dispatch(actionNodeChangesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number): void {
     this.store.dispatch(actionNodeChangesPageIndex({ pageIndex }));
   }
 }

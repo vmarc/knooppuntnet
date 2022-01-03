@@ -1,3 +1,4 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { routeFeatureKey } from './route.state';
@@ -46,12 +47,22 @@ export const selectRouteChangesParameters = createSelector(
   (state: RouteState) => state.changesParameters
 );
 
-export const selectRouteChangesFilterOptions = createSelector(
-  selectRouteState,
-  (state: RouteState) => state.changesPage?.result?.filterOptions
+export const selectRouteChangesPageImpact = createSelector(
+  selectRouteChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.impact
+);
+
+export const selectRouteChangesPageSize = createSelector(
+  selectRouteChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageSize
 );
 
 export const selectRouteChangesPageIndex = createSelector(
+  selectRouteChangesParameters,
+  (changesParameters: ChangesParameters) => changesParameters.pageIndex
+);
+
+export const selectRouteChangesFilterOptions = createSelector(
   selectRouteState,
-  (state: RouteState) => state.changesParameters?.pageIndex
+  (state: RouteState) => state.changesPage?.result?.filterOptions
 );
