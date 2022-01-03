@@ -13,7 +13,7 @@ import { actionRouteDetailsPageLoaded } from '../../analysis/route/store/route.a
 import { actionSubsetChangesPageSize } from '../../analysis/subset/store/subset.actions';
 import { actionSubsetChangesPageImpact } from '../../analysis/subset/store/subset.actions';
 import { Util } from '../../components/shared/util';
-import { actionPreferencesAnalysisMode } from './preferences.actions';
+import { actionPreferencesAnalysisStrategy } from './preferences.actions';
 import { actionPreferencesShowOptions } from './preferences.actions';
 import { actionPreferencesShowLegend } from './preferences.actions';
 import { actionPreferencesShowAppearanceOptions } from './preferences.actions';
@@ -24,7 +24,7 @@ import { actionPreferencesPageSize } from './preferences.actions';
 import { actionPreferencesNetworkType } from './preferences.actions';
 import { actionPreferencesInstructions } from './preferences.actions';
 import { actionPreferencesExtraLayers } from './preferences.actions';
-import { AnalysisMode } from './preferences.state';
+import { AnalysisStrategy } from './preferences.state';
 import { initialState } from './preferences.state';
 
 export const preferencesReducer = createReducer(
@@ -34,15 +34,15 @@ export const preferencesReducer = createReducer(
       const queryParams = action.payload.routerState.root.queryParams;
       const pageSize = +queryParams['pageSize'];
       const impact = queryParams['impact'];
-      let analysisMode: AnalysisMode;
-      if ('network' === queryParams['network']) {
-        analysisMode = AnalysisMode.network;
-      } else if ('location' === queryParams['location']) {
-        analysisMode = AnalysisMode.location;
+      let strategy: AnalysisStrategy;
+      if ('network' === queryParams['strategy']) {
+        strategy = AnalysisStrategy.network;
+      } else if ('location' === queryParams['strategy']) {
+        strategy = AnalysisStrategy.location;
       }
       return {
         ...state,
-        analysisMode: analysisMode ?? state.analysisMode,
+        strategy: strategy ?? state.strategy,
         pageSize: pageSize ?? state.pageSize,
         impact: impact ?? state.impact,
       };
@@ -55,9 +55,9 @@ export const preferencesReducer = createReducer(
       return state;
     }
   }),
-  on(actionPreferencesAnalysisMode, (state, action) => ({
+  on(actionPreferencesAnalysisStrategy, (state, action) => ({
     ...state,
-    analysisMode: action.analysisMode,
+    strategy: action.strategy,
   })),
   on(actionPreferencesNetworkType, (state, action) => ({
     ...state,

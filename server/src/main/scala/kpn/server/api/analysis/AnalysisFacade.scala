@@ -1,6 +1,6 @@
 package kpn.server.api.analysis
 
-import kpn.api.common.AnalysisMode
+import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
 import kpn.api.common.ReplicationId
@@ -89,7 +89,7 @@ trait AnalysisFacade {
 
   def replication(user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long]
 
-  def changes(user: Option[String], language: Language, analysisMode: AnalysisMode, parameters: ChangesParameters): ApiResponse[ChangesPage]
+  def changes(user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage]
 
   def locations(user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 

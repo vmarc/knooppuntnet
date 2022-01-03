@@ -1,6 +1,6 @@
 package kpn.server.api.analysis
 
-import kpn.api.common.AnalysisMode
+import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
 import kpn.api.common.ReplicationId
@@ -242,9 +242,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def changes(user: Option[String], language: Language, analysisMode: AnalysisMode, parameters: ChangesParameters): ApiResponse[ChangesPage] = {
+  override def changes(user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage] = {
     api.execute(user, "changes", parameters.toDisplayString) {
-      reply(Some(changesPageBuilder.build(user, language, analysisMode, parameters)))
+      reply(Some(changesPageBuilder.build(user, language, strategy, parameters)))
     }
   }
 

@@ -14,7 +14,7 @@ import { OlModule } from '../../components/ol/ol.module';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { FactModule } from '../fact/fact.module';
-import { AnalysisModeModule } from '../mode/mode.module';
+import { AnalysisStrategyModule } from '../strategy/strategy.module';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
 import { SubsetPageBreadcrumbComponent } from './components/subset-page-breadcrumb.component';
@@ -41,7 +41,7 @@ import { SubsetOrphanRoutesService } from './orphan-routes/subset-orphan-routes.
 import { SubsetEffects } from './store/subset.effects';
 import { subsetReducer } from './store/subset.reducer';
 import { subsetFeatureKey } from './store/subset.state';
-import { SubsetAnalysisModeComponent } from './subset-analysis-mode.component';
+import { SubsetAnalysisStrategyComponent } from './subset-analysis-strategy.component';
 import { SubsetRoutingModule } from './subset-routing.module';
 import { SubsetSidebarComponent } from './subset-sidebar.component';
 
@@ -63,7 +63,7 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     MarkdownModule,
     MatDialogModule,
     MatButtonModule,
-    AnalysisModeModule,
+    AnalysisStrategyModule,
   ],
   declarations: [
     SubsetPageBreadcrumbComponent,
@@ -88,7 +88,7 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     SubsetMapPageComponent,
     SubsetMapNetworkDialogComponent,
     SubsetSidebarComponent,
-    SubsetAnalysisModeComponent,
+    SubsetAnalysisStrategyComponent,
   ],
   providers: [SubsetOrphanNodesService, SubsetOrphanRoutesService],
 })

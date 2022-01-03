@@ -2,9 +2,9 @@ import { createSelector } from '@ngrx/store';
 import { selectPreferencesState } from '../core.state';
 import { PreferencesState } from './preferences.state';
 
-export const selectPreferencesAnalysisMode = createSelector(
+export const selectPreferencesAnalysisStrategy = createSelector(
   selectPreferencesState,
-  (state: PreferencesState) => state.analysisMode
+  (state: PreferencesState) => state.strategy
 );
 
 export const selectPreferencesNetworkType = createSelector(

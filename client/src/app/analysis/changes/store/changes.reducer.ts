@@ -2,8 +2,8 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
-import { actionPreferencesAnalysisMode } from '../../../core/preferences/preferences.actions';
-import { AnalysisMode } from '../../../core/preferences/preferences.state';
+import { actionPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.actions';
+import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
 import { actionChangesPageSize } from './changes.actions';
 import { actionChangesImpact } from './changes.actions';
 import { actionChangesFilterOption } from './changes.actions';
@@ -19,18 +19,18 @@ export const changesReducer = createReducer(
 
     if (util.isChangesPage()) {
       const queryParams = action.payload.routerState.root.queryParams;
-      let analysisMode: AnalysisMode;
-      if ('network' === queryParams['analysisMode']) {
-        analysisMode = AnalysisMode.network;
-      } else if ('location' === queryParams['analysisMode']) {
-        analysisMode = AnalysisMode.location;
+      let strategy: AnalysisStrategy;
+      if ('network' === queryParams['strategy']) {
+        strategy = AnalysisStrategy.network;
+      } else if ('location' === queryParams['strategy']) {
+        strategy = AnalysisStrategy.location;
       }
 
       const changesParameters = util.changesParameters();
 
       return {
         ...state,
-        analysisMode,
+        strategy,
         changesParameters,
       };
     } else {
@@ -74,9 +74,9 @@ export const changesReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionPreferencesAnalysisMode, (state, action) => ({
+  on(actionPreferencesAnalysisStrategy, (state, action) => ({
     ...state,
-    analysisMode: action.analysisMode,
+    strategy: action.strategy,
     changesParameters: {
       ...state.changesParameters,
       pageIndex: 0,

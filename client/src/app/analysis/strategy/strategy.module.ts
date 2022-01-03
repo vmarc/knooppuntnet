@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { SharedModule } from '../../components/shared/shared.module';
-import { AnalysisModeComponent } from './analysis-mode.component';
-import { AnalysisModeService } from './analysis-mode.service';
+import { AnalysisStrategyComponent } from './analysis-strategy.component';
+import { AnalysisStrategyService } from './analysis-strategy.service';
 
 @NgModule({
   imports: [CommonModule, SharedModule, MatRadioModule, MatIconModule],
-  declarations: [AnalysisModeComponent],
-  exports: [AnalysisModeComponent],
-  providers: [AnalysisModeService],
+  declarations: [AnalysisStrategyComponent],
+  exports: [AnalysisStrategyComponent],
+  providers: [AnalysisStrategyService],
 })
-export class AnalysisModeModule {}
+export class AnalysisStrategyModule {}

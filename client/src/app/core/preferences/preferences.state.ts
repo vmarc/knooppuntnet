@@ -1,10 +1,10 @@
-export enum AnalysisMode {
+export enum AnalysisStrategy {
   location = 'location',
   network = 'network',
 }
 
 export interface PreferencesState {
-  analysisMode: AnalysisMode;
+  strategy: AnalysisStrategy;
   networkType: string;
   instructions: boolean;
   extraLayers: boolean;
@@ -18,7 +18,7 @@ export interface PreferencesState {
 }
 
 export const initialState: PreferencesState = {
-  analysisMode: AnalysisMode.location,
+  strategy: AnalysisStrategy.location,
   networkType: null,
   instructions: false,
   extraLayers: false,

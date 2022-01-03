@@ -58,7 +58,7 @@ import { Subset } from '@api/custom/subset';
 import { MarkdownService } from 'ngx-markdown';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
-import { AnalysisMode } from './core/preferences/preferences.state';
+import { AnalysisStrategy } from './core/preferences/preferences.state';
 
 @Injectable()
 export class AppService {
@@ -201,13 +201,13 @@ export class AppService {
   }
 
   changes(
-    analysisMode: AnalysisMode,
+    strategy: AnalysisStrategy,
     parameters: ChangesParameters
   ): Observable<ApiResponse<ChangesPage>> {
     const url = '/api/changes';
     const params = new HttpParams()
       .set('language', this.locale)
-      .set('analysisMode', analysisMode);
+      .set('strategy', strategy);
     return this.http.post(url, parameters, { params });
   }
 

@@ -11,7 +11,7 @@ import { selectSubsetChangesFilterOptions } from '../store/subset.selectors';
   selector: 'kpn-subset-changes-sidebar',
   template: `
     <kpn-sidebar>
-      <kpn-subset-analysis-mode></kpn-subset-analysis-mode>
+      <kpn-subset-analysis-strategy></kpn-subset-analysis-strategy>
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
         (changeOption)="changed($event)"

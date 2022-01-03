@@ -1,6 +1,6 @@
 package kpn.server.api.analysis.pages
 
-import kpn.api.common.AnalysisMode
+import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
 import kpn.api.common.changes.filter.ChangesFilterOption
@@ -17,7 +17,7 @@ class ChangesPageBuilderImpl(
   override def build(
     user: Option[String],
     language: Language,
-    analysisMode: AnalysisMode,
+    strategy: AnalysisStrategy,
     parameters: ChangesParameters
   ): ChangesPage = {
 
@@ -27,7 +27,7 @@ class ChangesPageBuilderImpl(
       val changeSetSummaries = changeSetRepository.changes(parameters)
       val changeSetSummaryInfos = changeSetSummaryInfosBuilder.toChangeSetSummaryInfos(
         language,
-        analysisMode,
+        strategy,
         parameters,
         changeSetSummaries
       )

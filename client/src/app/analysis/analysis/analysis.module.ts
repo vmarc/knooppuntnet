@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { SharedModule } from '../../components/shared/shared.module';
-import { AnalysisModeModule } from '../mode/mode.module';
+import { AnalysisStrategyModule } from '../strategy/strategy.module';
 import { AnalysisRoutingModule } from './analysis-routing.module';
 import { AnalysisSidebarComponent } from './analysis-sidebar.component';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
@@ -21,7 +21,7 @@ import { AnalysisPageComponent } from './pages/analysis-page.component';
     MatRadioModule,
     MatIconModule,
     AnalysisRoutingModule,
-    AnalysisModeModule,
+    AnalysisStrategyModule,
   ],
   declarations: [
     AnalysisPageComponent,

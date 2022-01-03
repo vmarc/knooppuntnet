@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-analysis-mode></kpn-analysis-mode>
+      <kpn-analysis-strategy></kpn-analysis-strategy>
     </kpn-sidebar>
   `,
 })

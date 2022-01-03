@@ -3,7 +3,7 @@ import { ChangesParameters } from '@api/common/changes/filter/changes-parameters
 import { ApiResponse } from '@api/custom/api-response';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { AnalysisMode } from '../../../core/preferences/preferences.state';
+import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
 
 export interface ChangeOption {
   year: number;
@@ -16,7 +16,10 @@ export const actionChangesPageInit = createAction('[ChangesPage] Init');
 
 export const actionChangesPageLoad = createAction(
   '[ChangesPage] Load',
-  props<{ analysisMode: AnalysisMode; changesParameters: ChangesParameters }>()
+  props<{
+    strategy: AnalysisStrategy;
+    changesParameters: ChangesParameters;
+  }>()
 );
 
 export const actionChangesPageLoaded = createAction(
@@ -39,9 +42,9 @@ export const actionChangesPageIndex = createAction(
   props<{ pageIndex: number }>()
 );
 
-export const actionChangesAnalysisMode = createAction(
-  '[ChangesPage] Analysis mode',
-  props<{ analysisMode: AnalysisMode }>()
+export const actionChangesAnalysisStrategy = createAction(
+  '[ChangesPage] Analysis strategy',
+  props<{ strategy: AnalysisStrategy }>()
 );
 
 export const actionChangesFilterOption = createAction(

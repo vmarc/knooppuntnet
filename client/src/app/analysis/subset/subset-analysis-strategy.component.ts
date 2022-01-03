@@ -8,11 +8,13 @@ import { WindowService } from '../../services/window.service';
 import { selectSubset } from './store/subset.selectors';
 
 @Component({
-  selector: 'kpn-subset-analysis-mode',
+  selector: 'kpn-subset-analysis-strategy',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <kpn-analysis-mode [url]="url$ | async"></kpn-analysis-mode> `,
+  template: `
+    <kpn-analysis-strategy [url]="url$ | async"></kpn-analysis-strategy>
+  `,
 })
-export class SubsetAnalysisModeComponent {
+export class SubsetAnalysisStrategyComponent {
   readonly url$ = this.store
     .select(selectSubset)
     .pipe(map((subset: Subset) => this.url(subset)));

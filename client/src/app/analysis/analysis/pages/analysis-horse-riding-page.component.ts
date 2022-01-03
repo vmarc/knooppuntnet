@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisModeService } from '../../mode/analysis-mode.service';
+import { AnalysisStrategyService } from '../../strategy/analysis-strategy.service';
 
 @Component({
   selector: 'kpn-analysis-horse-riding-page',
@@ -38,8 +38,8 @@ import { AnalysisModeService } from '../../mode/analysis-mode.service';
   `,
 })
 export class AnalysisHorseRidingPageComponent {
-  readonly nlLink = this.analysisModeService.link('horse-riding', 'nl');
-  readonly beLink = this.analysisModeService.link('horse-riding', 'be');
+  readonly nlLink = this.analysisStrategyService.link('horse-riding', 'nl');
+  readonly beLink = this.analysisStrategyService.link('horse-riding', 'be');
 
-  constructor(private analysisModeService: AnalysisModeService) {}
+  constructor(private analysisStrategyService: AnalysisStrategyService) {}
 }

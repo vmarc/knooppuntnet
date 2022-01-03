@@ -1,6 +1,6 @@
 package kpn.server.api.analysis.pages
 
-import kpn.api.common.AnalysisMode
+import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeSetSummaryInfo
 import kpn.api.common.ChangeSetSummaryLocationInfo
@@ -21,7 +21,7 @@ class ChangeSetSummaryInfosBuilder(
 
   def toChangeSetSummaryInfos(
     language: Language,
-    analysisMode: AnalysisMode,
+    strategy: AnalysisStrategy,
     parameters: ChangesParameters,
     changeSetSummaries: Seq[ChangeSetSummary]
   ): Seq[ChangeSetSummaryInfo] = {
@@ -30,7 +30,7 @@ class ChangeSetSummaryInfosBuilder(
     changeSetSummaries.zipWithIndex.map { case (summary, index) =>
       val rowIndex = parameters.pageSize * parameters.pageIndex + index
       val comment = changeSetInfos.find(s => s.id == summary.key.changeSetId).flatMap(_.tags("comment"))
-      analysisMode match {
+      strategy match {
         case LOCATION =>
 
           val changes = summary.locationChanges.map { locationChanges =>

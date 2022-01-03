@@ -12,7 +12,7 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-location-analysis-mode></kpn-location-analysis-mode>
+      <kpn-location-analysis-strategy></kpn-location-analysis-strategy>
       <div
         *ngIf="locationRoutesPageResponse$ | async as response"
         class="filter"

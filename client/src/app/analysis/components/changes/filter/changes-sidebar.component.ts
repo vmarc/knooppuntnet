@@ -12,7 +12,7 @@ import { selectChangesFilterOptions } from '../../../changes/store/changes.selec
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-analysis-mode></kpn-analysis-mode>
+      <kpn-analysis-strategy></kpn-analysis-strategy>
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
         (changeOption)="changed($event)"

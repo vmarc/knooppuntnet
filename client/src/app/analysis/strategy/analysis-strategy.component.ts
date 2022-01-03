@@ -5,18 +5,18 @@ import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/core.state';
-import { actionPreferencesAnalysisMode } from '../../core/preferences/preferences.actions';
-import { selectPreferencesAnalysisMode } from '../../core/preferences/preferences.selectors';
+import { actionPreferencesAnalysisStrategy } from '../../core/preferences/preferences.actions';
+import { selectPreferencesAnalysisStrategy } from '../../core/preferences/preferences.selectors';
 
 @Component({
-  selector: 'kpn-analysis-mode',
+  selector: 'kpn-analysis-strategy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-section">
       <div class="sidebar-section-title">Analysis strategy</div>
 
       <mat-radio-group
-        [value]="analysisMode$ | async"
+        [value]="strategy$ | async"
         (change)="modeChanged($event)"
       >
         <mat-radio-button
@@ -38,15 +38,15 @@ import { selectPreferencesAnalysisMode } from '../../core/preferences/preference
   `,
   styleUrls: ['../../components/shared/sidebar/sidebar.scss'],
 })
-export class AnalysisModeComponent {
+export class AnalysisStrategyComponent {
   @Input() url: string;
-  readonly analysisMode$ = this.store.select(selectPreferencesAnalysisMode);
+  readonly strategy$ = this.store.select(selectPreferencesAnalysisStrategy);
 
   constructor(private router: Router, private store: Store<AppState>) {}
 
   modeChanged(event: MatRadioChange) {
     this.store.dispatch(
-      actionPreferencesAnalysisMode({ analysisMode: event.value })
+      actionPreferencesAnalysisStrategy({ strategy: event.value })
     );
     if (this.url) {
       this.router.navigateByUrl(this.url);

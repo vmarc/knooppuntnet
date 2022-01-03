@@ -1,6 +1,6 @@
 package kpn.server.api.analysis
 
-import kpn.api.common.AnalysisMode
+import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.EN
 import kpn.api.common.LOCATION
@@ -225,13 +225,13 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @PostMapping(value = Array("/api/changes"))
   def changes(
     @RequestParam language: String,
-    @RequestParam analysisMode: String,
+    @RequestParam strategy: String,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[ChangesPage] = {
     analysisFacade.changes(
       CurrentUser.name,
       toLanguage(language),
-      toAnalysisMode(analysisMode),
+      toAnalysisStrategy(strategy),
       parameters
     )
   }
@@ -341,7 +341,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     Languages.all.find(_.toString.toLowerCase == language).getOrElse(EN)
   }
 
-  private def toAnalysisMode(analysisMode: String): AnalysisMode = {
-    AnalysisMode.all.find(_.toString.toLowerCase == analysisMode).getOrElse(LOCATION)
+  private def toAnalysisStrategy(analysisStrategy: String): AnalysisStrategy = {
+    AnalysisStrategy.all.find(_.toString.toLowerCase == analysisStrategy).getOrElse(LOCATION)
   }
 }

@@ -21,7 +21,7 @@ import { OlModule } from '../../components/ol/ol.module';
 import { SharedModule } from '../../components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { FactModule } from '../fact/fact.module';
-import { AnalysisModeModule } from '../mode/mode.module';
+import { AnalysisStrategyModule } from '../strategy/strategy.module';
 import { LocationChangesPageComponent } from './changes/location-changes-page.component';
 import { LocationChangesComponent } from './changes/location-changes.component';
 import { LocationPageBreadcrumbComponent } from './components/location-page-breadcrumb.component';
@@ -31,7 +31,7 @@ import { LocationEditPageComponent } from './edit/location-edit-page.component';
 import { LocationEditComponent } from './edit/location-edit.component';
 import { LocationFactsPageComponent } from './facts/location-facts-page.component';
 import { LocationFactsComponent } from './facts/location-facts.component';
-import { LocationAnalysisModeComponent } from './location-analysis-mode.component';
+import { LocationAnalysisStrategyComponent } from './location-analysis-strategy.component';
 import { LocationRoutingModule } from './location-routing.module';
 import { LocationSidebarComponent } from './location-sidebar.component';
 import { LocationService } from './location.service';
@@ -85,7 +85,7 @@ import { locationFeatureKey } from './store/location.state';
     MatSlideToggleModule,
     AnalysisComponentsModule,
     MarkdownModule,
-    AnalysisModeModule,
+    AnalysisStrategyModule,
   ],
   declarations: [
     LocationPageHeaderComponent,
@@ -117,7 +117,7 @@ import { locationFeatureKey } from './store/location.state';
     LocationNodeFactIndicatorComponent,
     LocationNodeFactIndicatorDialogComponent,
     LocationSidebarComponent,
-    LocationAnalysisModeComponent,
+    LocationAnalysisStrategyComponent,
   ],
   providers: [LocationService, LocationModeService, LocationSelectionService],
 })

@@ -16,10 +16,10 @@ import { QueryParams } from '../../../base/query-params';
 import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
-import { selectPreferencesAnalysisMode } from '../../../core/preferences/preferences.selectors';
+import { selectPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
-import { AnalysisMode } from '../../../core/preferences/preferences.state';
-import { actionChangesAnalysisMode } from './changes.actions';
+import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
+import { actionChangesAnalysisStrategy } from './changes.actions';
 import { actionChangesPageSize } from './changes.actions';
 import { actionChangesImpact } from './changes.actions';
 import { actionChangesPageLoad } from './changes.actions';
@@ -27,7 +27,7 @@ import { actionChangesFilterOption } from './changes.actions';
 import { actionChangesPageLoaded } from './changes.actions';
 import { actionChangesPageIndex } from './changes.actions';
 import { actionChangesPageInit } from './changes.actions';
-import { selectChangesAnalysisMode } from './changes.selectors';
+import { selectChangesAnalysisStrategy } from './changes.selectors';
 import { selectChangesParameters } from './changes.selectors';
 
 @Injectable()
@@ -37,7 +37,7 @@ export class ChangesEffects {
       ofType(actionChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectQueryParams),
-        this.store.select(selectPreferencesAnalysisMode),
+        this.store.select(selectPreferencesAnalysisStrategy),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
       ]),
@@ -45,20 +45,20 @@ export class ChangesEffects {
         ([
           {},
           queryParams,
-          preferencesAnalysisMode,
+          preferencesAnalysisStrategy,
           preferencesImpact,
           preferencesPageSize,
         ]) => {
-          let analysisMode: AnalysisMode = preferencesAnalysisMode;
-          if (queryParams['analysisMode']) {
-            analysisMode = queryParams['analysisMode'];
+          let strategy: AnalysisStrategy = preferencesAnalysisStrategy;
+          if (queryParams['strategy']) {
+            strategy = queryParams['strategy'];
           }
           const queryParamsWrapper = new QueryParams(queryParams);
           const changesParameters = queryParamsWrapper.changesParameters(
             preferencesImpact,
             preferencesPageSize
           );
-          return actionChangesPageLoad({ analysisMode, changesParameters });
+          return actionChangesPageLoad({ strategy, changesParameters });
         }
       )
     )
@@ -71,19 +71,19 @@ export class ChangesEffects {
         actionChangesImpact,
         actionChangesPageSize,
         actionChangesPageIndex,
-        actionChangesAnalysisMode,
+        actionChangesAnalysisStrategy,
         actionChangesFilterOption
       ),
       concatLatestFrom(() => [
-        this.store.select(selectChangesAnalysisMode),
+        this.store.select(selectChangesAnalysisStrategy),
         this.store.select(selectChangesParameters),
       ]),
-      mergeMap(([{}, analysisMode, changesParameters]) => {
-        const promise = this.navigate(analysisMode, changesParameters);
+      mergeMap(([{}, strategy, changesParameters]) => {
+        const promise = this.navigate(strategy, changesParameters);
         return from(promise).pipe(
           mergeMap(() => {
             return this.appService
-              .changes(analysisMode, changesParameters)
+              .changes(strategy, changesParameters)
               .pipe(map((response) => actionChangesPageLoaded({ response })));
           })
         );
@@ -100,11 +100,11 @@ export class ChangesEffects {
   ) {}
 
   private navigate(
-    analysisMode: AnalysisMode,
+    strategy: AnalysisStrategy,
     changesParameters: ChangesParameters
   ): Promise<boolean> {
     const queryParams: Params = {
-      analysisMode,
+      strategy,
       ...changesParameters,
     };
     return this.router.navigate([], {

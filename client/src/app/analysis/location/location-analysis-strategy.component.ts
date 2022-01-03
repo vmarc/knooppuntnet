@@ -10,11 +10,13 @@ import { WindowService } from '../../services/window.service';
 import { selectLocationKey } from './store/location.selectors';
 
 @Component({
-  selector: 'kpn-location-analysis-mode',
+  selector: 'kpn-location-analysis-strategy',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <kpn-analysis-mode [url]="url$ | async"></kpn-analysis-mode> `,
+  template: `
+    <kpn-analysis-strategy [url]="url$ | async"></kpn-analysis-strategy>
+  `,
 })
-export class LocationAnalysisModeComponent {
+export class LocationAnalysisStrategyComponent {
   readonly url$ = this.store.select(selectLocationKey).pipe(
     tap((locationKey: LocationKey) =>
       console.log(`locationKey=${JSON.stringify(locationKey, null, 2)}`)
