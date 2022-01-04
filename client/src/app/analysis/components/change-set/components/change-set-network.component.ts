@@ -58,8 +58,8 @@ export class ChangesSetNetworkComponent {
 
   link(): string {
     const changeSetId = this.changeSetNetworkAction.changeKey.changeSetId;
-    const replicationNumber = this.changeSetNetworkAction.changeKey
-      .replicationNumber;
+    const replicationNumber =
+      this.changeSetNetworkAction.changeKey.replicationNumber;
     return `/analysis/changeset/${changeSetId}/${replicationNumber}`;
   }
 }

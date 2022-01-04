@@ -51,12 +51,11 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
 export class MonitorGroupsPageComponent implements OnInit {
   readonly admin$ = this.store.select(selectMonitorAdmin);
 
-  readonly response$: Observable<
-    ApiResponse<MonitorGroupsPage>
-  > = this.store.pipe(
-    select(selectMonitorGroupsPage),
-    filter((r) => r != null)
-  );
+  readonly response$: Observable<ApiResponse<MonitorGroupsPage>> =
+    this.store.pipe(
+      select(selectMonitorGroupsPage),
+      filter((r) => r != null)
+    );
 
   constructor(private store: Store<AppState>) {}
 

@@ -74,12 +74,11 @@ export class MonitorGroupPageComponent implements OnInit {
   );
   readonly admin$ = this.store.select(selectMonitorAdmin);
 
-  readonly response$: Observable<
-    ApiResponse<MonitorGroupPage>
-  > = this.store.pipe(
-    select(selectMonitorGroupPage),
-    filter((r) => r != null)
-  );
+  readonly response$: Observable<ApiResponse<MonitorGroupPage>> =
+    this.store.pipe(
+      select(selectMonitorGroupPage),
+      filter((r) => r != null)
+    );
 
   constructor(private store: Store<AppState>) {}
 

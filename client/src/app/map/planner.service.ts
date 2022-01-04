@@ -29,10 +29,8 @@ import { ColourTranslator } from './planner/services/colour-translator';
 export class PlannerService {
   engine: PlannerEngine;
   resultMode$ = new BehaviorSubject<string>('compact');
-  private readonly translations: TranslationMap<
-    string,
-    string
-  > = this.buildTranslations();
+  private readonly translations: TranslationMap<string, string> =
+    this.buildTranslations();
   private readonly routeLayer = new PlannerRouteLayerImpl();
   private readonly markerLayer = new PlannerMarkerLayerImpl();
   private readonly cursor = new PlannerCursorImpl();

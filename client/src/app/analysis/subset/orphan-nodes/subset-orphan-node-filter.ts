@@ -45,8 +45,9 @@ export class SubsetOrphanNodeFilter {
 
   filterOptions(nodes: OrphanNodeInfo[]): FilterOptions {
     const totalCount = nodes.length;
-    const filteredCount = nodes.filter((node) => this.allFilters.passes(node))
-      .length;
+    const filteredCount = nodes.filter((node) =>
+      this.allFilters.passes(node)
+    ).length;
 
     const lastUpdated = this.lastUpdatedFilter.filterOptions(
       this.allFilters,

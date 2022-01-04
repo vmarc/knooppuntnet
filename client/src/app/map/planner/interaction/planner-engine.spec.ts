@@ -147,10 +147,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([1.1, 1.1]);
 
       // act - drag ongoing
-      const eventIsFurtherPropagated2 = engine.handleDragEvent(List(), [
-        1.5,
-        1.5,
-      ]);
+      const eventIsFurtherPropagated2 = engine.handleDragEvent(
+        List(),
+        [1.5, 1.5]
+      );
 
       // assert - drag ongoing
       expect(eventIsFurtherPropagated2).toBeFalsy();
@@ -212,10 +212,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([1.1, 1.1]);
 
       // act - drag end
-      const eventIsFurtherPropagated3 = engine.handleUpEvent(List(), [
-        1.5,
-        1.5,
-      ]);
+      const eventIsFurtherPropagated3 = engine.handleUpEvent(
+        List(),
+        [1.5, 1.5]
+      );
 
       // assert - drag cancelled
       expect(eventIsFurtherPropagated3).toBeFalsy();
@@ -266,10 +266,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([1.1, 1.1]);
 
       // act - drag ongoing
-      const eventIsFurtherPropagated2 = engine.handleDragEvent(List(), [
-        1.5,
-        1.5,
-      ]);
+      const eventIsFurtherPropagated2 = engine.handleDragEvent(
+        List(),
+        [1.5, 1.5]
+      );
 
       // assert - drag ongoing
       expect(eventIsFurtherPropagated2).toBeFalsy();
@@ -335,10 +335,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([1.1, 1.1]);
 
       // act - drag end
-      const eventIsFurtherPropagated3 = engine.handleUpEvent(List(), [
-        1.5,
-        1.5,
-      ]);
+      const eventIsFurtherPropagated3 = engine.handleUpEvent(
+        List(),
+        [1.5, 1.5]
+      );
 
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
@@ -398,10 +398,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([2.1, 2.1]);
 
       // act - drag ongoing
-      const eventIsFurtherPropagated2 = engine.handleDragEvent(List(), [
-        2.5,
-        2.5,
-      ]);
+      const eventIsFurtherPropagated2 = engine.handleDragEvent(
+        List(),
+        [2.5, 2.5]
+      );
 
       // assert - drag ongoing
       expect(eventIsFurtherPropagated2).toBeFalsy();
@@ -470,10 +470,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([2.1, 2.1]);
 
       // act - drag end
-      const eventIsFurtherPropagated3 = engine.handleUpEvent(List(), [
-        2.5,
-        2.5,
-      ]);
+      const eventIsFurtherPropagated3 = engine.handleUpEvent(
+        List(),
+        [2.5, 2.5]
+      );
 
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
@@ -534,10 +534,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([2.1, 2.1]);
 
       // act - drag ongoing
-      const eventIsFurtherPropagated2 = engine.handleDragEvent(List(), [
-        2.5,
-        2.5,
-      ]);
+      const eventIsFurtherPropagated2 = engine.handleDragEvent(
+        List(),
+        [2.5, 2.5]
+      );
 
       // assert - drag ongoing
       expect(eventIsFurtherPropagated2).toBeFalsy();
@@ -607,10 +607,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([2.1, 2.1]);
 
       // act - drag end
-      const eventIsFurtherPropagated3 = engine.handleUpEvent(List(), [
-        2.5,
-        2.5,
-      ]);
+      const eventIsFurtherPropagated3 = engine.handleUpEvent(
+        List(),
+        [2.5, 2.5]
+      );
 
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
@@ -668,10 +668,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([1.5, 1.5]);
 
       // act - drag ongoing
-      const eventIsFurtherPropagated2 = engine.handleDragEvent(List(), [
-        1.7,
-        1.7,
-      ]);
+      const eventIsFurtherPropagated2 = engine.handleDragEvent(
+        List(),
+        [1.7, 1.7]
+      );
 
       // assert - drag ongoing
       expect(eventIsFurtherPropagated2).toBeFalsy();
@@ -737,10 +737,10 @@ describe('PlannerEngine', () => {
       setup.elasticBand.expectPosition([1.5, 1.5]);
 
       // act - drag end
-      const eventIsFurtherPropagated3 = engine.handleUpEvent(List(), [
-        1.7,
-        1.7,
-      ]);
+      const eventIsFurtherPropagated3 = engine.handleUpEvent(
+        List(),
+        [1.7, 1.7]
+      );
 
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();

@@ -100,9 +100,8 @@ export class PlanTipComponent implements OnInit {
   }
 
   more(): string {
-    const languageSpecificSubject = this.i18nService.translation(
-      `@@wiki.planner.edit`
-    );
+    const languageSpecificSubject =
+      this.i18nService.translation(`@@wiki.planner.edit`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 

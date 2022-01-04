@@ -18,15 +18,12 @@ export class PoiService {
   enabled: Observable<boolean>;
   changed: BehaviorSubject<boolean> = new BehaviorSubject(null);
   poiActive = Map<string, boolean>();
-  poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(
-    null
-  );
+  poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> =
+    new BehaviorSubject(null);
   private zoomLevel: number;
   private poiPreferences: PoiPreferences;
-  private readonly poiNames: Map<
-    string,
-    string
-  > = this.poiNameService.buildPoiNames();
+  private readonly poiNames: Map<string, string> =
+    this.poiNameService.buildPoiNames();
 
   constructor(
     private appService: AppService,
@@ -100,9 +97,8 @@ export class PoiService {
   updateGroupDefault(groupName: string) {
     this.updateGroup(groupName, (group) => {
       group.pois.forEach((poi, poiName) => {
-        const poiDefinition = this.poiConfiguration.value.poiDefinitionWithName(
-          poiName
-        );
+        const poiDefinition =
+          this.poiConfiguration.value.poiDefinitionWithName(poiName);
         if (poiDefinition != null) {
           poi.minLevel = poiDefinition.minLevel;
         }

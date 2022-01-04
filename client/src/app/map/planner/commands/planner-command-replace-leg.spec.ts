@@ -66,10 +66,11 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'oldSinkFlag', [
-      2,
-      2,
-    ]);
+    expectEndFlag(
+      setup.context.plan.legs.get(0).sinkFlag,
+      'oldSinkFlag',
+      [2, 2]
+    );
 
     command.do(setup.context);
 
@@ -132,10 +133,11 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('13');
-    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'newSinkFlag', [
-      3,
-      3,
-    ]);
+    expectEndFlag(
+      setup.context.plan.legs.get(0).sinkFlag,
+      'newSinkFlag',
+      [3, 3]
+    );
 
     command.undo(setup.context);
 
@@ -148,10 +150,11 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'oldSinkFlag', [
-      2,
-      2,
-    ]);
+    expectEndFlag(
+      setup.context.plan.legs.get(0).sinkFlag,
+      'oldSinkFlag',
+      [2, 2]
+    );
 
     command.do(setup.context);
 
@@ -165,9 +168,10 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('13');
-    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'newSinkFlag', [
-      3,
-      3,
-    ]);
+    expectEndFlag(
+      setup.context.plan.legs.get(0).sinkFlag,
+      'newSinkFlag',
+      [3, 3]
+    );
   });
 });

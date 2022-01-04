@@ -54,9 +54,8 @@ export class PageFooterComponent {
   constructor(private i18nService: I18nService) {}
 
   issues(): string {
-    const languageSpecificSubject = this.i18nService.translation(
-      `@@wiki.issues`
-    );
+    const languageSpecificSubject =
+      this.i18nService.translation(`@@wiki.issues`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 }

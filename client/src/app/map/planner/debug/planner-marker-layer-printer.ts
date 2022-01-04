@@ -10,7 +10,9 @@ export class PlannerMarkerLayerPrinter {
 
   layer(plannerMarkerLayer: PlannerMarkerLayer): Printer {
     if (plannerMarkerLayer instanceof PlannerMarkerLayerImpl) {
-      const features = (plannerMarkerLayer as PlannerMarkerLayerImpl).features();
+      const features = (
+        plannerMarkerLayer as PlannerMarkerLayerImpl
+      ).features();
       this.out.println(`markerLayer (${features.size} features)`);
       features.forEach((feature) => {
         const layer = feature.get('layer');
