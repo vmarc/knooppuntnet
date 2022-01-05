@@ -9,6 +9,16 @@ import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { LocationRoutesType } from '@api/custom/location-routes-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
+import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
+
+export const actionLocationSelectionPageInit = createAction(
+  '[LocationSelectionPage] Init'
+);
+
+export const actionLocationSelectionPageStrategy = createAction(
+  '[LocationSelectionPage] Strategy',
+  props<{ strategy: AnalysisStrategy }>()
+);
 
 export const actionLocationNodesPageInit = createAction(
   '[LocationNodesPage] Init'

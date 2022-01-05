@@ -31,7 +31,6 @@ import { LocationEditPageComponent } from './edit/location-edit-page.component';
 import { LocationEditComponent } from './edit/location-edit.component';
 import { LocationFactsPageComponent } from './facts/location-facts-page.component';
 import { LocationFactsComponent } from './facts/location-facts.component';
-import { LocationAnalysisStrategyComponent } from './location-analysis-strategy.component';
 import { LocationRoutingModule } from './location-routing.module';
 import { LocationSidebarComponent } from './location-sidebar.component';
 import { LocationService } from './location.service';
@@ -117,7 +116,6 @@ import { locationFeatureKey } from './store/location.state';
     LocationNodeFactIndicatorComponent,
     LocationNodeFactIndicatorDialogComponent,
     LocationSidebarComponent,
-    LocationAnalysisStrategyComponent,
   ],
   providers: [LocationService, LocationModeService, LocationSelectionService],
 })

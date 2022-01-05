@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { LocationChangesParameters } from '@api/common/location/location-changes-parameters';
 import { LocationNodesParameters } from '@api/common/location/location-nodes-parameters';
 import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
@@ -7,11 +9,16 @@ import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
+import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
+import { selectPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { WindowService } from '../../../services/window.service';
+import { actionLocationSelectionPageStrategy } from './location.actions';
 import { actionLocationRoutesPageIndex } from './location.actions';
 import { actionLocationRoutesType } from './location.actions';
 import { actionLocationNodesPageIndex } from './location.actions';
@@ -37,6 +44,26 @@ import { selectLocationKey } from './location.selectors';
 
 @Injectable()
 export class LocationEffects {
+  locationSelectionPageStrategyChange = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actionLocationSelectionPageStrategy),
+        concatLatestFrom(() => [
+          this.store.select(selectRouteParam('networkType')),
+          this.store.select(selectRouteParam('country')),
+        ]),
+        tap(([{}, networkType, country]) => {
+          let url = `/analysis/${networkType}/${country}/networks`;
+          const language = this.windowService.language();
+          if (language.length > 0) {
+            url = `/${language}${url}`;
+          }
+          this.router.navigate([url]);
+        })
+      ),
+    { dispatch: false }
+  );
+
   locationNodesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -152,6 +179,9 @@ export class LocationEffects {
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
+    private router: Router,
+    private route: ActivatedRoute,
+    private windowService: WindowService,
     private appService: AppService
   ) {}
 }

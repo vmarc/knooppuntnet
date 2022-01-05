@@ -4,11 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocationNode } from '@api/common/location/location-node';
 import { Country } from '@api/custom/country';
 import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { AppState } from '../../../core/core.state';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionLocationSelectionPageInit } from '../store/location.actions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationModeService } from './location-mode.service';
 import { LocationSelectionService } from './location-selection.service';
@@ -90,7 +93,8 @@ export class LocationSelectionPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private locationModeService: LocationModeService,
     private locationSelectionService: LocationSelectionService,
-    private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   isModeName() {
@@ -107,6 +111,8 @@ export class LocationSelectionPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(actionLocationSelectionPageInit());
+
     this.locationNode$ = this.activatedRoute.params.pipe(
       map((params) => {
         this.networkType = NetworkTypes.withName(params['networkType']);

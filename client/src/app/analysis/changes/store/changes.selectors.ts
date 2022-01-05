@@ -17,11 +17,6 @@ export const selectChangesFilterOptions = createSelector(
   (state: ChangesState) => state.changesPage?.result?.filterOptions
 );
 
-export const selectChangesAnalysisStrategy = createSelector(
-  selectChangesState,
-  (state: ChangesState) => state.strategy
-);
-
 export const selectChangesParameters = createSelector(
   selectChangesState,
   (state: ChangesState) => state.changesParameters

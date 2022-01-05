@@ -1,12 +1,12 @@
-import { Input } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/core.state';
-import { actionPreferencesAnalysisStrategy } from '../../core/preferences/preferences.actions';
 import { selectPreferencesAnalysisStrategy } from '../../core/preferences/preferences.selectors';
+import { AnalysisStrategy } from '../../core/preferences/preferences.state';
 
 @Component({
   selector: 'kpn-analysis-strategy',
@@ -17,7 +17,7 @@ import { selectPreferencesAnalysisStrategy } from '../../core/preferences/prefer
 
       <mat-radio-group
         [value]="strategy$ | async"
-        (change)="modeChanged($event)"
+        (change)="onStrategyChange($event)"
       >
         <mat-radio-button
           value="location"
@@ -39,17 +39,13 @@ import { selectPreferencesAnalysisStrategy } from '../../core/preferences/prefer
   styleUrls: ['../../components/shared/sidebar/sidebar.scss'],
 })
 export class AnalysisStrategyComponent {
-  @Input() url: string;
+  @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
+
   readonly strategy$ = this.store.select(selectPreferencesAnalysisStrategy);
 
-  constructor(private router: Router, private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>) {}
 
-  modeChanged(event: MatRadioChange) {
-    this.store.dispatch(
-      actionPreferencesAnalysisStrategy({ strategy: event.value })
-    );
-    if (this.url) {
-      this.router.navigateByUrl(this.url);
-    }
+  onStrategyChange(event: MatRadioChange) {
+    this.strategyChange.emit(event.value);
   }
 }

@@ -1,8 +1,11 @@
 import { routerNavigatedAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionChangesAnalysisStrategy } from '../../analysis/changes/store/changes.actions';
 import { actionChangesPageSize } from '../../analysis/changes/store/changes.actions';
 import { actionChangesImpact } from '../../analysis/changes/store/changes.actions';
+import { actionLocationSelectionPageInit } from '../../analysis/location/store/location.actions';
+import { actionLocationSelectionPageStrategy } from '../../analysis/location/store/location.actions';
 import { actionNetworkChangesPageSize } from '../../analysis/network/store/network.actions';
 import { actionNetworkChangesImpact } from '../../analysis/network/store/network.actions';
 import { actionNodeChangesFilterOption } from '../../analysis/node/store/node.actions';
@@ -55,9 +58,18 @@ export const preferencesReducer = createReducer(
       return state;
     }
   }),
-  on(actionPreferencesAnalysisStrategy, (state, action) => ({
+  on(
+    actionPreferencesAnalysisStrategy,
+    actionChangesAnalysisStrategy,
+    actionLocationSelectionPageStrategy,
+    (state, action) => ({
+      ...state,
+      strategy: action.strategy,
+    })
+  ),
+  on(actionLocationSelectionPageInit, (state, {}) => ({
     ...state,
-    strategy: action.strategy,
+    strategy: AnalysisStrategy.location,
   })),
   on(actionPreferencesNetworkType, (state, action) => ({
     ...state,

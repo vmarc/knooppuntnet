@@ -41,7 +41,6 @@ import { SubsetOrphanRoutesService } from './orphan-routes/subset-orphan-routes.
 import { SubsetEffects } from './store/subset.effects';
 import { subsetReducer } from './store/subset.reducer';
 import { subsetFeatureKey } from './store/subset.state';
-import { SubsetAnalysisStrategyComponent } from './subset-analysis-strategy.component';
 import { SubsetRoutingModule } from './subset-routing.module';
 import { SubsetSidebarComponent } from './subset-sidebar.component';
 
@@ -88,7 +87,6 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     SubsetMapPageComponent,
     SubsetMapNetworkDialogComponent,
     SubsetSidebarComponent,
-    SubsetAnalysisStrategyComponent,
   ],
   providers: [SubsetOrphanNodesService, SubsetOrphanRoutesService],
 })

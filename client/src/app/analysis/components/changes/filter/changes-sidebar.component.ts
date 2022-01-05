@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../../core/core.state';
+import { AnalysisStrategy } from '../../../../core/preferences/preferences.state';
+import { actionChangesAnalysisStrategy } from '../../../changes/store/changes.actions';
 import { actionChangesFilterOption } from '../../../changes/store/changes.actions';
 import { ChangeOption } from '../../../changes/store/changes.actions';
 import { selectChangesFilterOptions } from '../../../changes/store/changes.selectors';
@@ -12,7 +14,9 @@ import { selectChangesFilterOptions } from '../../../changes/store/changes.selec
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-analysis-strategy></kpn-analysis-strategy>
+      <kpn-analysis-strategy
+        (strategyChange)="onStrategyChange($event)"
+      ></kpn-analysis-strategy>
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
         (changeOption)="changed($event)"
@@ -29,5 +33,9 @@ export class ChangesSidebarComponent {
 
   changed(option: ChangeOption): void {
     this.store.dispatch(actionChangesFilterOption({ option }));
+  }
+
+  onStrategyChange(strategy: AnalysisStrategy) {
+    this.store.dispatch(actionChangesAnalysisStrategy({ strategy }));
   }
 }

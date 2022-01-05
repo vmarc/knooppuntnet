@@ -27,7 +27,6 @@ import { actionChangesFilterOption } from './changes.actions';
 import { actionChangesPageLoaded } from './changes.actions';
 import { actionChangesPageIndex } from './changes.actions';
 import { actionChangesPageInit } from './changes.actions';
-import { selectChangesAnalysisStrategy } from './changes.selectors';
 import { selectChangesParameters } from './changes.selectors';
 
 @Injectable()
@@ -75,7 +74,7 @@ export class ChangesEffects {
         actionChangesFilterOption
       ),
       concatLatestFrom(() => [
-        this.store.select(selectChangesAnalysisStrategy),
+        this.store.select(selectPreferencesAnalysisStrategy),
         this.store.select(selectChangesParameters),
       ]),
       mergeMap(([{}, strategy, changesParameters]) => {
