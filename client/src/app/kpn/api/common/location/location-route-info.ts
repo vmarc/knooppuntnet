@@ -4,6 +4,7 @@ import { Day } from '../../custom/day';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface LocationRouteInfo {
+  readonly rowIndex: number;
   readonly id: number;
   readonly name: string;
   readonly meters: number;

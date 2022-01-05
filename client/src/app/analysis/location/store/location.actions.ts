@@ -53,6 +53,11 @@ export const actionLocationRoutesType = createAction(
   props<{ locationRoutesType: LocationRoutesType }>()
 );
 
+export const actionLocationRoutesPageSize = createAction(
+  '[LocationRoutesPage] Page size',
+  props<{ pageSize: number }>()
+);
+
 export const actionLocationRoutesPageIndex = createAction(
   '[LocationRoutesPage] Page index',
   props<{ pageIndex: number }>()

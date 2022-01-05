@@ -8,6 +8,7 @@ import { createReducer } from '@ngrx/store';
 import { Util } from '../../../components/shared/util';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationNodesPageInit } from './location.actions';
 import { actionLocationRoutesPageInit } from './location.actions';
@@ -80,6 +81,10 @@ export const locationReducer = createReducer(
   on(actionLocationRoutesType, (state, { locationRoutesType }) => ({
     ...state,
     routesPageType: locationRoutesType,
+    routesPageIndex: 0,
+  })),
+  on(actionLocationRoutesPageSize, (state, {}) => ({
+    ...state,
     routesPageIndex: 0,
   })),
   on(actionLocationRoutesPageIndex, (state, { pageIndex }) => ({

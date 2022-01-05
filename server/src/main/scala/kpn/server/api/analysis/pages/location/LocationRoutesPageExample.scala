@@ -20,6 +20,7 @@ object LocationRoutesPageExample {
       10,
       Seq(
         LocationRouteInfo(
+          0L,
           id = 101,
           name = "01-02",
           meters = 100,
@@ -29,6 +30,7 @@ object LocationRoutesPageExample {
           inaccessible = false
         ),
         LocationRouteInfo(
+          1L,
           id = 102,
           name = "01-03",
           meters = 130,

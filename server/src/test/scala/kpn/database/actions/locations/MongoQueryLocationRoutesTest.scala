@@ -100,6 +100,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       locationRouteInfos should matchTo(
         Seq(
           LocationRouteInfo(
+            0L,
             20L,
             "aaa",
             200,
@@ -109,6 +110,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             inaccessible = false
           ),
           LocationRouteInfo(
+            1L,
             10L,
             "bbb",
             100,
@@ -118,6 +120,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             inaccessible = false
           ),
           LocationRouteInfo(
+            2L,
             30L,
             "ccc",
             300,

@@ -6,6 +6,7 @@ import { Reference } from '../common/reference';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface LocationNodeInfo {
+  readonly rowIndex: number;
   readonly id: number;
   readonly name: string;
   readonly longName: string;

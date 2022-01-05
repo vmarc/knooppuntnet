@@ -30,6 +30,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
+      [showFirstLastButtons]="false"
       [showPageSizeSelection]="true"
     >
     </kpn-paginator>
@@ -155,7 +156,6 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
-      [showPageSizeSelection]="true"
     >
     </kpn-paginator>
   `,

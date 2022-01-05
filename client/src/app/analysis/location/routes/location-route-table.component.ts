@@ -1,27 +1,33 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationRouteInfo } from '@api/common/location/location-route-info';
 import { TimeInfo } from '@api/common/time-info';
-import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { AppState } from '../../../core/core.state';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { actionLocationRoutesPageSize } from '../store/location.actions';
+import { actionLocationRoutesPageIndex } from '../store/location.actions';
+import { selectLocationNetworkType } from '../store/location.selectors';
+import { selectLocationRoutesPageIndex } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      (pageIndexChange)="page.emit($event)"
-      [pageIndex]="pageIndex"
+      [pageIndex]="pageIndex$ | async"
+      (pageIndexChange)="onPageIndexChange($event)"
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -33,7 +39,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.nr">
           Nr
         </th>
-        <td mat-cell *matCellDef="let route">{{ route.rowIndex }}</td>
+        <td mat-cell *matCellDef="let route">{{ route.rowIndex + 1 }}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -47,7 +53,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
         <td mat-cell *matCellDef="let route">
           <kpn-location-route-analysis
             [route]="route"
-            [networkType]="networkType"
+            [networkType]="networkType$ | async"
           ></kpn-location-route-analysis>
         </td>
       </ng-container>
@@ -64,7 +70,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
           <kpn-link-route
             [routeId]="route.id"
             [title]="route.name"
-            [networkType]="networkType"
+            [networkType]="networkType$ | async"
           ></kpn-link-route>
         </td>
       </ng-container>
@@ -120,8 +126,10 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
     </table>
 
     <kpn-paginator
-      (pageIndexChange)="page.emit($event)"
-      [pageIndex]="pageIndex"
+      [pageIndex]="pageIndex$ | async"
+      (pageIndexChange)="onPageIndexChange($event)"
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount"
     >
     </kpn-paginator>
@@ -141,20 +149,24 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   ],
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
-  @Input() pageIndex: number;
-  @Input() networkType: NetworkType;
   @Input() timeInfo: TimeInfo;
   @Input() routes: LocationRouteInfo[];
   @Input() routeCount: number;
-  @Output() page = new EventEmitter<number>();
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+  readonly pageIndex$ = this.store.select(selectLocationRoutesPageIndex);
+  readonly networkType$ = this.store.select(selectLocationNetworkType);
+
   dataSource: MatTableDataSource<LocationRouteInfo>;
   displayedColumns$: Observable<Array<string>>;
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor(
+    private pageWidthService: PageWidthService,
+    private store: Store<AppState>
+  ) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(
       map(() => this.displayedColumns())
@@ -169,6 +181,15 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
     if (changes['routes']) {
       this.dataSource.data = this.routes;
     }
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionLocationRoutesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number) {
+    window.scroll(0, 0);
+    this.store.dispatch(actionLocationRoutesPageIndex({ pageIndex }));
   }
 
   private displayedColumns() {

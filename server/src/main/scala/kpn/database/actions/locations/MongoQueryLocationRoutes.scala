@@ -62,7 +62,12 @@ class MongoQueryLocationRoutes(database: Database) {
     )
 
     log.debugElapsed {
-      val docs = database.routes.aggregate[LocationRouteInfo](pipeline)
+      val docs = database.routes.aggregate[LocationRouteInfo](pipeline).zipWithIndex.map { case (doc, index) =>
+        val rowIndex = pageSize * pageIndex + index
+        doc.copy( // could have done this in the aggregation?
+          rowIndex = rowIndex
+        )
+      }
       (s"location routes: ${docs.size}", docs)
     }
   }

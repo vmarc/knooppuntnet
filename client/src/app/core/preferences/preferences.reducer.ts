@@ -4,6 +4,7 @@ import { on } from '@ngrx/store';
 import { actionChangesAnalysisStrategy } from '../../analysis/changes/store/changes.actions';
 import { actionChangesPageSize } from '../../analysis/changes/store/changes.actions';
 import { actionChangesImpact } from '../../analysis/changes/store/changes.actions';
+import { actionLocationRoutesPageSize } from '../../analysis/location/store/location.actions';
 import { actionLocationNodesPageSize } from '../../analysis/location/store/location.actions';
 import { actionLocationSelectionPageInit } from '../../analysis/location/store/location.actions';
 import { actionLocationSelectionPageStrategy } from '../../analysis/location/store/location.actions';
@@ -90,6 +91,7 @@ export const preferencesReducer = createReducer(
     actionChangesPageSize,
     actionSubsetChangesPageSize,
     actionLocationNodesPageSize,
+    actionLocationRoutesPageSize,
     (state, action) => ({
       ...state,
       pageSize: action.pageSize,
