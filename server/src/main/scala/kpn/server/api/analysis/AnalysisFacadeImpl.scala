@@ -62,7 +62,9 @@ import kpn.server.api.analysis.pages.network.NetworkRoutesPageBuilder
 import kpn.server.api.analysis.pages.node.NodeChangesPageBuilder
 import kpn.server.api.analysis.pages.node.NodeDetailsPageBuilder
 import kpn.server.api.analysis.pages.node.NodeMapPageBuilder
-import kpn.server.api.analysis.pages.route.RoutePageBuilder
+import kpn.server.api.analysis.pages.route.RouteChangesPageBuilder
+import kpn.server.api.analysis.pages.route.RouteDetailsPageBuilder
+import kpn.server.api.analysis.pages.route.RouteMapPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetChangesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactDetailsPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetFactsPageBuilder
@@ -83,7 +85,9 @@ class AnalysisFacadeImpl(
   nodeDetailsPageBuilder: NodeDetailsPageBuilder,
   nodeMapPageBuilder: NodeMapPageBuilder,
   nodeChangesPageBuilder: NodeChangesPageBuilder,
-  routePageBuilder: RoutePageBuilder,
+  routeDetailsPageBuilder: RouteDetailsPageBuilder,
+  routeMapPageBuilder: RouteMapPageBuilder,
+  routeChangesPageBuilder: RouteChangesPageBuilder,
   networkDetailsPageBuilder: NetworkDetailsPageBuilder,
   networkMapPageBuilder: NetworkMapPageBuilder,
   networkFactsPageBuilder: NetworkFactsPageBuilder,
@@ -128,19 +132,19 @@ class AnalysisFacadeImpl(
 
   override def routeDetails(user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage] = {
     api.execute(user, "route-details", s"$routeId") {
-      reply(routePageBuilder.buildDetailsPage(user, language, routeId))
+      reply(routeDetailsPageBuilder.build(user, language, routeId))
     }
   }
 
   override def routeMap(user: Option[String], routeId: Long): ApiResponse[RouteMapPage] = {
     api.execute(user, "route-map", s"$routeId") {
-      reply(routePageBuilder.buildMapPage(user, routeId))
+      reply(routeMapPageBuilder.build(user, routeId))
     }
   }
 
   override def routeChanges(user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage] = {
     api.execute(user, "route-changes", s"route=$routeId, ${parameters.toDisplayString}") {
-      reply(routePageBuilder.buildChangesPage(user, routeId, parameters))
+      reply(routeChangesPageBuilder.build(user, routeId, parameters))
     }
   }
 

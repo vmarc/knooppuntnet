@@ -4,8 +4,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { AppState } from '../../../core/core.state';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
@@ -15,6 +19,8 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -112,11 +118,6 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let node; columns: displayedColumns"></tr>
     </table>
-
-    <!--    <kpn-paginator-->
-    <!--      [length]="dataSource.data.length"-->
-    <!--      [pageIndex]="0"-->
-    <!--    </kpn-paginator>-->
   `,
   styles: [
     `
@@ -154,11 +155,16 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
     'last-edit',
   ];
 
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+
   private readonly filterCriteria = new BehaviorSubject(
     new SubsetOrphanRouteFilterCriteria()
   );
 
-  constructor(private subsetOrphanRoutesService: SubsetOrphanRoutesService) {}
+  constructor(
+    private subsetOrphanRoutesService: SubsetOrphanRoutesService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
@@ -178,5 +184,9 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
   }
 }

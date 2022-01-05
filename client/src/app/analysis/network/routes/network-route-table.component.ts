@@ -6,6 +6,7 @@ import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -13,6 +14,9 @@ import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { AppState } from '../../../core/core.state';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { FilterOptions } from '../../../kpn/filter/filter-options';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
@@ -23,6 +27,8 @@ import { NetworkRoutesService } from './network-routes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="routes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -165,6 +171,8 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() routes: NetworkRouteRow[];
 
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
@@ -176,7 +184,8 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private networkRoutesService: NetworkRoutesService
+    private networkRoutesService: NetworkRoutesService,
+    private store: Store<AppState>
   ) {
     this.displayedColumns$ = pageWidthService.current$.pipe(
       map(() => this.displayedColumns())
@@ -213,6 +222,10 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
   }
 
   private displayedColumns() {

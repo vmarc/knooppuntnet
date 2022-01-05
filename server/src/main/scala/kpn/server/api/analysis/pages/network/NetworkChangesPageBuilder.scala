@@ -45,6 +45,13 @@ class NetworkChangesPageBuilder(
     networkInfoDoc: NetworkInfoDoc
   ): NetworkChangesPage = {
 
+    val filterOptions = if (user.isDefined) {
+      networkInfoRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
+    }
+    else {
+      Seq.empty
+    }
+
     val changes = if (user.isDefined) {
       networkInfoRepository.networkChanges(networkInfoDoc._id, parameters)
     }
@@ -52,12 +59,6 @@ class NetworkChangesPageBuilder(
       Seq.empty
     }
 
-    val filterOptions = if (changes.nonEmpty) {
-      networkInfoRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
-    }
-    else {
-      Seq.empty
-    }
     val changeCount = ChangesFilterOption.changesCount(filterOptions, parameters)
     val changeSetIds = changes.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds) // TODO include in aggregate !!!

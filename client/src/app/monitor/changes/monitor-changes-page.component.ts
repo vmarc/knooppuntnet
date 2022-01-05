@@ -1,7 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -10,7 +9,9 @@ import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
+import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../core/preferences/preferences.actions';
+import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
 import { actionMonitorChangesPageIndex } from '../store/monitor.actions';
 import { actionMonitorChangesPageInit } from '../store/monitor.actions';
@@ -41,8 +42,10 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
         </mat-slide-toggle>
 
         <kpn-paginator
-          (pageIndexChange)="pageChanged($event)"
+          [pageSize]="pageSize$ | async"
+          (pageSizeChange)="onPageSizeChange($event)"
           [pageIndex]="response.result.pageIndex"
+          (pageIndexChange)="onPageIndexChange($event)"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
         >
@@ -60,6 +63,7 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
 })
 export class MonitorChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectPreferencesImpact);
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
 
   readonly response$: Observable<ApiResponse<MonitorChangesPage>> =
     this.store.pipe(
@@ -78,7 +82,11 @@ export class MonitorChangesPageComponent implements OnInit {
     this.store.dispatch(actionMonitorChangesPageInit());
   }
 
-  pageChanged(pageIndex: number) {
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
     this.store.dispatch(actionMonitorChangesPageIndex({ pageIndex }));
   }

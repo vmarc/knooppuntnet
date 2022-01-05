@@ -3,8 +3,12 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common/orphan-node-info';
 import { TimeInfo } from '@api/common/time-info';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { AppState } from '../../../core/core.state';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
@@ -14,6 +18,8 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -111,11 +117,16 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
 
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+
   private readonly filterCriteria = new BehaviorSubject(
     new SubsetOrphanNodeFilterCriteria()
   );
 
-  constructor(private subsetOrphanNodesService: SubsetOrphanNodesService) {}
+  constructor(
+    private subsetOrphanNodesService: SubsetOrphanNodesService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
@@ -135,5 +146,9 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   rowNumber(index: number): number {
     return this.paginator.rowNumber(index);
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
   }
 }

@@ -10,7 +10,10 @@ import { actionLocationSelectionPageInit } from '../../analysis/location/store/l
 import { actionLocationSelectionPageStrategy } from '../../analysis/location/store/location.actions';
 import { actionNetworkChangesPageSize } from '../../analysis/network/store/network.actions';
 import { actionNetworkChangesImpact } from '../../analysis/network/store/network.actions';
+import { actionNodeChangesPageSize } from '../../analysis/node/store/node.actions';
+import { actionNodeChangesPageLoad } from '../../analysis/node/store/node.actions';
 import { actionNodeChangesFilterOption } from '../../analysis/node/store/node.actions';
+import { actionRouteChangesPageSize } from '../../analysis/route/store/route.actions';
 import { actionRouteChangesFilterOption } from '../../analysis/route/store/route.actions';
 import { actionRouteChangesPageLoaded } from '../../analysis/route/store/route.actions';
 import { actionRouteMapPageLoaded } from '../../analysis/route/store/route.actions';
@@ -92,11 +95,17 @@ export const preferencesReducer = createReducer(
     actionSubsetChangesPageSize,
     actionLocationNodesPageSize,
     actionLocationRoutesPageSize,
+    actionNodeChangesPageSize,
+    actionRouteChangesPageSize,
     (state, action) => ({
       ...state,
       pageSize: action.pageSize,
     })
   ),
+  on(actionNodeChangesPageLoad, (state, action) => ({
+    ...state,
+    pageSize: action.changesParameters.pageSize,
+  })),
   on(actionPreferencesImpact, (state, action) => ({
     ...state,
     impact: action.impact,

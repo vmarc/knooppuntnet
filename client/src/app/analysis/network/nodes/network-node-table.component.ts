@@ -7,6 +7,7 @@ import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkScope } from '@api/custom/network-scope';
 import { NetworkType } from '@api/custom/network-type';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -14,6 +15,9 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { AppState } from '../../../core/core.state';
+import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { FilterOptions } from '../../../kpn/filter/filter-options';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
@@ -24,6 +28,8 @@ import { NetworkNodesService } from './network-nodes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -190,6 +196,8 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: NetworkNodeRow[];
 
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
@@ -203,7 +211,8 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private networkNodesService: NetworkNodesService
+    private networkNodesService: NetworkNodesService,
+    private store: Store<AppState>
   ) {
     this.headerColumns1$ = pageWidthService.current$.pipe(
       map(() => this.headerColumns1())
@@ -252,6 +261,10 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     return node.detail.expectedRouteCount
       ? node.detail.expectedRouteCount.toString()
       : '-';
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
   }
 
   private displayedColumns() {

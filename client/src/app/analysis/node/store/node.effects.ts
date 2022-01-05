@@ -19,6 +19,7 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionNodeChangesPageIndex } from './node.actions';
 import { actionNodeChangesPageSize } from './node.actions';
 import { actionNodeChangesPageImpact } from './node.actions';
 import { actionNodeChangesPageLoad } from './node.actions';
@@ -96,6 +97,7 @@ export class NodeEffects {
         actionNodeChangesPageLoad,
         actionNodeChangesPageImpact,
         actionNodeChangesPageSize,
+        actionNodeChangesPageIndex,
         actionNodeChangesFilterOption
       ),
       concatLatestFrom(() => [
