@@ -29,6 +29,11 @@ export const actionLocationNodesType = createAction(
   props<{ locationNodesType: LocationNodesType }>()
 );
 
+export const actionLocationNodesPageSize = createAction(
+  '[LocationNodesPage] Page size',
+  props<{ pageSize: number }>()
+);
+
 export const actionLocationNodesPageIndex = createAction(
   '[LocationNodesPage] Page index',
   props<{ pageIndex: number }>()

@@ -4,6 +4,7 @@ import { on } from '@ngrx/store';
 import { actionChangesAnalysisStrategy } from '../../analysis/changes/store/changes.actions';
 import { actionChangesPageSize } from '../../analysis/changes/store/changes.actions';
 import { actionChangesImpact } from '../../analysis/changes/store/changes.actions';
+import { actionLocationNodesPageSize } from '../../analysis/location/store/location.actions';
 import { actionLocationSelectionPageInit } from '../../analysis/location/store/location.actions';
 import { actionLocationSelectionPageStrategy } from '../../analysis/location/store/location.actions';
 import { actionNetworkChangesPageSize } from '../../analysis/network/store/network.actions';
@@ -83,10 +84,17 @@ export const preferencesReducer = createReducer(
     ...state,
     extraLayers: action.extraLayers,
   })),
-  on(actionPreferencesPageSize, (state, action) => ({
-    ...state,
-    pageSize: action.pageSize,
-  })),
+  on(
+    actionPreferencesPageSize,
+    actionNetworkChangesPageSize,
+    actionChangesPageSize,
+    actionSubsetChangesPageSize,
+    actionLocationNodesPageSize,
+    (state, action) => ({
+      ...state,
+      pageSize: action.pageSize,
+    })
+  ),
   on(actionPreferencesImpact, (state, action) => ({
     ...state,
     impact: action.impact,
@@ -147,24 +155,12 @@ export const preferencesReducer = createReducer(
     ...state,
     impact,
   })),
-  on(actionNetworkChangesPageSize, (state, { pageSize }) => ({
-    ...state,
-    pageSize,
-  })),
   on(actionChangesImpact, (state, { impact }) => ({
     ...state,
     impact,
   })),
-  on(actionChangesPageSize, (state, { pageSize }) => ({
-    ...state,
-    pageSize,
-  })),
   on(actionSubsetChangesPageImpact, (state, { impact }) => ({
     ...state,
     impact,
-  })),
-  on(actionSubsetChangesPageSize, (state, { pageSize }) => ({
-    ...state,
-    pageSize,
   }))
 );

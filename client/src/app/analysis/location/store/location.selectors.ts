@@ -1,4 +1,5 @@
 import { LocationSummary } from '@api/common/location/location-summary';
+import { LocationKey } from '@api/custom/location-key';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { locationFeatureKey } from './location.state';
@@ -10,6 +11,11 @@ export const selectLocationState =
 export const selectLocationKey = createSelector(
   selectLocationState,
   (state: LocationState) => state.locationKey
+);
+
+export const selectLocationNetworkType = createSelector(
+  selectLocationKey,
+  (locationKey: LocationKey) => locationKey.networkType
 );
 
 export const selectLocationSummary = createSelector(

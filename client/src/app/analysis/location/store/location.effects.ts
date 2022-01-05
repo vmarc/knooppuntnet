@@ -15,9 +15,9 @@ import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
-import { selectPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { WindowService } from '../../../services/window.service';
+import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationSelectionPageStrategy } from './location.actions';
 import { actionLocationRoutesPageIndex } from './location.actions';
 import { actionLocationRoutesType } from './location.actions';
@@ -69,6 +69,7 @@ export class LocationEffects {
       ofType(
         actionLocationNodesPageInit,
         actionLocationNodesType,
+        actionLocationNodesPageSize,
         actionLocationNodesPageIndex
       ),
       concatLatestFrom(() => [

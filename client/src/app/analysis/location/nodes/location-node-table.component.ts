@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
@@ -10,24 +8,29 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkScope } from '@api/custom/network-scope';
-import { NetworkType } from '@api/custom/network-type';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
 import { AppState } from '../../../core/core.state';
+import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { actionLocationNodesPageSize } from '../store/location.actions';
+import { actionLocationNodesPageIndex } from '../store/location.actions';
+import { selectLocationNetworkType } from '../store/location.selectors';
+import { selectLocationNodesPageIndex } from '../store/location.selectors';
 
 @Component({
   selector: 'kpn-location-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      (pageIndexChange)="page.emit($event)"
+      [pageIndex]="pageIndex$ | async"
+      (pageIndexChange)="onPageIndexChange($event)"
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
-      [pageIndex]="pageIndex"
       [showPageSizeSelection]="true"
-      [showFirstLastButtons]="true"
     >
     </kpn-paginator>
 
@@ -36,7 +39,7 @@ import { AppState } from '../../../core/core.state';
         <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.nr">
           Nr
         </th>
-        <td mat-cell *matCellDef="let node">{{ node.rowIndex }}</td>
+        <td mat-cell *matCellDef="let node">{{ node.rowIndex + 1 }}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
@@ -50,7 +53,7 @@ import { AppState } from '../../../core/core.state';
         <td mat-cell *matCellDef="let node">
           <kpn-location-node-analysis
             [node]="node"
-            [networkType]="networkType"
+            [networkType]="networkType$ | async"
             [networkScope]="networkScope"
           ></kpn-location-node-analysis>
         </td>
@@ -147,9 +150,12 @@ import { AppState } from '../../../core/core.state';
     </table>
 
     <kpn-paginator
-      (pageIndexChange)="page.emit($event)"
+      [pageIndex]="pageIndex$ | async"
+      (pageIndexChange)="onPageIndexChange($event)"
+      [pageSize]="pageSize$ | async"
+      (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
-      [pageIndex]="pageIndex"
+      [showPageSizeSelection]="true"
     >
     </kpn-paginator>
   `,
@@ -163,17 +169,18 @@ import { AppState } from '../../../core/core.state';
 })
 export class LocationNodeTableComponent implements OnInit, OnChanges {
   // TODO !!!
-  networkType: NetworkType = NetworkType.cycling;
   networkScope: NetworkScope = NetworkScope.regional;
 
   @Input() timeInfo: TimeInfo;
   @Input() nodes: LocationNodeInfo[];
   @Input() nodeCount: number;
-  @Input() pageIndex: number;
-  @Output() page = new EventEmitter<number>();
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
+
+  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+  readonly pageIndex$ = this.store.select(selectLocationNodesPageIndex);
+  readonly networkType$ = this.store.select(selectLocationNetworkType);
 
   dataSource: MatTableDataSource<LocationNodeInfo>;
   displayedColumns$: Observable<Array<string>>;
@@ -196,6 +203,15 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     if (changes['nodes']) {
       this.dataSource.data = this.nodes;
     }
+  }
+
+  onPageSizeChange(pageSize: number) {
+    this.store.dispatch(actionLocationNodesPageSize({ pageSize }));
+  }
+
+  onPageIndexChange(pageIndex: number) {
+    window.scroll(0, 0);
+    this.store.dispatch(actionLocationNodesPageIndex({ pageIndex }));
   }
 
   private displayedColumns() {

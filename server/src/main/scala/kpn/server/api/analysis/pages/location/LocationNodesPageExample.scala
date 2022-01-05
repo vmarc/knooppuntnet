@@ -22,6 +22,7 @@ object LocationNodesPageExample {
       10,
       Seq(
         LocationNodeInfo(
+          rowIndex = 0,
           id = 1001,
           name = "01",
           longName = "Long name",

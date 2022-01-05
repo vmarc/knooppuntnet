@@ -138,12 +138,14 @@ class MongoQueryLocationNodes(database: Database) {
 
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
-      val locationNodeInfos = locationNodeInfoDocs.map { doc =>
+      val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case(doc, index) =>
         val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tags(tagKey)
         }
         val expectedRouteCount = tagValues.headOption.getOrElse("-")
+        val rowIndex = pageSize * pageIndex + index
         LocationNodeInfo(
+          rowIndex,
           doc.id,
           doc.networkTypeName(networkType),
           doc.networkTypeLongName(networkType).getOrElse("-"),

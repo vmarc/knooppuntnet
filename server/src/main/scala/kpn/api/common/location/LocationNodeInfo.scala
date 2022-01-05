@@ -8,6 +8,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
 
 case class LocationNodeInfo(
+  rowIndex: Long,
   id: Long,
   name: String,
   longName: String,

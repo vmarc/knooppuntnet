@@ -50,6 +50,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       query.find(hiking, "be", LocationNodesType.all, 5, 0) should matchTo(
         Seq(
           LocationNodeInfo(
+            0L,
             1001L,
             "01",
             "-",
@@ -62,6 +63,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
             Seq.empty
           ),
           LocationNodeInfo(
+            1L,
             1002L,
             "02",
             "-",
@@ -156,6 +158,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       locationNodeInfos should matchTo(
         Seq(
           LocationNodeInfo(
+            0L,
             1001L,
             "01",
             "-",
@@ -287,6 +290,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       query.find(hiking, "be", LocationNodesType.facts, 5, 0) should matchTo(
         Seq(
           LocationNodeInfo(
+            0L,
             1007L,
             "02",
             "-",
