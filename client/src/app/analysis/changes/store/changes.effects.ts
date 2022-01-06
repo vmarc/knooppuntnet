@@ -80,11 +80,8 @@ export class ChangesEffects {
       mergeMap(([{}, strategy, changesParameters]) => {
         const promise = this.navigate(strategy, changesParameters);
         return from(promise).pipe(
-          mergeMap(() => {
-            return this.appService
-              .changes(strategy, changesParameters)
-              .pipe(map((response) => actionChangesPageLoaded({ response })));
-          })
+          mergeMap(() => this.appService.changes(strategy, changesParameters)),
+          map((response) => actionChangesPageLoaded({ response }))
         );
       })
     )

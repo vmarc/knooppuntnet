@@ -19,12 +19,22 @@ export const actionNodeLink = createAction(
 
 export const actionNodeDetailsPageInit = createAction('[NodeDetailsPage] Init');
 
+export const actionNodeDetailsPageLoad = createAction(
+  '[NodeDetailsPage] Load',
+  props<{ nodeId: string }>()
+);
+
 export const actionNodeDetailsPageLoaded = createAction(
   '[NodeDetailsPage] Loaded',
   props<{ response: ApiResponse<NodeDetailsPage> }>()
 );
 
 export const actionNodeMapPageInit = createAction('[NodeMapPage] Init');
+
+export const actionNodeMapPageLoad = createAction(
+  '[NodeMapPage] Load',
+  props<{ nodeId: string }>()
+);
 
 export const actionNodeMapPageLoaded = createAction(
   '[NodeMapPage] Loaded',

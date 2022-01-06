@@ -43,11 +43,8 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
       concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) =>
-        this.appService
-          .subsetNetworks(subset)
-          .pipe(map((response) => actionSubsetNetworksPageLoaded({ response })))
-      )
+      mergeMap(([{}, subset]) => this.appService.subsetNetworks(subset)),
+      map((response) => actionSubsetNetworksPageLoaded({ response }))
     )
   );
 
@@ -55,11 +52,8 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
       concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) =>
-        this.appService
-          .subsetFacts(subset)
-          .pipe(map((response) => actionSubsetFactsPageLoaded({ response })))
-      )
+      mergeMap(([{}, subset]) => this.appService.subsetFacts(subset)),
+      map((response) => actionSubsetFactsPageLoaded({ response }))
     )
   );
 
@@ -67,13 +61,8 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
       concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) =>
-        this.appService
-          .subsetOrphanNodes(subset)
-          .pipe(
-            map((response) => actionSubsetOrphanNodesPageLoaded({ response }))
-          )
-      )
+      mergeMap(([{}, subset]) => this.appService.subsetOrphanNodes(subset)),
+      map((response) => actionSubsetOrphanNodesPageLoaded({ response }))
     )
   );
 
@@ -81,13 +70,8 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) =>
-        this.appService
-          .subsetOrphanRoutes(subset)
-          .pipe(
-            map((response) => actionSubsetOrphanRoutesPageLoaded({ response }))
-          )
-      )
+      mergeMap(([{}, subset]) => this.appService.subsetOrphanRoutes(subset)),
+      map((response) => actionSubsetOrphanRoutesPageLoaded({ response }))
     )
   );
 
@@ -95,11 +79,8 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
       concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) =>
-        this.appService
-          .subsetMap(subset)
-          .pipe(map((response) => actionSubsetMapPageLoaded({ response })))
-      )
+      mergeMap(([{}, subset]) => this.appService.subsetMap(subset)),
+      map((response) => actionSubsetMapPageLoaded({ response }))
     )
   );
 
@@ -141,13 +122,10 @@ export class SubsetEffects {
       mergeMap(([{}, subset, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
-          mergeMap(() => {
-            return this.appService
-              .subsetChanges(subset, changesParameters)
-              .pipe(
-                map((response) => actionSubsetChangesPageLoaded({ response }))
-              );
-          })
+          mergeMap(() =>
+            this.appService.subsetChanges(subset, changesParameters)
+          ),
+          map((response) => actionSubsetChangesPageLoaded({ response }))
         );
       })
     )

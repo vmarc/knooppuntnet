@@ -5,12 +5,15 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
+import { actionNetworkRoutesPageLoad } from './network.actions';
+import { actionNetworkNodesPageLoad } from './network.actions';
+import { actionNetworkFactsPageLoad } from './network.actions';
+import { actionNetworkDetailsPageLoad } from './network.actions';
 import { actionNetworkChangesPageInit } from './network.actions';
 import { actionNetworkChangesLoad } from './network.actions';
 import { actionNetworkChangesPageSize } from './network.actions';
 import { actionNetworkChangesImpact } from './network.actions';
 import { actionNetworkLink } from './network.actions';
-import { actionNetworkId } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
 import { actionNetworkDetailsPageLoaded } from './network.actions';
@@ -39,27 +42,33 @@ export const networkReducer = createReducer(
       changesPage,
     };
   }),
-  on(actionNetworkId, (state, { networkId }) => {
-    if (networkId === state.networkId) {
-      return state;
+  on(
+    actionNetworkDetailsPageLoad,
+    actionNetworkFactsPageLoad,
+    actionNetworkNodesPageLoad,
+    actionNetworkRoutesPageLoad,
+    (state, { networkId }) => {
+      if (networkId === state.networkId) {
+        return state;
+      }
+
+      const summary: NetworkSummary = {
+        name: null,
+        networkType: null,
+        networkScope: null,
+        factCount: 0,
+        nodeCount: 0,
+        routeCount: 0,
+        changeCount: 0,
+      };
+
+      return {
+        ...state,
+        networkId,
+        summary,
+      };
     }
-
-    const summary: NetworkSummary = {
-      name: null,
-      networkType: null,
-      networkScope: null,
-      factCount: 0,
-      nodeCount: 0,
-      routeCount: 0,
-      changeCount: 0,
-    };
-
-    return {
-      ...state,
-      networkId,
-      summary,
-    };
-  }),
+  ),
   on(actionNetworkLink, (state, { networkId, networkName, networkType }) => {
     const summary: NetworkSummary = {
       name: networkName,

@@ -9,7 +9,6 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -20,10 +19,14 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionNetworkMapPageLoad } from './network.actions';
+import { actionNetworkRoutesPageLoad } from './network.actions';
+import { actionNetworkNodesPageLoad } from './network.actions';
+import { actionNetworkFactsPageLoad } from './network.actions';
+import { actionNetworkDetailsPageLoad } from './network.actions';
 import { actionNetworkChangesLoad } from './network.actions';
 import { actionNetworkChangesImpact } from './network.actions';
 import { actionNetworkChangesPageSize } from './network.actions';
-import { actionNetworkId } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
 import { actionNetworkNodesPageInit } from './network.actions';
@@ -43,33 +46,57 @@ import { selectNetworkChangesParameters } from './network.selectors';
 
 @Injectable()
 export class NetworkEffects {
-  networkDetailsPage = createEffect(() =>
+  networkDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      tap(([{}, networkId]) => {
-        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
-      }),
-      mergeMap(([{}, networkId]) =>
-        this.appService
-          .networkDetails(+networkId)
-          .pipe(map((response) => actionNetworkDetailsPageLoaded({ response })))
+      map(([{}, networkId]) =>
+        actionNetworkDetailsPageLoad({ networkId: +networkId })
       )
     )
   );
 
-  networkNodesPage = createEffect(() =>
+  networkDetailsPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNetworkDetailsPageLoad),
+      mergeMap((action) => this.appService.networkDetails(action.networkId)),
+      map((response) => actionNetworkDetailsPageLoaded({ response }))
+    )
+  );
+
+  networkFactsPageInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNetworkFactsPageInit),
+      concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
+      map(([{}, networkId]) =>
+        actionNetworkFactsPageLoad({ networkId: +networkId })
+      )
+    )
+  );
+
+  networkFactsPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNetworkFactsPageLoad),
+      mergeMap((action) => this.appService.networkFacts(action.networkId)),
+      map((response) => actionNetworkFactsPageLoaded({ response }))
+    )
+  );
+
+  networkNodesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      tap(([{}, networkId]) => {
-        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
-      }),
-      mergeMap(([{}, networkId]) =>
-        this.appService
-          .networkNodes(+networkId)
-          .pipe(map((response) => actionNetworkNodesPageLoaded({ response })))
+      map(([{}, networkId]) =>
+        actionNetworkNodesPageLoad({ networkId: +networkId })
       )
+    )
+  );
+
+  networkNodesPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNetworkNodesPageLoad),
+      mergeMap((action) => this.appService.networkNodes(action.networkId)),
+      map((response) => actionNetworkNodesPageLoaded({ response }))
     )
   );
 
@@ -77,44 +104,35 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      tap(([{}, networkId]) => {
-        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
-      }),
-      mergeMap(([{}, networkId]) =>
-        this.appService
-          .networkRoutes(+networkId)
-          .pipe(map((response) => actionNetworkRoutesPageLoaded({ response })))
+      map(([{}, networkId]) =>
+        actionNetworkRoutesPageLoad({ networkId: +networkId })
       )
     )
   );
 
-  networkFactsPage = createEffect(() =>
+  networkRoutesPageLoad = createEffect(() =>
     this.actions$.pipe(
-      ofType(actionNetworkFactsPageInit),
-      concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      tap(([{}, networkId]) => {
-        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
-      }),
-      mergeMap(([{}, networkId]) =>
-        this.appService
-          .networkFacts(+networkId)
-          .pipe(map((response) => actionNetworkFactsPageLoaded({ response })))
-      )
+      ofType(actionNetworkRoutesPageLoad),
+      mergeMap((action) => this.appService.networkRoutes(action.networkId)),
+      map((response) => actionNetworkRoutesPageLoaded({ response }))
     )
   );
 
-  networkMapPage = createEffect(() =>
+  networkMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkMapPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      tap(([{}, networkId]) => {
-        this.store.dispatch(actionNetworkId({ networkId: +networkId }));
-      }),
-      mergeMap(([{}, networkId]) =>
-        this.appService
-          .networkMap(+networkId)
-          .pipe(map((response) => actionNetworkMapPageLoaded({ response })))
+      map(([{}, networkId]) =>
+        actionNetworkMapPageLoad({ networkId: +networkId })
       )
+    )
+  );
+
+  networkMapPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNetworkMapPageLoad),
+      mergeMap((action) => this.appService.networkMap(action.networkId)),
+      map((response) => actionNetworkMapPageLoaded({ response }))
     )
   );
 
@@ -163,13 +181,10 @@ export class NetworkEffects {
       mergeMap(([{}, networkId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
-          mergeMap(() => {
-            return this.appService
-              .networkChanges(+networkId, changesParameters)
-              .pipe(
-                map((response) => actionNetworkChangesPageLoaded({ response }))
-              );
-          })
+          mergeMap(() =>
+            this.appService.networkChanges(+networkId, changesParameters)
+          ),
+          map((response) => actionNetworkChangesPageLoaded({ response }))
         );
       })
     )

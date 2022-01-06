@@ -22,12 +22,22 @@ export const actionRouteDetailsPageInit = createAction(
   '[RouteDetailsPage] Init'
 );
 
+export const actionRouteDetailsPageLoad = createAction(
+  '[RouteDetailsPage] Load',
+  props<{ routeId: string }>()
+);
+
 export const actionRouteDetailsPageLoaded = createAction(
   '[RouteDetailsPage] Loaded',
   props<{ response: ApiResponse<RouteDetailsPage> }>()
 );
 
 export const actionRouteMapPageInit = createAction('[RouteMapPage] Init');
+
+export const actionRouteMapPageLoad = createAction(
+  '[RouteMapPage] Load',
+  props<{ routeId: string }>()
+);
 
 export const actionRouteMapPageLoaded = createAction(
   '[RouteMapPage] Loaded',

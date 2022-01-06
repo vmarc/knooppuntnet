@@ -85,7 +85,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([action, groupName]) =>
+      mergeMap(([{}, groupName]) =>
         this.monitorService
           .monitorGroup(groupName)
           .pipe(map((response) => actionMonitorGroupPageLoaded({ response })))
@@ -124,7 +124,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupDeleteInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([action, groupName]) =>
+      mergeMap(([{}, groupName]) =>
         this.monitorService
           .monitorAdminRouteGroup(groupName)
           .pipe(map((response) => actionMonitorGroupDeleteLoaded({ response })))
@@ -136,7 +136,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupUpdateInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([action, groupName]) =>
+      mergeMap(([{}, groupName]) =>
         this.monitorService
           .monitorAdminRouteGroup(groupName)
           .pipe(map((response) => actionMonitorGroupUpdateLoaded({ response })))
@@ -221,7 +221,7 @@ export class MonitorEffects {
     )
   );
 
-  addGroupEffect$ = createEffect(
+  addGroupEffect = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupAdd),
@@ -233,7 +233,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
-  deleteGroupEffect$ = createEffect(
+  deleteGroupEffect = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupDelete),
@@ -245,7 +245,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
-  updateGroupEffect$ = createEffect(
+  updateGroupEffect = createEffect(
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupUpdate),

@@ -85,10 +85,9 @@ export class LocationEffects {
           pageSize,
           pageIndex,
         };
-        return this.appService
-          .locationNodes(locationKey, parameters)
-          .pipe(map((response) => actionLocationNodesPageLoaded({ response })));
-      })
+        return this.appService.locationNodes(locationKey, parameters);
+      }),
+      map((response) => actionLocationNodesPageLoaded({ response }))
     )
   );
 
@@ -112,12 +111,9 @@ export class LocationEffects {
           pageSize,
           pageIndex,
         };
-        return this.appService
-          .locationRoutes(locationKey, parameters)
-          .pipe(
-            map((response) => actionLocationRoutesPageLoaded({ response }))
-          );
-      })
+        return this.appService.locationRoutes(locationKey, parameters);
+      }),
+      map((response) => actionLocationRoutesPageLoaded({ response }))
     )
   );
 
@@ -125,11 +121,10 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(actionLocationFactsPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([{}, locationKey]) => {
-        return this.appService
-          .locationFacts(locationKey)
-          .pipe(map((response) => actionLocationFactsPageLoaded({ response })));
-      })
+      mergeMap(([{}, locationKey]) =>
+        this.appService.locationFacts(locationKey)
+      ),
+      map((response) => actionLocationFactsPageLoaded({ response }))
     )
   );
 
@@ -137,11 +132,8 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(actionLocationMapPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([{}, locationKey]) => {
-        return this.appService
-          .locationMap(locationKey)
-          .pipe(map((response) => actionLocationMapPageLoaded({ response })));
-      })
+      mergeMap(([{}, locationKey]) => this.appService.locationMap(locationKey)),
+      map((response) => actionLocationMapPageLoaded({ response }))
     )
   );
 
@@ -158,12 +150,9 @@ export class LocationEffects {
           pageSize,
           pageIndex,
         };
-        return this.appService
-          .locationChanges(locationKey, parameters)
-          .pipe(
-            map((response) => actionLocationChangesPageLoaded({ response }))
-          );
-      })
+        return this.appService.locationChanges(locationKey, parameters);
+      }),
+      map((response) => actionLocationChangesPageLoaded({ response }))
     )
   );
 
@@ -171,11 +160,10 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(actionLocationEditPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([{}, locationKey]) => {
-        return this.appService
-          .locationEdit(locationKey)
-          .pipe(map((response) => actionLocationEditPageLoaded({ response })));
-      })
+      mergeMap(([{}, locationKey]) =>
+        this.appService.locationEdit(locationKey)
+      ),
+      map((response) => actionLocationEditPageLoaded({ response }))
     )
   );
 

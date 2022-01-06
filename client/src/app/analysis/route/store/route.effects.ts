@@ -19,13 +19,14 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionRouteMapPageLoad } from './route.actions';
+import { actionRouteDetailsPageLoad } from './route.actions';
 import { actionRouteChangesPageLoaded } from './route.actions';
 import { actionRouteChangesPageSize } from './route.actions';
 import { actionRouteChangesPageImpact } from './route.actions';
 import { actionRouteChangesPageLoad } from './route.actions';
 import { actionRouteChangesFilterOption } from './route.actions';
 import { actionRouteChangesPageIndex } from './route.actions';
-import { actionRouteId } from './route.actions';
 import { actionRouteChangesPageInit } from './route.actions';
 import { actionRouteMapPageInit } from './route.actions';
 import { actionRouteDetailsPageInit } from './route.actions';
@@ -36,29 +37,35 @@ import { selectRouteId } from './route.selectors';
 
 @Injectable()
 export class RouteEffects {
-  routeDetails = createEffect(() =>
+  routeDetailsInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([{}, routeId]) => {
-        this.store.dispatch(actionRouteId({ routeId }));
-        return this.appService
-          .routeDetails(routeId)
-          .pipe(map((response) => actionRouteDetailsPageLoaded({ response })));
-      })
+      map(([{}, routeId]) => actionRouteDetailsPageLoad({ routeId }))
     )
   );
 
-  routeMap = createEffect(() =>
+  routeDetailsLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionRouteDetailsPageLoad),
+      mergeMap((action) => this.appService.routeDetails(action.routeId)),
+      map((response) => actionRouteDetailsPageLoaded({ response }))
+    )
+  );
+
+  routeMapInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteMapPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
-      mergeMap(([{}, routeId]) => {
-        this.store.dispatch(actionRouteId({ routeId }));
-        return this.appService
-          .routeMap(routeId)
-          .pipe(map((response) => actionRouteMapPageLoaded({ response })));
-      })
+      map(([{}, routeId]) => actionRouteMapPageLoad({ routeId }))
+    )
+  );
+
+  routeMapLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionRouteMapPageLoad),
+      mergeMap((action) => this.appService.routeMap(action.routeId)),
+      map((response) => actionRouteMapPageLoaded({ response }))
     )
   );
 
@@ -108,12 +115,9 @@ export class RouteEffects {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() => {
-            return this.appService
-              .routeChanges(routeId, changesParameters)
-              .pipe(
-                map((response) => actionRouteChangesPageLoaded({ response }))
-              );
-          })
+            return this.appService.routeChanges(routeId, changesParameters);
+          }),
+          map((response) => actionRouteChangesPageLoaded({ response }))
         );
       })
     )

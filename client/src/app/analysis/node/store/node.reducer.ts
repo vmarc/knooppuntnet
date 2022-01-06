@@ -1,12 +1,13 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionNodeMapPageLoad } from './node.actions';
+import { actionNodeDetailsPageLoad } from './node.actions';
 import { actionNodeChangesPageLoad } from './node.actions';
 import { actionNodeChangesPageImpact } from './node.actions';
 import { actionNodeChangesPageSize } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';
 import { actionNodeChangesFilterOption } from './node.actions';
-import { actionNodeId } from './node.actions';
 import { actionNodeLink } from './node.actions';
 import { actionNodeDetailsPageLoaded } from './node.actions';
 import { actionNodeMapPageLoaded } from './node.actions';
@@ -21,7 +22,7 @@ export const nodeReducer = createReducer(
     mapPage: null,
     changesPage: null,
   })),
-  on(actionNodeId, (state, { nodeId }) => ({
+  on(actionNodeDetailsPageLoad, actionNodeMapPageLoad, (state, { nodeId }) => ({
     ...state,
     nodeId,
   })),

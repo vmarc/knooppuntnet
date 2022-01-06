@@ -19,12 +19,13 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionNodeMapPageLoad } from './node.actions';
+import { actionNodeDetailsPageLoad } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';
 import { actionNodeChangesPageSize } from './node.actions';
 import { actionNodeChangesPageImpact } from './node.actions';
 import { actionNodeChangesPageLoad } from './node.actions';
 import { actionNodeChangesFilterOption } from './node.actions';
-import { actionNodeId } from './node.actions';
 import { actionNodeMapPageInit } from './node.actions';
 import { actionNodeChangesPageLoaded } from './node.actions';
 import { actionNodeChangesPageInit } from './node.actions';
@@ -36,33 +37,39 @@ import { selectNodeChangesParameters } from './node.selectors';
 
 @Injectable()
 export class NodeEffects {
-  nodeDetailsPage = createEffect(() =>
+  nodeDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
-      mergeMap(([{}, nodeId]) => {
-        this.store.dispatch(actionNodeId({ nodeId }));
-        return this.appService
-          .nodeDetails(nodeId)
-          .pipe(map((response) => actionNodeDetailsPageLoaded({ response })));
-      })
+      map(([{}, nodeId]) => actionNodeDetailsPageLoad({ nodeId }))
     )
   );
 
-  nodeMapPage = createEffect(() =>
+  nodeDetailsPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNodeDetailsPageLoad),
+      mergeMap((action) => this.appService.nodeDetails(action.nodeId)),
+      map((response) => actionNodeDetailsPageLoaded({ response }))
+    )
+  );
+
+  nodeMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeMapPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
-      mergeMap(([{}, nodeId]) => {
-        this.store.dispatch(actionNodeId({ nodeId }));
-        return this.appService
-          .nodeMap(nodeId)
-          .pipe(map((response) => actionNodeMapPageLoaded({ response })));
-      })
+      map(([{}, nodeId]) => actionNodeMapPageLoad({ nodeId }))
     )
   );
 
-  nodeChangesPage = createEffect(() =>
+  nodeMapPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionNodeMapPageLoad),
+      mergeMap((action) => this.appService.nodeMap(action.nodeId)),
+      map((response) => actionNodeMapPageLoaded({ response }))
+    )
+  );
+
+  nodeChangesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeChangesPageInit),
       concatLatestFrom(() => [
@@ -107,13 +114,10 @@ export class NodeEffects {
       mergeMap(([{}, nodeId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
-          mergeMap(() => {
-            return this.appService
-              .nodeChanges(nodeId, changesParameters)
-              .pipe(
-                map((response) => actionNodeChangesPageLoaded({ response }))
-              );
-          })
+          mergeMap(() =>
+            this.appService.nodeChanges(nodeId, changesParameters)
+          ),
+          map((response) => actionNodeChangesPageLoaded({ response }))
         );
       })
     )
