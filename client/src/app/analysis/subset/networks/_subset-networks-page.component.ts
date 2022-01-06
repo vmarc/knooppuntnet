@@ -2,10 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { AppState } from '../../../core/core.state';
-import { NetworkCacheService } from '../../../services/network-cache.service';
 import { actionSubsetNetworksPageInit } from '../store/subset.actions';
 import { selectSubsetNetworksPage } from '../store/subset.selectors';
 
@@ -62,23 +61,11 @@ import { selectSubsetNetworksPage } from '../store/subset.selectors';
 export class SubsetNetworksPageComponent implements OnInit {
   large$: Observable<boolean>;
 
-  readonly response$ = this.store.select(selectSubsetNetworksPage).pipe(
-    tap((response) => {
-      if (response && response.result) {
-        response.result.networks.forEach((networkAttributes) => {
-          this.networkCacheService.setNetworkName(
-            networkAttributes.id,
-            networkAttributes.name
-          );
-        });
-      }
-    })
-  );
+  readonly response$ = this.store.select(selectSubsetNetworksPage);
 
   constructor(
     private store: Store<AppState>,
-    private pageWidthService: PageWidthService,
-    private networkCacheService: NetworkCacheService
+    private pageWidthService: PageWidthService
   ) {
     this.large$ = pageWidthService.current$.pipe(
       map(() => this.pageWidthService.isVeryLarge())

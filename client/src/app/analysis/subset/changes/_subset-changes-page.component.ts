@@ -1,13 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { SubsetInfo } from '@api/common/subset/subset-info';
-import { Subset } from '@api/custom/subset';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs';
-import { AppService } from '../../../app.service';
-import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
-import { SubsetCacheService } from '../../../services/subset-cache.service';
 import { UserService } from '../../../services/user.service';
 import { actionSubsetChangesPageSize } from '../store/subset.actions';
 import { actionSubsetChangesPageImpact } from '../store/subset.actions';
@@ -74,44 +67,23 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
   `,
 })
 export class SubsetChangesPageComponent implements OnInit {
-  subset: Subset;
-  subsetInfo$ = new BehaviorSubject<SubsetInfo>(null);
-
   readonly impact$ = this.store.select(selectSubsetChangesPageImpact);
   readonly pageSize$ = this.store.select(selectSubsetChangesPageSize);
   readonly pageIndex$ = this.store.select(selectSubsetChangesPageIndex);
   readonly response$ = this.store.select(selectSubsetChangesPage);
 
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private pageService: PageService,
     private userService: UserService,
-    private subsetCacheService: SubsetCacheService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetChangesPageInit());
-
-    //   .subscribe(([params, itemsPerPage, impact]) => {
-    //     this.subset = Util.subsetInRoute(params);
-    //     const initialParameters = Util.defaultChangesParameters();
-    //     this.parameters = { ...initialParameters, impact, itemsPerPage };
-    //   });
   }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
   }
-
-  //     .subscribe((response) => {
-  //       this.response$ = response;
-  //       this.subsetCacheService.setSubsetInfo(
-  //         Subsets.key(this.subset),
-  //         response.result.subsetInfo
-  //       );
-  //       this.subsetInfo$.next(response.result.subsetInfo);
 
   onImpactChange(impact: boolean): void {
     this.store.dispatch(actionSubsetChangesPageImpact({ impact }));

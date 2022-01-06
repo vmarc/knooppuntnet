@@ -3,10 +3,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
 import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
-import { NetworkCacheService } from '../../../services/network-cache.service';
 import { actionSubsetMapPageInit } from '../store/subset.actions';
 import { selectSubsetMapPage } from '../store/subset.selectors';
 import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.component';
@@ -33,23 +31,11 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
   `,
 })
 export class SubsetMapPageComponent implements OnInit, OnDestroy {
-  readonly response$ = this.store.select(selectSubsetMapPage).pipe(
-    tap((response) => {
-      if (response && response.result) {
-        response.result.networks.forEach((networkAttributes) => {
-          this.networkCacheService.setNetworkName(
-            networkAttributes.id,
-            networkAttributes.name
-          );
-        });
-      }
-    })
-  );
+  readonly response$ = this.store.select(selectSubsetMapPage);
 
   constructor(
     private store: Store<AppState>,
     private pageService: PageService,
-    private networkCacheService: NetworkCacheService,
     private dialog: MatDialog
   ) {
     this.pageService.showFooter = false;

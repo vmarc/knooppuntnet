@@ -13,10 +13,22 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { QueryParams } from '../../../base/query-params';
+import { Util } from '../../../components/shared/util';
+import { selectRouteParams } from '../../../core/core.state';
 import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionSubsetOrphanNodesPageInit } from './subset.actions';
+import { actionSubsetMapPageLoad } from './subset.actions';
+import { actionSubsetOrphanRoutesPageInit } from './subset.actions';
+import { actionSubsetOrphanRoutesPageLoad } from './subset.actions';
+import { actionSubsetOrphanNodesPageLoad } from './subset.actions';
+import { actionSubsetFactsPageLoad } from './subset.actions';
+import { actionSubsetNetworksPageLoad } from './subset.actions';
+import { actionSubsetFactDetailsPageLoad } from './subset.actions';
+import { actionSubsetFactDetailsPageLoaded } from './subset.actions';
+import { actionSubsetFactDetailsPageInit } from './subset.actions';
 import { actionSubsetChangesPageLoaded } from './subset.actions';
 import { actionSubsetChangesPageSize } from './subset.actions';
 import { actionSubsetChangesPageImpact } from './subset.actions';
@@ -24,8 +36,6 @@ import { actionSubsetChangesPageLoad } from './subset.actions';
 import { actionSubsetChangesFilterOption } from './subset.actions';
 import { actionSubsetChangesPageIndex } from './subset.actions';
 import { actionSubsetFactsPageInit } from './subset.actions';
-import { actionSubsetOrphanRoutesPageInit } from './subset.actions';
-import { actionSubsetOrphanNodesPageInit } from './subset.actions';
 import { actionSubsetMapPageInit } from './subset.actions';
 import { actionSubsetChangesPageInit } from './subset.actions';
 import { actionSubsetNetworksPageInit } from './subset.actions';
@@ -36,55 +46,132 @@ import { actionSubsetFactsPageLoaded } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
 import { selectSubsetChangesParameters } from './subset.selectors';
 import { selectSubset } from './subset.selectors';
+import { SubsetFact } from './subset.state';
 
 @Injectable()
 export class SubsetEffects {
-  networksPage = createEffect(() =>
+  networksPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
-      concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) => this.appService.subsetNetworks(subset)),
+      concatLatestFrom(() => this.store.select(selectRouteParams)),
+      map(([{}, routeParams]) => {
+        const subset = Util.subsetInRoute(routeParams);
+        return actionSubsetNetworksPageLoad({ subset });
+      })
+    )
+  );
+
+  networksPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetNetworksPageLoad),
+      mergeMap((action) => this.appService.subsetNetworks(action.subset)),
       map((response) => actionSubsetNetworksPageLoaded({ response }))
     )
   );
 
-  factsPage = createEffect(() =>
+  factsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
-      concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) => this.appService.subsetFacts(subset)),
+      concatLatestFrom(() => this.store.select(selectRouteParams)),
+      map(([{}, routeParams]) => {
+        const subset = Util.subsetInRoute(routeParams);
+        return actionSubsetFactsPageLoad({ subset });
+      })
+    )
+  );
+
+  factsPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetFactsPageLoad),
+      mergeMap((action) => this.appService.subsetFacts(action.subset)),
       map((response) => actionSubsetFactsPageLoaded({ response }))
     )
   );
 
-  orphanNodesPage = createEffect(() =>
+  factDetailsPageInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetFactDetailsPageInit),
+      concatLatestFrom(() => this.store.select(selectRouteParams)),
+      map(([{}, routeParams]) => {
+        const subset = Util.subsetInRoute(routeParams);
+        const factName = routeParams['fact'];
+        const subsetFact = new SubsetFact(subset, factName);
+        return actionSubsetFactDetailsPageLoad({ subsetFact });
+      })
+    )
+  );
+
+  factDetailsPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetFactDetailsPageLoad),
+      mergeMap((action) =>
+        this.appService.subsetFactDetails(
+          action.subsetFact.subset,
+          action.subsetFact.factName
+        )
+      ),
+      map((response) => actionSubsetFactDetailsPageLoaded({ response }))
+    )
+  );
+
+  orphanNodesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
-      concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) => this.appService.subsetOrphanNodes(subset)),
+      concatLatestFrom(() => this.store.select(selectRouteParams)),
+      map(([{}, routeParams]) => {
+        const subset = Util.subsetInRoute(routeParams);
+        return actionSubsetOrphanNodesPageLoad({ subset });
+      })
+    )
+  );
+
+  orphanNodesPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetOrphanNodesPageLoad),
+      mergeMap((action) => this.appService.subsetOrphanNodes(action.subset)),
       map((response) => actionSubsetOrphanNodesPageLoaded({ response }))
     )
   );
 
-  orphanRoutesPage = createEffect(() =>
+  orphanRoutesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
-      concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) => this.appService.subsetOrphanRoutes(subset)),
+      concatLatestFrom(() => this.store.select(selectRouteParams)),
+      map(([{}, routeParams]) => {
+        const subset = Util.subsetInRoute(routeParams);
+        return actionSubsetOrphanRoutesPageLoad({ subset });
+      })
+    )
+  );
+
+  orphanRoutesPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetOrphanRoutesPageLoad),
+      mergeMap((action) => this.appService.subsetOrphanRoutes(action.subset)),
       map((response) => actionSubsetOrphanRoutesPageLoaded({ response }))
     )
   );
 
-  mapPage = createEffect(() =>
+  mapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
-      concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([{}, subset]) => this.appService.subsetMap(subset)),
+      concatLatestFrom(() => this.store.select(selectRouteParams)),
+      map(([{}, routeParams]) => {
+        const subset = Util.subsetInRoute(routeParams);
+        return actionSubsetMapPageLoad({ subset });
+      })
+    )
+  );
+
+  mapPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetMapPageLoad),
+      mergeMap((action) => this.appService.subsetMap(action.subset)),
       map((response) => actionSubsetMapPageLoaded({ response }))
     )
   );
 
-  changesPage = createEffect(() =>
+  changesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
       concatLatestFrom(() => [

@@ -21,6 +21,7 @@ import { SubsetPageBreadcrumbComponent } from './components/subset-page-breadcru
 import { SubsetPageHeaderBlockComponent } from './components/subset-page-header-block.component';
 import { SubsetPageMenuComponent } from './components/subset-page-menu.component';
 import { SubsetFactDetailsPageComponent } from './fact-details/_subset-fact-details-page.component';
+import { SubsetFactDetailsComponent } from './fact-details/subset-fact-details.component';
 import { SubsetFactsPageComponent } from './facts/_subset-facts-page.component';
 import { SubsetMapPageComponent } from './map/_subset-map-page.component';
 import { SubsetMapNetworkDialogComponent } from './map/subset-map-network-dialog.component';
@@ -69,6 +70,7 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     SubsetPageMenuComponent,
     SubsetChangesPageComponent,
     SubsetFactDetailsPageComponent,
+    SubsetFactDetailsComponent,
     SubsetFactsPageComponent,
     SubsetNetworksPageComponent,
     SubsetOrphanNodesPageComponent,

@@ -1,4 +1,5 @@
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { SubsetInfo } from '@api/common/subset/subset-info';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { subsetFeatureKey } from './subset.state';
@@ -17,6 +18,16 @@ export const selectSubsetInfo = createSelector(
   (state: SubsetState) => state.subsetInfo
 );
 
+export const selectSubsetNetworkType = createSelector(
+  selectSubsetInfo,
+  (subsetInfo: SubsetInfo) => subsetInfo.networkType
+);
+
+export const selectSubsetFact = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.subsetFact
+);
+
 export const selectSubsetNetworksPage = createSelector(
   selectSubsetState,
   (state: SubsetState) => state.networksPage
@@ -25,6 +36,11 @@ export const selectSubsetNetworksPage = createSelector(
 export const selectSubsetFactsPage = createSelector(
   selectSubsetState,
   (state: SubsetState) => state.factsPage
+);
+
+export const selectSubsetFactDetailsPage = createSelector(
+  selectSubsetState,
+  (state: SubsetState) => state.factDetailsPage
 );
 
 export const selectSubsetOrphanNodesPage = createSelector(

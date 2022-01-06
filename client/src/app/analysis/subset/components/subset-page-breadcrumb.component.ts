@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Subset } from '@api/custom/subset';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-subset-page-breadcrumb',

@@ -1,14 +1,17 @@
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { Subset } from '@api/custom/subset';
-import { routerNavigatedAction } from '@ngrx/router-store';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
-import { Util } from '../../../components/shared/util';
-import { Countries } from '../../../kpn/common/countries';
-import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionSubsetMapPageLoad } from './subset.actions';
+import { actionSubsetOrphanRoutesPageLoad } from './subset.actions';
+import { actionSubsetFactsPageLoad } from './subset.actions';
+import { actionSubsetOrphanNodesPageLoad } from './subset.actions';
+import { actionSubsetNetworksPageLoad } from './subset.actions';
+import { actionSubsetFactDetailsPageLoad } from './subset.actions';
+import { actionSubsetFactDetailsPageLoaded } from './subset.actions';
 import { actionSubsetChangesPageLoad } from './subset.actions';
 import { actionSubsetChangesPageImpact } from './subset.actions';
 import { actionSubsetChangesPageSize } from './subset.actions';
@@ -27,33 +30,36 @@ export const subsetReducer = createReducer(
   on(routerNavigationAction, (state, action) => {
     const util = new RoutingUtil(action);
     let changesPage: ApiResponse<SubsetChangesPage> = null;
+    let changesParameters: ChangesParameters = null;
     if (util.isSubsetChangesPage()) {
       changesPage = state.changesPage;
+      changesParameters = state.changesParameters;
     }
 
     return {
       ...state,
       networksPage: null,
       factsPage: null,
+      subsetFact: null,
+      factDetailsPage: null,
       orphanNodesPage: null,
       orphanRoutesPage: null,
       mapPage: null,
       changesPage,
+      changesParameters,
     };
   }),
-  on(routerNavigatedAction, (state, action) => {
-    const params = Util.paramsIn(action.payload.routerState.root);
-    const country = Countries.withDomain(params.get('country'));
-    const networkType = NetworkTypes.withName(params.get('networkType'));
-    if (networkType && country) {
-      const subset: Subset = {
-        country,
-        networkType,
-      };
-      return { ...state, subset };
-    }
-    return state;
-  }),
+  on(
+    actionSubsetNetworksPageLoad,
+    actionSubsetFactsPageLoad,
+    actionSubsetOrphanNodesPageLoad,
+    actionSubsetOrphanRoutesPageLoad,
+    actionSubsetMapPageLoad,
+    (state, { subset }) => ({
+      ...state,
+      subset,
+    })
+  ),
   on(actionSubsetNetworksPageLoaded, (state, { response }) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
@@ -63,6 +69,16 @@ export const subsetReducer = createReducer(
     ...state,
     subsetInfo: response.result.subsetInfo,
     factsPage: response,
+  })),
+  on(actionSubsetFactDetailsPageLoad, (state, { subsetFact }) => ({
+    ...state,
+    subsetFact,
+    subset: subsetFact.subset,
+  })),
+  on(actionSubsetFactDetailsPageLoaded, (state, { response }) => ({
+    ...state,
+    subsetInfo: response.result.subsetInfo,
+    factDetailsPage: response,
   })),
   on(actionSubsetOrphanNodesPageLoaded, (state, { response }) => ({
     ...state,
