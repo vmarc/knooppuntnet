@@ -24,13 +24,13 @@ object Overview extends View {
     val result = database.execute(query)
     val factNames = result.rows.map(_.key.head).sorted.distinct
     factNames.map { factName =>
-      val counts = result.rows.filter(_.key.head == factName).map { row =>
+      val counts = result.rows.filter(_.key.head == factName).flatMap { row =>
         val key = Fields(row.key)
         val countryDomain = key.string(1)
         val networkTypeName = key.string(2)
-        val subset = Subset.ofName(countryDomain, networkTypeName).get
-        val count = row.value
-        subset -> count
+        Subset.ofName(countryDomain, networkTypeName).map { subset =>
+          subset -> row.value
+        }
       }.toMap
       val total: Long = counts.values.sum
       Figure(factName, total, counts)
