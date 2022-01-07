@@ -77,7 +77,7 @@ class NetworkInfoExtraAnalyzer(
 
   private def isNodeAllowedInNetworkRelation(tags: Tags): Boolean = {
     tags.has("tourism", "information") &&
-      tags.has("information", "map", "guidepost")
+      tags.has("information", "map", "guidepost", "board")
   }
 
   private def networkFact(fact: Fact, elementType: String, ids: Seq[Long]): Option[NetworkFact] = {

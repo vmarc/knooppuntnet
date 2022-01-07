@@ -94,8 +94,16 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       )
     )
 
+    val boardNode = newRawNode(
+      1004,
+      tags = Tags.from(
+        "tourism" -> "information",
+        "information" -> "board"
+      )
+    )
+
     val overpassRepository = stub[OverpassRepository]
-    (overpassRepository.nodes _).when(*, *).returns(Seq(node, mapNode, guidepostNode))
+    (overpassRepository.nodes _).when(*, *).returns(Seq(node, mapNode, guidepostNode, boardNode))
 
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
     val networkDoc: NetworkDoc = newNetwork(
@@ -103,7 +111,8 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       nodeMembers = Seq(
         NetworkNodeMember(1001, None),
         NetworkNodeMember(1002, None),
-        NetworkNodeMember(1003, None)
+        NetworkNodeMember(1003, None),
+        NetworkNodeMember(1004, None)
       )
     )
     val contextBefore = NetworkInfoAnalysisContext(
