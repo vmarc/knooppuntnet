@@ -166,7 +166,7 @@ class AnalysisContext(
 
   private def isMap(node: Node): Boolean = {
     node.tags.has("tourism", "information") &&
-      (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))
+      (node.tags.has("information", "map") || node.tags.has("information", "guidepost", "board"))
   }
 
   private def isKnownNode(node: RawNode): Boolean = {
