@@ -16,7 +16,7 @@ import { MatPaginator } from '@angular/material/paginator';
       (page)="pageChanged($event)"
       [pageIndex]="pageIndex"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[1, 10, 25, 50, 100, 250, 500, 1000]"
+      [pageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
       [length]="length"
       [showFirstLastButtons]="showFirstLastButtons"
       [hidePageSize]="!showPageSizeSelection"

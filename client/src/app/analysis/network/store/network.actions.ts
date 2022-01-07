@@ -11,11 +11,6 @@ import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { ChangeOption } from '../../changes/store/changes.actions';
 
-export const actionNetworkId = createAction(
-  '[Network] Id',
-  props<{ networkId: number }>()
-);
-
 export const actionNetworkLink = createAction(
   '[Network] Link',
   props<{ networkId: number; networkName: string; networkType: NetworkType }>()

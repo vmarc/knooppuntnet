@@ -12,7 +12,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { QueryParams } from '../../../base/query-params';
+import { PageParams } from '../../../base/page-params';
 import { selectQueryParams } from '../../../core/core.state';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
@@ -153,12 +153,12 @@ export class NetworkEffects {
           preferencesImpact,
           preferencesPageSize,
         ]) => {
-          const queryParamsUtil = new QueryParams(queryParams);
-          const changesParameters = queryParamsUtil.changesParameters(
+          const pageParams = new PageParams(routeParams, queryParams);
+          const networkId = pageParams.networkId();
+          const changesParameters = pageParams.changesParameters(
             preferencesImpact,
             preferencesPageSize
           );
-          const networkId = +routeParams['networkId'];
           return actionNetworkChangesLoad({ networkId, changesParameters });
         }
       )

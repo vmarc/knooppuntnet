@@ -8,11 +8,6 @@ import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 import { ChangeOption } from '../../changes/store/changes.actions';
 
-export const actionRouteId = createAction(
-  '[Route] Id',
-  props<{ routeId: string }>()
-);
-
 export const actionRouteLink = createAction(
   '[Route] Link',
   props<{ routeId: string; routeName: string; networkType: NetworkType }>()

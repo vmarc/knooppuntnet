@@ -1,12 +1,13 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
+import { actionRouteMapPageLoad } from './route.actions';
+import { actionRouteDetailsPageLoad } from './route.actions';
 import { actionRouteChangesPageLoad } from './route.actions';
 import { actionRouteChangesPageImpact } from './route.actions';
 import { actionRouteChangesPageSize } from './route.actions';
 import { actionRouteChangesFilterOption } from './route.actions';
 import { actionRouteChangesPageIndex } from './route.actions';
-import { actionRouteId } from './route.actions';
 import { actionRouteChangesPageLoaded } from './route.actions';
 import { actionRouteMapPageLoaded } from './route.actions';
 import { actionRouteDetailsPageLoaded } from './route.actions';
@@ -21,10 +22,14 @@ export const routeReducer = createReducer(
     mapPage: null,
     changesPage: null,
   })),
-  on(actionRouteId, (state, { routeId }) => ({
-    ...state,
-    routeId,
-  })),
+  on(
+    actionRouteDetailsPageLoad,
+    actionRouteMapPageLoad,
+    (state, { routeId }) => ({
+      ...state,
+      routeId,
+    })
+  ),
   on(actionRouteLink, (state, { routeId, routeName, networkType }) => ({
     ...state,
     routeId,

@@ -38,7 +38,7 @@ import { ChangeOption } from '../../../changes/store/changes.actions';
 })
 export class ChangeFilterPeriodComponent {
   @Input() option: ChangesFilterOption;
-  @Output() changeOption = new EventEmitter<ChangeOption>();
+  @Output() optionSelected = new EventEmitter<ChangeOption>();
 
   constructor(private store: Store<AppState>) {}
 
@@ -57,6 +57,6 @@ export class ChangeFilterPeriodComponent {
       day: this.option.day,
       impact,
     };
-    this.changeOption.emit(option);
+    this.optionSelected.emit(option);
   }
 }

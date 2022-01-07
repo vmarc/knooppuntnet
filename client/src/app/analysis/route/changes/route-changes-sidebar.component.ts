@@ -14,7 +14,7 @@ import { selectRouteChangesFilterOptions } from '../store/route.selectors';
     <kpn-sidebar>
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
-        (changeOption)="changed($event)"
+        (optionSelected)="onOptionSelected($event)"
       ></kpn-change-filter>
     </kpn-sidebar>
   `,
@@ -26,7 +26,7 @@ export class RouteChangesSidebarComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  changed(option: ChangeOption): void {
+  onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionRouteChangesFilterOption({ option }));
   }
 }

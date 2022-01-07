@@ -19,7 +19,7 @@ import { ChangeOption } from '../../../changes/store/changes.actions';
       <div *ngFor="let option of filterOptions">
         <kpn-change-filter-period
           [option]="option"
-          (changeOption)="changeOption.emit($event)"
+          (optionSelected)="optionSelected.emit($event)"
         ></kpn-change-filter-period>
       </div>
     </div>
@@ -28,5 +28,5 @@ import { ChangeOption } from '../../../changes/store/changes.actions';
 })
 export class ChangeFilterComponent {
   @Input() filterOptions: ChangesFilterOption[];
-  @Output() changeOption = new EventEmitter<ChangeOption>();
+  @Output() optionSelected = new EventEmitter<ChangeOption>();
 }

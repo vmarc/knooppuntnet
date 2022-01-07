@@ -19,7 +19,7 @@ import { selectChangesFilterOptions } from '../../../changes/store/changes.selec
       ></kpn-analysis-strategy>
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
-        (changeOption)="changed($event)"
+        (optionSelected)="onOptionSelected($event)"
       ></kpn-change-filter>
     </kpn-sidebar>
   `,
@@ -31,7 +31,7 @@ export class ChangesSidebarComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  changed(option: ChangeOption): void {
+  onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionChangesFilterOption({ option }));
   }
 

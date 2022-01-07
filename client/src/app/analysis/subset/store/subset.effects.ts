@@ -12,8 +12,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { QueryParams } from '../../../base/query-params';
-import { Util } from '../../../components/shared/util';
+import { PageParams } from '../../../base/page-params';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
@@ -46,7 +45,6 @@ import { actionSubsetFactsPageLoaded } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
 import { selectSubsetChangesParameters } from './subset.selectors';
 import { selectSubset } from './subset.selectors';
-import { SubsetFact } from './subset.state';
 
 @Injectable()
 export class SubsetEffects {
@@ -55,7 +53,7 @@ export class SubsetEffects {
       ofType(actionSubsetNetworksPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([{}, routeParams]) => {
-        const subset = Util.subsetInRoute(routeParams);
+        const subset = new PageParams(routeParams).subset();
         return actionSubsetNetworksPageLoad({ subset });
       })
     )
@@ -74,7 +72,7 @@ export class SubsetEffects {
       ofType(actionSubsetFactsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([{}, routeParams]) => {
-        const subset = Util.subsetInRoute(routeParams);
+        const subset = new PageParams(routeParams).subset();
         return actionSubsetFactsPageLoad({ subset });
       })
     )
@@ -93,9 +91,7 @@ export class SubsetEffects {
       ofType(actionSubsetFactDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([{}, routeParams]) => {
-        const subset = Util.subsetInRoute(routeParams);
-        const factName = routeParams['fact'];
-        const subsetFact = new SubsetFact(subset, factName);
+        const subsetFact = new PageParams(routeParams).subsetFact();
         return actionSubsetFactDetailsPageLoad({ subsetFact });
       })
     )
@@ -119,7 +115,7 @@ export class SubsetEffects {
       ofType(actionSubsetOrphanNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([{}, routeParams]) => {
-        const subset = Util.subsetInRoute(routeParams);
+        const subset = new PageParams(routeParams).subset();
         return actionSubsetOrphanNodesPageLoad({ subset });
       })
     )
@@ -138,7 +134,7 @@ export class SubsetEffects {
       ofType(actionSubsetOrphanRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([{}, routeParams]) => {
-        const subset = Util.subsetInRoute(routeParams);
+        const subset = new PageParams(routeParams).subset();
         return actionSubsetOrphanRoutesPageLoad({ subset });
       })
     )
@@ -157,7 +153,7 @@ export class SubsetEffects {
       ofType(actionSubsetMapPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([{}, routeParams]) => {
-        const subset = Util.subsetInRoute(routeParams);
+        const subset = new PageParams(routeParams).subset();
         return actionSubsetMapPageLoad({ subset });
       })
     )
@@ -182,7 +178,7 @@ export class SubsetEffects {
       ]),
       map(
         ([{}, subset, queryParams, preferencesImpact, preferencesPageSize]) => {
-          const queryParamsWrapper = new QueryParams(queryParams);
+          const queryParamsWrapper = new PageParams(queryParams);
           const changesParameters = queryParamsWrapper.changesParameters(
             preferencesImpact,
             preferencesPageSize

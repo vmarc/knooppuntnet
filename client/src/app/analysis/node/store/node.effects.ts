@@ -12,7 +12,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { QueryParams } from '../../../base/query-params';
+import { PageParams } from '../../../base/page-params';
 import { selectQueryParams } from '../../../core/core.state';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
@@ -87,7 +87,7 @@ export class NodeEffects {
           preferencesPageSize,
         ]) => {
           const nodeId = routeParams['nodeId'];
-          const queryParamsWrapper = new QueryParams(queryParams);
+          const queryParamsWrapper = new PageParams(queryParams);
           const changesParameters = queryParamsWrapper.changesParameters(
             preferencesImpact,
             preferencesPageSize

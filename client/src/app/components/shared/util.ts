@@ -1,10 +1,8 @@
-import { Params, Route } from '@angular/router';
+import { Route } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { LatLonImpl } from '@api/common/lat-lon-impl';
-import { Subset } from '@api/custom/subset';
 import { Tags } from '@api/custom/tags';
 import { List } from 'immutable';
 import { Map } from 'immutable';
@@ -12,8 +10,6 @@ import { Coordinate } from 'ol/coordinate';
 import { boundingExtent } from 'ol/extent';
 import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
-import { Countries } from '../../kpn/common/countries';
-import { NetworkTypes } from '../../kpn/common/network-types';
 
 type IPropertyGetter<T> = () => T;
 
@@ -64,12 +60,6 @@ export class Util {
         },
       ],
     };
-  }
-
-  public static subsetInRoute(params: Params): Subset {
-    const country = Countries.withDomain(params['country']);
-    const networkType = NetworkTypes.withName(params['networkType']);
-    return { country, networkType };
   }
 
   public static replicationName(replicationNumber: number): string {
@@ -123,17 +113,6 @@ export class Util {
       return 0;
     }
     return list.reduce((prev, current) => prev + current);
-  }
-
-  public static defaultChangesParameters(): ChangesParameters {
-    return {
-      year: null,
-      month: null,
-      day: null,
-      pageSize: 0,
-      pageIndex: 0,
-      impact: false,
-    };
   }
 
   public static toExtent(bounds: Bounds, delta: number): Extent {

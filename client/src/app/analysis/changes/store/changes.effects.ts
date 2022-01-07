@@ -12,7 +12,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { QueryParams } from '../../../base/query-params';
+import { PageParams } from '../../../base/page-params';
 import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
@@ -48,12 +48,9 @@ export class ChangesEffects {
           preferencesImpact,
           preferencesPageSize,
         ]) => {
-          let strategy: AnalysisStrategy = preferencesAnalysisStrategy;
-          if (queryParams['strategy']) {
-            strategy = queryParams['strategy'];
-          }
-          const queryParamsWrapper = new QueryParams(queryParams);
-          const changesParameters = queryParamsWrapper.changesParameters(
+          const pageParams = new PageParams(queryParams);
+          const strategy = pageParams.strategy(preferencesAnalysisStrategy);
+          const changesParameters = pageParams.changesParameters(
             preferencesImpact,
             preferencesPageSize
           );
