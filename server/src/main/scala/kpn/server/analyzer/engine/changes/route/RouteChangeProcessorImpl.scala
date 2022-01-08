@@ -93,7 +93,13 @@ class RouteChangeProcessorImpl(
       case Some(before) =>
         data.after match {
           case None => processDelete(context, before, data.routeId)
-          case Some(after) => processUpdate(context, before, after, data.routeId)
+          case Some(after) =>
+            if (TagInterpreter.isRouteRelation(before.tags)) {
+              processUpdate(context, before, after, data.routeId)
+            }
+            else {
+              processCreate(context, after, data.routeId)
+            }
         }
     }
   }

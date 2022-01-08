@@ -5,6 +5,8 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.custom.ChangeType
+import kpn.api.custom.Tags
+import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -68,8 +70,14 @@ class NetworkChangeProcessorImpl(
           }
         case Some(before) =>
           relationAfterOption match {
-            case Some(after) => Some(processUpdate(context, before, after))
             case None => Some(processDelete(context, before))
+            case Some(after) =>
+              if (TagInterpreter.isNetworkRelation(after.tags)) {
+                Some(processUpdate(context, before, after))
+              }
+              else {
+                Some(processDelete(context, before))
+              }
           }
       }
     }
