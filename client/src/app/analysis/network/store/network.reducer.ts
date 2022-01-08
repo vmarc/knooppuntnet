@@ -24,6 +24,16 @@ import { actionNetworkMapPageLoaded } from './network.actions';
 import { actionNetworkChangesPageLoaded } from './network.actions';
 import { initialState } from './network.state';
 
+const defaultSummary: NetworkSummary = {
+  name: '',
+  networkType: null,
+  networkScope: null,
+  factCount: 0,
+  nodeCount: 0,
+  routeCount: 0,
+  changeCount: 0,
+};
+
 export const networkReducer = createReducer(
   initialState,
   on(routerNavigationAction, (state, action) => {
@@ -51,21 +61,10 @@ export const networkReducer = createReducer(
       if (networkId === state.networkId) {
         return state;
       }
-
-      const summary: NetworkSummary = {
-        name: null,
-        networkType: null,
-        networkScope: null,
-        factCount: 0,
-        nodeCount: 0,
-        routeCount: 0,
-        changeCount: 0,
-      };
-
       return {
         ...state,
         networkId,
-        summary,
+        summary: defaultSummary,
       };
     }
   ),
@@ -88,27 +87,27 @@ export const networkReducer = createReducer(
   }),
   on(actionNetworkDetailsPageLoaded, (state, { response }) => ({
     ...state,
-    summary: response.result.summary,
+    summary: response.result?.summary ?? defaultSummary,
     detailsPage: response,
   })),
   on(actionNetworkNodesPageLoaded, (state, { response }) => ({
     ...state,
-    summary: response.result.summary,
+    summary: response.result?.summary ?? defaultSummary,
     nodesPage: response,
   })),
   on(actionNetworkRoutesPageLoaded, (state, { response }) => ({
     ...state,
-    summary: response.result.summary,
+    summary: response.result?.summary ?? defaultSummary,
     routesPage: response,
   })),
   on(actionNetworkFactsPageLoaded, (state, { response }) => ({
     ...state,
-    summary: response.result.summary,
+    summary: response.result?.summary ?? defaultSummary,
     factsPage: response,
   })),
   on(actionNetworkMapPageLoaded, (state, { response }) => ({
     ...state,
-    summary: response.result.summary,
+    summary: response.result?.summary ?? defaultSummary,
     mapPage: response,
   })),
   on(actionNetworkChangesPageInit, (state, {}) => ({
@@ -119,25 +118,16 @@ export const networkReducer = createReducer(
     },
   })),
   on(actionNetworkChangesLoad, (state, { networkId, changesParameters }) => {
-    const summary: NetworkSummary = {
-      name: null,
-      networkType: null,
-      networkScope: null,
-      factCount: 0,
-      nodeCount: 0,
-      routeCount: 0,
-      changeCount: 0,
-    };
     return {
       ...state,
       networkId,
-      summary,
+      summary: defaultSummary,
       changesParameters,
     };
   }),
   on(actionNetworkChangesPageLoaded, (state, { response }) => ({
     ...state,
-    summary: response.result.network,
+    summary: response.result?.network ?? defaultSummary,
     changesPage: response,
   })),
   on(actionNetworkChangesImpact, (state, action) => ({

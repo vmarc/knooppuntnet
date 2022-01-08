@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route/route-change-info';
+import { ChangeType } from '@api/custom/change-type';
 
 @Component({
   selector: 'kpn-route-change',
@@ -13,6 +14,13 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
       [comment]="routeChangeInfo.comment"
     >
     </kpn-change-header>
+
+    <div *ngIf="isCreate()" class="kpn-detail">
+      <b i18n="@@route-change.created">Route created</b>
+    </div>
+    <div *ngIf="isDelete()" class="kpn-detail">
+      <b i18n="@@route-change.deleted">Route deleted</b>
+    </div>
 
     <div *ngIf="routeChangeInfo.changeKey.changeSetId === 0">
       <p i18n="@@route-change.initial-value">
@@ -48,5 +56,13 @@ export class RouteChangeComponent {
       ? this.routeChangeInfo.after.version
       : null;
     return before && after && before === after;
+  }
+
+  isCreate(): boolean {
+    return this.routeChangeInfo.changeType === ChangeType.create;
+  }
+
+  isDelete(): boolean {
+    return this.routeChangeInfo.changeType === ChangeType.delete;
   }
 }

@@ -18,6 +18,7 @@ class NodeChangeInfoBuilder {
       change.id,
       change.after.map(_.version),
       change.key,
+      change.changeType,
       changeTags,
       comment,
       change.before,

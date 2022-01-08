@@ -8,12 +8,14 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.ChangeType
 
 case class RouteChangeInfo(
   rowIndex: Long,
   id: Long,
   version: Long,
   changeKey: ChangeKey,
+  changeType: ChangeType,
   comment: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],

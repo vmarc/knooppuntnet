@@ -1,12 +1,10 @@
 package kpn.database.actions.routes
 
 import kpn.api.common.route.RouteNameInfo
-import kpn.database.base.Database
-import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
@@ -22,10 +20,7 @@ class MongoQueryRouteNameInfo(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          and(
-            equal("_id", routeId),
-            equal("labels", Label.active)
-          )
+          equal("_id", routeId)
         ),
         project(
           fields(

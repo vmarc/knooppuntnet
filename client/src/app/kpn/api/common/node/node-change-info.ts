@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { ChangeKey } from '../changes/details/change-key';
+import { ChangeType } from '../../custom/change-type';
 import { Fact } from '../../custom/fact';
 import { FactDiffs } from '../diff/common/fact-diffs';
 import { LatLonImpl } from '../lat-lon-impl';
@@ -16,6 +17,7 @@ export interface NodeChangeInfo {
   readonly id: number;
   readonly version: number;
   readonly changeKey: ChangeKey;
+  readonly changeType: ChangeType;
   readonly changeTags: Tags;
   readonly comment: string;
   readonly before: MetaData;

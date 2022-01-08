@@ -8,6 +8,7 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 
@@ -16,6 +17,7 @@ case class NodeChangeInfo(
   id: Long,
   version: Option[Long],
   changeKey: ChangeKey,
+  changeType: ChangeType,
   changeTags: Tags,
   comment: Option[String],
   before: Option[MetaData],

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NodeChangeInfo } from '@api/common/node/node-change-info';
+import { ChangeType } from '@api/custom/change-type';
 
 @Component({
   selector: 'kpn-node-change',
@@ -13,6 +14,13 @@ import { NodeChangeInfo } from '@api/common/node/node-change-info';
       [comment]="nodeChangeInfo.comment"
     >
     </kpn-change-header>
+
+    <div *ngIf="isCreate()" class="kpn-detail">
+      <b i18n="@@node-change.created">Node created</b>
+    </div>
+    <div *ngIf="isDelete()" class="kpn-detail">
+      <b i18n="@@node-change.deleted">Node deleted</b>
+    </div>
 
     <div *ngIf="nodeChangeInfo.changeKey.changeSetId === 0">
       <p i18n="@@node.initial-value">Oldest known state of the node.</p>
@@ -46,5 +54,13 @@ export class NodeChangeComponent {
       ? this.nodeChangeInfo.after.version
       : null;
     return before && after && before === after;
+  }
+
+  isCreate(): boolean {
+    return this.nodeChangeInfo.changeType === ChangeType.create;
+  }
+
+  isDelete(): boolean {
+    return this.nodeChangeInfo.changeType === ChangeType.delete;
   }
 }

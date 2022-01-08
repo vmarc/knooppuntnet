@@ -33,11 +33,17 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
   }
 
   private def buildSummary(): NetworkSummary = {
+    val factCount = if (context.networkDoc.active) {
+      context.networkFacts.map(_.size).sum + context.facts.size
+    }
+    else {
+      0
+    }
     NetworkSummary(
       context.name,
       context.scopedNetworkType.networkType,
       context.scopedNetworkType.networkScope,
-      context.networkFacts.map(_.size).sum + context.facts.size,
+      factCount,
       context.nodeDetails.size,
       context.routeDetails.size,
       context.changeCount

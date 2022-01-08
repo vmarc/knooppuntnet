@@ -20,6 +20,7 @@ import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -53,6 +54,7 @@ object RouteChangesPageExample {
           changeSetId = 1,
           elementId = 1
         ),
+        ChangeType.Update,
         comment = Some("comment"),
         before = None, // TODO CHANGE provide some value
         after = None, // TODO CHANGE provide some value

@@ -19,7 +19,7 @@ class MongoQueryRouteNameInfoTest extends UnitTest with SharedTestObjects {
 
       query.execute(11L) should equal(Some(RouteNameInfo(11L, "01-02", hiking)))
       query.execute(12L) should equal(Some(RouteNameInfo(12L, "02-03", hiking)))
-      query.execute(13L) should equal(None)
+      query.execute(13L) should equal(Some(RouteNameInfo(13L, "03-04", hiking)))
     }
   }
 

@@ -573,6 +573,7 @@ object ChangeSetPageExample {
           changeSetId = 1,
           elementId = routeId1
         ),
+        ChangeType.Update,
         comment = None,
         before = Some(
           MetaData(
@@ -629,6 +630,7 @@ object ChangeSetPageExample {
           changeSetId = 1,
           elementId = nodeId1
         ),
+        ChangeType.Update,
         changeTags = Tags.from(), // not used
         comment = None,
         before = Some(
@@ -722,6 +724,7 @@ object ChangeSetPageExample {
           changeSetId = 1,
           elementId = nodeId2
         ),
+        ChangeType.Update,
         changeTags = Tags.from(), // not used
         comment = None,
         before = Some(
@@ -770,6 +773,7 @@ object ChangeSetPageExample {
           changeSetId = 1,
           elementId = nodeId3
         ),
+        ChangeType.Update,
         changeTags = Tags.from(), // not used
         comment = None,
         before = Some(

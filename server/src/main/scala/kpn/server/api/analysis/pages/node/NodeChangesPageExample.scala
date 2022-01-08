@@ -13,6 +13,7 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
+import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -42,6 +43,7 @@ object NodeChangesPageExample {
           changeSetId = 1,
           elementId = 1
         ),
+        ChangeType.Update,
         changeTags = Tags.from(
           "created_by" -> "JOSM",
           "source" -> "survey"

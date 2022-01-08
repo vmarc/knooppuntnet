@@ -6,7 +6,11 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
   selector: 'kpn-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p class="kpn-comma-list">
+    <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
+      This network is not active anymore.
+    </p>
+
+    <p *ngIf="page.active" class="kpn-comma-list">
       <span>{{ page.attributes.km | integer }} km</span>
       <span
         >{{ page.summary.nodeCount | integer }}
@@ -29,18 +33,17 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
       <kpn-josm-relation [relationId]="page.attributes.id"></kpn-josm-relation>
     </p>
 
-    <p *ngIf="page.attributes.brokenRouteCount > 0" class="kpn-line">
+    <p
+      *ngIf="page.active && page.attributes.brokenRouteCount > 0"
+      class="kpn-line"
+    >
       <mat-icon svgIcon="warning"></mat-icon>
       <span i18n="@@network-details.contains-broken-routes"
         >This network contains broken (non-continuous) routes.</span
       >
     </p>
 
-    <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
-      This network is not active anymore.
-    </p>
-
-    <p *ngIf="isProposed()" class="kpn-line">
+    <p *ngIf="page.active && isProposed()" class="kpn-line">
       <mat-icon svgIcon="warning" style="min-width: 24px"></mat-icon>
       <markdown i18n="@@network.proposed">
         Proposed: this network has tag _"state=proposed"_. The network is
