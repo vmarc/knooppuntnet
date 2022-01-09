@@ -7453,7 +7453,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem *&quot;route&q
       </trans-unit>
       <trans-unit id="node.initial-value" datatype="html">
         <source>Oldest known state of the node.</source>
-        <target>Ältester bekannter Knotenstatus (zum Datum von <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>Lizenzänderung<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Ältester bekannter Knotenstatus.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/node-change.component.ts</context>
           <context context-type="linenumber">26,34</context>
@@ -7461,7 +7461,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem *&quot;route&q
       </trans-unit>
       <trans-unit id="route-change.initial-value" datatype="html">
         <source>Oldest known state of the route.</source>
-        <target>Ältester bekannter Routestatus (zum Datum von <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>Lizenzänderung<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Ältester bekannter Routestatus.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/route-change.component.ts</context>
           <context context-type="linenumber">27,36</context>
@@ -7469,7 +7469,7 @@ Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem *&quot;route&q
       </trans-unit>
       <trans-unit id="network-changes.network-initial-value" datatype="html">
         <source>Oldest known state of the network.</source>
-        <target>Ältester bekannter Netzwerkstatus (zum Datum von <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>Lizenzänderung<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>).</target>
+        <target>Ältester bekannter Netzwerkstatus.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">20,30</context>
