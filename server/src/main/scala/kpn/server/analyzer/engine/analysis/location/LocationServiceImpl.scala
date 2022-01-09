@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Language
+import kpn.api.common.Languages
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
@@ -70,7 +71,7 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     }
     else {
       val localLocationName = name(language, locationNames.head)
-      locations.find(_.name(language) == localLocationName) match {
+      findLocation(language, locations, localLocationName) match {
         case None => None
         case Some(locationDefinition) =>
           lookup(
@@ -80,6 +81,21 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
             Some(locationDefinition)
           )
       }
+    }
+  }
+
+  private def findLocation(
+    language: Language,
+    locations: Seq[LocationDefinition],
+    localLocationName: String
+  ): Option[LocationDefinition] = {
+    locations.find(_.name(language) == localLocationName) match {
+      case Some(locationDefinition) => Some(locationDefinition)
+      case None =>
+        val definitions = Languages.all.filterNot(_ == language).flatMap { otherLanguage =>
+          locations.find(_.name(otherLanguage) == localLocationName)
+        }
+        definitions.headOption
     }
   }
 }
