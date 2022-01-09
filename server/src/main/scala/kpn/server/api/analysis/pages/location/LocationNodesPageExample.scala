@@ -20,6 +20,7 @@ object LocationNodesPageExample {
       30,
       20,
       10,
+      5,
       Seq(
         LocationNodeInfo(
           rowIndex = 0,

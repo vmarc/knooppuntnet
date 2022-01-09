@@ -40,6 +40,13 @@ import { selectLocationNodesPage } from '../store/location.selectors';
               response.result.surveyNodeCount
             }}</span>
           </mat-radio-button>
+          <mat-radio-button [value]="locationNodesType.integrityCheckFailed">
+            <span i18n="@@location-nodes-sidebar.filter.integrity-check-failed"
+              >Unexpected route count</span
+            ><span class="kpn-brackets">{{
+              response.result.integrityCheckFailedNodeCount
+            }}</span>
+          </mat-radio-button>
         </mat-radio-group>
       </div>
     </kpn-sidebar>

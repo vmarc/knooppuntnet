@@ -9,5 +9,6 @@ case class LocationNodesPage(
   allNodeCount: Long,
   factsNodeCount: Long,
   surveyNodeCount: Long,
+  integrityCheckFailedNodeCount: Long,
   nodes: Seq[LocationNodeInfo]
 )

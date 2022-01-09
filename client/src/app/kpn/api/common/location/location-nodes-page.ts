@@ -11,5 +11,6 @@ export interface LocationNodesPage {
   readonly allNodeCount: number;
   readonly factsNodeCount: number;
   readonly surveyNodeCount: number;
+  readonly integrityCheckFailedNodeCount: number;
   readonly nodes: LocationNodeInfo[];
 }

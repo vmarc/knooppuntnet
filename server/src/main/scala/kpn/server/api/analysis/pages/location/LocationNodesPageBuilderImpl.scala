@@ -36,11 +36,13 @@ class LocationNodesPageBuilderImpl(
     val allNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.all)
     val factsNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.facts)
     val surveyNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.survey)
+    val integrityCheckFailedNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.integrityCheckFailed)
 
     val nodeCount = parameters.locationNodesType match {
       case LocationNodesType.all => allNodeCount
       case LocationNodesType.facts => factsNodeCount
       case LocationNodesType.survey => surveyNodeCount
+      case LocationNodesType.integrityCheckFailed => integrityCheckFailedNodeCount
       case _ => 0
     }
 
@@ -52,6 +54,7 @@ class LocationNodesPageBuilderImpl(
         allNodeCount,
         factsNodeCount,
         surveyNodeCount,
+        integrityCheckFailedNodeCount,
         nodes
       )
     )
