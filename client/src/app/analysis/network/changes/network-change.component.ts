@@ -16,14 +16,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
 
     <div *ngIf="networkChangeInfo.changeType.name === 'InitialValue'">
       <span i18n="@@network-changes.network-initial-value">
-        Oldest known state of network (at date of
-        <a
-          class="external"
-          href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License"
-          target="_blank"
-          rel="nofollow noreferrer"
-          >license change</a
-        >).
+        Oldest known state of network.
       </span>
     </div>
 

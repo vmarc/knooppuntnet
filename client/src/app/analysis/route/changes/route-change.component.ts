@@ -15,16 +15,7 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
     </kpn-change-header>
 
     <div *ngIf="routeChangeInfo.changeKey.changeSetId === 0">
-      <p i18n="@@route-change.initial-value">
-        Oldest known state of route (at date of
-        <a
-          class="external"
-          href="https://wiki.openstreetmap.org/wiki/NL:Open_Database_License"
-          target="_blank"
-          rel="nofollow noreferrer"
-          >license change</a
-        >).
-      </p>
+      <p i18n="@@route-change.initial-value">Oldest known state of route.</p>
     </div>
 
     <kpn-change-set-tags
