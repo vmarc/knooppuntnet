@@ -230,7 +230,7 @@ class RouteDeleteTest01 extends IntegrationTest {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
-        routeChanges = Seq(
+        orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
@@ -238,7 +238,7 @@ class RouteDeleteTest01 extends IntegrationTest {
             )
           )
         ),
-        nodeChanges = Seq(
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(

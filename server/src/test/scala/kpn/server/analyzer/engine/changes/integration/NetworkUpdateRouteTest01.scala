@@ -107,7 +107,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           Label.active,
           Label.networkType(NetworkType.hiking)
         ),
-        orphan = true,
         tags = newRouteTags("01-02"),
         analysis = newRouteInfoAnalysis(
           members = Seq(
@@ -306,7 +305,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             )
           )
         ),
-        routeChanges = Seq(
+        orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(

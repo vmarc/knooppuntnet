@@ -176,7 +176,7 @@ class RouteUpdateTest01 extends IntegrationTest {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
-        routeChanges = Seq(
+        orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(

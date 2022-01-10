@@ -197,7 +197,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
             )
           )
         ),
-        nodeChanges = Seq(
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlBicycle,
             ChangeSetElementRefs(

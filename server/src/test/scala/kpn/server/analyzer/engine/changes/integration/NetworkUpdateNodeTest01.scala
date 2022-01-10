@@ -126,7 +126,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
             )
           )
         ),
-        nodeChanges = Seq(
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(

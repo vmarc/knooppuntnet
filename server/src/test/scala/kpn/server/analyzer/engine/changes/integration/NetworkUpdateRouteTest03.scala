@@ -259,7 +259,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
             )
           )
         ),
-        routeChanges = Seq(
+        orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
@@ -269,7 +269,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
             )
           )
         ),
-        nodeChanges = Seq(
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(

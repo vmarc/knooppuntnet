@@ -348,7 +348,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!-- The following makes sure that actuator/info shows usefull information -->
+                <!-- The following makes sure that actuator/info shows useful information -->
                 <executions>
                     <execution>
                         <goals>

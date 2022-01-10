@@ -202,7 +202,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
             )
           )
         ),
-        routeChanges = Seq(
+        orphanRouteChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(

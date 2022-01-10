@@ -82,7 +82,7 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
-        nodeChanges = Seq(
+        orphanNodeChanges = Seq(
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
