@@ -39,7 +39,7 @@ class NodeDetailsPageBuilderImpl(
 
       val nodeInfo = NodeInfo(
         id = nodeDoc._id,
-        active = nodeDoc.isActive,
+        active = nodeDoc.active,
         orphan = networkReferences.isEmpty && nodeRouteReferences.isEmpty,
         country = nodeDoc.country,
         name = nodeDoc.name,

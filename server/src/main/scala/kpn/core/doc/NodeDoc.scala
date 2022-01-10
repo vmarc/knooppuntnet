@@ -36,7 +36,7 @@ case class NodeDoc(
   routeReferences: Seq[Reference]
 ) extends Tagable with LatLon with WithId {
 
-  def isActive: Boolean = {
+  def active: Boolean = {
     labels.contains(Label.active)
   }
 
@@ -74,18 +74,11 @@ case class NodeDoc(
       country == other.country &&
       name == other.name &&
       names == other.names &&
-      //  version == other.version &&
-      //  changeSetId == other.changeSetId &&
       latitude == other.latitude &&
       longitude == other.longitude &&
-      //  lastUpdated == other.lastUpdated &&
       lastSurvey == other.lastSurvey &&
       tags == other.tags &&
       facts == other.facts
-    //  locations == other.locations &&
-    //  tiles == other.tiles &&
-    //  integrity == other.integrity &&
-    //  routeReferences == other.routeReferences
   }
 
   def nodeIntegrityDetail(scopedNetworkType: ScopedNetworkType): Option[NodeIntegrityDetail] = {

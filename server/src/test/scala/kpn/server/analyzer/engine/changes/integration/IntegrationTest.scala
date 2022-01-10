@@ -43,9 +43,12 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     )(f)
   }
 
-  def testIntegration(dataBefore: OverpassData, dataAfter: OverpassData)(f: => Unit): Unit = {
+  def testIntegration(
+    dataBefore: OverpassData, dataAfter: OverpassData,
+    keepDatabaseAfterTest: Boolean = false
+  )(f: => Unit): Unit = {
     val locationAnalyzer = new LocationAnalyzerMock()
-    doTestIntegration(dataBefore, dataAfter, locationAnalyzer)(f)
+    doTestIntegration(dataBefore, dataAfter, locationAnalyzer, keepDatabaseAfterTest)(f)
   }
 
   private def doTestIntegration(

@@ -3,13 +3,14 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
+import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -18,7 +19,7 @@ import kpn.core.test.OverpassData
 
 class NetworkDeleteTest01 extends IntegrationTest {
 
-  test("network delete") {
+  test("network and network node delete") {
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -32,27 +33,27 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
     val dataAfter = OverpassData.empty
 
-    testIntegration(dataBefore, dataAfter) {
+    testIntegration(dataBefore, dataAfter, keepDatabaseAfterTest = true) {
+
+      assert(watched.networks.contains(1))
+      assert(watched.nodes.contains(1001))
 
       process(ChangeAction.Delete, newRawRelation(1))
 
       assert(!watched.networks.contains(1))
+      assert(!watched.nodes.contains(1001))
 
-      assertNetwork()
-      assertNetworkInfo()
-
-      // TODO add delete test where before network contains nodes and routes that become orphan because of the delete
-      //    orphanRoutes = RefChanges(newRefs = newOrphanRoutes),
-      //    ignoredRoutes = RefChanges(newRefs = newIgnoredRoutes),
-      //    orphanNodes = RefChanges(newRefs = newOrphanNodes),
-      //    ignoredNodes = RefChanges(newRefs = newIgnoredNodes),
+      assertNetworkNonActive()
+      assertNetworkInfoNoneActive()
+      assertNodeNonActive()
 
       assertNetworkChange()
+      assertNodeChange()
       assertChangeSetSummary()
     }
   }
 
-  private def assertNetwork(): Unit = {
+  private def assertNetworkNonActive(): Unit = {
     findNetworkById(1) should matchTo(
       newNetwork(
         1L,
@@ -67,7 +68,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetworkInfoNoneActive(): Unit = {
     findNetworkInfoById(1) should matchTo(
       newNetworkInfoDoc(
         1L,
@@ -85,6 +86,23 @@ class NetworkDeleteTest01 extends IntegrationTest {
             "name" -> "network1",
           )
         )
+      )
+    )
+  }
+
+  private def assertNodeNonActive(): Unit = {
+    findNodeById(1001L) should matchTo(
+      newNodeDoc(
+        1001L,
+        labels = Seq("network-type-hiking"), // not active anymore !!!
+        active = false,
+        country = Some(Country.nl),
+        name = "01",
+        names = Seq(newNodeName(name = "01")),
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "network:type" -> "node_network",
+        ),
       )
     )
   }
@@ -114,16 +132,6 @@ class NetworkDeleteTest01 extends IntegrationTest {
             )
           )
         ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              Seq(
-                newChangeSetElementRef(1001, "01", investigate = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(
             Subset.nlHiking,
@@ -144,5 +152,18 @@ class NetworkDeleteTest01 extends IntegrationTest {
     networkChange.networkName should equal("network1")
     assert(!networkChange.happy)
     assert(networkChange.investigate)
+  }
+
+  private def assertNodeChange(): Unit = {
+    val nodeChange = findNodeChangeById("123:1:1001")
+    nodeChange.key.changeSetId should equal(123)
+    nodeChange.key.elementId should equal(1001)
+    nodeChange.changeType should equal(ChangeType.Delete)
+    nodeChange.subsets should contain(Subset.nlHiking)
+    nodeChange.name should equal("01")
+    nodeChange.removedFromNetwork should equal(Seq(Ref(1, "network1")))
+    nodeChange.facts should equal(Seq(Fact.Deleted))
+    assert(!nodeChange.happy)
+    assert(nodeChange.investigate)
   }
 }

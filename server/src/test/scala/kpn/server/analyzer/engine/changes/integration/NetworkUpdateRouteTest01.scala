@@ -84,6 +84,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       assert(watched.routes.contains(11))
 
       assertRoute()
+      assertOrphanRoute()
       assertNetworkInfoChange()
       assertRouteChange()
       assertChangeSetSummary()
@@ -205,6 +206,17 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     )
   }
 
+  private def assertOrphanRoute(): Unit = {
+    findOrphanRouteById(11) should matchTo(
+      newOrphanRouteDoc(
+        11L,
+        Country.nl,
+        NetworkType.hiking,
+        "01-02"
+      )
+    )
+  }
+
   private def assertNetworkInfoChange(): Unit = {
     findNetworkInfoChangeById("123:1:1") should matchTo(
       newNetworkInfoChange(
@@ -302,16 +314,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                 )
               ),
               investigate = true
-            )
-          )
-        ),
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(11, "01-02", investigate = true)
-              )
             )
           )
         ),
