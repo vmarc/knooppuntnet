@@ -33,7 +33,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
     val dataAfter = OverpassData.empty
 
-    testIntegration(dataBefore, dataAfter, keepDatabaseAfterTest = true) {
+    testIntegration(dataBefore, dataAfter) {
 
       assert(watched.networks.contains(1))
       assert(watched.nodes.contains(1001))

@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
@@ -20,7 +19,6 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 
 class NetworkAddRouteTest01 extends IntegrationTest {
@@ -148,6 +146,12 @@ class NetworkAddRouteTest01 extends IntegrationTest {
             )
           )
         ),
+        nodeDiffs = RefDiffs(
+          updated = Seq(
+            Ref(1001, "01"),
+            Ref(1002, "02"),
+          )
+        ),
         routeDiffs = RefDiffs(
           added = Seq(
             Ref(11, "01-02")
@@ -260,6 +264,22 @@ class NetworkAddRouteTest01 extends IntegrationTest {
               NetworkType.hiking,
               1,
               "network",
+              nodeChanges = ChangeSetElementRefs(
+                updated = Seq(
+                  ChangeSetElementRef(
+                    1001,
+                    "01",
+                    happy = true,
+                    investigate = false
+                  ),
+                  ChangeSetElementRef(
+                    1002,
+                    "02",
+                    happy = true,
+                    investigate = false
+                  )
+                )
+              ),
               routeChanges = ChangeSetElementRefs(
                 added = Seq(
                   ChangeSetElementRef(
@@ -271,27 +291,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
                 )
               ),
               happy = true
-            )
-          )
-        ),
-
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              added = Seq(
-                newChangeSetElementRef(11, "01-02", happy = true))
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001, "01", happy = true),
-                newChangeSetElementRef(1002, "02", happy = true)
-              )
             )
           )
         ),

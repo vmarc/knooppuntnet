@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.RefBooleanChange
@@ -112,15 +111,6 @@ class NetworkUpdateNodeTest11 extends IntegrationTest {
               "network-name",
               nodeChanges = ChangeSetElementRefs(
                 updated = Seq(newChangeSetElementRef(1001, "01"))
-              )
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(newChangeSetElementRef(1001, "01")
               )
             )
           )

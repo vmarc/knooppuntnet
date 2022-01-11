@@ -275,26 +275,6 @@ class NetworkUpdateTest01 extends IntegrationTest {
             )
           )
         ),
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(11, "01-03")
-              )
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1002, "03")
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking)
         )

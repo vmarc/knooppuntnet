@@ -80,17 +80,7 @@ class NetworkCreateTest07 extends IntegrationTest {
   private def assertNetworkInfo(): Unit = {
     val networkInfoDoc = findNetworkInfoById(1)
     networkInfoDoc._id should equal(1)
-    //  networkInfoDoc.detail.networkFacts should matchTo(
-    //    NetworkFacts(
-    //      networkExtraMemberWay = Some(
-    //        Seq(
-    //          NetworkExtraMemberWay(102)
-    //        )
-    //      )
-    //    )
-    //  )
   }
-
 
   private def assertNetworkInfoChange(): Unit = {
     findNetworkInfoChangeById("123:1:1") should matchTo(
@@ -221,16 +211,6 @@ class NetworkCreateTest07 extends IntegrationTest {
                 )
               ),
               happy = true
-            )
-          )
-        ),
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(11, "01-02", happy = true)
-              )
             )
           )
         ),

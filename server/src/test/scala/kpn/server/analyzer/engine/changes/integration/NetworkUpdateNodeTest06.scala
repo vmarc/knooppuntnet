@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
@@ -67,23 +66,14 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
       assert(watched.networks.contains(1))
-
-      // TODO assert(database.orphanNodes.isEmpty)
-
-      //  findOrphanNodeById("nl:hiking:1001") should matchTo(
-      //    newOrphanNodeDoc(
-      //      country = Country.nl,
-      //      networkType = NetworkType.hiking,
-      //      nodeId = 1001L,
-      //      name = "01"
-      //    )
-      //  )
 
       assertNetwork()
       assertNetworkInfo()
 
       assertNode()
+      assertOrphanNode()
       assertNetworkInfoChange()
       assertNodeChange()
       assertChangeSetSummary()
@@ -123,6 +113,17 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
           "network:type" -> "node_network",
           "rcn_ref" -> "03",
         )
+      )
+    )
+  }
+
+  private def assertOrphanNode(): Unit = {
+    findOrphanNodeById("nl:cycling:1002") should matchTo(
+      newOrphanNodeDoc(
+        country = Country.nl,
+        networkType = NetworkType.cycling,
+        nodeId = 1002,
+        name = "03"
       )
     )
   }
@@ -189,7 +190,6 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(
-          Subset.nlBicycle,
           Subset.nlHiking
         ),
         networkChanges = NetworkChanges(
@@ -208,26 +208,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
             )
           )
         ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlBicycle,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1002, "03", investigate = true)
-              )
-            )
-          ),
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1002, "03", investigate = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlBicycle, investigate = true),
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
         ),
         investigate = true

@@ -229,17 +229,6 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
             )
           )
         ),
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(11, "01-02", investigate = true),
-                newChangeSetElementRef(12, "01-03", investigate = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
         ),

@@ -178,7 +178,6 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
     findChangeSetSummaryById("123:1") should matchTo(
       newChangeSetSummary(
         subsets = Seq(
-          Subset.nlBicycle,
           Subset.nlHiking
         ),
         networkChanges = NetworkChanges(
@@ -197,28 +196,8 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
             )
           )
         ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlBicycle,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001, "02", investigate = true)
-              )
-            )
-          ),
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001, "02", investigate = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
-          ChangeSetSubsetAnalysis(Subset.nlBicycle, investigate = true),
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
-
         ),
         investigate = true
       )

@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
@@ -56,8 +55,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       )
 
     testIntegration(dataBefore, dataAfter) {
-
-      val node1003 = findNodeById(1003)
 
       process(
         Seq(
@@ -139,6 +136,9 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1003, "03")
+          ),
+          updated = Seq(
+            Ref(1002, "02")
           )
         ),
         routeDiffs = RefDiffs(
@@ -253,32 +253,10 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
                 removed = Seq(newChangeSetElementRef(12, "02-03", investigate = true))
               ),
               nodeChanges = ChangeSetElementRefs(
-                removed = Seq(newChangeSetElementRef(1003, "03", investigate = true))
+                removed = Seq(newChangeSetElementRef(1003, "03", investigate = true)),
+                updated = Seq(newChangeSetElementRef(1002, "02", investigate = true))
               ),
               investigate = true
-            )
-          )
-        ),
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              removed = Seq(
-                newChangeSetElementRef(12, "02-03", investigate = true)
-              )
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              removed = Seq(
-                newChangeSetElementRef(1003, "03", investigate = true)
-              ),
-              updated = Seq(
-                newChangeSetElementRef(1002, "02", investigate = true)
-              )
             )
           )
         ),

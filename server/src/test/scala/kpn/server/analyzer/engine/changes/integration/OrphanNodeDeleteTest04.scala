@@ -12,6 +12,7 @@ import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 
 class OrphanNodeDeleteTest04 extends IntegrationTest {
@@ -40,10 +41,18 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
     findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
-        version = 2,
-        labels = Seq.empty, // <-- !!
+        labels = Seq("network-type-hiking"), // <-- !!
         active = false, // <-- !!
         country = Some(Country.nl),
+        name = "01",
+        names = Seq(
+          newNodeName(name = "01")
+        ),
+        version = 1,
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "network:type" -> "node_network",
+        )
       )
     )
   }
@@ -58,18 +67,9 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
         before = Some(
           newMetaData(version = 1)
         ),
-        after = Some(
-          newMetaData(version = 2)
-        ),
-        tagDiffs = Some(
-          TagDiffs(
-            Seq(
-              TagDetail(TagDetailType.Delete, "rwn_ref", Some("01"), None),
-              TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None)
-            )
-          )
-        ),
-        facts = Seq(Fact.LostHikingNodeTag),
+        after = None,
+        tagDiffs = None,
+        facts = Seq(Fact.Deleted),
         investigate = true,
         impact = true,
         locationInvestigate = true,

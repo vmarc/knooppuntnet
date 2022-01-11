@@ -15,6 +15,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 
 class NetworkUpdateNodeTest05 extends IntegrationTest {
@@ -84,8 +85,17 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
     findNodeById(1002) should matchTo(
       newNodeDoc(
         1002,
+        labels = Seq("network-type-hiking"), // not active anymore !!!
         active = false,
-        country = Some(Country.nl)
+        country = Some(Country.nl),
+        name = "02",
+        names = Seq(
+          newNodeName(name = "02")
+        ),
+        tags = Tags.from(
+          "rwn_ref" -> "02",
+          "network:type" -> "node_network",
+        )
       )
     )
   }
@@ -118,20 +128,10 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
         before = Some(
           newMetaData()
         ),
-        after = Some(
-          newMetaData()
-        ),
-        tagDiffs = Some(
-          TagDiffs(
-            Seq(
-              TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
-              TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None)
-            ),
-            Seq.empty
-          )
-        ),
+        after = None,
+        tagDiffs = None,
         removedFromNetwork = Seq(Ref(1, "name")),
-        facts = Seq(Fact.LostHikingNodeTag),
+        facts = Seq(Fact.Deleted),
         investigate = true,
         impact = true,
         locationInvestigate = true,
@@ -157,16 +157,6 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
                 )
               ),
               investigate = true
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              removed = Seq(
-                newChangeSetElementRef(1002, "02", investigate = true)
-              )
             )
           )
         ),

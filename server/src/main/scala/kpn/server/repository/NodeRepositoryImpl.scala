@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkType
+import kpn.core.doc.Label
 import kpn.database.actions.nodes.MongoQueryKnownNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
@@ -80,7 +81,7 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     Seq(
       filter(
         and(
-          equal("active", true),
+          equal("labels", Label.active),
           equal("nodeRefs", nodeId)
         )
       ),

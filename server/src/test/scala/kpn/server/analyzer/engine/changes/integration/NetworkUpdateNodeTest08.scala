@@ -133,16 +133,6 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
             )
           )
         ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1002, "02", happy = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
         ),

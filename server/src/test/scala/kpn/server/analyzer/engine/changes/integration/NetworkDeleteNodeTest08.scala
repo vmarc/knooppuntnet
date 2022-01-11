@@ -152,16 +152,6 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
             )
           )
         ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              removed = Seq(
-                newChangeSetElementRef(1001, "01", investigate = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, investigate = true)
         ),

@@ -15,6 +15,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 
 class NetworkDeleteNodeTest04 extends IntegrationTest {
@@ -75,9 +76,16 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
     findNodeById(1001) should matchTo(
       newNodeDoc(
         1001,
+        labels = Seq("network-type-hiking"),
         active = false, // <--
         country = Some(Country.nl),
-        version = 2 // <--
+        name = "01",
+        names = Seq(newNodeName(name = "01")),
+        version = 1, // <--
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "network:type" -> "node_network",
+        )
       )
     )
   }
@@ -111,21 +119,12 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         before = Some(
           newMetaData(version = 1)
         ),
-        after = Some(
-          newMetaData(version = 2)
-        ),
-        tagDiffs = Some(
-          TagDiffs(
-            mainTags = Seq(
-              TagDetail(Delete, "rwn_ref", Some("01"), None),
-              TagDetail(Delete, "network:type", Some("node_network"), None)
-            )
-          )
-        ),
+        after = None,
+        tagDiffs = None,
         removedFromNetwork = Seq(
           Ref(1, "network")
         ),
-        facts = Seq(Fact.LostHikingNodeTag),
+        facts = Seq(Fact.Deleted),
         investigate = true,
         impact = true,
         locationInvestigate = true,
@@ -151,16 +150,6 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
                 )
               ),
               investigate = true
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              removed = Seq(
-                newChangeSetElementRef(1001, "01", investigate = true)
-              )
             )
           )
         ),

@@ -216,27 +216,6 @@ class NetworkCreateTest06 extends IntegrationTest {
             )
           )
         ),
-        orphanRouteChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              added = Seq(
-                newChangeSetElementRef(11, "01-02", happy = true)
-              )
-            )
-          )
-        ),
-        orphanNodeChanges = Seq(
-          ChangeSetSubsetElementRefs(
-            Subset.nlHiking,
-            ChangeSetElementRefs(
-              updated = Seq(
-                newChangeSetElementRef(1001, "01", happy = true),
-                newChangeSetElementRef(1002, "02", happy = true)
-              )
-            )
-          )
-        ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true)
         ),
