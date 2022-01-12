@@ -69,7 +69,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       //      )
       //
       //      val repository: FactRepository = new FactRepositoryImpl(null)
-      //      repository.factsPerNetwork(Subset.beHiking, RouteUnusedSegments) should matchTo(
+      //      repository.factsPerNetwork(Subset.beHiking, RouteUnusedSegments).shouldMatchTo(
       //        Seq(
       //          NetworkFactRefs(
       //            1,
@@ -137,7 +137,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       //      )
       //
       //      val repository: FactRepository = new FactRepositoryImpl(null)
-      //      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed) should matchTo(
+      //      repository.factsPerNetwork(Subset.beHiking, Fact.IntegrityCheckFailed).shouldMatchTo(
       //        Seq(
       //          NetworkFactRefs(
       //            1,

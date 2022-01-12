@@ -279,8 +279,8 @@
 
         <dependency>
             <groupId>com.softwaremill.diffx</groupId>
-            <artifactId>diffx-scalatest_2.13</artifactId>
-            <version>0.6.0</version>
+            <artifactId>diffx-scalatest-should_2.13</artifactId>
+            <version>0.7.0</version>
         </dependency>
 
         <dependency>

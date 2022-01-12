@@ -45,7 +45,7 @@ class RouteUpdateTest02 extends IntegrationTest {
 
       val routeChange = findRouteChangeById("123:1:11")
 
-      routeChange.removedWays should matchTo(
+      routeChange.removedWays.shouldMatchTo(
         Seq(
           newRawWay(
             102,

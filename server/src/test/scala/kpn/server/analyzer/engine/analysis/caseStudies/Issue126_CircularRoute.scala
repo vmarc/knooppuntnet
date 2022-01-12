@@ -12,7 +12,7 @@ class Issue126_CircularRoute extends UnitTest {
 
     route.facts shouldBe empty
 
-    route.analysis.map.freeNodes should matchTo {
+    route.analysis.map.freeNodes.shouldMatchTo {
       Seq(
         RouteNetworkNodeInfo(
           43052537L,

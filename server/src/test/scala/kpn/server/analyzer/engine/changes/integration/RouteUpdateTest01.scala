@@ -63,7 +63,7 @@ class RouteUpdateTest01 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    findRouteChangeById("123:1:11") should matchTo(
+    findRouteChangeById("123:1:11").shouldMatchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -162,7 +162,7 @@ class RouteUpdateTest01 extends IntegrationTest {
   }
 
   private def assertOrphanRoute(): Unit = {
-    findOrphanRouteById(11L) should matchTo(
+    findOrphanRouteById(11L).shouldMatchTo(
       newOrphanRouteDoc(
         11L,
         country = Country.nl,
@@ -173,7 +173,7 @@ class RouteUpdateTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
+    findChangeSetSummaryById("123:1").shouldMatchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         orphanRouteChanges = Seq(

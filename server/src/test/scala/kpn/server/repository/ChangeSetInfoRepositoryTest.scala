@@ -32,7 +32,7 @@ class ChangeSetInfoRepositoryTest extends UnitTest {
 
       repository.save(changeSetInfo)
 
-      repository.get(changeSetId).value should matchTo(changeSetInfo)
+      repository.get(changeSetId).value.shouldMatchTo(changeSetInfo)
     }
   }
 
@@ -54,7 +54,7 @@ class ChangeSetInfoRepositoryTest extends UnitTest {
 
       repository.save(changeSetInfo)
 
-      repository.all(Seq(changeSetId)) should matchTo(Seq(changeSetInfo))
+      repository.all(Seq(changeSetId)).shouldMatchTo(Seq(changeSetInfo))
     }
   }
 

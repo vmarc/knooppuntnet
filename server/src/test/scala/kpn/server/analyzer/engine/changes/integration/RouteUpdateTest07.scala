@@ -53,6 +53,6 @@ class RouteUpdateTest07 extends IntegrationTest {
     //      Set()
     //    )
     //
-    //    analysis.get.diffs should matchTo(RouteDiff(factDiffs = Some(expectedDiff)))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(factDiffs = Some(expectedDiff)))
   }
 }

@@ -85,7 +85,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val updatedContext = NetworkInfoNodeAnalyzer.analyze(context)
 
-    updatedContext.integrity should matchTo(
+    updatedContext.integrity.shouldMatchTo(
       Integrity(
         isOk = false,
         hasChecks = true,

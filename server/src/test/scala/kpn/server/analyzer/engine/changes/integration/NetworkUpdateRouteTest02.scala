@@ -103,7 +103,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1") should matchTo(
+    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -150,7 +150,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
       )
     )
 
-    findRouteChangeById("123:1:11") should matchTo(
+    findRouteChangeById("123:1:11").shouldMatchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -166,7 +166,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
+    findChangeSetSummaryById("123:1").shouldMatchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

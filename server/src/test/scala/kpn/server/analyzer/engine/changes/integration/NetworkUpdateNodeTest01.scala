@@ -53,8 +53,8 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
       assert(watched.networks.contains(1))
 
       assert(database.routes.isEmpty)
-      findNodeById(1001) should matchTo(node1001)
-      findNodeById(1002) should matchTo(node1002)
+      findNodeById(1001).shouldMatchTo(node1001)
+      findNodeById(1002).shouldMatchTo(node1002)
       database.orphanNodes.stringIds() should equal(Seq("nl:hiking:1002"))
 
       assertNetworkInfo()
@@ -71,7 +71,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002") should matchTo(
+    findNodeChangeById("123:1:1002").shouldMatchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -91,7 +91,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1") should matchTo(
+    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -107,7 +107,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
+    findChangeSetSummaryById("123:1").shouldMatchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

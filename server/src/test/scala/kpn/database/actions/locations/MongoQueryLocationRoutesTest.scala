@@ -97,7 +97,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val query = new MongoQueryLocationRoutes(database)
       val locationRouteInfos = query.find(NetworkType.hiking, "essen", LocationRoutesType.all, 10, 0)
 
-      locationRouteInfos should matchTo(
+      locationRouteInfos.shouldMatchTo(
         Seq(
           LocationRouteInfo(
             0L,

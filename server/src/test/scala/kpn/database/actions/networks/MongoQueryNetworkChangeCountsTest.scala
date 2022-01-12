@@ -22,7 +22,7 @@ class MongoQueryNetworkChangeCountsTest extends UnitTest with SharedTestObjects 
 
       val query = new MongoQueryNetworkChangeCounts(database)
 
-      query.execute(1L, 2021, None) should matchTo(
+      query.execute(1L, 2021, None).shouldMatchTo(
         ChangeSetCounts(
           years = Seq(
             newChangeSetCount(2021)(1, 4),
@@ -35,7 +35,7 @@ class MongoQueryNetworkChangeCountsTest extends UnitTest with SharedTestObjects 
         )
       )
 
-      query.execute(1L, 2021, Some(1)) should matchTo(
+      query.execute(1L, 2021, Some(1)).shouldMatchTo(
         ChangeSetCounts(
           years = Seq(
             newChangeSetCount(2021)(1, 4),

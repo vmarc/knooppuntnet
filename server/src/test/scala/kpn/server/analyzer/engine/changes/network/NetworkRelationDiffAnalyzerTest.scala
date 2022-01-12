@@ -24,7 +24,7 @@ class NetworkRelationDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val analyzer = new NetworkRelationDiffAnalyzer(before, after)
-    analyzer.nodeDiffs should matchTo(
+    analyzer.nodeDiffs.shouldMatchTo(
       IdDiffs(
         removed = Seq(1),
         added = Seq(2),
@@ -48,7 +48,7 @@ class NetworkRelationDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val analyzer = new NetworkRelationDiffAnalyzer(before, after)
-    analyzer.wayDiffs should matchTo(
+    analyzer.wayDiffs.shouldMatchTo(
       IdDiffs(
         removed = Seq(1),
         added = Seq(2)
@@ -73,7 +73,7 @@ class NetworkRelationDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val analyzer = new NetworkRelationDiffAnalyzer(before, after)
-    analyzer.relationDiffs should matchTo(
+    analyzer.relationDiffs.shouldMatchTo(
       IdDiffs(
         removed = Seq(1),
         added = Seq(2),

@@ -53,7 +53,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   }
 
   private def assertNetworkInfo(): Unit = {
-    findNetworkInfoById(1) should matchTo(
+    findNetworkInfoById(1).shouldMatchTo(
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!
@@ -73,7 +73,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   }
 
   private def assertNode(): Unit = {
-    findNodeById(1001) should matchTo(
+    findNodeById(1001).shouldMatchTo(
       newNodeDoc(
         1001,
         labels = Seq("network-type-hiking"),
@@ -91,7 +91,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1") should matchTo(
+    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Delete,
@@ -110,7 +110,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   }
 
   private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
+    findNodeChangeById("123:1:1001").shouldMatchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
@@ -134,7 +134,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
+    findChangeSetSummaryById("123:1").shouldMatchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

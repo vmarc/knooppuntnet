@@ -39,7 +39,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.changesCount(MonitorChangesParameters(impact = true)) should equal(2)
-      routeRepository.changes(MonitorChangesParameters(impact = true)) should matchTo(
+      routeRepository.changes(MonitorChangesParameters(impact = true)).shouldMatchTo(
         Seq(
           change5,
           change2
@@ -47,7 +47,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.groupChangesCount("group-1", MonitorChangesParameters()) should equal(3)
-      routeRepository.groupChanges("group-1", MonitorChangesParameters()) should matchTo(
+      routeRepository.groupChanges("group-1", MonitorChangesParameters()).shouldMatchTo(
         Seq(
           change3,
           change2,
@@ -56,14 +56,14 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.groupChangesCount("group-1", MonitorChangesParameters(impact = true)) should equal(1)
-      routeRepository.groupChanges("group-1", MonitorChangesParameters(impact = true)) should matchTo(
+      routeRepository.groupChanges("group-1", MonitorChangesParameters(impact = true)).shouldMatchTo(
         Seq(
           change2
         )
       )
 
       routeRepository.routeChangesCount("TODO KEY" + 101L, MonitorChangesParameters()) should equal(2)
-      routeRepository.routeChanges("TODO KEY" + 101L, MonitorChangesParameters()) should matchTo(
+      routeRepository.routeChanges("TODO KEY" + 101L, MonitorChangesParameters()).shouldMatchTo(
         Seq(
           change2,
           change1
@@ -71,7 +71,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.routeChangesCount("TODO KEY" + 101L, MonitorChangesParameters(impact = true)) should equal(1)
-      routeRepository.routeChanges("TODO KEY" + 101L, MonitorChangesParameters(impact = true)) should matchTo(
+      routeRepository.routeChanges("TODO KEY" + 101L, MonitorChangesParameters(impact = true)).shouldMatchTo(
         Seq(
           change2
         )

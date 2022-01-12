@@ -21,7 +21,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
     val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
 
     // route 24-81
-    locator.locate(route("28184").analysis.map) should matchTo(
+    locator.locate(route("28184").analysis.map).shouldMatchTo(
       RouteLocationAnalysis(
         Some(essen),
         Seq(
@@ -42,7 +42,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
     )
 
     // route 55-95
-    locator.locate(route("19227").analysis.map) should matchTo(
+    locator.locate(route("19227").analysis.map).shouldMatchTo(
       RouteLocationAnalysis(
         Some(rucphen),
         Seq(
@@ -63,7 +63,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
     )
 
     // route 80-89
-    locator.locate(route("28182").analysis.map) should matchTo(
+    locator.locate(route("28182").analysis.map).shouldMatchTo(
       RouteLocationAnalysis(
         Some(kalmthout),
         Seq(

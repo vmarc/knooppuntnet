@@ -58,7 +58,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     assert(contextAfter.extraRelationIds.isEmpty)
     assert(contextAfter.facts.isEmpty)
 
-    contextAfter.networkFacts should matchTo(
+    contextAfter.networkFacts.shouldMatchTo(
       Seq(
         NetworkFact(
           "NetworkExtraMemberNode",
@@ -127,7 +127,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     assert(contextAfter.extraRelationIds.isEmpty)
     assert(contextAfter.facts.isEmpty)
 
-    contextAfter.networkFacts should matchTo(
+    contextAfter.networkFacts.shouldMatchTo(
       Seq(
         NetworkFact(
           "NetworkExtraMemberNode",

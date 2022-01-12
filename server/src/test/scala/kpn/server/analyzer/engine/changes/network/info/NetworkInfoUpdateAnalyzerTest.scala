@@ -35,7 +35,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(!networkInfoChange.happy)
 
-    networkInfoChange.nodeDiffs should matchTo(
+    networkInfoChange.nodeDiffs.shouldMatchTo(
       RefDiffs(
         removed = Seq(
           Ref(1001, "01")
@@ -66,7 +66,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.impact)
     assert(!networkInfoChange.investigate)
 
-    networkInfoChange.nodeDiffs should matchTo(
+    networkInfoChange.nodeDiffs.shouldMatchTo(
       RefDiffs(
         added = Seq(
           Ref(1001, "01")
@@ -103,7 +103,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(!networkInfoChange.impact)
 
-    networkInfoChange.nodeDiffs should matchTo(
+    networkInfoChange.nodeDiffs.shouldMatchTo(
       RefDiffs(
         updated = Seq(
           Ref(1001, "02")
@@ -134,7 +134,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.routeDiffs should matchTo(
+    networkInfoChange.routeDiffs.shouldMatchTo(
       RefDiffs(
         removed = Seq(
           Ref(11, "01-02")
@@ -165,7 +165,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.routeDiffs should matchTo(
+    networkInfoChange.routeDiffs.shouldMatchTo(
       RefDiffs(
         added = Seq(
           Ref(11, "01-02")
@@ -202,7 +202,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(!networkInfoChange.impact)
 
-    networkInfoChange.routeDiffs should matchTo(
+    networkInfoChange.routeDiffs.shouldMatchTo(
       RefDiffs(
         updated = Seq(
           Ref(11, "01-03")
@@ -228,7 +228,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraNodeDiffs should matchTo(
+    networkInfoChange.extraNodeDiffs.shouldMatchTo(
       IdDiffs(
         removed = Seq(
           1001
@@ -254,7 +254,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraNodeDiffs should matchTo(
+    networkInfoChange.extraNodeDiffs.shouldMatchTo(
       IdDiffs(
         added = Seq(
           1001
@@ -280,7 +280,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraWayDiffs should matchTo(
+    networkInfoChange.extraWayDiffs.shouldMatchTo(
       IdDiffs(
         removed = Seq(
           101
@@ -306,7 +306,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraWayDiffs should matchTo(
+    networkInfoChange.extraWayDiffs.shouldMatchTo(
       IdDiffs(
         added = Seq(
           101
@@ -332,7 +332,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraRelationDiffs should matchTo(
+    networkInfoChange.extraRelationDiffs.shouldMatchTo(
       IdDiffs(
         removed = Seq(
           2
@@ -358,7 +358,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraRelationDiffs should matchTo(
+    networkInfoChange.extraRelationDiffs.shouldMatchTo(
       IdDiffs(
         added = Seq(
           2

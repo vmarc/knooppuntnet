@@ -17,9 +17,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeDoc(102))
       nodeRepository.save(newNodeDoc(103))
 
-      nodeRepository.nodeWithId(101).value should matchTo(newNodeDoc(101))
-      nodeRepository.nodeWithId(102).value should matchTo(newNodeDoc(102))
-      nodeRepository.nodeWithId(103).value should matchTo(newNodeDoc(103))
+      nodeRepository.nodeWithId(101).value.shouldMatchTo(newNodeDoc(101))
+      nodeRepository.nodeWithId(102).value.shouldMatchTo(newNodeDoc(102))
+      nodeRepository.nodeWithId(103).value.shouldMatchTo(newNodeDoc(103))
       nodeRepository.nodeWithId(104) should equal(None)
     }
   }
@@ -33,7 +33,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(102))
 
-      nodeRepository.nodesWithIds(Seq(101, 102, 103)) should matchTo(Seq(newNodeDoc(101), newNodeDoc(102)))
+      nodeRepository.nodesWithIds(Seq(101, 102, 103)).shouldMatchTo(Seq(newNodeDoc(101), newNodeDoc(102)))
     }
   }
 
@@ -58,9 +58,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03"))
       )
 
-      nodeRepository.nodeWithId(101).value should matchTo(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")))
-      nodeRepository.nodeWithId(102).value should matchTo(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")))
-      nodeRepository.nodeWithId(103).value should matchTo(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03")))
+      nodeRepository.nodeWithId(101).value.shouldMatchTo(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.nodeWithId(102).value.shouldMatchTo(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.nodeWithId(103).value.shouldMatchTo(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "03")))
       nodeRepository.nodeWithId(104) should equal(None)
 
       nodeRepository.bulkSave(
@@ -69,9 +69,9 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
         newNodeDoc(103, tags = Tags.from("rwn_ref" -> "33"))
       )
 
-      nodeRepository.nodeWithId(101).value should matchTo(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")))
-      nodeRepository.nodeWithId(102).value should matchTo(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")))
-      nodeRepository.nodeWithId(103).value should matchTo(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "33"))) // updated
+      nodeRepository.nodeWithId(101).value.shouldMatchTo(newNodeDoc(101, tags = Tags.from("rwn_ref" -> "01")))
+      nodeRepository.nodeWithId(102).value.shouldMatchTo(newNodeDoc(102, tags = Tags.from("rwn_ref" -> "02")))
+      nodeRepository.nodeWithId(103).value.shouldMatchTo(newNodeDoc(103, tags = Tags.from("rwn_ref" -> "33"))) // updated
       nodeRepository.nodeWithId(104) should equal(None)
     }
   }
@@ -86,7 +86,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       nodeRepository.save(newNodeDoc(101))
       nodeRepository.save(newNodeDoc(101))
 
-      nodeRepository.nodeWithId(101).value should matchTo(newNodeDoc(101))
+      nodeRepository.nodeWithId(101).value.shouldMatchTo(newNodeDoc(101))
     }
   }
 
@@ -119,7 +119,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       //  )
       //
       //  val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
-      //  nodeRepository.nodeNetworkReferences(1001) should matchTo(
+      //  nodeRepository.nodeNetworkReferences(1001).shouldMatchTo(
       //    Seq(
       //      Reference(
       //        NetworkType.hiking,

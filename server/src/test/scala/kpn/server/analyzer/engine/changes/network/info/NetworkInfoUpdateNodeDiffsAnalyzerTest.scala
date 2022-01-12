@@ -28,7 +28,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       1
     )
 
-    analyze(before, after) should matchTo(
+    analyze(before, after).shouldMatchTo(
       RefDiffs(
         removed = Seq(
           Ref(1001, "01")
@@ -53,7 +53,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       )
     )
 
-    analyze(before, after) should matchTo(
+    analyze(before, after).shouldMatchTo(
       RefDiffs(
         added = Seq(
           Ref(1001, "01")
@@ -84,7 +84,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       )
     )
 
-    analyze(before, after) should matchTo(
+    analyze(before, after).shouldMatchTo(
       RefDiffs(
         updated = Seq(
           Ref(1001, "02")
@@ -119,7 +119,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       )
     )
 
-    analyze(context, networkDoc, networkDoc) should matchTo(
+    analyze(context, networkDoc, networkDoc).shouldMatchTo(
       RefDiffs(
         updated = Seq(
           Ref(1001, "01")

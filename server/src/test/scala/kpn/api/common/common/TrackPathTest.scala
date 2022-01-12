@@ -25,7 +25,7 @@ class TrackPathTest extends UnitTest {
       )
     )
 
-    trackPath.trackPoints should matchTo(
+    trackPath.trackPoints.shouldMatchTo(
       Seq(
         TrackPoint("1", "1"),
         TrackPoint("2", "2"),
@@ -62,7 +62,7 @@ class TrackPathTest extends UnitTest {
       )
     )
 
-    trackPath.reverse should matchTo(
+    trackPath.reverse.shouldMatchTo(
       TrackPath(
         pathId = 123L,
         startNodeId = 1005L,

@@ -41,7 +41,7 @@ class NetworkInfoNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
       val analyzer = new NetworkInfoNodeDocAnalyzer(database)
       val updatedContext = analyzer.analyze(context)
 
-      updatedContext.nodeDocs should matchTo(
+      updatedContext.nodeDocs.shouldMatchTo(
         Seq(
           newNodeDoc(id = 1001L),
           newNodeDoc(id = 1002L),

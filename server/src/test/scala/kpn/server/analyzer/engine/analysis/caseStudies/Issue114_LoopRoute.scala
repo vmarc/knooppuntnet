@@ -16,7 +16,7 @@ class Issue114_LoopRoute extends UnitTest {
 
     route.facts shouldBe empty
 
-    route.analysis.map.freeNodes should matchTo {
+    route.analysis.map.freeNodes.shouldMatchTo {
       Seq(
         RouteNetworkNodeInfo(
           47452329L,

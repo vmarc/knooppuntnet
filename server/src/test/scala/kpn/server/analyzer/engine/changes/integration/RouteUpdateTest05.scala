@@ -60,6 +60,6 @@ class RouteUpdateTest05 extends IntegrationTest {
     //      )
     //    )
     //
-    //    analysis.get.diffs should matchTo(RouteDiff(nameDiff = expectedNameDiff, tagDiffs = expectedTagDiff))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(nameDiff = expectedNameDiff, tagDiffs = expectedTagDiff))
   }
 }

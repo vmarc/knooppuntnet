@@ -42,7 +42,7 @@ class RouteUpdateTest03 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
       val routeChange = findRouteChangeById("123:1:11")
-      routeChange.addedWays should matchTo(
+      routeChange.addedWays.shouldMatchTo(
         Seq(
           newRawWay(
             102,

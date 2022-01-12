@@ -23,7 +23,7 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   test("node moved") {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))
     val n2 = nodeData(1, "51.5291600", "4.297800", 4, Timestamp(2015, 8, 11, 12, 0, 0), 100, Tags.from("a" -> "1"))
-    new NodeDataDiffAnalyzer(n1, n2).analysis.value should matchTo(
+    new NodeDataDiffAnalyzer(n1, n2).analysis.value.shouldMatchTo(
       NodeDataUpdate(
         n1,
         n2,
@@ -39,13 +39,13 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))
     val n2 = nodeData(1, "51.5291500", "4.297700", 4, Timestamp(2015, 8, 11, 12, 0, 0), 100, Tags.from("a" -> "2"))
     val expectedDiffs = TagDiffs(Seq.empty, Seq(TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))))
-    new NodeDataDiffAnalyzer(n1, n2).analysis.value should matchTo(NodeDataUpdate(n1, n2, Some(expectedDiffs)))
+    new NodeDataDiffAnalyzer(n1, n2).analysis.value.shouldMatchTo(NodeDataUpdate(n1, n2, Some(expectedDiffs)))
   }
 
   test("only meta info changed") {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))
     val n2 = nodeData(1, "51.5291500", "4.297700", 4, Timestamp(2015, 8, 11, 12, 0, 0), 101, Tags.from("a" -> "1"))
-    new NodeDataDiffAnalyzer(n1, n2).analysis.value should matchTo(NodeDataUpdate(n1, n2, None))
+    new NodeDataDiffAnalyzer(n1, n2).analysis.value.shouldMatchTo(NodeDataUpdate(n1, n2, None))
   }
 
   def nodeData(

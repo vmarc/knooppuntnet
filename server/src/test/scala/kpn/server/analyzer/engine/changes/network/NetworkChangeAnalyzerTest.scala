@@ -25,7 +25,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Create' network") {
     val setup = new Setup()
     val change = Change(Create, Seq(buildNetwork(1L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         creates = Seq(1L)
       )
@@ -35,7 +35,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Modify' of previously unknown network is treated as new network") {
     val setup = new Setup()
     val change = Change(Modify, Seq(buildNetwork(1L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         creates = Seq(1L)
       )
@@ -46,7 +46,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)
     val change = Change(Modify, Seq(buildNetwork(1L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(1L)
       )
@@ -57,7 +57,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)
     val change = Change(Modify, Seq(newRawRelation(11L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(1L)
       )
@@ -68,7 +68,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)
     val change = Change(Modify, Seq(newRawNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(1L)
       )
@@ -79,7 +79,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)
     val change = Change(Delete, Seq(buildNetwork(1L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         deletes = Seq(1L)
       )

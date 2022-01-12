@@ -126,7 +126,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     val changeSetSummary = new ChangeSetSummaryBuilder().build(context)
 
-    changeSetSummary should matchTo(
+    changeSetSummary.shouldMatchTo(
       ChangeSetSummary(
         _id = newChangeKey().toShortId,
         key = newChangeKey(),
@@ -297,7 +297,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
 
     val changeSetSummary = new ChangeSetSummaryBuilder().build(context)
 
-    changeSetSummary should matchTo(
+    changeSetSummary.shouldMatchTo(
       ChangeSetSummary(
         _id = newChangeKey().toShortId,
         key = newChangeKey(),

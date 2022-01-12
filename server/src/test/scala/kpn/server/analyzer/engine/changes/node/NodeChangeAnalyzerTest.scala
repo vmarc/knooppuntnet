@@ -19,7 +19,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Create' new node") {
     val setup = new Setup()
     val change = Change(Create, Seq(createNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         creates = Seq(1001L)
       )
@@ -29,7 +29,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Modify' of a previously unknown node is treated as new node") {
     val setup = new Setup()
     val change = Change(Modify, Seq(createNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         creates = Seq(1001L)
       )
@@ -40,7 +40,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.nodes.add(1001L)
     val change = Change(Modify, Seq(createNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(1001L)
       )
@@ -51,7 +51,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.nodes.add(1001L)
     val change = Change(Delete, Seq(newRawNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         deletes = Seq(1001L)
       )
@@ -61,7 +61,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Delete' of unknown node with tags in delete (does not happen in practice?)") {
     val setup = new Setup()
     val change = Change(Delete, Seq(createNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         deletes = Seq(1001L)
       )
@@ -71,7 +71,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Delete' of unknown node without tags is ignored") {
     val setup = new Setup()
     val change = Change(Delete, Seq(newRawNode(1001L)))
-    setup.analyze(change) should matchTo(ElementChanges())
+    setup.analyze(change).shouldMatchTo(ElementChanges())
   }
 
   test("Ignore 'Create' of blacklisted route") {

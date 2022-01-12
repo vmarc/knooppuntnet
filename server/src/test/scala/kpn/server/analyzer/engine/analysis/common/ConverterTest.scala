@@ -15,7 +15,7 @@ class ConverterTest extends UnitTest {
         buildSegment(TrackPoint("1", "1"), Seq(TrackPoint("2", "2"), TrackPoint("3", "3")))
       )
     )
-    Converter.trackPathToPoints(trackPath) should matchTo(Seq(Point(1, 1), Point(2, 2), Point(3, 3)))
+    Converter.trackPathToPoints(trackPath).shouldMatchTo(Seq(Point(1, 1), Point(2, 2), Point(3, 3)))
   }
 
   test("trackPathToPoints - multiple segments") {
@@ -25,7 +25,7 @@ class ConverterTest extends UnitTest {
         buildSegment(TrackPoint("3", "3"), Seq(TrackPoint("4", "4"), TrackPoint("5", "5")))
       )
     )
-    Converter.trackPathToPoints(trackPath) should matchTo(
+    Converter.trackPathToPoints(trackPath).shouldMatchTo(
       Seq(
         Point(1, 1),
         Point(2, 2),

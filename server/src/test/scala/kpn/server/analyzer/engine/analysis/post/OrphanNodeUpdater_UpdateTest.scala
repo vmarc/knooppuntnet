@@ -57,7 +57,7 @@ class OrphanNodeUpdater_UpdateTest extends UnitTest with SharedTestObjects {
       database.orphanNodes.save(newOrphanNodeDoc(Country.nl, NetworkType.hiking, 1002))
       // single orphan node
       new OrphanNodeUpdater_Update(database, new MockLog()).execute(Seq(1002))
-      database.orphanNodes.findAll().sortBy(_._id) should matchTo(
+      database.orphanNodes.findAll().sortBy(_._id).shouldMatchTo(
         Seq(
           OrphanNodeDoc(
             _id = "nl:cycling:1002",

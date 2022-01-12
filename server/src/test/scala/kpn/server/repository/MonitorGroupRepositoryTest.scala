@@ -21,7 +21,7 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveGroup(MonitorGroup("name2", "description2"))
       repository.group("name1") should equal(Some(MonitorGroup("name1", "description1")))
       repository.group("name2") should equal(Some(MonitorGroup("name2", "description2")))
-      repository.groups() should matchTo(
+      repository.groups().shouldMatchTo(
         Seq(
           MonitorGroup("name1", "description1"),
           MonitorGroup("name2", "description2")
@@ -29,7 +29,7 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       repository.deleteGroup("name1")
-      repository.groups() should matchTo(
+      repository.groups().shouldMatchTo(
         Seq(
           MonitorGroup("name2", "description2")
         )
@@ -51,7 +51,7 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       database.monitorRoutes.save(MonitorRoute("", 2L, "group-name", "route 2", ""))
       database.monitorRoutes.save(MonitorRoute("", 3L, "group-name", "route 3", ""))
 
-      repository.groupRoutes("group-name") should matchTo(
+      repository.groupRoutes("group-name").shouldMatchTo(
         Seq(
           MonitorRoute("", 1L, "group-name", "route 1", ""),
           MonitorRoute("", 2L, "group-name", "route 2", ""),

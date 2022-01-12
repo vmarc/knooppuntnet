@@ -45,7 +45,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
+    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2)),
         Segment("unpaved", Seq(fragment3, fragment4)),
@@ -76,7 +76,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment1
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
+    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1))
       )
@@ -123,7 +123,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
+    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2, fragment3, fragment4, fragment5))
       )
@@ -170,7 +170,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments) should matchTo(
+    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1)),
         Segment("unpaved", Seq(fragment2)),

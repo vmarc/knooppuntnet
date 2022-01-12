@@ -14,7 +14,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       new NodeChangeMerger(
         newNodeChange(subsets = left),
         newNodeChange(subsets = right)
-      ).merged.subsets should matchTo(expected)
+      ).merged.subsets.shouldMatchTo(expected)
     }
 
     assertMerged(Seq.empty, Seq.empty, Seq.empty)
@@ -32,7 +32,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       new NodeChangeMerger(
         newNodeChange(before = left),
         newNodeChange(before = right)
-      ).merged.before should matchTo(expected)
+      ).merged.before.shouldMatchTo(expected)
     }
 
     assertMerged(None, None, None)
@@ -46,7 +46,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       new NodeChangeMerger(
         newNodeChange(after = left),
         newNodeChange(after = right)
-      ).merged.after should matchTo(expected)
+      ).merged.after.shouldMatchTo(expected)
     }
 
     assertMerged(None, None, None)
@@ -68,7 +68,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       new NodeChangeMerger(
         newNodeChange(addedToNetwork = left),
         newNodeChange(addedToNetwork = right)
-      ).merged.addedToNetwork should matchTo(expected)
+      ).merged.addedToNetwork.shouldMatchTo(expected)
     }
 
     assertMerged(Seq.empty, Seq.empty, Seq.empty)
@@ -82,7 +82,7 @@ class NodeChangeMergerTest extends UnitTest with SharedTestObjects {
       new NodeChangeMerger(
         newNodeChange(removedFromNetwork = left),
         newNodeChange(removedFromNetwork = right)
-      ).merged.removedFromNetwork should matchTo(expected)
+      ).merged.removedFromNetwork.shouldMatchTo(expected)
     }
 
     assertMerged(Seq.empty, Seq.empty, Seq.empty)

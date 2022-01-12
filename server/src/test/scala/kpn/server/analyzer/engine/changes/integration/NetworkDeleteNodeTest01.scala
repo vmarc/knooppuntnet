@@ -50,7 +50,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   }
 
   private def assertNetwork(): Unit = {
-    findNetworkById(1) should matchTo(
+    findNetworkById(1).shouldMatchTo(
       newNetwork(
         1,
         active = false,
@@ -65,7 +65,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfo(): Unit = {
-    findNetworkInfoById(1) should matchTo(
+    findNetworkInfoById(1).shouldMatchTo(
       newNetworkInfoDoc(
         1,
         active = false,
@@ -87,7 +87,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1") should matchTo(
+    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Delete,
@@ -104,7 +104,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001") should matchTo(
+    findNodeChangeById("123:1:1001").shouldMatchTo(
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
@@ -126,7 +126,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1") should matchTo(
+    findChangeSetSummaryById("123:1").shouldMatchTo(
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -154,7 +154,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   }
 
   private def assertOrphanNode(): Unit = {
-    findOrphanNodeById("nl:hiking:1001") should matchTo(
+    findOrphanNodeById("nl:hiking:1001").shouldMatchTo(
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,

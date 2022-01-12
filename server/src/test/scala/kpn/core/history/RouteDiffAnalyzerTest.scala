@@ -196,7 +196,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     )
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
-    //    analysis.get.diffs should matchTo(RouteDiff(nameDiff = expectedNameDiff, tagDiffs = expectedTagDiff))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(nameDiff = expectedNameDiff, tagDiffs = expectedTagDiff))
   }
 
   test("role diff") {
@@ -236,7 +236,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
-    //    analysis.get.diffs should matchTo(RouteDiff(roleDiff = Some(RouteRoleDiff(Some("role"), Some("connection")))))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(roleDiff = Some(RouteRoleDiff(Some("role"), Some("connection")))))
   }
 
   test("fact diff") {
@@ -286,7 +286,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     )
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
-    //    analysis.get.diffs should matchTo(RouteDiff(factDiffs = Some(expectedDiff)))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(factDiffs = Some(expectedDiff)))
   }
 
   test("member diffs") {
@@ -337,7 +337,7 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
-    //    analysis.get.diffs should matchTo(RouteDiff(factDiffs = None, memberOrderChanged = true))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(factDiffs = None, memberOrderChanged = true))
   }
 
   test("tags diff") {
@@ -393,6 +393,6 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
       )
     )
 
-    //    analysis.get.diffs should matchTo(RouteDiff(tagDiffs = Some(expectedTagDiff)))
+    //    analysis.get.diffs.shouldMatchTo(RouteDiff(tagDiffs = Some(expectedTagDiff)))
   }
 }

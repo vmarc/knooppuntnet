@@ -27,7 +27,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Create' route") {
     val setup = new Setup()
     val change = Change(Create, Seq(buildRoute(11L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         creates = Seq(11L)
       )
@@ -37,7 +37,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   test("'Modify' of previously unknown route relation is treated as new route") {
     val setup = new Setup()
     val change = Change(Modify, Seq(buildRoute(11L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         creates = Seq(11L)
       )
@@ -48,7 +48,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.routes.add(11L, ElementIds())
     val change = Change(Modify, Seq(buildRoute(11L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(11L)
       )
@@ -59,7 +59,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.routes.add(11L, ElementIds(wayIds = Set(101L)))
     val change = Change(Modify, Seq(newRawWay(101L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(11L)
       )
@@ -70,7 +70,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.routes.add(11L, ElementIds(nodeIds = Set(1001L)))
     val change = Change(Modify, Seq(newRawNode(1001L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         updates = Seq(11L)
       )
@@ -81,7 +81,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.analysisContext.watched.routes.add(11L, ElementIds())
     val change = Change(Delete, Seq(newRawRelation(11L)))
-    setup.analyze(change) should matchTo(
+    setup.analyze(change).shouldMatchTo(
       ElementChanges(
         deletes = Seq(11L)
       )

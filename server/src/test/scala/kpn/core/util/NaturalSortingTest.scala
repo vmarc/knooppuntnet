@@ -196,7 +196,7 @@ class NaturalSortingTest extends UnitTest {
   }
 
   private def performTest(input: Seq[String], expected: Seq[String]): Unit = {
-    NaturalSorting.sort(input) should matchTo(expected)
+    NaturalSorting.sort(input).shouldMatchTo(expected)
   }
 
 }
