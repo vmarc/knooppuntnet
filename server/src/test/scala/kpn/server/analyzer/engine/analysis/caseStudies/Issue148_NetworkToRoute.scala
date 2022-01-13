@@ -59,7 +59,7 @@ class Issue148_NetworkToRoute extends IntegrationTest {
         version = 2
       )
 
-    testIntegration(dataBefore, dataAfter, keepDatabaseAfterTest = true) {
+    testIntegration(dataBefore, dataAfter) {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11774118L))
 

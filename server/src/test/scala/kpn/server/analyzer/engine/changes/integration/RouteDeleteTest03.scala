@@ -76,7 +76,7 @@ class RouteDeleteTest03 extends IntegrationTest {
     findRouteChangeById("123:1:11").shouldMatchTo(
       newRouteChange(
         newChangeKey(elementId = 11),
-        ChangeType.Update,
+        ChangeType.Delete,
         "01-02",
         before = Some(
           newRouteData(
@@ -215,7 +215,7 @@ class RouteDeleteTest03 extends IntegrationTest {
           ChangeSetSubsetElementRefs(
             Subset.nlHiking,
             ChangeSetElementRefs(
-              updated = Seq(
+              removed = Seq(
                 newChangeSetElementRef(11, "01-02", investigate = true)
               )
             )

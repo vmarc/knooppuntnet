@@ -11,7 +11,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("changes/changesCount") {
 
-    withDatabase(keepDatabaseAfterTest = true) { database =>
+    withDatabase { database =>
 
       val routeRepository = new MonitorRouteRepositoryImpl(database)
 

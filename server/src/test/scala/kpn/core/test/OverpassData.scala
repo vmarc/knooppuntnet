@@ -73,8 +73,8 @@ case class OverpassData(
     copy(relations = relations :+ relation)
   }
 
-  def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty): OverpassData = {
-    relation(id, members, newRouteTags(name) ++ tags)
+  def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty, version: Long = 0): OverpassData = {
+    relation(id, members, newRouteTags(name) ++ tags, version)
   }
 
   def networkRelation(id: Long, name: String, members: Seq[RawMember] = Seq.empty, version: Long = 0): OverpassData = {
