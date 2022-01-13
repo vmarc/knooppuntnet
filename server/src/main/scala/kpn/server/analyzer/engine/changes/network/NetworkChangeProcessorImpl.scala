@@ -147,7 +147,7 @@ class NetworkChangeProcessorImpl(
       key = key,
       networkId = before.id,
       networkName = networkNameBefore,
-      changeType = ChangeType.Create,
+      changeType = ChangeType.Delete,
       networkDataUpdate = Some(networkDataUpdate),
       nodes = IdDiffs(removed = before.nodeMembers.map(_.ref)),
       ways = IdDiffs(removed = before.wayMembers.map(_.ref)),
