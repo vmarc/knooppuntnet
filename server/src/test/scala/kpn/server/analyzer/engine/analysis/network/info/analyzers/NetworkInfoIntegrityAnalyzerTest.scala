@@ -8,6 +8,7 @@ import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
+import kpn.core.doc.NetworkNodeMember
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
@@ -76,14 +77,24 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       integrity = None
     )
 
+    val networkDoc = newNetwork(
+      _id = 1L,
+      nodeMembers = Seq(
+        NetworkNodeMember(1001L, None),
+        NetworkNodeMember(1002L, None),
+        NetworkNodeMember(1003L, None),
+        NetworkNodeMember(1004L, None),
+      )
+    )
+
     val context = NetworkInfoAnalysisContext(
       defaultTimestamp,
-      newNetwork(1L),
+      networkDoc,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       nodeDocs = Seq(node1, node2, node3, node4)
     )
 
-    val updatedContext = NetworkInfoNodeAnalyzer.analyze(context)
+    val updatedContext = NetworkInfoIntegrityAnalyzer.analyze(context)
 
     updatedContext.integrity.shouldMatchTo(
       Integrity(

@@ -16,7 +16,7 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
   def analyze: NodeAnalysis = {
     val basicLabels = buildBasicLabels()
     val factLabels = analysis.facts.map(fact => Label.fact(fact))
-    val networkTypeLabels = analysis.nodeNames.map(name => Label.networkType(name.networkType))
+    val networkTypeLabels = analysis.nodeNames.map(name => Label.networkType(name.networkType)).distinct
     val integrityCheckLabels = buildIntegrityCheckLabels(analysis.integrity)
     val locationLabels = analysis.locations.map(location => Label.location(location))
     val labels = basicLabels ++ factLabels ++ networkTypeLabels ++ integrityCheckLabels ++ locationLabels

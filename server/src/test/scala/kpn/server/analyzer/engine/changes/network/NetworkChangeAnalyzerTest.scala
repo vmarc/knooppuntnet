@@ -53,28 +53,6 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  test("'Modify' of route in known network") {
-    val setup = new Setup()
-    setup.analysisContext.watched.networks.add(1L)
-    val change = Change(Modify, Seq(newRawRelation(11L)))
-    setup.analyze(change).shouldMatchTo(
-      ElementChanges(
-        updates = Seq(1L)
-      )
-    )
-  }
-
-  test("'Modify' of node in known network") {
-    val setup = new Setup()
-    setup.analysisContext.watched.networks.add(1L)
-    val change = Change(Modify, Seq(newRawNode(1001L)))
-    setup.analyze(change).shouldMatchTo(
-      ElementChanges(
-        updates = Seq(1L)
-      )
-    )
-  }
-
   test("'Delete' known network") {
     val setup = new Setup()
     setup.analysisContext.watched.networks.add(1L)

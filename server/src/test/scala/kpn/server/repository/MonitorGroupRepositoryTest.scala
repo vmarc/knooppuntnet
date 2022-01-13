@@ -47,15 +47,15 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       val repository = new MonitorGroupRepositoryImpl(database)
 
       repository.saveGroup(MonitorGroup("group-name", "group-description"))
-      database.monitorRoutes.save(MonitorRoute("", 1L, "group-name", "route 1", ""))
-      database.monitorRoutes.save(MonitorRoute("", 2L, "group-name", "route 2", ""))
-      database.monitorRoutes.save(MonitorRoute("", 3L, "group-name", "route 3", ""))
+      database.monitorRoutes.save(MonitorRoute("route1", 1L, "group-name", "route 1", ""))
+      database.monitorRoutes.save(MonitorRoute("route2", 2L, "group-name", "route 2", ""))
+      database.monitorRoutes.save(MonitorRoute("route3", 3L, "group-name", "route 3", ""))
 
       repository.groupRoutes("group-name").shouldMatchTo(
         Seq(
-          MonitorRoute("", 1L, "group-name", "route 1", ""),
-          MonitorRoute("", 2L, "group-name", "route 2", ""),
-          MonitorRoute("", 3L, "group-name", "route 3", "")
+          MonitorRoute("route1", 1L, "group-name", "route 1", ""),
+          MonitorRoute("route2", 2L, "group-name", "route 2", ""),
+          MonitorRoute("route3", 3L, "group-name", "route 3", "")
         )
       )
     }
