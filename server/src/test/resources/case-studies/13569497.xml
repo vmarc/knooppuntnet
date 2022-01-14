@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2022-01-14T17:09:50Z"/>
+
+    <node id="1694861463" lat="45.7658070" lon="5.2221116" version="3" timestamp="2021-12-19T18:08:52Z" changeset="115134868" uid="270456" user="pyrog">
+        <tag k="expected_lwn_route_relations" v="3"/>
+        <tag k="lwn_name" v="?"/>
+        <tag k="network:type" v="node_network"/>
+    </node>
+    <node id="1694866185" lat="45.7671935" lon="5.2277925" version="2" timestamp="2019-02-07T13:54:27Z" changeset="66995435" uid="6654756" user="simon_geovelo"/>
+    <node id="3261957960" lat="45.7678516" lon="5.2285555" version="3" timestamp="2021-12-19T22:02:08Z" changeset="115140821" uid="270456" user="pyrog">
+        <tag k="network:type" v="node_network"/>
+        <tag k="lwn_name" v="?"/>
+        <tag k="expected_lwn_route_relations" v="3"/>
+    </node>
+    <node id="4172954152" lat="45.7658605" lon="5.2221952" version="1" timestamp="2016-05-08T15:05:10Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954153" lat="45.7659559" lon="5.2222301" version="1" timestamp="2016-05-08T15:05:10Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954154" lat="45.7661618" lon="5.2222355" version="1" timestamp="2016-05-08T15:05:10Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954155" lat="45.7663919" lon="5.2223776" version="1" timestamp="2016-05-08T15:05:10Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954156" lat="45.7664780" lon="5.2225439" version="1" timestamp="2016-05-08T15:05:10Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954157" lat="45.7665266" lon="5.2228765" version="1" timestamp="2016-05-08T15:05:10Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954158" lat="45.7665678" lon="5.2231662" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954159" lat="45.7666089" lon="5.2233539" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954160" lat="45.7667418" lon="5.2234907" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954161" lat="45.7669513" lon="5.2236919" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954162" lat="45.7672601" lon="5.2241211" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954163" lat="45.7674416" lon="5.2243920" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954164" lat="45.7674808" lon="5.2274845" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954165" lat="45.7676530" lon="5.2248640" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954166" lat="45.7678738" lon="5.2270634" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954167" lat="45.7679336" lon="5.2255587" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954168" lat="45.7680309" lon="5.2258162" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954169" lat="45.7681207" lon="5.2259879" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954170" lat="45.7682218" lon="5.2261461" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954171" lat="45.7682873" lon="5.2265994" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954172" lat="45.7683584" lon="5.2265216" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954173" lat="45.7683621" lon="5.2263419" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <node id="4172954174" lat="45.7683976" lon="5.2264304" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____"/>
+    <way id="416548255" version="1" timestamp="2016-05-08T15:05:11Z" changeset="39182857" uid="2631735" user="Jerome____">
+        <nd ref="1694861463"/>
+        <nd ref="4172954152"/>
+        <nd ref="4172954153"/>
+        <nd ref="4172954154"/>
+        <nd ref="4172954155"/>
+        <nd ref="4172954156"/>
+        <nd ref="4172954157"/>
+        <nd ref="4172954158"/>
+        <nd ref="4172954159"/>
+        <nd ref="4172954160"/>
+        <nd ref="4172954161"/>
+        <nd ref="4172954162"/>
+        <nd ref="4172954163"/>
+        <nd ref="4172954165"/>
+        <nd ref="4172954167"/>
+        <nd ref="4172954168"/>
+        <nd ref="4172954169"/>
+        <nd ref="4172954170"/>
+        <nd ref="4172954173"/>
+        <nd ref="4172954174"/>
+        <nd ref="4172954172"/>
+        <nd ref="4172954171"/>
+        <nd ref="4172954166"/>
+        <nd ref="4172954164"/>
+        <nd ref="1694866185"/>
+        <tag k="highway" v="track"/>
+    </way>
+    <way id="1013588387" version="1" timestamp="2021-12-19T22:02:08Z" changeset="115140821" uid="270456" user="pyrog">
+        <nd ref="1694866185"/>
+        <nd ref="3261957960"/>
+        <tag k="bicycle" v="yes"/>
+        <tag k="highway" v="track"/>
+        <tag k="name" v="Chemin de Passieu"/>
+        <tag k="surface" v="fine_gravel"/>
+        <tag k="tracktype" v="grade2"/>
+    </way>
+    <relation id="13569497" version="2" timestamp="2021-12-19T22:10:00Z" changeset="115140951" uid="270456" user="pyrog">
+        <member type="way" ref="1013588387" role=""/>
+        <member type="way" ref="416548255" role=""/>
+        <tag k="note" v="? - ?"/>
+        <tag k="network" v="lwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="route" v="hiking"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>
