@@ -160,9 +160,6 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
       // TODO ANALYSIS review this rule: overlapping ways should not cause the analysis to fail ???
       return true
     }
-    if (routeNodeAnalysis.redundantNodes.size > 3) {
-      return true // TODO ANALYSIS can drop this rule ???
-    }
     false
   }
 

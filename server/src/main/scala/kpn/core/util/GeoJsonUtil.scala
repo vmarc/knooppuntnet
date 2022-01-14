@@ -9,6 +9,18 @@ import kpn.server.json.Json
 
 object GeoJsonUtil {
 
+  def makeGeojson(name: String, trackSegment: TrackSegment): Unit = {
+    val latlons = trackSegment.trackPoints.map(point => LatLonImpl(point.lat, point.lon))
+    val coordinates = latlons.toArray.map(c => Array(c.lon, c.lat))
+    val line = GeoJsonLineStringGeometry(
+      "LineString",
+      coordinates
+    )
+    val json = Json.objectMapper.writerWithDefaultPrettyPrinter()
+    println(s"https://geojson.io/ $name")
+    println(json.writeValueAsString(line))
+  }
+
   def printMap(map: RouteMap): Unit = {
 
     val colors = new Colors()

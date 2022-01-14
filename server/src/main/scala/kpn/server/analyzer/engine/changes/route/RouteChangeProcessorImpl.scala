@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
@@ -47,7 +46,7 @@ class RouteChangeProcessorImpl(
       if (changedRouteIds.nonEmpty) {
         log.info(s"${changedRouteIds.size} route(s) impacted: ${changedRouteIds.mkString(", ")}")
       }
-      val routeChanges = changedRouteIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (routeIds, index) =>
+      val routeChanges = changedRouteIds.sliding(batchSize, batchSize).flatMap { routeIds =>
         processBatch(context, routeElementChanges, routeIds)
       }.toSeq
 
@@ -65,8 +64,7 @@ class RouteChangeProcessorImpl(
   private def processBatch(context: ChangeSetContext, routeElementChanges: ElementChanges, routeIds: Seq[Long]): Seq[RouteChange] = {
     val routeChangeDatas = readBeforeAndAfter(context, routeIds)
     routeChangeDatas.flatMap { routeChangeData =>
-      val action = routeElementChanges.action(routeChangeData.routeId)
-      processChangeData(context, routeChangeData, action)
+      processChangeData(context, routeChangeData)
     }
   }
 
@@ -82,7 +80,7 @@ class RouteChangeProcessorImpl(
     }
   }
 
-  private def processChangeData(context: ChangeSetContext, data: RouteChangeData, action: ChangeAction): Option[RouteChange] = {
+  private def processChangeData(context: ChangeSetContext, data: RouteChangeData): Option[RouteChange] = {
     data.before match {
       case None =>
         data.after match {
@@ -95,7 +93,7 @@ class RouteChangeProcessorImpl(
           case None => processDelete(context, before, data.routeId)
           case Some(after) =>
             if (TagInterpreter.isRouteRelation(before.tags)) {
-                processUpdate(context, before, after, data.routeId)
+              processUpdate(context, before, after, data.routeId)
             }
             else {
               processCreate(context, after, data.routeId)
@@ -246,12 +244,6 @@ class RouteChangeProcessorImpl(
                 analysisContext.watched.routes.add(after.id, after.route.elementIds)
               }
 
-              //    val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-              //      Seq(Fact.WasOrphan) ++ routeUpdate.facts
-              //    }
-              //    else {
-              //      Seq(Fact.OrphanRoute) ++ routeUpdate.facts
-              //    }
               val facts = routeUpdate.facts
 
               routeRepository.save(after.route)
@@ -311,23 +303,6 @@ class RouteChangeProcessorImpl(
 
     // TODO MONGO add tiles!! tileChangeAnalyzer.analyzeRouteChange(before, after)
 
-    //    val routeUpdate = new RouteDiffAnalyzer(before, after).analysis
-    //
-    //    if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-    //      analysisContext.data.routes.watched.delete(routeUpdate.id)
-    //    }
-    //    else {
-    //      analysisContext.data.routes.watched.add(after.id, after.route.elementIds)
-    //    }
-
-    //    val facts = if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-    //      Seq(Fact.WasOrphan) ++ routeUpdate.facts
-    //    }
-    //    else {
-    //      Seq(Fact.OrphanRoute) ++ routeUpdate.facts
-    //    }
-    //    val facts = routeUpdate.facts
-
     val updatedRoute = routeAnalysisBefore.route.copy(
       labels = routeAnalysisBefore.route.labels.filterNot(_ == Label.active),
       facts = Seq(Fact.LostRouteTags)
@@ -335,15 +310,6 @@ class RouteChangeProcessorImpl(
 
     routeRepository.save(updatedRoute)
     val impactedNodeIds = routeAnalysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
-
-    //    val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-    //      if (networkChanges.relations.added.contains(routeId)) {
-    //        Some(networkChanges.toRef)
-    //      }
-    //      else {
-    //        None
-    //      }
-    //    }
 
     val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.removed.contains(routeId)) {
