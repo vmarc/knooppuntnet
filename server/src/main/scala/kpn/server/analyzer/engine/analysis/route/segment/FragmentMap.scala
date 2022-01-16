@@ -15,6 +15,8 @@ class FragmentMap(fragments: Vector[Fragment]) {
 
   def size: Int = fragments.size
 
+  def isEmpty: Boolean = fragments.isEmpty
+
   def ids: Vector[Int] = fragments.map(_.id)
 
   def all: Vector[Fragment] = fragments

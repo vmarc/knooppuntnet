@@ -15,10 +15,10 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
-import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinderAbort
+import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 import scala.collection.mutable.ListBuffer
 
@@ -35,17 +35,18 @@ object RouteStructureAnalyzer extends RouteAnalyzer {
 
 class RouteStructureAnalyzer(context: RouteAnalysisContext) {
 
+  private val fragmentMap = context.fragmentMap.getOrElse(throw new PreconditionMissingException)
+
   private val facts: ListBuffer[Fact] = ListBuffer[Fact]()
   facts ++= context.facts
 
   def analyze: RouteAnalysisContext = {
-    val fragmentMap = contextFragmentMap()
-    val structure = analyzeStructure(fragmentMap, context.routeNodeAnalysis.get)
+    val structure = analyzeStructure(context.routeNodeAnalysis.get)
     analyzeStructure2(context.routeNodeAnalysis.get, structure, fragmentMap.all)
     context.copy(structure = Some(structure), facts = facts.toSeq)
   }
 
-  private def analyzeStructure(fragmentMap: FragmentMap, routeNodeAnalysis: RouteNodeAnalysis): RouteStructure = {
+  private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis): RouteStructure = {
 
     if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
@@ -144,10 +145,6 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def contextFragmentMap(): FragmentMap = {
-    context.fragmentMap.getOrElse(throw new IllegalStateException("fragmentMap required before route structure analysis"))
-  }
-
   private def isAnalysisImpossible(routeNodeAnalysis: RouteNodeAnalysis): Boolean = {
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       return true
@@ -162,5 +159,4 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
     }
     false
   }
-
 }

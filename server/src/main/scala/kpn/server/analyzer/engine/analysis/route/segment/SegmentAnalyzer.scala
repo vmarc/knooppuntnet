@@ -26,6 +26,7 @@ class SegmentAnalyzer(
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
   private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes, loop)
+  private val asIsLoopPathBuilder = new AsIsLoopPathBuilder(fragmentMap, allRouteNodes)
   private val allFragmentIds = fragmentMap.ids.toSet
 
   def structure: RouteStructure = {
@@ -42,7 +43,7 @@ class SegmentAnalyzer(
     val startTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.startNodes.map(_.node)).findTentacles
     val endTentaclePaths = new TentacleAnalyzer(segmentFinder, availableFragmentIds, routeNodeAnalysis.endNodes.map(_.node)).findTentacles
 
-    val freePaths = new FreePathAnalyzer(segmentFinder, allFragmentIds, routeNodeAnalysis.freeNodes.map(_.node)).findTentacles
+    val freePaths = new FreePathAnalyzer(segmentFinder, asIsLoopPathBuilder, allFragmentIds, routeNodeAnalysis.freeNodes.map(_.node)).findTentacles
 
     val unusedSegments = {
       val used = freePaths.flatMap(_.segments) ++

@@ -8,8 +8,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 
-import scala.annotation.tailrec
-
 class SegmentFinderAbort() extends RuntimeException
 
 case class SegmentFinderContext(
@@ -37,76 +35,6 @@ class SegmentFinder(
   private val timeout = 10000L
 
   private val log = Log(classOf[SegmentFinder])
-
-  def composeAsIsPath(): Option[Path] = {
-    val fragments = fragmentMap.ids.sorted.map(id => fragmentMap(id))
-    if (fragments.isEmpty) {
-      None
-    }
-    else {
-      composeAsIsFragments(fragments) match {
-        case Some(path) => Some(path)
-        case None => composeAsIsFragments(fragments.reverse)
-      }
-    }
-  }
-
-  private def composeAsIsFragments(fragments: Vector[Fragment]) = {
-    val fragment = fragments.head
-    fragment.start match {
-      case None => None
-      case Some(start) =>
-        val reversedOption = if (start.id == fragment.nodes.head.id) {
-          Some(false)
-        }
-        else if (start.id == fragment.nodes.last.id) {
-          Some(true)
-        }
-        else {
-          None
-        }
-        reversedOption match {
-          case None => None
-          case Some(reversed) =>
-            val segmentFragment = SegmentFragment(fragment, reversed = reversed)
-            composeNextFragment(Seq(segmentFragment), fragments.tail)
-        }
-    }
-  }
-
-  @tailrec
-  private def composeNextFragment(segments: Seq[SegmentFragment], remainingFragments: Seq[Fragment]): Option[Path] = {
-
-    if (remainingFragments.isEmpty) {
-      if (segments.head.startNode.id == segments.last.endNode.id) {
-        buildPath(segments)
-      }
-      else {
-        None
-      }
-    }
-    else {
-      val fragment = remainingFragments.head
-      val previousEndNode = segments.last.endNode
-
-      val reversedOption = if (previousEndNode.id == fragment.nodes.head.id) {
-        Some(false)
-      }
-      else if (previousEndNode.id == fragment.nodes.last.id) {
-        Some(true)
-      }
-      else {
-        None
-      }
-
-      reversedOption match {
-        case None => None
-        case Some(reversed) =>
-          val segmentFragment = SegmentFragment(fragment, reversed = reversed)
-          composeNextFragment(segments :+ segmentFragment, remainingFragments.tail)
-      }
-    }
-  }
 
   def find(
     availableFragmentIds: Set[Int],
@@ -270,17 +198,7 @@ class SegmentFinder(
   }
 
   private def buildPath(segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
-    if (segmentFragments.isEmpty) {
-      None
-    }
-    else {
-      val startNodeId = segmentFragments.head.startNode.id
-      val endNodeId = segmentFragments.last.endNode.id
-      val start: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node.id == startNodeId)
-      val end: Option[RouteNode] = allRouteNodes.find(routeNode => routeNode.node.id == endNodeId)
-      val segments = PavedUnpavedSplitter.split(segmentFragments)
-      Some(Path(start, end, startNodeId, endNodeId, segments, oneWay(segments), broken))
-    }
+    new PathBuilder(allRouteNodes).buildPath(segmentFragments, broken)
   }
 
   private def oneWay(segments: Seq[Segment]): Boolean = {

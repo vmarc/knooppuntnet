@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+    <meta osm_base="2022-01-15T02:50:30Z"/>
+
+    <node id="43724739" lat="51.7450806" lon="5.1446283" version="3" timestamp="2014-06-16T13:54:05Z" changeset="22965135" uid="1993800" user="BAGgeraar"/>
+    <node id="43725264" lat="51.7452643" lon="5.1457916" version="3" timestamp="2014-06-16T13:54:05Z" changeset="22965135" uid="1993800" user="BAGgeraar"/>
+    <node id="43725315" lat="51.7453162" lon="5.1460280" version="3" timestamp="2014-06-16T13:54:05Z" changeset="22965135" uid="1993800" user="BAGgeraar"/>
+    <node id="43725542" lat="51.7453573" lon="5.1461937" version="3" timestamp="2014-06-16T13:54:05Z" changeset="22965135" uid="1993800" user="BAGgeraar"/>
+    <node id="43725604" lat="51.7453926" lon="5.1463013" version="3" timestamp="2014-06-16T13:54:06Z" changeset="22965135" uid="1993800" user="BAGgeraar"/>
+    <node id="43727104" lat="51.7458972" lon="5.1469440" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43727519" lat="51.7460688" lon="5.1470628" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43728108" lat="51.7462500" lon="5.1451300" version="2" timestamp="2009-12-23T19:55:31Z" changeset="3437291" uid="12946" user="AND"/>
+    <node id="43728698" lat="51.7467260" lon="5.1472885" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43731385" lat="51.7472730" lon="5.1475196" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43732234" lat="51.7474602" lon="5.1476683" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43732850" lat="51.7476166" lon="5.1478706" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43733132" lat="51.7477323" lon="5.1479311" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43733359" lat="51.7478435" lon="5.1479489" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43733968" lat="51.7480688" lon="5.1479843" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43734191" lat="51.7481200" lon="5.1461600" version="2" timestamp="2009-12-23T19:55:31Z" changeset="3437291" uid="12946" user="AND"/>
+    <node id="43734404" lat="51.7481772" lon="5.1480323" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43734773" lat="51.7482973" lon="5.1481345" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43735389" lat="51.7485214" lon="5.1463232" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43735391" lat="51.7485360" lon="5.1483545" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43735723" lat="51.7486665" lon="5.1484217" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43735889" lat="51.7487000" lon="5.1462900" version="2" timestamp="2009-12-23T19:55:31Z" changeset="3437291" uid="12946" user="AND"/>
+    <node id="43736294" lat="51.7488747" lon="5.1461466" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43738177" lat="51.7494212" lon="5.1462058" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43738499" lat="51.7495480" lon="5.1462455" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43739116" lat="51.7497390" lon="5.1463705" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43739310" lat="51.7497539" lon="5.1464525" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43739428" lat="51.7498253" lon="5.1468689" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43739733" lat="51.7499402" lon="5.1472583" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43740224" lat="51.7500883" lon="5.1476784" version="4" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S"/>
+    <node id="43740267" lat="51.7501101" lon="5.1489723" version="4" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S">
+        <tag k="network:type" v="node_network"/>
+        <tag k="rwn_ref" v="A25"/>
+    </node>
+    <node id="43740520" lat="51.7501999" lon="5.1478699" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43740567" lat="51.7502338" lon="5.1479456" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="43740580" lat="51.7502324" lon="5.1480914" version="3" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845751" lat="51.7476792" lon="5.1479155" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845752" lat="51.7459781" lon="5.1470081" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845753" lat="51.7473837" lon="5.1475891" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845755" lat="51.7497161" lon="5.1463299" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845756" lat="51.7497476" lon="5.1464035" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845757" lat="51.7497844" lon="5.1466600" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845776" lat="51.7483793" lon="5.1482118" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845777" lat="51.7483321" lon="5.1462724" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845785" lat="51.7496548" lon="5.1462901" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845786" lat="51.7491520" lon="5.1461535" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8491845789" lat="51.7496930" lon="5.1463082" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S"/>
+    <node id="8494489028" lat="51.7488560" lon="5.1484940" version="1" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S"/>
+    <node id="8494489034" lat="51.7502241" lon="5.1479089" version="1" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S"/>
+    <node id="8494489035" lat="51.7502393" lon="5.1480117" version="1" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S"/>
+    <node id="8494489036" lat="51.7501433" lon="5.1477792" version="1" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S"/>
+    <node id="8494489037" lat="51.7500148" lon="5.1474830" version="1" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S"/>
+    <way id="7086136" version="4" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S">
+        <nd ref="43724739"/>
+        <nd ref="43728108"/>
+        <nd ref="43734191"/>
+        <nd ref="8491845777"/>
+        <nd ref="43735389"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Kerklaan"/>
+    </way>
+    <way id="7086139" version="6" timestamp="2021-09-26T15:15:20Z" changeset="111727109" uid="2038457" user="Joel de Bruijn">
+        <nd ref="43725604"/>
+        <nd ref="43725542"/>
+        <nd ref="43725315"/>
+        <nd ref="43725264"/>
+        <nd ref="43724739"/>
+        <tag k="cycleway:both" v="no"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Kasteellaan"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="7086152" version="4" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S">
+        <nd ref="43725604"/>
+        <nd ref="43727104"/>
+        <nd ref="8491845752"/>
+        <nd ref="43727519"/>
+        <nd ref="43728698"/>
+        <nd ref="43731385"/>
+        <nd ref="8491845753"/>
+        <nd ref="43732234"/>
+        <nd ref="43732850"/>
+        <nd ref="8491845751"/>
+        <nd ref="43733132"/>
+        <nd ref="43733359"/>
+        <nd ref="43733968"/>
+        <nd ref="43734404"/>
+        <nd ref="43734773"/>
+        <nd ref="8491845776"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Kasteellaan"/>
+    </way>
+    <way id="7086154" version="5" timestamp="2021-03-07T16:52:50Z" changeset="100583016" uid="10167492" user="Erik vd S">
+        <nd ref="43736294"/>
+        <nd ref="8491845786"/>
+        <nd ref="43738177"/>
+        <nd ref="43738499"/>
+        <nd ref="8491845785"/>
+        <nd ref="8491845789"/>
+        <nd ref="8491845755"/>
+        <nd ref="43739116"/>
+        <nd ref="8491845756"/>
+        <nd ref="43739310"/>
+        <nd ref="8491845757"/>
+        <nd ref="43739428"/>
+        <nd ref="43739733"/>
+        <nd ref="8494489037"/>
+        <nd ref="43740224"/>
+        <nd ref="8494489036"/>
+        <nd ref="43740520"/>
+        <nd ref="8494489034"/>
+        <nd ref="43740567"/>
+        <nd ref="8494489035"/>
+        <nd ref="43740580"/>
+        <nd ref="43740267"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Kerklaan"/>
+    </way>
+    <way id="914184434" version="5" timestamp="2021-09-26T15:14:48Z" changeset="111727203" uid="2038457" user="Joel de Bruijn">
+        <nd ref="8491845776"/>
+        <nd ref="43735391"/>
+        <nd ref="43735723"/>
+        <nd ref="8494489028"/>
+        <nd ref="43740267"/>
+        <tag k="cycleway:both" v="no"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="lane_markings" v="no"/>
+        <tag k="name" v="Kasteellaan"/>
+        <tag k="surface" v="asphalt"/>
+    </way>
+    <way id="914184436" version="1" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S">
+        <nd ref="43735389"/>
+        <nd ref="43735889"/>
+        <nd ref="43736294"/>
+        <tag k="highway" v="unclassified"/>
+        <tag k="name" v="Kerklaan"/>
+    </way>
+    <relation id="11829926" version="2" timestamp="2021-03-06T17:02:28Z" changeset="100545305" uid="10167492" user="Erik vd S">
+        <member type="way" ref="7086154" role=""/>
+        <member type="way" ref="914184436" role=""/>
+        <member type="way" ref="7086136" role=""/>
+        <member type="way" ref="7086139" role=""/>
+        <member type="way" ref="7086152" role=""/>
+        <member type="way" ref="914184434" role=""/>
+        <tag k="network" v="rwn"/>
+        <tag k="network:type" v="node_network"/>
+        <tag k="ref" v="A25-A25"/>
+        <tag k="route" v="foot"/>
+        <tag k="type" v="route"/>
+    </relation>
+
+</osm>

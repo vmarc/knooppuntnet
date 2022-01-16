@@ -4,6 +4,7 @@ import kpn.api.custom.Fact
 import kpn.core.util.Util.isDigits
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.{RouteNameAnalysis, RouteNodeAnalysis}
+import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -12,6 +13,9 @@ object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
 }
 
 class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
+
+  private val routeNameAnalysis = context.routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
+  private val routeNodeAnalysis = context.routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def analyze: RouteAnalysisContext = {
     if (routeNameAnalysis.name.isDefined) {
@@ -42,25 +46,13 @@ class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
     else {
       " - "
     }
-    val routeNameAnalysis = RouteNameAnalysis(
+    val newRouteNameAnalysis = RouteNameAnalysis(
       name = Some(s"$startNodeName$separator$endNodeName"),
       derivedFromNodes = true
     )
     context.copy(
       facts = context.facts.filterNot(_ == Fact.RouteNameMissing),
-      routeNameAnalysis = Some(routeNameAnalysis)
-    )
-  }
-
-  private def routeNameAnalysis: RouteNameAnalysis = {
-    context.routeNameAnalysis.getOrElse(
-      throw new IllegalStateException("RouteNameAnalysis required before route name from nodes analysis")
-    )
-  }
-
-  private def routeNodeAnalysis: RouteNodeAnalysis = {
-    context.routeNodeAnalysis.getOrElse(
-      throw new IllegalStateException("RouteNodeAnalysis required before route name from nodes analysis")
+      routeNameAnalysis = Some(newRouteNameAnalysis)
     )
   }
 }

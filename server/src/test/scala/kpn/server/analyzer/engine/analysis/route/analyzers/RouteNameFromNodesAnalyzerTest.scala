@@ -113,20 +113,4 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
     val newContext = RouteNameFromNodesAnalyzer.analyze(context)
     newContext.routeNameAnalysis.get.name should equal(None)
   }
-
-  test("RouteNameAnalysis is a prerequisite") {
-    val context = RouteAnalysisContext(null, null)
-    val message = intercept[IllegalStateException] {
-      RouteNameFromNodesAnalyzer.analyze(context)
-    }.getMessage
-    message should equal("RouteNameAnalysis required before route name from nodes analysis")
-  }
-
-  test("RouteNodeAnalysis is a prerequisite") {
-    val context = RouteAnalysisContext(null, null, routeNameAnalysis = Some(RouteNameAnalysis()))
-    val message = intercept[IllegalStateException] {
-      RouteNameFromNodesAnalyzer.analyze(context)
-    }.getMessage
-    message should equal("RouteNodeAnalysis required before route name from nodes analysis")
-  }
 }

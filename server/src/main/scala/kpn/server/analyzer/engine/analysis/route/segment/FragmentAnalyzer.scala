@@ -117,8 +117,14 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
   private def fragment(wayMember: WayMember, subsetNodes: Seq[Node]): Fragment = {
     val nodes = if (subsetNodes.isEmpty) wayMember.way.nodes else subsetNodes
-    val start: Option[RouteNode] = routeNodes.find(routeNode => routeNode.id == nodes.head.id)
-    val end: Option[RouteNode] = routeNodes.find(routeNode => routeNode.id == nodes.last.id)
-    Fragment.create(start, end, wayMember.way, subsetNodes, wayMember.role)
+    val start = routeNodes.find(routeNode => routeNode.id == nodes.head.id)
+    val end = routeNodes.find(routeNode => routeNode.id == nodes.last.id)
+    Fragment.create(
+      start,
+      end,
+      wayMember.way,
+      subsetNodes,
+      wayMember.role
+    )
   }
 }

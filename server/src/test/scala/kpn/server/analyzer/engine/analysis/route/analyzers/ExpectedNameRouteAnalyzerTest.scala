@@ -13,19 +13,6 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 
 class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("RouteNameAnalysis is prerequisite for 'expected name analysis'") {
-    intercept[IllegalStateException] {
-      ExpectedNameRouteAnalyzer.analyze(buildContext())
-    }.getMessage should equal("RouteNameAnalysis required before expected name analysis")
-  }
-
-  test("RouteNodeAnalysis is prerequisite for 'expected name analysis'") {
-    val context = buildContext().copy(routeNameAnalysis = Some(RouteNameAnalysis(name = Some("01-02"))))
-    intercept[IllegalStateException] {
-      ExpectedNameRouteAnalyzer.analyze(context)
-    }.getMessage should equal("RouteNodeAnalysis required before expected name analysis")
-  }
-
   test("happy path") {
     val newContext = doTest(Some("01-02"), Some("01"), Some("02"))
     newContext.expectedName should equal(Some("01-02"))
@@ -105,5 +92,4 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     val analysisContext = new AnalysisContext()
     RouteAnalysisContext(analysisContext, relation)
   }
-
 }

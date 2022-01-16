@@ -2,15 +2,21 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.data.Node
 import kpn.core.util.Unique
+import kpn.server.analyzer.engine.analysis.route.segment.AsIsLoopPathBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinder
 
-class FreePathAnalyzer(segmentFinder: SegmentFinder, availableFragmentIds: Set[Int], nodes: Seq[Node]) {
+class FreePathAnalyzer(
+  segmentFinder: SegmentFinder,
+  asIsLoopPathBuilder: AsIsLoopPathBuilder,
+  availableFragmentIds: Set[Int],
+  nodes: Seq[Node]
+) {
 
   def findTentacles: Seq[Path] = {
     if (nodes.size == 1) {
-      segmentFinder.composeAsIsPath() match {
+      asIsLoopPathBuilder.build() match {
         case Some(path) => Seq(path)
         case None => findPaths()
       }
