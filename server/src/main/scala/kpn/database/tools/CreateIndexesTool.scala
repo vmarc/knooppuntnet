@@ -37,7 +37,7 @@ object CreateIndexesTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-1") { database =>
+    Mongo.executeIn("kpn-3") { database =>
       new CreateIndexesTool(database).createIndexes()
     }
   }
@@ -128,7 +128,6 @@ class CreateIndexesTool(database: Database) {
       Index(
         database.routes,
         "route-node-references",
-        "active",
         "nodeRefs"
       ),
       Index(
