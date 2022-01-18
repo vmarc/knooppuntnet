@@ -6,12 +6,15 @@ import { Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { MatTreeFlattener } from '@angular/material/tree';
 import { Country } from '@api/custom/country';
 import { NetworkType } from '@api/custom/network-type';
+import { BehaviorSubject } from 'rxjs';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { LocalLocationNode } from './local-location-node';
+import { LocationExpandAllDialogComponent } from './location-expand-all-dialog.component';
 import { LocationFlatNode } from './location-flat-node';
 
 @Component({
@@ -51,6 +54,13 @@ import { LocationFlatNode } from './location-flat-node';
           In use only
         </mat-radio-button>
       </mat-radio-group>
+    </div>
+
+    <div class="progress-bar">
+      <mat-progress-bar
+        *ngIf="showSpinner$ | async"
+        mode="indeterminate"
+      ></mat-progress-bar>
     </div>
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
@@ -113,6 +123,11 @@ import { LocationFlatNode } from './location-flat-node';
       .hidden {
         display: none;
       }
+
+      .progress-bar {
+        padding-top: 5px;
+        height: 10px;
+      }
     `,
   ],
 })
@@ -124,6 +139,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   @Output() selection = new EventEmitter<string>();
 
   all = false;
+  showSpinner$ = new BehaviorSubject(false);
 
   treeControl = new FlatTreeControl<LocationFlatNode>(
     (node) => node.level,
@@ -140,6 +156,8 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   hasChild = (_: number, node: LocationFlatNode) => node.expandable;
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource.data = [this.locationNode];
@@ -160,11 +178,31 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   }
 
   expandAll(): void {
-    this.treeControl.expandAll();
+    const confirm = this.dialog.open(LocationExpandAllDialogComponent, {
+      maxWidth: 500,
+    });
+    const subscription = confirm.afterClosed().subscribe((isConfirmed) => {
+      if (isConfirmed) {
+        subscription.unsubscribe();
+        this.doExpandAll();
+      }
+    });
+  }
+
+  private doExpandAll(): void {
+    this.showSpinner$.next(true);
+    setTimeout(() => {
+      this.treeControl.expandAll();
+      this.showSpinner$.next(false);
+    }, 0);
   }
 
   collapseAll(): void {
-    this.treeControl.collapseAll();
+    this.showSpinner$.next(true);
+    setTimeout(() => {
+      this.treeControl.collapseAll();
+      this.showSpinner$.next(false);
+    }, 0);
   }
 
   allChanged(): void {
