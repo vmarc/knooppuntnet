@@ -66,8 +66,8 @@ class MasterRouteAnalyzerImpl(
         FixmeTodoRouteAnalyzer,
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer,
-        RouteNameAnalyzer,
         RouteNodeTagAnalyzer,
+        RouteNameAnalyzer,
         RouteNodeAnalyzer, // has ProposedAnalyzer as prerequisite
         RouteNameFromNodesAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating

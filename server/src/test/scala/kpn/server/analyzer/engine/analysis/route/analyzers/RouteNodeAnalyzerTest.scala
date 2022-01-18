@@ -347,8 +347,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d) should equal(
       "Start=(1/01/01/RW)," +
-        "End=(2/02/02/RW);" +
-        "RouteNameMissing"
+        "End=(2/02/02/RW)"
     )
   }
 
@@ -363,8 +362,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(1/01/01.a/W,2/01/01.b/W,3/01/01.c/W);" +
-        "RouteNameMissing"
+      "Free=(1/01/01.a/W,2/01/01.b/W,3/01/01.c/W)"
     )
   }
 
@@ -379,10 +377,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
     }
 
     analyze(d) should equal(
-      "Start=(3/01/01/W)," +
-        "End=(1/02/02/W)," +
-        "(reversed);" +
-        "RouteNameMissing"
+      "Start=(1/02/02/W)," +
+        "End=(3/01/01/W)"
     )
   }
 

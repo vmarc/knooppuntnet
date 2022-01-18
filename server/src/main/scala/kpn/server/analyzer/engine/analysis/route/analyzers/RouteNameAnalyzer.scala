@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact.RouteNameMissing
-import kpn.api.custom.Tags
 import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
@@ -18,6 +17,10 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
  * <li>in the 'note' tag (any characters after ";" in the 'note' tag are ignored)
  * <li>in the 'from' and 'to' tags
  * </ol>
+ *
+ * If none of the above results in a route name, we try to make up a route name
+ * from the nodes that are found in the route ways (requires less that 3 different
+ * node names).
  */
 object RouteNameAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -28,77 +31,92 @@ object RouteNameAnalyzer extends RouteAnalyzer {
 class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val tags = context.relation.tags
-    val routeNameAnalysis = tags("ref") match {
-      case Some(ref) => analyzeRouteName(ref)
-      case None =>
-        tags("name") match {
-          case Some(name) =>
-            val routeNameAnalysis = analyzeRouteName(name)
-            if (routeNameAnalysis.hasStandardNodeNames) {
-              routeNameAnalysis
-            }
-            else {
-              // verify is name in note tag is better, and if so: use that instead
-              tags("note") match {
-                case None => routeNameAnalysis
-                case Some(note) =>
-                  val noteRouteNameAnalysis = analyzeRouteName(note)
-                  if (noteRouteNameAnalysis.hasStandardNodeNames) {
-                    noteRouteNameAnalysis
-                  }
-                  else {
-                    routeNameAnalysis
-                  }
-              }
-            }
-
-          case None =>
-            tags("note") match {
-              case Some(note) => analyzeRouteName(note)
-              case None => analyzeToFromTags(tags)
-            }
+    val routeNameAnalysis = routeNameFromRefTag().getOrElse {
+      routeNameFromNameTag().getOrElse {
+        routeNameFromNoteTag().getOrElse {
+          routeNameFromToAndFromTags().getOrElse {
+            routeNameFromNodesInWays().getOrElse(
+              RouteNameAnalysis()
+            )
+          }
         }
+      }
     }
-    context.copy(routeNameAnalysis = Some(routeNameAnalysis)).withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
+    context
+      .copy(routeNameAnalysis = Some(routeNameAnalysis))
+      .withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
   }
 
-  private def analyzeRouteName(fullRouteName: String): RouteNameAnalysis = {
+  private def routeNameFromRefTag(): Option[RouteNameAnalysis] = {
+    context.relation.tags("ref").flatMap { ref =>
+      routeNameFromTagValue(ref)
+    }
+  }
+
+  private def routeNameFromNameTag(): Option[RouteNameAnalysis] = {
+    context.relation.tags("name").flatMap { name =>
+      routeNameFromTagValue(name).map { routeNameAnalysis =>
+        if (routeNameAnalysis.hasStandardNodeNames) {
+          routeNameAnalysis
+        }
+        else {
+          // verify is name in note tag is better, and if so: use that instead
+          routeNameFromNoteTag() match {
+            case None => routeNameAnalysis
+            case Some(noteRouteNameAnalysis) =>
+              if (noteRouteNameAnalysis.hasStandardNodeNames) {
+                noteRouteNameAnalysis
+              }
+              else {
+                routeNameAnalysis
+              }
+          }
+        }
+      }
+    }
+  }
+
+  private def routeNameFromNoteTag(): Option[RouteNameAnalysis] = {
+    context.relation.tags("note").flatMap { note =>
+      routeNameFromTagValue(note)
+    }
+  }
+
+  private def routeNameFromTagValue(fullRouteName: String): Option[RouteNameAnalysis] = {
     val routeName = withoutComment(fullRouteName)
     if (routeName.contains("-")) {
       analyzeRouteNameNodes(routeName)
     }
     else {
-      RouteNameAnalysis(
-        Some(routeName),
-        None,
-        None
+      Some(
+        RouteNameAnalysis(
+          Some(routeName),
+          None,
+          None
+        )
       )
     }
   }
 
-  private def analyzeRouteNameNodes(routeName: String): RouteNameAnalysis = {
+  private def analyzeRouteNameNodes(routeName: String): Option[RouteNameAnalysis] = {
 
     val (startNodeNameOption, endNodeNameOption) = splitRouteName(routeName)
 
     val startNodeName = startNodeNameOption.getOrElse("")
     val endNodeName = endNodeNameOption.getOrElse("")
 
-    val normalizedRouteName = if (useDashSpaces(routeName, startNodeName, endNodeName)) {
-      s"$startNodeName - $endNodeName"
-    }
-    else {
-      s"$startNodeName-$endNodeName"
-    }
+    val normalizedRouteName = normalizeRouteName(routeName, startNodeName, endNodeName)
 
     if (startNodeName.nonEmpty && endNodeNameOption.nonEmpty) {
       toRouteNameAnalysisFromNodeNames(normalizedRouteName, startNodeName, endNodeName)
     }
     else {
-      RouteNameAnalysis(
-        Some(normalizedRouteName),
-        startNodeNameOption,
-        endNodeNameOption
+      Some(
+        RouteNameAnalysis(
+          Some(normalizedRouteName),
+          startNodeNameOption,
+          endNodeNameOption
+        )
       )
     }
   }
@@ -123,28 +141,30 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def analyzeToFromTags(tags: Tags): RouteNameAnalysis = {
-    tags("from") match {
+  private def routeNameFromToAndFromTags(): Option[RouteNameAnalysis] = {
+    context.relation.tags("from") match {
       case None =>
-        tags("to") match {
-          case None => RouteNameAnalysis()
-          case Some(toNodeName) =>
-            val to = NodeUtil.normalize(toNodeName)
+        context.relation.tags("to").flatMap { toNodeName =>
+          val to = NodeUtil.normalize(toNodeName)
+          Some(
             RouteNameAnalysis(
               Some("-" + to),
               None,
               Some(to)
             )
+          )
         }
 
       case Some(fromNodeName) =>
-        tags("to") match {
+        context.relation.tags("to") match {
           case None =>
             val from = NodeUtil.normalize(fromNodeName)
-            RouteNameAnalysis(
-              Some(from + "-"),
-              Some(from),
-              None
+            Some(
+              RouteNameAnalysis(
+                Some(from + "-"),
+                Some(from),
+                None
+              )
             )
           case Some(toNodeName) =>
             val to = NodeUtil.normalize(toNodeName)
@@ -154,22 +174,24 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def toRouteNameAnalysisFromNodeNames(routeName: String, startNodeName: String, endNodeName: String): RouteNameAnalysis = {
-    if (isRouteReversed(startNodeName, endNodeName)) {
-      RouteNameAnalysis(
-        Some(routeName),
-        Some(endNodeName),
-        Some(startNodeName),
-        reversed = true
-      )
-    }
-    else {
-      RouteNameAnalysis(
-        Some(routeName),
-        Some(startNodeName),
-        Some(endNodeName)
-      )
-    }
+  private def toRouteNameAnalysisFromNodeNames(routeName: String, startNodeName: String, endNodeName: String): Option[RouteNameAnalysis] = {
+    Some(
+      if (isRouteReversed(startNodeName, endNodeName)) {
+        RouteNameAnalysis(
+          Some(routeName),
+          Some(endNodeName),
+          Some(startNodeName),
+          reversed = true
+        )
+      }
+      else {
+        RouteNameAnalysis(
+          Some(routeName),
+          Some(startNodeName),
+          Some(endNodeName)
+        )
+      }
+    )
   }
 
   private def withoutComment(tagValue: String): String = {
@@ -202,7 +224,52 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
+  private def normalizeRouteName(routeName: String, startNodeName: String, endNodeName: String): String = {
+    if (useDashSpaces(routeName, startNodeName, endNodeName)) {
+      s"$startNodeName - $endNodeName"
+    }
+    else {
+      s"$startNodeName-$endNodeName"
+    }
+
+  }
+
   private def useDashSpaces(routeName: String, startNodeName: String, endNodeName: String): Boolean = {
     routeName.count(_ == '-') > 1 || startNodeName.length > 3 || endNodeName.length > 3
+  }
+
+  private def routeNameFromNodesInWays(): Option[RouteNameAnalysis] = {
+    val nodeNames = context.routeNodeInfos.values.map(_.name).toSeq.distinct
+    if (nodeNames.size == 1) {
+      val startNodeName = nodeNames.head
+      val endNodeName = startNodeName
+      val routeName = s"$startNodeName-$endNodeName"
+      val normalizedRouteName = normalizeRouteName(routeName, startNodeName, endNodeName)
+      Some(
+        RouteNameAnalysis(
+          name = Some(normalizedRouteName),
+          startNodeName = Some(startNodeName),
+          endNodeName = Some(endNodeName),
+          derivedFromNodes = true
+        )
+      )
+    }
+    else if (nodeNames.size == 2) {
+      val startNodeName = nodeNames.head
+      val endNodeName = nodeNames(1)
+      val routeName = s"$startNodeName-$endNodeName"
+      val normalizedRouteName = normalizeRouteName(routeName, startNodeName, endNodeName)
+      Some(
+        RouteNameAnalysis(
+          name = Some(normalizedRouteName),
+          startNodeName = Some(startNodeName),
+          endNodeName = Some(endNodeName),
+          derivedFromNodes = true
+        )
+      )
+    }
+    else {
+      None
+    }
   }
 }

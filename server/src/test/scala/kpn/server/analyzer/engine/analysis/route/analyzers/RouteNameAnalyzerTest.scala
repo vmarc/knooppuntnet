@@ -8,6 +8,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 import kpn.server.analyzer.engine.context.AnalysisContext
 
 class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
@@ -272,12 +273,85 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def analyzeRouteName(tags: Tags): Option[RouteNameAnalysis] = {
-    val newContext = analyze(tags)
+  test("route name based nodes in ways and/or relation") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "start - end-node"))
+    routeNameAnalysis.value.shouldMatchTo(
+      RouteNameAnalysis(
+        Some("start - end-node"),
+        Some("start"),
+        Some("end-node")
+      )
+    )
+  }
+
+  test("route name based on single node in ways and/or relation") {
+    val routeNodeInfos: Map[Long, RouteNodeInfo] = Map(
+      1001L -> RouteNodeInfo(
+        newNode(1001),
+        "01",
+        None
+      )
+    )
+    val routeNameAnalysis = analyzeRouteName(Tags.empty, routeNodeInfos)
+    routeNameAnalysis.value.shouldMatchTo(
+      RouteNameAnalysis(
+        Some("01-01"),
+        Some("01"),
+        Some("01"),
+        derivedFromNodes = true
+      )
+    )
+  }
+
+  test("route name based on single node (with dash in name) in ways and/or relation") {
+    val routeNodeInfos: Map[Long, RouteNodeInfo] = Map(
+      1001L -> RouteNodeInfo(
+        newNode(1001),
+        "node-name",
+        None
+      )
+    )
+    val routeNameAnalysis = analyzeRouteName(Tags.empty, routeNodeInfos)
+    routeNameAnalysis.value.shouldMatchTo(
+      RouteNameAnalysis(
+        Some("node-name - node-name"),
+        Some("node-name"),
+        Some("node-name"),
+        derivedFromNodes = true
+      )
+    )
+  }
+
+  test("route name based on two nodes in ways and/or relation") {
+    val routeNodeInfos: Map[Long, RouteNodeInfo] = Map(
+      1001L -> RouteNodeInfo(
+        newNode(1001),
+        "01",
+        None
+      ),
+      1002L -> RouteNodeInfo(
+        newNode(1002),
+        "02",
+        None
+      )
+    )
+    val routeNameAnalysis = analyzeRouteName(Tags.empty, routeNodeInfos)
+    routeNameAnalysis.value.shouldMatchTo(
+      RouteNameAnalysis(
+        Some("01-02"),
+        Some("01"),
+        Some("02"),
+        derivedFromNodes = true
+      )
+    )
+  }
+
+  private def analyzeRouteName(tags: Tags, routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): Option[RouteNameAnalysis] = {
+    val newContext = analyze(tags, routeNodeInfos)
     newContext.routeNameAnalysis
   }
 
-  private def analyze(tags: Tags): RouteAnalysisContext = {
+  private def analyze(tags: Tags, routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteAnalysisContext = {
 
     val standardRouteTags = Tags.from(
       "network" -> "rwn",
@@ -291,7 +365,11 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     val rawData = RawData(None, Seq.empty, Seq.empty, Seq(rawRelation))
     val relation = new DataBuilder(rawData).data.relations(11L)
     val analysisContext = new AnalysisContext()
-    val context = RouteAnalysisContext(analysisContext, relation)
+    val context = RouteAnalysisContext(
+      analysisContext,
+      relation,
+      routeNodeInfos
+    )
 
     RouteNameAnalyzer.analyze(context)
   }
