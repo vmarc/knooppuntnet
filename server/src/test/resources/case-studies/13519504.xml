@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-01-22T08:05:09Z"/>
+
+  <node id="278524494" lat="45.6493195" lon="5.8923752" version="4" timestamp="2016-05-08T09:32:28Z" changeset="39177730" uid="634789" user="Floflo-"/>
+  <node id="278524581" lat="45.6491782" lon="5.8924231" version="3" timestamp="2012-06-25T08:17:21Z" changeset="12008127" uid="162016" user="Neil Dewhurst"/>
+  <node id="279330694" lat="45.6485965" lon="5.8922643" version="5" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73">
+    <tag k="lwn_name" v="Site des Mottets"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="469328984" lat="45.6493177" lon="5.8926533" version="5" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73">
+    <tag k="lwn_name" v="Site des Mottets"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="469853493" lat="45.6486221" lon="5.8924258" version="6" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73"/>
+  <node id="1801433119" lat="45.6490836" lon="5.8924253" version="1" timestamp="2012-06-25T08:17:17Z" changeset="12008127" uid="162016" user="Neil Dewhurst"/>
+  <node id="1801433129" lat="45.6489332" lon="5.8924239" version="1" timestamp="2012-06-25T08:17:17Z" changeset="12008127" uid="162016" user="Neil Dewhurst"/>
+  <node id="1801433132" lat="45.6487758" lon="5.8924225" version="1" timestamp="2012-06-25T08:17:17Z" changeset="12008127" uid="162016" user="Neil Dewhurst"/>
+  <node id="9316562691" lat="45.6486048" lon="5.8924084" version="1" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73"/>
+  <node id="9316562692" lat="45.6485987" lon="5.8923754" version="1" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73"/>
+  <way id="1009737494" version="1" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73">
+    <nd ref="279330694"/>
+    <nd ref="9316562692"/>
+    <nd ref="9316562691"/>
+    <nd ref="469853493"/>
+    <nd ref="1801433132"/>
+    <nd ref="1801433129"/>
+    <nd ref="1801433119"/>
+    <nd ref="278524581"/>
+    <nd ref="278524494"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="1009737495" version="1" timestamp="2021-12-06T23:20:49Z" changeset="114637772" uid="4970229" user="Danalieth73">
+    <nd ref="278524494"/>
+    <nd ref="469328984"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <relation id="13519504" version="2" timestamp="2021-12-07T18:17:43Z" changeset="114671929" uid="4970229" user="Danalieth73">
+    <member type="way" ref="1009737495" role=""/>
+    <member type="way" ref="1009737494" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="? - ?"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>

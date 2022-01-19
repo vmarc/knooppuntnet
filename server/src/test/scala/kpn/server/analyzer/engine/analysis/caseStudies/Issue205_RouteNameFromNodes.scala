@@ -17,4 +17,52 @@ class Issue205_RouteNameFromNodes extends UnitTest {
     route.facts should equal(Seq.empty)
     route.summary.name should equal("?-?")
   }
+
+  test("route 13519504") {
+    val route = CaseStudy.routeAnalysis("13669113").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("?-?")
+  }
+
+  test("route 13619463") {
+    val route = CaseStudy.routeAnalysis("13619463").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("Albiez le Jeune - Chef Lieu - Albiez le Jeune - Chef Lieu")
+  }
+
+  test("route 13626627") {
+    val route = CaseStudy.routeAnalysis("13626627").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("Col de la Croix de Fer - Ouest - Col de la Croix de Fer - Ouest")
+  }
+
+  test("route 11829059") {
+    val route = CaseStudy.routeAnalysis("11829059").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("AE94 - AE106")
+  }
+
+  test("route 11829061") {
+    val route = CaseStudy.routeAnalysis("11829061").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("?-?")
+  }
+
+  test("route 13504960") {
+    val route = CaseStudy.routeAnalysis("13504960").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("?-?")
+  }
+
+  test("route 13508056") {
+    val route = CaseStudy.routeAnalysis("13508056").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("?-?")
+  }
+
+  test("route 13508061") {
+    val route = CaseStudy.routeAnalysis("13508061").route
+    route.facts should equal(Seq.empty)
+    route.summary.name should equal("?-?")
+  }
 }

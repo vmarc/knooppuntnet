@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-01-22T08:05:09Z"/>
+
+  <node id="1883982286" lat="45.7981740" lon="5.8759235" version="4" timestamp="2021-05-09T20:12:19Z" changeset="104410056" uid="98448" user="MDe"/>
+  <node id="1883982306" lat="45.7982790" lon="5.8756909" version="3" timestamp="2021-05-09T20:12:19Z" changeset="104410056" uid="98448" user="MDe"/>
+  <node id="1883982313" lat="45.7983145" lon="5.8748610" version="3" timestamp="2021-05-09T20:12:19Z" changeset="104410056" uid="98448" user="MDe"/>
+  <node id="1883982325" lat="45.7983775" lon="5.8750220" version="3" timestamp="2021-05-09T20:12:19Z" changeset="104410056" uid="98448" user="MDe"/>
+  <node id="1883982332" lat="45.7983764" lon="5.8754142" version="3" timestamp="2021-05-09T20:12:19Z" changeset="104410056" uid="98448" user="MDe"/>
+  <node id="1883982337" lat="45.7983946" lon="5.8752242" version="3" timestamp="2021-05-09T20:12:19Z" changeset="104410056" uid="98448" user="MDe"/>
+  <node id="2801930590" lat="45.7981112" lon="5.8760873" version="7" timestamp="2021-12-03T20:43:17Z" changeset="114536760" uid="4970229" user="Danalieth73">
+    <tag k="lwn_name" v="N. D. de la Salette (792 m)"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="7526871248" lat="45.7983112" lon="5.8747505" version="4" timestamp="2021-12-02T22:37:33Z" changeset="114500730" uid="4970229" user="Danalieth73">
+    <tag k="fixme" v="Panneau indicateur ?&#x0a;Guidepost ?"/>
+    <tag k="lwn_name" v="?"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <way id="1008747852" version="1" timestamp="2021-12-02T22:37:33Z" changeset="114500730" uid="4970229" user="Danalieth73">
+    <nd ref="2801930590"/>
+    <nd ref="1883982286"/>
+    <nd ref="1883982306"/>
+    <nd ref="1883982332"/>
+    <nd ref="1883982337"/>
+    <nd ref="1883982325"/>
+    <nd ref="1883982313"/>
+    <nd ref="7526871248"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lane_markings" v="no"/>
+    <tag k="name" v="Route du Sapenay"/>
+    <tag k="ref" v="D 54"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <relation id="13504960" version="2" timestamp="2021-12-03T22:00:21Z" changeset="114538636" uid="4970229" user="Danalieth73">
+    <member type="way" ref="1008747852" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="? - ?"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>

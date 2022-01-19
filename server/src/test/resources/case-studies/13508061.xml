@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-01-22T08:05:09Z"/>
+
+  <node id="894717845" lat="45.7352952" lon="5.9050021" version="3" timestamp="2021-12-03T22:23:45Z" changeset="114539197" uid="4970229" user="Danalieth73">
+    <tag k="lwn_name" v="Dessus la Tessonière"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="894717858" lat="45.7408602" lon="5.8981398" version="3" timestamp="2021-12-03T22:23:45Z" changeset="114539197" uid="4970229" user="Danalieth73">
+    <tag k="fixme" v="Panneau indicateur ?&#x0a;Guidepost ?"/>
+    <tag k="lwn_name" v="?"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="894717886" lat="45.7356824" lon="5.9045984" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717889" lat="45.7357647" lon="5.9043731" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717890" lat="45.7358920" lon="5.9042014" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717891" lat="45.7361167" lon="5.9041263" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717892" lat="45.7364686" lon="5.9035362" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717893" lat="45.7367307" lon="5.9031178" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717895" lat="45.7370377" lon="5.9028496" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717897" lat="45.7370976" lon="5.9025385" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717900" lat="45.7374271" lon="5.9022166" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717903" lat="45.7381685" lon="5.9020557" version="1" timestamp="2010-09-03T20:52:49Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717907" lat="45.7386701" lon="5.9015836" version="1" timestamp="2010-09-03T20:52:50Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717911" lat="45.7391868" lon="5.9011115" version="1" timestamp="2010-09-03T20:52:50Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717914" lat="45.7397933" lon="5.9003069" version="1" timestamp="2010-09-03T20:52:50Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717917" lat="45.7402950" lon="5.8997382" version="1" timestamp="2010-09-03T20:52:50Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717922" lat="45.7406919" lon="5.8994271" version="1" timestamp="2010-09-03T20:52:50Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="894717924" lat="45.7408978" lon="5.8986224" version="2" timestamp="2021-05-19T09:08:25Z" changeset="104945009" uid="98448" user="MDe"/>
+  <node id="894717925" lat="45.7408940" lon="5.8982684" version="1" timestamp="2010-09-03T20:52:50Z" changeset="5674144" uid="342081" user="Feubryce73"/>
+  <node id="8745145483" lat="45.7408619" lon="5.8989125" version="1" timestamp="2021-05-19T09:08:25Z" changeset="104945009" uid="98448" user="MDe"/>
+  <way id="75795289" version="8" timestamp="2021-12-03T22:23:45Z" changeset="114539197" uid="4970229" user="Danalieth73">
+    <nd ref="894717845"/>
+    <nd ref="894717886"/>
+    <nd ref="894717889"/>
+    <nd ref="894717890"/>
+    <nd ref="894717891"/>
+    <nd ref="894717892"/>
+    <nd ref="894717893"/>
+    <nd ref="894717895"/>
+    <nd ref="894717897"/>
+    <nd ref="894717900"/>
+    <nd ref="894717903"/>
+    <nd ref="894717907"/>
+    <nd ref="894717911"/>
+    <nd ref="894717914"/>
+    <nd ref="894717917"/>
+    <nd ref="894717922"/>
+    <nd ref="8745145483"/>
+    <nd ref="894717924"/>
+    <nd ref="894717925"/>
+    <nd ref="894717858"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+  </way>
+  <relation id="13508061" version="1" timestamp="2021-12-03T22:23:45Z" changeset="114539197" uid="4970229" user="Danalieth73">
+    <member type="way" ref="75795289" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="? - ?"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>
