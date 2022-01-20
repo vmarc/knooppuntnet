@@ -30,6 +30,9 @@ import kpn.server.api.monitor.domain.MonitorRouteState
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
+import java.util.concurrent.TimeUnit
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
 
 class DatabaseImpl(val database: MongoDatabase) extends Database {
@@ -148,5 +151,9 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def blacklists: DatabaseCollection[Blacklist] = {
     new DatabaseCollectionImpl(database.getCollection[Blacklist]("blacklists"))
+  }
+
+  override def dropDatabase(): Unit = {
+    Await.result(database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
   }
 }

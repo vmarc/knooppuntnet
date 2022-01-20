@@ -5,10 +5,7 @@ import kpn.database.util.Mongo
 import org.mongodb.scala.MongoClient
 import org.scalatest.Assertions
 
-import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
 
 object TestSupport extends Assertions {
 
@@ -19,7 +16,7 @@ object TestSupport extends Assertions {
    * afterwards.
    */
   def withDatabase(f: Database => Unit): Unit = {
-    withDatabase(keepDatabaseAfterTest = false)(f)
+    withDatabase()(f)
   }
 
   /**
@@ -31,12 +28,12 @@ object TestSupport extends Assertions {
     val mongoClient = MongoClient()
     try {
       val database = Mongo.database(mongoClient, databaseName)
-      Await.result(database.database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
+      database.dropDatabase()
       try {
         f(database)
       } finally {
         if (!keepDatabaseAfterTest) {
-          Await.result(database.database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
+          database.dropDatabase()
         }
       }
     }

@@ -108,7 +108,7 @@ class PoiImageRetrieverImpl(
               imageStatus = Some("NotFound")
             )
           }
-        case e =>
+        case e: Throwable =>
           val detail = e.getClass.getName + " " + e.getMessage
           log.warn(detail)
           PoiState(

@@ -46,7 +46,7 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
   }
 
   override def translate(language: Language, locationKey: LocationKey): LocationKey = {
-    val nameParts = locationKey.name.split(":")
+    val nameParts = locationKey.name.split(":").toSeq
     lookup(language, locationConfiguration.locations, nameParts, None) match {
       case None => locationKey
       case Some(locationDefinition) =>

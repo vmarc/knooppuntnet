@@ -37,10 +37,9 @@ class RouteUpdateTest05 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
-      val routeChange = findRouteChangeById("123:1:11")
-
-      routeChange.before
-
+      //  val routeChange = findRouteChangeById("123:1:11")
+      //  routeChange.before
+      //  ()
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis

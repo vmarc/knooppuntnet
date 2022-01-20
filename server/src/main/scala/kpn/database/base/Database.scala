@@ -34,9 +34,6 @@ import scala.reflect.ClassTag
 
 trait Database {
 
-  @deprecated
-  def database: MongoDatabase
-
   def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
 
   def empty: DatabaseCollection[Any]
@@ -94,5 +91,7 @@ trait Database {
   def status: DatabaseCollection[WithStringId]
 
   def blacklists: DatabaseCollection[Blacklist]
+
+  def dropDatabase(): Unit
 
 }
