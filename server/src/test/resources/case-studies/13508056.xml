@@ -195,7 +195,7 @@
     <tag k="colour" v="yellow"/>
     <tag k="network" v="lwn"/>
     <tag k="network:type" v="node_network"/>
-    <tag k="note" v="? - ?"/>
+<!--    <tag k="note" v="? - ?"/>-->
     <tag k="route" v="hiking"/>
     <tag k="type" v="route"/>
   </relation>

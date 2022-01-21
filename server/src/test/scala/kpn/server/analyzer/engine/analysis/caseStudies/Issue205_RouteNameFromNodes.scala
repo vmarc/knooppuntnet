@@ -45,24 +45,24 @@ class Issue205_RouteNameFromNodes extends UnitTest {
   test("route 11829061") {
     val route = CaseStudy.routeAnalysis("11829061").route
     route.facts should equal(Seq.empty)
-    route.summary.name should equal("?-?")
+    route.summary.name should equal("AE92 - AE93")
   }
 
   test("route 13504960") {
     val route = CaseStudy.routeAnalysis("13504960").route
     route.facts should equal(Seq.empty)
-    route.summary.name should equal("?-?")
+    route.summary.name should equal("N. D. de la Salette (792 m) - ?")
   }
 
   test("route 13508056") {
     val route = CaseStudy.routeAnalysis("13508056").route
     route.facts should equal(Seq.empty)
-    route.summary.name should equal("?-?")
+    route.summary.name should equal("Granges de Brison - ?")
   }
 
   test("route 13508061") {
     val route = CaseStudy.routeAnalysis("13508061").route
     route.facts should equal(Seq.empty)
-    route.summary.name should equal("?-?")
+    route.summary.name should equal("Dessus la Tessonière - ?")
   }
 }
