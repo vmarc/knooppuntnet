@@ -8,7 +8,7 @@ import kpn.server.repository.RouteRepositoryImpl
 
 object DuplicateRoutesReport {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("master1") { database =>
+    Mongo.executeIn("kpn-3") { database =>
       new DuplicateRoutesReport(database).run()
     }
     println("Done")
@@ -33,9 +33,11 @@ class DuplicateRoutesReport(database: Database) {
 
   implicit def overlapOrdering: Ordering[Overlap] = Ordering.by(o => (o.name, o.routeId1, o.routeId2))
 
+  private val routeRepository = new RouteRepositoryImpl(database)
+
   def run(): Unit = {
 
-    val routeIds = database.routes.ids()
+    val routeIds = routeRepository.activeRouteIds()
     val routes = loadRoutes(routeIds)
 
     Country.all.foreach { country =>
@@ -54,15 +56,14 @@ class DuplicateRoutesReport(database: Database) {
   }
 
   private def printTableHeader(): Unit = {
-    println("|name|route 1|route 2|overlap|# ways 1|# ways 2|# shared|alt 1|alt 2|")
-    println("|----|-------|-------|-------|--------|--------|--------|-----|-----|")
+    println("| name | route 1 | route 2 | overlap | # ways 1 | # ways 2 | # shared | alt 1 | alt 2 |")
+    println("|------|---------|---------|---------|----------|----------|----------|-------|-------|")
   }
 
   private def printOverlap(overlap: Overlap): Unit = {
-    println(s"|${overlap.name}|${link(overlap.routeId1)}|${link(overlap.routeId2)}|${overlap.percentage}%|${overlap.wayCount1}|${overlap.wayCount2}|${
-      overlap
-        .commonWayCount
-    }|${if (overlap.alternate1) "ALTERNATE" else ""}|${if (overlap.alternate2) "ALTERNATE" else ""}|")
+    println(s"| ${overlap.name} | ${link(overlap.routeId1)} | ${link(overlap.routeId2)} | ${overlap.percentage}% | ${overlap.wayCount1} | ${overlap.wayCount2} | ${
+      overlap.commonWayCount
+    } | ${if (overlap.alternate1) "ALTERNATE" else ""} | ${if (overlap.alternate2) "ALTERNATE" else ""} | ")
   }
 
   private def link(routeId: Long): String = {
@@ -78,7 +79,6 @@ class DuplicateRoutesReport(database: Database) {
   }
 
   private def loadRoutes(routeIds: Seq[Long]): Seq[RouteWays] = {
-    val routeRepository = new RouteRepositoryImpl(database)
     routeIds.zipWithIndex.flatMap { case (routeId, index) =>
       if (index % 100 == 0) {
         println(s"${routeIds.size}/$index")
