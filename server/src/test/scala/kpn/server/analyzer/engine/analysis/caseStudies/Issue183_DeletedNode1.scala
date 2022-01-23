@@ -6,7 +6,7 @@ import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
 
-class Issue183_DeletedNode extends UnitTest with MockFactory with SharedTestObjects {
+class Issue183_DeletedNode1 extends UnitTest with MockFactory with SharedTestObjects {
 
   private val changeSetId = 104737699L
   private val replicationNumber = 4542690L

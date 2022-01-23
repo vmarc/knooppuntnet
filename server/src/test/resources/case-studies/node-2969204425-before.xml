@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2022-01-25T16:53:54Z"/>
+
+  <node id="2969204425" lat="53.6605621" lon="9.8870386" version="2" timestamp="2021-07-13T18:43:07Z" changeset="107929096" uid="7041" user="UncleOwen">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="Pau49"/>
+  </node>
+
+</osm>

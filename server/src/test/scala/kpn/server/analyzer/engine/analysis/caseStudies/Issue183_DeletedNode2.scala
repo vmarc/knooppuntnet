@@ -5,7 +5,7 @@ import kpn.api.custom.Fact
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 
-class Issue183_DeletedNode01 extends IntegrationTest {
+class Issue183_DeletedNode2 extends IntegrationTest {
 
   private val deletedNodeId = 8731919671L
 
