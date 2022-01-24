@@ -16,6 +16,7 @@ import org.mongodb.scala.model.Aggregates.unionWith
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.notEqual
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
@@ -88,6 +89,13 @@ class MongoQueryLocationFacts(database: Database) {
     val routePipeline = Seq(
       mainFilter,
       unwind("$facts"),
+      filter(
+        and(
+          notEqual("facts", "RouteBroken"),
+          notEqual("facts", "RouteNotForward"),
+          notEqual("facts", "RouteNotBackward"),
+        )
+      ),
       project(
         fields(
           excludeId(),

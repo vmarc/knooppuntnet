@@ -1,20 +1,22 @@
 package kpn.database.actions.locations
 
 import kpn.api.custom.NetworkType
+import kpn.core.doc.Label
+import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
-import kpn.core.doc.Label
 import kpn.database.util.Mongo
-import kpn.core.util.Log
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unionWith
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.notEqual
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 
@@ -36,7 +38,7 @@ class MongoQueryLocationFactCount(database: Database) {
 
   def execute(networkType: NetworkType, locationName: String): Long = {
 
-    val subPipeline = Seq(
+    val nodeFactsPipeline = Seq(
       filter(
         and(
           equal("labels", Label.active),
@@ -62,9 +64,43 @@ class MongoQueryLocationFactCount(database: Database) {
       )
     )
 
+    val routeFactPipeline = Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          equal("labels", Label.networkType(networkType)),
+          equal("labels", Label.location(locationName)),
+          equal("labels", Label.facts)
+        )
+      ),
+      unwind("$facts"),
+      filter(
+        and(
+          notEqual("facts", "RouteBroken"),
+          notEqual("facts", "RouteNotForward"),
+          notEqual("facts", "RouteNotBackward"),
+        )
+      ),
+      project(
+        fields(
+          excludeId(),
+          BsonDocument("""{"factCount": {"$toInt": "1"}}""")
+        )
+      ),
+      group(
+        null,
+        sum("count", "$factCount")
+      ),
+      project(
+        fields(
+          excludeId(),
+        )
+      )
+    )
+
     val pipeline = Seq(
-      subPipeline, // node facts
-      Seq(unionWith("routes", subPipeline: _*))
+      nodeFactsPipeline,
+      Seq(unionWith("routes", routeFactPipeline: _*))
     ).flatten
 
     log.debugElapsed {

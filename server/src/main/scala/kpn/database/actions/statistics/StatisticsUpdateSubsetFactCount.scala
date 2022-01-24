@@ -5,6 +5,7 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.statistics.StatisticsUpdateSubsetFactCount.log
 import kpn.database.base.Database
+import kpn.database.util.Mongo
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
@@ -19,6 +20,7 @@ import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
+import org.mongodb.scala.model.Filters.notEqual
 import org.mongodb.scala.model.MergeOptions
 import org.mongodb.scala.model.MergeOptions.WhenMatched
 import org.mongodb.scala.model.Projections.computed
@@ -60,7 +62,7 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
            Only include the network level facts, not the node and route facts
            that are alse included in NetworkInfoDoc.
         */
-        exists("facts.elementType", exists = false)
+        equal("facts.elementType", "network")
       ),
       group(
         Document(
@@ -81,6 +83,13 @@ class StatisticsUpdateSubsetFactCount(database: Database) {
         )
       ),
       unwind("$facts"),
+      filter(
+        and(
+          notEqual("facts", "RouteBroken"),
+          notEqual("facts", "RouteNotForward"),
+          notEqual("facts", "RouteNotBackward"),
+        )
+      ),
       group(
         Document(
           "country" -> "$summary.country",

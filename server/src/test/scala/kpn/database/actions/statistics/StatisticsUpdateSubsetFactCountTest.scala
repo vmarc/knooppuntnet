@@ -11,10 +11,9 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.database.base.Database
-import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
 
 class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObjects {
 
@@ -142,13 +141,13 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
   }
 
   private def buildRoutes(database: Database): Unit = {
-    buildRoute(database, 11L, nl, hiking, Seq(Fact.RouteNotForward, Fact.RouteInaccessible))
-    buildRoute(database, 12L, nl, hiking, Seq(Fact.RouteNotForward, Fact.RouteNotBackward))
+    buildRoute(database, 11L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteInaccessible))
+    buildRoute(database, 12L, nl, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward, Fact.RouteNotBackward))
     buildRoute(database, 13L, nl, hiking, Seq.empty)
-    buildRoute(database, 14L, de, hiking, Seq(Fact.RouteNotForward))
-    buildRoute(database, 15L, de, hiking, Seq(Fact.RouteNotForward))
-    buildRoute(database, 16L, de, cycling, Seq(Fact.RouteNotForward))
-    buildRoute(database, 17L, de, cycling, Seq(Fact.RouteNotForward), active = false)
+    buildRoute(database, 14L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
+    buildRoute(database, 15L, de, hiking, Seq(Fact.RouteBroken, Fact.RouteNotForward))
+    buildRoute(database, 16L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward))
+    buildRoute(database, 17L, de, cycling, Seq(Fact.RouteBroken, Fact.RouteNotForward), active = false)
   }
 
   private def buildRoute(

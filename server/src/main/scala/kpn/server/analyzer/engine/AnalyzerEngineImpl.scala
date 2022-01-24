@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine
 import kpn.api.common.ReplicationId
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
@@ -27,6 +28,7 @@ class AnalyzerEngineImpl(
   tileUpdater: TileUpdater,
   poiChangeAnalyzer: PoiChangeAnalyzer,
   poiTileUpdater: PoiTileUpdater,
+  statisticsUpdater: StatisticsUpdater,
   analyzerReload: Boolean
 ) extends AnalyzerEngine {
 
@@ -51,6 +53,7 @@ class AnalyzerEngineImpl(
     Log.context(s"${replicationId.name}") {
       log.debug("Start")
       log.infoElapsed {
+        var hasChanges = false
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
@@ -63,6 +66,11 @@ class AnalyzerEngineImpl(
               elementIds
             )
             changeProcessor.process(context)
+
+            if (context.changes.nonEmpty) {
+              hasChanges = true
+            }
+
             elementIds.size
           }
         }.sum
@@ -74,6 +82,10 @@ class AnalyzerEngineImpl(
         if (analyzerTileUpdateEnabled) {
           tileUpdater.update(11)
           poiTileUpdater.update()
+        }
+
+        if (hasChanges) {
+          statisticsUpdater.update()
         }
 
         analysisRepository.saveLastUpdated(timestamp)
