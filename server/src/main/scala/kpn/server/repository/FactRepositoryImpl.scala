@@ -29,53 +29,9 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
 
   private def routeFactsPerNetwork(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
 
-    val routeRefs = log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("labels", Label.active),
-            equal("labels", Label.country(subset.country)),
-            equal("labels", Label.networkType(subset.networkType)),
-            equal("labels", Label.fact(fact)),
-          )
-        ),
-        project(
-          fields(
-            excludeId(),
-            computed("id", "$_id"),
-            computed("name", "$summary.name"),
-          )
-        )
-      )
-      val refs = database.routes.aggregate[Ref](pipeline, log)
-      (s"routeRefs: ${refs.size}", refs)
-    }
-
+    val routeRefs = findRoutesWithFact(subset, fact)
     val routeIds = routeRefs.map(_.id)
-
-    val networkRoutes = log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("active", true),
-            equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
-          )
-        ),
-        unwind("$routes"),
-        filter(in("routes.id", routeIds: _*)),
-        project(
-          fields(
-            excludeId(),
-            computed("networkId", "$_id"),
-            computed("networkName", "$summary.name"),
-            computed("routeId", "$routes.id"),
-          )
-        )
-      )
-      val references = database.networkInfos.aggregate[NetworkRoute](pipeline, log)
-      (s"route network references: ${references.size}", references)
-    }
+    val networkRoutes = findNetworkRoutes(subset, routeIds)
 
     val networkIds = networkRoutes.map(_.networkId).distinct.sorted
     val networkFactRefs = networkIds.map { networkId =>
@@ -106,5 +62,57 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     }
 
     allNetworkFactRefs
+  }
+
+  private def findRoutesWithFact(subset: Subset, fact: Fact): Seq[Ref] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("labels", Label.active),
+            equal("labels", Label.country(subset.country)),
+            equal("labels", Label.networkType(subset.networkType)),
+            equal("labels", Label.fact(fact)),
+            // in addition to country label (labels can contain multiple countries):
+            equal("summary.country", subset.country.domain),
+          )
+        ),
+        project(
+          fields(
+            excludeId(),
+            computed("id", "$_id"),
+            computed("name", "$summary.name"),
+          )
+        )
+      )
+      val refs = database.routes.aggregate[Ref](pipeline, log)
+      (s"routeRefs: ${refs.size}", refs)
+    }
+  }
+
+  private def findNetworkRoutes(subset: Subset, routeIds: Seq[Long]): Seq[NetworkRoute] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("active", true),
+            equal("country", subset.country.domain),
+            equal("summary.networkType", subset.networkType.name)
+          )
+        ),
+        unwind("$routes"),
+        filter(in("routes.id", routeIds: _*)),
+        project(
+          fields(
+            excludeId(),
+            computed("networkId", "$_id"),
+            computed("networkName", "$summary.name"),
+            computed("routeId", "$routes.id"),
+          )
+        )
+      )
+      val references = database.networkInfos.aggregate[NetworkRoute](pipeline, log)
+      (s"route network references: ${references.size}", references)
+    }
   }
 }

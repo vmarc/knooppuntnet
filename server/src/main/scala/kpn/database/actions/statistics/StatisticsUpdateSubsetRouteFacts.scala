@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteFacts.log
 import kpn.database.base.Database
 import kpn.database.base.MongoProjections.concat
+import kpn.database.util.Mongo
 import org.mongodb.scala.Document
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Accumulators.sum

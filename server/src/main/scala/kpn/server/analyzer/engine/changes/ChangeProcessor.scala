@@ -17,7 +17,7 @@ class ChangeProcessor(
   changeSaver: ChangeSaver
 ) {
 
-  def process(context: ChangeSetContext): Unit = {
+  def process(context: ChangeSetContext): ChangeSetContext = {
 
     val context1 = networkChangeProcessor.process(context)
     val context2 = routeChangeProcessor.process(context1)
@@ -28,5 +28,6 @@ class ChangeProcessor(
       changeSetInfoUpdater.changeSetInfo(context4.changeSet.id)
       changeSaver.save(context4)
     }
+    context4
   }
 }

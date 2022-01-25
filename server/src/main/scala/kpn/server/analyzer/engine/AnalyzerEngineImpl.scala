@@ -65,10 +65,14 @@ class AnalyzerEngineImpl(
               changeSet,
               elementIds
             )
-            changeProcessor.process(context)
+            val contextAfter = changeProcessor.process(context)
 
-            if (context.changes.nonEmpty) {
+            if (contextAfter.changes.nonEmpty) {
               hasChanges = true
+              log.info(s"changeset ${changeSet.id}: ${contextAfter.changes.size} changes, hasChanges=$hasChanges")
+            }
+            else {
+              log.info(s"changeset ${changeSet.id}: no changes (${contextAfter.changes.size}), hasChanges=$hasChanges")
             }
 
             elementIds.size
@@ -85,7 +89,11 @@ class AnalyzerEngineImpl(
         }
 
         if (hasChanges) {
+          log.info(s"minute diff hasChanges=$hasChanges, update statistics")
           statisticsUpdater.update()
+        }
+        else {
+          log.info(s"minute diff hasChanges=$hasChanges")
         }
 
         analysisRepository.saveLastUpdated(timestamp)
