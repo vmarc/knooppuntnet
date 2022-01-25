@@ -2685,6 +2685,41 @@
           <context context-type="linenumber">15,21</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="location-expand-all-dialog.title" datatype="html">
+        <source> Expand all </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">10,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-expand-all-dialog.message.1" datatype="html">
+        <source> Expanding all locations in the tree is a heavy operation for your browser, and it will take some time. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">14,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-expand-all-dialog.message.2" datatype="html">
+        <source> Are you sure you want to expand all? </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">18,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no" datatype="html">
+        <source>No</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">22,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yes" datatype="html">
+        <source> Yes </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">30,38</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="analysis.location.search-by-name" datatype="html">
         <source> Search by name </source>
         <context-group purpose="location">
@@ -2742,28 +2777,28 @@
         <source> Expand all </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">28,35</context>
+          <context context-type="linenumber">31,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.collapse-all" datatype="html">
         <source> Collapse all </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">36,42</context>
+          <context context-type="linenumber">39,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.all" datatype="html">
         <source> All </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">44,50</context>
+          <context context-type="linenumber">47,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.in-use-only" datatype="html">
         <source> In use only </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">51,58</context>
+          <context context-type="linenumber">54,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.title" datatype="html">

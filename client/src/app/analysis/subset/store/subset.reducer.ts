@@ -1,10 +1,11 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
-import { RoutingUtil } from '../../../base/routing-util';
+import { actionSubsetChangesPageInit } from './subset.actions';
+import { actionSubsetMapPageInit } from './subset.actions';
+import { actionSubsetOrphanRoutesPageInit } from './subset.actions';
+import { actionSubsetOrphanNodesPageInit } from './subset.actions';
+import { actionSubsetFactsPageInit } from './subset.actions';
+import { actionSubsetNetworksPageInit } from './subset.actions';
 import { actionSubsetMapPageLoad } from './subset.actions';
 import { actionSubsetOrphanRoutesPageLoad } from './subset.actions';
 import { actionSubsetFactsPageLoad } from './subset.actions';
@@ -27,28 +28,28 @@ import { initialState } from './subset.state';
 
 export const subsetReducer = createReducer(
   initialState,
-  on(routerNavigationAction, (state, action) => {
-    const util = new RoutingUtil(action);
-    let changesPage: ApiResponse<SubsetChangesPage> = null;
-    let changesParameters: ChangesParameters = null;
-    if (util.isSubsetChangesPage()) {
-      changesPage = state.changesPage;
-      changesParameters = state.changesParameters;
+  on(
+    actionSubsetNetworksPageInit,
+    actionSubsetFactsPageInit,
+    actionSubsetOrphanNodesPageInit,
+    actionSubsetOrphanRoutesPageInit,
+    actionSubsetMapPageInit,
+    actionSubsetChangesPageInit,
+    (state, action) => {
+      return {
+        ...state,
+        networksPage: null,
+        factsPage: null,
+        subsetFact: null,
+        factDetailsPage: null,
+        orphanNodesPage: null,
+        orphanRoutesPage: null,
+        mapPage: null,
+        changesPage: null,
+        changesParameters: null,
+      };
     }
-
-    return {
-      ...state,
-      networksPage: null,
-      factsPage: null,
-      subsetFact: null,
-      factDetailsPage: null,
-      orphanNodesPage: null,
-      orphanRoutesPage: null,
-      mapPage: null,
-      changesPage,
-      changesParameters,
-    };
-  }),
+  ),
   on(
     actionSubsetNetworksPageLoad,
     actionSubsetFactsPageLoad,

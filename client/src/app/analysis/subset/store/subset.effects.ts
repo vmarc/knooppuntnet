@@ -171,15 +171,22 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
       concatLatestFrom(() => [
-        this.store.select(selectSubset),
+        this.store.select(selectRouteParams),
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
       ]),
       map(
-        ([{}, subset, queryParams, preferencesImpact, preferencesPageSize]) => {
-          const queryParamsWrapper = new PageParams(queryParams);
-          const changesParameters = queryParamsWrapper.changesParameters(
+        ([
+          {},
+          routeParams,
+          queryParams,
+          preferencesImpact,
+          preferencesPageSize,
+        ]) => {
+          const pageParams = new PageParams(routeParams, queryParams);
+          const subset = pageParams.subset();
+          const changesParameters = pageParams.changesParameters(
             preferencesImpact,
             preferencesPageSize
           );
