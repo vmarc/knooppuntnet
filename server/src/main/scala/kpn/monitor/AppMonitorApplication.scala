@@ -1,7 +1,9 @@
 package kpn.monitor
 
 import org.springframework.boot.SpringApplication
+import org.springframework.boot.actuate.autoconfigure.metrics.mongo.MongoMetricsAutoConfiguration
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration
 import org.springframework.scheduling.annotation.EnableScheduling
 
 object AppMonitorApplication {
@@ -11,7 +13,12 @@ object AppMonitorApplication {
   }
 }
 
-@SpringBootApplication
+@SpringBootApplication(exclude =
+  Array(
+    classOf[MongoReactiveAutoConfiguration],
+    classOf[MongoMetricsAutoConfiguration],
+  )
+)
 @EnableScheduling
 class AppMonitorApplication() {
 }
