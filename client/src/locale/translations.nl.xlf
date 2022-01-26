@@ -6732,7 +6732,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Alles openvouwen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">28,35</context>
+          <context context-type="linenumber">31,38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.collapse-all" datatype="html">
@@ -6740,7 +6740,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Alles inklappen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">36,42</context>
+          <context context-type="linenumber">39,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.all" datatype="html">
@@ -6748,7 +6748,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Alle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">44,50</context>
+          <context context-type="linenumber">47,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.in-use-only" datatype="html">
@@ -6756,7 +6756,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Enkel met knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">51,58</context>
+          <context context-type="linenumber">54,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.changes" datatype="html">
@@ -7451,7 +7451,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-change.initial-value" datatype="html">
         <source>Oldest known state of the route.</source>
-        <target>Oudste gekend staat van de route.</target>
+        <target>Oudste gekende staat van de route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/route-change.component.ts</context>
           <context context-type="linenumber">27,36</context>
@@ -9992,6 +9992,46 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/route-change.component.ts</context>
           <context context-type="linenumber">22,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-expand-all-dialog.title" datatype="html">
+        <source>Expand all</source>
+        <target>Alles openvouwen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">10,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-expand-all-dialog.message.1" datatype="html">
+        <source>Expanding all locations in the tree is a heavy operation for your browser, and it will take some time.</source>
+        <target>Alle locaties in de boomstructuur openvouwen is best wat werk voor jou browser, en het kan een tijdje duren?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">14,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-expand-all-dialog.message.2" datatype="html">
+        <source>Are you sure you want to expand all?</source>
+        <target>Toch alles openvouwen?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">18,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="no" datatype="html">
+        <source>No</source>
+        <target>Nee</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">22,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="yes" datatype="html">
+        <source>Yes</source>
+        <target>Ja</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
+          <context context-type="linenumber">30,38</context>
         </context-group>
       </trans-unit>
     </body>
