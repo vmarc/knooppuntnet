@@ -22,6 +22,8 @@ object InterpretedLocationJson {
 
 case class InterpretedLocationJson(locationJson: LocationJson) {
 
+  def relationId: Long = Math.abs(locationJson.properties.osm_id)
+
   def name: String = {
     locationJson.properties.all_tags("name")
   }

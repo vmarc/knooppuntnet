@@ -1,0 +1,1391 @@
+- `fr` France  (97)
+  - `fr-1-01` Ain  (15)
+    - `fr-2-200029999` Communauté de communes des Rives de l’Ain - Pays du Cerdon
+    - `fr-2-200040350` Communauté de communes Bugey Sud
+    - `fr-2-200042497` Communauté de communes Dombes-Saône Vallée
+    - `fr-2-200042935` Haut-Bugey Agglomération
+    - `fr-2-200069193` Communauté de communes de la Dombes
+    - `fr-2-200070118` Communauté de communes Val de Saône Centre
+    - `fr-2-200070555` Communauté de communes de la Veyle
+    - `fr-2-200070852` Communauté de communes Usses et Rhône
+    - `fr-2-200071371` Communauté de communes Bresse et Saône
+    - `fr-2-200071751` Communauté d'agglomération du Bassin de Bourg-en-Bresse
+    - `fr-2-240100610` Communauté de communes de la Côtière à Montluel
+    - `fr-2-240100750` Pays de Gex agglo
+    - `fr-2-240100800` Communauté de communes de Miribel et du Plateau
+    - `fr-2-240100883` Communauté de communes de la plaine de l'Ain
+    - `fr-2-240100891` Communauté de communes du Pays Bellegardien
+  - `fr-1-02` Aisne  (19)
+    - `fr-2-200040426` Communauté de communes du Val de l’Oise
+    - `fr-2-200043495` Communauté d'agglomération du Pays de Laon
+    - `fr-2-200071769` Communauté de communes Picardie des Châteaux
+    - `fr-2-200071785` Communauté d'agglomération Chauny-Tergnier-La Fère
+    - `fr-2-200071892` Communauté d'agglomération du Saint-Quentinois
+    - `fr-2-200071983` Communauté de communes Thiérache Sambre et Oise
+    - `fr-2-200071991` Communauté de communes Retz-en-Valois
+    - `fr-2-200072031` Communauté d'agglomération de la Région de Château-Thierry
+    - `fr-2-240200444` Communauté de communes de la Thiérache du Centre
+    - `fr-2-240200469` Communauté de communes du Pays de la Serre
+    - `fr-2-240200477` GrandSoissons Agglomération
+    - `fr-2-240200493` Communauté de communes du Pays du Vermandois
+    - `fr-2-240200501` Communauté de communes du Val de l'Aisne
+    - `fr-2-240200519` Communauté de communes du Canton d'Oulchy-le-Château
+    - `fr-2-240200576` Communauté de communes de la Champagne Picarde
+    - `fr-2-240200584` Communauté de communes du Canton de Charly-sur-Marne
+    - `fr-2-240200592` Communauté de communes du Chemin des Dames
+    - `fr-2-240200600` Communauté de communes des Trois Rivières
+    - `fr-2-240200634` Communauté de communes des Portes de la Thiérache
+  - `fr-1-03` Allier  (12)
+    - `fr-2-200071082` Montluçon Communauté
+    - `fr-2-200071140` Moulins Communauté
+    - `fr-2-200071363` Vichy Communauté
+    - `fr-2-200071389` Communauté de communes Saint-Pourçain Sioule Limagne
+    - `fr-2-200071470` Communauté de communes Entr'Allier Besbre et Loire
+    - `fr-2-200071496` Communauté de communes du Bocage Bourbonnais
+    - `fr-2-200071512` Commentry Montmarault Néris Communauté
+    - `fr-2-200071884` Communauté de communes Le Grand Charolais
+    - `fr-2-240300491` Communauté de communes du Pays de Lapalisse
+    - `fr-2-240300558` Communauté de communes du Pays de Tronçais
+    - `fr-2-240300566` Communauté de communes du Val de Cher
+    - `fr-2-240300657` Communauté de communes du Pays d'Huriel
+  - `fr-1-04` Alpes-de-Haute-Provence  (11)
+    - `fr-2-200034700` Durance Luberon Verdon Agglomération
+    - `fr-2-200040624` Communauté de communes Pays d'Apt-Luberon
+    - `fr-2-200067320` Communauté de communes Serre-Ponçon Val d'Avance
+    - `fr-2-200067437` Provence-Alpes Agglomération
+    - `fr-2-200067825` Communauté d'agglomération Gap-Tallard-Durance
+    - `fr-2-200068625` Communauté de communes Alpes Provence Verdon - Sources de Lumière
+    - `fr-2-200068765` Communauté de communes du Sisteronais-Buëch
+    - `fr-2-200071025` Communauté de communes Haute-Provence Pays de Banon
+    - `fr-2-200071033` Communauté de communes Jabron Lure Vançon Durance
+    - `fr-2-200072304` Communauté de communes Vallée de l'Ubaye Serre-Ponçon
+    - `fr-2-240400440` Communauté de communes du Pays de Forcalquier et Montagne de Lure
+  - `fr-1-05` Hautes-Alpes  (9)
+    - `fr-2-200067320` Communauté de communes Serre-Ponçon Val d'Avance
+    - `fr-2-200067445` Communauté de communes Buëch Dévoluy
+    - `fr-2-200067452` Communauté de communes du Guillestrois et du Queyras
+    - `fr-2-200067742` Communauté de communes de Serre-Ponçon
+    - `fr-2-200067825` Communauté d'agglomération Gap-Tallard-Durance
+    - `fr-2-200068096` Communauté de communes Champsaur-Valgaudemar
+    - `fr-2-200068765` Communauté de communes du Sisteronais-Buëch
+    - `fr-2-240500439` Communauté de communes du Briançonnais
+    - `fr-2-240500462` Communauté de communes du Pays des Écrins
+  - `fr-1-06` Alpes-Maritimes  (7)
+    - `fr-2-200030195` Nice Côte d'Azur
+    - `fr-2-200039857` Communauté d'agglomération du Pays de Grasse
+    - `fr-2-200039915` Communauté d'agglomération Cannes Pays de Lérins
+    - `fr-2-200039931` Communauté de communes Alpes d'Azur
+    - `fr-2-240600551` Riviera Française
+    - `fr-2-240600585` Communauté d'agglomération de Sophia Antipolis
+    - `fr-2-240600593` Communauté de communes du Pays des Paillons
+  - `fr-1-07` Ardèche  (19)
+    - `fr-2-200016905` Communauté de communes du Pays de Lamastre
+    - `fr-2-200035129` Communauté de communes Cèze Cévennes
+    - `fr-2-200039808` Communauté de communes des Gorges de l'Ardèche
+    - `fr-2-200039824` Communauté de communes Ardèche des Sources et Volcans
+    - `fr-2-200039832` Communauté de communes Pays des Vans en Cévennes
+    - `fr-2-200040491` Porte de DrômArdèche
+    - `fr-2-200041366` Communauté de communes Rhône-Crussol
+    - `fr-2-200041465` Communauté de communes Val'Eyrieux
+    - `fr-2-200071405` Communauté de communes Ardèche Rhône Coiron
+    - `fr-2-200071413` Communauté d'agglomération Privas Centre Ardèche
+    - `fr-2-200072007` Communauté de communes de la Montagne d'Ardèche
+    - `fr-2-200072015` Annonay Rhône Agglo
+    - `fr-2-200073096` Arche Agglo
+    - `fr-2-200073245` Communauté de communes du Bassin d'Aubenas
+    - `fr-2-240700302` Communauté de communes du Pays Beaume-Drobie
+    - `fr-2-240700617` Communauté de communes Val de Ligne
+    - `fr-2-240700716` Communauté de communes du Val d'Ay
+    - `fr-2-240700815` Communauté de communes Berg et Coiron
+    - `fr-2-240700864` Communauté de communes du Rhône aux Gorges de l'Ardèche
+  - `fr-1-08` Ardennes  (8)
+    - `fr-2-200041622` Communauté de communes Ardennes Thiérache
+    - `fr-2-200041630` Ardenne Métropole
+    - `fr-2-200043156` Communauté de communes du Pays Rethélois
+    - `fr-2-200067759` Communauté de communes Vallées et Plateau d'Ardenne
+    - `fr-2-240800821` Communauté de communes Ardenne, Rives de Meuse
+    - `fr-2-240800847` Communauté de communes des Portes du Luxembourg
+    - `fr-2-240800862` Communauté de communes des Crêtes Préardennaises
+    - `fr-2-240800920` Communauté de communes de l'Argonne Ardennaise
+  - `fr-1-09` Ariège  (8)
+    - `fr-2-200044469` Communauté de communes du Pays de Mirepoix
+    - `fr-2-200066223` Communauté de communes Arize Lèze
+    - `fr-2-200066231` Communauté de communes des Portes d'Ariège Pyrénées
+    - `fr-2-200066363` Communauté de communes de la Haute Ariège
+    - `fr-2-200067791` Communauté d'agglomération Pays Foix-Varilhes
+    - `fr-2-200067940` Communauté de communes Couserans-Pyrénées
+    - `fr-2-240900431` Communauté de communes du Pays de Tarascon
+    - `fr-2-240900464` Pays d'Olmes
+  - `fr-1-10` Aube  (13)
+    - `fr-2-200000545` Communauté de communes des Portes de Romilly-sur-Seine
+    - `fr-2-200006716` Communauté de communes du Nogentais
+    - `fr-2-200040137` Communauté de communes des Lacs de Champagne
+    - `fr-2-200066892` Communauté de communes de Vendeuvre-Soulaines
+    - `fr-2-200069003` Communauté de communes du Barséquanais en Champagne
+    - `fr-2-200069250` Troyes Champagne Métropole
+    - `fr-2-200070126` Communauté de communes Seine et Aube
+    - `fr-2-200071041` Communauté de communes du Chaourçois et du Val d'Armance
+    - `fr-2-200071777` Communauté de communes d'Arcis, Mailly, Ramerupt
+    - `fr-2-241000223` Communauté de communes Forêts, Lacs, Terres en Champagne
+    - `fr-2-241000405` Communauté de communes de la Région de Bar-sur-Aube
+    - `fr-2-241000447` Communauté de communes du Pays d'Othe
+    - `fr-2-241000488` Communauté de communes de l'Orvin et de l'Ardusson
+  - `fr-1-11` Aude  (9)
+    - `fr-2-200035707` Communauté de communes Piège Lauragais Malepère
+    - `fr-2-200035715` Carcassonne Agglo
+    - `fr-2-200035855` Communauté de communes Castelnaudary Lauragais Audois
+    - `fr-2-200035863` Communauté de communes Région Lézignanaise, Corbières et Minervois
+    - `fr-2-200042463` Communauté de communes de la Montagne Noire
+    - `fr-2-200043776` Communauté de communes des Pyrénées Audoises
+    - `fr-2-200070365` Communauté de communes Corbières Salanque Méditerranée
+    - `fr-2-200071926` Communauté de communes du Limouxin
+    - `fr-2-241100593` Le Grand Narbonne
+  - `fr-1-12` Aveyron  (20)
+    - `fr-2-200067064` Decazeville Communauté
+    - `fr-2-200067155` Communauté de communes Saint-Affricain, Roquefort, Sept Vallons
+    - `fr-2-200067163` Communauté de communes Monts, Rance et Rougier
+    - `fr-2-200067171` Communauté de communes Aubrac, Carladez et Viadène
+    - `fr-2-200067361` Communauté de communes Grand-Figeac
+    - `fr-2-200067478` Communauté de communes Comtal Lot et Truyère
+    - `fr-2-200068484` Communauté de communes Des Causses à l'Aubrac
+    - `fr-2-200068831` Communauté de communes Pays Ségali
+    - `fr-2-200069383` Ouest Aveyron Communauté
+    - `fr-2-241200187` Rodez Agglomération
+    - `fr-2-241200542` Communauté de communes du Réquistanais
+    - `fr-2-241200567` Millau Grands Causses
+    - `fr-2-241200625` Communauté de communes du Pays Rignacois
+    - `fr-2-241200641` Communauté de communes Conques-Marcillac
+    - `fr-2-241200658` Pays de Salars
+    - `fr-2-241200674` Communauté de communes du Plateau de Montbazens
+    - `fr-2-241200765` Communauté de communes de Lévézou Pareloup
+    - `fr-2-241200807` Communauté de communes Aveyron Bas Ségala Viaur
+    - `fr-2-241200906` Communauté de communes Larzac et Vallées
+    - `fr-2-241200914` Communauté de communes de la Muse et des Raspes du Tarn
+  - `fr-1-13` Bouches-du-Rhône  (4)
+    - `fr-2-200035087` Communauté d'agglomération Terre de Provence
+    - `fr-2-200054807` Aix-Marseille-Provence
+    - `fr-2-241300375` Communauté de communes Vallée des Baux-Alpilles
+    - `fr-2-241300417` Communauté d'agglomération Arles-Crau-Camargue-Montagnette
+  - `fr-1-14` Calvados  (16)
+    - `fr-2-200065563` Communauté de communes Normandie-Cabourg-Pays d'Auge
+    - `fr-2-200065589` Communauté de communes Val ès Dunes
+    - `fr-2-200065597` Communauté urbaine Caen la Mer
+    - `fr-2-200066710` Communauté de communes Cingal-Suisse normande
+    - `fr-2-200066728` Communauté de communes Vallées de l'Orne et de l'Odon
+    - `fr-2-200066801` Communauté de communes Isigny Omaha Intercom
+    - `fr-2-200066827` Communauté de communes du pays de Honfleur-Beuzeville
+    - `fr-2-200068799` Communauté de communes Intercom de la Vire au Noireau
+    - `fr-2-200069516` Communauté de communes Seulles Terre et Mer
+    - `fr-2-200069524` Communauté de communes Pré-Bocage Intercom
+    - `fr-2-200069532` Communauté d'agglomération Lisieux-Normandie
+    - `fr-2-241400415` Communauté de communes Cœur Côte Fleurie
+    - `fr-2-241400514` Communauté de communes du Pays de Falaise
+    - `fr-2-241400555` Communauté de communes de Bayeux Intercom
+    - `fr-2-241400860` Communauté de communes Cœur de Nacre
+    - `fr-2-241400878` Communauté de communes Terre d'Auge
+  - `fr-1-15` Cantal  (9)
+    - `fr-2-200066637` Hautes Terres Communauté
+    - `fr-2-200066660` Saint-Flour Communauté
+    - `fr-2-200066678` Communauté de communes de la Châtaigneraie Cantalienne
+    - `fr-2-241500230` Bassin d'Aurillac
+    - `fr-2-241500255` Communauté de communes du Pays Gentiane
+    - `fr-2-241500271` Communauté de communes du Pays de Mauriac
+    - `fr-2-241501055` Communauté de communes Sumène Artense
+    - `fr-2-241501089` Communauté de communes Cère et Goul en Carladès
+    - `fr-2-241501139` Pays de Salers
+  - `fr-1-16` Charente  (9)
+    - `fr-2-200029734` Communauté de communes des 4B Sud-Charente
+    - `fr-2-200043016` Communauté de communes Val-de-Charente
+    - `fr-2-200068914` Communauté de communes la Rochefoucauld - Porte du Périgord
+    - `fr-2-200070282` Communauté de communes Lavalette Tude Dronne
+    - `fr-2-200070514` Communauté d'agglomération du Grand Cognac
+    - `fr-2-200071827` Communauté d'agglomération du Grand Angoulême
+    - `fr-2-200072023` Communauté de communes Cœur de Charente
+    - `fr-2-200072049` Communauté de communes de Charente Limousine
+    - `fr-2-241600303` Communauté de communes du Rouillacais
+  - `fr-1-17` Charente-Maritime  (13)
+    - `fr-2-200036473` Communauté d'agglomération de Saintes
+    - `fr-2-200041499` Communauté de communes Aunis Atlantique
+    - `fr-2-200041523` Communauté de communes de la Haute Saintonge
+    - `fr-2-200041614` Communauté de communes Aunis Sud
+    - `fr-2-200041689` Communauté de communes des Vals de Saintonge
+    - `fr-2-200041762` Communauté d'agglomération Rochefort Océan
+    - `fr-2-241700434` Communauté d'agglomération de La Rochelle
+    - `fr-2-241700459` Communauté de communes de l'Île de Ré
+    - `fr-2-241700517` Communauté de communes Cœur de Saintonge
+    - `fr-2-241700624` Communauté de communes de l'Île d'Oléron
+    - `fr-2-241700632` Communauté de communes de Gémozac et de la Saintonge Viticole
+    - `fr-2-241700640` Communauté d'agglomération Royan Atlantique
+    - `fr-2-241700699` Communauté de communes du Bassin de Marennes
+  - `fr-1-18` Cher  (17)
+    - `fr-2-200000933` Communauté de communes Sauldre et Sologne
+    - `fr-2-200007177` Communauté de communes Pays de Nérondes
+    - `fr-2-200011781` Communauté de communes Portes du Berry entre Loire et Val d'Aubois
+    - `fr-2-200027076` Communauté de communes Arnon Boischaut Cher
+    - `fr-2-200032514` Communauté de communes Berry Loire Vauvise
+    - `fr-2-200036135` Communauté de communes Cœur de France
+    - `fr-2-200049484` Communauté de communes Berry Grand Sud
+    - `fr-2-200066330` Communauté de communes Terres du Haut Berry
+    - `fr-2-200069227` Communauté de communes Pays Fort Sancerrois Val de Loire
+    - `fr-2-200070571` Communauté de communes Cœur de Berry
+    - `fr-2-200090561` Communauté de communes Vierzon-Sologne-Berry
+    - `fr-2-241800374` Communauté de communes La Septaine
+    - `fr-2-241800424` Communauté de communes du Dunois
+    - `fr-2-241800432` Communauté de communes des Trois Provinces
+    - `fr-2-241800457` Communauté de communes Fercher - Pays florentais
+    - `fr-2-241800507` Bourges Plus
+    - `fr-2-243600236` Communauté de communes du Pays d'Issoudun
+  - `fr-1-19` Corrèze  (10)
+    - `fr-2-200043172` Communauté d'agglomération du Bassin de Brive
+    - `fr-2-200066603` Communauté de communes du Pays de Lubersac-Pompadour
+    - `fr-2-200066645` Communauté de communes Vézère-Monédières-Millesources
+    - `fr-2-200066744` Haute-Corrèze Communauté
+    - `fr-2-200066751` Communauté de communes Xaintrie Val'dordogne
+    - `fr-2-200066769` Communauté de communes Midi Corrézien
+    - `fr-2-241900133` Communauté de communes de Ventadour - Egletons - Monédières
+    - `fr-2-241927201` Tulle Agglo
+    - `fr-2-241927243` Communauté de communes du Pays d'Uzerche
+    - `fr-2-248700189` Communauté de communes du Pays de Saint-Yrieix
+  - `fr-1-21` Côte-d'Or  (19)
+    - `fr-2-200000925` Plaine Dijonnaise
+    - `fr-2-200006682` Communauté d'agglomération Beaune Côte et Sud
+    - `fr-2-200039055` Communauté de communes Ouche et Montagne
+    - `fr-2-200039063` Communauté de communes Forêts, Seine et Suzon
+    - `fr-2-200069540` Communauté de communes Norge et Tille
+    - `fr-2-200070894` Communauté de communes de Gevrey-Chambertin et de Nuits-Saint-Georges
+    - `fr-2-200070902` Communauté de communes Auxonne Pontailler Val de Saône
+    - `fr-2-200070910` Communauté de communes Tille et Venelle
+    - `fr-2-200071017` Communauté de communes des Terres d'Auxois
+    - `fr-2-200071173` Communauté de communes du Pays Arnay Liernais
+    - `fr-2-200071207` Communauté de communes de Pouilly en Auxois / Bligny sur Ouche
+    - `fr-2-200072825` Communauté de communes Mirebellois et Fontenois
+    - `fr-2-242100154` Communauté de communes des Vallées de la Tille et de l'Ignon
+    - `fr-2-242100410` Dijon Métropole
+    - `fr-2-242101434` Communauté de communes du Pays Châtillonnais
+    - `fr-2-242101442` Communauté de communes de Saulieu
+    - `fr-2-242101459` Communauté de communes du Pays d'Alésia et de la Seine
+    - `fr-2-242101491` Communauté de communes du Montbardois
+    - `fr-2-242101509` Communauté de communes Rives de Saône
+  - `fr-1-22` Côtes-d'Armor  (10)
+    - `fr-2-200065928` Lannion-Trégor Communauté
+    - `fr-2-200067460` Loudéac Communauté - Bretagne Centre
+    - `fr-2-200067981` Guingamp-Paimpol Agglomération
+    - `fr-2-200068989` Dinan Agglomération
+    - `fr-2-200069086` Leff Armor Communauté
+    - `fr-2-200069391` Lamballe Terre et Mer
+    - `fr-2-200069409` Saint-Brieuc Armor Agglomération
+    - `fr-2-242200715` Communauté de communes du Kreiz-Breizh
+    - `fr-2-242900744` Poher Communauté
+    - `fr-2-243500725` Communauté de communes Côte d'Émeraude
+  - `fr-1-23` Creuse  (10)
+    - `fr-2-200034825` Communauté d'agglomération du Grand Guéret
+    - `fr-2-200041556` Communauté de communes Portes de la Creuse en Marche
+    - `fr-2-200044014` Communauté de communes Creuse Grand Sud
+    - `fr-2-200066744` Haute-Corrèze Communauté
+    - `fr-2-200067189` Communauté de communes Creuse Sud Ouest
+    - `fr-2-200067544` Creuse Confluence
+    - `fr-2-200067593` Communauté de communes Marche et Combraille en Aquitaine
+    - `fr-2-242300135` Communauté de communes du Pays Sostranien
+    - `fr-2-242320000` Communauté de Communes de Bénévent-Grand-Bourg
+    - `fr-2-242320109` Communauté de Communes du Pays Dunois
+  - `fr-1-24` Dordogne  (21)
+    - `fr-2-200027217` Communauté de communes Sarlat-Périgord Noir
+    - `fr-2-200034197` Communauté de communes de Montaigne Montravel et Gurson
+    - `fr-2-200034833` Communauté de communes des Bastides Dordogne-Périgord
+    - `fr-2-200040095` Communauté de communes Isle, Vern, Salembre en Périgord
+    - `fr-2-200040384` Communauté de communes Isle Double Landais
+    - `fr-2-200040392` Le Grand Périgueux
+    - `fr-2-200040400` Communauté de communes du Périgord Ribéracois
+    - `fr-2-200040830` Communauté de communes du Pays de Fénelon
+    - `fr-2-200040889` Communauté de communes des Portes Sud Périgord
+    - `fr-2-200041051` Communauté de communes Vallée de la Dordogne et Forêt Bessède
+    - `fr-2-200041150` Communauté de communes du Terrassonnais en Périgord noir Thenon Hautefort
+    - `fr-2-200041168` Communauté de communes de la Vallée de l'Homme
+    - `fr-2-200041440` Communauté de communes de Domme-Villefranche du Périgord
+    - `fr-2-200041572` Communauté de communes Dronne et Belle
+    - `fr-2-200069094` Communauté de communes Isle et Crempse en Périgord
+    - `fr-2-200070647` Communauté d'agglomération Bergeracoise
+    - `fr-2-200071819` Communauté de communes du Périgord Nontronnais
+    - `fr-2-242400752` Communauté de communes Périgord-Limousin
+    - `fr-2-242400935` Communauté de communes du Pays de Saint-Aulaye
+    - `fr-2-242401024` Communauté de communes Isle-Loue-Auvézère en Périgord
+    - `fr-2-243301371` Communauté de communes du Pays Foyen
+  - `fr-1-25` Doubs  (17)
+    - `fr-2-200023075` Communauté de communes du pays de Maîche
+    - `fr-2-200041887` Communauté de communes du Val Marnaysien
+    - `fr-2-200065647` Pays de Montbéliard Agglomération
+    - `fr-2-200068070` Communauté de communes Loue-Lison
+    - `fr-2-200068294` Communauté de communes des Deux Vallées Vertes
+    - `fr-2-200069565` Communauté de communes des Lacs et Montagnes du Haut-Doubs
+    - `fr-2-242500320` Communauté de communes de Montbenoît
+    - `fr-2-242500338` Communauté de communes du Grand Pontarlier
+    - `fr-2-242500361` Grand Besançon Métropole
+    - `fr-2-242504116` Communauté de Communes du Val de Morteau
+    - `fr-2-242504181` Communauté de communes des Portes du Haut-Doubs
+    - `fr-2-242504355` Communauté de communes du Plateau du Russey
+    - `fr-2-242504371` Communauté de communes du Pays de Sancey-Belleherbe
+    - `fr-2-242504447` Communauté de communes du Doubs Baumois
+    - `fr-2-242504488` Communauté de communes Altitude 800
+    - `fr-2-242504496` Communauté de communes du plateau de Frasne et du val du Drugeon
+    - `fr-2-247000722` Communauté de communes du pays d'Héricourt
+  - `fr-1-26` Drôme  (14)
+    - `fr-2-200035723` Communauté de communes Ventoux Sud
+    - `fr-2-200040459` Montélimar Agglomération
+    - `fr-2-200040491` Porte de DrômArdèche
+    - `fr-2-200040509` Communauté de communes du Crestois et du Pays de Saillans Cœur de Drôme
+    - `fr-2-200040681` Communauté de communes Enclave des Papes - Pays de Grignan
+    - `fr-2-200042901` Communauté de communes Drôme Sud Provence
+    - `fr-2-200067767` Communauté de communes du Royans-Vercors
+    - `fr-2-200068229` Communauté de communes des Baronnies en Drôme Provençale
+    - `fr-2-200068781` Valence Romans Agglo
+    - `fr-2-200073096` Arche Agglo
+    - `fr-2-242600252` Val de Drôme en Biovallée
+    - `fr-2-242600492` Communauté de communes Dieulefit-Bourdeaux
+    - `fr-2-242600534` Communauté de communes du Diois
+    - `fr-2-248400335` Communauté de communes Vaison Ventoux
+  - `fr-1-27` Eure  (14)
+    - `fr-2-200040277` Agglo du Pays de Dreux
+    - `fr-2-200065787` Communauté de communes de Pont-Audemer / Val de Risle
+    - `fr-2-200066017` Communauté de communes Lieuvin Pays d'Auge
+    - `fr-2-200066405` Communauté de communes Roumois Seine
+    - `fr-2-200066413` Intercom Bernay Terres de Normandie
+    - `fr-2-200066462` Interco Normandie Sud Eure
+    - `fr-2-200066827` Communauté de communes du pays de Honfleur-Beuzeville
+    - `fr-2-200070142` Communauté de communes Lyons Andelle
+    - `fr-2-200071454` Communauté d'agglomération Evreux Portes de Normandie
+    - `fr-2-200071843` Communauté de communes du Vexin Normand
+    - `fr-2-200072312` Seine Normandie Agglomération
+    - `fr-2-200089456` Communauté d'agglomération Seine-Eure
+    - `fr-2-242700276` Communauté de communes du Pays de Conches
+    - `fr-2-242700607` Communauté de communes du Pays du Neubourg
+  - `fr-1-28` Eure-et-Loir  (11)
+    - `fr-2-200006971` Communauté de communes du Perche
+    - `fr-2-200033181` Communauté d'agglomération Chartres Métropole
+    - `fr-2-200040277` Agglo du Pays de Dreux
+    - `fr-2-200058360` Communauté de communes Entre Beauce et Perche
+    - `fr-2-200069912` Communauté de communes des Forêts du Perche
+    - `fr-2-200069953` Communauté de communes des Portes Euréliennes d'Île-de-France
+    - `fr-2-200069961` Communauté de communes du Grand Châteaudun
+    - `fr-2-200070159` Communauté de communes Cœur de Beauce
+    - `fr-2-200070167` Communauté de communes Terres de Perche
+    - `fr-2-242852465` Communauté de communes du Bonnevalais
+    - `fr-2-247800550` Communauté de communes du Pays Houdanais
+  - `fr-1-29` Finistère  (21)
+    - `fr-2-200066868` Communauté de communes Presqu’île de Crozon-Aulne Maritime
+    - `fr-2-200067072` Haut-Léon Communauté
+    - `fr-2-200067197` Monts d'Arrée Communauté
+    - `fr-2-200067247` Communauté de communes de Pleyben-Châteaulin-Porzay
+    - `fr-2-200068120` Quimper Bretagne Occidentale
+    - `fr-2-242900074` Pays d'Iroise Communauté
+    - `fr-2-242900314` Brest Métropole
+    - `fr-2-242900553` Communauté de communes du Pays des Abers
+    - `fr-2-242900561` Communauté de communes de Haute-Cornouaille
+    - `fr-2-242900629` Communauté de communes du Cap Sizun - Pointe du Raz
+    - `fr-2-242900645` Douarnenez Communauté
+    - `fr-2-242900660` Pays Fouesnantais
+    - `fr-2-242900694` Quimperlé Communauté
+    - `fr-2-242900702` Communauté de communes du Pays Bigouden Sud
+    - `fr-2-242900710` Communauté de communes du Haut Pays Bigouden
+    - `fr-2-242900744` Poher Communauté
+    - `fr-2-242900751` Communauté de communes du Pays de Landivisiau
+    - `fr-2-242900769` Concarneau Cornouaille Agglomération
+    - `fr-2-242900793` Communauté Lesneven Côte des Légendes
+    - `fr-2-242900801` Communauté de communes du Pays de Landerneau-Daoulas
+    - `fr-2-242900835` Morlaix Communauté
+  - `fr-1-2A` Corse-du-Sud  (7)
+    - `fr-2-200038958` Communauté de communes de la Pieve de l'Ornano et du Taravo
+    - `fr-2-200040764` Communauté de communes du Sud Corse
+    - `fr-2-200067049` Communauté de communes Spelunca-Liamone
+    - `fr-2-242000495` Communauté de communes de l'Alta Rocca
+    - `fr-2-242000503` Communauté de communes Celavu-Prunelli
+    - `fr-2-242010056` Communauté d'agglomération du Pays Ajaccien
+    - `fr-2-242010130` Communauté de communes du Sartenais-Valinco-Taravo
+  - `fr-1-2B` Haute-Corse  (12)
+    - `fr-2-200015162` Communauté de communes de l'Oriente
+    - `fr-2-200033827` Communauté de communes de Fium'orbu Castellu
+    - `fr-2-200034205` Communauté de communes de la Costa Verde
+    - `fr-2-200036499` Communauté de communes de Marana-Golo
+    - `fr-2-200042943` Communauté de communes du Cap Corse
+    - `fr-2-200073104` Communauté de communes de l'Île-Rousse - Balagne
+    - `fr-2-200073120` Communauté de communes Nebbiu - Conca d'Oro
+    - `fr-2-200073138` Communauté de communes Pasquale Paoli
+    - `fr-2-200073252` Communauté de communes de la Castagniccia-Casinca
+    - `fr-2-242000354` Communauté d'agglomération de Bastia
+    - `fr-2-242020071` Communauté de communes du Centre Corse
+    - `fr-2-242020105` Communauté de communes de Calvi Balagne
+  - `fr-1-30` Gard  (17)
+    - `fr-2-200034379` Communauté de communes Pays d'Uzès
+    - `fr-2-200034411` Communauté de communes du Piémont Cévenol
+    - `fr-2-200034601` Communauté de communes Causses Aigoual Cévennes
+    - `fr-2-200034692` Communauté d'agglomération du Gard Rhodanien
+    - `fr-2-200035129` Communauté de communes Cèze Cévennes
+    - `fr-2-200066918` Alès Agglomération
+    - `fr-2-200069128` Communauté de communes Mont Lozère
+    - `fr-2-243000270` Communauté de communes du Pays viganais
+    - `fr-2-243000296` Communauté de communes du Pays de Sommières
+    - `fr-2-243000569` Communauté de communes Rhôny Vistre Vidourle
+    - `fr-2-243000585` Communauté de communes Beaucaire Terre d'Argence
+    - `fr-2-243000593` Communauté de communes de Petite Camargue
+    - `fr-2-243000643` Nîmes Métropole
+    - `fr-2-243000650` Communauté de communes Terre de Camargue
+    - `fr-2-243000684` Communauté de communes du Pont du Gard
+    - `fr-2-243400736` Communauté de communes des Cévennes Gangeoises et Suménoises
+    - `fr-2-248400251` Grand Avignon
+  - `fr-1-31` Haute-Garonne  (18)
+    - `fr-2-200023620` Gascogne Toulousaine
+    - `fr-2-200034957` Communauté de communes du Frontonnais
+    - `fr-2-200066819` Communauté de communes du Volvestre
+    - `fr-2-200068641` Le Muretain Agglo
+    - `fr-2-200068807` Communauté de communes du Bassin Auterivain Haut-Garonnais
+    - `fr-2-200068815` Communauté de communes Cœur de Garonne
+    - `fr-2-200071298` Communauté de communes des Terres du Lauragais
+    - `fr-2-200071314` Communauté de communes des Hauts Tolosans
+    - `fr-2-200072635` Communauté de communes Pyrénées Haut Garonnaises
+    - `fr-2-200072643` Communauté de communes Cœur et Coteaux du Comminges
+    - `fr-2-200073146` Communauté de communes Cagire Garonne Salat
+    - `fr-2-243100518` Toulouse Métropole
+    - `fr-2-243100567` Communauté de communes Lauragais Revel Sorezois
+    - `fr-2-243100633` Sicoval
+    - `fr-2-243100732` Coteaux du Girou
+    - `fr-2-243100773` Communauté de communes de Val'Aïgo
+    - `fr-2-243100781` Save au Touch
+    - `fr-2-243100815` Communauté de communes des Coteaux Bellevue
+  - `fr-1-32` Gers  (16)
+    - `fr-2-200023620` Gascogne Toulousaine
+    - `fr-2-200030435` Communauté de communes d'Aire-sur-l'Adour
+    - `fr-2-200034726` Communauté de communes Bastides de Lomagne
+    - `fr-2-200035632` Communauté de communes Armagnac Adour
+    - `fr-2-200035756` Communauté de communes Astarac Arros en Gascogne
+    - `fr-2-200042372` Communauté de communes des Coteaux Arrats Gimone
+    - `fr-2-200066926` Communauté d'agglomération Grand Auch Cœur de Gascogne
+    - `fr-2-200072320` Communauté de communes Val de Gers
+    - `fr-2-243200391` Communauté de communes de la Lomagne Gersoise
+    - `fr-2-243200409` Communauté de communes du Bas Armagnac
+    - `fr-2-243200417` Communauté de communes de la Tenarèze
+    - `fr-2-243200425` Communauté de communes Cœur d'Astarac en Gascogne
+    - `fr-2-243200458` Communauté de communes du Grand Armagnac
+    - `fr-2-243200508` Communauté de communes Bastides et Vallons du Gers
+    - `fr-2-243200599` Communauté de communes du Savès
+    - `fr-2-243200607` Communauté de communes d'Artagnan en Fezensac
+  - `fr-1-33` Gironde  (28)
+    - `fr-2-200023794` Communauté de communes de Blaye
+    - `fr-2-200035533` Communauté de communes du Grand Saint-Émilionnais
+    - `fr-2-200043974` Communauté de communes du Sud-Gironde
+    - `fr-2-200043982` Communauté de communes du Bazadais
+    - `fr-2-200044394` Communauté de communes du Réolais en Sud Gironde
+    - `fr-2-200069581` Communauté de communes Convergence Garonne
+    - `fr-2-200069599` Communauté de communes Rurales de l'Entre-deux-Mers
+    - `fr-2-200069995` Communauté de communes Médoc Coeur de Presqu'ile
+    - `fr-2-200070092` Communauté d'agglomération du Libournais
+    - `fr-2-200070720` Communauté de communes Médoc Atlantique
+    - `fr-2-243300316` Bordeaux Métropole
+    - `fr-2-243300563` Communauté d'agglomération Bassin d'Arcachon Sud-Pôle Atlantique
+    - `fr-2-243300811` Communauté de communes de l'Estuaire
+    - `fr-2-243301165` Communauté de communes Jalle Eau Bourde
+    - `fr-2-243301181` Communauté de communes Latitude Nord Gironde
+    - `fr-2-243301215` Communauté de communes du Créonnais
+    - `fr-2-243301223` Communauté de communes du Grand Cubzaguais
+    - `fr-2-243301249` Communauté de communes du Secteur de Saint-Loubès
+    - `fr-2-243301264` Communauté de communes de Montesquieu
+    - `fr-2-243301355` Communauté de communes des Coteaux Bordelais
+    - `fr-2-243301371` Communauté de communes du Pays Foyen
+    - `fr-2-243301389` Communauté de communes Médullienne
+    - `fr-2-243301397` Communauté de communes du Fronsadais
+    - `fr-2-243301405` Communauté de communes du Val de l'Eyre
+    - `fr-2-243301439` Communauté de communes des Portes de l’Entre-deux-Mers
+    - `fr-2-243301447` Communauté de communes Médoc Estuaire
+    - `fr-2-243301454` Communauté de communes Castillon Pujols
+    - `fr-2-243301504` Communauté d'agglomération du Bassin d'Arcachon Nord
+  - `fr-1-34` Hérault  (17)
+    - `fr-2-200017341` Communauté de communes Lodévois et Larzac
+    - `fr-2-200022986` Communauté de communes du Grand Pic Saint-Loup
+    - `fr-2-200042646` Grand Orb
+    - `fr-2-200042653` Communauté de communes Sud-Hérault
+    - `fr-2-200066348` Communauté de communes du Minervois au Caroux
+    - `fr-2-200066355` Sète Agglopôle Méditerranée
+    - `fr-2-200066553` Communauté de communes des Monts de Lacaune et de la Montagne du Haut Languedoc
+    - `fr-2-200071058` Communauté de communes des Avant-Monts
+    - `fr-2-243400017` Montpellier Méditerranée Métropole
+    - `fr-2-243400355` Communauté de communes du Clermontais
+    - `fr-2-243400470` Pays de l'Or
+    - `fr-2-243400488` Communauté de communes La Domitienne
+    - `fr-2-243400520` Communauté de communes du Pays de Lunel
+    - `fr-2-243400694` Communauté de communes Vallée de l'Hérault
+    - `fr-2-243400736` Communauté de communes des Cévennes Gangeoises et Suménoises
+    - `fr-2-243400769` Communauté d'agglomération Béziers Méditerranée
+    - `fr-2-243400819` Communauté d'agglomération Hérault Méditerranée
+  - `fr-1-35` Ille-et-Vilaine  (18)
+    - `fr-2-200038990` Communauté de communes de Saint-Méen Montauban
+    - `fr-2-200039022` Vitré Communauté
+    - `fr-2-200043990` Vallons de Haute-Bretagne Communauté
+    - `fr-2-200070662` Bretagne porte de Loire Communauté
+    - `fr-2-200070670` Communauté de communes du Pays de Dol et de la Baie du Mont Saint-Michel
+    - `fr-2-200070688` Couesnon Marches de Bretagne
+    - `fr-2-200072452` Fougères Agglomération
+    - `fr-2-243500139` Rennes Métropole
+    - `fr-2-243500550` Montfort Communauté
+    - `fr-2-243500618` Communauté de communes de Brocéliande
+    - `fr-2-243500634` Roche aux Fées Communauté
+    - `fr-2-243500659` Pays de Châteaugiron Communauté
+    - `fr-2-243500667` Val d'Ille-Aubigné Communauté de communes
+    - `fr-2-243500725` Communauté de communes Côte d'Émeraude
+    - `fr-2-243500733` Communauté de communes Bretagne romantique
+    - `fr-2-243500741` Redon Agglomération
+    - `fr-2-243500774` Liffré-Cormier Communauté
+    - `fr-2-243500782` Saint-Malo Agglomération
+  - `fr-1-36` Indre  (15)
+    - `fr-2-200007052` Communauté de communes de la Marche Berrichonne
+    - `fr-2-200018521` Communauté de communes du Val de Bouzanne
+    - `fr-2-200035137` Communauté de communes Marche Occitane - Val d'Anglin
+    - `fr-2-200035848` Communauté de communes du Châtillonnais en Berry
+    - `fr-2-200040558` Communauté de communes Écueillé-Valençay
+    - `fr-2-200068872` Communauté de communes Éguzon - Argenton - Vallée de la Creuse
+    - `fr-2-200068880` Communauté de communes Champagne Boischauts
+    - `fr-2-243600202` Communauté de communes Chabris - Pays de Bazelle
+    - `fr-2-243600236` Communauté de communes du Pays d'Issoudun
+    - `fr-2-243600293` Communauté de communes de la Région de Levroux
+    - `fr-2-243600301` Communauté de communes Val de l'Indre - Brenne
+    - `fr-2-243600319` Communauté de communes Brenne - Val de Creuse
+    - `fr-2-243600327` Châteauroux Métropole
+    - `fr-2-243600343` Communauté de communes Cœur de Brenne
+    - `fr-2-243600350` Communauté de communes de La Châtre et Sainte-Sévère
+  - `fr-1-37` Indre-et-Loire  (11)
+    - `fr-2-200043065` Communauté de communes Val d'Amboise
+    - `fr-2-200043081` Communauté de communes Chinon, Vienne et Loire
+    - `fr-2-200071587` Communauté de communes Loches Sud Touraine
+    - `fr-2-200072650` Communauté de communes Touraine Vallée de l'Indre
+    - `fr-2-200072668` Communauté de communes Touraine Val de Vienne
+    - `fr-2-200072981` Communauté de communes Touraine Ouest Val de Loire
+    - `fr-2-200073161` Communauté de communes Touraine-Est Vallées
+    - `fr-2-200073237` Communauté de communes de Gâtine et Choisilles - Pays de Racan
+    - `fr-2-243700499` Communauté de communes du Castelrenaudais
+    - `fr-2-243700754` Tours Métropole Val de Loire
+    - `fr-2-243700820` Communauté de communes de Bléré - Val de Cher
+  - `fr-1-38` Isère  (18)
+    - `fr-2-200018166` Communauté de communes Le Grésivaudan
+    - `fr-2-200030658` Communauté de communes du Trièves
+    - `fr-2-200040111` Cœur de Chartreuse
+    - `fr-2-200040657` Communauté de communes de la Matheysine
+    - `fr-2-200040715` Grenoble-Alpes Métropole
+    - `fr-2-200059392` Bièvre Isère Communauté
+    - `fr-2-200068542` Communauté de communes Les Balcons du Dauphiné
+    - `fr-2-200068567` Les Vals du Dauphiné
+    - `fr-2-200070431` Saint-Marcellin Vercors Isère Communauté
+    - `fr-2-200077014` Vienne Condrieu Agglomération
+    - `fr-2-200085751` Communauté de communes d'Entre Bièvre et Rhône
+    - `fr-2-243800604` Communauté d'agglomération des Portes de l'Isère
+    - `fr-2-243800745` Communauté de communes de l'Oisans
+    - `fr-2-243800935` Communauté de communes Lyon Saint-Exupéry en Dauphiné
+    - `fr-2-243800984` Communauté d'agglomération du Pays Voironnais
+    - `fr-2-243801024` Communauté de communes du Massif du Vercors
+    - `fr-2-243801073` Communauté de communes Bièvre Est
+    - `fr-2-243801255` Communauté de communes des Collines du Nord Dauphiné
+  - `fr-1-39` Jura  (14)
+    - `fr-2-200010650` Communauté d'agglomération du Grand Dole
+    - `fr-2-200026573` Communauté de communes Haut-Jura Saint-Claude
+    - `fr-2-200069615` Communauté de communes Bresse Haute Seille
+    - `fr-2-200069623` Communauté de communes Champagnole Nozeroy Jura
+    - `fr-2-200071116` Espace Communautaire Lons Agglomération
+    - `fr-2-200071595` Communauté de communes Arbois, Poligny, Salins – Cœur du Jura
+    - `fr-2-200072056` Communauté de communes Porte du Jura
+    - `fr-2-200090579` Terre d'Émeraude Communauté
+    - `fr-2-243900354` Communauté de communes de la Station des Rousses - Haut-Jura
+    - `fr-2-243900420` Communauté de communes du Val d'Amour
+    - `fr-2-243900479` Communauté de communes du Haut Jura Arcade
+    - `fr-2-243900560` Communauté de communes Jura Nord
+    - `fr-2-243900610` Communauté de communes la Grandvallière
+    - `fr-2-243901089` Communauté de communes de la Plaine Jurassienne
+  - `fr-1-40` Landes  (18)
+    - `fr-2-200030435` Communauté de communes d'Aire-sur-l'Adour
+    - `fr-2-200035541` Communauté de communes des Landes d'Armagnac
+    - `fr-2-200069417` Communauté de communes Pays d'Orthe et Arrigans
+    - `fr-2-200069631` Communauté de communes Terres de Chalosse
+    - `fr-2-200069649` Communauté de communes Chalosse Tursan
+    - `fr-2-200069656` Communauté de communes Cœur Haute Lande
+    - `fr-2-244000543` Communauté de communes de Mimizan
+    - `fr-2-244000659` Communauté de communes du Seignanx
+    - `fr-2-244000675` Grand Dax Agglomération
+    - `fr-2-244000691` Communauté de communes du Pays Morcenais
+    - `fr-2-244000766` Communauté de communes du Pays Tarusate
+    - `fr-2-244000774` Communauté de communes du Pays de Villeneuve en Armagnac Landais
+    - `fr-2-244000808` Mont-de-Marsan Agglomération
+    - `fr-2-244000824` Communauté de communes du Pays Grenadois
+    - `fr-2-244000857` Communauté de communes Côte Landes Nature
+    - `fr-2-244000865` Communauté de communes de Maremne-Adour-Côte-Sud
+    - `fr-2-244000873` Communauté de communes des Grands Lacs
+    - `fr-2-244000881` Communauté de communes Coteaux et Vallées des Luys
+  - `fr-1-41` Loir-et-Cher  (12)
+    - `fr-2-200000800` Communauté de communes Cœur de Sologne
+    - `fr-2-200018406` Communauté de communes du Romorantinais et du Monestois
+    - `fr-2-200030385` Communauté d'agglomération de Blois "Agglopolys"
+    - `fr-2-200040772` Communauté de communes du Perche et Haut-Vendômois
+    - `fr-2-200055481` Communauté de communes Beauce Val de Loire
+    - `fr-2-200070183` Communauté de communes des Terres du Val de Loire
+    - `fr-2-200072064` Communauté de communes Val-de-Cher-Controis
+    - `fr-2-200072072` Territoires vendômois
+    - `fr-2-244100293` Communauté de communes des Collines du Perche
+    - `fr-2-244100780` Communauté de communes de la Sologne des Étangs
+    - `fr-2-244100798` Communauté de communes du Grand Chambord
+    - `fr-2-244100806` Communauté de communes de la Sologne des Rivières
+  - `fr-1-42` Loire  (11)
+    - `fr-2-200035202` Charlieu-Belmont Communauté
+    - `fr-2-200035731` Roannais Agglomération
+    - `fr-2-200065886` Loire Forez Agglomération
+    - `fr-2-200065894` Communauté de communes de Forez-Est
+    - `fr-2-200066587` Communauté de communes des Monts du Lyonnais
+    - `fr-2-244200614` Communauté de communes des Vals d'Aix et Isable
+    - `fr-2-244200622` Communauté de communes des Monts du Pilat
+    - `fr-2-244200630` Communauté de communes du Pays entre Loire et Rhône
+    - `fr-2-244200770` Saint-Étienne Métropole
+    - `fr-2-244200820` Communauté de communes du Pays d'Urfé
+    - `fr-2-244200895` Communauté de communes du Pilat Rhodanien
+  - `fr-1-43` Haute-Loire  (11)
+    - `fr-2-200073393` Communauté de communes des Rives du Haut Allier
+    - `fr-2-200073401` Communauté de communes Mézenc-Loire-Meygal
+    - `fr-2-200073419` Communauté d'agglomération du Puy-en-Velay
+    - `fr-2-200073427` Communauté de communes Marches du Velay-Rochebaron
+    - `fr-2-200085728` Communauté de communes Brioude Sud Auvergne
+    - `fr-2-244300307` Communauté de communes du Pays de Montfaucon
+    - `fr-2-244301016` Communauté de communes des Sucs
+    - `fr-2-244301099` Auzon Communauté
+    - `fr-2-244301107` Haut-Lignon
+    - `fr-2-244301123` Communauté de communes des Pays de Cayres et de Pradelles
+    - `fr-2-244301131` Communauté de communes Loire et Semène
+  - `fr-1-44` Loire-Atlantique  (17)
+    - `fr-2-200000438` Communauté de communes du Pays de Pont-Château - Saint-Gildas-des-Bois
+    - `fr-2-200067346` Pornic Agglo Pays de Retz
+    - `fr-2-200067635` Clisson Sèvre et Maine Agglo
+    - `fr-2-200067866` Communauté de communes Sèvre et Loire
+    - `fr-2-200071546` Communauté de communes Sud Retz Atlantique
+    - `fr-2-200072726` Communauté de communes Châteaubriant-Derval
+    - `fr-2-200072734` Communauté de communes Estuaire et Sillon
+    - `fr-2-243500741` Redon Agglomération
+    - `fr-2-244400404` Nantes Métropole
+    - `fr-2-244400438` Communauté de communes de Grand Lieu
+    - `fr-2-244400453` Communauté de communes de la Région de Blain
+    - `fr-2-244400503` Communauté de communes d'Erdre et Gesvres
+    - `fr-2-244400537` Communauté de communes de Nozay
+    - `fr-2-244400552` Communauté de communes du Pays d'Ancenis
+    - `fr-2-244400586` Communauté de communes Sud-Estuaire
+    - `fr-2-244400610` Communauté d'agglomération de la Presqu'île de Guérande - Atlantique
+    - `fr-2-244400644` Communauté d'agglomération de la Région Nazairienne et de l'Estuaire
+  - `fr-1-45` Loiret  (16)
+    - `fr-2-200005932` Communauté de communes des Portes de Sologne
+    - `fr-2-200035764` Communauté de communes de la Beauce Loirétaine
+    - `fr-2-200066280` Communauté de communes du Pithiverais
+    - `fr-2-200067668` Communauté de communes de la Cléry, du Betz et de l'Ouanne
+    - `fr-2-200067676` Communauté de communes Canaux et Forêts en Gâtinais
+    - `fr-2-200068278` Communauté de communes Berry Loire Puisaye
+    - `fr-2-200070100` Communauté de communes du Val de Sully
+    - `fr-2-200070183` Communauté de communes des Terres du Val de Loire
+    - `fr-2-200071850` Communauté de communes du Pithiverais-Gâtinais
+    - `fr-2-244500203` Communauté d'agglomération Montargoise et Rives du Loing
+    - `fr-2-244500211` Communauté de communes Giennoises
+    - `fr-2-244500419` Communauté de communes des Quatre Vallées
+    - `fr-2-244500427` Communauté de communes des Loges
+    - `fr-2-244500468` Orléans Métropole
+    - `fr-2-244500484` Communauté de communes de la Forêt
+    - `fr-2-244500542` Communauté de communes de la Plaine du Nord Loiret
+  - `fr-1-46` Lot  (10)
+    - `fr-2-200023737` Grand Cahors
+    - `fr-2-200035327` Communauté de communes Cazals-Salviac
+    - `fr-2-200039519` Communauté de communes du Quercy Blanc
+    - `fr-2-200066371` Communauté de communes Causses et Vallée de la Dordogne
+    - `fr-2-200067361` Communauté de communes Grand-Figeac
+    - `fr-2-200069383` Ouest Aveyron Communauté
+    - `fr-2-244600433` Communauté de communes de la Vallée du Lot et du Vignoble
+    - `fr-2-244600482` Communauté de communes Quercy - Bouriane
+    - `fr-2-244600532` Communauté de communes du Pays de Lalbenque-Limogne
+    - `fr-2-244600573` Causse de Labastide Murat
+  - `fr-1-47` Lot-et-Garonne  (13)
+    - `fr-2-200023307` Communauté d'agglomération du Grand Villeneuvois
+    - `fr-2-200030674` Val de Garonne Agglomération
+    - `fr-2-200035459` Agglomération d'Agen
+    - `fr-2-200036523` Communauté de communes des Bastides en Haut-Agenais Périgord
+    - `fr-2-200036572` Communauté de communes Porte d'Aquitaine en Pays de Serres
+    - `fr-2-200068922` Communauté de communes du Confluent et des Coteaux de Prayssas
+    - `fr-2-200068930` Communauté de communes Fumel Vallée du Lot
+    - `fr-2-200068948` Albret Communauté
+    - `fr-2-244700449` Communauté de communes du Pays de Duras
+    - `fr-2-244700464` Communauté de communes du Pays de Lauzun
+    - `fr-2-244701355` Communauté de communes des Coteaux et Landes de Gascogne
+    - `fr-2-244701405` Communauté de communes Lot et Tolzac
+    - `fr-2-248200016` Communauté de communes des Deux Rives
+  - `fr-1-48` Lozère  (10)
+    - `fr-2-200006930` Communauté de communes du Haut Allier
+    - `fr-2-200069102` Communauté de communes Randon-Margeride
+    - `fr-2-200069128` Communauté de communes Mont Lozère
+    - `fr-2-200069136` Communauté de communes des Cévennes au Mont Lozère
+    - `fr-2-200069144` Communauté de communes des Hautes Terres de l'Aubrac
+    - `fr-2-200069151` Communauté de communes Gorges Causses Cévennes
+    - `fr-2-200069185` Communauté de communes des Terres d'Apcher-Margeride-Aubrac
+    - `fr-2-200069268` Communauté de communes Aubrac Lot Causses Tarn
+    - `fr-2-244800405` Communauté de communes Cœur de Lozère
+    - `fr-2-244800470` Communauté de communes du Gévaudan
+  - `fr-1-49` Maine-et-Loire  (9)
+    - `fr-2-200060010` Mauges Communauté
+    - `fr-2-200068955` Communauté de communes Anjou Loir et Sarthe
+    - `fr-2-200071553` Communauté de communes Loire Layon Aubance
+    - `fr-2-200071678` Agglomération du Choletais
+    - `fr-2-200071868` Communauté de communes des Vallées du Haut-Anjou
+    - `fr-2-200071876` Communauté d'agglomération Saumur Val de Loire
+    - `fr-2-244900015` Angers Loire Métropole
+    - `fr-2-244900809` Anjou Bleu Communauté
+    - `fr-2-244900882` Communauté de communes Baugeois-Vallée
+  - `fr-1-50` Manche  (8)
+    - `fr-2-200042604` Communauté de communes Granville Terre et Mer
+    - `fr-2-200042729` Communauté de communes de la Baie du Cotentin
+    - `fr-2-200043354` Villedieu Intercom
+    - `fr-2-200066389` Saint-Lô Agglo
+    - `fr-2-200067023` Communauté de communes Coutances Mer et Bocage
+    - `fr-2-200067031` Communauté de communes Côte Ouest Centre Manche
+    - `fr-2-200067205` Communauté d'agglomération du Cotentin
+    - `fr-2-200069425` Communauté d'agglomération Mont-Saint-Michel-Normandie
+  - `fr-1-51` Marne  (15)
+    - `fr-2-200034718` Communauté de communes Vitry, Champagne et Der
+    - `fr-2-200042620` Communauté de communes de la Région de Suippes
+    - `fr-2-200042703` Communauté de communes de l'Argonne Champenoise
+    - `fr-2-200042992` Communauté de communes Perthois-Bocage et Der
+    - `fr-2-200043438` Communauté de communes de la Moivre à la Coole
+    - `fr-2-200066835` Communauté de communes de Sézanne-Sud Ouest Marnais
+    - `fr-2-200066850` Communauté de communes des Paysages de la Champagne
+    - `fr-2-200066876` Communauté d’agglomération de Châlons-en-Champagne
+    - `fr-2-200067213` Grand Reims
+    - `fr-2-200067379` Communauté de communes Côtes de Champagne et Val de Saulx
+    - `fr-2-200067684` Communauté d'agglomération Épernay, Coteaux et Plaine de Champagne
+    - `fr-2-200068666` Communauté d'agglomération de Saint-Dizier, Der et Blaise
+    - `fr-2-245100615` Grande Vallée de la Marne
+    - `fr-2-245100888` Communauté de communes de la Brie Champenoise
+    - `fr-2-245100979` Communauté de communes du Sud Marnais
+  - `fr-1-52` Haute-Marne  (8)
+    - `fr-2-200027308` Communauté de communes d'Auberive Vingeanne et Montsaugeonnais
+    - `fr-2-200044253` Communauté de communes du Bassin de Joinville-en-Champagne
+    - `fr-2-200068658` Agglomération de Chaumont
+    - `fr-2-200068666` Communauté d'agglomération de Saint-Dizier, Der et Blaise
+    - `fr-2-200069664` Communauté de communes Meuse Rognon
+    - `fr-2-200070332` Communauté de communes des Savoir-Faire
+    - `fr-2-200072999` Grand Langres
+    - `fr-2-245200597` Communauté de communes des Trois Forêts
+  - `fr-1-53` Mayenne  (9)
+    - `fr-2-200033298` Communauté de communes des Coëvrons
+    - `fr-2-200042182` Communauté de communes du Mont des Avaloirs
+    - `fr-2-200048551` Communauté de communes du Pays de Craon
+    - `fr-2-200055887` Communauté de communes Mayenne Communauté
+    - `fr-2-200083392` Laval Agglomération
+    - `fr-2-245300223` Communauté de communes du Pays de Meslay-Grez
+    - `fr-2-245300355` Communauté de communes de l'Ernée
+    - `fr-2-245300389` Communauté de communes du Bocage Mayennais
+    - `fr-2-245300447` Communauté de communes du Pays de Château-Gontier
+  - `fr-1-54` Meurthe-et-Moselle  (19)
+    - `fr-2-200035772` Communauté de communes du Pays du Saintois
+    - `fr-2-200041515` Communauté de communes du Bassin de Pont-à-Mousson
+    - `fr-2-200043693` Communauté de communes Terre Lorraine du Longuyonnais
+    - `fr-2-200067643` Communauté de communes Meurthe, Mortagne, Moselle
+    - `fr-2-200069433` Communauté de communes de Vezouze en Piémont
+    - `fr-2-200070290` Communauté de communes Cœur du Pays-Haut
+    - `fr-2-200070324` Communauté de communes du Territoire de Lunéville à Baccarat
+    - `fr-2-200070563` Communauté de communes Terres Touloises
+    - `fr-2-200070589` Communauté de communes de Seille et Grand Couronné
+    - `fr-2-200070738` Communauté de communes Mad et Moselle
+    - `fr-2-200070845` Communauté de communes Orne Lorraine Confluences
+    - `fr-2-245400171` Communauté de communes Moselle et Madon
+    - `fr-2-245400189` Communauté de communes des Pays du Sel et du Vermois
+    - `fr-2-245400262` Communauté d'agglomération de Longwy
+    - `fr-2-245400510` Communauté de communes du Pays de Colombey et du Sud Toulois
+    - `fr-2-245400601` Communauté de communes du Bassin de Pompey
+    - `fr-2-245400676` Métropole du Grand Nancy
+    - `fr-2-245400759` Communauté de communes du Pays du Sânon
+    - `fr-2-245701404` Communauté de communes du Pays Haut Val d’Alzette
+  - `fr-1-55` Meuse  (16)
+    - `fr-2-200033025` Communauté d'agglomération de Bar-le-Duc - Sud Meuse
+    - `fr-2-200034874` Communauté de communes de Côtes de Meuse - Woëvre
+    - `fr-2-200049187` Grand Verdun
+    - `fr-2-200066108` Communauté de communes des Portes de Meuse
+    - `fr-2-200066116` Communauté de communes Argonne-Meuse
+    - `fr-2-200066132` Communauté de communes du Pays de Stenay et du Val Dunois
+    - `fr-2-200066140` Communauté de communes de l'Aire à l'Argonne
+    - `fr-2-200066157` Communauté de communes de Commercy - Void - Vaucouleurs
+    - `fr-2-200066165` Communauté de communes Val de Meuse - Voie Sacrée
+    - `fr-2-200066173` Communauté de communes de Damvillers Spincourt
+    - `fr-2-200070290` Communauté de communes Cœur du Pays-Haut
+    - `fr-2-245500327` Communauté de communes du Sammiellois
+    - `fr-2-245501176` Communauté de communes du Territoire de Fresnes-en-Woëvre
+    - `fr-2-245501184` Communauté de communes du Pays de Revigny-sur-Ornain
+    - `fr-2-245501242` Communauté de communes du Pays d'Étain
+    - `fr-2-245501259` Communauté de communes du Pays de Montmédy
+  - `fr-1-56` Morbihan  (14)
+    - `fr-2-200027027` Communauté de communes Arc Sud Bretagne
+    - `fr-2-200042174` Lorient Agglomération
+    - `fr-2-200043123` Auray Quiberon Terre Atlantique
+    - `fr-2-200066777` Ploërmel Communauté
+    - `fr-2-200066785` De l'Oust à Brocéliande Communauté
+    - `fr-2-200067221` Centre Morbihan Communauté
+    - `fr-2-200067932` Golfe du Morbihan - Vannes agglomération
+    - `fr-2-243500741` Redon Agglomération
+    - `fr-2-244400610` Communauté d'agglomération de la Presqu'île de Guérande - Atlantique
+    - `fr-2-245600440` Communauté de communes de Blavet Bellevue Océan
+    - `fr-2-245600465` Communauté de communes de Belle-Île-en-Mer
+    - `fr-2-245614383` Questembert Communauté
+    - `fr-2-245614417` Roi Morvan Communauté
+    - `fr-2-245614433` Pontivy Communauté
+  - `fr-1-57` Moselle  (23)
+    - `fr-2-200039865` Metz Métropole
+    - `fr-2-200039907` Communauté de communes du Sud Messin
+    - `fr-2-200039949` Rives de Moselle
+    - `fr-2-200067486` Communauté de communes Bouzonvillois-Trois Frontières
+    - `fr-2-200067502` Communauté d’agglomération Saint-Avold Synergie
+    - `fr-2-200067650` Communauté de communes Houve-Pays Boulageois
+    - `fr-2-200067957` Communauté de communes Haut Chemin-Pays de Pange
+    - `fr-2-200068146` Communauté de communes Sarrebourg Moselle Sud
+    - `fr-2-200069441` Communauté de communes du Pays de Bitche
+    - `fr-2-200070738` Communauté de communes Mad et Moselle
+    - `fr-2-200070746` Communauté d'agglomération Sarreguemines Confluences
+    - `fr-2-245700133` Communauté de communes du District urbain de Faulquemont
+    - `fr-2-245700372` Communauté d'agglomération de Forbach Porte de France
+    - `fr-2-245700398` Communauté de communes de Freyming-Merlebach
+    - `fr-2-245700695` Communauté de communes de Cattenom et Environs
+    - `fr-2-245700950` Communauté de communes du Pays de Phalsbourg
+    - `fr-2-245701164` Communauté de communes du Warndt
+    - `fr-2-245701206` Communauté de communes du Saulnois
+    - `fr-2-245701222` Communauté d'agglomération du Val de Fensch
+    - `fr-2-245701271` Communauté de communes du Pays Orne-Moselle
+    - `fr-2-245701354` Communauté de communes de l'Arc mosellan
+    - `fr-2-245701362` Communauté d'agglomération Portes de France - Thionville
+    - `fr-2-245701404` Communauté de communes du Pays Haut Val d’Alzette
+  - `fr-1-58` Nièvre  (12)
+    - `fr-2-200067130` Communauté de communes de Puisaye-Forterre
+    - `fr-2-200067429` Communauté de communes Haut Nivernais-Val d'Yonne
+    - `fr-2-200067692` Communauté de communes Tannay-Brinon-Corbigny
+    - `fr-2-200067700` Communauté de communes Sud Nivernais
+    - `fr-2-200067882` Communauté de communes Bazois Loire Morvan
+    - `fr-2-200067890` Communauté de communes Morvan Sommets et Grands Lacs
+    - `fr-2-200067908` Communauté de communes Amognes Cœur du Nivernais
+    - `fr-2-200067916` Communauté de communes Cœur de Loire
+    - `fr-2-200068088` Communauté de communes Les Bertranges
+    - `fr-2-245801063` Communauté de communes Loire et Allier
+    - `fr-2-245804406` Communauté d'agglomération de Nevers
+    - `fr-2-245804497` Communauté de communes du Nivernais Bourbonnais
+  - `fr-1-59` Nord  (17)
+    - `fr-2-200030633` Communauté d'agglomération du Caudrésis et du Catésis
+    - `fr-2-200040947` Communauté de communes de Flandre Intérieure
+    - `fr-2-200040954` Communauté de communes des Hauts de Flandre
+    - `fr-2-200041960` Communauté de communes Pévèle-Carembault
+    - `fr-2-200042190` Communauté d'agglomération de la Porte du Hainaut
+    - `fr-2-200043263` Communauté de communes Cœur de l'Avesnois
+    - `fr-2-200043321` Communauté de communes du Pays de Mormal
+    - `fr-2-200043396` Communauté d'agglomération Maubeuge Val de Sambre
+    - `fr-2-200043404` Communauté de communes du Sud Avesnois
+    - `fr-2-200044618` Douaisis Agglo
+    - `fr-2-200068500` Communauté d'Agglomération de Cambrai
+    - `fr-2-200093201` Métropole Européenne de Lille
+    - `fr-2-245900428` Communauté urbaine de Dunkerque
+    - `fr-2-245900758` Communauté de communes Flandre Lys
+    - `fr-2-245901038` Communauté de communes du Pays Solesmois
+    - `fr-2-245901152` Communauté de communes Cœur d’Ostrevent
+    - `fr-2-245901160` Communauté d’agglomération Valenciennes Métropole
+  - `fr-1-60` Oise  (21)
+    - `fr-2-200066975` Communauté de communes Senlis Sud Oise
+    - `fr-2-200067965` Communauté d'agglomération de la Région de Compiègne et de la Basse Automne
+    - `fr-2-200067973` Communauté de communes Thelloise
+    - `fr-2-200067999` Communauté d'agglomération du Beauvaisis
+    - `fr-2-200068005` Communauté de communes de l'Oise Picarde
+    - `fr-2-200068047` Communauté d'agglomération Creil Sud Oise
+    - `fr-2-246000129` Communauté de communes du Liancourtois
+    - `fr-2-246000376` Pays du Clermontois
+    - `fr-2-246000566` Communauté de communes du Plateau Picard
+    - `fr-2-246000582` Communauté de communes des Sablons
+    - `fr-2-246000707` Communauté de communes du Vexin-Thelle
+    - `fr-2-246000749` Communauté de communes des lisières de l'Oise
+    - `fr-2-246000756` Communauté de communes du Pays Noyonnais
+    - `fr-2-246000764` Communauté de communes de l'Aire Cantilienne
+    - `fr-2-246000772` Communauté de communes des Deux Vallées
+    - `fr-2-246000848` Communauté de communes de la Picardie Verte
+    - `fr-2-246000855` Communauté de communes du Pays des Sources
+    - `fr-2-246000871` Communauté de communes du Pays de Valois
+    - `fr-2-246000897` Communauté de communes de la Plaine d'Estrées
+    - `fr-2-246000913` Communauté de communes du Pays de Bray
+    - `fr-2-246000921` Communauté de communes des Pays d'Oise et d'Halatte
+  - `fr-1-61` Orne  (16)
+    - `fr-2-200035103` Communauté de communes de la Vallée de la Haute Sarthe
+    - `fr-2-200035111` Communauté de communes des Sources de l'Orne
+    - `fr-2-200035814` Flers Agglo
+    - `fr-2-200036069` Communauté de communes du Pays de Mortagne au Perche
+    - `fr-2-200068435` Communauté de communes Cœur du Perche
+    - `fr-2-200068443` Communauté de communes Andaine-Passais
+    - `fr-2-200068450` Argentan Intercom
+    - `fr-2-200068468` Communauté de communes des Pays de L'Aigle
+    - `fr-2-200068856` Communauté de communes des Hauts du Perche
+    - `fr-2-200069458` Communauté de communes des Vallées d'Auge et du Merlerault
+    - `fr-2-200071504` Communauté de communes des Collines du Perche Normand
+    - `fr-2-200071520` Domfront Tinchebray Interco
+    - `fr-2-200071652` Communauté de communes du Pays Fertois et du Bocage Carrougien
+    - `fr-2-200072676` Communauté de communes Maine Saosnois
+    - `fr-2-246100390` Communauté de communes du Val d'Orne
+    - `fr-2-246100663` Communauté urbaine d'Alençon
+  - `fr-1-62` Pas-de-Calais  (20)
+    - `fr-2-200018083` Communauté de communes de Desvres-Samer
+    - `fr-2-200033579` Communauté urbaine d'Arras
+    - `fr-2-200035442` Communauté de communes du Sud Artois
+    - `fr-2-200044030` Communauté de communes des Sept Vallées
+    - `fr-2-200044048` Communauté de communes Osartis Marquion
+    - `fr-2-200069029` Communauté d'agglomération des Deux Baies en Montreuillois
+    - `fr-2-200069037` Communauté d'agglomération du Pays de Saint-Omer
+    - `fr-2-200069235` Communauté de communes du Haut Pays du Montreuillois
+    - `fr-2-200069482` Communauté de communes des Campagnes de l'Artois
+    - `fr-2-200069672` Communauté de communes du Ternois
+    - `fr-2-200072460` Communauté d’agglomération de Béthune-Bruay, Artois Lys Romane
+    - `fr-2-200072478` Communauté de communes des Pays d’Opale
+    - `fr-2-200090751` Grand Calais Terres et Mers
+    - `fr-2-245900758` Communauté de communes Flandre Lys
+    - `fr-2-246200299` Communauté d'agglomération Hénin-Carvin
+    - `fr-2-246200364` Communauté d'agglomération de Lens-Liévin
+    - `fr-2-246200380` Communauté de communes de la Terre des Deux Caps
+    - `fr-2-246200729` Communauté d'agglomération du Boulonnais
+    - `fr-2-246200844` Communauté de communes de la Région d'Audruicq
+    - `fr-2-246201016` Communauté de communes du Pays de Lumbres
+  - `fr-1-63` Puy-de-Dôme  (14)
+    - `fr-2-200067627` Billom Communauté
+    - `fr-2-200069169` Communauté de communes Dômes Sancy Artense
+    - `fr-2-200069177` Mond'Arverne Communauté
+    - `fr-2-200070407` Agglo Pays d'Issoire
+    - `fr-2-200070712` Communauté de communes Thiers Dore et Montagne
+    - `fr-2-200070753` Communauté d'agglomération Riom Limagne et Volcans
+    - `fr-2-200070761` Communauté de communes Ambert Livradois Forez
+    - `fr-2-200071199` Communauté de communes Plaine Limagne
+    - `fr-2-200071215` Communauté de communes Chavanon Combrailles et Volcans
+    - `fr-2-200072080` Communauté de communes du Pays de Saint-Éloy
+    - `fr-2-200072098` Communauté de communes Combrailles Sioule et Morge
+    - `fr-2-246300701` Clermont Auvergne Métropole
+    - `fr-2-246300966` Communauté de communes du Massif du Sancy
+    - `fr-2-246301097` Communauté de communes Entre Dore et Allier
+  - `fr-1-64` Pyrénées-Atlantiques  (10)
+    - `fr-2-200039204` Communauté de communes de Lacq-Orthez
+    - `fr-2-200067106` Communauté d'agglomération du Pays Basque
+    - `fr-2-200067239` Communauté de communes des Luys en Béarn
+    - `fr-2-200067254` Communauté d'agglomération Pau Béarn Pyrénées
+    - `fr-2-200067262` Communauté de communes du Haut Béarn
+    - `fr-2-200067288` Communauté de communes du Béarn des Gaves
+    - `fr-2-200067296` Communauté de communes du Nord Est Béarn
+    - `fr-2-200072106` Communauté de communes Adour-Madiran
+    - `fr-2-246400337` Communauté de communes de la Vallée d'Ossau
+    - `fr-2-246401756` Communauté de communes du Pays de Nay
+  - `fr-1-65` Hautes-Pyrénées  (10)
+    - `fr-2-200069300` Communauté d'agglomération Tarbes-Lourdes-Pyrénées
+    - `fr-2-200070787` Communauté de communes du Plateau de Lannemezan
+    - `fr-2-200070795` Communauté de communes du Pays de Trie et du Magnoac
+    - `fr-2-200070803` Communauté de communes des Coteaux du Val-d'Arros
+    - `fr-2-200070811` Communauté de communes Pyrénées Vallées des Gaves
+    - `fr-2-200070829` Communauté de communes Neste Barousse
+    - `fr-2-200072106` Communauté de communes Adour-Madiran
+    - `fr-2-246401756` Communauté de communes du Pays de Nay
+    - `fr-2-246500482` Communauté de communes Haute-Bigorre
+    - `fr-2-246500573` Communauté de communes Aure Louron
+  - `fr-1-66` Pyrénées-Orientales  (12)
+    - `fr-2-200027183` Perpignan Méditerranée Métropole
+    - `fr-2-200043602` Communauté de communes des Albères, de la Côte Vermeille et de l'Illibéris
+    - `fr-2-200049211` Communauté de communes Conflent-Canigó
+    - `fr-2-200070365` Communauté de communes Corbières Salanque Méditerranée
+    - `fr-2-246600282` Communauté de communes Sud-Roussillon
+    - `fr-2-246600373` Communauté de communes du Vallespir
+    - `fr-2-246600399` Communauté de communes Pyrénées Cerdagne
+    - `fr-2-246600415` Communauté de communes Roussillon Conflent
+    - `fr-2-246600423` Communauté de communes Agly Fenouillèdes
+    - `fr-2-246600449` Communauté de communes des Aspres
+    - `fr-2-246600464` Communauté de communes Pyrénées catalanes
+    - `fr-2-246600548` Communauté de communes du Haut-Vallespir
+  - `fr-1-67` Bas-Rhin  (24)
+    - `fr-2-200013050` Communauté de communes Sauer-Pechelbronn
+    - `fr-2-200030526` Communauté de communes du Ried de Marckolsheim
+    - `fr-2-200034270` Communauté de communes du Pays de Barr
+    - `fr-2-200034635` Communauté de communes du Kochersberg
+    - `fr-2-200040178` Communauté de communes de l'Outre-Forêt
+    - `fr-2-200041283` Communauté de communes de la Plaine du Rhin
+    - `fr-2-200041325` Communauté de communes du Pays Rhénan
+    - `fr-2-200067783` Communauté de communes de Hanau - la Petite Pierre
+    - `fr-2-200067841` Communauté de communes de l'Alsace Bossue
+    - `fr-2-200067874` Communauté d'agglomération de Haguenau
+    - `fr-2-200067924` Communauté de communes du Canton d'Erstein
+    - `fr-2-200068112` Communauté de communes du Pays de Saverne
+    - `fr-2-200068864` Communauté de communes de la Mossig et du Vignoble
+    - `fr-2-246700306` Communauté de communes de la Vallée de la Bruche
+    - `fr-2-246700488` Strasbourg Eurométropole
+    - `fr-2-246700744` Communauté de communes des Portes de Rosheim
+    - `fr-2-246700777` Communauté de communes de la Vallée de Villé
+    - `fr-2-246700843` Communauté de communes de la Basse-Zorn
+    - `fr-2-246700926` Communauté de communes du Pays de Wissembourg
+    - `fr-2-246700959` Communauté de communes du Pays de la Zorn
+    - `fr-2-246700967` Communauté de communes de Sélestat
+    - `fr-2-246701064` Communauté de communes de la Région de Molsheim-Mutzig
+    - `fr-2-246701080` Communauté de communes du Pays de Sainte-Odile
+    - `fr-2-246701098` Communauté de communes du Pays de Niederbronn-les-Bains
+  - `fr-1-68` Haut-Rhin  (16)
+    - `fr-2-200036465` Communauté de communes Thann-Cernay
+    - `fr-2-200066009` Mulhouse Alsace Agglomération
+    - `fr-2-200066025` Communauté de communes Pays Rhin - Brisach
+    - `fr-2-200066033` Communauté de communes Sud Alsace Largue
+    - `fr-2-200066041` Communauté de communes Sundgau
+    - `fr-2-200066058` Saint-Louis Agglomération
+    - `fr-2-246800205` Communauté de communes de la Vallée de Saint-Amarin
+    - `fr-2-246800395` Communauté de communes du Val d'Argent
+    - `fr-2-246800445` Communauté de communes du Centre Haut-Rhin
+    - `fr-2-246800494` Communauté de communes du Pays de Rouffach, Vignobles et Châteaux
+    - `fr-2-246800551` Communauté de communes de la Vallée de Kaysersberg
+    - `fr-2-246800569` Communauté de communes de la Région de Guebwiller
+    - `fr-2-246800577` Communauté de communes du Pays de Ribeauvillé
+    - `fr-2-246800585` Communauté de communes de la Vallée de Munster
+    - `fr-2-246800676` Communauté de communes de la Vallée de la Doller et du Soultzbach
+    - `fr-2-246800726` Colmar Agglomération
+  - `fr-1-69D` Rhône  (12)
+    - `fr-2-200040566` Communauté d'agglomération de l'Ouest Rhodanien
+    - `fr-2-200040574` Communauté de communes Beaujolais Pierres Dorées
+    - `fr-2-200040590` Communauté d'agglomération Villefranche Beaujolais Saône
+    - `fr-2-200066587` Communauté de communes des Monts du Lyonnais
+    - `fr-2-200067817` Communauté de communes Saône Beaujolais
+    - `fr-2-200077014` Vienne Condrieu Agglomération
+    - `fr-2-246900575` Communauté de communes de l'Est Lyonnais
+    - `fr-2-246900625` Communauté de communes du Pays de L'Arbresle
+    - `fr-2-246900724` Communauté de communes des Vallons du Lyonnais
+    - `fr-2-246900740` Communauté de communes du Pays Mornantais
+    - `fr-2-246900757` Communauté de communes de la Vallée du Garon
+    - `fr-2-246900765` Communauté de communes du Pays de l'Ozon
+  - `fr-1-69M` Métropole de Lyon  (1)
+    - `fr-2-200046977` Métropole de Lyon
+  - `fr-1-70` Haute-Saône  (18)
+    - `fr-2-200036150` Communauté de communes des Hauts du Val de Saône
+    - `fr-2-200036549` Communauté de communes Val de Gray
+    - `fr-2-200041721` Communauté de communes de la Haute Comté
+    - `fr-2-200041853` Communauté de communes du Pays de Montbozon et du Chanois
+    - `fr-2-200041861` Communauté de communes du Triangle Vert
+    - `fr-2-200041879` Communauté de communes Terres de Saône
+    - `fr-2-200041887` Communauté de communes du Val Marnaysien
+    - `fr-2-247000011` Communauté d'agglomération de Vesoul
+    - `fr-2-247000367` Communauté de communes des Combes
+    - `fr-2-247000623` Communauté de communes des Quatre Rivières
+    - `fr-2-247000664` Communauté de communes du Pays de Lure
+    - `fr-2-247000698` Les Monts de Gy
+    - `fr-2-247000706` Communauté de communes du Pays Riolais
+    - `fr-2-247000714` Communauté de communes du Pays de Villersexel
+    - `fr-2-247000722` Communauté de communes du pays d'Héricourt
+    - `fr-2-247000755` Communauté de communes du Pays de Luxeuil
+    - `fr-2-247000821` Communauté de communes Rahin et Chérimont
+    - `fr-2-247000854` Communauté de communes des mille étangs
+  - `fr-1-71` Saône-et-Loire  (20)
+    - `fr-2-200006682` Communauté d'agglomération Beaune Côte et Sud
+    - `fr-2-200040038` Communauté de communes Saône Doubs Bresse
+    - `fr-2-200040293` Communauté de communes du Clunisois
+    - `fr-2-200042414` Communauté de communes de Bresse Revermont 71
+    - `fr-2-200069698` Communauté de communes Mâconnais-Tournugeois
+    - `fr-2-200070308` Mâconnais Beaujolais Agglomération
+    - `fr-2-200070316` Communauté de communes Entre Arroux, Loire et Somme
+    - `fr-2-200070530` Communauté de communes du Grand Autunois Morvan
+    - `fr-2-200070548` Communauté de communes La Clayette Chauffailles en Brionnais
+    - `fr-2-200071538` Communauté de communes Terres de Bresse
+    - `fr-2-200071579` Bresse Louhannaise Intercom'
+    - `fr-2-200071645` Communauté de communes Saint-Cyr Mère Boitier entre Charolais et Mâconnais
+    - `fr-2-200071884` Communauté de communes Le Grand Charolais
+    - `fr-2-247100290` Communauté urbaine Creusot-Montceau
+    - `fr-2-247100589` Le Grand Chalon
+    - `fr-2-247100639` Communauté de communes de Marcigny
+    - `fr-2-247100647` Communauté de communes Bresse Nord Intercom
+    - `fr-2-247103765` Communauté de communes Entre Saône et Grosne
+    - `fr-2-247103864` Communauté de communes du Canton de Semur-en-Brionnais
+    - `fr-2-247104094` Communauté de communes Sud Côte Chalonnaise
+  - `fr-1-72` Sarthe  (17)
+    - `fr-2-200040475` Communauté de communes Loué-Brûlon-Noyen
+    - `fr-2-200068963` Communauté de communes Maine Cœur de Sarthe
+    - `fr-2-200070373` Communauté de communes Loir-Lucé-Bercé
+    - `fr-2-200072676` Communauté de communes Maine Saosnois
+    - `fr-2-200072684` Communauté de communes Le Gesnois Bilurien
+    - `fr-2-200072692` Communauté de communes des Vallées de la Braye et de l'Anille
+    - `fr-2-200072700` Communauté de communes Haute Sarthe Alpes Mancelles
+    - `fr-2-200072718` Communauté de communes de la Champagne Conlinoise et du Pays de Sillé
+    - `fr-2-200073112` Communauté de communes Sud Sarthe
+    - `fr-2-246100663` Communauté urbaine d'Alençon
+    - `fr-2-247200090` Communauté de communes de Sablé-sur-Sarthe
+    - `fr-2-247200132` Le Mans Métropole
+    - `fr-2-247200348` Communauté de communes du Pays Fléchois
+    - `fr-2-247200421` Communauté de communes du Sud-Est du Pays Manceau
+    - `fr-2-247200447` Communauté de communes de l'Orée de Bercé Bélinois
+    - `fr-2-247200629` Communauté de communes du Val de Sarthe
+    - `fr-2-247200686` Communauté de communes du Pays de l'Huisne Sarthoise
+  - `fr-1-73` Savoie  (18)
+    - `fr-2-200023299` Communauté de communes Cœur de Tarentaise
+    - `fr-2-200040111` Cœur de Chartreuse
+    - `fr-2-200040798` Communauté de communes Val Vanoise
+    - `fr-2-200041010` Communauté de communes Cœur de Savoie
+    - `fr-2-200068674` Grand Lac
+    - `fr-2-200068997` Communauté d'agglomération Arlysère
+    - `fr-2-200069110` Grand Chambéry
+    - `fr-2-200070340` Communauté de communes Haute-Maurienne Vanoise
+    - `fr-2-200070464` Communauté de communes Cœur de Maurienne Arvan
+    - `fr-2-247300015` Communauté de communes des Vallées d'Aigueblanche
+    - `fr-2-247300254` Communauté de communes de Haute Tarentaise
+    - `fr-2-247300262` Communauté de communes de Yenne
+    - `fr-2-247300361` Communauté de communes du canton de La Chambre
+    - `fr-2-247300452` Communauté de communes Maurienne-Galibier
+    - `fr-2-247300528` Communauté de communes Val Guiers
+    - `fr-2-247300668` Communauté de communes du Lac d'Aiguebelette
+    - `fr-2-247300676` Communauté de communes Porte de Maurienne
+    - `fr-2-247300817` Communauté de communes Les Versants d'Aime
+  - `fr-1-74` Haute-Savoie  (21)
+    - `fr-2-200000172` Communauté de communes Faucigny Glières
+    - `fr-2-200011773` Annemasse - Les Voirons Agglomération
+    - `fr-2-200023372` Vallée de Chamonix-Mont-Blanc
+    - `fr-2-200033116` Communauté de communes Cluses-Arve et Montagnes
+    - `fr-2-200034098` Communauté de communes des Montagnes du Giffre
+    - `fr-2-200034882` Pays du Mont-Blanc
+    - `fr-2-200066793` Grand Annecy
+    - `fr-2-200067551` Thonon Agglomération
+    - `fr-2-200070852` Communauté de communes Usses et Rhône
+    - `fr-2-200071967` Communauté de communes Pays d'Évian Vallée d'Abondance
+    - `fr-2-247400047` Communauté de communes de la Vallée Verte
+    - `fr-2-247400112` Communauté de communes du Pays de Cruseilles
+    - `fr-2-247400567` Communauté de communes Fier et Usses
+    - `fr-2-247400583` Communauté de communes Arve et Salève
+    - `fr-2-247400617` Communauté de communes des Vallées de Thônes
+    - `fr-2-247400666` Communauté de communes des Quatre Rivières
+    - `fr-2-247400682` Communauté de communes du Haut-Chablais
+    - `fr-2-247400690` Communauté de communes du Genevois
+    - `fr-2-247400724` Le Pays Rochois
+    - `fr-2-247400740` Communauté de communes Rumilly Terre de Savoie
+    - `fr-2-247400773` Communauté de communes des Sources du Lac d'Annecy
+  - `fr-1-75` Paris  (1)
+    - `fr-2-200054781` Métropole du Grand Paris
+  - `fr-1-76` Seine-Maritime  (18)
+    - `fr-2-200010700` Caux Seine Agglo
+    - `fr-2-200023414` Métropole Rouen Normandie
+    - `fr-2-200068534` Communauté de communes Terroir de Caux
+    - `fr-2-200069722` Communauté de communes Interrégionale Aumale - Blangy-sur-Bresle
+    - `fr-2-200069730` Communauté de communes des quatre Rivières
+    - `fr-2-200069821` Communauté d'agglomération Fécamp Caux Littoral Agglomération
+    - `fr-2-200069839` Communauté de communes de la Côte d'Albâtre
+    - `fr-2-200069847` Communauté de communes Plateau de Caux-Doudeville-Yerville
+    - `fr-2-200070068` Communauté de communes Communauté Bray-Eawy
+    - `fr-2-200070449` Communauté de communes Inter-Caux-Vexin
+    - `fr-2-200084952` Le Havre Seine Métropole
+    - `fr-2-247600505` Communauté de communes Campagne de Caux
+    - `fr-2-247600588` Communauté de communes des Villes Sœurs
+    - `fr-2-247600604` Communauté de communes de Londinières
+    - `fr-2-247600620` Communauté de communes Yvetot Normandie
+    - `fr-2-247600646` Communauté de communes Caux-Austreberthe
+    - `fr-2-247600729` Communauté de communes Falaises du Talou
+    - `fr-2-247600786` Communauté d'agglomération de la Région Dieppoise
+  - `fr-1-77` Seine-et-Marne  (23)
+    - `fr-2-200023125` Communauté de communes Les Portes Briardes entre Villes et Forêts
+    - `fr-2-200023240` Communauté de communes Pays de Nemours
+    - `fr-2-200023919` Communauté de communes Gâtinais Val de Loing
+    - `fr-2-200033090` Communauté de communes Plaines et Monts de France
+    - `fr-2-200037133` Communauté de communes du Provinois
+    - `fr-2-200040251` Communauté de communes Bassée-Montois
+    - `fr-2-200055655` Communauté d'agglomération Roissy Pays de France
+    - `fr-2-200057958` Communauté d'agglomération Paris - Vallée de la Marne
+    - `fr-2-200059228` Communauté d'agglomération Grand Paris Sud Seine Essonne Sénart
+    - `fr-2-200070779` Communauté de communes Brie des Rivières et Châteaux
+    - `fr-2-200072130` Communauté d'agglomération du Pays de Meaux
+    - `fr-2-200072346` Communauté d'agglomération du Pays de Fontainebleau
+    - `fr-2-200072544` Communauté de communes des Deux Morin
+    - `fr-2-200072874` Communauté de communes du Val Briard
+    - `fr-2-200090504` Communauté d'agglomération Coulommiers Pays de Brie
+    - `fr-2-247700032` Communauté de communes Moret Seine et Loing
+    - `fr-2-247700057` Communauté d'agglomération Melun Val de Seine
+    - `fr-2-247700065` Communauté de communes du Pays de l'Ourcq
+    - `fr-2-247700107` Communauté de communes du Pays de Montereau
+    - `fr-2-247700339` Val d'Europe Agglomération
+    - `fr-2-247700594` Communauté d'agglomération Marne et Gondoire
+    - `fr-2-247700644` Communauté de communes de l'Orée de la Brie
+    - `fr-2-247700701` Communauté de communes de la Brie Nangissienne
+  - `fr-1-78` Yvelines  (10)
+    - `fr-2-200033173` Communauté de communes Haute Vallée de Chevreuse
+    - `fr-2-200034130` Communauté de communes Gally Mauldre
+    - `fr-2-200058519` Communauté d'agglomération Saint-Germain Boucles de Seine
+    - `fr-2-200058782` Communauté d'agglomération de Saint-Quentin-en-Yvelines
+    - `fr-2-200059889` Communauté urbaine Grand Paris Seine et Oise
+    - `fr-2-200071074` Communauté de communes Les Portes de l’Île-de-France
+    - `fr-2-200073344` Communauté d'agglomération Rambouillet Territoires
+    - `fr-2-247800550` Communauté de communes du Pays Houdanais
+    - `fr-2-247800584` Communauté d'agglomération Versailles Grand Parc
+    - `fr-2-247800618` Communauté de communes Cœur d'Yvelines
+  - `fr-1-79` Deux-Sèvres  (8)
+    - `fr-2-200040244` Communauté d'agglomération du Bocage Bressuirais
+    - `fr-2-200041317` Communauté d'agglomération du Niortais
+    - `fr-2-200041333` Communauté de communes de Parthenay-Gâtine
+    - `fr-2-200041416` Communauté de communes Airvaudais-Val du Thouet
+    - `fr-2-200041994` Communauté de communes Haut Val de Sèvre
+    - `fr-2-200069748` Communauté de communes Val de Gâtine
+    - `fr-2-200069755` Communauté de communes Mellois en Poitou
+    - `fr-2-247900798` Communauté de communes du Thouarsais
+  - `fr-1-80` Somme  (16)
+    - `fr-2-200037059` Communauté de communes de la Haute Somme
+    - `fr-2-200069722` Communauté de communes Interrégionale Aumale - Blangy-sur-Bresle
+    - `fr-2-200070928` Communauté de communes Terre de Picardie
+    - `fr-2-200070936` Communauté de communes Ponthieu-Marquenterre
+    - `fr-2-200070944` Communauté de communes du Vimeu
+    - `fr-2-200070951` Communauté de communes du Territoire Nord Picardie
+    - `fr-2-200070969` Communauté de communes Avre Luce Noye
+    - `fr-2-200070977` Communauté de communes du Grand Roye
+    - `fr-2-200070985` Communauté de communes de l'Est de la Somme
+    - `fr-2-200070993` Communauté d'agglomération de la Baie de Somme
+    - `fr-2-200071181` Communauté de communes Somme Sud-Ouest
+    - `fr-2-200071223` Communauté de communes Nièvre et Somme
+    - `fr-2-247600588` Communauté de communes des Villes Sœurs
+    - `fr-2-248000499` Communauté de communes du Val de Somme
+    - `fr-2-248000531` Communauté d'agglomération Amiens Métropole
+    - `fr-2-248000747` Communauté de communes du Pays du Coquelicot
+  - `fr-1-81` Tarn  (15)
+    - `fr-2-200034023` Communauté de communes Tarn-Agout
+    - `fr-2-200034031` Communauté de communes des Monts d'Alban et du Villefranchois
+    - `fr-2-200034049` Communauté de communes du Centre Tarn
+    - `fr-2-200034056` Communauté de communes du Lautrécois et du Pays d'Agout
+    - `fr-2-200034064` Communauté de communes du Cordais et du Causse
+    - `fr-2-200040905` Communauté de communes Carmausin-Ségala
+    - `fr-2-200066124` Communauté d'agglomération Gaillac-Graulhet
+    - `fr-2-200066553` Communauté de communes des Monts de Lacaune et de la Montagne du Haut Languedoc
+    - `fr-2-200066561` Communauté de communes Sidobre Vals et Plateaux
+    - `fr-2-243100567` Communauté de communes Lauragais Revel Sorezois
+    - `fr-2-248100158` Communauté de communes du Sor et de l'Agout
+    - `fr-2-248100430` Castres Mazamet
+    - `fr-2-248100497` Val 81
+    - `fr-2-248100737` Albigeois
+    - `fr-2-248100745` Communauté de communes Thoré Montagne Noire
+  - `fr-1-82` Tarn-et-Garonne  (10)
+    - `fr-2-200040418` Communauté de communes du Pays de Serres en Quercy
+    - `fr-2-200066322` Communauté de communes Terres des Confluences
+    - `fr-2-200066652` Communauté de communes Grand Sud Tarn et Garonne
+    - `fr-2-200066884` Communauté de communes Quercy Vert-Aveyron
+    - `fr-2-200067122` Communauté de communes Coteaux et Plaines du Pays Lafrançaisain
+    - `fr-2-248200016` Communauté de communes des Deux Rives
+    - `fr-2-248200057` Communauté de communes du Quercy Caussadais
+    - `fr-2-248200065` Communauté de communes de la Lomagne Tarn et Garonnaise
+    - `fr-2-248200099` Grand Montauban
+    - `fr-2-248200107` Communauté de communes du Quercy Rouergue et des Gorges de l'Aveyron
+  - `fr-1-83` Var  (12)
+    - `fr-2-200004802` Communauté de communes du Pays de Fayence
+    - `fr-2-200027100` Communauté de communes Méditerranée Porte des Maures
+    - `fr-2-200035319` Communauté d'agglomération Var Estérel Méditerranée
+    - `fr-2-200036077` Communauté de communes du Golfe de Saint-Tropez
+    - `fr-2-200040202` Communauté de communes Provence Verdon
+    - `fr-2-200040210` Communauté de communes Lacs et Gorges du Verdon
+    - `fr-2-200068104` Communauté d'agglomération de la Provence Verte
+    - `fr-2-248300394` Communauté d'agglomération Sud Sainte-Baume
+    - `fr-2-248300410` Communauté de communes de la Vallée du Gapeau
+    - `fr-2-248300493` Dracénie Provence Verdon agglomération
+    - `fr-2-248300543` Métropole Toulon-Provence-Méditerranée
+    - `fr-2-248300550` Communauté de communes Cœur du Var
+  - `fr-1-84` Vaucluse  (13)
+    - `fr-2-200000628` Communauté de communes Rhône Lez Provence
+    - `fr-2-200035723` Communauté de communes Ventoux Sud
+    - `fr-2-200040442` Communauté d'agglomération Luberon Monts de Vaucluse
+    - `fr-2-200040624` Communauté de communes Pays d'Apt-Luberon
+    - `fr-2-200040681` Communauté de communes Enclave des Papes - Pays de Grignan
+    - `fr-2-248400053` Communauté d'agglomération Ventoux-Comtat Venaissin
+    - `fr-2-248400160` Communauté de communes Aygues Ouvèze en Provence
+    - `fr-2-248400236` Communauté de communes du Pays Réuni d'Orange
+    - `fr-2-248400251` Grand Avignon
+    - `fr-2-248400285` Communauté territoriale du Sud Luberon
+    - `fr-2-248400293` Communauté de communes Les Sorgues du Comtat
+    - `fr-2-248400319` Communauté de communes du Pays des Sorgues et des Monts de Vaucluse
+    - `fr-2-248400335` Communauté de communes Vaison Ventoux
+  - `fr-1-85` Vendée  (19)
+    - `fr-2-200023778` Communauté de communes du Pays de Saint-Gilles-Croix-de-Vie
+    - `fr-2-200070233` Terres-de-Montaigu, communauté de communes Montaigu-Rocheservière
+    - `fr-2-200071165` Les Sables d'Olonne Agglomération
+    - `fr-2-200071629` Challans-Gois Communauté
+    - `fr-2-200071900` Vendée-Grand-Littoral
+    - `fr-2-200071918` Communauté de communes du Pays de Saint-Fulgent - Les Essarts
+    - `fr-2-200071934` Communauté de communes Pays-de-Fontenay-Vendée
+    - `fr-2-200072882` Communauté de communes de Vie et Boulogne
+    - `fr-2-200073260` Communauté de communes Sud-Vendée-Littoral
+    - `fr-2-248500191` Communauté de communes de l'Île de Noirmoutier
+    - `fr-2-248500258` Communauté de communes Océan Marais de Monts
+    - `fr-2-248500340` Communauté de communes Pays de Chantonnay
+    - `fr-2-248500415` Communauté de communes du Pays de la Châtaigneraie
+    - `fr-2-248500464` Communauté de communes du Pays de Pouzauges
+    - `fr-2-248500530` Communauté de communes du Pays des Achards
+    - `fr-2-248500563` Communauté de communes Vendée Sèvre Autise
+    - `fr-2-248500589` Communauté d'agglomération La Roche-sur-Yon Agglomération
+    - `fr-2-248500621` Communauté de communes du Pays des Herbiers
+    - `fr-2-248500662` Communauté de communes du Pays de Mortagne
+  - `fr-1-86` Vienne  (7)
+    - `fr-2-200043628` Communauté de communes des Vallées du Clain
+    - `fr-2-200069763` Communauté de communes du Haut-Poitou
+    - `fr-2-200069854` Grand Poitiers
+    - `fr-2-200070035` Communauté de communes du Civraisien en Poitou
+    - `fr-2-200070043` Communauté de communes Vienne et Gartempe
+    - `fr-2-248600413` Grand Châtellerault
+    - `fr-2-248600447` Communauté de communes du Pays Loudunais
+  - `fr-1-87` Haute-Vienne  (13)
+    - `fr-2-200040814` Communauté de communes Briance - Sud Haute-Vienne
+    - `fr-2-200059400` Communauté de communes Porte Océane du Limousin
+    - `fr-2-200066512` Communauté de communes Élan Limousin Avenir Nature
+    - `fr-2-200066520` Communauté de communes Ouest Limousin
+    - `fr-2-200070506` Communauté de communes Pays de Nexon - Monts de Châlus
+    - `fr-2-200071942` Communauté de communes Haut-Limousin en Marche
+    - `fr-2-248700189` Communauté de communes du Pays de Saint-Yrieix
+    - `fr-2-248719262` Communauté de communes Gartempe - Saint-Pardoux
+    - `fr-2-248719288` Communauté de communes du Val de Vienne
+    - `fr-2-248719312` Limoges Métropole
+    - `fr-2-248719338` Communauté de communes Briance Combade
+    - `fr-2-248719353` Communauté de communes des Portes de Vassivière
+    - `fr-2-248719361` Communauté de communes de Noblat
+  - `fr-1-88` Vosges  (11)
+    - `fr-2-200005957` Communauté de communes de la Région de Rambervillers
+    - `fr-2-200033868` Communauté de communes des Ballons des Hautes-Vosges
+    - `fr-2-200042000` Communauté de communes de Bruyères, Vallons des Vosges
+    - `fr-2-200068369` Communauté de communes Mirecourt-Dompaire
+    - `fr-2-200068377` Communauté de communes de la Porte des Vosges Méridionales
+    - `fr-2-200068559` Communauté de communes de l'Ouest Vosgien
+    - `fr-2-200068682` Communauté de communes Terre d’Eau
+    - `fr-2-200068757` Communauté d'agglomération d'Épinal
+    - `fr-2-200068773` Communauté de communes des Vosges Côté Sud Ouest
+    - `fr-2-200071066` Communauté d'agglomération de Saint-Dié-des-Vosges
+    - `fr-2-200071157` Communauté de communes des Hautes-Vosges
+  - `fr-1-89` Yonne  (15)
+    - `fr-2-200039642` Communauté de communes Le Tonnerrois en Bourgogne
+    - `fr-2-200039709` Communauté de communes du Serein
+    - `fr-2-200039758` Communauté de communes Avallon-Vézelay-Morvan
+    - `fr-2-200067080` Communauté de communes Chablis, Villages et Terroirs
+    - `fr-2-200067114` Communauté d'agglomération de l'Auxerrois
+    - `fr-2-200067130` Communauté de communes de Puisaye-Forterre
+    - `fr-2-200067304` Communauté de communes Serein et Armance
+    - `fr-2-200067429` Communauté de communes Haut Nivernais-Val d'Yonne
+    - `fr-2-248900334` Communauté d'agglomération du Grand Sénonais
+    - `fr-2-248900383` Communauté de communes de l'Agglomération Migennoise
+    - `fr-2-248900524` Communauté de communes de l'Aillantais
+    - `fr-2-248900664` Communauté de communes de la Vanne et du Pays d'Othe
+    - `fr-2-248900748` Communauté de communes du Gâtinais en Bourgogne
+    - `fr-2-248900896` Communauté de communes Yonne Nord
+    - `fr-2-248900938` Communauté de communes du Jovinien
+  - `fr-1-90` Territoire-de-Belfort  (3)
+    - `fr-2-200069052` Grand Belfort Communauté d'agglomération
+    - `fr-2-200069060` Communauté de communes des Vosges du Sud
+    - `fr-2-249000241` Communauté de communes du Sud Territoire
+  - `fr-1-91` Essonne  (12)
+    - `fr-2-200017846` Communauté d'agglomération de l'Étampois Sud-Essonne
+    - `fr-2-200056232` Communauté Paris-Saclay
+    - `fr-2-200057859` Cœur d'Essonne Agglomération
+    - `fr-2-200058477` Communauté d'agglomération Val d'Yerres Val de Seine
+    - `fr-2-200059228` Communauté d'agglomération Grand Paris Sud Seine Essonne Sénart
+    - `fr-2-247700644` Communauté de communes de l'Orée de la Brie
+    - `fr-2-247800584` Communauté d'agglomération Versailles Grand Parc
+    - `fr-2-249100074` Communauté de communes du Pays de Limours
+    - `fr-2-249100157` Communauté de communes des Deux Vallées
+    - `fr-2-249100546` Communauté de communes du Val d'Essonne
+    - `fr-2-249100553` Communauté de communes Entre Juine et Renarde
+    - `fr-2-249100595` Communauté de communes Le Dourdannais en Hurepoix
+  - `fr-1-92` Hauts-de-Seine  (1)
+    - `fr-2-200054781` Métropole du Grand Paris
+  - `fr-1-93` Seine-Saint-Denis  (1)
+    - `fr-2-200054781` Métropole du Grand Paris
+  - `fr-1-94` Val-de-Marne  (1)
+    - `fr-2-200054781` Métropole du Grand Paris
+  - `fr-1-95` Val-d'Oise  (10)
+    - `fr-2-200035970` Communauté de communes Vexin Centre
+    - `fr-2-200055655` Communauté d'agglomération Roissy Pays de France
+    - `fr-2-200056380` Communauté d'agglomération Plaine Vallée
+    - `fr-2-200058485` Communauté d'agglomération Val Parisis
+    - `fr-2-200073013` Communauté de communes Carnelle Pays de France
+    - `fr-2-249500109` Communauté d'agglomération de Cergy-Pontoise
+    - `fr-2-249500430` Communauté de communes Sausseron Impressionnistes
+    - `fr-2-249500455` Communauté de communes de la Vallée de l'Oise et des Trois Forêts
+    - `fr-2-249500489` Communauté de communes du Haut Val d’Oise
+    - `fr-2-249500513` Communauté de communes Vexin-Val de Seine

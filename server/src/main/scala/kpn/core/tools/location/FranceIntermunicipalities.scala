@@ -1,7 +1,7 @@
 package kpn.core.tools.location
 
 case class FranceIntermunicipality(
-  intermunicipalityId: Long,
+  intermunicipalityId: String,
   municipalityIds: Long*
 )
 
@@ -14,52 +14,56 @@ case class FranceIntermunicipality(
  */
 object FranceIntermunicipalities {
 
-  // communes that are documented in wikipedia.org to have no intermunicipality:
-  //   399669L  22016  Île-de-Bréhat
-  //   278723L  29083  Île-de-Sein
-  //   156066L  85113  L'Île-d'Yeu
-  //   659733L  29155  Ouessant
+  val types = Seq("CA", "CC", "CU", "metropole")
+
+  // municipalities that are documented in wikipedia.org as having no intermunicipality
+  val orphanMunicipalityIds = Seq(
+    399669L, // siren=22016 name=Île-de-Bréhat
+    278723L, // siren=29083 name=Île-de-Sein
+    156066L, // siren=85113 name=L'Île-d'Yeu
+    659733L, // siren=29155 name=Ouessant
+  )
 
   val intermunicipalities = Seq(
     FranceIntermunicipality(
-      2177707L, // Communauté d'agglomération Rochefort Océan
+      "200041762", // relation=2177707  Communauté d'agglomération Rochefort Océan
       113454L, // 17004 Île-d'Aix
     ),
     FranceIntermunicipality(
-      6915461L, // Communauté de communes du Pays Arnay Liernais
+      "200071173", // relation=6915461  Communauté de communes du Pays Arnay Liernais
       131862L, // 21403 Ménessaire
     ),
     FranceIntermunicipality(
-      6876314L, // Communauté de communes Presqu’île de Crozon-Aulne Maritime
+      "200066868", // relation=6876314  Communauté de communes Presqu’île de Crozon-Aulne Maritime
       296072L, // 29053 Le Faou
     ),
     FranceIntermunicipality(
-      8672137L, //Communauté de communes du Pays Léonard ()
+      "242900777", // relation=8672137  Communauté de communes du Pays Léonard ()
       417923L, // 29082 Île-de-Batz
     ),
     FranceIntermunicipality(
-      1657554L, // Pays d'Iroise Communauté
+      "242900074", // relation=1657554  Pays d'Iroise Communauté
       900558L, // 29084 Île-Molène
     ),
     FranceIntermunicipality(
-      1657556L, // Brest Métropole
+      "242900314", // relation=1657556  Brest Métropole
       85684L, // 29189 Plougastel-Daoulas
     ),
     FranceIntermunicipality(
-      6876314L, // Communauté de communes Presqu’île de Crozon-Aulne Maritime
+      "200066868", // relation=6876314  Communauté de communes Presqu’île de Crozon-Aulne Maritime
       296071L, // 29240 Rosnoën
       1189544L, // 29302 Pont-de-Buis-lès-Quimerch
     ),
     FranceIntermunicipality(
-      2000854L, // Communauté de communes de la Forêt
+      "244500484", // relation=2000854  Communauté de communes de la Forêt
       149646L, // 45214 Montigny
     ),
     FranceIntermunicipality(
-      3523740L, // Communauté de communes Terre Lorraine du Longuyonnais
+      "", // relation=3523740  Communauté de communes Terre Lorraine du Longuyonnais
       1429422L, // 54412 Othe
     ),
     FranceIntermunicipality(
-      1354662L, // Lorient Agglomération
+      "200042174", // relation=1354662  Lorient Agglomération
       117493L, // 56062 Gâvres
       107972L, // 56069 Groix
       114517L, // 56118 Locmiquélic
@@ -67,29 +71,29 @@ object FranceIntermunicipalities {
       114516L, // 56193 Riantec
     ),
     FranceIntermunicipality(
-      1354267L, // Auray Quiberon Terre Atlantique
+      "\t200043123", // relation=1354267  Auray Quiberon Terre Atlantique
       215401L, // 56085 Hœdic
       215400L, // 56086 Île-d'Houat
     ),
     FranceIntermunicipality(
-      6946240L, // Golfe du Morbihan - Vannes agglomération
+      "200067932", // relation=6946240  Golfe du Morbihan - Vannes agglomération
       960821L, // 56087 Île-aux-Moines
       192873L, // 56088 Île-d'Arz
     ),
     FranceIntermunicipality(
-      7009235L, // Communauté d'Agglomération de Cambrai
+      "200068500", // relation=7009235  Communauté d'Agglomération de Cambrai
       56236L, // 59097 Boursies
       56237L, // 59176 Doignies
       56235L, // 59405 Mœuvres
     ),
     FranceIntermunicipality(
-      7008934L, // Communauté d'agglomération Tarbes-Lourdes-Pyrénées
+      "200069300", // relation=7008934  Communauté d'agglomération Tarbes-Lourdes-Pyrénées
       398772L, // 65185 Gardères
       398750L, // 65292 Luquet
       1821439L, // 65422 Séron
     ),
     FranceIntermunicipality(
-      2029707L, // Communauté de communes du Pays de Sainte-Odile
+      "246701080", // relation=2029707  Communauté de communes du Pays de Sainte-Odile
       902366L, // 67031 Bernardswiller
       903639L, // 67248 Krautergersheim
       903802L, // 67286 Meistratzheim

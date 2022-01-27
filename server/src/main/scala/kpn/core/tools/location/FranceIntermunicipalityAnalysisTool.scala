@@ -12,8 +12,7 @@ import kpn.core.tools.country.SkeletonData
 import kpn.core.tools.country.SkeletonNode
 import kpn.core.tools.country.SkeletonRelation
 import kpn.core.tools.country.SkeletonWay
-import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.intercommunalitiesDir
-import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.intermunicipalityTypes
+import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.intermunicipalitiesDir
 import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.rootDir
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryCollection
@@ -26,8 +25,7 @@ import scala.xml.XML
 object FranceIntermunicipalityAnalysisTool {
 
   private val rootDir = "/kpn/locations"
-  private val intercommunalitiesDir = rootDir + "/fr-intercommunalities"
-  private val intermunicipalityTypes = Seq("CA", "CC", "CU", "metropole")
+  private val intermunicipalitiesDir = rootDir + "/fr-intermunicipalities"
 
   def main(args: Array[String]): Unit = {
     val tool = new FranceIntermunicipalityAnalysisTool()
@@ -85,10 +83,10 @@ class FranceIntermunicipalityAnalysisTool {
   }
 
   def assertAllIntermunicipalitiesHaveSirenCode(): Unit = {
-    intermunicipalityTypes.foreach { intermunicipalityType =>
+    FranceIntermunicipalities.types.foreach { intermunicipalityType =>
       val ids = loadIds(intermunicipalityType)
       ids.zipWithIndex.foreach { case (relationId, index) =>
-        val rawData = OsmDataXmlReader.read(s"$intercommunalitiesDir/$relationId.xml")
+        val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$relationId.xml")
         val data = new DataBuilder(rawData).data
         val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
         if (locationRelations.size != 1) {
@@ -110,11 +108,11 @@ class FranceIntermunicipalityAnalysisTool {
   }
 
   def loadOverpassIds(): Unit = {
-    intermunicipalityTypes.foreach(loadOverpassIds)
+    FranceIntermunicipalities.types.foreach(loadOverpassIds)
   }
 
   private def loadOverpassIds(intermunicipalityType: String): Unit = {
-    val filename = s"$intercommunalitiesDir/fr-${intermunicipalityType.toLowerCase}.xml"
+    val filename = s"$intermunicipalitiesDir/fr-${intermunicipalityType.toLowerCase}.xml"
     val queryString = s"relation['boundary'~'local_authority|administrative']['local_authority:FR'='$intermunicipalityType'];out ids;"
     val xml = overpassQueryExecutor.executeQuery(None, QueryString(s"location", queryString))
     FileUtils.writeStringToFile(new File(filename), xml, "UTF-8")
@@ -123,7 +121,7 @@ class FranceIntermunicipalityAnalysisTool {
   def loadRelations(): Unit = {
     val ids = loadIds()
     ids.zipWithIndex.foreach { case (relationId, index) =>
-      val filename = s"$intercommunalitiesDir/$relationId.xml"
+      val filename = s"$intermunicipalitiesDir/$relationId.xml"
       println(s"${index + 1}/${ids.size} $filename")
       val xml = overpassQueryExecutor.executeQuery(None, QueryRelation(relationId))
       FileUtils.writeStringToFile(new File(filename), xml, "UTF-8")
@@ -131,11 +129,11 @@ class FranceIntermunicipalityAnalysisTool {
   }
 
   private def loadIds(): Seq[Long] = {
-    intermunicipalityTypes.flatMap(loadIds)
+    FranceIntermunicipalities.types.flatMap(loadIds)
   }
 
   private def loadIds(intermunicipalityType: String): Seq[Long] = {
-    val filename = s"$intercommunalitiesDir/fr-${intermunicipalityType.toLowerCase}.xml"
+    val filename = s"$intermunicipalitiesDir/fr-${intermunicipalityType.toLowerCase}.xml"
     val xmlString = FileUtils.readFileToString(new File(filename), "UTF-8")
     val xml = XML.loadString(xmlString)
     (xml \ "relation").map { n => (n \ "@id").text.toLong }.distinct.sorted
@@ -166,7 +164,7 @@ class FranceIntermunicipalityAnalysisTool {
   }
 
   private def loadIntermunicipalities(): Seq[IntermunicipalityGeometry] = {
-    intermunicipalityTypes.flatMap { intermunicipalityType =>
+    FranceIntermunicipalities.types.flatMap { intermunicipalityType =>
       val ids = loadIds(intermunicipalityType)
       ids.zipWithIndex.map { case (relationId, index) =>
         println(s"load $intermunicipalityType ${index + 1}/${ids.size} relation=$relationId")
@@ -176,7 +174,7 @@ class FranceIntermunicipalityAnalysisTool {
   }
 
   private def loadIntermunicipality(intermunicipalityType: String, relationId: Long): IntermunicipalityGeometry = {
-    val rawData = OsmDataXmlReader.read(s"$intercommunalitiesDir/$relationId.xml")
+    val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$relationId.xml")
     val data = new DataBuilder(rawData).data
     val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
     if (locationRelations.size != 1) {
