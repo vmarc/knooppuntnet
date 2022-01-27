@@ -18,8 +18,10 @@ import org.springframework.stereotype.Component
 
 @Component
 class AnalyzerEngineImpl(
+  analyzerReload: Boolean,
   analyzerPoiUpdateEnabled: Boolean,
   analyzerTileUpdateEnabled: Boolean,
+  analyzerStatisticsUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
   fullAnalyzer: FullAnalyzer,
@@ -29,7 +31,6 @@ class AnalyzerEngineImpl(
   poiChangeAnalyzer: PoiChangeAnalyzer,
   poiTileUpdater: PoiTileUpdater,
   statisticsUpdater: StatisticsUpdater,
-  analyzerReload: Boolean
 ) extends AnalyzerEngine {
 
   private val log = Log(classOf[AnalyzerEngineImpl])
@@ -66,15 +67,7 @@ class AnalyzerEngineImpl(
               elementIds
             )
             val contextAfter = changeProcessor.process(context)
-
-            if (contextAfter.changes.nonEmpty) {
-              hasChanges = true
-              log.info(s"changeset ${changeSet.id}: ${contextAfter.changes.size} changes, hasChanges=$hasChanges")
-            }
-            else {
-              log.info(s"changeset ${changeSet.id}: no changes (${contextAfter.changes.size}), hasChanges=$hasChanges")
-            }
-
+            hasChanges = contextAfter.changes.nonEmpty
             elementIds.size
           }
         }.sum
@@ -88,17 +81,13 @@ class AnalyzerEngineImpl(
           poiTileUpdater.update()
         }
 
-        if (hasChanges) {
-          log.info(s"minute diff hasChanges=$hasChanges, update statistics")
+        if (analyzerStatisticsUpdateEnabled && hasChanges) {
           statisticsUpdater.update()
-        }
-        else {
-          log.info(s"minute diff hasChanges=$hasChanges")
         }
 
         analysisRepository.saveLastUpdated(timestamp)
 
-        val osmChangeTimestamp =  osmChange.timestampFrom.map(_.iso).getOrElse("")
+        val osmChangeTimestamp = osmChange.timestampFrom.map(_.iso).getOrElse("")
         val message = s"$osmChangeTimestamp - ${changeSets.size} changesets, $changeSetElementCount elements"
         (message, ())
       }

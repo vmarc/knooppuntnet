@@ -91,6 +91,11 @@ class ServerConfiguration() {
   }
 
   @Bean
+  def analyzerStatisticsUpdateEnabled(@Value("${app.analyzer-statistics-update-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def analyzerReload(@Value("${app.analyzer-reload:false}") value: Boolean): Boolean = {
     value
   }
