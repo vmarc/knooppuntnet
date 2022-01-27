@@ -1,9 +1,20 @@
 package kpn.core.tools.location
 
+import kpn.server.json.Json
+import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.Envelope
 import org.locationtech.jts.geom.Geometry
 
+import java.io.File
+
 object LocationGeometry {
+
+  def load(filename: String): LocationGeometry = {
+    val string = FileUtils.readFileToString(new File(filename), "UTF-8")
+    val geometry = Json.objectMapper.readValue(string, classOf[Geometry])
+    LocationGeometry(geometry)
+  }
+
   def apply(geometry: Geometry): LocationGeometry = {
     LocationGeometry(
       geometry,
