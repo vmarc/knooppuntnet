@@ -66,37 +66,13 @@ Reset previous database contents:
 
     cd /kpn/openmaptiles
     make destroy-db
-
-
-Download OpenStreetMap data from geofabrik:
-
     cd /kpn/tile-data
     rm *.pbf
-    ./download.sh    # 8 minutes
-    ./merge.sh       # 10 minutes
 
-Contents of download.sh:
 
-	wget http://download.geofabrik.de/europe/belgium-latest.osm.pbf
-	wget http://download.geofabrik.de/europe/netherlands-latest.osm.pbf
-	wget http://download.geofabrik.de/europe/germany-latest.osm.pbf
-	wget http://download.geofabrik.de/europe/france-latest.osm.pbf
-	wget http://download.geofabrik.de/europe/austria-latest.osm.pbf
-	wget http://download.geofabrik.de/europe/spain-latest.osm.pbf
-	wget http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf
+Download and merge OpenStreetMap data from geofabrik:
 
-Contents of merge.sh:
-
-	osmium merge \
-	  belgium-latest.osm.pbf \
-	  netherlands-latest.osm.pbf \
-	  germany-latest.osm.pbf \
-	  france-latest.osm.pbf \
-	  austria-latest.osm.pbf \
-	  spain-latest.osm.pbf \
-      luxembourg-latest.osm.pbf \
-	  -o all.osm.pbf
-
+    01-download.sh
 
 ll -h *.pbf
 
@@ -144,33 +120,18 @@ Prepare:
 
 	mv /kpn/tile-data/all.osm.pbf .
 
-Start up the database container:
+Import data:
 
-	/kpn/scripts/01-start-db.sh  # interactive, very fast
-
-Import external data:
-
-	/kpn/scripts/02-import-data.sh  # 2 minutes
-
-Import OSM data:
-
-	/kpn/scripts/03-import-osm.sh       # 2 hours
-	/kpn/scripts/04-import-borders.sh   # 2 minutes
-	/kpn/scripts/05-import-wikidata.sh  # 1 minute
+	/kpn/scripts/02-import.sh 2 hours, 16 minutes
 
 (Re-)Execute sql scripts:
 
-	/kpn/scripts/06-import-sql.sh  # 4.5 hours
+	/kpn/scripts/03-sql.sh  # 4.5 hours
 
 
 Change MIN_ZOOM to 4 and MAX_ZOOM to 12 in
 
 	.env
-
-Determine bounding box (data/all.dc-config.yml) and prepare for generating tiles:
-
-	# not needed trueanymore?, using configuration files on /kpn/conf
-	/kpn/scripts/07-generate-dc-config.sh  # 5 minutes
 
 Adapt data/all.dc-config.yml, default zoom levels:
 

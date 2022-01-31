@@ -11,4 +11,4 @@ nohup /kpn/java/bin/java \
   -Dloader.main=kpn.core.tools.tile.TileTool org.springframework.boot.loader.PropertiesLauncher \
   --tileDir /kpn/tiles-experimental \
   --host kpn-web \
-  --database kpn >> /kpn/logs/tile-tool-experimental-stdout.log 2>&1 &
+  --database kpn-3 >> /kpn/logs/tile-tool-experimental-stdout.log 2>&1 &
