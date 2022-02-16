@@ -1,7 +1,8 @@
 package kpn.core.tools.location
 
-import kpn.api.common.Languages
+import kpn.api.custom.Tags
 import kpn.core.doc.LocationName
+import kpn.core.doc.LocationNames
 import kpn.server.json.Json
 import org.locationtech.jts.geom.Geometry
 
@@ -29,25 +30,9 @@ case class InterpretedLocationJson(locationJson: LocationJson) {
   }
 
   def names: Seq[LocationName] = {
-    val name = locationJson.properties.all_tags("name")
-    Languages.all.flatMap { language =>
-      val lang = language.toString.toLowerCase
-      locationJson.properties.all_tags.get(s"name:$lang") match {
-        case None => None
-        case Some(value) =>
-          if (value != name) {
-            Some(
-              LocationName(
-                language,
-                value
-              )
-            )
-          }
-          else {
-            None
-          }
-      }
-    }
+    val allTags = Tags.from(locationJson.properties.all_tags)
+    val name = allTags("name").getOrElse("")
+    LocationNames.from(allTags, name)
   }
 
   def geometry: Geometry = {

@@ -1,23 +1,15 @@
 package kpn.core.tools.location
 
-import kpn.api.custom.Relation
-import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.OsmDataXmlReader
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.overpass.QueryString
-import kpn.core.tools.country.PolygonBuilder
-import kpn.core.tools.country.SkeletonData
-import kpn.core.tools.country.SkeletonNode
-import kpn.core.tools.country.SkeletonRelation
-import kpn.core.tools.country.SkeletonWay
 import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.intermunicipalitiesDir
 import kpn.core.tools.location.FranceIntermunicipalityAnalysisTool.rootDir
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.Polygon
 
 import java.io.File
 import scala.xml.XML
@@ -139,30 +131,6 @@ class FranceIntermunicipalityAnalysisTool {
     (xml \ "relation").map { n => (n \ "@id").text.toLong }.distinct.sorted
   }
 
-  private def toPolygons(data: Data, relation: Relation): Seq[Polygon] = {
-
-    val nodes = data.nodes.map { case (id, node) =>
-      id -> SkeletonNode(node.id, node.lon, node.lat)
-    }
-
-    val ways = data.ways.map { case (id, way) =>
-      id -> SkeletonWay(id, way.nodes.map(_.id))
-    }
-
-    val rels = data.raw.relations.map { relation =>
-      relation.id -> SkeletonRelation(relation.id, relation.members)
-    }.toMap
-
-    val skeletonData = SkeletonData(
-      relation.id,
-      nodes,
-      ways,
-      rels
-    )
-
-    new PolygonBuilder("xx", skeletonData).polygons()
-  }
-
   private def loadIntermunicipalities(): Seq[IntermunicipalityGeometry] = {
     FranceIntermunicipalities.types.flatMap { intermunicipalityType =>
       val ids = loadIds(intermunicipalityType)
@@ -181,7 +149,7 @@ class FranceIntermunicipalityAnalysisTool {
       throw new RuntimeException(s"Unexpected number of location relations in $relationId.xml: ${locationRelations.size}")
     }
     val relation = locationRelations.head
-    val polygons = toPolygons(data, relation)
+    val polygons = RelationPolygonBuilder.toPolygons(data, relation)
     val geometry = if (polygons.size != 1) {
       polygons.head
     }

@@ -8,6 +8,10 @@ object Tags {
     Tags(tags.map(a => Tag(a._1, a._2)))
   }
 
+  def from(map: Map[String, String]): Tags = {
+    Tags(map.keys.toSeq.map(key => Tag(key, map(key))))
+  }
+
   def toString(tags: Seq[Tag]): String = tags.map { case Tag(key, value) => s"$key=$value" }.mkString(", ")
 }
 
