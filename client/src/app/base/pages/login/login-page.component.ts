@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageService } from '../../../components/shared/page.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -8,8 +7,8 @@ import { UserService } from '../../../services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-header subject="login-page" i18n="@@login.title"
-      >Login</kpn-page-header
-    >
+      >Login
+    </kpn-page-header>
 
     <div class="note-page-contents">
       <p i18n="@@login.note.1">
@@ -53,13 +52,9 @@ import { UserService } from '../../../services/user.service';
   `,
 })
 export class LoginPageComponent {
-  constructor(
-    private userService: UserService,
-    private pageService: PageService
-  ) {}
+  constructor(private userService: UserService) {}
 
   login() {
-    this.pageService.defaultMenu();
     this.userService.login();
   }
 }

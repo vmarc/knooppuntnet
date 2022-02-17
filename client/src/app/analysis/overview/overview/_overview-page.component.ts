@@ -4,7 +4,6 @@ import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { ApiResponse } from '@api/custom/api-response';
 import { Observable } from 'rxjs';
 import { AppService } from '../../../app.service';
-import { PageService } from '../../../components/shared/page.service';
 import { OverviewService } from '../overview.service';
 
 @Component({
@@ -62,12 +61,10 @@ export class OverviewPageComponent implements OnInit {
 
   constructor(
     private appService: AppService,
-    private pageService: PageService,
     private overviewService: OverviewService
   ) {}
 
   ngOnInit(): void {
-    this.pageService.defaultMenu();
     this.response$ = this.appService.overview();
   }
 }

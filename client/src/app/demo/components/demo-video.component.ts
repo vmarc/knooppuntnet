@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageService } from '../../components/shared/page.service';
 import { DemoService } from '../demo.service';
 import { actionDemoVideoPlayerAvailable } from '../store/demo.actions';
 import { actionDemoEnd } from '../store/demo.actions';
@@ -85,13 +84,7 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
     map((enabled) => !enabled)
   );
 
-  constructor(
-    private store: Store,
-    private demoService: DemoService,
-    private pageService: PageService
-  ) {
-    this.pageService.showFooter = false;
-  }
+  constructor(private store: Store, private demoService: DemoService) {}
 
   ngAfterViewInit(): void {
     this.demoService.setVideoElement(

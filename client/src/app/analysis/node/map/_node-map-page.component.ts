@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeId } from '../store/node.selectors';
@@ -46,7 +45,7 @@ import { selectNodeMapPage } from '../store/node.selectors';
     </div>
   `,
 })
-export class NodeMapPageComponent implements OnInit, OnDestroy {
+export class NodeMapPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);
   readonly nodeName$ = this.store.select(selectNodeName);
   readonly changeCount$ = this.store.select(selectNodeChangeCount);
@@ -55,18 +54,9 @@ export class NodeMapPageComponent implements OnInit, OnDestroy {
     .select(selectNodeMapPage)
     .pipe(filter((x) => x !== null));
 
-  constructor(
-    private pageService: PageService,
-    private store: Store<AppState>
-  ) {
-    this.pageService.showFooter = false;
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.pageService.showFooter = true;
   }
 }

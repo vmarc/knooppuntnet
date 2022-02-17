@@ -15,7 +15,6 @@ export class PageService {
   readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(
     this.sidebarOpenInitialState()
   );
-  showFooter = true;
   private _toolbarBackgroundColor$: BehaviorSubject<string>;
 
   private initializing = true;
@@ -31,12 +30,6 @@ export class PageService {
     this.initializing = false;
   }
 
-  defaultMenu() {
-    setTimeout(() => {
-      this.showFooter = true;
-    });
-  }
-
   toggleSidebarOpen(): void {
     const sidebarOpen = !this.sidebarOpen.value;
     this.sidebarOpen.next(sidebarOpen);
@@ -45,10 +38,6 @@ export class PageService {
 
   isSidebarOpen(): boolean {
     return this.sidebarOpen.value;
-  }
-
-  isShowFooter(): boolean {
-    return this.showFooter;
   }
 
   setTitle(prefix: string): void {

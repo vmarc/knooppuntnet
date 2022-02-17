@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { PageService } from '../../../components/shared/page.service';
 import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
 import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
@@ -130,14 +129,10 @@ export class NodeDetailsPageComponent implements OnInit {
     .select(selectNodeDetailsPage)
     .pipe(filter((x) => x !== null));
 
-  constructor(
-    private pageService: PageService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeDetailsPageInit());
-    this.pageService.showFooter = true;
   }
 
   buildTags(page: NodeDetailsPage) {

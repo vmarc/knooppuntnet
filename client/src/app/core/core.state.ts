@@ -6,6 +6,8 @@ import { createFeatureSelector } from '@ngrx/store';
 import { MetaReducer } from '@ngrx/store';
 import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { pageReducer } from './page/page.reducer';
+import { PageState } from './page/page.state';
 import { preferencesReducer } from './preferences/preferences.reducer';
 import { PreferencesState } from './preferences/preferences.state';
 import { RouterStateUrl } from './router/router.state';
@@ -16,12 +18,14 @@ export interface AppState {
   preferences: PreferencesState;
   shared: SharedState;
   router: RouterReducerState<RouterStateUrl>;
+  page: PageState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   preferences: preferencesReducer,
   shared: sharedReducer,
   router: routerReducer,
+  page: pageReducer,
 };
 
 export const localStorageSyncReducer = (
@@ -38,6 +42,8 @@ export const selectSharedState = createFeatureSelector<SharedState>('shared');
 
 export const selectRouterState =
   createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
+
+export const selectPageState = createFeatureSelector<PageState>('page');
 
 export const {
   // selectCurrentRoute,   // select the current route

@@ -1,9 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { actionRouteMapPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
@@ -49,25 +47,16 @@ import { selectRouteId } from '../store/route.selectors';
     </div>
   `,
 })
-export class RouteMapPageComponent implements OnInit, OnDestroy {
+export class RouteMapPageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);
   readonly routeName$ = this.store.select(selectRouteName);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
   readonly response$ = this.store.select(selectRouteMapPage);
   readonly networkType$ = this.store.select(selectRouteNetworkType);
 
-  constructor(
-    private pageService: PageService,
-    private store: Store<AppState>
-  ) {
-    this.pageService.showFooter = false;
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.pageService.showFooter = true;
   }
 }

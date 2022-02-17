@@ -89,7 +89,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private dialog: MatDialog,
     private appService: AppService
   ) {
-    this.pageService.showFooter = false;
     this.plannerService.context.error$.subscribe((error) => {
       if (error instanceof HttpErrorResponse) {
         this.dialog.open(LegHttpErrorDialogComponent, { maxWidth: 600 });
@@ -153,7 +152,6 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
     this.plannerLayerService.mapDestroy(this.map);
     this.pageService.nextToolbarBackgroundColor(null);

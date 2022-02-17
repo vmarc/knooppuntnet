@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { UserService } from '../../../services/user.service';
 import { actionChangesPageSize } from '../store/changes.actions';
@@ -84,13 +83,11 @@ export class ChangesPageComponent implements OnInit {
   readonly pageIndex$ = this.store.select(selectChangesPageIndex);
 
   constructor(
-    private pageService: PageService,
     private userService: UserService,
     private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
-    this.pageService.defaultMenu();
     if (this.isLoggedIn()) {
       this.store.dispatch(actionChangesPageInit());
     }

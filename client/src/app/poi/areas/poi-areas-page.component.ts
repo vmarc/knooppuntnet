@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ApiResponse } from '@api/custom/api-response';
+import { Observable } from 'rxjs';
 import { AppService } from '../../app.service';
-import { PageService } from '../../components/shared/page.service';
 
 @Component({
   selector: 'kpn-poi-areas-page',
@@ -22,21 +21,12 @@ import { PageService } from '../../components/shared/page.service';
     </div>
   `,
 })
-export class PoiAreasPageComponent implements OnInit, OnDestroy {
+export class PoiAreasPageComponent implements OnInit {
   response$: Observable<ApiResponse<string>>;
 
-  constructor(
-    private appService: AppService,
-    private pageService: PageService
-  ) {
-    this.pageService.showFooter = false;
-  }
+  constructor(private appService: AppService) {}
 
   ngOnInit(): void {
     this.response$ = this.appService.poiAreas();
-  }
-
-  ngOnDestroy(): void {
-    this.pageService.showFooter = true;
   }
 }

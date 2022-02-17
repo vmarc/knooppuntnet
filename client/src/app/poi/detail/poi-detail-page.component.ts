@@ -7,7 +7,6 @@ import { Tags } from '@api/custom/tags';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../app.service';
-import { PageService } from '../../components/shared/page.service';
 import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
 
 @Component({
@@ -83,11 +82,8 @@ export class PoiDetailPageComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private pageService: PageService
-  ) {
-    this.pageService.showFooter = false;
-  }
+    private appService: AppService
+  ) {}
 
   ngOnInit(): void {
     this.response$ = this.activatedRoute.params.pipe(

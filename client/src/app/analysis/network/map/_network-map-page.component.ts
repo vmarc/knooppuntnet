@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { actionNetworkMapPageInit } from '../store/network.actions';
 import { selectNetworkId } from '../store/network.selectors';
@@ -31,22 +30,13 @@ import { selectNetworkMapPage } from '../store/network.selectors';
     </div>
   `,
 })
-export class NetworkMapPageComponent implements OnInit, OnDestroy {
+export class NetworkMapPageComponent implements OnInit {
   readonly networkId$ = this.store.select(selectNetworkId);
   readonly response$ = this.store.select(selectNetworkMapPage);
 
-  constructor(
-    private store: Store<AppState>,
-    private pageService: PageService
-  ) {
-    this.pageService.showFooter = false;
-  }
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.pageService.showFooter = true;
   }
 }

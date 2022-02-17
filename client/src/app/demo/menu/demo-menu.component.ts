@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { PageService } from '../../components/shared/page.service';
 import { selectDemoEnabled } from '../store/demo.selectors';
 
 @Component({
@@ -40,12 +39,8 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     `,
   ],
 })
-export class DemoMenuComponent implements OnInit {
+export class DemoMenuComponent {
   enabled$ = this.store.select(selectDemoEnabled);
 
-  constructor(private store: Store, private pageService: PageService) {}
-
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
-  }
+  constructor(private store: Store) {}
 }

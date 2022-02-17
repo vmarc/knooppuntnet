@@ -51,9 +51,7 @@ export class MonitorRouteMapPageComponent
     private pageService: PageService,
     private mapService: MonitorRouteMapService,
     private store: Store<AppState>
-  ) {
-    this.pageService.showFooter = false;
-  }
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteMapPageInit());
@@ -117,7 +115,6 @@ export class MonitorRouteMapPageComponent
   ngOnDestroy(): void {
     this.mapService.setMap(null);
     this.subscriptions.unsubscribe();
-    this.pageService.showFooter = true;
     if (this.map) {
       this.map.dispose();
       this.map.setTarget(null);

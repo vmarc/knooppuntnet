@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageService } from '../../../components/shared/page.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -8,8 +7,8 @@ import { UserService } from '../../../services/user.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-header subject="logout-page" i18n="@@logout.title"
-      >Logout</kpn-page-header
-    >
+      >Logout
+    </kpn-page-header>
 
     <div *ngIf="loggedIn()">
       <div class="note-page-contents">
@@ -59,13 +58,9 @@ import { UserService } from '../../../services/user.service';
   `,
 })
 export class LogoutPageComponent {
-  constructor(
-    private userService: UserService,
-    private pageService: PageService
-  ) {}
+  constructor(private userService: UserService) {}
 
   logout() {
-    this.pageService.defaultMenu();
     this.userService.logout();
   }
 

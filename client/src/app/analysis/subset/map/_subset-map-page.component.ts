@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { Store } from '@ngrx/store';
-import { PageService } from '../../../components/shared/page.service';
 import { AppState } from '../../../core/core.state';
 import { actionSubsetMapPageInit } from '../store/subset.actions';
 import { selectSubsetMapPage } from '../store/subset.selectors';
@@ -30,23 +29,13 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
     </div>
   `,
 })
-export class SubsetMapPageComponent implements OnInit, OnDestroy {
+export class SubsetMapPageComponent implements OnInit {
   readonly response$ = this.store.select(selectSubsetMapPage);
 
-  constructor(
-    private store: Store<AppState>,
-    private pageService: PageService,
-    private dialog: MatDialog
-  ) {
-    this.pageService.showFooter = false;
-  }
+  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.pageService.showFooter = true;
   }
 
   networkClicked(networkId: number, networks: Array<SubsetMapNetwork>): void {

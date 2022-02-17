@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { PageService } from '../../../components/shared/page.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-home-page',
@@ -31,10 +30,4 @@ import { PageService } from '../../../components/shared/page.service';
     </kpn-icon-button>
   `,
 })
-export class HomePageComponent implements OnInit {
-  constructor(private pageService: PageService) {}
-
-  ngOnInit(): void {
-    this.pageService.defaultMenu();
-  }
-}
+export class HomePageComponent {}

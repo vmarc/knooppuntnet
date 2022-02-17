@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map, mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { PageService } from '../../../components/shared/page.service';
 import { Util } from '../../../components/shared/util';
 
 class ChangeSetKey {
@@ -57,12 +56,10 @@ export class ChangeSetPageComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private appService: AppService,
-    private pageService: PageService
+    private appService: AppService
   ) {}
 
   ngOnInit(): void {
-    this.pageService.defaultMenu();
     this.response$ = this.activatedRoute.params.pipe(
       map((params) => this.interpreteParams(params)),
       mergeMap((key) =>

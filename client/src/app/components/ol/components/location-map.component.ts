@@ -46,9 +46,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
     private mapService: MapService,
     private mapClickService: MapClickService,
     private mapLayerService: MapLayerService
-  ) {
-    this.pageService.showFooter = false;
-  }
+  ) {}
 
   ngAfterViewInit(): void {
     this.mapService.nextNetworkType(this.networkType);
@@ -92,7 +90,6 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.pageService.showFooter = true;
     this.subscriptions.unsubscribe();
     if (this.map) {
       this.map.setTarget(null);

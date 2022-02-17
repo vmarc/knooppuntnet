@@ -4,11 +4,14 @@ import { Component } from '@angular/core';
 import { RouteConfigLoadEnd } from '@angular/router';
 import { RouteConfigLoadStart } from '@angular/router';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { setTag } from '@sentry/angular';
 import { map } from 'rxjs/operators';
 import { PageWidth } from './components/shared/page-width';
 import { PageWidthService } from './components/shared/page-width.service';
 import { PageService } from './components/shared/page.service';
+import { AppState } from './core/core.state';
+import { selectPageShowFooter } from './core/page/page.selectors';
 import { IconService } from './services/icon.service';
 import { UserService } from './services/user.service';
 import { VersionService } from './services/version.service';
@@ -44,7 +47,7 @@ import { Subscriptions } from './util/Subscriptions';
           <main>
             <router-outlet></router-outlet>
           </main>
-          <footer *ngIf="isShowFooter()">
+          <footer *ngIf="showFooter$ | async">
             <kpn-page-footer></kpn-page-footer>
           </footer>
         </div>
@@ -81,10 +84,12 @@ import { Subscriptions } from './util/Subscriptions';
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  readonly showFooter$ = this.store.select(selectPageShowFooter);
   smallPage = false;
   private readonly subscriptions = new Subscriptions();
 
   constructor(
+    private store: Store<AppState>,
     private iconService: IconService,
     private userService: UserService,
     private pageService: PageService,
@@ -125,10 +130,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   isSidebarOpen(): boolean {
     return this.pageService.isSidebarOpen();
-  }
-
-  isShowFooter(): boolean {
-    return this.pageService.isShowFooter();
   }
 
   private isSmallPage(pageWidth: PageWidth): boolean {
