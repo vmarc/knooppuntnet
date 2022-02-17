@@ -49,7 +49,6 @@ import { LocationRouteTableComponent } from './routes/location-route-table.compo
 import { LocationRoutesPageComponent } from './routes/location-routes-page.component';
 import { LocationRoutesSidebarComponent } from './routes/location-routes-sidebar.component';
 import { LocationRoutesComponent } from './routes/location-routes.component';
-import { LocationExpandAllDialogComponent } from './selection/location-expand-all-dialog.component';
 import { LocationModeComponent } from './selection/location-mode.component';
 import { LocationModeService } from './selection/location-mode.service';
 import { LocationSelectionPageComponent } from './selection/location-selection-page.component';
@@ -119,7 +118,6 @@ import { locationFeatureKey } from './store/location.state';
     LocationNodeFactIndicatorComponent,
     LocationNodeFactIndicatorDialogComponent,
     LocationSidebarComponent,
-    LocationExpandAllDialogComponent,
   ],
   providers: [LocationService, LocationModeService, LocationSelectionService],
 })
