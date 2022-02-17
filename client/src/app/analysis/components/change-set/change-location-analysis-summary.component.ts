@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
+import { NetworkType } from '@api/custom/network-type';
+import { Util } from '../../../components/shared/util';
+import { I18nService } from '../../../i18n/i18n.service';
 
 @Component({
   selector: 'kpn-change-location-analysis-summary',
@@ -22,11 +25,21 @@ import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
           ></kpn-network-type-icon>
           <div class="location-names">
             <div
-              *ngFor="let locationName of locationChanges.locationNames"
+              *ngFor="
+                let locationName of locationChanges.locationNames;
+                let i = index
+              "
               class="location-name"
             >
-              <span
-                ><a>{{ locationName }}</a></span
+              <a
+                [routerLink]="
+                  locationLink(
+                    locationChanges.networkType,
+                    locationChanges.locationNames,
+                    i
+                  )
+                "
+                >{{ locationName }}</a
               >
             </div>
           </div>
@@ -67,4 +80,22 @@ import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
 })
 export class ChangeLocationAnalysisSummaryComponent {
   @Input() changeSet: ChangeSetSummaryInfo;
+
+  constructor(private i18nService: I18nService) {}
+
+  locationLink(
+    networkType: NetworkType,
+    locationNames: string[],
+    index: number
+  ): string {
+    const country = locationNames[0].toLowerCase();
+    const countryName = this.i18nService.translation(
+      '@@country.' + Util.safeGet(() => country)
+    );
+    const locationParts = [countryName].concat(
+      locationNames.slice(1, index + 1)
+    );
+    const location = locationParts.join(':');
+    return `/analysis/${networkType}/${country}/${location}/nodes`;
+  }
 }

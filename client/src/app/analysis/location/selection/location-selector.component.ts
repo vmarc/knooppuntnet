@@ -120,7 +120,10 @@ export class LocationSelectorComponent implements OnInit {
         }
       }
       if (selection instanceof LocationOption) {
-        const selectedLocationName = selection.path + ':' + selection.name;
+        const selectedLocationName =
+          selection.path.length > 0
+            ? selection.path + ':' + selection.name
+            : selection.name;
         this.selection.emit(selectedLocationName);
         this.warningSelectionMandatory = false;
         this.warningSelectionInvalid = false;

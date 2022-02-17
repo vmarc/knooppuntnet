@@ -9,6 +9,7 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
 import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
+import { selectNodeNetworkTypes } from '../store/node.selectors';
 import { selectNodeDetailsPage } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
 import { selectNodeId } from '../store/node.selectors';
@@ -65,9 +66,27 @@ import { selectNodeChangeCount } from '../store/node.selectors';
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@node.location">
-          <kpn-node-location
-            [locations]="page.nodeInfo.locations"
-          ></kpn-node-location>
+          <div *ngIf="networkTypes$ | async as networkTypes">
+            <div *ngIf="networkTypes.length > 1">
+              <div *ngFor="let networkType of networkTypes" class="kpn-line">
+                <kpn-network-type-icon
+                  [networkType]="networkType"
+                ></kpn-network-type-icon>
+                <kpn-node-location
+                  [networkType]="networkType"
+                  [locations]="page.nodeInfo.locations"
+                ></kpn-node-location>
+              </div>
+            </div>
+            <div *ngIf="networkTypes.length === 1">
+              <div *ngFor="let networkType of networkTypes">
+                <kpn-node-location
+                  [networkType]="networkTypes[0]"
+                  [locations]="page.nodeInfo.locations"
+                ></kpn-node-location>
+              </div>
+            </div>
+          </div>
         </kpn-data>
 
         <kpn-data title="Integrity" i18n-title="@@node.integrity">
@@ -105,6 +124,7 @@ export class NodeDetailsPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);
   readonly nodeName$ = this.store.select(selectNodeName);
   readonly changeCount$ = this.store.select(selectNodeChangeCount);
+  readonly networkTypes$ = this.store.select(selectNodeNetworkTypes);
 
   readonly response$ = this.store
     .select(selectNodeDetailsPage)

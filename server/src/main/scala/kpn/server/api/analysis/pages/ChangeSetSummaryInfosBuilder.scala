@@ -34,8 +34,9 @@ class ChangeSetSummaryInfosBuilder(
         case LOCATION =>
 
           val changes = summary.locationChanges.map { locationChanges =>
+            val locationNames = locationChanges.locationNames.head.toUpperCase +: locationChanges.locationNames.drop(1).map(locationName => locationService.name(language, locationName))
             locationChanges.copy(
-              locationNames = locationChanges.locationNames.map(locationName => locationService.name(language, locationName))
+              locationNames = locationNames
             )
           }
 

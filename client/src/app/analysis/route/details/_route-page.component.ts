@@ -129,6 +129,7 @@ import { selectRouteId } from '../store/route.selectors';
 
         <kpn-data title="Location" i18n-title="@@route.location">
           <kpn-route-location
+            [networkType]="networkType$ | async"
             [locationAnalysis]="page.route.analysis.locationAnalysis"
           ></kpn-route-location>
         </kpn-data>

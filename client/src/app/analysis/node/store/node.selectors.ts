@@ -1,6 +1,9 @@
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { NodeDetailsPage } from '@api/common/node/node-details-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
+import { NetworkTypes } from '../../../kpn/common/network-types';
 import { nodeFeatureKey } from './node.state';
 import { NodeState } from './node.state';
 
@@ -59,4 +62,20 @@ export const selectNodeChangesPageSize = createSelector(
 export const selectNodeChangesPageIndex = createSelector(
   selectNodeChangesParameters,
   (changesParameters: ChangesParameters) => changesParameters.pageIndex
+);
+
+export const selectNodeNetworkTypes = createSelector(
+  selectNodeDetailsPage,
+  (response: ApiResponse<NodeDetailsPage>) => {
+    if (response?.result) {
+      const networkTypes = response.result.nodeInfo.names.map(
+        (nodeName) => nodeName.networkType
+      );
+      return NetworkTypes.all.filter((networkType) =>
+        networkTypes.includes(networkType)
+      );
+    } else {
+      return [];
+    }
+  }
 );

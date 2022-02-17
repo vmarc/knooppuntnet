@@ -4,6 +4,9 @@ import { Component } from '@angular/core';
 import { Location } from '@api/common/location/location';
 import { LocationCandidate } from '@api/common/location/location-candidate';
 import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
+import { NetworkType } from '@api/custom/network-type';
+import { Util } from '../../../components/shared/util';
+import { I18nService } from '../../../i18n/i18n.service';
 
 @Component({
   selector: 'kpn-route-location',
@@ -16,9 +19,14 @@ import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
         class="candidates"
       >
         <div class="kpn-comma-list">
-          <span *ngFor="let name of locationNames(candidate.location)">{{
-            name
-          }}</span>
+          <a
+            *ngFor="
+              let name of locationNames(candidate.location);
+              let i = index
+            "
+            [routerLink]="locationLink(candidate.location, i)"
+            >{{ name }}</a
+          >
         </div>
         <div class="percentage">{{ percentage(candidate) }}</div>
       </div>
@@ -38,7 +46,10 @@ import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
   ],
 })
 export class RouteLocationComponent {
+  @Input() networkType: NetworkType;
   @Input() locationAnalysis: RouteLocationAnalysis;
+
+  constructor(private i18nService: I18nService) {}
 
   locationNames(location: Location): string[] {
     const country = location.names[0].toUpperCase();
@@ -59,5 +70,17 @@ export class RouteLocationComponent {
       return '';
     }
     return `${locationCandidate.percentage}%`;
+  }
+
+  locationLink(location: Location, index: number): string {
+    const country = location.names[0].toLowerCase();
+    const countryName = this.i18nService.translation(
+      '@@country.' + Util.safeGet(() => country)
+    );
+    const locationParts = [countryName].concat(
+      location.names.slice(1, location.names.length - index)
+    );
+    const locationString = locationParts.join(':');
+    return `/analysis/${this.networkType}/${country}/${locationString}/nodes`;
   }
 }
