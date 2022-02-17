@@ -34,7 +34,6 @@ class LocationBuilderFrance(dir: String) {
       val context2 = buildDepartments(context1)
       val context3 = buildIntermunicipalities(context2)
       val context4 = buildMunicipalities(context3)
-      // if (FranceIntermunicipalities.orphanMunicipalityIds.contains(municipality.relationId))
       Seq(context4.country) ++ context4.departments ++ context4.intermunicipalities ++ context4.municipalities
     }
   }
@@ -83,10 +82,10 @@ class LocationBuilderFrance(dir: String) {
         val count = new AtomicInteger(0)
         val logContext = Log.contextMessages
         locationIds.par.flatMap { locationId =>
-          Log.context(logContext :+ locationId.toString) {
-            val index = count.incrementAndGet()
+          val index = count.incrementAndGet()
+          Log.context(logContext ++ Seq(s"$index/${locationIds.size}", locationId.toString)) {
             val locationData = new FranceIntermunicipalityReader(intermunicipalitiesDir, locationId, intermunicipalityType).read()
-            log.info(s"$index/${locationIds.size} ${locationData.name}")
+            log.info(locationData.name)
             if (context.country.contains(locationData.geometry)) {
               val parentDepartments = context.departments.filter { department =>
                 department.geometry.overlap(locationData.geometry) > 0.05
@@ -118,10 +117,10 @@ class LocationBuilderFrance(dir: String) {
       val logContext = Log.contextMessages
       val municipalities = municipalityLocationJsons.par.flatMap { municipality =>
         val index = count.incrementAndGet()
-        Log.context(logContext :+ s"$index/${municipalityLocationJsons.size}") {
-          val id = s"fr-3-${municipality.tags("ref:INSEE")}"
+        val id = s"fr-3-${municipality.tags("ref:INSEE")}"
+        Log.context(logContext ++ Seq(s"$index/${municipalityLocationJsons.size}", id)) {
           val name = municipality.tags("name")
-          log.info(s"$id $name")
+          log.info(name)
           if (context.country.contains(LocationGeometry(municipality.geometry))) {
             val names = municipality.names
             val municipalityGeometry = LocationGeometry(municipality.geometry)
@@ -132,11 +131,14 @@ class LocationBuilderFrance(dir: String) {
                   case Some(intermunicipality) =>
                     context.intermunicipalities.find(_.id == intermunicipality.intermunicipalityId)
                   case None =>
+                    // TODO volgende zou veel sneller gaan als er alleen naar de intermunicipalities binnen het departement gekeken wordt?
                     context.intermunicipalities.find(_.contains(municipalityGeometry))
                 }
                 val parents = intermunicipalityOption match {
                   case Some(intermunicipality) => Seq("fr", department.id, intermunicipality.id)
-                  case None => Seq("fr", department.id)
+                  case None =>
+                    log.warn(s"Municipality zonder intermunicipality: $id ${municipality.relationId} ${municipality.name}")
+                    Seq("fr", department.id)
                 }
                 Some(
                   LocationData.from(
