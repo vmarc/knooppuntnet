@@ -73,11 +73,11 @@ object MonitorDemoRoute {
 
     // GR 56 - Cantons de l'Est et Parc Naturel Hautes Fagnes - Eifel",
 
-    MonitorDemoRoute("GR-56-E7", 1477696L, "GR 56 - Parcours Principal", "GR056_Parcours-principal_2020-09-20"),
+    MonitorDemoRoute("GR-56-E7", 13818271L, "GR 56 - Parcours Principal", "GR056_Parcours-principal_2020-09-20"), // was: 1477696L
     MonitorDemoRoute("GR-56-E7-L1", 1L, "GR 56 - Liaison Variante Warche-Krinkelt", "GR056_Liaison-Variante_Warche-Krinkelt_2016-08-11"),
-    MonitorDemoRoute("GR-56-E7-L2", 1L, "GR 56 - Liaison Bayehon", "GR056_Liaison-Bayehon_2018-03-25"),
-    MonitorDemoRoute("GR-56-E7-V1", 1L, "GR 56 - Variante Amblève", "GR056_Var.Amblève_2016-08-11"),
-    MonitorDemoRoute("GR-56-E7-V2", 1L, "GR 56 - Variante Warche", "GR056_Var.Warche_2018-03-25"),
+    MonitorDemoRoute("GR-56-E7-L2", 8608381L, "GR 56 - Liaison Bayehon", "GR056_Liaison-Bayehon_2018-03-25"),
+    MonitorDemoRoute("GR-56-E7-V1", 13807655L, "GR 56 - Variante Amblève", "GR056_Var.Amblève_2016-08-11"),
+    MonitorDemoRoute("GR-56-E7-V2", 8516113L, "GR 56 - Variante Warche", "GR056_Var.Warche_2018-03-25"),
 
     //    MonitorDemoRoute("GR057-a", 9308683L, "GR057_Sentier-de-l_Ourthe-Occidentale_Parcours-principal_2021-05-02"), // OK
     //    MonitorDemoRoute("GR057-b", 157527L, "GR057_Sentier-de-l_Ourthe-Orientale_Parcours-principal_2021-05-02"), // OK

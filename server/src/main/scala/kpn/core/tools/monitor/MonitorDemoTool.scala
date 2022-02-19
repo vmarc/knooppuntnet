@@ -17,7 +17,7 @@ import org.locationtech.jts.geom.Geometry
 
 object MonitorDemoTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
+    Mongo.executeIn("kpn-3") { database =>
       new MonitorDemoTool(database).setup(MonitorDemoRoute.routes)
     }
   }
