@@ -8734,26 +8734,14 @@
           rel=&quot;nofollow noreferrer&quot;
           >"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
         >"/>). </source>
-        <target state="final"> Oldest known state of node (at date of <x id="START_LINK" ctype="x-a" equiv-text="&lt;a
-          class=&quot;external&quot;
-          href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;
-          target=&quot;_blank&quot;
-          rel=&quot;nofollow noreferrer&quot;
-          >"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
-        >"/>). </target>
+        <target state="final">Oldest known state of node.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/node-change.component.ts</context>
           <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.initial-value" datatype="html">
-        <source> Oldest known state of route (at date of <x id="START_LINK" ctype="x-a" equiv-text="&lt;a
-          class=&quot;external&quot;
-          href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;
-          target=&quot;_blank&quot;
-          rel=&quot;nofollow noreferrer&quot;
-          >"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
-        >"/>). </source>
+        <source> Oldest known state of route. </source>
         <target state="final"> Oldest known state of route (at date of <x id="START_LINK" ctype="x-a" equiv-text="&lt;a
           class=&quot;external&quot;
           href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;
@@ -8767,20 +8755,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-initial-value" datatype="html">
-        <source> Oldest known state of network (at date of <x id="START_LINK" ctype="x-a" equiv-text="&lt;a
-          class=&quot;external&quot;
-          href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;
-          target=&quot;_blank&quot;
-          rel=&quot;nofollow noreferrer&quot;
-          >"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
-        >"/>). </source>
-        <target state="final"> Oldest known state of network (at date of <x id="START_LINK" ctype="x-a" equiv-text="&lt;a
-          class=&quot;external&quot;
-          href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot;
-          target=&quot;_blank&quot;
-          rel=&quot;nofollow noreferrer&quot;
-          >"/>license change<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a
-        >"/>). </target>
+        <source> Oldest known state of network. </source>
+        <target state="final"> Oldest known state of network. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">201</context>

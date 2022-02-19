@@ -6642,7 +6642,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-initial-value" datatype="html">
-        <source> Oldest known state of network (at date of <x id="START_LINK" equiv-text="&lt;a class=&quot;external&quot; href=&quot;https://wiki.openstreetmap.org/wiki/NL:Open_Database_License&quot; target=&quot;_blank&quot; rel=&quot;nofollow noreferrer&quot;&gt;"/>license change<x id="CLOSE_LINK" equiv-text="&lt;/a&gt;"/>). </source>
+        <source> Oldest known state of network. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/network-change.component.ts</context>
           <context context-type="linenumber">24,26</context>
