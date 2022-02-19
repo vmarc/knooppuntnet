@@ -7,7 +7,7 @@ nohup /kpn/java/bin/java \
   -Dcom.sun.management.jmxremote.ssl=false \
   -Xms256M \
   -Xmx4G \
-  -cp /kpn/bin/server-experimental.jar \
+  -cp /kpn/bin/server-history.jar \
   -Dloader.main=kpn.core.tools.analysis.AnalysisStartTool org.springframework.boot.loader.PropertiesLauncher \
-  --database kpn \
+  --database kpn-history \
   >> /kpn/logs/analysis-start-tool-stdout.log 2>&1 &
