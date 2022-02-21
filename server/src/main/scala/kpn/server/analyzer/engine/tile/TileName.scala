@@ -23,4 +23,7 @@ object TileName {
     tileName.substring(networkType(tileName).length + 1).replaceAll("-", "/")
   }
 
+  def tileZoomLevel(tileName: String): Int = {
+    tileName.substring(networkType(tileName).length + 1).takeWhile(_ != '-').toInt
+  }
 }

@@ -178,7 +178,7 @@ class TilesBuilder(
 
     var progress = 0
     tileRoutes.zipWithIndex.foreach { case (tileRoute, index) =>
-      val tiles = routeTileCalculator.tiles(z, tileRoute)
+      val tiles = routeTileCalculator.tiles(z, tileRoute.segments)
       val currentProgress = (100d * (index + 1) / tileRoutes.size).round.toInt
       if (currentProgress != progress) {
         progress = currentProgress

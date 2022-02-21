@@ -60,7 +60,8 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       endTentacleNodes = context.routeMap.get.endTentacleNodes,
       allWayNodes = context.allWayNodes.get,
       bounds = context.routeMap.get.bounds,
-      geometryDigest = context.geometryDigest.get
+      geometryDigest = context.geometryDigest.get,
+      tileAnalysis = context.tileAnalysis.get
     )
   }
 

@@ -4,7 +4,7 @@ import java.awt.Color
 
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
-import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
+import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 
 // See also: Typescript MainStyleColors
 object TileColor {
@@ -32,7 +32,7 @@ object TileColor {
 
 trait TileColor {
 
-  def routeColor(route: TileDataRoute, segment: TileRouteSegment): Color
+  def routeColor(route: TileDataRoute, segment: RouteTileSegment): Color
 
   def nodeColor(node: TileDataNode): Color
 

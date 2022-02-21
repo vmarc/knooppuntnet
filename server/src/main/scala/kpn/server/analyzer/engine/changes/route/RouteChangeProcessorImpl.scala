@@ -159,7 +159,8 @@ class RouteChangeProcessorImpl(
             factDiffs = factDiffs
           ),
           facts = Seq.empty,
-          impactedNodeIds = impactedNodeIds
+          impactedNodeIds = impactedNodeIds,
+          after.route.tiles
         )
       )
     }
@@ -173,7 +174,6 @@ class RouteChangeProcessorImpl(
 
       routeRepository.save(before.route.deactivated)
 
-      tileChangeAnalyzer.analyzeRoute(before)
       val impactedNodeIds: Seq[Long] = before.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
       val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
@@ -212,7 +212,8 @@ class RouteChangeProcessorImpl(
           updatedWays = Seq.empty,
           diffs = RouteDiff(),
           facts = Seq(Fact.Deleted),
-          impactedNodeIds = impactedNodeIds
+          impactedNodeIds = impactedNodeIds,
+          before.route.tiles
         )
       )
     }
@@ -233,7 +234,8 @@ class RouteChangeProcessorImpl(
           masterRouteAnalyzer.analyze(relationAfter) match {
             case None => None
             case Some(after) =>
-              tileChangeAnalyzer.analyzeRouteChange(before, after)
+
+              val impactedTiles = tileChangeAnalyzer.impactedTiles(before, after)
 
               val routeUpdate = new RouteDiffAnalyzer(before, after).analysis
 
@@ -288,7 +290,8 @@ class RouteChangeProcessorImpl(
                     updatedWays = routeUpdate.updatedWays,
                     diffs = routeUpdate.diffs,
                     facts = facts,
-                    impactedNodeIds = impactedNodeIds
+                    impactedNodeIds = impactedNodeIds,
+                    impactedTiles
                   )
                 )
               )
@@ -300,8 +303,6 @@ class RouteChangeProcessorImpl(
   private def processLostRouteTags(context: ChangeSetContext, routeAnalysisBefore: RouteAnalysis, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
 
     analysisContext.watched.routes.delete(routeId)
-
-    // TODO MONGO add tiles!! tileChangeAnalyzer.analyzeRouteChange(before, after)
 
     val updatedRoute = routeAnalysisBefore.route.copy(
       labels = routeAnalysisBefore.route.labels.filterNot(_ == Label.active),
@@ -343,7 +344,8 @@ class RouteChangeProcessorImpl(
             tagDiffs = tagDiffs
           ),
           facts = Seq(Fact.LostRouteTags),
-          impactedNodeIds = impactedNodeIds
+          impactedNodeIds = impactedNodeIds,
+          routeAnalysisBefore.route.tiles
         )
       )
     )

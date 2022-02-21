@@ -4,8 +4,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTileSetup
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
-import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
-import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
+import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 
 class RouteTileCalculatorTest extends UnitTest {
 
@@ -25,14 +24,10 @@ class RouteTileCalculatorTest extends UnitTest {
 
     val line = Line(Point(x1, y1), Point(x2, y2))
 
-    val tileRoute = TileDataRoute(
-      routeId = 1L,
-      "01-02",
-      "layer",
-      None,
-      None,
-      segments = Seq(
-        TileRouteSegment(
+    val tiles = calculator.tiles(
+      13,
+      Seq(
+        RouteTileSegment(
           0,
           oneWay = false,
           "",
@@ -42,8 +37,6 @@ class RouteTileCalculatorTest extends UnitTest {
         )
       )
     )
-
-    val tiles = calculator.tiles(13, tileRoute)
 
     tiles.map(_.name).toSet should equal(
       Set(
@@ -59,14 +52,10 @@ class RouteTileCalculatorTest extends UnitTest {
 
     val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
 
-    val tileRoute = TileDataRoute(
-      routeId = 1L,
-      "01-02",
-      "layer",
-      None,
-      None,
-      segments = Seq(
-        TileRouteSegment(
+    val tiles = calculator.tiles(
+      13,
+      Seq(
+        RouteTileSegment(
           0,
           oneWay = false,
           "",
@@ -76,8 +65,6 @@ class RouteTileCalculatorTest extends UnitTest {
         )
       )
     )
-
-    val tiles = calculator.tiles(13, tileRoute)
 
     tiles.map(_.name).toSet should equal(
       Set(
@@ -94,14 +81,10 @@ class RouteTileCalculatorTest extends UnitTest {
 
     val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
 
-    val tileRoute = TileDataRoute(
-      routeId = 1L,
-      "01-02",
-      "layer",
-      None,
-      None,
-      segments = Seq(
-        TileRouteSegment(
+    val tiles = calculator.tiles(
+      13,
+      Seq(
+        RouteTileSegment(
           0,
           oneWay = false,
           "",
@@ -111,8 +94,6 @@ class RouteTileCalculatorTest extends UnitTest {
         )
       )
     )
-
-    val tiles = calculator.tiles(13, tileRoute)
 
     tiles.map(_.name).toSet should equal(
       Set(

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles.domain
 
-case class TileRouteSegment(
+case class RouteTileSegment(
   pathId: Long,
   oneWay: Boolean,
   surface: String,

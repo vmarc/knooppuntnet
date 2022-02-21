@@ -6,11 +6,11 @@ import kpn.api.common.SurveyDateInfo
 import kpn.api.custom.Day
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
-import kpn.server.analyzer.engine.tiles.domain.TileRouteSegment
+import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 
 class TileColorSurvey(dateInfo: SurveyDateInfo) extends TileColor {
 
-  override def routeColor(route: TileDataRoute, segment: TileRouteSegment): Color = {
+  override def routeColor(route: TileDataRoute, segment: RouteTileSegment): Color = {
     surveyColor(route.surveyDate)
   }
 

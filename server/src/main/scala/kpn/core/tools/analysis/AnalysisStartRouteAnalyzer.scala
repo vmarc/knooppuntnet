@@ -103,10 +103,11 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
         facts = routeAnalysis.route.facts,
         Seq.empty,
+        Seq.empty,
         investigate = facts.nonEmpty,
         impact = true,
         locationInvestigate = locationFacts.nonEmpty,
-        locationImpact = true
+        locationImpact = true,
       )
     )
   }

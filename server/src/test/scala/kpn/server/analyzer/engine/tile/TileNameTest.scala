@@ -21,4 +21,13 @@ class TileNameTest extends UnitTest {
     TileName.tileNumber("motorboat-10-002-003") should equal("10/002/003")
     TileName.tileNumber("inline-skating-10-002-003") should equal("10/002/003")
   }
+
+  test("tileZoomLevel") {
+    TileName.tileZoomLevel("hiking-10-002-003") should equal(10)
+    TileName.tileZoomLevel("cycling-10-002-003") should equal(10)
+    TileName.tileZoomLevel("horse-riding-10-002-003") should equal(10)
+    TileName.tileZoomLevel("canoe-10-002-003") should equal(10)
+    TileName.tileZoomLevel("motorboat-10-002-003") should equal(10)
+    TileName.tileZoomLevel("inline-skating-10-002-003") should equal(10)
+  }
 }

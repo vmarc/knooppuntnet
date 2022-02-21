@@ -6,6 +6,10 @@ object TileTask {
 
   val prefix: String = "tile-task:"
 
+  def task(tileName: String): String = {
+    s"${TileTask.prefix}$tileName"
+  }
+
   def fullTileName(task: String): String = {
     task.substring(prefix.length)
   }

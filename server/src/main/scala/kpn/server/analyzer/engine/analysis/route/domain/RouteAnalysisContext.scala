@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 
 case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
@@ -45,6 +46,7 @@ case class RouteAnalysisContext(
   locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,
   labels: Seq[String] = Seq.empty,
+  tileAnalysis: Option[RouteTileAnalysis] = None,
   tiles: Seq[String] = Seq.empty,
   elementIds: ElementIds = ElementIds(),
   edges: Seq[RouteEdge] = Seq.empty,

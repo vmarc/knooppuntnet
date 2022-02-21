@@ -43,4 +43,7 @@ class TileTaskTest extends UnitTest {
     TileTask.zoomLevel("tile-task:inline-skating-16-001-001") should equal(16)
   }
 
+  test("task") {
+    TileTask.task("hiking-11-001-001") should equal("tile-task:hiking-11-001-001")
+  }
 }

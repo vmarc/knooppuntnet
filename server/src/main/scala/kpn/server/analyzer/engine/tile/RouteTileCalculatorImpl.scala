@@ -3,18 +3,18 @@ package kpn.server.analyzer.engine.tile
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
+import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 import org.springframework.stereotype.Component
 
 @Component
 class RouteTileCalculatorImpl(tileCalculator: TileCalculator) extends RouteTileCalculator {
 
-  override def tiles(z: Int, tileRoute: TileDataRoute): Seq[Tile] = {
+  override def tiles(z: Int, segments: Seq[RouteTileSegment]): Seq[Tile] = {
 
     val tileQueue = scala.collection.mutable.Queue[Tile]()
     val foundTiles = scala.collection.mutable.Set[Tile]()
 
-    val lines = tileRoute.segments.flatMap(_.lines)
+    val lines = segments.flatMap(_.lines)
 
     val tiles = lines.flatMap(_.points).map { p: Point =>
       tileCalculator.tileLonLat(z, p.x, p.y)

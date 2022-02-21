@@ -116,10 +116,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val tileChangeAnalyzer = new TileChangeAnalyzerImpl(
-    taskRepository,
-    routeTileCalculator
-  )
+  private val tileChangeAnalyzer = new TileChangeAnalyzerImpl()
 
   private val networkChangeProcessor = {
 
