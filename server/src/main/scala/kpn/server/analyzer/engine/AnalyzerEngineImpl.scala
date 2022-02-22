@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine
 
 import kpn.api.common.ReplicationId
+import kpn.api.common.changes.ChangeSet
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
@@ -10,11 +11,15 @@ import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiTileUpdater
+import kpn.server.analyzer.engine.tile.TileTask
 import kpn.server.analyzer.engine.tile.TileUpdater
 import kpn.server.analyzer.full.FullAnalyzer
 import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.repository.AnalysisRepository
+import kpn.server.repository.TaskRepository
 import org.springframework.stereotype.Component
+
+import scala.annotation.tailrec
 
 @Component
 class AnalyzerEngineImpl(
@@ -27,6 +32,7 @@ class AnalyzerEngineImpl(
   fullAnalyzer: FullAnalyzer,
   changeProcessor: ChangeProcessor,
   analysisRepository: AnalysisRepository,
+  taskRepository: TaskRepository,
   tileUpdater: TileUpdater,
   poiChangeAnalyzer: PoiChangeAnalyzer,
   poiTileUpdater: PoiTileUpdater,
@@ -54,43 +60,63 @@ class AnalyzerEngineImpl(
     Log.context(s"${replicationId.name}") {
       log.debug("Start")
       log.infoElapsed {
-        var hasChanges = false
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
-        val changeSetElementCount = changeSets.map { changeSet =>
-          Log.context(s"${changeSet.id}") {
-            val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
-            val context = ChangeSetContext(
-              replicationId,
-              changeSet,
-              elementIds
-            )
-            val contextAfter = changeProcessor.process(context)
-            hasChanges = contextAfter.changes.nonEmpty
-            elementIds.size
-          }
-        }.sum
+        val replicationContext = processChangeSets(ReplicationContext(replicationId), changeSets)
 
         if (analyzerPoiUpdateEnabled) {
           poiChangeAnalyzer.analyze(osmChange)
         }
 
         if (analyzerTileUpdateEnabled) {
+          replicationContext.tiles.foreach { tile =>
+            taskRepository.add(TileTask.task(tile))
+          }
           tileUpdater.update(11)
           poiTileUpdater.update()
         }
 
-        if (analyzerStatisticsUpdateEnabled && hasChanges) {
+        if (analyzerStatisticsUpdateEnabled && replicationContext.hasChanges) {
           statisticsUpdater.update()
         }
 
         analysisRepository.saveLastUpdated(timestamp)
 
         val osmChangeTimestamp = osmChange.timestampFrom.map(_.iso).getOrElse("")
-        val message = s"$osmChangeTimestamp - ${changeSets.size} changesets, $changeSetElementCount elements"
+        val message = s"$osmChangeTimestamp - ${changeSets.size} changesets, ${replicationContext.changeSetElementCount} elements"
         (message, ())
       }
+    }
+  }
+
+  @tailrec
+  private def processChangeSets(replicationContext: ReplicationContext, remainingChangeSets: Seq[ChangeSet]): ReplicationContext = {
+    if (remainingChangeSets.isEmpty) {
+      replicationContext
+    }
+    else {
+      val newReplicationContext = processChangeSet(replicationContext, remainingChangeSets.head)
+      processChangeSets(newReplicationContext, remainingChangeSets.tail)
+    }
+  }
+
+  private def processChangeSet(replicationContext: ReplicationContext, changeSet: ChangeSet): ReplicationContext = {
+    Log.context(s"${changeSet.id}") {
+      val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
+      val context = ChangeSetContext(
+        replicationContext.replicationId,
+        changeSet,
+        elementIds
+      )
+      val contextAfter = changeProcessor.process(context)
+      val hasChanges = contextAfter.changes.nonEmpty
+      val tiles = contextAfter.changes.tiles
+      replicationContext.copy(
+        changeSetElementCount = replicationContext.changeSetElementCount + elementIds.size,
+        hasChanges = replicationContext.hasChanges || hasChanges,
+        tiles = (replicationContext.tiles ++ tiles).distinct.sorted,
+      )
     }
   }
 }

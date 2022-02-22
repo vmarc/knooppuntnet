@@ -11,6 +11,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
 import kpn.core.doc.RouteDoc
+import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
 case class RouteAnalysis(
@@ -26,7 +27,8 @@ case class RouteAnalysis(
   endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
   allWayNodes: Seq[Node] = Seq.empty,
   bounds: MapBounds = MapBounds(),
-  geometryDigest: String = ""
+  geometryDigest: String = "",
+  tileAnalysis: RouteTileAnalysis = RouteTileAnalysis("", "")
 ) {
 
   def id: Long = relation.id
