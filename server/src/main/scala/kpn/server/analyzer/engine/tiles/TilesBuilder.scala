@@ -197,6 +197,6 @@ class TilesBuilder(
 
   private def buildTileRoutes(z: Int, routeInfos: Seq[RouteTileInfo]): Seq[TileDataRoute] = {
     val b = new TileDataRouteBuilder(z)
-    routeInfos.flatMap(b.fromRouteInfo)
+    routeInfos.map(b.fromRouteInfo).filter(_.segments.nonEmpty)
   }
 }

@@ -15,6 +15,7 @@ import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
@@ -23,7 +24,8 @@ class NodeChangeProcessorImpl(
   analysisContext: AnalysisContext,
   bulkNodeAnalyzer: BulkNodeAnalyzer,
   nodeChangeAnalyzer: NodeChangeAnalyzer,
-  nodeRepository: NodeRepository
+  nodeRepository: NodeRepository,
+  tileChangeAnalyzer: NodeTileChangeAnalyzer
 ) extends NodeChangeProcessor {
 
   private val log = Log(classOf[NodeChangeProcessorImpl])
@@ -177,6 +179,7 @@ class NodeChangeProcessorImpl(
     }
 
     new NodeDocChangeAnalyzer(
+      tileChangeAnalyzer,
       context,
       nodeDocBefore,
       nodeDocAfter,

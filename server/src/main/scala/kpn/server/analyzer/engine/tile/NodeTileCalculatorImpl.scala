@@ -15,8 +15,6 @@ class NodeTileCalculatorImpl(tileCalculator: TileCalculator) extends NodeTileCal
     val x = Tile.x(z, lon)
     val y = Tile.y(z, lat)
 
-    val tile = tileCalculator.tileXY(z, x, y)
-
     Seq(
       Some(tileCalculator.tileXY(z, x, y)),
       explore(lon, lat, z, x - 1, y),

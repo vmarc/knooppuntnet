@@ -16,7 +16,7 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component
 class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
-  tileChangeAnalyzer: TileChangeAnalyzer
+  tileChangeAnalyzer: RouteTileChangeAnalyzer
 ) extends RouteChangeBuilder {
 
   private val log = Log(classOf[RouteChangeBuilderImpl])

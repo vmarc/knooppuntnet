@@ -16,7 +16,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.TileChangeAnalyzer
+import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
@@ -29,7 +29,7 @@ class RouteChangeProcessorImpl(
   changeAnalyzer: RouteChangeAnalyzer,
   overpassRepository: OverpassRepository,
   masterRouteAnalyzer: MasterRouteAnalyzer,
-  tileChangeAnalyzer: TileChangeAnalyzer,
+  tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends RouteChangeProcessor {

@@ -16,14 +16,18 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
 
     val routeTileInfo = toRouteTileInfo(context)
-    val zoomLevelAndTileDataRoutes = ZoomLevel.all.flatMap { zoomLevel =>
-      new TileDataRouteBuilder(zoomLevel).fromRouteInfo(routeTileInfo).map { tileDataRoute =>
-        zoomLevel -> tileDataRoute
-      }
+    val zoomLevelAndTileDataRoutes = ZoomLevel.all.map { zoomLevel =>
+      val tileDataRoute = new TileDataRouteBuilder(zoomLevel).fromRouteInfo(routeTileInfo)
+      zoomLevel -> tileDataRoute
     }
 
-    val zoomLevelSegmentss = zoomLevelAndTileDataRoutes.map { tileDataRoute =>
-      ZoomLevelRouteTileSegments(tileDataRoute._1, tileDataRoute._2.segments)
+    val zoomLevelSegmentss = zoomLevelAndTileDataRoutes.flatMap { tileDataRoute =>
+      if (tileDataRoute._2.segments.nonEmpty) {
+        Some(ZoomLevelRouteTileSegments(tileDataRoute._1, tileDataRoute._2.segments))
+      }
+      else {
+        None
+      }
     }
 
     val tiles = zoomLevelAndTileDataRoutes.flatMap { tileDataRoute =>
@@ -31,16 +35,19 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
       tiles.map(tile => s"${context.scopedNetworkType.networkType.name}-${tile.name}")
     }
 
-    val tileAnalysis = RouteTileAnalysis(
-      routeName = zoomLevelAndTileDataRoutes.head._2.routeName,
-      layer = zoomLevelAndTileDataRoutes.head._2.layer,
-      surveyDate = zoomLevelAndTileDataRoutes.head._2.surveyDate,
-      state = zoomLevelAndTileDataRoutes.head._2.state,
-      zoomLevelSegments = zoomLevelSegmentss
-    )
+    val tileAnalysis = zoomLevelAndTileDataRoutes.headOption.map { zoomLevelAndTileDataRoute =>
+      val tileDataRoute = zoomLevelAndTileDataRoute._2
+      RouteTileAnalysis(
+        routeName = tileDataRoute.routeName,
+        layer = tileDataRoute.layer,
+        surveyDate = tileDataRoute.surveyDate,
+        state = tileDataRoute.state,
+        zoomLevelSegments = zoomLevelSegmentss
+      )
+    }
 
     context.copy(
-      tileAnalysis = Some(tileAnalysis),
+      tileAnalysis = tileAnalysis,
       tiles = tiles
     )
   }

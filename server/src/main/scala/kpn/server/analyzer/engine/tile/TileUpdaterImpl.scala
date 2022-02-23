@@ -86,7 +86,14 @@ class TileUpdaterImpl(
         routeCache.getOrElseUpdate(
           routeId,
           routeRepository.routeTileInfosById(routeId) match {
-            case Some(routeTileInfo) => new TileDataRouteBuilder(tile.z).fromRouteInfo(routeTileInfo)
+            case Some(routeTileInfo) =>
+              val tileDataRoute = new TileDataRouteBuilder(tile.z).fromRouteInfo(routeTileInfo)
+              if (tileDataRoute.segments.nonEmpty) {
+                Some(tileDataRoute)
+              }
+              else {
+                None
+              }
             case None =>
               log.error(s"Unexpected data integrity problem: route $routeId for tile ${networkType.name}-${tile.name} not found in database")
               None

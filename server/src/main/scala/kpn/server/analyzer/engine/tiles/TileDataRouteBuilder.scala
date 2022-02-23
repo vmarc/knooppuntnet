@@ -12,23 +12,16 @@ import scala.util.Success
 
 class TileDataRouteBuilder(zoomLevel: Int) {
 
-  def fromRouteInfo(route: RouteTileInfo): Option[TileDataRoute] = {
+  def fromRouteInfo(route: RouteTileInfo): TileDataRoute = {
     val routeTileSegments = new RouteSegmentBuilder(zoomLevel).from(route)
-    if (routeTileSegments.isEmpty) {
-      None
-    }
-    else {
-      Some(
-        TileDataRoute(
-          route._id,
-          route.name,
-          layer(route),
-          surveyDate(route),
-          state(route),
-          routeTileSegments
-        )
-      )
-    }
+    TileDataRoute(
+      route._id,
+      route.name,
+      layer(route),
+      surveyDate(route),
+      state(route),
+      routeTileSegments
+    )
   }
 
   private def surveyDate(route: RouteTileInfo): Option[Day] = {

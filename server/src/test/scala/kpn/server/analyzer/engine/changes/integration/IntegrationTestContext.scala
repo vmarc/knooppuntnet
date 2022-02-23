@@ -16,7 +16,6 @@ import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerNoop
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
@@ -41,9 +40,11 @@ import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileChangeAnalyzerImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.full.FullAnalyzer
 import kpn.server.analyzer.full.FullAnalyzerImpl
 import kpn.server.analyzer.full.network.FullNetworkAnalyzerImpl
@@ -116,7 +117,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val tileChangeAnalyzer = new TileChangeAnalyzerImpl()
+  private val routeTileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
 
   private val networkChangeProcessor = {
 
@@ -151,7 +152,7 @@ class IntegrationTestContext(
       routeChangeAnalyzer,
       overpassRepository,
       masterRouteAnalyzer,
-      tileChangeAnalyzer,
+      routeTileChangeAnalyzer,
       routeRepository,
       analysisExecutionContext
     )
@@ -168,11 +169,16 @@ class IntegrationTestContext(
     nodeAnalyzer
   )
 
+  private val nodeTileChangeAnalyzer = new NodeTileChangeAnalyzerImpl(
+    new TileDataNodeBuilderImpl()
+  )
+
   private val nodeChangeProcessor = new NodeChangeProcessorImpl(
     analysisContext,
     bulkNodeAnalyzer,
     nodeChangeAnalyzer,
-    nodeRepository
+    nodeRepository,
+    nodeTileChangeAnalyzer
   )
 
   private val networkInfoMasterAnalyzer = {

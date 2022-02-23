@@ -14,8 +14,10 @@ import kpn.core.history.NodeTagDiffAnalyzer
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer.analyzed
+import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 
 class NodeDocChangeAnalyzer(
+  tileChangeAnalyzer: NodeTileChangeAnalyzer,
   context: ChangeSetContext,
   before: NodeDoc,
   after: NodeDoc,
@@ -84,7 +86,7 @@ class NodeDocChangeAnalyzer(
       val key = context.buildChangeKey(after._id)
 
       val allLocations = (before.locations ++ after.locations).distinct.sorted
-      val allTiles = (before.tiles ++ after.tiles).distinct.sorted
+      val impactedTiles = tileChangeAnalyzer.impactedTiles(before, after)
 
       val nodeName = changeType match {
         case ChangeType.Delete => before.name
@@ -115,7 +117,7 @@ class NodeDocChangeAnalyzer(
             facts = facts,
             initialTags = None,
             initialLatLon = None,
-            allTiles
+            impactedTiles
           )
         )
       )
