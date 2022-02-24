@@ -9,9 +9,10 @@ import kpn.api.custom.Country.nl
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.database.base.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetOrphanNodeCountTest extends UnitTest with SharedTestObjects {
 
@@ -25,19 +26,17 @@ class StatisticsUpdateSubsetOrphanNodeCountTest extends UnitTest with SharedTest
       buildOrphanNodeDoc(database, 5L, de, hiking)
       buildOrphanNodeDoc(database, 6L, de, cycling)
 
-      new StatisticsUpdateSubsetOrphanNodeCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "OrphanNodeCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, cycling, 1),
-              StatisticValue(nl, hiking, 2),
-            )
+      counts should contain(
+        StatisticValues(
+          "OrphanNodeCount",
+          Seq(
+            StatisticValue(de, cycling, 1),
+            StatisticValue(de, hiking, 2),
+            StatisticValue(nl, cycling, 1),
+            StatisticValue(nl, hiking, 2),
           )
         )
       )

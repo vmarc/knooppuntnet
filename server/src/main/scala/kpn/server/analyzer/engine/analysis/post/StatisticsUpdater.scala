@@ -1,24 +1,38 @@
 package kpn.server.analyzer.engine.analysis.post
 
-import kpn.database.actions.statistics.StatisticsUpdateSubsetChangeCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetFactCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetNetworkCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetNodeCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetOrphanNodeCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetOrphanRouteCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteCount
-import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteDistance
-import kpn.database.actions.statistics.StatisticsUpdateSubsetRouteFacts
-import kpn.database.base.Database
+import kpn.api.common.statistics.StatisticValue
+import kpn.core.doc.Label
 import kpn.core.util.Log
-import kpn.database.actions.statistics.StatisticsUpdateSubsetNodeFacts
+import kpn.database.base.Database
+import kpn.database.base.MongoProjections.concat
 import kpn.database.util.Mongo
+import org.mongodb.scala.Document
+import org.mongodb.scala.bson.BsonDocument
+import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Accumulators.push
+import org.mongodb.scala.model.Accumulators.sum
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.group
+import org.mongodb.scala.model.Aggregates.out
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Aggregates.unionWith
+import org.mongodb.scala.model.Aggregates.unwind
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.exists
+import org.mongodb.scala.model.Filters.notEqual
+import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
+import org.mongodb.scala.model.Sorts.ascending
+import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 
 object StatisticsUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
-      new StatisticsUpdater(database).update()
+    Mongo.executeIn("kpn-3") { database =>
+      new StatisticsUpdater(database).execute()
     }
   }
 }
@@ -28,19 +42,356 @@ class StatisticsUpdater(database: Database) {
 
   private val log = Log(classOf[StatisticsUpdater])
 
-  def update(): Unit = {
-    log.infoElapsed {
-      new StatisticsUpdateSubsetNodeCount(database).execute()
-      new StatisticsUpdateSubsetOrphanNodeCount(database).execute()
-      new StatisticsUpdateSubsetRouteCount(database).execute()
-      new StatisticsUpdateSubsetOrphanRouteCount(database).execute()
-      new StatisticsUpdateSubsetNodeFacts(database).execute()
-      new StatisticsUpdateSubsetRouteFacts(database).execute()
-      new StatisticsUpdateSubsetRouteDistance(database).execute()
-      new StatisticsUpdateSubsetNetworkCount(database).execute()
-      new StatisticsUpdateSubsetFactCount(database).execute()
-      new StatisticsUpdateSubsetChangeCount(database).execute()
-      ("update", ())
+  def execute(): Unit = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        pipelineNodeCount(),
+        Seq(unionWith(database.orphanNodes.name, pipelineOrphanNodeCount(): _*)),
+        Seq(unionWith(database.routes.name, pipelineRouteCount(): _*)),
+        Seq(unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount(): _*)),
+        Seq(unionWith(database.nodes.name, pipelineNodeFacts(): _*)),
+        Seq(unionWith(database.routes.name, pipelineRouteFacts(): _*)),
+        Seq(unionWith(database.routes.name, pipelineRouteDistance(): _*)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkCount(): _*)),
+        Seq(unionWith(database.networkInfos.name, factCountPipeline(): _*)),
+        Seq(unionWith(database.changes.name, pipelineChangeCount(): _*)),
+        Seq(out(database.statistics.name))
+      ).flatten
+
+      val values = database.nodes.aggregate[StatisticValue](pipeline)
+      (s"${values.size} values", ())
     }
+  }
+
+  private def pipelineNodeCount(): Seq[Bson] = {
+    factPipeline(
+      "NodeCount",
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("country")
+        )
+      ),
+      unwind("$names"),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$names.networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def pipelineOrphanNodeCount(): Seq[Bson] = {
+    factPipeline(
+      "OrphanNodeCount",
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def pipelineRouteCount(): Seq[Bson] = {
+    factPipeline(
+      "RouteCount",
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("summary.country")
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$summary.country",
+          "networkType" -> "$summary.networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def pipelineOrphanRouteCount(): Seq[Bson] = {
+    factPipeline(
+      "OrphanRouteCount",
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def pipelineNodeFacts(): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("country"),
+          exists("facts")
+        )
+      ),
+      unwind("$names"),
+      unwind("$facts"),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$names.networkType",
+          "factName" -> "$facts"
+        ),
+        sum("value", 1)
+      ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          concat("factName", "$_id.factName", "Count"),
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "$factName",
+        push("values", "$values")
+      )
+    )
+  }
+
+  private def pipelineRouteFacts(): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("summary.country"),
+          exists("facts")
+        )
+      ),
+      unwind("$facts"),
+      group(
+        Document(
+          "country" -> "$summary.country",
+          "networkType" -> "$summary.networkType",
+          "factName" -> "$facts"
+        ),
+        sum("value", 1)
+      ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          concat("factName", "$_id.factName", "Count"),
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "$factName",
+        push("values", "$values")
+      )
+    )
+  }
+
+  private def pipelineRouteDistance(): Seq[Bson] = {
+    factPipeline(
+      "Distance",
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("summary.country")
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$summary.country",
+          "networkType" -> "$summary.networkType"
+        ),
+        sum("value", "$summary.meters")
+      ),
+      project(
+        fields(
+          include("_id"),
+          computed("value", BsonDocument("""{$divide: ["$value", 1000]}"""))
+        )
+      )
+    )
+  }
+
+  private def pipelineNetworkCount(): Seq[Bson] = {
+    factPipeline(
+      "NetworkCount",
+      filter(
+        and(
+          equal("active", true),
+          exists("country"),
+          exists("summary.networkType")
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$summary.networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def factCountPipeline(): Seq[Bson] = {
+    Seq(
+      networkFactCountPipeline(),
+      Seq(unionWith(database.nodes.name, nodeFactCountPipeline(): _*)),
+      Seq(unionWith(database.routes.name, routeFactCountPipeline(): _*)),
+      combineFactCounts()
+    ).flatten
+  }
+
+  private def combineFactCounts(): Seq[Bson] = {
+    Seq(
+      group(
+        "$_id",
+        sum("factCount", "$factCount")
+      ),
+      project(
+        fields(
+          computed("country", "$_id.country"),
+          computed("networkType", "$_id.networkType"),
+          computed("value", "$factCount")
+        )
+      ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "FactCount",
+        push("values", "$values")
+      )
+    )
+  }
+
+  private def networkFactCountPipeline(): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          exists("country")
+        )
+      ),
+      unwind("$facts"),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$summary.networkType"
+        ),
+        sum("factCount", 1)
+      )
+    )
+  }
+
+  private def routeFactCountPipeline(): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("summary.country")
+        )
+      ),
+      unwind("$facts"),
+      filter(
+        and(
+          notEqual("facts", "RouteBroken"),
+          notEqual("facts", "RouteNotForward"),
+          notEqual("facts", "RouteNotBackward"),
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$summary.country",
+          "networkType" -> "$summary.networkType"
+        ),
+        sum("factCount", 1)
+      )
+    )
+  }
+
+  private def nodeFactCountPipeline(): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("labels", Label.active)
+        )
+      ),
+      unwind("$names"),
+      unwind("$facts"),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$names.networkType"
+        ),
+        sum("factCount", 1)
+      )
+    )
+  }
+
+  private def pipelineChangeCount(): Seq[Bson] = {
+    factPipeline(
+      "ChangeCount",
+      unwind("$subsets"),
+      group(
+        Document(
+          "country" -> "$subsets.country",
+          "networkType" -> "$subsets.networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def factPipeline(name: String, aggregateElements: Bson*): Seq[Bson] = {
+    aggregateElements ++
+      Seq(
+        sort(orderBy(ascending("_id"))),
+        project(
+          fields(
+            computed(
+              "values",
+              fields(
+                computed("country", "$_id.country"),
+                computed("networkType", "$_id.networkType"),
+                computed("value", "$value")
+              )
+            )
+          )
+        ),
+        group(
+          name,
+          push("values", "$values")
+        )
+      )
   }
 }

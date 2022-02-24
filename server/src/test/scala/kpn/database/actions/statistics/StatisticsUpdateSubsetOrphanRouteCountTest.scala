@@ -9,9 +9,10 @@ import kpn.api.custom.Country.nl
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.database.base.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetOrphanRouteCountTest extends UnitTest with SharedTestObjects {
 
@@ -25,19 +26,17 @@ class StatisticsUpdateSubsetOrphanRouteCountTest extends UnitTest with SharedTes
       buildOrphanRouteDoc(database, 15L, de, hiking)
       buildOrphanRouteDoc(database, 16L, de, cycling)
 
-      new StatisticsUpdateSubsetOrphanRouteCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "OrphanRouteCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, cycling, 1),
-              StatisticValue(nl, hiking, 2),
-            )
+      counts should contain(
+        StatisticValues(
+          "OrphanRouteCount",
+          Seq(
+            StatisticValue(de, cycling, 1),
+            StatisticValue(de, hiking, 2),
+            StatisticValue(nl, cycling, 1),
+            StatisticValue(nl, hiking, 2),
           )
         )
       )

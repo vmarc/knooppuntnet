@@ -10,12 +10,14 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteFixmetodo
 import kpn.api.custom.Fact.RouteInaccessible
+import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.database.base.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjects {
 
@@ -30,36 +32,74 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
       buildRoute(database, 16L, de, cycling, Seq(RouteBroken))
       buildRoute(database, 17L, de, cycling, Seq(RouteBroken), active = false)
 
-      new StatisticsUpdateSubsetRouteFacts(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "RouteBrokenCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, cycling, 1),
-              StatisticValue(nl, hiking, 2)
-            )
-          ),
-          StatisticValues(
-            "RouteFixmetodoCount",
-            Seq(
-              StatisticValue(nl, hiking, 1)
-            )
-          ),
-          StatisticValues(
-            "RouteInaccessibleCount",
-            Seq(
-              StatisticValue(nl, hiking, 1)
-            )
+      counts should contain(
+        StatisticValues(
+          "RouteBrokenCount",
+          Seq(
+            StatisticValue(de, cycling, 1),
+            StatisticValue(de, hiking, 2),
+            StatisticValue(nl, cycling, 1),
+            StatisticValue(nl, hiking, 2)
+          )
+        )
+      )
+      counts should contain(
+        StatisticValues(
+          "RouteFixmetodoCount",
+          Seq(
+            StatisticValue(nl, hiking, 1)
+          )
+        )
+      )
+      counts should contain(
+        StatisticValues(
+          "RouteInaccessibleCount",
+          Seq(
+            StatisticValue(nl, hiking, 1)
           )
         )
       )
     }
   }
+
+  test("multiple updates, only last situation reflected in the statistics") {
+    withDatabase { database =>
+
+      buildRoute(database, 11L, nl, hiking, Seq(RouteBroken))
+
+      new StatisticsUpdater(database).execute()
+      val counts1 = new MongoQueryStatistics(database).execute()
+
+      counts1 should contain(
+        StatisticValues(
+          "RouteBrokenCount",
+          Seq(
+            StatisticValue(nl, hiking, 1)
+          )
+        )
+      )
+
+      buildRoute(database, 11L, nl, hiking, Seq(RouteWithoutWays))
+
+      new StatisticsUpdater(database).execute()
+      val counts2 = new MongoQueryStatistics(database).execute()
+
+      counts2 should contain(
+        StatisticValues(
+          "RouteWithoutWaysCount",
+          Seq(
+            StatisticValue(nl, hiking, 1)
+          )
+        )
+      )
+
+      counts2.filter(_._id == "RouteBrokenCount") should equal(Seq.empty)
+    }
+  }
+
 
   private def buildRoute(database: Database, routeId: Long, country: Country, networkType: NetworkType, facts: Seq[Fact], active: Boolean = true): Unit = {
     database.routes.save(

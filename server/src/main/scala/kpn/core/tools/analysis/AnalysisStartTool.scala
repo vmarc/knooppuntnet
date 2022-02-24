@@ -89,6 +89,6 @@ class AnalysisStartTool(
     networkInfoAnalyzer.analyze(networkIds)
     orphanNodeUpdater.update()
     orphanRouteUpdater.update()
-    statisticsUpdater.update()
+    statisticsUpdater.execute()
   }
 }

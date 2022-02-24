@@ -9,9 +9,10 @@ import kpn.api.custom.Country.nl
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.database.base.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestObjects {
 
@@ -26,19 +27,17 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
       buildRoute(database, 16L, de, cycling, 6000)
       buildRoute(database, 17L, de, cycling, 7000, active = false)
 
-      new StatisticsUpdateSubsetRouteDistance(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "Distance",
-            Seq(
-              StatisticValue(de, cycling, 6),
-              StatisticValue(de, hiking, 9),
-              StatisticValue(nl, cycling, 3),
-              StatisticValue(nl, hiking, 3),
-            )
+      counts should contain(
+        StatisticValues(
+          "Distance",
+          Seq(
+            StatisticValue(de, cycling, 6),
+            StatisticValue(de, hiking, 9),
+            StatisticValue(nl, cycling, 3),
+            StatisticValue(nl, hiking, 3),
           )
         )
       )

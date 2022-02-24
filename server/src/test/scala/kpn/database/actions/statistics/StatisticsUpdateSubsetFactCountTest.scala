@@ -14,6 +14,7 @@ import kpn.api.custom.NetworkType.hiking
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObjects {
 
@@ -22,18 +23,16 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
 
       buildNetworks(database)
 
-      new StatisticsUpdateSubsetFactCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "FactCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, hiking, 4),
-            )
+      counts should contain(
+        StatisticValues(
+          "FactCount",
+          Seq(
+            StatisticValue(de, cycling, 1),
+            StatisticValue(de, hiking, 2),
+            StatisticValue(nl, hiking, 4),
           )
         )
       )
@@ -45,18 +44,14 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
 
       buildRoutes(database)
 
-      new StatisticsUpdateSubsetFactCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "FactCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, hiking, 4),
-            )
+      counts should contain(
+        StatisticValues(
+          "FactCount",
+          Seq(
+            StatisticValue(nl, hiking, 1),
           )
         )
       )
@@ -68,18 +63,16 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
 
       buildNodes(database)
 
-      new StatisticsUpdateSubsetFactCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "FactCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, hiking, 4),
-            )
+      counts should contain(
+        StatisticValues(
+          "FactCount",
+          Seq(
+            StatisticValue(de, cycling, 1),
+            StatisticValue(de, hiking, 2),
+            StatisticValue(nl, hiking, 4),
           )
         )
       )
@@ -93,18 +86,16 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
       buildRoutes(database)
       buildNodes(database)
 
-      new StatisticsUpdateSubsetFactCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "FactCount",
-            Seq(
-              StatisticValue(de, cycling, 3),
-              StatisticValue(de, hiking, 6),
-              StatisticValue(nl, hiking, 12),
-            )
+      counts should contain(
+        StatisticValues(
+          "FactCount",
+          Seq(
+            StatisticValue(de, cycling, 2),
+            StatisticValue(de, hiking, 4),
+            StatisticValue(nl, hiking, 9),
           )
         )
       )

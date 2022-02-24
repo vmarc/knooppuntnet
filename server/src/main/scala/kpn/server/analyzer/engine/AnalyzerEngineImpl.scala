@@ -78,7 +78,7 @@ class AnalyzerEngineImpl(
         }
 
         if (analyzerStatisticsUpdateEnabled && replicationContext.hasChanges) {
-          statisticsUpdater.update()
+          statisticsUpdater.execute()
         }
 
         analysisRepository.saveLastUpdated(timestamp)

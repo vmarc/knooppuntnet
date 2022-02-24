@@ -9,9 +9,10 @@ import kpn.api.custom.Country.nl
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
-import kpn.database.base.Database
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 
 class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObjects {
 
@@ -28,19 +29,17 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
       // non-active networks are not included in the statistics
       buildNode(database, 7L, de, cycling, active = false)
 
-      new StatisticsUpdateSubsetNodeCount(database).execute()
+      new StatisticsUpdater(database).execute()
       val counts = new MongoQueryStatistics(database).execute()
 
-      counts should equal(
-        Seq(
-          StatisticValues(
-            "NodeCount",
-            Seq(
-              StatisticValue(de, cycling, 1),
-              StatisticValue(de, hiking, 2),
-              StatisticValue(nl, cycling, 1),
-              StatisticValue(nl, hiking, 2),
-            )
+      counts should contain(
+        StatisticValues(
+          "NodeCount",
+          Seq(
+            StatisticValue(de, cycling, 1),
+            StatisticValue(de, hiking, 2),
+            StatisticValue(nl, cycling, 1),
+            StatisticValue(nl, hiking, 2),
           )
         )
       )

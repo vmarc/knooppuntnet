@@ -20,6 +20,6 @@ class PostProcessor(
   def processPhase2(): Unit = {
     orphanNodeUpdater.update()
     orphanRouteUpdater.update()
-    statisticsUpdater.update()
+    statisticsUpdater.execute()
   }
 }
