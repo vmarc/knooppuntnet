@@ -25,24 +25,16 @@ export class TimestampFilter<T> extends Filter<T> {
       return true;
     }
     if (this.isLastWeek()) {
-      return this.sameAsOrYoungerThan(element, this.timeInfo.lastWeekStart);
+      return this.testLastWeek(element);
     }
     if (this.isLastMonth()) {
-      return this.isBetween(
-        element,
-        this.timeInfo.lastWeekStart,
-        this.timeInfo.lastMonthStart
-      );
+      return this.testLastMonth(element);
     }
     if (this.isLastYear()) {
-      return this.isBetween(
-        element,
-        this.timeInfo.lastMonthStart,
-        this.timeInfo.lastYearStart
-      );
+      return this.testLastYear(element);
     }
     if (this.isOlder()) {
-      return this.olderThan(element, this.timeInfo.lastYearStart);
+      return this.testOlder(element);
     }
     return false;
   }
@@ -56,25 +48,15 @@ export class TimestampFilter<T> extends Filter<T> {
 
     const allCount = filteredElements.length;
     const lastWeekCount = filteredElements.filter((e) =>
-      this.sameAsOrYoungerThan(e, this.timeInfo.lastWeekStart)
+      this.testLastWeek(e)
     ).length;
     const lastMonthCount = filteredElements.filter((e) =>
-      this.isBetween(
-        e,
-        this.timeInfo.lastWeekStart,
-        this.timeInfo.lastMonthStart
-      )
+      this.testLastMonth(e)
     ).length;
     const lastYearCount = filteredElements.filter((e) =>
-      this.isBetween(
-        e,
-        this.timeInfo.lastMonthStart,
-        this.timeInfo.lastYearStart
-      )
+      this.testLastYear(e)
     ).length;
-    const olderCount = filteredElements.filter(
-      (e) => this.getter(e) > this.timeInfo.lastYearStart
-    ).length;
+    const olderCount = filteredElements.filter((e) => this.testOlder(e)).length;
 
     const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
     const lastWeek = new FilterOption(
@@ -122,7 +104,7 @@ export class TimestampFilter<T> extends Filter<T> {
   }
 
   private olderThan(element: T, timestamp: Timestamp): boolean {
-    return this.getter(element) > timestamp;
+    return this.getter(element) < timestamp;
   }
 
   private isAll(): boolean {
@@ -143,5 +125,29 @@ export class TimestampFilter<T> extends Filter<T> {
 
   private isOlder(): boolean {
     return this.kind === TimestampFilterKind.older;
+  }
+
+  private testLastWeek(element: T): boolean {
+    return this.sameAsOrYoungerThan(element, this.timeInfo.lastWeekStart);
+  }
+
+  private testLastMonth(element: T): boolean {
+    return this.isBetween(
+      element,
+      this.timeInfo.lastMonthStart,
+      this.timeInfo.lastWeekStart
+    );
+  }
+
+  private testLastYear(element: T): boolean {
+    return this.isBetween(
+      element,
+      this.timeInfo.lastYearStart,
+      this.timeInfo.lastMonthStart
+    );
+  }
+
+  private testOlder(element: T): boolean {
+    return this.olderThan(element, this.timeInfo.lastYearStart);
   }
 }
