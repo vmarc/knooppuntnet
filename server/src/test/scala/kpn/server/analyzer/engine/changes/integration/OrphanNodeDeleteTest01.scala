@@ -40,8 +40,8 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.networkType(NetworkType.hiking)
+          // not active
         ),
-        active = false, // <-- !!
         country = Some(Country.nl),
         name = "01",
         names = Seq(

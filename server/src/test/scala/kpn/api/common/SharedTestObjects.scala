@@ -325,8 +325,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newNodeDoc(
     id: Long,
-    labels: Seq[String] = Seq.empty,
-    active: Boolean = true,
+    labels: Seq[String] = Seq(Label.active),
     country: Option[Country] = None,
     name: String = "",
     names: Seq[NodeName] = Seq.empty,
@@ -346,7 +345,7 @@ trait SharedTestObjects extends MockFactory {
 
     NodeDoc(
       id,
-      updatedLabels(labels, active),
+      labels,
       country,
       name,
       names,

@@ -2,20 +2,17 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType.Delete
-import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteNodeTest04 extends IntegrationTest {
@@ -76,8 +73,10 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
     findNodeById(1001).shouldMatchTo(
       newNodeDoc(
         1001,
-        labels = Seq("network-type-hiking"),
-        active = false, // <--
+        labels = Seq(
+          Label.networkType(NetworkType.hiking)
+          // not active
+        ),
         country = Some(Country.nl),
         name = "01",
         names = Seq(newNodeName(name = "01")),

@@ -15,6 +15,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteTest01 extends IntegrationTest {
@@ -94,8 +95,10 @@ class NetworkDeleteTest01 extends IntegrationTest {
     findNodeById(1001L).shouldMatchTo(
       newNodeDoc(
         1001L,
-        labels = Seq("network-type-hiking"), // not active anymore !!!
-        active = false,
+        labels = Seq(
+          Label.networkType(NetworkType.hiking)
+          // not active
+        ),
         country = Some(Country.nl),
         name = "01",
         names = Seq(newNodeName(name = "01")),

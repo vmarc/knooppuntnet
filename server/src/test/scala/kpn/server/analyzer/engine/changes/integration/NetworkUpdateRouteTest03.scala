@@ -103,8 +103,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         1003,
         labels = Seq(
           Label.networkType(NetworkType.hiking)
+          // not active
         ),
-        active = false,
         country = Some(Country.nl),
         name = "03",
         names = Seq(

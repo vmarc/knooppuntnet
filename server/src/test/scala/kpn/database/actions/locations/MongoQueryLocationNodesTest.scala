@@ -88,8 +88,9 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1001L,
           labels = Seq(
+            Label.active,
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.domain),
           ),
           names = Seq(
             newNodeName(name = "01")
@@ -101,10 +102,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeDoc(
           1002L,
-          active = false,
           labels = Seq(
             Label.networkType(NetworkType.hiking),
             Label.location(Country.be.domain)
+            // not active
           ),
           names = Seq(
             newNodeName(name = "02")

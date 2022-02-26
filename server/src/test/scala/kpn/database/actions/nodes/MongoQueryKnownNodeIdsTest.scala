@@ -4,6 +4,8 @@ import kpn.api.common.SharedTestObjects
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
+import scala.language.postfixOps
+
 class MongoQueryKnownNodeIdsTest extends UnitTest with SharedTestObjects {
 
   test("execute") {

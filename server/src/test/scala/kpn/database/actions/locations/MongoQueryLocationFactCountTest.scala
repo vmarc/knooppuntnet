@@ -47,9 +47,10 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       database.nodes.save(
         newNodeDoc(
           1003L,
-          labels = Seq( // not active
+          labels = Seq(
             Label.networkType(NetworkType.hiking),
             Label.location(Country.be.domain)
+            // not active
           ),
           names = Seq(
             newNodeName(name = "03")

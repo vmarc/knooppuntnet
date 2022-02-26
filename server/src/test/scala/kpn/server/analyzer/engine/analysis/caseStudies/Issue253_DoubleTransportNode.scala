@@ -9,6 +9,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.doc.Label
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.test.OverpassData
 import kpn.database.actions.locations.MongoQueryLocationNodes
@@ -80,12 +81,12 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
           newNodeDoc(
             id = 620168928L,
             labels = Seq(
-              "active",
-              "network-type-hiking",
-              "location-fr",
-              "location-fr-1-73",
-              "location-fr-2-247300452",
-              "location-fr-3-73307"
+              Label.active,
+              Label.networkType(NetworkType.hiking),
+              Label.location("fr"),
+              Label.location("fr-1-73"),
+              Label.location("fr-2-247300452"),
+              Label.location("fr-3-73307")
             ),
             country = Some(Country.fr),
             name = "Teumelet / o",
