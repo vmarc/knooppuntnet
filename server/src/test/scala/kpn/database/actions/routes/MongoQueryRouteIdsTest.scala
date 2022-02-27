@@ -12,7 +12,7 @@ class MongoQueryRouteIdsTest extends UnitTest with SharedTestObjects {
 
       database.routes.save(newRouteDoc(newRouteSummary(11L)))
       database.routes.save(newRouteDoc(newRouteSummary(12L)))
-      database.routes.save(newRouteDoc(newRouteSummary(13L), active = false))
+      database.routes.save(newRouteDoc(newRouteSummary(13L), labels = Seq.empty /* not active */))
 
       new MongoQueryRouteIds(database).execute() should equal(Seq(11L, 12L))
     }

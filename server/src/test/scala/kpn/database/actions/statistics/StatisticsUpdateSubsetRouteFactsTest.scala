@@ -14,6 +14,7 @@ import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.cycling
 import kpn.api.custom.NetworkType.hiking
+import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
@@ -109,7 +110,7 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
           Some(country),
           networkType,
         ),
-        active = active,
+        labels = if (active) Seq(Label.active) else Seq.empty,
         facts = facts
       )
     )

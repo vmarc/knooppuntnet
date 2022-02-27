@@ -72,7 +72,7 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
 
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.save(newRoute(11, tiles = Seq("cycling-10-001-001")))
-      routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001"), active = false))
+      routeRepository.save(newRoute(12, tiles = Seq("cycling-10-001-001"), labels = Seq.empty /* not active */))
 
       val query = new MongoQueryTiles(database)
 

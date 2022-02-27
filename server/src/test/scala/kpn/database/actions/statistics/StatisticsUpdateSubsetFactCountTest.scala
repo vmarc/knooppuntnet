@@ -157,7 +157,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
           Some(country),
           networkType,
         ),
-        active = active,
+        labels = if (active) Seq(Label.active) else Seq.empty,
         facts = facts
       )
     )

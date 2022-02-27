@@ -138,7 +138,6 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(id),
-        active = labels.contains("active"),
         labels = labels
       )
     )

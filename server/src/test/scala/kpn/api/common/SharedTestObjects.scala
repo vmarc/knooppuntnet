@@ -366,8 +366,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRoute(
     id: Long = 0,
-    labels: Seq[String] = Seq.empty,
-    active: Boolean = true,
+    labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
     country: Option[Country] = None,
     networkType: NetworkType = NetworkType.hiking,
@@ -401,7 +400,7 @@ trait SharedTestObjects extends MockFactory {
 
     RouteDoc(
       summary.id,
-      updatedLabels(labels, active),
+      labels,
       summary,
       proposed,
       version = 0L,
@@ -917,8 +916,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteDoc(
     summary: RouteSummary,
-    labels: Seq[String] = Seq.empty,
-    active: Boolean = true,
+    labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
     version: Int = 0,
     changeSetId: Long = 1,
@@ -934,7 +932,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteDoc = {
     RouteDoc(
       summary.id,
-      updatedLabels(labels, active),
+      labels,
       summary,
       proposed,
       version,

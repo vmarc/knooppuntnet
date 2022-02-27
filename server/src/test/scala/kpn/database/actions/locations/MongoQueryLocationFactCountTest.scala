@@ -100,8 +100,8 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
             Label.facts,
             Label.networkType(NetworkType.hiking),
             Label.location(Country.be.domain)
+            // not active
           ),
-          active = false,
           facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
         )
       )
