@@ -1349,16 +1349,4 @@ trait SharedTestObjects extends MockFactory {
       total
     )
   }
-
-  private def updatedLabels(labels: Seq[String], active: Boolean): Seq[String] = {
-    if (active && !labels.contains(Label.active)) {
-      labels :+ Label.active
-    }
-    else if (!active && labels.contains(Label.active)) {
-      labels.filterNot(_ == Label.active)
-    }
-    else {
-      labels
-    }
-  }
 }
