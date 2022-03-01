@@ -214,8 +214,8 @@ class ChangeSetSummaryBuilder() {
           )
         }
 
-        val happy = leafNodeNodeChanges.removed.exists(_.happy) || leafNodeNodeChanges.added.exists(_.happy) || leafNodeNodeChanges.updated.exists(_.happy)
-        val investigate = leafNodeNodeChanges.removed.exists(_.investigate) || leafNodeNodeChanges.added.exists(_.investigate) || leafNodeNodeChanges.updated.exists(_.investigate)
+        val happy = leafNodeNodeChanges.happy || leafNodeRouteChanges.happy
+        val investigate = leafNodeNodeChanges.investigate || leafNodeRouteChanges.investigate
 
         LocationChanges(
           networkType,
