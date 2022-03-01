@@ -1625,7 +1625,7 @@
         <target state="final"> Logging in... </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/authenticate/authenticate-page.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-map.title" datatype="html">
@@ -1633,7 +1633,7 @@
         <target>Map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/map/_subset-map-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.title" datatype="html">
@@ -2207,7 +2207,7 @@
         <target state="final">Node networks </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.map" datatype="html">
@@ -2215,7 +2215,7 @@
         <target>Map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.analysis" datatype="html">
@@ -2223,7 +2223,7 @@
         <target>Analysis</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.demo" datatype="html">
@@ -2231,12 +2231,12 @@
         <target state="final">[Demo]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.title" datatype="html">
-        <source>Login</source>
-        <target>Login</target>
+        <source>Login </source>
+        <target state="final">Login </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -2247,7 +2247,7 @@
         <target state="final"> Login allows you to view extra information, such as changeset details, network history, route history and node history. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.2" datatype="html">
@@ -2255,7 +2255,7 @@
         <target state="final"> This information is available to registered OpenStreetMap users only. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.3" datatype="html">
@@ -2263,7 +2263,7 @@
         <target state="final"> After clicking the "login" button below, you will be directed (via the OpenStreetMap login page if you are not logged in to OpenStreetMap yet) to the OpenStreetMap page "Authorize access to your account". Click the button "Grant access" (leave the option "read your user preferences" checked). </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.4" datatype="html">
@@ -2271,7 +2271,7 @@
         <target state="final"> The knooppuntnet application only reads your username from the user preferences to establish that you are a registered OpenStreetMap user. All other user preferences are ignored, and not stored in knooppuntnet. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.5" datatype="html">
@@ -2279,7 +2279,7 @@
         <target state="final"> This login procedure uses OpenStreetMap security. Knooppuntnet does not have access to your password at any moment. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.6" datatype="html">
@@ -2287,7 +2287,7 @@
         <target state="final"> You remain logged in (also after closing you browser), until you explicitly logout through the logout page. To login again after logout you will have to use the same login procedure again. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.submit" datatype="html">
@@ -2295,12 +2295,12 @@
         <target state="final"> Login </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.title" datatype="html">
-        <source>Logout</source>
-        <target>Logout</target>
+        <source>Logout </source>
+        <target state="final">Logout </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">11</context>
@@ -2311,7 +2311,7 @@
         <target state="final"> You are currently logged in as <x id="START_TAG_KPN_OSM_LINK_USER" ctype="x-kpn_osm_link_user" equiv-text="&lt;kpn-osm-link-us"/><x id="CLOSE_TAG_KPN_OSM_LINK_USER" ctype="x-kpn_osm_link_user" equiv-text="&lt;/kpn-osm-link-us"/> . </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.note.1" datatype="html">
@@ -2319,7 +2319,7 @@
         <target state="final"> This allows you to view extra information that is available to OpenStreetMap users only. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.note.2" datatype="html">
@@ -2327,7 +2327,7 @@
         <target state="final"> After logging out you can continue to use this website. However, the additional information such as changesets, network changes, route changes and node changes will not be visible anymore. Your personal OpenStreetMap <x id="START_TAG_KPN_OSM_LINK_USER_OATH_CLIENTS" ctype="x-kpn_osm_link_user_oath_clients" equiv-text="&lt;kpn-osm-link-us"/><x id="CLOSE_TAG_KPN_OSM_LINK_USER_OATH_CLIENTS" ctype="x-kpn_osm_link_user_oath_clients" equiv-text="&lt;/kpn-osm-link-us"/> will still contain this application. The application can safely be revoked. The authorization will not be used anymore. A new authorization will be created when logging in again. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.submit" datatype="html">
@@ -2335,7 +2335,7 @@
         <target state="final"> Logout </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.not-logged-in" datatype="html">
@@ -2343,7 +2343,7 @@
         <target state="final">You are not logged in.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.login-comment" datatype="html">
@@ -2351,7 +2351,7 @@
         <target state="final"> You can <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/"/>login<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a> to view extr"/> to view extra information that is available to <x id="START_TAG_KPN_OSM_WEBSITE" ctype="x-kpn_osm_website" equiv-text="&lt;kpn-osm-website"/><x id="CLOSE_TAG_KPN_OSM_WEBSITE" ctype="x-kpn_osm_website" equiv-text="&lt;/kpn-osm-website"/> users only. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="not-found.title" datatype="html">
@@ -2359,7 +2359,7 @@
         <target state="final">Not found</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/not-found/not-found-page.component.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.map" datatype="html">
@@ -3655,7 +3655,7 @@
         <target state="final">[Point of interest areas]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/areas/poi-areas-page.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi-areas.comment" datatype="html">
@@ -3663,7 +3663,7 @@
         <target state="final"> This map shows the bounding boxes that are used to determine where to collect the point of interest information. </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/areas/poi-areas-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="babd77a056781cf75bbd9371bf9c0a9f7efd7ce1" datatype="html">
@@ -3672,7 +3672,7 @@
         <note priority="1" from="description">demo.select-video</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/demo/menu/demo-menu.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-scope.local" datatype="html">
@@ -3715,7 +3715,7 @@
         <note priority="1" from="description">demo.no-video-support</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/demo/components/demo-video.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3edd06dddac2fcdfc84778ff68b5dbc103e63479" datatype="html">
@@ -5298,46 +5298,6 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="location-expand-all-dialog.title" datatype="html">
-        <source> Expand all </source>
-        <target state="final">[ Expand all ]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
-          <context context-type="linenumber">10,14</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="location-expand-all-dialog.message.1" datatype="html">
-        <source> Expanding all locations in the tree is a heavy operation for your browser, and it will take some time. </source>
-        <target state="final">[ Expanding all locations in the tree is a heavy operation for your browser, and it will take some time. ]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
-          <context context-type="linenumber">14,21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="location-expand-all-dialog.message.2" datatype="html">
-        <source> Are you sure you want to expand all? </source>
-        <target state="final">[ Are you sure you want to expand all? ]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
-          <context context-type="linenumber">18,24</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="no" datatype="html">
-        <source>No</source>
-        <target state="final">[No]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
-          <context context-type="linenumber">22,28</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="yes" datatype="html">
-        <source> Yes </source>
-        <target state="final">[ Yes ]</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-expand-all-dialog.component.ts</context>
-          <context context-type="linenumber">30,38</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location-map.title" datatype="html">
         <source>Map</source>
         <target>Map</target>
@@ -5531,7 +5491,7 @@
         <target>Route map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.title" datatype="html">
@@ -5699,7 +5659,7 @@
         <target>None</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-location.component.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.no-network-references" datatype="html">
@@ -5991,7 +5951,7 @@
         <target>Structure</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">137</context>
+          <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.facts" datatype="html">
@@ -5999,7 +5959,7 @@
         <target>Facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-changes.title" datatype="html">
@@ -6877,7 +6837,7 @@
         <target state="final">[Integrity]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.routes" datatype="html">
@@ -6885,7 +6845,7 @@
         <target state="final">[Routes]</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.networks" datatype="html">
@@ -6893,7 +6853,7 @@
         <target>Networks</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.facts" datatype="html">
@@ -6901,7 +6861,7 @@
         <target>Facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.version" datatype="html">
@@ -6925,7 +6885,7 @@
         <target>Overview</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview-page.title" datatype="html">
@@ -6933,7 +6893,7 @@
         <target state="final">Overview </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.total" datatype="html">
@@ -7013,7 +6973,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.created" datatype="html">
@@ -7129,7 +7089,7 @@
         <target>None</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-location.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.integrity.none" datatype="html">
@@ -7493,7 +7453,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
@@ -7517,11 +7477,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
@@ -7533,7 +7493,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-breadcrumb.component.ts</context>
@@ -7645,7 +7605,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
@@ -7669,11 +7629,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/_overview-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
@@ -7685,7 +7645,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/map/_route-map-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">20</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/components/subset-page-breadcrumb.component.ts</context>
@@ -7785,7 +7745,7 @@
         <target state="final"> Expand all </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.collapse-all" datatype="html">
@@ -7793,7 +7753,7 @@
         <target state="final"> Collapse all </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.all" datatype="html">
@@ -7801,7 +7761,7 @@
         <target state="final"> All </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.in-use-only" datatype="html">
@@ -7809,7 +7769,7 @@
         <target state="final"> In use only </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-tree.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.title" datatype="html">
@@ -7931,7 +7891,7 @@
         <target>Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.title" datatype="html">
@@ -7939,7 +7899,7 @@
         <target state="final"> Changes </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.login-required" datatype="html">
@@ -7947,7 +7907,7 @@
         <target state="final"> The details of the changes history are available to registered OpenStreetMap contributors only, after <x id="START_TAG_KPN_LINK_LOGIN" ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login>"/><x id="CLOSE_TAG_KPN_LINK_LOGIN" ctype="x-kpn_link_login" equiv-text="&lt;/kpn-link-login>"/> . </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.orphan-nodes" datatype="html">
@@ -7979,7 +7939,7 @@
         <target>Changeset</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/_change-set-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changeset.not-found" datatype="html">
@@ -7987,7 +7947,7 @@
         <target state="final"> Changeset not found </target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/_change-set-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.title" datatype="html">
@@ -8023,7 +7983,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/_network-map-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/_network-nodes-page.component.ts</context>
@@ -8527,7 +8487,7 @@
         <target>Map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/_network-map-page.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.title" datatype="html">
@@ -8575,7 +8535,7 @@
         <target>Node map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.node-not-found" datatype="html">
@@ -8591,7 +8551,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/map/_node-map-page.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node-change.created" datatype="html">
