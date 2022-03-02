@@ -26,12 +26,14 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def aggregate[R: ClassTag](
     pipeline: Seq[Bson],
     log: Log,
+    allowDiskUse: Boolean,
     duration: Duration
   ): Seq[R] = {
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
     }
-    val future = collection.aggregate[R](pipeline).toFuture()
+
+    val future = collection.aggregate[R](pipeline).allowDiskUse(allowDiskUse).toFuture()
     awaitAggregateResult(future, duration, pipeline, log)
   }
 

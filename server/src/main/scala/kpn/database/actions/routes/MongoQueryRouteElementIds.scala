@@ -32,7 +32,7 @@ class MongoQueryRouteElementIds(database: Database) {
           )
         )
       )
-      val routeElementIdss = database.routes.aggregate[ReferencedElementIds](pipeline, log, Duration(5, TimeUnit.MINUTES))
+      val routeElementIdss = database.routes.aggregate[ReferencedElementIds](pipeline, log, duration = Duration(5, TimeUnit.MINUTES))
       (s"elementIds for active routes: ${routeElementIdss.size}", routeElementIdss)
     }
   }

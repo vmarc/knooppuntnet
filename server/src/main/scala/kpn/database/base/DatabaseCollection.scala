@@ -32,6 +32,7 @@ trait DatabaseCollection[T] {
   def aggregate[R: ClassTag](
     pipeline: Seq[Bson],
     log: Log = collectionLog,
+    allowDiskUse: Boolean = false,
     duration: Duration = Duration(120, TimeUnit.SECONDS)
   ): Seq[R]
 
