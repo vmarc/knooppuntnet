@@ -8,6 +8,7 @@ import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.User
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
@@ -93,5 +94,7 @@ trait Database {
   def blacklists: DatabaseCollection[Blacklist]
 
   def dropDatabase(): Unit
+
+  def users: DatabaseCollection[User]
 
 }

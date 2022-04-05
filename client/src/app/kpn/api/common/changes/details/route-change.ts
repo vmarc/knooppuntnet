@@ -26,6 +26,7 @@ export interface RouteChange {
   readonly diffs: RouteDiff;
   readonly facts: Fact[];
   readonly impactedNodeIds: number[];
+  readonly tiles: string[];
   readonly happy: boolean;
   readonly investigate: boolean;
   readonly impact: boolean;

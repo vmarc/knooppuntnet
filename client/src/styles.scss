@@ -499,3 +499,19 @@ markdown > p > em:after {
   width: 1.2em;
   height: 1.2em;
 }
+
+.kpn-form {
+  padding-top: 1em;
+}
+
+.kpn-form-buttons {
+  display: flex;
+  padding-top: 2em;
+  gap: 1em;
+  align-items: center;
+}
+
+.kpn-form p {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}

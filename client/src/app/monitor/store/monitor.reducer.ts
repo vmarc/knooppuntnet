@@ -60,10 +60,12 @@ export const monitorReducer = createReducer(
   })),
   on(actionMonitorGroupsPageLoaded, (state, { response }) => ({
     ...state,
+    adminRole: response?.result?.adminRole === true,
     groupsPage: response,
   })),
   on(actionMonitorGroupPageLoaded, (state, { response }) => ({
     ...state,
+    adminRole: response?.result?.adminRole === true,
     groupName: response?.result?.groupName ?? state.groupName,
     groupDescription:
       response?.result?.groupDescription ?? state.groupDescription,
@@ -91,10 +93,12 @@ export const monitorReducer = createReducer(
   })),
   on(actionMonitorGroupDeleteLoaded, (state, { response }) => ({
     ...state,
+    adminRole: response?.result?.adminRole === true,
     adminGroupPage: response,
   })),
   on(actionMonitorGroupUpdateLoaded, (state, { response }) => ({
     ...state,
+    adminRole: response?.result?.adminRole === true,
     adminGroupPage: response,
   })),
   on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {

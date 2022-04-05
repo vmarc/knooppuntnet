@@ -5,6 +5,7 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
+import kpn.server.api.monitor.domain.MonitorRoute
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -43,4 +44,18 @@ class MonitorAdminController(facade: MonitorAdminFacade) {
     facade.deleteGroup(CurrentUser.name, groupName)
   }
 
+  @PostMapping(value = Array("groups/{groupName}"))
+  def addRoute(@PathVariable groupName: String, @RequestBody route: MonitorRoute): Unit = {
+    facade.addRoute(CurrentUser.name, groupName, route)
+  }
+
+  @PutMapping(value = Array("groups/{groupName}/{routeName}"))
+  def updateRoute(@PathVariable groupName: String, @RequestBody route: MonitorRoute): Unit = {
+    facade.updateRoute(CurrentUser.name, groupName, route)
+  }
+
+  @DeleteMapping(value = Array("groups/{groupName}/{routeName}"))
+  def deleteRoute(@PathVariable groupName: String, @PathVariable routeName: String): Unit = {
+    facade.deleteRoute(CurrentUser.name, groupName, routeName)
+  }
 }

@@ -6,6 +6,7 @@ import { ApiResponse } from '@api/custom/api-response';
 import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
 import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
@@ -27,16 +28,18 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result">No route groups</div>
-      <div *ngIf="response.result">
-        <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
+      <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
+      <div *ngIf="hasGroups$ | async; else noRoutes">
         <kpn-monitor-group-table [groups]="response.result.groups">
         </kpn-monitor-group-table>
-        <div *ngIf="admin$ | async" class="add-group-action">
-          <button mat-stroked-button routerLink="/monitor/admin/groups/add">
-            Add group
-          </button>
-        </div>
+      </div>
+      <ng-template #noRoutes>
+        <div>No route groups</div>
+      </ng-template>
+      <div *ngIf="admin$ | async" class="add-group-action">
+        <button mat-stroked-button routerLink="/monitor/admin/groups/add">
+          Add group
+        </button>
       </div>
     </div>
   `,
@@ -56,6 +59,10 @@ export class MonitorGroupsPageComponent implements OnInit {
       select(selectMonitorGroupsPage),
       filter((r) => r != null)
     );
+
+  readonly hasGroups$: Observable<boolean> = this.response$.pipe(
+    map((response) => response.result?.groups.length > 0)
+  );
 
   constructor(private store: Store<AppState>) {}
 

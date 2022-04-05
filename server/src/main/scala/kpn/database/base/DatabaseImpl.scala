@@ -8,6 +8,7 @@ import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.User
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
@@ -156,4 +157,9 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   override def dropDatabase(): Unit = {
     Await.result(database.drop().toFuture(), Duration(2, TimeUnit.SECONDS))
   }
+
+  override def users: DatabaseCollection[User] = {
+    new DatabaseCollectionImpl(database.getCollection[User]("users"))
+  }
+
 }

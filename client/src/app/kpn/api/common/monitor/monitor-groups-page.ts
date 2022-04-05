@@ -3,5 +3,6 @@
 import { MonitorGroupDetail } from './monitor-group-detail';
 
 export interface MonitorGroupsPage {
+  readonly adminRole: boolean;
   readonly groups: MonitorGroupDetail[];
 }

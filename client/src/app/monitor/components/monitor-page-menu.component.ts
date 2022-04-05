@@ -9,12 +9,12 @@ import { Component, Input } from '@angular/core';
       <kpn-page-menu-option link="/monitor" [active]="pageName === 'groups'">
         Groups
       </kpn-page-menu-option>
-      <kpn-page-menu-option
-        link="/monitor/changes"
-        [active]="pageName === 'changes'"
-      >
-        Changes
-      </kpn-page-menu-option>
+      <!--      <kpn-page-menu-option-->
+      <!--        link="/monitor/changes"-->
+      <!--        [active]="pageName === 'changes'"-->
+      <!--      >-->
+      <!--        Changes-->
+      <!--      </kpn-page-menu-option>-->
       <kpn-page-menu-option
         link="/monitor/about"
         [active]="pageName === 'about'"

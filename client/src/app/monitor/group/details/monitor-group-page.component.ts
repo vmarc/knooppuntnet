@@ -35,11 +35,11 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
     ></kpn-monitor-group-page-menu>
 
     <div *ngIf="response$ | async as response">
+      <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
       <p *ngIf="!response.result || response.result.routes.length === 0">
         No route groups
       </p>
       <div *ngIf="response.result && response.result.routes.length > 0">
-        <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
         <kpn-monitor-group-route-table
           [groupName]="groupName$ | async"
           [routes]="response.result.routes"

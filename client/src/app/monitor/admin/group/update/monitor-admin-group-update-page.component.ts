@@ -24,17 +24,15 @@ import { selectMonitorAdminGroupPage } from '../../../store/monitor.selectors';
 
     <h1>Monitor</h1>
 
-    <kpn-page-menu>
-      <span> Update group </span>
-    </kpn-page-menu>
+    <h2>Update group</h2>
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="response$ | async as response" class="kpn-form">
       <div *ngIf="!response.result">
         <p>Group not found</p>
       </div>
       <div *ngIf="response.result">
         <form [formGroup]="form">
-          <p>Name: {{ name.value }}</p>
+          <p>Name: {{ _id.value }}</p>
 
           <p>
             <mat-form-field class="description">
@@ -43,7 +41,7 @@ import { selectMonitorAdminGroupPage } from '../../../store/monitor.selectors';
             </mat-form-field>
           </p>
 
-          <div class="kpn-button-group">
+          <div class="kpn-form-buttons">
             <button mat-stroked-button (click)="add()">Update group</button>
             <a routerLink="/monitor">Cancel</a>
           </div>
@@ -56,19 +54,15 @@ import { selectMonitorAdminGroupPage } from '../../../store/monitor.selectors';
       .description {
         width: 40em;
       }
-
-      .kpn-button-group {
-        padding-top: 3em;
-      }
     `,
   ],
 })
 export class MonitorAdminGroupUpdatePageComponent implements OnInit {
-  readonly name = new FormControl('');
+  readonly _id = new FormControl('');
   readonly description = new FormControl('', [Validators.required]);
 
   readonly form = new FormGroup({
-    name: this.name,
+    _id: this._id,
     description: this.description,
   });
 
@@ -76,7 +70,7 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
     tap((response) => {
       if (response?.result) {
         this.form.reset({
-          name: response.result.groupName,
+          _id: response.result.groupName,
           description: response.result.groupDescription,
         });
       }

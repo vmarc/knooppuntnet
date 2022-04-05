@@ -20,7 +20,7 @@ import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
 
     <h1>Monitor</h1>
 
-    <kpn-page-menu> New group </kpn-page-menu>
+    <h2>New group</h2>
 
     <div class="kpn-comment">
       <p>
@@ -30,11 +30,11 @@ import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
       </p>
     </div>
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" class="kpn-form">
       <p>
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput [formControl]="name" />
+          <input matInput [formControl]="_id" />
         </mat-form-field>
       </p>
 
@@ -45,7 +45,7 @@ import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
         </mat-form-field>
       </p>
 
-      <div class="kpn-button-group">
+      <div class="kpn-form-buttons">
         <button mat-stroked-button (click)="add()">Add group</button>
         <a routerLink="/monitor">Cancel</a>
       </div>
@@ -56,19 +56,15 @@ import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
       .description {
         width: 40em;
       }
-
-      .kpn-button-group {
-        padding-top: 3em;
-      }
     `,
   ],
 })
 export class MonitorAdminGroupAddPageComponent {
-  readonly name = new FormControl('', [Validators.required]);
+  readonly _id = new FormControl('', [Validators.required]);
   readonly description = new FormControl('', [Validators.required]);
 
   readonly form = new FormGroup({
-    name: this.name,
+    _id: this._id,
     description: this.description,
   });
 

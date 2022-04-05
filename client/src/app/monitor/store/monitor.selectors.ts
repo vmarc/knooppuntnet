@@ -11,6 +11,11 @@ export const selectMonitorAdmin = createSelector(
   (state: MonitorState) => state.admin
 );
 
+export const selectMonitorAdminRole = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.adminRole
+);
+
 export const selectMonitorChangesPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.changesPage

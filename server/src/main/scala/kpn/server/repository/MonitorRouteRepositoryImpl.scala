@@ -34,6 +34,15 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRoutes.save(route, log)
   }
 
+  override def deleteRoute(routeName: String): Unit = {
+    database.monitorRoutes.deleteByStringId(routeName, log)
+    database.monitorRouteStates.deleteByStringId(routeName, log)
+    // TODO MON
+    // database.monitorRouteReferences.find(routereferences) + delete
+    //  database.monitorRouteChanges.delete ...
+    //  database.monitorRouteChangeGeometries.delete ...
+  }
+
   override def saveRouteState(routeState: MonitorRouteState): Unit = {
     database.monitorRouteStates.save(routeState, log)
   }

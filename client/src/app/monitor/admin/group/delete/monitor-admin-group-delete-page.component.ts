@@ -19,20 +19,18 @@ import { selectMonitorAdminGroupPage } from '../../../store/monitor.selectors';
 
     <h1>Monitor</h1>
 
-    <kpn-page-menu>
-      <span> Delete group </span>
-    </kpn-page-menu>
+    <h2>Delete group</h2>
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="response$ | async as response" class="kpn-form">
       <div *ngIf="!response.result">
         <p>Group not found</p>
       </div>
-      <div *ngIf="response.result">
+      <div *ngIf="response.result" class="kpn-form">
         <p>Name: {{ response.result.groupName }}</p>
 
         <p>Description: {{ response.result.groupDescription }}</p>
 
-        <div class="kpn-button-group">
+        <div class="kpn-form-buttons">
           <button
             mat-stroked-button
             (click)="delete(response.result.groupName)"

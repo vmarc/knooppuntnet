@@ -34,13 +34,13 @@ class MonitorFacadeImpl(
 
   override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
     api.execute(user, "monitor-groups", "") {
-      reply(monitorGroupsPageBuilder.build())
+      reply(monitorGroupsPageBuilder.build(user))
     }
   }
 
   override def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage] = {
     api.execute(user, "monitor-group", "") {
-      reply(monitorGroupPageBuilder.build(groupName))
+      reply(monitorGroupPageBuilder.build(user, groupName))
     }
   }
 

@@ -3,29 +3,28 @@ package kpn.server.api.monitor.group
 import kpn.api.common.monitor.MonitorGroupDetail
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.server.repository.MonitorGroupRepository
+import kpn.server.repository.MonitorRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorGroupsPageBuilderImpl(
+  monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository
 ) extends MonitorGroupsPageBuilder {
 
-  override def build(): Option[MonitorGroupsPage] = {
+  override def build(user: Option[String]): Option[MonitorGroupsPage] = {
+    val admin = monitorRepository.isAdminUser(user)
     val groups = monitorGroupRepository.groups()
-    if (groups.nonEmpty) {
-      Some(
-        MonitorGroupsPage(
-          groups.map { group =>
-            MonitorGroupDetail(
-              group.name,
-              group.description
-            )
-          }
-        )
+    Some(
+      MonitorGroupsPage(
+        admin,
+        groups.map { group =>
+          MonitorGroupDetail(
+            group.name,
+            group.description
+          )
+        }
       )
-    }
-    else {
-      None
-    }
+    )
   }
 }

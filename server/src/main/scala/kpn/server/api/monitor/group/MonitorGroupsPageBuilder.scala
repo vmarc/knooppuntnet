@@ -4,6 +4,6 @@ import kpn.api.common.monitor.MonitorGroupsPage
 
 trait MonitorGroupsPageBuilder {
 
-  def build(): Option[MonitorGroupsPage]
+  def build(user: Option[String]): Option[MonitorGroupsPage]
 
 }
