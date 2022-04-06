@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteInfoLoaded } from './monitor.actions';
 import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageInit } from './monitor.actions';
@@ -101,11 +102,19 @@ export const monitorReducer = createReducer(
     adminRole: response?.result?.adminRole === true,
     adminGroupPage: response,
   })),
+  on(actionMonitorRouteInfoLoaded, (state, { response }) => {
+    return {
+      ...state,
+      routeInfoPage: response,
+    };
+  }),
   on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {
     const monitorRouteId =
       response.result?.monitorRouteId ?? state.monitorRouteId;
     const routeId = response.result?.routeId ?? state.routeId;
     const routeName = response.result?.routeName ?? state.routeName;
+    const routeDescription =
+      response.result?.description ?? state.routeDescription;
     const groupName = response.result?.groupName ?? state.groupName;
     const groupDescription =
       response.result?.groupDescription ?? state.groupDescription;
@@ -114,6 +123,7 @@ export const monitorReducer = createReducer(
       monitorRouteId,
       routeId,
       routeName,
+      routeDescription,
       groupName,
       groupDescription,
       routeDetailsPage: response,

@@ -18,6 +18,7 @@ import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
+import { MonitorRouteReferencePageComponent } from './route/reference/monitor-route-reference-page.component';
 
 const routes: Routes = [
   Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),
@@ -34,22 +35,27 @@ const routes: Routes = [
     SidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:monitorRouteId',
+    'groups/:groupName/routes/:routeName',
     MonitorRouteDetailsPageComponent,
     SidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:monitorRouteId/map',
+    'groups/:groupName/routes/:routeName/reference',
+    MonitorRouteReferencePageComponent,
+    SidebarComponent
+  ),
+  Util.routePath(
+    'groups/:groupName/routes/:routeName/map',
     MonitorRouteMapPageComponent,
     MonitorRouteMapSidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:monitorRouteId/changes',
+    'groups/:groupName/routes/:routeName/changes',
     MonitorRouteChangesPageComponent,
     SidebarComponent
   ),
   Util.routePath(
-    'groups/:groupName/routes/:monitorRouteId/changes/:changeSetId/:replicationNumber',
+    'groups/:groupName/routes/:routeName/changes/:changeSetId/:replicationNumber',
     MonitorRouteChangePageComponent,
     SidebarComponent
   ),
@@ -74,12 +80,12 @@ const routes: Routes = [
     SidebarComponent
   ),
   Util.routePath(
-    'admin/groups/:groupName/routes/:monitorRouteId',
+    'admin/groups/:groupName/routes/:routeName',
     MonitorAdminRouteUpdatePageComponent,
     SidebarComponent
   ),
   Util.routePath(
-    'admin/groups/:groupName/routes/:monitorRouteId/delete',
+    'admin/groups/:groupName/routes/:routeName/delete',
     MonitorAdminRouteDeletePageComponent,
     SidebarComponent
   ),

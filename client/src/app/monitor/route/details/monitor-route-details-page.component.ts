@@ -20,40 +20,17 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 
       <div *ngIf="response.result as route">
         <kpn-data title="Summary">
-          <p *ngIf="route.ref">{{ route.ref }}</p>
-          <p>{{ route.routeName }}</p>
           <p class="kpn-separated">
             <kpn-osm-link-relation
               [relationId]="route.routeId"
             ></kpn-osm-link-relation>
             <kpn-josm-relation [relationId]="route.routeId"></kpn-josm-relation>
           </p>
-          <p *ngIf="route.website">
-            <a
-              href="{{ route.website }}"
-              target="_blank"
-              rel="nofollow noreferrer"
-              class="external"
-              >website</a
-            >
-          </p>
-        </kpn-data>
-
-        <kpn-data title="Operator" *ngIf="route.operator">
-          {{ route.operator }}
         </kpn-data>
 
         <kpn-data title="OSM">
           <p>{{ route.wayCount }} ways</p>
           <p>{{ route.osmDistance }} km</p>
-
-          <p *ngIf="route.nameEn">{{ 'EN: ' + route.nameEn }}</p>
-          <p *ngIf="route.nameNl">{{ 'NL: ' + route.nameNl }}</p>
-          <p *ngIf="route.nameFr">{{ 'FR: ' + route.nameFr }}</p>
-          <p *ngIf="route.nameDe">{{ 'DE: ' + route.nameDe }}</p>
-          <p *ngIf="route.description">
-            {{ 'description: ' + route.description }}
-          </p>
         </kpn-data>
 
         <kpn-data title="GPX">
@@ -105,9 +82,6 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         <div class="kpn-button-group">
           <button mat-raised-button color="primary" (click)="gpxDownload()">
             Download GPX file
-          </button>
-          <button mat-raised-button (click)="gpxUpload()">
-            Upload GPX file
           </button>
         </div>
       </div>

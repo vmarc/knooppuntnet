@@ -6,14 +6,7 @@ export interface MonitorRouteDetailsPage {
   readonly routeName: string;
   readonly groupName: string;
   readonly groupDescription: string;
-  readonly nameNl: string;
-  readonly nameEn: string;
-  readonly nameDe: string;
-  readonly nameFr: string;
-  readonly ref: string;
   readonly description: string;
-  readonly operator: string;
-  readonly website: string;
   readonly wayCount: number;
   readonly osmDistance: number;
   readonly gpxDistance: number;

@@ -5,9 +5,11 @@ import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
+import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
+import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
@@ -147,6 +149,27 @@ export const actionMonitorRouteMapOsmRelationVisible = createAction(
 export const actionMonitorGroupAdd = createAction(
   '[MonitorAdminGroupAddPage] Add group',
   props<{ group: MonitorGroup }>()
+);
+
+export const actionMonitorRouteInfo = createAction(
+  '[Monitor] Route info',
+  props<{ routeId: number }>()
+);
+
+export const actionMonitorRouteAdd = createAction(
+  '[Monitor] Route add',
+  props<{ add: MonitorRouteAdd }>()
+);
+
+export const actionMonitorRouteDeletePageInit = createAction(
+  '[Monitor] Route delete init'
+);
+
+export const actionMonitorRouteDelete = createAction('[Monitor] Route delete');
+
+export const actionMonitorRouteInfoLoaded = createAction(
+  '[Monitor] Route info loaded',
+  props<{ response: ApiResponse<MonitorRouteInfoPage> }>()
 );
 
 export const actionMonitorGroupDelete = createAction(

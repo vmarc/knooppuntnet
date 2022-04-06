@@ -25,8 +25,9 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
       <li>Group</li>
     </ul>
 
-    <h1>
-      {{ groupDescription$ | async }}
+    <h1 class="title" *ngIf="groupName$ | async as groupName">
+      <span class="kpn-label">{{ groupName }}</span>
+      <span>{{ groupDescription$ | async }}</span>
     </h1>
 
     <kpn-monitor-group-page-menu
@@ -34,37 +35,31 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
       [groupName]="groupName$ | async"
     ></kpn-monitor-group-page-menu>
 
-    <div *ngIf="response$ | async as response">
-      <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
-      <p *ngIf="!response.result || response.result.routes.length === 0">
-        No route groups
-      </p>
-      <div *ngIf="response.result && response.result.routes.length > 0">
+    <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
+
+    <div *ngIf="response$ | async as response" class="kpn-form">
+      <div *ngIf="hasRoutes$ | async; else noRoutes">
         <kpn-monitor-group-route-table
           [groupName]="groupName$ | async"
           [routes]="response.result.routes"
         >
         </kpn-monitor-group-route-table>
-
-        <div *ngIf="admin$ | async" class="add-route-action">
-          <button
-            mat-stroked-button
-            [routerLink]="addRouteLink$ | async"
-            type="button"
-          >
-            Add route
-          </button>
-        </div>
+      </div>
+      <ng-template #noRoutes>
+        <div>No routes in group</div>
+      </ng-template>
+      <div *ngIf="admin$ | async" class="kpn-form-buttons">
+        <button
+          mat-stroked-button
+          [routerLink]="addRouteLink$ | async"
+          type="button"
+        >
+          Add route
+        </button>
       </div>
     </div>
   `,
-  styles: [
-    `
-      .add-route-action {
-        padding-top: 3em;
-      }
-    `,
-  ],
+  styles: [``],
 })
 export class MonitorGroupPageComponent implements OnInit {
   readonly groupName$ = this.store.select(selectMonitorGroupName);
@@ -79,6 +74,10 @@ export class MonitorGroupPageComponent implements OnInit {
       select(selectMonitorGroupPage),
       filter((r) => r != null)
     );
+
+  readonly hasRoutes$: Observable<boolean> = this.response$.pipe(
+    map((response) => response.result?.routes.length > 0)
+  );
 
   constructor(private store: Store<AppState>) {}
 

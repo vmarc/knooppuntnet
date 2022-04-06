@@ -17,6 +17,11 @@ import { selectPreferencesPageSize } from '../../core/preferences/preferences.se
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteDelete } from './monitor.actions';
+import { actionMonitorRouteDeletePageInit } from './monitor.actions';
+import { actionMonitorRouteAdd } from './monitor.actions';
+import { actionMonitorRouteInfoLoaded } from './monitor.actions';
+import { actionMonitorRouteInfo } from './monitor.actions';
 import { actionMonitorChangesPageIndex } from './monitor.actions';
 import { actionMonitorRouteChangesPageIndex } from './monitor.actions';
 import { actionMonitorGroupChangesPageIndex } from './monitor.actions';
@@ -44,6 +49,7 @@ import { actionMonitorRouteMapFocus } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
+import { selectMonitorGroupName } from './monitor.selectors';
 import { selectMonitorChangesPageIndex } from './monitor.selectors';
 import { selectMonitorGroupChangesPageIndex } from './monitor.selectors';
 import { selectMonitorAdmin } from './monitor.selectors';
@@ -144,15 +150,81 @@ export class MonitorEffects {
     )
   );
 
+  monitorRouteInfo = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteInfo),
+      mergeMap((action) =>
+        this.monitorService
+          .monitorRouteInfo(action.routeId)
+          .pipe(map((response) => actionMonitorRouteInfoLoaded({ response })))
+      )
+    )
+  );
+
+  monitorRouteAdd = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actionMonitorRouteAdd),
+        concatLatestFrom(() => this.store.select(selectMonitorGroupName)),
+        mergeMap(([action, groupName]) =>
+          this.monitorService.addMonitorRoute(groupName, action.add).pipe(
+            tap(() => {
+              this.router.navigate([
+                `/monitor/groups/${groupName}/routes/${action.add.name}/reference`,
+              ]);
+            })
+          )
+        )
+      ),
+    { dispatch: false }
+  );
+
+  monitorRouteDeleteInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteDeletePageInit),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+      ]),
+      mergeMap(([{}, groupName, routeName]) =>
+        this.monitorService
+          .monitorRoute(groupName, routeName)
+          .pipe(
+            map((response) => actionMonitorRouteDetailsPageLoaded({ response }))
+          )
+      )
+    )
+  );
+
+  monitorRouteDelete = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actionMonitorRouteDelete),
+        concatLatestFrom(() => [
+          this.store.select(selectRouteParam('groupName')),
+          this.store.select(selectRouteParam('routeName')),
+        ]),
+        mergeMap(([{}, groupName, routeName]) =>
+          this.monitorService
+            .monitorRouteDelete(groupName, routeName)
+            .pipe(
+              tap(() => this.router.navigate([`/monitor/groups/${groupName}`]))
+            )
+        )
+      ),
+    { dispatch: false }
+  );
+
   monitorRouteDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteDetailsPageInit),
-      concatLatestFrom(() =>
-        this.store.select(selectRouteParam('monitorRouteId'))
-      ),
-      mergeMap(([{}, monitorRouteId]) =>
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+      ]),
+      mergeMap(([{}, groupName, routeName]) =>
         this.monitorService
-          .monitorRoute(monitorRouteId)
+          .monitorRoute(groupName, routeName)
           .pipe(
             map((response) => actionMonitorRouteDetailsPageLoaded({ response }))
           )

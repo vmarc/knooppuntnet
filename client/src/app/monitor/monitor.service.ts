@@ -1,3 +1,5 @@
+import { HttpRequest } from '@angular/common/http';
+import { HttpEvent } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
@@ -7,9 +9,11 @@ import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
+import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
+import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Observable } from 'rxjs';
@@ -50,11 +54,35 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public monitorRoute(
-    monitorRouteId: string
-  ): Observable<ApiResponse<MonitorRouteDetailsPage>> {
-    const url = `/api/monitor/routes/${monitorRouteId}`;
+  public monitorRouteInfo(
+    routeId: number
+  ): Observable<ApiResponse<MonitorRouteInfoPage>> {
+    const url = `/admin-api/monitor/route-info/${routeId}`;
     return this.http.get(url);
+  }
+
+  public addMonitorRoute(
+    groupName: string,
+    add: MonitorRouteAdd
+  ): Observable<ApiResponse<MonitorGroupPage>> {
+    const url = `/admin-api/monitor/groups/${groupName}`;
+    return this.http.post(url, add);
+  }
+
+  public monitorRoute(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<MonitorRouteDetailsPage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
+    return this.http.get(url);
+  }
+
+  public monitorRouteDelete(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<void>> {
+    const url = `/admin-api/monitor/groups/${groupName}/routes/${routeName}`;
+    return this.http.delete(url);
   }
 
   public monitorRouteMap(
@@ -106,5 +134,24 @@ export class MonitorService {
   public monitorAdminUpdateRouteGroup(group: MonitorGroup): Observable<any> {
     const url = `/admin-api/monitor/groups/${group._id}`;
     return this.http.put(url, group);
+  }
+
+  public routeGpxUpload(
+    groupName: string,
+    routeName: string,
+    file: File
+  ): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    const url = `/admin-api/monitor/groups/${groupName}/routes/${routeName}/upload`;
+    // return this.http.post(url, formData, {
+    //   reportProgress: true,
+    //   responseType: 'json',
+    // });
+    const req = new HttpRequest('POST', url, formData, {
+      reportProgress: true,
+      responseType: 'json',
+    });
+    return this.http.request(req);
   }
 }

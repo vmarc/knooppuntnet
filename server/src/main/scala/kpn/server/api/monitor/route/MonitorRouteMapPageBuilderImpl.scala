@@ -70,7 +70,7 @@ class MonitorRouteMapPageBuilderImpl(
         MonitorRouteMapPage(
           route._id,
           route.routeId,
-          route.routeName, //translatedName(language),
+          route.name,
           group.name,
           group.description,
           bounds,

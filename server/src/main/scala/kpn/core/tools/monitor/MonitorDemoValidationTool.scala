@@ -11,7 +11,7 @@ class MonitorDemoValidationTool() {
 
   def validateNonUnique(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
     val routeMap = demoRoutes.filter(_.routeId > 1).map { route =>
-      route.id -> route.filename
+      route.name -> route.filename
     }.groupBy(_._1).map(x => x._1 -> x._2.map(_._2))
 
     routeMap.foreach { case (routeId, filenames) =>

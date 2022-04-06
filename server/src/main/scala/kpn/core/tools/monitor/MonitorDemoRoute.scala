@@ -260,5 +260,5 @@ object MonitorDemoRoute {
   )
 }
 
-case class MonitorDemoRoute(id: String, routeId: Long, name: String, filename: String) {
+case class MonitorDemoRoute(name: String, routeId: Long, description: String, filename: String) {
 }

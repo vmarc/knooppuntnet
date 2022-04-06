@@ -23,7 +23,7 @@ class MonitorRouteChangesPageBuilderImpl(
     val changes = build(monitorRouteRepository.changes(parameters))
     val totalChangeCount = monitorRouteRepository.changesCount(parameters)
     val groupMap = monitorGroupRepository.groups().map(group => group.name -> group.description).toMap
-    val routeMap = monitorRouteRepository.routes().map(route => route.routeId -> route.translatedName(EN)).toMap
+    val routeMap = monitorRouteRepository.routes().map(route => route.routeId -> route.name).toMap
     val enrichedChanges = changes.map { change =>
       change.copy(
         groupDescription = groupMap.get(change.groupName),
@@ -44,7 +44,7 @@ class MonitorRouteChangesPageBuilderImpl(
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Option[MonitorGroupChangesPage] = {
     val changes = build(monitorRouteRepository.groupChanges(groupName, parameters))
     val totalChangeCount = monitorRouteRepository.groupChangesCount(groupName, parameters)
-    val routeMap = monitorRouteRepository.routes().map(route => route.routeId -> route.translatedName(EN)).toMap
+    val routeMap = monitorRouteRepository.routes().map(route => route.routeId -> route.name).toMap
     val enrichedChanges = changes.map { change =>
       change.copy(
         routeName = routeMap.get(change.key.elementId)

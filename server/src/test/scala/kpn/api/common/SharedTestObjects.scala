@@ -999,34 +999,17 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newMonitorRoute(
-    id: String,
-    routeId: Long,
     groupName: String,
-    routeName: String,
     name: String,
-    nameNl: Option[String] = None,
-    nameEn: Option[String] = None,
-    nameDe: Option[String] = None,
-    nameFr: Option[String] = None,
-    ref: Option[String] = None,
-    description: Option[String] = None,
-    operator: Option[String] = None,
-    website: Option[String] = None
+    description: String,
+    routeId: Long
   ): MonitorRoute = {
     MonitorRoute(
-      id,
-      routeId,
+      groupName + ":" + name,
       groupName,
-      routeName,
       name,
-      nameNl,
-      nameEn,
-      nameDe,
-      nameFr,
-      ref,
       description,
-      operator,
-      website
+      routeId
     )
   }
 

@@ -61,7 +61,7 @@ class MonitorDemoUpdateTool(
     val routes = collectRoutes()
     routes.zipWithIndex.foreach { case (route, index) =>
       Log.context(s"${index + 1}/${routes.size}") {
-        log.info(s"${route._id} ${route.routeName}")
+        log.info(route._id)
         updateRoute(route)
       }
     }

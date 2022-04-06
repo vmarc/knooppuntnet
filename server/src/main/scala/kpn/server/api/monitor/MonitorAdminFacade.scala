@@ -3,6 +3,8 @@ package kpn.server.api.monitor
 import kpn.api.common.monitor.MonitorAdminGroupPage
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupsPage
+import kpn.api.common.monitor.MonitorRouteAdd
+import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.monitor.domain.MonitorRoute
 
@@ -18,7 +20,9 @@ trait MonitorAdminFacade {
 
   def deleteGroup(user: Option[String], groupName: String): Unit
 
-  def addRoute(user: Option[String], groupName: String, route: MonitorRoute): Unit
+  def routeInfo(user: Option[String], routeId: Long): ApiResponse[MonitorRouteInfoPage]
+
+  def addRoute(user: Option[String], groupName: String, route: MonitorRouteAdd): Unit
 
   def updateRoute(user: Option[String], groupName: String, route: MonitorRoute): Unit
 

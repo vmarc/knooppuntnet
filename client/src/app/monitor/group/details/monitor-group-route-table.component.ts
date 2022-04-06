@@ -15,10 +15,10 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table mat-table [dataSource]="dataSource">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="id">Id</th>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="id">Name</th>
         <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeLink(route)">{{ route.monitorRouteId }}</a>
+          <a [routerLink]="routeLink(route)">{{ route.name }}</a>
         </td>
       </ng-container>
 
@@ -38,13 +38,6 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
             [title]="route.routeId.toString()"
           >
           </kpn-osm-link-relation>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let route">
-          {{ route.name }}
         </td>
       </ng-container>
 
@@ -109,25 +102,16 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     map((admin) => {
       if (admin) {
         return [
-          'id',
+          'name',
           'map',
           'routeId',
-          'name',
-          // 'description',
-          // 'distance',
-          // 'status',
-          // 'actions',
+          'description',
+          'distance',
+          'status',
+          'actions',
         ];
       }
-      return [
-        'id',
-        'map',
-        'routeId',
-        'name',
-        // 'description',
-        // 'distance',
-        // 'status',
-      ];
+      return ['name', 'map', 'routeId', 'description', 'distance', 'status'];
     })
   );
 
@@ -141,18 +125,18 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   }
 
   routeLink(route: MonitorRouteDetail): string {
-    return `/monitor/groups/${this.groupName}/routes/${route.monitorRouteId}`;
+    return `/monitor/groups/${this.groupName}/routes/${route.name}`;
   }
 
   routeMapLink(route: MonitorRouteDetail): string {
-    return `/monitor/groups/${this.groupName}/routes/${route.monitorRouteId}/map`;
+    return `/monitor/groups/${this.groupName}/routes/${route.name}/map`;
   }
 
   routeUpdateLink(route: MonitorRouteDetail): string {
-    return `/monitor/admin/groups/${this.groupName}/routes/${route.monitorRouteId}`;
+    return `/monitor/admin/groups/${this.groupName}/routes/${route.name}`;
   }
 
   routeDeleteLink(route: MonitorRouteDetail): string {
-    return `/monitor/admin/groups/${this.groupName}/routes/${route.monitorRouteId}/delete`;
+    return `/monitor/admin/groups/${this.groupName}/routes/${route.name}/delete`;
   }
 }

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
+import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorMonitorRouteId } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
@@ -17,14 +18,14 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink$ | async">{{ groupDescription$ | async }}</a>
+        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
       <li>Route</li>
     </ul>
 
-    <h1 class="title" *ngIf="monitorRouteId$ | async">
-      <span class="kpn-label">{{ monitorRouteId$ | async }}</span>
-      <span>{{ routeName$ | async }}</span>
+    <h1 class="title" *ngIf="routeName$ | async as routeName">
+      <span class="kpn-label">{{ routeName }}</span>
+      <span>{{ routeDescription$ | async }}</span>
     </h1>
 
     <kpn-page-menu>
@@ -40,6 +41,13 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
         [active]="pageName === 'map'"
       >
         Map
+      </kpn-page-menu-option>
+
+      <kpn-page-menu-option
+        [link]="routeReferenceLink$ | async"
+        [active]="pageName === 'reference'"
+      >
+        Reference
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
@@ -70,37 +78,48 @@ export class MonitorRoutePageHeaderComponent {
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly monitorRouteId$ = this.store.select(selectMonitorMonitorRouteId);
   readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)
   );
 
   readonly routeDetailLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorMonitorRouteId),
+    this.store.select(selectMonitorRouteName),
   ]).pipe(
     map(
-      ([groupName, monitorRouteId]) =>
-        `/monitor/groups/${groupName}/routes/${monitorRouteId}`
+      ([groupName, routeName]) =>
+        `/monitor/groups/${groupName}/routes/${routeName}`
     )
   );
 
   readonly routeMapLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorMonitorRouteId),
+    this.store.select(selectMonitorRouteName),
   ]).pipe(
     map(
-      ([groupName, monitorRouteId]) =>
-        `/monitor/groups/${groupName}/routes/${monitorRouteId}/map`
+      ([groupName, routeName]) =>
+        `/monitor/groups/${groupName}/routes/${routeName}/map`
+    )
+  );
+
+  readonly routeReferenceLink$ = combineLatest([
+    this.store.select(selectMonitorGroupName),
+    this.store.select(selectMonitorRouteName),
+  ]).pipe(
+    map(
+      ([groupName, routeName]) =>
+        `/monitor/groups/${groupName}/routes/${routeName}/reference`
     )
   );
 
   readonly routeChangesLink$ = combineLatest([
     this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorMonitorRouteId),
+    this.store.select(selectMonitorRouteName),
   ]).pipe(
     map(
-      ([groupName, monitorRouteId]) =>
-        `/monitor/groups/${groupName}/routes/${monitorRouteId}/changes`
+      ([groupName, routeName]) =>
+        `/monitor/groups/${groupName}/routes/${routeName}/changes`
     )
   );
 

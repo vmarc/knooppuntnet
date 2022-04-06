@@ -51,6 +51,11 @@ export const selectMonitorAdminGroupPage = createSelector(
   (state: MonitorState) => state.adminGroupPage
 );
 
+export const selectMonitorRouteInfoPage = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeInfoPage
+);
+
 export const selectMonitorRouteDetailsPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeDetailsPage
@@ -128,6 +133,11 @@ export const selectMonitorRouteId = createSelector(
 export const selectMonitorRouteName = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeName
+);
+
+export const selectMonitorRouteDescription = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeDescription
 );
 
 export const selectMonitorGroupName = createSelector(

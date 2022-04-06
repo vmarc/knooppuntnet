@@ -36,11 +36,12 @@ class MonitorController(
     facade.group(CurrentUser.name, groupName)
   }
 
-  @GetMapping(value = Array("routes/{monitorRouteId}"))
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def route(
-    @PathVariable monitorRouteId: String
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
   ): ApiResponse[MonitorRouteDetailsPage] = {
-    facade.route(CurrentUser.name, monitorRouteId)
+    facade.route(CurrentUser.name, groupName + ":" + routeName)
   }
 
   @GetMapping(value = Array("routes/{monitorRouteId}/map"))

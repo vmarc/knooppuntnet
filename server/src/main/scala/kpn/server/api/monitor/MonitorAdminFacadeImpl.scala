@@ -4,8 +4,13 @@ import kpn.api.common.monitor.MonitorAdminGroupPage
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupDetail
 import kpn.api.common.monitor.MonitorGroupsPage
+import kpn.api.common.monitor.MonitorRouteAdd
+import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
+import kpn.core.loadOld.Parser
+import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.overpass.QueryRelationOnly
 import kpn.server.api.Api
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.repository.MonitorGroupRepository
@@ -14,12 +19,15 @@ import kpn.server.repository.MonitorRouteRepository
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 
+import scala.xml.XML
+
 @Component
 class MonitorAdminFacadeImpl(
   api: Api,
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
-  monitorRouteRepository: MonitorRouteRepository
+  monitorRouteRepository: MonitorRouteRepository,
+  overpassQueryExecutor: OverpassQueryExecutor
 ) extends MonitorAdminFacade {
 
   override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
@@ -78,9 +86,58 @@ class MonitorAdminFacadeImpl(
     }
   }
 
-  override def addRoute(user: Option[String], groupName: String, route: MonitorRoute): Unit = {
-    api.execute(user, "admin-add-route", route.name) {
+  override def routeInfo(user: Option[String], routeId: Long): ApiResponse[MonitorRouteInfoPage] = {
+    api.execute(user, "admin-route-info", routeId.toString) {
       assertAdminUser(user)
+
+      val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelationOnly(routeId))
+      val xml = XML.loadString(xmlString)
+      val rawData = new Parser().parse(xml.head)
+
+      val result = rawData.relationWithId(routeId) match {
+        case None =>
+          MonitorRouteInfoPage(
+            routeId,
+            None,
+            None,
+            None,
+            0,
+            0,
+            0
+          )
+
+        case Some(relation) =>
+          val routeName: Option[String] = relation.tags("name")
+          val operator: Option[String] = relation.tags("operator")
+          val ref: Option[String] = relation.tags("ref")
+          val nodeCount: Long = relation.nodeMembers.size
+          val wayCount: Long = relation.wayMembers.size
+          val relationCount: Long = relation.relationMembers.size
+          MonitorRouteInfoPage(
+            routeId,
+            routeName,
+            operator,
+            ref,
+            nodeCount,
+            wayCount,
+            relationCount,
+          )
+      }
+
+      reply(Some(result))
+    }
+  }
+
+  override def addRoute(user: Option[String], groupName: String, add: MonitorRouteAdd): Unit = {
+    api.execute(user, "admin-add-route", add.name) {
+      assertAdminUser(user)
+      val route = MonitorRoute(
+        _id = groupName + ":" + add.name,
+        groupName = groupName,
+        name = add.name,
+        description = add.description,
+        routeId = add.routeId,
+      )
       monitorRouteRepository.saveRoute(route)
     }
   }
@@ -93,9 +150,10 @@ class MonitorAdminFacadeImpl(
   }
 
   override def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit = {
-    api.execute(user, "admin-delete-route", routeName) {
+    val routeDocId = groupName + ":" + routeName
+    api.execute(user, "admin-delete-route", routeDocId) {
       assertAdminUser(user)
-      monitorRouteRepository.deleteRoute(routeName)
+      monitorRouteRepository.deleteRoute(routeDocId)
     }
   }
 

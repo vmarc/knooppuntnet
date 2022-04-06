@@ -4,9 +4,13 @@ import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio/radio';
+import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../../core/core.state';
+import { actionMonitorRouteAdd } from '../../../store/monitor.actions';
+import { actionMonitorRouteInfo } from '../../../store/monitor.actions';
+import { selectMonitorRouteInfoPage } from '../../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../../store/monitor.selectors';
 
@@ -27,14 +31,12 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
       {{ groupDescription$ | async }}
     </h1>
 
-    <kpn-page-menu>
-      <span> Add route </span>
-    </kpn-page-menu>
+    <h2>Add route</h2>
 
     <form [formGroup]="form">
       <div class="section-title">
         Please provide the OpenStreetMap relation id of the route that you want
-        to add to the monitor.
+        to add to the monitor:
       </div>
       <div class="section-body">
         <mat-form-field>
@@ -52,13 +54,29 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
         </div>
       </div>
 
-      <kpn-monitor-admin-route-summary></kpn-monitor-admin-route-summary>
+      <div *ngIf="routeInfo$ | async as routeInfo">
+        <kpn-monitor-admin-route-info
+          [routeInfo]="routeInfo.result"
+        ></kpn-monitor-admin-route-info>
 
-      <kpn-monitor-admin-route-reference></kpn-monitor-admin-route-reference>
+        <p>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput [formControl]="name" />
+          </mat-form-field>
+        </p>
 
-      <div class="kpn-button-group">
-        <button mat-stroked-button (click)="save()">Save Route</button>
-        <a [routerLink]="groupLink$ | async">Cancel</a>
+        <p>
+          <mat-form-field class="description">
+            <mat-label>Description</mat-label>
+            <input matInput [formControl]="description" />
+          </mat-form-field>
+        </p>
+
+        <div class="kpn-form-buttons">
+          <button mat-stroked-button (click)="save()">Save Route</button>
+          <a [routerLink]="groupLink$ | async">Cancel</a>
+        </div>
       </div>
     </form>
   `,
@@ -69,6 +87,7 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
       }
 
       .section-body {
+        padding-top: 1em;
         padding-left: 2em;
       }
 
@@ -83,30 +102,39 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
         padding-bottom: 0.5em;
         padding-left: 1em;
       }
-
-      .kpn-button-group {
-        padding-top: 3em;
-      }
     `,
   ],
 })
 export class MonitorAdminRouteAddPageComponent {
+  readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)
   );
+
   readonly routeId = new FormControl('', [Validators.required]);
+  readonly name = new FormControl('', [Validators.required]);
+  readonly description = new FormControl('', [Validators.required]);
 
   readonly form = new FormGroup({
     routeId: this.routeId,
+    name: this.name,
+    description: this.description,
   });
 
   constructor(private store: Store<AppState>) {}
 
-  getRouteInformation(): void {}
+  getRouteInformation(): void {
+    this.store.dispatch(
+      actionMonitorRouteInfo({ routeId: this.routeId.value })
+    );
+  }
 
-  save(): void {}
+  save(): void {
+    const add: MonitorRouteAdd = this.form.value;
+    this.store.dispatch(actionMonitorRouteAdd({ add }));
+  }
 
   referenceTypeChanged(event: MatRadioChange): void {
     // this.store.dispatch(actionMonitorRouteMapMode({mode: event.value}));

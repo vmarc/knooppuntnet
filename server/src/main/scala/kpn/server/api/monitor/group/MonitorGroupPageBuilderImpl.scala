@@ -24,11 +24,8 @@ class MonitorGroupPageBuilderImpl(
           MonitorRouteDetail(
             route._id,
             route.routeId,
-            route.ref,
-            route.routeName,
+            route.name,
             route.description,
-            route.operator,
-            route.website,
             wayCount = 0,
             osmDistance = 0,
             gpxDistance = 0,

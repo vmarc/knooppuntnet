@@ -1,6 +1,15 @@
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { AppState } from '../../../../core/core.state';
+import { actionMonitorRouteDeletePageInit } from '../../../store/monitor.actions';
+import { actionMonitorRouteDelete } from '../../../store/monitor.actions';
+import { selectMonitorGroupDescription } from '../../../store/monitor.selectors';
+import { selectMonitorRouteDescription } from '../../../store/monitor.selectors';
+import { selectMonitorRouteName } from '../../../store/monitor.selectors';
+import { selectMonitorGroupName } from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-admin-route-delete-page',
@@ -10,49 +19,58 @@ import { of } from 'rxjs';
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink$ | async">{{ groupDescription$ | async }}</a>
+        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
       <li>Route</li>
     </ul>
 
-    <h1>
-      {{ routeName$ | async }}
+    <h1 class="title" *ngIf="routeName$ | async as routeName">
+      <span class="kpn-label">{{ routeName }}</span>
+      <span>{{ routeDescription$ | async }}</span>
     </h1>
 
-    <kpn-page-menu>
-      <span> Delete </span>
-    </kpn-page-menu>
+    <h2>Delete</h2>
 
-    <p>Remove this route from the monitor.</p>
+    <div class="kpn-form">
+      <p>Remove this route from the monitor.</p>
 
-    <p class="kpn-line">
-      <mat-icon svgIcon="warning"></mat-icon>
-      <span>All history will be lost!</span>
-    </p>
+      <p class="kpn-line">
+        <mat-icon svgIcon="warning"></mat-icon>
+        <span>Attention: all history will be lost!</span>
+      </p>
 
-    <div class="kpn-button-group">
-      <button mat-stroked-button (click)="delete()">
-        <span class="delete-button"> Delete Route </span>
-      </button>
-      <a [routerLink]="groupLink$ | async">Cancel</a>
+      <div class="kpn-form-buttons">
+        <button mat-stroked-button (click)="delete()">
+          <span class="delete-button">Delete Route</span>
+        </button>
+        <a [routerLink]="groupLink$ | async">Cancel</a>
+      </div>
     </div>
   `,
   styles: [
     `
-      .kpn-button-group {
-        padding-top: 3em;
-      }
-
       .delete-button {
         color: red;
       }
     `,
   ],
 })
-export class MonitorAdminRouteDeletePageComponent {
-  readonly groupDescription$ = of('Group One');
-  readonly groupLink$ = of('/monitor/groups/group-1');
-  readonly routeName$ = of('GR05 Vlaanderen');
+export class MonitorAdminRouteDeletePageComponent implements OnInit {
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
+  readonly groupLink$ = this.groupName$.pipe(
+    map((groupName) => `/monitor/groups/${groupName}`)
+  );
+  readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
 
-  delete(): void {}
+  constructor(private store: Store<AppState>) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorRouteDeletePageInit());
+  }
+
+  delete(): void {
+    this.store.dispatch(actionMonitorRouteDelete());
+  }
 }

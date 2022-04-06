@@ -22,7 +22,7 @@ import { MonitorAdminGroupAddPageComponent } from './admin/group/add/monitor-adm
 import { MonitorAdminGroupDeletePageComponent } from './admin/group/delete/monitor-admin-group-delete-page.component';
 import { MonitorAdminGroupUpdatePageComponent } from './admin/group/update/monitor-admin-group-update-page.component';
 import { MonitorAdminRouteAddPageComponent } from './admin/route/add/monitor-admin-route-add-page.component';
-import { MonitorAdminRouteSummaryComponent } from './admin/route/add/monitor-admin-route-summary.component';
+import { MonitorAdminRouteInfoComponent } from './admin/route/add/monitor-admin-route-info.component';
 import { MonitorAdminRouteReferenceComponent } from './admin/route/components/monitor-admin-route-reference.component';
 import { MonitorAdminRouteDeletePageComponent } from './admin/route/delete/monitor-admin-route-delete-page.component';
 import { MonitorAdminRouteUpdatePageComponent } from './admin/route/update/monitor-admin-route-update-page.component';
@@ -51,6 +51,7 @@ import { MonitorRouteMapNokSegmentsComponent } from './route/map/monitor-route-m
 import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-map-osm-segments.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
+import { MonitorRouteReferencePageComponent } from './route/reference/monitor-route-reference-page.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
 import { monitorFeatureKey } from './store/monitor.state';
@@ -106,9 +107,10 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorAdminRouteUpdatePageComponent,
     MonitorAdminRouteDeletePageComponent,
     MonitorGroupRouteTableComponent,
-    MonitorAdminRouteSummaryComponent,
+    MonitorAdminRouteInfoComponent,
     MonitorAdminRouteReferenceComponent,
     MonitorChangesComponent,
+    MonitorRouteReferencePageComponent,
   ],
   exports: [],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'nl-BE' }, MonitorService],

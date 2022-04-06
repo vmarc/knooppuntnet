@@ -41,15 +41,15 @@ class MonitorDemoTool(database: Database) {
     database.monitorGroups.save(group)
 
     demoRoutes.filter(_.routeId > 0).foreach { demoRoute =>
-      Log.context(demoRoute.id) {
+      Log.context(demoRoute.name) {
         log.info("route start")
 
         val routeRelation = readRouteRelation(demoRoute)
         val monitorRoute = MonitorRouteAnalyzer.toRoute(
-          demoRoute.id,
-          group.name,
           demoRoute.name,
-          routeRelation
+          group.name,
+          demoRoute.description,
+          demoRoute.routeId
         )
         database.monitorRoutes.save(monitorRoute)
 
@@ -79,11 +79,11 @@ class MonitorDemoTool(database: Database) {
     log.info("geometry bounds calculated")
     val geoJson = MonitorRouteAnalyzer.toGeoJson(geometry)
     log.info(s"geojson ready, size=${geoJson.length}")
-    val id = s"${demoRoute.id}:${now.key}"
+    val id = s"${demoRoute.name}:${now.key}"
 
     MonitorRouteReference(
       id,
-      monitorRouteId = demoRoute.id,
+      monitorRouteId = demoRoute.name,
       routeId = demoRoute.routeId,
       key = now.key,
       created = now,
