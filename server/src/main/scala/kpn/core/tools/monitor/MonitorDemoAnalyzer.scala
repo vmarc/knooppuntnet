@@ -6,8 +6,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysis
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer.toMeters
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteSegmentData
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -25,7 +25,7 @@ class MonitorDemoAnalyzer() {
 
   def analyze(routeReference: MonitorRouteReference, routeRelation: Relation, now: Timestamp): MonitorRouteState = {
 
-    val routeSegments = MonitorRouteAnalyzer.toRouteSegments(routeRelation)
+    val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
     val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
 
     MonitorRouteState(
@@ -49,7 +49,7 @@ class MonitorDemoAnalyzer() {
 
     val (okOption: Option[MultiLineString], nokSegments: Seq[MonitorRouteNokSegment]) = {
 
-      val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / MonitorRouteAnalyzer.toMeters(gpxLineString.getLength)
+      val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / MonitorRouteAnalysisSupport.toMeters(gpxLineString.getLength)
       val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
       val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
 
@@ -60,9 +60,9 @@ class MonitorDemoAnalyzer() {
 
       val withinTolerance = distances.map(distance => distance < toleranceMeters)
       val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
-      val splittedOkAndIndexes = MonitorRouteAnalyzer.split(okAndIndexes)
+      val splittedOkAndIndexes = MonitorRouteAnalysisSupport.split(okAndIndexes)
 
-      val ok: MultiLineString = MonitorRouteAnalyzer.toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
+      val ok: MultiLineString = MonitorRouteAnalysisSupport.toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
 
       val noks = splittedOkAndIndexes.filterNot(_.head._1)
 
@@ -74,10 +74,10 @@ class MonitorDemoAnalyzer() {
           distance
         }.max
 
-        val lineString = MonitorRouteAnalyzer.toLineString(sampleCoordinates, segment)
+        val lineString = MonitorRouteAnalysisSupport.toLineString(sampleCoordinates, segment)
         val meters: Long = Math.round(toMeters(lineString.getLength))
-        val bounds = MonitorRouteAnalyzer.toBounds(lineString.getCoordinates.toSeq)
-        val geoJson = MonitorRouteAnalyzer.toGeoJson(lineString)
+        val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
+        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
 
         MonitorRouteNokSegment(
           segmentIndex + 1,
@@ -98,8 +98,8 @@ class MonitorDemoAnalyzer() {
     val gpxDistance = Math.round(toMeters(gpxLineString.getLength / 1000))
     val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum.toDouble / 1000)
 
-    val gpxGeometry = MonitorRouteAnalyzer.toGeoJson(gpxLineString)
-    val okGeometry = okOption.map(geometry => MonitorRouteAnalyzer.toGeoJson(geometry))
+    val gpxGeometry = MonitorRouteAnalysisSupport.toGeoJson(gpxLineString)
+    val okGeometry = okOption.map(geometry => MonitorRouteAnalysisSupport.toGeoJson(geometry))
 
     // TODO merge gpx bounds + ok
     val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))

@@ -44,11 +44,12 @@ class MonitorController(
     facade.route(CurrentUser.name, groupName + ":" + routeName)
   }
 
-  @GetMapping(value = Array("routes/{monitorRouteId}/map"))
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
   def routeMap(
-    @PathVariable monitorRouteId: String
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
   ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(CurrentUser.name, monitorRouteId)
+    facade.routeMap(CurrentUser.name, groupName + ":" + routeName)
   }
 
   @PostMapping(value = Array("changes"))
@@ -66,12 +67,13 @@ class MonitorController(
     facade.groupChanges(CurrentUser.name, groupName, parameters)
   }
 
-  @PostMapping(value = Array("routes/{monitorRouteId}/changes"))
+  @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))
   def routeChanges(
-    @PathVariable monitorRouteId: String,
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
     @RequestBody parameters: MonitorChangesParameters
   ): ApiResponse[MonitorRouteChangesPage] = {
-    facade.routeChanges(CurrentUser.name, monitorRouteId, parameters)
+    facade.routeChanges(CurrentUser.name, groupName + ":" + routeName, parameters)
   }
 
   @GetMapping(value = Array("routes/{monitorRouteId}/changes/{changeSetId}/{replicationNumber}"))

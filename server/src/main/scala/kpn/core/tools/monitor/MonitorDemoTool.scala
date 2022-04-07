@@ -11,7 +11,7 @@ import kpn.core.loadOld.OsmDataXmlReader
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import org.locationtech.jts.geom.Geometry
 
@@ -45,7 +45,7 @@ class MonitorDemoTool(database: Database) {
         log.info("route start")
 
         val routeRelation = readRouteRelation(demoRoute)
-        val monitorRoute = MonitorRouteAnalyzer.toRoute(
+        val monitorRoute = MonitorRouteAnalysisSupport.toRoute(
           demoRoute.name,
           group.name,
           demoRoute.description,
@@ -73,11 +73,11 @@ class MonitorDemoTool(database: Database) {
   }
 
   private def buildRouteReference(demoRoute: MonitorDemoRoute): MonitorRouteReference = {
-    val geometry = new MonitorRouteGpxReader().read(s"/kpn/monitor-demo/${demoRoute.filename}.gpx")
+    val geometry = new MonitorRouteGpxReader().readFile(s"/kpn/monitor-demo/${demoRoute.filename}.gpx")
     log.info("geometry loaded")
     val bounds = geometryBounds(geometry)
     log.info("geometry bounds calculated")
-    val geoJson = MonitorRouteAnalyzer.toGeoJson(geometry)
+    val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
     log.info(s"geojson ready, size=${geoJson.length}")
     val id = s"${demoRoute.name}:${now.key}"
 

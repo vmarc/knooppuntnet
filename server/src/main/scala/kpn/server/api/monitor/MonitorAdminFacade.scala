@@ -8,6 +8,8 @@ import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.monitor.domain.MonitorRoute
 
+import scala.xml.Elem
+
 trait MonitorAdminFacade {
 
   def groups(user: Option[String]): ApiResponse[MonitorGroupsPage]
@@ -28,4 +30,5 @@ trait MonitorAdminFacade {
 
   def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit
 
+  def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit
 }

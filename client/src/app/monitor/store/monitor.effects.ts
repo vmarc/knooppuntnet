@@ -235,12 +235,13 @@ export class MonitorEffects {
   monitorRouteMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteMapPageInit),
-      concatLatestFrom(() =>
-        this.store.select(selectRouteParam('monitorRouteId'))
-      ),
-      mergeMap(([{}, monitorRouteId]) =>
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+      ]),
+      mergeMap(([{}, groupName, routeName]) =>
         this.monitorService
-          .monitorRouteMap(monitorRouteId)
+          .monitorRouteMap(groupName, routeName)
           .pipe(
             map((response) => actionMonitorRouteMapPageLoaded({ response }))
           )

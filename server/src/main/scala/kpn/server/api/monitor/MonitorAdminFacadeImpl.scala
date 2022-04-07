@@ -11,6 +11,7 @@ import kpn.core.common.TimestampLocal
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelationOnly
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.api.Api
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.repository.MonitorGroupRepository
@@ -19,6 +20,7 @@ import kpn.server.repository.MonitorRouteRepository
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 
+import scala.xml.Elem
 import scala.xml.XML
 
 @Component
@@ -27,7 +29,8 @@ class MonitorAdminFacadeImpl(
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  overpassQueryExecutor: OverpassQueryExecutor
+  overpassQueryExecutor: OverpassQueryExecutor,
+  monitorRouteAnalyzer: MonitorRouteAnalyzer
 ) extends MonitorAdminFacade {
 
   override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
@@ -154,6 +157,14 @@ class MonitorAdminFacadeImpl(
     api.execute(user, "admin-delete-route", routeDocId) {
       assertAdminUser(user)
       monitorRouteRepository.deleteRoute(routeDocId)
+    }
+  }
+
+  override def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit = {
+    val routeDocId = groupName + ":" + routeName
+    api.execute(user, "admin-route-reference", routeDocId) {
+      assertAdminUser(user)
+      monitorRouteAnalyzer.processNewReference(user.get, routeDocId, filename, xml)
     }
   }
 

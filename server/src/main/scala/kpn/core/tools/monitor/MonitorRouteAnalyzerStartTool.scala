@@ -3,7 +3,7 @@ package kpn.core.tools.monitor
 import kpn.api.custom.Timestamp
 import kpn.core.util.Util
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoader
 import kpn.server.analyzer.engine.monitor.MonitorRouteLoaderFileImpl
 import kpn.server.api.monitor.domain.MonitorRouteReference
@@ -37,15 +37,15 @@ class MonitorRouteAnalyzerStartTool(
     routeIds.foreach { routeId =>
       monitorRouteLoader.loadInitial(null, routeId).foreach { routeRelation =>
 
-        val route = MonitorRouteAnalyzer.toRoute("TODO routeName", "example", "TODO route description", routeId)
+        val route = MonitorRouteAnalysisSupport.toRoute("TODO routeName", "example", "TODO route description", routeId)
         monitorRouteRepository.saveRoute(route)
 
-        val segments = MonitorRouteAnalyzer.toRouteSegments(routeRelation)
+        val segments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
         val timestamp = Timestamp(2020, 8, 11)
         val osmSegments = segments.map(_.segment)
         val bounds = Util.mergeBounds(segments.map(_.segment.bounds))
         val geometry = geomFactory.createMultiLineString(segments.map(_.lineString).toArray)
-        val geoJson = MonitorRouteAnalyzer.toGeoJson(geometry)
+        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
 
         val routeState = MonitorRouteState(
           "TODO ID",

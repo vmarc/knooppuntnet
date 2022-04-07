@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 
 import java.nio.charset.StandardCharsets
+import scala.xml.XML
 
 @RestController
 @RequestMapping(Array("/admin-api/monitor"))
@@ -76,14 +77,15 @@ class MonitorAdminController(facade: MonitorAdminFacade) {
   @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/upload"))
   def uploadRoute(@PathVariable groupName: String, @PathVariable routeName: String, @RequestParam("file") file: MultipartFile): ResponseEntity[String] = {
     try {
-      val text = IOUtils.toString(file.getInputStream, StandardCharsets.UTF_8.name)
-      println("group=" + groupName + ", route=" + routeName)
-      println(text.take(500))
+      val xml = XML.load(file.getInputStream)
+      facade.processNewReference(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
       val message = "File successfully uploaded: " + file.getOriginalFilename
       ResponseEntity.status(HttpStatus.OK).body(message)
     } catch {
       case e: Exception =>
-        println(e)
+
+e.printStackTrace()
+
         val message = "Could not upload the file: " + file.getOriginalFilename + "!"
         ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message)
     }

@@ -5,15 +5,23 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
 
 import java.io.File
+import scala.xml.Elem
 import scala.xml.XML
 
 class MonitorRouteGpxReader {
 
   private val geomFactory = new GeometryFactory
 
-  def read(filename: String): LineString = {
+  def readFile(filename: String): LineString = {
+    read(XML.loadFile(new File(filename)))
+  }
 
-    val xml = XML.loadFile(new File(filename))
+  def readString(xmlString: String): LineString = {
+    read(XML.loadString(xmlString))
+  }
+
+  def read(xml: Elem): LineString = {
+
     val tracks = (xml \ "trk").map { trk =>
       (trk \ "trkseg").map { trkseg =>
         val coordinates = (trkseg \ "trkpt").map { trkpt =>

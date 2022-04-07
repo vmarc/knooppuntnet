@@ -1,5 +1,3 @@
-import { HttpRequest } from '@angular/common/http';
-import { HttpEvent } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
@@ -86,9 +84,10 @@ export class MonitorService {
   }
 
   public monitorRouteMap(
-    monitorRouteId: string
+    groupName: string,
+    routeName: string
   ): Observable<ApiResponse<MonitorRouteMapPage>> {
-    const url = `/api/monitor/routes/${monitorRouteId}/map`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/map`;
     return this.http.get(url);
   }
 
@@ -140,18 +139,10 @@ export class MonitorService {
     groupName: string,
     routeName: string,
     file: File
-  ): Observable<HttpEvent<any>> {
+  ): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     const url = `/admin-api/monitor/groups/${groupName}/routes/${routeName}/upload`;
-    // return this.http.post(url, formData, {
-    //   reportProgress: true,
-    //   responseType: 'json',
-    // });
-    const req = new HttpRequest('POST', url, formData, {
-      reportProgress: true,
-      responseType: 'json',
-    });
-    return this.http.request(req);
+    return this.http.post(url, formData);
   }
 }

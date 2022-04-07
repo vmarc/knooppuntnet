@@ -79,16 +79,12 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           <div class="section-body kpn-form-buttons">
             <input
               type="file"
+              class="file-input"
               (change)="selectFile(route.groupName, route.routeName, $event)"
+              #fileInput
             />
 
-            <p>progress = {{ progress }}%</p>
-
-            <button
-              mat-raised-button
-              (click)="gpxUpload(route.groupName, route.routeName)"
-              type="button"
-            >
+            <button mat-raised-button (click)="fileInput.click()" type="button">
               Upload GPX and analyze
             </button>
           </div>
@@ -111,6 +107,10 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         padding-top: 0.5em;
         padding-bottom: 0.5em;
         padding-left: 1em;
+      }
+
+      .file-input {
+        display: none;
       }
     `,
   ],
@@ -151,32 +151,6 @@ export class MonitorRouteReferencePageComponent implements OnInit {
   selectFile(groupName: string, routeName: string, selectEvent: any) {
     this.monitorService
       .routeGpxUpload(groupName, routeName, selectEvent.target.files[0])
-      .subscribe(
-        (event: any) => {
-          console.log(['event', event]);
-
-          if (event?.type === HttpEventType.UploadProgress) {
-            console.log(
-              `UploadProgress: loaded=${event.loaded}, total=${event.total}`
-            );
-            this.progress = Math.round((100 * event.loaded) / event.total);
-          } else if (event instanceof HttpResponse) {
-            console.log(`HttpReponse body=${event.body}`);
-            this.message = event.body;
-          } else if (event?.type) {
-            console.log(`event type=${event.type}`);
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          this.progress = 0;
-
-          if (err.error && err.error.message) {
-            this.message = err.error.message;
-          } else {
-            this.message = 'Could not upload the file!';
-          }
-        }
-      );
+      .subscribe();
   }
 }
