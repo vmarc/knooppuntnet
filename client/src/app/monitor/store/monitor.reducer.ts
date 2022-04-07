@@ -41,7 +41,6 @@ export const monitorReducer = createReducer(
     groupsPage: null,
     groupPage: null,
     groupChangesPage: null,
-    adminGroupPage: null,
     routeDetailsPage: null,
     routeMapPage: null,
     routeChangesPage: null,
@@ -95,12 +94,12 @@ export const monitorReducer = createReducer(
   on(actionMonitorGroupDeleteLoaded, (state, { response }) => ({
     ...state,
     adminRole: response?.result?.adminRole === true,
-    adminGroupPage: response,
+    groupPage: response,
   })),
   on(actionMonitorGroupUpdateLoaded, (state, { response }) => ({
     ...state,
     adminRole: response?.result?.adminRole === true,
-    adminGroupPage: response,
+    groupPage: response,
   })),
   on(actionMonitorRouteInfoLoaded, (state, { response }) => {
     return {

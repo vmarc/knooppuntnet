@@ -1,4 +1,3 @@
-import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
@@ -30,7 +29,6 @@ export const initialState: MonitorState = {
   groupPage: null,
   groupChangesPageIndex: 0,
   groupChangesPage: null,
-  adminGroupPage: null,
   routeInfoPage: null,
   routeDetailsPage: null,
   routeMapPage: null,
@@ -59,7 +57,6 @@ export interface MonitorState {
   groupPage: ApiResponse<MonitorGroupPage>;
   groupChangesPageIndex: number;
   groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
-  adminGroupPage: ApiResponse<MonitorAdminGroupPage>;
   routeInfoPage: ApiResponse<MonitorRouteInfoPage>;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;

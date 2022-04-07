@@ -2,27 +2,46 @@ package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorGroupsPage
+import kpn.api.common.monitor.MonitorRouteAdd
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
+import kpn.server.api.monitor.domain.MonitorRoute
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
+
+import scala.xml.XML
 
 @RestController
 @RequestMapping(Array("/api/monitor"))
 class MonitorController(
   facade: MonitorFacade
 ) {
+
+  @PostMapping(value = Array("changes"))
+  def changes(
+    @RequestBody parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorChangesPage] = {
+    facade.changes(CurrentUser.name, parameters)
+  }
 
   @GetMapping(value = Array("groups"))
   def groups(): ApiResponse[MonitorGroupsPage] = {
@@ -36,27 +55,29 @@ class MonitorController(
     facade.group(CurrentUser.name, groupName)
   }
 
-  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}"))
-  def route(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String
-  ): ApiResponse[MonitorRouteDetailsPage] = {
-    facade.route(CurrentUser.name, groupName + ":" + routeName)
+  //  @GetMapping(value = Array("groups/{groupName}"))
+  //  def group(@PathVariable groupName: String): ApiResponse[MonitorAdminGroupPage] = {
+  //    facade.group(CurrentUser.name, groupName)
+  //  }
+  @PostMapping(value = Array("groups"))
+  def addGroup(
+    @RequestBody group: MonitorGroup
+  ): Unit = {
+    facade.addGroup(CurrentUser.name, group)
   }
 
-  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
-  def routeMap(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String
-  ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(CurrentUser.name, groupName + ":" + routeName)
+  @PutMapping(value = Array("groups/{groupName}"))
+  def updateGroup(
+    @RequestBody group: MonitorGroup
+  ): Unit = {
+    facade.updateGroup(CurrentUser.name, group)
   }
 
-  @PostMapping(value = Array("changes"))
-  def changes(
-    @RequestBody parameters: MonitorChangesParameters
-  ): ApiResponse[MonitorChangesPage] = {
-    facade.changes(CurrentUser.name, parameters)
+  @DeleteMapping(value = Array("groups/{groupName}"))
+  def deleteGroup(
+    @PathVariable groupName: String
+  ): Unit = {
+    facade.deleteGroup(CurrentUser.name, groupName)
   }
 
   @PostMapping(value = Array("groups/{groupName}/changes"))
@@ -65,6 +86,46 @@ class MonitorController(
     @RequestBody parameters: MonitorChangesParameters
   ): ApiResponse[MonitorGroupChangesPage] = {
     facade.groupChanges(CurrentUser.name, groupName, parameters)
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}"))
+  def route(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
+  ): ApiResponse[MonitorRouteDetailsPage] = {
+    facade.route(CurrentUser.name, groupName + ":" + routeName)
+  }
+
+  @PostMapping(value = Array("groups/{groupName}"))
+  def addRoute(
+    @PathVariable groupName: String,
+    @RequestBody add: MonitorRouteAdd
+  ): Unit = {
+    facade.addRoute(CurrentUser.name, groupName, add)
+  }
+
+  @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
+  def updateRoute(
+    @PathVariable groupName: String,
+    @RequestBody route: MonitorRoute
+  ): Unit = {
+    facade.updateRoute(CurrentUser.name, groupName, route)
+  }
+
+  @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
+  def deleteRoute(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
+  ): Unit = {
+    facade.deleteRoute(CurrentUser.name, groupName, routeName)
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
+  def routeMap(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String
+  ): ApiResponse[MonitorRouteMapPage] = {
+    facade.routeMap(CurrentUser.name, groupName + ":" + routeName)
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))
@@ -83,5 +144,33 @@ class MonitorController(
     @PathVariable replicationNumber: Long
   ): ApiResponse[MonitorRouteChangePage] = {
     facade.routeChange(CurrentUser.name, monitorRouteId, changeSetId, replicationNumber)
+  }
+
+  @GetMapping(value = Array("route-info/{routeId}"))
+  def routeInfo(
+    @PathVariable routeId: Long
+  ): ApiResponse[MonitorRouteInfoPage] = {
+    facade.routeInfo(CurrentUser.name, routeId)
+  }
+
+  @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/upload"))
+  def uploadRoute(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+    @RequestParam("file") file: MultipartFile
+  ): ResponseEntity[String] = {
+    try {
+      val xml = XML.load(file.getInputStream)
+      facade.processNewReference(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
+      val message = "File successfully uploaded: " + file.getOriginalFilename
+      ResponseEntity.status(HttpStatus.OK).body(message)
+    } catch {
+      case e: Exception =>
+
+        e.printStackTrace()
+
+        val message = "Could not upload the file: " + file.getOriginalFilename + "!"
+        ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message)
+    }
   }
 }

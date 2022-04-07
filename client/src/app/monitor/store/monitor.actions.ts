@@ -1,5 +1,4 @@
 import { Bounds } from '@api/common/bounds';
-import { MonitorAdminGroupPage } from '@api/common/monitor/monitor-admin-group-page';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
@@ -40,7 +39,7 @@ export const actionMonitorGroupDeleteInit = createAction(
 
 export const actionMonitorGroupDeleteLoaded = createAction(
   '[MonitorAdminGroupDeletePage] Loaded',
-  props<{ response: ApiResponse<MonitorAdminGroupPage> }>()
+  props<{ response: ApiResponse<MonitorGroupPage> }>()
 );
 
 export const actionMonitorGroupUpdateInit = createAction(
@@ -49,7 +48,7 @@ export const actionMonitorGroupUpdateInit = createAction(
 
 export const actionMonitorGroupUpdateLoaded = createAction(
   '[MonitorAdminGroupUpdatePage] Loaded',
-  props<{ response: ApiResponse<MonitorAdminGroupPage> }>()
+  props<{ response: ApiResponse<MonitorGroupPage> }>()
 );
 
 export const actionMonitorGroupPageInit = createAction(

@@ -75,13 +75,13 @@ export class MonitorEffects {
       mergeMap(([{}, admin]) => {
         if (admin) {
           return this.monitorService
-            .monitorAdminGroups()
+            .groups()
             .pipe(
               map((response) => actionMonitorGroupsPageLoaded({ response }))
             );
         }
         return this.monitorService
-          .monitorGroups()
+          .groups()
           .pipe(map((response) => actionMonitorGroupsPageLoaded({ response })));
       })
     )
@@ -93,7 +93,7 @@ export class MonitorEffects {
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([{}, groupName]) =>
         this.monitorService
-          .monitorGroup(groupName)
+          .group(groupName)
           .pipe(map((response) => actionMonitorGroupPageLoaded({ response })))
       )
     )
@@ -118,7 +118,7 @@ export class MonitorEffects {
           impact,
         };
         return this.monitorService
-          .monitorGroupChanges(groupName, parameters)
+          .groupChanges(groupName, parameters)
           .pipe(
             map((response) => actionMonitorGroupChangesPageLoaded({ response }))
           );
@@ -132,7 +132,7 @@ export class MonitorEffects {
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([{}, groupName]) =>
         this.monitorService
-          .monitorAdminRouteGroup(groupName)
+          .group(groupName)
           .pipe(map((response) => actionMonitorGroupDeleteLoaded({ response })))
       )
     )
@@ -144,7 +144,7 @@ export class MonitorEffects {
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([{}, groupName]) =>
         this.monitorService
-          .monitorAdminRouteGroup(groupName)
+          .group(groupName)
           .pipe(map((response) => actionMonitorGroupUpdateLoaded({ response })))
       )
     )
@@ -155,7 +155,7 @@ export class MonitorEffects {
       ofType(actionMonitorRouteInfo),
       mergeMap((action) =>
         this.monitorService
-          .monitorRouteInfo(action.routeId)
+          .routeInfo(action.routeId)
           .pipe(map((response) => actionMonitorRouteInfoLoaded({ response })))
       )
     )
@@ -167,7 +167,7 @@ export class MonitorEffects {
         ofType(actionMonitorRouteAdd),
         concatLatestFrom(() => this.store.select(selectMonitorGroupName)),
         mergeMap(([action, groupName]) =>
-          this.monitorService.addMonitorRoute(groupName, action.add).pipe(
+          this.monitorService.addRoute(groupName, action.add).pipe(
             tap(() => {
               this.router.navigate([
                 `/monitor/groups/${groupName}/routes/${action.add.name}/reference`,
@@ -188,7 +188,7 @@ export class MonitorEffects {
       ]),
       mergeMap(([{}, groupName, routeName]) =>
         this.monitorService
-          .monitorRoute(groupName, routeName)
+          .route(groupName, routeName)
           .pipe(
             map((response) => actionMonitorRouteDetailsPageLoaded({ response }))
           )
@@ -206,7 +206,7 @@ export class MonitorEffects {
         ]),
         mergeMap(([{}, groupName, routeName]) =>
           this.monitorService
-            .monitorRouteDelete(groupName, routeName)
+            .deleteRoute(groupName, routeName)
             .pipe(
               tap(() => this.router.navigate([`/monitor/groups/${groupName}`]))
             )
@@ -224,7 +224,7 @@ export class MonitorEffects {
       ]),
       mergeMap(([{}, groupName, routeName]) =>
         this.monitorService
-          .monitorRoute(groupName, routeName)
+          .route(groupName, routeName)
           .pipe(
             map((response) => actionMonitorRouteDetailsPageLoaded({ response }))
           )
@@ -241,7 +241,7 @@ export class MonitorEffects {
       ]),
       mergeMap(([{}, groupName, routeName]) =>
         this.monitorService
-          .monitorRouteMap(groupName, routeName)
+          .routeMap(groupName, routeName)
           .pipe(
             map((response) => actionMonitorRouteMapPageLoaded({ response }))
           )
@@ -268,7 +268,7 @@ export class MonitorEffects {
           impact,
         };
         return this.monitorService
-          .monitorRouteChanges(monitorRouteId, parameters)
+          .routeChanges(monitorRouteId, parameters)
           .pipe(
             map((response) => actionMonitorRouteChangesPageLoaded({ response }))
           );
@@ -286,7 +286,7 @@ export class MonitorEffects {
       ]),
       mergeMap(([{}, monitorRouteId, changeSetId, replicationNumber]) =>
         this.monitorService
-          .monitorRouteChange(monitorRouteId, changeSetId, replicationNumber)
+          .routeChange(monitorRouteId, changeSetId, replicationNumber)
           .pipe(
             map((response) => actionMonitorRouteChangePageLoaded({ response }))
           )
@@ -298,9 +298,7 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupAdd),
-        concatMap((action) =>
-          this.monitorService.monitorAdminAddRouteGroup(action.group)
-        ),
+        concatMap((action) => this.monitorService.addGroup(action.group)),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }
@@ -311,7 +309,7 @@ export class MonitorEffects {
       this.actions$.pipe(
         ofType(actionMonitorGroupDelete),
         concatMap((action) =>
-          this.monitorService.monitorAdminDeleteRouteGroup(action.groupName)
+          this.monitorService.deleteGroup(action.groupName)
         ),
         tap(() => this.router.navigate(['/monitor']))
       ),
@@ -322,9 +320,7 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupUpdate),
-        concatMap((action) =>
-          this.monitorService.monitorAdminUpdateRouteGroup(action.group)
-        ),
+        concatMap((action) => this.monitorService.updateGroup(action.group)),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }
@@ -345,7 +341,7 @@ export class MonitorEffects {
           impact,
         };
         return this.monitorService
-          .monitorChanges(parameters)
+          .changes(parameters)
           .pipe(
             map((response) => actionMonitorChangesPageLoaded({ response }))
           );

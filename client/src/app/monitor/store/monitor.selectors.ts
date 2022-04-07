@@ -46,11 +46,6 @@ export const selectMonitorGroupChangesPageIndex = createSelector(
   (state: MonitorState) => state.groupChangesPageIndex
 );
 
-export const selectMonitorAdminGroupPage = createSelector(
-  selectMonitorState,
-  (state: MonitorState) => state.adminGroupPage
-);
-
 export const selectMonitorRouteInfoPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeInfoPage
