@@ -7,6 +7,7 @@ import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/core.state';
 import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
+import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
 
 @Component({
   selector: 'kpn-monitor-admin-group-add-page',
@@ -30,20 +31,49 @@ import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
       </p>
     </div>
 
-    <form [formGroup]="form" class="kpn-form">
-      <p>
+    <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
+      <div>
         <mat-form-field>
           <mat-label>Name</mat-label>
-          <input matInput [formControl]="_id" />
+          <input matInput [formControl]="_id" class="name" required />
         </mat-form-field>
-      </p>
+        <div
+          *ngIf="_id.invalid && (_id.dirty || _id.touched || ngForm.submitted)"
+          class="error"
+        >
+          <div *ngIf="_id.errors?.['required']">Name is required.</div>
+          <div *ngIf="_id.errors?.['url-fragment-invalid']">
+            Invalid name: only use alphanumeric characters and dashes.
+          </div>
+          <div *ngIf="_id.errors?.['maxlength']">
+            Too long (max= {{ _id.errors.maxlength.requiredLength }}, actual={{
+              _id.errors.maxlength.actualLength
+            }}).
+          </div>
+        </div>
+      </div>
 
-      <p>
+      <div>
         <mat-form-field class="description">
           <mat-label>Description</mat-label>
-          <input matInput [formControl]="description" />
+          <input matInput [formControl]="description" required />
         </mat-form-field>
-      </p>
+        <div
+          *ngIf="
+            description.invalid &&
+            (description.dirty || description.touched || ngForm.submitted)
+          "
+          class="error"
+        >
+          <div *ngIf="description.errors?.['required']">
+            Description is required.
+          </div>
+          <div *ngIf="description.errors?.['maxlength']">
+            Too long (max= {{ description.errors.maxlength.requiredLength }},
+            actual={{ description.errors.maxlength.actualLength }}).
+          </div>
+        </div>
+      </div>
 
       <div class="kpn-form-buttons">
         <button mat-stroked-button (click)="add()">Add group</button>
@@ -56,12 +86,29 @@ import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
       .description {
         width: 40em;
       }
+
+      .name {
+        width: 8em;
+      }
+
+      .error {
+        color: red;
+        font-size: 0.8em;
+        padding-bottom: 3em;
+      }
     `,
   ],
 })
 export class MonitorAdminGroupAddPageComponent {
-  readonly _id = new FormControl('', [Validators.required]);
-  readonly description = new FormControl('', [Validators.required]);
+  readonly _id = new FormControl('', [
+    Validators.required,
+    urlFragmentValidator,
+    Validators.maxLength(15),
+  ]);
+  readonly description = new FormControl('', [
+    Validators.required,
+    Validators.maxLength(100),
+  ]);
 
   readonly form = new FormGroup({
     _id: this._id,
@@ -71,7 +118,9 @@ export class MonitorAdminGroupAddPageComponent {
   constructor(private store: Store<AppState>) {}
 
   add(): void {
-    const group: MonitorGroup = this.form.value;
-    this.store.dispatch(actionMonitorGroupAdd({ group }));
+    if (this.form.valid) {
+      const group: MonitorGroup = this.form.value;
+      this.store.dispatch(actionMonitorGroupAdd({ group }));
+    }
   }
 }
