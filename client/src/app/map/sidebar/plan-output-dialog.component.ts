@@ -205,7 +205,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
     let root = window.location.href;
     const fragmentIndex = root.indexOf('#');
     if (fragmentIndex > 0) {
-      root = root.substr(0, fragmentIndex);
+      root = root.substring(0, fragmentIndex + 1);
     }
     return root + '#' + PlanUtil.toUrlString(this.plannerService.context.plan);
   }

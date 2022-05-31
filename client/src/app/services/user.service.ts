@@ -33,7 +33,7 @@ export class UserService {
   }
 
   registerLoginCallbackPage(): void {
-    const lang = window.location.pathname.substr(1, 2);
+    const lang = window.location.pathname.substring(1, 3);
     if (lang === 'en' || lang === 'de' || lang === 'fr' || lang === 'nl') {
       this.language = lang;
     } else {
@@ -43,7 +43,7 @@ export class UserService {
       this.loginCallbackPage = '/';
     } else {
       if (this.language.length > 0) {
-        this.loginCallbackPage = window.location.pathname.substr(3);
+        this.loginCallbackPage = window.location.pathname.substring(3);
       } else {
         this.loginCallbackPage = window.location.pathname;
       }
@@ -127,7 +127,7 @@ export class UserService {
           console.log('DEBUG authenticated success, user=' + user);
           console.log('DEBUG search=' + search);
 
-          const withoutQuestionMark = search.substr(1);
+          const withoutQuestionMark = search.substring(1);
           const firstParam = withoutQuestionMark.split('&')[0];
           const keyAndValue = firstParam.split('=');
           const page = keyAndValue[1].substring(1);

@@ -183,6 +183,6 @@ export class Util {
 
   private static format(level: number): string {
     const integer = Math.floor(level);
-    return (integer + 1000).toString().substr(1, 3);
+    return (integer + 1000).toString().substring(1, 4);
   }
 }

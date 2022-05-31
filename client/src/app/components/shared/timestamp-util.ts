@@ -2,54 +2,54 @@ import { Timestamp } from '@api/custom/timestamp';
 
 export class TimestampUtil {
   static day(timestamp: Timestamp): string {
-    return timestamp.substr(0, '2020-11-08'.length);
+    return timestamp.substring(0, '2020-11-08'.length);
   }
 
   static formatted(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(0, '2020-11-08 12:34'.length).replace('T', ' ');
+      return timestamp.substring(0, '2020-11-08 12:34'.length).replace('T', ' ');
     }
     return '';
   }
 
   static year(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(0, 4);
+      return timestamp.substring(0, 4);
     }
     return '';
   }
 
   static month(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(5, 2);
+      return timestamp.substring(5, 7);
     }
     return '';
   }
 
   static dayPart(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(8, 2);
+      return timestamp.substring(8, 10);
     }
     return '';
   }
 
   static hour(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(11, 2);
+      return timestamp.substring(11, 13);
     }
     return '';
   }
 
   static minute(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(14, 2);
+      return timestamp.substring(14, 16);
     }
     return '';
   }
 
   static second(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substr(17, 2);
+      return timestamp.substring(17, 19);
     }
     return '';
   }
