@@ -1,7 +1,7 @@
 package kpn.server.repository
 
-case class NetworkRoute(
+case class NetworkElement(
   networkId: Long,
   networkName: String,
-  routeId: Long
+  elementId: Long
 )

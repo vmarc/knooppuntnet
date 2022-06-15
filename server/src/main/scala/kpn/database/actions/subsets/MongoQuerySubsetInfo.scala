@@ -32,6 +32,7 @@ class MongoQuerySubsetInfo(database: Database) {
             "_id",
             "NetworkCount",
             "FactCount",
+            "IntegrityCheckFailedCount",
             "ChangeCount",
             "OrphanNodeCount",
             "OrphanRouteCount"
@@ -41,7 +42,8 @@ class MongoQuerySubsetInfo(database: Database) {
 
       val statisticValuess = database.statistics.aggregate[StatisticLongValues](pipeline)
       val networkCount = extractCount(subset, statisticValuess, "NetworkCount")
-      val factCount = extractCount(subset, statisticValuess, "FactCount")
+      val factCount = extractCount(subset, statisticValuess, "FactCount") +
+        extractCount(subset, statisticValuess, "IntegrityCheckFailedCount")
       val changesCount = extractCount(subset, statisticValuess, "ChangeCount")
       val orphanNodeCount = extractCount(subset, statisticValuess, "OrphanNodeCount")
       val orphanRouteCount = extractCount(subset, statisticValuess, "OrphanRouteCount")

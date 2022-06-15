@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -13,15 +14,15 @@ import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-pa
     </div>
     <div *ngIf="page.networks.length > 0">
       <div class="kpn-space-separated kpn-label">
-        <span>{{ refCount() }}</span>
+        <span>{{ refCount }}</span>
         <span *ngIf="hasNodeRefs()" i18n="@@subset-facts.node-refs"
-          >{refCount(), plural, one {node} other {nodes}}</span
+          >{refCount, plural, one {node} other {nodes}}</span
         >
         <span *ngIf="hasRouteRefs()" i18n="@@subset-facts.route-refs"
-          >{refCount(), plural, one {route} other {routes}}</span
+          >{refCount, plural, one {route} other {routes}}</span
         >
         <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs"
-          >{refCount(), plural, one {node} other {nodes}}</span
+          >{refCount, plural, one {node} other {nodes}}</span
         >
         <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs"
           >{refCount, plural, one {way} other {ways}}</span
@@ -34,6 +35,12 @@ import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-pa
         <span i18n="@@subset-facts.in-networks"
           >{page.networks.length, plural, one {in 1 network} other {in
           {{ page.networks.length }} networks}}</span
+        >
+        <span *ngIf="factCount !== refCount" i18n="@@subset-facts.fact-count"
+          >{factCount, plural, one {(1 fact)} other {({{
+            factCount
+          }}
+          facts)}}</span
         >
       </div>
 
@@ -107,17 +114,29 @@ import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-pa
   `,
   styleUrls: ['./_subset-fact-details-page.component.scss'],
 })
-export class SubsetFactDetailsComponent {
+export class SubsetFactDetailsComponent implements OnInit {
   @Input() page: SubsetFactDetailsPage;
+
+  refCount = 0;
+  factCount = 0;
+
+  ngOnInit(): void {
+    this.refCount = this.calculateRefCount();
+    this.factCount = this.calculateFactCount();
+  }
 
   factName(): string {
     return this.page.fact;
   }
 
-  refCount(): number {
+  private calculateRefCount(): number {
     return new Set(
       this.page.networks.flatMap((n) => n.factRefs.map((r) => r.id))
     ).size;
+  }
+
+  private calculateFactCount(): number {
+    return this.page.networks.flatMap((n) => n.factRefs).length;
   }
 
   hasNodeRefs(): boolean {

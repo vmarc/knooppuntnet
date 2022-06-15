@@ -35,6 +35,9 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     else if (networkFactsWithRefs.contains(fact)) {
       findNetworkFactsWithRefs(subset, fact)
     }
+    else if (Fact.IntegrityCheckFailed == fact) {
+      findNetworkIntegrityCheckFailed(subset)
+    }
     else {
       routeFactsPerNetwork(subset, fact)
     }
@@ -49,7 +52,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     val networkIds = networkRoutes.map(_.networkId).distinct.sorted
     val networkFactRefs = networkIds.map { networkId =>
       val networkName = networkRoutes.filter(_.networkId == networkId).head.networkName
-      val networkRouteIds = networkRoutes.filter(_.networkId == networkId).map(_.routeId)
+      val networkRouteIds = networkRoutes.filter(_.networkId == networkId).map(_.elementId)
       val factRefs = routeRefs.filter(ref => networkRouteIds.contains(ref.id))
       NetworkFactRefs(
         networkId,
@@ -59,7 +62,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     }.sortBy(_.networkName)
 
     val orphanRouteRefs = routeRefs.filter { ref =>
-      !networkRoutes.exists(_.routeId == ref.id)
+      !networkRoutes.exists(_.elementId == ref.id)
     }
 
     val allNetworkFactRefs = if (orphanRouteRefs.nonEmpty) {
@@ -103,7 +106,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
     }
   }
 
-  private def findNetworkRoutes(subset: Subset, routeIds: Seq[Long]): Seq[NetworkRoute] = {
+  private def findNetworkRoutes(subset: Subset, routeIds: Seq[Long]): Seq[NetworkElement] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -120,11 +123,11 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
             excludeId(),
             computed("networkId", "$_id"),
             computed("networkName", "$summary.name"),
-            computed("routeId", "$routes.id"),
+            computed("elementId", "$routes.id"),
           )
         )
       )
-      val references = database.networkInfos.aggregate[NetworkRoute](pipeline, log)
+      val references = database.networkInfos.aggregate[NetworkElement](pipeline, log)
       (s"route network references: ${references.size}", references)
     }
   }
@@ -187,6 +190,98 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
 
       val references = database.networkInfos.aggregate[NetworkFactRefs](pipeline, log)
       (s"network fact references: ${references.size}", references)
+    }
+  }
+
+  private def findNetworkIntegrityCheckFailed(subset: Subset): Seq[NetworkFactRefs] = {
+
+    val nodeRefs = findNodesWithIntegrityCheckFailed(subset)
+    val nodeIds = nodeRefs.map(_.id)
+    val networkNodes = findNetworkNodes(subset, nodeIds)
+
+    val networkIds = networkNodes.map(_.networkId).distinct.sorted
+    val networkFactRefs = networkIds.map { networkId =>
+      val networkName = networkNodes.filter(_.networkId == networkId).head.networkName
+      val networkNodeIds = networkNodes.filter(_.networkId == networkId).map(_.elementId)
+      val factRefs = nodeRefs.filter(ref => networkNodeIds.contains(ref.id)).sortBy(_.name)
+      NetworkFactRefs(
+        networkId,
+        networkName,
+        factRefs
+      )
+    }.sortBy(_.networkName)
+
+    val orphanNodeRefs = nodeRefs.filter { ref =>
+      !networkNodes.exists(_.elementId == ref.id)
+    }
+
+    val allNetworkFactRefs = if (orphanNodeRefs.nonEmpty) {
+      val nfr = NetworkFactRefs(
+        0,
+        "",
+        orphanNodeRefs
+      )
+      networkFactRefs :+ nfr
+    }
+    else {
+      networkFactRefs
+    }
+
+    allNetworkFactRefs
+  }
+
+  private def findNodesWithIntegrityCheckFailed(subset: Subset): Seq[Ref] = {
+    log.debugElapsed {
+
+      val factLabel = s"integrity-check-failed-${subset.networkType.name}"
+
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("labels", Label.active),
+            equal("labels", Label.country(subset.country)),
+            equal("labels", Label.networkType(subset.networkType)),
+            equal("labels", factLabel),
+          )
+        ),
+        unwind("$names"),
+        filter(equal("names.networkType", subset.networkType.name)),
+        project(
+          fields(
+            excludeId(),
+            computed("id", "$_id"),
+            computed("name", "$names.name"),
+          )
+        )
+      )
+      val refs = database.nodes.aggregate[Ref](pipeline, log)
+      (s"nodeRefs: ${refs.size}", refs)
+    }
+  }
+
+  private def findNetworkNodes(subset: Subset, nodeIds: Seq[Long]): Seq[NetworkElement] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("active", true),
+            equal("country", subset.country.domain),
+            equal("summary.networkType", subset.networkType.name)
+          )
+        ),
+        unwind("$nodes"),
+        filter(in("nodes.id", nodeIds: _*)),
+        project(
+          fields(
+            excludeId(),
+            computed("networkId", "$_id"),
+            computed("networkName", "$summary.name"),
+            computed("elementId", "$nodes.id"),
+          )
+        )
+      )
+      val references = database.networkInfos.aggregate[NetworkElement](pipeline, log)
+      (s"node network references: ${references.size}", references)
     }
   }
 }
