@@ -72,7 +72,7 @@ Reset previous database contents:
 
 Download and merge OpenStreetMap data from geofabrik:
 
-    01-download.sh
+    /kpn/scripts/01-download.sh
 
 ll -h *.pbf
 
@@ -103,10 +103,10 @@ Only first time:
     
         use this manually determined BBOX instead:
 
-        left -9.3 bottom 36.0 right 17.3 top 55.15
-        BBOX=-9.3,36.0,17.3,55.15
+        left -9.3 bottom 36.0 right 24.5 top 55.15
+        BBOX=-9.3,36.0,24.5,55.15
         https://www.latlong.net/c/?lat=36.0&long=-9.3
-        https://www.latlong.net/c/?lat=55.15&long=17.3
+        https://www.latlong.net/c/?lat=55.15&long=24.5
 
 
     Update .env file with bounding box.
@@ -148,7 +148,7 @@ Copy tiles to kpn server, on kpn server:
 	cd /kpn/tiles-install
   rm -rf *
 
-	/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
+	/kpn/soft/mbutil/mb-util `/kpn/openmaptiles/data/`tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
 Make productive:
 

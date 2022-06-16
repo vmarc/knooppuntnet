@@ -6,6 +6,7 @@ wget http://download.geofabrik.de/europe/france-latest.osm.pbf
 wget http://download.geofabrik.de/europe/austria-latest.osm.pbf
 wget http://download.geofabrik.de/europe/spain-latest.osm.pbf
 wget http://download.geofabrik.de/europe/luxembourg-latest.osm.pbf
+wget http://download.geofabrik.de/europe/poland-latest.osm.pbf
 osmium merge \
   belgium-latest.osm.pbf \
   netherlands-latest.osm.pbf \
@@ -14,4 +15,5 @@ osmium merge \
   austria-latest.osm.pbf \
   spain-latest.osm.pbf \
   luxembourg-latest.osm.pbf \
+  poland-latest.osm.pbf \
   -o all.osm.pbf

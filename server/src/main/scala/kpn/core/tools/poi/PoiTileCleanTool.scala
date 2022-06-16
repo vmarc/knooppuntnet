@@ -14,7 +14,7 @@ import kpn.server.repository.PoiRepositoryImpl
 object PoiTileCleanTool {
   def main(args: Array[String]): Unit = {
     println("Start")
-    Mongo.executeIn("kpn-test") { poiDatabase =>
+    Mongo.executeIn("kpn-prod") { poiDatabase =>
       val poiRepository = new PoiRepositoryImpl(poiDatabase)
       val tileFileRepository = new TileFileRepositoryImpl("/kpn/tiles", "mvt")
       new PoiTileCleanTool(poiRepository, tileFileRepository).clean()

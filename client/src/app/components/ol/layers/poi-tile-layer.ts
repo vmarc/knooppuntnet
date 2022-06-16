@@ -11,7 +11,7 @@ export class PoiTileLayer {
       minZoom: ZoomLevel.poiTileMinZoom,
       maxZoom: ZoomLevel.poiTileMaxZoom,
       format: new MVT(),
-      url: '/tiles-experimental/poi/{z}/{x}/{y}.mvt',
+      url: '/tiles-history/poi/{z}/{x}/{y}.mvt',
     });
 
     return new VectorTileLayer({

@@ -7,7 +7,7 @@ nohup /kpn/java/bin/java \
   -Dcom.sun.management.jmxremote.port=5105 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \
-  -cp /kpn/bin/dist/server-4.0.0-snapshot.17.jar \
+  -cp /kpn/bin/server-history.jar \
   -Dloader.main=kpn.core.tools.poi.PoiAnalyzerTool org.springframework.boot.loader.PropertiesLauncher \
-  --poi-database kpn-history \
+  --poi-database kpn-prod \
   > /kpn/logs/poi-analyzer-tool-stdout.log 2>&1 &

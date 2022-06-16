@@ -11,6 +11,6 @@ nohup /kpn/java/bin/java \
   -Dloader.main=kpn.core.tools.poi.PoiTileUpdateTool org.springframework.boot.loader.PropertiesLauncher \
   --tile-dir /kpn/tiles-history \
   --host kpn-web \
-  --poi-database kpn-history \
-  --task-database kpn-history \
+  --poi-database kpn-prod \
+  --task-database kpn-prod \
   > /kpn/logs/poi-tile-update-tool-stdout.log 2>&1 &

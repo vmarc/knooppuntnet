@@ -12,7 +12,7 @@ PROXY_CONFIG = {
     changeOrigin: true,
     secure: false,
   },
-  '/tiles-experimental/**': {
+  '/tiles-history/**': {
     target: 'https://experimental.knooppuntnet.nl',
     changeOrigin: true,
     secure: false,
