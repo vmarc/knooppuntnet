@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
@@ -58,10 +58,10 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
   ],
 })
 export class MonitorAdminGroupUpdatePageComponent implements OnInit {
-  readonly _id = new FormControl('');
-  readonly description = new FormControl('', [Validators.required]);
+  readonly _id = new UntypedFormControl('');
+  readonly description = new UntypedFormControl('', [Validators.required]);
 
-  readonly form = new FormGroup({
+  readonly form = new UntypedFormGroup({
     _id: this._id,
     description: this.description,
   });

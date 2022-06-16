@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/core.state';
@@ -100,17 +100,17 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
   ],
 })
 export class MonitorAdminGroupAddPageComponent {
-  readonly _id = new FormControl('', [
+  readonly _id = new UntypedFormControl('', [
     Validators.required,
     urlFragmentValidator,
     Validators.maxLength(15),
   ]);
-  readonly description = new FormControl('', [
+  readonly description = new UntypedFormControl('', [
     Validators.required,
     Validators.maxLength(100),
   ]);
 
-  readonly form = new FormGroup({
+  readonly form = new UntypedFormGroup({
     _id: this._id,
     description: this.description,
   });

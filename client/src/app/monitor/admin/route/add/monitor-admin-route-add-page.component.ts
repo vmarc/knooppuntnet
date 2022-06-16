@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio/radio';
 import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { Store } from '@ngrx/store';
@@ -113,11 +113,11 @@ export class MonitorAdminRouteAddPageComponent {
     map((groupName) => `/monitor/groups/${groupName}`)
   );
 
-  readonly routeId = new FormControl('', [Validators.required]);
-  readonly name = new FormControl('', [Validators.required]);
-  readonly description = new FormControl('', [Validators.required]);
+  readonly routeId = new UntypedFormControl('', [Validators.required]);
+  readonly name = new UntypedFormControl('', [Validators.required]);
+  readonly description = new UntypedFormControl('', [Validators.required]);
 
-  readonly form = new FormGroup({
+  readonly form = new UntypedFormGroup({
     routeId: this.routeId,
     name: this.name,
     description: this.description,

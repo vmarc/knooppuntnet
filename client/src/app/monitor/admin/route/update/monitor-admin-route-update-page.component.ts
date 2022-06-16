@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 
 @Component({
@@ -46,7 +46,7 @@ export class MonitorAdminRouteUpdatePageComponent {
   readonly groupLink$ = of('/monitor/groups/group-1');
   readonly routeName$ = of('GR05 Vlaanderen');
 
-  readonly form = new FormGroup({
+  readonly form = new UntypedFormGroup({
     // routeId: this.routeId
   });
 

@@ -15,7 +15,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "module": "es2020",
-    "target": "es5",
+    "target": "es2020",
     "typeRoots": [
       "node_modules/@types"
     ],

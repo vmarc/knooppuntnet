@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { LocationNode } from '@api/common/location/location-node';
 import { Country } from '@api/custom/country';
 import { Observable } from 'rxjs';
@@ -87,11 +87,11 @@ export class LocationSelectorComponent implements OnInit {
   warningSelectionMandatory = false;
   warningSelectionInvalid = false;
   options: LocationOption[] = [];
-  locationInputControl = new FormControl();
+  locationInputControl = new UntypedFormControl();
   filteredOptions: Observable<LocationOption[]>;
-  readonly formGroup: FormGroup;
+  readonly formGroup: UntypedFormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: UntypedFormBuilder) {
     this.formGroup = this.fb.group({
       locationInputControl: this.locationInputControl,
     });
