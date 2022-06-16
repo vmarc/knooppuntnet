@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 /*
   style object copied from osm-liberty project style.json
 

@@ -7,5 +7,5 @@ export const urlFragmentValidator: ValidatorFn = (c: AbstractControl) => {
   if (!value || value.length === 0 || regex.test(value)) {
     return null;
   }
-  return { 'url-fragment-invalid': { value } };
+  return { urlFragmentInvalid: { value } };
 };

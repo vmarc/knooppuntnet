@@ -42,7 +42,7 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
           class="error"
         >
           <div *ngIf="_id.errors?.['required']">Name is required.</div>
-          <div *ngIf="_id.errors?.['url-fragment-invalid']">
+          <div *ngIf="_id.errors?.['urlFragmentInvalid']">
             Invalid name: only use alphanumeric characters and dashes.
           </div>
           <div *ngIf="_id.errors?.['maxlength']">
