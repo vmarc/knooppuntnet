@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatRadioChange } from '@angular/material/radio/radio';
+import { MatRadioChange } from '@angular/material/radio';
 import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';

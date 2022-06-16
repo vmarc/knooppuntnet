@@ -1,7 +1,7 @@
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox/checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { LocationEditPage } from '@api/common/location/location-edit-page';
 import { Store } from '@ngrx/store';
 import { Range } from 'immutable';

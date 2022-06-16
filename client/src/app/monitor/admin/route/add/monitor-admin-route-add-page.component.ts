@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { UntypedFormControl } from '@angular/forms';
 import { UntypedFormGroup } from '@angular/forms';
-import { MatRadioChange } from '@angular/material/radio/radio';
+import { MatRadioChange } from '@angular/material/radio';
 import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';

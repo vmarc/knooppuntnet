@@ -1,6 +1,5 @@
 import { PlanNode } from '@api/common/planner/plan-node';
 import * as Sentry from '@sentry/angular';
-import { Severity } from '@sentry/types/dist/severity';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { NodeClick } from '../../../components/ol/domain/node-click';
@@ -274,7 +273,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     const leg = Features.findLeg(features);
     if (leg != null) {
       this.breadcrumb('down event leg', {
-        'feature-id': leg?.id,
+        featureId: leg?.id,
         plan: this.planSummary(),
       });
 
@@ -447,9 +446,9 @@ export class PlannerEngineImpl implements PlannerEngine {
   ): boolean {
     this.breadcrumb('single click event network node', {
       modifierKeyOnly,
-      'feature-id': networkNode?.node?.featureId,
-      'node-id': networkNode?.node?.nodeId,
-      'node-name': networkNode?.node?.nodeName,
+      featureId: networkNode?.node?.featureId,
+      nodeId: networkNode?.node?.nodeId,
+      nodeName: networkNode?.node?.nodeName,
       coordinate: Util.coordinateToString(networkNode?.node?.coordinate),
       plan: this.planSummary(),
     });
@@ -475,8 +474,8 @@ export class PlannerEngineImpl implements PlannerEngine {
         );
         if (legIndex >= 0) {
           this.breadcrumb('single click via flag', {
-            'flag-type': flag.flagType,
-            'flag-feature-id': flag.id,
+            flagType: flag.flagType,
+            flagFeatureId: flag.id,
             coordinate: Util.coordinateToString(coordinate),
             plan: this.planSummary(),
           });
@@ -500,8 +499,8 @@ export class PlannerEngineImpl implements PlannerEngine {
     ).dragStarted(flag);
     if (localViaRouteDrag !== null) {
       this.breadcrumb('single click route flag', {
-        'flag-type': flag.flagType,
-        'flag-feature-id': flag.id,
+        flagType: flag.flagType,
+        flagFeatureId: flag.id,
         coordinate: Util.coordinateToString(coordinate),
         plan: this.planSummary(),
       });
@@ -604,8 +603,8 @@ export class PlannerEngineImpl implements PlannerEngine {
 
   private flagDragStarted(flag: FlagFeature, coordinate: Coordinate): boolean {
     this.breadcrumb('flag drag started', {
-      'flag-type': flag.flagType,
-      'flag-feature-id': flag.id,
+      flagType: flag.flagType,
+      flagFeatureId: flag.id,
       coordinate: Util.coordinateToString(coordinate),
       plan: this.planSummary(),
     });
@@ -780,7 +779,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     Sentry.addBreadcrumb({
       type: 'user',
       category: 'action',
-      level: Severity.Info,
+      level: 'info',
       message,
       data,
     });

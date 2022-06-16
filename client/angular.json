@@ -69,7 +69,7 @@
               "node_modules/ol-geocoder/dist/ol-geocoder.css"
             ],
             "scripts": [
-              "node_modules/marked/lib/marked.js"
+              "node_modules/marked/marked.min.js"
             ],
             "vendorChunk": true,
             "extractLicenses": false,

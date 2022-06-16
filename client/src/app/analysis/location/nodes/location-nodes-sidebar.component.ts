@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio/radio';
+import { MatRadioChange } from '@angular/material/radio';
 import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
