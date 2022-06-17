@@ -17,7 +17,7 @@ import scala.io.Source
 object PoiImageUrlExportTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn") { database =>
-      new PoiImageUrlExportTool(database).export()
+      new PoiImageUrlExportTool(database).exportPois()
     }
   }
 }
@@ -28,7 +28,7 @@ class PoiImageUrlExportTool(database: Database) {
   private val log = Log(classOf[PoiImageUrlExportTool])
   private val out = new PrintWriter(new FileWriter("/kpn/pois/poi-links.txt"))
 
-  def export(): Unit = {
+  def exportPois(): Unit = {
     try {
       val allPoiIds = readPoiIds()
       log.info(s"Processing ${allPoiIds.size} pois")

@@ -82,7 +82,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changeSet(changeSetId, None).shouldMatchTo (
+      repository.changeSet(changeSetId, None) should equal (
         Seq(
           ChangeSetData(
             changeSetSummary1,
@@ -97,7 +97,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
             Seq(nodeChange2)
           )
         )
-        )
+      )
     }
   }
 
@@ -186,7 +186,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveChangeSetSummary(summary(4, 4, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2016, 1, 1)))
       repository.saveChangeSetSummary(summary(5, 5, subsets = Seq(Subset.beHiking), timestamp = Timestamp(2016, 2, 1)))
 
-      repository.changesFilter(None, None, None, None).shouldMatchTo(
+      repository.changesFilter(None, None, None, None) should equal(
         Seq(
           ChangesFilterOption("all", "all", None, None, None, 5, 5, current = true),
           ChangesFilterOption("year", "2016", Some(2016), None, None, 2, 2),
@@ -194,14 +194,14 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changesFilter(Some(Subset.nlHiking), None, None, None).shouldMatchTo(
+      repository.changesFilter(Some(Subset.nlHiking), None, None, None) should equal(
         Seq(
           ChangesFilterOption("all", "all", None, None, None, 2, 2, current = true),
           ChangesFilterOption("year", "2015", Some(2015), None, None, 2, 2)
         )
       )
 
-      repository.changesFilter(Some(Subset.beHiking), Some(2016), None, None).shouldMatchTo(
+      repository.changesFilter(Some(Subset.beHiking), Some(2016), None, None) should equal(
         Seq(
           ChangesFilterOption("all", "all", None, None, None, 3, 3),
           ChangesFilterOption("year", "2016", Some(2016), None, None, 2, 2, current = true),
@@ -211,7 +211,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changesFilter(Some(Subset.beHiking), Some(2016), Some(1), None).shouldMatchTo(
+      repository.changesFilter(Some(Subset.beHiking), Some(2016), Some(1), None) should equal(
         Seq(
           ChangesFilterOption("all", "all", None, None, None, 3, 3),
           ChangesFilterOption("year", "2016", Some(2016), None, None, 2, 2),
@@ -222,7 +222,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changesFilter(Some(Subset.beHiking), Some(2016), Some(1), Some(1)).shouldMatchTo(
+      repository.changesFilter(Some(Subset.beHiking), Some(2016), Some(1), Some(1)) should equal(
         Seq(
           ChangesFilterOption("all", "all", None, None, None, 3, 3),
           ChangesFilterOption("year", "2016", Some(2016), None, None, 2, 2),
@@ -234,6 +234,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       )
     }
   }
+
 
   test("nodeChangesCount") {
 

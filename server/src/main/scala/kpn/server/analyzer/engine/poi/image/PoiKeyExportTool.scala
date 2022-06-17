@@ -14,7 +14,7 @@ import java.io.PrintWriter
 object PoiKeyExportTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn") { database =>
-      new PoiKeyExportTool(database).export()
+      new PoiKeyExportTool(database).exportPoiKeys()
     }
   }
 }
@@ -23,7 +23,7 @@ class PoiKeyExportTool(database: Database) {
 
   private val log = Log(classOf[PoiKeyExportTool])
 
-  def export(): Unit = {
+  def exportPoiKeys(): Unit = {
     val poiRefStrings = log.infoElapsed {
       val pipeline = Seq(
         project(

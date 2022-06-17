@@ -8,7 +8,7 @@ import kpn.database.actions.locations.MongoQueryLocationChanges.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import org.mongodb.scala.Document
-import org.mongodb.scala.bson.conversions.Bson
+import org.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
