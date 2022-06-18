@@ -92,17 +92,6 @@ export class OverviewConfigurationService {
 
     configurations.push(
       new StatisticConfiguration(
-        'RouteBrokenNetworkCount',
-        '',
-        false,
-        null,
-        $localize`:@@stats.route-broken-network-count.name:RouteBrokenNetworkCount`,
-        $localize`:@@stats.route-broken-network-count.comment:Number of networks containing routes with issues.`
-      )
-    );
-
-    configurations.push(
-      new StatisticConfiguration(
         'RouteBrokenCount',
         '',
         false,
