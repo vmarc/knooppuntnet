@@ -13,9 +13,9 @@ export class OverviewConfigurationService {
   );
 
   private buildStatisticConfigurations(): StatisticConfiguration[] {
-    const networks = (factId: string, subset: Subset) =>
+    const networks = (_factId: string, subset: Subset) =>
       Subsets.key(subset) + '/networks';
-    const orphanNodes = (factId: string, subset: Subset) =>
+    const orphanNodes = (_factId: string, subset: Subset) =>
       Subsets.key(subset) + '/orphan-nodes';
     const orphanRoutes = (factId: string, subset: Subset) =>
       Subsets.key(subset) + '/orphan-routes';
@@ -65,17 +65,6 @@ export class OverviewConfigurationService {
         null,
         $localize`:@@stats.route-count.name:Route count`,
         $localize`:@@stats.route-count.comment:Number of routes.`
-      )
-    );
-
-    configurations.push(
-      new StatisticConfiguration(
-        'RouteNotContiniousNetworkCount',
-        '',
-        false,
-        null,
-        $localize`:@@stats.route-not-continious-network-count.name:RouteNotContiniousNetworkCount`,
-        $localize`:@@stats.route-not-continious-network-count.comment:Number of networks with broken routes.`
       )
     );
 
