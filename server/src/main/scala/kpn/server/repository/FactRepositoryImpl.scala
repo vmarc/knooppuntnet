@@ -43,7 +43,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         networkName,
         factRefs
       )
-    }
+    }.sortBy(_.networkName)
 
     val orphanRouteRefs = routeRefs.filter { ref =>
       !networkRoutes.exists(_.routeId == ref.id)
