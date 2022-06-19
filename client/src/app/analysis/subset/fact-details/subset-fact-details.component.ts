@@ -2,8 +2,6 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
-import { List } from 'immutable';
-import { Util } from '../../../components/shared/util';
 
 @Component({
   selector: 'kpn-subset-fact-details',
@@ -117,7 +115,9 @@ export class SubsetFactDetailsComponent {
   }
 
   refCount(): number {
-    return Util.sum(List(this.page.networks.map((n) => n.factRefs.length)));
+    return new Set(
+      this.page.networks.flatMap((n) => n.factRefs.map((r) => r.id))
+    ).size;
   }
 
   hasNodeRefs(): boolean {
