@@ -7,7 +7,7 @@ import { Stat } from '../domain/stat';
   selector: 'kpn-overview-value',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a *ngIf="hasLink()" [routerLink]="link()">{{ value() }}</a>
+    <a *ngIf="hasLink()" [routerLink]="link()">{{ value() | statistic }}</a>
     <span *ngIf="!hasLink()">{{ value() | statistic }}</span>
   `,
   styles: [
