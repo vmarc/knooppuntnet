@@ -1,27 +1,13 @@
 package kpn.server.analyzer.engine.analysis.post
 
-import kpn.database.base.Database
-import kpn.database.base.Id
-import kpn.core.doc.Label
-import kpn.core.doc.OrphanRouteDoc
-import kpn.database.util.Mongo
 import kpn.core.util.Log
-import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.out
-import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
-import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.exists
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Projections.include
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import org.springframework.stereotype.Component
 
 object OrphanRouteUpdater {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
+    Mongo.executeIn("kpn-3") { database =>
       new OrphanRouteUpdater(database).update()
     }
   }
