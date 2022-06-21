@@ -90,7 +90,7 @@ import { PoiService } from '../../services/poi.service';
     <div *ngIf="poi.image" class="item">
       <a [href]="poi.image" target="_blank" rel="nofollow noreferrer">
         <img
-          [src]="thumbnailImage(poi.image)"
+          [src]="poi.imageThumbnail"
           width="inherit"
           height="100px"
           alt="image"
@@ -212,15 +212,5 @@ export class PoiAnalysisComponent {
 
   emailLink(): string {
     return 'mailto:' + this.poi.email;
-  }
-
-  thumbnailImage(uncached: string): string {
-    if (this.poi.imageThumbnail) {
-      return /*window.location.origin +*/ this.poi.imageThumbnail.replaceAll(
-        'images',
-        'images-experimental'
-      );
-    }
-    return uncached;
   }
 }

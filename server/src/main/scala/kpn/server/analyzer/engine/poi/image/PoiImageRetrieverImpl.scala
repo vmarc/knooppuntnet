@@ -5,13 +5,14 @@ import com.sksamuel.scrimage.nio.JpegWriter
 import kpn.api.common.PoiState
 import kpn.core.common.Time
 import kpn.core.util.Log
-import kpn.database.base.Database
 import kpn.server.analyzer.engine.poi.PoiRef
+import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.http.converter.ByteArrayHttpMessageConverter
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.converter.StringHttpMessageConverter
@@ -19,12 +20,27 @@ import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 
 import java.nio.charset.Charset
+import java.time.Duration
 
 class PoiImageRetrieverImpl(
   poiImageRepository: PoiImageRepositoryImpl
 ) {
 
-  private val restTemplate = new RestTemplate(converters)
+  private val restTemplate = {
+//    val httpRequestFactory = new HttpComponentsClientHttpRequestFactory()
+//    httpRequestFactory.setConnectionRequestTimeout(15 * 1000)
+//    httpRequestFactory.setConnectTimeout(15 * 1000)
+//    httpRequestFactory.setReadTimeout(15 * 1000)
+//    httpRequestFactory.messageConverters(converters)
+//    new RestTemplate(httpRequestFactory);
+
+
+    val b = new RestTemplateBuilder()
+    b.setConnectTimeout(Duration.ofSeconds(15))
+    b.setReadTimeout(Duration.ofSeconds(15))
+    b.messageConverters(converters)
+    b.build()
+  }
   private val log = Log(classOf[PoiImageRetrieverImpl])
 
   def retrieveImage(poiRef: PoiRef, url: String): PoiState = {

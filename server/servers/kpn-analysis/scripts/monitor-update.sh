@@ -5,6 +5,6 @@ nohup /kpn/java/bin/java \
   -Xms1024M \
   -Xmx6G \
   -Xss128M \
-  -cp /kpn/bin/server-experimental.jar \
+  -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.core.tools.monitor.MonitorDemoUpdateTool org.springframework.boot.loader.PropertiesLauncher \
   -d kpn-3 >> /kpn/logs/monitor-update-tool-stdout.log 2>&1 &

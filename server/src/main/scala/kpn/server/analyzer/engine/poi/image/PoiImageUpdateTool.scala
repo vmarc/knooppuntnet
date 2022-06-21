@@ -11,7 +11,11 @@ import scala.annotation.tailrec
 
 object PoiImageUpdateTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
+
+    System.setProperty("sun.net.client.defaultConnectTimeout", "15000")
+    System.setProperty("sun.net.client.defaultReadTimeout", "15000")
+
+    Mongo.executeIn("kpn-prod") { database =>
       new PoiImageUpdateTool(database).update()
     }
   }
@@ -35,7 +39,7 @@ class PoiImageUpdateTool(database: Database) {
 
   @tailrec
   private def update(urlsByHost: Map[String, Seq[PoiLink]]): Unit = {
-    val newUrlsByHost = urlsByHost.flatMap { case (host, poiLinks) =>
+    val remainingUrlsByHost = urlsByHost.flatMap { case (host, poiLinks) =>
       if (poiLinks.isEmpty) {
         None
       }
@@ -52,7 +56,7 @@ class PoiImageUpdateTool(database: Database) {
       }
     }
     Thread.sleep(5 * 1000)
-    update(newUrlsByHost)
+    update(remainingUrlsByHost)
   }
 
   private def update(poiLink: PoiLink): PoiState = {

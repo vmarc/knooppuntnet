@@ -22,11 +22,6 @@ PROXY_CONFIG = {
     changeOrigin: true,
     secure: false,
   },
-  '/images-experimental/**': {
-    target: 'https://experimental.knooppuntnet.nl',
-    changeOrigin: true,
-    secure: false,
-  },
   '/videos/**': {
     target: 'https://experimental.knooppuntnet.nl',
     changeOrigin: true,

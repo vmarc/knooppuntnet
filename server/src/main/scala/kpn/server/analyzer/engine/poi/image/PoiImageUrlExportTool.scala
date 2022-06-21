@@ -16,7 +16,7 @@ import scala.io.Source
 
 object PoiImageUrlExportTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn") { database =>
+    Mongo.executeIn("kpn-prod") { database =>
       new PoiImageUrlExportTool(database).exportPois()
     }
   }
