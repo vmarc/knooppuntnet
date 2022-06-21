@@ -163,17 +163,6 @@ export class OverviewConfigurationService {
 
     configurations.push(
       new StatisticConfiguration(
-        'OrphanRouteKm',
-        '',
-        false,
-        null,
-        $localize`:@@stats.orphan-route-km.name:Free route length (km)`,
-        $localize`:@@stats.orphan-route-km.comment:Total length (km) of the free routes (not included in network length above).`
-      )
-    );
-
-    configurations.push(
-      new StatisticConfiguration(
         'IntegrityCheckNetworkCount',
         '',
         false,
