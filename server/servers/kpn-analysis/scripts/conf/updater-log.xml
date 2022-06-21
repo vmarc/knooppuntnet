@@ -10,7 +10,7 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="trace">
+        <Root level="info">
             <AppenderRef ref="RollingFile"/>
         </Root>
         <Logger name="kpn" level="info"/>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" monitorInterval="30">
     <Appenders>
-        <RollingFile name="File" fileName="/kpn/logs/server.log"
-                     filePattern="/kpn/logs/server-%i.log.gz">
+        <RollingFile name="File" fileName="/kpn/logs/server-old.log"
+                     filePattern="/kpn/logs/server-old-%i.log.gz">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %20.20t %x %logger{1} - %msg%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
@@ -16,6 +16,9 @@
 
         <Logger name="kpn" level="info"/>
         <Logger name="org" level="info"/>
+
+        <Logger name="kpn.server.analyzer.engine.analysis.node.NodeRouteUpdaterImpl" level="debug"/>
+        <Logger name="kpn.server.analyzer.engine.tile.TileUpdaterImpl" level="debug"/>
 
         <Logger name="kpn.core.overpass.OverpassQueryExecutorImpl" level="info"/>
 
@@ -33,8 +36,10 @@
 
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanRouteProcessorImpl" level="debug"/>
         <Logger name="kpn.core.tools.changes.network.update.NetworkUpdateOrphanNodeProcessorImpl" level="debug"/>
-        <Logger name="kpn.core.repository.RouteRepositoryImpl" level="debug"/>
-        <Logger name="kpn.core.repository.NodeRepositoryImpl" level="debug"/>
+
+        <Logger name="kpn.server.repository.NetworkRepositoryImpl" level="info"/>
+        <Logger name="kpn.server.repository.RouteRepositoryImpl" level="info"/>
+        <Logger name="kpn.server.repository.NodeRepositoryImpl" level="info"/>
 
         <Logger name="kpn.core.engine.RouteAnalysisUpdater" level="error"/>
 
@@ -46,9 +51,6 @@
         <Logger name="kpn.core.tools.changes.orphan.node.OrphanNodeChangeAnalyzerImpl" level="debug"/>
 
         <Logger name="kpn.server.repository.RouteRepository" level="info"/>
-
-        <Logger name="kpn.server.analyzer.engine.changes.changes.ChangeSetInfoEngine" level="debug"/>
-        <Logger name="kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl" level="debug"/>
 
     </Loggers>
 </Configuration>
