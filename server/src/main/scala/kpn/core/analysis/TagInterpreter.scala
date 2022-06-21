@@ -159,7 +159,7 @@ object TagInterpreter {
 
   private def isMap(node: Node): Boolean = {
     node.tags.has("tourism", "information") &&
-      (node.tags.has("information", "map") || node.tags.has("information", "guidepost"))
+      (node.tags.has("information", "map") || node.tags.has("information", "guidepost", "board"))
   }
 
   private def hasNetworkTag(networkType: NetworkType, element: Tagable): Boolean = {

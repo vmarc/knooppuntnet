@@ -87,6 +87,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
     // map
     assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "map")))
     assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "guidepost")))
+    assert(!isUnexpectedNode(Tags.from("tourism" -> "information", "information" -> "board")))
 
     // actual node
     assert(!isUnexpectedNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
