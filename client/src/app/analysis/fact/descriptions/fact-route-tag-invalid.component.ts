@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
       tag: *"foot"*, *"hiking"*, or *"walking"*. Note that *"walking"* is a
       value that is frequently found, but not actually documented as a valid
       value in the OSM wiki pages. Other potential values are *"horse"*,
-      *"motorboat"*, *"canoe"* and *"inline*skates"*.
+      *"motorboat"*, *"canoe"* and *"inline_skates"*.
     </markdown>
   `,
 })
