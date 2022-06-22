@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -56,10 +55,6 @@ import { SpinnerService } from './spinner/spinner.service';
     }),
   ],
   providers: [
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'outline' },
-    },
     {
       provide: ErrorHandler,
       useValue: Sentry.createErrorHandler({
