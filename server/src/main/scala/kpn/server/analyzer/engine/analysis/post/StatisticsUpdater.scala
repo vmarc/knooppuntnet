@@ -21,6 +21,7 @@ import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
+import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Filters.notEqual
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -43,6 +44,7 @@ class StatisticsUpdater(database: Database) {
   private val log = Log(classOf[StatisticsUpdater])
 
   def execute(): Unit = {
+
     log.debugElapsed {
       val pipeline = Seq(
         pipelineNodeCount(),
@@ -53,6 +55,9 @@ class StatisticsUpdater(database: Database) {
         Seq(unionWith(database.routes.name, pipelineRouteFacts(): _*)),
         Seq(unionWith(database.routes.name, pipelineRouteDistance(): _*)),
         Seq(unionWith(database.networkInfos.name, pipelineNetworkCount(): _*)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts(): _*)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts2(): _*)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts3(): _*)),
         Seq(unionWith(database.networkInfos.name, factCountPipeline(): _*)),
         Seq(unionWith(database.changes.name, pipelineChangeCount(): _*)),
         Seq(out(database.statistics.name))
@@ -205,6 +210,174 @@ class StatisticsUpdater(database: Database) {
         push("values", "$values")
       )
     )
+  }
+
+  private def pipelineNetworkFacts(): Seq[Bson] = {
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          exists("country"),
+          exists("summary.networkType"),
+          exists("facts")
+        )
+      ),
+      unwind("$facts"),
+      filter(
+        in(
+          "facts.name",
+          "NetworkExtraMemberNode",
+          "NetworkExtraMemberWay",
+          "NetworkExtraMemberRelation",
+        )
+      ),
+      project(
+        fields(
+          computed("factName", "$facts.name"),
+          include("country"),
+          computed("networkType", "$summary.networkType"),
+          BsonDocument("""{"factCount": { "$size": "$facts.elementIds" }}""")
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType",
+          "factName" -> "$factName"
+        ),
+        sum("value", "$factCount")
+      ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          concat("factName", "$_id.factName", "Count"),
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "$factName",
+        push("values", "$values")
+      )
+    )
+  }
+
+  private def pipelineNetworkFacts2(): Seq[Bson] = {
+
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          exists("country"),
+          exists("summary.networkType"),
+          exists("facts")
+        )
+      ),
+      unwind("$facts"),
+      filter(
+        in(
+          "facts.name",
+          "NodeMemberMissing",
+        )
+      ),
+      project(
+        fields(
+          computed("factName", "$facts.name"),
+          include("country"),
+          computed("networkType", "$summary.networkType"),
+          BsonDocument("""{"factCount": { "$size": "$facts.elements" }}""")
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType",
+          "factName" -> "$factName"
+        ),
+        sum("value", "$factCount")
+      ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          concat("factName", "$_id.factName", "Count"),
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "$factName",
+        push("values", "$values")
+      )
+    )
+  }
+
+  private def pipelineNetworkFacts3(): Seq[Bson] = {
+
+    Seq(
+      filter(
+        and(
+          equal("active", true),
+          exists("country"),
+          exists("summary.networkType"),
+          exists("facts")
+        )
+      ),
+      unwind("$facts"),
+      filter(
+        in(
+          "facts.name",
+          "NameMissing",
+        )
+      ),
+      project(
+        fields(
+          computed("factName", "$facts.name"),
+          include("country"),
+          computed("networkType", "$summary.networkType"),
+          computed("factCount", 1)
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType",
+          "factName" -> "$factName"
+        ),
+        sum("value", "$factCount")
+      ),
+      sort(orderBy(ascending("_id"))),
+      project(
+        fields(
+          concat("factName", "$_id.factName", "Count"),
+          computed(
+            "values",
+            fields(
+              computed("country", "$_id.country"),
+              computed("networkType", "$_id.networkType"),
+              computed("value", "$value")
+            )
+          )
+        )
+      ),
+      group(
+        "$factName",
+        push("values", "$values")
+      )
+    )
+
+
   }
 
   private def pipelineRouteDistance(): Seq[Bson] = {

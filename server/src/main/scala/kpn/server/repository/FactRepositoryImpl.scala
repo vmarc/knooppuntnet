@@ -18,13 +18,26 @@ import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.springframework.stereotype.Component
 
+case class NetworkFactElementIds(networkId: Long, networkName: String, elementIds: Seq[Long] = Seq.empty)
+
 @Component
 class FactRepositoryImpl(database: Database) extends FactRepository {
 
   private val log = Log(classOf[FactRepositoryImpl])
 
+  private val networkFactsWithElementIds = Seq(Fact.NetworkExtraMemberNode, Fact.NetworkExtraMemberWay, Fact.NetworkExtraMemberRelation)
+  private val networkFactsWithRefs = Seq(Fact.NodeMemberMissing)
+
   override def factsPerNetwork(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
-    routeFactsPerNetwork(subset, fact)
+    if (networkFactsWithElementIds.contains(fact)) {
+      findNetworkFactsWithElementIds(subset, fact)
+    }
+    else if (networkFactsWithRefs.contains(fact)) {
+      findNetworkFactsWithRefs(subset, fact)
+    }
+    else {
+      routeFactsPerNetwork(subset, fact)
+    }
   }
 
   private def routeFactsPerNetwork(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
@@ -113,6 +126,67 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
       )
       val references = database.networkInfos.aggregate[NetworkRoute](pipeline, log)
       (s"route network references: ${references.size}", references)
+    }
+  }
+
+  private def findNetworkFactsWithElementIds(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("active", true),
+            equal("country", subset.country.domain),
+            equal("summary.networkType", subset.networkType.name)
+          )
+        ),
+        unwind("$facts"),
+        filter(equal("facts.name", fact.name)),
+        project(
+          fields(
+            excludeId(),
+            computed("networkId", "$_id"),
+            computed("networkName", "$summary.name"),
+            computed("elementIds", "$facts.elementIds"),
+          )
+        )
+      )
+
+      val elementReferences = database.networkInfos.aggregate[NetworkFactElementIds](pipeline, log)
+      val references = elementReferences.map { reference =>
+        NetworkFactRefs(
+          reference.networkId,
+          reference.networkName,
+          reference.elementIds.map(id => Ref(id, id.toString))
+        )
+      }
+      (s"network element references: ${references.size}", references)
+    }
+  }
+
+  private def findNetworkFactsWithRefs(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("active", true),
+            equal("country", subset.country.domain),
+            equal("summary.networkType", subset.networkType.name)
+          )
+        ),
+        unwind("$facts"),
+        filter(equal("facts.name", fact.name)),
+        project(
+          fields(
+            excludeId(),
+            computed("networkId", "$_id"),
+            computed("networkName", "$summary.name"),
+            computed("factRefs", "$facts.elements"),
+          )
+        )
+      )
+
+      val references = database.networkInfos.aggregate[NetworkFactRefs](pipeline, log)
+      (s"network fact references: ${references.size}", references)
     }
   }
 }
