@@ -9,7 +9,6 @@ import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -40,15 +39,11 @@ class FindSpecialNodesTool(database: Database) {
 
     val pipeline = Seq(
       filter(
-        and(
-          equal("labels", Label.active),
-        )
+        equal("labels", Label.active),
       ),
       unwind("$names"),
       filter(
-        and(
-          equal("names.name", "o"),
-        )
+        equal("names.name", "o"),
       ),
       project(
         fields(
