@@ -22,6 +22,7 @@ import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.Filters.in
+import org.mongodb.scala.model.Filters.not
 import org.mongodb.scala.model.Filters.notEqual
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -52,6 +53,8 @@ class StatisticsUpdater(database: Database) {
         Seq(unionWith(database.routes.name, pipelineRouteCount(): _*)),
         Seq(unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount(): _*)),
         Seq(unionWith(database.nodes.name, pipelineNodeFacts(): _*)),
+        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount(): _*)),
+        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount(): _*)),
         Seq(unionWith(database.routes.name, pipelineRouteFacts(): _*)),
         Seq(unionWith(database.routes.name, pipelineRouteDistance(): _*)),
         Seq(unionWith(database.networkInfos.name, pipelineNetworkCount(): _*)),
@@ -59,6 +62,7 @@ class StatisticsUpdater(database: Database) {
         Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts2(): _*)),
         Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts3(): _*)),
         Seq(unionWith(database.networkInfos.name, factCountPipeline(): _*)),
+        Seq(unionWith(database.networkInfos.name, pipelineIntegrityCheckNetworkCount(): _*)),
         Seq(unionWith(database.changes.name, pipelineChangeCount(): _*)),
         Seq(out(database.statistics.name))
       ).flatten
@@ -425,6 +429,27 @@ class StatisticsUpdater(database: Database) {
     )
   }
 
+  private def pipelineIntegrityCheckNetworkCount(): Seq[Bson] = {
+    factPipeline(
+      "IntegrityCheckNetworkCount",
+      filter(
+        and(
+          equal("active", true),
+          exists("country"),
+          exists("summary.networkType"),
+          equal("detail.integrity.hasChecks", true),
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$summary.networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
   private def factCountPipeline(): Seq[Bson] = {
     Seq(
       networkFactCountPipeline(),
@@ -566,5 +591,68 @@ class StatisticsUpdater(database: Database) {
           push("values", "$values")
         )
       )
+  }
+
+  private def pipelineNodeIntegrityCheckCount(): Seq[Bson] = {
+    factPipeline(
+      "IntegrityCheckCount",
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("country"),
+        )
+      ),
+      unwind("$labels"),
+      filter(
+        and(
+          equal("labels", BsonDocument("""{"$regex": "^integrity-check-"}""")),
+          not(
+            equal("labels", BsonDocument("""{"$regex": "^integrity-check-failed"}"""))
+          )
+        )
+      ),
+      project(
+        fields(
+          include("country"),
+          computed("networkType", BsonDocument("""{"$substr": ["$labels", 16, 99]}"""))
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType"
+        ),
+        sum("value", 1)
+      )
+    )
+  }
+
+  private def pipelineNodeIntegrityCheckFailedCount(): Seq[Bson] = {
+    factPipeline(
+      "IntegrityCheckFailedCount",
+      filter(
+        and(
+          equal("labels", Label.active),
+          exists("country"),
+        )
+      ),
+      unwind("$labels"),
+      filter(
+        equal("labels", BsonDocument("""{"$regex": "^integrity-check-failed-"}"""))
+      ),
+      project(
+        fields(
+          include("country"),
+          computed("networkType", BsonDocument("""{"$substr": ["$labels", 23, 99]}"""))
+        )
+      ),
+      group(
+        Document(
+          "country" -> "$country",
+          "networkType" -> "$networkType"
+        ),
+        sum("value", 1)
+      )
+    )
   }
 }
