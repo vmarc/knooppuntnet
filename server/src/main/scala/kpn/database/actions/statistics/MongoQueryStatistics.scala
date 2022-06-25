@@ -1,10 +1,8 @@
 package kpn.database.actions.statistics
 
-import kpn.api.common.statistics.StatisticValues
+import kpn.core.util.Log
 import kpn.database.actions.statistics.MongoQueryStatistics.log
 import kpn.database.base.Database
-import kpn.database.base.MongoQuery
-import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Aggregates.group
@@ -53,7 +51,7 @@ object MongoQueryStatistics {
 
 class MongoQueryStatistics(database: Database) {
 
-  def execute(): Seq[StatisticValues] = {
+  def execute(): Seq[StatisticLongValues] = {
     log.debugElapsed {
       val values = database.statistics.findAll(log).sortBy(_._id)
       (s"${values.size} values", values)

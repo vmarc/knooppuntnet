@@ -19,7 +19,6 @@ import { ErrorComponent } from './error/error.component';
 import { DayPipe } from './format/day.pipe';
 import { DistancePipe } from './format/distance.pipe';
 import { IntegerFormatPipe } from './format/integer-format.pipe';
-import { StatisticPipe } from './format/statistic.pipe';
 import { TimestampDayPipe } from './format/timestamp-day.pipe';
 import { TimestampPipe } from './format/timestamp-pipe';
 import { IconButtonComponent } from './icon/icon-button.component';
@@ -162,7 +161,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
-    StatisticPipe,
     BracketsComponent,
     DayPipe,
     DistancePipe,
@@ -239,7 +237,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NodeListComponent,
     PaginatorComponent,
     IntegerFormatPipe,
-    StatisticPipe,
     BracketsComponent,
     DayPipe,
     DistancePipe,

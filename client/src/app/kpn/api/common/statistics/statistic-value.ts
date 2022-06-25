@@ -6,5 +6,5 @@ import { NetworkType } from '../../custom/network-type';
 export interface StatisticValue {
   readonly country: Country;
   readonly networkType: NetworkType;
-  readonly value: number;
+  readonly value: string;
 }

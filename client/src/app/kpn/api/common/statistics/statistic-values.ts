@@ -4,5 +4,6 @@ import { StatisticValue } from './statistic-value';
 
 export interface StatisticValues {
   readonly _id: string;
+  readonly total: string;
   readonly values: StatisticValue[];
 }

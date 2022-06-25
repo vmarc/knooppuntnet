@@ -11,7 +11,7 @@ import { Stat } from '../domain/stat';
       {{ stat.configuration.name }}
     </td>
     <td class="value-cell">
-      {{ total() | statistic }}
+      {{ total() }}
     </td>
     <td class="value-cell" *ngFor="let subset of subsets()">
       <kpn-overview-value [stat]="stat" [subset]="subset"></kpn-overview-value>

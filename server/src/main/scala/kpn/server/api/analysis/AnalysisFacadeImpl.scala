@@ -47,6 +47,7 @@ import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
 import kpn.server.api.analysis.pages.LocationsPageBuilder
+import kpn.server.api.analysis.pages.OverviewPageBuilder
 import kpn.server.api.analysis.pages.location.LocationChangesPageBuilder
 import kpn.server.api.analysis.pages.location.LocationEditPageBuilder
 import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
@@ -73,15 +74,14 @@ import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
-import kpn.server.repository.StatisticsRepository
 import org.springframework.stereotype.Component
 
 @Component
 class AnalysisFacadeImpl(
   api: Api,
-  overviewRepository: StatisticsRepository,
   analysisRepository: AnalysisRepository,
   // ---
+  overviewPageBuilder: OverviewPageBuilder,
   nodeDetailsPageBuilder: NodeDetailsPageBuilder,
   nodeMapPageBuilder: NodeMapPageBuilder,
   nodeChangesPageBuilder: NodeChangesPageBuilder,
@@ -226,9 +226,9 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def overview(user: Option[String]): ApiResponse[Seq[StatisticValues]] = {
+  override def overview(user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]] = {
     api.execute(user, "overview", "") {
-      reply(Some(overviewRepository.statisticValues()))
+      reply(overviewPageBuilder.build(language))
     }
   }
 

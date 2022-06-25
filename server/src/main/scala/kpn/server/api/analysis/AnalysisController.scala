@@ -59,8 +59,10 @@ import org.springframework.web.bind.annotation.RestController
 class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/overview"))
-  def overview(): ApiResponse[Seq[StatisticValues]] = {
-    analysisFacade.overview(CurrentUser.name)
+  def overview(
+    @RequestParam language: String,
+  ): ApiResponse[Seq[StatisticValues]] = {
+    analysisFacade.overview(CurrentUser.name, toLanguage(language))
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))

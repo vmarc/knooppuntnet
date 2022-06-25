@@ -18,7 +18,7 @@ import { Stat } from '../domain/stat';
           </div>
         </div>
         <div class="total">
-          {{ stat.total() | statistic }}
+          {{ stat.total() }}
         </div>
       </div>
 

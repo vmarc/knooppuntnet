@@ -81,7 +81,7 @@ export class AppService {
 
   overview(): Observable<ApiResponse<StatisticValues[]>> {
     const url = '/api/overview';
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   subsetNetworks(subset: Subset): Observable<ApiResponse<SubsetNetworksPage>> {

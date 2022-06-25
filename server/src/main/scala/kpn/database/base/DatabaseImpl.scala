@@ -21,6 +21,7 @@ import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
+import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -142,8 +143,8 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteChangeGeometry]("monitor-route-change-geometries"))
   }
 
-  override def statistics: DatabaseCollection[StatisticValues] = {
-    new DatabaseCollectionImpl(database.getCollection[StatisticValues]("statistics"))
+  override def statistics: DatabaseCollection[StatisticLongValues] = {
+    new DatabaseCollectionImpl(database.getCollection[StatisticLongValues]("statistics"))
   }
 
   override def status: DatabaseCollection[WithStringId] = {

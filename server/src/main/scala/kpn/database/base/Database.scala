@@ -21,6 +21,7 @@ import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
+import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -87,7 +88,7 @@ trait Database {
 
   def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry]
 
-  def statistics: DatabaseCollection[StatisticValues]
+  def statistics: DatabaseCollection[StatisticLongValues]
 
   def status: DatabaseCollection[WithStringId]
 

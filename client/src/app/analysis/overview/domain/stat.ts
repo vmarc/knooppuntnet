@@ -8,18 +8,16 @@ export class Stat {
     readonly configuration: StatisticConfiguration
   ) {}
 
-  total(): number {
+  total(): string {
     if (!this.statisticValues) {
       return undefined;
     }
-    return this.statisticValues.values.reduce((sum, statisticValue) => {
-      return sum + statisticValue.value;
-    }, 0);
+    return this.statisticValues.total;
   }
 
-  value(subset: Subset): number {
+  value(subset: Subset): string {
     if (!this.statisticValues) {
-      return undefined;
+      return '-';
     }
     const subsetStatisticValue = this.statisticValues.values.find(
       (statisticValue) => {
@@ -30,7 +28,7 @@ export class Stat {
       }
     );
     if (!subsetStatisticValue) {
-      return undefined;
+      return '-';
     }
     return subsetStatisticValue.value;
   }

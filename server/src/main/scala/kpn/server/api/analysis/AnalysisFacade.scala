@@ -81,7 +81,7 @@ trait AnalysisFacade {
 
   def networkChanges(user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage]
 
-  def overview(user: Option[String]): ApiResponse[Seq[StatisticValues]]
+  def overview(user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]]
 
   def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
 
