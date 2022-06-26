@@ -2,8 +2,6 @@ package kpn.database.actions.statistics
 
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.statistics.StatisticValue
-import kpn.api.common.statistics.StatisticValues
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
@@ -28,12 +26,12 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should contain(
-        StatisticValues(
+        StatisticLongValues(
           "FactCount",
           Seq(
-            StatisticValue(de, cycling, 1),
-            StatisticValue(de, hiking, 2),
-            StatisticValue(nl, hiking, 4),
+            StatisticLongValue(de, cycling, 1L),
+            StatisticLongValue(de, hiking, 2L),
+            StatisticLongValue(nl, hiking, 4L),
           )
         )
       )
@@ -49,10 +47,10 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should contain(
-        StatisticValues(
+        StatisticLongValues(
           "FactCount",
           Seq(
-            StatisticValue(nl, hiking, 1),
+            StatisticLongValue(nl, hiking, 1L),
           )
         )
       )
@@ -68,12 +66,12 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should contain(
-        StatisticValues(
+        StatisticLongValues(
           "FactCount",
           Seq(
-            StatisticValue(de, cycling, 1),
-            StatisticValue(de, hiking, 2),
-            StatisticValue(nl, hiking, 4),
+            StatisticLongValue(de, cycling, 1L),
+            StatisticLongValue(de, hiking, 2L),
+            StatisticLongValue(nl, hiking, 4L),
           )
         )
       )
@@ -91,12 +89,12 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should contain(
-        StatisticValues(
+        StatisticLongValues(
           "FactCount",
           Seq(
-            StatisticValue(de, cycling, 2),
-            StatisticValue(de, hiking, 4),
-            StatisticValue(nl, hiking, 9),
+            StatisticLongValue(de, cycling, 2L),
+            StatisticLongValue(de, hiking, 4L),
+            StatisticLongValue(nl, hiking, 9L),
           )
         )
       )

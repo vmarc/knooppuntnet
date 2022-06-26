@@ -1,8 +1,6 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.statistics.StatisticValue
-import kpn.api.common.statistics.StatisticValues
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
 import kpn.api.custom.NetworkType.cycling
@@ -32,12 +30,12 @@ class StatisticsUpdateSubsetChangeCountTest extends UnitTest with SharedTestObje
       val counts = new MongoQueryStatistics(database).execute()
 
       counts should contain(
-        StatisticValues(
+        StatisticLongValues(
           "ChangeCount",
           Seq(
-            StatisticValue(de, hiking, 1),
-            StatisticValue(nl, cycling, 2),
-            StatisticValue(nl, hiking, 3),
+            StatisticLongValue(de, hiking, 1L),
+            StatisticLongValue(nl, cycling, 2L),
+            StatisticLongValue(nl, hiking, 3L),
           )
         )
       )
