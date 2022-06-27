@@ -108,7 +108,9 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "localize": ["nl"],
+              "localize": [
+                "nl"
+              ],
               "outputPath": "dist/kpn-nl/"
             },
             "fr": {
@@ -118,7 +120,9 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "localize": ["fr"],
+              "localize": [
+                "fr"
+              ],
               "outputPath": "dist/kpn-fr/"
             },
             "de": {
@@ -128,7 +132,9 @@
                   "maximumWarning": "6kb"
                 }
               ],
-              "localize": ["de"],
+              "localize": [
+                "de"
+              ],
               "outputPath": "dist/kpn-de/"
             }
           },
