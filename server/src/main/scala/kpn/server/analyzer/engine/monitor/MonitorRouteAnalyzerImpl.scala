@@ -70,7 +70,7 @@ class MonitorRouteAnalyzerImpl(
 
   private def updateRoute(route: MonitorRoute, reference: MonitorRouteReference, now: Timestamp): Unit = {
     val routeRelation = readRelation(now, route.routeId)
-    val monitorRouteState = new MonitorDemoAnalyzer().analyze(reference, routeRelation, now)
+    val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
     monitorRouteRepository.saveRouteState(monitorRouteState)
   }
 

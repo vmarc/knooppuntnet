@@ -72,7 +72,7 @@ class MonitorDemoUpdateTool(
     monitorRouteRepository.routeReference(route._id) match {
       case None => log.error("route reference not found")
       case Some(routeReference) =>
-        val monitorRouteState = new MonitorDemoAnalyzer().analyze(routeReference, routeRelation, now)
+        val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
         monitorRouteRepository.saveRouteState(monitorRouteState)
     }
   }

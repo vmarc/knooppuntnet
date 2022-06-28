@@ -9,6 +9,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysis
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteSegmentData
+import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import org.locationtech.jts.densify.Densifier
@@ -23,13 +24,13 @@ class MonitorDemoAnalyzer() {
   private val toleranceMeters = 10
   private val log = Log(classOf[MonitorDemoAnalyzer])
 
-  def analyze(routeReference: MonitorRouteReference, routeRelation: Relation, now: Timestamp): MonitorRouteState = {
+  def analyze(route: MonitorRoute, routeReference: MonitorRouteReference, routeRelation: Relation, now: Timestamp): MonitorRouteState = {
 
     val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
     val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
 
     MonitorRouteState(
-      routeReference.monitorRouteId,
+      route._id,
       routeRelation.id,
       now,
       routeAnalysis.wayCount,

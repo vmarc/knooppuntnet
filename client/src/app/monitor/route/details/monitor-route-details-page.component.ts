@@ -79,11 +79,11 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           </div>
         </kpn-data>
 
-        <div class="kpn-button-group">
-          <button mat-raised-button color="primary" (click)="gpxDownload()">
-            Download GPX file
-          </button>
-        </div>
+        <!--  <div class="kpn-button-group">-->
+        <!--    <button mat-raised-button color="primary" (click)="gpxDownload()">-->
+        <!--      Download GPX file-->
+        <!--    </button>-->
+        <!--  </div>-->
       </div>
     </div>
   `,

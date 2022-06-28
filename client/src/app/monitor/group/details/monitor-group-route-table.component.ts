@@ -80,7 +80,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   styles: [
     `
       .id {
-        width: 8em;
+        width: 12em;
       }
 
       .delete {
@@ -111,7 +111,12 @@ export class MonitorGroupRouteTableComponent implements OnInit {
           'actions',
         ];
       }
-      return ['name', 'map', 'routeId', 'description', 'distance', 'status'];
+      return [
+        'name',
+        'map',
+        'routeId',
+        'description' /*, 'distance', 'status'*/,
+      ];
     })
   );
 

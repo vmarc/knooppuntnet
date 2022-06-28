@@ -16,6 +16,9 @@ class MonitorRouteMapPageBuilderImpl(
 
   override def build(monitorRouteId: String, language: Language): Option[MonitorRouteMapPage] = {
     monitorRouteRepository.route(monitorRouteId).flatMap { route =>
+
+      println("xxx")
+
       monitorGroupRepository.group(route.groupName).map { group =>
 
         val routeStateOption = monitorRouteRepository.routeState(monitorRouteId)

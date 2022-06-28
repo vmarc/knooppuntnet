@@ -6,29 +6,37 @@ import kpn.api.common.monitor.MonitorGroup
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.common.Time
 import kpn.core.data.DataBuilder
-import kpn.core.loadOld.OsmDataXmlReader
+import kpn.core.loadOld.Parser
+import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import org.locationtech.jts.geom.Geometry
 
+import scala.xml.XML
+
 object MonitorDemoTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-3") { database =>
-      new MonitorDemoTool(database).setup(MonitorDemoRoute.routes)
+    Mongo.executeIn("kpn-history") { database =>
+      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+      new MonitorDemoTool(database, overpassQueryExecutor).setup()
     }
   }
 }
 
-class MonitorDemoTool(database: Database) {
+class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
-  private val now = Timestamp(2021, 12, 1, 0, 0, 0)
+  private val now = Time.now
   private val log = Log(classOf[MonitorDemoTool])
 
-  def setup(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
+  def setup(): Unit = {
 
     database.monitorGroups.drop(log)
     database.monitorRoutes.drop(log)
@@ -37,49 +45,50 @@ class MonitorDemoTool(database: Database) {
     database.monitorRouteChanges.drop(log)
     database.monitorRouteChangeGeometries.drop(log)
 
-    val group = MonitorGroup("SGR", "Les Sentiers de Grande Randonnée")
+    setupGroup("SGR", "Les Sentiers de Grande Randonnée", MonitorDemoRoute.routes)
+    setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes)
+  }
+
+  private def setupGroup(groupName: String, groupDescription: String, routes: Seq[MonitorDemoRoute]): Unit = {
+
+    val group = MonitorGroup(groupName, groupDescription)
     database.monitorGroups.save(group)
 
-    demoRoutes.filter(_.routeId > 0).foreach { demoRoute =>
+    routes.filter(_.routeId > 0).foreach { demoRoute =>
       Log.context(demoRoute.name) {
         log.info("route start")
 
-        val routeRelation = readRouteRelation(demoRoute)
-        val monitorRoute = MonitorRouteAnalysisSupport.toRoute(
+        val routeRelation = readRouteRelation(demoRoute.routeId)
+        val route = MonitorRouteAnalysisSupport.toRoute(
           demoRoute.name,
           group.name,
           demoRoute.description,
           demoRoute.routeId
         )
-        database.monitorRoutes.save(monitorRoute)
+        database.monitorRoutes.save(route)
 
         log.info("build route reference")
-        val routeReference = buildRouteReference(demoRoute)
+        val dir = s"/kpn/monitor-demo/$groupName"
+        val routeReference = buildRouteReference(route, dir, demoRoute)
         database.monitorRouteReferences.save(routeReference)
         log.info("saved route reference")
 
         if (demoRoute.routeId > 1) {
-          val routeState = new MonitorDemoAnalyzer().analyze(routeReference, routeRelation, now)
+          val routeState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
           database.monitorRouteStates.save(routeState)
         }
       }
     }
   }
 
-  private def readRelation(filename: String, routeId: Long): Relation = {
-    val rawData = OsmDataXmlReader.read(filename)
-    val data = new DataBuilder(rawData).data
-    data.relations(routeId)
-  }
-
-  private def buildRouteReference(demoRoute: MonitorDemoRoute): MonitorRouteReference = {
-    val geometry = new MonitorRouteGpxReader().readFile(s"/kpn/monitor-demo/${demoRoute.filename}.gpx")
+  private def buildRouteReference(route: MonitorRoute, dir: String, demoRoute: MonitorDemoRoute): MonitorRouteReference = {
+    val geometry = new MonitorRouteGpxReader().readFile(s"$dir/${demoRoute.filename}.gpx")
     log.info("geometry loaded")
     val bounds = geometryBounds(geometry)
     log.info("geometry bounds calculated")
     val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
     log.info(s"geojson ready, size=${geoJson.length}")
-    val id = s"${demoRoute.name}:${now.key}"
+    val id = s"${route._id}:${now.key}"
 
     MonitorRouteReference(
       id,
@@ -107,15 +116,18 @@ class MonitorDemoTool(database: Database) {
     )
   }
 
-  private def readRouteRelation(demoRoute: MonitorDemoRoute): Relation = {
-    if (demoRoute.routeId > 1) {
-      val filename = s"/kpn/monitor-demo/${demoRoute.routeId}.xml"
-      readRelation(filename, demoRoute.routeId)
+  private def readRouteRelation(routeId: Long): Relation = {
+    if (routeId > 1) {
+      val xmlString = overpassQueryExecutor.executeQuery(Some(now), QueryRelation(routeId))
+      val xml = XML.loadString(xmlString)
+      val rawData = new Parser().parse(xml.head)
+      val data = new DataBuilder(rawData).data
+      data.relations(routeId)
     }
     else {
       Relation(
         RawRelation(
-          demoRoute.routeId,
+          routeId,
           1,
           now,
           1,

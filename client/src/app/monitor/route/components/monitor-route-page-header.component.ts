@@ -43,19 +43,19 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
         Map
       </kpn-page-menu-option>
 
-      <kpn-page-menu-option
-        [link]="routeReferenceLink$ | async"
-        [active]="pageName === 'reference'"
-      >
-        Reference
-      </kpn-page-menu-option>
+      <!--  <kpn-page-menu-option-->
+      <!--    [link]="routeReferenceLink$ | async"-->
+      <!--    [active]="pageName === 'reference'"-->
+      <!--  >-->
+      <!--    Reference-->
+      <!--  </kpn-page-menu-option>-->
 
-      <kpn-page-menu-option
-        [link]="routeChangesLink$ | async"
-        [active]="pageName === 'changes'"
-      >
-        Changes
-      </kpn-page-menu-option>
+      <!--  <kpn-page-menu-option-->
+      <!--    [link]="routeChangesLink$ | async"-->
+      <!--    [active]="pageName === 'changes'"-->
+      <!--  >-->
+      <!--    Changes-->
+      <!--  </kpn-page-menu-option>-->
     </kpn-page-menu>
 
     <kpn-error></kpn-error>
