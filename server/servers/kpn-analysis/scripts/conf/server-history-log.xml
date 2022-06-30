@@ -47,5 +47,8 @@
 
         <Logger name="kpn.server.repository.RouteRepository" level="info"/>
 
+        <Logger name="kpn.server.analyzer.engine.changes.changes.ChangeSetInfoEngine" level="debug"/>
+        <Logger name="kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl" level="debug"/>
+
     </Loggers>
 </Configuration>

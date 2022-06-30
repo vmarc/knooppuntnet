@@ -20,25 +20,35 @@ class ChangeSetInfoEngine(
   def process(): Unit = {
     if (changeSetInfoEngineEnabled) {
       val taskIds = taskRepository.all(TaskRepository.changeSetInfoTask)
-      log.debug(s"Processing ${taskIds.size} tasks")
-      processTasks(taskIds)
+      if (taskIds.isEmpty) {
+        log.debug("no tasks")
+      }
+      else {
+        log.debug(s"processing ${taskIds.size} tasks")
+        processTasks(taskIds)
+      }
+    }
+    else {
+      log.debug(s"disabled")
     }
   }
 
   private def processTasks(taskIds: Seq[String]): Unit = {
     taskIds.zipWithIndex.foreach { case (taskId, index) =>
       val changeSetId = taskIdToChangeSetId(taskId)
-      log.debug(s"Index=$index, changesetId=$changeSetId")
-      if (changeSetInfoRepository.exists(changeSetId)) {
-        log.debug(s"Info for change set $changeSetId already in database")
-        taskRepository.delete(taskId)
-      }
-      else {
-        changeSetInfoApi.get(changeSetId) match {
-          case None => log.debug(s"Could not retrieve info for change set $changeSetId from OSM API, continue with next")
-          case Some(changeSetInfo) =>
-            changeSetInfoRepository.save(changeSetInfo)
-            taskRepository.delete(taskId)
+      Log.context(s"${index + 1}/${taskIds.size}") {
+        log.debug(s"changesetId=$changeSetId")
+        if (changeSetInfoRepository.exists(changeSetId)) {
+          log.debug(s"Info for change set $changeSetId already in database")
+          taskRepository.delete(taskId)
+        }
+        else {
+          changeSetInfoApi.get(changeSetId) match {
+            case None => log.debug(s"Could not retrieve info for change set $changeSetId from OSM API, continue with next")
+            case Some(changeSetInfo) =>
+              changeSetInfoRepository.save(changeSetInfo)
+              taskRepository.delete(taskId)
+          }
         }
       }
     }

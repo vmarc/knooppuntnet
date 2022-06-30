@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
+import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
 
 import java.util.concurrent.Executor
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
@@ -158,7 +160,14 @@ class ServerConfiguration() {
     new MetricsDatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
 
-  private def buildExecutor(name: String, poolSize: Int): Executor = {
+  @Bean def taskScheduler: TaskScheduler = {
+    val threadPoolTaskScheduler = new ThreadPoolTaskScheduler
+    threadPoolTaskScheduler.setPoolSize(5)
+    threadPoolTaskScheduler.setThreadNamePrefix("ThreadPoolTaskScheduler")
+    threadPoolTaskScheduler
+  }
+
+  private def buildExecutor(name: String, poolSize: Int) = {
     val executor = new ThreadPoolTaskExecutor
     executor.setCorePoolSize(poolSize)
     executor.setMaxPoolSize(poolSize)
