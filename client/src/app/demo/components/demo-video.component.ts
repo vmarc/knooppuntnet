@@ -43,10 +43,11 @@ import { selectDemoEnabled } from '../store/demo.selectors';
           (pause)="pauseChanged()"
           (canplay)="canPlayChanged()"
           (timeupdate)="timeChanged()"
-          i18n="demo.no-video-support"
         >
           <source #videoPlayerSource src="" type="video/mp4" />
-          Sorry, cannot play videos in your browser.
+          <ng-container i18n="@@demo.no-video-support">
+            Sorry, cannot play videos in your browser.
+          </ng-container>
         </video>
 
         <kpn-demo-video-progress></kpn-demo-video-progress>

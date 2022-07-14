@@ -21,18 +21,14 @@ import { selectLocationKey } from '../store/location.selectors';
         [locationKey]="locationKey"
       ></kpn-location-page-breadcrumb>
 
-      <kpn-page-header
-        [pageTitle]="pageTitle$ | async"
-        subject="location-page"
-        i18n="@@location-page.header"
-      >
+      <kpn-page-header [pageTitle]="pageTitle$ | async" subject="location-page">
         <span class="header-network-type-icon">
           <mat-icon [svgIcon]="locationKey.networkType"></mat-icon>
         </span>
         <kpn-network-type-name
           [networkType]="locationKey.networkType"
         ></kpn-network-type-name>
-        in
+        <span i18n="@@location-page.header.in">in</span>
         {{ locationName(locationKey) }}
       </kpn-page-header>
 

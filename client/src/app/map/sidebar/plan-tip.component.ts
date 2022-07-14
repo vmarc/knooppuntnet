@@ -6,10 +6,10 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { ZoomLevel } from '../../components/ol/domain/zoom-level';
 import { MapZoomService } from '../../components/ol/services/map-zoom.service';
+import { I18nService } from '../../i18n/i18n.service';
 import { PlannerService } from '../planner.service';
 import { Plan } from '../planner/plan/plan';
 import { PlanPhase } from '../planner/plan/plan-phase';
-import { I18nService } from '../../i18n/i18n.service';
 
 @Component({
   selector: 'kpn-plan-tip',
@@ -20,8 +20,7 @@ import { I18nService } from '../../i18n/i18n.service';
         *ngIf="planPhaseEnum.zoomInClickStartNode === planPhase"
         i18n="@@planner-tip.zoom-in-click-start-node"
       >
-        <b>Zoom in</b> or use magnifying glass to find the startnode of your
-        route.
+        Zoom in or use magnifying glass to find the startnode of your route.
       </p>
       <p
         *ngIf="planPhaseEnum.clickStartNode === planPhase"
@@ -34,7 +33,7 @@ import { I18nService } from '../../i18n/i18n.service';
         *ngIf="planPhaseEnum.zoomInClickEndNode === planPhase"
         i18n="@@planner-tip.zoom-in-click-end-node"
       >
-        <b>Zoom in</b> and click the endnode of your route.
+        Zoom in and click the endnode of your route.
       </p>
       <p
         *ngIf="planPhaseEnum.clickEndNode === planPhase"
@@ -43,9 +42,9 @@ import { I18nService } from '../../i18n/i18n.service';
         Click the endnode of your route.
       </p>
       <p *ngIf="planPhaseEnum.extendRoute === planPhase">
-        <span i18n="@@planner-tip.extend-route"
-          >Extend or adapt your route. Output when satisfied.</span
-        >
+        <ng-container i18n="@@planner-tip.extend-route">
+          Extend or adapt your route. Output when satisfied.
+        </ng-container>
         <a
           id="read-more"
           [href]="more()"

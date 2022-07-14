@@ -26,9 +26,9 @@ import { NodeInfo } from '@api/common/node-info';
           <td>
             <div class="kpn-line">
               <kpn-network-type [networkType]="nodeName.networkType">
-                <span i18n="@@node.node" class="network-type">
-                  network node
-                </span>
+                <span i18n="@@node.node" class="network-type"
+                  >network node</span
+                >
                 <span class="kpn-brackets">
                   <kpn-network-scope-name
                     [networkScope]="nodeName.networkScope"

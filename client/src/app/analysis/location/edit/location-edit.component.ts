@@ -69,11 +69,14 @@ import { actionSharedHttpError } from '../../../core/shared/shared.actions';
     <p *ngIf="timeout$ | async" class="timeout" i18n="@@location-edit.timeout">
       Timeout: editor not started, or editor remote control not enabled?
     </p>
-    <p
-      *ngIf="showProgress$ | async; else showEdit"
-      i18n="@@location-edit.cancel"
-    >
-      <button mat-raised-button (click)="cancel()">Cancel</button>
+    <p *ngIf="showProgress$ | async; else showEdit">
+      <button
+        mat-raised-button
+        (click)="cancel()"
+        i18n="@@location-edit.cancel"
+      >
+        Cancel
+      </button>
     </p>
     <ng-template #showEdit>
       <p>

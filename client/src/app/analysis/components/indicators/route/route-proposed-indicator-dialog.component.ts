@@ -22,7 +22,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       <markdown
         dialog-body
         *ngIf="isBlue()"
-        i18n="@@route-proposed-indicator.gray.text"
+        i18n="@@route-proposed-indicator.blue.text"
       >
         This route has _"state=proposed"_. The route is assumed to still be in a
         planning phase and likely not signposted in the field.

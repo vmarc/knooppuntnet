@@ -1634,15 +1634,11 @@
           <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="route-proposed-indicator.gray.text" datatype="html">
+      <trans-unit id="route-proposed-indicator.blue.text" datatype="html">
         <source> This route has _&quot;state=proposed&quot;_. The route is assumed to still be in a planning phase and likely not signposted in the field. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-proposed-indicator-dialog.component.ts</context>
           <context context-type="linenumber">26,29</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-proposed-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">42,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-proposed-indicator.gray.title" datatype="html">
@@ -1650,6 +1646,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-proposed-indicator-dialog.component.ts</context>
           <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route-proposed-indicator.gray.text" datatype="html">
+        <source> This route does not have _&quot;state=proposed&quot;_. This is an active route. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-proposed-indicator-dialog.component.ts</context>
+          <context context-type="linenumber">42,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.added" datatype="html">
@@ -2283,55 +2286,53 @@
           <context context-type="linenumber">16,20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="location-page.header" datatype="html">
-        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;mat-icon [svgIcon]=&quot;locationKey.networkType&quot;&gt;&lt;"/><x id="START_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;mat-icon [svgIcon]=&quot;locationKey.networkType&quot;&gt;"/><x id="CLOSE_TAG_MAT_ICON" ctype="x-mat_icon" equiv-text="&lt;/s"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/><x id="START_TAG_KPN_NETWORK_TYPE_NAME" ctype="x-kpn_network_type_name" equiv-text="&lt;kpn-network-type-name
-          [networkType]=&quot;locationKey.networkType&quot;
-        &gt;"/><x id="CLOSE_TAG_KPN_NETWORK_TYPE_NAME" ctype="x-kpn_network_type_name" equiv-text="in"/> in <x id="INTERPOLATION" equiv-text="{{ locationName(locationKey) }}"/> </source>
+      <trans-unit id="location-page.header.in" datatype="html">
+        <source>in</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">29,37</context>
+          <context context-type="linenumber">31,36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.nodes" datatype="html">
         <source> Nodes </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">46,50</context>
+          <context context-type="linenumber">42,46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.routes" datatype="html">
         <source> Routes </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">55,59</context>
+          <context context-type="linenumber">51,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.facts" datatype="html">
         <source> Facts </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">64,68</context>
+          <context context-type="linenumber">60,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.map" datatype="html">
         <source> Map </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">72,76</context>
+          <context context-type="linenumber">68,72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.changes" datatype="html">
         <source> Changes </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">81,85</context>
+          <context context-type="linenumber">77,81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-page.menu.edit" datatype="html">
         <source> Load in editor </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-header.component.ts</context>
-          <context context-type="linenumber">89,95</context>
+          <context context-type="linenumber">85,91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.location-not-found" datatype="html">
@@ -2421,26 +2422,24 @@
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.cancel" datatype="html">
-        <source><x id="START_TAG_BUTTON" ctype="x-button" equiv-text="Cancel&lt;/button&gt;
-    &lt;/p&gt;
-    &lt;ng-template #showEdit&gt;"/>Cancel<x id="CLOSE_TAG_BUTTON" ctype="x-button" equiv-text="&lt;/button&gt;"/></source>
+        <source> Cancel </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">76,78</context>
+          <context context-type="linenumber">78,84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.submit.tooltip" datatype="html">
         <source>Open in editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">84,87</context>
+          <context context-type="linenumber">87,90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.submit" datatype="html">
         <source> Load in JOSM editor </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit.component.ts</context>
-          <context context-type="linenumber">88,95</context>
+          <context context-type="linenumber">91,98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
@@ -2788,10 +2787,10 @@
         </context-group>
       </trans-unit>
       <trans-unit id="network-page.network-not-found" datatype="html">
-        <source> Network not found </source>
+        <source>Network not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">36,40</context>
+          <context context-type="linenumber">36,41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/_network-details-page.component.ts</context>
@@ -3788,10 +3787,10 @@
         </context-group>
       </trans-unit>
       <trans-unit id="node.node" datatype="html">
-        <source> network node </source>
+        <source>network node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-summary.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-summary.component.ts</context>
@@ -5886,13 +5885,12 @@
         </context-group>
         <note priority="1" from="description">demo.duration.seconds</note>
       </trans-unit>
-      <trans-unit id="d63c7faa226fbab58e1cadb178e3050f857b9786" datatype="html">
-        <source><x id="TAG_SOURCE" ctype="x-source" equiv-text="Sorry, cannot play videos in you"/> Sorry, cannot play videos in your browser. </source>
+      <trans-unit id="demo.no-video-support" datatype="html">
+        <source> Sorry, cannot play videos in your browser. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/demo/components/demo-video.component.ts</context>
-          <context context-type="linenumber">48,50</context>
+          <context context-type="linenumber">49,53</context>
         </context-group>
-        <note priority="1" from="description">demo.no-video-support</note>
       </trans-unit>
       <trans-unit id="babd77a056781cf75bbd9371bf9c0a9f7efd7ce1" datatype="html">
         <source> Select a video on the left by clicking its play button. </source>
@@ -7381,52 +7379,45 @@
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-start-node" datatype="html">
-        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="Zoom in&lt;/b&gt; or use magnifying glass to find the startnode of your
-        route.
-      &lt;/p&gt;
-      &lt;p
-        *"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> or use magnifying glass to find the startnode of your route. </source>
+        <source> Zoom in or use magnifying glass to find the startnode of your route. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">23,26</context>
+          <context context-type="linenumber">23,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.click-start-node" datatype="html">
         <source> Use zoom, pan or use magnifying glass to find and click the startnode of your route. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">30,35</context>
+          <context context-type="linenumber">29,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.zoom-in-click-end-node" datatype="html">
-        <source><x id="START_BOLD_TEXT" ctype="x-b" equiv-text="Zoom in&lt;/b&gt; and click the endnode of your route.
-      &lt;/p&gt;
-      &lt;p
-        *ngIf=&quot;planPhaseEnum.clickEndNo"/>Zoom in<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> and click the endnode of your route. </source>
+        <source> Zoom in and click the endnode of your route. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">36,40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.click-end-node" datatype="html">
         <source> Click the endnode of your route. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">43,46</context>
+          <context context-type="linenumber">42,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.extend-route" datatype="html">
-        <source>Extend or adapt your route. Output when satisfied.</source>
+        <source> Extend or adapt your route. Output when satisfied. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">47,52</context>
+          <context context-type="linenumber">46,51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.read-more" datatype="html">
         <source>read more</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
-          <context context-type="linenumber">54,63</context>
+          <context context-type="linenumber">53,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi-areas.title" datatype="html">

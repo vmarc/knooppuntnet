@@ -32,8 +32,8 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
       </div>
 
       <div *ngIf="isLoggedIn() && response$ | async as response">
-        <div *ngIf="!response.result" i18n="@@network-page.network-not-found">
-          Network not found
+        <div *ngIf="!response.result">
+          <p i18n="@@network-page.network-not-found">Network not found</p>
         </div>
         <div *ngIf="response.result">
           <p>
