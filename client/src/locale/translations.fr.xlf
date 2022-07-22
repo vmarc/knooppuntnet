@@ -832,17 +832,17 @@
       </trans-unit>
       <trans-unit id="fact.description.route-tag-invalid" datatype="html">
         <source>Invalid value in required tag *&quot;route&quot;* in route relation. A bicycle route
-          relation needs to have value *&quot;bicycle&quot;* in its *&quot;route&quot;* tag. A hiking
-          route relation needs to have one of the following values in its *&quot;route&quot;*
-          tag: *&quot;foot&quot;*, *&quot;hiking&quot;*, or *&quot;walking&quot;*. Note that *&quot;walking&quot;* is a
-          value that is frequently found, but not actually documented as a valid
-          value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
-          *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
-        <target>Valeur invalide dans la balise requise _&quot;route&quot;_ dans la relation de route.
+      relation needs to have value *&quot;bicycle&quot;* in its *&quot;route&quot;* tag. A hiking
+      route relation needs to have one of the following values in its *&quot;route&quot;*
+      tag: *&quot;foot&quot;*, *&quot;hiking&quot;*, or *&quot;walking&quot;*. Note that *&quot;walking&quot;* is a
+      value that is frequently found, but not actually documented as a valid
+      value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
+      *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
+        <target>Valeur invalide dans la balise requise _&quot;route&quot;_ dans la relation de route. 
 
-          Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_.
+Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_. 
 
-          Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM.</target>
+Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
           <context context-type="linenumber">8,16</context>
@@ -922,9 +922,9 @@
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *&quot;fixme&quot;* with value *&quot;incomplete&quot;* in the route relation. But after analysis, the route seems to be ok.</source>
-        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire.
+        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire. 
 
-          Mais après analyse, l&apos;itinéraire semble correct.</target>
+Mais après analyse, l&apos;itinéraire semble correct.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-incomplete-ok.component.ts</context>
           <context context-type="linenumber">8,13</context>
@@ -1036,8 +1036,8 @@
       </trans-unit>
       <trans-unit id="fact.description.lost-bicycle-node-tag" datatype="html">
         <source>This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.</source>
-        <target>Ce nœud n&apos;est plus un nœud
-          valide de réseau cyclable car la clé rcn_ref a été supprimée.</target>
+        <target>Ce nœud n&apos;est plus un nœud 
+valide de réseau cyclable car la clé rcn_ref a été supprimée.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-lost-bicycle-node-tag.component.ts</context>
           <context context-type="linenumber">8,11</context>
@@ -2146,8 +2146,8 @@
       <trans-unit id="logout.note.2" datatype="html">
         <source>After logging out you can continue to use this website. However, the additional information such as changesets, network changes, route changes and node changes will not be visible anymore. Your personal OpenStreetMap <x ctype="x-kpn_osm_link_user_oath_clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN_OSM_LINK_USER_OATH_CLIENTS"/><x ctype="x-kpn_osm_link_user_oath_clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN_OSM_LINK_USER_OATH_CLIENTS"/> will still contain this application. The application can safely be revoked. The authorization will not be used anymore. A new authorization will be created when logging in again.</source>
         <target>Après votre déconnexion, vous pouvez continuer à utiliser ce site. Cependant, les informations complémentaires telles que groupes de modifications, modifications de réseau, modifications d&apos;itinéraire et modifications de nœuds ne seront plus visibles.
-          Votre compte OpenStreetMap <x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/><x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/> contiendra sera toujours lié à cette application. L&apos;application peut être supprimé sans crainte.
-          L&apos;autorisation ne sera plus utilisée. Une nouvelle autorisation sera créée lors de votre prochaine connexion.</target>
+Votre compte OpenStreetMap <x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/><x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/> contiendra sera toujours lié à cette application. L&apos;application peut être supprimé sans crainte.
+L&apos;autorisation ne sera plus utilisée. Une nouvelle autorisation sera créée lors de votre prochaine connexion.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">26,35</context>
@@ -3874,7 +3874,7 @@
           A route definition is explicitely marked incomplete by adding a tag *&quot;fixme&quot;* with
           value *&quot;incomplete&quot;* in the route relation.</source>
         <target>Nombre d&apos;itinéraires marqués comme étant incomplets.
-          Un itinéraire est marqué comme étant incomplet en ajoutant une étiquette _&quot;fixme&quot;_ avec la valeur _&quot;incomplete&quot;_ dans la relation d&apos;itinéraire.</target>
+Un itinéraire est marqué comme étant incomplet en ajoutant une étiquette _&quot;fixme&quot;_ avec la valeur _&quot;incomplete&quot;_ dans la relation d&apos;itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">100,103</context>
@@ -3894,7 +3894,7 @@
           A route definition is explicitely marked incomplete by adding a tag *&quot;fixme&quot;* with
           value *&quot;incomplete&quot;* in the route relation.</source>
         <target>Nombre d&apos;itinéraires marqués comme étant incomplet mais qui semblent corrects après analyse.
-          Un itinéraire est marqué comme étant incomplets en ajoutant une étiquette _&quot;fixme&quot;_ avec la valeur _&quot;incomplete&quot;_ dans la relation d&apos;itinéraire.</target>
+Un itinéraire est marqué comme étant incomplets en ajoutant une étiquette _&quot;fixme&quot;_ avec la valeur _&quot;incomplete&quot;_ dans la relation d&apos;itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">114,118</context>
@@ -3937,7 +3937,7 @@
           The route was not added as a member to a valid
           [network relation](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;).</source>
         <target>Nombre d&apos;itinéraires qui ne font pas partie d&apos;un réseau.
-          L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation de réseau](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;) valide.</target>
+L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation de réseau](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;) valide.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">157,160</context>
@@ -5660,7 +5660,7 @@
           [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;)
           (that itself was added as a member to a valid network relation or is a free route).</source>
         <target>Number of network nodes that do not belong to a network.\\
-          The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;) and also not added as a member to a valid [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;) (that itself was added as a member to a valid network relation or is a free route).</target>
+The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;) and also not added as a member to a valid [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;) (that itself was added as a member to a valid network relation or is a free route).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">140,146</context>
@@ -7397,7 +7397,7 @@
       <trans-unit id="no-route-dialog.message" datatype="html">
         <source>You clicked the button to zoom to fit the complete route on the map, but there is no start- and endnode for the route defined yet. Please plan a route first.</source>
         <target>Vous avez cliqué sur le bouton pour voir l&apos;itinéraire complet sur la carte, mais il n&apos;y a aucun nœud de départ et d&apos;arrivée défini pour le moment.
-          Veuillez d&apos;abord planifier un itinéraire.</target>
+Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/ol/components/no-route-dialog.component.ts</context>
           <context context-type="linenumber">9,13</context>
@@ -9135,7 +9135,7 @@
       <trans-unit id="subset-facts.nodes" datatype="html">
         <source>{VAR_PLURAL, plural, one {1 node} other {<x id="INTERPOLATION"/> nodes}}</source>
         <target>
-          {VAR_PLURAL, plural, one {1 nœud} other {<x id="INTERPOLATION"/> nœuds}}</target>
+ {VAR_PLURAL, plural, one {1 nœud} other {<x id="INTERPOLATION"/> nœuds}}</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/fact-details/subset-fact-details.component.ts</context>
           <context context-type="linenumber">70,71</context>
@@ -9265,7 +9265,7 @@
       <trans-unit id="network-scope.international" datatype="html">
         <source>international</source>
         <target>
-          international</target>
+ international</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
           <context context-type="linenumber">64</context>
