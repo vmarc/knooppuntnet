@@ -832,19 +832,19 @@
       </trans-unit>
       <trans-unit id="fact.description.route-tag-invalid" datatype="html">
         <source>Invalid value in required tag *&quot;route&quot;* in route relation. A bicycle route
-          relation needs to have value *&quot;bicycle&quot;* in its *&quot;route&quot;* tag. A hiking
-          route relation needs to have one of the following values in its *&quot;route&quot;*
-          tag: *&quot;foot&quot;*, *&quot;hiking&quot;*, or *&quot;walking&quot;*. Note that *&quot;walking&quot;* is a
-          value that is frequently found, but not actually documented as a valid
-          value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
-          *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
+      relation needs to have value *&quot;bicycle&quot;* in its *&quot;route&quot;* tag. A hiking
+      route relation needs to have one of the following values in its *&quot;route&quot;*
+      tag: *&quot;foot&quot;*, *&quot;hiking&quot;*, or *&quot;walking&quot;*. Note that *&quot;walking&quot;* is a
+      value that is frequently found, but not actually documented as a valid
+      value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
+      *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
         <target>Ungültiger Wert im erforderlichen Tag *&quot;route&quot;* in der Routenrelation.
 
-          Eine Fahrradroutenrelation muss den Wert *&quot;bicycle&quot;* in ihrem *&quot;route&quot;* Tag haben.
+Eine Fahrradroutenrelation muss den Wert *&quot;bicycle&quot;* in ihrem *&quot;route&quot;* Tag haben.
 
-          Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem *&quot;route&quot;* Tag haben: *&quot;foot&quot;*, *&quot;hiking&quot;*, oder *&quot;walking&quot;*. Beachten Sie, dass *&quot;walking&quot;* ein Wert ist, der zwar häufig gefunden wird, aber auf den OSM-Wiki-Seiten nicht als gültiger Wert dokumentiert ist.
+Eine Wanderroutenrelation muss einen der folgenden Werte in ihrem *&quot;route&quot;* Tag haben: *&quot;foot&quot;*, *&quot;hiking&quot;*, oder *&quot;walking&quot;*. Beachten Sie, dass *&quot;walking&quot;* ein Wert ist, der zwar häufig gefunden wird, aber auf den OSM-Wiki-Seiten nicht als gültiger Wert dokumentiert ist.
 
-          Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot;canoe&quot;* und *&quot;inline_skates&quot;*.</target>
+Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot;canoe&quot;* und *&quot;inline_skates&quot;*.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
           <context context-type="linenumber">8,16</context>
