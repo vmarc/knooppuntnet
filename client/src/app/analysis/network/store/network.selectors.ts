@@ -42,6 +42,11 @@ export const selectNetworkMapPage = createSelector(
   (state: NetworkState) => state.mapPage
 );
 
+export const selectNetworkMapPositionFromUrl = createSelector(
+  selectNetworkState,
+  (state: NetworkState) => state.mapPositionFromUrl
+);
+
 export const selectNetworkChangesPage = createSelector(
   selectNetworkState,
   (state: NetworkState) => state.changesPage

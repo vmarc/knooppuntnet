@@ -9,6 +9,7 @@ import { fromEvent } from 'rxjs';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
+import { NetworkMapPosition } from '../domain/network-map-position';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
@@ -31,6 +32,7 @@ import { NetworkMapPositionService } from '../services/network-map-position.serv
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() networkId: number;
   @Input() page: NetworkMapPage;
+  @Input() mapPositionFromUrl: NetworkMapPosition;
 
   layers: MapLayers;
   private map: Map;
@@ -65,7 +67,8 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     this.networkMapPositionService.install(
       view,
       this.networkId,
-      this.page.bounds
+      this.page.bounds,
+      this.mapPositionFromUrl
     );
     this.layers.applyMap(this.map);
     this.mapZoomService.install(view);

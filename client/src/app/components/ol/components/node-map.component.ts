@@ -5,7 +5,9 @@ import { NodeMapInfo } from '@api/common/node-map-info';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { List } from 'immutable';
+import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
+import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
 import { fromEvent } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -15,12 +17,14 @@ import { selectPreferencesNetworkType } from '../../../core/preferences/preferen
 import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
+import { MapPosition } from '../domain/map-position';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
+import { MapPositionService } from '../services/map-position.service';
 
 @Component({
   selector: 'kpn-node-map',
@@ -33,6 +37,7 @@ import { MapLayerService } from '../services/map-layer.service';
 })
 export class NodeMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodeMapInfo: NodeMapInfo;
+  @Input() mapPositionFromUrl: MapPosition;
 
   layers: MapLayers;
   private map: Map;
@@ -46,6 +51,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   constructor(
     private mapClickService: MapClickService,
     private mapLayerService: MapLayerService,
+    private mapPositionService: MapPositionService,
     private pageService: PageService,
     private store: Store<AppState>
   ) {}
@@ -56,20 +62,40 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
       () => this.mapLayerService.restoreMapLayerStates(this.layers),
       0
     );
-    const center = Util.toCoordinate(
-      this.nodeMapInfo.latitude,
-      this.nodeMapInfo.longitude
-    );
+
+    let viewOptions: ViewOptions = {
+      minZoom: ZoomLevel.vectorTileMinZoom,
+      maxZoom: ZoomLevel.maxZoom,
+    };
+
+    if (this.mapPositionFromUrl) {
+      const center: Coordinate = [
+        this.mapPositionFromUrl.x,
+        this.mapPositionFromUrl.y,
+      ];
+      const zoom = this.mapPositionFromUrl.zoom;
+      viewOptions = {
+        ...viewOptions,
+        center,
+        zoom,
+      };
+    } else {
+      const center = Util.toCoordinate(
+        this.nodeMapInfo.latitude,
+        this.nodeMapInfo.longitude
+      );
+      viewOptions = {
+        ...viewOptions,
+        center,
+        zoom: 18,
+      };
+    }
+
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
-      view: new View({
-        center,
-        minZoom: ZoomLevel.vectorTileMinZoom,
-        maxZoom: ZoomLevel.maxZoom,
-        zoom: 18,
-      }),
+      view: new View(viewOptions),
     });
 
     this.layers.applyMap(this.map);
@@ -84,6 +110,8 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
         this.updateSize()
       )
     );
+
+    this.mapPositionService.install(this.map.getView());
   }
 
   private updateSize(): void {

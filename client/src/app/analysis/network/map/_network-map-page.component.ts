@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionNetworkMapPageInit } from '../store/network.actions';
+import { selectNetworkMapPositionFromUrl } from '../store/network.selectors';
 import { selectNetworkId } from '../store/network.selectors';
 import { selectNetworkMapPage } from '../store/network.selectors';
 
@@ -25,6 +27,7 @@ import { selectNetworkMapPage } from '../store/network.selectors';
         <kpn-network-map
           [networkId]="networkId$ | async"
           [page]="response.result"
+          [mapPositionFromUrl]="mapPositionFromUrl$ | async"
         ></kpn-network-map>
       </div>
     </div>
@@ -32,7 +35,12 @@ import { selectNetworkMapPage } from '../store/network.selectors';
 })
 export class NetworkMapPageComponent implements OnInit {
   readonly networkId$ = this.store.select(selectNetworkId);
-  readonly response$ = this.store.select(selectNetworkMapPage);
+  readonly response$ = this.store
+    .select(selectNetworkMapPage)
+    .pipe(filter((x) => x !== null));
+  readonly mapPositionFromUrl$ = this.store.select(
+    selectNetworkMapPositionFromUrl
+  );
 
   constructor(private store: Store<AppState>) {}
 

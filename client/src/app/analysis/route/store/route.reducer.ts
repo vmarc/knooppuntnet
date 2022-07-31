@@ -20,6 +20,7 @@ export const routeReducer = createReducer(
     ...state,
     detailsPage: null,
     mapPage: null,
+    mapPositionFromUrl: null,
     changesPage: null,
   })),
   on(
@@ -53,7 +54,7 @@ export const routeReducer = createReducer(
       detailsPage: response,
     };
   }),
-  on(actionRouteMapPageLoaded, (state, { response }) => {
+  on(actionRouteMapPageLoaded, (state, { response, mapPositionFromUrl }) => {
     const routeId =
       response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
     const routeName =
@@ -68,6 +69,7 @@ export const routeReducer = createReducer(
       networkType,
       changeCount,
       mapPage: response,
+      mapPositionFromUrl,
     };
   }),
   on(actionRouteChangesPageLoad, (state, { routeId, changesParameters }) => ({

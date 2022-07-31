@@ -1,56 +1,65 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Params } from '@angular/router';
+import { Router } from '@angular/router';
 import { Coordinate } from 'ol/coordinate';
-import { Extent } from 'ol/extent';
-import { fromLonLat } from 'ol/proj';
+import { toLonLat } from 'ol/proj';
 import View from 'ol/View';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { distinct } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { MapPosition } from '../domain/map-position';
 
 @Injectable()
 export class MapPositionService {
-  private mapPositionKey = 'map-position';
-
   private view: View;
+  private currentMapPosition$ = new BehaviorSubject<MapPosition>(null);
+  mapPosition$ = new BehaviorSubject<MapPosition>(null); // debounced
 
-  constructor(private storage: BrowserStorageService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    this.currentMapPosition$
+      .pipe(distinct(), debounceTime(50))
+      .subscribe((mapPosition) => {
+        if (mapPosition) {
+          this.mapPosition$.next(mapPosition);
+          this.updateUrl(mapPosition);
+        }
+      });
+  }
 
   install(view: View): void {
     this.view = view;
-    const mapPositionString = this.storage.get(this.mapPositionKey);
-    if (mapPositionString == null) {
-      this.gotoDefaultInitialPosition();
-    } else {
-      this.gotoInitialPosition(mapPositionString);
-    }
-    this.updateUponPositionChange();
+    this.view.on('change:resolution', () => this.updateMapPosition());
+    this.view.on('change:center', () => this.updateMapPosition());
   }
 
-  private gotoDefaultInitialPosition(): void {
-    const a: Coordinate = fromLonLat([2.24, 50.16]);
-    const b: Coordinate = fromLonLat([10.56, 54.09]);
-    const extent: Extent = [a[0], a[1], b[0], b[1]];
-    this.view.fit(extent);
-  }
-
-  private gotoInitialPosition(mapPositionString: string): void {
-    const mapPosition = MapPosition.fromJSON(JSON.parse(mapPositionString));
-    this.view.setZoom(mapPosition.zoom);
-    this.view.setRotation(mapPosition.rotation);
-    const center: Coordinate = [mapPosition.x, mapPosition.y];
-    this.view.setCenter(center);
-  }
-
-  private updateUponPositionChange(): void {
-    this.view.on('change:resolution', () => this.update());
-    this.view.on('change:center', (e) => this.update());
-    this.view.on('change:rotation', (e) => this.update());
-  }
-
-  private update(): void {
+  private updateMapPosition(): void {
     const center: Coordinate = this.view.getCenter();
-    const zoom = this.view.getZoom();
-    const rotation = this.view.getRotation();
-    const mapPosition = new MapPosition(zoom, center[0], center[1], rotation);
-    this.storage.set(this.mapPositionKey, JSON.stringify(mapPosition));
+    if (center) {
+      const zoom = this.view.getZoom();
+      const z = Math.round(zoom);
+      const mapPosition = new MapPosition(z, center[0], center[1], 0);
+      this.currentMapPosition$.next(mapPosition);
+    }
+  }
+
+  private updateUrl(mapPosition: MapPosition): void {
+    const center: Coordinate = [mapPosition.x, mapPosition.y];
+    const zoom = mapPosition.zoom;
+
+    const c = toLonLat(center);
+    const lng = c[0].toFixed(8);
+    const lat = c[1].toFixed(8);
+    const z = Math.round(zoom);
+
+    const position = `${lat},${lng},${z}`;
+    const queryParams: Params = { position };
+
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams,
+      replaceUrl: true, // do not push a new entry to the browser history
+      queryParamsHandling: 'merge', // preserve other query params if there are any
+    });
   }
 }

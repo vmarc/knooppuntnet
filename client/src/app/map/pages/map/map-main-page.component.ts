@@ -12,7 +12,6 @@ import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { MapControls } from '@app/components/ol/layers/map-controls';
 import { MapLayers } from '@app/components/ol/layers/map-layers';
 import { MapLayerService } from '@app/components/ol/services/map-layer.service';
-import { MapPositionService } from '@app/components/ol/services/map-position.service';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 import { MapService } from '@app/components/ol/services/map.service';
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
@@ -21,6 +20,7 @@ import { Util } from '@app/components/shared/util';
 import { NetworkTypes } from '@app/kpn/common/network-types';
 import { PoiService } from '@app/services/poi.service';
 import { Subscriptions } from '@app/util/Subscriptions';
+import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
@@ -28,6 +28,10 @@ import View from 'ol/View';
 import { fromEvent } from 'rxjs';
 import { combineLatest, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { MapPosition } from '../../../components/ol/domain/map-position';
+import { MainMapPositionService } from '../../../components/ol/services/main-map-position.service';
+import { selectQueryParam } from '../../../core/core.state';
+import { selectRouteParam } from '../../../core/core.state';
 import { PlannerService } from '../../planner.service';
 import { PlannerCommandAddPlan } from '../../planner/commands/planner-command-add-plan';
 import { PlannerInteraction } from '../../planner/interaction/planner-interaction';
@@ -74,6 +78,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   private planLoaded = false;
   private map: Map;
   private readonly subscriptions = new Subscriptions();
+  private mapPositionFromUrl: MapPosition;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -83,11 +88,12 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private poiService: PoiService,
     private poiTileLayerService: PoiTileLayerService,
     private plannerService: PlannerService,
-    private mapPositionService: MapPositionService,
+    private mapPositionService: MainMapPositionService,
     private mapZoomService: MapZoomService,
     private plannerLayerService: PlannerLayerService,
     private dialog: MatDialog,
-    private appService: AppService
+    private appService: AppService,
+    private store: Store
   ) {
     this.plannerService.context.error$.subscribe((error) => {
       if (error instanceof HttpErrorResponse) {
@@ -100,12 +106,13 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.activatedRoute.params.subscribe((params) => {
-        const networkTypeName = params['networkType'];
-        const networkType = NetworkTypes.withName(networkTypeName);
-        this.mapService.nextNetworkType(networkType);
-        this.plannerService.context.nextNetworkType(networkType);
-      })
+      this.store
+        .select(selectRouteParam('networkType'))
+        .subscribe((networkTypeName) => {
+          const networkType = NetworkTypes.withName(networkTypeName);
+          this.mapService.nextNetworkType(networkType);
+          this.plannerService.context.nextNetworkType(networkType);
+        })
     );
 
     this.subscriptions.add(
@@ -117,17 +124,23 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     );
 
     this.subscriptions.add(
+      this.store.select(selectQueryParam('position')).subscribe((mapString) => {
+        this.mapPositionFromUrl = MapPosition.fromQueryParam(mapString);
+      })
+    );
+
+    this.subscriptions.add(
       combineLatest([
         this.plannerService.context.networkType$,
-        this.activatedRoute.fragment,
-      ]).subscribe(([networkType, fragment]) => {
-        if (fragment) {
+        this.store.select(selectQueryParam('plan')),
+      ]).subscribe(([networkType, planString]) => {
+        if (planString) {
           const planParams: PlanParams = {
             networkType,
-            planString: fragment,
+            planString,
           };
           this.appService.plan(planParams).subscribe((response) => {
-            const plan = PlanBuilder.build(response.result, fragment);
+            const plan = PlanBuilder.build(response.result, planString);
             const command = new PlannerCommandAddPlan(plan);
             this.plannerService.context.execute(command);
             this.planLoaded = true;
@@ -214,7 +227,7 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.interaction.addToMap(this.map);
 
     const view = this.map.getView();
-    this.mapPositionService.install(view);
+    this.mapPositionService.install(view, this.mapPositionFromUrl);
     this.poiService.updateZoomLevel(view.getZoom());
     this.mapZoomService.install(view);
 

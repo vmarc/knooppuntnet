@@ -13,6 +13,8 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { PageParams } from '../../../base/page-params';
+import { MapPosition } from '../../../components/ol/domain/map-position';
+import { selectQueryParam } from '../../../core/core.state';
 import { selectQueryParams } from '../../../core/core.state';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
@@ -56,16 +58,31 @@ export class NodeEffects {
   nodeMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeMapPageInit),
-      concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
-      map(([{}, nodeId]) => actionNodeMapPageLoad({ nodeId }))
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('nodeId')),
+        this.store.select(selectQueryParam('position')),
+      ]),
+      map(([{}, nodeId, mapPositionString]) => {
+        const mapPositionFromUrl =
+          MapPosition.fromQueryParam(mapPositionString);
+        return actionNodeMapPageLoad({ nodeId, mapPositionFromUrl });
+      })
     )
   );
 
   nodeMapPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeMapPageLoad),
-      mergeMap((action) => this.appService.nodeMap(action.nodeId)),
-      map((response) => actionNodeMapPageLoaded({ response }))
+      mergeMap((action) => {
+        return this.appService.nodeMap(action.nodeId).pipe(
+          map((response) =>
+            actionNodeMapPageLoaded({
+              response,
+              mapPositionFromUrl: action.mapPositionFromUrl,
+            })
+          )
+        );
+      })
     )
   );
 

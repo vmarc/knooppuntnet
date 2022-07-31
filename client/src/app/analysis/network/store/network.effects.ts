@@ -13,6 +13,9 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { PageParams } from '../../../base/page-params';
+import { MapPosition } from '../../../components/ol/domain/map-position';
+import { NetworkMapPosition } from '../../../components/ol/domain/network-map-position';
+import { selectQueryParam } from '../../../core/core.state';
 import { selectQueryParams } from '../../../core/core.state';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
@@ -121,18 +124,42 @@ export class NetworkEffects {
   networkMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkMapPageInit),
-      concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      map(([{}, networkId]) =>
-        actionNetworkMapPageLoad({ networkId: +networkId })
-      )
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('networkId')),
+        this.store.select(selectQueryParam('position')),
+      ]),
+      map(([{}, networkId, mapPositionString]) => {
+        let mapPositionFromUrl: NetworkMapPosition = null;
+        if (mapPositionString) {
+          const mapPosition = MapPosition.fromQueryParam(mapPositionString);
+          if (mapPosition) {
+            mapPositionFromUrl = mapPosition.toNetworkMapPosition(
+              mapPosition,
+              +networkId
+            );
+          }
+        }
+        return actionNetworkMapPageLoad({
+          networkId: +networkId,
+          mapPositionFromUrl,
+        });
+      })
     )
   );
 
   networkMapPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkMapPageLoad),
-      mergeMap((action) => this.appService.networkMap(action.networkId)),
-      map((response) => actionNetworkMapPageLoaded({ response }))
+      mergeMap((action) => {
+        return this.appService.networkMap(action.networkId).pipe(
+          map((response) =>
+            actionNetworkMapPageLoaded({
+              response,
+              mapPositionFromUrl: action.mapPositionFromUrl,
+            })
+          )
+        );
+      })
     )
   );
 

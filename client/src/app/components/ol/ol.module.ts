@@ -18,6 +18,7 @@ import { RouteChangeMapComponent } from './components/route-change-map.component
 import { RouteControlComponent } from './components/route-control.component';
 import { RouteMapComponent } from './components/route-map.component';
 import { SubsetMapComponent } from './components/subset-map.component';
+import { MainMapPositionService } from './services/main-map-position.service';
 import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
 import { MapPositionService } from './services/map-position.service';
@@ -67,6 +68,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     MapClickService,
     PoiTileLayerService,
     MapPositionService,
+    MainMapPositionService,
     NetworkMapPositionService,
   ],
 })

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionNodeMapPageInit } from '../store/node.actions';
+import { selectNodeMapPositionFromUrl } from '../store/node.selectors';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
 import { selectNodeChangeCount } from '../store/node.selectors';
@@ -40,7 +41,10 @@ import { selectNodeMapPage } from '../store/node.selectors';
         Node not found
       </div>
       <div *ngIf="response.result as page">
-        <kpn-node-map [nodeMapInfo]="page.nodeMapInfo"></kpn-node-map>
+        <kpn-node-map
+          [nodeMapInfo]="page.nodeMapInfo"
+          [mapPositionFromUrl]="mapPositionFromUrl$ | async"
+        ></kpn-node-map>
       </div>
     </div>
   `,
@@ -49,7 +53,9 @@ export class NodeMapPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);
   readonly nodeName$ = this.store.select(selectNodeName);
   readonly changeCount$ = this.store.select(selectNodeChangeCount);
-
+  readonly mapPositionFromUrl$ = this.store.select(
+    selectNodeMapPositionFromUrl
+  );
   readonly response$ = this.store
     .select(selectNodeMapPage)
     .pipe(filter((x) => x !== null));

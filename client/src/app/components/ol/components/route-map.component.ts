@@ -3,19 +3,23 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { RouteMapInfo } from '@api/common/route/route-map-info';
 import { List } from 'immutable';
+import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
+import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
 import { fromEvent } from 'rxjs';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
+import { MapPosition } from '../domain/map-position';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
+import { MapPositionService } from '../services/map-position.service';
 import { MapService } from '../services/map.service';
 
 @Component({
@@ -29,6 +33,7 @@ import { MapService } from '../services/map.service';
 })
 export class RouteMapComponent implements AfterViewInit, OnDestroy {
   @Input() routeMapInfo: RouteMapInfo;
+  @Input() mapPositionFromUrl: MapPosition;
 
   layers: MapLayers;
   private networkVectorTileLayer: MapLayer;
@@ -42,7 +47,8 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     private mapService: MapService,
     private mapClickService: MapClickService,
     private mapLayerService: MapLayerService,
-    private pageService: PageService
+    private pageService: PageService,
+    private mapPositionService: MapPositionService
   ) {}
 
   ngAfterViewInit(): void {
@@ -51,21 +57,41 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       () => this.mapLayerService.restoreMapLayerStates(this.layers),
       0
     );
+
+    let viewOptions: ViewOptions = {
+      minZoom: ZoomLevel.minZoom,
+      maxZoom: ZoomLevel.maxZoom,
+    };
+
+    if (this.mapPositionFromUrl) {
+      const center: Coordinate = [
+        this.mapPositionFromUrl.x,
+        this.mapPositionFromUrl.y,
+      ];
+      const zoom = this.mapPositionFromUrl.zoom;
+      viewOptions = {
+        ...viewOptions,
+        center,
+        zoom,
+      };
+    }
+
     this.map = new Map({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
-      view: new View({
-        minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom,
-      }),
+      view: new View(viewOptions),
     });
 
     this.layers.applyMap(this.map);
     this.mapClickService.installOn(this.map);
 
     const view = this.map.getView();
-    view.fit(this.buildExtent());
+
+    if (!this.mapPositionFromUrl) {
+      view.fit(this.buildExtent());
+    }
+
     view.on('change:resolution', () => {
       if (view.getZoom() < ZoomLevel.vectorTileMinZoom) {
         if (this.networkVectorTileLayerActive) {
@@ -88,6 +114,8 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
         this.updateSize()
       )
     );
+
+    this.mapPositionService.install(this.map.getView());
   }
 
   private updateSize(): void {

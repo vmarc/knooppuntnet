@@ -7,6 +7,8 @@ import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
 import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
 import { NetworkSummary } from '@api/common/network/network-summary';
 import { ApiResponse } from '@api/custom/api-response';
+import { MapPosition } from '../../../components/ol/domain/map-position';
+import { NetworkMapPosition } from '../../../components/ol/domain/network-map-position';
 
 export const initialState: NetworkState = {
   networkId: null,
@@ -16,6 +18,7 @@ export const initialState: NetworkState = {
   routesPage: null,
   factsPage: null,
   mapPage: null,
+  mapPositionFromUrl: null,
   changesPage: null,
   changesParameters: null,
 };
@@ -28,6 +31,7 @@ export interface NetworkState {
   routesPage: ApiResponse<NetworkRoutesPage>;
   factsPage: ApiResponse<NetworkFactsPage>;
   mapPage: ApiResponse<NetworkMapPage>;
+  mapPositionFromUrl: NetworkMapPosition;
   changesPage: ApiResponse<NetworkChangesPage>;
   changesParameters: ChangesParameters;
 }

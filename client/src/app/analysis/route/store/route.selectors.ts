@@ -37,6 +37,11 @@ export const selectRouteNetworkType = createSelector(
   (state: RouteState) => state.networkType
 );
 
+export const selectRouteMapPositionFromUrl = createSelector(
+  selectRouteState,
+  (state: RouteState) => state.mapPositionFromUrl
+);
+
 export const selectRouteChangeCount = createSelector(
   selectRouteState,
   (state: RouteState) => state.changeCount

@@ -20,6 +20,7 @@ export const nodeReducer = createReducer(
     ...state,
     detailsPage: null,
     mapPage: null,
+    mapPositionFromUrl: null,
     changesPage: null,
   })),
   on(actionNodeDetailsPageLoad, actionNodeMapPageLoad, (state, { nodeId }) => ({
@@ -44,7 +45,7 @@ export const nodeReducer = createReducer(
       detailsPage: response,
     };
   }),
-  on(actionNodeMapPageLoaded, (state, { response }) => {
+  on(actionNodeMapPageLoaded, (state, { response, mapPositionFromUrl }) => {
     const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
     const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
@@ -54,6 +55,7 @@ export const nodeReducer = createReducer(
       nodeName,
       changeCount,
       mapPage: response,
+      mapPositionFromUrl,
     };
   }),
   on(actionNodeChangesPageLoad, (state, { nodeId, changesParameters }) => ({

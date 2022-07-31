@@ -6,6 +6,7 @@ import { ApiResponse } from '@api/custom/api-response';
 import { NetworkType } from '@api/custom/network-type';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { MapPosition } from '../../../components/ol/domain/map-position';
 import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionRouteLink = createAction(
@@ -31,12 +32,15 @@ export const actionRouteMapPageInit = createAction('[RouteMapPage] Init');
 
 export const actionRouteMapPageLoad = createAction(
   '[RouteMapPage] Load',
-  props<{ routeId: string }>()
+  props<{ routeId: string; mapPositionFromUrl: MapPosition }>()
 );
 
 export const actionRouteMapPageLoaded = createAction(
   '[RouteMapPage] Loaded',
-  props<{ response: ApiResponse<RouteMapPage> }>()
+  props<{
+    response: ApiResponse<RouteMapPage>;
+    mapPositionFromUrl: MapPosition;
+  }>()
 );
 
 export const actionRouteChangesPageInit = createAction(

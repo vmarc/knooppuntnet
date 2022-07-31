@@ -5,6 +5,7 @@ import { NodeMapPage } from '@api/common/node/node-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { MapPosition } from '../../../components/ol/domain/map-position';
 import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionNodeId = createAction(
@@ -33,12 +34,15 @@ export const actionNodeMapPageInit = createAction('[NodeMapPage] Init');
 
 export const actionNodeMapPageLoad = createAction(
   '[NodeMapPage] Load',
-  props<{ nodeId: string }>()
+  props<{ nodeId: string; mapPositionFromUrl: MapPosition }>()
 );
 
 export const actionNodeMapPageLoaded = createAction(
   '[NodeMapPage] Loaded',
-  props<{ response: ApiResponse<NodeMapPage> }>()
+  props<{
+    response: ApiResponse<NodeMapPage>;
+    mapPositionFromUrl: MapPosition;
+  }>()
 );
 
 export const actionNodeChangesPageInit = createAction('[NodeChangesPage] Init');

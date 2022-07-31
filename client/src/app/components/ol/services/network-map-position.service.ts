@@ -5,29 +5,60 @@ import View from 'ol/View';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { Util } from '../../shared/util';
 import { NetworkMapPosition } from '../domain/network-map-position';
+import { MapPositionService } from './map-position.service';
 
 @Injectable()
 export class NetworkMapPositionService {
   private networkMapPositionKey = 'network-map-position';
 
   private view: View;
+  private networkId: number;
 
-  constructor(private storage: BrowserStorageService) {}
+  constructor(
+    private storage: BrowserStorageService,
+    private mapPositionService: MapPositionService
+  ) {
+    mapPositionService.mapPosition$.subscribe((mapPosition) => {
+      if (mapPosition) {
+        const networkMapPosition: NetworkMapPosition = {
+          networkId: this.networkId,
+          zoom: mapPosition.zoom,
+          x: mapPosition.x,
+          y: mapPosition.y,
+          rotation: mapPosition.rotation,
+        };
+        this.storage.set(
+          this.networkMapPositionKey,
+          JSON.stringify(networkMapPosition)
+        );
+      }
+    });
+  }
 
-  install(view: View, networkId: number, bounds: Bounds): void {
+  install(
+    view: View,
+    networkId: number,
+    bounds: Bounds,
+    mapPositionFromUrl: NetworkMapPosition
+  ): void {
     this.view = view;
-    const mapPositionString = this.storage.get(this.networkMapPositionKey);
-    if (mapPositionString == null) {
-      view.fit(Util.toExtent(bounds, 0.1));
+    this.networkId = networkId;
+    this.mapPositionService.install(view);
+    if (mapPositionFromUrl) {
+      this.gotoLastKnownPosition(mapPositionFromUrl);
     } else {
-      const mapPosition: NetworkMapPosition = JSON.parse(mapPositionString);
-      if (networkId === mapPosition.networkId) {
-        this.gotoLastKnownPosition(mapPosition);
-      } else {
+      const mapPositionString = this.storage.get(this.networkMapPositionKey);
+      if (mapPositionString == null) {
         view.fit(Util.toExtent(bounds, 0.1));
+      } else {
+        const mapPosition: NetworkMapPosition = JSON.parse(mapPositionString);
+        if (networkId === mapPosition.networkId) {
+          this.gotoLastKnownPosition(mapPosition);
+        } else {
+          view.fit(Util.toExtent(bounds, 0.1));
+        }
       }
     }
-    this.updateUponPositionChange(networkId);
   }
 
   private gotoLastKnownPosition(mapPosition: NetworkMapPosition): void {
@@ -35,28 +66,5 @@ export class NetworkMapPositionService {
     this.view.setRotation(mapPosition.rotation);
     const center: Coordinate = [mapPosition.x, mapPosition.y];
     this.view.setCenter(center);
-  }
-
-  private updateUponPositionChange(networkId: number): void {
-    this.view.on('change:resolution', () => this.updateLocalStorage(networkId));
-    this.view.on('change:center', (e) => this.updateLocalStorage(networkId));
-    this.view.on('change:rotation', (e) => this.updateLocalStorage(networkId));
-  }
-
-  private updateLocalStorage(networkId: number): void {
-    const center: Coordinate = this.view.getCenter();
-    const zoom = this.view.getZoom();
-    const rotation = this.view.getRotation();
-    const networkMapPosition: NetworkMapPosition = {
-      networkId,
-      zoom,
-      x: center[0],
-      y: center[1],
-      rotation,
-    };
-    this.storage.set(
-      this.networkMapPositionKey,
-      JSON.stringify(networkMapPosition)
-    );
   }
 }

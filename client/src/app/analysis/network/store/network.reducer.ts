@@ -5,6 +5,7 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { RoutingUtil } from '../../../base/routing-util';
+import { actionNetworkMapPageLoad } from './network.actions';
 import { actionNetworkRoutesPageLoad } from './network.actions';
 import { actionNetworkNodesPageLoad } from './network.actions';
 import { actionNetworkFactsPageLoad } from './network.actions';
@@ -57,6 +58,7 @@ export const networkReducer = createReducer(
     actionNetworkFactsPageLoad,
     actionNetworkNodesPageLoad,
     actionNetworkRoutesPageLoad,
+    actionNetworkMapPageLoad,
     (state, { networkId }) => {
       if (networkId === state.networkId) {
         return state;
@@ -105,10 +107,11 @@ export const networkReducer = createReducer(
     summary: response.result?.summary ?? defaultSummary,
     factsPage: response,
   })),
-  on(actionNetworkMapPageLoaded, (state, { response }) => ({
+  on(actionNetworkMapPageLoaded, (state, { response, mapPositionFromUrl }) => ({
     ...state,
     summary: response.result?.summary ?? defaultSummary,
     mapPage: response,
+    mapPositionFromUrl,
   })),
   on(actionNetworkChangesPageInit, (state, {}) => ({
     ...state,
