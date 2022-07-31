@@ -4853,7 +4853,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="route.relation-last-updated" datatype="html">
         <source>Relation last updated</source>
-        <target>Relation last updated</target>
+        <target>Dernière mise à jour de la relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
           <context context-type="linenumber">70,74</context>
@@ -6772,7 +6772,7 @@ The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not adde
       </trans-unit>
       <trans-unit id="route-investigate-indicator.green.title" datatype="html">
         <source>OK - No facts</source>
-        <target>OK - No facts</target>
+        <target>OK - Pas de faits</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">18,20</context>
@@ -6788,7 +6788,7 @@ The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not adde
       </trans-unit>
       <trans-unit id="route-investigate-indicator.red.title" datatype="html">
         <source>Not OK - Investigate facts</source>
-        <target>Not OK - Investigate facts</target>
+        <target>Pas OK - Enquête sur les faits</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/indicators/route/route-investigate-indicator-dialog.component.ts</context>
           <context context-type="linenumber">33,35</context>
@@ -8145,7 +8145,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="footer.settings" datatype="html">
         <source>settings</source>
-        <target>settings</target>
+        <target>paramètres</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/page/page-footer.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -8153,7 +8153,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="tag-diffs.title" datatype="html">
         <source>Tag changes</source>
-        <target>Tag changes</target>
+        <target>Changement d&apos;attribut</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs.component.ts</context>
           <context context-type="linenumber">20,22</context>
@@ -8169,7 +8169,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="location-edit.too-many-nodes.2" datatype="html">
         <source>Please select a location with less nodes.</source>
-        <target>Please select a location with less nodes.</target>
+        <target>Veuillez choisir un emplacement avec moins de nœuds.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit-page.component.ts</context>
           <context context-type="linenumber">43,47</context>
@@ -8177,7 +8177,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="location-edit.analyzing" datatype="html">
         <source>Analyzing location nodes and routes, please wait...</source>
-        <target>Analyzing location nodes and routes, please wait...</target>
+        <target>Analyse des nœuds de localisation et des routes, veuillez patienter...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/edit/location-edit-page.component.ts</context>
           <context context-type="linenumber">58,65</context>
@@ -8201,7 +8201,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="breadcrumb.settings" datatype="html">
         <source>Settings</source>
-        <target>Settings</target>
+        <target>Paramètres</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">17,22</context>
@@ -8209,7 +8209,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="settings-page.title" datatype="html">
         <source>Settings</source>
-        <target>Settings</target>
+        <target>Paramètres</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">20,24</context>
@@ -8217,7 +8217,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="settings.directions" datatype="html">
         <source>Navigation instructions</source>
-        <target>Navigation instructions</target>
+        <target>Instructions de navigation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">28,30</context>
@@ -8225,7 +8225,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="settings.directions.comment.1" datatype="html">
         <source>You can enable this extra functionality in the planner to generate a list with navigation instructions for the route you have planned.</source>
-        <target>You can enable this extra functionality in the planner to generate a list with navigation instructions for the route you have planned.</target>
+        <target>Vous pouvez activer cette fonctionnalité supplémentaire dans le planificateur pour générer une liste avec des instructions de navigation pour l&apos;itinéraire que vous avez planifié.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">31,35</context>
@@ -8233,7 +8233,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="settings.directions.comment.2" datatype="html">
         <source>This functionality is still experimental and under development at this moment and may not work completely ok yet. By default, this functionality is not enabled.</source>
-        <target>This functionality is still experimental and under development at this moment and may not work completely ok yet. By default, this functionality is not enabled.</target>
+        <target>Cette fonctionnalité est encore expérimentale et en cours de développement à l&apos;heure actuelle et peut ne pas fonctionner complètement correctement. Par défaut, cette fonctionnalité n&apos;est pas activée.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
           <context context-type="linenumber">35,43</context>
@@ -8617,7 +8617,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="1a046c1267b14abb2dfdaa3348124c747cfecb5d" datatype="html">
         <source>How to zoom in to your current location?</source>
-        <target>How to zoom in to your current location?</target>
+        <target>Comment zoomer sur votre position actuelle ?</target>
         <note priority="1" from="description">demo.current-location</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/demo/components/demo-sidebar.component.ts</context>
@@ -8677,7 +8677,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="location-nodes.table.expected-route-count" datatype="html">
         <source>Expected</source>
-        <target>Expected</target>
+        <target>Attendu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
           <context context-type="linenumber">98,102</context>
@@ -8879,7 +8879,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="83eacc066bbb1d79aae51168a378ed2e2f3f008c" datatype="html">
         <source>Your window is currently not large enough to show the videos in good quality.</source>
-        <target>Your window is currently not large enough to show the videos in good quality.</target>
+        <target>Votre fenêtre n&apos;est actuellement pas assez grande pour afficher les vidéos en bonne qualité.</target>
         <note priority="1" from="description">demo.disabled.text-2</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/demo/components/demo-disabled.component.ts</context>
@@ -9441,7 +9441,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit id="location-nodes-sidebar.filter.integrity-check-failed" datatype="html">
         <source>Unexpected route count</source>
-        <target>Unexpected route count</target>
+        <target>Nombre de routes inattendu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-nodes-sidebar.component.ts</context>
           <context context-type="linenumber">45,48</context>
