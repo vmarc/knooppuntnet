@@ -31,10 +31,10 @@ object NetworkFactsPageExample {
         Fact.IntegrityCheckFailed.name,
         checks = Some(
           Seq(
-            Check(nodeId = 1, nodeName = "01", actual = 1, expected = 3),
-            Check(nodeId = 2, nodeName = "02", actual = 2, expected = 3),
-            Check(nodeId = 3, nodeName = "03", actual = 4, expected = 3),
-            Check(nodeId = 4, nodeName = "04", actual = 5, expected = 3)
+            Check(nodeId = 1, nodeName = "01", expected = 3, actual = 1),
+            Check(nodeId = 2, nodeName = "02", expected = 3, actual = 2),
+            Check(nodeId = 3, nodeName = "03", expected = 3, actual = 4),
+            Check(nodeId = 4, nodeName = "04", expected = 3, actual = 5)
           )
         )
       ),
