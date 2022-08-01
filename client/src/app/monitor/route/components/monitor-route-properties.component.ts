@@ -93,6 +93,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 })
 export class MonitorRoutePropertiesComponent implements OnInit {
   @Input() mode: string;
+  @Input() groupName: string;
   @Input() initialProperties: MonitorRouteProperties = null;
   @Input() routeGroups: MonitorRouteGroup[];
 
@@ -168,7 +169,11 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.initialProperties) {
+    if (this.mode === 'add') {
+      this.groupForm.setValue({
+        group: { groupName: this.groupName, groupDescription: '' },
+      });
+    } else {
       const initialGroup = this.routeGroups.find(
         (g) => g.groupName === this.initialProperties.groupName
       );

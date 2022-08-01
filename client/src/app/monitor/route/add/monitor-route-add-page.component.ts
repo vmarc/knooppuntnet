@@ -28,7 +28,10 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
 
     <h2>Add route</h2>
 
-    <kpn-monitor-route-properties mode="add"></kpn-monitor-route-properties>
+    <kpn-monitor-route-properties
+      mode="add"
+      [groupName]="groupName$ | async"
+    ></kpn-monitor-route-properties>
   `,
 })
 export class MonitorRouteAddPageComponent implements OnInit {

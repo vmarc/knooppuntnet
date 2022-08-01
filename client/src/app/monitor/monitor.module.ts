@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -55,6 +56,8 @@ import { MonitorRoutePropertiesStep4ReferenceTypeComponent } from './route/compo
 import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './route/components/monitor-route-properties-step-5-reference-details.component';
 import { MonitorRoutePropertiesStep6SaveComponent } from './route/components/monitor-route-properties-step-6-save.component';
 import { MonitorRoutePropertiesComponent } from './route/components/monitor-route-properties.component';
+import { MonitorRouteSaveDialogComponent } from './route/components/monitor-route-save-dialog.component';
+import { MonitorRouteSaveStepComponent } from './route/components/monitor-route-save-step.component';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
 import { LegendLineComponent } from './route/map/legend-line';
@@ -93,6 +96,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MatStepperModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   declarations: [
     LegendLineComponent,
@@ -138,6 +142,8 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRoutePropertiesStep4ReferenceTypeComponent,
     MonitorRoutePropertiesStep5ReferenceDetailsComponent,
     MonitorRoutePropertiesStep6SaveComponent,
+    MonitorRouteSaveDialogComponent,
+    MonitorRouteSaveStepComponent,
   ],
   exports: [],
   providers: [MonitorService],
