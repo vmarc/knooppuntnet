@@ -3,6 +3,6 @@
 export interface Check {
   readonly nodeId: number;
   readonly nodeName: string;
-  readonly actual: number;
   readonly expected: number;
+  readonly actual: number;
 }

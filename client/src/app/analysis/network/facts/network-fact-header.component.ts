@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NetworkFact } from '@api/common/network-fact';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
 
@@ -14,6 +17,14 @@ import { Facts } from '../../fact/facts';
       </span>
       <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>
+      <a
+        rel="nofollow"
+        (click)="edit(fact)"
+        title="Open in editor (like JOSM)"
+        i18n-title="@@edit.link.title"
+        i18n="@@edit.link"
+        >edit</a
+      >
     </div>
     <div class="description">
       <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
@@ -30,6 +41,8 @@ import { Facts } from '../../fact/facts';
 export class NetworkFactHeaderComponent {
   @Input() fact: NetworkFact;
 
+  constructor(private dialog: MatDialog) {}
+
   factLevel(): FactLevel {
     return Facts.factLevels.get(this.fact.name);
   }
@@ -43,6 +56,31 @@ export class NetworkFactHeaderComponent {
     }
     if (this.fact.checks) {
       return this.fact.checks.length;
+    }
+  }
+
+  edit(networkFact: NetworkFact): void {
+    let editParameters: EditParameters = null;
+
+    if (networkFact.elementType === 'node') {
+      editParameters = {
+        nodeIds: networkFact.elementIds,
+      };
+    } else if (networkFact.elementType === 'route') {
+      editParameters = {
+        relationIds: networkFact.elementIds,
+        fullRelation: true,
+      };
+    } else if (networkFact.checks && networkFact.checks.length > 0) {
+      editParameters = {
+        nodeIds: networkFact.checks.map((check) => check.nodeId),
+      };
+    }
+    if (editParameters) {
+      this.dialog.open(EditDialogComponent, {
+        data: editParameters,
+        maxWidth: 600,
+      });
     }
   }
 }
