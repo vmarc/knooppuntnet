@@ -45,7 +45,9 @@ import { TagDiffActionComponent } from './changes/tag-diff-action.component';
 import { TagDiffsTableComponent } from './changes/tag-diffs-table.component';
 import { TagDiffsTextComponent } from './changes/tag-diffs-text.component';
 import { TagDiffsComponent } from './changes/tag-diffs.component';
+import { EditAndPaginatorComponent } from './edit/edit-and-paginator.component';
 import { EditDialogComponent } from './edit/edit-dialog.component';
+import { EditLinkComponent } from './edit/edit-link.component';
 import { FilterCheckboxGroupComponent } from './filter/filter-checkbox-group.component';
 import { FilterRadioGroupComponent } from './filter/filter-radio-group.component';
 import { FilterTitleComponent } from './filter/filter-title.component';
@@ -123,6 +125,8 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     RouteProposedIndicatorDialogComponent,
     MonthComponent,
     EditDialogComponent,
+    EditLinkComponent,
+    EditAndPaginatorComponent,
   ],
   exports: [
     ChangeHeaderComponent,
@@ -158,6 +162,8 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     RouteProposedIndicatorComponent,
     RouteProposedIndicatorDialogComponent,
     EditDialogComponent,
+    EditLinkComponent,
+    EditAndPaginatorComponent,
   ],
 })
 export class AnalysisComponentsModule {}

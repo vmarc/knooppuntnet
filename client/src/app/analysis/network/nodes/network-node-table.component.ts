@@ -1,6 +1,7 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
@@ -15,10 +16,14 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { FilterOptions } from '../../../kpn/filter/filter-options';
+import { EditAndPaginatorComponent } from '../../components/edit/edit-and-paginator.component';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 import { NetworkNodesService } from './network-nodes.service';
@@ -27,14 +32,16 @@ import { NetworkNodesService } from './network-nodes.service';
   selector: 'kpn-network-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-edit-and-paginator
+      (edit)="edit()"
+      title="Load the nodes in this page in the editor (like JOSM)"
+      i18n-title="@@network-nodes.edit.title"
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    >
-    </kpn-paginator>
+    ></kpn-edit-and-paginator>
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -198,8 +205,8 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   readonly pageSize$ = this.store.select(selectPreferencesPageSize);
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(EditAndPaginatorComponent, { static: true })
+  paginator: EditAndPaginatorComponent;
 
   dataSource: MatTableDataSource<NetworkNodeRow>;
   headerColumns1$: Observable<Array<string>>;
@@ -212,7 +219,8 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkNodesService: NetworkNodesService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     this.headerColumns1$ = pageWidthService.current$.pipe(
       map(() => this.headerColumns1())
@@ -227,7 +235,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<NetworkNodeRow>();
-    this.dataSource.paginator = this.paginator.matPaginator;
+    this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria
       .pipe(
         map(
@@ -254,7 +262,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
+    return this.paginator.paginator.rowNumber(index);
   }
 
   expectedRouteCount(node: NetworkNodeRow): string {
@@ -265,6 +273,19 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   onPageSizeChange(pageSize: number) {
     this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+  }
+
+  edit(): void {
+    const nodeIds = Util.currentPageItems(this.dataSource).map(
+      (node) => node.detail.id
+    );
+    const editParameters: EditParameters = {
+      nodeIds,
+    };
+    this.dialog.open(EditDialogComponent, {
+      data: editParameters,
+      maxWidth: 600,
+    });
   }
 
   private displayedColumns() {

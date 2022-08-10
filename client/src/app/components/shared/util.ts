@@ -1,3 +1,4 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { Route } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
@@ -179,6 +180,14 @@ export class Util {
       .toLowerCase()
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '');
+  }
+
+  static currentPageItems<T>(dataSource: MatTableDataSource<T>): Array<T> {
+    const pageIndex = dataSource.paginator.pageIndex;
+    const pageSize = dataSource.paginator.pageSize;
+    const start = pageIndex * pageSize;
+    const end = start + pageSize;
+    return dataSource.filteredData.slice(start, end);
   }
 
   private static format(level: number): string {

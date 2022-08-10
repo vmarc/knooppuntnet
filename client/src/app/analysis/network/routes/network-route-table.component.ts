@@ -1,6 +1,7 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
@@ -13,11 +14,14 @@ import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
-import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { FilterOptions } from '../../../kpn/filter/filter-options';
+import { EditAndPaginatorComponent } from '../../components/edit/edit-and-paginator.component';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
 import { NetworkRoutesService } from './network-routes.service';
@@ -26,14 +30,16 @@ import { NetworkRoutesService } from './network-routes.service';
   selector: 'kpn-network-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-edit-and-paginator
+      (edit)="edit()"
+      title="Load the routes in this page in the editor (like JOSM)"
+      i18n-title="@@network-routes.edit.title"
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    >
-    </kpn-paginator>
+    ></kpn-edit-and-paginator>
 
     <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -173,8 +179,8 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   readonly pageSize$ = this.store.select(selectPreferencesPageSize);
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(EditAndPaginatorComponent, { static: true })
+  paginator: EditAndPaginatorComponent;
 
   dataSource: MatTableDataSource<NetworkRouteRow>;
   displayedColumns$: Observable<Array<string>>;
@@ -185,7 +191,8 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkRoutesService: NetworkRoutesService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     this.displayedColumns$ = pageWidthService.current$.pipe(
       map(() => this.displayedColumns())
@@ -194,7 +201,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator.matPaginator;
+    this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$
       .pipe(
         map(
@@ -221,11 +228,25 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
+    return this.paginator.paginator.rowNumber(index);
   }
 
   onPageSizeChange(pageSize: number) {
     this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+  }
+
+  edit(): void {
+    const relationIds = Util.currentPageItems(this.dataSource).map(
+      (route) => route.id
+    );
+    const editParameters: EditParameters = {
+      relationIds,
+      fullRelation: true,
+    };
+    this.dialog.open(EditDialogComponent, {
+      data: editParameters,
+      maxWidth: 600,
+    });
   }
 
   private displayedColumns() {

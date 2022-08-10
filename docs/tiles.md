@@ -148,7 +148,7 @@ Copy tiles to kpn server, on kpn server:
 	cd /kpn/tiles-install
   rm -rf *
 
-	/kpn/soft/mbutil/mb-util `/kpn/openmaptiles/data/`tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
+	/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
 Make productive:
 

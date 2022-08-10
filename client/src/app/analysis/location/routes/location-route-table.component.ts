@@ -4,6 +4,7 @@ import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationRouteInfo } from '@api/common/location/location-route-info';
 import { TimeInfo } from '@api/common/time-info';
@@ -14,6 +15,8 @@ import { PageWidthService } from '../../../components/shared/page-width.service'
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { actionLocationRoutesPageSize } from '../store/location.actions';
 import { actionLocationRoutesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
@@ -23,7 +26,10 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
   selector: 'kpn-location-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-edit-and-paginator
+      (edit)="edit()"
+      title="Load the routes in this page in the editor (like JOSM)"
+      i18n-title="@@location-routes.edit.title"
       [pageIndex]="pageIndex$ | async"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize$ | async"
@@ -31,8 +37,7 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
       [length]="routeCount"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    >
-    </kpn-paginator>
+    ></kpn-edit-and-paginator>
 
     <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -165,7 +170,8 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(
@@ -190,6 +196,17 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
     this.store.dispatch(actionLocationRoutesPageIndex({ pageIndex }));
+  }
+
+  edit(): void {
+    const editParameters: EditParameters = {
+      relationIds: this.routes.map((route) => route.id),
+      fullRelation: true,
+    };
+    this.dialog.open(EditDialogComponent, {
+      data: editParameters,
+      maxWidth: 600,
+    });
   }
 
   private displayedColumns() {

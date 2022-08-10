@@ -1,15 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkType } from '@api/custom/network-type';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { EditAndPaginatorComponent } from '../../components/edit/edit-and-paginator.component';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
@@ -18,14 +22,16 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   selector: 'kpn-subset-orphan-routes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-edit-and-paginator
+      (edit)="edit()"
+      title="Load the routes in this page in the editor (like JOSM)"
+      i18n-title="@@subset-orphan-routes.edit.title"
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    >
-    </kpn-paginator>
+    ></kpn-edit-and-paginator>
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -141,8 +147,8 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   @Input() networkType: NetworkType;
   @Input() orphanRoutes: OrphanRouteInfo[];
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(EditAndPaginatorComponent, { static: true })
+  paginator: EditAndPaginatorComponent;
 
   dataSource: MatTableDataSource<OrphanRouteInfo>;
 
@@ -163,12 +169,13 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanRoutesService: SubsetOrphanRoutesService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator.matPaginator;
+    this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria.subscribe((criteria) => {
       const filter = new SubsetOrphanRouteFilter(
         this.timeInfo,
@@ -183,10 +190,24 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
+    return this.paginator.paginator.rowNumber(index);
   }
 
   onPageSizeChange(pageSize: number) {
     this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+  }
+
+  edit(): void {
+    const routeIds = Util.currentPageItems(this.dataSource).map(
+      (orphanRoute) => orphanRoute.id
+    );
+    const editParameters: EditParameters = {
+      relationIds: routeIds,
+      fullRelation: true,
+    };
+    this.dialog.open(EditDialogComponent, {
+      data: editParameters,
+      maxWidth: 600,
+    });
   }
 }

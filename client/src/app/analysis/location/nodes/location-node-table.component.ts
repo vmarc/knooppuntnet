@@ -4,6 +4,7 @@ import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { TimeInfo } from '@api/common/time-info';
@@ -15,6 +16,8 @@ import { PageWidthService } from '../../../components/shared/page-width.service'
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { actionLocationNodesPageSize } from '../store/location.actions';
 import { actionLocationNodesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
@@ -24,7 +27,10 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
   selector: 'kpn-location-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-edit-and-paginator
+      (edit)="edit()"
+      title="Load the nodes in this page in the editor (like JOSM)"
+      i18n-title="@@location-nodes.edit.title"
       [pageIndex]="pageIndex$ | async"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize$ | async"
@@ -32,8 +38,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
       [length]="nodeCount"
       [showFirstLastButtons]="false"
       [showPageSizeSelection]="true"
-    >
-    </kpn-paginator>
+    ></kpn-edit-and-paginator>
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -187,7 +192,8 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(
@@ -212,6 +218,16 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
     this.store.dispatch(actionLocationNodesPageIndex({ pageIndex }));
+  }
+
+  edit(): void {
+    const editParameters: EditParameters = {
+      nodeIds: this.nodes.map((node) => node.id),
+    };
+    this.dialog.open(EditDialogComponent, {
+      data: editParameters,
+      maxWidth: 600,
+    });
   }
 
   private displayedColumns() {

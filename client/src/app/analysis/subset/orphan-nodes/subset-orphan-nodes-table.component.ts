@@ -1,14 +1,18 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common/orphan-node-info';
 import { TimeInfo } from '@api/common/time-info';
+import { Util } from '@app/components/shared/util';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { EditAndPaginatorComponent } from '../../components/edit/edit-and-paginator.component';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
@@ -17,14 +21,16 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   selector: 'kpn-subset-orphan-nodes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-edit-and-paginator
+      (edit)="edit()"
+      title="Load the nodes in this page in the editor (like JOSM)"
+      i18n-title="@@subset-orphan-nodes.edit.title"
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    >
-    </kpn-paginator>
+    ></kpn-edit-and-paginator>
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -111,8 +117,8 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   @Input() timeInfo: TimeInfo;
   @Input() nodes: OrphanNodeInfo[];
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(EditAndPaginatorComponent, { static: true })
+  paginator: EditAndPaginatorComponent;
   dataSource: MatTableDataSource<OrphanNodeInfo>;
 
   displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
@@ -125,12 +131,13 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanNodesService: SubsetOrphanNodesService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
-    this.dataSource.paginator = this.paginator.matPaginator;
+    this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria.subscribe((criteria) => {
       const filter = new SubsetOrphanNodeFilter(
         this.timeInfo,
@@ -145,10 +152,23 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.rowNumber(index);
+    return this.paginator.paginator.rowNumber(index);
   }
 
   onPageSizeChange(pageSize: number) {
     this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+  }
+
+  edit(): void {
+    const nodeIds = Util.currentPageItems(this.dataSource).map(
+      (node) => node.id
+    );
+    const editParameters: EditParameters = {
+      nodeIds,
+    };
+    this.dialog.open(EditDialogComponent, {
+      data: editParameters,
+      maxWidth: 600,
+    });
   }
 }
