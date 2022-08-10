@@ -49,8 +49,8 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
                 rel="nofollow"
                 (click)="edit(factCount.fact)"
                 title="Open in editor (like JOSM)"
-                i18n-title="@@subsetFact.edit.title"
-                i18n="@@subsetFact.edit"
+                i18n-title="@@edit.link.title"
+                i18n="@@edit.link"
                 >edit</a
               >
             </div>

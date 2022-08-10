@@ -2,7 +2,10 @@ import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
   selector: 'kpn-subset-fact-details',
@@ -77,6 +80,14 @@ import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-pa
               >{networkFactRefs.factRefs.length, plural, one {1 route} other
               {{{networkFactRefs.factRefs.length}} routes}}</span
             >
+            <a
+              rel="nofollow"
+              (click)="edit()"
+              title="Open in editor (like JOSM)"
+              i18n-title="@@edit.link.title"
+              i18n="@@edit.link"
+              >edit</a
+            >
           </div>
           <div class="kpn-comma-list fact-detail">
             <span *ngFor="let ref of networkFactRefs.factRefs">
@@ -119,6 +130,8 @@ export class SubsetFactDetailsComponent implements OnInit {
 
   refCount = 0;
   factCount = 0;
+
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.refCount = this.calculateRefCount();
@@ -166,5 +179,37 @@ export class SubsetFactDetailsComponent implements OnInit {
       this.hasOsmWayRefs() ||
       this.hasOsmRelationRefs()
     );
+  }
+
+  edit() {
+    const elementIds = this.page.networks
+      .flatMap((n) => n.factRefs)
+      .map((ref) => ref.id);
+
+    let editParameters: EditParameters = null;
+
+    if (this.hasNodeRefs() || this.hasOsmNodeRefs()) {
+      editParameters = {
+        nodeIds: elementIds,
+      };
+    } else if (this.hasOsmWayRefs()) {
+      editParameters = {
+        wayIds: elementIds,
+      };
+    } else if (this.hasOsmRelationRefs() || this.hasRouteRefs()) {
+      editParameters = {
+        relationIds: elementIds,
+        fullRelation: true,
+      };
+    }
+
+    if (editParameters) {
+      this.dialog.open(EditDialogComponent, {
+        data: editParameters,
+        maxWidth: 600,
+      });
+    } else {
+      console.log('no editParameters');
+    }
   }
 }

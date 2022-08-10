@@ -12,7 +12,8 @@ import { TimeoutComponent } from './timeout.component';
       rel="nofollow"
       (click)="edit()"
       title="Open in editor (like JOSM)"
-      i18n="@@links.edit"
+      i18n-title="@@edit.link.title"
+      i18n="@@edit.link"
       >edit</a
     >
   `,
