@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { LocationFact } from '@api/common/location/location-fact';
 import { Fact } from '@api/custom/fact';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
 
@@ -27,6 +29,14 @@ import { Facts } from '../../fact/facts';
             [factLevel]="factLevel(locationFact.fact)"
             class="level"
           ></kpn-fact-level>
+          <a
+            rel="nofollow"
+            (click)="edit(locationFact)"
+            title="Open in editor (like JOSM)"
+            i18n-title="@@edit.link.title"
+            i18n="@@edit.link"
+            >edit</a
+          >
         </div>
         <div class="description">
           <kpn-fact-description
@@ -76,7 +86,33 @@ import { Facts } from '../../fact/facts';
 export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
+  constructor(private dialog: MatDialog) {}
+
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);
+  }
+
+  edit(locationFact: LocationFact): void {
+    let editParameters = null;
+
+    if (locationFact.elementType === 'node') {
+      editParameters = {
+        nodeIds: locationFact.refs.map((ref) => ref.id),
+      };
+    }
+
+    if (locationFact.elementType === 'route') {
+      editParameters = {
+        relationIds: locationFact.refs.map((ref) => ref.id),
+        fullRelation: true,
+      };
+    }
+
+    if (editParameters) {
+      this.dialog.open(EditDialogComponent, {
+        data: editParameters,
+        maxWidth: 600,
+      });
+    }
   }
 }

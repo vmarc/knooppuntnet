@@ -31,6 +31,7 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Ruiter- en mennetwerk ",
     "Ruiter- en menroutenetwerk ",
     "Réseau Point-Nœud, ",
+    "Réseau Point-Noeud, ",
     "Points-noeuds en ",
     "Motorbootnetwerk ",
     "Sloepennetwerk ",
