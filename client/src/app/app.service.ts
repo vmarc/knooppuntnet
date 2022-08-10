@@ -43,6 +43,7 @@ import { Status } from '@api/common/status/status';
 import { SystemStatusPage } from '@api/common/status/system-status-page';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
+import { SubsetFactRefs } from '@api/common/subset/subset-fact-refs';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
 import { SubsetMapPage } from '@api/common/subset/subset-map-page';
 import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
@@ -91,6 +92,14 @@ export class AppService {
 
   subsetFacts(subset: Subset): Observable<ApiResponse<SubsetFactsPage>> {
     const url = this.subsetUrl(subset, 'facts');
+    return this.http.get(url);
+  }
+
+  subsetFactRefs(
+    subset: Subset,
+    factName: string
+  ): Observable<ApiResponse<SubsetFactRefs>> {
+    const url = this.subsetUrl(subset, factName) + '/refs';
     return this.http.get(url);
   }
 

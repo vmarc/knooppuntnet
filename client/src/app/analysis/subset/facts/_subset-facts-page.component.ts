@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
+import { actionSubsetFactRefsLoad } from '../store/subset.actions';
 import { actionSubsetFactsPageInit } from '../store/subset.actions';
 import { selectSubsetFactsPage } from '../store/subset.selectors';
 
@@ -36,13 +37,23 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
             *ngFor="let factCount of response.result.factCounts; let i = index"
             [index]="i"
           >
-            <a [routerLink]="factCount.fact">
-              <kpn-fact-name [fact]="factCount.fact"></kpn-fact-name>
-            </a>
-            ({{ factCount.count }})
-            <kpn-fact-level
-              [factLevel]="factLevel(factCount.fact)"
-            ></kpn-fact-level>
+            <div class="kpn-line">
+              <a [routerLink]="factCount.fact">
+                <kpn-fact-name [fact]="factCount.fact"></kpn-fact-name>
+              </a>
+              <span>({{ factCount.count }})</span>
+              <kpn-fact-level
+                [factLevel]="factLevel(factCount.fact)"
+              ></kpn-fact-level>
+              <a
+                rel="nofollow"
+                (click)="edit(factCount.fact)"
+                title="Open in editor (like JOSM)"
+                i18n-title="@@subsetFact.edit.title"
+                i18n="@@subsetFact.edit"
+                >edit</a
+              >
+            </div>
             <kpn-fact-description
               [factName]="factCount.fact"
             ></kpn-fact-description>
@@ -67,5 +78,9 @@ export class SubsetFactsPageComponent implements OnInit {
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);
+  }
+
+  edit(fact: Fact): void {
+    this.store.dispatch(actionSubsetFactRefsLoad({ fact }));
   }
 }

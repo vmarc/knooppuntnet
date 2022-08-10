@@ -152,6 +152,9 @@ object Fact {
     RouteInvalidSurveyDate,
   )
 
+  val networkFactsWithElementIds: Seq[Fact] = Seq(Fact.NetworkExtraMemberNode, Fact.NetworkExtraMemberWay, Fact.NetworkExtraMemberRelation)
+  val networkFactsWithRefs: Seq[Fact] = Seq(Fact.NodeMemberMissing)
+
   val routeDetailFacts: Seq[Fact] = all.filterNot(f => f == RouteBroken || f == RouteNotContinious)
 
   def withName(factName: String): Option[Fact] = {

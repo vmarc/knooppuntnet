@@ -1,12 +1,14 @@
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
+import { SubsetFactRefs } from '@api/common/subset/subset-fact-refs';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
 import { SubsetMapPage } from '@api/common/subset/subset-map-page';
 import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
 import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-page';
 import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { Fact } from '@api/custom/fact';
 import { Subset } from '@api/custom/subset';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
@@ -37,6 +39,16 @@ export const actionSubsetFactsPageLoad = createAction(
 export const actionSubsetFactsPageLoaded = createAction(
   '[SubsetFactsPage] Loaded',
   props<{ response: ApiResponse<SubsetFactsPage> }>()
+);
+
+export const actionSubsetFactRefsLoad = createAction(
+  '[SubsetFactRefs] Load',
+  props<{ fact: Fact }>()
+);
+
+export const actionSubsetFactRefsLoaded = createAction(
+  '[SubsetFactRefs] Loaded',
+  props<{ response: ApiResponse<SubsetFactRefs> }>()
 );
 
 export const actionSubsetFactDetailsPageInit = createAction(

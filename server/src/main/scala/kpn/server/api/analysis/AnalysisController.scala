@@ -35,6 +35,7 @@ import kpn.api.common.route.RouteMapPage
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
+import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.common.subset.SubsetFactsPage
 import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
@@ -81,6 +82,17 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetFactsPage] = {
     val subset = Subset.of(country, networkType)
     analysisFacade.subsetFacts(CurrentUser.name, subset.get)
+  }
+
+  @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}/refs"))
+  def subsetFactRefs(
+    @PathVariable country: Country,
+    @PathVariable networkType: NetworkType,
+    @PathVariable fact: String
+  ): ApiResponse[SubsetFactRefs] = {
+    val subset = Subset.of(country, networkType).get // TODO improve
+    val f = Fact.withName(fact).get // TODO improve
+    analysisFacade.subsetFactRefs(CurrentUser.name, subset, f)
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))

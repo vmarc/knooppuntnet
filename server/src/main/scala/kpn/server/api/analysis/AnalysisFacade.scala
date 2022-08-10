@@ -31,6 +31,7 @@ import kpn.api.common.route.RouteMapPage
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
+import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.common.subset.SubsetFactsPage
 import kpn.api.common.subset.SubsetMapPage
 import kpn.api.common.subset.SubsetNetworksPage
@@ -84,6 +85,8 @@ trait AnalysisFacade {
   def overview(user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]]
 
   def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
+
+  def subsetFactRefs(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactRefs]
 
   def changeSet(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
 

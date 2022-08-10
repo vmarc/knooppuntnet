@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
@@ -9,6 +10,7 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -18,6 +20,10 @@ import { selectQueryParams } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
+import { actionSubsetFactRefsLoaded } from './subset.actions';
+import { actionSubsetFactRefsLoad } from './subset.actions';
 import { actionSubsetOrphanNodesPageInit } from './subset.actions';
 import { actionSubsetMapPageLoad } from './subset.actions';
 import { actionSubsetOrphanRoutesPageInit } from './subset.actions';
@@ -84,6 +90,51 @@ export class SubsetEffects {
       mergeMap((action) => this.appService.subsetFacts(action.subset)),
       map((response) => actionSubsetFactsPageLoaded({ response }))
     )
+  );
+
+  editFactRefsLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionSubsetFactRefsLoad),
+      concatLatestFrom(() => this.store.select(selectSubset)),
+      mergeMap(([action, subset]) =>
+        this.appService.subsetFactRefs(subset, action.fact)
+      ),
+      map((response) => actionSubsetFactRefsLoaded({ response }))
+    )
+  );
+
+  editDialog = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actionSubsetFactRefsLoaded),
+        tap((action) => {
+          const subsetFactRefs = action.response.result;
+          let editParameters: EditParameters = null;
+          if (subsetFactRefs.elementType === 'node') {
+            editParameters = {
+              nodeIds: subsetFactRefs.elementIds,
+            };
+          }
+          if (subsetFactRefs.elementType === 'way') {
+            editParameters = {
+              wayIds: subsetFactRefs.elementIds,
+            };
+          }
+          if (subsetFactRefs.elementType === 'relation') {
+            editParameters = {
+              relationIds: subsetFactRefs.elementIds,
+              fullRelation: true,
+            };
+          }
+          if (editParameters) {
+            this.dialog.open(EditDialogComponent, {
+              data: editParameters,
+              maxWidth: 600,
+            });
+          }
+        })
+      ),
+    { dispatch: false }
   );
 
   factDetailsPageInit = createEffect(() =>
@@ -226,7 +277,8 @@ export class SubsetEffects {
     private store: Store<AppState>,
     private appService: AppService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {

@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
+import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
@@ -25,14 +26,11 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
 
   private val log = Log(classOf[FactRepositoryImpl])
 
-  private val networkFactsWithElementIds = Seq(Fact.NetworkExtraMemberNode, Fact.NetworkExtraMemberWay, Fact.NetworkExtraMemberRelation)
-  private val networkFactsWithRefs = Seq(Fact.NodeMemberMissing)
-
   override def factsPerNetwork(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
-    if (networkFactsWithElementIds.contains(fact)) {
+    if (Fact.networkFactsWithElementIds.contains(fact)) {
       findNetworkFactsWithElementIds(subset, fact)
     }
-    else if (networkFactsWithRefs.contains(fact)) {
+    else if (Fact.networkFactsWithRefs.contains(fact)) {
       findNetworkFactsWithRefs(subset, fact)
     }
     else if (Fact.IntegrityCheckFailed == fact) {
