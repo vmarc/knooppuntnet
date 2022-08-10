@@ -2,19 +2,13 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { LocationEditPage } from '@api/common/location/location-edit-page';
-import { Store } from '@ngrx/store';
-import { Range } from 'immutable';
 import { Subscription } from 'rxjs';
-import { TimeoutError } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { concat } from 'rxjs';
-import { Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { AppState } from '../../../core/core.state';
-import { actionSharedHttpError } from '../../../core/shared/shared.actions';
+import { EditConfiguration } from '../../components/edit/edit-configuration';
+import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
   selector: 'kpn-location-edit',
@@ -55,61 +49,23 @@ import { actionSharedHttpError } from '../../../core/shared/shared.actions';
         load all nodes and routes in the editor.
       </i>
     </p>
-    <p *ngIf="showProgress$ | async">
-      <mat-progress-bar [value]="progress$ | async"></mat-progress-bar>
-    </p>
-    <p *ngIf="ready$ | async" i18n="@@location-edit.ready">Ready</p>
-    <p *ngIf="error$ | async" i18n="@@location-edit.error">Error</p>
-    <p *ngIf="errorName$ | async as errorName">
-      {{ errorName }}
-    </p>
-    <p *ngIf="errorMessage$ | async as errorMessage">
-      {{ errorMessage }}
-    </p>
-    <p *ngIf="timeout$ | async" class="timeout" i18n="@@location-edit.timeout">
-      Timeout: editor not started, or editor remote control not enabled?
-    </p>
-    <p *ngIf="showProgress$ | async; else showEdit">
+    <p>
       <button
         mat-raised-button
-        (click)="cancel()"
-        i18n="@@location-edit.cancel"
+        color="primary"
+        (click)="edit()"
+        title="Open in editor (like JOSM)"
+        i18n-title="@@location-edit.submit.tooltip"
+        i18n="@@location-edit.submit"
       >
-        Cancel
+        Load in JOSM editor
       </button>
     </p>
-    <ng-template #showEdit>
-      <p>
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="edit()"
-          title="Open in editor (like JOSM)"
-          i18n-title="@@location-edit.submit.tooltip"
-          i18n="@@location-edit.submit"
-        >
-          Load in JOSM editor
-        </button>
-      </p>
-    </ng-template>
   `,
-  styles: [
-    `
-      mat-progress-bar {
-        width: 80%;
-      }
-
-      .timeout {
-        color: red;
-      }
-    `,
-  ],
 })
 export class LocationEditComponent implements OnInit {
   @Input() page: LocationEditPage;
 
-  progressCount = 0;
-  progressSteps = 0;
   seconds = 0;
 
   nodeSelection = true;
@@ -118,23 +74,11 @@ export class LocationEditComponent implements OnInit {
 
   subscription: Subscription;
 
-  progress$ = new BehaviorSubject<number>(0);
-  showProgress$ = new BehaviorSubject<boolean>(false);
-  ready$ = new BehaviorSubject<boolean>(false);
-  error$ = new BehaviorSubject<boolean>(false);
-  errorName$ = new BehaviorSubject<string>('');
-  errorMessage$ = new BehaviorSubject<string>('');
-  timeout$ = new BehaviorSubject<boolean>(false);
   showEstimatedTime$ = new BehaviorSubject<boolean>(false);
 
-  private readonly nodeChunkSize = 50;
-  private readonly routeChunkSize = 50;
-  private readonly requestDelay = 200;
-  private readonly josmUrl = 'http://localhost:8111/';
-  private readonly apiUrl =
-    this.josmUrl + 'import?url=https://api.openstreetmap.org/api/0.6';
+  private readonly configuration = new EditConfiguration();
 
-  constructor(private appService: AppService, private store: Store<AppState>) {}
+  constructor(private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.updateExpectation();
@@ -156,151 +100,38 @@ export class LocationEditComponent implements OnInit {
   }
 
   edit(): void {
-    this.store.dispatch(actionSharedHttpError({ httpError: null }));
-
-    this.error$.next(false);
-    this.timeout$.next(false);
-    this.ready$.next(false);
-
-    const nodeEdits = this.buildNodeEdits();
-    const routeEdits = this.buildRouteEdits();
-    const fullRouteEdits = this.buildFullRouteEdits();
-    const edits = nodeEdits.concat(routeEdits).concat(fullRouteEdits);
-    const setBounds = this.buildSetBounds();
-    const steps = setBounds === null ? edits : edits.concat(setBounds);
-
-    this.progressSteps = steps.length;
-    this.showProgress$.next(true);
-    this.subscription = concat(...steps).subscribe(
-      (result) => {},
-      (err) => {
-        if (err instanceof TimeoutError) {
-          this.timeout$.next(true);
-          this.showProgress$.next(false);
-        } else {
-          this.showProgress$.next(false);
-          this.error$.next(true);
-          this.errorName$.next(err.name);
-          this.errorMessage$.next(err.message);
-        }
-      },
-      () => {
-        this.showProgress$.next(false);
-        this.progress$.next(0);
-        this.progressCount = 0;
-        this.progressSteps = 0;
-        this.ready$.next(true);
-        this.subscription.unsubscribe();
-      }
-    );
-  }
-
-  cancel(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.showProgress$.next(false);
-      this.progress$.next(0);
-      this.progressCount = 0;
-      this.progressSteps = 0;
-    }
-  }
-
-  buildSetBounds(): Observable<string> {
-    if (this.page.nodeIds.length > 0) {
-      const zoomUrl =
-        this.josmUrl +
-        `zoom?left=${this.page.bounds.minLon}&right=${this.page.bounds.maxLon}&top=${this.page.bounds.maxLat}&bottom=${this.page.bounds.minLat}`;
-      return this.appService
-        .edit(zoomUrl)
-        .pipe(tap(() => this.updateProgress()));
-    }
-    return null;
+    const data = this.buildEditParameters();
+    this.dialog.open(EditDialogComponent, {
+      data,
+      maxWidth: 600,
+    });
   }
 
   private updateExpectation(): void {
-    let nodeStepCount = 0;
-    if (this.nodeSelection === true) {
-      nodeStepCount += this.page.nodeIds.length / this.nodeChunkSize + 1;
-    }
-
-    let routeStepCount = 0;
-    if (this.routeRelationsSelection === true) {
-      routeStepCount += this.page.routeIds.length / this.routeChunkSize + 1;
-    }
-
-    let fullRouteStepCount = 0;
-    if (this.fullRouteSelection === true) {
-      fullRouteStepCount += this.page.routeIds.length;
-    }
-
-    const stepCount = nodeStepCount + routeStepCount + fullRouteStepCount;
-    this.seconds = Math.round((stepCount * (this.requestDelay + 200)) / 1000);
-
+    const parameters: EditParameters = this.buildEditParameters();
+    this.seconds = this.configuration.seconds(parameters);
     this.showEstimatedTime$.next(this.seconds > 3);
-    this.timeout$.next(false);
   }
 
-  private buildNodeEdits(): Observable<string>[] {
-    if (!this.nodeSelection) {
-      return [];
-    }
-    const nodeBatches = Range(0, this.page.nodeIds.length, this.nodeChunkSize)
-      .map((chunkStart) =>
-        this.page.nodeIds.slice(chunkStart, chunkStart + this.nodeChunkSize)
-      )
-      .toArray();
-    return nodeBatches.map((nodeIds) => {
-      const nodeIdString = nodeIds.join(',');
-      const url = `${this.apiUrl}/nodes?nodes=${nodeIdString}`;
-      return this.appService.edit(url).pipe(
-        tap(() => this.updateProgress()),
-        delay(this.requestDelay)
-      );
-    });
-  }
+  private buildEditParameters(): EditParameters {
+    let editParameters: EditParameters = {
+      bounds: this.page.bounds,
+    };
 
-  private buildRouteEdits(): Observable<string>[] {
-    if (!this.routeRelationsSelection || this.fullRouteSelection) {
-      return [];
+    if (this.nodeSelection === true) {
+      editParameters = {
+        ...editParameters,
+        nodeIds: this.page.nodeIds,
+      };
     }
-    const routeBatches = Range(
-      0,
-      this.page.routeIds.length,
-      this.routeChunkSize
-    )
-      .map((chunkStart) =>
-        this.page.routeIds.slice(chunkStart, chunkStart + this.routeChunkSize)
-      )
-      .toArray();
-    return routeBatches.map((routeIds) => {
-      const routeIdString = routeIds.join(',');
-      const url = `${this.apiUrl}/relations?relations=${routeIdString}`;
-      return this.appService.edit(url).pipe(
-        tap(() => this.updateProgress()),
-        delay(this.requestDelay)
-      );
-    });
-  }
 
-  private buildFullRouteEdits(): Observable<string>[] {
-    if (!this.fullRouteSelection) {
-      return [];
+    if (this.routeRelationsSelection === true) {
+      editParameters = {
+        ...editParameters,
+        relationIds: this.page.routeIds,
+        fullRelation: this.fullRouteSelection,
+      };
     }
-    return this.page.routeIds.map((routeId) => {
-      const url = `${this.apiUrl}/relation/${routeId}/full`;
-      return this.appService.edit(url).pipe(
-        tap(() => this.updateProgress()),
-        delay(this.requestDelay)
-      );
-    });
-  }
-
-  private updateProgress() {
-    this.progressCount = this.progressCount + 1;
-    let progress = 0;
-    if (this.progressSteps > 0) {
-      progress = Math.round((100 * this.progressCount) / this.progressSteps);
-    }
-    this.progress$.next(progress);
+    return editParameters;
   }
 }

@@ -27,8 +27,8 @@ import { selectLocationKey } from '../store/location.selectors';
         </span>
         <kpn-network-type-name
           [networkType]="locationKey.networkType"
-        ></kpn-network-type-name>
-        <span i18n="@@location-page.header.in">in</span>
+        ></kpn-network-type-name
+        >&nbsp;<span i18n="@@location-page.header.in">in</span>
         {{ locationName(locationKey) }}
       </kpn-page-header>
 
