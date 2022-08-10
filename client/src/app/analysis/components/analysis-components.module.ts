@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
@@ -43,6 +45,7 @@ import { TagDiffActionComponent } from './changes/tag-diff-action.component';
 import { TagDiffsTableComponent } from './changes/tag-diffs-table.component';
 import { TagDiffsTextComponent } from './changes/tag-diffs-text.component';
 import { TagDiffsComponent } from './changes/tag-diffs.component';
+import { EditDialogComponent } from './edit/edit-dialog.component';
 import { FilterCheckboxGroupComponent } from './filter/filter-checkbox-group.component';
 import { FilterRadioGroupComponent } from './filter/filter-radio-group.component';
 import { FilterTitleComponent } from './filter/filter-title.component';
@@ -75,6 +78,8 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     FactModule,
     RouterModule,
     AnalysisStrategyModule,
+    MatButtonModule,
+    MatProgressBarModule,
   ],
   declarations: [
     ChangeHeaderComponent,
@@ -117,6 +122,7 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     RouteProposedIndicatorComponent,
     RouteProposedIndicatorDialogComponent,
     MonthComponent,
+    EditDialogComponent,
   ],
   exports: [
     ChangeHeaderComponent,
@@ -151,6 +157,7 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     RouteInvestigateIndicatorDialogComponent,
     RouteProposedIndicatorComponent,
     RouteProposedIndicatorDialogComponent,
+    EditDialogComponent,
   ],
 })
 export class AnalysisComponentsModule {}
