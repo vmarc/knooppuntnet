@@ -36,17 +36,6 @@ export class EditService {
   constructor(private appService: AppService, private store: Store<AppState>) {}
 
   edit(parameters: EditParameters): void {
-    console.log(
-      'DEBUG EditService: edit, nodeIds='.concat(
-        parameters.nodeIds?.join(','),
-        ', wayIds=',
-        parameters.wayIds?.join(','),
-        ', relationIds=',
-        parameters.relationIds?.join(','),
-        ', fullRoute=' + parameters.fullRelation
-      )
-    );
-
     this.store.dispatch(actionSharedHttpError({ httpError: null }));
 
     const nodeEdits = this.buildNodeEdits(parameters);

@@ -24,7 +24,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
       {{ network.km | integer }} km, {{ network.nodeCount | integer }} nodes,
       {{ network.routeCount | integer }} routes
     </div>
-    <div>
+    <div class="kpn-line">
       <kpn-osm-link-relation [relationId]="network.id"></kpn-osm-link-relation>
       <kpn-josm-relation [relationId]="network.id"></kpn-josm-relation>
     </div>

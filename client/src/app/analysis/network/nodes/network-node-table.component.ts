@@ -1,7 +1,6 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
@@ -15,14 +14,13 @@ import { tap } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
-import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { FilterOptions } from '../../../kpn/filter/filter-options';
 import { EditAndPaginatorComponent } from '../../components/edit/edit-and-paginator.component';
-import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
@@ -219,8 +217,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkNodesService: NetworkNodesService,
-    private store: Store<AppState>,
-    private dialog: MatDialog
+    private store: Store<AppState>
   ) {
     this.headerColumns1$ = pageWidthService.current$.pipe(
       map(() => this.headerColumns1())
@@ -282,10 +279,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     const editParameters: EditParameters = {
       nodeIds,
     };
-    this.dialog.open(EditDialogComponent, {
-      data: editParameters,
-      maxWidth: 600,
-    });
+    this.store.dispatch(actionSharedEdit({ editParameters }));
   }
 
   private displayedColumns() {

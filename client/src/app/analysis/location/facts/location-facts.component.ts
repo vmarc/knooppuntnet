@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { LocationFact } from '@api/common/location/location-fact';
 import { Fact } from '@api/custom/fact';
-import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { AppState } from '@app/core/core.state';
+import { Store } from '@ngrx/store';
+import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
 
@@ -86,7 +87,7 @@ import { Facts } from '../../fact/facts';
 export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private store: Store<AppState>) {}
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);
@@ -108,11 +109,6 @@ export class LocationFactsComponent {
       };
     }
 
-    if (editParameters) {
-      this.dialog.open(EditDialogComponent, {
-        data: editParameters,
-        maxWidth: 600,
-      });
-    }
+    this.store.dispatch(actionSharedEdit({ editParameters }));
   }
 }

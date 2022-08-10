@@ -1,14 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ofType } from '@ngrx/effects';
+import { createEffect } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState } from '../core.state';
+import { tap } from 'rxjs/operators';
+import { EditDialogComponent } from '../../analysis/components/edit/edit-dialog.component';
+import { actionSharedEdit } from './shared.actions';
 
 @Injectable()
 export class SharedEffects {
-  constructor(
-    private actions$: Actions,
-    private store: Store<AppState>,
-    private router: Router
-  ) {}
+  constructor(private actions$: Actions, private dialog: MatDialog) {}
+
+  editDialog = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actionSharedEdit),
+        tap(({ editParameters }) => {
+          if (editParameters) {
+            this.dialog.open(EditDialogComponent, {
+              data: editParameters,
+              maxWidth: 600,
+            });
+          }
+        })
+      ),
+    { dispatch: false }
+  );
 }

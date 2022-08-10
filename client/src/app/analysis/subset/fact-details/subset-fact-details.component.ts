@@ -2,9 +2,10 @@ import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
-import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { AppState } from '@app/core/core.state';
+import { Store } from '@ngrx/store';
+import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
@@ -131,7 +132,7 @@ export class SubsetFactDetailsComponent implements OnInit {
   refCount = 0;
   factCount = 0;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.refCount = this.calculateRefCount();
@@ -202,14 +203,6 @@ export class SubsetFactDetailsComponent implements OnInit {
         fullRelation: true,
       };
     }
-
-    if (editParameters) {
-      this.dialog.open(EditDialogComponent, {
-        data: editParameters,
-        maxWidth: 600,
-      });
-    } else {
-      console.log('no editParameters');
-    }
+    this.store.dispatch(actionSharedEdit({ editParameters }));
   }
 }

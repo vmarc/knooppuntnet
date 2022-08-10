@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { NetworkFact } from '@api/common/network-fact';
-import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
@@ -41,7 +42,7 @@ import { Facts } from '../../fact/facts';
 export class NetworkFactHeaderComponent {
   @Input() fact: NetworkFact;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private store: Store<AppState>) {}
 
   factLevel(): FactLevel {
     return Facts.factLevels.get(this.fact.name);
@@ -76,11 +77,6 @@ export class NetworkFactHeaderComponent {
         nodeIds: networkFact.checks.map((check) => check.nodeId),
       };
     }
-    if (editParameters) {
-      this.dialog.open(EditDialogComponent, {
-        data: editParameters,
-        maxWidth: 600,
-      });
-    }
+    this.store.dispatch(actionSharedEdit({ editParameters }));
   }
 }

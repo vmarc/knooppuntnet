@@ -2,12 +2,13 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
 import { LocationEditPage } from '@api/common/location/location-edit-page';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { AppState } from '../../../core/core.state';
+import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditConfiguration } from '../../components/edit/edit-configuration';
-import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
 import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
@@ -78,7 +79,7 @@ export class LocationEditComponent implements OnInit {
 
   private readonly configuration = new EditConfiguration();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.updateExpectation();
@@ -100,11 +101,8 @@ export class LocationEditComponent implements OnInit {
   }
 
   edit(): void {
-    const data = this.buildEditParameters();
-    this.dialog.open(EditDialogComponent, {
-      data,
-      maxWidth: 600,
-    });
+    const editParameters = this.buildEditParameters();
+    this.store.dispatch(actionSharedEdit({ editParameters }));
   }
 
   private updateExpectation(): void {

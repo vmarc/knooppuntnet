@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
@@ -11,8 +10,8 @@ import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
+import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditAndPaginatorComponent } from '../../components/edit/edit-and-paginator.component';
-import { EditDialogComponent } from '../../components/edit/edit-dialog.component';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
@@ -169,8 +168,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanRoutesService: SubsetOrphanRoutesService,
-    private store: Store<AppState>,
-    private dialog: MatDialog
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -205,9 +203,6 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
       relationIds: routeIds,
       fullRelation: true,
     };
-    this.dialog.open(EditDialogComponent, {
-      data: editParameters,
-      maxWidth: 600,
-    });
+    this.store.dispatch(actionSharedEdit({ editParameters }));
   }
 }
