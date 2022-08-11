@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
 import { selectMonitorRouteMapGpxEnabled } from '../../store/monitor.selectors';
@@ -18,35 +19,47 @@ import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors'
       <p>No GPX, no known deviations</p>
     </ng-template>
     <ng-template #gpxTrace>
-      <p class="segments-title">
-        <span>GPX segments where OSM is deviating</span>
-      </p>
+      <div
+        *ngIf="hasDeviations$ | async; then deviations; else noDeviations"
+      ></div>
+      <ng-template #noDeviations>
+        <p class="kpn-spacer-above kpn-line">
+          <kpn-icon-happy></kpn-icon-happy>
+          <span>No deviations</span>
+        </p>
+      </ng-template>
 
-      <div class="segment segment-header">
-        <span class="segment-id">
-          <kpn-legend-line color="red"></kpn-legend-line>
-        </span>
-        <span class="segment-deviation">Deviation</span>
-        <span>Length</span>
-      </div>
+      <ng-template #deviations>
+        <p class="segments-title">
+          <span>GPX segments where OSM is deviating</span>
+        </p>
 
-      <mat-selection-list
-        [multiple]="false"
-        (selectionChange)="selectionChanged($event)"
-      >
-        <mat-list-option
-          *ngFor="let segment of segments$ | async"
-          [value]="segment"
+        <div class="segment segment-header">
+          <span class="segment-id">
+            <kpn-legend-line color="red"></kpn-legend-line>
+          </span>
+          <span class="segment-deviation">Deviation</span>
+          <span>Length</span>
+        </div>
+
+        <mat-selection-list
+          [multiple]="false"
+          (selectionChange)="selectionChanged($event)"
         >
-          <div class="segment">
-            <span class="segment-id">{{ segment.id }}</span>
-            <span class="segment-deviation">{{
-              segment.distance | distance
-            }}</span>
-            <span>{{ segment.meters | distance }}</span>
-          </div>
-        </mat-list-option>
-      </mat-selection-list>
+          <mat-list-option
+            *ngFor="let segment of deviations$ | async"
+            [value]="segment"
+          >
+            <div class="segment">
+              <span class="segment-id">{{ segment.id }}</span>
+              <span class="segment-deviation">{{
+                segment.distance | distance
+              }}</span>
+              <span>{{ segment.meters | distance }}</span>
+            </div>
+          </mat-list-option>
+        </mat-selection-list>
+      </ng-template>
     </ng-template>
   `,
   styles: [
@@ -74,7 +87,10 @@ import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors'
   ],
 })
 export class MonitorRouteMapNokSegmentsComponent {
-  readonly segments$ = this.store.select(selectMonitorRouteMapNokSegments);
+  readonly deviations$ = this.store.select(selectMonitorRouteMapNokSegments);
+  readonly hasDeviations$ = this.deviations$.pipe(
+    map((deviations) => deviations.length > 0)
+  );
   readonly gpxTraceAvailable$ = this.store.select(
     selectMonitorRouteMapGpxEnabled
   );

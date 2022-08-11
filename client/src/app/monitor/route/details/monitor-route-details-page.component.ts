@@ -41,19 +41,17 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         </kpn-data>
 
         <kpn-data title="Analysis">
-          <p *ngIf="route.happy">
+          <p *ngIf="route.happy" class="kpn-line">
             <span>All ok</span>
+            <kpn-icon-happy></kpn-icon-happy>
           </p>
-          <div
-            *ngIf="
-              !route.gpxFilename &&
-              route.osmSegmentCount === 1 &&
-              route.gpxNokSegmentCount === 0
-            "
-          >
+          <div *ngIf="!route.happy && route.gpxDistance === 0">
             <p>No GPX, so no known deviations.</p>
+          </div>
+          <div *ngIf="!route.happy && route.osmSegmentCount === 1">
             <p>The OSM route looks ok: a GPX trace can be created from it.</p>
           </div>
+
           <div *ngIf="route.osmSegmentCount > 1" class="kpn-line warning-line">
             <div>
               <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>

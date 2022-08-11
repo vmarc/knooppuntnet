@@ -7,6 +7,11 @@ import { Component } from '@angular/core';
   template: ` <mat-icon svgIcon="happy"></mat-icon> `,
   styles: [
     `
+      :host {
+        width: 18px;
+        height: 18px;
+      }
+
       mat-icon {
         width: 18px;
         height: 18px;
