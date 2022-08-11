@@ -10,6 +10,7 @@ import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-chang
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
@@ -120,6 +121,11 @@ export const actionMonitorRouteMapMode = createAction(
   props<{ mode: string }>()
 );
 
+export const actionMonitorRouteMapSelectDeviation = createAction(
+  '[Monitor] Map select deviation',
+  props<{ deviation: MonitorRouteNokSegment | null }>()
+);
+
 export const actionMonitorRouteMapFocus = createAction(
   '[Monitor] Focus',
   props<{ bounds: Bounds }>()
@@ -143,6 +149,18 @@ export const actionMonitorRouteMapNokVisible = createAction(
 export const actionMonitorRouteMapOsmRelationVisible = createAction(
   '[Monitor] Map osm relation visible',
   props<{ visible: boolean }>()
+);
+
+export const actionMonitorRouteMapJosmLoadRouteRelation = createAction(
+  '[Monitor] Map josm load route relation'
+);
+
+export const actionMonitorRouteMapJosmZoomToFitRoute = createAction(
+  '[Monitor] Map josm zoom to fit route'
+);
+
+export const actionMonitorRouteMapJosmZoomToSelectedDeviation = createAction(
+  '[Monitor] Map josm zoom to fit selected deviation'
 );
 
 export const actionMonitorGroupAdd = createAction(

@@ -83,7 +83,7 @@ export class MonitorRouteMapService {
   }
 
   focus(bounds: Bounds): void {
-    if (this.map !== null) {
+    if (this.map !== null && bounds) {
       this.map.getView().fit(Util.toExtent(bounds, 0.1));
     }
   }

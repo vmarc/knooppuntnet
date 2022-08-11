@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
 import { actionMonitorRouteInfoLoaded } from './monitor.actions';
 import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorChangesPageInit } from './monitor.actions';
@@ -160,6 +161,12 @@ export const monitorReducer = createReducer(
       mapOsmRelationVisible,
       mapMode: 'comparison',
       routeMapPage: response,
+    };
+  }),
+  on(actionMonitorRouteMapSelectDeviation, (state, { deviation }) => {
+    return {
+      ...state,
+      routeMapSelectedDeviation: deviation,
     };
   }),
   on(actionMonitorRouteChangesPageInit, (state) => ({

@@ -6,17 +6,24 @@ import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
 import { concatMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { EditParameters } from '../../analysis/components/edit/edit-parameters';
 import { AppState } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { selectRouteParams } from '../../core/core.state';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
+import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './monitor.actions';
+import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
+import { actionMonitorRouteMapJosmLoadRouteRelation } from './monitor.actions';
+import { actionMonitorRouteMapJosmZoomToFitRoute } from './monitor.actions';
 import { actionMonitorRouteDelete } from './monitor.actions';
 import { actionMonitorRouteDeletePageInit } from './monitor.actions';
 import { actionMonitorRouteAdd } from './monitor.actions';
@@ -49,6 +56,9 @@ import { actionMonitorRouteMapFocus } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
+import { selectMonitorRouteMapSelectedDeviation } from './monitor.selectors';
+import { selectMonitorRouteMapPage } from './monitor.selectors';
+import { selectMonitorRouteMapBounds } from './monitor.selectors';
 import { selectMonitorGroupName } from './monitor.selectors';
 import { selectMonitorChangesPageIndex } from './monitor.selectors';
 import { selectMonitorGroupChangesPageIndex } from './monitor.selectors';
@@ -56,6 +66,7 @@ import { selectMonitorAdmin } from './monitor.selectors';
 
 @Injectable()
 export class MonitorEffects {
+  // noinspection JSUnusedGlobalSymbols
   mapFocusEffect = createEffect(
     () =>
       this.actions$.pipe(
@@ -65,6 +76,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorGroupsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupsPageInit),
@@ -87,6 +99,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorGroupPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupPageInit),
@@ -99,6 +112,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorGroupChangesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -126,6 +140,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorGroupDeleteInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupDeleteInit),
@@ -138,6 +153,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorGroupUpdateInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorGroupUpdateInit),
@@ -150,6 +166,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteInfo = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteInfo),
@@ -161,6 +178,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteAdd = createEffect(
     () =>
       this.actions$.pipe(
@@ -179,6 +197,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteDeleteInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteDeletePageInit),
@@ -196,6 +215,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteDelete = createEffect(
     () =>
       this.actions$.pipe(
@@ -215,6 +235,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteDetailsPageInit),
@@ -232,6 +253,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteMapPageInit),
@@ -249,6 +271,64 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapSelectNokSegment = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapSelectDeviation),
+      filter((action) => !!action.deviation),
+      map((action) =>
+        actionMonitorRouteMapFocus({ bounds: action.deviation.bounds })
+      )
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapJosmLoadRouteRelation = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapJosmLoadRouteRelation),
+      concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
+      map(([{}, page]) => {
+        const editParameters: EditParameters = {
+          relationIds: [page.result.routeId],
+          fullRelation: true,
+        };
+        return actionSharedEdit({ editParameters });
+      })
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapJosmZoomToFitRoute = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapJosmZoomToFitRoute),
+      concatLatestFrom(() => [this.store.select(selectMonitorRouteMapBounds)]),
+      map(([{}, bounds]) => {
+        const editParameters: EditParameters = {
+          bounds,
+        };
+        return actionSharedEdit({ editParameters });
+      })
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapJosmZoomToFitSelectedDeviation = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapJosmZoomToSelectedDeviation),
+      concatLatestFrom(() => [
+        this.store.select(selectMonitorRouteMapSelectedDeviation),
+      ]),
+      filter(([{}, segment]) => !!segment),
+      map(([{}, segment]) => {
+        const editParameters: EditParameters = {
+          bounds: segment.bounds,
+        };
+        return actionSharedEdit({ editParameters });
+      })
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteChangesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -276,6 +356,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteChangePageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteChangePageInit),
@@ -294,6 +375,7 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   addGroupEffect = createEffect(
     () =>
       this.actions$.pipe(
@@ -304,6 +386,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   deleteGroupEffect = createEffect(
     () =>
       this.actions$.pipe(
@@ -316,6 +399,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   updateGroupEffect = createEffect(
     () =>
       this.actions$.pipe(
@@ -326,6 +410,7 @@ export class MonitorEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   monitorChangesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorChangesPageInit, actionMonitorChangesPageIndex),

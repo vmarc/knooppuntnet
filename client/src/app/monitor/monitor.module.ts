@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
@@ -76,6 +77,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MatDatepickerModule,
     MatNativeDateModule,
     ReactiveFormsModule,
+    MatMenuModule,
   ],
   declarations: [
     MonitorRouteDetailsPageComponent,

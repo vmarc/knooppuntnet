@@ -6,8 +6,12 @@ import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteMapJosmLoadRouteRelation } from '../../store/monitor.actions';
+import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
+import { actionMonitorRouteMapJosmZoomToFitRoute } from '../../store/monitor.actions';
 import { actionMonitorRouteMapFocus } from '../../store/monitor.actions';
 import { actionMonitorRouteMapMode } from '../../store/monitor.actions';
+import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapBounds } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.selectors';
@@ -35,6 +39,28 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         <button mat-raised-button (click)="zoomToFitRoute()">
           Zoom to fit route
         </button>
+        <a
+          [matMenuTriggerFor]="menu"
+          class="josm"
+          title="JOSM remote control actions"
+        >
+          josm
+        </a>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="josmLoadRouteRelation()">
+            Load route relation
+          </button>
+          <button mat-menu-item (click)="josmZoomToFitRoute()">
+            Zoom to fit route
+          </button>
+          <button
+            mat-menu-item
+            (click)="josmZoomToSelectedDeviation()"
+            [disabled]="josmZoomToSelectedDeviationDisabled$ | async"
+          >
+            Zoom to selected deviation
+          </button>
+        </mat-menu>
       </div>
 
       <kpn-monitor-route-map-nok-segments *ngIf="mode === 'comparison'">
@@ -54,6 +80,14 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         display: block;
         padding-bottom: 10px;
       }
+
+      .josm {
+        padding-left: 0.8em;
+      }
+
+      a:hover {
+        cursor: pointer;
+      }
     `,
   ],
 })
@@ -68,6 +102,12 @@ export class MonitorRouteMapControlComponent {
     map((osmSegmentCount) => osmSegmentCount > 1)
   );
 
+  readonly josmZoomToSelectedDeviationDisabled$ = this.store
+    .select(selectMonitorRouteMapSelectedDeviation)
+    .pipe(map((segment) => !segment));
+
+  readonly routeBounds$ = this.store.select(selectMonitorRouteMapBounds);
+
   constructor(private store: Store<AppState>) {}
 
   modeChanged(event: MatRadioChange): void {
@@ -81,5 +121,17 @@ export class MonitorRouteMapControlComponent {
       .subscribe((bounds) => {
         this.store.dispatch(actionMonitorRouteMapFocus({ bounds }));
       });
+  }
+
+  josmLoadRouteRelation(): void {
+    this.store.dispatch(actionMonitorRouteMapJosmLoadRouteRelation());
+  }
+
+  josmZoomToFitRoute(): void {
+    this.store.dispatch(actionMonitorRouteMapJosmZoomToFitRoute());
+  }
+
+  josmZoomToSelectedDeviation(): void {
+    this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedDeviation());
   }
 }

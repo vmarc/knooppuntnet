@@ -100,6 +100,11 @@ export const selectMonitorRouteMapNokSegmentsCount = createSelector(
   (state: MonitorState) => state.routeMapPage?.result?.nokSegments?.length ?? 0
 );
 
+export const selectMonitorRouteMapSelectedDeviation = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeMapSelectedDeviation
+);
+
 export const selectMonitorRouteChangesPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeChangesPage

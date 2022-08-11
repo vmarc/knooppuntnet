@@ -3,7 +3,7 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { actionMonitorRouteMapFocus } from '../../store/monitor.actions';
+import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
 import { selectMonitorRouteMapGpxEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors';
 
@@ -82,11 +82,12 @@ export class MonitorRouteMapNokSegmentsComponent {
   constructor(private store: Store<AppState>) {}
 
   selectionChanged(event: MatSelectionListChange): void {
+    let deviation: MonitorRouteNokSegment = null;
     if (event.options.length > 0) {
-      const segment: MonitorRouteNokSegment = event.options[0].value;
-      this.store.dispatch(
-        actionMonitorRouteMapFocus({ bounds: segment.bounds })
-      );
+      deviation = event.options[0].value;
     }
+    this.store.dispatch(
+      actionMonitorRouteMapSelectDeviation({ deviation: deviation })
+    );
   }
 }
