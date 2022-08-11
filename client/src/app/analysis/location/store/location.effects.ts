@@ -45,6 +45,7 @@ import { selectLocationKey } from './location.selectors';
 
 @Injectable()
 export class LocationEffects {
+  // noinspection JSUnusedGlobalSymbols
   locationSelectionPageStrategyChange = createEffect(
     () =>
       this.actions$.pipe(
@@ -65,6 +66,7 @@ export class LocationEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   locationNodesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -91,6 +93,7 @@ export class LocationEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   locationRoutesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(
@@ -117,6 +120,7 @@ export class LocationEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   locationFactsPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationFactsPageInit),
@@ -128,6 +132,7 @@ export class LocationEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   locationMapPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationMapPageInit),
@@ -137,6 +142,7 @@ export class LocationEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   locationChangesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationChangesPageInit),
@@ -156,6 +162,7 @@ export class LocationEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   locationEditPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationEditPageInit),

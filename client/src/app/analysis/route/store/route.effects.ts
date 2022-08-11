@@ -39,6 +39,7 @@ import { selectRouteId } from './route.selectors';
 
 @Injectable()
 export class RouteEffects {
+  // noinspection JSUnusedGlobalSymbols
   routeDetailsInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
@@ -47,6 +48,7 @@ export class RouteEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   routeDetailsLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteDetailsPageLoad),
@@ -55,6 +57,7 @@ export class RouteEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   routeMapInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteMapPageInit),
@@ -70,6 +73,7 @@ export class RouteEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   routeMapLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteMapPageLoad),
@@ -86,6 +90,7 @@ export class RouteEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   routeChanges = createEffect(() =>
     this.actions$.pipe(
       ofType(actionRouteChangesPageInit),
@@ -115,6 +120,7 @@ export class RouteEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   routeChangesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(

@@ -52,6 +52,7 @@ import { selectSubset } from './subset.selectors';
 
 @Injectable()
 export class SubsetEffects {
+  // noinspection JSUnusedGlobalSymbols
   networksPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
@@ -63,6 +64,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networksPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageLoad),
@@ -71,6 +73,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   factsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
@@ -82,6 +85,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   factsPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactsPageLoad),
@@ -90,6 +94,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   editFactRefsLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactRefsLoad),
@@ -101,6 +106,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   editDialog = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactRefsLoaded),
@@ -128,6 +134,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   factDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageInit),
@@ -139,6 +146,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   factDetailsPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageLoad),
@@ -152,6 +160,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   orphanNodesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
@@ -163,6 +172,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   orphanNodesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageLoad),
@@ -171,6 +181,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   orphanRoutesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
@@ -182,6 +193,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   orphanRoutesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageLoad),
@@ -190,6 +202,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   mapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
@@ -201,6 +214,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   mapPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetMapPageLoad),
@@ -209,6 +223,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   changesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
@@ -238,6 +253,7 @@ export class SubsetEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   subsetChangesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(

@@ -25,6 +25,7 @@ import { selectDemoEnabled } from './demo.selectors';
 
 @Injectable()
 export class DemoEffects {
+  // noinspection JSUnusedGlobalSymbols
   startVideo = createEffect(
     () =>
       this.actions$.pipe(
@@ -34,6 +35,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   initialStartVideo = createEffect(
     () =>
       this.actions$.pipe(
@@ -48,6 +50,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   canPlay = createEffect(
     () =>
       this.actions$.pipe(
@@ -57,6 +60,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   progressUpdate = createEffect(
     () =>
       this.actions$.pipe(
@@ -66,6 +70,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   pause = createEffect(
     () =>
       this.actions$.pipe(
@@ -75,6 +80,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   play = createEffect(
     () =>
       this.actions$.pipe(
@@ -84,6 +90,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   end = createEffect(
     () =>
       this.actions$.pipe(
@@ -93,6 +100,7 @@ export class DemoEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   controlPlay = createEffect(
     () => {
       return this.actions$.pipe(

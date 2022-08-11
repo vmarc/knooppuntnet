@@ -49,6 +49,7 @@ import { selectNetworkChangesParameters } from './network.selectors';
 
 @Injectable()
 export class NetworkEffects {
+  // noinspection JSUnusedGlobalSymbols
   networkDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
@@ -59,6 +60,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkDetailsPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageLoad),
@@ -67,6 +69,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkFactsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkFactsPageInit),
@@ -77,6 +80,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkFactsPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkFactsPageLoad),
@@ -85,6 +89,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkNodesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkNodesPageInit),
@@ -95,6 +100,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkNodesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkNodesPageLoad),
@@ -103,6 +109,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkRoutesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageInit),
@@ -113,6 +120,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkRoutesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageLoad),
@@ -121,6 +129,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkMapPageInit),
@@ -147,6 +156,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkMapPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkMapPageLoad),
@@ -163,6 +173,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkChangesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNetworkChangesPageInit),
@@ -192,6 +203,7 @@ export class NetworkEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   networkChangesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(

@@ -11,6 +11,7 @@ import { actionSharedEdit } from './shared.actions';
 export class SharedEffects {
   constructor(private actions$: Actions, private dialog: MatDialog) {}
 
+  // noinspection JSUnusedGlobalSymbols
   editDialog = createEffect(
     () =>
       this.actions$.pipe(

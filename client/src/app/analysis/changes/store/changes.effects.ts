@@ -31,6 +31,7 @@ import { selectChangesParameters } from './changes.selectors';
 
 @Injectable()
 export class ChangesEffects {
+  // noinspection JSUnusedGlobalSymbols
   changesPage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionChangesPageInit),
@@ -60,6 +61,7 @@ export class ChangesEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   changesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(

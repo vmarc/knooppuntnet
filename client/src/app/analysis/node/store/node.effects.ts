@@ -39,6 +39,7 @@ import { selectNodeChangesParameters } from './node.selectors';
 
 @Injectable()
 export class NodeEffects {
+  // noinspection JSUnusedGlobalSymbols
   nodeDetailsPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
@@ -47,6 +48,7 @@ export class NodeEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   nodeDetailsPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeDetailsPageLoad),
@@ -55,6 +57,7 @@ export class NodeEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   nodeMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeMapPageInit),
@@ -70,6 +73,7 @@ export class NodeEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   nodeMapPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeMapPageLoad),
@@ -86,6 +90,7 @@ export class NodeEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   nodeChangesPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionNodeChangesPageInit),
@@ -115,6 +120,7 @@ export class NodeEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
   nodeChangesPageLoad = createEffect(() =>
     this.actions$.pipe(
       ofType(
