@@ -5,7 +5,6 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -24,7 +23,7 @@ import scala.xml.XML
 
 object MonitorDemoTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-history") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
       new MonitorDemoTool(database, overpassQueryExecutor).setup()
     }
@@ -46,7 +45,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
     database.monitorRouteChangeGeometries.drop(log)
 
     setupGroup("SGR", "Les Sentiers de Grande Randonnée", MonitorDemoRoute.routes)
-    setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes)
+     setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes)
   }
 
   private def setupGroup(groupName: String, groupDescription: String, routes: Seq[MonitorDemoRoute]): Unit = {
@@ -68,7 +67,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
         database.monitorRoutes.save(route)
 
         log.info("build route reference")
-        val dir = s"/kpn/monitor-demo/$groupName"
+        val dir = s"/kpn/monitor/demo/$groupName"
         val routeReference = buildRouteReference(route, dir, demoRoute)
         database.monitorRouteReferences.save(routeReference)
         log.info("saved route reference")

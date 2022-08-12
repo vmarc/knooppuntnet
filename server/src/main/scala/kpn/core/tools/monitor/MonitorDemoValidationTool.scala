@@ -26,7 +26,7 @@ class MonitorDemoValidationTool() {
 
   def gpxValidate(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
     demoRoutes.foreach { demoRoute =>
-      val filename = s"/kpn/monitor-demo/${demoRoute.filename}.gpx"
+      val filename = s"/kpn/monitor/GR-2022-08-12/Tracés GPX/${demoRoute.filename}.gpx"
       try {
         val geometry = new MonitorRouteGpxReader().readFile(filename)
         println(s"${geometry.getLength} ${demoRoute.filename}")
