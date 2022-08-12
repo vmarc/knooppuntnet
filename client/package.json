@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "4.0.3",
+  "version": "4.0.4",
   "license": "MIT",
   "scripts": {
     "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --proxy-config src/proxy-dev.conf.js",
