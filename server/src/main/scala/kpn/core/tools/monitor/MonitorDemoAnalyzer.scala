@@ -24,7 +24,12 @@ class MonitorDemoAnalyzer() {
   private val toleranceMeters = 10
   private val log = Log(classOf[MonitorDemoAnalyzer])
 
-  def analyze(route: MonitorRoute, routeReference: MonitorRouteReference, routeRelation: Relation, now: Timestamp): MonitorRouteState = {
+  def analyze(
+    route: MonitorRoute,
+    routeReference: MonitorRouteReference,
+    routeRelation: Relation,
+    now: Timestamp
+  ): MonitorRouteState = {
 
     val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
     val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
@@ -44,13 +49,18 @@ class MonitorDemoAnalyzer() {
     )
   }
 
-  private def analyzeChange(reference: MonitorRouteReference, routeRelation: Relation, osmRouteSegments: Seq[MonitorRouteSegmentData]): MonitorRouteAnalysis = {
+  private def analyzeChange(
+    reference: MonitorRouteReference,
+    routeRelation: Relation,
+    osmRouteSegments: Seq[MonitorRouteSegmentData]
+  ): MonitorRouteAnalysis = {
 
     val gpxLineString = new GeoJsonReader().read(reference.geometry)
 
     val (okOption: Option[MultiLineString], nokSegments: Seq[MonitorRouteNokSegment]) = {
 
-      val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / MonitorRouteAnalysisSupport.toMeters(gpxLineString.getLength)
+      val gpxMeters = MonitorRouteAnalysisSupport.toMeters(gpxLineString.getLength)
+      val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / gpxMeters
       val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
       val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
 
@@ -67,7 +77,7 @@ class MonitorDemoAnalyzer() {
 
       val noks = splittedOkAndIndexes.filterNot(_.head._1)
 
-      val nok = noks.zipWithIndex.map { case (segment, segmentIndex) =>
+      val nok = noks.zipWithIndex.flatMap { case (segment, segmentIndex) =>
         val segmentIndexes = segment.map(_._2)
         val maxDistance = distances.zipWithIndex.filter { case (distance, index) =>
           segmentIndexes.contains(index)
@@ -77,16 +87,23 @@ class MonitorDemoAnalyzer() {
 
         val lineString = MonitorRouteAnalysisSupport.toLineString(sampleCoordinates, segment)
         val meters: Long = Math.round(toMeters(lineString.getLength))
-        val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
-        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
 
-        MonitorRouteNokSegment(
-          segmentIndex + 1,
-          meters,
-          maxDistance.toLong,
-          bounds,
-          geoJson
-        )
+        if (meters == 0L) {
+          None
+        }
+        else {
+          val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
+          val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
+          Some(
+            MonitorRouteNokSegment(
+              segmentIndex + 1,
+              meters,
+              maxDistance.toLong,
+              bounds,
+              geoJson
+            )
+          )
+        }
       }
 
       val routeNokSegments: Seq[MonitorRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>

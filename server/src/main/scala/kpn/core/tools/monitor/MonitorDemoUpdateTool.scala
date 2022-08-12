@@ -69,7 +69,7 @@ class MonitorDemoUpdateTool(
 
   private def updateRoute(route: MonitorRoute): Unit = {
     val routeRelation = readRelation(route.routeId)
-    monitorRouteRepository.routeReference(route._id) match {
+    monitorRouteRepository.routeReference(route.name /*TODO better would be route._id ??*/) match {
       case None => log.error("route reference not found")
       case Some(routeReference) =>
         val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
