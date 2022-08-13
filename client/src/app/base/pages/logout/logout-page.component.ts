@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { selectSharedLoggedIn } from '@app/core/shared/shared.selectors';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionSharedLogout } from '../../../core/shared/shared.actions';
 
 @Component({
   selector: 'kpn-logout-page',
@@ -10,7 +13,7 @@ import { UserService } from '../../../services/user.service';
       >Logout
     </kpn-page-header>
 
-    <div *ngIf="loggedIn()">
+    <div *ngIf="loggedIn$ | async; else notLoggedIn">
       <div class="note-page-contents">
         <p i18n="@@logout.logged-in">
           You are currently logged in as
@@ -45,26 +48,25 @@ import { UserService } from '../../../services/user.service';
       </button>
     </div>
 
-    <div *ngIf="!loggedIn()">
-      <p i18n="@@logout.not-logged-in">You are not logged in.</p>
-
-      <p i18n="@@logout.login-comment">
-        You can <a routerLink="/login">login</a> to view extra information that
-        is available to
-        <kpn-osm-website></kpn-osm-website>
-        users only.
-      </p>
-    </div>
+    <ng-template #notLoggedIn>
+      <div>
+        <p i18n="@@logout.not-logged-in">You are not logged in.</p>
+        <p i18n="@@logout.login-comment">
+          You can <a routerLink="/login">login</a> to view extra information
+          that is available to
+          <kpn-osm-website></kpn-osm-website>
+          users only.
+        </p>
+      </div>
+    </ng-template>
   `,
 })
 export class LogoutPageComponent {
-  constructor(private userService: UserService) {}
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+
+  constructor(private store: Store<AppState>) {}
 
   logout() {
-    this.userService.logout();
-  }
-
-  loggedIn() {
-    return this.userService.isLoggedIn();
+    this.store.dispatch(actionSharedLogout());
   }
 }

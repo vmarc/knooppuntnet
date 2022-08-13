@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { UserService } from '../../../services/user.service';
+import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionNetworkChangesImpact } from '../store/network.actions';
 import { actionNetworkChangesPageSize } from '../store/network.actions';
 import { actionNetworkChangesPageIndex } from '../store/network.actions';
@@ -24,14 +24,17 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
     </kpn-network-page-header>
 
     <div class="kpn-spacer-above">
-      <div *ngIf="!isLoggedIn()" i18n="@@network-changes.login-required">
+      <div
+        *ngIf="(loggedIn$ | async) === false"
+        i18n="@@network-changes.login-required"
+      >
         The details of network changes history are available to registered
         OpenStreetMap contributors only, after
         <kpn-link-login></kpn-link-login>
         .
       </div>
 
-      <div *ngIf="isLoggedIn() && response$ | async as response">
+      <div *ngIf="response$ | async as response">
         <div *ngIf="!response.result">
           <p i18n="@@network-page.network-not-found">Network not found</p>
         </div>
@@ -72,18 +75,12 @@ export class NetworkChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectNetworkChangesImpact);
   readonly pageSize$ = this.store.select(selectNetworkChangesPageSize);
   readonly pageIndex$ = this.store.select(selectNetworkChangesPageIndex);
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
 
-  constructor(
-    private userService: UserService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkChangesPageInit());
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
   }
 
   onImpactChange(impact: boolean): void {

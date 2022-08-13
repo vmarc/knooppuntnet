@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { selectSharedUser } from '../../../core/shared/shared.selectors';
 
 @Component({
   selector: 'kpn-osm-link-user',
@@ -8,15 +10,13 @@ import { UserService } from '../../../services/user.service';
   template: `
     <kpn-osm-link
       kind="user"
-      [elementId]="currentUser()"
-      [title]="currentUser()"
+      [elementId]="user$ | async"
+      [title]="user$ | async"
     ></kpn-osm-link>
   `,
 })
 export class OsmLinkUserComponent {
-  constructor(private userService: UserService) {}
+  readonly user$ = this.store.select(selectSharedUser);
 
-  currentUser(): string {
-    return this.userService.currentUser();
-  }
+  constructor(private store: Store<AppState>) {}
 }

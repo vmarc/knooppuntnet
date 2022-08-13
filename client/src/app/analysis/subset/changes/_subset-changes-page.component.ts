@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { selectSharedLoggedIn } from '@app/core/shared/shared.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { UserService } from '../../../services/user.service';
 import { actionSubsetChangesPageSize } from '../store/subset.actions';
 import { actionSubsetChangesPageImpact } from '../store/subset.actions';
 import { actionSubsetChangesPageIndex } from '../store/subset.actions';
@@ -23,7 +23,10 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
     <kpn-error></kpn-error>
 
     <div class="kpn-spacer-above">
-      <div *ngIf="!isLoggedIn()" i18n="@@subset-changes.login-required">
+      <div
+        *ngIf="(loggedIn$ | async) === false"
+        i18n="@@subset-changes.login-required"
+      >
         This details of the changes history are available to registered
         OpenStreetMap contributors only, after
         <kpn-link-login></kpn-link-login>
@@ -70,19 +73,13 @@ export class SubsetChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectSubsetChangesPageImpact);
   readonly pageSize$ = this.store.select(selectSubsetChangesPageSize);
   readonly pageIndex$ = this.store.select(selectSubsetChangesPageIndex);
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
   readonly response$ = this.store.select(selectSubsetChangesPage);
 
-  constructor(
-    private userService: UserService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetChangesPageInit());
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
   }
 
   onImpactChange(impact: boolean): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { UserService } from '../../../services/user.service';
+import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionChangesPageSize } from '../store/changes.actions';
 import { actionChangesImpact } from '../store/changes.actions';
 import { actionChangesPageIndex } from '../store/changes.actions';
@@ -27,7 +27,7 @@ import { selectChangesPage } from '../store/changes.selectors';
     </kpn-page-header>
 
     <div
-      *ngIf="!isLoggedIn()"
+      *ngIf="(loggedIn$ | async) === false"
       i18n="@@changes-page.login-required"
       class="kpn-spacer-above"
     >
@@ -81,20 +81,12 @@ export class ChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectChangesImpact);
   readonly pageSize$ = this.store.select(selectChangesPageSize);
   readonly pageIndex$ = this.store.select(selectChangesPageIndex);
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
 
-  constructor(
-    private userService: UserService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    if (this.isLoggedIn()) {
-      this.store.dispatch(actionChangesPageInit());
-    }
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
+    this.store.dispatch(actionChangesPageInit());
   }
 
   onImpactChange(impact: boolean): void {

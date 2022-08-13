@@ -27,7 +27,6 @@ import { IconService } from './services/icon.service';
 import { LogUpdateService } from './services/log-update.service';
 import { PoiNameService } from './services/poi-name.service';
 import { PoiService } from './services/poi.service';
-import { UserService } from './services/user.service';
 import { VersionService } from './services/version.service';
 import { WindowService } from './services/window.service';
 import { SpinnerInterceptor } from './spinner/spinner-interceptor';
@@ -72,7 +71,6 @@ import { SpinnerService } from './spinner/spinner.service';
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
-    UserService,
     WindowService,
     VersionService,
     AppService,

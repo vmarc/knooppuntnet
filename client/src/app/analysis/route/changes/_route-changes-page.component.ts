@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
-import { UserService } from '../../../services/user.service';
+import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionRouteChangesPageSize } from '../store/route.actions';
 import { actionRouteChangesPageImpact } from '../store/route.actions';
 import { actionRouteChangesPageIndex } from '../store/route.actions';
@@ -39,7 +39,10 @@ import { selectRouteId } from '../store/route.selectors';
     </kpn-route-page-header>
 
     <div class="kpn-spacer-above">
-      <div *ngIf="!isLoggedIn()" i18n="@@route-changes.login-required">
+      <div
+        *ngIf="(loggedIn$ | async) === false"
+        i18n="@@route-changes.login-required"
+      >
         The details of the route changes history is available to registered
         OpenStreetMap contributors only, after
         <kpn-link-login></kpn-link-login>
@@ -91,24 +94,15 @@ export class RouteChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectRouteChangesPageImpact);
   readonly pageSize$ = this.store.select(selectRouteChangesPageSize);
   readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);
-
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
   readonly response$ = this.store
     .select(selectRouteChangesPage)
     .pipe(filter((x) => x !== null));
 
-  constructor(
-    private userService: UserService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    if (this.isLoggedIn()) {
-      this.store.dispatch(actionRouteChangesPageInit());
-    }
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
+    this.store.dispatch(actionRouteChangesPageInit());
   }
 
   onImpactChange(impact: boolean): void {

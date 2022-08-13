@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { selectSharedUser } from '../../../core/shared/shared.selectors';
 
 @Component({
   selector: 'kpn-osm-link-user-oath-clients',
@@ -8,9 +10,7 @@ import { UserService } from '../../../services/user.service';
   template: `
     <a
       class="external"
-      href="https://www.openstreetmap.org/user/{{
-        currentUser()
-      }}/oauth_clients"
+      href="{{ link(user$ | async) }}"
       rel="nofollow noreferrer"
       target="_blank"
       i18n="@@osm-link.oath-clients"
@@ -20,9 +20,11 @@ import { UserService } from '../../../services/user.service';
   `,
 })
 export class OsmLinkUserAothClientsComponent {
-  constructor(private userService: UserService) {}
+  readonly user$ = this.store.select(selectSharedUser);
 
-  currentUser(): string {
-    return this.userService.currentUser();
+  constructor(private store: Store<AppState>) {}
+
+  link(user: string): string {
+    return `https://www.openstreetmap.org/user/${user}/oauth_clients`;
   }
 }

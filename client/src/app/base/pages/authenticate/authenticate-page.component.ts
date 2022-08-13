@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { actionSharedAuthenticated } from '../../../core/shared/shared.actions';
 
 @Component({
   selector: 'kpn-authenticate-page',
@@ -8,9 +10,9 @@ import { UserService } from '../../../services/user.service';
   template: ` <span i18n="@@authenticate-page.title"> Logging in... </span> `,
 })
 export class AuthenticatePageComponent implements OnInit {
-  constructor(private userService: UserService) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.userService.authenticated();
+    this.store.dispatch(actionSharedAuthenticated());
   }
 }

@@ -13,7 +13,6 @@ import { PageService } from './components/shared/page.service';
 import { AppState } from './core/core.state';
 import { selectPageShowFooter } from './core/page/page.selectors';
 import { IconService } from './services/icon.service';
-import { UserService } from './services/user.service';
 import { VersionService } from './services/version.service';
 import { SpinnerService } from './spinner/spinner.service';
 import { Subscriptions } from './util/Subscriptions';
@@ -91,7 +90,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<AppState>,
     private iconService: IconService,
-    private userService: UserService,
     private pageService: PageService,
     private pageWidthService: PageWidthService,
     private spinnerService: SpinnerService,

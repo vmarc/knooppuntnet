@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
-import { UserService } from '../../../services/user.service';
+import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionNodeChangesPageSize } from '../store/node.actions';
 import { actionNodeChangesPageImpact } from '../store/node.actions';
 import { actionNodeChangesPageIndex } from '../store/node.actions';
@@ -39,7 +39,7 @@ import { selectNodeId } from '../store/node.selectors';
     <kpn-error></kpn-error>
 
     <div
-      *ngIf="!isLoggedIn()"
+      *ngIf="(loggedIn$ | async) === false"
       i18n="@@node.login-required"
       class="kpn-spacer-above"
     >
@@ -49,10 +49,7 @@ import { selectNodeId } from '../store/node.selectors';
       .
     </div>
 
-    <div
-      *ngIf="isLoggedIn() && response$ | async as response"
-      class="kpn-spacer-above"
-    >
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
       </div>
@@ -95,24 +92,15 @@ export class NodeChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectNodeChangesPageImpact);
   readonly pageSize$ = this.store.select(selectNodeChangesPageSize);
   readonly pageIndex$ = this.store.select(selectNodeChangesPageIndex);
-
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
   readonly response$ = this.store
     .select(selectNodeChangesPage)
     .pipe(filter((x) => x !== null));
 
-  constructor(
-    private userService: UserService,
-    private store: Store<AppState>
-  ) {}
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    if (this.isLoggedIn()) {
-      this.store.dispatch(actionNodeChangesPageInit());
-    }
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
+    this.store.dispatch(actionNodeChangesPageInit());
   }
 
   onImpactChange(impact: boolean): void {

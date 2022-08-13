@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../../services/user.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../core/core.state';
+import { selectSharedUser } from '../../../core/shared/shared.selectors';
+import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { VersionService } from '../../../services/version.service';
 
 /* tslint:disable:template-i18n */
@@ -22,15 +25,18 @@ import { VersionService } from '../../../services/version.service';
         {{ version() }}
       </p>
 
-      <p *ngIf="loginEnabled && isLoggedIn()">
-        {{ currentUser() }}
-        <br />
-        <kpn-link-logout></kpn-link-logout>
-      </p>
-
-      <p *ngIf="loginEnabled && !isLoggedIn()">
-        <kpn-link-login></kpn-link-login>
-      </p>
+      <ng-container *ngIf="loginEnabled">
+        <p *ngIf="loggedIn$ | async; else notLoggedIn">
+          {{ user$ | async }}
+          <br />
+          <kpn-link-logout></kpn-link-logout>
+        </p>
+        <ng-template #notLoggedIn>
+          <p>
+            <kpn-link-login></kpn-link-login>
+          </p>
+        </ng-template>
+      </ng-container>
     </div>
   `,
   styles: [
@@ -51,23 +57,17 @@ import { VersionService } from '../../../services/version.service';
 })
 export class SidebarFooterComponent {
   @Input() loginEnabled = true;
+  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly user$ = this.store.select(selectSharedUser);
 
   constructor(
     private router: Router,
-    private userService: UserService,
-    private versionService: VersionService
+    private versionService: VersionService,
+    private store: Store<AppState>
   ) {}
 
   version(): string {
     return this.versionService.version;
-  }
-
-  currentUser(): string {
-    return this.userService.currentUser();
-  }
-
-  isLoggedIn(): boolean {
-    return this.userService.isLoggedIn();
   }
 
   link(language: string): string {

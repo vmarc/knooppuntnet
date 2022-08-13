@@ -10,9 +10,8 @@ import { Component } from '@angular/core';
       class="external"
       rel="nofollow noreferrer"
       href="https://www.openstreetmap.org"
+      >OpenStreetMap</a
     >
-      OpenStreetMap
-    </a>
   `,
 })
 export class OsmWebsiteComponent {}

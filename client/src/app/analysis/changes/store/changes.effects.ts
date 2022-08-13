@@ -9,6 +9,7 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -19,6 +20,7 @@ import { selectPreferencesImpact } from '../../../core/preferences/preferences.s
 import { selectPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
+import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionChangesAnalysisStrategy } from './changes.actions';
 import { actionChangesPageSize } from './changes.actions';
 import { actionChangesImpact } from './changes.actions';
@@ -40,7 +42,18 @@ export class ChangesEffects {
         this.store.select(selectPreferencesAnalysisStrategy),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
+        this.store.select(selectSharedLoggedIn),
       ]),
+      filter(
+        ([
+          {},
+          queryParams,
+          preferencesAnalysisStrategy,
+          preferencesImpact,
+          preferencesPageSize,
+          loggedIn,
+        ]) => loggedIn
+      ),
       map(
         ([
           {},
@@ -48,6 +61,7 @@ export class ChangesEffects {
           preferencesAnalysisStrategy,
           preferencesImpact,
           preferencesPageSize,
+          loggedIn,
         ]) => {
           const pageParams = new PageParams(queryParams);
           const strategy = pageParams.strategy(preferencesAnalysisStrategy);
