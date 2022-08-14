@@ -6,8 +6,3 @@ export const selectSharedHttpError = createSelector(
   selectSharedState,
   (state: SharedState) => state.httpError
 );
-
-export const selectSharedLanguage = createSelector(
-  selectSharedState,
-  (state: SharedState) => state.language
-);

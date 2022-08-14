@@ -14,7 +14,6 @@ import { tap } from 'rxjs/operators';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { selectUrl } from '../core.state';
 import { AppState } from '../core.state';
-import { selectSharedLanguage } from '../shared/shared.selectors';
 import { actionUserAuthenticated } from './user.actions';
 import { actionUserLoginCallbackPageRegistered } from './user.actions';
 import { actionUserLoginLinkClicked } from './user.actions';
@@ -116,21 +115,13 @@ export class UserEffects {
   loginLinkClicked = createEffect(() =>
     this.actions$.pipe(
       ofType(actionUserLoginLinkClicked),
-      concatLatestFrom(() => [
-        this.store.select(selectSharedLanguage),
-        this.store.select(selectUrl),
-      ]),
-      map(([{}, language, url]) => {
-        let loginCallbackPage = '';
+      concatLatestFrom(() => [this.store.select(selectUrl)]),
+      map(([{}, currentUrl]) => {
+        let url = currentUrl;
         if (url.endsWith('/login')) {
-          if (!!language) {
-            loginCallbackPage += `/${language}/`;
-          } else {
-            loginCallbackPage += '/';
-          }
-        } else {
-          loginCallbackPage += url;
+          url = '/';
         }
+        const loginCallbackPage = this.location.prepareExternalUrl(url);
         return actionUserLoginCallbackPageRegistered({ loginCallbackPage });
       })
     )
@@ -141,13 +132,8 @@ export class UserEffects {
     () =>
       this.actions$.pipe(
         ofType(actionUserLoginCallbackPageRegistered),
-        concatLatestFrom(() => [this.store.select(selectSharedLanguage)]),
-        tap(([{}, language]) => {
-          let url = '/login';
-          if (!!language) {
-            url = '/' + language + url;
-          }
-          return this.router.navigate([url]);
+        tap(() => {
+          return this.router.navigate(['/login']);
         })
       ),
     { dispatch: false }

@@ -11,8 +11,3 @@ export const actionSharedEdit = createAction(
   '[Shared] Edit',
   props<{ editParameters: EditParameters }>()
 );
-
-export const actionSharedLanguage = createAction(
-  '[Shared] Language',
-  props<{ language: string }>()
-);
