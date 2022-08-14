@@ -20,7 +20,7 @@ import { selectPreferencesImpact } from '../../../core/preferences/preferences.s
 import { selectPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
+import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { actionChangesAnalysisStrategy } from './changes.actions';
 import { actionChangesPageSize } from './changes.actions';
 import { actionChangesImpact } from './changes.actions';
@@ -42,7 +42,7 @@ export class ChangesEffects {
         this.store.select(selectPreferencesAnalysisStrategy),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectSharedLoggedIn),
+        this.store.select(selectUserLoggedIn),
       ]),
       filter(
         ([

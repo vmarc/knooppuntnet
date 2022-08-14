@@ -4,8 +4,8 @@ import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { selectSharedUser } from '../../../core/shared/shared.selectors';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
+import { selectUserUser } from '../../../core/user/user.selectors';
+import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { VersionService } from '../../../services/version.service';
 
 /* tslint:disable:template-i18n */
@@ -57,8 +57,8 @@ import { VersionService } from '../../../services/version.service';
 })
 export class SidebarFooterComponent {
   @Input() loginEnabled = true;
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
-  readonly user$ = this.store.select(selectSharedUser);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
+  readonly user$ = this.store.select(selectUserUser);
 
   constructor(
     private router: Router,

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { selectSharedLoggedIn } from '@app/core/shared/shared.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { actionSharedLogout } from '../../../core/shared/shared.actions';
+import { actionUserLogout } from '../../../core/user/user.actions';
+import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 
 @Component({
   selector: 'kpn-logout-page',
@@ -62,11 +62,11 @@ import { actionSharedLogout } from '../../../core/shared/shared.actions';
   `,
 })
 export class LogoutPageComponent {
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
 
   constructor(private store: Store<AppState>) {}
 
   logout() {
-    this.store.dispatch(actionSharedLogout());
+    this.store.dispatch(actionUserLogout());
   }
 }

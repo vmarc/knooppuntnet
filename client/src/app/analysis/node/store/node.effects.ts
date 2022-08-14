@@ -22,7 +22,7 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
+import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { actionNodeMapPageLoad } from './node.actions';
 import { actionNodeDetailsPageLoad } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';
@@ -101,7 +101,7 @@ export class NodeEffects {
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectSharedLoggedIn),
+        this.store.select(selectUserLoggedIn),
       ]),
       filter(
         ([

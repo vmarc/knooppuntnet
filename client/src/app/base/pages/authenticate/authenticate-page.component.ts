@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { actionSharedAuthenticated } from '../../../core/shared/shared.actions';
+import { actionUserAuthenticated } from '../../../core/user/user.actions';
 
 @Component({
   selector: 'kpn-authenticate-page',
@@ -13,6 +13,6 @@ export class AuthenticatePageComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionSharedAuthenticated());
+    this.store.dispatch(actionUserAuthenticated());
   }
 }

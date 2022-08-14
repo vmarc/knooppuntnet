@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionChangesPageSize } from '../store/changes.actions';
 import { actionChangesImpact } from '../store/changes.actions';
 import { actionChangesPageIndex } from '../store/changes.actions';
@@ -81,7 +81,7 @@ export class ChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectChangesImpact);
   readonly pageSize$ = this.store.select(selectChangesPageSize);
   readonly pageIndex$ = this.store.select(selectChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
 
   constructor(private store: Store<AppState>) {}
 

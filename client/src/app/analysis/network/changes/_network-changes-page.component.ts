@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionNetworkChangesImpact } from '../store/network.actions';
 import { actionNetworkChangesPageSize } from '../store/network.actions';
 import { actionNetworkChangesPageIndex } from '../store/network.actions';
@@ -75,7 +75,7 @@ export class NetworkChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectNetworkChangesImpact);
   readonly pageSize$ = this.store.select(selectNetworkChangesPageSize);
   readonly pageIndex$ = this.store.select(selectNetworkChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
 
   constructor(private store: Store<AppState>) {}
 

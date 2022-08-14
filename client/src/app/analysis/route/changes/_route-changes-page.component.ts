@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionRouteChangesPageSize } from '../store/route.actions';
 import { actionRouteChangesPageImpact } from '../store/route.actions';
 import { actionRouteChangesPageIndex } from '../store/route.actions';
@@ -94,7 +94,7 @@ export class RouteChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectRouteChangesPageImpact);
   readonly pageSize$ = this.store.select(selectRouteChangesPageSize);
   readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
   readonly response$ = this.store
     .select(selectRouteChangesPage)
     .pipe(filter((x) => x !== null));

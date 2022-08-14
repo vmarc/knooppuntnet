@@ -7,6 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../../environments/environment';
 import { metaReducers, reducers } from './core.state';
 import { SharedEffects } from './shared/shared.effects';
+import { UserEffects } from './user/user.effects';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { SharedEffects } from './shared/shared.effects';
       },
     }),
     StoreRouterConnectingModule.forRoot(),
-    EffectsModule.forRoot([SharedEffects]),
+    EffectsModule.forRoot([SharedEffects, UserEffects]),
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({

@@ -13,10 +13,13 @@ import { PreferencesState } from './preferences/preferences.state';
 import { RouterStateUrl } from './router/router.state';
 import { sharedReducer } from './shared/shared.reducer';
 import { SharedState } from './shared/shared.state';
+import { userReducer } from './user/user.reducer';
+import { UserState } from './user/user.state';
 
 export interface AppState {
   preferences: PreferencesState;
   shared: SharedState;
+  user: UserState;
   router: RouterReducerState<RouterStateUrl>;
   page: PageState;
 }
@@ -24,6 +27,7 @@ export interface AppState {
 export const reducers: ActionReducerMap<AppState> = {
   preferences: preferencesReducer,
   shared: sharedReducer,
+  user: userReducer,
   router: routerReducer,
   page: pageReducer,
 };
@@ -39,6 +43,8 @@ export const selectPreferencesState =
   createFeatureSelector<PreferencesState>('preferences');
 
 export const selectSharedState = createFeatureSelector<SharedState>('shared');
+
+export const selectUserState = createFeatureSelector<UserState>('user');
 
 export const selectRouterState =
   createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { selectSharedUser } from '../../../core/shared/shared.selectors';
+import { selectUserUser } from '../../../core/user/user.selectors';
 
 @Component({
   selector: 'kpn-osm-link-user-oath-clients',
@@ -20,7 +20,7 @@ import { selectSharedUser } from '../../../core/shared/shared.selectors';
   `,
 })
 export class OsmLinkUserAothClientsComponent {
-  readonly user$ = this.store.select(selectSharedUser);
+  readonly user$ = this.store.select(selectUserUser);
 
   constructor(private store: Store<AppState>) {}
 

@@ -20,7 +20,7 @@ import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
+import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { actionSubsetFactRefsLoaded } from './subset.actions';
 import { actionSubsetFactRefsLoad } from './subset.actions';
@@ -234,7 +234,7 @@ export class SubsetEffects {
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectSharedLoggedIn),
+        this.store.select(selectUserLoggedIn),
       ]),
       filter(
         ([

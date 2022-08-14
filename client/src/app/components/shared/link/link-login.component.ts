@@ -2,19 +2,26 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { actionSharedRegisterLoginCallbackPage } from '../../../core/shared/shared.actions';
+import { actionUserLoginLinkClicked } from '../../../core/user/user.actions';
 
 @Component({
   selector: 'kpn-link-login',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a (click)="registerLoginCallbackPage()" i18n="@@login">login</a>
+    <a rel="nofollow noreferrer" (click)="login()" i18n="@@login">login</a>
   `,
+  styles: [
+    `
+      a:hover {
+        cursor: pointer;
+      }
+    `,
+  ],
 })
 export class LinkLoginComponent {
   constructor(private store: Store<AppState>) {}
 
-  registerLoginCallbackPage() {
-    this.store.dispatch(actionSharedRegisterLoginCallbackPage());
+  login(): void {
+    this.store.dispatch(actionUserLoginLinkClicked());
   }
 }

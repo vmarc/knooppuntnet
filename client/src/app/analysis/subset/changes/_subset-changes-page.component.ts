@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { selectSharedLoggedIn } from '@app/core/shared/shared.selectors';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { actionSubsetChangesPageSize } from '../store/subset.actions';
@@ -73,7 +73,7 @@ export class SubsetChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectSubsetChangesPageImpact);
   readonly pageSize$ = this.store.select(selectSubsetChangesPageSize);
   readonly pageIndex$ = this.store.select(selectSubsetChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
   readonly response$ = this.store.select(selectSubsetChangesPage);
 
   constructor(private store: Store<AppState>) {}

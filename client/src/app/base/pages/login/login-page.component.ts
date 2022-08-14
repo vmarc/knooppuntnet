@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { actionSharedLogin } from '../../../core/shared/shared.actions';
+import { actionUserLogin } from '../../../core/user/user.actions';
 
 @Component({
   selector: 'kpn-login-page',
@@ -57,6 +57,6 @@ export class LoginPageComponent {
   constructor(private store: Store<AppState>) {}
 
   login() {
-    this.store.dispatch(actionSharedLogin());
+    this.store.dispatch(actionUserLogin());
   }
 }

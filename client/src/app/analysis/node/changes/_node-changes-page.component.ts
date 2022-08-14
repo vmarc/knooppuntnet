@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
-import { selectSharedLoggedIn } from '../../../core/shared/shared.selectors';
 import { actionNodeChangesPageSize } from '../store/node.actions';
 import { actionNodeChangesPageImpact } from '../store/node.actions';
 import { actionNodeChangesPageIndex } from '../store/node.actions';
@@ -92,7 +92,7 @@ export class NodeChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectNodeChangesPageImpact);
   readonly pageSize$ = this.store.select(selectNodeChangesPageSize);
   readonly pageIndex$ = this.store.select(selectNodeChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectSharedLoggedIn);
+  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
   readonly response$ = this.store
     .select(selectNodeChangesPage)
     .pipe(filter((x) => x !== null));
