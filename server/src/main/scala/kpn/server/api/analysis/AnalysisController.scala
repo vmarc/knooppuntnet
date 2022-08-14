@@ -61,7 +61,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/overview"))
   def overview(
-    @RequestParam language: String,
+    @RequestParam language: String
   ): ApiResponse[Seq[StatisticValues]] = {
     analysisFacade.overview(CurrentUser.name, toLanguage(language))
   }
