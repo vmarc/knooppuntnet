@@ -16,7 +16,6 @@ import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
-import { WindowService } from '../../../services/window.service';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationSelectionPageStrategy } from './location.actions';
@@ -55,11 +54,7 @@ export class LocationEffects {
           this.store.select(selectRouteParam('country')),
         ]),
         tap(([{}, networkType, country]) => {
-          let url = `/analysis/${networkType}/${country}/networks`;
-          const language = this.windowService.language();
-          if (language.length > 0) {
-            url = `/${language}${url}`;
-          }
+          const url = `/analysis/${networkType}/${country}/networks`;
           this.router.navigate([url]);
         })
       ),
@@ -179,7 +174,6 @@ export class LocationEffects {
     private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
-    private windowService: WindowService,
     private appService: AppService
   ) {}
 }

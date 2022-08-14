@@ -113,9 +113,11 @@ export class PlannerLayerService {
             if (change.oldLayer !== null) {
               olMap.removeLayer(change.oldLayer.layer);
             }
-            olMap
-              .getLayers()
-              .insertAt(this.standardLayers.size, change.newLayer.layer);
+            if (!!change.newLayer) {
+              olMap
+                .getLayers()
+                .insertAt(this.standardLayers.size, change.newLayer.layer);
+            }
           })
         )
         .subscribe()

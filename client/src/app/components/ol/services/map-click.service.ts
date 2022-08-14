@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MapBrowserEvent } from 'ol';
@@ -6,7 +7,6 @@ import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
-import { WindowService } from '../../../services/window.service';
 
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
@@ -16,7 +16,7 @@ export class MapClickService {
   private interaction: Interaction = this.buildInteraction();
   private ctrl = false;
 
-  constructor(private router: Router, private windowService: WindowService) {}
+  constructor(private router: Router, private location: Location) {}
 
   installOn(map: Map): void {
     map.addInteraction(this.interaction);
@@ -88,13 +88,10 @@ export class MapClickService {
     const featureId = feature.get('id');
     const routeName = feature.get('name');
     const routeId = featureId.substring(0, featureId.indexOf('-'));
-    let url = `/analysis/route/${routeId}`;
+    const url = `/analysis/route/${routeId}`;
     if (openNewTab) {
-      const language = this.windowService.language();
-      if (language.length > 0) {
-        url = `/${language}${url}`;
-      }
-      window.open(url);
+      const externalUrl = this.location.prepareExternalUrl(url);
+      window.open(externalUrl);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
       setTimeout(
@@ -107,13 +104,10 @@ export class MapClickService {
   private handleNodeClicked(feature: FeatureLike, openNewTab: boolean): void {
     const nodeId = feature.get('id');
     const nodeName = feature.get('name');
-    let url = `/analysis/node/${nodeId}`;
+    const url = `/analysis/node/${nodeId}`;
     if (openNewTab) {
-      const language = this.windowService.language();
-      if (language.length > 0) {
-        url = `/${language}${url}`;
-      }
-      window.open(url);
+      const externalUrl = this.location.prepareExternalUrl(url);
+      window.open(externalUrl);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
       setTimeout(

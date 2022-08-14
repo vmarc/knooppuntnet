@@ -75,19 +75,15 @@ export class UserEffects {
       this.actions$.pipe(
         ofType(actionUserLogin),
         concatLatestFrom(() => [
-          this.store.select(selectSharedLanguage),
           this.store.select(selectUserLoginCallbackPage),
         ]),
-
-        mergeMap(([{}, language, loginCallbackPage]) => {
+        mergeMap(([{}, loginCallbackPage]) => {
+          const baseHref = this.location.prepareExternalUrl('/');
           let loginUrl = '/api/login?callbackUrl=';
           loginUrl += window.location.origin;
-          if (!!language) {
-            loginUrl += '/' + language;
-          }
-          loginUrl += '/authenticate?page=';
+          loginUrl += baseHref;
+          loginUrl += 'authenticate?page=';
           loginUrl += loginCallbackPage;
-
           return this.http.get(loginUrl, {
             responseType: 'text',
           });
