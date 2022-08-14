@@ -116,12 +116,11 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(actionUserLoginLinkClicked),
       concatLatestFrom(() => [this.store.select(selectUrl)]),
-      map(([{}, currentUrl]) => {
-        let url = currentUrl;
-        if (url.endsWith('/login')) {
-          url = '/';
+      map(([{}, url]) => {
+        let loginCallbackPage = url;
+        if (loginCallbackPage.endsWith('/login')) {
+          loginCallbackPage = '/';
         }
-        const loginCallbackPage = this.location.prepareExternalUrl(url);
         return actionUserLoginCallbackPageRegistered({ loginCallbackPage });
       })
     )
