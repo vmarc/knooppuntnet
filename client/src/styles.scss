@@ -42,6 +42,10 @@ a:active {
   text-decoration: underline;
 }
 
+a:hover {
+  cursor: pointer
+}
+
 strong {
   color: #222;
   font-weight: 600;

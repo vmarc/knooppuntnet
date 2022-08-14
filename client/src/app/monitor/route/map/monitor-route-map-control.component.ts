@@ -84,10 +84,6 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
       .josm {
         padding-left: 0.8em;
       }
-
-      a:hover {
-        cursor: pointer;
-      }
     `,
   ],
 })

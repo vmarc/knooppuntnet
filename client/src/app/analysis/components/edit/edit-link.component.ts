@@ -18,13 +18,6 @@ import { EditService } from './edit.service';
       >edit</a
     >
   `,
-  styles: [
-    `
-      a:hover {
-        cursor: pointer;
-      }
-    `,
-  ],
   providers: [EditService],
 })
 export class EditLinkComponent implements OnInit {

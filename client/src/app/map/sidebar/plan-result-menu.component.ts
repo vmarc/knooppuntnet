@@ -57,10 +57,6 @@ import { selectPreferencesInstructions } from '../../core/preferences/preference
         color: rgba(0, 0, 0, 0.87);
         font-weight: bold;
       }
-
-      a:hover {
-        cursor: pointer;
-      }
     `,
   ],
 })

@@ -10,13 +10,6 @@ import { actionUserLoginLinkClicked } from '../../../core/user/user.actions';
   template: `
     <a rel="nofollow noreferrer" (click)="login()" i18n="@@login">login</a>
   `,
-  styles: [
-    `
-      a:hover {
-        cursor: pointer;
-      }
-    `,
-  ],
 })
 export class LinkLoginComponent {
   constructor(private store: Store<AppState>) {}

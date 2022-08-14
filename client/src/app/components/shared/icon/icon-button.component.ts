@@ -21,10 +21,6 @@ import { Component, Input } from '@angular/core';
         margin: 15px;
       }
 
-      a:hover {
-        cursor: pointer;
-      }
-
       .wrapper {
         display: inline-block;
         border-color: gray;
