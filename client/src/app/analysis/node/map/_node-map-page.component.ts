@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeMapPositionFromUrl } from '../store/node.selectors';
@@ -56,9 +56,7 @@ export class NodeMapPageComponent implements OnInit {
   readonly mapPositionFromUrl$ = this.store.select(
     selectNodeMapPositionFromUrl
   );
-  readonly response$ = this.store
-    .select(selectNodeMapPage)
-    .pipe(filter((x) => x !== null));
+  readonly response$ = selectDefined(this.store, selectNodeMapPage);
 
   constructor(private store: Store<AppState>) {}
 

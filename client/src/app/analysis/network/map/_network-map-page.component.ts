@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionNetworkMapPageInit } from '../store/network.actions';
 import { selectNetworkMapPositionFromUrl } from '../store/network.selectors';
@@ -20,24 +20,26 @@ import { selectNetworkMapPage } from '../store/network.selectors';
     </kpn-network-page-header>
 
     <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result">
-        <p i18n="@@network-page.network-not-found">Network not found</p>
-      </div>
-      <div *ngIf="response.result">
+      <p
+        *ngIf="!response.result; else networkFound"
+        class="kpn-spacer-above"
+        i18n="@@network-page.network-not-found"
+      >
+        Network not found
+      </p>
+      <ng-template #networkFound>
         <kpn-network-map
           [networkId]="networkId$ | async"
           [page]="response.result"
           [mapPositionFromUrl]="mapPositionFromUrl$ | async"
         ></kpn-network-map>
-      </div>
+      </ng-template>
     </div>
   `,
 })
 export class NetworkMapPageComponent implements OnInit {
   readonly networkId$ = this.store.select(selectNetworkId);
-  readonly response$ = this.store
-    .select(selectNetworkMapPage)
-    .pipe(filter((x) => x !== null));
+  readonly response$ = selectDefined(this.store, selectNetworkMapPage);
   readonly mapPositionFromUrl$ = this.store.select(
     selectNetworkMapPositionFromUrl
   );

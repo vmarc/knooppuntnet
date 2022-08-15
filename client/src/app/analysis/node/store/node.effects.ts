@@ -9,7 +9,6 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -22,7 +21,6 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
-import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { actionNodeMapPageLoad } from './node.actions';
 import { actionNodeDetailsPageLoad } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';
@@ -101,18 +99,7 @@ export class NodeEffects {
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectUserLoggedIn),
       ]),
-      filter(
-        ([
-          {},
-          routeParams,
-          queryParams,
-          preferencesImpact,
-          preferencesPageSize,
-          loggedIn,
-        ]) => loggedIn
-      ),
       map(
         ([
           {},
@@ -120,7 +107,6 @@ export class NodeEffects {
           queryParams,
           preferencesImpact,
           preferencesPageSize,
-          loggedIn,
         ]) => {
           const nodeId = routeParams['nodeId'];
           const queryParamsWrapper = new PageParams(queryParams);

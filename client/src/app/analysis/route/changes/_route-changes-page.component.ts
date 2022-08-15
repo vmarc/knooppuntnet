@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionRouteChangesPageSize } from '../store/route.actions';
 import { actionRouteChangesPageImpact } from '../store/route.actions';
@@ -38,50 +38,54 @@ import { selectRouteId } from '../store/route.selectors';
     >
     </kpn-route-page-header>
 
-    <div class="kpn-spacer-above">
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div
-        *ngIf="(loggedIn$ | async) === false"
-        i18n="@@route-changes.login-required"
+        *ngIf="!response.result; else routeFound"
+        i18n="@@route.route-not-found"
       >
-        The details of the route changes history is available to registered
-        OpenStreetMap contributors only, after
-        <kpn-link-login></kpn-link-login>
-        .
+        Route not found
       </div>
-
-      <div *ngIf="response$ | async as response">
-        <div *ngIf="!response.result" i18n="@@route.route-not-found">
-          Route not found
+      <ng-template #routeFound>
+        <div
+          *ngIf="(loggedIn$ | async) === false; else loggedIn"
+          i18n="@@route-changes.login-required"
+        >
+          The details of the route changes history is available to registered
+          OpenStreetMap contributors only, after
+          <kpn-link-login></kpn-link-login>
+          .
         </div>
-        <div *ngIf="response.result as page">
-          <p>
-            <kpn-situation-on
-              [timestamp]="response.situationOn"
-            ></kpn-situation-on>
-          </p>
-          <kpn-changes
-            [impact]="impact$ | async"
-            [pageSize]="pageSize$ | async"
-            [pageIndex]="pageIndex$ | async"
-            (impactChange)="onImpactChange($event)"
-            (pageSizeChange)="onPageSizeChange($event)"
-            (pageIndexChange)="onPageIndexChange($event)"
-            [totalCount]="page.totalCount"
-            [changeCount]="page.changeCount"
-          >
-            <kpn-items>
-              <kpn-item
-                *ngFor="let routeChangeInfo of page.changes"
-                [index]="routeChangeInfo.rowIndex"
-              >
-                <kpn-route-change
-                  [routeChangeInfo]="routeChangeInfo"
-                ></kpn-route-change>
-              </kpn-item>
-            </kpn-items>
-          </kpn-changes>
-        </div>
-      </div>
+        <ng-template #loggedIn>
+          <div *ngIf="response.result as page">
+            <p>
+              <kpn-situation-on
+                [timestamp]="response.situationOn"
+              ></kpn-situation-on>
+            </p>
+            <kpn-changes
+              [impact]="impact$ | async"
+              [pageSize]="pageSize$ | async"
+              [pageIndex]="pageIndex$ | async"
+              (impactChange)="onImpactChange($event)"
+              (pageSizeChange)="onPageSizeChange($event)"
+              (pageIndexChange)="onPageIndexChange($event)"
+              [totalCount]="page.totalCount"
+              [changeCount]="page.changeCount"
+            >
+              <kpn-items>
+                <kpn-item
+                  *ngFor="let routeChangeInfo of page.changes"
+                  [index]="routeChangeInfo.rowIndex"
+                >
+                  <kpn-route-change
+                    [routeChangeInfo]="routeChangeInfo"
+                  ></kpn-route-change>
+                </kpn-item>
+              </kpn-items>
+            </kpn-changes>
+          </div>
+        </ng-template>
+      </ng-template>
     </div>
   `,
 })
@@ -95,9 +99,7 @@ export class RouteChangesPageComponent implements OnInit {
   readonly pageSize$ = this.store.select(selectRouteChangesPageSize);
   readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
-  readonly response$ = this.store
-    .select(selectRouteChangesPage)
-    .pipe(filter((x) => x !== null));
+  readonly response$ = selectDefined(this.store, selectRouteChangesPage);
 
   constructor(private store: Store<AppState>) {}
 

@@ -6,11 +6,6 @@ export const actionUserInit = createAction(
   props<{ user: string }>()
 );
 
-export const actionUserSet = createAction(
-  '[User] Set',
-  props<{ user: string }>()
-);
-
 export const actionUserLogin = createAction('[User] Login');
 
 export const actionUserLogout = createAction('[User] Logout');
@@ -21,12 +16,29 @@ export const actionUserLoginLinkClicked = createAction(
   '[User] Login link clicked'
 );
 
-export const actionUserLoginCallbackPageRegistered = createAction(
-  '[User] Login callback page registered',
-  props<{ loginCallbackPage: string }>()
+export const actionUserLoginReturnUrlRegistered = createAction(
+  '[User] Login return url registered',
+  props<{ returnUrl: string }>()
 );
 
 export const actionUserReceived = createAction(
   '[User] Received',
-  props<{ user: string; pageArray: string[] }>()
+  props<{ user: string; returnUrl: string }>()
+);
+
+export const actionUserLoginCompleted = createAction('[User] Login completed');
+
+export const actionUserLogoutLinkClicked = createAction(
+  '[User] Logout link clicked'
+);
+
+export const actionUserLogoutReturnUrlRegistered = createAction(
+  '[User] Logout return url registered',
+  props<{ returnUrl: string }>()
+);
+
+export const actionUserLoggedOut = createAction('[User] Logged out');
+
+export const actionUserLogoutCompleted = createAction(
+  '[User] Logout completed'
 );

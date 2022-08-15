@@ -3,8 +3,8 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
 import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
+import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
@@ -124,10 +124,7 @@ export class NodeDetailsPageComponent implements OnInit {
   readonly nodeName$ = this.store.select(selectNodeName);
   readonly changeCount$ = this.store.select(selectNodeChangeCount);
   readonly networkTypes$ = this.store.select(selectNodeNetworkTypes);
-
-  readonly response$ = this.store
-    .select(selectNodeDetailsPage)
-    .pipe(filter((x) => x !== null));
+  readonly response$ = selectDefined(this.store, selectNodeDetailsPage);
 
   constructor(private store: Store<AppState>) {}
 

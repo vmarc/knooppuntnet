@@ -66,7 +66,7 @@ export class LogoutPageComponent {
 
   constructor(private store: Store<AppState>) {}
 
-  logout() {
+  logout(): void {
     this.store.dispatch(actionUserLogout());
   }
 }

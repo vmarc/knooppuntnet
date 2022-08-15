@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
+import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionRouteMapPageInit } from '../store/route.actions';
 import { selectRouteMapPositionFromUrl } from '../store/route.selectors';
@@ -54,9 +54,7 @@ export class RouteMapPageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);
   readonly routeName$ = this.store.select(selectRouteName);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly response$ = this.store
-    .select(selectRouteMapPage)
-    .pipe(filter((x) => x !== null));
+  readonly response$ = selectDefined(this.store, selectRouteMapPage);
   readonly networkType$ = this.store.select(selectRouteNetworkType);
   readonly mapPositionFromUrl$ = this.store.select(
     selectRouteMapPositionFromUrl

@@ -1,9 +1,9 @@
 export const initialUserState: UserState = {
   user: null,
-  loginCallbackPage: null,
+  returnUrl: null,
 };
 
 export interface UserState {
   user: string; // when non-null, the user is logged in
-  loginCallbackPage: string;
+  returnUrl: string; // url of page to return to after login or logout
 }

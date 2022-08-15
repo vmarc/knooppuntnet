@@ -12,7 +12,7 @@ export const selectUserLoggedIn = createSelector(
   (state: UserState) => !!state.user
 );
 
-export const selectUserLoginCallbackPage = createSelector(
+export const selectUserReturnUrl = createSelector(
   selectUserState,
-  (state: UserState) => state.loginCallbackPage
+  (state: UserState) => state.returnUrl
 );

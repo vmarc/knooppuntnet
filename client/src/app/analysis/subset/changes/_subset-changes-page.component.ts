@@ -22,18 +22,17 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
 
     <kpn-error></kpn-error>
 
-    <div class="kpn-spacer-above">
-      <div
-        *ngIf="(loggedIn$ | async) === false"
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+      <p
+        *ngIf="(loggedIn$ | async) === false; else loggedIn"
         i18n="@@subset-changes.login-required"
       >
         This details of the changes history are available to registered
         OpenStreetMap contributors only, after
         <kpn-link-login></kpn-link-login>
         .
-      </div>
-
-      <div *ngIf="response$ | async as response">
+      </p>
+      <ng-template #loggedIn>
         <p>
           <kpn-situation-on
             [timestamp]="response.situationOn"
@@ -65,7 +64,7 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
             </kpn-item>
           </kpn-items>
         </kpn-changes>
-      </div>
+      </ng-template>
     </div>
   `,
 })

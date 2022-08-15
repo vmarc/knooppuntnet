@@ -9,7 +9,6 @@ import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
@@ -17,7 +16,6 @@ import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
-import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationSelectionPageStrategy } from './location.actions';
@@ -147,10 +145,8 @@ export class LocationEffects {
         this.store.select(selectLocationKey),
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationChangesPageIndex),
-        this.store.select(selectUserLoggedIn),
       ]),
-      filter(([{}, locationKey, pageSize, pageIndex, loggedIn]) => !!loggedIn),
-      mergeMap(([{}, locationKey, pageSize, pageIndex, loggedIn]) => {
+      mergeMap(([{}, locationKey, pageSize, pageIndex]) => {
         const parameters: LocationChangesParameters = {
           pageSize,
           pageIndex,

@@ -9,7 +9,6 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
@@ -20,7 +19,6 @@ import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
-import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { actionSubsetFactRefsLoaded } from './subset.actions';
 import { actionSubsetFactRefsLoad } from './subset.actions';
@@ -234,18 +232,7 @@ export class SubsetEffects {
         this.store.select(selectQueryParams),
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectUserLoggedIn),
       ]),
-      filter(
-        ([
-          {},
-          routeParams,
-          queryParams,
-          preferencesImpact,
-          preferencesPageSize,
-          loggedIn,
-        ]) => loggedIn
-      ),
       map(
         ([
           {},
@@ -253,7 +240,6 @@ export class SubsetEffects {
           queryParams,
           preferencesImpact,
           preferencesPageSize,
-          loggedIn,
         ]) => {
           const pageParams = new PageParams(routeParams, queryParams);
           const subset = pageParams.subset();

@@ -23,22 +23,24 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
     >
     </kpn-network-page-header>
 
-    <div class="kpn-spacer-above">
-      <div
-        *ngIf="(loggedIn$ | async) === false"
-        i18n="@@network-changes.login-required"
+    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+      <p
+        *ngIf="!response.result; else networkFound"
+        i18n="@@network-page.network-not-found"
       >
-        The details of network changes history are available to registered
-        OpenStreetMap contributors only, after
-        <kpn-link-login></kpn-link-login>
-        .
-      </div>
-
-      <div *ngIf="response$ | async as response">
-        <div *ngIf="!response.result">
-          <p i18n="@@network-page.network-not-found">Network not found</p>
+        Network not found
+      </p>
+      <ng-template #networkFound>
+        <div
+          *ngIf="(loggedIn$ | async) === false; else loggedIn"
+          i18n="@@network-changes.login-required"
+        >
+          The details of network changes history are available to registered
+          OpenStreetMap contributors only, after
+          <kpn-link-login></kpn-link-login>
+          .
         </div>
-        <div *ngIf="response.result">
+        <ng-template #loggedIn>
           <p>
             <kpn-situation-on
               [timestamp]="response.situationOn"
@@ -65,8 +67,8 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
               </kpn-item>
             </kpn-items>
           </kpn-changes>
-        </div>
-      </div>
+        </ng-template>
+      </ng-template>
     </div>
   `,
 })
