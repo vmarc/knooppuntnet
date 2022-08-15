@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "4.0.7",
+  "version": "4.0.8",
   "license": "MIT",
   "scripts": {
     "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --proxy-config src/proxy-dev.conf.js",
@@ -37,7 +37,7 @@
     "@ngrx/router-store": "^14.0.0",
     "@ngrx/store": "^14.0.0",
     "@ngrx/store-devtools": "^14.0.0",
-    "@sentry/angular": "^7.1.1",
+    "@sentry/angular": "^7.9.0",
     "@swimlane/ngx-charts": "^20.1.0",
     "@types/file-saver": "^2.0.5",
     "angular-qrious": "9.0.0",

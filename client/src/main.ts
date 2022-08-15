@@ -21,6 +21,9 @@ if (environment.production) {
   };
 
   const beforeSend = (event: Event, hint: EventHint | undefined) => {
+    if (event.tags && 'PetalBot' === event.tags['browser.name']) {
+      return null;
+    }
     const error = hint.originalException;
     if (error && error.toString().includes('ChunkLoadError')) {
       window.location.reload();
