@@ -21,7 +21,8 @@ if (environment.production) {
   };
 
   const beforeSend = (event: Event, hint: EventHint | undefined) => {
-    if (event.tags && 'PetalBot' === event.tags['browser.name']) {
+    const headersString = JSON.stringify(event?.request?.headers);
+    if (headersString.includes('PetalBot')) {
       return null;
     }
     const error = hint.originalException;
