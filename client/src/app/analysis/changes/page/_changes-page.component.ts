@@ -26,53 +26,54 @@ import { selectChangesPage } from '../store/changes.selectors';
       Changes
     </kpn-page-header>
 
-    <div
-      *ngIf="(loggedIn$ | async) === false"
-      i18n="@@changes-page.login-required"
-      class="kpn-spacer-above"
-    >
-      The details of the changes history are available to registered
-      OpenStreetMap contributors only, after
-      <kpn-link-login></kpn-link-login>
-      .
-    </div>
-
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div *ngIf="response.result as page">
-        <p>
-          <kpn-situation-on
-            [timestamp]="response.situationOn"
-          ></kpn-situation-on>
-        </p>
-        <kpn-changes
-          [impact]="impact$ | async"
-          [pageSize]="pageSize$ | async"
-          [pageIndex]="pageIndex$ | async"
-          (impactChange)="onImpactChange($event)"
-          (pageSizeChange)="onPageSizeChange($event)"
-          (pageIndexChange)="onPageIndexChange($event)"
-          [totalCount]="page.changeCount"
-          [changeCount]="page.changes.length"
-        >
-          <kpn-items>
-            <kpn-item
-              *ngFor="let changeSet of page.changes"
-              [index]="changeSet.rowIndex"
-            >
-              <kpn-change-network-analysis-summary
-                *ngIf="changeSet.network"
-                [changeSet]="changeSet"
-              ></kpn-change-network-analysis-summary>
-              <kpn-change-location-analysis-summary
-                *ngIf="changeSet.location"
-                [changeSet]="changeSet"
-              ></kpn-change-location-analysis-summary>
-            </kpn-item>
-          </kpn-items>
-        </kpn-changes>
-      </div>
+      <p
+        *ngIf="(loggedIn$ | async) === false; else loggedIn"
+        i18n="@@changes-page.login-required"
+        class="kpn-spacer-above"
+      >
+        The details of the changes history are available to registered
+        OpenStreetMap contributors only, after
+        <kpn-link-login></kpn-link-login>
+        .
+      </p>
+      <ng-template #loggedIn>
+        <div *ngIf="response.result as page">
+          <p>
+            <kpn-situation-on
+              [timestamp]="response.situationOn"
+            ></kpn-situation-on>
+          </p>
+          <kpn-changes
+            [impact]="impact$ | async"
+            [pageSize]="pageSize$ | async"
+            [pageIndex]="pageIndex$ | async"
+            (impactChange)="onImpactChange($event)"
+            (pageSizeChange)="onPageSizeChange($event)"
+            (pageIndexChange)="onPageIndexChange($event)"
+            [totalCount]="page.changeCount"
+            [changeCount]="page.changes.length"
+          >
+            <kpn-items>
+              <kpn-item
+                *ngFor="let changeSet of page.changes"
+                [index]="changeSet.rowIndex"
+              >
+                <kpn-change-network-analysis-summary
+                  *ngIf="changeSet.network"
+                  [changeSet]="changeSet"
+                ></kpn-change-network-analysis-summary>
+                <kpn-change-location-analysis-summary
+                  *ngIf="changeSet.location"
+                  [changeSet]="changeSet"
+                ></kpn-change-location-analysis-summary>
+              </kpn-item>
+            </kpn-items>
+          </kpn-changes>
+        </div>
+      </ng-template>
     </div>
   `,
 })
