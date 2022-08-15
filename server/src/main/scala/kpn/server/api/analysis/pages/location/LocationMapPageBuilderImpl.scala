@@ -36,16 +36,8 @@ class LocationMapPageBuilderImpl(
     // TODO try first: ${locationKey.name}-minimized.geojson"
     val filename = s"/kpn/locations/${locationKey.country.domain}/geometries/${locationKey.name}.json"
     var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
+    geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
     val geometry = new GeoJsonReader().read(geoJson)
-
-    if (geometry.getGeometryType == "GeometryCollection" && geometry.getNumGeometries == 1) {
-      val geometryChild = geometry.getGeometryN(0)
-      if (geometryChild.getGeometryType == "Polygon") {
-        geoJson = new GeoJsonWriter().write(geometryChild)
-        geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
-      }
-    }
-
     val bounds = GeometryUtil.bounds(geometry)
     Some(
       LocationMapPage(
