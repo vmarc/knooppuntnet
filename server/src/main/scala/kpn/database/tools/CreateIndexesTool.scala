@@ -194,7 +194,6 @@ class CreateIndexesTool(database: Database) {
           "impact"
         )
       ),
-
       Index(
         database.routeChanges,
         "time",
