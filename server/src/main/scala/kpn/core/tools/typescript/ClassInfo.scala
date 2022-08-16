@@ -4,7 +4,8 @@ case class ClassInfo(
   className: String,
   fileName: String,
   fields: Seq[ClassField],
-  dependencies: Seq[ClassDependency]
+  dependencies: Seq[ClassDependency],
+  formClass: Boolean
 ) {
 
   def displayString: String = {

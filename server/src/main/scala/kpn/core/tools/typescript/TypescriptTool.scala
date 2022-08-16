@@ -1,6 +1,7 @@
 package kpn.core.tools.typescript
 
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.monitor.MonitorGroup
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -9,6 +10,11 @@ import scala.jdk.CollectionConverters._
 import scala.reflect.runtime.universe._
 
 object TypescriptTool {
+
+  val formClasses = Seq(
+    MonitorGroup.getClass.getSimpleName.replace("$", "")
+  )
+
   def main(args: Array[String]): Unit = {
     new TypescriptTool().generate()
   }

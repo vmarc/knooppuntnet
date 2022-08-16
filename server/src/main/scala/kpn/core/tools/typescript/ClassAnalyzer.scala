@@ -84,11 +84,14 @@ class ClassAnalyzer {
       case _ => Seq.empty
     }
 
+    val formClass = TypescriptTool.formClasses.contains(className)
+
     ClassInfo(
       className,
       fileName,
       fields,
-      dependencies.distinct.sortBy(_.className)
+      dependencies.distinct.sortBy(_.className),
+      formClass
     )
   }
 

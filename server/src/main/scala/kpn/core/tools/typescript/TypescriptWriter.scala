@@ -37,20 +37,27 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     out.println(s"export interface ${classInfo.className} {")
     val fields = classInfo.fields.map { field =>
       val fieldType = {
+        val fieldName = if (classInfo.formClass) {
+          field.name + "?"
+        }
+        else {
+          field.name
+        }
+
         val typeName = field.classType.typeName
         if (typeName.startsWith("List<")) {
           val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]"
-          s"${field.name}: $arrayTypeName"
+          s"$fieldName: $arrayTypeName"
         }
         else if (typeName.startsWith("Array<")) {
           val arrayTypeName = typeName.drop("Array<".length).dropRight(1) + "[]"
-          s"${field.name}: $arrayTypeName"
+          s"$fieldName: $arrayTypeName"
         }
         else if (typeName == "PlanCoordinate") {
-          s"${field.name}: Coordinate"
+          s"$fieldName: Coordinate"
         }
         else {
-          s"${field.name}: $typeName"
+          s"$fieldName: $typeName"
         }
       }
       fieldType + (if (field.classType.optional) " | undefined" else "")
