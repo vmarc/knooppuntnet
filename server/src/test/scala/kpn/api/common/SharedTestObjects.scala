@@ -1069,7 +1069,8 @@ trait SharedTestObjects extends MockFactory {
       referenceKey,
       osmSegments,
       okGeometry,
-      nokSegments
+      nokSegments,
+      happy = false
     )
   }
 

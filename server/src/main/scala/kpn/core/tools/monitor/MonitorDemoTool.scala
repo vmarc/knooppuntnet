@@ -45,7 +45,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
     database.monitorRouteChangeGeometries.drop(log)
 
     setupGroup("SGR", "Les Sentiers de Grande Randonnée", MonitorDemoRoute.routes)
-     setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes)
+    setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes)
   }
 
   private def setupGroup(groupName: String, groupDescription: String, routes: Seq[MonitorDemoRoute]): Unit = {

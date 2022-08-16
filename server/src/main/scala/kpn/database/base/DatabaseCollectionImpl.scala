@@ -1,10 +1,13 @@
 package kpn.database.base
 
+import kpn.api.base.MongoId
 import kpn.api.base.WithId
+import kpn.api.base.WithMongoId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
 import kpn.database.util.Mongo
 import org.mongodb.scala.MongoCollection
+import org.mongodb.scala.bson.ObjectId
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
@@ -99,6 +102,14 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
+  override def findByMongoId(mongoId: MongoId, log: Log): Option[T] = {
+    log.debugElapsed {
+      val future = collection.find[T](equal("_id", new ObjectId(mongoId.oid))).headOption()
+      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"findByMongoId - collection: '$collectionName', _id: ${mongoId.oid}", doc)
+    }
+  }
+
   override def findByIds(ids: Seq[Long], log: Log): Seq[T] = {
     if (ids.nonEmpty) {
       log.debugElapsed {
@@ -123,14 +134,26 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
 
   override def save(doc: T, log: Log): Unit = {
     log.debugElapsed {
-      val (id, filter) = doc match {
-        case withId: WithId => (withId._id.toString, equal("_id", withId._id))
-        case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
-        case _ => throw new IllegalArgumentException("document does not have een id")
+
+      doc match {
+        case withObjectId: WithMongoId =>
+          val future = collection.insertOne(doc).toFuture()
+          //          val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
+          val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
+          (s"save - collection: '$collectionName'", result)
+
+        case _ =>
+          val (id, filter) = doc match {
+            case withId: WithId => (withId._id.toString, equal("_id", withId._id))
+            case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
+            case _ => throw new IllegalArgumentException("document does not have een id")
+          }
+          val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
+          val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
+          (s"save - collection: '$collectionName', _id: $id", result)
+
       }
-      val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
-      val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
-      (s"save - collection: '$collectionName', _id: $id", result)
+
     }
   }
 

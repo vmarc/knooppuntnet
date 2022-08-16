@@ -92,7 +92,8 @@ class ClassAnalyzerTest extends UnitTest {
             "Timestamp",
             "../../../api/custom/timestamp"
           )
-        )
+        ),
+        formClass = false
       ).displayString
     )
   }

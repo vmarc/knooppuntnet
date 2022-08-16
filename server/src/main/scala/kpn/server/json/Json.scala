@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
+import kpn.api.base.MongoId
 import kpn.api.common.Language
 import kpn.api.common.NodeName
 import kpn.api.common.planner.PlanCoordinate
@@ -74,6 +75,9 @@ object Json {
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
 
     b.serializerByType(classOf[Timestamp2], new Timestamp2JsonSerializer())
+
+    b.deserializerByType(classOf[MongoId], new MongoIdJsonDeserializer())
+    b.serializerByType(classOf[MongoId], new MongoIdJsonSerializer())
 
     b.deserializerByType(classOf[Day], new DayJsonDeserializer())
     b.serializerByType(classOf[Day], new DayJsonSerializer())
