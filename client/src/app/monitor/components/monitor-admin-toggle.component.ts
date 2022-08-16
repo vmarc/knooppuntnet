@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
 import { actionMonitorAdmin } from '../store/monitor.actions';
 import { selectMonitorAdminRole } from '../store/monitor.selectors';
@@ -14,10 +13,11 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   template: `
     <div class="toggle">
       <mat-slide-toggle
-        [disabled]="adminDisabled$ | async"
+        [disabled]="(adminRole$ | async) === false"
         [checked]="admin$ | async"
         (change)="adminChanged($event)"
-        >Admin
+      >
+        Admin
       </mat-slide-toggle>
     </div>
   `,
@@ -34,9 +34,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
 })
 export class MonitorAdminToggleComponent {
   readonly admin$ = this.store.select(selectMonitorAdmin);
-  readonly adminDisabled$ = this.store
-    .select(selectMonitorAdminRole)
-    .pipe(map((adminRole) => !adminRole));
+  readonly adminRole$ = this.store.select(selectMonitorAdminRole);
 
   constructor(private store: Store<AppState>) {}
 

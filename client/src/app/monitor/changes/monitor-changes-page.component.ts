@@ -2,12 +2,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
 import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../core/preferences/preferences.actions';
@@ -64,12 +59,7 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
 export class MonitorChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectPreferencesImpact);
   readonly pageSize$ = this.store.select(selectPreferencesPageSize);
-
-  readonly response$: Observable<ApiResponse<MonitorChangesPage>> =
-    this.store.pipe(
-      select(selectMonitorChangesPage),
-      filter((r) => r != null)
-    );
+  readonly response$ = this.store.select(selectMonitorChangesPage);
 
   constructor(private store: Store<AppState>) {}
 

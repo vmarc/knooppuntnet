@@ -1,6 +1,7 @@
 package kpn.api.common.monitor
 
 case class MonitorRouteDetail(
+  index: Long,
   monitorRouteId: String,
   routeId: Long,
   name: String,
@@ -10,5 +11,6 @@ case class MonitorRouteDetail(
   gpxDistance: Long,
   gpxFilename: Option[String],
   osmHappy: Boolean,
-  gpxHappy: Boolean
+  gpxHappy: Boolean,
+  happy: Boolean,
 )

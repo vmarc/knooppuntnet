@@ -20,8 +20,9 @@ class MonitorGroupPageBuilderImpl(
         admin,
         groupName,
         group.description,
-        routes.map { route =>
+        routes.zipWithIndex.map { case(route, index) =>
           MonitorRouteDetail(
+            index,
             route._id,
             route.routeId,
             route.name,
@@ -31,7 +32,8 @@ class MonitorGroupPageBuilderImpl(
             gpxDistance = 0,
             gpxFilename = None,
             osmHappy = false,
-            gpxHappy = false
+            gpxHappy = false,
+            happy = true
           )
         }
       )

@@ -1,15 +1,10 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
 import { AppState } from '../../core/core.state';
 import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
+import { selectMonitorGroupsPageHasGroups } from '../store/monitor.selectors';
 import { selectMonitorGroupsPage } from '../store/monitor.selectors';
 import { selectMonitorAdmin } from '../store/monitor.selectors';
 
@@ -29,40 +24,25 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
 
     <div *ngIf="response$ | async as response">
       <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
-      <div *ngIf="hasGroups$ | async; else noRoutes">
+      <div *ngIf="hasGroups$ | async; else noGroups">
         <kpn-monitor-group-table [groups]="response.result.groups">
         </kpn-monitor-group-table>
       </div>
-      <ng-template #noRoutes>
+      <ng-template #noGroups>
         <div>No route groups</div>
       </ng-template>
-      <div *ngIf="admin$ | async" class="add-group-action">
+      <div *ngIf="admin$ | async" class="kpn-spacer-above">
         <button mat-stroked-button routerLink="/monitor/admin/groups/add">
           Add group
         </button>
       </div>
     </div>
   `,
-  styles: [
-    `
-      .add-group-action {
-        margin-top: 3em;
-      }
-    `,
-  ],
 })
 export class MonitorGroupsPageComponent implements OnInit {
   readonly admin$ = this.store.select(selectMonitorAdmin);
-
-  readonly response$: Observable<ApiResponse<MonitorGroupsPage>> =
-    this.store.pipe(
-      select(selectMonitorGroupsPage),
-      filter((r) => r != null)
-    );
-
-  readonly hasGroups$: Observable<boolean> = this.response$.pipe(
-    map((response) => response.result?.groups.length > 0)
-  );
+  readonly response$ = this.store.select(selectMonitorGroupsPage);
+  readonly hasGroups$ = this.store.select(selectMonitorGroupsPageHasGroups);
 
   constructor(private store: Store<AppState>) {}
 

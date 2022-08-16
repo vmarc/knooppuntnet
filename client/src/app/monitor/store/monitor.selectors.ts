@@ -31,6 +31,11 @@ export const selectMonitorGroupsPage = createSelector(
   (state: MonitorState) => state.groupsPage
 );
 
+export const selectMonitorGroupsPageHasGroups = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.groupsPage.result?.groups.length > 0
+);
+
 export const selectMonitorGroupPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.groupPage

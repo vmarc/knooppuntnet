@@ -2,12 +2,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
@@ -67,12 +62,7 @@ export class MonitorGroupChangesPageComponent implements OnInit {
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly impact$ = this.store.select(selectPreferencesImpact);
-
-  readonly response$: Observable<ApiResponse<MonitorGroupChangesPage>> =
-    this.store.pipe(
-      select(selectMonitorGroupChangesPage),
-      filter((r) => r != null)
-    );
+  readonly response$ = this.store.select(selectMonitorGroupChangesPage);
 
   constructor(private store: Store<AppState>) {}
 

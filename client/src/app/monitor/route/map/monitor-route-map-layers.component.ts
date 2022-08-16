@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatRadioChange } from '@angular/material/radio';
-import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
@@ -95,23 +94,18 @@ export class MonitorRouteMapLayersComponent {
   readonly osmRelationVisible$ = this.store.select(
     selectMonitorRouteMapOsmRelationVisible
   );
-
-  readonly gpxDisabled$ = this.store.pipe(
-    select(selectMonitorRouteMapGpxEnabled),
-    map((e) => e === false)
-  );
-  readonly gpxOkDisabled$ = this.store.pipe(
-    select(selectMonitorRouteMapGpxOkEnabled),
-    map((e) => e === false)
-  );
-  readonly gpxNokDisabled$ = this.store.pipe(
-    select(selectMonitorRouteMapGpxNokEnabled),
-    map((e) => e === false)
-  );
-  readonly osmRelationDisabled$ = this.store.pipe(
-    select(selectMonitorRouteMapOsmRelationEnabled),
-    map((e) => e === false)
-  );
+  readonly gpxDisabled$ = this.store
+    .select(selectMonitorRouteMapGpxEnabled)
+    .pipe(map((e) => e === false));
+  readonly gpxOkDisabled$ = this.store
+    .select(selectMonitorRouteMapGpxOkEnabled)
+    .pipe(map((e) => e === false));
+  readonly gpxNokDisabled$ = this.store
+    .select(selectMonitorRouteMapGpxNokEnabled)
+    .pipe(map((e) => e === false));
+  readonly osmRelationDisabled$ = this.store
+    .select(selectMonitorRouteMapOsmRelationEnabled)
+    .pipe(map((e) => e === false));
 
   constructor(private store: Store<AppState>) {}
 

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { select } from '@ngrx/store';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
@@ -93,10 +92,9 @@ export class MonitorRouteMapControlComponent {
     selectMonitorRouteMapOsmSegmentCount
   );
 
-  readonly modeSelectionEnabled$ = this.store.pipe(
-    select(selectMonitorRouteMapOsmSegmentCount),
-    map((osmSegmentCount) => osmSegmentCount > 1)
-  );
+  readonly modeSelectionEnabled$ = this.store
+    .select(selectMonitorRouteMapOsmSegmentCount)
+    .pipe(map((osmSegmentCount) => osmSegmentCount > 1));
 
   readonly josmZoomToSelectedDeviationDisabled$ = this.store
     .select(selectMonitorRouteMapSelectedDeviation)

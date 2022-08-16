@@ -34,6 +34,8 @@ class MonitorDemoAnalyzer() {
     val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
     val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
 
+    val happy = false
+
     MonitorRouteState(
       route._id,
       routeRelation.id,
@@ -45,7 +47,8 @@ class MonitorDemoAnalyzer() {
       Some(routeReference.key),
       routeAnalysis.osmSegments,
       routeAnalysis.okGeometry,
-      routeAnalysis.nokSegments
+      routeAnalysis.nokSegments,
+      happy
     )
   }
 

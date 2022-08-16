@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { Store } from '@ngrx/store';
+import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { AppState } from '../../../core/core.state';
@@ -15,10 +16,24 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="nr">
+        <th mat-header-cell *matHeaderCellDef class="nr">Nr</th>
+        <td mat-cell *matCellDef="let route">
+          {{ route.rowIndex + 1 }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef class="id">Name</th>
+        <th mat-header-cell *matHeaderCellDef class="id" [colSpan]="2">Name</th>
         <td mat-cell *matCellDef="let route">
           <a [routerLink]="routeLink(route)">{{ route.name }}</a>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="happy">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          <mat-icon *ngIf="route.happy" svgIcon="happy"></mat-icon>
         </td>
       </ng-container>
 
@@ -70,7 +85,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders$ | async"></tr>
       <tr
         mat-row
         *matRowDef="let group; columns: displayedColumns$ | async"
@@ -102,7 +117,9 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     map((admin) => {
       if (admin) {
         return [
+          'nr',
           'name',
+          'happy',
           'map',
           'routeId',
           'description',
@@ -112,12 +129,20 @@ export class MonitorGroupRouteTableComponent implements OnInit {
         ];
       }
       return [
+        'nr',
         'name',
+        'happy',
         'map',
         'routeId',
-        'description' /*, 'distance', 'status'*/,
+        'description',
+        'distance',
+        'status',
       ];
     })
+  );
+
+  readonly displayedHeaders$ = this.displayedColumns$.pipe(
+    map((columnNames) => columnNames.filter((name) => name !== 'happy'))
   );
 
   constructor(

@@ -17,5 +17,6 @@ case class MonitorRouteState(
   referenceKey: Option[String], // use this to pick up the reference geometry
   osmSegments: Seq[MonitorRouteSegment],
   okGeometry: Option[String],
-  nokSegments: Seq[MonitorRouteNokSegment]
+  nokSegments: Seq[MonitorRouteNokSegment],
+  happy: Boolean
 ) extends WithStringId

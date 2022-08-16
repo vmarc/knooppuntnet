@@ -46,6 +46,7 @@ class MonitorRouteAnalyzerStartTool(
         val bounds = Util.mergeBounds(segments.map(_.segment.bounds))
         val geometry = geomFactory.createMultiLineString(segments.map(_.lineString).toArray)
         val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
+        val happy = false
 
         val routeState = MonitorRouteState(
           "TODO ID",
@@ -58,7 +59,8 @@ class MonitorRouteAnalyzerStartTool(
           referenceKey = Some(timestamp.key),
           osmSegments = osmSegments,
           okGeometry = Some(geoJson),
-          nokSegments = Seq.empty
+          nokSegments = Seq.empty,
+          happy
         )
 
         monitorRouteRepository.saveRouteState(routeState)

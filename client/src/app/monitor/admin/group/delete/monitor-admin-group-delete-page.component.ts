@@ -11,15 +11,9 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
   selector: 'kpn-monitor-admin-group-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
-      <li>Group</li>
-    </ul>
+    <kpn-monitor-admin-group-breadcrumb></kpn-monitor-admin-group-breadcrumb>
 
-    <h1>Monitor</h1>
-
-    <h2>Delete group</h2>
+    <h1>Monitor - delete group</h1>
 
     <div *ngIf="response$ | async as response" class="kpn-form">
       <div *ngIf="!response.result">
@@ -35,20 +29,13 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
             mat-stroked-button
             (click)="delete(response.result.groupName)"
           >
-            <span class="delete">Delete group</span>
+            <span class="warning">Delete group</span>
           </button>
           <a routerLink="/monitor">Cancel</a>
         </div>
       </div>
     </div>
   `,
-  styles: [
-    `
-      .delete {
-        color: red;
-      }
-    `,
-  ],
 })
 export class MonitorAdminGroupDeletePageComponent implements OnInit {
   readonly response$ = this.store.select(selectMonitorGroupPage);

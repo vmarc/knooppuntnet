@@ -194,6 +194,7 @@ class MonitorChangeProcessorImpl(
       )
       monitorRouteRepository.saveRouteChangeGeometry(routeChangeGeometry)
 
+      val happy = false
       val routeState = MonitorRouteState(
         "TODO ID",
         routeId,
@@ -205,7 +206,8 @@ class MonitorChangeProcessorImpl(
         Some(reference.key),
         afterRoute.osmSegments,
         afterRoute.okGeometry,
-        afterRoute.nokSegments
+        afterRoute.nokSegments,
+        happy
       )
 
       monitorRouteRepository.saveRouteState(routeState)

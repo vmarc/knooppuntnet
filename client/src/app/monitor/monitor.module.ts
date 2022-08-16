@@ -20,6 +20,9 @@ import { OlModule } from '../components/ol/ol.module';
 import { SharedModule } from '../components/shared/shared.module';
 import { MonitorAboutPageComponent } from './about/monitor-about-page.component';
 import { MonitorAdminGroupAddPageComponent } from './admin/group/add/monitor-admin-group-add-page.component';
+import { MonitorAdminGroupBreadcrumbComponent } from './admin/group/components/monitor-admin-group-breadcrumb.component';
+import { MonitorAdminGroupDescriptionComponent } from './admin/group/components/monitor-admin-group-description.component';
+import { MonitorAdminGroupNameComponent } from './admin/group/components/monitor-admin-group-name.component';
 import { MonitorAdminGroupDeletePageComponent } from './admin/group/delete/monitor-admin-group-delete-page.component';
 import { MonitorAdminGroupUpdatePageComponent } from './admin/group/update/monitor-admin-group-update-page.component';
 import { MonitorAdminRouteAddPageComponent } from './admin/route/add/monitor-admin-route-add-page.component';
@@ -102,6 +105,9 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorPageMenuComponent,
     MonitorGroupPageMenuComponent,
     MonitorAdminToggleComponent,
+    MonitorAdminGroupBreadcrumbComponent,
+    MonitorAdminGroupNameComponent,
+    MonitorAdminGroupDescriptionComponent,
     MonitorAdminGroupAddPageComponent,
     MonitorAdminGroupUpdatePageComponent,
     MonitorAdminGroupDeletePageComponent,
