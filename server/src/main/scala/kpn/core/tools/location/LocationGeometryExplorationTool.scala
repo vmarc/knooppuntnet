@@ -8,7 +8,7 @@ import java.io.File
 
 object LocationGeometryExplorationTool {
   def main(args: Array[String]): Unit = {
-    new LocationGeometryExplorationTool().printLocationsWithGeometryCollectionWithMultipleElements()
+    new LocationGeometryExplorationTool().printLocationsWithWrongCoordinateReferenceSystem()
   }
 
 }
@@ -29,17 +29,23 @@ class LocationGeometryExplorationTool {
     }
   }
 
-  def printLocationsWithWronCoordinateReferenceSystem(): Unit = {
-    Country.all.foreach { country =>
+  def printLocationsWithWrongCoordinateReferenceSystem(): Unit = {
+    val geojsons = Country.all.flatMap { country =>
       val dir = s"/kpn/locations/${country.domain}/geometries"
-      new File(dir).listFiles().foreach { file =>
+      new File(dir).listFiles().flatMap { file =>
         val geoJson = FileUtils.readFileToString(file, "UTF-8")
         if (geoJson.contains("EPSG:0")) {
           val geometryType = geoJson.takeWhile(_ != ',').drop("""{"type":"""".length).dropRight(1)
-          println(s"${file.getName} -> $geometryType")
+          Some(s"${file.getName} -> $geometryType")
+        }
+        else {
+          None
         }
       }
     }
+    geojsons.foreach(println)
+    println(s"${geojsons.size} locations with wrong coordinate reference system")
+
   }
 
   def printRootGeometryTypes(): Unit = {
