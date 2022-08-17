@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.Bounds
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.monitor.MonitorGroup
@@ -44,13 +45,13 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
     database.monitorRouteChanges.drop(log)
     database.monitorRouteChangeGeometries.drop(log)
 
-    setupGroup("SGR", "Les Sentiers de Grande Randonnée", MonitorDemoRoute.routes)
-    setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes)
+    setupGroup("SGR", "Les Sentiers de Grande Randonnée", MonitorDemoRoute.routes.take(2))
+    setupGroup("GRV", "Grote Route Vlaanderen", MonitorDemoRoute.grVlaanderenRoutes.take(2))
   }
 
   private def setupGroup(groupName: String, groupDescription: String, routes: Seq[MonitorDemoRoute]): Unit = {
 
-    val group = MonitorGroup(groupName, groupDescription)
+    val group = MonitorGroup(MongoId(), groupName, groupDescription)
     database.monitorGroups.save(group)
 
     routes.filter(_.routeId > 0).foreach { demoRoute =>
@@ -60,7 +61,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
         val routeRelation = readRouteRelation(demoRoute.routeId)
         val route = MonitorRouteAnalysisSupport.toRoute(
           demoRoute.name,
-          group.name,
+          group._id,
           demoRoute.description,
           demoRoute.routeId
         )
@@ -90,8 +91,8 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
     val id = s"${route._id}:${now.key}"
 
     MonitorRouteReference(
-      id,
-      monitorRouteId = demoRoute.name,
+      MongoId(),
+      monitorRouteId = route._id,
       routeId = demoRoute.routeId,
       key = now.key,
       created = now,

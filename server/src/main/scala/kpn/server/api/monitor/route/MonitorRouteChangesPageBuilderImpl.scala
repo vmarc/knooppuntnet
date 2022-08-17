@@ -1,6 +1,6 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.common.EN
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
@@ -23,10 +23,10 @@ class MonitorRouteChangesPageBuilderImpl(
     val changes = build(monitorRouteRepository.changes(parameters))
     val totalChangeCount = monitorRouteRepository.changesCount(parameters)
     val groupMap = monitorGroupRepository.groups().map(group => group.name -> group.description).toMap
-    val routeMap = monitorRouteRepository.routes().map(route => route.routeId -> route.name).toMap
+    val routeMap = monitorRouteRepository.routes().map(route => route.relationId -> route.name).toMap
     val enrichedChanges = changes.map { change =>
       change.copy(
-        groupDescription = groupMap.get(change.groupName),
+        groupDescription = groupMap.get("TODO MON change.groupName"),
         routeName = routeMap.get(change.key.elementId)
       )
     }
@@ -44,13 +44,13 @@ class MonitorRouteChangesPageBuilderImpl(
   override def groupChanges(groupName: String, parameters: MonitorChangesParameters): Option[MonitorGroupChangesPage] = {
     val changes = build(monitorRouteRepository.groupChanges(groupName, parameters))
     val totalChangeCount = monitorRouteRepository.groupChangesCount(groupName, parameters)
-    val routeMap = monitorRouteRepository.routes().map(route => route.routeId -> route.name).toMap
+    val routeMap = monitorRouteRepository.routes().map(route => route.relationId -> route.name).toMap
     val enrichedChanges = changes.map { change =>
       change.copy(
         routeName = routeMap.get(change.key.elementId)
       )
     }
-    monitorGroupRepository.group(groupName).map { group =>
+    monitorGroupRepository.groupByName(groupName).map { group =>
       MonitorGroupChangesPage(
         group.name,
         group.description,
@@ -66,10 +66,10 @@ class MonitorRouteChangesPageBuilderImpl(
   override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
     val changes = build(monitorRouteRepository.routeChanges(monitorRouteId, parameters))
     val totalChangeCount = monitorRouteRepository.routeChangesCount(monitorRouteId, parameters)
-    monitorRouteRepository.route(monitorRouteId).flatMap { route =>
-      monitorGroupRepository.group(route.groupName).map { group =>
+    monitorRouteRepository.routeById(MongoId("TODO") /*monitorRouteId*/).flatMap { route =>
+      monitorGroupRepository.groupById(route.groupId).map { group =>
         MonitorRouteChangesPage(
-          route.routeId,
+          MongoId("TODO"), // route.relationId,
           route.name,
           group.name,
           group.description,
@@ -93,7 +93,6 @@ class MonitorRouteChangesPageBuilderImpl(
 
       MonitorRouteChangeSummary(
         change.key,
-        change.groupName,
         None,
         None,
         comment,

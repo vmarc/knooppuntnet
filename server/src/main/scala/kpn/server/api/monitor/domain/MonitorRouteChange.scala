@@ -1,13 +1,13 @@
 package kpn.server.api.monitor.domain
 
-import kpn.api.base.WithStringId
+import kpn.api.base.MongoId
+import kpn.api.base.WithMongoId
 import kpn.api.common.changes.details.ChangeKey
 
 object MonitorRouteChange {
 
   def apply(
     key: ChangeKey,
-    groupName: String,
     wayCount: Long,
     waysAdded: Long,
     waysRemoved: Long,
@@ -21,9 +21,9 @@ object MonitorRouteChange {
     investigate: Boolean
   ): MonitorRouteChange = {
     MonitorRouteChange(
-      key.toId,
+      MongoId(),
+      MongoId("TODO"), // key.toId,
       key,
-      groupName,
       wayCount,
       waysAdded,
       waysRemoved,
@@ -40,9 +40,9 @@ object MonitorRouteChange {
 }
 
 case class MonitorRouteChange(
-  _id: String,
+  _id: MongoId,
+  monitorRoutId: MongoId,
   key: ChangeKey,
-  groupName: String,
   wayCount: Long,
   waysAdded: Long,
   waysRemoved: Long,
@@ -54,4 +54,4 @@ case class MonitorRouteChange(
   referenceKey: String,
   happy: Boolean,
   investigate: Boolean
-) extends WithStringId
+) extends WithMongoId

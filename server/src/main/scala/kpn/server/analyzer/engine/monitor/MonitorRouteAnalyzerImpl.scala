@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.Bounds
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
@@ -25,9 +26,9 @@ class MonitorRouteAnalyzerImpl(
   overpassQueryExecutor: OverpassQueryExecutor
 ) extends MonitorRouteAnalyzer {
 
-  override def processNewReference(user: String, routeDocId: String, filename: String, xml: Elem): Unit = {
+  override def processNewReference(user: String, routeId: MongoId, filename: String, xml: Elem): Unit = {
 
-    monitorRouteRepository.route(routeDocId) match {
+    monitorRouteRepository.routeById(routeId) match {
       case None => // TODO throw exception ?
       case Some(monitorRoute) =>
         val now = Time.now
@@ -35,12 +36,13 @@ class MonitorRouteAnalyzerImpl(
         val geometry = new MonitorRouteGpxReader().read(xml)
         val bounds = geometryBounds(geometry)
         val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
-        val id = s"$routeDocId:${now.key}"
+        val id = s"$routeId:${now.key}"
 
         val reference = MonitorRouteReference(
-          id,
-          monitorRouteId = routeDocId,
-          routeId = monitorRoute.routeId,
+          MongoId(),
+//          id,
+          monitorRouteId = routeId,
+          routeId = monitorRoute.relationId,
           key = now.key,
           created = now,
           user = user,
@@ -69,7 +71,7 @@ class MonitorRouteAnalyzerImpl(
   }
 
   private def updateRoute(route: MonitorRoute, reference: MonitorRouteReference, now: Timestamp): Unit = {
-    val routeRelation = readRelation(now, route.routeId)
+    val routeRelation = readRelation(now, route.relationId)
     val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
     monitorRouteRepository.saveRouteState(monitorRouteState)
   }

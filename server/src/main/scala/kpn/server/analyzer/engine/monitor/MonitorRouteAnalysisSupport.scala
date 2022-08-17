@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Relation
@@ -21,10 +22,10 @@ object MonitorRouteAnalysisSupport {
   private val geomFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteAnalysisSupport])
 
-  def toRoute(routeName: String, groupName: String, description: String, routeId: Long): MonitorRoute = {
+  def toRoute(routeName: String, groupId: MongoId, description: String, routeId: Long): MonitorRoute = {
     MonitorRoute(
-      groupName + ":" + routeName,
-      groupName,
+      MongoId(),
+      groupId,
       routeName,
       description,
       routeId
@@ -42,9 +43,6 @@ object MonitorRouteAnalysisSupport {
     val segments = log.infoElapsed {
       ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
     }
-    //    println(s"wayMembers.size=${routeRelation.wayMembers.size}")
-    //    println(s"fragments.size=${fragments.size}")
-    //    println(s"segments.size=${segments.size}")
 
     segments.zipWithIndex.map { case (segment, index) =>
 

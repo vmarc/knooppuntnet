@@ -1,5 +1,6 @@
 package kpn.server.api.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroup
@@ -98,26 +99,26 @@ class MonitorController(
 
   @PostMapping(value = Array("groups/{groupName}"))
   def addRoute(
-    @PathVariable groupName: String,
+    @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
     @RequestBody add: MonitorRouteAdd
   ): Unit = {
-    facade.addRoute(CurrentUser.name, groupName, add)
+    facade.addRoute(CurrentUser.name, add)
   }
 
   @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def updateRoute(
-    @PathVariable groupName: String,
+    @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
     @RequestBody route: MonitorRoute
   ): Unit = {
-    facade.updateRoute(CurrentUser.name, groupName, route)
+    facade.updateRoute(CurrentUser.name, route)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def deleteRoute(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String
+    @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
+    @PathVariable routeId: MongoId
   ): Unit = {
-    facade.deleteRoute(CurrentUser.name, groupName, routeName)
+    facade.deleteRoute(CurrentUser.name, routeId)
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))

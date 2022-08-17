@@ -14,7 +14,7 @@ class MonitorGroupPageBuilderImpl(
 
   override def build(user: Option[String], groupName: String): Option[MonitorGroupPage] = {
     val admin = monitorRepository.isAdminUser(user)
-    monitorGroupRepository.group(groupName).map { group =>
+    monitorGroupRepository.groupByName(groupName).map { group =>
       val routes = monitorGroupRepository.groupRoutes(groupName)
       MonitorGroupPage(
         admin,
@@ -24,9 +24,9 @@ class MonitorGroupPageBuilderImpl(
           MonitorRouteDetail(
             index,
             route._id,
-            route.routeId,
             route.name,
             route.description,
+            route.relationId,
             wayCount = 0,
             osmDistance = 0,
             gpxDistance = 0,

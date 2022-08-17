@@ -1,12 +1,10 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.WithStringId
+import kpn.api.base.MongoId
+import kpn.api.base.WithMongoId
 
 case class MonitorGroup(
-  _id: String, // name
+  _id: MongoId,
+  name: String,
   description: String
-) extends WithStringId {
-
-  def name: String = _id
-
-}
+) extends WithMongoId

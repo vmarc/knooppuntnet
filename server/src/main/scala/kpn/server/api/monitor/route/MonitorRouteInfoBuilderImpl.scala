@@ -1,5 +1,6 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
@@ -18,9 +19,10 @@ class MonitorRouteInfoBuilderImpl(
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     rawData.relationWithId(routeId) match {
-      case None => MonitorRouteInfoPage(routeId)
+      case None => MonitorRouteInfoPage(MongoId("TODO MON"), routeId)
       case Some(relation) =>
         MonitorRouteInfoPage(
+          MongoId("TODO"),
           routeId,
           relation.tags("name"),
           relation.tags("operator"),

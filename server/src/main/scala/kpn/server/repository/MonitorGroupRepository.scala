@@ -1,11 +1,14 @@
 package kpn.server.repository
 
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 
 trait MonitorGroupRepository {
 
-  def group(groupName: String): Option[MonitorGroup]
+  def groupByName(groupName: String): Option[MonitorGroup]
+
+  def groupById(groupId: MongoId): Option[MonitorGroup]
 
   def groups(): Seq[MonitorGroup]
 

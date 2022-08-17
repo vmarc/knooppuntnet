@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
@@ -37,8 +38,8 @@ class MonitorDemoAnalyzer() {
     val happy = false
 
     MonitorRouteState(
+      MongoId(),
       route._id,
-      routeRelation.id,
       now,
       routeAnalysis.wayCount,
       routeAnalysis.osmDistance,

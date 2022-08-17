@@ -104,9 +104,9 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
 
   override def findByMongoId(mongoId: MongoId, log: Log): Option[T] = {
     log.debugElapsed {
-      val future = collection.find[T](equal("_id", new ObjectId(mongoId.oid))).headOption()
+      val future = collection.find[T](equal("_id", mongoId.toObjectId)).headOption()
       val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
-      (s"findByMongoId - collection: '$collectionName', _id: ${mongoId.oid}", doc)
+      (s"findByMongoId - collection: '$collectionName', _id: $mongoId", doc)
     }
   }
 
@@ -135,25 +135,15 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def save(doc: T, log: Log): Unit = {
     log.debugElapsed {
 
-      doc match {
-        case withObjectId: WithMongoId =>
-          val future = collection.insertOne(doc).toFuture()
-          //          val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
-          val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
-          (s"save - collection: '$collectionName'", result)
-
-        case _ =>
-          val (id, filter) = doc match {
-            case withId: WithId => (withId._id.toString, equal("_id", withId._id))
-            case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
-            case _ => throw new IllegalArgumentException("document does not have een id")
-          }
-          val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
-          val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
-          (s"save - collection: '$collectionName', _id: $id", result)
-
+      val (id, filter) = doc match {
+        case withId: WithId => (withId._id.toString, equal("_id", withId._id))
+        case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
+        case withMongoId: WithMongoId => (withMongoId._id.oid, equal("_id", new ObjectId(withMongoId._id.oid)))
+        case _ => throw new IllegalArgumentException("document does not have een id")
       }
-
+      val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
+      val result = awaitResult(future, Duration(5, TimeUnit.MINUTES), log)
+      (s"save - collection: '$collectionName', _id: $id", result)
     }
   }
 

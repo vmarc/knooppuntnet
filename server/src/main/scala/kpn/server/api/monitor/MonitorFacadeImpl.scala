@@ -1,5 +1,6 @@
 package kpn.server.api.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -148,40 +149,40 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def addRoute(user: Option[String], groupName: String, add: MonitorRouteAdd): Unit = {
+  override def addRoute(user: Option[String], add: MonitorRouteAdd): Unit = {
     api.execute(user, "monitor-add-route", add.name) {
       assertAdminUser(user)
-      val route = MonitorRoute(
-        _id = groupName + ":" + add.name,
-        groupName = groupName,
-        name = add.name,
-        description = add.description,
-        routeId = add.routeId,
-      )
-      monitorRouteRepository.saveRoute(route)
+          val route = MonitorRoute(
+            MongoId(),
+            add.groupId,
+            add.name,
+            add.description,
+            add.relationId,
+          )
+          monitorRouteRepository.saveRoute(route)
+
     }
   }
 
-  override def updateRoute(user: Option[String], groupName: String, route: MonitorRoute): Unit = {
+  override def updateRoute(user: Option[String], route: MonitorRoute): Unit = {
     api.execute(user, "monitor-update-route", route.name) {
       assertAdminUser(user)
       monitorRouteRepository.saveRoute(route)
     }
   }
 
-  override def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit = {
-    val routeDocId = groupName + ":" + routeName
-    api.execute(user, "monitor-delete-route", routeDocId) {
+  override def deleteRoute(user: Option[String], routeId: MongoId): Unit = {
+    api.execute(user, "monitor-delete-route", routeId.oid) {
       assertAdminUser(user)
-      monitorRouteRepository.deleteRoute(routeDocId)
+      monitorRouteRepository.deleteRoute(routeId)
     }
   }
 
   override def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit = {
-    val routeDocId = groupName + ":" + routeName
-    api.execute(user, "monitor-route-reference", routeDocId) {
+    val routeId = MongoId("TODO MON") // groupName + ":" + routeName
+    api.execute(user, "monitor-route-reference", routeId.oid) {
       assertAdminUser(user)
-      monitorRouteAnalyzer.processNewReference(user.get, routeDocId, filename, xml)
+      monitorRouteAnalyzer.processNewReference(user.get, routeId, filename, xml)
     }
   }
 

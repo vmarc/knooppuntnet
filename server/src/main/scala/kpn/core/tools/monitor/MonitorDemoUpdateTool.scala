@@ -61,14 +61,14 @@ class MonitorDemoUpdateTool(
     val routes = collectRoutes()
     routes.zipWithIndex.foreach { case (route, index) =>
       Log.context(s"${index + 1}/${routes.size}") {
-        log.info(route._id)
+        log.info(route._id.oid)
         updateRoute(route)
       }
     }
   }
 
   private def updateRoute(route: MonitorRoute): Unit = {
-    val routeRelation = readRelation(route.routeId)
+    val routeRelation = readRelation(route.relationId)
     monitorRouteRepository.routeReference(route.name /*TODO better would be route._id ??*/) match {
       case None => log.error("route reference not found")
       case Some(routeReference) =>

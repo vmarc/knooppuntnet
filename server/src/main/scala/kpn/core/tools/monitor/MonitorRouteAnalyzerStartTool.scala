@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.custom.Timestamp
 import kpn.core.util.Util
 import kpn.database.util.Mongo
@@ -37,7 +38,7 @@ class MonitorRouteAnalyzerStartTool(
     routeIds.foreach { routeId =>
       monitorRouteLoader.loadInitial(null, routeId).foreach { routeRelation =>
 
-        val route = MonitorRouteAnalysisSupport.toRoute("TODO routeName", "example", "TODO route description", routeId)
+        val route = MonitorRouteAnalysisSupport.toRoute("TODO routeName", MongoId("example"), "TODO route description", routeId)
         monitorRouteRepository.saveRoute(route)
 
         val segments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
@@ -49,8 +50,8 @@ class MonitorRouteAnalyzerStartTool(
         val happy = false
 
         val routeState = MonitorRouteState(
-          "TODO ID",
-          routeId,
+          MongoId(),
+          null, // routeId,
           timestamp,
           wayCount = 0,
           osmDistance = 0,
@@ -66,8 +67,8 @@ class MonitorRouteAnalyzerStartTool(
         monitorRouteRepository.saveRouteState(routeState)
 
         val routeReference = MonitorRouteReference(
-          "TODO ID",
-          "TODO ID",
+          MongoId(),
+          null, // routeId,
           routeId,
           timestamp.key,
           timestamp,

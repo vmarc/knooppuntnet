@@ -1,5 +1,6 @@
 package kpn.server.api.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroup
@@ -43,11 +44,11 @@ trait MonitorFacade {
 
   def routeInfo(user: Option[String], routeId: Long): ApiResponse[MonitorRouteInfoPage]
 
-  def addRoute(user: Option[String], groupName: String, route: MonitorRouteAdd): Unit
+  def addRoute(user: Option[String], route: MonitorRouteAdd): Unit
 
-  def updateRoute(user: Option[String], groupName: String, route: MonitorRoute): Unit
+  def updateRoute(user: Option[String], route: MonitorRoute): Unit
 
-  def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit
+  def deleteRoute(user: Option[String], routeId: MongoId): Unit
 
   def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit
 

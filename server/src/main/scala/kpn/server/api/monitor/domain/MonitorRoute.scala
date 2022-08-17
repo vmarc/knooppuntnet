@@ -1,11 +1,12 @@
 package kpn.server.api.monitor.domain
 
-import kpn.api.base.WithStringId
+import kpn.api.base.MongoId
+import kpn.api.base.WithMongoId
 
 case class MonitorRoute(
-  _id: String,
-  groupName: String,
+  _id: MongoId,
+  groupId: MongoId,
   name: String,
   description: String,
-  routeId: Long
-) extends WithStringId
+  relationId: Long
+) extends WithMongoId

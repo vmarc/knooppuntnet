@@ -1,10 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorGroup
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.api.monitor.domain.MonitorRoute
 
 class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
@@ -15,23 +13,28 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       val repository = new MonitorGroupRepositoryImpl(database)
 
       repository.groups() shouldBe empty
-      repository.group("name1") should equal(None)
+      repository.groupByName("name1") should equal(None)
 
-      repository.saveGroup(MonitorGroup("name1", "description1"))
-      repository.saveGroup(MonitorGroup("name2", "description2"))
-      repository.group("name1") should equal(Some(MonitorGroup("name1", "description1")))
-      repository.group("name2") should equal(Some(MonitorGroup("name2", "description2")))
+      val group1 = newMonitorGroup("name1", "description1")
+      val group2 = newMonitorGroup("name2", "description2")
+
+      repository.saveGroup(group1)
+      repository.saveGroup(group2)
+
+      repository.groupByName("name1") should equal(group1)
+      repository.groupByName("name2") should equal(group2)
+
       repository.groups().shouldMatchTo(
         Seq(
-          MonitorGroup("name1", "description1"),
-          MonitorGroup("name2", "description2")
+          group1,
+          group2
         )
       )
 
       repository.deleteGroup("name1")
       repository.groups().shouldMatchTo(
         Seq(
-          MonitorGroup("name2", "description2")
+          group2
         )
       )
 
@@ -44,18 +47,24 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val repository = new MonitorGroupRepositoryImpl(database)
+      val groupRepository = new MonitorGroupRepositoryImpl(database)
 
-      repository.saveGroup(MonitorGroup("group-name", "group one"))
-      database.monitorRoutes.save(newMonitorRoute("group-name", "route1", "route one", 1L))
-      database.monitorRoutes.save(newMonitorRoute("group-name", "route2", "route two", 2L))
-      database.monitorRoutes.save(newMonitorRoute("group-name", "route3", "route three", 3L))
+      val group = newMonitorGroup("group-name", "group description")
+      groupRepository.saveGroup(newMonitorGroup("group-name", "group one"))
 
-      repository.groupRoutes("group-name").shouldMatchTo(
+      val route1 = newMonitorRoute(group._id, "route1", "route one", 1L)
+      val route2 = newMonitorRoute(group._id, "route2", "route two", 2L)
+      val route3 = newMonitorRoute(group._id, "route3", "route three", 3L)
+
+      database.monitorRoutes.save(route1)
+      database.monitorRoutes.save(route2)
+      database.monitorRoutes.save(route3)
+
+      groupRepository.groupRoutes("group-name").shouldMatchTo(
         Seq(
-          MonitorRoute("group-name:route1", "group-name", "route1", "route one", 1L),
-          MonitorRoute("group-name:route2", "group-name", "route2", "route two", 2L),
-          MonitorRoute("group-name:route3", "group-name", "route3", "route three", 3L)
+          route1,
+          route2,
+          route3
         )
       )
     }

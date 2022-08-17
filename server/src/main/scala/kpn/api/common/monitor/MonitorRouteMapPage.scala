@@ -1,9 +1,10 @@
 package kpn.api.common.monitor
 
+import kpn.api.base.MongoId
 import kpn.api.common.Bounds
 
 case class MonitorRouteMapPage(
-  monitorRouteId: String,
+  monitorRouteId: MongoId,
   routeId: Long,
   routeName: String,
   groupName: String,

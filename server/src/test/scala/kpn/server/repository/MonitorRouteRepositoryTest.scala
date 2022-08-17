@@ -81,7 +81,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def buildChange(groupName: String, routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
+  private def buildChange(groupName: String /*TODO MON remove*/ , routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
     newMonitorRouteChange(
       newChangeKey(
         1,
@@ -89,7 +89,6 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         changeSetId,
         routeId
       ),
-      groupName,
       happy = happy
     )
   }

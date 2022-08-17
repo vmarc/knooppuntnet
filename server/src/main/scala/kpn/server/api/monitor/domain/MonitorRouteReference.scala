@@ -1,12 +1,13 @@
 package kpn.server.api.monitor.domain
 
-import kpn.api.base.WithStringId
+import kpn.api.base.MongoId
+import kpn.api.base.WithMongoId
 import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteReference(
-  _id: String,
-  monitorRouteId: String,
+  _id: MongoId,
+  monitorRouteId: MongoId,
   routeId: Long,
   key: String, // YYYYMMDDHHMMSS derived from created Timestamp
   created: Timestamp,
@@ -17,4 +18,4 @@ case class MonitorRouteReference(
   segmentCount: Long,
   filename: Option[String],
   geometry: String // osm | gpx
-) extends WithStringId
+) extends WithMongoId

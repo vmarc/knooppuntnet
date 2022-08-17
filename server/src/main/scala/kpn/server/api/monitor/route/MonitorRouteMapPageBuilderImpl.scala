@@ -1,5 +1,6 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.base.MongoId
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
@@ -15,11 +16,9 @@ class MonitorRouteMapPageBuilderImpl(
 ) extends MonitorRouteMapPageBuilder {
 
   override def build(monitorRouteId: String, language: Language): Option[MonitorRouteMapPage] = {
-    monitorRouteRepository.route(monitorRouteId).flatMap { route =>
+    monitorRouteRepository.routeById(MongoId("TODO") /*monitorRouteId*/).flatMap { route =>
 
-      println("xxx")
-
-      monitorGroupRepository.group(route.groupName).map { group =>
+      monitorGroupRepository.groupById(route.groupId).map { group =>
 
         val routeStateOption = monitorRouteRepository.routeState(monitorRouteId)
 
@@ -72,7 +71,7 @@ class MonitorRouteMapPageBuilderImpl(
 
         MonitorRouteMapPage(
           route._id,
-          route.routeId,
+          route.relationId,
           route.name,
           group.name,
           group.description,

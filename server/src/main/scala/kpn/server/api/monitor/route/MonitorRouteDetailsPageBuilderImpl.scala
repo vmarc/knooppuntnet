@@ -1,5 +1,6 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.base.MongoId
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -12,8 +13,8 @@ class MonitorRouteDetailsPageBuilderImpl(
 ) extends MonitorRouteDetailsPageBuilder {
 
   override def build(monitorRouteId: String): Option[MonitorRouteDetailsPage] = {
-    monitorRouteRepository.route(monitorRouteId).flatMap { route =>
-      monitorGroupRepository.group(route.groupName).map { group =>
+    monitorRouteRepository.routeById(MongoId("TODO") /*monitorRouteId*/).flatMap { route =>
+      monitorGroupRepository.groupById(route.groupId).map { group =>
         val routeStateOption = monitorRouteRepository.routeState(monitorRouteId)
         val happy = routeStateOption match {
           case Some(routeState) =>
@@ -24,11 +25,11 @@ class MonitorRouteDetailsPageBuilderImpl(
         }
         MonitorRouteDetailsPage(
           route._id,
-          route.routeId,
-          route.name,
           group.name,
           group.description,
+          route.name,
           route.description,
+          route.relationId,
           routeStateOption.map(_.wayCount).getOrElse(0L),
           routeStateOption.map(_.osmDistance).getOrElse(0L),
           routeStateOption.map(_.gpxDistance).getOrElse(0L),
