@@ -27,7 +27,7 @@ class MonitorRouteChangesPageBuilderImpl(
     val enrichedChanges = changes.map { change =>
       change.copy(
         groupDescription = groupMap.get("TODO MON change.groupName"),
-        routeName = routeMap.get(change.key.elementId)
+        routeName = Some("TODO MON routeName") //routeMap.get(change.key.elementId)
       )
     }
     Some(
@@ -47,7 +47,7 @@ class MonitorRouteChangesPageBuilderImpl(
     val routeMap = monitorRouteRepository.routes().map(route => route.relationId -> route.name).toMap
     val enrichedChanges = changes.map { change =>
       change.copy(
-        routeName = routeMap.get(change.key.elementId)
+        routeName = Some("TODO MON routeName") //routeMap.get(change.key.elementId)
       )
     }
     monitorGroupRepository.groupByName(groupName).map { group =>

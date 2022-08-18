@@ -10,7 +10,7 @@ object MonitorDemoValidationTool {
 class MonitorDemoValidationTool() {
 
   def validateNonUnique(demoRoutes: Seq[MonitorDemoRoute]): Unit = {
-    val routeMap = demoRoutes.filter(_.routeId > 1).map { route =>
+    val routeMap = demoRoutes.map { route =>
       route.name -> route.filename
     }.groupBy(_._1).map(x => x._1 -> x._2.map(_._2))
 

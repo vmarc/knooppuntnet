@@ -7,7 +7,7 @@ case class MonitorRouteDetail(
   routeId: MongoId,
   name: String,
   description: String,
-  relationId: Long,
+  relationId: Option[Long],
   wayCount: Long,
   osmDistance: Long,
   gpxDistance: Long,

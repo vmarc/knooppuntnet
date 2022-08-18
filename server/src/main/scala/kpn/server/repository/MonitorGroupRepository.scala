@@ -14,8 +14,8 @@ trait MonitorGroupRepository {
 
   def saveGroup(routeGroup: MonitorGroup): Unit
 
-  def deleteGroup(name: String): Unit
+  def deleteGroup(groupId: MongoId): Unit
 
-  def groupRoutes(groupName: String): Seq[MonitorRoute]
+  def groupRoutes(groupId: MongoId): Seq[MonitorRoute]
 
 }

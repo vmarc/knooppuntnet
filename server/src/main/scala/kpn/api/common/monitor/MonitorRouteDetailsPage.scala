@@ -8,7 +8,7 @@ case class MonitorRouteDetailsPage(
   groupDescription: String,
   routeName: String,
   routeDescription: String,
-  relationId: Long,
+  relationId: Option[Long],
   wayCount: Long,
   osmDistance: Long,
   gpxDistance: Long,

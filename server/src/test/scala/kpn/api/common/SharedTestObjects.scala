@@ -1004,7 +1004,7 @@ trait SharedTestObjects extends MockFactory {
     groupId: MongoId,
     name: String,
     description: String,
-    routeId: Long
+    routeId: Option[Long]
   ): MonitorRoute = {
     MonitorRoute(
       MongoId(),

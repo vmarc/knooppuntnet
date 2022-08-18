@@ -97,10 +97,10 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def deleteGroup(user: Option[String], groupName: String): Unit = {
-    api.execute(user, "monitor-delete-group", groupName) {
+  override def deleteGroup(user: Option[String], groupId: MongoId): Unit = {
+    api.execute(user, "monitor-delete-group", groupId.oid) {
       assertAdminUser(user)
-      monitorGroupRepository.deleteGroup(groupName)
+      monitorGroupRepository.deleteGroup(groupId)
     }
   }
 

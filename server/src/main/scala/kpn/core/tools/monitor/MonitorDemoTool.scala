@@ -54,35 +54,37 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
     val group = MonitorGroup(MongoId(), groupName, groupDescription)
     database.monitorGroups.save(group)
 
-    routes.filter(_.routeId > 0).foreach { demoRoute =>
+    routes.foreach { demoRoute =>
       Log.context(demoRoute.name) {
         log.info("route start")
-
-        val routeRelation = readRouteRelation(demoRoute.routeId)
         val route = MonitorRouteAnalysisSupport.toRoute(
-          demoRoute.name,
           group._id,
+          demoRoute.name,
           demoRoute.description,
-          demoRoute.routeId
+          demoRoute.relationId
         )
         database.monitorRoutes.save(route)
 
         log.info("build route reference")
-        val dir = s"/kpn/monitor/demo/$groupName"
-        val routeReference = buildRouteReference(route, dir, demoRoute)
+
+        val gpxFilename = s"/kpn/monitor/demo/$groupName/${demoRoute.filename}.gpx"
+        val routeReference = buildRouteReference(route, gpxFilename)
         database.monitorRouteReferences.save(routeReference)
         log.info("saved route reference")
 
-        if (demoRoute.routeId > 1) {
-          val routeState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
-          database.monitorRouteStates.save(routeState)
+        demoRoute.relationId match {
+          case None =>
+          case Some(relationId) =>
+            val routeRelation = readRouteRelation(relationId)
+            val routeState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
+            database.monitorRouteStates.save(routeState)
         }
       }
     }
   }
 
-  private def buildRouteReference(route: MonitorRoute, dir: String, demoRoute: MonitorDemoRoute): MonitorRouteReference = {
-    val geometry = new MonitorRouteGpxReader().readFile(s"$dir/${demoRoute.filename}.gpx")
+  private def buildRouteReference(route: MonitorRoute, gpxFilename: String): MonitorRouteReference = {
+    val geometry = new MonitorRouteGpxReader().readFile(gpxFilename)
     log.info("geometry loaded")
     val bounds = geometryBounds(geometry)
     log.info("geometry bounds calculated")
@@ -92,8 +94,8 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
 
     MonitorRouteReference(
       MongoId(),
-      monitorRouteId = route._id,
-      routeId = demoRoute.routeId,
+      routeId = route._id,
+      relationId = None,
       key = now.key,
       created = now,
       user = "vmarc",
@@ -101,7 +103,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
       referenceType = "gpx", // "osm" | "gpx"
       referenceTimestamp = Some(now),
       segmentCount = 1, // number of tracks in gpx always 1, multiple track not supported yet
-      filename = Some(demoRoute.filename),
+      filename = Some(gpxFilename),
       geometry = geoJson
     )
   }

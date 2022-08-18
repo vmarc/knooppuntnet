@@ -8,5 +8,5 @@ case class MonitorRoute(
   groupId: MongoId,
   name: String,
   description: String,
-  relationId: Long
+  relationId: Option[Long]
 ) extends WithMongoId

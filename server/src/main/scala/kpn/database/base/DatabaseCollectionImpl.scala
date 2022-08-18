@@ -180,6 +180,15 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
+  override def deleteByMongoId(mongoId: MongoId, log: Log): Unit = {
+    log.debugElapsed {
+      val filter = equal("_id", mongoId.toObjectId)
+      val future = collection.deleteOne(filter).toFuture()
+      val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      (s"delete - collection: '$collectionName', _id: ${mongoId.oid}", result)
+    }
+  }
+
   override def ids(log: Log): Seq[Long] = {
     log.debugElapsed {
       val future = collection.find[Id]().projection(fields(include("_id"))).toFuture()

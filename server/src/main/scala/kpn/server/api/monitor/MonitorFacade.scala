@@ -30,7 +30,7 @@ trait MonitorFacade {
 
   def updateGroup(user: Option[String], group: MonitorGroup): Unit
 
-  def deleteGroup(user: Option[String], groupName: String): Unit
+  def deleteGroup(user: Option[String], groupId: MongoId): Unit
 
   def groupChanges(user: Option[String], groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage]
 

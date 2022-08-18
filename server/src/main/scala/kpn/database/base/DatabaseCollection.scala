@@ -72,6 +72,8 @@ trait DatabaseCollection[T] {
 
   def deleteByStringId(_id: String, log: Log = collectionLog): Unit
 
+  def deleteByMongoId(_id: MongoId, log: Log): Unit
+
   def ids(log: Log = collectionLog): Seq[Long]
 
   def stringIds(log: Log = collectionLog): Seq[String]

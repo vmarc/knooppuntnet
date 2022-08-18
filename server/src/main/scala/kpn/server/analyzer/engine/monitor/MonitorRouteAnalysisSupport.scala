@@ -22,13 +22,13 @@ object MonitorRouteAnalysisSupport {
   private val geomFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteAnalysisSupport])
 
-  def toRoute(routeName: String, groupId: MongoId, description: String, routeId: Long): MonitorRoute = {
+  def toRoute(groupId: MongoId, routeName: String, description: String, relationId: Option[Long]): MonitorRoute = {
     MonitorRoute(
       MongoId(),
       groupId,
       routeName,
       description,
-      routeId
+      relationId
     )
   }
 

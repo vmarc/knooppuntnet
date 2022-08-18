@@ -20,7 +20,7 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
         equal("name", groupName)
       )
     )
-    database.networkInfos.optionAggregate[MonitorGroup](pipeline, log)
+    database.monitorGroups.optionAggregate[MonitorGroup](pipeline, log)
   }
 
   override def groupById(groupId: MongoId): Option[MonitorGroup] = {
@@ -35,13 +35,13 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
     database.monitorGroups.save(routeGroup, log)
   }
 
-  override def deleteGroup(name: String): Unit = {
-    database.monitorGroups.deleteByStringId(name, log)
+  override def deleteGroup(groupId: MongoId): Unit = {
+    database.monitorGroups.deleteByMongoId(groupId, log)
   }
 
-  override def groupRoutes(groupName: String): Seq[MonitorRoute] = {
+  override def groupRoutes(groupId: MongoId): Seq[MonitorRoute] = {
     database.monitorRoutes.find[MonitorRoute](
-      equal("groupName", groupName),
+      equal("groupId", groupId.toObjectId),
       log
     )
   }

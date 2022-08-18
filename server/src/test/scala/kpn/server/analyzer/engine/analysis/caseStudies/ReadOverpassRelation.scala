@@ -12,7 +12,7 @@ import java.io.File
 object ReadOverpassRelation {
 
   def main1(args: Array[String]): Unit = {
-    val routeIds = MonitorDemoRoute.routes.filter(_.routeId > 1L).map(_.routeId).distinct.sorted
+    val routeIds = MonitorDemoRoute.routes.flatMap(_.relationId).distinct.sorted
     routeIds.foreach { routeId =>
       saveRelation(None, s"/kpn/monitor-demo/$routeId.xml", routeId)
     }

@@ -7,8 +7,8 @@ import kpn.api.custom.Timestamp
 
 case class MonitorRouteReference(
   _id: MongoId,
-  monitorRouteId: MongoId,
-  routeId: Long,
+  routeId: MongoId,
+  relationId: Option[Long],
   key: String, // YYYYMMDDHHMMSS derived from created Timestamp
   created: Timestamp,
   user: String,

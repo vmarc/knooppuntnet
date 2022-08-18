@@ -21,8 +21,8 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveGroup(group1)
       repository.saveGroup(group2)
 
-      repository.groupByName("name1") should equal(group1)
-      repository.groupByName("name2") should equal(group2)
+      repository.groupByName("name1") should equal(Some(group1))
+      repository.groupByName("name2") should equal(Some(group2))
 
       repository.groups().shouldMatchTo(
         Seq(
@@ -31,14 +31,14 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.deleteGroup("name1")
+      repository.deleteGroup(group1._id)
       repository.groups().shouldMatchTo(
         Seq(
           group2
         )
       )
 
-      repository.deleteGroup("name2")
+      repository.deleteGroup(group2._id)
       repository.groups() shouldBe empty
     }
   }
@@ -50,17 +50,17 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       val groupRepository = new MonitorGroupRepositoryImpl(database)
 
       val group = newMonitorGroup("group-name", "group description")
-      groupRepository.saveGroup(newMonitorGroup("group-name", "group one"))
+      groupRepository.saveGroup(group)
 
-      val route1 = newMonitorRoute(group._id, "route1", "route one", 1L)
-      val route2 = newMonitorRoute(group._id, "route2", "route two", 2L)
-      val route3 = newMonitorRoute(group._id, "route3", "route three", 3L)
+      val route1 = newMonitorRoute(group._id, "route1", "route one", Some(1L))
+      val route2 = newMonitorRoute(group._id, "route2", "route two", Some(2L))
+      val route3 = newMonitorRoute(group._id, "route3", "route three", Some(3L))
 
       database.monitorRoutes.save(route1)
       database.monitorRoutes.save(route2)
       database.monitorRoutes.save(route3)
 
-      groupRepository.groupRoutes("group-name").shouldMatchTo(
+      groupRepository.groupRoutes(group._id).shouldMatchTo(
         Seq(
           route1,
           route2,

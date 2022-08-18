@@ -4,8 +4,8 @@ import kpn.api.base.MongoId
 import kpn.api.common.Bounds
 
 case class MonitorRouteMapPage(
-  monitorRouteId: MongoId,
-  routeId: Long,
+  routeId: MongoId,
+  relationId: Option[Long],
   routeName: String,
   groupName: String,
   groupDescription: String,

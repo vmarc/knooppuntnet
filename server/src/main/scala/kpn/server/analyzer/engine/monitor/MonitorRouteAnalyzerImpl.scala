@@ -41,8 +41,8 @@ class MonitorRouteAnalyzerImpl(
         val reference = MonitorRouteReference(
           MongoId(),
 //          id,
-          monitorRouteId = routeId,
-          routeId = monitorRoute.relationId,
+          routeId = routeId,
+          relationId = monitorRoute.relationId,
           key = now.key,
           created = now,
           user = user,
@@ -71,9 +71,13 @@ class MonitorRouteAnalyzerImpl(
   }
 
   private def updateRoute(route: MonitorRoute, reference: MonitorRouteReference, now: Timestamp): Unit = {
-    val routeRelation = readRelation(now, route.relationId)
-    val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
-    monitorRouteRepository.saveRouteState(monitorRouteState)
+    route.relationId match {
+      case None =>
+      case Some(relationId) =>
+        val routeRelation = readRelation(now, relationId)
+        val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
+        monitorRouteRepository.saveRouteState(monitorRouteState)
+    }
   }
 
   private def readRelation(now: Timestamp, routeId: Long): Relation = {

@@ -74,11 +74,11 @@ class MonitorController(
     facade.updateGroup(CurrentUser.name, group)
   }
 
-  @DeleteMapping(value = Array("groups/{groupName}"))
+  @DeleteMapping(value = Array("groups/{groupId}"))
   def deleteGroup(
-    @PathVariable groupName: String
+    @PathVariable groupId: String
   ): Unit = {
-    facade.deleteGroup(CurrentUser.name, groupName)
+    facade.deleteGroup(CurrentUser.name, MongoId(groupId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/changes"))
@@ -116,9 +116,9 @@ class MonitorController(
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def deleteRoute(
     @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
-    @PathVariable routeId: MongoId
+    @PathVariable routeId: String
   ): Unit = {
-    facade.deleteRoute(CurrentUser.name, routeId)
+    facade.deleteRoute(CurrentUser.name, MongoId(routeId))
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
