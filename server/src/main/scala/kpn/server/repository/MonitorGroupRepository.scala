@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorGroup
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 
 trait MonitorGroupRepository {

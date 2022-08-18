@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
-import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
+import { MonitorGroupProperties } from '@api/common/monitor/monitor-group-properties';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
 import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
@@ -29,19 +29,22 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public addGroup(group: MonitorGroup): Observable<any> {
+  public addGroup(properties: MonitorGroupProperties): Observable<any> {
     const url = `/api/monitor/groups`;
-    return this.http.post(url, group);
+    return this.http.post(url, properties);
   }
 
-  public deleteGroup(groupName: string): Observable<any> {
-    const url = `/api/monitor/groups/${groupName}`;
+  public updateGroup(
+    groupId: string,
+    properties: MonitorGroupProperties
+  ): Observable<any> {
+    const url = `/api/monitor/groups/${groupId}`;
+    return this.http.put(url, properties);
+  }
+
+  public deleteGroup(groupId: string): Observable<any> {
+    const url = `/api/monitor/groups/${groupId}`;
     return this.http.delete(url);
-  }
-
-  public updateGroup(group: MonitorGroup): Observable<any> {
-    const url = `/api/monitor/groups/${group._id}`;
-    return this.http.put(url, group);
   }
 
   public groupChanges(

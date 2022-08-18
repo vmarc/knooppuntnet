@@ -1,9 +1,7 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.ObjectId
-
 case class MonitorRouteChangesPage(
-  routeId: ObjectId,
+  routeId: String,
   routeName: String,
   groupName: String,
   groupDescription: String,

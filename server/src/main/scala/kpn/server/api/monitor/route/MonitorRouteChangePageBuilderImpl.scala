@@ -1,10 +1,10 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.core.util.Log
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference

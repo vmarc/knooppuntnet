@@ -2,10 +2,10 @@
 
 export interface MonitorRouteDetail {
   readonly index: number;
-  readonly monitorRouteId: string;
-  readonly routeId: number;
+  readonly routeId: string;
   readonly name: string;
   readonly description: string;
+  readonly relationId: number;
   readonly wayCount: number;
   readonly osmDistance: number;
   readonly gpxDistance: number;

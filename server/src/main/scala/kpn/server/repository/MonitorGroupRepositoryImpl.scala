@@ -1,9 +1,9 @@
 package kpn.server.repository
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorGroup
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.equal

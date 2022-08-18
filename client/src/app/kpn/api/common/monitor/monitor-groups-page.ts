@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { MonitorGroupDetail } from './monitor-group-detail';
+import { MonitorGroupsPageGroup } from './monitor-groups-page-group';
 
 export interface MonitorGroupsPage {
   readonly adminRole: boolean;
-  readonly groups: MonitorGroupDetail[];
+  readonly groups: MonitorGroupsPageGroup[];
 }

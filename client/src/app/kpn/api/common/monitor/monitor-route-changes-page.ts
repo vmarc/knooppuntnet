@@ -3,7 +3,7 @@
 import { MonitorRouteChangeSummary } from './monitor-route-change-summary';
 
 export interface MonitorRouteChangesPage {
-  readonly routeId: number;
+  readonly routeId: string;
   readonly routeName: string;
   readonly groupName: string;
   readonly groupDescription: string;

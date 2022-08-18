@@ -3,7 +3,6 @@ package kpn.core.tools.monitor
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.common.Time
@@ -16,6 +15,7 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import org.locationtech.jts.geom.Geometry

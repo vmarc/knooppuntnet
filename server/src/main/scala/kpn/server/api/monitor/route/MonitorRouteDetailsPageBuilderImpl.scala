@@ -24,7 +24,7 @@ class MonitorRouteDetailsPageBuilderImpl(
           case None => false
         }
         MonitorRouteDetailsPage(
-          route._id,
+          route._id.oid,
           group.name,
           group.description,
           route.name,

@@ -22,9 +22,11 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         <kpn-data title="Summary">
           <p class="kpn-separated">
             <kpn-osm-link-relation
-              [relationId]="route.routeId"
+              [relationId]="route.relationId"
             ></kpn-osm-link-relation>
-            <kpn-josm-relation [relationId]="route.routeId"></kpn-josm-relation>
+            <kpn-josm-relation
+              [relationId]="route.relationId"
+            ></kpn-josm-relation>
           </p>
         </kpn-data>
 

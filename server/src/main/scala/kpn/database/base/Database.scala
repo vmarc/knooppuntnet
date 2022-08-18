@@ -9,7 +9,6 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
@@ -24,6 +23,7 @@ import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry

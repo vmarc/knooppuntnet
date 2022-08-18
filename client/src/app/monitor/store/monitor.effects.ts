@@ -289,7 +289,7 @@ export class MonitorEffects {
       concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
       map(([{}, page]) => {
         const editParameters: EditParameters = {
-          relationIds: [page.result.routeId],
+          relationIds: [page.result.relationId],
           fullRelation: true,
         };
         return actionSharedEdit({ editParameters });
@@ -380,7 +380,7 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupAdd),
-        concatMap((action) => this.monitorService.addGroup(action.group)),
+        concatMap((action) => this.monitorService.addGroup(action.properties)),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }
@@ -391,9 +391,7 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupDelete),
-        concatMap((action) =>
-          this.monitorService.deleteGroup(action.groupName)
-        ),
+        concatMap((action) => this.monitorService.deleteGroup(action.groupId)),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }
@@ -404,7 +402,9 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupUpdate),
-        concatMap((action) => this.monitorService.updateGroup(action.group)),
+        concatMap((action) =>
+          this.monitorService.updateGroup(action.groupId, action.properties)
+        ),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }

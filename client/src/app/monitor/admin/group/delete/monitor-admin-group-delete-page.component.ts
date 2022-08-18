@@ -25,10 +25,7 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
         <p>Description: {{ response.result.groupDescription }}</p>
 
         <div class="kpn-form-buttons">
-          <button
-            mat-stroked-button
-            (click)="delete(response.result.groupName)"
-          >
+          <button mat-stroked-button (click)="delete(response.result.groupId)">
             <span class="warning">Delete group</span>
           </button>
           <a routerLink="/monitor">Cancel</a>
@@ -46,7 +43,7 @@ export class MonitorAdminGroupDeletePageComponent implements OnInit {
     this.store.dispatch(actionMonitorGroupDeleteInit());
   }
 
-  delete(groupName: string): void {
-    this.store.dispatch(actionMonitorGroupDelete({ groupName }));
+  delete(groupId: string): void {
+    this.store.dispatch(actionMonitorGroupDelete({ groupId }));
   }
 }

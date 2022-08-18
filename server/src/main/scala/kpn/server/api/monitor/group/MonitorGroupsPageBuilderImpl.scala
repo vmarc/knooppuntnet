@@ -1,7 +1,7 @@
 package kpn.server.api.monitor.group
 
-import kpn.api.common.monitor.MonitorGroupDetail
 import kpn.api.common.monitor.MonitorGroupsPage
+import kpn.api.common.monitor.MonitorGroupsPageGroup
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRepository
 import org.springframework.stereotype.Component
@@ -19,7 +19,8 @@ class MonitorGroupsPageBuilderImpl(
       MonitorGroupsPage(
         admin,
         groups.map { group =>
-          MonitorGroupDetail(
+          MonitorGroupsPageGroup(
+            group._id.oid,
             group.name,
             group.description
           )

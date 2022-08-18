@@ -3,9 +3,9 @@ package kpn.server.api.monitor
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
+import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteAdd
 import kpn.api.common.monitor.MonitorRouteChangePage
@@ -62,16 +62,17 @@ class MonitorController(
   //  }
   @PostMapping(value = Array("groups"))
   def addGroup(
-    @RequestBody group: MonitorGroup
+    @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.addGroup(CurrentUser.name, group)
+    facade.addGroup(CurrentUser.name, properties)
   }
 
-  @PutMapping(value = Array("groups/{groupName}"))
+  @PutMapping(value = Array("groups/{groupId}"))
   def updateGroup(
-    @RequestBody group: MonitorGroup
+    @PathVariable groupId: String,
+    @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.updateGroup(CurrentUser.name, group)
+    facade.updateGroup(CurrentUser.name, ObjectId(groupId), properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupId}"))

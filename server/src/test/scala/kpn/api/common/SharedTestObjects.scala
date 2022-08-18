@@ -35,7 +35,6 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
@@ -79,6 +78,7 @@ import kpn.core.doc.RouteDoc
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteState

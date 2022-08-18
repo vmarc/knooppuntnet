@@ -4,9 +4,9 @@ import kpn.api.base.ObjectId
 import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
+import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteAdd
 import kpn.api.common.monitor.MonitorRouteChangePage
@@ -18,6 +18,7 @@ import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.api.Api
+import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.group.MonitorGroupPageBuilder
 import kpn.server.api.monitor.group.MonitorGroupsPageBuilder
@@ -68,32 +69,17 @@ class MonitorFacadeImpl(
     }
   }
 
-  //  override def group(user: Option[String], groupName: String): ApiResponse[MonitorAdminGroupPage] = {
-  //    api.execute(user, "admin-group", "") {
-  //      val admin = monitorRepository.isAdminUser(user)
-  //      reply(
-  //        monitorGroupRepository.group(groupName).map { group =>
-  //          MonitorAdminGroupPage(
-  //            admin,
-  //            group.name,
-  //            group.description
-  //          )
-  //        }
-  //      )
-  //    }
-  //  }
-
-  override def addGroup(user: Option[String], group: MonitorGroup): Unit = {
-    api.execute(user, "monitor-add-group", group.name) {
+  override def addGroup(user: Option[String], properties: MonitorGroupProperties): Unit = {
+    api.execute(user, "monitor-add-group", properties.name) {
       assertAdminUser(user)
-      monitorGroupRepository.saveGroup(group)
+      monitorGroupRepository.saveGroup(MonitorGroup.from(properties))
     }
   }
 
-  override def updateGroup(user: Option[String], group: MonitorGroup): Unit = {
-    api.execute(user, "monitor-update-group", group.name) {
+  override def updateGroup(user: Option[String], id: ObjectId, properties: MonitorGroupProperties): Unit = {
+    api.execute(user, "monitor-update-group", properties.name) {
       assertAdminUser(user)
-      monitorGroupRepository.saveGroup(group)
+      monitorGroupRepository.saveGroup(MonitorGroup.from(id, properties))
     }
   }
 
@@ -152,14 +138,14 @@ class MonitorFacadeImpl(
   override def addRoute(user: Option[String], add: MonitorRouteAdd): Unit = {
     api.execute(user, "monitor-add-route", add.name) {
       assertAdminUser(user)
-          val route = MonitorRoute(
-            ObjectId(),
-            add.groupId,
-            add.name,
-            add.description,
-            add.relationId,
-          )
-          monitorRouteRepository.saveRoute(route)
+      val route = MonitorRoute(
+        ObjectId(),
+        ObjectId(add.groupId),
+        add.name,
+        add.description,
+        add.relationId,
+      )
+      monitorRouteRepository.saveRoute(route)
 
     }
   }
@@ -188,7 +174,7 @@ class MonitorFacadeImpl(
 
   private def assertAdminUser(user: Option[String]): Unit = {
     if (!monitorRepository.isAdminUser(user)) {
-      throw new AccessDeniedException("403 returned");
+      throw new AccessDeniedException("403 returned")
     }
   }
 

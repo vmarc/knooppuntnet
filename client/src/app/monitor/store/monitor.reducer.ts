@@ -109,19 +109,18 @@ export const monitorReducer = createReducer(
     };
   }),
   on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {
-    const monitorRouteId =
-      response.result?.monitorRouteId ?? state.monitorRouteId;
     const routeId = response.result?.routeId ?? state.routeId;
+    const relationId = response.result?.relationId ?? state.relationId;
     const routeName = response.result?.routeName ?? state.routeName;
     const routeDescription =
-      response.result?.description ?? state.routeDescription;
+      response.result?.routeDescription ?? state.routeDescription;
     const groupName = response.result?.groupName ?? state.groupName;
     const groupDescription =
       response.result?.groupDescription ?? state.groupDescription;
     return {
       ...state,
-      monitorRouteId,
       routeId,
+      relationId,
       routeName,
       routeDescription,
       groupName,
@@ -130,9 +129,8 @@ export const monitorReducer = createReducer(
     };
   }),
   on(actionMonitorRouteMapPageLoaded, (state, { response }) => {
-    const monitorRouteId =
-      response.result?.monitorRouteId ?? state.monitorRouteId;
     const routeId = response.result?.routeId ?? state.routeId;
+    const relationId = response.result?.relationId ?? state.relationId;
     const routeName = response.result?.routeName ?? state.routeName;
     const groupName = response.result?.groupName ?? state.groupName;
     const groupDescription =
@@ -150,8 +148,8 @@ export const monitorReducer = createReducer(
 
     return {
       ...state,
-      monitorRouteId,
       routeId,
+      relationId,
       routeName,
       groupName,
       groupDescription,
@@ -193,7 +191,7 @@ export const monitorReducer = createReducer(
     routeChangesPageIndex: action.pageIndex,
   })),
   on(actionMonitorRouteChangePageLoaded, (state, { response }) => {
-    const routeId = response.result?.key.elementId ?? state.routeId;
+    const routeId = 'TODO MON'; // response.result?.key.elementId ?? state.routeId;
     const routeName = 'ROUTE-NAME'; // response.result?.name ?? state.routeName;
     return {
       ...state,

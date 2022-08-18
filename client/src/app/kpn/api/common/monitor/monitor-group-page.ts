@@ -3,8 +3,9 @@
 import { MonitorRouteDetail } from './monitor-route-detail';
 
 export interface MonitorGroupPage {
-  readonly adminRole: boolean;
+  readonly groupId: string;
   readonly groupName: string;
   readonly groupDescription: string;
+  readonly adminRole: boolean;
   readonly routes: MonitorRouteDetail[];
 }

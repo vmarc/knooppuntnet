@@ -26,7 +26,7 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
     </div>
 
     <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
-      <kpn-monitor-admin-group-name [ngForm]="ngForm" [_id]="_id">
+      <kpn-monitor-admin-group-name [ngForm]="ngForm" [name]="name">
       </kpn-monitor-admin-group-name>
       <kpn-monitor-admin-group-description
         [ngForm]="ngForm"
@@ -40,7 +40,7 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
   `,
 })
 export class MonitorAdminGroupAddPageComponent {
-  readonly _id = new FormControl<string>('', [
+  readonly name = new FormControl<string>('', [
     Validators.required,
     urlFragmentValidator,
     Validators.maxLength(15),
@@ -51,7 +51,7 @@ export class MonitorAdminGroupAddPageComponent {
   ]);
 
   readonly form = new FormGroup({
-    _id: this._id,
+    name: this.name,
     description: this.description,
   });
 
@@ -59,7 +59,9 @@ export class MonitorAdminGroupAddPageComponent {
 
   add(): void {
     if (this.form.valid) {
-      this.store.dispatch(actionMonitorGroupAdd({ group: this.form.value }));
+      this.store.dispatch(
+        actionMonitorGroupAdd({ properties: this.form.value })
+      );
     }
   }
 }

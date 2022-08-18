@@ -19,10 +19,10 @@ class MonitorRouteInfoBuilderImpl(
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     rawData.relationWithId(routeId) match {
-      case None => MonitorRouteInfoPage(ObjectId("TODO MON"), routeId)
+      case None => MonitorRouteInfoPage("TODO MON", routeId)
       case Some(relation) =>
         MonitorRouteInfoPage(
-          ObjectId("TODO"),
+          "TODO",
           routeId,
           relation.tags("name"),
           relation.tags("operator"),

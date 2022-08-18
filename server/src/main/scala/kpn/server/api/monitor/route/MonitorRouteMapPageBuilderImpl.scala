@@ -70,7 +70,7 @@ class MonitorRouteMapPageBuilderImpl(
         }
 
         MonitorRouteMapPage(
-          route._id,
+          route._id.oid,
           route.relationId,
           route.name,
           group.name,

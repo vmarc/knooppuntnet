@@ -5,7 +5,7 @@ import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
-import { selectMonitorMonitorRouteId } from '../../store/monitor.selectors';
+import { selectMonitorRouteId } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
@@ -76,7 +76,7 @@ export class MonitorRoutePageHeaderComponent {
 
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupName$ = this.store.select(selectMonitorGroupName);
-  readonly monitorRouteId$ = this.store.select(selectMonitorMonitorRouteId);
+  readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly routeName$ = this.store.select(selectMonitorRouteName);
   readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
   readonly groupLink$ = this.groupName$.pipe(

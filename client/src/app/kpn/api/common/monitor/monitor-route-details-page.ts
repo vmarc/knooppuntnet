@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
 export interface MonitorRouteDetailsPage {
-  readonly monitorRouteId: string;
-  readonly routeId: number;
-  readonly routeName: string;
+  readonly routeId: string;
   readonly groupName: string;
   readonly groupDescription: string;
-  readonly description: string;
+  readonly routeName: string;
+  readonly routeDescription: string;
+  readonly relationId: number;
   readonly wayCount: number;
   readonly osmDistance: number;
   readonly gpxDistance: number;

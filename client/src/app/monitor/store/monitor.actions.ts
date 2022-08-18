@@ -1,8 +1,8 @@
 import { Bounds } from '@api/common/bounds';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
-import { MonitorGroup } from '@api/common/monitor/monitor-group';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
+import { MonitorGroupProperties } from '@api/common/monitor/monitor-group-properties';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
 import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
@@ -165,7 +165,17 @@ export const actionMonitorRouteMapJosmZoomToSelectedDeviation = createAction(
 
 export const actionMonitorGroupAdd = createAction(
   '[MonitorAdminGroupAddPage] Add group',
-  props<{ group: MonitorGroup }>()
+  props<{ properties: MonitorGroupProperties }>()
+);
+
+export const actionMonitorGroupUpdate = createAction(
+  '[MonitorAdminGroupUpdatePage] Update',
+  props<{ groupId: string; properties: MonitorGroupProperties }>()
+);
+
+export const actionMonitorGroupDelete = createAction(
+  '[MonitorAdminGroupDeletePage] Delete',
+  props<{ groupId: string }>()
 );
 
 export const actionMonitorRouteInfo = createAction(
@@ -187,16 +197,6 @@ export const actionMonitorRouteDelete = createAction('[Monitor] Route delete');
 export const actionMonitorRouteInfoLoaded = createAction(
   '[Monitor] Route info loaded',
   props<{ response: ApiResponse<MonitorRouteInfoPage> }>()
-);
-
-export const actionMonitorGroupDelete = createAction(
-  '[MonitorAdminGroupDeletePage] Delete',
-  props<{ groupName: string }>()
-);
-
-export const actionMonitorGroupUpdate = createAction(
-  '[MonitorAdminGroupUpdatePage] Update',
-  props<{ group: MonitorGroup }>()
 );
 
 export const actionMonitorChangesPageInit = createAction(

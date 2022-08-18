@@ -69,7 +69,7 @@ class MonitorRouteChangesPageBuilderImpl(
     monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
       monitorGroupRepository.groupById(route.groupId).map { group =>
         MonitorRouteChangesPage(
-          ObjectId("TODO"), // route.relationId,
+          route._id.oid,
           route.name,
           group.name,
           group.description,
@@ -93,6 +93,7 @@ class MonitorRouteChangesPageBuilderImpl(
 
       MonitorRouteChangeSummary(
         change.key,
+        None,
         None,
         None,
         comment,

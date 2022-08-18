@@ -25,7 +25,7 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
       </div>
       <div *ngIf="response.result">
         <form [formGroup]="form" #ngForm="ngForm">
-          <p>Name: {{ _id.value }}</p>
+          <p>Name: {{ name.value }}</p>
 
           <kpn-monitor-admin-group-description
             [ngForm]="ngForm"
@@ -33,7 +33,12 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
           ></kpn-monitor-admin-group-description>
 
           <div class="kpn-form-buttons">
-            <button mat-stroked-button (click)="update()">Update group</button>
+            <button
+              mat-stroked-button
+              (click)="update(response.result.groupId)"
+            >
+              Update group
+            </button>
             <a routerLink="/monitor">Cancel</a>
           </div>
         </form>
@@ -42,14 +47,14 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
   `,
 })
 export class MonitorAdminGroupUpdatePageComponent implements OnInit {
-  readonly _id = new FormControl<string>('');
+  readonly name = new FormControl<string>('');
   readonly description = new FormControl<string>('', [
     Validators.required,
     Validators.maxLength(100),
   ]);
 
   readonly form = new FormGroup({
-    _id: this._id,
+    name: this.name,
     description: this.description,
   });
 
@@ -57,7 +62,7 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
     tap((response) => {
       if (response?.result) {
         this.form.reset({
-          _id: response.result.groupName,
+          name: response.result.groupName,
           description: response.result.groupDescription,
         });
       }
@@ -70,9 +75,11 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
     this.store.dispatch(actionMonitorGroupUpdateInit());
   }
 
-  update(): void {
+  update(groupId: string): void {
     if (this.form.valid) {
-      this.store.dispatch(actionMonitorGroupUpdate({ group: this.form.value }));
+      this.store.dispatch(
+        actionMonitorGroupUpdate({ groupId, properties: this.form.value })
+      );
     }
   }
 }

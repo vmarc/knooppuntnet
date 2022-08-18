@@ -9,19 +9,19 @@ import { FormControl } from '@angular/forms';
     <div>
       <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput [formControl]="_id" class="name" required />
+        <input matInput [formControl]="name" class="name" required />
       </mat-form-field>
       <div
-        *ngIf="_id.invalid && (_id.dirty || _id.touched || ngForm.submitted)"
+        *ngIf="name.invalid && (name.dirty || name.touched || ngForm.submitted)"
         class="kpn-form-error"
       >
-        <div *ngIf="_id.errors?.['required']">Name is required.</div>
-        <div *ngIf="_id.errors?.['urlFragmentInvalid']">
+        <div *ngIf="name.errors?.['required']">Name is required.</div>
+        <div *ngIf="name.errors?.['urlFragmentInvalid']">
           Invalid name: only use alphanumeric characters and dashes.
         </div>
-        <div *ngIf="_id.errors?.['maxlength']">
-          Too long (max= {{ _id.errors.maxlength.requiredLength }}, actual={{
-            _id.errors.maxlength.actualLength
+        <div *ngIf="name.errors?.['maxlength']">
+          Too long (max= {{ name.errors.maxlength.requiredLength }}, actual={{
+            name.errors.maxlength.actualLength
           }}).
         </div>
       </div>
@@ -37,5 +37,5 @@ import { FormControl } from '@angular/forms';
 })
 export class MonitorAdminGroupNameComponent {
   @Input() ngForm: FormGroupDirective;
-  @Input() _id: FormControl<string>;
+  @Input() name: FormControl<string>;
 }

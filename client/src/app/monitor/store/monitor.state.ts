@@ -13,8 +13,8 @@ import { ApiResponse } from '@api/custom/api-response';
 export const initialState: MonitorState = {
   admin: false,
   adminRole: false,
-  monitorRouteId: '',
-  routeId: 0,
+  routeId: '',
+  relationId: 0,
   routeName: '',
   routeDescription: '',
   groupName: '',
@@ -42,8 +42,8 @@ export const initialState: MonitorState = {
 export interface MonitorState {
   admin: boolean;
   adminRole: boolean;
-  monitorRouteId: string;
-  routeId: number;
+  routeId: string;
+  relationId: number;
   routeName: string;
   routeDescription: string;
   groupName: string;

@@ -3,9 +3,9 @@ package kpn.server.api.monitor
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
-import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
+import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteAdd
 import kpn.api.common.monitor.MonitorRouteChangePage
@@ -26,9 +26,9 @@ trait MonitorFacade {
 
   def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage]
 
-  def addGroup(user: Option[String], group: MonitorGroup): Unit
+  def addGroup(user: Option[String], properties: MonitorGroupProperties): Unit
 
-  def updateGroup(user: Option[String], group: MonitorGroup): Unit
+  def updateGroup(user: Option[String], id: ObjectId, properties: MonitorGroupProperties): Unit
 
   def deleteGroup(user: Option[String], groupId: ObjectId): Unit
 

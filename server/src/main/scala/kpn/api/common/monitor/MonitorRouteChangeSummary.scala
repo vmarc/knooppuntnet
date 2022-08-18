@@ -4,6 +4,7 @@ import kpn.api.common.changes.details.ChangeKey
 
 case class MonitorRouteChangeSummary(
   key: ChangeKey,
+  groupName: Option[String],
   routeName: Option[String],
   groupDescription: Option[String],
   comment: Option[String],
