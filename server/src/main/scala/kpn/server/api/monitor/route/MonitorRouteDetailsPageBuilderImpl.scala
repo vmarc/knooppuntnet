@@ -1,6 +1,6 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -13,7 +13,7 @@ class MonitorRouteDetailsPageBuilderImpl(
 ) extends MonitorRouteDetailsPageBuilder {
 
   override def build(monitorRouteId: String): Option[MonitorRouteDetailsPage] = {
-    monitorRouteRepository.routeById(MongoId("TODO") /*monitorRouteId*/).flatMap { route =>
+    monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
       monitorGroupRepository.groupById(route.groupId).map { group =>
         val routeStateOption = monitorRouteRepository.routeState(monitorRouteId)
         val happy = routeStateOption match {

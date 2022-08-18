@@ -1,13 +1,12 @@
 package kpn.database.base
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.base.WithId
-import kpn.api.base.WithMongoId
+import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
 import kpn.database.util.Mongo
 import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.bson.ObjectId
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
@@ -102,11 +101,11 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
-  override def findByMongoId(mongoId: MongoId, log: Log): Option[T] = {
+  override def findByObjectId(objectId: ObjectId, log: Log): Option[T] = {
     log.debugElapsed {
-      val future = collection.find[T](equal("_id", mongoId.toObjectId)).headOption()
+      val future = collection.find[T](equal("_id", objectId.raw)).headOption()
       val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
-      (s"findByMongoId - collection: '$collectionName', _id: $mongoId", doc)
+      (s"findByObjectId - collection: '$collectionName', _id: $objectId", doc)
     }
   }
 
@@ -138,7 +137,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       val (id, filter) = doc match {
         case withId: WithId => (withId._id.toString, equal("_id", withId._id))
         case withStringId: WithStringId => (withStringId._id, equal("_id", withStringId._id))
-        case withMongoId: WithMongoId => (withMongoId._id.oid, equal("_id", new ObjectId(withMongoId._id.oid)))
+        case withObjectId: WithObjectId => (withObjectId._id.oid, equal("_id", withObjectId._id.raw))
         case _ => throw new IllegalArgumentException("document does not have een id")
       }
       val future = collection.replaceOne(filter, doc, ReplaceOptions().upsert(true)).toFuture()
@@ -180,12 +179,12 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
     }
   }
 
-  override def deleteByMongoId(mongoId: MongoId, log: Log): Unit = {
+  override def deleteByObjectId(objectId: ObjectId, log: Log): Unit = {
     log.debugElapsed {
-      val filter = equal("_id", mongoId.toObjectId)
+      val filter = equal("_id", objectId.raw)
       val future = collection.deleteOne(filter).toFuture()
       val result = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
-      (s"delete - collection: '$collectionName', _id: ${mongoId.oid}", result)
+      (s"delete - collection: '$collectionName', _id: ${objectId.oid}", result)
     }
   }
 

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Relation
@@ -22,9 +22,9 @@ object MonitorRouteAnalysisSupport {
   private val geomFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteAnalysisSupport])
 
-  def toRoute(groupId: MongoId, routeName: String, description: String, relationId: Option[Long]): MonitorRoute = {
+  def toRoute(groupId: ObjectId, routeName: String, description: String, relationId: Option[Long]): MonitorRoute = {
     MonitorRoute(
-      MongoId(),
+      ObjectId(),
       groupId,
       routeName,
       description,

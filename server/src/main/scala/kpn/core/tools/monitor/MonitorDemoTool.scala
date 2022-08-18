@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.monitor.MonitorGroup
@@ -51,7 +51,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
 
   private def setupGroup(groupName: String, groupDescription: String, routes: Seq[MonitorDemoRoute]): Unit = {
 
-    val group = MonitorGroup(MongoId(), groupName, groupDescription)
+    val group = MonitorGroup(ObjectId(), groupName, groupDescription)
     database.monitorGroups.save(group)
 
     routes.foreach { demoRoute =>
@@ -93,7 +93,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
     val id = s"${route._id}:${now.key}"
 
     MonitorRouteReference(
-      MongoId(),
+      ObjectId(),
       routeId = route._id,
       relationId = None,
       key = now.key,

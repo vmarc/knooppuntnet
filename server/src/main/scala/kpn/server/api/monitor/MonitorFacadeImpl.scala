@@ -1,6 +1,6 @@
 package kpn.server.api.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -97,7 +97,7 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def deleteGroup(user: Option[String], groupId: MongoId): Unit = {
+  override def deleteGroup(user: Option[String], groupId: ObjectId): Unit = {
     api.execute(user, "monitor-delete-group", groupId.oid) {
       assertAdminUser(user)
       monitorGroupRepository.deleteGroup(groupId)
@@ -153,7 +153,7 @@ class MonitorFacadeImpl(
     api.execute(user, "monitor-add-route", add.name) {
       assertAdminUser(user)
           val route = MonitorRoute(
-            MongoId(),
+            ObjectId(),
             add.groupId,
             add.name,
             add.description,
@@ -171,7 +171,7 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def deleteRoute(user: Option[String], routeId: MongoId): Unit = {
+  override def deleteRoute(user: Option[String], routeId: ObjectId): Unit = {
     api.execute(user, "monitor-delete-route", routeId.oid) {
       assertAdminUser(user)
       monitorRouteRepository.deleteRoute(routeId)
@@ -179,7 +179,7 @@ class MonitorFacadeImpl(
   }
 
   override def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit = {
-    val routeId = MongoId("TODO MON") // groupName + ":" + routeName
+    val routeId = ObjectId("TODO MON") // groupName + ":" + routeName
     api.execute(user, "monitor-route-reference", routeId.oid) {
       assertAdminUser(user)
       monitorRouteAnalyzer.processNewReference(user.get, routeId, filename, xml)

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorGroup
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -23,8 +23,8 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
     database.monitorGroups.optionAggregate[MonitorGroup](pipeline, log)
   }
 
-  override def groupById(groupId: MongoId): Option[MonitorGroup] = {
-    database.monitorGroups.findByMongoId(groupId, log)
+  override def groupById(groupId: ObjectId): Option[MonitorGroup] = {
+    database.monitorGroups.findByObjectId(groupId, log)
   }
 
   override def groups(): Seq[MonitorGroup] = {
@@ -35,13 +35,13 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
     database.monitorGroups.save(routeGroup, log)
   }
 
-  override def deleteGroup(groupId: MongoId): Unit = {
-    database.monitorGroups.deleteByMongoId(groupId, log)
+  override def deleteGroup(groupId: ObjectId): Unit = {
+    database.monitorGroups.deleteByObjectId(groupId, log)
   }
 
-  override def groupRoutes(groupId: MongoId): Seq[MonitorRoute] = {
+  override def groupRoutes(groupId: ObjectId): Seq[MonitorRoute] = {
     database.monitorRoutes.find[MonitorRoute](
-      equal("groupId", groupId.toObjectId),
+      equal("groupId", groupId.raw),
       log
     )
   }

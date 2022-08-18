@@ -1,6 +1,6 @@
 package kpn.server.api.monitor.group
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.server.repository.MonitorGroupRepository
@@ -16,7 +16,7 @@ class MonitorGroupPageBuilderImpl(
   override def build(user: Option[String], groupName: String): Option[MonitorGroupPage] = {
     val admin = monitorRepository.isAdminUser(user)
     monitorGroupRepository.groupByName(groupName).map { group =>
-      val routes = monitorGroupRepository.groupRoutes(MongoId("TODO MON") /*groupName*/)
+      val routes = monitorGroupRepository.groupRoutes(ObjectId("TODO MON") /*groupName*/)
       MonitorGroupPage(
         admin,
         groupName,

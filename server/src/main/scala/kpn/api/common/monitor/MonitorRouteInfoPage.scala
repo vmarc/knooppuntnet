@@ -1,9 +1,9 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 
 case class MonitorRouteInfoPage(
-  routeId: MongoId,
+  routeId: ObjectId,
   relationId: Long,
   name: Option[String] = None,
   operator: Option[String] = None,

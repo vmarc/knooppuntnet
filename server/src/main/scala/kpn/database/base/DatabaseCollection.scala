@@ -1,6 +1,6 @@
 package kpn.database.base
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.core.util.Log
 import kpn.database.base.DatabaseCollection.collectionLog
 import kpn.database.tools.MongoIndexDefinition
@@ -58,7 +58,7 @@ trait DatabaseCollection[T] {
 
   def findByStringId(_id: String, log: Log = collectionLog): Option[T]
 
-  def findByMongoId(_id: MongoId, log: Log = collectionLog): Option[T]
+  def findByObjectId(_id: ObjectId, log: Log = collectionLog): Option[T]
 
   def findByIds(ids: Seq[Long], log: Log = collectionLog): Seq[T]
 
@@ -72,7 +72,7 @@ trait DatabaseCollection[T] {
 
   def deleteByStringId(_id: String, log: Log = collectionLog): Unit
 
-  def deleteByMongoId(_id: MongoId, log: Log): Unit
+  def deleteByObjectId(_id: ObjectId, log: Log): Unit
 
   def ids(log: Log = collectionLog): Seq[Long]
 

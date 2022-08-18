@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
@@ -26,7 +26,7 @@ class MonitorRouteAnalyzerImpl(
   overpassQueryExecutor: OverpassQueryExecutor
 ) extends MonitorRouteAnalyzer {
 
-  override def processNewReference(user: String, routeId: MongoId, filename: String, xml: Elem): Unit = {
+  override def processNewReference(user: String, routeId: ObjectId, filename: String, xml: Elem): Unit = {
 
     monitorRouteRepository.routeById(routeId) match {
       case None => // TODO throw exception ?
@@ -39,7 +39,7 @@ class MonitorRouteAnalyzerImpl(
         val id = s"$routeId:${now.key}"
 
         val reference = MonitorRouteReference(
-          MongoId(),
+          ObjectId(),
 //          id,
           routeId = routeId,
           relationId = monitorRoute.relationId,

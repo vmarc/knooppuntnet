@@ -1,6 +1,6 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorGroup
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
@@ -38,7 +38,7 @@ class MonitorRouteChangePageBuilderImpl(
             None
 
           case Some(routeChangeGeometry) =>
-            monitorGroupRepository.groupById(MongoId("TODO MON") /*routeChange.groupId*/) match {
+            monitorGroupRepository.groupById(ObjectId("TODO MON") /*routeChange.groupId*/) match {
               case None =>
                 log.warn(s"Could not read group TODO {routeChange.groupName}")
                 None

@@ -1,10 +1,10 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.MongoId
-import kpn.api.base.WithMongoId
+import kpn.api.base.ObjectId
+import kpn.api.base.WithObjectId
 
 case class MonitorGroup(
-  _id: MongoId,
+  _id: ObjectId,
   name: String,
   description: String
-) extends WithMongoId
+) extends WithObjectId

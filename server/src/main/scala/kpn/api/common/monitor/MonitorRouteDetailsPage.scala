@@ -1,9 +1,9 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 
 case class MonitorRouteDetailsPage(
-  routeId: MongoId,
+  routeId: ObjectId,
   groupName: String,
   groupDescription: String,
   routeName: String,

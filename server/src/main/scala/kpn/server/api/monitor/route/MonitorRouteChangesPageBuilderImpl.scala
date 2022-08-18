@@ -1,6 +1,6 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
@@ -66,10 +66,10 @@ class MonitorRouteChangesPageBuilderImpl(
   override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): Option[MonitorRouteChangesPage] = {
     val changes = build(monitorRouteRepository.routeChanges(monitorRouteId, parameters))
     val totalChangeCount = monitorRouteRepository.routeChangesCount(monitorRouteId, parameters)
-    monitorRouteRepository.routeById(MongoId("TODO") /*monitorRouteId*/).flatMap { route =>
+    monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
       monitorGroupRepository.groupById(route.groupId).map { group =>
         MonitorRouteChangesPage(
-          MongoId("TODO"), // route.relationId,
+          ObjectId("TODO"), // route.relationId,
           route.name,
           group.name,
           group.description,

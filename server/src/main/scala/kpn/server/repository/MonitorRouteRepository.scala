@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -15,7 +15,7 @@ trait MonitorRouteRepository {
 
   def saveRoute(route: MonitorRoute): Unit
 
-  def deleteRoute(routeId: MongoId): Unit
+  def deleteRoute(routeId: ObjectId): Unit
 
   def saveRouteState(routeState: MonitorRouteState): Unit
 
@@ -25,7 +25,7 @@ trait MonitorRouteRepository {
 
   def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
 
-  def routeById(monitorRouteId: MongoId): Option[MonitorRoute]
+  def routeById(monitorRouteId: ObjectId): Option[MonitorRoute]
 
   def routeState(monitorRouteId: String): Option[MonitorRouteState]
 

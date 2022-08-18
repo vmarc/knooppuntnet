@@ -1,6 +1,6 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
@@ -16,7 +16,7 @@ class MonitorRouteMapPageBuilderImpl(
 ) extends MonitorRouteMapPageBuilder {
 
   override def build(monitorRouteId: String, language: Language): Option[MonitorRouteMapPage] = {
-    monitorRouteRepository.routeById(MongoId("TODO") /*monitorRouteId*/).flatMap { route =>
+    monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
 
       monitorGroupRepository.groupById(route.groupId).map { group =>
 

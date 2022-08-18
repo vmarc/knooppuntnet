@@ -1,9 +1,9 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 
 case class MonitorRouteChangesPage(
-  routeId: MongoId,
+  routeId: ObjectId,
   routeName: String,
   groupName: String,
   groupDescription: String,

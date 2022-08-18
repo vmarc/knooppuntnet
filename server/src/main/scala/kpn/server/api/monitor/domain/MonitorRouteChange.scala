@@ -1,7 +1,7 @@
 package kpn.server.api.monitor.domain
 
-import kpn.api.base.MongoId
-import kpn.api.base.WithMongoId
+import kpn.api.base.ObjectId
+import kpn.api.base.WithObjectId
 import kpn.api.common.changes.details.ChangeKey
 
 object MonitorRouteChange {
@@ -21,8 +21,8 @@ object MonitorRouteChange {
     investigate: Boolean
   ): MonitorRouteChange = {
     MonitorRouteChange(
-      MongoId(),
-      MongoId("TODO"), // key.toId,
+      ObjectId(),
+      ObjectId("TODO"), // key.toId,
       key,
       wayCount,
       waysAdded,
@@ -40,8 +40,8 @@ object MonitorRouteChange {
 }
 
 case class MonitorRouteChange(
-  _id: MongoId,
-  monitorRoutId: MongoId,
+  _id: ObjectId,
+  monitorRoutId: ObjectId,
   key: ChangeKey,
   wayCount: Long,
   waysAdded: Long,
@@ -54,4 +54,4 @@ case class MonitorRouteChange(
   referenceKey: String,
   happy: Boolean,
   investigate: Boolean
-) extends WithMongoId
+) extends WithObjectId

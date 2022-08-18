@@ -1,6 +1,6 @@
 package kpn.api.common
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -994,20 +994,20 @@ trait SharedTestObjects extends MockFactory {
     description: String
   ): MonitorGroup = {
     MonitorGroup(
-      MongoId(),
+      ObjectId(),
       name,
       description
     )
   }
 
   def newMonitorRoute(
-    groupId: MongoId,
+    groupId: ObjectId,
     name: String,
     description: String,
     routeId: Option[Long]
   ): MonitorRoute = {
     MonitorRoute(
-      MongoId(),
+      ObjectId(),
       groupId,
       name,
       description,
@@ -1046,7 +1046,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newMonitorRouteState(
-    routeId: MongoId,
+    routeId: ObjectId,
     timestamp: Timestamp = defaultTimestamp,
     wayCount: Long = 0,
     osmDistance: Long = 0,
@@ -1058,7 +1058,7 @@ trait SharedTestObjects extends MockFactory {
     nokSegments: Seq[MonitorRouteNokSegment] = Seq.empty
   ): MonitorRouteState = {
     MonitorRouteState(
-      MongoId(),
+      ObjectId(),
       routeId,
       timestamp,
       wayCount,

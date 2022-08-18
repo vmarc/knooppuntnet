@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.LatLonImpl
 import kpn.api.common.monitor.MonitorRouteNokSegment
 import kpn.api.custom.Relation
@@ -166,8 +166,8 @@ class MonitorChangeProcessorImpl(
       }
 
       val change = MonitorRouteChange(
-        MongoId(),
-        MongoId("TODO"), // key.toId,
+        ObjectId(),
+        ObjectId("TODO"), // key.toId,
         key,
         afterRoute.wayCount,
         wayIdsAdded,
@@ -185,8 +185,8 @@ class MonitorChangeProcessorImpl(
       monitorRouteRepository.saveRouteChange(change)
 
       val routeChangeGeometry = MonitorRouteChangeGeometry(
-        MongoId(),
-        MongoId("TODO"), // key.toId,
+        ObjectId(),
+        ObjectId("TODO"), // key.toId,
         key,
         routeSegments,
         newSegments,
@@ -196,7 +196,7 @@ class MonitorChangeProcessorImpl(
 
       val happy = false
       val routeState = MonitorRouteState(
-        MongoId(),
+        ObjectId(),
         null, // routeId,
         afterRoute.relation.timestamp,
         afterRoute.wayCount,

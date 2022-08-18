@@ -1,9 +1,9 @@
 package kpn.api.common.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 
 case class MonitorRouteAdd(
-  groupId: MongoId,
+  groupId: ObjectId,
   name: String,
   description: String,
   relationId: Option[Long]

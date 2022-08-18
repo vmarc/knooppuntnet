@@ -1,6 +1,6 @@
 package kpn.server.api.monitor
 
-import kpn.api.base.MongoId
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroup
@@ -78,7 +78,7 @@ class MonitorController(
   def deleteGroup(
     @PathVariable groupId: String
   ): Unit = {
-    facade.deleteGroup(CurrentUser.name, MongoId(groupId))
+    facade.deleteGroup(CurrentUser.name, ObjectId(groupId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/changes"))
@@ -118,7 +118,7 @@ class MonitorController(
     @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
     @PathVariable routeId: String
   ): Unit = {
-    facade.deleteRoute(CurrentUser.name, MongoId(routeId))
+    facade.deleteRoute(CurrentUser.name, ObjectId(routeId))
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
