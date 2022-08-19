@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 export interface MonitorRouteDetail {
-  readonly index: number;
+  readonly rowIndex: number;
   readonly routeId: string;
   readonly name: string;
   readonly description: string;

@@ -177,7 +177,7 @@ export const selectMonitorRouteMapOsmRelationVisible = createSelector(
 
 export const selectMonitorRouteMapGpxEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => !!state.routeMapPage?.result?.reference.geometry
+  (state: MonitorState) => !!state.routeMapPage?.result?.reference?.geometry
 );
 
 export const selectMonitorRouteMapGpxOkEnabled = createSelector(

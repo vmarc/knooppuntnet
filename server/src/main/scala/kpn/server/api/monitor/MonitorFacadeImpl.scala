@@ -96,17 +96,17 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def route(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteDetailsPage] = {
-    val args = s"monitorRouteId=$monitorRouteId"
+  override def route(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage] = {
+    val args = s"groupName=$groupName, routeName=$routeName"
     api.execute(user, "monitor-route", args) {
-      reply(monitorRouteDetailsPageBuilder.build(monitorRouteId))
+      reply(monitorRouteDetailsPageBuilder.build(groupName, routeName))
     }
   }
 
-  override def routeMap(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteMapPage] = {
-    val args = s"monitorRouteId=$monitorRouteId"
+  override def routeMap(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteMapPage] = {
+    val args = s"$groupName:$routeName"
     api.execute(user, "monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(monitorRouteId, EN))
+      reply(monitorRouteMapPageBuilder.build(EN, groupName, routeName))
     }
   }
 

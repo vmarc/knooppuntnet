@@ -1,6 +1,5 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
@@ -15,17 +14,14 @@ class MonitorRouteMapPageBuilderImpl(
   monitorGroupRepository: MonitorGroupRepository
 ) extends MonitorRouteMapPageBuilder {
 
-  override def build(monitorRouteId: String, language: Language): Option[MonitorRouteMapPage] = {
-    monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
-
-      monitorGroupRepository.groupById(route.groupId).map { group =>
-
-        val routeStateOption = monitorRouteRepository.routeState(monitorRouteId)
-
+  override def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteMapPage] = {
+    monitorGroupRepository.groupByName(groupName).flatMap { group =>
+      monitorRouteRepository.routeByName(group._id, routeName).map { route =>
+        val routeStateOption = monitorRouteRepository.routeState(route._id)
         val reference = routeStateOption match {
           case Some(routeState) =>
-            routeState.referenceKey.flatMap { referenceKey =>
-              monitorRouteRepository.routeReference(monitorRouteId, referenceKey).map { routeReference =>
+            routeState.referenceId.flatMap { referenceId =>
+              monitorRouteRepository.routeReference(referenceId).map { routeReference =>
                 MonitorRouteReferenceInfo(
                   routeReference.key,
                   routeReference.created,
@@ -42,20 +38,7 @@ class MonitorRouteMapPageBuilderImpl(
             }
 
           case None =>
-            monitorRouteRepository.routeReference(monitorRouteId).map { routeReference =>
-              MonitorRouteReferenceInfo(
-                routeReference.key,
-                routeReference.created,
-                routeReference.user,
-                routeReference.bounds,
-                0, // TODO distance
-                routeReference.referenceType,
-                routeReference.referenceTimestamp,
-                routeReference.segmentCount,
-                routeReference.filename,
-                routeReference.geometry
-              )
-            }
+            throw new RuntimeException("TODO MON should not come here?")
         }
 
         val bounds = routeStateOption match {

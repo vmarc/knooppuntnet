@@ -44,13 +44,13 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="routeId">
+      <ng-container matColumnDef="relationId">
         <th mat-header-cell *matHeaderCellDef>Relation</th>
         <td mat-cell *matCellDef="let route">
           <kpn-osm-link-relation
-            *ngIf="route.routeId > 1"
-            [relationId]="route.routeId"
-            [title]="route.routeId.toString()"
+            *ngIf="!!route.relationId"
+            [relationId]="route.relationId"
+            [title]="route.relationId.toString()"
           >
           </kpn-osm-link-relation>
         </td>
@@ -121,7 +121,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
           'name',
           'happy',
           'map',
-          'routeId',
+          'relationId',
           'description',
           'distance',
           'status',
@@ -133,7 +133,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
         'name',
         'happy',
         'map',
-        'routeId',
+        'relationId',
         'description',
         'distance',
         'status',

@@ -27,11 +27,13 @@ trait MonitorRouteRepository {
 
   def routeById(monitorRouteId: ObjectId): Option[MonitorRoute]
 
-  def routeState(monitorRouteId: String): Option[MonitorRouteState]
+  def routeByName(groupId: ObjectId, routeName: String): Option[MonitorRoute]
 
-  def routeReference(monitorRouteId: String, key: String): Option[MonitorRouteReference]
+  def routeState(routeId: ObjectId): Option[MonitorRouteState]
 
-  def routeReference(monitorRouteId: String): Option[MonitorRouteReference]
+  def routeReference(routeId: ObjectId, key: String): Option[MonitorRouteReference]
+
+  def routeReference(referenceId: ObjectId): Option[MonitorRouteReference]
 
   def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
 

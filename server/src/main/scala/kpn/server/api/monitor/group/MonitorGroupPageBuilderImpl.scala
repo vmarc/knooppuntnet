@@ -22,9 +22,9 @@ class MonitorGroupPageBuilderImpl(
         groupName,
         group.description,
         admin,
-        routes.zipWithIndex.map { case (route, index) =>
+        routes.zipWithIndex.map { case (route, rowIndex) =>
           MonitorRouteDetail(
-            index,
+            rowIndex,
             route._id.oid,
             route.name,
             route.description,

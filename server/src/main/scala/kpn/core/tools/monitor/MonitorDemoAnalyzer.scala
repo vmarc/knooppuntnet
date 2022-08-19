@@ -35,7 +35,9 @@ class MonitorDemoAnalyzer() {
     val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
     val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
 
-    val happy = false
+    val happy = routeAnalysis.gpxDistance > 0 &&
+      routeAnalysis.nokSegments.isEmpty &&
+      routeAnalysis.osmSegments.size == 1
 
     MonitorRouteState(
       ObjectId(),
@@ -45,7 +47,7 @@ class MonitorDemoAnalyzer() {
       routeAnalysis.osmDistance,
       routeAnalysis.gpxDistance,
       routeAnalysis.bounds,
-      Some(routeReference.key),
+      Some(routeReference._id),
       routeAnalysis.osmSegments,
       routeAnalysis.okGeometry,
       routeAnalysis.nokSegments,

@@ -5,6 +5,6 @@ import kpn.api.common.monitor.MonitorRouteMapPage
 
 trait MonitorRouteMapPageBuilder {
 
-  def build(monitorRouteId: String, language: Language): Option[MonitorRouteMapPage]
+  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteMapPage]
 
 }

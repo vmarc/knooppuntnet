@@ -34,9 +34,9 @@ trait MonitorFacade {
 
   def groupChanges(user: Option[String], groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage]
 
-  def route(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteDetailsPage]
+  def route(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage]
 
-  def routeMap(user: Option[String], monitorRouteId: String): ApiResponse[MonitorRouteMapPage]
+  def routeMap(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteMapPage]
 
   def routeChanges(user: Option[String], monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
 

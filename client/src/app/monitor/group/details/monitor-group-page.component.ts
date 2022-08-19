@@ -12,7 +12,7 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-group',
+  selector: 'kpn-monitor-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -55,7 +55,6 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
       </div>
     </div>
   `,
-  styles: [``],
 })
 export class MonitorGroupPageComponent implements OnInit {
   readonly groupName$ = this.store.select(selectMonitorGroupName);

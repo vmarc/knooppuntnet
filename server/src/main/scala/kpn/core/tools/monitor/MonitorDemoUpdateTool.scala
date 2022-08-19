@@ -1,5 +1,6 @@
 package kpn.core.tools.monitor
 
+import kpn.api.base.ObjectId
 import kpn.api.custom.Relation
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
@@ -72,7 +73,7 @@ class MonitorDemoUpdateTool(
       case None =>
       case Some(relationId) =>
         val routeRelation = readRelation(relationId)
-        monitorRouteRepository.routeReference(route.name /*TODO better would be route._id ??*/) match {
+        monitorRouteRepository.routeReference(ObjectId("TODO MON") /*TODO better would be route._id ??*/) match {
           case None => log.error("route reference not found")
           case Some(routeReference) =>
             val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)

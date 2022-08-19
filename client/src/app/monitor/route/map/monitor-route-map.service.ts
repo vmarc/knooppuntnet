@@ -147,7 +147,7 @@ export class MonitorRouteMapService {
     this.subscriptions.add(
       this.response$.subscribe((response) => {
         this.gpxLayer.getSource().clear();
-        if (response?.result?.reference.geometry) {
+        if (response?.result?.reference?.geometry) {
           const features = new GeoJSON().readFeatures(
             response.result.reference.geometry,
             { featureProjection: 'EPSG:3857' }

@@ -95,7 +95,7 @@ class MonitorController(
     @PathVariable groupName: String,
     @PathVariable routeName: String
   ): ApiResponse[MonitorRouteDetailsPage] = {
-    facade.route(CurrentUser.name, groupName + ":" + routeName)
+    facade.route(CurrentUser.name, groupName, routeName)
   }
 
   @PostMapping(value = Array("groups/{groupName}"))
@@ -127,7 +127,7 @@ class MonitorController(
     @PathVariable groupName: String,
     @PathVariable routeName: String
   ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(CurrentUser.name, groupName + ":" + routeName)
+    facade.routeMap(CurrentUser.name, groupName, routeName)
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))

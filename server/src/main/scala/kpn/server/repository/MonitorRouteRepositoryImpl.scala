@@ -65,22 +65,35 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRoutes.findByObjectId(monitorRouteId, log)
   }
 
-  override def routeState(monitorRouteId: String): Option[MonitorRouteState] = {
-    database.monitorRouteStates.findByStringId(monitorRouteId, log)
+  override def routeByName(groupId: ObjectId, routeName: String): Option[MonitorRoute] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("groupId", groupId.raw),
+          equal("name", routeName),
+        )
+      )
+    )
+    database.monitorRoutes.optionAggregate[MonitorRoute](pipeline, log)
   }
 
-  override def routeReference(monitorRouteId: String, key: String): Option[MonitorRouteReference] = {
-    database.monitorRouteReferences.findOne[MonitorRouteReference](
-      equal("_id", s"$monitorRouteId:$key"),
+  override def routeState(routeId: ObjectId): Option[MonitorRouteState] = {
+    database.monitorRouteStates.findOne[MonitorRouteState](
+      equal("routeId", routeId.raw),
       log
     )
   }
 
-  override def routeReference(monitorRouteId: String): Option[MonitorRouteReference] = {
-    database.monitorRouteReferences.findOne[MonitorRouteReference](
-      equal("monitorRouteId", monitorRouteId),
-      log
-    )
+  override def routeReference(routeId: ObjectId, key: String): Option[MonitorRouteReference] = {
+    throw new RuntimeException("TODO method still needed?")
+//    database.monitorRouteReferences.findOne[MonitorRouteReference](
+//      equal("_id", s"$monitorRouteId:$key"),
+//      log
+//    )
+  }
+
+  override def routeReference(referenceId: ObjectId): Option[MonitorRouteReference] = {
+    database.monitorRouteReferences.findByObjectId(referenceId, log)
   }
 
   override def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange] = {

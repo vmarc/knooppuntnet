@@ -1,6 +1,5 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -12,17 +11,10 @@ class MonitorRouteDetailsPageBuilderImpl(
   monitorGroupRepository: MonitorGroupRepository
 ) extends MonitorRouteDetailsPageBuilder {
 
-  override def build(monitorRouteId: String): Option[MonitorRouteDetailsPage] = {
-    monitorRouteRepository.routeById(ObjectId("TODO") /*monitorRouteId*/).flatMap { route =>
-      monitorGroupRepository.groupById(route.groupId).map { group =>
-        val routeStateOption = monitorRouteRepository.routeState(monitorRouteId)
-        val happy = routeStateOption match {
-          case Some(routeState) =>
-            routeState.gpxDistance > 0 &&
-              routeState.nokSegments.isEmpty &&
-              routeState.osmSegments.size == 1
-          case None => false
-        }
+  override def build(groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
+    monitorGroupRepository.groupByName(groupName).flatMap { group =>
+      monitorRouteRepository.routeByName(group._id, routeName).map { route =>
+        val routeStateOption = monitorRouteRepository.routeState(route._id)
         MonitorRouteDetailsPage(
           route._id.oid,
           group.name,
@@ -34,7 +26,7 @@ class MonitorRouteDetailsPageBuilderImpl(
           routeStateOption.map(_.osmDistance).getOrElse(0L),
           routeStateOption.map(_.gpxDistance).getOrElse(0L),
           None, // TODO routeState.gpxFilename,
-          happy = happy,
+          happy = routeStateOption.exists(_.happy),
           routeStateOption.map(_.osmSegments.size.toLong).getOrElse(0L),
           routeStateOption.map(_.nokSegments.size.toLong).getOrElse(0L)
         )
