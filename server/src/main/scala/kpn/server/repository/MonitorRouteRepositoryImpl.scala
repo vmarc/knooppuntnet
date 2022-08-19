@@ -5,19 +5,28 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.util.Mongo
+import kpn.server.api.monitor.domain.MonitorGroupRouteCount
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
+import org.mongodb.scala.Document
 import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.limit
+import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.or
+import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
@@ -86,10 +95,10 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def routeReference(routeId: ObjectId, key: String): Option[MonitorRouteReference] = {
     throw new RuntimeException("TODO method still needed?")
-//    database.monitorRouteReferences.findOne[MonitorRouteReference](
-//      equal("_id", s"$monitorRouteId:$key"),
-//      log
-//    )
+    //    database.monitorRouteReferences.findOne[MonitorRouteReference](
+    //      equal("_id", s"$monitorRouteId:$key"),
+    //      log
+    //    )
   }
 
   override def routeReference(referenceId: ObjectId): Option[MonitorRouteReference] = {
@@ -183,6 +192,24 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       val result = s"changes: ${changes.size}"
       (result, changes)
     }
+  }
+
+  override def groupRouteCounts(): Seq[MonitorGroupRouteCount] = {
+    val pipeline = Seq(
+      group(
+        Document(
+          "groupId" -> "$groupId"
+        ),
+        sum("routeCount", 1)
+      ),
+      project(
+        fields(
+          computed("groupId", "$_id.groupId"),
+          include("routeCount"),
+        )
+      ),
+    )
+    database.monitorRoutes.aggregate[MonitorGroupRouteCount](pipeline, log)
   }
 
   override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {

@@ -4,5 +4,6 @@ import { MonitorGroupsPageGroup } from './monitor-groups-page-group';
 
 export interface MonitorGroupsPage {
   readonly adminRole: boolean;
+  readonly routeCount: number;
   readonly groups: MonitorGroupsPageGroup[];
 }

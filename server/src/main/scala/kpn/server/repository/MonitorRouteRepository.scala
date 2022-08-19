@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.server.api.monitor.domain.MonitorGroupRouteCount
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
@@ -42,6 +43,8 @@ trait MonitorRouteRepository {
   def changesCount(parameters: MonitorChangesParameters): Long
 
   def changes(parameters: MonitorChangesParameters): Seq[MonitorRouteChange]
+
+  def groupRouteCounts(): Seq[MonitorGroupRouteCount]
 
   def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long
 

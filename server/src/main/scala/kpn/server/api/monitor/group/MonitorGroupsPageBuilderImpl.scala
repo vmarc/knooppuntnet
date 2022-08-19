@@ -4,25 +4,31 @@ import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorGroupsPageGroup
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRepository
+import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorGroupsPageBuilderImpl(
   monitorRepository: MonitorRepository,
-  monitorGroupRepository: MonitorGroupRepository
+  monitorGroupRepository: MonitorGroupRepository,
+  monitorRouteRepository: MonitorRouteRepository
 ) extends MonitorGroupsPageBuilder {
 
   override def build(user: Option[String]): Option[MonitorGroupsPage] = {
     val admin = monitorRepository.isAdminUser(user)
     val groups = monitorGroupRepository.groups()
+    val groupRouteCounts = monitorRouteRepository.groupRouteCounts().map(grc => grc.groupId.oid -> grc.routeCount).toMap
+    val routeCount = groupRouteCounts.values.sum
     Some(
       MonitorGroupsPage(
         admin,
+        routeCount,
         groups.map { group =>
           MonitorGroupsPageGroup(
             group._id.oid,
             group.name,
-            group.description
+            group.description,
+            groupRouteCounts.getOrElse(group._id.oid, 0L)
           )
         }
       )

@@ -31,6 +31,13 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="routeCount">
+        <th mat-header-cell *matHeaderCellDef>Routes</th>
+        <td mat-cell *matCellDef="let group">
+          {{ group.routeCount }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let group">
@@ -63,9 +70,9 @@ export class MonitorGroupTableComponent implements OnInit {
   readonly displayedColumns$ = this.store.select(selectMonitorAdmin).pipe(
     map((admin) => {
       if (admin) {
-        return ['name', 'description', 'actions'];
+        return ['name', 'description', 'routeCount', 'actions'];
       }
-      return ['name', 'description'];
+      return ['name', 'description', 'routeCount'];
     })
   );
 
@@ -94,6 +101,6 @@ export class MonitorGroupTableComponent implements OnInit {
         groupDescription: group.description,
       })
     );
-    // TODO navigeren hier of in effect in plaats van routerLink ???
+    // TODO MON navigeren hier of in effect in plaats van routerLink ???
   }
 }
