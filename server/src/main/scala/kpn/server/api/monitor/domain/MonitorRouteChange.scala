@@ -41,7 +41,7 @@ object MonitorRouteChange {
 
 case class MonitorRouteChange(
   _id: ObjectId,
-  monitorRoutId: ObjectId,
+  routeId: ObjectId,
   key: ChangeKey,
   wayCount: Long,
   waysAdded: Long,

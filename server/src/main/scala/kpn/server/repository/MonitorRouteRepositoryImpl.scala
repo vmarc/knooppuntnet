@@ -5,7 +5,6 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.database.util.Mongo
 import kpn.server.api.monitor.domain.MonitorGroupRouteCount
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -45,13 +44,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def deleteRoute(routeId: ObjectId): Unit = {
-    // TODO MON
-    //    database.monitorRoutes.deleteByObjectId(routeId, log)
-    //    database.monitorRouteStates.deleteByObjectId(routeDocId, log)
-    // TODO MON
-    // database.monitorRouteReferences.find(routereferences) + delete
-    //  database.monitorRouteChanges.delete ...
-    //  database.monitorRouteChangeGeometries.delete ...
+    new MonitorRouteDelete(database).delete(routeId, log)
   }
 
   override def saveRouteState(routeState: MonitorRouteState): Unit = {

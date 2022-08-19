@@ -69,4 +69,48 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       )
     }
   }
+
+  test("deleteGroup") {
+
+    withDatabase { database =>
+
+      val group = newMonitorGroup("group", "")
+      val route1 = newMonitorRoute(group._id, "route1", "", None)
+      val route2 = newMonitorRoute(group._id, "route2", "", None)
+      val reference1 = newMonitorRouteReference(route1._id)
+      val reference2 = newMonitorRouteReference(route2._id)
+      val state1 = newMonitorRouteState(route1._id)
+      val state2 = newMonitorRouteState(route2._id)
+
+      database.monitorGroups.save(group)
+      database.monitorRoutes.save(route1)
+      database.monitorRoutes.save(route2)
+      database.monitorRouteReferences.save(reference1)
+      database.monitorRouteReferences.save(reference2)
+      database.monitorRouteStates.save(state1)
+      database.monitorRouteStates.save(state2)
+
+      database.monitorGroups.findByObjectId(group._id) should equal(Some(group))
+
+      database.monitorRoutes.findByObjectId(route1._id) should equal(Some(route1))
+      database.monitorRoutes.findByObjectId(route2._id) should equal(Some(route2))
+
+      database.monitorRouteReferences.findByObjectId(reference1._id) should equal(Some(reference1))
+      database.monitorRouteReferences.findByObjectId(reference2._id) should equal(Some(reference2))
+
+      database.monitorRouteStates.findByObjectId(state1._id) should equal(Some(state1))
+      database.monitorRouteStates.findByObjectId(state2._id) should equal(Some(state2))
+
+      val groupRepository = new MonitorGroupRepositoryImpl(database)
+      groupRepository.deleteGroup(group._id)
+
+      database.monitorGroups.findByObjectId(group._id) should equal(None)
+      database.monitorRoutes.findByObjectId(route1._id) should equal(None)
+      database.monitorRoutes.findByObjectId(route2._id) should equal(None)
+      database.monitorRouteReferences.findByObjectId(reference1._id) should equal(None)
+      database.monitorRouteReferences.findByObjectId(reference2._id) should equal(None)
+      database.monitorRouteStates.findByObjectId(state1._id) should equal(None)
+      database.monitorRouteStates.findByObjectId(state2._id) should equal(None)
+    }
+  }
 }

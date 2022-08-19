@@ -63,6 +63,7 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.common.Time
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
@@ -81,6 +82,7 @@ import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
+import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import org.scalamock.scalatest.MockFactory
 
@@ -1044,6 +1046,36 @@ trait SharedTestObjects extends MockFactory {
       investigate
     )
   }
+
+  def newMonitorRouteReference(
+    routeId: ObjectId,
+    relationId: Option[Long] = None,
+    key: String = "",
+    created: Timestamp = Time.now,
+    user: String = "",
+    bounds: Bounds = Bounds(),
+    referenceType: String = "", // "osm" | "gpx"
+    referenceTimestamp: Option[Timestamp] =  Some(Time.now),
+    segmentCount: Long = 0,
+    filename: Option[String] = None,
+    geometry: String = ""
+  ): MonitorRouteReference = {
+    MonitorRouteReference(
+      ObjectId(),
+      routeId,
+      relationId,
+      key,
+      created,
+      user,
+      bounds,
+      referenceType,
+      referenceTimestamp,
+      segmentCount,
+      filename,
+      geometry
+    )
+  }
+
 
   def newMonitorRouteState(
     routeId: ObjectId,

@@ -8,7 +8,7 @@ import kpn.api.common.monitor.MonitorRouteSegment
 
 case class MonitorRouteChangeGeometry(
   _id: ObjectId,
-  monitorRouteId: ObjectId,
+  routeId: ObjectId,
   key: ChangeKey,
   routeSegments: Seq[MonitorRouteSegment],
   newNokSegments: Seq[MonitorRouteNokSegment],
