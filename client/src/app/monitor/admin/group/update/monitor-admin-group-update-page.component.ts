@@ -7,9 +7,11 @@ import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { AppState } from '../../../../core/core.state';
+import { MonitorService } from '../../../monitor.service';
 import { actionMonitorGroupUpdateInit } from '../../../store/monitor.actions';
 import { actionMonitorGroupUpdate } from '../../../store/monitor.actions';
 import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
+import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
 
 @Component({
   selector: 'kpn-monitor-admin-group-update-page',
@@ -25,8 +27,8 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
       </div>
       <div *ngIf="response.result">
         <form [formGroup]="form" #ngForm="ngForm">
-          <p>Name: {{ name.value }}</p>
-
+          <kpn-monitor-admin-group-name [ngForm]="ngForm" [name]="name">
+          </kpn-monitor-admin-group-name>
           <kpn-monitor-admin-group-description
             [ngForm]="ngForm"
             [description]="description"
@@ -47,7 +49,18 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
   `,
 })
 export class MonitorAdminGroupUpdatePageComponent implements OnInit {
-  readonly name = new FormControl<string>('');
+  private initialName = '';
+  readonly name = new FormControl<string>('', {
+    validators: [
+      Validators.required,
+      urlFragmentValidator,
+      Validators.maxLength(15),
+    ],
+    asyncValidators: this.monitorService.asyncNameUniqueValidator(
+      this.initialName
+    ),
+    // updateOn: 'blur',
+  });
   readonly description = new FormControl<string>('', [
     Validators.required,
     Validators.maxLength(100),
@@ -61,6 +74,7 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
   readonly response$ = this.store.select(selectMonitorGroupPage).pipe(
     tap((response) => {
       if (response?.result) {
+        this.initialName = response.result.groupName;
         this.form.reset({
           name: response.result.groupName,
           description: response.result.groupDescription,
@@ -69,7 +83,10 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
     })
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private monitorService: MonitorService,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupUpdateInit());

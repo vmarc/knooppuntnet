@@ -49,6 +49,11 @@ class MonitorController(
     facade.groups(CurrentUser.name)
   }
 
+  @GetMapping(value = Array("group-names"))
+  def groupNames(): ApiResponse[Seq[String]] = {
+    facade.groupNames(CurrentUser.name)
+  }
+
   @GetMapping(value = Array("groups/{groupName}"))
   def group(
     @PathVariable groupName: String
@@ -56,10 +61,6 @@ class MonitorController(
     facade.group(CurrentUser.name, groupName)
   }
 
-  //  @GetMapping(value = Array("groups/{groupName}"))
-  //  def group(@PathVariable groupName: String): ApiResponse[MonitorAdminGroupPage] = {
-  //    facade.group(CurrentUser.name, groupName)
-  //  }
   @PostMapping(value = Array("groups"))
   def addGroup(
     @RequestBody properties: MonitorGroupProperties

@@ -20,6 +20,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.api.Api
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.group.MonitorGroupNamesBuilder
 import kpn.server.api.monitor.group.MonitorGroupPageBuilder
 import kpn.server.api.monitor.group.MonitorGroupsPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteChangePageBuilder
@@ -39,6 +40,7 @@ import scala.xml.Elem
 class MonitorFacadeImpl(
   api: Api,
   monitorGroupsPageBuilder: MonitorGroupsPageBuilder,
+  monitorGroupNamesBuilder: MonitorGroupNamesBuilder,
   monitorGroupPageBuilder: MonitorGroupPageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
@@ -60,6 +62,12 @@ class MonitorFacadeImpl(
   override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
     api.execute(user, "monitor-groups", "") {
       reply(monitorGroupsPageBuilder.build(user))
+    }
+  }
+
+  override def groupNames(user: Option[String]): ApiResponse[Seq[String]] = {
+    api.execute(user, "monitor-group-names", "") {
+      reply(Some(monitorGroupNamesBuilder.build()))
     }
   }
 

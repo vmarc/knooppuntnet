@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
+import { AsyncValidatorFn } from '@angular/forms';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
@@ -13,28 +16,36 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class MonitorService {
   constructor(private http: HttpClient) {}
 
-  public groups(): Observable<ApiResponse<MonitorGroupsPage>> {
+  groups(): Observable<ApiResponse<MonitorGroupsPage>> {
     const url = '/api/monitor/groups';
     return this.http.get(url);
   }
 
-  public group(groupName: string): Observable<ApiResponse<MonitorGroupPage>> {
+  groupNames(): Observable<ApiResponse<Array<string>>> {
+    const url = '/api/monitor/group-names';
+    return this.http.get(url);
+  }
+
+  group(groupName: string): Observable<ApiResponse<MonitorGroupPage>> {
     const url = `/api/monitor/groups/${groupName}`;
     return this.http.get(url);
   }
 
-  public addGroup(properties: MonitorGroupProperties): Observable<any> {
+  addGroup(properties: MonitorGroupProperties): Observable<any> {
     const url = `/api/monitor/groups`;
     return this.http.post(url, properties);
   }
 
-  public updateGroup(
+  updateGroup(
     groupId: string,
     properties: MonitorGroupProperties
   ): Observable<any> {
@@ -42,12 +53,12 @@ export class MonitorService {
     return this.http.put(url, properties);
   }
 
-  public deleteGroup(groupId: string): Observable<any> {
+  deleteGroup(groupId: string): Observable<any> {
     const url = `/api/monitor/groups/${groupId}`;
     return this.http.delete(url);
   }
 
-  public groupChanges(
+  groupChanges(
     groupName: string,
     parameters: MonitorChangesParameters
   ): Observable<ApiResponse<MonitorGroupChangesPage>> {
@@ -55,14 +66,14 @@ export class MonitorService {
     return this.http.post(url, parameters);
   }
 
-  public changes(
+  changes(
     parameters: MonitorChangesParameters
   ): Observable<ApiResponse<MonitorChangesPage>> {
     const url = `/api/monitor/changes`;
     return this.http.post(url, parameters);
   }
 
-  public addRoute(
+  addRoute(
     groupName: string,
     add: MonitorRouteAdd
   ): Observable<ApiResponse<MonitorGroupPage>> {
@@ -70,7 +81,7 @@ export class MonitorService {
     return this.http.post(url, add);
   }
 
-  public route(
+  route(
     groupName: string,
     routeName: string
   ): Observable<ApiResponse<MonitorRouteDetailsPage>> {
@@ -78,7 +89,7 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public deleteRoute(
+  deleteRoute(
     groupName: string,
     routeName: string
   ): Observable<ApiResponse<void>> {
@@ -86,7 +97,7 @@ export class MonitorService {
     return this.http.delete(url);
   }
 
-  public routeMap(
+  routeMap(
     groupName: string,
     routeName: string
   ): Observable<ApiResponse<MonitorRouteMapPage>> {
@@ -94,7 +105,7 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public routeChanges(
+  routeChanges(
     monitorRouteId: string,
     parameters: MonitorChangesParameters
   ): Observable<ApiResponse<MonitorRouteChangesPage>> {
@@ -102,7 +113,7 @@ export class MonitorService {
     return this.http.post(url, parameters);
   }
 
-  public routeChange(
+  routeChange(
     monitorRouteId: string,
     changeSetId: string,
     replicationNumber: string
@@ -111,14 +122,12 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  public routeInfo(
-    routeId: number
-  ): Observable<ApiResponse<MonitorRouteInfoPage>> {
+  routeInfo(routeId: number): Observable<ApiResponse<MonitorRouteInfoPage>> {
     const url = `/api/monitor/route-info/${routeId}`;
     return this.http.get(url);
   }
 
-  public routeGpxUpload(
+  routeGpxUpload(
     groupName: string,
     routeName: string,
     file: File
@@ -127,5 +136,24 @@ export class MonitorService {
     formData.append('file', file);
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload`;
     return this.http.post(url, formData);
+  }
+
+  asyncNameUniqueValidator(initialGroupName: string): AsyncValidatorFn {
+    return (c: AbstractControl): Observable<ValidationErrors> => {
+      if (!c.value || c.value.length === 0 || c.value === initialGroupName) {
+        return of(null);
+      } else {
+        return this.groupNames().pipe(
+          map((response) => response.result),
+          map((groupNames) => {
+            if (groupNames.includes(c.value)) {
+              return { groupNameNonUnique: c.value };
+            }
+            return null;
+          }),
+          catchError(() => of(null))
+        );
+      }
+    };
   }
 }

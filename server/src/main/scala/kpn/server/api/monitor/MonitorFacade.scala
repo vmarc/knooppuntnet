@@ -24,6 +24,8 @@ trait MonitorFacade {
 
   def groups(user: Option[String]): ApiResponse[MonitorGroupsPage]
 
+  def groupNames(user: Option[String]): ApiResponse[Seq[String]]
+
   def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage]
 
   def addGroup(user: Option[String], properties: MonitorGroupProperties): Unit

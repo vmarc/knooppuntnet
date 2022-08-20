@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/core.state';
+import { MonitorService } from '../../../monitor.service';
 import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
 import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
 
@@ -40,11 +41,16 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
   `,
 })
 export class MonitorAdminGroupAddPageComponent {
-  readonly name = new FormControl<string>('', [
-    Validators.required,
-    urlFragmentValidator,
-    Validators.maxLength(15),
-  ]);
+  readonly name = new FormControl<string>('', {
+    validators: [
+      Validators.required,
+      urlFragmentValidator,
+      Validators.maxLength(15),
+    ],
+    asyncValidators: this.monitorService.asyncNameUniqueValidator(''),
+    // updateOn: 'blur',
+  });
+
   readonly description = new FormControl<string>('', [
     Validators.required,
     Validators.maxLength(100),
@@ -55,7 +61,10 @@ export class MonitorAdminGroupAddPageComponent {
     description: this.description,
   });
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private monitorService: MonitorService,
+    private store: Store<AppState>
+  ) {}
 
   add(): void {
     if (this.form.valid) {

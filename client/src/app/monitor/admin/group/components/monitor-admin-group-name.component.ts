@@ -15,14 +15,17 @@ import { FormControl } from '@angular/forms';
         *ngIf="name.invalid && (name.dirty || name.touched || ngForm.submitted)"
         class="kpn-form-error"
       >
-        <div *ngIf="name.errors?.['required']">Name is required.</div>
-        <div *ngIf="name.errors?.['urlFragmentInvalid']">
+        <div *ngIf="name.errors?.required">Name is required.</div>
+        <div *ngIf="name.errors?.urlFragmentInvalid">
           Invalid name: only use alphanumeric characters and dashes.
         </div>
-        <div *ngIf="name.errors?.['maxlength']">
+        <div *ngIf="name.errors?.maxlength">
           Too long (max= {{ name.errors.maxlength.requiredLength }}, actual={{
             name.errors.maxlength.actualLength
           }}).
+        </div>
+        <div *ngIf="name.errors?.groupNameNonUnique">
+          Name should be unique. A group with this name already exists.
         </div>
       </div>
     </div>
