@@ -5,6 +5,7 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.base.NameRow
 import kpn.server.api.monitor.domain.MonitorGroupRouteCount
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -237,6 +238,20 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       limit(parameters.pageSize.toInt)
     )
     database.monitorRouteChanges.aggregate[MonitorRouteChange](pipeline, log)
+  }
+
+  override def routeNames(groupId: ObjectId): Seq[String] = {
+    val pipeline = Seq(
+      filter(
+        equal("groupId", groupId.raw)
+      ),
+      project(
+        fields(
+          include("name"),
+        )
+      )
+    )
+    database.monitorRoutes.aggregate[NameRow](pipeline, log).map(_.name)
   }
 
   private def groupChangesFilter(groupName: String, parameters: MonitorChangesParameters): Bson = {

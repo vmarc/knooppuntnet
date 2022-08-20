@@ -56,7 +56,7 @@ export class MonitorAdminGroupUpdatePageComponent implements OnInit {
       urlFragmentValidator,
       Validators.maxLength(15),
     ],
-    asyncValidators: this.monitorService.asyncNameUniqueValidator(
+    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
       this.initialName
     ),
     // updateOn: 'blur',

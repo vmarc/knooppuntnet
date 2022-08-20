@@ -176,4 +176,12 @@ class MonitorController(
         ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message)
     }
   }
+
+  @GetMapping(value = Array("groups/{groupId}/route-names"))
+  def routeNames(
+    @PathVariable groupId: String,
+  ): ApiResponse[Seq[String]] = {
+    facade.routeNames(CurrentUser.name, ObjectId(groupId))
+  }
+
 }

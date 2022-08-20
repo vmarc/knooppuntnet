@@ -180,6 +180,12 @@ class MonitorFacadeImpl(
     }
   }
 
+  override def routeNames(user: Option[String], groupId: ObjectId): ApiResponse[Seq[String]] = {
+    api.execute(user, "monitor-group-route-names", groupId.oid) {
+      reply(Some(monitorRouteRepository.routeNames(groupId)))
+    }
+  }
+
   private def assertAdminUser(user: Option[String]): Unit = {
     if (!monitorRepository.isAdminUser(user)) {
       throw new AccessDeniedException("403 returned")

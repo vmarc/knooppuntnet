@@ -62,4 +62,5 @@ trait MonitorRouteRepository {
 
   def routeReferenceKey(monitorRouteId: String): Option[String]
 
+  def routeNames(groupId: ObjectId): Seq[String]
 }

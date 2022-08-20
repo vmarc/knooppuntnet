@@ -30,7 +30,7 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  groupNames(): Observable<ApiResponse<Array<string>>> {
+  private groupNames(): Observable<ApiResponse<Array<string>>> {
     const url = '/api/monitor/group-names';
     return this.http.get(url);
   }
@@ -138,7 +138,12 @@ export class MonitorService {
     return this.http.post(url, formData);
   }
 
-  asyncNameUniqueValidator(initialGroupName: string): AsyncValidatorFn {
+  private routeNames(groupId: string): Observable<ApiResponse<Array<string>>> {
+    const url = `/api/monitor/groups/${groupId}/route-names`;
+    return this.http.get(url);
+  }
+
+  asyncGroupNameUniqueValidator(initialGroupName: string): AsyncValidatorFn {
     return (c: AbstractControl): Observable<ValidationErrors> => {
       if (!c.value || c.value.length === 0 || c.value === initialGroupName) {
         return of(null);
@@ -148,6 +153,28 @@ export class MonitorService {
           map((groupNames) => {
             if (groupNames.includes(c.value)) {
               return { groupNameNonUnique: c.value };
+            }
+            return null;
+          }),
+          catchError(() => of(null))
+        );
+      }
+    };
+  }
+
+  asyncRouteNameUniqueValidator(
+    groupId: string,
+    initialRouteName: string
+  ): AsyncValidatorFn {
+    return (c: AbstractControl): Observable<ValidationErrors> => {
+      if (!c.value || c.value.length === 0 || c.value === initialRouteName) {
+        return of(null);
+      } else {
+        return this.routeNames(groupId).pipe(
+          map((response) => response.result),
+          map((routeNames) => {
+            if (routeNames.includes(c.value)) {
+              return { routeNameNonUnique: c.value };
             }
             return null;
           }),
