@@ -9,6 +9,7 @@ import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteAdd
+import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
@@ -143,12 +144,27 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def addRoute(user: Option[String], add: MonitorRouteAdd): Unit = {
+  override def groupRouteAdd(user: Option[String], groupName: String): ApiResponse[MonitorRouteAddPage] = {
+    api.execute(user, "monitor-group-route-add", groupName) {
+      assertAdminUser(user)
+      reply(
+        monitorGroupRepository.groupByName(groupName).map { monitorGroup =>
+          MonitorRouteAddPage(
+            monitorGroup._id.oid,
+            monitorGroup.name,
+            monitorGroup.description
+          )
+        }
+      )
+    }
+  }
+
+  override def addRoute(user: Option[String], groupId: ObjectId, add: MonitorRouteAdd): Unit = {
     api.execute(user, "monitor-add-route", add.name) {
       assertAdminUser(user)
       val route = MonitorRoute(
         ObjectId(),
-        ObjectId(add.groupId),
+        groupId,
         add.name,
         add.description,
         add.relationId,

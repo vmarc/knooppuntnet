@@ -2,6 +2,7 @@ import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
+import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
@@ -30,6 +31,7 @@ export const initialState: MonitorState = {
   groupPage: null,
   groupChangesPageIndex: 0,
   groupChangesPage: null,
+  routeAddPage: null,
   routeInfoPage: null,
   routeDetailsPage: null,
   routeMapPage: null,
@@ -59,6 +61,7 @@ export interface MonitorState {
   groupPage: ApiResponse<MonitorGroupPage>;
   groupChangesPageIndex: number;
   groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
+  routeAddPage: ApiResponse<MonitorRouteAddPage>;
   routeInfoPage: ApiResponse<MonitorRouteInfoPage>;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;

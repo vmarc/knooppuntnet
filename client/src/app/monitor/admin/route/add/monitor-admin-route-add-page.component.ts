@@ -1,18 +1,24 @@
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { UntypedFormControl } from '@angular/forms';
-import { UntypedFormGroup } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
-import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../../core/core.state';
+import { Subscriptions } from '../../../../util/Subscriptions';
+import { MonitorService } from '../../../monitor.service';
+import { actionMonitorRouteAddPageInit } from '../../../store/monitor.actions';
 import { actionMonitorRouteAdd } from '../../../store/monitor.actions';
 import { actionMonitorRouteInfo } from '../../../store/monitor.actions';
+import { selectMonitorRouteAddPage } from '../../../store/monitor.selectors';
 import { selectMonitorRouteInfoPage } from '../../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../../store/monitor.selectors';
+import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
 
 @Component({
   selector: 'kpn-monitor-admin-route-add-page',
@@ -41,7 +47,7 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
       <div class="section-body">
         <mat-form-field>
           <mat-label>Route relation id</mat-label>
-          <input matInput [formControl]="routeId" />
+          <input matInput [formControl]="relationId" />
         </mat-form-field>
         <div>
           <button
@@ -105,7 +111,9 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorAdminRouteAddPageComponent {
+export class MonitorAdminRouteAddPageComponent implements OnInit, OnDestroy {
+  private groupId = '';
+  readonly response$ = this.store.select(selectMonitorRouteAddPage);
   readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
@@ -113,27 +121,59 @@ export class MonitorAdminRouteAddPageComponent {
     map((groupName) => `/monitor/groups/${groupName}`)
   );
 
-  readonly routeId = new UntypedFormControl('', [Validators.required]);
-  readonly name = new UntypedFormControl('', [Validators.required]);
-  readonly description = new UntypedFormControl('', [Validators.required]);
+  readonly relationId = new FormControl<number>(0, [Validators.required]);
+  readonly name = new FormControl<string>('', {
+    validators: [
+      Validators.required,
+      urlFragmentValidator,
+      Validators.maxLength(15),
+    ],
+    asyncValidators: this.monitorService.asyncRouteNameUniqueValidator(
+      () => this.groupId,
+      ''
+    ),
+  });
+  readonly description = new FormControl<string>('', [
+    Validators.required,
+    Validators.maxLength(100),
+  ]);
 
-  readonly form = new UntypedFormGroup({
-    routeId: this.routeId,
+  readonly form = new FormGroup({
     name: this.name,
     description: this.description,
+    relationId: this.relationId,
   });
 
-  constructor(private store: Store<AppState>) {}
+  private readonly subscriptions = new Subscriptions();
+
+  constructor(
+    private monitorService: MonitorService,
+    private store: Store<AppState>
+  ) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorRouteAddPageInit());
+    this.subscriptions.add(
+      this.store.select(selectMonitorRouteAddPage).subscribe((response) => {
+        this.groupId = response?.result?.groupId;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   getRouteInformation(): void {
     this.store.dispatch(
-      actionMonitorRouteInfo({ routeId: this.routeId.value })
+      actionMonitorRouteInfo({ relationId: this.relationId.value })
     );
   }
 
   save(): void {
-    const add: MonitorRouteAdd = this.form.value;
-    this.store.dispatch(actionMonitorRouteAdd({ add }));
+    this.store.dispatch(
+      actionMonitorRouteAdd({ groupId: this.groupId, add: this.form.value })
+    );
   }
 
   referenceTypeChanged(event: MatRadioChange): void {

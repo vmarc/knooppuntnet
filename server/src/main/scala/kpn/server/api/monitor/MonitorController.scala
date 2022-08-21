@@ -8,6 +8,7 @@ import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
 import kpn.api.common.monitor.MonitorRouteAdd
+import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
@@ -101,10 +102,10 @@ class MonitorController(
 
   @PostMapping(value = Array("groups/{groupName}"))
   def addRoute(
-    @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
+    @PathVariable groupId: String,
     @RequestBody add: MonitorRouteAdd
   ): Unit = {
-    facade.addRoute(CurrentUser.name, add)
+    facade.addRoute(CurrentUser.name, ObjectId(groupId), add)
   }
 
   @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
@@ -147,6 +148,13 @@ class MonitorController(
     @PathVariable replicationNumber: Long
   ): ApiResponse[MonitorRouteChangePage] = {
     facade.routeChange(CurrentUser.name, monitorRouteId, changeSetId, replicationNumber)
+  }
+
+  @GetMapping(value = Array("route-add/{groupName}"))
+  def groupRouteAdd(
+    @PathVariable groupName: String
+  ): ApiResponse[MonitorRouteAddPage] = {
+    facade.groupRouteAdd(CurrentUser.name, groupName)
   }
 
   @GetMapping(value = Array("route-info/{routeId}"))

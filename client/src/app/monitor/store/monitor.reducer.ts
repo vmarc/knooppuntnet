@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
 import { actionMonitorRouteInfoLoaded } from './monitor.actions';
 import { actionMonitorGroupChangesPageInit } from './monitor.actions';
@@ -102,6 +103,12 @@ export const monitorReducer = createReducer(
     adminRole: response?.result?.adminRole === true,
     groupPage: response,
   })),
+  on(actionMonitorRouteAddPageLoaded, (state, { response }) => {
+    return {
+      ...state,
+      routeAddPage: response,
+    };
+  }),
   on(actionMonitorRouteInfoLoaded, (state, { response }) => {
     return {
       ...state,

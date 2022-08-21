@@ -10,6 +10,7 @@ import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
 import { MonitorGroupProperties } from '@api/common/monitor/monitor-group-properties';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
 import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
+import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
@@ -122,6 +123,11 @@ export class MonitorService {
     return this.http.get(url);
   }
 
+  routeAdd(groupName: string): Observable<ApiResponse<MonitorRouteAddPage>> {
+    const url = `/api/monitor/route-add/${groupName}`;
+    return this.http.get(url);
+  }
+
   routeInfo(routeId: number): Observable<ApiResponse<MonitorRouteInfoPage>> {
     const url = `/api/monitor/route-info/${routeId}`;
     return this.http.get(url);
@@ -163,14 +169,14 @@ export class MonitorService {
   }
 
   asyncRouteNameUniqueValidator(
-    groupId: string,
+    groupId: () => string,
     initialRouteName: string
   ): AsyncValidatorFn {
     return (c: AbstractControl): Observable<ValidationErrors> => {
       if (!c.value || c.value.length === 0 || c.value === initialRouteName) {
         return of(null);
       } else {
-        return this.routeNames(groupId).pipe(
+        return this.routeNames(groupId()).pipe(
           map((response) => response.result),
           map((routeNames) => {
             if (routeNames.includes(c.value)) {

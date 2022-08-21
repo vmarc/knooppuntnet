@@ -20,6 +20,8 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
+import { actionMonitorRouteAddPageInit } from './monitor.actions';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
 import { actionMonitorRouteMapJosmLoadRouteRelation } from './monitor.actions';
@@ -167,12 +169,27 @@ export class MonitorEffects {
   );
 
   // noinspection JSUnusedGlobalSymbols
+  monitorRouteAddPage = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteAddPageInit),
+      concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
+      mergeMap(([{}, groupName]) =>
+        this.monitorService
+          .routeAdd(groupName)
+          .pipe(
+            map((response) => actionMonitorRouteAddPageLoaded({ response }))
+          )
+      )
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteInfo = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteInfo),
       mergeMap((action) =>
         this.monitorService
-          .routeInfo(action.routeId)
+          .routeInfo(action.relationId)
           .pipe(map((response) => actionMonitorRouteInfoLoaded({ response })))
       )
     )

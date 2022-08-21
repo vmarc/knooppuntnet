@@ -2,6 +2,7 @@ package kpn.core.tools.typescript
 
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.monitor.MonitorGroupProperties
+import kpn.api.common.monitor.MonitorRouteAdd
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -11,12 +12,17 @@ import scala.reflect.runtime.universe._
 
 object TypescriptTool {
 
-  val formClasses = Seq(
-    MonitorGroupProperties.getClass.getSimpleName.replace("$", "")
+  val formClasses: Seq[String] = Seq(
+    name(MonitorGroupProperties),
+    name(MonitorRouteAdd)
   )
 
   def main(args: Array[String]): Unit = {
     new TypescriptTool().generate()
+  }
+
+  private def name(caseClass: Object): String = {
+    caseClass.getClass.getSimpleName.replace("$", "")
   }
 }
 
