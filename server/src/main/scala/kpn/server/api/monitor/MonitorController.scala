@@ -185,11 +185,11 @@ class MonitorController(
     }
   }
 
-  @GetMapping(value = Array("groups/{groupId}/route-names"))
+  @GetMapping(value = Array("groups/{groupName}/route-names"))
   def routeNames(
-    @PathVariable groupId: String,
+    @PathVariable groupName: String,
   ): ApiResponse[Seq[String]] = {
-    facade.routeNames(CurrentUser.name, ObjectId(groupId))
+    facade.routeNames(CurrentUser.name, groupName)
   }
 
 }

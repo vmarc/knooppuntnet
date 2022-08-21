@@ -57,6 +57,6 @@ trait MonitorFacade {
 
   def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit
 
-  def routeNames(user: Option[String], groupId: ObjectId): ApiResponse[Seq[String]]
+  def routeNames(user: Option[String], groupName: String): ApiResponse[Seq[String]]
 
 }

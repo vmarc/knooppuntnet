@@ -205,9 +205,13 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeNames(user: Option[String], groupId: ObjectId): ApiResponse[Seq[String]] = {
-    api.execute(user, "monitor-group-route-names", groupId.oid) {
-      reply(Some(monitorRouteRepository.routeNames(groupId)))
+  override def routeNames(user: Option[String], groupName: String): ApiResponse[Seq[String]] = {
+    api.execute(user, "monitor-group-route-names", groupName) {
+      reply(
+        monitorGroupRepository.groupByName(groupName).map { group =>
+          monitorRouteRepository.routeNames(group._id)
+        }
+      )
     }
   }
 

@@ -17,14 +17,18 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { AppState } from '../core/core.state';
+import { selectMonitorGroupName } from './store/monitor.selectors';
 
 @Injectable()
 export class MonitorService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private store: Store<AppState>) {}
 
   groups(): Observable<ApiResponse<MonitorGroupsPage>> {
     const url = '/api/monitor/groups';
@@ -144,8 +148,10 @@ export class MonitorService {
     return this.http.post(url, formData);
   }
 
-  private routeNames(groupId: string): Observable<ApiResponse<Array<string>>> {
-    const url = `/api/monitor/groups/${groupId}/route-names`;
+  private routeNames(
+    groupName: string
+  ): Observable<ApiResponse<Array<string>>> {
+    const url = `/api/monitor/groups/${groupName}/route-names`;
     return this.http.get(url);
   }
 
@@ -168,23 +174,24 @@ export class MonitorService {
     };
   }
 
-  asyncRouteNameUniqueValidator(
-    groupId: () => string,
-    initialRouteName: string
-  ): AsyncValidatorFn {
+  asyncRouteNameUniqueValidator(initialRouteName: string): AsyncValidatorFn {
     return (c: AbstractControl): Observable<ValidationErrors> => {
       if (!c.value || c.value.length === 0 || c.value === initialRouteName) {
         return of(null);
       } else {
-        return this.routeNames(groupId()).pipe(
-          map((response) => response.result),
-          map((routeNames) => {
-            if (routeNames.includes(c.value)) {
-              return { routeNameNonUnique: c.value };
-            }
-            return null;
-          }),
-          catchError(() => of(null))
+        this.store.select(selectMonitorGroupName).pipe(
+          mergeMap((groupName) =>
+            this.routeNames(groupName).pipe(
+              map((response) => response.result),
+              map((routeNames) => {
+                if (routeNames.includes(c.value)) {
+                  return { routeNameNonUnique: c.value };
+                }
+                return null;
+              }),
+              catchError(() => of(null))
+            )
+          )
         );
       }
     };

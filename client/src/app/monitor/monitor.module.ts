@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
@@ -27,6 +28,11 @@ import { MonitorAdminGroupDeletePageComponent } from './admin/group/delete/monit
 import { MonitorAdminGroupUpdatePageComponent } from './admin/group/update/monitor-admin-group-update-page.component';
 import { MonitorAdminRouteAddPageComponent } from './admin/route/add/monitor-admin-route-add-page.component';
 import { MonitorAdminRouteInfoComponent } from './admin/route/add/monitor-admin-route-info.component';
+import { MonitorRouteStep1NameComponent } from './admin/route/add/steps/monitor-route-step1-name.component';
+import { MonitorRouteStep2RelationComponent } from './admin/route/add/steps/monitor-route-step2-relation.component';
+import { MonitorRouteStep3ReferenceTypeComponent } from './admin/route/add/steps/monitor-route-step3-reference-type.component';
+import { MonitorRouteStep4ReferenceDetailsComponent } from './admin/route/add/steps/monitor-route-step4-reference-details.component';
+import { MonitorRouteStep5SaveComponent } from './admin/route/add/steps/monitor-route-step5-save.component';
 import { MonitorAdminRouteReferenceComponent } from './admin/route/components/monitor-admin-route-reference.component';
 import { MonitorAdminRouteDeletePageComponent } from './admin/route/delete/monitor-admin-route-delete-page.component';
 import { MonitorAdminRouteUpdatePageComponent } from './admin/route/update/monitor-admin-route-update-page.component';
@@ -81,6 +87,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MatNativeDateModule,
     ReactiveFormsModule,
     MatMenuModule,
+    MatStepperModule,
   ],
   declarations: [
     MonitorRouteDetailsPageComponent,
@@ -119,6 +126,11 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorAdminRouteReferenceComponent,
     MonitorChangesComponent,
     MonitorRouteReferencePageComponent,
+    MonitorRouteStep1NameComponent,
+    MonitorRouteStep2RelationComponent,
+    MonitorRouteStep3ReferenceTypeComponent,
+    MonitorRouteStep4ReferenceDetailsComponent,
+    MonitorRouteStep5SaveComponent,
   ],
   exports: [],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'nl-BE' }, MonitorService],

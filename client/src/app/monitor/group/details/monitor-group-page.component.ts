@@ -66,7 +66,7 @@ export class MonitorGroupPageComponent implements OnInit {
   readonly response$ = this.store.select(selectMonitorGroupPage);
 
   readonly hasRoutes$: Observable<boolean> = this.response$.pipe(
-    map((response) => response.result?.routes.length > 0)
+    map((response) => response?.result?.routes.length > 0)
   );
 
   constructor(private store: Store<AppState>) {}
