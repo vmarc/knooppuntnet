@@ -128,8 +128,8 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  routeInfo(routeId: number): Observable<ApiResponse<MonitorRouteInfoPage>> {
-    const url = `/api/monitor/route-info/${routeId}`;
+  routeInfo(relationId: string): Observable<ApiResponse<MonitorRouteInfoPage>> {
+    const url = `/api/monitor/route-info/${relationId}`;
     return this.http.get(url);
   }
 

@@ -49,11 +49,11 @@ trait MonitorFacade {
 
   def groupRouteAdd(user: Option[String], groupName: String): ApiResponse[MonitorRouteAddPage]
 
-  def addRoute(user: Option[String], groupId: ObjectId, route: MonitorRouteAdd): Unit
+  def addRoute(user: Option[String], groupName: String, route: MonitorRouteAdd): Unit
 
   def updateRoute(user: Option[String], route: MonitorRoute): Unit
 
-  def deleteRoute(user: Option[String], routeId: ObjectId): Unit
+  def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit
 
   def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit
 

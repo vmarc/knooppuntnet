@@ -3,5 +3,5 @@
 export interface MonitorRouteAdd {
   readonly name?: string;
   readonly description?: string;
-  readonly relationId?: number;
+  readonly relationId?: string;
 }

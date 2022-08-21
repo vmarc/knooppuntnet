@@ -159,18 +159,20 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def addRoute(user: Option[String], groupId: ObjectId, add: MonitorRouteAdd): Unit = {
+  override def addRoute(user: Option[String], groupName: String, add: MonitorRouteAdd): Unit = {
     api.execute(user, "monitor-add-route", add.name) {
       assertAdminUser(user)
-      val route = MonitorRoute(
-        ObjectId(),
-        groupId,
-        add.name,
-        add.description,
-        add.relationId,
-      )
-      monitorRouteRepository.saveRoute(route)
-
+      val relationId = add.relationId.map(_.toLong)
+      monitorGroupRepository.groupByName(groupName).foreach { monitorGroup =>
+        val route = MonitorRoute(
+          ObjectId(),
+          monitorGroup._id,
+          add.name,
+          add.description,
+          relationId,
+        )
+        monitorRouteRepository.saveRoute(route)
+      }
     }
   }
 
@@ -181,18 +183,25 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def deleteRoute(user: Option[String], routeId: ObjectId): Unit = {
-    api.execute(user, "monitor-delete-route", routeId.oid) {
+  override def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit = {
+    api.execute(user, "monitor-delete-route", s"$groupName:$routeName") {
       assertAdminUser(user)
-      monitorRouteRepository.deleteRoute(routeId)
+      monitorGroupRepository.groupByName(groupName).foreach { group =>
+        monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
+          monitorRouteRepository.deleteRoute(route._id)
+        }
+      }
     }
   }
 
   override def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit = {
-    val routeId = ObjectId("TODO MON") // groupName + ":" + routeName
-    api.execute(user, "monitor-route-reference", routeId.oid) {
+    api.execute(user, "monitor-route-reference", s"$groupName:$routeName") {
       assertAdminUser(user)
-      monitorRouteAnalyzer.processNewReference(user.get, routeId, filename, xml)
+      monitorGroupRepository.groupByName(groupName).foreach { group =>
+        monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
+          monitorRouteAnalyzer.processNewReference(user.get, route, filename, xml)
+        }
+      }
     }
   }
 

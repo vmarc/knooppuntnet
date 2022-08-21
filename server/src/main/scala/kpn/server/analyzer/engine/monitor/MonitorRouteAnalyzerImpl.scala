@@ -26,38 +26,32 @@ class MonitorRouteAnalyzerImpl(
   overpassQueryExecutor: OverpassQueryExecutor
 ) extends MonitorRouteAnalyzer {
 
-  override def processNewReference(user: String, routeId: ObjectId, filename: String, xml: Elem): Unit = {
+  override def processNewReference(user: String, route: MonitorRoute, filename: String, xml: Elem): Unit = {
 
-    monitorRouteRepository.routeById(routeId) match {
-      case None => // TODO throw exception ?
-      case Some(monitorRoute) =>
-        val now = Time.now
+    val now = Time.now
 
-        val geometry = new MonitorRouteGpxReader().read(xml)
-        val bounds = geometryBounds(geometry)
-        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
-        val id = s"$routeId:${now.key}"
+    val geometry = new MonitorRouteGpxReader().read(xml)
+    val bounds = geometryBounds(geometry)
+    val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
 
-        val reference = MonitorRouteReference(
-          ObjectId(),
-//          id,
-          routeId = routeId,
-          relationId = monitorRoute.relationId,
-          key = now.key,
-          created = now,
-          user = user,
-          bounds = bounds,
-          referenceType = "gpx", // "osm" | "gpx"
-          referenceTimestamp = Some(now),
-          segmentCount = 1, // number of tracks in gpx always 1, multiple track not supported yet
-          filename = Some(filename),
-          geometry = geoJson
-        )
+    val reference = MonitorRouteReference(
+      ObjectId(),
+      routeId = route._id,
+      relationId = route.relationId,
+      key = now.key,
+      created = now,
+      user = user,
+      bounds = bounds,
+      referenceType = "gpx", // "osm" | "gpx"
+      referenceTimestamp = Some(now),
+      segmentCount = 1, // number of tracks in gpx always 1, multiple track not supported yet
+      filename = Some(filename),
+      geometry = geoJson
+    )
 
-        monitorRouteRepository.saveRouteReference(reference)
+    monitorRouteRepository.saveRouteReference(reference)
 
-        updateRoute(monitorRoute, reference, now)
-    }
+    updateRoute(route, reference, now)
   }
 
   private def geometryBounds(geometry: Geometry): Bounds = {
@@ -87,5 +81,4 @@ class MonitorRouteAnalyzerImpl(
     val data = new DataBuilder(rawData).data
     data.relations(routeId)
   }
-
 }

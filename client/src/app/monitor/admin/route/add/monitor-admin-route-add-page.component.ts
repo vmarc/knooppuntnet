@@ -121,7 +121,7 @@ export class MonitorAdminRouteAddPageComponent implements OnInit, OnDestroy {
     map((groupName) => `/monitor/groups/${groupName}`)
   );
 
-  readonly relationId = new FormControl<number>(0, [Validators.required]);
+  readonly relationId = new FormControl<string>('', [Validators.required]);
   readonly name = new FormControl<string>('', {
     validators: [
       Validators.required,

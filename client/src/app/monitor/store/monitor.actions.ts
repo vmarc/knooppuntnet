@@ -181,7 +181,7 @@ export const actionMonitorGroupDelete = createAction(
 
 export const actionMonitorRouteInfo = createAction(
   '[Monitor] Route info',
-  props<{ relationId: number }>()
+  props<{ relationId: string }>()
 );
 
 export const actionMonitorRouteAddPageInit = createAction(

@@ -26,7 +26,7 @@ trait MonitorRouteRepository {
 
   def saveRouteChangeGeometry(routeChangeGeometry: MonitorRouteChangeGeometry): Unit
 
-  def routeById(monitorRouteId: ObjectId): Option[MonitorRoute]
+  def routeById(routeId: ObjectId): Option[MonitorRoute]
 
   def routeByName(groupId: ObjectId, routeName: String): Option[MonitorRoute]
 
