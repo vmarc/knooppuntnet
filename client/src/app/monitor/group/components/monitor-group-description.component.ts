@@ -19,10 +19,8 @@ import { FormControl } from '@angular/forms';
         "
         class="kpn-form-error"
       >
-        <div *ngIf="description.errors?.['required']">
-          Description is required.
-        </div>
-        <div *ngIf="description.errors?.['maxlength']">
+        <div *ngIf="description.errors?.required">Description is required.</div>
+        <div *ngIf="description.errors?.maxlength">
           Too long (max=
           {{ description.errors.maxlength.requiredLength }}, actual={{
             description.errors.maxlength.actualLength

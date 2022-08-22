@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { AppState } from '../../../core/core.state';

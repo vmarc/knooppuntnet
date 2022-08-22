@@ -57,7 +57,7 @@ export class MonitorGroupUpdatePageComponent implements OnInit {
       Validators.maxLength(15),
     ],
     asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
-      this.initialName
+      () => this.initialName
     ),
     // updateOn: 'blur',
   });

@@ -47,7 +47,9 @@ export class MonitorGroupAddPageComponent {
       urlFragmentValidator,
       Validators.maxLength(15),
     ],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(''),
+    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
+      () => ''
+    ),
     // updateOn: 'blur',
   });
 

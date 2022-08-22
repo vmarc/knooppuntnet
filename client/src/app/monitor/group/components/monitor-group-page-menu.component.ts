@@ -12,14 +12,7 @@ import { Component, Input } from '@angular/core';
       >
         Routes
       </kpn-page-menu-option>
-      <!--  <kpn-page-menu-option-->
-      <!--    [link]="'/monitor/groups/' + groupName + '/changes'"-->
-      <!--    [active]="pageName === 'changes'"-->
-      <!--  >-->
-      <!--    Changes-->
-      <!--  </kpn-page-menu-option>-->
     </kpn-page-menu>
-
     <kpn-error></kpn-error>
   `,
 })

@@ -155,9 +155,11 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  asyncGroupNameUniqueValidator(initialGroupName: string): AsyncValidatorFn {
+  asyncGroupNameUniqueValidator(
+    initialGroupName: () => string
+  ): AsyncValidatorFn {
     return (c: AbstractControl): Observable<ValidationErrors> => {
-      if (!c.value || c.value.length === 0 || c.value === initialGroupName) {
+      if (!c.value || c.value.length === 0 || c.value === initialGroupName()) {
         return of(null);
       } else {
         return this.groupNames().pipe(
