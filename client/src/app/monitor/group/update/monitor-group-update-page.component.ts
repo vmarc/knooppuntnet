@@ -6,18 +6,18 @@ import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
-import { AppState } from '../../../../core/core.state';
-import { MonitorService } from '../../../monitor.service';
-import { actionMonitorGroupUpdateInit } from '../../../store/monitor.actions';
-import { actionMonitorGroupUpdate } from '../../../store/monitor.actions';
-import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
-import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
+import { AppState } from '../../../core/core.state';
+import { MonitorService } from '../../monitor.service';
+import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
+import { actionMonitorGroupUpdate } from '../../store/monitor.actions';
+import { selectMonitorGroupPage } from '../../store/monitor.selectors';
+import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 
 @Component({
-  selector: 'kpn-monitor-admin-group-update-page',
+  selector: 'kpn-monitor-group-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-admin-group-breadcrumb></kpn-monitor-admin-group-breadcrumb>
+    <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
 
     <h1>Monitor - update group</h1>
 
@@ -27,12 +27,12 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
       </div>
       <div *ngIf="response.result">
         <form [formGroup]="form" #ngForm="ngForm">
-          <kpn-monitor-admin-group-name [ngForm]="ngForm" [name]="name">
-          </kpn-monitor-admin-group-name>
-          <kpn-monitor-admin-group-description
+          <kpn-monitor-group-name [ngForm]="ngForm" [name]="name">
+          </kpn-monitor-group-name>
+          <kpn-monitor-group-description
             [ngForm]="ngForm"
             [description]="description"
-          ></kpn-monitor-admin-group-description>
+          ></kpn-monitor-group-description>
 
           <div class="kpn-form-buttons">
             <button
@@ -48,7 +48,7 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
     </div>
   `,
 })
-export class MonitorAdminGroupUpdatePageComponent implements OnInit {
+export class MonitorGroupUpdatePageComponent implements OnInit {
   private initialName = '';
   readonly name = new FormControl<string>('', {
     validators: [

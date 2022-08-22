@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
-  selector: 'kpn-monitor-admin-route-reference',
+  selector: 'kpn-monitor-route-reference',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="section-title">
@@ -66,7 +66,7 @@ import { MatRadioChange } from '@angular/material/radio';
     `,
   ],
 })
-export class MonitorAdminRouteReferenceComponent {
+export class MonitorRouteReferenceComponent {
   referenceTypeChanged(event: MatRadioChange): void {
     // this.store.dispatch(actionMonitorRouteMapMode({mode: event.value}));
   }

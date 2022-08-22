@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-admin-group-name',
+  selector: 'kpn-monitor-group-name',
   template: `
     <div>
       <mat-form-field>
@@ -38,7 +38,7 @@ import { FormControl } from '@angular/forms';
     `,
   ],
 })
-export class MonitorAdminGroupNameComponent {
+export class MonitorGroupNameComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() name: FormControl<string>;
 }

@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { SidebarComponent } from '../components/shared/sidebar/sidebar.component';
 import { Util } from '../components/shared/util';
 import { MonitorAboutPageComponent } from './about/monitor-about-page.component';
-import { MonitorAdminGroupAddPageComponent } from './admin/group/add/monitor-admin-group-add-page.component';
-import { MonitorAdminGroupDeletePageComponent } from './admin/group/delete/monitor-admin-group-delete-page.component';
-import { MonitorAdminGroupUpdatePageComponent } from './admin/group/update/monitor-admin-group-update-page.component';
-import { MonitorAdminRouteAddPageComponent } from './admin/route/add/monitor-admin-route-add-page.component';
-import { MonitorAdminRouteDeletePageComponent } from './admin/route/delete/monitor-admin-route-delete-page.component';
-import { MonitorAdminRouteUpdatePageComponent } from './admin/route/update/monitor-admin-route-update-page.component';
+import { MonitorGroupAddPageComponent } from './group/add/monitor-group-add-page.component';
+import { MonitorGroupDeletePageComponent } from './group/delete/monitor-group-delete-page.component';
+import { MonitorGroupUpdatePageComponent } from './group/update/monitor-group-update-page.component';
+import { MonitorRouteAddPageComponent } from './route/add/monitor-route-add-page.component';
+import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
+import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 import { MonitorChangesPageComponent } from './changes/monitor-changes-page.component';
 import { MonitorGroupChangesPageComponent } from './group/changes/monitor-group-changes-page.component';
 import { MonitorGroupPageComponent } from './group/details/monitor-group-page.component';
@@ -61,32 +61,32 @@ const routes: Routes = [
   ),
   Util.routePath(
     'admin/groups/add',
-    MonitorAdminGroupAddPageComponent,
+    MonitorGroupAddPageComponent,
     SidebarComponent
   ),
   Util.routePath(
     'admin/groups/:groupName',
-    MonitorAdminGroupUpdatePageComponent,
+    MonitorGroupUpdatePageComponent,
     SidebarComponent
   ),
   Util.routePath(
     'admin/groups/:groupName/delete',
-    MonitorAdminGroupDeletePageComponent,
+    MonitorGroupDeletePageComponent,
     SidebarComponent
   ),
   Util.routePath(
     'admin/groups/:groupName/routes/add',
-    MonitorAdminRouteAddPageComponent,
+    MonitorRouteAddPageComponent,
     SidebarComponent
   ),
   Util.routePath(
     'admin/groups/:groupName/routes/:routeName',
-    MonitorAdminRouteUpdatePageComponent,
+    MonitorRouteUpdatePageComponent,
     SidebarComponent
   ),
   Util.routePath(
     'admin/groups/:groupName/routes/:routeName/delete',
-    MonitorAdminRouteDeletePageComponent,
+    MonitorRouteDeletePageComponent,
     SidebarComponent
   ),
 ];

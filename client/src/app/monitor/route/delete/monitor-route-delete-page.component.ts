@@ -3,16 +3,16 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../../core/core.state';
-import { actionMonitorRouteDeletePageInit } from '../../../store/monitor.actions';
-import { actionMonitorRouteDelete } from '../../../store/monitor.actions';
-import { selectMonitorGroupDescription } from '../../../store/monitor.selectors';
-import { selectMonitorRouteDescription } from '../../../store/monitor.selectors';
-import { selectMonitorRouteName } from '../../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../../store/monitor.selectors';
+import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteDeletePageInit } from '../../store/monitor.actions';
+import { actionMonitorRouteDelete } from '../../store/monitor.actions';
+import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
+import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
+import { selectMonitorRouteName } from '../../store/monitor.selectors';
+import { selectMonitorGroupName } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-admin-route-delete-page',
+  selector: 'kpn-monitor-route-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -55,7 +55,7 @@ import { selectMonitorGroupName } from '../../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorAdminRouteDeletePageComponent implements OnInit {
+export class MonitorRouteDeletePageComponent implements OnInit {
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupLink$ = this.groupName$.pipe(

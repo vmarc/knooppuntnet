@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'kpn-monitor-admin-group-breadcrumb',
+  selector: 'kpn-monitor-group-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -12,4 +12,4 @@ import { Component } from '@angular/core';
     </ul>
   `,
 })
-export class MonitorAdminGroupBreadcrumbComponent {}
+export class MonitorGroupBreadcrumbComponent {}

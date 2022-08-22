@@ -9,19 +9,19 @@ import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../../core/core.state';
-import { Subscriptions } from '../../../../util/Subscriptions';
-import { MonitorService } from '../../../monitor.service';
-import { actionMonitorRouteAddPageInit } from '../../../store/monitor.actions';
-import { actionMonitorRouteInfo } from '../../../store/monitor.actions';
-import { selectMonitorRouteAddPage } from '../../../store/monitor.selectors';
-import { selectMonitorRouteInfoPage } from '../../../store/monitor.selectors';
-import { selectMonitorGroupDescription } from '../../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../../store/monitor.selectors';
-import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
+import { AppState } from '../../../core/core.state';
+import { Subscriptions } from '../../../util/Subscriptions';
+import { MonitorService } from '../../monitor.service';
+import { actionMonitorRouteAddPageInit } from '../../store/monitor.actions';
+import { actionMonitorRouteInfo } from '../../store/monitor.actions';
+import { selectMonitorRouteAddPage } from '../../store/monitor.selectors';
+import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
+import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
+import { selectMonitorGroupName } from '../../store/monitor.selectors';
+import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 
 @Component({
-  selector: 'kpn-monitor-admin-route-add-page',
+  selector: 'kpn-monitor-route-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -90,7 +90,7 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
     </mat-stepper>
   `,
 })
-export class MonitorAdminRouteAddPageComponent implements OnInit, OnDestroy {
+export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {
   private groupId = '';
   readonly response$ = this.store.select(selectMonitorRouteAddPage);
   readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);

@@ -4,16 +4,16 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../core/core.state';
-import { MonitorService } from '../../../monitor.service';
-import { actionMonitorGroupAdd } from '../../../store/monitor.actions';
-import { urlFragmentValidator } from '../../../validator/url-fragment-validator';
+import { AppState } from '../../../core/core.state';
+import { MonitorService } from '../../monitor.service';
+import { actionMonitorGroupAdd } from '../../store/monitor.actions';
+import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 
 @Component({
-  selector: 'kpn-monitor-admin-group-add-page',
+  selector: 'kpn-monitor-group-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-admin-group-breadcrumb></kpn-monitor-admin-group-breadcrumb>
+    <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
 
     <h1>Monitor - add group</h1>
 
@@ -27,12 +27,12 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
     </div>
 
     <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
-      <kpn-monitor-admin-group-name [ngForm]="ngForm" [name]="name">
-      </kpn-monitor-admin-group-name>
-      <kpn-monitor-admin-group-description
+      <kpn-monitor-group-name [ngForm]="ngForm" [name]="name">
+      </kpn-monitor-group-name>
+      <kpn-monitor-group-description
         [ngForm]="ngForm"
         [description]="description"
-      ></kpn-monitor-admin-group-description>
+      ></kpn-monitor-group-description>
       <div class="kpn-form-buttons">
         <button mat-stroked-button (click)="add()">Add group</button>
         <a routerLink="/monitor">Cancel</a>
@@ -40,7 +40,7 @@ import { urlFragmentValidator } from '../../../validator/url-fragment-validator'
     </form>
   `,
 })
-export class MonitorAdminGroupAddPageComponent {
+export class MonitorGroupAddPageComponent {
   readonly name = new FormControl<string>('', {
     validators: [
       Validators.required,

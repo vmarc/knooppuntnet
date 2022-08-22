@@ -2,16 +2,17 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../core/core.state';
-import { actionMonitorGroupDeleteInit } from '../../../store/monitor.actions';
-import { actionMonitorGroupDelete } from '../../../store/monitor.actions';
-import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
+import { map } from 'rxjs/operators';
+import { AppState } from '../../../core/core.state';
+import { actionMonitorGroupDeleteInit } from '../../store/monitor.actions';
+import { actionMonitorGroupDelete } from '../../store/monitor.actions';
+import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-admin-group-delete-page',
+  selector: 'kpn-monitor-group-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-admin-group-breadcrumb></kpn-monitor-admin-group-breadcrumb>
+    <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
 
     <h1>Monitor - delete group</h1>
 
@@ -24,6 +25,16 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
 
         <p>Description: {{ response.result.groupDescription }}</p>
 
+        <div *ngIf="routeCount$ | async as routeCount">
+          <div *ngIf="routeCount > 0" class="kpn-line">
+            <mat-icon svgIcon="warning"></mat-icon>
+            <span
+              >The information of all routes ({{ routeCount }} route(s)) in the
+              group will also be deleted!</span
+            >
+          </div>
+        </div>
+
         <div class="kpn-form-buttons">
           <button mat-stroked-button (click)="delete(response.result.groupId)">
             <span class="warning">Delete group</span>
@@ -34,8 +45,11 @@ import { selectMonitorGroupPage } from '../../../store/monitor.selectors';
     </div>
   `,
 })
-export class MonitorAdminGroupDeletePageComponent implements OnInit {
+export class MonitorGroupDeletePageComponent implements OnInit {
   readonly response$ = this.store.select(selectMonitorGroupPage);
+  readonly routeCount$ = this.response$.pipe(
+    map((response) => response.result.routes.length)
+  );
 
   constructor(private store: Store<AppState>) {}
 

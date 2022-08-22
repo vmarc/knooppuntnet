@@ -4,7 +4,7 @@ import { UntypedFormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'kpn-monitor-admin-route-update-page',
+  selector: 'kpn-monitor-route-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
@@ -25,7 +25,7 @@ import { of } from 'rxjs';
     </kpn-page-menu>
 
     <form [formGroup]="form">
-      <kpn-monitor-admin-route-reference></kpn-monitor-admin-route-reference>
+      <kpn-monitor-route-reference></kpn-monitor-route-reference>
 
       <div class="kpn-button-group">
         <button mat-stroked-button (click)="save()">Save Route</button>
@@ -41,7 +41,7 @@ import { of } from 'rxjs';
     `,
   ],
 })
-export class MonitorAdminRouteUpdatePageComponent {
+export class MonitorRouteUpdatePageComponent {
   readonly groupDescription$ = of('Group One');
   readonly groupLink$ = of('/monitor/groups/group-1');
   readonly routeName$ = of('GR05 Vlaanderen');

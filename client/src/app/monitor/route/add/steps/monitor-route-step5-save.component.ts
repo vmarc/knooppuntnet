@@ -7,9 +7,9 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { AppState } from '../../../../../core/core.state';
-import { MonitorService } from '../../../../monitor.service';
-import { selectMonitorGroupName } from '../../../../store/monitor.selectors';
+import { AppState } from '../../../../core/core.state';
+import { MonitorService } from '../../../monitor.service';
+import { selectMonitorGroupName } from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-step-5-save',

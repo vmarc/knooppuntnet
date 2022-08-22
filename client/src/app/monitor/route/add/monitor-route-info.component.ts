@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 
 @Component({
-  selector: 'kpn-monitor-admin-route-info',
+  selector: 'kpn-monitor-route-info',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="section-title">Route information:</div>
@@ -45,6 +45,6 @@ import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-pag
     `,
   ],
 })
-export class MonitorAdminRouteInfoComponent {
+export class MonitorRouteInfoComponent {
   @Input() routeInfo: MonitorRouteInfoPage;
 }

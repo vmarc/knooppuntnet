@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-admin-group-description',
+  selector: 'kpn-monitor-group-description',
   template: `
     <div>
       <mat-form-field class="description">
@@ -39,7 +39,7 @@ import { FormControl } from '@angular/forms';
     `,
   ],
 })
-export class MonitorAdminGroupDescriptionComponent {
+export class MonitorGroupDescriptionComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() description: FormControl<string>;
 }

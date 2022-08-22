@@ -4,10 +4,10 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../../core/core.state';
-import { MonitorService } from '../../../../monitor.service';
-import { actionMonitorRouteInfo } from '../../../../store/monitor.actions';
-import { selectMonitorRouteInfoPage } from '../../../../store/monitor.selectors';
+import { AppState } from '../../../../core/core.state';
+import { MonitorService } from '../../../monitor.service';
+import { actionMonitorRouteInfo } from '../../../store/monitor.actions';
+import { selectMonitorRouteInfoPage } from '../../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-step-2-relation',
@@ -55,9 +55,9 @@ import { selectMonitorRouteInfoPage } from '../../../../store/monitor.selectors'
         </button>
       </div>
       <div *ngIf="routeInfo$ | async as routeInfo">
-        <kpn-monitor-admin-route-info
+        <kpn-monitor-route-info
           [routeInfo]="routeInfo.result"
-        ></kpn-monitor-admin-route-info>
+        ></kpn-monitor-route-info>
       </div>
     </div>
 
