@@ -202,10 +202,10 @@ export class MonitorEffects {
         ofType(actionMonitorRouteAdd),
         concatLatestFrom(() => this.store.select(selectMonitorGroupName)),
         mergeMap(([action, groupName]) =>
-          this.monitorService.addRoute(groupName, action.add).pipe(
+          this.monitorService.addRoute(groupName, action.properties).pipe(
             tap(() => {
               this.router.navigate([
-                `/monitor/groups/${groupName}/routes/${action.add.name}/reference`,
+                `/monitor/groups/${groupName}/routes/${action.properties.name}/reference`,
               ]);
             })
           )

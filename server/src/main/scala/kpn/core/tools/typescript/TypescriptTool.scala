@@ -2,7 +2,7 @@ package kpn.core.tools.typescript
 
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.monitor.MonitorGroupProperties
-import kpn.api.common.monitor.MonitorRouteAdd
+import kpn.api.common.monitor.MonitorRouteProperties
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -14,7 +14,7 @@ object TypescriptTool {
 
   val formClasses: Seq[String] = Seq(
     name(MonitorGroupProperties),
-    name(MonitorRouteAdd)
+    name(MonitorRouteProperties)
   )
 
   def main(args: Array[String]): Unit = {

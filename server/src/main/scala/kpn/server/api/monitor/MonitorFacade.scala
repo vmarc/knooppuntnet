@@ -7,13 +7,13 @@ import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
-import kpn.api.common.monitor.MonitorRouteAdd
 import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
+import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.custom.ApiResponse
 import kpn.server.api.monitor.domain.MonitorRoute
 
@@ -49,13 +49,15 @@ trait MonitorFacade {
 
   def groupRouteAdd(user: Option[String], groupName: String): ApiResponse[MonitorRouteAddPage]
 
-  def addRoute(user: Option[String], groupName: String, route: MonitorRouteAdd): Unit
+  def addRoute(user: Option[String], groupName: String, route: MonitorRouteProperties): Unit
 
   def updateRoute(user: Option[String], route: MonitorRoute): Unit
 
   def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit
 
-  def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): Unit
+  def analyzeRoute(user: Option[String], groupName: String, routeName: String): Unit
+
+  def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): ApiResponse[String]
 
   def routeNames(user: Option[String], groupName: String): ApiResponse[Seq[String]]
 

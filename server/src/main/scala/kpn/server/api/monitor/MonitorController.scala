@@ -103,9 +103,9 @@ class MonitorController(
   @PostMapping(value = Array("groups/{groupName}"))
   def addRoute(
     @PathVariable groupName: String,
-    @RequestBody add: MonitorRouteAdd
+    @RequestBody properties: MonitorRouteProperties
   ): Unit = {
-    facade.addRoute(CurrentUser.name, groupName, add)
+    facade.addRoute(CurrentUser.name, groupName, properties)
   }
 
   @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
@@ -165,7 +165,7 @@ class MonitorController(
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/upload"))
-  def uploadRoute(
+  def uploadRouteGpxFile(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestParam("file") file: MultipartFile

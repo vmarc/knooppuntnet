@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpEvent,
@@ -10,8 +11,8 @@ import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
-import { finalize } from 'rxjs/operators';
 import { AppState } from '../core/core.state';
 import { actionSharedHttpError } from '../core/shared/shared.actions';
 import { SpinnerService } from './spinner.service';
@@ -29,27 +30,36 @@ export class SpinnerInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const action = 'http-request';
     this.spinnerService.start(action);
-    return next.handle(request).pipe(
-      catchError((error) => {
-        let httpError = 'error';
-        if (error instanceof HttpErrorResponse) {
-          if (error.error instanceof ErrorEvent) {
-            httpError = 'error-event';
-          } else {
-            httpError = 'error-' + error.status;
+    return next
+      .handle(request)
+      .pipe(
+        catchError((error) => {
+          let httpError = 'error';
+          if (error instanceof HttpErrorResponse) {
+            if (error.error instanceof ErrorEvent) {
+              httpError = 'error-event';
+            } else {
+              httpError = 'error-' + error.status;
+            }
           }
-        }
-        if (
-          request.url.includes(
-            'import?url=https://api.openstreetmap.org/api/0.6'
-          )
-        ) {
-          return throwError(error);
-        }
-        this.store.dispatch(actionSharedHttpError({ httpError }));
-        return of(null);
-      }),
-      finalize(() => this.spinnerService.end(action))
-    );
+          if (
+            request.url.includes(
+              'import?url=https://api.openstreetmap.org/api/0.6'
+            )
+          ) {
+            return throwError(error);
+          }
+          this.store.dispatch(actionSharedHttpError({ httpError }));
+          return of(null);
+        })
+      )
+      .pipe(
+        map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
+          if (evt instanceof HttpResponse) {
+            this.spinnerService.end(action);
+          }
+          return evt;
+        })
+      );
   }
 }

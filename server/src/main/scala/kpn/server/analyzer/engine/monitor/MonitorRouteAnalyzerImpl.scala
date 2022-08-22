@@ -26,10 +26,14 @@ class MonitorRouteAnalyzerImpl(
   overpassQueryExecutor: OverpassQueryExecutor
 ) extends MonitorRouteAnalyzer {
 
-  override def processNewReference(user: String, route: MonitorRoute, filename: String, xml: Elem): Unit = {
+  override def analyze(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
+    val now = Time.now
+    updateRoute(route, reference, now)
+  }
+
+  override def processNewReference(user: String, route: MonitorRoute, filename: String, xml: Elem): String = {
 
     val now = Time.now
-
     val geometry = new MonitorRouteGpxReader().read(xml)
     val bounds = geometryBounds(geometry)
     val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
@@ -50,8 +54,7 @@ class MonitorRouteAnalyzerImpl(
     )
 
     monitorRouteRepository.saveRouteReference(reference)
-
-    updateRoute(route, reference, now)
+    "OK"
   }
 
   private def geometryBounds(geometry: Geometry): Bounds = {

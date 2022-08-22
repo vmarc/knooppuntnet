@@ -49,5 +49,6 @@ export class MonitorRouteStep4ReferenceDetailsComponent {
 
   selectFile(selectEvent: any) {
     this.gpxFile.setValue(selectEvent.target.files[0]);
+    this.gpxFilename.setValue(selectEvent.target.files[0].name);
   }
 }

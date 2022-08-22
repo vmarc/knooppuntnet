@@ -87,12 +87,21 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     )
   }
 
-  override def routeReference(routeId: ObjectId, key: String): Option[MonitorRouteReference] = {
-    throw new RuntimeException("TODO method still needed?")
-    //    database.monitorRouteReferences.findOne[MonitorRouteReference](
-    //      equal("_id", s"$monitorRouteId:$key"),
-    //      log
-    //    )
+  override def currentRouteReference(routeId: ObjectId): Option[MonitorRouteReference] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      sort(
+        orderBy(
+          descending(
+            "_id"
+          )
+        )
+      ),
+      limit(1)
+    )
+    database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
   }
 
   override def routeReference(referenceId: ObjectId): Option[MonitorRouteReference] = {

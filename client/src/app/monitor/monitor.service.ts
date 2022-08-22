@@ -9,13 +9,13 @@ import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-chang
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
 import { MonitorGroupProperties } from '@api/common/monitor/monitor-group-properties';
 import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
-import { MonitorRouteAdd } from '@api/common/monitor/monitor-route-add';
 import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page';
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -80,10 +80,10 @@ export class MonitorService {
 
   addRoute(
     groupName: string,
-    add: MonitorRouteAdd
+    properties: MonitorRouteProperties
   ): Observable<ApiResponse<MonitorGroupPage>> {
     const url = `/api/monitor/groups/${groupName}`;
-    return this.http.post(url, add);
+    return this.http.post(url, properties);
   }
 
   route(
@@ -146,6 +146,14 @@ export class MonitorService {
     formData.append('file', file);
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload`;
     return this.http.post(url, formData);
+  }
+
+  routeAnalyze(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<void>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/analyze`;
+    return this.http.post(url, '');
   }
 
   private routeNames(

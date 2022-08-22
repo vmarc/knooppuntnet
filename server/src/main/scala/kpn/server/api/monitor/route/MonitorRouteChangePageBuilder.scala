@@ -44,7 +44,7 @@ class MonitorRouteChangePageBuilder(
                 None
 
               case Some(group) =>
-                monitorRouteRepository.routeReference(ObjectId("TODO MON") /*"TODO KEY" + routeId*/ , routeChange.referenceKey) match {
+                monitorRouteRepository.currentRouteReference(ObjectId("TODO MON") /*"TODO KEY" + routeId , routeChange.referenceKey*/) match {
                   case None =>
                     log.warn(s"Could not routeReference routeId=$routeId, referenceKey=${routeChange.referenceKey}")
                     None
