@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-route-step-1-name',
+  selector: 'kpn-monitor-route-properties-step-1-name',
   template: `
     <p>
       <mat-form-field>
@@ -23,7 +23,7 @@ import { FormGroup } from '@angular/forms';
     </div>
   `,
 })
-export class MonitorRouteStep1NameComponent {
+export class MonitorRoutePropertiesStep1NameComponent {
   @Input() form: FormGroup;
   @Input() name: FormControl<string>;
   @Input() description: FormControl<string>;

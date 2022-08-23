@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-route-step-4-reference-details',
+  selector: 'kpn-monitor-route-properties-step-4-reference-details',
   template: `
     <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
       <mat-form-field appearance="fill">
@@ -41,7 +41,7 @@ import { FormControl } from '@angular/forms';
     `,
   ],
 })
-export class MonitorRouteStep4ReferenceDetailsComponent {
+export class MonitorRoutePropertiesStep4ReferenceDetailsComponent {
   @Input() referenceType: FormControl<string>;
   @Input() referenceTimestamp: FormControl<string>;
   @Input() gpxFilename: FormControl<string>;

@@ -1,8 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { selectRouteParam } from '../../../core/core.state';
@@ -20,7 +18,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
       <li>
-        <a routerLink="groupLink$ | async">{{ groupName$ | async }}</a>
+        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
       <li>Route</li>
     </ul>
@@ -35,21 +33,21 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
     <h2>Update route</h2>
 
     <div *ngIf="response$ | async as response">
-      <pre>{{ debug(response) }}</pre>
+      <kpn-monitor-route-properties
+        mode="update"
+        [initialProperties]="response.result.properties"
+      >
+      </kpn-monitor-route-properties>
     </div>
   `,
-  styles: [
-    `
-      .kpn-button-group {
-        padding-top: 3em;
-      }
-    `,
-  ],
 })
 export class MonitorRouteUpdatePageComponent implements OnInit {
   readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);
   readonly groupName$ = this.store.select(selectRouteParam('groupName'));
   readonly routeName$ = this.store.select(selectRouteParam('routeName'));
+  readonly groupLink$ = this.groupName$.pipe(
+    map((groupName) => `/monitor/groups/${groupName}`)
+  );
   readonly routeDescription$ = this.response$.pipe(
     map((response) => response.result?.routeDescription)
   );
@@ -61,9 +59,5 @@ export class MonitorRouteUpdatePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteUpdatePageInit());
-  }
-
-  debug(response: ApiResponse<MonitorRouteUpdatePage>): string {
-    return JSON.stringify(response, null, 2);
   }
 }

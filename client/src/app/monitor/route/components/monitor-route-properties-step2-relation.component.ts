@@ -4,13 +4,13 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../core/core.state';
-import { MonitorService } from '../../../monitor.service';
-import { actionMonitorRouteInfo } from '../../../store/monitor.actions';
-import { selectMonitorRouteInfoPage } from '../../../store/monitor.selectors';
+import { AppState } from '../../../core/core.state';
+import { MonitorService } from '../../monitor.service';
+import { actionMonitorRouteInfo } from '../../store/monitor.actions';
+import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-route-step-2-relation',
+  selector: 'kpn-monitor-route-properties-step-2-relation',
   template: `
     <div class="question">
       <p>Do you know the OSM relation id for this route?</p>
@@ -103,7 +103,7 @@ import { selectMonitorRouteInfoPage } from '../../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRouteStep2RelationComponent {
+export class MonitorRoutePropertiesStep2RelationComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() form: FormGroup;
   @Input() relationIdKnown: FormControl<boolean>;
