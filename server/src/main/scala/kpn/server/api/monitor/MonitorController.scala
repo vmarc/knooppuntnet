@@ -7,18 +7,17 @@ import kpn.api.common.monitor.MonitorGroupChangesPage
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorGroupProperties
 import kpn.api.common.monitor.MonitorGroupsPage
-import kpn.api.common.monitor.MonitorRouteAdd
 import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
+import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
 import kpn.server.api.monitor.domain.MonitorRoute
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -157,6 +156,14 @@ class MonitorController(
     facade.groupRouteAdd(CurrentUser.name, groupName)
   }
 
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/update-info"))
+  def routeUpdatePage(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+  ): ApiResponse[MonitorRouteUpdatePage] = {
+    facade.routeUpdatePage(CurrentUser.name, groupName, routeName)
+  }
+
   @GetMapping(value = Array("route-info/{routeId}"))
   def routeInfo(
     @PathVariable routeId: Long
@@ -169,20 +176,17 @@ class MonitorController(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestParam("file") file: MultipartFile
-  ): ResponseEntity[String] = {
-    try {
-      val xml = XML.load(file.getInputStream)
-      facade.processNewReference(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
-      val message = "File successfully uploaded: " + file.getOriginalFilename
-      ResponseEntity.status(HttpStatus.OK).body(message)
-    } catch {
-      case e: Exception =>
+  ): ApiResponse[String] = {
+    val xml = XML.load(file.getInputStream)
+    facade.processNewReference(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
+  }
 
-        e.printStackTrace()
-
-        val message = "Could not upload the file: " + file.getOriginalFilename + "!"
-        ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message)
-    }
+  @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/analyze"))
+  def analyzeRoute(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+  ): Unit = {
+    facade.analyzeRoute(CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/route-names"))

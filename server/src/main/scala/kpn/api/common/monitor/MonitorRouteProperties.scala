@@ -6,5 +6,5 @@ case class MonitorRouteProperties(
   relationId: Option[String],
   referenceType: String,
   referenceTimestamp: Option[String], // TODO MON or Timestamp?
-  gpxFilename: String
+  gpxFilename: Option[String]
 )

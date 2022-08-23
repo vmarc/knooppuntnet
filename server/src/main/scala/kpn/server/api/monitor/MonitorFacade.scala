@@ -14,6 +14,7 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.server.api.monitor.domain.MonitorRoute
 
@@ -48,6 +49,8 @@ trait MonitorFacade {
   def routeInfo(user: Option[String], routeId: Long): ApiResponse[MonitorRouteInfoPage]
 
   def groupRouteAdd(user: Option[String], groupName: String): ApiResponse[MonitorRouteAddPage]
+
+  def routeUpdatePage(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage]
 
   def addRoute(user: Option[String], groupName: String, route: MonitorRouteProperties): Unit
 

@@ -9,6 +9,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
+import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 
 export const initialState: MonitorState = {
@@ -32,6 +33,7 @@ export const initialState: MonitorState = {
   groupChangesPageIndex: 0,
   groupChangesPage: null,
   routeAddPage: null,
+  routeUpdatePage: null,
   routeInfoPage: null,
   routeDetailsPage: null,
   routeMapPage: null,
@@ -62,6 +64,7 @@ export interface MonitorState {
   groupChangesPageIndex: number;
   groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
   routeAddPage: ApiResponse<MonitorRouteAddPage>;
+  routeUpdatePage: ApiResponse<MonitorRouteUpdatePage>;
   routeInfoPage: ApiResponse<MonitorRouteInfoPage>;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;

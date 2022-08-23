@@ -1,7 +1,16 @@
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
-import { of } from 'rxjs';
+import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
+import { ApiResponse } from '@api/custom/api-response';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
+import { selectRouteParam } from '../../../core/core.state';
+import { selectDefined } from '../../../core/core.state';
+import { AppState } from '../../../core/core.state';
+import { MonitorService } from '../../monitor.service';
+import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
+import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-update-page',
@@ -11,27 +20,23 @@ import { of } from 'rxjs';
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
       <li>
-        <a routerLink="groupLink$ | async">{{ groupDescription$ | async }}</a>
+        <a routerLink="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
       <li>Route</li>
     </ul>
 
     <h1>
-      {{ routeName$ | async }}
+      <span>{{ routeName$ | async }}</span>
+      <span *ngIf="routeDescription$ | async as routeDescription"
+        >: {{ routeDescription }}</span
+      >
     </h1>
 
-    <kpn-page-menu>
-      <span> Update </span>
-    </kpn-page-menu>
+    <h2>Update route</h2>
 
-    <form [formGroup]="form">
-      <kpn-monitor-route-reference></kpn-monitor-route-reference>
-
-      <div class="kpn-button-group">
-        <button mat-stroked-button (click)="save()">Save Route</button>
-        <a [routerLink]="groupLink$ | async">Cancel</a>
-      </div>
-    </form>
+    <div *ngIf="response$ | async as response">
+      <pre>{{ debug(response) }}</pre>
+    </div>
   `,
   styles: [
     `
@@ -41,14 +46,24 @@ import { of } from 'rxjs';
     `,
   ],
 })
-export class MonitorRouteUpdatePageComponent {
-  readonly groupDescription$ = of('Group One');
-  readonly groupLink$ = of('/monitor/groups/group-1');
-  readonly routeName$ = of('GR05 Vlaanderen');
+export class MonitorRouteUpdatePageComponent implements OnInit {
+  readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);
+  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
+  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
+  readonly routeDescription$ = this.response$.pipe(
+    map((response) => response.result?.routeDescription)
+  );
 
-  readonly form = new UntypedFormGroup({
-    // routeId: this.routeId
-  });
+  constructor(
+    private monitorService: MonitorService,
+    private store: Store<AppState>
+  ) {}
 
-  save(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(actionMonitorRouteUpdatePageInit());
+  }
+
+  debug(response: ApiResponse<MonitorRouteUpdatePage>): string {
+    return JSON.stringify(response, null, 2);
+  }
 }

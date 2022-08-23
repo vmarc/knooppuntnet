@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -159,7 +158,6 @@ export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   constructor(
-    private formBuilder: FormBuilder,
     private monitorService: MonitorService,
     private store: Store<AppState>
   ) {}

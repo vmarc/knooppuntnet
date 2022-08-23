@@ -20,6 +20,8 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteUpdatePageLoaded } from './monitor.actions';
+import { actionMonitorRouteUpdatePageInit } from './monitor.actions';
 import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
 import { actionMonitorRouteAddPageInit } from './monitor.actions';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './monitor.actions';
@@ -212,6 +214,24 @@ export class MonitorEffects {
         )
       ),
     { dispatch: false }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteUpdatePage = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteUpdatePageInit),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+      ]),
+      mergeMap(([{}, groupName, routeName]) =>
+        this.monitorService
+          .routeUpdatePage(groupName, routeName)
+          .pipe(
+            map((response) => actionMonitorRouteUpdatePageLoaded({ response }))
+          )
+      )
+    )
   );
 
   // noinspection JSUnusedGlobalSymbols

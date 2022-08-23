@@ -16,6 +16,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
+import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
@@ -129,6 +130,14 @@ export class MonitorService {
 
   routeAdd(groupName: string): Observable<ApiResponse<MonitorRouteAddPage>> {
     const url = `/api/monitor/route-add/${groupName}`;
+    return this.http.get(url);
+  }
+
+  routeUpdatePage(
+    groupName: string,
+    routeName: string
+  ): Observable<ApiResponse<MonitorRouteUpdatePage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/update-info`;
     return this.http.get(url);
   }
 

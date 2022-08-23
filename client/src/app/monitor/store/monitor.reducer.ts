@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteUpdatePageLoaded } from './monitor.actions';
 import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
 import { actionMonitorRouteInfoLoaded } from './monitor.actions';
@@ -107,6 +108,12 @@ export const monitorReducer = createReducer(
     return {
       ...state,
       routeAddPage: response,
+    };
+  }),
+  on(actionMonitorRouteUpdatePageLoaded, (state, { response }) => {
+    return {
+      ...state,
+      routeUpdatePage: response,
     };
   }),
   on(actionMonitorRouteInfoLoaded, (state, { response }) => {

@@ -16,6 +16,7 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.Time
 import kpn.core.common.TimestampLocal
@@ -32,6 +33,7 @@ import kpn.server.api.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteDetailsPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.api.monitor.route.MonitorRouteMapPageBuilder
+import kpn.server.api.monitor.route.MonitorRouteUpdatePageBuilder
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -46,6 +48,7 @@ class MonitorFacadeImpl(
   monitorGroupsPageBuilder: MonitorGroupsPageBuilder,
   monitorGroupNamesBuilder: MonitorGroupNamesBuilder,
   monitorGroupPageBuilder: MonitorGroupPageBuilder,
+  monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
@@ -159,6 +162,13 @@ class MonitorFacadeImpl(
           )
         }
       )
+    }
+  }
+
+  override def routeUpdatePage(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage] = {
+    api.execute(user, "monitor-route-update-page", s"$groupName:$routeName") {
+      assertAdminUser(user)
+      reply(monitorRouteUpdatePageBuilder.build(groupName, routeName))
     }
   }
 

@@ -12,6 +12,7 @@ import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-pag
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
+import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
@@ -200,6 +201,15 @@ export const actionMonitorRouteAdd = createAction(
 
 export const actionMonitorRouteDeletePageInit = createAction(
   '[Monitor] Route delete init'
+);
+
+export const actionMonitorRouteUpdatePageInit = createAction(
+  '[MonitorRouteUpdatePage] Init'
+);
+
+export const actionMonitorRouteUpdatePageLoaded = createAction(
+  '[MonitorRouteUpdatePage] Loaded',
+  props<{ response: ApiResponse<MonitorRouteUpdatePage> }>()
 );
 
 export const actionMonitorRouteDelete = createAction('[Monitor] Route delete');
