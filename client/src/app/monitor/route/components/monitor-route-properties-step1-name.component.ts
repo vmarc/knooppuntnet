@@ -1,30 +1,33 @@
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-1-name',
   template: `
-    <p>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput [formControl]="name" />
-      </mat-form-field>
-    </p>
-    <p>
-      <mat-form-field class="description">
-        <mat-label>Description</mat-label>
-        <input matInput [formControl]="description" />
-      </mat-form-field>
-    </p>
+    <kpn-monitor-route-name [ngForm]="ngForm" [name]="name">
+    </kpn-monitor-route-name>
+    <kpn-monitor-route-description
+      [ngForm]="ngForm"
+      [description]="description"
+    ></kpn-monitor-route-description>
     <div class="kpn-button-group">
       <button mat-stroked-button matStepperNext>Next</button>
     </div>
+
+    <pre>
+      {{ debug() }}
+    </pre
+    >
   `,
 })
 export class MonitorRoutePropertiesStep1NameComponent {
-  @Input() form: FormGroup;
+  @Input() ngForm: FormGroupDirective;
   @Input() name: FormControl<string>;
   @Input() description: FormControl<string>;
+
+  debug(): string {
+    return JSON.stringify(this.name.errors, null, 2);
+  }
 }

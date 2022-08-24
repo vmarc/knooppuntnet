@@ -45,6 +45,8 @@ import { MonitorRouteInfoComponent } from './route/add/monitor-route-info.compon
 import { MonitorRouteChangeMapComponent } from './route/changes/monitor-route-change-map.component';
 import { MonitorRouteChangePageComponent } from './route/changes/monitor-route-change-page.component';
 import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-changes-page.component';
+import { MonitorRouteDescriptionComponent } from './route/components/monitor-route-description.component';
+import { MonitorRouteNameComponent } from './route/components/monitor-route-name.component';
 import { MonitorRoutePageHeaderComponent } from './route/components/monitor-route-page-header.component';
 import { MonitorRoutePropertiesStep1NameComponent } from './route/components/monitor-route-properties-step1-name.component';
 import { MonitorRoutePropertiesStep2RelationComponent } from './route/components/monitor-route-properties-step2-relation.component';
@@ -116,6 +118,8 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorGroupUpdatePageComponent,
     MonitorPageMenuComponent,
     MonitorRouteAddPageComponent,
+    MonitorRouteNameComponent,
+    MonitorRouteDescriptionComponent,
     MonitorRouteChangeMapComponent,
     MonitorRouteChangePageComponent,
     MonitorRouteChangesPageComponent,

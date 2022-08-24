@@ -18,9 +18,9 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
   template: `
     <mat-stepper orientation="vertical" [linear]="initialProperties === null">
       <mat-step label="Route name and description" [stepControl]="nameForm">
-        <form [formGroup]="nameForm">
+        <form [formGroup]="nameForm" #ngNameForm="ngForm">
           <kpn-monitor-route-properties-step-1-name
-            [form]="nameForm"
+            [ngForm]="ngNameForm"
             [name]="name"
             [description]="description"
           ></kpn-monitor-route-properties-step-1-name>
@@ -78,7 +78,12 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       urlFragmentValidator,
       Validators.maxLength(15),
     ],
-    //asyncValidators: this.monitorService.asyncRouteNameUniqueValidator(''),
+    asyncValidators: this.monitorService.asyncRouteNameUniqueValidator(() => {
+      if (this.mode === 'update') {
+        return this.initialProperties.name;
+      }
+      return '';
+    }),
   });
   readonly description = new FormControl<string>('', [
     Validators.required,
@@ -145,7 +150,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
         referenceType: this.initialProperties.referenceType,
       });
       this.referenceForm.setValue({
-        referenceTimestamp: this.initialProperties.referenceTimestamp,
+        referenceTimestamp: null, // TODO MON this.initialProperties.referenceTimestamp,
         gpxFilename: this.initialProperties.gpxFilename,
         gpxFile: null,
       });

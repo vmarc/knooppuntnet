@@ -24,8 +24,8 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { selectRouteParam } from '../core/core.state';
 import { AppState } from '../core/core.state';
-import { selectMonitorGroupName } from './store/monitor.selectors';
 
 @Injectable()
 export class MonitorService {
@@ -193,24 +193,44 @@ export class MonitorService {
     };
   }
 
-  asyncRouteNameUniqueValidator(initialRouteName: string): AsyncValidatorFn {
-    return (c: AbstractControl): Observable<ValidationErrors> => {
-      if (!c.value || c.value.length === 0 || c.value === initialRouteName) {
+  asyncRouteNameUniqueValidator(
+    initialRouteName: () => string
+  ): AsyncValidatorFn {
+    return (c: AbstractControl): Observable<ValidationErrors | null> => {
+      console.log(
+        'DEBUG MON asyncRouteNameUniqueValidator, initialRouteName=' +
+          initialRouteName()
+      );
+
+      if (!c.value || c.value.length === 0 || c.value === initialRouteName()) {
+        console.log('DEBUG MON asyncRouteNameUniqueValidator, return null');
         return of(null);
       } else {
-        this.store.select(selectMonitorGroupName).pipe(
-          mergeMap((groupName) =>
-            this.routeNames(groupName).pipe(
+        return this.store.select(selectRouteParam('groupName')).pipe(
+          mergeMap((groupName) => {
+            console.log(
+              'DEBUG MON asyncRouteNameUniqueValidator, fetching route names'
+            );
+
+            return this.routeNames(groupName).pipe(
               map((response) => response.result),
               map((routeNames) => {
+                console.log(
+                  'DEBUG MON asyncRouteNameUniqueValidator, received route names= ' +
+                    JSON.stringify(routeNames)
+                );
                 if (routeNames.includes(c.value)) {
+                  console.log(
+                    'DEBUG MON asyncRouteNameUniqueValidator, duplicate '
+                  );
                   return { routeNameNonUnique: c.value };
                 }
+                console.log('DEBUG MON asyncRouteNameUniqueValidator, null ');
                 return null;
               }),
               catchError(() => of(null))
-            )
-          )
+            );
+          })
         );
       }
     };

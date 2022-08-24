@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorGroupPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
@@ -57,7 +58,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   `,
 })
 export class MonitorGroupPageComponent implements OnInit {
-  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly addRouteLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/admin/groups/${groupName}/routes/add`)
