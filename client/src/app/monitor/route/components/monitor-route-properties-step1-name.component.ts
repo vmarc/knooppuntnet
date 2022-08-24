@@ -15,19 +15,10 @@ import { FormControl } from '@angular/forms';
     <div class="kpn-button-group">
       <button mat-stroked-button matStepperNext>Next</button>
     </div>
-
-    <pre>
-      {{ debug() }}
-    </pre
-    >
   `,
 })
 export class MonitorRoutePropertiesStep1NameComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() name: FormControl<string>;
   @Input() description: FormControl<string>;
-
-  debug(): string {
-    return JSON.stringify(this.name.errors, null, 2);
-  }
 }

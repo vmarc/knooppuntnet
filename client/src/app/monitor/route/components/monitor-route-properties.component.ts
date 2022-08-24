@@ -1,20 +1,18 @@
 import { Input, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ValidatorFn } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
+import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
-import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 
 @Component({
   selector: 'kpn-monitor-route-properties',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-stepper orientation="vertical" [linear]="initialProperties === null">
       <mat-step label="Route name and description" [stepControl]="nameForm">
