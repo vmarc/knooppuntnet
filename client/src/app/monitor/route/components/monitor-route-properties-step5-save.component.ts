@@ -30,6 +30,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
   `,
 })
 export class MonitorRoutePropertiesStep5SaveComponent {
+  @Input() initialProperties: MonitorRouteProperties;
   @Input() mode: string;
   @Input() name: FormControl<string>;
   @Input() description: FormControl<string>;
@@ -75,26 +76,30 @@ export class MonitorRoutePropertiesStep5SaveComponent {
               if (this.referenceType.value === 'gpx') {
                 this.status$.next('Uploading gpx file...');
                 const file = this.gpxFile.value;
-                return this.monitorService
-                  .routeGpxUpload(groupName, this.name.value, file)
-                  .pipe(
-                    mergeMap(() => {
-                      this.status$.next(
-                        'Analyzing route, this can take some time, please wait..'
-                      );
-                      return this.monitorService.routeAnalyze(
-                        groupName,
-                        this.name.value
-                      );
-                    }),
-                    concatMap(() =>
-                      from(
-                        this.router.navigateByUrl(
-                          `/monitor/groups/${groupName}/routes/${this.name.value}/map`
+                if (this.gpxFile.value) {
+                  return this.monitorService
+                    .routeGpxUpload(groupName, this.name.value, file)
+                    .pipe(
+                      mergeMap(() => {
+                        this.status$.next(
+                          'Analyzing route, this can take some time, please wait..'
+                        );
+                        return this.monitorService.routeAnalyze(
+                          groupName,
+                          this.name.value
+                        );
+                      }),
+                      concatMap(() =>
+                        from(
+                          this.router.navigateByUrl(
+                            `/monitor/groups/${groupName}/routes/${this.name.value}/map`
+                          )
                         )
                       )
-                    )
-                  );
+                    );
+                } else {
+                  return of(true);
+                }
               } else {
                 return of(true);
               }
@@ -116,39 +121,45 @@ export class MonitorRoutePropertiesStep5SaveComponent {
             relationId: this.relationId.value,
             referenceType: this.referenceType.value,
             referenceTimestamp: this.referenceTimestamp.value,
+            gpxFileChanged: !!this.gpxFile.value,
             gpxFilename: this.gpxFilename.value,
           };
           this.status$.next('Saving route definition...');
-          return this.monitorService.addRoute(groupName, properties).pipe(
-            concatMap(() => {
-              if (this.referenceType.value === 'gpx') {
-                this.status$.next('Uploading gpx file...');
-                const file = this.gpxFile.value;
-                return this.monitorService
-                  .routeGpxUpload(groupName, this.name.value, file)
-                  .pipe(
-                    mergeMap(() => {
-                      this.status$.next(
-                        'Analyzing route, this can take some time, please wait..'
-                      );
-                      return this.monitorService.routeAnalyze(
-                        groupName,
-                        this.name.value
-                      );
-                    }),
-                    concatMap(() =>
-                      from(
-                        this.router.navigateByUrl(
-                          `/monitor/groups/${groupName}/routes/${this.name.value}/map`
+          return this.monitorService
+            .updateRoute(groupName, this.initialProperties.name, properties)
+            .pipe(
+              concatMap(() => {
+                if (
+                  this.referenceType.value === 'gpx' &&
+                  properties.gpxFileChanged
+                ) {
+                  this.status$.next('Uploading gpx file...');
+                  const file = this.gpxFile.value;
+                  return this.monitorService
+                    .routeGpxUpload(groupName, this.name.value, file)
+                    .pipe(
+                      mergeMap(() => {
+                        this.status$.next(
+                          'Analyzing route, this can take some time, please wait..'
+                        );
+                        return this.monitorService.routeAnalyze(
+                          groupName,
+                          this.name.value
+                        );
+                      }),
+                      concatMap(() =>
+                        from(
+                          this.router.navigateByUrl(
+                            `/monitor/groups/${groupName}/routes/${this.name.value}/map`
+                          )
                         )
                       )
-                    )
-                  );
-              } else {
-                return of(true);
-              }
-            })
-          );
+                    );
+                } else {
+                  return of(true);
+                }
+              })
+            );
         })
       )
       .subscribe();

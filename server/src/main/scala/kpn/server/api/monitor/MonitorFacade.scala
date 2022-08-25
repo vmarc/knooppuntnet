@@ -16,7 +16,6 @@ import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.server.api.monitor.domain.MonitorRoute
 
 import scala.xml.Elem
 
@@ -52,9 +51,9 @@ trait MonitorFacade {
 
   def routeUpdatePage(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage]
 
-  def addRoute(user: Option[String], groupName: String, route: MonitorRouteProperties): Unit
+  def addRoute(user: Option[String], groupName: String, properties: MonitorRouteProperties): Unit
 
-  def updateRoute(user: Option[String], route: MonitorRoute): Unit
+  def updateRoute(user: Option[String], groupName: String, routeName: String, properties: MonitorRouteProperties): Unit
 
   def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit
 

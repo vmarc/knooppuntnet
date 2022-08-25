@@ -241,10 +241,64 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def updateRoute(user: Option[String], route: MonitorRoute): Unit = {
-    api.execute(user, "monitor-update-route", route.name) {
+  override def updateRoute(user: Option[String], groupName: String, routeName: String, properties: MonitorRouteProperties): Unit = {
+    api.execute(user, "monitor-update-route", s"$groupName:$routeName") {
       assertAdminUser(user)
-      monitorRouteRepository.saveRoute(route)
+      monitorGroupRepository.groupByName(groupName).foreach { group =>
+        monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
+          if (route.name != properties.name ||
+            route.description != properties.description ||
+            route.relationId != properties.relationId.map(_.toLong)
+            /* || TODO MON || route.groupId != properties.groupId */
+          ) {
+            monitorRouteRepository.saveRoute(
+              route.copy(
+                name = properties.name,
+                description = properties.description,
+                relationId = properties.relationId.map(_.toLong)
+              )
+            )
+          }
+
+          if (properties.referenceType == "osm") {
+            if (route.relationId != properties.relationId.map(_.toLong)) {
+              // TODO pick up relation details from overpass + calculate bounds + geometry
+              val bounds = Bounds()
+              val geometry = "" // TODO MON
+              val reference = MonitorRouteReference(
+                _id = ObjectId(),
+                routeId = route._id,
+                relationId = properties.relationId.map(_.toLong),
+                key = "", // TODO MON ??
+                created = Time.now,
+                user = user.get,
+                bounds = bounds,
+                referenceType = "osm",
+                referenceTimestamp = Some(Time.now), // TODO MON properties.referenceTimestamp
+                segmentCount = 0,
+                filename = None,
+                geometry = geometry
+              )
+              monitorRouteRepository.saveRouteReference(reference)
+              monitorRouteAnalyzer.analyze(route, reference)
+            }
+          }
+          else if (properties.referenceType == "gpx") {
+            if (properties.gpxFileChanged) {
+              // reference has changed, but details will arrive in next api call
+              // re-analyze only after reference has been updated
+            }
+            else if (route.relationId != properties.relationId.map(_.toLong)) {
+              // reference does not change, but have reanalyze because the relationId has changed
+              monitorRouteRepository.currentRouteReference(route._id) match {
+                case None =>
+                  throw new IllegalArgumentException(s"""Could not find reference for route "$groupName:$routeName""""")
+                case Some(reference) => monitorRouteAnalyzer.analyze(route, reference)
+              }
+            }
+          }
+        }
+      }
     }
   }
 

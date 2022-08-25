@@ -6,5 +6,6 @@ export interface MonitorRouteProperties {
   readonly relationId?: string;
   readonly referenceType?: string;
   readonly referenceTimestamp?: string;
+  readonly gpxFileChanged?: boolean;
   readonly gpxFilename?: string;
 }

@@ -42,6 +42,7 @@ class MonitorRouteUpdatePageBuilder(
                       relationId = route.relationId.map(_.toString),
                       referenceType = reference.referenceType,
                       referenceTimestamp = None, // TODO MON reference.referenceTimestamp,
+                      gpxFileChanged = false,
                       gpxFilename = reference.filename
                     )
                   )

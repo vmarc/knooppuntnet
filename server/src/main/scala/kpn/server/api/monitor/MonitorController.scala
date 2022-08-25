@@ -109,10 +109,11 @@ class MonitorController(
 
   @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def updateRoute(
-    @PathVariable groupName: String, // TODO MON not used anymore, groupId included in MonitorRouteAdd (change url?)
-    @RequestBody route: MonitorRoute
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+    @RequestBody properties: MonitorRouteProperties
   ): Unit = {
-    facade.updateRoute(CurrentUser.name, route)
+    facade.updateRoute(CurrentUser.name, groupName, routeName, properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))

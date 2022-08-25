@@ -52,6 +52,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
       </mat-step>
       <mat-step label="Save">
         <kpn-monitor-route-properties-step-5-save
+          [initialProperties]="initialProperties"
           [mode]="mode"
           [name]="name"
           [description]="description"

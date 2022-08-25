@@ -88,6 +88,15 @@ export class MonitorService {
     return this.http.post(url, properties);
   }
 
+  updateRoute(
+    groupName: string,
+    routeName: string,
+    properties: MonitorRouteProperties
+  ): Observable<ApiResponse<MonitorGroupPage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
+    return this.http.put(url, properties);
+  }
+
   route(
     groupName: string,
     routeName: string
@@ -166,13 +175,6 @@ export class MonitorService {
     return this.http.post(url, '');
   }
 
-  private routeNames(
-    groupName: string
-  ): Observable<ApiResponse<Array<string>>> {
-    const url = `/api/monitor/groups/${groupName}/route-names`;
-    return this.http.get(url);
-  }
-
   asyncGroupNameUniqueValidator(
     initialGroupName: () => string
   ): AsyncValidatorFn {
@@ -218,5 +220,12 @@ export class MonitorService {
         );
       }
     };
+  }
+
+  private routeNames(
+    groupName: string
+  ): Observable<ApiResponse<Array<string>>> {
+    const url = `/api/monitor/groups/${groupName}/route-names`;
+    return this.http.get(url);
   }
 }
