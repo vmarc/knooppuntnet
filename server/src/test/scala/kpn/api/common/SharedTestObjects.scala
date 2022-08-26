@@ -1055,7 +1055,7 @@ trait SharedTestObjects extends MockFactory {
     user: String = "",
     bounds: Bounds = Bounds(),
     referenceType: String = "", // "osm" | "gpx"
-    referenceTimestamp: Option[Timestamp] =  Some(Time.now),
+    osmReferenceDay: Option[Day] = None,
     segmentCount: Long = 0,
     filename: Option[String] = None,
     geometry: String = ""
@@ -1069,13 +1069,12 @@ trait SharedTestObjects extends MockFactory {
       user,
       bounds,
       referenceType,
-      referenceTimestamp,
+      osmReferenceDay,
       segmentCount,
       filename,
       geometry
     )
   }
-
 
   def newMonitorRouteState(
     routeId: ObjectId,

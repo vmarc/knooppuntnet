@@ -193,7 +193,7 @@ class MonitorFacadeImpl(
               monitorRouteRepository.saveRoute(route)
 
               if (properties.referenceType == "osm") {
-                // properties.referenceTimestamp: Option[String]
+                // properties.osmReferenceDay: Option[Day]
 
                 val reference = MonitorRouteReference(
                   ObjectId(),
@@ -204,7 +204,7 @@ class MonitorFacadeImpl(
                   user = user.get,
                   bounds = Bounds(), // TODO MON calculate bounds for relation id
                   referenceType = "osm",
-                  referenceTimestamp = None, // TODO MON properties.referenceTimestamp,  String or Timestamp?
+                  osmReferenceDay = None, // TODO MON properties.referenceTimestamp,  String or Timestamp?
                   segmentCount = 0, // TODO MON
                   filename = None,
                   geometry = "TODO MON" // osm | gpx
@@ -249,7 +249,7 @@ class MonitorFacadeImpl(
           if (route.name != properties.name ||
             route.description != properties.description ||
             route.relationId != properties.relationId.map(_.toLong)
-            /* || TODO MON || route.groupId != properties.groupId */
+          /* || TODO MON || route.groupId != properties.groupId */
           ) {
             monitorRouteRepository.saveRoute(
               route.copy(
@@ -274,7 +274,7 @@ class MonitorFacadeImpl(
                 user = user.get,
                 bounds = bounds,
                 referenceType = "osm",
-                referenceTimestamp = Some(Time.now), // TODO MON properties.referenceTimestamp
+                osmReferenceDay = properties.osmReferenceDay,
                 segmentCount = 0,
                 filename = None,
                 geometry = geometry

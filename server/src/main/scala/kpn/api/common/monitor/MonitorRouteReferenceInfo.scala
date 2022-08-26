@@ -1,6 +1,7 @@
 package kpn.api.common.monitor
 
 import kpn.api.common.Bounds
+import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteReferenceInfo(
@@ -10,8 +11,8 @@ case class MonitorRouteReferenceInfo(
   bounds: Bounds,
   distance: Long,
   referenceType: String, // "osm" | "gpx"
-  referenceTimestamp: Option[Timestamp],
+  osmReferenceDay: Option[Day],
   segmentCount: Long,
-  filename: Option[String],
+  gpxFilename: Option[String],
   geometry: String
 )

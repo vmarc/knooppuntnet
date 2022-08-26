@@ -102,6 +102,5 @@ object Json {
 
   def value[T](string: String, valueType: Class[T]): T = {
     objectMapper.readValue(string, valueType)
-
   }
 }

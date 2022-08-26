@@ -29,7 +29,7 @@ class MonitorRouteMapPageBuilder(
                   routeReference.bounds,
                   0, // TODO distance
                   routeReference.referenceType,
-                  routeReference.referenceTimestamp,
+                  routeReference.osmReferenceDay,
                   routeReference.segmentCount,
                   routeReference.filename,
                   routeReference.geometry

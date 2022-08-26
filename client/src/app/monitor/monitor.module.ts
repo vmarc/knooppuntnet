@@ -54,7 +54,6 @@ import { MonitorRoutePropertiesStep3ReferenceTypeComponent } from './route/compo
 import { MonitorRoutePropertiesStep4ReferenceDetailsComponent } from './route/components/monitor-route-properties-step4-reference-details.component';
 import { MonitorRoutePropertiesStep5SaveComponent } from './route/components/monitor-route-properties-step5-save.component';
 import { MonitorRoutePropertiesComponent } from './route/components/monitor-route-properties.component';
-import { MonitorRouteReferenceComponent } from './route/components/monitor-route-reference.component';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
 import { LegendLineComponent } from './route/map/legend-line';
@@ -64,7 +63,6 @@ import { MonitorRouteMapNokSegmentsComponent } from './route/map/monitor-route-m
 import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-map-osm-segments.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
-import { MonitorRouteReferencePageComponent } from './route/reference/monitor-route-reference-page.component';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
@@ -98,7 +96,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     LegendLineComponent,
     MonitorAboutPageComponent,
     MonitorRouteDeletePageComponent,
-    MonitorRouteReferenceComponent,
     MonitorRouteUpdatePageComponent,
     MonitorAdminToggleComponent,
     MonitorChangeHeaderComponent,
@@ -132,7 +129,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteMapPageComponent,
     MonitorRouteMapSidebarComponent,
     MonitorRoutePageHeaderComponent,
-    MonitorRouteReferencePageComponent,
     MonitorRoutePropertiesComponent,
     MonitorRoutePropertiesStep1NameComponent,
     MonitorRoutePropertiesStep2RelationComponent,
@@ -141,6 +137,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRoutePropertiesStep5SaveComponent,
   ],
   exports: [],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'nl-BE' }, MonitorService],
+  providers: [MonitorService],
 })
 export class MonitorModule {}

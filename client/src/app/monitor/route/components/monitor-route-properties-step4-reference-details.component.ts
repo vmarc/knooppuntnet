@@ -1,17 +1,22 @@
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-4-reference-details',
   template: `
     <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
-      <mat-form-field appearance="fill">
-        <mat-label>Reference date</mat-label>
-        <input matInput [matDatepicker]="picker" />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+      <p>
+        Select the date of the route relation state that will serve as a
+        reference (default today):
+      </p>
+      <kpn-day-input
+        [ngForm]="ngForm"
+        [date]="osmReferenceDate"
+        label="Reference date"
+      >
+      </kpn-day-input>
     </div>
 
     <div [ngClass]="{ hidden: referenceType.value !== 'gpx' }">
@@ -42,8 +47,9 @@ import { FormControl } from '@angular/forms';
   ],
 })
 export class MonitorRoutePropertiesStep4ReferenceDetailsComponent {
+  @Input() ngForm: FormGroupDirective;
   @Input() referenceType: FormControl<string>;
-  @Input() referenceTimestamp: FormControl<string>;
+  @Input() osmReferenceDate: FormControl<Date | null>;
   @Input() gpxFilename: FormControl<string>;
   @Input() gpxFile: FormControl<File>;
 

@@ -12,31 +12,7 @@ export class DayPipe implements PipeTransform {
 
   transform(day: Day): string {
     if (day) {
-      const year = DayUtil.year(day);
-      const month = DayUtil.month(day);
-      if (day.length > '2021-08'.length) {
-        const dayPart = DayUtil.day(day);
-        if (this.locale === 'nl') {
-          return `${dayPart}-${month}-${year}`;
-        }
-        if (this.locale === 'de') {
-          return `${dayPart}.${month}.${year}`;
-        }
-        if (this.locale === 'fr') {
-          return `${dayPart}/${month}/${year}`;
-        }
-        return `${year}-${month}-${dayPart}`;
-      }
-      if (this.locale === 'nl') {
-        return `${month}-${year}`;
-      }
-      if (this.locale === 'de') {
-        return `${month}.${year}`;
-      }
-      if (this.locale === 'fr') {
-        return `${month}/${year}`;
-      }
-      return `${year}-${month}`;
+      return DayUtil.toString(this.locale, day);
     }
     return '-';
   }

@@ -7,6 +7,7 @@ import { Validators } from '@angular/forms';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
+import { DayUtil } from '../../../components/shared/day-util';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
@@ -43,12 +44,18 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
         </form>
       </mat-step>
       <mat-step label="Reference details">
-        <kpn-monitor-route-properties-step-4-reference-details
-          [referenceType]="referenceType"
-          [referenceTimestamp]="referenceTimestamp"
-          [gpxFilename]="gpxFilename"
-          [gpxFile]="gpxFile"
-        ></kpn-monitor-route-properties-step-4-reference-details>
+        <form
+          [formGroup]="referenceDetailsForm"
+          #ngReferenceDetailsForm="ngForm"
+        >
+          <kpn-monitor-route-properties-step-4-reference-details
+            [ngForm]="ngReferenceDetailsForm"
+            [referenceType]="referenceType"
+            [osmReferenceDate]="osmReferenceDate"
+            [gpxFilename]="gpxFilename"
+            [gpxFile]="gpxFile"
+          ></kpn-monitor-route-properties-step-4-reference-details>
+        </form>
       </mat-step>
       <mat-step label="Save">
         <kpn-monitor-route-properties-step-5-save
@@ -58,7 +65,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
           [description]="description"
           [relationId]="relationId"
           [referenceType]="referenceType"
-          [referenceTimestamp]="referenceTimestamp"
+          [osmReferenceDate]="osmReferenceDate"
           [gpxFilename]="gpxFilename"
           [gpxFile]="gpxFile"
           [form]="form"
@@ -94,9 +101,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     null,
     Validators.required
   );
-  readonly referenceTimestamp = new FormControl<string>(
-    ''
-  ); /*Validators.required]*/
+  readonly osmReferenceDate = new FormControl<Date | null>(null);
   readonly gpxFilename = new FormControl<string>('');
   readonly gpxFile = new FormControl<File>(null);
 
@@ -117,8 +122,8 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     referenceType: this.referenceType,
   });
 
-  readonly referenceForm = new FormGroup({
-    referenceTimestamp: this.referenceTimestamp,
+  readonly referenceDetailsForm = new FormGroup({
+    osmReferenceDate: this.osmReferenceDate,
     gpxFilename: this.gpxFilename,
     gpxFile: this.gpxFile,
   });
@@ -127,7 +132,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     nameForm: this.nameForm,
     relationIdForm: this.relationIdForm,
     referenceTypeForm: this.referenceTypeForm,
-    referenceForm: this.referenceForm,
+    referenceForm: this.referenceDetailsForm,
   });
 
   constructor(
@@ -148,8 +153,10 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       this.referenceTypeForm.setValue({
         referenceType: this.initialProperties.referenceType,
       });
-      this.referenceForm.setValue({
-        referenceTimestamp: null, // TODO MON this.initialProperties.referenceTimestamp,
+      this.referenceDetailsForm.setValue({
+        osmReferenceDate: DayUtil.toDate(
+          this.initialProperties.osmReferenceDay
+        ),
         gpxFilename: this.initialProperties.gpxFilename,
         gpxFile: null,
       });

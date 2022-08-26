@@ -10,6 +10,7 @@ import { from } from 'rxjs';
 import { of } from 'rxjs';
 import { concatMap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { DayUtil } from '../../../components/shared/day-util';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
@@ -36,7 +37,7 @@ export class MonitorRoutePropertiesStep5SaveComponent {
   @Input() description: FormControl<string>;
   @Input() relationId: FormControl<string>;
   @Input() referenceType: FormControl<string | null>;
-  @Input() referenceTimestamp: FormControl<string>;
+  @Input() osmReferenceDate: FormControl<Date | null>;
   @Input() gpxFilename: FormControl<string>;
   @Input() gpxFile: FormControl<File>;
   @Input() form: FormGroup;
@@ -67,7 +68,7 @@ export class MonitorRoutePropertiesStep5SaveComponent {
             description: this.description.value,
             relationId: this.relationId.value,
             referenceType: this.referenceType.value,
-            referenceTimestamp: this.referenceTimestamp.value,
+            osmReferenceDay: DayUtil.toDay(this.osmReferenceDate.value),
             gpxFilename: this.gpxFilename.value,
           };
           this.status$.next('Saving route definition...');
@@ -120,7 +121,7 @@ export class MonitorRoutePropertiesStep5SaveComponent {
             description: this.description.value,
             relationId: this.relationId.value,
             referenceType: this.referenceType.value,
-            referenceTimestamp: this.referenceTimestamp.value,
+            osmReferenceDay: DayUtil.toDay(this.osmReferenceDate.value),
             gpxFileChanged: !!this.gpxFile.value,
             gpxFilename: this.gpxFilename.value,
           };

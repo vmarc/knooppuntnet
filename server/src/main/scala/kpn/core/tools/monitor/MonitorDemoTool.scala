@@ -101,7 +101,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
       user = "vmarc",
       bounds = bounds,
       referenceType = "gpx", // "osm" | "gpx"
-      referenceTimestamp = Some(now),
+      osmReferenceDay = None,
       segmentCount = 1, // number of tracks in gpx always 1, multiple track not supported yet
       filename = Some(gpxFilename),
       geometry = geoJson

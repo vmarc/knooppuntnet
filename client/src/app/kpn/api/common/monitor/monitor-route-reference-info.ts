@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { Bounds } from '../bounds';
+import { Day } from '../../custom/day';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface MonitorRouteReferenceInfo {
@@ -10,8 +11,8 @@ export interface MonitorRouteReferenceInfo {
   readonly bounds: Bounds;
   readonly distance: number;
   readonly referenceType: string;
-  readonly referenceTimestamp: Timestamp;
+  readonly osmReferenceDay: Day;
   readonly segmentCount: number;
-  readonly filename: string;
+  readonly gpxFilename: string;
   readonly geometry: string;
 }

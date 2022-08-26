@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -16,6 +21,7 @@ import { DayComponent } from './day/day.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { WarningDialogComponent } from './dialog/warning-dialog.component';
 import { ErrorComponent } from './error/error.component';
+import { DayInputComponent } from './format/day-input.component';
 import { DayPipe } from './format/day.pipe';
 import { DistancePipe } from './format/distance.pipe';
 import { IntegerFormatPipe } from './format/integer-format.pipe';
@@ -87,6 +93,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatToolbarModule,
     MatListModule,
@@ -97,6 +104,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     SpinnerModule,
     MatPaginatorModule,
     MarkdownModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
   ],
   declarations: [
     LinkChangesetComponent,
@@ -172,6 +182,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     ErrorComponent,
     IntegrityIndicatorComponent,
     IntegrityIndicatorDialogComponent,
+    DayInputComponent,
   ],
   exports: [
     LinkChangesetComponent,
@@ -246,6 +257,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     WarningDialogComponent,
     ErrorComponent,
     IntegrityIndicatorComponent,
+    DayInputComponent,
   ],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de' }],
 })
 export class SharedModule {}
