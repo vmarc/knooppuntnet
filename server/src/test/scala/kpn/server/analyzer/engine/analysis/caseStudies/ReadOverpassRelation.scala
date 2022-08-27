@@ -20,17 +20,7 @@ object ReadOverpassRelation {
 
   def main(args: Array[String]): Unit = {
     val dir = "/home/marcv/wrk/projects1/knooppuntnet/server/src/test/resources/case-studies/"
-    saveNode(Some(Timestamp(2021, 7, 13, 21, 7, 33)), dir + "node-2969204425-before.xml", 2969204425L)
-    saveNode(Some(Timestamp(2021, 7, 13, 21, 7, 35)), dir + "node-2969204425-after.xml", 2969204425L)
-    // 2021-07-13 21:07:34
-
-
-//    // 2021-12-11T11\:49\:54Z
-//    saveRelation(Some(Timestamp(2021, 12, 11, 11, 49, 17)), "/kpn/wrk/before-12280144.xml", 12280144L)
-//    saveRelation(Some(Timestamp(2021, 12, 11, 11, 49, 17)), "/kpn/wrk/before-13538767.xml", 13538767L)
-//
-//    saveRelation(Some(Timestamp(2021, 12, 11, 11, 49, 19)), "/kpn/wrk/after-12280144.xml", 12280144L)
-//    saveRelation(Some(Timestamp(2021, 12, 11, 11, 49, 19)), "/kpn/wrk/after-13538767.xml", 13538767L)
+    saveRelation(None, s"$dir/12280062L", 12280062L)
   }
 
   private def saveRelation(timestamp: Option[Timestamp], filename: String, relationId: Long): Unit = {
