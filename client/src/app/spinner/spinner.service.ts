@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { List } from 'immutable';
+import { finalize } from 'rxjs';
+import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
+import { concatMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +17,14 @@ export class SpinnerService {
 
   constructor() {
     this.spinnerState$ = this._spinnerState$.asObservable();
+  }
+
+  showUntilCompleted<T>(obs$: Observable<T>, action: string): Observable<T> {
+    return of(null).pipe(
+      tap(() => this.start(action)),
+      concatMap(() => obs$),
+      finalize(() => this.end(action))
+    );
   }
 
   start(action: string): void {
