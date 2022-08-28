@@ -1,7 +1,6 @@
 package kpn.server.api.monitor
 
 import kpn.api.base.ObjectId
-import kpn.api.common.Bounds
 import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
@@ -17,14 +16,12 @@ import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteUpdatePage
+import kpn.api.common.monitor.MonitorRouteUpdateResult
 import kpn.api.custom.ApiResponse
-import kpn.core.common.Time
 import kpn.core.common.TimestampLocal
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.api.Api
 import kpn.server.api.monitor.domain.MonitorGroup
-import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.group.MonitorGroupNamesBuilder
 import kpn.server.api.monitor.group.MonitorGroupPageBuilder
 import kpn.server.api.monitor.group.MonitorGroupsPageBuilder
@@ -34,6 +31,7 @@ import kpn.server.api.monitor.route.MonitorRouteDetailsPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.api.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteUpdatePageBuilder
+import kpn.server.api.monitor.route.MonitorRouteUpdater
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -49,6 +47,7 @@ class MonitorFacadeImpl(
   monitorGroupNamesBuilder: MonitorGroupNamesBuilder,
   monitorGroupPageBuilder: MonitorGroupPageBuilder,
   monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
+  monitorRouteUpdater: MonitorRouteUpdater,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
@@ -175,130 +174,25 @@ class MonitorFacadeImpl(
   override def addRoute(user: Option[String], groupName: String, properties: MonitorRouteProperties): Unit = {
     api.execute(user, "monitor-add-route", properties.name) {
       assertAdminUser(user)
-      val relationId = properties.relationId.map(_.toLong)
-      monitorGroupRepository.groupByName(groupName) match {
-        case None => throw new IllegalArgumentException(s"""Could not find group with name "${groupName}"""")
-        case Some(monitorGroup) =>
-          monitorRouteRepository.routeByName(monitorGroup._id, properties.name) match {
-            case Some(route) =>
-              throw new IllegalArgumentException(s"""Could not add route with name "${properties.name}": already exists in group with name "${groupName}"""")
-            case None =>
-              val route = MonitorRoute(
-                ObjectId(),
-                monitorGroup._id,
-                properties.name,
-                properties.description,
-                relationId,
-              )
-              monitorRouteRepository.saveRoute(route)
-
-              if (properties.referenceType == "osm") {
-                // properties.osmReferenceDay: Option[Day]
-
-                val reference = MonitorRouteReference(
-                  ObjectId(),
-                  routeId = route._id,
-                  relationId = properties.relationId.map(_.toLong),
-                  key = "", // YYYYMMDDHHMMSS derived from created Timestamp  TODO MON replace with ObjectId!?
-                  created = Time.now,
-                  user = user.get,
-                  bounds = Bounds(), // TODO MON calculate bounds for relation id
-                  referenceType = "osm",
-                  osmReferenceDay = None, // TODO MON properties.referenceTimestamp,  String or Timestamp?
-                  segmentCount = 0, // TODO MON
-                  filename = None,
-                  geometry = "TODO MON" // osm | gpx
-                )
-                monitorRouteRepository.saveRouteReference(reference)
-                monitorRouteAnalyzer.analyze(route, reference)
-              }
-              else if (properties.referenceType == "gpx") {
-                // the route reference will be created at the time the gpxfile is uploaded
-                // the route analysis will be done in a separate call, after the gpx file has been uploaded
-              }
-          }
-      }
+      monitorRouteUpdater.add(user.get, groupName, properties)
     }
   }
 
   override def analyzeRoute(user: Option[String], groupName: String, routeName: String): Unit = {
     api.execute(user, "monitor-analyze-route", s"$groupName:$routeName") {
       assertAdminUser(user)
-      monitorGroupRepository.groupByName(groupName) match {
-        case None => throw new IllegalArgumentException(s"""Could not find group with name "$groupName"""")
-        case Some(monitorGroup) =>
-          monitorRouteRepository.routeByName(monitorGroup._id, routeName) match {
-            case None =>
-              throw new IllegalArgumentException(s"""Could not analyze route with name "$routeName": already exists in group with name "$groupName"""")
-            case Some(route) =>
-              monitorRouteRepository.currentRouteReference(route._id) match {
-                case None =>
-                  throw new IllegalArgumentException(s"""Could not find reference for route "$groupName:$routeName""""")
-                case Some(reference) => monitorRouteAnalyzer.analyze(route, reference)
-              }
-          }
-      }
+      monitorRouteUpdater.analyze(groupName, routeName)
     }
   }
 
-  override def updateRoute(user: Option[String], groupName: String, routeName: String, properties: MonitorRouteProperties): Unit = {
+  override def updateRoute(user: Option[String], groupName: String, routeName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteUpdateResult] = {
     api.execute(user, "monitor-update-route", s"$groupName:$routeName") {
       assertAdminUser(user)
-      monitorGroupRepository.groupByName(groupName).foreach { group =>
-        monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
-          if (route.name != properties.name ||
-            route.description != properties.description ||
-            route.relationId != properties.relationId.map(_.toLong)
-          /* || TODO MON || route.groupId != properties.groupId */
-          ) {
-            monitorRouteRepository.saveRoute(
-              route.copy(
-                name = properties.name,
-                description = properties.description,
-                relationId = properties.relationId.map(_.toLong)
-              )
-            )
-          }
-
-          if (properties.referenceType == "osm") {
-            if (route.relationId != properties.relationId.map(_.toLong)) {
-              // TODO pick up relation details from overpass + calculate bounds + geometry
-              val bounds = Bounds()
-              val geometry = "" // TODO MON
-              val reference = MonitorRouteReference(
-                _id = ObjectId(),
-                routeId = route._id,
-                relationId = properties.relationId.map(_.toLong),
-                key = "", // TODO MON ??
-                created = Time.now,
-                user = user.get,
-                bounds = bounds,
-                referenceType = "osm",
-                osmReferenceDay = properties.osmReferenceDay,
-                segmentCount = 0,
-                filename = None,
-                geometry = geometry
-              )
-              monitorRouteRepository.saveRouteReference(reference)
-              monitorRouteAnalyzer.analyze(route, reference)
-            }
-          }
-          else if (properties.referenceType == "gpx") {
-            if (properties.gpxFileChanged) {
-              // reference has changed, but details will arrive in next api call
-              // re-analyze only after reference has been updated
-            }
-            else if (route.relationId != properties.relationId.map(_.toLong)) {
-              // reference does not change, but have reanalyze because the relationId has changed
-              monitorRouteRepository.currentRouteReference(route._id) match {
-                case None =>
-                  throw new IllegalArgumentException(s"""Could not find reference for route "$groupName:$routeName""""")
-                case Some(reference) => monitorRouteAnalyzer.analyze(route, reference)
-              }
-            }
-          }
-        }
-      }
+      reply(
+        Some(
+          monitorRouteUpdater.update(user.get, groupName, routeName, properties)
+        )
+      )
     }
   }
 

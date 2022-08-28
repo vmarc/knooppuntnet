@@ -15,9 +15,9 @@ import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteUpdatePage
+import kpn.api.common.monitor.MonitorRouteUpdateResult
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
-import kpn.server.api.monitor.domain.MonitorRoute
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -112,7 +112,7 @@ class MonitorController(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestBody properties: MonitorRouteProperties
-  ): Unit = {
+  ): ApiResponse[MonitorRouteUpdateResult] = {
     facade.updateRoute(CurrentUser.name, groupName, routeName, properties)
   }
 

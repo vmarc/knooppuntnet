@@ -1,7 +1,5 @@
 package kpn.api.custom
 
-import kpn.api.common.TimeKey
-
 object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
@@ -40,6 +38,11 @@ object Timestamp {
     val minute = iso.substring(14, 16).toInt
     val second = iso.substring(17, 19).toInt
     Timestamp(year, month, day, hour, minute, second)
+  }
+
+  def apply(day: Day): Timestamp = {
+    val dayOfMonth = day.day.getOrElse(1)
+    this (day.year, day.month, dayOfMonth, 0, 0, 0)
   }
 
   def apply(year: Int, month: Int, day: Int): Timestamp = {
