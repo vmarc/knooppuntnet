@@ -31,7 +31,7 @@ class SurveyDateAnalyzerTest extends UnitTest {
     ) should equal(
       Success(
         Some(
-          Day(2020, 8, Some(11))
+          Day(2020, 8, 11)
         )
       )
     )

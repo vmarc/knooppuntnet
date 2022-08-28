@@ -23,7 +23,8 @@
       "dom",
       "esnext"
     ],
-    "skipLibCheck": true /* for openlayers */
+    "skipLibCheck": true, /* for openlayers */
+    //"strict": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

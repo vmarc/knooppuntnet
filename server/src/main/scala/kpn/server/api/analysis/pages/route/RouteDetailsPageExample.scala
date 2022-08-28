@@ -210,7 +210,7 @@ object RouteDetailsPageExample {
       version = 1,
       changeSetId = 1,
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
-      lastSurvey = Some(Day(2020, 11, Some(8))),
+      lastSurvey = Some(Day(2020, 11, 8)),
       tags = Tags.from(
         "key1" -> "value1",
         "key2" -> "value2",

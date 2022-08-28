@@ -64,7 +64,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
-        surveyDate = Some(Day(2020, 8, Some(11)))
+        surveyDate = Some(Day(2020, 8, 11))
       )
     )
     impactedTiles(before, after) should equal(Seq("hiking-tile-1", "hiking-tile-2"))

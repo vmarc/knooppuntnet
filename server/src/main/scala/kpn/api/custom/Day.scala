@@ -9,7 +9,7 @@ object Day {
       val monthString = string.substring(5, 7)
       val dayString = string.substring(8, 10)
       if (Util.isDigits(yearString) && Util.isDigits(monthString) && Util.isDigits(dayString)) {
-        Some(Day(yearString.toInt, monthString.toInt, Some(dayString.toInt)))
+        Some(Day(yearString.toInt, monthString.toInt, dayString.toInt))
       }
       else {
         None
@@ -29,6 +29,11 @@ object Day {
       None
     }
   }
+
+  def apply(year: Int, month: Int, day: Int): Day = {
+    Day(year, month, Some(day))
+  }
+
 }
 
 case class Day(year: Int, month: Int, day: Option[Int] = None) {

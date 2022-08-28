@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 class DayJsonTest extends UnitTest {
 
   test("serializer") {
-    Json.string(Day(2020, 8, Some(11))) should equal(""""2020-08-11"""")
+    Json.string(Day(2020, 8, 11)) should equal(""""2020-08-11"""")
     Json.string(Day(2020, 8, None)) should equal(""""2020-08"""")
   }
 
@@ -16,7 +16,7 @@ class DayJsonTest extends UnitTest {
   }
 
   test("deserializer - backward compatibility") {
-    Json.value("""{"year":2020,"month":8,"day":11}""", classOf[Day]) should equal(Day(2020, 8, Some(11)))
+    Json.value("""{"year":2020,"month":8,"day":11}""", classOf[Day]) should equal(Day(2020, 8, 11))
     Json.value("""{"year":2020,"month":8}""", classOf[Day]) should equal(Day(2020, 8, None))
   }
 

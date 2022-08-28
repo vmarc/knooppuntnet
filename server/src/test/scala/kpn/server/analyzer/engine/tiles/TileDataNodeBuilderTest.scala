@@ -302,7 +302,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
     )
 
     val tileDataNode = buildTileDataNode(node)
-    tileDataNode.surveyDate should equal(Some(Day(2020, 8, Some(11))))
+    tileDataNode.surveyDate should equal(Some(Day(2020, 8, 11)))
   }
 
   test("rwn_ref and rcn_ref") {

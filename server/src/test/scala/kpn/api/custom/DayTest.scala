@@ -6,7 +6,7 @@ class DayTest extends UnitTest {
 
   test("fromString") {
 
-    Day.fromString("2020-08-11") should equal(Some(Day(2020, 8, Some(11))))
+    Day.fromString("2020-08-11") should equal(Some(Day(2020, 8, 11)))
     Day.fromString("2020-08") should equal(Some(Day(2020, 8)))
 
     Day.fromString("bla") should equal(None)
@@ -16,7 +16,7 @@ class DayTest extends UnitTest {
   }
 
   test("yyyymmdd") {
-    Day(2020, 8, Some(11)).yyyymmdd should equal("2020-08-11")
+    Day(2020, 8, 11).yyyymmdd should equal("2020-08-11")
     Day(2020, 8, None).yyyymmdd should equal("2020-08")
   }
 }
