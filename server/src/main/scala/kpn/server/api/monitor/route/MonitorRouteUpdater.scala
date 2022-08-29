@@ -30,8 +30,6 @@ class MonitorRouteUpdater(
   monitorRouteAnalyzer: MonitorRouteAnalyzer
 ) {
 
-  private val log = Log(classOf[MonitorRouteUpdater])
-
   def add(user: String, groupName: String, properties: MonitorRouteProperties): Unit = {
     Log.context(Seq("add-route", s"group=$groupName", s"route=${properties.name}")) {
       val group = findGroup(groupName)
@@ -74,7 +72,15 @@ class MonitorRouteUpdater(
 
       if (properties.referenceType == "osm") {
         if (isOsmReferenceChanged(reference, properties) || isRelationIdChanged(route, properties)) {
-          updateOsmReference(user, route, properties)
+          val updatedRoute = if (isRelationIdChanged(route, properties)) {
+            route.copy(
+              relationId = properties.relationId.map(_.toLong)
+            )
+          }
+          else {
+            route
+          }
+          updateOsmReference(user, updatedRoute, properties)
           MonitorRouteUpdateResult(reAnalyzed = true)
         }
         else {
