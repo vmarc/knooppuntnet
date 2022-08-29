@@ -7,7 +7,9 @@ export class TimestampUtil {
 
   static formatted(timestamp: Timestamp): string {
     if (timestamp) {
-      return timestamp.substring(0, '2020-11-08 12:34'.length).replace('T', ' ');
+      return timestamp
+        .substring(0, '2020-11-08 12:34'.length)
+        .replace('T', ' ');
     }
     return '';
   }
