@@ -16,7 +16,6 @@ object MonitorRouteChange {
     routeSegmentCount: Long,
     newNokSegmentCount: Long,
     resolvedNokSegmentCount: Long,
-    referenceKey: String,
     happy: Boolean,
     investigate: Boolean
   ): MonitorRouteChange = {
@@ -32,7 +31,6 @@ object MonitorRouteChange {
       routeSegmentCount,
       newNokSegmentCount,
       resolvedNokSegmentCount,
-      referenceKey,
       happy,
       investigate
     )
@@ -51,7 +49,6 @@ case class MonitorRouteChange(
   routeSegmentCount: Long,
   newNokSegmentCount: Long,
   resolvedNokSegmentCount: Long,
-  referenceKey: String,
   happy: Boolean,
   investigate: Boolean
 ) extends WithObjectId

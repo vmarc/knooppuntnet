@@ -46,7 +46,7 @@ class MonitorRouteChangePageBuilder(
               case Some(group) =>
                 monitorRouteRepository.currentRouteReference(ObjectId("TODO MON") /*"TODO KEY" + routeId , routeChange.referenceKey*/) match {
                   case None =>
-                    log.warn(s"Could not routeReference routeId=$routeId, referenceKey=${routeChange.referenceKey}")
+                    log.warn(s"Could not routeReference routeId=$routeId")
                     None
 
                   case Some(routeReference) =>
@@ -59,7 +59,6 @@ class MonitorRouteChangePageBuilder(
 
   private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, routeReference: MonitorRouteReference) = {
     val reference = MonitorRouteReferenceInfo(
-      routeReference.key,
       routeReference.created,
       routeReference.user,
       routeReference.bounds,

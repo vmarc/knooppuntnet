@@ -96,7 +96,6 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
       ObjectId(),
       routeId = route._id,
       relationId = None,
-      key = now.key,
       created = now,
       user = "vmarc",
       bounds = bounds,

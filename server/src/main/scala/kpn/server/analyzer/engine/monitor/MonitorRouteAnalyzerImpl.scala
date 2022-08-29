@@ -42,7 +42,6 @@ class MonitorRouteAnalyzerImpl(
       ObjectId(),
       routeId = route._id,
       relationId = route.relationId,
-      key = now.key,
       created = now,
       user = user,
       bounds = bounds,

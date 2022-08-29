@@ -177,7 +177,6 @@ class MonitorChangeProcessorImpl(
         afterRoute.osmSegments.size,
         afterRoute.nokSegments.size,
         resolvedSegments.size,
-        reference.key,
         happy = resolvedSegments.nonEmpty,
         investigate = newSegments.nonEmpty
       )

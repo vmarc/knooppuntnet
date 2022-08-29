@@ -5,7 +5,6 @@ import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteReferenceInfo(
-  key: String,
   created: Timestamp,
   user: String,
   bounds: Bounds,

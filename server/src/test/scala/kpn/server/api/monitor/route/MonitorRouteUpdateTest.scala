@@ -150,7 +150,6 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       ObjectId(),
       routeId = route._id,
       relationId = Some(1L),
-      key = "",
       created = Time.now,
       "user",
       bounds = Bounds(1, 1, 3, 3),
@@ -262,7 +261,6 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       ObjectId(),
       routeId = route._id,
       relationId = Some(1L), // <-- original relation id
-      key = "",
       created = Time.now,
       "user",
       bounds = Bounds(1, 1, 3, 3),

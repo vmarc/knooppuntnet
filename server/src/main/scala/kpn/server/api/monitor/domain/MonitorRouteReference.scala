@@ -10,7 +10,6 @@ case class MonitorRouteReference(
   _id: ObjectId,
   routeId: ObjectId,
   relationId: Option[Long],
-  key: String, // YYYYMMDDHHMMSS derived from created Timestamp  TODO MON replace with ObjectId!?
   created: Timestamp,
   user: String,
   bounds: Bounds,

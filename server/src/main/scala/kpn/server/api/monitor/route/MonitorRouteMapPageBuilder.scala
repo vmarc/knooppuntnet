@@ -23,7 +23,6 @@ class MonitorRouteMapPageBuilder(
             routeState.referenceId.flatMap { referenceId =>
               monitorRouteRepository.routeReference(referenceId).map { routeReference =>
                 MonitorRouteReferenceInfo(
-                  routeReference.key,
                   routeReference.created,
                   routeReference.user,
                   routeReference.bounds,

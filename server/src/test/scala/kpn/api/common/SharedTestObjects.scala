@@ -1041,7 +1041,6 @@ trait SharedTestObjects extends MockFactory {
       routeSegmentCount,
       newNokSegmentCount,
       resolvedNokSegmentCount,
-      referenceKey,
       happy,
       investigate
     )
@@ -1050,7 +1049,6 @@ trait SharedTestObjects extends MockFactory {
   def newMonitorRouteReference(
     routeId: ObjectId,
     relationId: Option[Long] = None,
-    key: String = "",
     created: Timestamp = Time.now,
     user: String = "",
     bounds: Bounds = Bounds(),
@@ -1064,7 +1062,6 @@ trait SharedTestObjects extends MockFactory {
       ObjectId(),
       routeId,
       relationId,
-      key,
       created,
       user,
       bounds,

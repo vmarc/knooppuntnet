@@ -139,7 +139,6 @@ class MonitorRouteUpdater(
           ObjectId(),
           routeId = route._id,
           relationId = properties.relationId.map(_.toLong),
-          key = "", // TODO MON remove???
           created = Time.now,
           user = user,
           bounds = bounds,
