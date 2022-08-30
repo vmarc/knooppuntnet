@@ -28,9 +28,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const action = 'http-request';
-    this.spinnerService.start(action);
-    return next
+    const result$ = next
       .handle(request)
       .pipe(
         catchError((error) => {
@@ -52,14 +50,8 @@ export class SpinnerInterceptor implements HttpInterceptor {
           this.store.dispatch(actionSharedHttpError({ httpError }));
           return of(null);
         })
-      )
-      .pipe(
-        map<HttpEvent<any>, any>((evt: HttpEvent<any>) => {
-          if (evt instanceof HttpResponse) {
-            this.spinnerService.end(action);
-          }
-          return evt;
-        })
       );
+
+    return this.spinnerService.showUntilCompleted(result$, 'http-request');
   }
 }
