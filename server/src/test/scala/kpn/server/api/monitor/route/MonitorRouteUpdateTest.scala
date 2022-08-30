@@ -40,6 +40,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = group.name,
       name = "route",
       description = "description",
       relationId = Some("1"),
@@ -84,6 +85,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = group.name,
       name = "route",
       description = "description",
       relationId = Some("1"),
@@ -177,6 +179,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = group.name,
       name = "route",
       description = "description",
       relationId = Some("1"),
@@ -222,6 +225,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = group.name,
       name = "route-changed", // <-- changed
       description = "description-changed", // <-- changed
       relationId = Some("1"),
@@ -238,6 +242,59 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     val expectedUpdatedRoute = route.copy(
       name = "route-changed",
       description = "description-changed",
+    )
+
+    (monitorRouteRepository.saveRoute _).verify(expectedUpdatedRoute)
+    (monitorRouteRepository.saveRouteReference _).verify(*).never()
+    (monitorRouteAnalyzer.analyze _).verify(*, *).never()
+  }
+
+  test("route update - change group") {
+
+    val group1 = newMonitorGroup("group1", "")
+    val group2 = newMonitorGroup("group2", "")
+    val route = newMonitorRoute(group1._id, "route", "", Some(1L))
+    val reference = newMonitorRouteReference(
+      routeId = route._id,
+      relationId = route.relationId,
+      referenceType = "osm",
+      osmReferenceDay = Some(Day(2022, 8, 11)),
+    )
+
+    val monitorGroupRepository = stub[MonitorGroupRepository]
+    val monitorRouteRepository = stub[MonitorRouteRepository]
+    val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
+    val monitorRouteAnalyzer = stub[MonitorRouteAnalyzer]
+
+    (monitorGroupRepository.groupByName _).when("group1").returns(Some(group1))
+    (monitorGroupRepository.groupByName _).when("group2").returns(Some(group2))
+    (monitorRouteRepository.routeByName _).when(group1._id, "route").returns(Some(route))
+    (monitorRouteRepository.currentRouteReference _).when(route._id).returns(Some(reference))
+
+    val updater = new MonitorRouteUpdater(
+      monitorGroupRepository,
+      monitorRouteRepository,
+      monitorRouteRelationRepository,
+      monitorRouteAnalyzer
+    )
+
+    val properties = MonitorRouteProperties(
+      groupName = group2.name, // <-- changed
+      name = "route",
+      description = "",
+      relationId = Some("1"),
+      referenceType = "osm",
+      osmReferenceDay = Some(Day(2022, 8, Some(11))),
+      gpxFileChanged = false,
+      gpxFilename = None
+    )
+
+    val result = updater.update("user", "group1", "route", properties)
+
+    result should equal(MonitorRouteUpdateResult(reAnalyzed = false))
+
+    val expectedUpdatedRoute = route.copy(
+      groupId = group2._id
     )
 
     (monitorRouteRepository.saveRoute _).verify(expectedUpdatedRoute)
@@ -289,6 +346,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = group.name,
       name = "route",
       description = "description",
       relationId = Some("2"), // <-- changed
@@ -336,6 +394,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
   }
 
   test("route update - group not found") {
+
     val monitorGroupRepository = stub[MonitorGroupRepository]
     val monitorRouteRepository = stub[MonitorRouteRepository]
     val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
@@ -351,6 +410,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = "group",
       name = "route",
       description = "description",
       relationId = Some("1"),
@@ -367,6 +427,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
   }
 
   test("route update - route not found") {
+
     val monitorGroupRepository = stub[MonitorGroupRepository]
     val monitorRouteRepository = stub[MonitorRouteRepository]
     val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
@@ -384,6 +445,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     )
 
     val properties = MonitorRouteProperties(
+      groupName = group.name,
       name = "route",
       description = "description",
       relationId = Some("1"),

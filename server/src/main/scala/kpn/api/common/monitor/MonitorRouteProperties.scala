@@ -5,6 +5,7 @@ import kpn.api.custom.Day
 case class MonitorRouteProperties(
   name: String,
   description: String,
+  groupName: String,
   relationId: Option[String],
   referenceType: String,
   osmReferenceDay: Option[Day],

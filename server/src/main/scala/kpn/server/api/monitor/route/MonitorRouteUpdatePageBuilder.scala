@@ -37,6 +37,7 @@ class MonitorRouteUpdatePageBuilder(
                     routeDescription = route.description,
                     groups = groups,
                     properties = MonitorRouteProperties(
+                      groupName = group.name,
                       name = route.name,
                       description = route.description,
                       relationId = route.relationId.map(_.toString),

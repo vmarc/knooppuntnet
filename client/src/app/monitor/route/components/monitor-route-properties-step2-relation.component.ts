@@ -1,3 +1,5 @@
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
@@ -5,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
+import { Subscriptions } from '../../../util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
@@ -71,12 +74,18 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     <div
       *ngIf="
         form.invalid &&
-        (relationId.dirty || relationId.touched || ngForm.submitted)
+        (relationId.dirty ||
+          relationId.touched ||
+          ngForm.submitted ||
+          verificationAttempted)
       "
       class="warning"
     >
       <p *ngIf="form.errors?.relationIdMissing">
         Provide a valid OSM route relation id
+      </p>
+      <p *ngIf="form.errors?.relationIdNotVerified">
+        Please verify the OSM route relation id
       </p>
     </div>
 
@@ -103,20 +112,39 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRoutePropertiesStep2RelationComponent {
+export class MonitorRoutePropertiesStep2RelationComponent
+  implements OnInit, OnDestroy
+{
   @Input() ngForm: FormGroupDirective;
   @Input() form: FormGroup;
   @Input() relationIdKnown: FormControl<boolean>;
+  @Input() relationIdVerified: FormControl<boolean>;
   @Input() relationId: FormControl<string>;
 
   readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);
+  private readonly subscriptions = new Subscriptions();
+
+  verificationAttempted = false;
 
   constructor(
     private monitorService: MonitorService,
     private store: Store<AppState>
   ) {}
 
+  ngOnInit() {
+    this.subscriptions.add(
+      this.routeInfo$.subscribe((response) => {
+        this.relationIdVerified.setValue(!!response?.result);
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
   getRouteInformation(): void {
+    this.verificationAttempted = true;
     this.store.dispatch(
       actionMonitorRouteInfo({ relationId: this.relationId.value })
     );

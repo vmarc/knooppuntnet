@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
@@ -33,6 +34,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
 export class MonitorRoutePropertiesStep5SaveComponent {
   @Input() initialProperties: MonitorRouteProperties;
   @Input() mode: string;
+  @Input() group: FormControl<MonitorRouteGroup | null>;
   @Input() name: FormControl<string>;
   @Input() description: FormControl<string>;
   @Input() relationId: FormControl<string>;
@@ -66,6 +68,7 @@ export class MonitorRoutePropertiesStep5SaveComponent {
           const properties: MonitorRouteProperties = {
             name: this.name.value,
             description: this.description.value,
+            groupName: this.group.value?.groupName,
             relationId: this.relationId.value,
             referenceType: this.referenceType.value,
             osmReferenceDay: DayUtil.toDay(this.osmReferenceDate.value),
@@ -119,6 +122,7 @@ export class MonitorRoutePropertiesStep5SaveComponent {
           const properties: MonitorRouteProperties = {
             name: this.name.value,
             description: this.description.value,
+            groupName: this.group.value?.groupName,
             relationId: this.relationId.value,
             referenceType: this.referenceType.value,
             osmReferenceDay: DayUtil.toDay(this.osmReferenceDate.value),

@@ -4,7 +4,11 @@ import { ValidatorFn } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MonitorGroupDetail } from '@api/common/monitor/monitor-group-detail';
+import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
+import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
 import { DayUtil } from '../../../components/shared/day-util';
@@ -16,9 +20,23 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
   selector: 'kpn-monitor-route-properties',
   template: `
     <mat-stepper orientation="vertical" [linear]="initialProperties === null">
+      <mat-step
+        *ngIf="mode === 'update'"
+        label="Group"
+        [stepControl]="groupForm"
+      >
+        <form [formGroup]="groupForm" #ngGroupForm="ngForm">
+          <kpn-monitor-route-properties-step-0-group
+            [ngForm]="ngGroupForm"
+            [group]="group"
+            [routeGroups]="routeGroups"
+          ></kpn-monitor-route-properties-step-0-group>
+        </form>
+      </mat-step>
       <mat-step label="Route name and description" [stepControl]="nameForm">
         <form [formGroup]="nameForm" #ngNameForm="ngForm">
           <kpn-monitor-route-properties-step-1-name
+            [mode]="mode"
             [ngForm]="ngNameForm"
             [name]="name"
             [description]="description"
@@ -31,6 +49,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
             [ngForm]="ngForm"
             [form]="relationIdForm"
             [relationIdKnown]="relationIdKnown"
+            [relationIdVerified]="relationIdVerified"
             [relationId]="relationId"
           ></kpn-monitor-route-properties-step-2-relation>
         </form>
@@ -61,6 +80,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
         <kpn-monitor-route-properties-step-5-save
           [initialProperties]="initialProperties"
           [mode]="mode"
+          [group]="group"
           [name]="name"
           [description]="description"
           [relationId]="relationId"
@@ -77,6 +97,9 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 export class MonitorRoutePropertiesComponent implements OnInit {
   @Input() mode: string;
   @Input() initialProperties: MonitorRouteProperties = null;
+  @Input() routeGroups: MonitorRouteGroup[];
+
+  readonly group = new FormControl<MonitorRouteGroup | null>(null);
 
   readonly name = new FormControl<string>('', {
     validators: [
@@ -96,6 +119,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     Validators.maxLength(100),
   ]);
   readonly relationIdKnown = new FormControl<boolean | null>(null);
+  readonly relationIdVerified = new FormControl<boolean>(false);
   readonly relationId = new FormControl<string>('');
   readonly referenceType = new FormControl<string | null>(
     null,
@@ -105,6 +129,10 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   readonly gpxFilename = new FormControl<string>('');
   readonly gpxFile = new FormControl<File>(null);
 
+  readonly groupForm = new FormGroup({
+    group: this.group,
+  });
+
   readonly nameForm = new FormGroup({
     name: this.name,
     description: this.description,
@@ -113,6 +141,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   readonly relationIdForm = new FormGroup(
     {
       relationIdKnown: this.relationIdKnown,
+      relationIdVerified: this.relationIdVerified,
       relationId: this.relationId,
     },
     this.relationIdFormValidator()
@@ -129,6 +158,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   });
 
   readonly form = new FormGroup({
+    groupForm: this.groupForm,
     nameForm: this.nameForm,
     relationIdForm: this.relationIdForm,
     referenceTypeForm: this.referenceTypeForm,
@@ -142,6 +172,12 @@ export class MonitorRoutePropertiesComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.initialProperties) {
+      const initialGroup = this.routeGroups.find(
+        (g) => g.groupName === this.initialProperties.groupName
+      );
+      this.groupForm.setValue({
+        group: initialGroup,
+      });
       this.nameForm.setValue({
         name: this.initialProperties.name,
         description: this.initialProperties.description,
@@ -149,6 +185,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       this.relationIdForm.setValue({
         relationIdKnown: !!this.initialProperties.relationId,
         relationId: this.initialProperties.relationId,
+        relationIdVerified: false,
       });
       this.referenceTypeForm.setValue({
         referenceType: this.initialProperties.referenceType,
@@ -175,10 +212,15 @@ export class MonitorRoutePropertiesComponent implements OnInit {
         return null;
       }
       if (this.relationIdKnown.value === true) {
-        if (!!this.relationId.value) {
+        if (this.relationIdVerified.value) {
           return null;
         }
-        return { relationIdMissing: true };
+        if (!this.relationId.value) {
+          return { relationIdMissing: true };
+        }
+        if (!this.relationIdVerified.value) {
+          return { relationIdNotVerified: true };
+        }
       }
       return { questionUnanswered: true };
     };

@@ -15,12 +15,10 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
-import org.geotools.geojson.geom.GeometryJSON
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
-
-import java.io.ByteArrayOutputStream
 
 @Component
 class MonitorRouteUpdater(
@@ -60,9 +58,17 @@ class MonitorRouteUpdater(
       val route = findRoute(group._id, routeName)
       val reference = findRouteReference(route._id)
 
-      if (isRouteChanged(route, properties)) {
+      if (isRouteChanged(group, route, properties)) {
+        val groupId = if (group.name != properties.groupName) {
+          val newGroup = findGroup(properties.groupName)
+          newGroup._id
+        }
+        else {
+          route.groupId
+        }
         monitorRouteRepository.saveRoute(
           route.copy(
+            groupId = groupId,
             name = properties.name,
             description = properties.description,
             relationId = properties.relationId.map(_.toLong)
@@ -130,10 +136,9 @@ class MonitorRouteUpdater(
         val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(relation)
         val geomFactory = new GeometryFactory
         val geometryCollection = new GeometryCollection(routeSegments.map(_.lineString).toArray, geomFactory)
-        val baos = new ByteArrayOutputStream()
-        val g = new GeometryJSON()
-        g.write(geometryCollection, baos)
-        val geometry = baos.toString
+        val geoJsonWriter = new GeoJsonWriter()
+        geoJsonWriter.setEncodeCRS(false)
+        val geometry = geoJsonWriter.write(geometryCollection)
 
         val reference = MonitorRouteReference(
           ObjectId(),
@@ -199,11 +204,11 @@ class MonitorRouteUpdater(
     }
   }
 
-  private def isRouteChanged(route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {
+  private def isRouteChanged(group: MonitorGroup, route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {
     route.name != properties.name ||
       route.description != properties.description ||
-      route.relationId != properties.relationId.map(_.toLong)
-    /* || TODO MON || route.groupId != properties.groupId */
+      route.relationId != properties.relationId.map(_.toLong) ||
+      group.name != properties.groupName
   }
 
   private def isOsmReferenceChanged(reference: MonitorRouteReference, properties: MonitorRouteProperties): Boolean = {

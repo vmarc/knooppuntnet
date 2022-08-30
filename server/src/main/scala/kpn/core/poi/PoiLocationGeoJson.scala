@@ -1,13 +1,11 @@
 package kpn.core.poi
 
-import java.io.ByteArrayOutputStream
-
 import kpn.server.analyzer.engine.tiles.domain.Rectangle
-import org.geotools.geojson.geom.GeometryJSON
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.io.geojson.GeoJsonWriter
 
 class PoiLocationGeoJson {
 
@@ -16,10 +14,9 @@ class PoiLocationGeoJson {
   def geoJsonString(): String = {
     val boundingBoxes = PoiLocation.allBoundingBoxes.map(toGeometry)
     val geometryCollection = new GeometryCollection(boundingBoxes.toArray, geomFactory)
-    val baos = new ByteArrayOutputStream()
-    val g = new GeometryJSON()
-    g.write(geometryCollection, baos)
-    baos.toString
+    val geoJsonWriter = new GeoJsonWriter()
+    geoJsonWriter.setEncodeCRS(false)
+    geoJsonWriter.write(geometryCollection)
   }
 
   private def toGeometry(rectangle: Rectangle): Geometry = {

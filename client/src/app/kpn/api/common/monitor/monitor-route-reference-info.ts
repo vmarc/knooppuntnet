@@ -5,7 +5,6 @@ import { Day } from '../../custom/day';
 import { Timestamp } from '../../custom/timestamp';
 
 export interface MonitorRouteReferenceInfo {
-  readonly key: string;
   readonly created: Timestamp;
   readonly user: string;
   readonly bounds: Bounds;

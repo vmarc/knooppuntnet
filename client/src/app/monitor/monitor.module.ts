@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
@@ -48,6 +49,7 @@ import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-
 import { MonitorRouteDescriptionComponent } from './route/components/monitor-route-description.component';
 import { MonitorRouteNameComponent } from './route/components/monitor-route-name.component';
 import { MonitorRoutePageHeaderComponent } from './route/components/monitor-route-page-header.component';
+import { MonitorRoutePropertiesStep0GroupComponent } from './route/components/monitor-route-properties-step0-group.component';
 import { MonitorRoutePropertiesStep1NameComponent } from './route/components/monitor-route-properties-step1-name.component';
 import { MonitorRoutePropertiesStep2RelationComponent } from './route/components/monitor-route-properties-step2-relation.component';
 import { MonitorRoutePropertiesStep3ReferenceTypeComponent } from './route/components/monitor-route-properties-step3-reference-type.component';
@@ -91,6 +93,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MatMenuModule,
     MatStepperModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
   ],
   declarations: [
     LegendLineComponent,
@@ -130,6 +133,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteMapSidebarComponent,
     MonitorRoutePageHeaderComponent,
     MonitorRoutePropertiesComponent,
+    MonitorRoutePropertiesStep0GroupComponent,
     MonitorRoutePropertiesStep1NameComponent,
     MonitorRoutePropertiesStep2RelationComponent,
     MonitorRoutePropertiesStep3ReferenceTypeComponent,

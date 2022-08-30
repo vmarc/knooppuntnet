@@ -13,11 +13,15 @@ import { FormControl } from '@angular/forms';
       [description]="description"
     ></kpn-monitor-route-description>
     <div class="kpn-button-group">
+      <button *ngIf="mode === 'update'" mat-stroked-button matStepperPrevious>
+        Back
+      </button>
       <button mat-stroked-button matStepperNext>Next</button>
     </div>
   `,
 })
 export class MonitorRoutePropertiesStep1NameComponent {
+  @Input() mode: string;
   @Input() ngForm: FormGroupDirective;
   @Input() name: FormControl<string>;
   @Input() description: FormControl<string>;
