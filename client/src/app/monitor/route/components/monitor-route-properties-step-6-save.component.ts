@@ -17,7 +17,7 @@ import { MonitorService } from '../../monitor.service';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-5-save',
+  selector: 'kpn-monitor-route-properties-step-6-save',
   template: `
     <div class="kpn-line">
       <mat-spinner *ngIf="(status$ | async) !== ''" diameter="20"></mat-spinner>
@@ -31,7 +31,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
     </div>
   `,
 })
-export class MonitorRoutePropertiesStep5SaveComponent {
+export class MonitorRoutePropertiesStep6SaveComponent {
   @Input() initialProperties: MonitorRouteProperties;
   @Input() mode: string;
   @Input() group: FormControl<MonitorRouteGroup | null>;

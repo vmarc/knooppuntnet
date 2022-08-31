@@ -4,11 +4,8 @@ import { ValidatorFn } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { MonitorGroupDetail } from '@api/common/monitor/monitor-group-detail';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
-import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
 import { DayUtil } from '../../../components/shared/day-util';
@@ -26,40 +23,40 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
         [stepControl]="groupForm"
       >
         <form [formGroup]="groupForm" #ngGroupForm="ngForm">
-          <kpn-monitor-route-properties-step-0-group
+          <kpn-monitor-route-properties-step-1-group
             [ngForm]="ngGroupForm"
             [group]="group"
             [routeGroups]="routeGroups"
-          ></kpn-monitor-route-properties-step-0-group>
+          ></kpn-monitor-route-properties-step-1-group>
         </form>
       </mat-step>
       <mat-step label="Route name and description" [stepControl]="nameForm">
         <form [formGroup]="nameForm" #ngNameForm="ngForm">
-          <kpn-monitor-route-properties-step-1-name
+          <kpn-monitor-route-properties-step-2-name
             [mode]="mode"
             [ngForm]="ngNameForm"
             [name]="name"
             [description]="description"
-          ></kpn-monitor-route-properties-step-1-name>
+          ></kpn-monitor-route-properties-step-2-name>
         </form>
       </mat-step>
       <mat-step label="OSM relation" [stepControl]="relationIdForm">
         <form [formGroup]="relationIdForm" #ngForm="ngForm">
-          <kpn-monitor-route-properties-step-2-relation
+          <kpn-monitor-route-properties-step-3-relation
             [ngForm]="ngForm"
             [form]="relationIdForm"
             [relationIdKnown]="relationIdKnown"
             [relationIdVerified]="relationIdVerified"
             [relationId]="relationId"
-          ></kpn-monitor-route-properties-step-2-relation>
+          ></kpn-monitor-route-properties-step-3-relation>
         </form>
       </mat-step>
       <mat-step label="Reference type" [stepControl]="referenceTypeForm">
         <form [formGroup]="referenceTypeForm" #ngReferenceTypeForm="ngForm">
-          <kpn-monitor-route-properties-step-3-reference-type
+          <kpn-monitor-route-properties-step-4-reference-type
             [ngForm]="ngReferenceTypeForm"
             [referenceType]="referenceType"
-          ></kpn-monitor-route-properties-step-3-reference-type>
+          ></kpn-monitor-route-properties-step-4-reference-type>
         </form>
       </mat-step>
       <mat-step label="Reference details">
@@ -67,17 +64,17 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
           [formGroup]="referenceDetailsForm"
           #ngReferenceDetailsForm="ngForm"
         >
-          <kpn-monitor-route-properties-step-4-reference-details
+          <kpn-monitor-route-properties-step-5-reference-details
             [ngForm]="ngReferenceDetailsForm"
             [referenceType]="referenceType"
             [osmReferenceDate]="osmReferenceDate"
             [gpxFilename]="gpxFilename"
             [gpxFile]="gpxFile"
-          ></kpn-monitor-route-properties-step-4-reference-details>
+          ></kpn-monitor-route-properties-step-5-reference-details>
         </form>
       </mat-step>
       <mat-step label="Save">
-        <kpn-monitor-route-properties-step-5-save
+        <kpn-monitor-route-properties-step-6-save
           [initialProperties]="initialProperties"
           [mode]="mode"
           [group]="group"
@@ -89,7 +86,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
           [gpxFilename]="gpxFilename"
           [gpxFile]="gpxFile"
           [form]="form"
-        ></kpn-monitor-route-properties-step-5-save>
+        ></kpn-monitor-route-properties-step-6-save>
       </mat-step>
     </mat-stepper>
   `,

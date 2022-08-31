@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-4-reference-details',
+  selector: 'kpn-monitor-route-properties-step-5-reference-details',
   template: `
     <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
       <p>
@@ -46,7 +46,7 @@ import { FormControl } from '@angular/forms';
     `,
   ],
 })
-export class MonitorRoutePropertiesStep4ReferenceDetailsComponent {
+export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() referenceType: FormControl<string>;
   @Input() osmReferenceDate: FormControl<Date | null>;

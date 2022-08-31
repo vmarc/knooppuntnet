@@ -13,7 +13,7 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-2-relation',
+  selector: 'kpn-monitor-route-properties-step-3-relation',
   template: `
     <div class="question">
       <p>Do you know the OSM relation id for this route?</p>
@@ -112,7 +112,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRoutePropertiesStep2RelationComponent
+export class MonitorRoutePropertiesStep3RelationComponent
   implements OnInit, OnDestroy
 {
   @Input() ngForm: FormGroupDirective;

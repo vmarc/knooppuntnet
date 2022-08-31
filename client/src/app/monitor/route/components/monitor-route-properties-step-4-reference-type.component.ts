@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-3-reference-type',
+  selector: 'kpn-monitor-route-properties-step-4-reference-type',
   template: `
     <div class="question">
       <p>
@@ -47,7 +47,7 @@ import { FormControl } from '@angular/forms';
     `,
   ],
 })
-export class MonitorRoutePropertiesStep3ReferenceTypeComponent {
+export class MonitorRoutePropertiesStep4ReferenceTypeComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() referenceType: FormControl<string>;
 }

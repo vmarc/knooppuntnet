@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'kpn-monitor-route-properties-step-1-name',
+  selector: 'kpn-monitor-route-properties-step-2-name',
   template: `
     <kpn-monitor-route-name [ngForm]="ngForm" [name]="name">
     </kpn-monitor-route-name>
@@ -20,7 +20,7 @@ import { FormControl } from '@angular/forms';
     </div>
   `,
 })
-export class MonitorRoutePropertiesStep1NameComponent {
+export class MonitorRoutePropertiesStep2NameComponent {
   @Input() mode: string;
   @Input() ngForm: FormGroupDirective;
   @Input() name: FormControl<string>;

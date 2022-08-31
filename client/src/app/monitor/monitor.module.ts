@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -49,12 +48,12 @@ import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-
 import { MonitorRouteDescriptionComponent } from './route/components/monitor-route-description.component';
 import { MonitorRouteNameComponent } from './route/components/monitor-route-name.component';
 import { MonitorRoutePageHeaderComponent } from './route/components/monitor-route-page-header.component';
-import { MonitorRoutePropertiesStep0GroupComponent } from './route/components/monitor-route-properties-step0-group.component';
-import { MonitorRoutePropertiesStep1NameComponent } from './route/components/monitor-route-properties-step1-name.component';
-import { MonitorRoutePropertiesStep2RelationComponent } from './route/components/monitor-route-properties-step2-relation.component';
-import { MonitorRoutePropertiesStep3ReferenceTypeComponent } from './route/components/monitor-route-properties-step3-reference-type.component';
-import { MonitorRoutePropertiesStep4ReferenceDetailsComponent } from './route/components/monitor-route-properties-step4-reference-details.component';
-import { MonitorRoutePropertiesStep5SaveComponent } from './route/components/monitor-route-properties-step5-save.component';
+import { MonitorRoutePropertiesStep1GroupComponent } from './route/components/monitor-route-properties-step-1-group.component';
+import { MonitorRoutePropertiesStep2NameComponent } from './route/components/monitor-route-properties-step-2-name.component';
+import { MonitorRoutePropertiesStep3RelationComponent } from './route/components/monitor-route-properties-step-3-relation.component';
+import { MonitorRoutePropertiesStep4ReferenceTypeComponent } from './route/components/monitor-route-properties-step-4-reference-type.component';
+import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './route/components/monitor-route-properties-step-5-reference-details.component';
+import { MonitorRoutePropertiesStep6SaveComponent } from './route/components/monitor-route-properties-step-6-save.component';
 import { MonitorRoutePropertiesComponent } from './route/components/monitor-route-properties.component';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
@@ -133,12 +132,12 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteMapSidebarComponent,
     MonitorRoutePageHeaderComponent,
     MonitorRoutePropertiesComponent,
-    MonitorRoutePropertiesStep0GroupComponent,
-    MonitorRoutePropertiesStep1NameComponent,
-    MonitorRoutePropertiesStep2RelationComponent,
-    MonitorRoutePropertiesStep3ReferenceTypeComponent,
-    MonitorRoutePropertiesStep4ReferenceDetailsComponent,
-    MonitorRoutePropertiesStep5SaveComponent,
+    MonitorRoutePropertiesStep1GroupComponent,
+    MonitorRoutePropertiesStep2NameComponent,
+    MonitorRoutePropertiesStep3RelationComponent,
+    MonitorRoutePropertiesStep4ReferenceTypeComponent,
+    MonitorRoutePropertiesStep5ReferenceDetailsComponent,
+    MonitorRoutePropertiesStep6SaveComponent,
   ],
   exports: [],
   providers: [MonitorService],
