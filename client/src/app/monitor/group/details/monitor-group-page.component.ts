@@ -8,7 +8,6 @@ import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorGroupPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 

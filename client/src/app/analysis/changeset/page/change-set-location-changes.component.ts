@@ -1,9 +1,5 @@
-import { FlatTreeControl } from '@angular/cdk/tree';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { MatTreeFlattener } from '@angular/material/tree';
-import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { LocationChanges } from '@api/common/location-changes';
 import { LocationTreeItem } from '@api/common/location-tree-item';
 import { Observable } from 'rxjs';

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { SubsetInfo } from '@api/common/subset/subset-info';
 import { Subset } from '@api/custom/subset';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-subset-page-menu',

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { NetworkType } from '@api/custom/network-type';
 

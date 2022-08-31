@@ -4,11 +4,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/core.state';
 import { actionPreferencesShowOptions } from '../../core/preferences/preferences.actions';
-import { actionPreferencesShowLegend } from '../../core/preferences/preferences.actions';
 import { actionPreferencesPlanProposed } from '../../core/preferences/preferences.actions';
 import { actionPreferencesShowProposed } from '../../core/preferences/preferences.actions';
 import { selectPreferencesShowOptions } from '../../core/preferences/preferences.selectors';
-import { selectPreferencesShowLegend } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesPlanProposed } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesShowProposed } from '../../core/preferences/preferences.selectors';
 

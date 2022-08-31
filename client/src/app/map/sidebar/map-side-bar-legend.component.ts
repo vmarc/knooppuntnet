@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { MapService } from '../../components/ol/services/map.service';
 import { AppState } from '../../core/core.state';
 import { actionPreferencesShowLegend } from '../../core/preferences/preferences.actions';
-import { actionPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.actions';
 import { selectPreferencesShowLegend } from '../../core/preferences/preferences.selectors';
 
 @Component({

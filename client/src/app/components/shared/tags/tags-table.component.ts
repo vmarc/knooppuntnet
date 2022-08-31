@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Tags } from '@api/custom/tags';
 import { InterpretedTags } from './interpreted-tags';
 
 @Component({
@@ -8,8 +7,8 @@ import { InterpretedTags } from './interpreted-tags';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="tags.isEmpty()" i18n="@@tags.no-tags" class="no-tags"
-      >No tags</ng-container
-    >
+      >No tags
+    </ng-container>
 
     <table *ngIf="!tags.isEmpty()" title="tags" class="kpn-table">
       <thead>

@@ -7,7 +7,6 @@ import { MapService } from '../services/map.service';
 import { proposedUnpavedColor } from './main-style-colors';
 import { proposedColor } from './main-style-colors';
 import { red } from './main-style-colors';
-import { darkGreen } from './main-style-colors';
 import { orange } from './main-style-colors';
 import { gray } from './main-style-colors';
 import { yellow } from './main-style-colors';

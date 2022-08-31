@@ -1,9 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
-import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { selectRouteParam } from '../../../core/core.state';
