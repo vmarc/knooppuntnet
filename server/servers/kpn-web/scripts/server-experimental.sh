@@ -4,6 +4,7 @@ nohup /kpn/java/bin/java \
   -Dlog4j.configurationFile=/kpn/scripts/conf/server-experimental-log.xml \
   -Xms512M \
   -Xmx2G \
+  -Xss128M \
   -Dcom.sun.management.jmxremote.port=5102 \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \
