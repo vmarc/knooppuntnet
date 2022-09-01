@@ -53,7 +53,7 @@ export class NodeEffects {
     this.actions$.pipe(
       ofType(actionNodeDetailsPageLoad),
       mergeMap((action) => this.appService.nodeDetails(action.nodeId)),
-      map((response) => actionNodeDetailsPageLoaded({ response }))
+      map((response) => actionNodeDetailsPageLoaded(response))
     )
   );
 
@@ -140,7 +140,7 @@ export class NodeEffects {
           mergeMap(() =>
             this.appService.nodeChanges(nodeId, changesParameters)
           ),
-          map((response) => actionNodeChangesPageLoaded({ response }))
+          map((response) => actionNodeChangesPageLoaded(response))
         );
       })
     )

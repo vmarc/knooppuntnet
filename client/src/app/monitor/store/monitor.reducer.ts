@@ -55,6 +55,7 @@ export const monitorReducer = createReducer(
     routeAddPage: null,
     routeUpdatePage: null,
     routeInfoPage: null,
+    routeSaveState: null,
     routeMapPage: null,
     routeChangesPage: null,
     routeChangePage: null,
@@ -63,7 +64,7 @@ export const monitorReducer = createReducer(
     ...state,
     changesPageIndex: 0,
   })),
-  on(actionMonitorChangesPageLoaded, (state, { response }) => ({
+  on(actionMonitorChangesPageLoaded, (state, response) => ({
     ...state,
     changesPage: response,
   })),
@@ -71,12 +72,12 @@ export const monitorReducer = createReducer(
     ...state,
     changesPageIndex: action.pageIndex,
   })),
-  on(actionMonitorGroupsPageLoaded, (state, { response }) => ({
+  on(actionMonitorGroupsPageLoaded, (state, response) => ({
     ...state,
     adminRole: response?.result?.adminRole === true,
     groupsPage: response,
   })),
-  on(actionMonitorGroupPageLoaded, (state, { response }) => ({
+  on(actionMonitorGroupPageLoaded, (state, response) => ({
     ...state,
     adminRole: response?.result?.adminRole === true,
     groupName: response?.result?.groupName ?? state.groupName,
@@ -88,7 +89,7 @@ export const monitorReducer = createReducer(
     ...state,
     groupChangesPageIndex: 0,
   })),
-  on(actionMonitorGroupChangesPageLoaded, (state, { response }) => ({
+  on(actionMonitorGroupChangesPageLoaded, (state, response) => ({
     ...state,
     groupName: response?.result?.groupName ?? state.groupName,
     groupDescription:
@@ -104,17 +105,17 @@ export const monitorReducer = createReducer(
     groupName,
     groupDescription,
   })),
-  on(actionMonitorGroupDeleteLoaded, (state, { response }) => ({
+  on(actionMonitorGroupDeleteLoaded, (state, response) => ({
     ...state,
     adminRole: response?.result?.adminRole === true,
     groupPage: response,
   })),
-  on(actionMonitorGroupUpdateLoaded, (state, { response }) => ({
+  on(actionMonitorGroupUpdateLoaded, (state, response) => ({
     ...state,
     adminRole: response?.result?.adminRole === true,
     groupPage: response,
   })),
-  on(actionMonitorRouteAddPageLoaded, (state, { response }) => {
+  on(actionMonitorRouteAddPageLoaded, (state, response) => {
     const groupName = response.result
       ? response.result.groupName
       : state.groupName;
@@ -128,19 +129,12 @@ export const monitorReducer = createReducer(
       routeAddPage: response,
     };
   }),
-  on(actionMonitorRouteUpdatePageLoaded, (state, { response }) => {
-    const groupName = response.result
-      ? response.result.groupName
-      : state.groupName;
-    const groupDescription = response.result
-      ? response.result.groupDescription
-      : state.groupDescription;
-    const routeName = response.result
-      ? response.result.routeName
-      : state.routeName;
-    const routeDescription = response.result
-      ? response.result.routeDescription
-      : state.routeDescription;
+  on(actionMonitorRouteUpdatePageLoaded, (state, response) => {
+    const result = response.result;
+    const groupName = result?.groupName ?? state.groupName;
+    const groupDescription = result?.groupDescription ?? state.groupDescription;
+    const routeName = result?.routeName ?? state.routeName;
+    const routeDescription = result?.routeDescription ?? state.routeDescription;
     return {
       ...state,
       groupName,
@@ -150,7 +144,7 @@ export const monitorReducer = createReducer(
       routeUpdatePage: response,
     };
   }),
-  on(actionMonitorRouteInfoLoaded, (state, { response }) => {
+  on(actionMonitorRouteInfoLoaded, (state, response) => {
     return {
       ...state,
       routeInfoPage: response,
@@ -162,8 +156,8 @@ export const monitorReducer = createReducer(
       routeInfoPage: null,
     };
   }),
-  on(actionMonitorRouteSaveInit, (state, { parameters }) => {
-    let routeSaveState: MonitorRouteSaveState = null;
+  on(actionMonitorRouteSaveInit, (state, parameters) => {
+    let routeSaveState: MonitorRouteSaveState;
     if (parameters.mode === 'add') {
       const gpx = parameters.properties.referenceType === 'gpx';
       routeSaveState = {
@@ -228,15 +222,14 @@ export const monitorReducer = createReducer(
       },
     };
   }),
-  on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {
-    const routeId = response.result?.routeId ?? state.routeId;
-    const relationId = response.result?.relationId ?? state.relationId;
-    const routeName = response.result?.routeName ?? state.routeName;
-    const routeDescription =
-      response.result?.routeDescription ?? state.routeDescription;
-    const groupName = response.result?.groupName ?? state.groupName;
-    const groupDescription =
-      response.result?.groupDescription ?? state.groupDescription;
+  on(actionMonitorRouteDetailsPageLoaded, (state, response) => {
+    const result = response.result;
+    const routeId = result?.routeId ?? state.routeId;
+    const relationId = result?.relationId ?? state.relationId;
+    const routeName = result?.routeName ?? state.routeName;
+    const routeDescription = result?.routeDescription ?? state.routeDescription;
+    const groupName = result?.groupName ?? state.groupName;
+    const groupDescription = result?.groupDescription ?? state.groupDescription;
     return {
       ...state,
       routeId,
@@ -248,17 +241,16 @@ export const monitorReducer = createReducer(
       routeDetailsPage: response,
     };
   }),
-  on(actionMonitorRouteMapPageLoaded, (state, { response }) => {
-    const routeId = response.result?.routeId ?? state.routeId;
-    const relationId = response.result?.relationId ?? state.relationId;
-    const routeName = response.result?.routeName ?? state.routeName;
-    const groupName = response.result?.groupName ?? state.groupName;
-    const groupDescription =
-      response.result?.groupDescription ?? state.groupDescription;
-    const mapGpxOkVisible = !!response.result?.okGeometry;
-    const mapGpxNokVisible = (response.result?.nokSegments?.length ?? 0) > 0;
-    const mapOsmRelationVisible =
-      (response.result?.osmSegments?.length ?? 0) > 0;
+  on(actionMonitorRouteMapPageLoaded, (state, response) => {
+    const result = response.result;
+    const routeId = result?.routeId ?? state.routeId;
+    const relationId = result?.relationId ?? state.relationId;
+    const routeName = result?.routeName ?? state.routeName;
+    const groupName = result?.groupName ?? state.groupName;
+    const groupDescription = result?.groupDescription ?? state.groupDescription;
+    const mapGpxOkVisible = !!result?.okGeometry;
+    const mapGpxNokVisible = (result?.nokSegments?.length ?? 0) > 0;
+    const mapOsmRelationVisible = (result?.osmSegments?.length ?? 0) > 0;
 
     const mapGpxVisible = !(
       mapGpxOkVisible ||
@@ -281,7 +273,7 @@ export const monitorReducer = createReducer(
       routeMapPage: response,
     };
   }),
-  on(actionMonitorRouteMapSelectDeviation, (state, { deviation }) => {
+  on(actionMonitorRouteMapSelectDeviation, (state, deviation) => {
     return {
       ...state,
       routeMapSelectedDeviation: deviation,
@@ -291,12 +283,12 @@ export const monitorReducer = createReducer(
     ...state,
     routeChangesPageIndex: 0,
   })),
-  on(actionMonitorRouteChangesPageLoaded, (state, { response }) => {
-    const routeId = response.result?.routeId ?? state.routeId;
-    const routeName = response.result?.routeName ?? state.routeName;
-    const groupName = response.result?.groupName ?? state.groupName;
-    const groupDescription =
-      response.result?.groupDescription ?? state.groupDescription;
+  on(actionMonitorRouteChangesPageLoaded, (state, response) => {
+    const result = response.result;
+    const routeId = result?.routeId ?? state.routeId;
+    const routeName = result?.routeName ?? state.routeName;
+    const groupName = result?.groupName ?? state.groupName;
+    const groupDescription = result?.groupDescription ?? state.groupDescription;
     return {
       ...state,
       routeId,
@@ -310,7 +302,7 @@ export const monitorReducer = createReducer(
     ...state,
     routeChangesPageIndex: action.pageIndex,
   })),
-  on(actionMonitorRouteChangePageLoaded, (state, { response }) => {
+  on(actionMonitorRouteChangePageLoaded, (state, response) => {
     const routeId = 'TODO MON'; // response.result?.key.elementId ?? state.routeId;
     const routeName = 'ROUTE-NAME'; // response.result?.name ?? state.routeName;
     return {

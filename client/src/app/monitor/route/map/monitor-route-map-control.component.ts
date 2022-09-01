@@ -113,7 +113,7 @@ export class MonitorRouteMapControlComponent {
       .select(selectMonitorRouteMapBounds)
       .pipe(first())
       .subscribe((bounds) => {
-        this.store.dispatch(actionMonitorRouteMapFocus({ bounds }));
+        this.store.dispatch(actionMonitorRouteMapFocus(bounds));
       });
   }
 

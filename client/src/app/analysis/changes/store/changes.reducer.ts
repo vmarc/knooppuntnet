@@ -90,7 +90,7 @@ export const changesReducer = createReducer(
     ...state,
     pageIndex,
   })),
-  on(actionChangesPageLoaded, (state, { response }) => ({
+  on(actionChangesPageLoaded, (state, response) => ({
     ...state,
     changesPage: response,
   }))

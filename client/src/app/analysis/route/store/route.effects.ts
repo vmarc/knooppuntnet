@@ -53,7 +53,7 @@ export class RouteEffects {
     this.actions$.pipe(
       ofType(actionRouteDetailsPageLoad),
       mergeMap((action) => this.appService.routeDetails(action.routeId)),
-      map((response) => actionRouteDetailsPageLoaded({ response }))
+      map((response) => actionRouteDetailsPageLoaded(response))
     )
   );
 
@@ -140,7 +140,7 @@ export class RouteEffects {
           mergeMap(() => {
             return this.appService.routeChanges(routeId, changesParameters);
           }),
-          map((response) => actionRouteChangesPageLoaded({ response }))
+          map((response) => actionRouteChangesPageLoaded(response))
         );
       })
     )

@@ -38,7 +38,7 @@ export const routeReducer = createReducer(
     networkType,
     changeCount: 0,
   })),
-  on(actionRouteDetailsPageLoaded, (state, { response }) => {
+  on(actionRouteDetailsPageLoaded, (state, response) => {
     const routeId =
       response.result?.route.summary.id.toString() ?? state.routeId;
     const routeName = response.result?.route.summary.name ?? state.routeName;
@@ -77,7 +77,7 @@ export const routeReducer = createReducer(
     routeId,
     changesParameters,
   })),
-  on(actionRouteChangesPageLoaded, (state, { response }) => {
+  on(actionRouteChangesPageLoaded, (state, response) => {
     const routeId =
       response.result?.routeNameInfo.routeId.toString() ?? state.routeId;
     const routeName =

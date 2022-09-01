@@ -279,7 +279,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     const editParameters: EditParameters = {
       nodeIds,
     };
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 
   private displayedColumns() {

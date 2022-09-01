@@ -16,7 +16,7 @@ export class SharedEffects {
     () =>
       this.actions$.pipe(
         ofType(actionSharedEdit),
-        tap(({ editParameters }) => {
+        tap((editParameters) => {
           if (editParameters) {
             this.dialog.open(EditDialogComponent, {
               data: editParameters,

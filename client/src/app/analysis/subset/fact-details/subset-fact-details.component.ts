@@ -203,6 +203,6 @@ export class SubsetFactDetailsComponent implements OnInit {
         fullRelation: true,
       };
     }
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 }

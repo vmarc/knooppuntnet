@@ -33,7 +33,7 @@ export const nodeReducer = createReducer(
     nodeName,
     changeCount: 0,
   })),
-  on(actionNodeDetailsPageLoaded, (state, { response }) => {
+  on(actionNodeDetailsPageLoaded, (state, response) => {
     const nodeId = response.result?.nodeInfo.id.toString() ?? state.nodeId;
     const nodeName = response.result?.nodeInfo.name ?? state.nodeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
@@ -63,7 +63,7 @@ export const nodeReducer = createReducer(
     nodeId,
     changesParameters,
   })),
-  on(actionNodeChangesPageLoaded, (state, { response }) => {
+  on(actionNodeChangesPageLoaded, (state, response) => {
     const nodeId = response.result?.nodeId.toString() ?? state.nodeId;
     const nodeName = response.result?.nodeName ?? state.nodeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;

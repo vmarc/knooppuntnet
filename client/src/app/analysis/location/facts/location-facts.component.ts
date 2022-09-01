@@ -109,6 +109,6 @@ export class LocationFactsComponent {
       };
     }
 
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 }

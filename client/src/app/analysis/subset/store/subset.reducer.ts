@@ -35,7 +35,7 @@ export const subsetReducer = createReducer(
     actionSubsetOrphanRoutesPageInit,
     actionSubsetMapPageInit,
     actionSubsetChangesPageInit,
-    (state, action) => {
+    (state) => {
       return {
         ...state,
         networksPage: null,
@@ -61,12 +61,12 @@ export const subsetReducer = createReducer(
       subset,
     })
   ),
-  on(actionSubsetNetworksPageLoaded, (state, { response }) => ({
+  on(actionSubsetNetworksPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     networksPage: response,
   })),
-  on(actionSubsetFactsPageLoaded, (state, { response }) => ({
+  on(actionSubsetFactsPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     factsPage: response,
@@ -76,22 +76,22 @@ export const subsetReducer = createReducer(
     subsetFact,
     subset: subsetFact.subset,
   })),
-  on(actionSubsetFactDetailsPageLoaded, (state, { response }) => ({
+  on(actionSubsetFactDetailsPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     factDetailsPage: response,
   })),
-  on(actionSubsetOrphanNodesPageLoaded, (state, { response }) => ({
+  on(actionSubsetOrphanNodesPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     orphanNodesPage: response,
   })),
-  on(actionSubsetOrphanRoutesPageLoaded, (state, { response }) => ({
+  on(actionSubsetOrphanRoutesPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     orphanRoutesPage: response,
   })),
-  on(actionSubsetMapPageLoaded, (state, { response }) => ({
+  on(actionSubsetMapPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     mapPage: response,
@@ -101,7 +101,7 @@ export const subsetReducer = createReducer(
     subset,
     changesParameters,
   })),
-  on(actionSubsetChangesPageLoaded, (state, { response }) => ({
+  on(actionSubsetChangesPageLoaded, (state, response) => ({
     ...state,
     subsetInfo: response.result.subsetInfo,
     changesPage: response,

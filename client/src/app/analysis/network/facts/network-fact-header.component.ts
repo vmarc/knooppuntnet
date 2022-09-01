@@ -77,6 +77,6 @@ export class NetworkFactHeaderComponent {
         nodeIds: networkFact.checks.map((check) => check.nodeId),
       };
     }
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 }

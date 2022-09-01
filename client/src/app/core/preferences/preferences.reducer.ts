@@ -130,7 +130,7 @@ export const preferencesReducer = createReducer(
     ...state,
     planProposed: action.value,
   })),
-  on(actionRouteDetailsPageLoaded, (state, { response }) => {
+  on(actionRouteDetailsPageLoaded, (state, response) => {
     const networkType =
       response?.result?.route.summary.networkType ?? state.networkType;
     return {
@@ -146,7 +146,7 @@ export const preferencesReducer = createReducer(
       networkType,
     };
   }),
-  on(actionRouteChangesPageLoaded, (state, { response }) => {
+  on(actionRouteChangesPageLoaded, (state, response) => {
     const networkType =
       response?.result?.routeNameInfo.networkType ?? state.networkType;
     return {

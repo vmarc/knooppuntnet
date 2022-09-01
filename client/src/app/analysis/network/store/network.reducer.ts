@@ -87,22 +87,22 @@ export const networkReducer = createReducer(
       summary,
     };
   }),
-  on(actionNetworkDetailsPageLoaded, (state, { response }) => ({
+  on(actionNetworkDetailsPageLoaded, (state, response) => ({
     ...state,
     summary: response.result?.summary ?? defaultSummary,
     detailsPage: response,
   })),
-  on(actionNetworkNodesPageLoaded, (state, { response }) => ({
+  on(actionNetworkNodesPageLoaded, (state, response) => ({
     ...state,
     summary: response.result?.summary ?? defaultSummary,
     nodesPage: response,
   })),
-  on(actionNetworkRoutesPageLoaded, (state, { response }) => ({
+  on(actionNetworkRoutesPageLoaded, (state, response) => ({
     ...state,
     summary: response.result?.summary ?? defaultSummary,
     routesPage: response,
   })),
-  on(actionNetworkFactsPageLoaded, (state, { response }) => ({
+  on(actionNetworkFactsPageLoaded, (state, response) => ({
     ...state,
     summary: response.result?.summary ?? defaultSummary,
     factsPage: response,
@@ -128,7 +128,7 @@ export const networkReducer = createReducer(
       changesParameters,
     };
   }),
-  on(actionNetworkChangesPageLoaded, (state, { response }) => ({
+  on(actionNetworkChangesPageLoaded, (state, response) => ({
     ...state,
     summary: response.result?.network ?? defaultSummary,
     changesPage: response,

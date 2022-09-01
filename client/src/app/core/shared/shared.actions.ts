@@ -9,5 +9,5 @@ export const actionSharedHttpError = createAction(
 
 export const actionSharedEdit = createAction(
   '[Shared] Edit',
-  props<{ editParameters: EditParameters }>()
+  props<EditParameters>()
 );

@@ -27,7 +27,7 @@ export const actionNodeDetailsPageLoad = createAction(
 
 export const actionNodeDetailsPageLoaded = createAction(
   '[NodeDetailsPage] Loaded',
-  props<{ response: ApiResponse<NodeDetailsPage> }>()
+  props<ApiResponse<NodeDetailsPage>>()
 );
 
 export const actionNodeMapPageInit = createAction('[NodeMapPage] Init');
@@ -54,7 +54,7 @@ export const actionNodeChangesPageLoad = createAction(
 
 export const actionNodeChangesPageLoaded = createAction(
   '[NodeChangesPage] Loaded',
-  props<{ response: ApiResponse<NodeChangesPage> }>()
+  props<ApiResponse<NodeChangesPage>>()
 );
 
 export const actionNodeChangesPageImpact = createAction(

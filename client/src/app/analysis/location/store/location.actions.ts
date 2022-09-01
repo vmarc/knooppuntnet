@@ -41,7 +41,7 @@ export const actionLocationNodesPageIndex = createAction(
 
 export const actionLocationNodesPageLoaded = createAction(
   '[LocationNodesPage] Loaded',
-  props<{ response: ApiResponse<LocationNodesPage> }>()
+  props<ApiResponse<LocationNodesPage>>()
 );
 
 export const actionLocationRoutesPageInit = createAction(
@@ -65,7 +65,7 @@ export const actionLocationRoutesPageIndex = createAction(
 
 export const actionLocationRoutesPageLoaded = createAction(
   '[LocationRoutesPage] Loaded',
-  props<{ response: ApiResponse<LocationRoutesPage> }>()
+  props<ApiResponse<LocationRoutesPage>>()
 );
 
 export const actionLocationFactsPageInit = createAction(
@@ -74,14 +74,14 @@ export const actionLocationFactsPageInit = createAction(
 
 export const actionLocationFactsPageLoaded = createAction(
   '[LocationFactsPage] Loaded',
-  props<{ response: ApiResponse<LocationFactsPage> }>()
+  props<ApiResponse<LocationFactsPage>>()
 );
 
 export const actionLocationMapPageInit = createAction('[LocationMapPage] Init');
 
 export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',
-  props<{ response: ApiResponse<LocationMapPage> }>()
+  props<ApiResponse<LocationMapPage>>()
 );
 
 export const actionLocationChangesPageInit = createAction(
@@ -90,7 +90,7 @@ export const actionLocationChangesPageInit = createAction(
 
 export const actionLocationChangesPageLoaded = createAction(
   '[LocationChangesPage] Loaded',
-  props<{ response: ApiResponse<LocationChangesPage> }>()
+  props<ApiResponse<LocationChangesPage>>()
 );
 
 export const actionLocationEditPageInit = createAction(
@@ -99,5 +99,5 @@ export const actionLocationEditPageInit = createAction(
 
 export const actionLocationEditPageLoaded = createAction(
   '[LocationEditPage] Loaded',
-  props<{ response: ApiResponse<LocationEditPage> }>()
+  props<ApiResponse<LocationEditPage>>()
 );

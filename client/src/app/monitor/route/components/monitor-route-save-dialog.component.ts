@@ -96,9 +96,7 @@ export class MonitorRouteSaveDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(
-      actionMonitorRouteSaveInit({ parameters: this.parameters })
-    );
+    this.store.dispatch(actionMonitorRouteSaveInit(this.parameters));
   }
 
   backToGroup(): void {

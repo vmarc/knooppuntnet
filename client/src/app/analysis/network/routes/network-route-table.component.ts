@@ -241,7 +241,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
       relationIds,
       fullRelation: true,
     };
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 
   private displayedColumns() {

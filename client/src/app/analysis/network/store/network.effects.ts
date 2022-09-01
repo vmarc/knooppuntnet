@@ -65,7 +65,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageLoad),
       mergeMap((action) => this.appService.networkDetails(action.networkId)),
-      map((response) => actionNetworkDetailsPageLoaded({ response }))
+      map((response) => actionNetworkDetailsPageLoaded(response))
     )
   );
 
@@ -85,7 +85,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkFactsPageLoad),
       mergeMap((action) => this.appService.networkFacts(action.networkId)),
-      map((response) => actionNetworkFactsPageLoaded({ response }))
+      map((response) => actionNetworkFactsPageLoaded(response))
     )
   );
 
@@ -105,7 +105,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkNodesPageLoad),
       mergeMap((action) => this.appService.networkNodes(action.networkId)),
-      map((response) => actionNetworkNodesPageLoaded({ response }))
+      map((response) => actionNetworkNodesPageLoaded(response))
     )
   );
 
@@ -125,7 +125,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageLoad),
       mergeMap((action) => this.appService.networkRoutes(action.networkId)),
-      map((response) => actionNetworkRoutesPageLoaded({ response }))
+      map((response) => actionNetworkRoutesPageLoaded(response))
     )
   );
 
@@ -223,7 +223,7 @@ export class NetworkEffects {
           mergeMap(() =>
             this.appService.networkChanges(+networkId, changesParameters)
           ),
-          map((response) => actionNetworkChangesPageLoaded({ response }))
+          map((response) => actionNetworkChangesPageLoaded(response))
         );
       })
     )

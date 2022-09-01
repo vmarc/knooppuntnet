@@ -28,7 +28,7 @@ export const actionNetworkDetailsPageLoad = createAction(
 
 export const actionNetworkDetailsPageLoaded = createAction(
   '[NetworkDetailsPage] Loaded',
-  props<{ response: ApiResponse<NetworkDetailsPage> }>()
+  props<ApiResponse<NetworkDetailsPage>>()
 );
 
 export const actionNetworkNodesPageInit = createAction(
@@ -42,7 +42,7 @@ export const actionNetworkNodesPageLoad = createAction(
 
 export const actionNetworkNodesPageLoaded = createAction(
   '[NetworkNodesPage] Loaded',
-  props<{ response: ApiResponse<NetworkNodesPage> }>()
+  props<ApiResponse<NetworkNodesPage>>()
 );
 
 export const actionNetworkRoutesPageInit = createAction(
@@ -56,7 +56,7 @@ export const actionNetworkRoutesPageLoad = createAction(
 
 export const actionNetworkRoutesPageLoaded = createAction(
   '[NetworkRoutesPage] Loaded',
-  props<{ response: ApiResponse<NetworkRoutesPage> }>()
+  props<ApiResponse<NetworkRoutesPage>>()
 );
 
 export const actionNetworkFactsPageInit = createAction(
@@ -70,7 +70,7 @@ export const actionNetworkFactsPageLoad = createAction(
 
 export const actionNetworkFactsPageLoaded = createAction(
   '[NetworkFactsPage] Loaded',
-  props<{ response: ApiResponse<NetworkFactsPage> }>()
+  props<ApiResponse<NetworkFactsPage>>()
 );
 
 export const actionNetworkMapPageInit = createAction('[NetworkMapPage] Init');
@@ -99,7 +99,7 @@ export const actionNetworkChangesLoad = createAction(
 
 export const actionNetworkChangesPageLoaded = createAction(
   '[NetworkChangesPage] Loaded',
-  props<{ response: ApiResponse<NetworkChangesPage> }>()
+  props<ApiResponse<NetworkChangesPage>>()
 );
 
 export const actionNetworkChangesPageSize = createAction(

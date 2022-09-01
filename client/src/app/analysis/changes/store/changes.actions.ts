@@ -24,7 +24,7 @@ export const actionChangesPageLoad = createAction(
 
 export const actionChangesPageLoaded = createAction(
   '[ChangesPage] Loaded',
-  props<{ response: ApiResponse<ChangesPage> }>()
+  props<ApiResponse<ChangesPage>>()
 );
 
 export const actionChangesImpact = createAction(

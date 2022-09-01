@@ -68,7 +68,7 @@ export const locationReducer = createReducer(
     ...state,
     nodesPageIndex: pageIndex,
   })),
-  on(actionLocationNodesPageLoaded, (state, { response }) => ({
+  on(actionLocationNodesPageLoaded, (state, response) => ({
     ...state,
     nodesPage: response,
     locationSummary: response.result?.summary,
@@ -91,27 +91,27 @@ export const locationReducer = createReducer(
     ...state,
     routesPageIndex: pageIndex,
   })),
-  on(actionLocationRoutesPageLoaded, (state, { response }) => ({
+  on(actionLocationRoutesPageLoaded, (state, response) => ({
     ...state,
     routesPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationFactsPageLoaded, (state, { response }) => ({
+  on(actionLocationFactsPageLoaded, (state, response) => ({
     ...state,
     factsPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationMapPageLoaded, (state, { response }) => ({
+  on(actionLocationMapPageLoaded, (state, response) => ({
     ...state,
     mapPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationChangesPageLoaded, (state, { response }) => ({
+  on(actionLocationChangesPageLoaded, (state, response) => ({
     ...state,
     changesPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationEditPageLoaded, (state, { response }) => ({
+  on(actionLocationEditPageLoaded, (state, response) => ({
     ...state,
     editPage: response,
     locationSummary: response.result?.summary,

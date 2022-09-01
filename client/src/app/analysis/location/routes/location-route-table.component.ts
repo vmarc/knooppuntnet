@@ -201,7 +201,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
       relationIds: this.routes.map((route) => route.id),
       fullRelation: true,
     };
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 
   private displayedColumns() {

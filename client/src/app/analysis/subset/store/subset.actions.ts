@@ -26,7 +26,7 @@ export const actionSubsetNetworksPageLoad = createAction(
 
 export const actionSubsetNetworksPageLoaded = createAction(
   '[SubsetNetworksPage] Loaded',
-  props<{ response: ApiResponse<SubsetNetworksPage> }>()
+  props<ApiResponse<SubsetNetworksPage>>()
 );
 
 export const actionSubsetFactsPageInit = createAction('[SubsetFactsPage] Init');
@@ -38,7 +38,7 @@ export const actionSubsetFactsPageLoad = createAction(
 
 export const actionSubsetFactsPageLoaded = createAction(
   '[SubsetFactsPage] Loaded',
-  props<{ response: ApiResponse<SubsetFactsPage> }>()
+  props<ApiResponse<SubsetFactsPage>>()
 );
 
 export const actionSubsetFactRefsLoad = createAction(
@@ -48,7 +48,7 @@ export const actionSubsetFactRefsLoad = createAction(
 
 export const actionSubsetFactRefsLoaded = createAction(
   '[SubsetFactRefs] Loaded',
-  props<{ response: ApiResponse<SubsetFactRefs> }>()
+  props<ApiResponse<SubsetFactRefs>>()
 );
 
 export const actionSubsetFactDetailsPageInit = createAction(
@@ -62,7 +62,7 @@ export const actionSubsetFactDetailsPageLoad = createAction(
 
 export const actionSubsetFactDetailsPageLoaded = createAction(
   '[SubsetFactDetailsPage] Loaded',
-  props<{ response: ApiResponse<SubsetFactDetailsPage> }>()
+  props<ApiResponse<SubsetFactDetailsPage>>()
 );
 
 export const actionSubsetOrphanNodesPageInit = createAction(
@@ -76,7 +76,7 @@ export const actionSubsetOrphanNodesPageLoad = createAction(
 
 export const actionSubsetOrphanNodesPageLoaded = createAction(
   '[SubsetOrphanNodesPage] Loaded',
-  props<{ response: ApiResponse<SubsetOrphanNodesPage> }>()
+  props<ApiResponse<SubsetOrphanNodesPage>>()
 );
 
 export const actionSubsetOrphanRoutesPageInit = createAction(
@@ -90,7 +90,7 @@ export const actionSubsetOrphanRoutesPageLoad = createAction(
 
 export const actionSubsetOrphanRoutesPageLoaded = createAction(
   '[SubsetOrphanRoutesPage] Loaded',
-  props<{ response: ApiResponse<SubsetOrphanRoutesPage> }>()
+  props<ApiResponse<SubsetOrphanRoutesPage>>()
 );
 
 export const actionSubsetMapPageInit = createAction('[SubsetMapPage] Init');
@@ -102,7 +102,7 @@ export const actionSubsetMapPageLoad = createAction(
 
 export const actionSubsetMapPageLoaded = createAction(
   '[SubsetMapPage] Loaded',
-  props<{ response: ApiResponse<SubsetMapPage> }>()
+  props<ApiResponse<SubsetMapPage>>()
 );
 
 export const actionSubsetChangesPageInit = createAction(
@@ -116,7 +116,7 @@ export const actionSubsetChangesPageLoad = createAction(
 
 export const actionSubsetChangesPageLoaded = createAction(
   '[SubsetChangesPage] Loaded',
-  props<{ response: ApiResponse<SubsetChangesPage> }>()
+  props<ApiResponse<SubsetChangesPage>>()
 );
 
 export const actionSubsetChangesPageImpact = createAction(

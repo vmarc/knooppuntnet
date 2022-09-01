@@ -102,8 +102,6 @@ export class MonitorRouteMapNokSegmentsComponent {
     if (event.options.length > 0) {
       deviation = event.options[0].value;
     }
-    this.store.dispatch(
-      actionMonitorRouteMapSelectDeviation({ deviation: deviation })
-    );
+    this.store.dispatch(actionMonitorRouteMapSelectDeviation(deviation));
   }
 }

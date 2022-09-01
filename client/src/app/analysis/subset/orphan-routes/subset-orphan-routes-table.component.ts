@@ -203,6 +203,6 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
       relationIds: routeIds,
       fullRelation: true,
     };
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 }

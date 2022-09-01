@@ -25,7 +25,7 @@ export const actionRouteDetailsPageLoad = createAction(
 
 export const actionRouteDetailsPageLoaded = createAction(
   '[RouteDetailsPage] Loaded',
-  props<{ response: ApiResponse<RouteDetailsPage> }>()
+  props<ApiResponse<RouteDetailsPage>>()
 );
 
 export const actionRouteMapPageInit = createAction('[RouteMapPage] Init');
@@ -54,7 +54,7 @@ export const actionRouteChangesPageLoad = createAction(
 
 export const actionRouteChangesPageLoaded = createAction(
   '[RouteChangesPage] Loaded',
-  props<{ response: ApiResponse<RouteChangesPage> }>()
+  props<ApiResponse<RouteChangesPage>>()
 );
 
 export const actionRouteChangesPageImpact = createAction(

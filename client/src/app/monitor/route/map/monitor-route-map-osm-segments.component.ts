@@ -56,9 +56,7 @@ export class MonitorRouteMapOsmSegmentsComponent {
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
       const segment: MonitorRouteSegment = event.options[0].value;
-      this.store.dispatch(
-        actionMonitorRouteMapFocus({ bounds: segment.bounds })
-      );
+      this.store.dispatch(actionMonitorRouteMapFocus(segment.bounds));
     }
   }
 

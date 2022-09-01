@@ -69,7 +69,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageLoad),
       mergeMap((action) => this.appService.subsetNetworks(action.subset)),
-      map((response) => actionSubsetNetworksPageLoaded({ response }))
+      map((response) => actionSubsetNetworksPageLoaded(response))
     )
   );
 
@@ -90,7 +90,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetFactsPageLoad),
       mergeMap((action) => this.appService.subsetFacts(action.subset)),
-      map((response) => actionSubsetFactsPageLoaded({ response }))
+      map((response) => actionSubsetFactsPageLoaded(response))
     )
   );
 
@@ -102,7 +102,7 @@ export class SubsetEffects {
       mergeMap(([action, subset]) =>
         this.appService.subsetFactRefs(subset, action.fact)
       ),
-      map((response) => actionSubsetFactRefsLoaded({ response }))
+      map((response) => actionSubsetFactRefsLoaded(response))
     )
   );
 
@@ -110,8 +110,8 @@ export class SubsetEffects {
   editDialog = createEffect(() =>
     this.actions$.pipe(
       ofType(actionSubsetFactRefsLoaded),
-      map((action) => {
-        const subsetFactRefs = action.response.result;
+      map((response) => {
+        const subsetFactRefs = response.result;
         let editParameters: EditParameters = null;
         if (subsetFactRefs.elementType === 'node') {
           editParameters = {
@@ -129,7 +129,7 @@ export class SubsetEffects {
             fullRelation: true,
           };
         }
-        return actionSharedEdit({ editParameters });
+        return actionSharedEdit(editParameters);
       })
     )
   );
@@ -156,7 +156,7 @@ export class SubsetEffects {
           action.subsetFact.factName
         )
       ),
-      map((response) => actionSubsetFactDetailsPageLoaded({ response }))
+      map((response) => actionSubsetFactDetailsPageLoaded(response))
     )
   );
 
@@ -177,7 +177,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageLoad),
       mergeMap((action) => this.appService.subsetOrphanNodes(action.subset)),
-      map((response) => actionSubsetOrphanNodesPageLoaded({ response }))
+      map((response) => actionSubsetOrphanNodesPageLoaded(response))
     )
   );
 
@@ -198,7 +198,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageLoad),
       mergeMap((action) => this.appService.subsetOrphanRoutes(action.subset)),
-      map((response) => actionSubsetOrphanRoutesPageLoaded({ response }))
+      map((response) => actionSubsetOrphanRoutesPageLoaded(response))
     )
   );
 
@@ -219,7 +219,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetMapPageLoad),
       mergeMap((action) => this.appService.subsetMap(action.subset)),
-      map((response) => actionSubsetMapPageLoaded({ response }))
+      map((response) => actionSubsetMapPageLoaded(response))
     )
   );
 
@@ -273,7 +273,7 @@ export class SubsetEffects {
           mergeMap(() =>
             this.appService.subsetChanges(subset, changesParameters)
           ),
-          map((response) => actionSubsetChangesPageLoaded({ response }))
+          map((response) => actionSubsetChangesPageLoaded(response))
         );
       })
     )

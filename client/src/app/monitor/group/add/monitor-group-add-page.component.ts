@@ -70,9 +70,7 @@ export class MonitorGroupAddPageComponent {
 
   add(): void {
     if (this.form.valid) {
-      this.store.dispatch(
-        actionMonitorGroupAdd({ properties: this.form.value })
-      );
+      this.store.dispatch(actionMonitorGroupAdd(this.form.value));
     }
   }
 }

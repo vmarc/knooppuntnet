@@ -28,7 +28,7 @@ export const actionMonitorGroupsPageInit = createAction(
 
 export const actionMonitorGroupsPageLoaded = createAction(
   '[MonitorGroupsPage] Loaded',
-  props<{ response: ApiResponse<MonitorGroupsPage> }>()
+  props<ApiResponse<MonitorGroupsPage>>()
 );
 
 export const actionMonitorNavigateGroup = createAction(
@@ -42,7 +42,7 @@ export const actionMonitorGroupDeleteInit = createAction(
 
 export const actionMonitorGroupDeleteLoaded = createAction(
   '[MonitorAdminGroupDeletePage] Loaded',
-  props<{ response: ApiResponse<MonitorGroupPage> }>()
+  props<ApiResponse<MonitorGroupPage>>()
 );
 
 export const actionMonitorGroupUpdateInit = createAction(
@@ -51,7 +51,7 @@ export const actionMonitorGroupUpdateInit = createAction(
 
 export const actionMonitorGroupUpdateLoaded = createAction(
   '[MonitorAdminGroupUpdatePage] Loaded',
-  props<{ response: ApiResponse<MonitorGroupPage> }>()
+  props<ApiResponse<MonitorGroupPage>>()
 );
 
 export const actionMonitorGroupPageInit = createAction(
@@ -60,7 +60,7 @@ export const actionMonitorGroupPageInit = createAction(
 
 export const actionMonitorGroupPageLoaded = createAction(
   '[MonitorGroupPage] Loaded',
-  props<{ response: ApiResponse<MonitorGroupPage> }>()
+  props<ApiResponse<MonitorGroupPage>>()
 );
 
 export const actionMonitorGroupChangesPageInit = createAction(
@@ -74,7 +74,7 @@ export const actionMonitorGroupChangesPageIndex = createAction(
 
 export const actionMonitorGroupChangesPageLoaded = createAction(
   '[MonitorGroupChangesPage] Loaded',
-  props<{ response: ApiResponse<MonitorGroupChangesPage> }>()
+  props<ApiResponse<MonitorGroupChangesPage>>()
 );
 
 export const actionMonitorRouteDetailsPageInit = createAction(
@@ -83,7 +83,7 @@ export const actionMonitorRouteDetailsPageInit = createAction(
 
 export const actionMonitorRouteDetailsPageLoaded = createAction(
   '[MonitorRouteDetailsPage] Loaded',
-  props<{ response: ApiResponse<MonitorRouteDetailsPage> }>()
+  props<ApiResponse<MonitorRouteDetailsPage>>()
 );
 
 export const actionMonitorRouteMapPageInit = createAction(
@@ -92,7 +92,7 @@ export const actionMonitorRouteMapPageInit = createAction(
 
 export const actionMonitorRouteMapPageLoaded = createAction(
   '[MonitorRouteMapPage] Loaded',
-  props<{ response: ApiResponse<MonitorRouteMapPage> }>()
+  props<ApiResponse<MonitorRouteMapPage>>()
 );
 
 export const actionMonitorRouteChangesPageInit = createAction(
@@ -106,7 +106,7 @@ export const actionMonitorRouteChangesPageIndex = createAction(
 
 export const actionMonitorRouteChangesPageLoaded = createAction(
   '[MonitorRouteChangesPage] Loaded',
-  props<{ response: ApiResponse<MonitorRouteChangesPage> }>()
+  props<ApiResponse<MonitorRouteChangesPage>>()
 );
 
 export const actionMonitorRouteChangePageInit = createAction(
@@ -115,7 +115,7 @@ export const actionMonitorRouteChangePageInit = createAction(
 
 export const actionMonitorRouteChangePageLoaded = createAction(
   '[MonitorRouteChangePage] Loaded',
-  props<{ response: ApiResponse<MonitorRouteChangePage> }>()
+  props<ApiResponse<MonitorRouteChangePage>>()
 );
 
 export const actionMonitorRouteMapMode = createAction(
@@ -125,12 +125,12 @@ export const actionMonitorRouteMapMode = createAction(
 
 export const actionMonitorRouteMapSelectDeviation = createAction(
   '[Monitor] Map select deviation',
-  props<{ deviation: MonitorRouteNokSegment | null }>()
+  props<MonitorRouteNokSegment | null>()
 );
 
 export const actionMonitorRouteMapFocus = createAction(
   '[Monitor] Focus',
-  props<{ bounds: Bounds }>()
+  props<Bounds>()
 );
 
 export const actionMonitorRouteMapReferenceVisible = createAction(
@@ -167,7 +167,7 @@ export const actionMonitorRouteMapJosmZoomToSelectedDeviation = createAction(
 
 export const actionMonitorGroupAdd = createAction(
   '[MonitorAdminGroupAddPage] Add group',
-  props<{ properties: MonitorGroupProperties }>()
+  props<MonitorGroupProperties>()
 );
 
 export const actionMonitorGroupUpdate = createAction(
@@ -195,22 +195,22 @@ export const actionMonitorRouteAddPageInit = createAction(
 
 export const actionMonitorRouteAddPageLoaded = createAction(
   '[MonitorRouteAddPage] Loaded',
-  props<{ response: ApiResponse<MonitorRouteAddPage> }>()
+  props<ApiResponse<MonitorRouteAddPage>>()
 );
 
 export const actionMonitorRouteSaveInit = createAction(
   '[Monitor] Route save init',
-  props<{ parameters: MonitorRouteParameters }>()
+  props<MonitorRouteParameters>()
 );
 
 export const actionMonitorRouteUploadInit = createAction(
   '[Monitor] Route upload init',
-  props<{ parameters: MonitorRouteParameters }>()
+  props<MonitorRouteParameters>()
 );
 
 export const actionMonitorRouteUploaded = createAction(
   '[Monitor] Route uploaded',
-  props<{ parameters: MonitorRouteParameters }>()
+  props<MonitorRouteParameters>()
 );
 
 export const actionMonitorRouteAnalyzed = createAction(
@@ -229,14 +229,14 @@ export const actionMonitorRouteUpdatePageInit = createAction(
 
 export const actionMonitorRouteUpdatePageLoaded = createAction(
   '[MonitorRouteUpdatePage] Loaded',
-  props<{ response: ApiResponse<MonitorRouteUpdatePage> }>()
+  props<ApiResponse<MonitorRouteUpdatePage>>()
 );
 
 export const actionMonitorRouteDelete = createAction('[Monitor] Route delete');
 
 export const actionMonitorRouteInfoLoaded = createAction(
   '[Monitor] Route info loaded',
-  props<{ response: ApiResponse<MonitorRouteInfoPage> }>()
+  props<ApiResponse<MonitorRouteInfoPage>>()
 );
 
 export const actionMonitorChangesPageInit = createAction(
@@ -250,5 +250,5 @@ export const actionMonitorChangesPageIndex = createAction(
 
 export const actionMonitorChangesPageLoaded = createAction(
   '[MonitorChangesPage] Loaded',
-  props<{ response: ApiResponse<MonitorChangesPage> }>()
+  props<ApiResponse<MonitorChangesPage>>()
 );

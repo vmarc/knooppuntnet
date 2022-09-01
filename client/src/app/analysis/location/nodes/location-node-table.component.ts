@@ -222,7 +222,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     const editParameters: EditParameters = {
       nodeIds: this.nodes.map((node) => node.id),
     };
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 
   private displayedColumns() {

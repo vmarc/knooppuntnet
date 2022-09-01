@@ -102,7 +102,7 @@ export class LocationEditComponent implements OnInit {
 
   edit(): void {
     const editParameters = this.buildEditParameters();
-    this.store.dispatch(actionSharedEdit({ editParameters }));
+    this.store.dispatch(actionSharedEdit(editParameters));
   }
 
   private updateExpectation(): void {
