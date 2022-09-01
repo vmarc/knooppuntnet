@@ -88,18 +88,6 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       </button>
       <a [routerLink]="groupLink()">Cancel</a>
     </div>
-
-    <pre>
-      form = {{ form.valid }}
-      groupForm = {{ groupForm.valid }}
-      nameForm = {{ nameForm.valid }}
-      relationIdForm = {{ relationIdForm.valid }}
-        relationIdKnown = {{ relationIdKnown.value }}
-        relationId = {{ relationId.value }}
-      referenceTypeForm = {{ referenceTypeForm.valid }}
-      referenceDetailsForm = {{ referenceDetailsForm.valid }}
-    </pre
-    >
   `,
 })
 export class MonitorRoutePropertiesComponent implements OnInit {

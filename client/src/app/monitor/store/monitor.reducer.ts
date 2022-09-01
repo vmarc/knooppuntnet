@@ -1,6 +1,11 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteSaved } from './monitor.actions';
+import { actionMonitorRouteUploadInit } from './monitor.actions';
+import { actionMonitorRouteUploaded } from './monitor.actions';
+import { actionMonitorRouteAnalyzed } from './monitor.actions';
+import { actionMonitorRouteSaveInit } from './monitor.actions';
 import { actionMonitorRouteAdminRelationIdChanged } from './monitor.actions';
 import { actionMonitorRouteUpdatePageLoaded } from './monitor.actions';
 import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
@@ -29,6 +34,7 @@ import { actionMonitorRouteMapMode } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
+import { MonitorRouteSaveState } from './monitor.state';
 import { initialState } from './monitor.state';
 
 export const monitorReducer = createReducer(
@@ -37,7 +43,7 @@ export const monitorReducer = createReducer(
     ...state,
     admin,
   })),
-  on(routerNavigationAction, (state, action) => ({
+  on(routerNavigationAction, (state) => ({
     ...state,
     mapMode: null,
     routeGroups: null,
@@ -154,6 +160,72 @@ export const monitorReducer = createReducer(
     return {
       ...state,
       routeInfoPage: null,
+    };
+  }),
+  on(actionMonitorRouteSaveInit, (state, { parameters }) => {
+    let routeSaveState: MonitorRouteSaveState = null;
+    if (parameters.mode === 'add') {
+      const gpx = parameters.properties.referenceType === 'gpx';
+      routeSaveState = {
+        ...new MonitorRouteSaveState(),
+        saveRouteEnabled: true,
+        uploadGpxEnabled: gpx,
+        analyzeEnabled: gpx,
+      };
+    } else {
+      const gpx =
+        parameters.properties.referenceType === 'gpx' &&
+        parameters.properties.gpxFileChanged;
+      routeSaveState = {
+        ...new MonitorRouteSaveState(),
+        saveRouteEnabled: true,
+        uploadGpxEnabled: gpx,
+        analyzeEnabled: gpx,
+      };
+    }
+    return {
+      ...state,
+      routeSaveState,
+    };
+  }),
+  on(actionMonitorRouteUploadInit, (state) => {
+    return {
+      ...state,
+      routeSaveState: {
+        ...state.routeSaveState,
+        saveRouteStatus: 'done',
+        uploadGpxStatus: 'busy',
+      },
+    };
+  }),
+  on(actionMonitorRouteUploaded, (state) => {
+    return {
+      ...state,
+      routeSaveState: {
+        ...state.routeSaveState,
+        uploadGpxStatus: 'done',
+        analyzeStatus: 'busy',
+      },
+    };
+  }),
+  on(actionMonitorRouteAnalyzed, (state) => {
+    return {
+      ...state,
+      routeSaveState: {
+        ...state.routeSaveState,
+        analyzeStatus: 'done',
+        done: true,
+      },
+    };
+  }),
+  on(actionMonitorRouteSaved, (state) => {
+    return {
+      ...state,
+      routeSaveState: {
+        ...state.routeSaveState,
+        saveRouteStatus: 'done',
+        done: true,
+      },
     };
   }),
   on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {

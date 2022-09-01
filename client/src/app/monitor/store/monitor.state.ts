@@ -12,6 +12,18 @@ import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-se
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 
+export class MonitorRouteSaveState {
+  constructor(
+    readonly saveRouteEnabled: boolean = false,
+    readonly saveRouteStatus: 'todo' | 'busy' | 'done' = 'todo',
+    readonly uploadGpxEnabled: boolean = false,
+    readonly uploadGpxStatus: 'todo' | 'busy' | 'done' = 'todo',
+    readonly analyzeEnabled: boolean = false,
+    readonly analyzeStatus: 'todo' | 'busy' | 'done' = 'todo',
+    readonly done: boolean = false
+  ) {}
+}
+
 export const initialState: MonitorState = {
   admin: false,
   adminRole: false,
@@ -35,6 +47,7 @@ export const initialState: MonitorState = {
   routeAddPage: null,
   routeUpdatePage: null,
   routeInfoPage: null,
+  routeSaveState: null,
   routeDetailsPage: null,
   routeMapPage: null,
   routeMapSelectedDeviation: null,
@@ -66,6 +79,7 @@ export interface MonitorState {
   routeAddPage: ApiResponse<MonitorRouteAddPage>;
   routeUpdatePage: ApiResponse<MonitorRouteUpdatePage>;
   routeInfoPage: ApiResponse<MonitorRouteInfoPage>;
+  routeSaveState: MonitorRouteSaveState | null;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;
   routeMapSelectedDeviation: MonitorRouteNokSegment;

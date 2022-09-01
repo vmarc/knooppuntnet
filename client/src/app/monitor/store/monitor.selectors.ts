@@ -61,6 +61,11 @@ export const selectMonitorRouteInfoPage = createSelector(
   (state: MonitorState) => state.routeInfoPage
 );
 
+export const selectMonitorRouteSaveState = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeSaveState
+);
+
 export const selectMonitorRouteDetailsPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeDetailsPage

@@ -20,6 +20,10 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteAnalyzed } from './monitor.actions';
+import { actionMonitorRouteUploaded } from './monitor.actions';
+import { actionMonitorRouteSaved } from './monitor.actions';
+import { actionMonitorRouteUploadInit } from './monitor.actions';
 import { actionMonitorRouteUpdatePageLoaded } from './monitor.actions';
 import { actionMonitorRouteUpdatePageInit } from './monitor.actions';
 import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
@@ -30,7 +34,7 @@ import { actionMonitorRouteMapJosmLoadRouteRelation } from './monitor.actions';
 import { actionMonitorRouteMapJosmZoomToFitRoute } from './monitor.actions';
 import { actionMonitorRouteDelete } from './monitor.actions';
 import { actionMonitorRouteDeletePageInit } from './monitor.actions';
-import { actionMonitorRouteAdd } from './monitor.actions';
+import { actionMonitorRouteSaveInit } from './monitor.actions';
 import { actionMonitorRouteInfoLoaded } from './monitor.actions';
 import { actionMonitorRouteInfo } from './monitor.actions';
 import { actionMonitorChangesPageIndex } from './monitor.actions';
@@ -198,22 +202,75 @@ export class MonitorEffects {
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteAdd = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(actionMonitorRouteAdd),
-        concatLatestFrom(() => this.store.select(selectMonitorGroupName)),
-        mergeMap(([action, groupName]) =>
-          this.monitorService.addRoute(groupName, action.properties).pipe(
-            tap(() => {
-              this.router.navigate([
-                `/monitor/groups/${groupName}/routes/${action.properties.name}/reference`,
-              ]);
+  monitorRouteAdd = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteSaveInit),
+      concatLatestFrom(() => this.store.select(selectMonitorGroupName)),
+      mergeMap(([action, groupName]) => {
+        const properties = action.parameters.properties;
+        if (action.parameters.mode === 'add') {
+          return this.monitorService.addRoute(groupName, properties).pipe(
+            map((response) => {
+              if (action.parameters.gpxFile) {
+                return actionMonitorRouteUploadInit({
+                  parameters: action.parameters,
+                });
+              }
+              return actionMonitorRouteSaved();
             })
+          );
+        }
+        return this.monitorService
+          .updateRoute(groupName, properties.name, properties)
+          .pipe(
+            map((response) => {
+              if (
+                properties.referenceType === 'gpx' &&
+                properties.gpxFileChanged
+              ) {
+                return actionMonitorRouteUploadInit({
+                  parameters: action.parameters,
+                });
+              }
+              return actionMonitorRouteSaved();
+            })
+          );
+      })
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteGpxUploadInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteUploadInit),
+      concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
+      mergeMap(([action, groupName]) => {
+        return this.monitorService
+          .routeGpxUpload(
+            groupName,
+            action.parameters.properties.name,
+            action.parameters.gpxFile
           )
-        )
-      ),
-    { dispatch: false }
+          .pipe(
+            map(() =>
+              actionMonitorRouteUploaded({ parameters: action.parameters })
+            )
+          );
+      })
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteGpxUploaded = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteUploaded),
+      concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
+      mergeMap(([action, groupName]) => {
+        return this.monitorService
+          .routeAnalyze(groupName, action.parameters.properties.name)
+          .pipe(map(() => actionMonitorRouteAnalyzed()));
+      })
+    )
   );
 
   // noinspection JSUnusedGlobalSymbols

@@ -11,11 +11,11 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
-import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
 
 export const actionMonitorAdmin = createAction(
   '[Monitor] Admin',
@@ -198,10 +198,26 @@ export const actionMonitorRouteAddPageLoaded = createAction(
   props<{ response: ApiResponse<MonitorRouteAddPage> }>()
 );
 
-export const actionMonitorRouteAdd = createAction(
-  '[Monitor] Route add',
-  props<{ groupId: string; properties: MonitorRouteProperties }>()
+export const actionMonitorRouteSaveInit = createAction(
+  '[Monitor] Route save init',
+  props<{ parameters: MonitorRouteParameters }>()
 );
+
+export const actionMonitorRouteUploadInit = createAction(
+  '[Monitor] Route upload init',
+  props<{ parameters: MonitorRouteParameters }>()
+);
+
+export const actionMonitorRouteUploaded = createAction(
+  '[Monitor] Route uploaded',
+  props<{ parameters: MonitorRouteParameters }>()
+);
+
+export const actionMonitorRouteAnalyzed = createAction(
+  '[Monitor] Route analyzed'
+);
+
+export const actionMonitorRouteSaved = createAction('[Monitor] Route saved');
 
 export const actionMonitorRouteDeletePageInit = createAction(
   '[Monitor] Route delete init'
