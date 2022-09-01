@@ -11,11 +11,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { of } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { concatMap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
+import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { MonitorRouteParameters } from './monitor-route-parameters';
 
 @Component({
@@ -117,18 +118,26 @@ export class MonitorRouteSaveDialogComponent {
   }
 
   backToGroup(): void {
-    const groupName = this.parameters.properties.groupName;
-    const url = `/monitor/groups/${groupName}`;
-    this.dialogRef.close();
-    this.router.navigateByUrl(url);
+    this.store
+      .select(selectMonitorGroupName)
+      .pipe(first())
+      .subscribe((groupName) => {
+        const url = `/monitor/groups/${groupName}`;
+        this.router.navigateByUrl(url);
+        this.dialogRef.close();
+      });
   }
 
   gotoAnalysisResult(): void {
-    const groupName = this.parameters.properties.groupName;
-    const routeName = this.parameters.properties.name;
-    const url = `/monitor/groups/${groupName}/routes/${routeName}/map`;
-    this.dialogRef.close();
-    this.router.navigateByUrl(url);
+    this.store
+      .select(selectMonitorGroupName)
+      .pipe(first())
+      .subscribe((groupName) => {
+        const routeName = this.parameters.properties.name;
+        const url = `/monitor/groups/${groupName}/routes/${routeName}/map`;
+        this.router.navigateByUrl(url);
+        this.dialogRef.close();
+      });
   }
 
   private save(): void {
@@ -169,7 +178,7 @@ export class MonitorRouteSaveDialogComponent {
   private add(properties: MonitorRouteProperties): void {
     this.done$.next(false);
     this.store
-      .select(selectRouteParam('groupName'))
+      .select(selectMonitorGroupName)
       .pipe(
         mergeMap((groupName) => {
           return this.addRoute(groupName, properties).pipe(
@@ -198,7 +207,7 @@ export class MonitorRouteSaveDialogComponent {
   private update(properties: MonitorRouteProperties): void {
     this.done$.next(false);
     this.store
-      .select(selectRouteParam('groupName'))
+      .select(selectMonitorGroupName)
       .pipe(
         mergeMap((groupName) => {
           return this.updateRoute(

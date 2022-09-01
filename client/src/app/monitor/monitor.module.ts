@@ -54,7 +54,6 @@ import { MonitorRoutePropertiesStep2NameComponent } from './route/components/mon
 import { MonitorRoutePropertiesStep3RelationComponent } from './route/components/monitor-route-properties-step-3-relation.component';
 import { MonitorRoutePropertiesStep4ReferenceTypeComponent } from './route/components/monitor-route-properties-step-4-reference-type.component';
 import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './route/components/monitor-route-properties-step-5-reference-details.component';
-import { MonitorRoutePropertiesStep6SaveComponent } from './route/components/monitor-route-properties-step-6-save.component';
 import { MonitorRoutePropertiesComponent } from './route/components/monitor-route-properties.component';
 import { MonitorRouteSaveDialogComponent } from './route/components/monitor-route-save-dialog.component';
 import { MonitorRouteSaveStepComponent } from './route/components/monitor-route-save-step.component';
@@ -141,7 +140,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRoutePropertiesStep3RelationComponent,
     MonitorRoutePropertiesStep4ReferenceTypeComponent,
     MonitorRoutePropertiesStep5ReferenceDetailsComponent,
-    MonitorRoutePropertiesStep6SaveComponent,
     MonitorRouteSaveDialogComponent,
     MonitorRouteSaveStepComponent,
   ],

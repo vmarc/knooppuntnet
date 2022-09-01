@@ -8,6 +8,9 @@ import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
+import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
+import { selectMonitorRouteName } from '../../store/monitor.selectors';
+import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 
 @Component({
@@ -35,6 +38,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
     <div *ngIf="response$ | async as response">
       <kpn-monitor-route-properties
         mode="update"
+        [groupName]="groupName$ | async"
         [initialProperties]="response.result.properties"
         [routeGroups]="response.result.groups"
       >
@@ -44,13 +48,11 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 })
 export class MonitorRouteUpdatePageComponent implements OnInit {
   readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);
-  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
-  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)
-  );
-  readonly routeDescription$ = this.response$.pipe(
-    map((response) => response.result?.routeDescription)
   );
 
   constructor(

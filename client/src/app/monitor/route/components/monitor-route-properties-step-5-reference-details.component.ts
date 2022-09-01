@@ -21,21 +21,24 @@ import { FormControl } from '@angular/forms';
 
     <div [ngClass]="{ hidden: referenceType.value !== 'gpx' }">
       <p>Select the file that contains the GPX trace:</p>
-      <input
-        type="file"
-        class="file-input"
-        (change)="selectFile($event)"
-        #fileInput
-      />
-      <button mat-raised-button (click)="fileInput.click()" type="button">
-        Select
-      </button>
-      <p><span class="kpn-label">File</span> {{ gpxFile?.value?.name }}</p>
+      <div class="kpn-small-spacer-above">
+        <input
+          type="file"
+          class="file-input"
+          (change)="selectFile($event)"
+          #fileInput
+        />
+        <button mat-stroked-button (click)="fileInput.click()" type="button">
+          Select file
+        </button>
+      </div>
+      <div class="kpn-small-spacer-above kpn-spacer-below">
+        <span class="kpn-label">File</span> {{ gpxFilename.value }}
+      </div>
     </div>
 
     <div class="kpn-button-group">
       <button mat-stroked-button matStepperPrevious>Back</button>
-      <button mat-stroked-button matStepperNext>Next</button>
     </div>
   `,
   styles: [

@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteAdminRelationIdChanged } from './monitor.actions';
 import { actionMonitorRouteUpdatePageLoaded } from './monitor.actions';
 import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
@@ -45,6 +46,9 @@ export const monitorReducer = createReducer(
     groupPage: null,
     groupChangesPage: null,
     routeDetailsPage: null,
+    routeAddPage: null,
+    routeUpdatePage: null,
+    routeInfoPage: null,
     routeMapPage: null,
     routeChangesPage: null,
     routeChangePage: null,
@@ -105,14 +109,38 @@ export const monitorReducer = createReducer(
     groupPage: response,
   })),
   on(actionMonitorRouteAddPageLoaded, (state, { response }) => {
+    const groupName = response.result
+      ? response.result.groupName
+      : state.groupName;
+    const groupDescription = response.result
+      ? response.result.groupDescription
+      : state.groupDescription;
     return {
       ...state,
+      groupName,
+      groupDescription,
       routeAddPage: response,
     };
   }),
   on(actionMonitorRouteUpdatePageLoaded, (state, { response }) => {
+    const groupName = response.result
+      ? response.result.groupName
+      : state.groupName;
+    const groupDescription = response.result
+      ? response.result.groupDescription
+      : state.groupDescription;
+    const routeName = response.result
+      ? response.result.routeName
+      : state.routeName;
+    const routeDescription = response.result
+      ? response.result.routeDescription
+      : state.routeDescription;
     return {
       ...state,
+      groupName,
+      groupDescription,
+      routeName,
+      routeDescription,
       routeUpdatePage: response,
     };
   }),
@@ -120,6 +148,12 @@ export const monitorReducer = createReducer(
     return {
       ...state,
       routeInfoPage: response,
+    };
+  }),
+  on(actionMonitorRouteAdminRelationIdChanged, (state) => {
+    return {
+      ...state,
+      routeInfoPage: null,
     };
   }),
   on(actionMonitorRouteDetailsPageLoaded, (state, { response }) => {

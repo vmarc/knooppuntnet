@@ -4,6 +4,7 @@ import { ValidatorFn } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
@@ -12,6 +13,8 @@ import { DayUtil } from '../../../components/shared/day-util';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
+import { MonitorRouteParameters } from './monitor-route-parameters';
+import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.component';
 
 @Component({
   selector: 'kpn-monitor-route-properties',
@@ -46,7 +49,6 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
             [ngForm]="ngForm"
             [form]="relationIdForm"
             [relationIdKnown]="relationIdKnown"
-            [relationIdVerified]="relationIdVerified"
             [relationId]="relationId"
           ></kpn-monitor-route-properties-step-3-relation>
         </form>
@@ -73,22 +75,31 @@ import { actionMonitorRouteInfo } from '../../store/monitor.actions';
           ></kpn-monitor-route-properties-step-5-reference-details>
         </form>
       </mat-step>
-      <mat-step label="Save">
-        <kpn-monitor-route-properties-step-6-save
-          [initialProperties]="initialProperties"
-          [mode]="mode"
-          [group]="group"
-          [name]="name"
-          [description]="description"
-          [relationId]="relationId"
-          [referenceType]="referenceType"
-          [osmReferenceDate]="osmReferenceDate"
-          [gpxFilename]="gpxFilename"
-          [gpxFile]="gpxFile"
-          [form]="form"
-        ></kpn-monitor-route-properties-step-6-save>
-      </mat-step>
     </mat-stepper>
+
+    <div class="kpn-button-group">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="save()"
+        [disabled]="form.invalid"
+      >
+        Save
+      </button>
+      <a [routerLink]="groupLink()">Cancel</a>
+    </div>
+
+    <pre>
+      form = {{ form.valid }}
+      groupForm = {{ groupForm.valid }}
+      nameForm = {{ nameForm.valid }}
+      relationIdForm = {{ relationIdForm.valid }}
+        relationIdKnown = {{ relationIdKnown.value }}
+        relationId = {{ relationId.value }}
+      referenceTypeForm = {{ referenceTypeForm.valid }}
+      referenceDetailsForm = {{ referenceDetailsForm.valid }}
+    </pre
+    >
   `,
 })
 export class MonitorRoutePropertiesComponent implements OnInit {
@@ -117,7 +128,6 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     Validators.maxLength(100),
   ]);
   readonly relationIdKnown = new FormControl<boolean | null>(null);
-  readonly relationIdVerified = new FormControl<boolean>(false);
   readonly relationId = new FormControl<string>('');
   readonly referenceType = new FormControl<string | null>(
     null,
@@ -139,7 +149,6 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   readonly relationIdForm = new FormGroup(
     {
       relationIdKnown: this.relationIdKnown,
-      relationIdVerified: this.relationIdVerified,
       relationId: this.relationId,
     },
     this.relationIdFormValidator()
@@ -160,12 +169,13 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     nameForm: this.nameForm,
     relationIdForm: this.relationIdForm,
     referenceTypeForm: this.referenceTypeForm,
-    referenceForm: this.referenceDetailsForm,
+    referenceDetailsForm: this.referenceDetailsForm,
   });
 
   constructor(
     private monitorService: MonitorService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -187,7 +197,6 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       this.relationIdForm.setValue({
         relationIdKnown: !!this.initialProperties.relationId,
         relationId: this.initialProperties.relationId,
-        relationIdVerified: false,
       });
       this.referenceTypeForm.setValue({
         referenceType: this.initialProperties.referenceType,
@@ -202,27 +211,53 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     }
   }
 
+  groupLink(): string {
+    return `/monitor/groups/${this.groupName}`;
+  }
+
   getRouteInformation(): void {
     this.store.dispatch(
       actionMonitorRouteInfo({ relationId: this.relationId.value })
     );
   }
 
+  save(): void {
+    const data: MonitorRouteParameters = {
+      mode: this.mode,
+      initialProperties: this.initialProperties,
+      properties: this.buildProperties(),
+      gpxFile: this.gpxFile.value,
+    };
+
+    this.dialog.open(MonitorRouteSaveDialogComponent, {
+      data,
+      maxWidth: 600,
+    });
+  }
+
+  private buildProperties(): MonitorRouteProperties {
+    return {
+      name: this.name.value,
+      description: this.description.value,
+      groupName: this.group.value?.groupName,
+      relationId: this.relationId.value,
+      referenceType: this.referenceType.value,
+      osmReferenceDay: DayUtil.toDay(this.osmReferenceDate.value),
+      gpxFileChanged: !!this.gpxFile.value,
+      gpxFilename: this.gpxFilename.value,
+    };
+  }
+
   private relationIdFormValidator(): ValidatorFn {
-    return (group: FormGroup): { [key: string]: any } => {
+    return (): { [key: string]: any } => {
       if (this.relationIdKnown.value === false) {
         return null;
       }
       if (this.relationIdKnown.value === true) {
-        if (this.relationIdVerified.value) {
-          return null;
-        }
         if (!this.relationId.value) {
           return { relationIdMissing: true };
         }
-        if (!this.relationIdVerified.value) {
-          return { relationIdNotVerified: true };
-        }
+        return null;
       }
       return { questionUnanswered: true };
     };

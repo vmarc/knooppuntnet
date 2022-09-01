@@ -185,6 +185,10 @@ export const actionMonitorRouteInfo = createAction(
   props<{ relationId: string }>()
 );
 
+export const actionMonitorRouteAdminRelationIdChanged = createAction(
+  '[Monitor] Relation id changed'
+);
+
 export const actionMonitorRouteAddPageInit = createAction(
   '[MonitorRouteAddPage] Init'
 );
