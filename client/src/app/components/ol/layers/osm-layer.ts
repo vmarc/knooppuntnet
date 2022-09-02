@@ -8,7 +8,9 @@ export class OsmLayer {
 
   build(): MapLayer {
     const layer = new TileLayer({
-      source: new OSM(),
+      source: new OSM({
+        url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+      }),
     });
 
     const osmLayerName = this.i18nService.translation('@@map.layer.osm');
