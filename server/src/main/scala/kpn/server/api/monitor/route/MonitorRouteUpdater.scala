@@ -7,18 +7,43 @@ import kpn.api.common.monitor.MonitorRouteUpdateResult
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzerImpl
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.repository.MonitorGroupRepository
+import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepository
+import kpn.server.repository.MonitorRouteRepositoryImpl
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
+
+object MonitorRouteUpdater {
+
+  def main(args: Array[String]): Unit = {
+    Mongo.executeIn("kpn-experimental") { database =>
+      val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
+      val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+      val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
+      val monitorRouteAnalyzer = new MonitorRouteAnalyzerImpl(monitorRouteRepository, overpassQueryExecutor)
+      val updater = new MonitorRouteUpdater(
+        monitorGroupRepository,
+        monitorRouteRepository,
+        monitorRouteRelationRepository,
+        monitorRouteAnalyzer
+      )
+      updater.analyze("A", "a")
+    }
+  }
+}
 
 @Component
 class MonitorRouteUpdater(

@@ -20,14 +20,14 @@
         <java.version>1.8</java.version>
         <spring-boot.version>2.6.6</spring-boot.version>
         <spring.security.version>5.5.1</spring.security.version>
-        <nimbus.jwt.version>9.23</nimbus.jwt.version>
+        <nimbus.jwt.version>9.24.3</nimbus.jwt.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.7.0</version>
+            <version>2.7.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -39,31 +39,31 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-            <version>2.7.0</version>
+            <version>2.7.3</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>2.7.0</version>
+            <version>2.7.3</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.7.0</version>
+            <version>2.7.3</version>
         </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-core</artifactId>
-            <version>1.9.0</version>
+            <version>1.9.3</version>
         </dependency>
 
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
-            <version>1.9.0</version>
+            <version>1.9.3</version>
         </dependency>
 
         <dependency>
@@ -75,19 +75,19 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>5.7.1</version>
+            <version>5.7.3</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>5.7.1</version>
+            <version>5.7.3</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
-            <version>5.7.1</version>
+            <version>5.7.3</version>
         </dependency>
 
         <dependency>
@@ -159,13 +159,13 @@
         <dependency>
             <groupId>org.locationtech.jts</groupId>
             <artifactId>jts-core</artifactId>
-            <version>1.18.2</version>
+            <version>1.19.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.locationtech.jts.io</groupId>
             <artifactId>jts-io-common</artifactId>
-            <version>1.18.2</version>
+            <version>1.19.0</version>
         </dependency>
 
         <dependency>
@@ -196,19 +196,19 @@
         <dependency>
             <groupId>com.github.scopt</groupId>
             <artifactId>scopt_2.13</artifactId>
-            <version>4.0.1</version>
+            <version>4.1.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
-            <version>2.17.2</version>
+            <version>2.18.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
-            <version>2.17.2</version>
+            <version>2.18.0</version>
         </dependency>
 
         <dependency>
@@ -238,7 +238,7 @@
         <dependency>
             <groupId>com.sksamuel.scrimage</groupId>
             <artifactId>scrimage-core</artifactId>
-            <version>4.0.30</version>
+            <version>4.0.32</version>
             <exclusions>
                 <exclusion>
                     <groupId>ch.qos.logback</groupId>
@@ -258,7 +258,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.7.0</version>
+            <version>2.7.3</version>
             <scope>test</scope>
         </dependency>
 

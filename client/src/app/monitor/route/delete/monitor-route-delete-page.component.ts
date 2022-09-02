@@ -3,13 +3,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteDeletePageInit } from '../../store/monitor.actions';
 import { actionMonitorRouteDelete } from '../../store/monitor.actions';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
-import { selectMonitorRouteName } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-delete-page',
@@ -24,12 +23,14 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
       <li>Route</li>
     </ul>
 
-    <h1 class="title" *ngIf="routeName$ | async as routeName">
-      <span class="kpn-label">{{ routeName }}</span>
+    <h1>
+      <span class="kpn-label">{{ routeName$ | async }}</span>
       <span>{{ routeDescription$ | async }}</span>
     </h1>
 
     <h2>Delete</h2>
+
+    <kpn-error></kpn-error>
 
     <div class="kpn-form">
       <p>Remove this route from the monitor.</p>
@@ -56,12 +57,12 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
   ],
 })
 export class MonitorRouteDeletePageComponent implements OnInit {
-  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)
   );
-  readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
   readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
 
   constructor(private store: Store<AppState>) {}

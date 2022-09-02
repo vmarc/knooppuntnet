@@ -27,13 +27,14 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
     </ul>
 
     <h1>
-      <span>{{ routeName$ | async }}</span>
-      <span *ngIf="routeDescription$ | async as routeDescription"
-        >: {{ routeDescription }}</span
-      >
+      <span class="kpn-label">{{ routeName$ | async }}</span>
+      <span> {{ routeDescription$ | async }}</span
+      >&nbsp;
     </h1>
 
     <h2>Update route</h2>
+
+    <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response">
       <kpn-monitor-route-properties
@@ -48,8 +49,8 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 })
 export class MonitorRouteUpdatePageComponent implements OnInit {
   readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);
-  readonly groupName$ = this.store.select(selectMonitorGroupName);
-  readonly routeName$ = this.store.select(selectMonitorRouteName);
+  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
+  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
   readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)

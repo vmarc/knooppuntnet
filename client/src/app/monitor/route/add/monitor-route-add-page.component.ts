@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteAddPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteAddPage } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-add-page',
@@ -17,16 +17,16 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink$ | async">{{ groupDescription$ | async }}</a>
+        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
       <li>Route</li>
     </ul>
 
-    <h1>
-      {{ groupDescription$ | async }}
-    </h1>
+    <h1>{{ groupDescription$ | async }}&nbsp;</h1>
 
     <h2>Add route</h2>
+
+    <kpn-error></kpn-error>
 
     <kpn-monitor-route-properties
       mode="add"
@@ -36,7 +36,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
 })
 export class MonitorRouteAddPageComponent implements OnInit {
   readonly response$ = this.store.select(selectMonitorRouteAddPage);
-  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)
