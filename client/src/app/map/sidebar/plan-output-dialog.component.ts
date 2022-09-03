@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
+import { AppService } from '../../app.service';
 import { Util } from '../../components/shared/util';
 import { AppState } from '../../core/core.state';
 import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
@@ -100,7 +101,7 @@ import { PlanUtil } from '../planner/plan/plan-util';
           Copy link to clipboard
         </button>
 
-        <qr-code [value]="planUrl" [size]="200"></qr-code>
+        <img [src]="qrCode" alt="qr-code" />
       </div>
     </kpn-dialog>
   `,
@@ -109,7 +110,7 @@ import { PlanUtil } from '../planner/plan/plan-util';
       .dialog-content {
         display: flex;
         flex-direction: column;
-        width: 240px;
+        width: 242px;
       }
 
       .dialog-content > button {
@@ -117,10 +118,12 @@ import { PlanUtil } from '../planner/plan/plan-util';
         margin-bottom: 5px;
       }
 
-      qr-code {
-        margin-top: 25px;
-        border: 1px solid black;
-        padding: 10px;
+      img {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        width: 225px;
+        height: 225px;
+        border: 1px solid lightgray;
       }
     `,
   ],
@@ -130,6 +133,8 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   name = '';
   planUrl = '';
 
+  qrCode: string | ArrayBuffer = '';
+
   readonly instructions$ = this.store.pipe(
     select(selectPreferencesInstructions)
   );
@@ -137,12 +142,20 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   constructor(
     private pdfService: PdfService,
     private plannerService: PlannerService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private appService: AppService
   ) {}
 
   ngOnInit(): void {
     this.name = this.defaultName();
     this.planUrl = this.buildPlanUrl();
+    this.appService.qrCode(this.planUrl).subscribe((data) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.qrCode = e.target.result;
+      };
+      reader.readAsDataURL(data);
+    });
   }
 
   ngAfterViewInit(): void {
@@ -153,7 +166,8 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
     this.pdfService.printDocument(
       this.plannerService.context.plan,
       this.planUrl,
-      this.routeName()
+      this.routeName(),
+      this.qrCode
     );
   }
 

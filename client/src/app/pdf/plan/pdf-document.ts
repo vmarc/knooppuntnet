@@ -1,6 +1,5 @@
 import { Plan } from '@app/map/planner/plan/plan';
 import { jsPDF } from 'jspdf';
-import QRious from 'qrious';
 import { PdfColourBox } from './pdf-colour-box';
 import { PdfDocumentModel } from './pdf-document-model';
 import { PdfFooter } from './pdf-footer';
@@ -13,7 +12,12 @@ export class PdfDocument {
 
   private readonly doc = new jsPDF();
 
-  constructor(plan: Plan, private planUrl: string, private name: string) {
+  constructor(
+    plan: Plan,
+    private planUrl: string,
+    private name: string,
+    private qrCode: any
+  ) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfDocumentModel(pdfPlan.nodes);
   }
@@ -29,17 +33,8 @@ export class PdfDocument {
     const qrCodeSize = 40;
     const x = PdfPage.xContentsRight - qrCodeSize;
     const y = PdfPage.yContentsBottom - qrCodeSize;
-
-    const qrious = new QRious({
-      value: this.planUrl,
-      level: 'L', // Error correction level of the QR code (L, M, Q, H)
-      mime: 'image/png',
-      size: 200,
-      padding: 0,
-    });
-
     this.doc.addImage(
-      qrious.toDataURL(),
+      this.qrCode,
       'PNG',
       x,
       y,

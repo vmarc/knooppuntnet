@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { QriousModule } from 'angular-qrious';
 import { ClipboardModule } from 'ngx-clipboard';
 import { OlModule } from '../components/ol/ol.module';
 import { PoiAnalysisModule } from '../components/poi/poi-analysis.module';
@@ -89,7 +88,6 @@ import { PlanComponent } from './sidebar/plan.component';
     OlModule,
     PdfModule,
     ClipboardModule,
-    QriousModule,
     PoiAnalysisModule,
   ],
   declarations: [

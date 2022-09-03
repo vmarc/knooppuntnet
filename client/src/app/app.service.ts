@@ -270,6 +270,10 @@ export class AppService {
     return this.http.post(url, planParams);
   }
 
+  public qrCode(url: string): Observable<Blob> {
+    return this.http.post('/api/qr-code', url, { responseType: 'blob' });
+  }
+
   public locations(
     networkType: NetworkType,
     country: Country

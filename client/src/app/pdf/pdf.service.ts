@@ -15,8 +15,8 @@ export class PdfService {
     private plannerService: PlannerService
   ) {}
 
-  printDocument(plan: Plan, planUrl: string, name: string): void {
-    new PdfDocument(plan, planUrl, name).print();
+  printDocument(plan: Plan, planUrl: string, name: string, qrCode: any): void {
+    new PdfDocument(plan, planUrl, name, qrCode).print();
   }
 
   printStripDocument(plan: Plan, name: string): void {
