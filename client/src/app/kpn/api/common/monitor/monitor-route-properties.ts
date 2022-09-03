@@ -6,7 +6,7 @@ export interface MonitorRouteProperties {
   readonly name?: string;
   readonly description?: string;
   readonly groupName?: string;
-  readonly relationId?: string;
+  readonly relationId?: number;
   readonly referenceType?: string;
   readonly osmReferenceDay?: Day;
   readonly gpxFileChanged?: boolean;

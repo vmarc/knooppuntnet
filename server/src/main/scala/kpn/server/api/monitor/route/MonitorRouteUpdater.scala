@@ -57,7 +57,7 @@ class MonitorRouteUpdater(
     Log.context(Seq("add-route", s"group=$groupName", s"route=${properties.name}")) {
       val group = findGroup(groupName)
       assertNewRoute(group, properties.name)
-      val relationId = properties.relationId.map(_.toLong)
+      val relationId = properties.relationId
       val route = MonitorRoute(
         ObjectId(),
         group._id,
@@ -96,7 +96,7 @@ class MonitorRouteUpdater(
             groupId = groupId,
             name = properties.name,
             description = properties.description,
-            relationId = properties.relationId.map(_.toLong)
+            relationId = properties.relationId
           )
         )
       }
@@ -105,7 +105,7 @@ class MonitorRouteUpdater(
         if (isOsmReferenceChanged(reference, properties) || isRelationIdChanged(route, properties)) {
           val updatedRoute = if (isRelationIdChanged(route, properties)) {
             route.copy(
-              relationId = properties.relationId.map(_.toLong)
+              relationId = properties.relationId
             )
           }
           else {
@@ -150,36 +150,55 @@ class MonitorRouteUpdater(
 
   private def updateOsmReference(user: String, route: MonitorRoute, properties: MonitorRouteProperties): Unit = {
 
-    val relationId = findRelationId(properties)
-    val osmReferenceDay = findOsmReferenceDay(properties)
-
-    monitorRouteRelationRepository.load(Timestamp(osmReferenceDay), relationId) match {
-      case None => // TODO MON return result with clear error message that says that relation did not exist at specified time!
-      case Some(relation) =>
-        val nodes = relation.wayMembers.flatMap(_.way.nodes)
-        val bounds = Bounds.from(nodes)
-        val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(relation)
-        val geomFactory = new GeometryFactory
-        val geometryCollection = new GeometryCollection(routeSegments.map(_.lineString).toArray, geomFactory)
-        val geoJsonWriter = new GeoJsonWriter()
-        geoJsonWriter.setEncodeCRS(false)
-        val geometry = geoJsonWriter.write(geometryCollection)
-
+    properties.relationId match {
+      case None =>
         val reference = MonitorRouteReference(
           ObjectId(),
           routeId = route._id,
-          relationId = properties.relationId.map(_.toLong),
+          relationId = None,
           created = Time.now,
           user = user,
-          bounds = bounds,
+          bounds = Bounds(),
           referenceType = "osm",
           osmReferenceDay = properties.osmReferenceDay,
-          segmentCount = routeSegments.size,
+          segmentCount = 0,
           filename = None,
-          geometry = geometry
+          geometry = ""
         )
         monitorRouteRepository.saveRouteReference(reference)
-        monitorRouteAnalyzer.analyze(route, reference)
+
+      case Some(relationId) =>
+
+        val osmReferenceDay = findOsmReferenceDay(properties)
+
+        monitorRouteRelationRepository.load(Timestamp(osmReferenceDay), relationId) match {
+          case None => // TODO MON return result with clear error message that says that relation did not exist at specified time!
+          case Some(relation) =>
+            val nodes = relation.wayMembers.flatMap(_.way.nodes)
+            val bounds = Bounds.from(nodes)
+            val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(relation)
+            val geomFactory = new GeometryFactory
+            val geometryCollection = new GeometryCollection(routeSegments.map(_.lineString).toArray, geomFactory)
+            val geoJsonWriter = new GeoJsonWriter()
+            geoJsonWriter.setEncodeCRS(false)
+            val geometry = geoJsonWriter.write(geometryCollection)
+
+            val reference = MonitorRouteReference(
+              ObjectId(),
+              routeId = route._id,
+              relationId = properties.relationId,
+              created = Time.now,
+              user = user,
+              bounds = bounds,
+              referenceType = "osm",
+              osmReferenceDay = properties.osmReferenceDay,
+              segmentCount = routeSegments.size,
+              filename = None,
+              geometry = geometry
+            )
+            monitorRouteRepository.saveRouteReference(reference)
+            monitorRouteAnalyzer.analyze(route, reference)
+        }
     }
   }
 
@@ -208,7 +227,7 @@ class MonitorRouteUpdater(
   }
 
   private def findRelationId(properties: MonitorRouteProperties): Long = {
-    properties.relationId.map(_.toLong).getOrElse {
+    properties.relationId.getOrElse {
       throw new IllegalArgumentException(s"""${Log.contextString} relationId is required when add route with referenceType="osm"""")
     }
   }
@@ -232,17 +251,17 @@ class MonitorRouteUpdater(
   private def isRouteChanged(group: MonitorGroup, route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {
     route.name != properties.name ||
       route.description != properties.description ||
-      route.relationId != properties.relationId.map(_.toLong) ||
+      route.relationId != properties.relationId ||
       group.name != properties.groupName
   }
 
   private def isOsmReferenceChanged(reference: MonitorRouteReference, properties: MonitorRouteProperties): Boolean = {
     reference.referenceType != properties.referenceType ||
-      reference.relationId != properties.relationId.map(_.toLong) ||
+      reference.relationId != properties.relationId ||
       reference.osmReferenceDay != properties.osmReferenceDay
   }
 
   private def isRelationIdChanged(route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {
-    route.relationId != properties.relationId.map(_.toLong)
+    route.relationId != properties.relationId
   }
 }

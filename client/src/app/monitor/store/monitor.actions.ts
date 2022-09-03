@@ -182,7 +182,7 @@ export const actionMonitorGroupDelete = createAction(
 
 export const actionMonitorRouteInfo = createAction(
   '[Monitor] Route info',
-  props<{ relationId: string }>()
+  props<{ relationId: number | null }>()
 );
 
 export const actionMonitorRouteAdminRelationIdChanged = createAction(

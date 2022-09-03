@@ -28,7 +28,7 @@ class MonitorRouteAnalyzerImpl(
 
   override def analyze(route: MonitorRoute, reference: MonitorRouteReference): Unit = {
     val now = Time.now
-    updateRoute(route, reference, now)
+    analyzeRoute(route, reference, now)
   }
 
   override def processNewReference(user: String, route: MonitorRoute, filename: String, xml: Elem): String = {
@@ -66,21 +66,24 @@ class MonitorRouteAnalyzerImpl(
     )
   }
 
-  private def updateRoute(route: MonitorRoute, reference: MonitorRouteReference, now: Timestamp): Unit = {
+  private def analyzeRoute(route: MonitorRoute, reference: MonitorRouteReference, now: Timestamp): Unit = {
     route.relationId match {
       case None =>
       case Some(relationId) =>
-        val routeRelation = readRelation(now, relationId)
-        val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
-        monitorRouteRepository.saveRouteState(monitorRouteState)
+        readRelation(now, relationId) match {
+          case None =>
+          case Some(routeRelation) =>
+            val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
+            monitorRouteRepository.saveRouteState(monitorRouteState)
+        }
     }
   }
 
-  private def readRelation(now: Timestamp, routeId: Long): Relation = {
+  private def readRelation(now: Timestamp, routeId: Long): Option[Relation] = {
     val xmlString = overpassQueryExecutor.executeQuery(Some(now), QueryRelation(routeId))
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     val data = new DataBuilder(rawData).data
-    data.relations(routeId)
+    data.relations.get(routeId)
   }
 }

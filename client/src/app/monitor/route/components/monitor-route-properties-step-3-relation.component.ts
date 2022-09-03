@@ -45,7 +45,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     <div *ngIf="relationIdKnown.value === true">
       <mat-form-field>
         <mat-label>Route relation id</mat-label>
-        <input matInput [formControl]="relationId" />
+        <input matInput type="number" [formControl]="relationId" />
       </mat-form-field>
       <div>
         <button
@@ -109,7 +109,7 @@ export class MonitorRoutePropertiesStep3RelationComponent {
   @Input() ngForm: FormGroupDirective;
   @Input() form: FormGroup;
   @Input() relationIdKnown: FormControl<boolean>;
-  @Input() relationId: FormControl<string>;
+  @Input() relationId: FormControl<number | null>;
 
   readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);
   private readonly subscriptions = new Subscriptions();

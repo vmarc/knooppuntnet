@@ -151,7 +151,7 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  routeInfo(relationId: string): Observable<ApiResponse<MonitorRouteInfoPage>> {
+  routeInfo(relationId: number): Observable<ApiResponse<MonitorRouteInfoPage>> {
     const url = `/api/monitor/route-info/${relationId}`;
     return this.http.get(url);
   }

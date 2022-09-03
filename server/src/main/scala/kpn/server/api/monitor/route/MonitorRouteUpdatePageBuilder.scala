@@ -40,7 +40,7 @@ class MonitorRouteUpdatePageBuilder(
                       groupName = group.name,
                       name = route.name,
                       description = route.description,
-                      relationId = route.relationId.map(_.toString),
+                      relationId = route.relationId,
                       referenceType = reference.referenceType,
                       osmReferenceDay = reference.osmReferenceDay,
                       gpxFileChanged = false,

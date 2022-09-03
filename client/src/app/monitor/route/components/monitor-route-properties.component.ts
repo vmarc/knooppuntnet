@@ -7,6 +7,7 @@ import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
+import { Day } from '@app/kpn/api/custom/day';
 import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
 import { DayUtil } from '../../../components/shared/day-util';
@@ -116,7 +117,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     Validators.maxLength(100),
   ]);
   readonly relationIdKnown = new FormControl<boolean | null>(null);
-  readonly relationId = new FormControl<string>('');
+  readonly relationId = new FormControl<number | null>(null);
   readonly referenceType = new FormControl<string | null>(
     null,
     Validators.required
@@ -171,6 +172,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       this.groupForm.setValue({
         group: { groupName: this.groupName, groupDescription: '' },
       });
+      this.osmReferenceDate.setValue(new Date());
     } else {
       const initialGroup = this.routeGroups.find(
         (g) => g.groupName === this.initialProperties.groupName
@@ -224,13 +226,17 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   }
 
   private buildProperties(): MonitorRouteProperties {
+    let osmReferenceDay: Day = null;
+    if (this.referenceType.value === 'osm') {
+      osmReferenceDay = DayUtil.toDay(this.osmReferenceDate.value);
+    }
     return {
       name: this.name.value,
       description: this.description.value,
       groupName: this.group.value?.groupName,
       relationId: this.relationId.value,
       referenceType: this.referenceType.value,
-      osmReferenceDay: DayUtil.toDay(this.osmReferenceDate.value),
+      osmReferenceDay,
       gpxFileChanged: !!this.gpxFile.value,
       gpxFilename: this.gpxFilename.value,
     };
