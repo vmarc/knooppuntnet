@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -105,7 +105,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRoutePropertiesStep3RelationComponent {
+export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
   @Input() ngForm: FormGroupDirective;
   @Input() form: FormGroup;
   @Input() relationIdKnown: FormControl<boolean>;

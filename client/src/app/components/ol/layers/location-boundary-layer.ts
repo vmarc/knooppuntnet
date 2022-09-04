@@ -29,13 +29,11 @@ export class LocationBoundaryLayer {
       }),
     });
 
-    const styleFunction = function (feature) {
-      return locationStyle;
-    };
-
     const layer = new VectorLayer({
       source: vectorSource,
-      style: styleFunction,
+      style: (feature) => {
+        return locationStyle;
+      },
     });
 
     const layerName = this.i18nService.translation('@@map.layer.boundary');

@@ -29,7 +29,7 @@ export class GpxLayer {
       source: new VectorSource({
         features: [],
       }),
-      style(feature) {
+      style: (feature) => {
         return style[feature.getGeometry().getType()];
       },
     });

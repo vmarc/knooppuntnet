@@ -63,17 +63,17 @@ export class PlanReverser {
         }
 
         if (!oldLeg.viaFlag) {
-          const updatedFirstLeg = firstLeg.withSinkFlag(
+          const updated = firstLeg.withSinkFlag(
             firstLeg.sinkFlag.to(sinkFlagType)
           );
-          return of(List([updatedFirstLeg]));
+          return of(List([updated]));
         }
 
         if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
-          const updatedFirstLeg = firstLeg.withSinkFlag(
+          const updated = firstLeg.withSinkFlag(
             firstLeg.sinkFlag.to(sinkFlagType)
           );
-          return of(List([updatedFirstLeg]));
+          return of(List([updated]));
         }
 
         let firstLegSinkFlagType = PlanFlagType.invisible;
