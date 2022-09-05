@@ -16,7 +16,9 @@ import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors'
       *ngIf="gpxTraceAvailable$ | async; then gpxTrace; else noGpxTrace"
     ></div>
     <ng-template #noGpxTrace>
-      <p>No GPX, no known deviations</p>
+      <p i18n="@@monitor.route.map-deviations.no-gpx">
+        No GPX, no known deviations
+      </p>
     </ng-template>
     <ng-template #gpxTrace>
       <div
@@ -25,21 +27,29 @@ import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors'
       <ng-template #noDeviations>
         <p class="kpn-spacer-above kpn-line">
           <kpn-icon-happy></kpn-icon-happy>
-          <span>No deviations</span>
+          <span i18n="@@monitor.route.map-deviations.no-deviations">
+            No deviations
+          </span>
         </p>
       </ng-template>
 
       <ng-template #deviations>
         <p class="segments-title">
-          <span>GPX segments where OSM is deviating</span>
+          <span i18n="@@monitor.route.map-deviations.title"
+            >GPX segments where OSM is deviating</span
+          >
         </p>
 
         <div class="segment segment-header">
           <span class="segment-id">
             <kpn-legend-line color="red"></kpn-legend-line>
           </span>
-          <span class="segment-deviation">Deviation</span>
-          <span>Length</span>
+          <span
+            class="segment-deviation"
+            i18n="@@monitor.route.map-deviations.deviation"
+            >Deviation</span
+          >
+          <span i18n="@@monitor.route.map-deviations.length">Length</span>
         </div>
 
         <mat-selection-list

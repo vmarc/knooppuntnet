@@ -45,11 +45,7 @@ import { EditService } from './edit.service';
       </div>
       <div mat-dialog-actions>
         <p *ngIf="editService.showProgress$ | async">
-          <button
-            mat-raised-button
-            (click)="cancel()"
-            i18n="@@edit-dialog.cancel"
-          >
+          <button mat-raised-button (click)="cancel()" i18n="@@action.cancel">
             Cancel
           </button>
         </p>

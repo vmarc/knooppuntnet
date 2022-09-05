@@ -7,7 +7,7 @@ import { FormControl } from '@angular/forms';
   selector: 'kpn-monitor-route-properties-step-5-reference-details',
   template: `
     <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
-      <p>
+      <p i18n="@@monitor.route.properties.reference-details.date">
         Select the date of the route relation state that will serve as a
         reference (default today):
       </p>
@@ -20,7 +20,9 @@ import { FormControl } from '@angular/forms';
     </div>
 
     <div [ngClass]="{ hidden: referenceType.value !== 'gpx' }">
-      <p>Select the file that contains the GPX trace:</p>
+      <p i18n="@@monitor.route.properties.reference-details.file">
+        Select the file that contains the GPX trace:
+      </p>
       <div class="kpn-small-spacer-above">
         <input
           type="file"
@@ -28,17 +30,29 @@ import { FormControl } from '@angular/forms';
           (change)="selectFile($event)"
           #fileInput
         />
-        <button mat-stroked-button (click)="fileInput.click()" type="button">
+        <button
+          mat-stroked-button
+          (click)="fileInput.click()"
+          type="button"
+          i18n="@@monitor.route.properties.reference-details.file.select"
+        >
           Select file
         </button>
       </div>
       <div class="kpn-small-spacer-above kpn-spacer-below">
-        <span class="kpn-label">File</span> {{ gpxFilename.value }}
+        <span
+          class="kpn-label"
+          i18n="@@monitor.route.properties.reference-details.file.name"
+          >File</span
+        >
+        {{ gpxFilename.value }}
       </div>
     </div>
 
     <div class="kpn-button-group">
-      <button mat-stroked-button matStepperPrevious>Back</button>
+      <button mat-stroked-button matStepperPrevious i18n="@@action.back">
+        Back
+      </button>
     </div>
   `,
   styles: [

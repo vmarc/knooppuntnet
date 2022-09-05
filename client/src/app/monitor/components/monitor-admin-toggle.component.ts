@@ -16,6 +16,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         [disabled]="(adminRole$ | async) === false"
         [checked]="admin$ | async"
         (change)="adminChanged($event)"
+        i18n="@@monitor.admin-toggle"
       >
         Admin
       </mat-slide-toggle>

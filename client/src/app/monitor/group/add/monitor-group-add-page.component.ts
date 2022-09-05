@@ -15,11 +15,13 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
   template: `
     <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
 
-    <h1>Monitor - add group</h1>
+    <h1 i18n="@@monitor.group.add.title">Monitor - add group</h1>
 
     <div class="kpn-comment">
-      <p>Create a new group containing routes to be monitored.</p>
-      <p>
+      <p i18n="@@monitor.group.add.comment.1">
+        Create a new group containing routes to be monitored.
+      </p>
+      <p i18n="@@monitor.group.add.comment.2">
         Provide a short name (that will be used in the browser address), and a
         title for the group (probably describing who will be maintaining the
         route group).
@@ -34,8 +36,14 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
         [description]="description"
       ></kpn-monitor-group-description>
       <div class="kpn-form-buttons">
-        <button mat-stroked-button (click)="add()">Add group</button>
-        <a routerLink="/monitor">Cancel</a>
+        <button
+          mat-stroked-button
+          (click)="add()"
+          i18n="@@monitor.group.add.action"
+        >
+          Add group
+        </button>
+        <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
       </div>
     </form>
   `,

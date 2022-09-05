@@ -8,7 +8,7 @@ import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
   selector: 'kpn-monitor-route-properties-step-1-group',
   template: `
     <mat-form-field class="group">
-      <mat-label>Group</mat-label>
+      <mat-label i18n="@@monitor.route.properties.group">Group</mat-label>
       <mat-select [formControl]="group">
         <mat-option *ngFor="let gr of routeGroups" [value]="gr">
           {{ gr.groupName + ' - ' + gr.groupDescription }}
@@ -17,7 +17,9 @@ import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
     </mat-form-field>
 
     <div class="kpn-button-group">
-      <button mat-stroked-button matStepperNext>Next</button>
+      <button mat-stroked-button matStepperNext i18n="@@action.next">
+        Next
+      </button>
     </div>
   `,
   styles: [

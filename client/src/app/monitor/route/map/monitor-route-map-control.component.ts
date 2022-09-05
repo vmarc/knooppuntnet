@@ -23,10 +23,14 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
       <div *ngIf="modeSelectionEnabled$ | async">
         <mat-radio-group [value]="mode" (change)="modeChanged($event)">
           <mat-radio-button value="comparison">
-            <span>GPX / OSM comparison</span>
+            <span i18n="@@monitor.route.map.mode.comparison"
+              >GPX / OSM comparison</span
+            >
           </mat-radio-button>
           <mat-radio-button value="osm-segments">
-            <span>OSM segments</span>
+            <span i18n="@@monitor.route.map.mode.osm-segments"
+              >OSM segments</span
+            >
             <span class="kpn-brackets">{{ osmSegmentCount$ | async }}</span>
           </mat-radio-button>
         </mat-radio-group>
@@ -35,27 +39,42 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
       <kpn-monitor-route-map-layers></kpn-monitor-route-map-layers>
 
       <div class="kpn-spacer-above">
-        <button mat-raised-button (click)="zoomToFitRoute()">
+        <button
+          mat-raised-button
+          (click)="zoomToFitRoute()"
+          i18n="@@monitor.route.map.action.zoom-to-fit-route"
+        >
           Zoom to fit route
         </button>
         <a
           [matMenuTriggerFor]="menu"
           class="josm"
           title="JOSM remote control actions"
+          i18n-title="@@monitor.route.map.action.josm.title"
+          i18n="@@monitor.route.map.action.josm"
         >
           josm
         </a>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="josmLoadRouteRelation()">
+          <button
+            mat-menu-item
+            (click)="josmLoadRouteRelation()"
+            i18n="@@monitor.route.map.action.josm.load-relation"
+          >
             Load route relation
           </button>
-          <button mat-menu-item (click)="josmZoomToFitRoute()">
+          <button
+            mat-menu-item
+            (click)="josmZoomToFitRoute()"
+            i18n="@@monitor.route.map.action.josm.zoom-to-fit-route"
+          >
             Zoom to fit route
           </button>
           <button
             mat-menu-item
             (click)="josmZoomToSelectedDeviation()"
             [disabled]="josmZoomToSelectedDeviationDisabled$ | async"
+            i18n="@@monitor.route.map.action.josm.zoom-to-deviation"
           >
             Zoom to selected deviation
           </button>

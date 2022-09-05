@@ -17,11 +17,11 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
+      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
         <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
-      <li>Route</li>
+      <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
@@ -33,6 +33,7 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
       <kpn-page-menu-option
         [link]="routeDetailLink$ | async"
         [active]="pageName === 'details'"
+        i18n="@@monitor.route.menu.details"
       >
         Details
       </kpn-page-menu-option>
@@ -40,6 +41,7 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
       <kpn-page-menu-option
         [link]="routeMapLink$ | async"
         [active]="pageName === 'map'"
+        i18n="@@monitor.route.menu.map"
       >
         Map
       </kpn-page-menu-option>

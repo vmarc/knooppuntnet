@@ -16,7 +16,9 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
     ></kpn-monitor-route-page-header>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div *ngIf="!response.result">Route not found</div>
+      <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
+        Route not found
+      </div>
 
       <div *ngIf="response.result as route">
         <kpn-data title="Summary">
@@ -31,34 +33,38 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         </kpn-data>
 
         <kpn-data title="OSM">
-          <p>{{ route.wayCount }} ways</p>
-          <p>{{ route.osmDistance }} km</p>
+          <p i18n="@@monitor.route.details.ways">{{ route.wayCount }} ways</p>
+          <p class="kpn-km">{{ route.osmDistance }}</p>
         </kpn-data>
 
         <kpn-data title="GPX">
           <p>
             {{ route.gpxFilename }}
           </p>
-          <p>{{ route.gpxDistance }} km</p>
+          <p class="kpn-km">{{ route.gpxDistance }}</p>
         </kpn-data>
 
         <kpn-data title="Analysis">
           <p *ngIf="route.happy" class="kpn-line">
-            <span>All ok</span>
+            <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
             <kpn-icon-happy></kpn-icon-happy>
           </p>
           <div *ngIf="!route.happy && route.gpxDistance === 0">
-            <p>No GPX, so no known deviations.</p>
+            <p i18n="@@monitor.route.details.analysis.no-deviations">
+              No GPX, so no known deviations.
+            </p>
           </div>
           <div *ngIf="!route.happy && route.osmSegmentCount === 1">
-            <p>The OSM route looks ok: a GPX trace can be created from it.</p>
+            <p i18n="@@monitor.route.details.analysis.trace">
+              The OSM route looks ok: a GPX trace can be created from it.
+            </p>
           </div>
 
           <div *ngIf="route.osmSegmentCount > 1" class="kpn-line warning-line">
             <div>
               <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>
             </div>
-            <span
+            <span i18n="@@monitor.route.details.analysis.osm-segment-warning"
               >The OSM route relation contains
               {{ route.osmSegmentCount }} segments. It will not be possible to
               create a GPX trace from it.</span
@@ -71,19 +77,13 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
             <div>
               <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>
             </div>
-            <span
+            <span i18n="@@monitor.route.details.analysis.gpx-segment-warning"
               >There are {{ route.gpxNokSegmentCount }} segments in the GPX
               trace where the distance to the closest OSM way is more than 10
               meters.</span
             >
           </div>
         </kpn-data>
-
-        <!--  <div class="kpn-button-group">-->
-        <!--    <button mat-raised-button color="primary" (click)="gpxDownload()">-->
-        <!--      Download GPX file-->
-        <!--    </button>-->
-        <!--  </div>-->
       </div>
     </div>
   `,

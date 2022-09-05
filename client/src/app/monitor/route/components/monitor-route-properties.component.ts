@@ -84,10 +84,11 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
         color="primary"
         (click)="save()"
         [disabled]="form.invalid"
+        i18n="@@action.save"
       >
         Save
       </button>
-      <a [routerLink]="groupLink()">Cancel</a>
+      <a [routerLink]="groupLink()" i18n="@@action.cancel">Cancel</a>
     </div>
   `,
 })

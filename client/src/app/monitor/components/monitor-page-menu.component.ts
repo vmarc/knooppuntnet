@@ -6,18 +6,17 @@ import { Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-menu>
-      <kpn-page-menu-option link="/monitor" [active]="pageName === 'groups'">
+      <kpn-page-menu-option
+        link="/monitor"
+        [active]="pageName === 'groups'"
+        i18n="@@monitor.menu.groups"
+      >
         Groups
       </kpn-page-menu-option>
-      <!--      <kpn-page-menu-option-->
-      <!--        link="/monitor/changes"-->
-      <!--        [active]="pageName === 'changes'"-->
-      <!--      >-->
-      <!--        Changes-->
-      <!--      </kpn-page-menu-option>-->
       <kpn-page-menu-option
         link="/monitor/about"
         [active]="pageName === 'about'"
+        i18n="@@monitor.menu.about"
       >
         About
       </kpn-page-menu-option>

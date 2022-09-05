@@ -16,11 +16,11 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
+      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
         <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
-      <li>Route</li>
+      <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
@@ -28,23 +28,29 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
       <span>{{ routeDescription$ | async }}</span>
     </h1>
 
-    <h2>Delete</h2>
+    <h2 i18n="@@monitor.route.delete.title">Delete</h2>
 
     <kpn-error></kpn-error>
 
     <div class="kpn-form">
-      <p>Remove this route from the monitor.</p>
+      <p i18n="@@monitor.route.delete.comment">
+        Remove this route from the monitor.
+      </p>
 
       <p class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
-        <span>Attention: all history will be lost!</span>
+        <span i18n="@@monitor.route.delete.warning"
+          >Attention: all history will be lost!</span
+        >
       </p>
 
       <div class="kpn-form-buttons">
         <button mat-stroked-button (click)="delete()">
-          <span class="delete-button">Delete Route</span>
+          <span class="delete-button" i18n="@@monitor.route.delete.action"
+            >Delete Route</span
+          >
         </button>
-        <a [routerLink]="groupLink$ | async">Cancel</a>
+        <a [routerLink]="groupLink$ | async" i18n="@@action.cancel">Cancel</a>
       </div>
     </div>
   `,

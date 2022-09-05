@@ -17,22 +17,27 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul class="breadcrumb">
-      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a [routerLink]="'/monitor'">Monitor</a></li>
-      <li>Changes</li>
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li>
+        <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+      </li>
+      <li i18n="@@breadcrumb.monitor.changes">Changes</li>
     </ul>
 
-    <h1>Monitor</h1>
+    <h1 i18n="@@monitor.changes.title">Monitor</h1>
 
     <kpn-monitor-page-menu pageName="changes"></kpn-monitor-page-menu>
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response">
-      <p *ngIf="!response.result">No group changes</p>
+      <p *ngIf="!response.result" i18n="@@monitor.changes.no-changes">
+        No group changes
+      </p>
       <div *ngIf="response.result" class="kpn-spacer-above">
         <mat-slide-toggle
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
+          i18n="@@monitor.changes.impact"
           >Impact
         </mat-slide-toggle>
 

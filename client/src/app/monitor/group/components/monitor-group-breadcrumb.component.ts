@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
-      <li>Group</li>
+      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
+      <li i18n="@@breadcrumb.monitor.group">Group</li>
     </ul>
   `,
 })

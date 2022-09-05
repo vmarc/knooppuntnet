@@ -13,10 +13,17 @@ import { FormControl } from '@angular/forms';
       [description]="description"
     ></kpn-monitor-route-description>
     <div class="kpn-button-group">
-      <button *ngIf="mode === 'update'" mat-stroked-button matStepperPrevious>
+      <button
+        *ngIf="mode === 'update'"
+        mat-stroked-button
+        matStepperPrevious
+        i18n="@@action.back"
+      >
         Back
       </button>
-      <button mat-stroked-button matStepperNext>Next</button>
+      <button mat-stroked-button matStepperNext i18n="@@action.next">
+        Next
+      </button>
     </div>
   `,
 })

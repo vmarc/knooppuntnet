@@ -15,32 +15,44 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
   template: `
     <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
 
-    <h1>Monitor - delete group</h1>
+    <h1 i18n="@@monitor.group.delete.title">Monitor - delete group</h1>
 
     <div *ngIf="response$ | async as response" class="kpn-form">
       <div *ngIf="!response.result">
-        <p>Group not found</p>
+        <p i18n="@@monitor.group.delete.group-not-found">Group not found</p>
       </div>
       <div *ngIf="response.result" class="kpn-form">
-        <p>Name: {{ response.result.groupName }}</p>
+        <p>
+          <span class="kpn-label" i18n="@@monitor.group.delete.name">
+            Name
+          </span>
+          {{ response.result.groupName }}
+        </p>
 
-        <p>Description: {{ response.result.groupDescription }}</p>
+        <p>
+          <span class="kpn-label" i18n="@@monitor.group.delete.description">
+            Description
+          </span>
+          {{ response.result.groupDescription }}
+        </p>
 
         <div *ngIf="routeCount$ | async as routeCount">
           <div *ngIf="routeCount > 0" class="kpn-line">
             <mat-icon svgIcon="warning"></mat-icon>
-            <span
-              >The information of all routes ({{ routeCount }} route(s)) in the
-              group will also be deleted!</span
-            >
+            <span i18n="@@monitor.group.delete.warning">
+              The information of all routes ({{ routeCount }} route(s)) in the
+              group will also be deleted!
+            </span>
           </div>
         </div>
 
         <div class="kpn-form-buttons">
           <button mat-stroked-button (click)="delete(response.result.groupId)">
-            <span class="warning">Delete group</span>
+            <span class="warning" i18n="@@monitor.group.delete.action">
+              Delete group
+            </span>
           </button>
-          <a routerLink="/monitor">Cancel</a>
+          <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
         </div>
       </div>
     </div>

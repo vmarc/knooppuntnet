@@ -15,17 +15,17 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li>Monitor</li>
+      <li i18n="@@breadcrumb.monitor">Monitor</li>
     </ul>
 
-    <h1>Monitor</h1>
+    <h1 i18n="@@monitor.groups.title">Monitor</h1>
 
     <kpn-monitor-page-menu pageName="groups"></kpn-monitor-page-menu>
     <kpn-error></kpn-error>
 
     <div *ngIf="response$ | async as response">
       <div class="header">
-        <div>
+        <div i18n="@@monitor.groups.routes-in-groups">
           {{ routeCount$ | async }} routes in {{ groupCount$ | async }} groups
         </div>
         <kpn-monitor-admin-toggle></kpn-monitor-admin-toggle>
@@ -35,10 +35,14 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         </kpn-monitor-group-table>
       </div>
       <ng-template #noGroups>
-        <div>No route groups</div>
+        <div i18n="@@monitor.groups.no-groups">No route groups</div>
       </ng-template>
       <div *ngIf="admin$ | async" class="kpn-spacer-above">
-        <button mat-stroked-button routerLink="/monitor/admin/groups/add">
+        <button
+          mat-stroked-button
+          routerLink="/monitor/admin/groups/add"
+          i18n="@@monitor.groups.action.add"
+        >
           Add group
         </button>
       </div>

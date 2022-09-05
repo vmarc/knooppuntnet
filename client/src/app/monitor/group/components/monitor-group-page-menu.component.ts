@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
       <kpn-page-menu-option
         [link]="'/monitor/groups/' + groupName"
         [active]="pageName === 'routes'"
+        i18n="@@monitor.group.menu.routes"
       >
         Routes
       </kpn-page-menu-option>

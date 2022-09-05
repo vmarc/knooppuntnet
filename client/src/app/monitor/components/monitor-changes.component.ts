@@ -7,6 +7,9 @@ import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-cha
   selector: 'kpn-monitor-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- work-in-progress -->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
+
     <kpn-items>
       <kpn-item
         *ngFor="let change of changes; let i = index"

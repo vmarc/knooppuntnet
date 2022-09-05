@@ -13,6 +13,9 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
   selector: 'kpn-monitor-route-change-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- work-in-progress -->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
+
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor/routes">Monitor</a></li>

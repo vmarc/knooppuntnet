@@ -19,11 +19,11 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
   template: `
     <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
 
-    <h1>Monitor - update group</h1>
+    <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
 
     <div *ngIf="response$ | async as response" class="kpn-form">
       <div *ngIf="!response.result">
-        <p>Group not found</p>
+        <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
       </div>
       <div *ngIf="response.result">
         <form [formGroup]="form" #ngForm="ngForm">
@@ -38,10 +38,11 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
             <button
               mat-stroked-button
               (click)="update(response.result.groupId)"
+              i18n="@@monitor.group.update.action"
             >
               Update group
             </button>
-            <a routerLink="/monitor">Cancel</a>
+            <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
           </div>
         </form>
       </div>

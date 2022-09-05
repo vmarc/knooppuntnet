@@ -32,7 +32,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
       >
         <div class="kpn-line">
           <kpn-legend-line color="blue"></kpn-legend-line>
-          <span>GPX trace</span>
+          <span i18n="@@monitor.route.map-layers.mode.gpx">GPX trace</span>
         </div>
       </mat-checkbox>
 
@@ -43,7 +43,9 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
       >
         <div class="kpn-line">
           <kpn-legend-line color="green"></kpn-legend-line>
-          <span>GPX same as OSM</span>
+          <span i18n="@@monitor.route.map-layers.gpx-same-as-osm">
+            GPX same as OSM
+          </span>
         </div>
       </mat-checkbox>
 
@@ -54,7 +56,9 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
       >
         <div class="kpn-line">
           <kpn-legend-line color="red"></kpn-legend-line>
-          <span>GPX where OSM is deviating</span>
+          <span i18n="@@monitor.route.map-layers.deviations">
+            GPX where OSM is deviating
+          </span>
         </div>
       </mat-checkbox>
 
@@ -65,7 +69,9 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
       >
         <div class="kpn-line">
           <kpn-legend-line color="gold"></kpn-legend-line>
-          <span>OSM relation</span>
+          <span i18n="@@monitor.route.map-layers.osm-relation">
+            OSM relation
+          </span>
         </div>
       </mat-checkbox>
     </div>

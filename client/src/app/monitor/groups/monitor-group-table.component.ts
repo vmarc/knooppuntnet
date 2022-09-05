@@ -16,7 +16,9 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   template: `
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.name">
+          Name
+        </th>
         <td mat-cell *matCellDef="let group">
           <a [routerLink]="groupLink(group)" (click)="navigateGroup(group)">{{
             group.name
@@ -25,24 +27,47 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.table.description"
+        >
+          Description
+        </th>
         <td mat-cell *matCellDef="let group">
           {{ group.description }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="routeCount">
-        <th mat-header-cell *matHeaderCellDef>Routes</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.table.routes"
+        >
+          Routes
+        </th>
         <td mat-cell *matCellDef="let group">
           {{ group.routeCount }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.table.actions"
+        >
+          Actions
+        </th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="updateLink(group)">Update</a>
-          <a [routerLink]="deleteLink(group)" class="delete">Delete</a>
+          <a [routerLink]="updateLink(group)" i18n="@@action.update">Update</a>
+          <a
+            [routerLink]="deleteLink(group)"
+            class="delete"
+            i18n="@@action.delete"
+            >Delete</a
+          >
         </td>
       </ng-container>
 

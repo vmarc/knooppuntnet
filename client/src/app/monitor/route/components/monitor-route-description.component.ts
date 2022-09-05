@@ -8,7 +8,9 @@ import { FormControl } from '@angular/forms';
   template: `
     <div>
       <mat-form-field class="description">
-        <mat-label>Description</mat-label>
+        <mat-label i18n="@@monitor.route.description.label"
+          >Description
+        </mat-label>
         <input matInput [formControl]="description" required />
       </mat-form-field>
 
@@ -19,8 +21,16 @@ import { FormControl } from '@angular/forms';
         "
         class="kpn-form-error"
       >
-        <div *ngIf="description.errors?.required">Description is required.</div>
-        <div *ngIf="description.errors?.maxlength">
+        <div
+          *ngIf="description.errors?.required"
+          i18n="@@monitor.route.description.required"
+        >
+          Description is required.
+        </div>
+        <div
+          *ngIf="description.errors?.maxlength"
+          i18n="@@monitor.route.description.maxlength"
+        >
           Too long (max=
           {{ description.errors.maxlength.requiredLength }}, actual={{
             description.errors.maxlength.actualLength

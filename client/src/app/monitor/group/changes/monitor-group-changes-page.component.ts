@@ -16,9 +16,14 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
   selector: 'kpn-monitor-group-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- work-in-progress -->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
+
     <ul class="breadcrumb">
-      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a [routerLink]="'/monitor'">Monitor</a></li>
+      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+      <li>
+        <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+      </li>
       <li>Group changes</li>
     </ul>
 

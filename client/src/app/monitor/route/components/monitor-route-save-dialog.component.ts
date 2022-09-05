@@ -24,7 +24,9 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>
-      <div mat-dialog-title>Save route</div>
+      <div mat-dialog-title i18n="@@monitor.route.save-dialog.title">
+        Save route
+      </div>
       <div mat-dialog-content>
         <kpn-monitor-route-save-step
           [enabled]="saveRouteEnabled$ | async"
@@ -45,24 +47,30 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
         ></kpn-monitor-route-save-step>
 
         <div class="done kpn-spacer-below">
-          <span *ngIf="(analyzeStatus$ | async) === 'busy'"
+          <span
+            *ngIf="(analyzeStatus$ | async) === 'busy'"
+            i18n="@@monitor.route.save-dialog.busy"
             >This may take a wile, please wait...</span
           >
-          <span *ngIf="done$ | async">Route saved!</span>
+          <span *ngIf="done$ | async" i18n="@@monitor.route.save-dialog.saved"
+            >Route saved!</span
+          >
         </div>
 
         <div class="kpn-button-group">
           <button
             mat-stroked-button
             (click)="backToGroup()"
-            [disabled]="!(done$ | async)"
+            [disabled]="(done$ | async) === false"
+            i18n="@@monitor.route.save-dialog.action.back"
           >
             Back to group
           </button>
           <button
             mat-stroked-button
             (click)="gotoAnalysisResult()"
-            [disabled]="!(done$ | async)"
+            [disabled]="(done$ | async) === false"
+            i18n="@@monitor.route.save-dialog.action.analysis-result"
           >
             Go to analysis result
           </button>

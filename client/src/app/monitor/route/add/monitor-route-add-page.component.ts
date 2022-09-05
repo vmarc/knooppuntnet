@@ -15,16 +15,16 @@ import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
+      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
         <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
-      <li>Route</li>
+      <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>{{ groupDescription$ | async }}&nbsp;</h1>
 
-    <h2>Add route</h2>
+    <h2 i18n="@@monitor.route.add.title">Add route</h2>
 
     <kpn-error></kpn-error>
 

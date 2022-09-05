@@ -8,23 +8,34 @@ import { FormControl } from '@angular/forms';
   template: `
     <div>
       <mat-form-field>
-        <mat-label>Name</mat-label>
+        <mat-label i18n="@@monitor.route.name.label">Name</mat-label>
         <input matInput [formControl]="name" class="name" required />
       </mat-form-field>
       <div
         *ngIf="name.invalid && (name.dirty || name.touched || ngForm.submitted)"
         class="kpn-form-error"
       >
-        <div *ngIf="name.errors?.required">Name is required.</div>
-        <div *ngIf="name.errors?.urlFragmentInvalid">
+        <div *ngIf="name.errors?.required" i18n="@@monitor.route.name.required">
+          Name is required.
+        </div>
+        <div
+          *ngIf="name.errors?.urlFragmentInvalid"
+          i18n="@@monitor.route.name.url-fragment-invalid"
+        >
           Invalid name: only use alphanumeric characters and dashes.
         </div>
-        <div *ngIf="name.errors?.maxlength">
+        <div
+          *ngIf="name.errors?.maxlength"
+          i18n="@@monitor.route.name.maxlength"
+        >
           Too long (max= {{ name.errors.maxlength.requiredLength }}, actual={{
             name.errors.maxlength.actualLength
           }}).
         </div>
-        <div *ngIf="name.errors?.routeNameNonUnique">
+        <div
+          *ngIf="name.errors?.routeNameNonUnique"
+          i18n="@@monitor.route.name.unique"
+        >
           The route name should be unique within the group. A route with this
           name already exists within this group.
         </div>

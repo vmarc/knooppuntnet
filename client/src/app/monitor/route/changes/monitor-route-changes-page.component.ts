@@ -14,6 +14,9 @@ import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
   selector: 'kpn-monitor-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- work-in-progress -->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
+
     <kpn-monitor-route-page-header
       pageName="changes"
     ></kpn-monitor-route-page-header>

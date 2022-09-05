@@ -9,8 +9,6 @@ import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
-import { selectMonitorRouteName } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 
 @Component({
@@ -19,11 +17,11 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor">Monitor</a></li>
+      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
         <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
       </li>
-      <li>Route</li>
+      <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
@@ -32,7 +30,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
       >&nbsp;
     </h1>
 
-    <h2>Update route</h2>
+    <h2 i18n="@@monitor.route.update.title">Update route</h2>
 
     <kpn-error></kpn-error>
 
