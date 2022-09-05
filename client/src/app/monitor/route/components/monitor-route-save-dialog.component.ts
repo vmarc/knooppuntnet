@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MonitorService } from '@app/monitor/monitor.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { first } from 'rxjs/operators';
@@ -57,6 +58,28 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
           >
         </div>
 
+        <p *ngFor="let error of errors$ | async" class="kpn-warning">
+          <ng-container [ngSwitch]="error">
+            <span
+              *ngSwitchCase="'no-relation-id'"
+              i18n="@@monitor.route.save-dialog.no-relation-id"
+            >
+              Note: we cannot perform an analysis. The reference information is
+              still incomplete. The relation id has not been specified.
+            </span>
+            <span
+              *ngSwitchCase="'osm-relation-not-found'"
+              i18n="@@monitor.route.save-dialog.osm-relation-not-found"
+            >
+              Note: we cannot perform an analysis. The reference information is
+              still incomplete. No route with given relation id was found at
+              given reference date.
+            </span>
+            <span *ngSwitchDefault>
+              {{ error }}
+            </span>
+          </ng-container>
+        </p>
         <div class="kpn-button-group">
           <button
             mat-stroked-button
@@ -97,6 +120,7 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
   uploadGpxStatus$ = this.state((state) => state.uploadGpxStatus);
   analyzeEnabled$ = this.state((state) => state.analyzeEnabled);
   analyzeStatus$ = this.state((state) => state.analyzeStatus);
+  errors$ = this.state((state) => state.errors);
   done$ = this.state((state) => state.done);
 
   private readonly subscriptions = new Subscriptions();
@@ -119,14 +143,13 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
   }
 
   backToGroup(): void {
-    this.store
-      .select(selectMonitorGroupName)
-      .pipe(first())
-      .subscribe((groupName) => {
+    this.store.select(selectMonitorGroupName).pipe(
+      first(),
+      tap((groupName) => {
         const url = `/monitor/groups/${groupName}`;
-        this.dialogRef.close();
-        this.router.navigateByUrl(url);
-      });
+        this.closeAndNavigateTo(url);
+      })
+    );
   }
 
   gotoAnalysisResult(): void {
@@ -136,9 +159,16 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
       .subscribe((groupName) => {
         const routeName = this.parameters.properties.name;
         const url = `/monitor/groups/${groupName}/routes/${routeName}/map`;
-        this.dialogRef.close();
-        this.router.navigateByUrl(url);
+        this.closeAndNavigateTo(url);
       });
+  }
+
+  private closeAndNavigateTo(url: string): void {
+    this.dialogRef
+      .afterClosed()
+      .pipe(tap(() => this.router.navigateByUrl(url)))
+      .subscribe();
+    this.dialogRef.close();
   }
 
   private closeDialogUponHttpError(): void {

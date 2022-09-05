@@ -20,6 +20,7 @@ export class MonitorRouteSaveState {
     readonly uploadGpxStatus: 'todo' | 'busy' | 'done' = 'todo',
     readonly analyzeEnabled: boolean = false,
     readonly analyzeStatus: 'todo' | 'busy' | 'done' = 'todo',
+    readonly errors: string[] = [],
     readonly done: boolean = false
   ) {}
 }

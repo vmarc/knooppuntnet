@@ -38,7 +38,7 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
         </markdown>
       </p>
 
-      <p *ngIf="!route.active" class="warning" i18n="@@route.not-active">
+      <p *ngIf="!route.active" class="kpn-warning" i18n="@@route.not-active">
         This route is not active anymore.
       </p>
 

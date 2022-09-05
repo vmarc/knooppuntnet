@@ -4,7 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteUpdateResult
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
@@ -237,7 +237,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val result = updater.update("user", "group", "route", properties)
 
-    result should equal(MonitorRouteUpdateResult(reAnalyzed = false))
+    result should equal(MonitorRouteSaveResult(analyzed = false))
 
     val expectedUpdatedRoute = route.copy(
       name = "route-changed",
@@ -291,7 +291,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val result = updater.update("user", "group1", "route", properties)
 
-    result should equal(MonitorRouteUpdateResult(reAnalyzed = false))
+    result should equal(MonitorRouteSaveResult(analyzed = false))
 
     val expectedUpdatedRoute = route.copy(
       groupId = group2._id
@@ -358,7 +358,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val result = updater.update("user", "group", "route", properties)
 
-    result should equal(MonitorRouteUpdateResult(reAnalyzed = true))
+    result should equal(MonitorRouteSaveResult(analyzed = true))
 
     val expectedUpdatedRoute = route.copy(
       relationId = Some(2L)

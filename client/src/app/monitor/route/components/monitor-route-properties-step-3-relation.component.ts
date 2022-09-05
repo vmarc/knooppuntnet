@@ -74,7 +74,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
 
     <div
       *ngIf="form.invalid && (form.dirty || form.touched || ngForm.submitted)"
-      class="warning"
+      class="kpn-warning"
     >
       <p
         *ngIf="form.errors.questionUnanswered"
@@ -89,7 +89,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
         form.invalid &&
         (relationId.dirty || relationId.touched || ngForm.submitted)
       "
-      class="warning"
+      class="kpn-warning"
     >
       <p
         *ngIf="form.errors?.relationIdMissing"

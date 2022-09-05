@@ -17,11 +17,6 @@ import { Component } from '@angular/core';
       <ul *ngIf="extraFunctionsEnabled">
         <li>
           <p>
-            <a routerLink="/monitor">Route monitor</a>
-          </p>
-        </li>
-        <li>
-          <p>
             <a routerLink="/poi/areas">Point of interest areas</a>
           </p>
         </li>

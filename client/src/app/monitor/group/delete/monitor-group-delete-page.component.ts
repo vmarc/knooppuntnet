@@ -48,7 +48,7 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 
         <div class="kpn-form-buttons">
           <button mat-stroked-button (click)="delete(response.result.groupId)">
-            <span class="warning" i18n="@@monitor.group.delete.action">
+            <span class="kpn-warning" i18n="@@monitor.group.delete.action">
               Delete group
             </span>
           </button>

@@ -28,7 +28,7 @@ import { FormControl } from '@angular/forms';
         referenceType.invalid &&
         (referenceType.dirty || referenceType.touched || ngForm.submitted)
       "
-      class="warning test"
+      class="kpn-warning"
     >
       <p
         *ngIf="referenceType.errors.required"

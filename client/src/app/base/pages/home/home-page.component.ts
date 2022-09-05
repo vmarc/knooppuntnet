@@ -11,21 +11,28 @@ import { Component } from '@angular/core';
     <kpn-icon-button
       routerLink="/map"
       icon="map"
-      i18n-title="@@home.map"
       title="Map"
+      i18n-title="@@home.map"
     ></kpn-icon-button>
     <kpn-icon-button
       routerLink="/analysis"
       icon="analysis"
-      i18n-title="@@home.analysis"
       title="Analysis"
+      i18n-title="@@home.analysis"
+    >
+    </kpn-icon-button>
+    <kpn-icon-button
+      routerLink="/monitor"
+      icon="monitor"
+      title="Monitor"
+      i18n-title="@@home.monitor"
     >
     </kpn-icon-button>
     <kpn-icon-button
       routerLink="/demo"
       icon="video"
-      i18n-title="@@home.demo"
       title="Demo"
+      i18n-title="@@home.demo"
     >
     </kpn-icon-button>
   `,

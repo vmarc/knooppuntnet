@@ -179,7 +179,7 @@ export class MonitorEffects {
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([{}, groupName]) =>
         this.monitorService
-          .routeAdd(groupName)
+          .routeAddPage(groupName)
           .pipe(map((response) => actionMonitorRouteAddPageLoaded(response)))
       )
     )
@@ -205,26 +205,26 @@ export class MonitorEffects {
       mergeMap(([parameters, groupName]) => {
         const properties = parameters.properties;
         if (parameters.mode === 'add') {
-          return this.monitorService.addRoute(groupName, properties).pipe(
-            map(() => {
+          return this.monitorService.routeAdd(groupName, properties).pipe(
+            map((response) => {
               if (parameters.gpxFile) {
                 return actionMonitorRouteUploadInit(parameters);
               }
-              return actionMonitorRouteSaved();
+              return actionMonitorRouteSaved(response);
             })
           );
         }
         return this.monitorService
-          .updateRoute(groupName, properties.name, properties)
+          .routeUpdate(groupName, properties.name, properties)
           .pipe(
-            map(() => {
+            map((response) => {
               if (
                 properties.referenceType === 'gpx' &&
                 properties.gpxFileChanged
               ) {
                 return actionMonitorRouteUploadInit(parameters);
               }
-              return actionMonitorRouteSaved();
+              return actionMonitorRouteSaved(response);
             })
           );
       })
@@ -306,7 +306,7 @@ export class MonitorEffects {
         ]),
         mergeMap(([{}, groupName, routeName]) =>
           this.monitorService
-            .deleteRoute(groupName, routeName)
+            .routeDelete(groupName, routeName)
             .pipe(
               tap(() => this.router.navigate([`/monitor/groups/${groupName}`]))
             )
@@ -454,7 +454,7 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupAdd),
-        concatMap((properties) => this.monitorService.addGroup(properties)),
+        concatMap((properties) => this.monitorService.groupAdd(properties)),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }
@@ -465,7 +465,7 @@ export class MonitorEffects {
     () =>
       this.actions$.pipe(
         ofType(actionMonitorGroupDelete),
-        concatMap((action) => this.monitorService.deleteGroup(action.groupId)),
+        concatMap((action) => this.monitorService.groupDelete(action.groupId)),
         tap(() => this.router.navigate(['/monitor']))
       ),
     { dispatch: false }
@@ -477,7 +477,7 @@ export class MonitorEffects {
       this.actions$.pipe(
         ofType(actionMonitorGroupUpdate),
         concatMap((action) =>
-          this.monitorService.updateGroup(action.groupId, action.properties)
+          this.monitorService.groupUpdate(action.groupId, action.properties)
         ),
         tap(() => this.router.navigate(['/monitor']))
       ),

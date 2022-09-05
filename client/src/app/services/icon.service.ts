@@ -39,6 +39,13 @@ export class IconService {
     );
 
     this.iconRegistry.addSvgIconLiteral(
+      'monitor',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/monitor.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
       'changes',
       this.domSanitizer.bypassSecurityTrustHtml(
         require('!svg-inline-loader!src/assets/images/icons/history.svg')

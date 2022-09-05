@@ -11,6 +11,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
+import { MonitorRouteSaveResult } from '@api/common/monitor/monitor-route-save-result';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
@@ -217,7 +218,10 @@ export const actionMonitorRouteAnalyzed = createAction(
   '[Monitor] Route analyzed'
 );
 
-export const actionMonitorRouteSaved = createAction('[Monitor] Route saved');
+export const actionMonitorRouteSaved = createAction(
+  '[Monitor] Route saved',
+  props<ApiResponse<MonitorRouteSaveResult>>()
+);
 
 export const actionMonitorRouteDeletePageInit = createAction(
   '[Monitor] Route delete init'

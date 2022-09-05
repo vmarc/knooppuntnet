@@ -6,7 +6,11 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
   selector: 'kpn-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="!page.active" class="warning" i18n="@@network-details.not-active">
+    <p
+      *ngIf="!page.active"
+      class="kpn-warning"
+      i18n="@@network-details.not-active"
+    >
       This network is not active anymore.
     </p>
 

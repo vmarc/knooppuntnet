@@ -15,8 +15,8 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
-import kpn.api.common.monitor.MonitorRouteUpdateResult
 import kpn.api.custom.ApiResponse
 import kpn.core.common.TimestampLocal
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
@@ -59,86 +59,130 @@ class MonitorFacadeImpl(
   monitorRouteAnalyzer: MonitorRouteAnalyzer
 ) extends MonitorFacade {
 
-  override def changes(user: Option[String], parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage] = {
+  override def changes(
+    user: Option[String],
+    parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorChangesPage] = {
     api.execute(user, "monitor-changes", "") {
       reply(monitorRouteChangesPageBuilder.changes(parameters))
     }
   }
 
-  override def groups(user: Option[String]): ApiResponse[MonitorGroupsPage] = {
+  override def groups(
+    user: Option[String]
+  ): ApiResponse[MonitorGroupsPage] = {
     api.execute(user, "monitor-groups", "") {
       reply(monitorGroupsPageBuilder.build(user))
     }
   }
 
-  override def groupNames(user: Option[String]): ApiResponse[Seq[String]] = {
+  override def groupNames(
+    user: Option[String]
+  ): ApiResponse[Seq[String]] = {
     api.execute(user, "monitor-group-names", "") {
       reply(Some(monitorGroupNamesBuilder.build()))
     }
   }
 
-  override def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage] = {
+  override def group(
+    user: Option[String],
+    groupName: String
+  ): ApiResponse[MonitorGroupPage] = {
     api.execute(user, "monitor-group", "") {
       reply(monitorGroupPageBuilder.build(user, groupName))
     }
   }
 
-  override def addGroup(user: Option[String], properties: MonitorGroupProperties): Unit = {
+  override def groupAdd(
+    user: Option[String],
+    properties: MonitorGroupProperties
+  ): Unit = {
     api.execute(user, "monitor-add-group", properties.name) {
       assertAdminUser(user)
       monitorGroupRepository.saveGroup(MonitorGroup.from(properties))
     }
   }
 
-  override def updateGroup(user: Option[String], id: ObjectId, properties: MonitorGroupProperties): Unit = {
+  override def groupUpdate(
+    user: Option[String],
+    id: ObjectId,
+    properties: MonitorGroupProperties
+  ): Unit = {
     api.execute(user, "monitor-update-group", properties.name) {
       assertAdminUser(user)
       monitorGroupRepository.saveGroup(MonitorGroup.from(id, properties))
     }
   }
 
-  override def deleteGroup(user: Option[String], groupId: ObjectId): Unit = {
+  override def groupDelete(
+    user: Option[String],
+    groupId: ObjectId
+  ): Unit = {
     api.execute(user, "monitor-delete-group", groupId.oid) {
       assertAdminUser(user)
       monitorGroupRepository.deleteGroup(groupId)
     }
   }
 
-  override def groupChanges(user: Option[String], groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage] = {
+  override def groupChanges(
+    user: Option[String],
+    groupName: String,
+    parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorGroupChangesPage] = {
     api.execute(user, "monitor-group-changes", "") {
       reply(monitorRouteChangesPageBuilder.groupChanges(groupName, parameters))
     }
   }
 
-  override def route(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage] = {
+  override def route(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteDetailsPage] = {
     val args = s"groupName=$groupName, routeName=$routeName"
     api.execute(user, "monitor-route", args) {
       reply(monitorRouteDetailsPageBuilder.build(groupName, routeName))
     }
   }
 
-  override def routeMap(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteMapPage] = {
+  override def routeMap(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteMapPage] = {
     val args = s"$groupName:$routeName"
     api.execute(user, "monitor-route-map", args) {
       reply(monitorRouteMapPageBuilder.build(EN, groupName, routeName))
     }
   }
 
-  override def routeChanges(user: Option[String], monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage] = {
+  override def routeChanges(
+    user: Option[String],
+    monitorRouteId: String,
+    parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorRouteChangesPage] = {
     val args = s"monitorRouteId=$monitorRouteId"
     api.execute(user, "monitor-route-changes", args) {
       reply(monitorRouteChangesPageBuilder.routeChanges(monitorRouteId, parameters))
     }
   }
 
-  override def routeChange(user: Option[String], routeId: Long, changeSetId: Long, replicationId: Long): ApiResponse[MonitorRouteChangePage] = {
+  override def routeChange(
+    user: Option[String],
+    routeId: Long,
+    changeSetId: Long,
+    replicationId: Long
+  ): ApiResponse[MonitorRouteChangePage] = {
     val args = s"routeId=$routeId, changeSetId$changeSetId"
     api.execute(user, "monitor-route-change", args) {
       reply(monitorRouteChangePageBuilder.build(routeId, changeSetId, replicationId))
     }
   }
 
-  override def routeInfo(user: Option[String], routeId: Long): ApiResponse[MonitorRouteInfoPage] = {
+  override def routeInfo(
+    user: Option[String],
+    routeId: Long
+  ): ApiResponse[MonitorRouteInfoPage] = {
     api.execute(user, "monitor-route-info", routeId.toString) {
       assertAdminUser(user)
       reply(
@@ -149,7 +193,10 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def groupRouteAdd(user: Option[String], groupName: String): ApiResponse[MonitorRouteAddPage] = {
+  override def groupRouteAdd(
+    user: Option[String],
+    groupName: String
+  ): ApiResponse[MonitorRouteAddPage] = {
     api.execute(user, "monitor-group-route-add", groupName) {
       assertAdminUser(user)
       reply(
@@ -164,29 +211,50 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeUpdatePage(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage] = {
+  override def routeUpdatePage(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteUpdatePage] = {
     api.execute(user, "monitor-route-update-page", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(monitorRouteUpdatePageBuilder.build(groupName, routeName))
     }
   }
 
-  override def addRoute(user: Option[String], groupName: String, properties: MonitorRouteProperties): Unit = {
-    api.execute(user, "monitor-add-route", properties.name) {
+  override def routeAdd(
+    user: Option[String],
+    groupName: String,
+    properties: MonitorRouteProperties
+  ): ApiResponse[MonitorRouteSaveResult] = {
+    api.execute(user, "monitor-route-add", properties.name) {
       assertAdminUser(user)
-      monitorRouteUpdater.add(user.get, groupName, properties)
+      reply(
+        Some(
+          monitorRouteUpdater.add(user.get, groupName, properties)
+        )
+      )
     }
   }
 
-  override def analyzeRoute(user: Option[String], groupName: String, routeName: String): Unit = {
-    api.execute(user, "monitor-analyze-route", s"$groupName:$routeName") {
+  override def routeAnalyze(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): Unit = {
+    api.execute(user, "monitor-route-analyze", s"$groupName:$routeName") {
       assertAdminUser(user)
       monitorRouteUpdater.analyze(groupName, routeName)
     }
   }
 
-  override def updateRoute(user: Option[String], groupName: String, routeName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteUpdateResult] = {
-    api.execute(user, "monitor-update-route", s"$groupName:$routeName") {
+  override def routeUpdate(
+    user: Option[String],
+    groupName: String,
+    routeName: String,
+    properties: MonitorRouteProperties
+  ): ApiResponse[MonitorRouteSaveResult] = {
+    api.execute(user, "monitor-route-update", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(
         Some(
@@ -196,8 +264,12 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit = {
-    api.execute(user, "monitor-delete-route", s"$groupName:$routeName") {
+  override def routeDelete(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): Unit = {
+    api.execute(user, "monitor-route-delete", s"$groupName:$routeName") {
       assertAdminUser(user)
       monitorGroupRepository.groupByName(groupName).foreach { group =>
         monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
@@ -207,20 +279,31 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): ApiResponse[String] = {
+  override def routeReferenceGpxFileUpload(
+    user: Option[String],
+    groupName: String,
+    routeName: String,
+    filename: String,
+    xml: Elem
+  ): ApiResponse[MonitorRouteSaveResult] = {
     api.execute(user, "monitor-route-reference", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(
-        monitorGroupRepository.groupByName(groupName).flatMap { group =>
-          monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-            monitorRouteAnalyzer.processNewReference(user.get, route, filename, xml)
+        Some(
+          monitorGroupRepository.groupByName(groupName).flatMap { group =>
+            monitorRouteRepository.routeByName(group._id, routeName).map { route =>
+              monitorRouteAnalyzer.processGpxFileUpload(user.get, route, filename, xml)
+            }
           }
-        }
+        )
       )
     }
   }
 
-  override def routeNames(user: Option[String], groupName: String): ApiResponse[Seq[String]] = {
+  override def routeNames(
+    user: Option[String],
+    groupName: String
+  ): ApiResponse[Seq[String]] = {
     api.execute(user, "monitor-group-route-names", groupName) {
       reply(
         monitorGroupRepository.groupByName(groupName).map { group =>

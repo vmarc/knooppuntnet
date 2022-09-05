@@ -59,7 +59,7 @@ import { NetworkAttributes } from '@api/common/network/network-attributes';
             {{ network.brokenRouteCount }}
           </td>
           <td
-            [ngClass]="{ warning: network.brokenRouteCount > 0 }"
+            [ngClass]="{ 'kpn-warning': network.brokenRouteCount > 0 }"
             class="number-value"
           >
             {{ network.brokenRoutePercentage }}

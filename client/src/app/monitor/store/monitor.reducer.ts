@@ -163,6 +163,7 @@ export const monitorReducer = createReducer(
       routeSaveState = {
         ...new MonitorRouteSaveState(),
         saveRouteEnabled: true,
+        saveRouteStatus: 'busy',
         uploadGpxEnabled: gpx,
         analyzeEnabled: gpx,
       };
@@ -173,6 +174,7 @@ export const monitorReducer = createReducer(
       routeSaveState = {
         ...new MonitorRouteSaveState(),
         saveRouteEnabled: true,
+        saveRouteStatus: 'busy',
         uploadGpxEnabled: gpx,
         analyzeEnabled: gpx,
       };
@@ -212,12 +214,13 @@ export const monitorReducer = createReducer(
       },
     };
   }),
-  on(actionMonitorRouteSaved, (state) => {
+  on(actionMonitorRouteSaved, (state, response) => {
     return {
       ...state,
       routeSaveState: {
         ...state.routeSaveState,
         saveRouteStatus: 'done',
+        errors: response.result?.errors,
         done: true,
       },
     };

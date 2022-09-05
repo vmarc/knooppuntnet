@@ -14,8 +14,8 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
-import kpn.api.common.monitor.MonitorRouteUpdateResult
 import kpn.api.custom.ApiResponse
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -62,25 +62,25 @@ class MonitorController(
   }
 
   @PostMapping(value = Array("groups"))
-  def addGroup(
+  def groupAdd(
     @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.addGroup(CurrentUser.name, properties)
+    facade.groupAdd(CurrentUser.name, properties)
   }
 
   @PutMapping(value = Array("groups/{groupId}"))
-  def updateGroup(
+  def groupUpdate(
     @PathVariable groupId: String,
     @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.updateGroup(CurrentUser.name, ObjectId(groupId), properties)
+    facade.groupUpdate(CurrentUser.name, ObjectId(groupId), properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupId}"))
-  def deleteGroup(
+  def groupDelete(
     @PathVariable groupId: String
   ): Unit = {
-    facade.deleteGroup(CurrentUser.name, ObjectId(groupId))
+    facade.groupDelete(CurrentUser.name, ObjectId(groupId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/changes"))
@@ -100,28 +100,28 @@ class MonitorController(
   }
 
   @PostMapping(value = Array("groups/{groupName}"))
-  def addRoute(
+  def routeAdd(
     @PathVariable groupName: String,
     @RequestBody properties: MonitorRouteProperties
-  ): Unit = {
-    facade.addRoute(CurrentUser.name, groupName, properties)
+  ): ApiResponse[MonitorRouteSaveResult] = {
+    facade.routeAdd(CurrentUser.name, groupName, properties)
   }
 
   @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
-  def updateRoute(
+  def routeUpdate(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestBody properties: MonitorRouteProperties
-  ): ApiResponse[MonitorRouteUpdateResult] = {
-    facade.updateRoute(CurrentUser.name, groupName, routeName, properties)
+  ): ApiResponse[MonitorRouteSaveResult] = {
+    facade.routeUpdate(CurrentUser.name, groupName, routeName, properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
-  def deleteRoute(
+  def routeDelete(
     @PathVariable groupName: String,
     @PathVariable routeName: String
   ): Unit = {
-    facade.deleteRoute(CurrentUser.name, groupName, routeName)
+    facade.routeDelete(CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
@@ -151,7 +151,7 @@ class MonitorController(
   }
 
   @GetMapping(value = Array("route-add/{groupName}"))
-  def groupRouteAdd(
+  def routeAddPage(
     @PathVariable groupName: String
   ): ApiResponse[MonitorRouteAddPage] = {
     facade.groupRouteAdd(CurrentUser.name, groupName)
@@ -173,21 +173,21 @@ class MonitorController(
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/upload"))
-  def uploadRouteGpxFile(
+  def routeReferenceGpxFileUpload(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestParam("file") file: MultipartFile
-  ): ApiResponse[String] = {
+  ): ApiResponse[MonitorRouteSaveResult] = {
     val xml = XML.load(file.getInputStream)
-    facade.processNewReference(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
+    facade.routeReferenceGpxFileUpload(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/analyze"))
-  def analyzeRoute(
+  def routeAnalyze(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
   ): Unit = {
-    facade.analyzeRoute(CurrentUser.name, groupName, routeName)
+    facade.routeAnalyze(CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/route-names"))

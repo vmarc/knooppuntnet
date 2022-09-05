@@ -14,7 +14,7 @@ import { NodeInfo } from '@api/common/node-info';
         </span>
       </p>
 
-      <p *ngIf="!nodeInfo.active" class="warning" i18n="@@node.inactive">
+      <p *ngIf="!nodeInfo.active" class="kpn-warning" i18n="@@node.inactive">
         This network node is not active anymore.
       </p>
 

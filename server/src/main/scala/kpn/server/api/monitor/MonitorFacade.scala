@@ -15,53 +15,130 @@ import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteUpdatePage
-import kpn.api.common.monitor.MonitorRouteUpdateResult
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.ApiResponse
 
 import scala.xml.Elem
 
 trait MonitorFacade {
 
-  def changes(user: Option[String], parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage]
+  def changes(
+    user: Option[String],
+    parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorChangesPage]
 
-  def groups(user: Option[String]): ApiResponse[MonitorGroupsPage]
+  def groups(
+    user: Option[String]
+  ): ApiResponse[MonitorGroupsPage]
 
-  def groupNames(user: Option[String]): ApiResponse[Seq[String]]
+  def groupNames(
+    user: Option[String]
+  ): ApiResponse[Seq[String]]
 
-  def group(user: Option[String], groupName: String): ApiResponse[MonitorGroupPage]
+  def group(
+    user: Option[String],
+    groupName: String
+  ): ApiResponse[MonitorGroupPage]
 
-  def addGroup(user: Option[String], properties: MonitorGroupProperties): Unit
+  def groupAdd(
+    user: Option[String],
+    properties: MonitorGroupProperties
+  ): Unit
 
-  def updateGroup(user: Option[String], id: ObjectId, properties: MonitorGroupProperties): Unit
+  def groupUpdate(
+    user: Option[String],
+    id: ObjectId,
+    properties: MonitorGroupProperties
+  ): Unit
 
-  def deleteGroup(user: Option[String], groupId: ObjectId): Unit
+  def groupDelete(
+    user: Option[String],
+    groupId: ObjectId
+  ): Unit
 
-  def groupChanges(user: Option[String], groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage]
+  def groupChanges(
+    user: Option[String],
+    groupName: String,
+    parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorGroupChangesPage]
 
-  def route(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage]
+  def route(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteDetailsPage]
 
-  def routeMap(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteMapPage]
+  def routeMap(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteMapPage]
 
-  def routeChanges(user: Option[String], monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
+  def routeChanges(
+    user: Option[String],
+    monitorRouteId: String,
+    parameters: MonitorChangesParameters
+  ): ApiResponse[MonitorRouteChangesPage]
 
-  def routeChange(user: Option[String], routeId: Long, changeSetId: Long, replicationId: Long): ApiResponse[MonitorRouteChangePage]
+  def routeChange(
+    user: Option[String],
+    routeId: Long,
+    changeSetId: Long,
+    replicationId: Long
+  ): ApiResponse[MonitorRouteChangePage]
 
-  def routeInfo(user: Option[String], routeId: Long): ApiResponse[MonitorRouteInfoPage]
+  def routeInfo(
+    user: Option[String],
+    routeId: Long
+  ): ApiResponse[MonitorRouteInfoPage]
 
-  def groupRouteAdd(user: Option[String], groupName: String): ApiResponse[MonitorRouteAddPage]
+  def groupRouteAdd(
+    user: Option[String],
+    groupName: String
+  ): ApiResponse[MonitorRouteAddPage]
 
-  def routeUpdatePage(user: Option[String], groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage]
+  def routeUpdatePage(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteUpdatePage]
 
-  def addRoute(user: Option[String], groupName: String, properties: MonitorRouteProperties): Unit
+  def routeAdd(
+    user: Option[String],
+    groupName: String,
+    properties: MonitorRouteProperties
+  ): ApiResponse[MonitorRouteSaveResult]
 
-  def updateRoute(user: Option[String], groupName: String, routeName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteUpdateResult]
+  def routeUpdate(
+    user: Option[String],
+    groupName: String,
+    routeName: String,
+    properties: MonitorRouteProperties
+  ): ApiResponse[MonitorRouteSaveResult]
 
-  def deleteRoute(user: Option[String], groupName: String, routeName: String): Unit
+  def routeDelete(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): Unit
 
-  def analyzeRoute(user: Option[String], groupName: String, routeName: String): Unit
+  def routeAnalyze(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): Unit
 
-  def processNewReference(user: Option[String], groupName: String, routeName: String, filename: String, xml: Elem): ApiResponse[String]
+  def routeReferenceGpxFileUpload(
+    user: Option[String],
+    groupName: String,
+    routeName: String,
+    filename: String,
+    xml: Elem
+  ): ApiResponse[MonitorRouteSaveResult]
 
-  def routeNames(user: Option[String], groupName: String): ApiResponse[Seq[String]]
+  def routeNames(
+    user: Option[String],
+    groupName: String
+  ): ApiResponse[Seq[String]]
 
 }

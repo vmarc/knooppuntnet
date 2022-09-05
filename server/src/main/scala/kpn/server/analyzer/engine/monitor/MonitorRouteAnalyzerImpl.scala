@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -31,7 +32,7 @@ class MonitorRouteAnalyzerImpl(
     analyzeRoute(route, reference, now)
   }
 
-  override def processNewReference(user: String, route: MonitorRoute, filename: String, xml: Elem): String = {
+  override def processGpxFileUpload(user: String, route: MonitorRoute, filename: String, xml: Elem): MonitorRouteSaveResult = {
 
     val now = Time.now
     val geometry = new MonitorRouteGpxReader().read(xml)
@@ -53,7 +54,7 @@ class MonitorRouteAnalyzerImpl(
     )
 
     monitorRouteRepository.saveRouteReference(reference)
-    "OK"
+    MonitorRouteSaveResult()
   }
 
   private def geometryBounds(geometry: Geometry): Bounds = {

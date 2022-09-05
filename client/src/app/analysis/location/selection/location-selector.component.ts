@@ -45,14 +45,14 @@ import { LocationOption } from './location-option';
       </mat-form-field>
       <p
         *ngIf="warningSelectionMandatory"
-        class="warning"
+        class="kpn-warning"
         i18n="@@location.selector.warning-selection-mandatory"
       >
         Please make a selection in the field above
       </p>
       <p
         *ngIf="warningSelectionInvalid"
-        class="warning"
+        class="kpn-warning"
         i18n="@@location.selector.warning-selection-invalid"
       >
         Please select a value from the list
