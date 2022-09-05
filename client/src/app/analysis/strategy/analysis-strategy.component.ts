@@ -13,7 +13,9 @@ import { AnalysisStrategy } from '../../core/preferences/preferences.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-section">
-      <div class="sidebar-section-title">Analysis strategy</div>
+      <div class="sidebar-section-title" i18n="@@analysis.strategy.title">
+        Analysis strategy
+      </div>
 
       <mat-radio-group
         [value]="strategy$ | async"

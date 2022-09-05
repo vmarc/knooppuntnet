@@ -10,7 +10,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
 
     <ng-template #enabled>
-      <p i18n="demo.select-video">
+      <p i18n="@@demo.select-video">
         Select a video on the left by clicking its play button.
       </p>
     </ng-template>

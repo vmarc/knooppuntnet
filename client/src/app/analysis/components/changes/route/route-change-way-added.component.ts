@@ -20,11 +20,13 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
       </div>
       <div class="kpn-level-4-body">
         <div *ngIf="isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
+          <!-- eslint-disable @angular-eslint/template/i18n -->
           <div class="kpn-thin">
             [ v{{ wayInfo.version }}
             <i i18n="@@route-change.way-added.this-changeset">this changeset</i>
             ]
           </div>
+          <!-- eslint-enable @angular-eslint/template/i18n -->
         </div>
         <div *ngIf="!isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
           <div class="kpn-thin">

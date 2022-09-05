@@ -33,12 +33,14 @@ import { NodeDiffsData } from './node-diffs-data';
                     >Created in this changeset.</ng-container
                   >
                 </div>
+                <!-- eslint-disable @angular-eslint/template/i18n -->
                 <div *ngIf="isUpdated(nodeChangeInfo.after)">
                   <ng-container i18n="@@node-diffs-added.change-set-updated"
                     >Updated in this changeset.</ng-container
                   >
                   v{{ nodeChangeInfo.after.version }}.
                 </div>
+                <!-- eslint-enable @angular-eslint/template/i18n -->
                 <div *ngIf="isExisting(nodeChangeInfo.after)">
                   <span
                     i18n="@@node-diffs-added.change-set-existing"

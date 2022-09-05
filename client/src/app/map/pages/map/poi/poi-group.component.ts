@@ -47,6 +47,7 @@ import { PoiService } from '../../../../services/poi.service';
         </div>
 
         <div>
+          <!-- eslint-disable @angular-eslint/template/i18n -->
           <div class="col-spacer"></div>
           <div class="col-level-0">NO</div>
           <div class="col-level-11">11</div>
@@ -54,6 +55,7 @@ import { PoiService } from '../../../../services/poi.service';
           <div class="col-level-13">13</div>
           <div class="col-level-14">14</div>
           <div class="col-level-15">15</div>
+          <!-- eslint-enable @angular-eslint/template/i18n -->
         </div>
         <ng-content></ng-content>
       </ng-template>

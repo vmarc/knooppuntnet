@@ -16,7 +16,9 @@ import { selectLocationNodesPage } from '../store/location.selectors';
         *ngIf="locationNodesPageResponse$ | async as response"
         class="filter"
       >
-        <div class="title">Filter</div>
+        <div class="title" i18n="@@location-nodes-sidebar.filter.title">
+          Filter
+        </div>
 
         <mat-radio-group
           [value]="locationNodesType.all"

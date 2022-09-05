@@ -6,6 +6,9 @@ import { LocationChangesTreeNode } from '@api/common/location-changes-tree-node'
   selector: 'kpn-change-set-location-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- work-in-progress -->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
+
     <div *ngFor="let tree of trees">
       <div class="kpn-line location-block">
         <span>{{ tree.locationName }}</span>

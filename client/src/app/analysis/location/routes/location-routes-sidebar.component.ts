@@ -16,7 +16,9 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
         *ngIf="locationRoutesPageResponse$ | async as response"
         class="filter"
       >
-        <div class="title">Filter</div>
+        <div class="title" i18n="@@location-routes-sidebar.filter.title">
+          Filter
+        </div>
 
         <mat-radio-group
           [value]="locationRoutesType.all"

@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
   template: `
     <a [routerLink]="link" [ngClass]="{ active: active }" class="link">
       <ng-content></ng-content>
-      <span *ngIf="elementCount != null" class="element-count">
-        ({{ elementCount }})</span
-      >
+      <span *ngIf="!!elementCount" class="element-count">
+        ({{ elementCount }})
+      </span>
     </a>
   `,
   styles: [

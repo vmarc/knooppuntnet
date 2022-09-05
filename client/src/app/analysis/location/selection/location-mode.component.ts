@@ -8,7 +8,12 @@ import { LocationModeService } from './location-mode.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-section">
-      <div class="sidebar-section-title">Location</div>
+      <div
+        class="sidebar-section-title"
+        i18n="@@analysis.location-side-bar.title"
+      >
+        Location
+      </div>
 
       <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
         <mat-radio-button

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="cover">
       <div class="cover-text">
-        <p>knooppuntnet demo video</p>
+        <p i18n="@@video-cover.text">knooppuntnet demo video</p>
         <mat-icon svgIcon="video" class="video-icon"></mat-icon>
       </div>
     </div>

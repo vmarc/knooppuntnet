@@ -19,7 +19,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
           <ng-content></ng-content>
         </div>
         <div class="duration">
-          {{ duration }} <span i18n="demo.duration.seconds">seconds</span>
+          {{ duration }} <span i18n="@@demo.duration.seconds">seconds</span>
         </div>
       </div>
 

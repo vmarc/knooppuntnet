@@ -40,7 +40,7 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
       <markdown
         dialog-body
         *ngIf="isGreen()"
-        i18n="integrity-indicator.green.text"
+        i18n="@@integrity-indicator.green.text"
       >
         The number of routes found in this network node ({{ actual }}) does
         match the expected number of routes ({{ expected }}) as defined in the

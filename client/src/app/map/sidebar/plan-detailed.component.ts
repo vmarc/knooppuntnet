@@ -18,7 +18,7 @@ import { PlanRoute } from '@api/common/planner/plan-route';
 
     <div *ngFor="let leg of plan.legs">
       <div *ngIf="leg.routes.isEmpty()">
-        <div class="leg">Calculating...</div>
+        <div class="leg" i18n="@@plan-detailed.calculating">Calculating...</div>
         <div class="node">
           <div *ngIf="leg.sinkNode.nodeName.length <= 3" class="text">
             {{ leg.sinkNode.nodeName }}
@@ -29,12 +29,14 @@ import { PlanRoute } from '@api/common/planner/plan-route';
         </div>
       </div>
       <div *ngFor="let legRoute of leg.routes; let i = index">
+        <!-- eslint-disable @angular-eslint/template/i18n -->
         <div class="leg">
           {{ legRoute.meters }} m
           <span *ngIf="hasColour(legRoute)" class="colour">
             {{ colours(legRoute) }}
           </span>
         </div>
+        <!-- eslint-enable @angular-eslint/template/i18n -->
         <div class="node" [class.server-selected]="i < leg.routes.size - 1">
           <div *ngIf="legRoute.sinkNode.nodeName.length <= 3" class="text">
             {{ legRoute.sinkNode.nodeName }}

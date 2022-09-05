@@ -13,9 +13,13 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
   selector: 'kpn-poi-detail-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- work-in-progress -->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
+
     <!--    <kpn-page-header>-->
     <!--      <span i18n="@@poi-areas.title">Poi</span>-->
     <!--    </kpn-page-header>-->
+
     <div *ngIf="response$ | async as response">
       <div *ngIf="response.result">
         <kpn-poi-analysis
