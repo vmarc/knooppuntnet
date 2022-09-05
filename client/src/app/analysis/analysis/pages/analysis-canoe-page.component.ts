@@ -22,12 +22,15 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
     </kpn-page-header>
 
     <kpn-icon-buttons>
+      <!-- icon attribute does not need translation -->
+      <!-- eslint-disable @angular-eslint/template/i18n -->
       <kpn-icon-button
         [routerLink]="nlLink$ | async"
         icon="netherlands"
         i18n-title="@@country.nl"
         title="The Netherlands"
       ></kpn-icon-button>
+      <!-- eslint-enable @angular-eslint/template/i18n -->
     </kpn-icon-buttons>
   `,
 })

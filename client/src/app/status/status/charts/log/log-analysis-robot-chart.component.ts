@@ -3,11 +3,12 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { BarChart } from '@api/common/status/bar-chart';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-log-analysis-robot-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <h2>Analysis Robot</h2>
     <div class="chart">
       <kpn-action-bar-chart

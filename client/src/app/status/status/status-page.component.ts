@@ -8,11 +8,12 @@ import { tap } from 'rxjs/operators';
 import { AppService } from '../../app.service';
 import { StatusLinks } from './status-links';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div *ngIf="response$ | async as response">
       <p>
         <span class="kpn-label">The analysis is up-to-date until</span>

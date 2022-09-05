@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 
-/* tslint:disable:template-i18n */
 @Component({
   selector: 'kpn-json',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <br />
     <br />
     <button (click)="toggleVisible()">JSON</button>

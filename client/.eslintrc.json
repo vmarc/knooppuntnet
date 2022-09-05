@@ -16,9 +16,7 @@
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/ng-cli-compat",
-        "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:@angular-eslint/recommended--extra"
+        "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
         "no-underscore-dangle": "off",
@@ -40,7 +38,15 @@
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "@angular-eslint/template/i18n": [
+          "error",
+          {
+            "checkAttributes": false, // initially ignore untranslated attributes, add later
+            "checkId": true
+          }
+        ]
+      }
     }
   ]
 }

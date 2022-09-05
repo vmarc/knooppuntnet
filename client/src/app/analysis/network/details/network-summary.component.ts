@@ -11,7 +11,10 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
     </p>
 
     <p *ngIf="page.active" class="kpn-comma-list">
-      <span>{{ page.attributes.km | integer }} km</span>
+      <span>
+        <!-- nested spans needed to combine the ::after's in kpn-comma-list and kpn-km -->
+        <span class="kpn-km">{{ page.attributes.km | integer }}</span>
+      </span>
       <span
         >{{ page.summary.nodeCount | integer }}
         <ng-container i18n="@@network-details.nodes">nodes</ng-container>

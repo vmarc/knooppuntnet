@@ -3,11 +3,12 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { BarChart } from '@api/common/status/bar-chart';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-action-bar-chart',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <ngx-charts-bar-vertical
       [view]="view"
       [results]="barChart.data"

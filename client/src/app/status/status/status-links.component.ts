@@ -3,11 +3,12 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { StatusLinks } from './status-links';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-status-links',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <span class="kpn-comma-list">
       <a [routerLink]="links.hour">Hour</a>
       <a [routerLink]="links.day">Day</a>

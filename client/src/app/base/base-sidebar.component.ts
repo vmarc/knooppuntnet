@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-base-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-sidebar>
       <div
         id="extraFunctions"

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-server-disk-usage-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="legend">
       <div>
         <div class="colorbox overpass"></div>

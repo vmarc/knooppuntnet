@@ -12,11 +12,12 @@ import { map } from 'rxjs/operators';
 import { AppService } from '../../app.service';
 import { StatusLinks } from './status-links';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-replication-status-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>

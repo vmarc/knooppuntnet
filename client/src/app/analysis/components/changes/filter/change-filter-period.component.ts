@@ -7,11 +7,11 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../../core/core.state';
 import { ChangeOption } from '../../../changes/store/changes.actions';
 
-/* tslint:disable:template-i18n */
 @Component({
   selector: 'kpn-change-filter-period',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="row">
       <div [ngClass]="option.level">
         <kpn-month

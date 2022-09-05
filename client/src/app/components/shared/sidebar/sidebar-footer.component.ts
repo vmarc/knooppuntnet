@@ -8,17 +8,18 @@ import { selectUserUser } from '../../../core/user/user.selectors';
 import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { VersionService } from '../../../services/version.service';
 
-/* tslint:disable:template-i18n */
 @Component({
   selector: 'kpn-sidebar-footer',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="footer">
       <ul class="links">
+        <!-- eslint-disable @angular-eslint/template/i18n -->
         <li><a [href]="link('en')">English</a></li>
         <li><a [href]="link('nl')">Nederlands</a></li>
         <li><a [href]="link('fr')">Français</a></li>
         <li><a [href]="link('de')">Deutsch</a></li>
+        <!-- eslint-enable @angular-eslint/template/i18n -->
       </ul>
 
       <p class="version">

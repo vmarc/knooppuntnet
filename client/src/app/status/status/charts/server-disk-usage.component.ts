@@ -3,11 +3,12 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { DiskUsage } from '@api/common/status/disk-usage';
 
-/* tslint:disable:template-i18n English only */
 @Component({
   selector: 'kpn-server-disk-usage',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="section">
       <p>Servers disk usage</p>
       <div class="charts">
