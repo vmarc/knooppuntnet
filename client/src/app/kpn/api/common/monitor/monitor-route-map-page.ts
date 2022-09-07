@@ -9,11 +9,12 @@ export interface MonitorRouteMapPage {
   readonly routeId: string;
   readonly relationId: number;
   readonly routeName: string;
+  readonly routeDescription: string;
   readonly groupName: string;
   readonly groupDescription: string;
   readonly bounds: Bounds;
   readonly osmSegments: MonitorRouteSegment[];
-  readonly okGeometry: string;
-  readonly nokSegments: MonitorRouteNokSegment[];
+  readonly matchesGeometry: string;
+  readonly deviations: MonitorRouteNokSegment[];
   readonly reference: MonitorRouteReferenceInfo;
 }

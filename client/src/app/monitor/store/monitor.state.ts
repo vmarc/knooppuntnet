@@ -35,9 +35,9 @@ export const initialState: MonitorState = {
   groupName: '',
   groupDescription: '',
   mapMode: null,
-  mapGpxVisible: false,
-  mapGpxOkVisible: false,
-  mapGpxNokVisible: false,
+  mapReferenceVisible: false,
+  mapMatchesVisible: false,
+  mapDeviationsVisible: false,
   mapOsmRelationVisible: false,
   changesPageIndex: 0,
   changesPage: null,
@@ -67,9 +67,9 @@ export interface MonitorState {
   groupName: string;
   groupDescription: string;
   mapMode: string;
-  mapGpxVisible: boolean;
-  mapGpxOkVisible: boolean;
-  mapGpxNokVisible: boolean;
+  mapReferenceVisible: boolean;
+  mapMatchesVisible: boolean;
+  mapDeviationsVisible: boolean;
   mapOsmRelationVisible: boolean;
   changesPageIndex: number;
   changesPage: ApiResponse<MonitorChangesPage>;

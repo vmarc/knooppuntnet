@@ -55,6 +55,7 @@ class MonitorRouteMapPageBuilder(
           route._id.oid,
           route.relationId,
           route.name,
+          route.description,
           group.name,
           group.description,
           bounds,

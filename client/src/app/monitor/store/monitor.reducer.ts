@@ -27,9 +27,9 @@ import { actionMonitorGroupsPageLoaded } from './monitor.actions';
 import { actionMonitorAdmin } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapReferenceVisible } from './monitor.actions';
-import { actionMonitorRouteMapOkVisible } from './monitor.actions';
+import { actionMonitorRouteMapMatchesVisible } from './monitor.actions';
 import { actionMonitorRouteMapOsmRelationVisible } from './monitor.actions';
-import { actionMonitorRouteMapNokVisible } from './monitor.actions';
+import { actionMonitorRouteMapDeviationsVisible } from './monitor.actions';
 import { actionMonitorRouteMapMode } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
@@ -249,15 +249,16 @@ export const monitorReducer = createReducer(
     const routeId = result?.routeId ?? state.routeId;
     const relationId = result?.relationId ?? state.relationId;
     const routeName = result?.routeName ?? state.routeName;
+    const routeDescription = result?.routeDescription ?? state.routeDescription;
     const groupName = result?.groupName ?? state.groupName;
     const groupDescription = result?.groupDescription ?? state.groupDescription;
-    const mapGpxOkVisible = !!result?.okGeometry;
-    const mapGpxNokVisible = (result?.nokSegments?.length ?? 0) > 0;
+    const mapMatchesVisible = !!result?.matchesGeometry;
+    const mapDeviationsVisible = (result?.deviations?.length ?? 0) > 0;
     const mapOsmRelationVisible = (result?.osmSegments?.length ?? 0) > 0;
 
-    const mapGpxVisible = !(
-      mapGpxOkVisible ||
-      mapGpxNokVisible ||
+    const mapReferenceVisible = !(
+      mapMatchesVisible ||
+      mapDeviationsVisible ||
       mapOsmRelationVisible
     );
 
@@ -266,11 +267,12 @@ export const monitorReducer = createReducer(
       routeId,
       relationId,
       routeName,
+      routeDescription,
       groupName,
       groupDescription,
-      mapGpxVisible,
-      mapGpxOkVisible,
-      mapGpxNokVisible,
+      mapReferenceVisible,
+      mapMatchesVisible,
+      mapDeviationsVisible,
       mapOsmRelationVisible,
       mapMode: 'comparison',
       routeMapPage: response,
@@ -316,14 +318,14 @@ export const monitorReducer = createReducer(
     };
   }),
   on(actionMonitorRouteMapMode, (state, { mode }) => {
-    const mapGpxVisible = false;
-    let mapGpxOkVisible = false;
-    let mapGpxNokVisible = false;
+    const mapReferenceVisible = false;
+    let mapMatchesVisible = false;
+    let mapDeviationsVisible = false;
     let mapOsmRelationVisible = false;
     if (mode === 'comparison') {
-      mapGpxOkVisible = !!state.routeMapPage?.result?.reference.geometry;
-      mapGpxNokVisible =
-        (state.routeMapPage.result?.nokSegments?.length ?? 0) > 0;
+      mapMatchesVisible = !!state.routeMapPage?.result?.reference.geometry;
+      mapDeviationsVisible =
+        (state.routeMapPage.result?.deviations?.length ?? 0) > 0;
       mapOsmRelationVisible =
         (state.routeMapPage.result?.osmSegments?.length ?? 0) > 0;
     } else if (mode === 'osm-segments') {
@@ -332,24 +334,24 @@ export const monitorReducer = createReducer(
 
     return {
       ...state,
-      mapGpxVisible,
-      mapGpxOkVisible,
-      mapGpxNokVisible,
+      mapReferenceVisible,
+      mapMatchesVisible,
+      mapDeviationsVisible,
       mapOsmRelationVisible,
       mapMode: mode,
     };
   }),
   on(actionMonitorRouteMapReferenceVisible, (state, { visible }) => ({
     ...state,
-    mapGpxVisible: visible,
+    mapReferenceVisible: visible,
   })),
-  on(actionMonitorRouteMapOkVisible, (state, { visible }) => ({
+  on(actionMonitorRouteMapMatchesVisible, (state, { visible }) => ({
     ...state,
-    mapGpxOkVisible: visible,
+    mapMatchesVisible: visible,
   })),
-  on(actionMonitorRouteMapNokVisible, (state, { visible }) => ({
+  on(actionMonitorRouteMapDeviationsVisible, (state, { visible }) => ({
     ...state,
-    mapGpxNokVisible: visible,
+    mapDeviationsVisible: visible,
   })),
   on(actionMonitorRouteMapOsmRelationVisible, (state, { visible }) => ({
     ...state,

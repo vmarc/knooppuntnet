@@ -289,13 +289,11 @@ class MonitorFacadeImpl(
     api.execute(user, "monitor-route-reference", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(
-        Some(
-          monitorGroupRepository.groupByName(groupName).flatMap { group =>
-            monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-              monitorRouteAnalyzer.processGpxFileUpload(user.get, route, filename, xml)
-            }
+        monitorGroupRepository.groupByName(groupName).flatMap { group =>
+          monitorRouteRepository.routeByName(group._id, routeName).map { route =>
+            monitorRouteAnalyzer.processGpxFileUpload(user.get, route, filename, xml)
           }
-        )
+        }
       )
     }
   }

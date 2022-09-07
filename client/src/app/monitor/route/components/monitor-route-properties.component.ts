@@ -1,5 +1,7 @@
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
+import { AsyncValidatorFn } from '@angular/forms';
 import { ValidatorFn } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -10,6 +12,10 @@ import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-proper
 import { Day } from '@app/kpn/api/custom/day';
 import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { DayUtil } from '../../../components/shared/day-util';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
@@ -78,6 +84,15 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       </mat-step>
     </mat-stepper>
 
+    <div
+      *ngIf="form.errors?.routeNameNonUnique"
+      class="kpn-form-error"
+      i18n="@@monitor.route.name.unique"
+    >
+      The route name should be unique within the group. A route with this name
+      already exists within this group.
+    </div>
+
     <div class="kpn-button-group">
       <button
         mat-raised-button
@@ -106,12 +121,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       urlFragmentValidator,
       Validators.maxLength(15),
     ],
-    asyncValidators: this.monitorService.asyncRouteNameUniqueValidator(() => {
-      if (this.mode === 'update') {
-        return this.initialProperties.name;
-      }
-      return '';
-    }),
+    asyncValidators: this.asyncAddRouteNameUniqueValidator(),
   });
   readonly description = new FormControl<string>('', [
     Validators.required,
@@ -124,8 +134,8 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     Validators.required
   );
   readonly osmReferenceDate = new FormControl<Date | null>(null);
-  readonly gpxFilename = new FormControl<string>('');
-  readonly gpxFile = new FormControl<File>(null);
+  readonly gpxFilename = new FormControl<string | null>(null);
+  readonly gpxFile = new FormControl<File | null>(null);
 
   readonly groupForm = new FormGroup({
     group: this.group,
@@ -154,13 +164,18 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     gpxFile: this.gpxFile,
   });
 
-  readonly form = new FormGroup({
-    groupForm: this.groupForm,
-    nameForm: this.nameForm,
-    relationIdForm: this.relationIdForm,
-    referenceTypeForm: this.referenceTypeForm,
-    referenceDetailsForm: this.referenceDetailsForm,
-  });
+  readonly form = new FormGroup(
+    {
+      groupForm: this.groupForm,
+      nameForm: this.nameForm,
+      relationIdForm: this.relationIdForm,
+      referenceTypeForm: this.referenceTypeForm,
+      referenceDetailsForm: this.referenceDetailsForm,
+    },
+    {
+      asyncValidators: this.asyncUpdateRouteNameUniqueValidator(),
+    }
+  );
 
   constructor(
     private monitorService: MonitorService,
@@ -192,7 +207,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       this.referenceTypeForm.setValue({
         referenceType: this.initialProperties.referenceType,
       });
-      this.referenceDetailsForm.setValue({
+      this.referenceDetailsForm.patchValue({
         osmReferenceDate: DayUtil.toDate(
           this.initialProperties.osmReferenceDay
         ),
@@ -256,5 +271,60 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       }
       return { questionUnanswered: true };
     };
+  }
+
+  private previousValidationGroupName: string | null = null;
+  private previousValidationRouteName: string | null = null;
+  private previousValidationResult: ValidationErrors | null = null;
+
+  private asyncAddRouteNameUniqueValidator(): AsyncValidatorFn {
+    return (): Observable<ValidationErrors | null> => {
+      if (this.mode === 'update') {
+        return null;
+      }
+      return this.validateRouteNameUnique();
+    };
+  }
+
+  private asyncUpdateRouteNameUniqueValidator(): AsyncValidatorFn {
+    return (): Observable<ValidationErrors | null> => {
+      if (this.mode === 'add') {
+        return null;
+      }
+      return this.validateRouteNameUnique();
+    };
+  }
+
+  private validateRouteNameUnique(): Observable<ValidationErrors | null> {
+    const validationGroupName = this.group.value.groupName;
+    const validationRouteName = this.name.value;
+    if (
+      validationGroupName === this.previousValidationGroupName &&
+      validationRouteName === this.previousValidationRouteName
+    ) {
+      return of(this.previousValidationResult);
+    }
+
+    if (
+      this.groupName === validationGroupName &&
+      this.initialProperties.name === validationRouteName
+    ) {
+      this.previousValidationResult = null;
+      return of(null);
+    }
+
+    return this.monitorService.routeNames(validationGroupName).pipe(
+      map((response) => response.result),
+      map((routeNames) => {
+        if (routeNames.includes(validationRouteName)) {
+          const result = { routeNameNonUnique: true };
+          this.previousValidationResult = result;
+          return result;
+        }
+        this.previousValidationResult = null;
+        return null;
+      }),
+      catchError(() => of(null))
+    );
   }
 }

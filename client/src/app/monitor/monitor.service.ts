@@ -22,11 +22,8 @@ import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { mergeMap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { selectRouteParam } from '../core/core.state';
 import { AppState } from '../core/core.state';
 
 @Injectable()
@@ -199,35 +196,7 @@ export class MonitorService {
     };
   }
 
-  asyncRouteNameUniqueValidator(
-    initialRouteName: () => string
-  ): AsyncValidatorFn {
-    return (c: AbstractControl): Observable<ValidationErrors | null> => {
-      if (!c.value || c.value.length === 0 || c.value === initialRouteName()) {
-        return of(null);
-      } else {
-        return this.store.select(selectRouteParam('groupName')).pipe(
-          first(),
-          mergeMap((groupName) => {
-            return this.routeNames(groupName).pipe(
-              map((response) => response.result),
-              map((routeNames) => {
-                if (routeNames.includes(c.value)) {
-                  return { routeNameNonUnique: true };
-                }
-                return null;
-              }),
-              catchError(() => of(null))
-            );
-          })
-        );
-      }
-    };
-  }
-
-  private routeNames(
-    groupName: string
-  ): Observable<ApiResponse<Array<string>>> {
+  routeNames(groupName: string): Observable<ApiResponse<Array<string>>> {
     const url = `/api/monitor/groups/${groupName}/route-names`;
     return this.http.get(url);
   }

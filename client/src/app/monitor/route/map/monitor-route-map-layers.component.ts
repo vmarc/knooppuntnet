@@ -4,20 +4,24 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { selectFalse } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapOsmRelationVisible } from '../../store/monitor.actions';
-import { actionMonitorRouteMapNokVisible } from '../../store/monitor.actions';
-import { actionMonitorRouteMapOkVisible } from '../../store/monitor.actions';
+import { actionMonitorRouteMapDeviationsVisible } from '../../store/monitor.actions';
+import { actionMonitorRouteMapMatchesVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapReferenceVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapMode } from '../../store/monitor.actions';
-import { selectMonitorRouteMapOsmRelationEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxNokEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxOkEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxEnabled } from '../../store/monitor.selectors';
+import {
+  selectMonitorRouteMapOsmRelationEnabled,
+  selectMonitorRouteMapPage,
+} from '../../store/monitor.selectors';
+import { selectMonitorRouteMapDeviationsEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapMatchesEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxNokVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxOkVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxVisible } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapDeviationsVisible } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapMatchesVisible } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapReferenceVisible } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
 
 @Component({
@@ -25,55 +29,84 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="mode$ | async as mode" class="map-layers">
-      <mat-checkbox
-        [checked]="gpxVisible$ | async"
-        [disabled]="gpxDisabled$ | async"
-        (change)="gpxVisibleChanged($event)"
-      >
-        <div class="kpn-line">
-          <kpn-legend-line color="blue"></kpn-legend-line>
-          <span i18n="@@monitor.route.map-layers.mode.gpx">GPX trace</span>
-        </div>
-      </mat-checkbox>
+      <ng-container *ngIf="referenceType$ | async as referenceType">
+        <mat-checkbox
+          [checked]="referenceVisible$ | async"
+          [disabled]="referenceDisabled$ | async"
+          (change)="gpxVisibleChanged($event)"
+        >
+          <div class="kpn-line">
+            <kpn-legend-line color="blue"></kpn-legend-line>
+            <span
+              *ngIf="referenceType === 'gpx'"
+              i18n="@@monitor.route.map-layers.reference-layer.gpx"
+              >GPX trace</span
+            >
+            <span
+              *ngIf="referenceType === 'osm'"
+              i18n="@@monitor.route.map-layers.reference-layer.osm"
+              >OSM reference</span
+            >
+          </div>
+        </mat-checkbox>
 
-      <mat-checkbox
-        [checked]="gpxOkVisible$ | async"
-        [disabled]="gpxOkDisabled$ | async"
-        (change)="gpxOkVisibleChanged($event)"
-      >
-        <div class="kpn-line">
-          <kpn-legend-line color="green"></kpn-legend-line>
-          <span i18n="@@monitor.route.map-layers.gpx-same-as-osm">
-            GPX same as OSM
-          </span>
-        </div>
-      </mat-checkbox>
+        <mat-checkbox
+          [checked]="matchesVisible$ | async"
+          [disabled]="matchesDisabled$ | async"
+          (change)="gpxOkVisibleChanged($event)"
+        >
+          <div class="kpn-line">
+            <kpn-legend-line color="green"></kpn-legend-line>
+            <span
+              *ngIf="referenceType === 'gpx'"
+              i18n="@@monitor.route.map-layers.gpx-same-as-osm"
+            >
+              GPX same as OSM
+            </span>
+            <span
+              *ngIf="referenceType === 'osm'"
+              i18n="@@monitor.route.map-layers.reference-same-as-osm"
+            >
+              Reference matches
+            </span>
+          </div>
+        </mat-checkbox>
 
-      <mat-checkbox
-        [checked]="gpxNokVisible$ | async"
-        [disabled]="gpxNokDisabled$ | async"
-        (change)="gpxNokVisibleChanged($event)"
-      >
-        <div class="kpn-line">
-          <kpn-legend-line color="red"></kpn-legend-line>
-          <span i18n="@@monitor.route.map-layers.deviations">
-            GPX where OSM is deviating
-          </span>
-        </div>
-      </mat-checkbox>
+        <mat-checkbox
+          [checked]="deviationsVisible$ | async"
+          [disabled]="gpxDeviationsDisabled$ | async"
+          (change)="gpxNokVisibleChanged($event)"
+        >
+          <div class="kpn-line">
+            <kpn-legend-line color="red"></kpn-legend-line>
+            <span
+              *ngIf="referenceType === 'gpx'"
+              i18n="@@monitor.route.map-layers.deviations.gpx"
+            >
+              GPX where OSM is deviating
+            </span>
+            <span
+              *ngIf="referenceType === 'osm'"
+              i18n="@@monitor.route.map-layers.deviations.osm"
+            >
+              Reference deviations
+            </span>
+          </div>
+        </mat-checkbox>
 
-      <mat-checkbox
-        [checked]="osmRelationVisible$ | async"
-        [disabled]="osmRelationDisabled$ | async"
-        (change)="osmRelationVisibleChanged($event)"
-      >
-        <div class="kpn-line">
-          <kpn-legend-line color="gold"></kpn-legend-line>
-          <span i18n="@@monitor.route.map-layers.osm-relation">
-            OSM relation
-          </span>
-        </div>
-      </mat-checkbox>
+        <mat-checkbox
+          [checked]="osmRelationVisible$ | async"
+          [disabled]="osmRelationDisabled$ | async"
+          (change)="osmRelationVisibleChanged($event)"
+        >
+          <div class="kpn-line">
+            <kpn-legend-line color="gold"></kpn-legend-line>
+            <span i18n="@@monitor.route.map-layers.osm-relation">
+              OSM relation
+            </span>
+          </div>
+        </mat-checkbox>
+      </ng-container>
     </div>
   `,
   styles: [
@@ -91,27 +124,38 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
 })
 export class MonitorRouteMapLayersComponent {
   readonly mode$ = this.store.select(selectMonitorRouteMapMode);
+  readonly referenceType$ = this.store
+    .select(selectMonitorRouteMapPage)
+    .pipe(map((response) => response?.result?.reference.referenceType));
 
-  readonly gpxVisible$ = this.store.select(selectMonitorRouteMapGpxVisible);
-  readonly gpxOkVisible$ = this.store.select(selectMonitorRouteMapGpxOkVisible);
-  readonly gpxNokVisible$ = this.store.select(
-    selectMonitorRouteMapGpxNokVisible
+  readonly referenceVisible$ = this.store.select(
+    selectMonitorRouteMapReferenceVisible
+  );
+  readonly matchesVisible$ = this.store.select(
+    selectMonitorRouteMapMatchesVisible
+  );
+  readonly deviationsVisible$ = this.store.select(
+    selectMonitorRouteMapDeviationsVisible
   );
   readonly osmRelationVisible$ = this.store.select(
     selectMonitorRouteMapOsmRelationVisible
   );
-  readonly gpxDisabled$ = this.store
-    .select(selectMonitorRouteMapGpxEnabled)
-    .pipe(map((e) => e === false));
-  readonly gpxOkDisabled$ = this.store
-    .select(selectMonitorRouteMapGpxOkEnabled)
-    .pipe(map((e) => e === false));
-  readonly gpxNokDisabled$ = this.store
-    .select(selectMonitorRouteMapGpxNokEnabled)
-    .pipe(map((e) => e === false));
-  readonly osmRelationDisabled$ = this.store
-    .select(selectMonitorRouteMapOsmRelationEnabled)
-    .pipe(map((e) => e === false));
+  readonly referenceDisabled$ = selectFalse(
+    this.store,
+    selectMonitorRouteMapReferenceEnabled
+  );
+  readonly matchesDisabled$ = selectFalse(
+    this.store,
+    selectMonitorRouteMapMatchesEnabled
+  );
+  readonly gpxDeviationsDisabled$ = selectFalse(
+    this.store,
+    selectMonitorRouteMapDeviationsEnabled
+  );
+  readonly osmRelationDisabled$ = selectFalse(
+    this.store,
+    selectMonitorRouteMapOsmRelationEnabled
+  );
 
   constructor(private store: Store<AppState>) {}
 
@@ -127,13 +171,13 @@ export class MonitorRouteMapLayersComponent {
 
   gpxOkVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(
-      actionMonitorRouteMapOkVisible({ visible: event.checked })
+      actionMonitorRouteMapMatchesVisible({ visible: event.checked })
     );
   }
 
   gpxNokVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(
-      actionMonitorRouteMapNokVisible({ visible: event.checked })
+      actionMonitorRouteMapDeviationsVisible({ visible: event.checked })
     );
   }
 

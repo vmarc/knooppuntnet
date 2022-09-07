@@ -139,13 +139,13 @@ export const actionMonitorRouteMapReferenceVisible = createAction(
   props<{ visible: boolean }>()
 );
 
-export const actionMonitorRouteMapOkVisible = createAction(
-  '[Monitor] Map ok visible',
+export const actionMonitorRouteMapMatchesVisible = createAction(
+  '[Monitor] Map matches visible',
   props<{ visible: boolean }>()
 );
 
-export const actionMonitorRouteMapNokVisible = createAction(
-  '[Monitor] Map nok visible',
+export const actionMonitorRouteMapDeviationsVisible = createAction(
+  '[Monitor] Map deviations visible',
   props<{ visible: boolean }>()
 );
 

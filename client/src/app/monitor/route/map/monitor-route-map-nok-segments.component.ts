@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
-import { selectMonitorRouteMapGpxEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors';
 
 @Component({
@@ -102,7 +102,7 @@ export class MonitorRouteMapNokSegmentsComponent {
     map((deviations) => deviations.length > 0)
   );
   readonly gpxTraceAvailable$ = this.store.select(
-    selectMonitorRouteMapGpxEnabled
+    selectMonitorRouteMapReferenceEnabled
   );
 
   constructor(private store: Store<AppState>) {}

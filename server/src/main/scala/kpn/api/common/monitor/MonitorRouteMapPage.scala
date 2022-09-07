@@ -6,11 +6,12 @@ case class MonitorRouteMapPage(
   routeId: String,
   relationId: Option[Long],
   routeName: String,
+  routeDescription: String,
   groupName: String,
   groupDescription: String,
   bounds: Bounds,
   osmSegments: Seq[MonitorRouteSegment],
-  okGeometry: Option[String],
-  nokSegments: Seq[MonitorRouteNokSegment],
+  matchesGeometry: Option[String],
+  deviations: Seq[MonitorRouteNokSegment],
   reference: Option[MonitorRouteReferenceInfo]
 )

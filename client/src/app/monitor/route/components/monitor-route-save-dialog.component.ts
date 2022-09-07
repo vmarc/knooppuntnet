@@ -143,24 +143,30 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
   }
 
   backToGroup(): void {
-    this.store.select(selectMonitorGroupName).pipe(
-      first(),
-      tap((groupName) => {
-        const url = `/monitor/groups/${groupName}`;
-        this.closeAndNavigateTo(url);
-      })
-    );
+    this.store
+      .select(selectMonitorGroupName)
+      .pipe(
+        first(),
+        tap((groupName) => {
+          const url = `/monitor/groups/${groupName}`;
+          this.closeAndNavigateTo(url);
+        })
+      )
+      .subscribe();
   }
 
   gotoAnalysisResult(): void {
     this.store
       .select(selectMonitorGroupName)
-      .pipe(first())
-      .subscribe((groupName) => {
-        const routeName = this.parameters.properties.name;
-        const url = `/monitor/groups/${groupName}/routes/${routeName}/map`;
-        this.closeAndNavigateTo(url);
-      });
+      .pipe(
+        first(),
+        tap((groupName) => {
+          const routeName = this.parameters.properties.name;
+          const url = `/monitor/groups/${groupName}/routes/${routeName}/map`;
+          this.closeAndNavigateTo(url);
+        })
+      )
+      .subscribe();
   }
 
   private closeAndNavigateTo(url: string): void {

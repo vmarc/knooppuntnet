@@ -8,6 +8,7 @@ import { MetaReducer } from '@ngrx/store';
 import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { pageReducer } from './page/page.reducer';
 import { PageState } from './page/page.state';
@@ -70,4 +71,11 @@ export const selectDefined = <K>(
   selector: (state: AppState) => K
 ): Observable<K> => {
   return store.select(selector).pipe(filter((x) => !!x));
+};
+
+export const selectFalse = (
+  store: Store<AppState>,
+  selector: (state: AppState) => boolean
+): Observable<boolean> => {
+  return store.select(selector).pipe(map((e) => e === false));
 };

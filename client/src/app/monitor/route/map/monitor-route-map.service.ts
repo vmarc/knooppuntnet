@@ -11,12 +11,12 @@ import { Style } from 'ol/style';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { Subscriptions } from '../../../util/Subscriptions';
-import { selectMonitorRouteMapGpxEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxOkVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxNokVisible } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapMatchesVisible } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapDeviationsVisible } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapGpxVisible } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapReferenceVisible } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 
 @Injectable({
@@ -71,7 +71,7 @@ export class MonitorRouteMapService {
 
     this.subscriptions.add(
       this.store
-        .select(selectMonitorRouteMapGpxEnabled)
+        .select(selectMonitorRouteMapReferenceEnabled)
         .subscribe((enabled) => {
           this.gpxTraceAvailable = enabled;
         })
@@ -114,7 +114,7 @@ export class MonitorRouteMapService {
   private initialize(): void {
     this.subscriptions.add(
       this.store
-        .select(selectMonitorRouteMapGpxVisible)
+        .select(selectMonitorRouteMapReferenceVisible)
         .subscribe((visible) => {
           this.gpxLayer.setVisible(visible);
         })
@@ -122,7 +122,7 @@ export class MonitorRouteMapService {
 
     this.subscriptions.add(
       this.store
-        .select(selectMonitorRouteMapGpxOkVisible)
+        .select(selectMonitorRouteMapMatchesVisible)
         .subscribe((visible) => {
           this.gpxOkLayer.setVisible(visible);
         })
@@ -130,7 +130,7 @@ export class MonitorRouteMapService {
 
     this.subscriptions.add(
       this.store
-        .select(selectMonitorRouteMapGpxNokVisible)
+        .select(selectMonitorRouteMapDeviationsVisible)
         .subscribe((visible) => {
           this.gpxNokLayer.setVisible(visible);
         })
@@ -156,18 +156,18 @@ export class MonitorRouteMapService {
         }
 
         this.gpxOkLayer.getSource().clear();
-        if (response?.result?.okGeometry) {
+        if (response?.result?.matchesGeometry) {
           const features = new GeoJSON().readFeatures(
-            response.result.okGeometry,
+            response.result.matchesGeometry,
             { featureProjection: 'EPSG:3857' }
           );
           this.gpxOkLayer.getSource().addFeatures(features);
         }
 
         this.gpxNokLayer.getSource().clear();
-        if (response?.result?.nokSegments) {
+        if (response?.result?.deviations) {
           const features = [];
-          response.result.nokSegments.forEach((segment) => {
+          response.result.deviations.forEach((segment) => {
             new GeoJSON()
               .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
               .forEach((feature) => features.push(feature));
