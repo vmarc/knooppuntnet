@@ -84,8 +84,8 @@ class MonitorRouteChangePageBuilder(
         routeReference.bounds,
         routeChange.routeSegmentCount,
         routeChangeGeometry.routeSegments,
-        routeChangeGeometry.newNokSegments,
-        routeChangeGeometry.resolvedNokSegments,
+        routeChangeGeometry.newDeviations,
+        routeChangeGeometry.resolvedDeviations,
         reference,
         routeChange.happy,
         routeChange.investigate

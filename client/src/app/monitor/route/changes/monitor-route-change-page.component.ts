@@ -167,16 +167,16 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
           }}
         </p>
 
-        <div *ngIf="response.result.resolvedNokSegments.length > 0">
+        <div *ngIf="response.result.resolvedDeviations.length > 0">
           <h2>
             Resolved deviation segments
             <span class="kpn-thin"
-              >({{ response.result.resolvedNokSegments.length }})</span
+              >({{ response.result.resolvedDeviations.length }})</span
             >
           </h2>
           <div
             *ngFor="
-              let segment of response.result.resolvedNokSegments;
+              let segment of response.result.resolvedDeviations;
               let i = index
             "
             class="segment"
@@ -188,33 +188,33 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
               [mapId]="'resolved-map-' + i + 1"
               [referenceJson]="response.result.reference.geometry"
               [routeSegments]="response.result.routeSegments"
-              [nokSegment]="segment"
+              [deviation]="segment"
             >
             </kpn-monitor-route-change-map>
           </div>
         </div>
 
-        <div *ngIf="response.result.newNokSegments.length > 0">
+        <div *ngIf="response.result.newDeviations.length > 0">
           <h2>
             New deviation segments
             <span class="kpn-thin"
-              >({{ response.result.newNokSegments.length }})</span
+              >({{ response.result.newDeviations.length }})</span
             >
           </h2>
           <div
             *ngFor="
-              let segment of response.result.newNokSegments;
+              let deviation of response.result.newDeviations;
               let i = index
             "
             class="segment"
           >
-            <p>Deviation length: {{ segment.meters }}m</p>
-            <p>Maximum distance from reference: {{ segment.distance }}m</p>
+            <p>Deviation length: {{ deviation.meters }}m</p>
+            <p>Maximum distance from reference: {{ deviation.distance }}m</p>
             <kpn-monitor-route-change-map
               [mapId]="'new-map-' + i + 1"
               [referenceJson]="response.result.reference.geometry"
               [routeSegments]="response.result.routeSegments"
-              [nokSegment]="segment"
+              [deviation]="deviation"
             >
             </kpn-monitor-route-change-map>
           </div>

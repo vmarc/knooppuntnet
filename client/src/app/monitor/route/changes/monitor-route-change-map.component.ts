@@ -3,7 +3,7 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { List } from 'immutable';
 import { GeoJSON } from 'ol/format';
@@ -39,7 +39,7 @@ export class MonitorRouteChangeMapComponent
   @Input() mapId: string;
   @Input() referenceJson: string;
   @Input() routeSegments: MonitorRouteSegment[];
-  @Input() nokSegment: MonitorRouteNokSegment;
+  @Input() deviation: MonitorRouteDeviation;
 
   mapLayers: MapLayers;
   map: Map;
@@ -76,7 +76,7 @@ export class MonitorRouteChangeMapComponent
       }),
     });
 
-    this.map.getView().fit(Util.toExtent(this.nokSegment.bounds, 0.05));
+    this.map.getView().fit(Util.toExtent(this.deviation.bounds, 0.05));
     this.subscriptions.add(
       fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
         this.updateSize()
@@ -109,7 +109,7 @@ export class MonitorRouteChangeMapComponent
     const layer = new VectorLayer({
       zIndex: 50,
       source: new VectorSource({ features }),
-      style: (feature) => layerStyle,
+      style: () => layerStyle,
     });
 
     layer.set('name', 'GPX reference');
@@ -118,14 +118,14 @@ export class MonitorRouteChangeMapComponent
 
   private buildNokSegmentLayer(): MapLayer {
     const layerStyle = this.fixedStyle('red', 4);
-    const features = new GeoJSON().readFeatures(this.nokSegment.geoJson, {
+    const features = new GeoJSON().readFeatures(this.deviation.geoJson, {
       featureProjection: 'EPSG:3857',
     });
 
     const layer = new VectorLayer({
       zIndex: 70,
       source: new VectorSource({ features }),
-      style: (feature) => layerStyle,
+      style: () => layerStyle,
     });
     layer.set('name', 'Not OK segment');
     return new MapLayer('not-ok-layer', layer);
@@ -146,7 +146,7 @@ export class MonitorRouteChangeMapComponent
     const layer = new VectorLayer({
       zIndex: 40,
       source: new VectorSource({ features }),
-      style: (feature) => thickStyle,
+      style: () => thickStyle,
     });
     layer.set('name', 'OSM Relation');
     return new MapLayer('osm-relation-layer', layer);

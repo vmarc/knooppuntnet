@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.base.ObjectId
 import kpn.api.common.LatLonImpl
-import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
@@ -142,17 +142,17 @@ class MonitorChangeProcessorImpl(
       log.info("No geometry changes, no further analysis")
     }
     else {
-      val beforeGeoJons = beforeRoute.nokSegments.map(_.geoJson)
-      val afterGeoJons = afterRoute.nokSegments.map(_.geoJson)
+      val beforeGeoJons = beforeRoute.deviations.map(_.geoJson)
+      val afterGeoJons = afterRoute.deviations.map(_.geoJson)
 
-      val newSegments = afterRoute.nokSegments.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
-      val resolvedSegments = beforeRoute.nokSegments.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
+      val newSegments = afterRoute.deviations.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
+      val resolvedSegments = beforeRoute.deviations.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
 
       val message = s"ways=${afterRoute.wayCount} $wayIdsAdded/$wayIdsRemoved/$wayIdsUpdated," ++
         s" osm=${afterRoute.osmDistance}," ++
         s" gpx=${afterRoute.gpxDistance}," ++
         s" osmSegments=${afterRoute.osmSegments.size}," ++
-        s" nokSegments=${afterRoute.nokSegments.size}," ++
+        s" nokSegments=${afterRoute.deviations.size}," ++
         s" new=${newSegments.size}," ++
         s" resolved=${resolvedSegments.size}"
 
@@ -175,7 +175,7 @@ class MonitorChangeProcessorImpl(
         wayIdsUpdated,
         afterRoute.osmDistance,
         afterRoute.osmSegments.size,
-        afterRoute.nokSegments.size,
+        afterRoute.deviations.size,
         resolvedSegments.size,
         happy = resolvedSegments.nonEmpty,
         investigate = newSegments.nonEmpty
@@ -204,8 +204,8 @@ class MonitorChangeProcessorImpl(
         afterRoute.bounds,
         Some(reference._id),
         afterRoute.osmSegments,
-        afterRoute.okGeometry,
-        afterRoute.nokSegments,
+        afterRoute.matchesGeometry,
+        afterRoute.deviations,
         happy
       )
 
@@ -219,7 +219,7 @@ class MonitorChangeProcessorImpl(
 
     val gpxLineString = new GeoJsonReader().read(reference.geometry)
 
-    val (okOption: Option[MultiLineString], nokSegments: Seq[MonitorRouteNokSegment]) = {
+    val (okOption: Option[MultiLineString], deviations: Seq[MonitorRouteDeviation]) = {
 
       val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / MonitorRouteAnalysisSupport.toMeters(gpxLineString.getLength)
       val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
@@ -251,7 +251,7 @@ class MonitorChangeProcessorImpl(
         val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
         val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
 
-        MonitorRouteNokSegment(
+        MonitorRouteDeviation(
           segmentIndex + 1,
           meters,
           maxDistance.toLong,
@@ -260,7 +260,7 @@ class MonitorChangeProcessorImpl(
         )
       }
 
-      val xx: Seq[MonitorRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
+      val xx: Seq[MonitorRouteDeviation] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
         s.copy(id = index + 1)
       }
 
@@ -274,7 +274,7 @@ class MonitorChangeProcessorImpl(
     val okGeometry = okOption.map(geometry => MonitorRouteAnalysisSupport.toGeoJson(geometry))
 
     // TODO merge gpx bounds + ok
-    val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ nokSegments.map(_.bounds))
+    val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ deviations.map(_.bounds))
 
     MonitorRouteAnalysis(
       routeRelation,
@@ -285,7 +285,7 @@ class MonitorChangeProcessorImpl(
       osmRouteSegments.map(_.segment),
       Some(gpxGeometry),
       okGeometry,
-      nokSegments
+      deviations
     )
   }
 

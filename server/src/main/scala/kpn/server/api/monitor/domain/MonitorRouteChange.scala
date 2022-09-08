@@ -14,8 +14,8 @@ object MonitorRouteChange {
     waysUpdated: Long,
     osmDistance: Long,
     routeSegmentCount: Long,
-    newNokSegmentCount: Long,
-    resolvedNokSegmentCount: Long,
+    newDeviationCount: Long,
+    resolvedDeviationCount: Long,
     happy: Boolean,
     investigate: Boolean
   ): MonitorRouteChange = {
@@ -29,8 +29,8 @@ object MonitorRouteChange {
       waysUpdated,
       osmDistance,
       routeSegmentCount,
-      newNokSegmentCount,
-      resolvedNokSegmentCount,
+      newDeviationCount,
+      resolvedDeviationCount,
       happy,
       investigate
     )
@@ -47,8 +47,8 @@ case class MonitorRouteChange(
   waysUpdated: Long,
   osmDistance: Long,
   routeSegmentCount: Long,
-  newNokSegmentCount: Long,
-  resolvedNokSegmentCount: Long,
+  newDeviationCount: Long,
+  resolvedDeviationCount: Long,
   happy: Boolean,
   investigate: Boolean
 ) extends WithObjectId

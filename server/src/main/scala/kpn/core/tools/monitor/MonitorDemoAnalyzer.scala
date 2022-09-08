@@ -1,7 +1,7 @@
 package kpn.core.tools.monitor
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
@@ -36,7 +36,7 @@ class MonitorDemoAnalyzer() {
     val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
 
     val happy = routeAnalysis.gpxDistance > 0 &&
-      routeAnalysis.nokSegments.isEmpty &&
+      routeAnalysis.deviations.isEmpty &&
       routeAnalysis.osmSegments.size == 1
 
     MonitorRouteState(
@@ -49,8 +49,8 @@ class MonitorDemoAnalyzer() {
       routeAnalysis.bounds,
       Some(routeReference._id),
       routeAnalysis.osmSegments,
-      routeAnalysis.okGeometry,
-      routeAnalysis.nokSegments,
+      routeAnalysis.matchesGeometry,
+      routeAnalysis.deviations,
       happy
     )
   }
@@ -79,7 +79,10 @@ class MonitorDemoAnalyzer() {
     val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
     val splittedOkAndIndexes = MonitorRouteAnalysisSupport.split(okAndIndexes)
 
-    val ok: MultiLineString = MonitorRouteAnalysisSupport.toMultiLineString(referenceSampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
+    val matches: MultiLineString = MonitorRouteAnalysisSupport.toMultiLineString(
+      referenceSampleCoordinates,
+      splittedOkAndIndexes.filter(_.head._1)
+    )
 
     val noks = splittedOkAndIndexes.filterNot(_.head._1)
 
@@ -102,7 +105,7 @@ class MonitorDemoAnalyzer() {
           val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
           val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
           Some(
-            MonitorRouteNokSegment(
+            MonitorRouteDeviation(
               segmentIndex + 1,
               meters,
               maxDistance.toLong,
@@ -115,7 +118,7 @@ class MonitorDemoAnalyzer() {
       (s"noks", result)
     }
 
-    val routeNokSegments: Seq[MonitorRouteNokSegment] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
+    val deviations: Seq[MonitorRouteDeviation] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
       s.copy(id = index + 1)
     }
 
@@ -124,10 +127,10 @@ class MonitorDemoAnalyzer() {
     val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum.toDouble / 1000)
 
     val gpxGeometry = MonitorRouteAnalysisSupport.toGeoJson(referenceLineString)
-    val okGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(ok))
+    val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(matches))
 
     // TODO merge gpx bounds + ok
-    val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ routeNokSegments.map(_.bounds))
+    val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ deviations.map(_.bounds))
 
     MonitorRouteAnalysis(
       routeRelation,
@@ -137,8 +140,8 @@ class MonitorDemoAnalyzer() {
       bounds,
       osmRouteSegments.map(_.segment),
       Some(gpxGeometry),
-      okGeometry,
-      routeNokSegments
+      matchesGeometry,
+      deviations
     )
   }
 }

@@ -3,7 +3,7 @@ package kpn.server.api.monitor.domain
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.Bounds
-import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Timestamp
 
@@ -17,7 +17,7 @@ case class MonitorRouteState(
   bounds: Bounds,
   referenceId: Option[ObjectId],
   osmSegments: Seq[MonitorRouteSegment],
-  okGeometry: Option[String],
-  nokSegments: Seq[MonitorRouteNokSegment],
+  matchesGeometry: Option[String],
+  deviations: Seq[MonitorRouteDeviation],
   happy: Boolean
 ) extends WithObjectId

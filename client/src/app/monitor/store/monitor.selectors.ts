@@ -105,14 +105,9 @@ export const selectMonitorRouteMapOsmSegmentCount = createSelector(
   (state: MonitorState) => state.routeMapPage?.result?.osmSegments?.length ?? 0
 );
 
-export const selectMonitorRouteMapNokSegments = createSelector(
+export const selectMonitorRouteMapDeviations = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeMapPage?.result?.deviations ?? []
-);
-
-export const selectMonitorRouteMapNokSegmentsCount = createSelector(
-  selectMonitorState,
-  (state: MonitorState) => state.routeMapPage?.result?.deviations?.length ?? 0
 );
 
 export const selectMonitorRouteMapSelectedDeviation = createSelector(

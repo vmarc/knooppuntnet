@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
+import { MonitorRouteDeviation } from '@app/kpn/api/common/monitor/monitor-route-deviation';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
 import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
 
 @Component({
-  selector: 'kpn-monitor-route-map-nok-segments',
+  selector: 'kpn-monitor-route-map-deviations',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      *ngIf="gpxTraceAvailable$ | async; then gpxTrace; else noGpxTrace"
+      *ngIf="referenceAvailable$ | async; then gpxTrace; else noGpxTrace"
     ></div>
     <ng-template #noGpxTrace>
       <p i18n="@@monitor.route.map-deviations.no-gpx">
@@ -96,19 +96,19 @@ import { selectMonitorRouteMapNokSegments } from '../../store/monitor.selectors'
     `,
   ],
 })
-export class MonitorRouteMapNokSegmentsComponent {
-  readonly deviations$ = this.store.select(selectMonitorRouteMapNokSegments);
+export class MonitorRouteMapDeviationsComponent {
+  readonly deviations$ = this.store.select(selectMonitorRouteMapDeviations);
   readonly hasDeviations$ = this.deviations$.pipe(
     map((deviations) => deviations.length > 0)
   );
-  readonly gpxTraceAvailable$ = this.store.select(
+  readonly referenceAvailable$ = this.store.select(
     selectMonitorRouteMapReferenceEnabled
   );
 
   constructor(private store: Store<AppState>) {}
 
   selectionChanged(event: MatSelectionListChange): void {
-    let deviation: MonitorRouteNokSegment = null;
+    let deviation: MonitorRouteDeviation = null;
     if (event.options.length > 0) {
       deviation = event.options[0].value;
     }

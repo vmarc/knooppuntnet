@@ -12,6 +12,6 @@ case class MonitorRouteMapPage(
   bounds: Bounds,
   osmSegments: Seq[MonitorRouteSegment],
   matchesGeometry: Option[String],
-  deviations: Seq[MonitorRouteNokSegment],
+  deviations: Seq[MonitorRouteDeviation],
   reference: Option[MonitorRouteReferenceInfo]
 )

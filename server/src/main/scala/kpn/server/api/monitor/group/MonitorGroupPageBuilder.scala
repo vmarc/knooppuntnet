@@ -15,7 +15,7 @@ class MonitorGroupPageBuilder(
   def build(user: Option[String], groupName: String): Option[MonitorGroupPage] = {
     val admin = monitorRepository.isAdminUser(user)
     monitorGroupRepository.groupByName(groupName).map { group =>
-      val routes = monitorGroupRepository.groupRoutes(group._id)
+      val routes = monitorGroupRepository.groupRoutes(group._id).sortBy(_.name)
       MonitorGroupPage(
         group._id.oid,
         groupName,

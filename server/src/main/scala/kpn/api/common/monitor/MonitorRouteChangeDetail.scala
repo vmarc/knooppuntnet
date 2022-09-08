@@ -17,8 +17,8 @@ case class MonitorRouteChangeDetail(
   referenceJson: String,
   routeSegmentCount: Long,
   routeSegments: Seq[MonitorRouteSegment],
-  newNokSegments: Seq[MonitorRouteNokSegment],
-  resolvedNokSegments: Seq[MonitorRouteNokSegment],
+  newDeviations: Seq[MonitorRouteDeviation],
+  resolvedDeviations: Seq[MonitorRouteDeviation],
   happy: Boolean,
   investigate: Boolean
 )

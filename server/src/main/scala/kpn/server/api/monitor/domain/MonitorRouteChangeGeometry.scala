@@ -3,7 +3,7 @@ package kpn.server.api.monitor.domain
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSegment
 
 case class MonitorRouteChangeGeometry(
@@ -11,6 +11,6 @@ case class MonitorRouteChangeGeometry(
   routeId: ObjectId,
   key: ChangeKey,
   routeSegments: Seq[MonitorRouteSegment],
-  newNokSegments: Seq[MonitorRouteNokSegment],
-  resolvedNokSegments: Seq[MonitorRouteNokSegment],
+  newDeviations: Seq[MonitorRouteDeviation],
+  resolvedDeviations: Seq[MonitorRouteDeviation],
 ) extends WithObjectId

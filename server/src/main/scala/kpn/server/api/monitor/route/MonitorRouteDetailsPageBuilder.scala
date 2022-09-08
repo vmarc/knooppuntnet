@@ -28,7 +28,7 @@ class MonitorRouteDetailsPageBuilder(
           None, // TODO routeState.gpxFilename,
           happy = routeStateOption.exists(_.happy),
           routeStateOption.map(_.osmSegments.size.toLong).getOrElse(0L),
-          routeStateOption.map(_.nokSegments.size.toLong).getOrElse(0L)
+          routeStateOption.map(_.deviations.size.toLong).getOrElse(0L)
         )
       }
     }

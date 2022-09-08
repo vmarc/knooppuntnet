@@ -2,7 +2,7 @@
 
 import { Bounds } from '../bounds';
 
-export interface MonitorRouteNokSegment {
+export interface MonitorRouteDeviation {
   readonly id: number;
   readonly meters: number;
   readonly distance: number;

@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { Store } from '@ngrx/store';
@@ -22,7 +23,7 @@ import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 @Injectable({
   providedIn: 'root',
 })
-export class MonitorRouteMapService {
+export class MonitorRouteMapService implements OnDestroy {
   private readonly colors = [
     'red',
     'yellow',
@@ -43,22 +44,22 @@ export class MonitorRouteMapService {
 
   private readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
-  private readonly gpxLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly gpxOkLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly gpxNokLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly matchesLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly deviationsLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
   private readonly subscriptions = new Subscriptions();
 
   private mode = '';
-  private gpxTraceAvailable = false;
+  private referenceAvailable = false;
 
   private map: Map = null;
 
   constructor(private store: Store<AppState>) {
-    this.gpxLayer = this.buildGpxLayer();
-    this.gpxOkLayer = this.buildGpxOkLayer();
-    this.gpxNokLayer = this.buildGpxNokLayer();
+    this.referenceLayer = this.buildReferencesLayer();
+    this.matchesLayer = this.buildMatchesLayer();
+    this.deviationsLayer = this.buildDeviationsLayer();
     this.osmRelationLayer = this.buildOsmRelationLayer();
     this.initialize();
 
@@ -73,9 +74,13 @@ export class MonitorRouteMapService {
       this.store
         .select(selectMonitorRouteMapReferenceEnabled)
         .subscribe((enabled) => {
-          this.gpxTraceAvailable = enabled;
+          this.referenceAvailable = enabled;
         })
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   setMap(map: Map): void {
@@ -90,15 +95,11 @@ export class MonitorRouteMapService {
 
   layers(): VectorLayer<VectorSource<Geometry>>[] {
     return [
-      this.gpxLayer,
-      this.gpxOkLayer,
-      this.gpxNokLayer,
+      this.referenceLayer,
+      this.matchesLayer,
+      this.deviationsLayer,
       this.osmRelationLayer,
     ];
-  }
-
-  finalization(): void {
-    this.subscriptions.unsubscribe();
   }
 
   colorForSegmentId(id: number): string {
@@ -116,7 +117,7 @@ export class MonitorRouteMapService {
       this.store
         .select(selectMonitorRouteMapReferenceVisible)
         .subscribe((visible) => {
-          this.gpxLayer.setVisible(visible);
+          this.referenceLayer.setVisible(visible);
         })
     );
 
@@ -124,7 +125,7 @@ export class MonitorRouteMapService {
       this.store
         .select(selectMonitorRouteMapMatchesVisible)
         .subscribe((visible) => {
-          this.gpxOkLayer.setVisible(visible);
+          this.matchesLayer.setVisible(visible);
         })
     );
 
@@ -132,7 +133,7 @@ export class MonitorRouteMapService {
       this.store
         .select(selectMonitorRouteMapDeviationsVisible)
         .subscribe((visible) => {
-          this.gpxNokLayer.setVisible(visible);
+          this.deviationsLayer.setVisible(visible);
         })
     );
 
@@ -146,25 +147,25 @@ export class MonitorRouteMapService {
 
     this.subscriptions.add(
       this.response$.subscribe((response) => {
-        this.gpxLayer.getSource().clear();
+        this.referenceLayer.getSource().clear();
         if (response?.result?.reference?.geometry) {
           const features = new GeoJSON().readFeatures(
             response.result.reference.geometry,
             { featureProjection: 'EPSG:3857' }
           );
-          this.gpxLayer.getSource().addFeatures(features);
+          this.referenceLayer.getSource().addFeatures(features);
         }
 
-        this.gpxOkLayer.getSource().clear();
+        this.matchesLayer.getSource().clear();
         if (response?.result?.matchesGeometry) {
           const features = new GeoJSON().readFeatures(
             response.result.matchesGeometry,
             { featureProjection: 'EPSG:3857' }
           );
-          this.gpxOkLayer.getSource().addFeatures(features);
+          this.matchesLayer.getSource().addFeatures(features);
         }
 
-        this.gpxNokLayer.getSource().clear();
+        this.deviationsLayer.getSource().clear();
         if (response?.result?.deviations) {
           const features = [];
           response.result.deviations.forEach((segment) => {
@@ -172,7 +173,7 @@ export class MonitorRouteMapService {
               .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
               .forEach((feature) => features.push(feature));
           });
-          this.gpxNokLayer.getSource().addFeatures(features);
+          this.deviationsLayer.getSource().addFeatures(features);
         }
 
         this.osmRelationLayer.getSource().clear();
@@ -192,30 +193,30 @@ export class MonitorRouteMapService {
     );
   }
 
-  private buildGpxLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {
     const layerStyle = this.fixedStyle('blue', 4);
     return new VectorLayer({
       zIndex: 50,
       source: new VectorSource(),
-      style: (feature) => layerStyle,
+      style: () => layerStyle,
     });
   }
 
-  private buildGpxOkLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildMatchesLayer(): VectorLayer<VectorSource<Geometry>> {
     const layerStyle = this.fixedStyle('green', 4);
     return new VectorLayer({
       zIndex: 60,
       source: new VectorSource(),
-      style: (feature) => layerStyle,
+      style: () => layerStyle,
     });
   }
 
-  private buildGpxNokLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildDeviationsLayer(): VectorLayer<VectorSource<Geometry>> {
     const layerStyle = this.fixedStyle('red', 4);
     return new VectorLayer({
       zIndex: 70,
       source: new VectorSource(),
-      style: (feature) => layerStyle,
+      style: () => layerStyle,
     });
   }
 
@@ -229,7 +230,7 @@ export class MonitorRouteMapService {
         const segmentId = feature.get('segmentId');
         return self.styleForSegmentId(segmentId);
       }
-      if (self.gpxTraceAvailable) {
+      if (self.referenceAvailable) {
         return thickStyle;
       }
       return thinStyle;

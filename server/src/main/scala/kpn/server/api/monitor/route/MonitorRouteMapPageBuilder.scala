@@ -60,8 +60,8 @@ class MonitorRouteMapPageBuilder(
           group.description,
           bounds,
           routeStateOption.toSeq.flatMap(_.osmSegments),
-          routeStateOption.flatMap(_.okGeometry),
-          routeStateOption.toSeq.flatMap(_.nokSegments),
+          routeStateOption.flatMap(_.matchesGeometry),
+          routeStateOption.toSeq.flatMap(_.deviations),
           reference
         )
       }

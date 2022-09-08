@@ -103,8 +103,8 @@ class MonitorRouteChangesPageBuilder(
         change.waysUpdated,
         change.osmDistance,
         change.routeSegmentCount,
-        change.newNokSegmentCount,
-        change.resolvedNokSegmentCount,
+        change.newDeviationCount,
+        change.resolvedDeviationCount,
         change.happy,
         change.investigate
       )

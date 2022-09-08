@@ -280,7 +280,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   private asyncAddRouteNameUniqueValidator(): AsyncValidatorFn {
     return (): Observable<ValidationErrors | null> => {
       if (this.mode === 'update') {
-        return null;
+        return of(null);
       }
       return this.validateRouteNameUnique();
     };
@@ -289,7 +289,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   private asyncUpdateRouteNameUniqueValidator(): AsyncValidatorFn {
     return (): Observable<ValidationErrors | null> => {
       if (this.mode === 'add') {
-        return null;
+        return of(null);
       }
       return this.validateRouteNameUnique();
     };
@@ -322,7 +322,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
           return result;
         }
         this.previousValidationResult = null;
-        return null;
+        return of(null);
       }),
       catchError(() => of(null))
     );

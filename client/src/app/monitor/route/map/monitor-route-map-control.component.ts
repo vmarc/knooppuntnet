@@ -81,8 +81,8 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         </mat-menu>
       </div>
 
-      <kpn-monitor-route-map-nok-segments *ngIf="mode === 'comparison'">
-      </kpn-monitor-route-map-nok-segments>
+      <kpn-monitor-route-map-deviations *ngIf="mode === 'comparison'">
+      </kpn-monitor-route-map-deviations>
 
       <kpn-monitor-route-map-osm-segments *ngIf="mode === 'osm-segments'">
       </kpn-monitor-route-map-osm-segments>
@@ -118,8 +118,6 @@ export class MonitorRouteMapControlComponent {
   readonly josmZoomToSelectedDeviationDisabled$ = this.store
     .select(selectMonitorRouteMapSelectedDeviation)
     .pipe(map((segment) => !segment));
-
-  readonly routeBounds$ = this.store.select(selectMonitorRouteMapBounds);
 
   constructor(private store: Store<AppState>) {}
 

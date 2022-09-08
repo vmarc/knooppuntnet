@@ -62,7 +62,7 @@ import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-
 import { LegendLineComponent } from './route/map/legend-line';
 import { MonitorRouteMapControlComponent } from './route/map/monitor-route-map-control.component';
 import { MonitorRouteMapLayersComponent } from './route/map/monitor-route-map-layers.component';
-import { MonitorRouteMapNokSegmentsComponent } from './route/map/monitor-route-map-nok-segments.component';
+import { MonitorRouteMapDeviationsComponent } from './route/map/monitor-route-map-deviations.component';
 import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-map-osm-segments.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
@@ -129,7 +129,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteInfoComponent,
     MonitorRouteMapControlComponent,
     MonitorRouteMapLayersComponent,
-    MonitorRouteMapNokSegmentsComponent,
+    MonitorRouteMapDeviationsComponent,
     MonitorRouteMapOsmSegmentsComponent,
     MonitorRouteMapPageComponent,
     MonitorRouteMapSidebarComponent,

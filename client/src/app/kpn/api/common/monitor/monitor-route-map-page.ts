@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { Bounds } from '../bounds';
-import { MonitorRouteNokSegment } from './monitor-route-nok-segment';
+import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';
 
@@ -15,6 +15,6 @@ export interface MonitorRouteMapPage {
   readonly bounds: Bounds;
   readonly osmSegments: MonitorRouteSegment[];
   readonly matchesGeometry: string;
-  readonly deviations: MonitorRouteNokSegment[];
+  readonly deviations: MonitorRouteDeviation[];
   readonly reference: MonitorRouteReferenceInfo;
 }

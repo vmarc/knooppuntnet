@@ -35,7 +35,7 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.api.common.monitor.MonitorRouteNokSegment
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
@@ -1082,8 +1082,8 @@ trait SharedTestObjects extends MockFactory {
     bounds: Bounds = Bounds(),
     referenceId: Option[ObjectId] = None,
     osmSegments: Seq[MonitorRouteSegment] = Seq.empty,
-    okGeometry: Option[String] = None,
-    nokSegments: Seq[MonitorRouteNokSegment] = Seq.empty
+    matchesGeometry: Option[String] = None,
+    deviations: Seq[MonitorRouteDeviation] = Seq.empty
   ): MonitorRouteState = {
     MonitorRouteState(
       ObjectId(),
@@ -1095,8 +1095,8 @@ trait SharedTestObjects extends MockFactory {
       bounds,
       referenceId,
       osmSegments,
-      okGeometry,
-      nokSegments,
+      matchesGeometry,
+      deviations,
       happy = false
     )
   }

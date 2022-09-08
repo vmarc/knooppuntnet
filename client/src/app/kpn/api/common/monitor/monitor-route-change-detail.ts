@@ -2,7 +2,7 @@
 
 import { Bounds } from '../bounds';
 import { ChangeKey } from '../changes/details/change-key';
-import { MonitorRouteNokSegment } from './monitor-route-nok-segment';
+import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorRouteSegment } from './monitor-route-segment';
 
 export interface MonitorRouteChangeDetail {
@@ -19,8 +19,8 @@ export interface MonitorRouteChangeDetail {
   readonly referenceJson: string;
   readonly routeSegmentCount: number;
   readonly routeSegments: MonitorRouteSegment[];
-  readonly newNokSegments: MonitorRouteNokSegment[];
-  readonly resolvedNokSegments: MonitorRouteNokSegment[];
+  readonly newDeviations: MonitorRouteDeviation[];
+  readonly resolvedDeviations: MonitorRouteDeviation[];
   readonly happy: boolean;
   readonly investigate: boolean;
 }

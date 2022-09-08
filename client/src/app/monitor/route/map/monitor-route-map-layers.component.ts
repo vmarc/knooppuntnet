@@ -33,14 +33,14 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
         <mat-checkbox
           [checked]="referenceVisible$ | async"
           [disabled]="referenceDisabled$ | async"
-          (change)="gpxVisibleChanged($event)"
+          (change)="referenceVisibleChanged($event)"
         >
           <div class="kpn-line">
             <kpn-legend-line color="blue"></kpn-legend-line>
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.reference-layer.gpx"
-              >GPX trace</span
+              >Reference</span
             >
             <span
               *ngIf="referenceType === 'osm'"
@@ -53,7 +53,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
         <mat-checkbox
           [checked]="matchesVisible$ | async"
           [disabled]="matchesDisabled$ | async"
-          (change)="gpxOkVisibleChanged($event)"
+          (change)="matchesVisibleChanged($event)"
         >
           <div class="kpn-line">
             <kpn-legend-line color="green"></kpn-legend-line>
@@ -75,7 +75,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
         <mat-checkbox
           [checked]="deviationsVisible$ | async"
           [disabled]="gpxDeviationsDisabled$ | async"
-          (change)="gpxNokVisibleChanged($event)"
+          (change)="deviationsVisibleChanged($event)"
         >
           <div class="kpn-line">
             <kpn-legend-line color="red"></kpn-legend-line>
@@ -163,19 +163,19 @@ export class MonitorRouteMapLayersComponent {
     this.store.dispatch(actionMonitorRouteMapMode({ mode: event.value }));
   }
 
-  gpxVisibleChanged(event: MatCheckboxChange): void {
+  referenceVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(
       actionMonitorRouteMapReferenceVisible({ visible: event.checked })
     );
   }
 
-  gpxOkVisibleChanged(event: MatCheckboxChange): void {
+  matchesVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(
       actionMonitorRouteMapMatchesVisible({ visible: event.checked })
     );
   }
 
-  gpxNokVisibleChanged(event: MatCheckboxChange): void {
+  deviationsVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(
       actionMonitorRouteMapDeviationsVisible({ visible: event.checked })
     );

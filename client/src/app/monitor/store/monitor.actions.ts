@@ -8,9 +8,9 @@ import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page'
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { MonitorRouteNokSegment } from '@api/common/monitor/monitor-route-nok-segment';
 import { MonitorRouteSaveResult } from '@api/common/monitor/monitor-route-save-result';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
@@ -126,7 +126,7 @@ export const actionMonitorRouteMapMode = createAction(
 
 export const actionMonitorRouteMapSelectDeviation = createAction(
   '[Monitor] Map select deviation',
-  props<MonitorRouteNokSegment | null>()
+  props<MonitorRouteDeviation | null>()
 );
 
 export const actionMonitorRouteMapFocus = createAction(
