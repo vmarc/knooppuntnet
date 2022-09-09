@@ -1480,7 +1480,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">91,96</context>
+          <context context-type="linenumber">124,129</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -3177,35 +3177,35 @@
         <source> This network is not active anymore. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.nodes" datatype="html">
         <source>nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.routes" datatype="html">
         <source>routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.contains-broken-routes" datatype="html">
         <source>This network contains broken (non-continuous) routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network.proposed" datatype="html">
         <source> Proposed: this network has tag _&quot;state=proposed&quot;_. The network is assumed to still be in a planning phase and likely not signposted in the field. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-summary.component.ts</context>
-          <context context-type="linenumber">51,55</context>
+          <context context-type="linenumber">55,59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-facts.title" datatype="html">
@@ -5349,21 +5349,28 @@
         <source>Map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.analysis" datatype="html">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="home.monitor" datatype="html">
+        <source>Monitor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="home.demo" datatype="html">
         <source>Demo</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/home/home-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.title" datatype="html">
@@ -8330,46 +8337,104 @@
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="monitor.route.properties.step.group" datatype="html">
+        <source>Group</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">33,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.step.name-description" datatype="html">
+        <source>Route name and description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">45,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.step.osm-relation" datatype="html">
+        <source>OSM relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">59,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.step.reference-type" datatype="html">
+        <source>Reference type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">73,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.step.reference-details" datatype="html">
+        <source>Reference details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">85,89</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.name.unique" datatype="html">
+        <source> The route name should be unique within its the group. A route with name &quot;<x id="INTERPOLATION" equiv-text="{{ name.value }}"/>&quot; already exists within group &quot;<x id="INTERPOLATION_1" equiv-text="{{
+        group.value.groupName
+      }}"/>&quot;. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">108,114</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="action.save" datatype="html">
         <source> Save </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">89,91</context>
+          <context context-type="linenumber">122,124</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.title" datatype="html">
         <source> Save route </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">28,32</context>
+          <context context-type="linenumber">29,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.busy" datatype="html">
         <source>This may take a wile, please wait...</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">53,56</context>
+          <context context-type="linenumber">54,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.saved" datatype="html">
         <source>Route saved!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">56,62</context>
+          <context context-type="linenumber">57,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.save-dialog.no-relation-id" datatype="html">
+        <source> Note: we cannot yet perform an analysis. The reference information is still incomplete. The relation id has not been specified. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
+          <context context-type="linenumber">67,71</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.save-dialog.osm-relation-not-found" datatype="html">
+        <source> Note: we cannot yet perform an analysis. The reference information is still incomplete. No route with given relation id was found at given reference date. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
+          <context context-type="linenumber">74,80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.back" datatype="html">
         <source> Back to group </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">67,71</context>
+          <context context-type="linenumber">90,94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.analysis-result" datatype="html">
         <source> Go to analysis result </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">75,84</context>
+          <context context-type="linenumber">98,107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.delete.title" datatype="html">
@@ -8507,67 +8572,88 @@
           <context context-type="linenumber">79,84</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.map-layers.mode.gpx" datatype="html">
-        <source>GPX trace</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
-          <context context-type="linenumber">35,41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.map-layers.gpx-same-as-osm" datatype="html">
-        <source> GPX same as OSM </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
-          <context context-type="linenumber">47,53</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.map-layers.deviations" datatype="html">
-        <source> GPX where OSM is deviating </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
-          <context context-type="linenumber">60,66</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.map-layers.osm-relation" datatype="html">
-        <source> OSM relation </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
-          <context context-type="linenumber">73,81</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-gpx" datatype="html">
         <source> No GPX, no known deviations </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-nok-segments.component.ts</context>
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">20,25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-deviations" datatype="html">
         <source> No deviations </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-nok-segments.component.ts</context>
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">31,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.title" datatype="html">
         <source>GPX segments where OSM is deviating</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-nok-segments.component.ts</context>
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">39,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.deviation" datatype="html">
         <source>Deviation</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-nok-segments.component.ts</context>
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">50,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.length" datatype="html">
         <source>Length</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-nok-segments.component.ts</context>
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">52,57</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.reference-layer.gpx" datatype="html">
+        <source>Reference</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">43,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.reference-layer.osm" datatype="html">
+        <source>OSM reference</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">48,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.gpx-same-as-osm" datatype="html">
+        <source> GPX same as OSM </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">64,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.reference-same-as-osm" datatype="html">
+        <source> Reference matches </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">70,76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.deviations.gpx" datatype="html">
+        <source> GPX where OSM is deviating </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">86,90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.deviations.osm" datatype="html">
+        <source> Reference deviations </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">92,98</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-layers.osm-relation" datatype="html">
+        <source> OSM relation </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
+          <context context-type="linenumber">105,112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.update.title" datatype="html">

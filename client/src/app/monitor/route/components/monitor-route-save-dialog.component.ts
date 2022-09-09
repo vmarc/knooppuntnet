@@ -58,21 +58,21 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
           >
         </div>
 
-        <p *ngFor="let error of errors$ | async" class="kpn-warning">
+        <p *ngFor="let error of errors$ | async">
           <ng-container [ngSwitch]="error">
             <span
               *ngSwitchCase="'no-relation-id'"
               i18n="@@monitor.route.save-dialog.no-relation-id"
             >
-              Note: we cannot perform an analysis. The reference information is
-              still incomplete. The relation id has not been specified.
+              Note: we cannot yet perform an analysis. The reference information
+              is still incomplete. The relation id has not been specified.
             </span>
             <span
               *ngSwitchCase="'osm-relation-not-found'"
               i18n="@@monitor.route.save-dialog.osm-relation-not-found"
             >
-              Note: we cannot perform an analysis. The reference information is
-              still incomplete. No route with given relation id was found at
+              Note: we cannot yet perform an analysis. The reference information
+              is still incomplete. No route with given relation id was found at
               given reference date.
             </span>
             <span *ngSwitchDefault>

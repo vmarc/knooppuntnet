@@ -30,6 +30,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       <mat-step
         *ngIf="mode === 'update'"
         label="Group"
+        i18n-label="@@monitor.route.properties.step.group"
         [stepControl]="groupForm"
       >
         <form [formGroup]="groupForm" #ngGroupForm="ngForm">
@@ -40,7 +41,11 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
           ></kpn-monitor-route-properties-step-1-group>
         </form>
       </mat-step>
-      <mat-step label="Route name and description" [stepControl]="nameForm">
+      <mat-step
+        label="Route name and description"
+        i18n-label="@@monitor.route.properties.step.name-description"
+        [stepControl]="nameForm"
+      >
         <form [formGroup]="nameForm" #ngNameForm="ngForm">
           <kpn-monitor-route-properties-step-2-name
             [mode]="mode"
@@ -50,7 +55,11 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
           ></kpn-monitor-route-properties-step-2-name>
         </form>
       </mat-step>
-      <mat-step label="OSM relation" [stepControl]="relationIdForm">
+      <mat-step
+        label="OSM relation"
+        i18n-label="@@monitor.route.properties.step.osm-relation"
+        [stepControl]="relationIdForm"
+      >
         <form [formGroup]="relationIdForm" #ngForm="ngForm">
           <kpn-monitor-route-properties-step-3-relation
             [ngForm]="ngForm"
@@ -60,7 +69,11 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
           ></kpn-monitor-route-properties-step-3-relation>
         </form>
       </mat-step>
-      <mat-step label="Reference type" [stepControl]="referenceTypeForm">
+      <mat-step
+        label="Reference type"
+        i18n-label="@@monitor.route.properties.step.reference-type"
+        [stepControl]="referenceTypeForm"
+      >
         <form [formGroup]="referenceTypeForm" #ngReferenceTypeForm="ngForm">
           <kpn-monitor-route-properties-step-4-reference-type
             [ngForm]="ngReferenceTypeForm"
@@ -68,7 +81,10 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
           ></kpn-monitor-route-properties-step-4-reference-type>
         </form>
       </mat-step>
-      <mat-step label="Reference details">
+      <mat-step
+        label="Reference details"
+        i18n-label="@@monitor.route.properties.step.reference-details"
+      >
         <form
           [formGroup]="referenceDetailsForm"
           #ngReferenceDetailsForm="ngForm"
@@ -84,14 +100,16 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       </mat-step>
     </mat-stepper>
 
-    <div
+    <p
       *ngIf="form.errors?.routeNameNonUnique"
       class="kpn-form-error"
-      i18n="@@monitor.route.name.unique"
+      i18n="@@monitor.route.properties.name.unique"
     >
-      The route name should be unique within the group. A route with this name
-      already exists within this group.
-    </div>
+      The route name should be unique within its the group. A route with name
+      "{{ name.value }}" already exists within group "{{
+        group.value.groupName
+      }}".
+    </p>
 
     <div class="kpn-button-group">
       <button
@@ -298,6 +316,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   private validateRouteNameUnique(): Observable<ValidationErrors | null> {
     const validationGroupName = this.group.value.groupName;
     const validationRouteName = this.name.value;
+
     if (
       validationGroupName === this.previousValidationGroupName &&
       validationRouteName === this.previousValidationRouteName
@@ -306,8 +325,9 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     }
 
     if (
+      this.mode === 'update' &&
       this.groupName === validationGroupName &&
-      this.initialProperties.name === validationRouteName
+      this.initialProperties?.name === validationRouteName
     ) {
       this.previousValidationResult = null;
       return of(null);
@@ -322,7 +342,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
           return result;
         }
         this.previousValidationResult = null;
-        return of(null);
+        return null;
       }),
       catchError(() => of(null))
     );
