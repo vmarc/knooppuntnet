@@ -39,12 +39,12 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
             <kpn-legend-line color="blue"></kpn-legend-line>
             <span
               *ngIf="referenceType === 'gpx'"
-              i18n="@@monitor.route.map-layers.reference-layer.gpx"
-              >Reference</span
+              i18n="@@monitor.route.map-layers.reference.gpx"
+              >GPX Reference</span
             >
             <span
               *ngIf="referenceType === 'osm'"
-              i18n="@@monitor.route.map-layers.reference-layer.osm"
+              i18n="@@monitor.route.map-layers.reference.osm"
               >OSM reference</span
             >
           </div>

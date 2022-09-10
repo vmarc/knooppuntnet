@@ -87,7 +87,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     )
   }
 
-  override def currentRouteReference(routeId: ObjectId): Option[MonitorRouteReference] = {
+  override def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference] = {
     val pipeline = Seq(
       filter(
         equal("routeId", routeId.raw),

@@ -32,7 +32,7 @@ trait MonitorRouteRepository {
 
   def routeState(routeId: ObjectId): Option[MonitorRouteState]
 
-  def currentRouteReference(routeId: ObjectId): Option[MonitorRouteReference]
+  def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference]
 
   def routeReference(referenceId: ObjectId): Option[MonitorRouteReference]
 

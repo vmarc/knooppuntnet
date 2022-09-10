@@ -169,7 +169,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     (monitorGroupRepository.groupByName _).when("group").returns(Some(group))
     (monitorRouteRepository.routeByName _).when(group._id, "route").returns(Some(route))
-    (monitorRouteRepository.currentRouteReference _).when(route._id).returns(Some(reference))
+    (monitorRouteRepository.routeReferenceRouteWithId _).when(route._id).returns(Some(reference))
 
     val updater = new MonitorRouteUpdater(
       monitorGroupRepository,
@@ -215,7 +215,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     (monitorGroupRepository.groupByName _).when("group").returns(Some(group))
     (monitorRouteRepository.routeByName _).when(group._id, "route").returns(Some(route))
-    (monitorRouteRepository.currentRouteReference _).when(route._id).returns(Some(reference))
+    (monitorRouteRepository.routeReferenceRouteWithId _).when(route._id).returns(Some(reference))
 
     val updater = new MonitorRouteUpdater(
       monitorGroupRepository,
@@ -269,7 +269,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     (monitorGroupRepository.groupByName _).when("group1").returns(Some(group1))
     (monitorGroupRepository.groupByName _).when("group2").returns(Some(group2))
     (monitorRouteRepository.routeByName _).when(group1._id, "route").returns(Some(route))
-    (monitorRouteRepository.currentRouteReference _).when(route._id).returns(Some(reference))
+    (monitorRouteRepository.routeReferenceRouteWithId _).when(route._id).returns(Some(reference))
 
     val updater = new MonitorRouteUpdater(
       monitorGroupRepository,
@@ -335,7 +335,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     (monitorGroupRepository.groupByName _).when("group").returns(Some(group))
     (monitorRouteRepository.routeByName _).when(group._id, "route").returns(Some(route))
-    (monitorRouteRepository.currentRouteReference _).when(route._id).returns(Some(reference))
+    (monitorRouteRepository.routeReferenceRouteWithId _).when(route._id).returns(Some(reference))
     (monitorRouteRelationRepository.load _).when(Timestamp(2022, 8, 11, 0, 0, 0), 2L).returns(buildOtherRelation())
 
     val updater = new MonitorRouteUpdater(

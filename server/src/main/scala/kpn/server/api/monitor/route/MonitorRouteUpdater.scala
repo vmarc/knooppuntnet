@@ -238,7 +238,7 @@ class MonitorRouteUpdater(
   }
 
   private def findRouteReference(routeId: ObjectId): MonitorRouteReference = {
-    monitorRouteRepository.currentRouteReference(routeId).getOrElse {
+    monitorRouteRepository.routeReferenceRouteWithId(routeId).getOrElse {
       throw new IllegalArgumentException(
         s"""${Log.contextString} Could not find reference for route with id "$routeId""""
       )

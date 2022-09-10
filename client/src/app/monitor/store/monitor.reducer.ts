@@ -255,12 +255,9 @@ export const monitorReducer = createReducer(
     const mapMatchesVisible = !!result?.matchesGeometry;
     const mapDeviationsVisible = (result?.deviations?.length ?? 0) > 0;
     const mapOsmRelationVisible = (result?.osmSegments?.length ?? 0) > 0;
-
-    const mapReferenceVisible = !(
-      mapMatchesVisible ||
-      mapDeviationsVisible ||
-      mapOsmRelationVisible
-    );
+    const mapReferenceVisible =
+      (result?.reference?.geometry.length ?? 0) > 0 &&
+      !(mapMatchesVisible || mapDeviationsVisible || mapOsmRelationVisible);
 
     return {
       ...state,

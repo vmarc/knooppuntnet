@@ -28,7 +28,7 @@ class MonitorRouteUpdatePageBuilder(
             }
 
             // TODO MON performance currentRouteReference: only pick up relevant reference info (exclude geometry)
-            monitorRouteRepository.currentRouteReference(route._id) match {
+            monitorRouteRepository.routeReferenceRouteWithId(route._id) match {
               case None => throw new IllegalArgumentException(s"""Could not find reference for route "$routeName" in group "$groupName"""")
               case Some(reference) =>
                 Some(

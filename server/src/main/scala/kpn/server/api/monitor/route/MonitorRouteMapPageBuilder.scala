@@ -10,60 +10,45 @@ import org.springframework.stereotype.Component
 
 @Component
 class MonitorRouteMapPageBuilder(
-  monitorRouteRepository: MonitorRouteRepository,
-  monitorGroupRepository: MonitorGroupRepository
+  groupRepository: MonitorGroupRepository,
+  routeRepository: MonitorRouteRepository
 ) {
 
   def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteMapPage] = {
-    monitorGroupRepository.groupByName(groupName).flatMap { group =>
-      monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-        val routeStateOption = monitorRouteRepository.routeState(route._id)
-        val reference = routeStateOption match {
-          case Some(routeState) =>
-            routeState.referenceId.flatMap { referenceId =>
-              monitorRouteRepository.routeReference(referenceId).map { routeReference =>
-                MonitorRouteReferenceInfo(
-                  routeReference.created,
-                  routeReference.user,
-                  routeReference.bounds,
-                  0, // TODO distance
-                  routeReference.referenceType,
-                  routeReference.osmReferenceDay,
-                  routeReference.segmentCount,
-                  routeReference.filename,
-                  routeReference.geometry
-                )
-              }
-            }
+    groupRepository.groupByName(groupName).flatMap { group =>
+      routeRepository.routeByName(group._id, routeName).flatMap { route =>
+        routeRepository.routeReferenceRouteWithId(route._id).map { reference =>
+          val referenceInfo = MonitorRouteReferenceInfo(
+            reference.created,
+            reference.user,
+            reference.bounds,
+            0, // TODO distance
+            reference.referenceType,
+            reference.osmReferenceDay,
+            reference.segmentCount,
+            reference.filename,
+            reference.geometry
+          )
+          val stateOption = routeRepository.routeState(route._id)
+          val bounds = stateOption match {
+            case Some(state) => Util.mergeBounds(Seq(state.bounds, reference.bounds))
+            case None => reference.bounds
+          }
 
-          case None =>
-            throw new RuntimeException("TODO MON should not come here?")
+          MonitorRouteMapPage(
+            route._id.oid,
+            route.relationId,
+            route.name,
+            route.description,
+            group.name,
+            group.description,
+            bounds,
+            stateOption.toSeq.flatMap(_.osmSegments),
+            stateOption.flatMap(_.matchesGeometry),
+            stateOption.toSeq.flatMap(_.deviations),
+            Some(referenceInfo)
+          )
         }
-
-        val bounds = routeStateOption match {
-          case None =>
-            reference.map(_.bounds).get
-
-          case Some(routeState) =>
-            reference.map(_.bounds) match {
-              case Some(referenceBounds) => Util.mergeBounds(Seq(routeState.bounds, referenceBounds))
-              case None => routeState.bounds
-            }
-        }
-
-        MonitorRouteMapPage(
-          route._id.oid,
-          route.relationId,
-          route.name,
-          route.description,
-          group.name,
-          group.description,
-          bounds,
-          routeStateOption.toSeq.flatMap(_.osmSegments),
-          routeStateOption.flatMap(_.matchesGeometry),
-          routeStateOption.toSeq.flatMap(_.deviations),
-          reference
-        )
       }
     }
   }

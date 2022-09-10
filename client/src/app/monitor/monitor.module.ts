@@ -66,6 +66,7 @@ import { MonitorRouteMapDeviationsComponent } from './route/map/monitor-route-ma
 import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-map-osm-segments.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
+import { MonitorRouteMapComponent } from './route/map/monitor-route-map.component';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
@@ -132,6 +133,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteMapDeviationsComponent,
     MonitorRouteMapOsmSegmentsComponent,
     MonitorRouteMapPageComponent,
+    MonitorRouteMapComponent,
     MonitorRouteMapSidebarComponent,
     MonitorRoutePageHeaderComponent,
     MonitorRoutePropertiesComponent,
