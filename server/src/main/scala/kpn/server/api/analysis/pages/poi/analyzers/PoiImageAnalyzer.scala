@@ -8,7 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils
 
 object PoiImageAnalyzer extends PoiAnalyzer {
 
-  val imagePrefixes = Seq(
+  val imagePrefixes: Seq[String] = Seq(
     "File:",
     "Datei:",
     "http://commons.wikimedia.org/wiki/File%3A",

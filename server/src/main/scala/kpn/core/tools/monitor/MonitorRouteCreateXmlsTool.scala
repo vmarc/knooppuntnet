@@ -22,7 +22,7 @@ import scala.xml.XML
 
 object MonitorRouteCreateXmlsTool {
 
-  val routeIds = Seq(
+  val routeIds: Seq[Long] = Seq(
     3121667L,
     3121668L,
     5951316L,

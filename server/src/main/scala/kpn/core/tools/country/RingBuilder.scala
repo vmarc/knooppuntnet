@@ -1,6 +1,7 @@
 package kpn.core.tools.country
 
 import scala.annotation.tailrec
+import scala.collection.mutable
 
 object RingBuilder {
 
@@ -41,7 +42,7 @@ object RingBuilder {
         throw new RuntimeException(s"no connecting ways found. rings=${rings.size}, currentRing=${currentRing.size}" )
       }
       else if (connectingWays.length > 1) {
-        val b = new StringBuilder
+        val b = new mutable.StringBuilder
         b.append("multiple connecting ways found; connecting way ")
         b.append(connectingWay.id)
         b.append(" with end node ")

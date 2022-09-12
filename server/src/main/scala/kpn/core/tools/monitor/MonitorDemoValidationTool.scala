@@ -32,7 +32,7 @@ class MonitorDemoValidationTool() {
         println(s"${geometry.getLength} ${demoRoute.filename}")
       }
       catch {
-        case (e: Exception) =>
+        case e: Exception =>
           println(s"${demoRoute.filename} ${e.getMessage}")
       }
     }

@@ -19,7 +19,7 @@ class AnalysisTimeRepositoryTest extends UnitTest {
     }
   }
 
-  private def withRepository(fn: (AnalysisTimeRepositoryImpl) => Unit): Unit = {
+  private def withRepository(fn: AnalysisTimeRepositoryImpl => Unit): Unit = {
     val repositoryFile = "/tmp/repository"
     new File(repositoryFile).delete()
     val repo = new AnalysisTimeRepositoryImpl(repositoryFile)

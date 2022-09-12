@@ -12,7 +12,7 @@ object SurfaceAnalyzer {
 
   // https://wiki.openstreetmap.org/wiki/Key:surface
 
-  val wikiSurfacePaved = Seq(
+  val wikiSurfacePaved: Seq[String] = Seq(
     "paved",
     "asphalt",
     "asphalt:lanes", // added
@@ -30,7 +30,7 @@ object SurfaceAnalyzer {
     "wood"
   )
 
-  val wikiSurfaceUnpaved = Seq(
+  val wikiSurfaceUnpaved: Seq[String] = Seq(
     "unpaved",
     "compacted",
     "fine_gravel",
@@ -54,25 +54,25 @@ object SurfaceAnalyzer {
   )
 
   // wiki smoothness values not used to determine paved/unpaved: excellent, good, intermediate, bad
-  val wikiUnpavedSmoothness = Seq(
+  val wikiUnpavedSmoothness: Seq[String] = Seq(
     "very_bad",
     "horrible",
     "very_horrible",
     "impassable"
   )
 
-  val wikiTracktypePaved = Seq(
+  val wikiTracktypePaved: Seq[String] = Seq(
     "grade1"
   )
 
-  val wikiTracktypeUnpaved = Seq(
+  val wikiTracktypeUnpaved: Seq[String] = Seq(
     "grade2",
     "grade3",
     "grade4",
     "grade5"
   )
 
-  val highwayUnpaved = Seq(
+  val highwayUnpaved: Seq[String] = Seq(
     "path",
     "bridleway",
     "track",

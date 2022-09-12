@@ -14,10 +14,10 @@ case class FranceIntermunicipality(
  */
 object FranceIntermunicipalities {
 
-  val types = Seq("CA", "CC", "CU", "metropole")
+  val types: Seq[String] = Seq("CA", "CC", "CU", "metropole")
 
   // municipalities that are documented in wikipedia.org as having no intermunicipality
-  val orphanMunicipalityIds = Seq(
+  val orphanMunicipalityIds: Seq[Long] = Seq(
     399669L, // siren=22016 name=Île-de-Bréhat
     278723L, // siren=29083 name=Île-de-Sein
     156066L, // siren=85113 name=L'Île-d'Yeu
@@ -25,7 +25,7 @@ object FranceIntermunicipalities {
   )
 
   // intermunicipalities with hardcoded municipalities (municipalities could not be assigned based on geometry)
-  val intermunicipalities = Seq(
+  val intermunicipalities: Seq[FranceIntermunicipality] = Seq(
     FranceIntermunicipality(
       "fr-2-200023794", // Communauté de communes de Blaye
       1664257L, // 33058 Blaye

@@ -12,6 +12,8 @@ import kpn.server.analyzer.engine.analysis.route.TentacleAnalyzer
 import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection.Forward
 
+import scala.collection.mutable
+
 class SegmentAnalyzer(
   networkType: NetworkType,
   routeId: Long,
@@ -100,7 +102,7 @@ class SegmentAnalyzer(
   }
 
   private def logStart(): Unit = {
-    val b = new StringBuilder
+    val b = new mutable.StringBuilder
     b.append("Start\n")
     b.append(s"  fragments (${fragmentMap.size}):\n")
     fragmentMap.all.foreach { f =>

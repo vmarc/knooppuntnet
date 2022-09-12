@@ -1,5 +1,7 @@
 package kpn.core.analysis
 
+import scala.collection.mutable
+
 case class Link(
   linkType: LinkType.Value,
   hasPrev: Boolean,
@@ -64,7 +66,7 @@ case class Link(
       "I"
     }
     else {
-      val sb = new StringBuilder
+      val sb = new mutable.StringBuilder
 
       if (!hasPrev) {
         sb.append("*")

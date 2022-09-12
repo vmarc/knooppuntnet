@@ -2,7 +2,7 @@ package kpn.core.analysis
 
 object RouteColour {
 
-  val all = Seq(
+  val all: Seq[RouteColour] = Seq(
     RouteColour("aqua", 0, 255, 255),
     RouteColour("black", 0, 0, 0),
     RouteColour("blue", 0, 0, 255),

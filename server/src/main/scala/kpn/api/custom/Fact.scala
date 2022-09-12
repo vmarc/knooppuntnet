@@ -2,8 +2,6 @@ package kpn.api.custom
 
 import scala.collection.mutable.ListBuffer
 
-case class SimpleFact()
-
 case class Fact(name: String, level: FactLevel) {
 
   def isError: Boolean = level == FactLevel.ERROR
@@ -115,7 +113,7 @@ object Fact {
 
   val all: Seq[Fact] = f.all
 
-  val locationFacts = Seq(
+  val locationFacts: Seq[Fact] = Seq(
     RouteNotContinious,
     RouteNotForward,
     RouteNotBackward,

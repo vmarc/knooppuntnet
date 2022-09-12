@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate
 @Component
 class AppMonitor(
   applicationName: String,
-  emailSender: JavaMailSender,
+  mailSender: JavaMailSender,
   @Value("${mail.from}") mailFrom: String,
   @Value("${mail.to}") mailTo: String,
   @Value("${monitor.frontend.host:localhost}") host: String,
@@ -32,7 +32,7 @@ class AppMonitor(
 ) {
 
   private val log = Log(classOf[AppMonitor])
-  private var lastEmail: Option[Timestamp] = None
+  private var lastMail: Option[Timestamp] = None
 
   @Scheduled(initialDelay = 0, fixedDelay = 5 * 60 * 1000)
   def monitor(): Unit = {
@@ -73,15 +73,15 @@ class AppMonitor(
 
   private def throttledSend(subject: String, text: String): Unit = {
     log.info(s"$subject: $text")
-    lastEmail match {
+    lastMail match {
       case None =>
         send(subject, text)
-        lastEmail = Some(Time.now)
+        lastMail = Some(Time.now)
       case Some(lastEmailTimestamp) =>
         val nextEmailTimestamp = TimestampUtil.relativeSeconds(lastEmailTimestamp, mailMinutes * 60)
         if (Time.now > nextEmailTimestamp) {
           send(subject, text)
-          lastEmail = Some(Time.now)
+          lastMail = Some(Time.now)
         }
     }
   }
@@ -95,6 +95,6 @@ class AppMonitor(
     message.setTo(mailTo)
     message.setSubject(fullSubject)
     message.setText(text)
-    emailSender.send(message)
+    mailSender.send(message)
   }
 }

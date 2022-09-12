@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class Mailer(
-  emailSender: JavaMailSender,
+  mailSender: JavaMailSender,
   applicationName: String,
   @Value("${mail.from}") mailFrom: String,
   @Value("${mail.to}") mailTo: String
@@ -22,7 +22,7 @@ class Mailer(
     message.setTo(mailTo)
     message.setSubject(subject)
     message.setText(text)
-    emailSender.send(message)
+    mailSender.send(message)
   }
 
   @PreDestroy

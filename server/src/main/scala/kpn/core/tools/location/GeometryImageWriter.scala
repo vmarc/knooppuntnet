@@ -34,7 +34,7 @@ class ScaleTransformation(width: Int, height: Int, envelope: Envelope) extends P
     envelopeHeight
   }
 
-  private val scaledHeight = ((yMax - yMin) * height / envelopeScale)
+  private val scaledHeight = (yMax - yMin) * height / envelopeScale
 
   override def transform(coordinate: Coordinate, point2D: Point2D): Unit = {
     val x = (coordinate.x * xScale - xMin) * width / envelopeScale
