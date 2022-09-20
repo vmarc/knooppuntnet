@@ -1,7 +1,3 @@
-export class VideoState {
-  constructor(public video: string, public playing: boolean) {}
-}
-
 export interface DemoState {
   video: string;
   enabled: boolean;

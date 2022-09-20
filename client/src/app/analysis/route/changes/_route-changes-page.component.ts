@@ -94,7 +94,6 @@ export class RouteChangesPageComponent implements OnInit {
   readonly routeName$ = this.store.select(selectRouteName);
   readonly networkType$ = this.store.select(selectRouteNetworkType);
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly totalCount$ = this.store.select(selectRouteChangeCount);
   readonly impact$ = this.store.select(selectRouteChangesPageImpact);
   readonly pageSize$ = this.store.select(selectRouteChangesPageSize);
   readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);

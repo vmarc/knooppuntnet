@@ -3,8 +3,6 @@ import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../core/core.state';
 import { ChangeOption } from '../../../changes/store/changes.actions';
 
 @Component({
@@ -40,7 +38,7 @@ export class ChangeFilterPeriodComponent {
   @Input() option: ChangesFilterOption;
   @Output() optionSelected = new EventEmitter<ChangeOption>();
 
-  constructor(private store: Store<AppState>) {}
+  constructor() {}
 
   impactedCountClicked(): void {
     this.countClicked(true);

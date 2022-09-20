@@ -93,7 +93,6 @@ export class NodeChangesPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);
   readonly nodeName$ = this.store.select(selectNodeName);
   readonly changeCount$ = this.store.select(selectNodeChangeCount);
-  readonly totalCount$ = this.store.select(selectNodeChangeCount);
   readonly impact$ = this.store.select(selectNodeChangesPageImpact);
   readonly pageSize$ = this.store.select(selectNodeChangesPageSize);
   readonly pageIndex$ = this.store.select(selectNodeChangesPageIndex);
