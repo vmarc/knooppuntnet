@@ -30,10 +30,7 @@ import { NameValue } from '@api/common/status/name-value';
       }
 
       ngx-charts-pie-chart {
-        margin-top: 15px;
-        margin-bottom: 5px;
-        margin-right: 15px;
-        margin-left: 15px;
+        margin: 15px 15px 5px;
       }
     `,
   ],

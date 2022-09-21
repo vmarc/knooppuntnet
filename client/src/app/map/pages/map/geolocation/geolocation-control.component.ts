@@ -44,8 +44,8 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
         color: white;
         border: 0 none white;
         border-radius: 2px;
-        height: 28.5px;
-        width: 28.5px;
+        height: 28px;
+        width: 28px;
         padding-left: 3px;
         padding-top: 5px;
       }

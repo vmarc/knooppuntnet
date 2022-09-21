@@ -29,8 +29,7 @@ import { VersionService } from '../../../services/version.service';
     `
       .warning-message {
         background-color: #ffb6c157;
-        padding: 0.8em;
-        padding-right: 3em;
+        padding: 0.8em 3em 0.8em 0.8em;
       }
 
       #more {

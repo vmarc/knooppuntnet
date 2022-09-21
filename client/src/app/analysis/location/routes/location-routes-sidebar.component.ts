@@ -56,10 +56,7 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
   styles: [
     `
       .filter {
-        padding-top: 25px;
-        padding-bottom: 25px;
-        padding-left: 25px;
-        padding-right: 15px;
+        padding: 25px 15px 25px 25px;
       }
 
       .title {

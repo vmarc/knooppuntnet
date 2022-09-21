@@ -83,10 +83,7 @@ import { Stat } from '../domain/stat';
       }
 
       .comment {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        margin-left: 10px;
-        margin-right: 20px;
+        margin: 20px 20px 20px 10px;
         padding-left: 5px;
         border-left-color: lightgray;
         border-left-style: solid;

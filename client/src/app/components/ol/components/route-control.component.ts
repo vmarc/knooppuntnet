@@ -40,9 +40,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         border: 0 none white;
         border-radius: 2px;
         text-align: center;
-        line-height: 28.5px;
-        height: 28.5px;
-        width: 28.5px;
+        line-height: 28px;
+        height: 28px;
+        width: 28px;
       }
 
       .button:hover {

@@ -47,10 +47,7 @@
 .body {
   min-height: 1px;
   @media (max-width: $small-max-width) {
-    margin-top: 15px;
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-bottom: 15px;
+    margin: 15px;
   }
   @media (min-width: $medium-min-width) {
     margin-left: 180px;
