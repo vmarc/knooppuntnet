@@ -1,15 +1,15 @@
-package kpn.server.analyzer.engine.tiles
-
-import java.io.File
-import java.io.FileInputStream
-import java.io.InputStream
-import java.util.zip.GZIPInputStream
+package kpn.core.tools.tile
 
 import com.wdtinc.mapbox_vector_tile.adapt.jts.MvtReader
 import com.wdtinc.mapbox_vector_tile.adapt.jts.TagKeyValueMapConverter
 import com.wdtinc.mapbox_vector_tile.adapt.jts.model.JtsLayer
 import com.wdtinc.mapbox_vector_tile.adapt.jts.model.JtsMvt
 import org.locationtech.jts.geom.GeometryFactory
+
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
+import java.util.zip.GZIPInputStream
 
 object TileViewTool {
 
@@ -23,7 +23,7 @@ object TileViewTool {
 
 class TileViewTool() {
 
-  import kpn.server.analyzer.engine.tiles.TileViewTool.geomFactory
+  import TileViewTool.geomFactory
 
   def print(filename: String): Unit = {
     val tile = load(filename)
