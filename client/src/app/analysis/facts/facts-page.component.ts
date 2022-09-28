@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FactInfo } from '../fact/fact-info';
 import { Facts } from '../fact/facts';
 
 @Component({
@@ -16,7 +17,9 @@ import { Facts } from '../fact/facts';
         <p>
           <kpn-fact-name [fact]="factName"></kpn-fact-name>
         </p>
-        <kpn-fact-description [factName]="factName"></kpn-fact-description>
+        <kpn-fact-description
+          [factInfo]="factInfo(factName)"
+        ></kpn-fact-description>
       </kpn-item>
     </kpn-items>
   `,
@@ -24,5 +27,9 @@ import { Facts } from '../fact/facts';
 export class FactsPageComponent {
   allFactNames() {
     return Facts.allFactNames;
+  }
+
+  factInfo(factName: string): FactInfo {
+    return new FactInfo(factName);
   }
 }

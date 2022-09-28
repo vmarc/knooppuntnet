@@ -335,6 +335,10 @@ table.kpn-bordered-table {
   content: 'm';
 }
 
+.kpn-sentence::after {
+  content: '.';
+}
+
 ul.breadcrumb {
   list-style: none;
   padding-inline-start: 0;

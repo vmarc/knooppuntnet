@@ -334,8 +334,7 @@ export class OverviewConfigurationService {
         $localize`:@@stats.route-unexpected-relation.name:RouteUnexpectedRelation`,
         $localize`:@@stats.route-unexpected-relation.comment:
           Number of routes with one or more unexpected members.\\In route relations we expect
-          only members of type *"way"*, or members of type *"node"* with tags
-          that make it a valid network node.`
+          only members of type *"way"* or *"node"*.`
       )
     );
 

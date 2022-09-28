@@ -1,3 +1,4 @@
+import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 
@@ -5,11 +6,24 @@ import { Component } from '@angular/core';
   selector: 'kpn-fact-route-unexpected-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <markdown i18n="@@fact.description.route-unexpected-relation">
-      The route relation contains one or more unexpected relation members. In
-      route relations we expect only members of type *"way"*, or members of type
-      *"node"* with a tag *"rwn_ref"* or *"rcn_ref"*.
+    <markdown>
+      <ng-container i18n="@@fact.description.route-unexpected-relation">
+        The route relation contains one or more unexpected relation members. In
+        route relations we expect only members of type *"way"* and *"node"*:
+      </ng-container>
+      <span class="kpn-sentence">
+        <span class="kpn-comma-list">
+          <kpn-osm-link-relation
+            *ngFor="let relationId of factInfo.unexpectedRelationIds"
+            [relationId]="relationId"
+            [title]="relationId.toString()"
+          >
+          </kpn-osm-link-relation>
+        </span>
+      </span>
     </markdown>
   `,
 })
-export class FactRouteUnexpectedRelationComponent {}
+export class FactRouteUnexpectedRelationComponent {
+  @Input() factInfo;
+}

@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';
+import { FactInfo } from '../../fact/fact-info';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
 
@@ -28,7 +29,7 @@ import { Facts } from '../../fact/facts';
       >
     </div>
     <div class="description">
-      <kpn-fact-description [factName]="fact.name"></kpn-fact-description>
+      <kpn-fact-description [factInfo]="factInfo(fact)"></kpn-fact-description>
     </div>
   `,
   styles: [
@@ -78,5 +79,9 @@ export class NetworkFactHeaderComponent {
       };
     }
     this.store.dispatch(actionSharedEdit(editParameters));
+  }
+
+  factInfo(networkFact: NetworkFact): FactInfo {
+    return new FactInfo(networkFact.name);
   }
 }

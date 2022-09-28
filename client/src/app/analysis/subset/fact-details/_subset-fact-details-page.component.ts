@@ -3,9 +3,11 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
+import { FactInfo } from '../../fact/fact-info';
 import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
 import { selectSubsetFact } from '../store/subset.selectors';
 import { selectSubsetFactDetailsPage } from '../store/subset.selectors';
+import { SubsetFact } from '../store/subset.state';
 
 @Component({
   selector: 'kpn-subset-fact-details-page',
@@ -23,7 +25,7 @@ import { selectSubsetFactDetailsPage } from '../store/subset.selectors';
         </h2>
         <div class="fact-description">
           <kpn-fact-description
-            [factName]="subsetFact.factName"
+            [factInfo]="factInfo(subsetFact)"
           ></kpn-fact-description>
         </div>
       </div>
@@ -49,5 +51,9 @@ export class SubsetFactDetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetFactDetailsPageInit());
+  }
+
+  factInfo(subsetFact: SubsetFact): FactInfo {
+    return new FactInfo(subsetFact.factName);
   }
 }

@@ -45,7 +45,7 @@ import { Facts } from './facts';
         </div>
       </div>
       <div class="description">
-        <kpn-fact-description [factName]="factInfo.fact"></kpn-fact-description>
+        <kpn-fact-description [factInfo]="factInfo"></kpn-fact-description>
       </div>
     </div>
   `,

@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { FactInfo } from './fact-info';
 
 @Component({
   selector: 'kpn-fact-description',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container [ngSwitch]="factName">
+    <ng-container [ngSwitch]="factInfo.fact">
       <kpn-fact-added *ngSwitchCase="'Added'"></kpn-fact-added>
       <kpn-fact-deleted *ngSwitchCase="'Deleted'"></kpn-fact-deleted>
       <kpn-fact-integrity-check-failed
@@ -113,9 +114,11 @@ import { Component, Input } from '@angular/core';
       ></kpn-fact-route-inaccessible>
       <kpn-fact-route-unexpected-node
         *ngSwitchCase="'RouteUnexpectedNode'"
+        [factInfo]="factInfo"
       ></kpn-fact-route-unexpected-node>
       <kpn-fact-route-unexpected-relation
         *ngSwitchCase="'RouteUnexpectedRelation'"
+        [factInfo]="factInfo"
       ></kpn-fact-route-unexpected-relation>
       <kpn-fact-route-unused-segments
         *ngSwitchCase="'RouteUnusedSegments'"
@@ -133,11 +136,11 @@ import { Component, Input } from '@angular/core';
         *ngSwitchCase="'RouteInvalidSurveyDate'"
       ></kpn-fact-route-invalid-survey-date>
       <p *ngSwitchDefault i18n="@@fact.description-missing">
-        {{ factName }} description missing!!
+        {{ factInfo.fact }} description missing!!
       </p>
     </ng-container>
   `,
 })
 export class FactDescriptionComponent {
-  @Input() factName: string;
+  @Input() factInfo: FactInfo;
 }

@@ -6,6 +6,7 @@ import { Fact } from '@api/custom/fact';
 import { AppState } from '@app/core/core.state';
 import { Store } from '@ngrx/store';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
+import { FactInfo } from '../../fact/fact-info';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
 
@@ -41,7 +42,7 @@ import { Facts } from '../../fact/facts';
         </div>
         <div class="description">
           <kpn-fact-description
-            [factName]="locationFact.fact"
+            [factInfo]="factInfo(locationFact)"
           ></kpn-fact-description>
         </div>
         <div
@@ -110,5 +111,9 @@ export class LocationFactsComponent {
     }
 
     this.store.dispatch(actionSharedEdit(editParameters));
+  }
+
+  factInfo(locationFact: LocationFact): FactInfo {
+    return new FactInfo(locationFact.fact);
   }
 }

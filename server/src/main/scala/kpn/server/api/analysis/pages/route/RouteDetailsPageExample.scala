@@ -33,11 +33,9 @@ object RouteDetailsPageExample {
 
   private def route(): RouteDetailsPageData = {
     val analysis = RouteInfoAnalysis(
-      unexpectedNodeIds = Seq(
-        1001
-      ),
+      unexpectedNodeIds = Seq(1001),
+      unexpectedRelationIds = Seq(1, 2, 3),
       members = Seq(
-
         RouteMemberInfo(
           id = 1L,
           memberType = "node",
@@ -225,7 +223,9 @@ object RouteDetailsPageExample {
         Fact.RouteUnusedSegments,
         Fact.RouteBroken,
         Fact.RouteIncomplete,
-        Fact.RouteInvalidSurveyDate
+        Fact.RouteInvalidSurveyDate,
+        Fact.RouteUnexpectedNode,
+        Fact.RouteUnexpectedRelation,
       ),
       analysis,
       Seq.empty,

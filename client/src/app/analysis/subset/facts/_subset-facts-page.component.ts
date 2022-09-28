@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { FactCount } from '@api/common/fact-count';
 import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Fact } from '@api/custom/fact';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
+import { FactInfo } from '../../fact/fact-info';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
 import { actionSubsetFactRefsLoad } from '../store/subset.actions';
@@ -55,7 +57,7 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
               >
             </div>
             <kpn-fact-description
-              [factName]="factCount.fact"
+              [factInfo]="factInfo(factCount)"
             ></kpn-fact-description>
           </kpn-item>
         </kpn-items>
@@ -82,5 +84,9 @@ export class SubsetFactsPageComponent implements OnInit {
 
   edit(fact: Fact): void {
     this.store.dispatch(actionSubsetFactRefsLoad({ fact }));
+  }
+
+  factInfo(factCount: FactCount): FactInfo {
+    return new FactInfo(factCount.fact);
   }
 }

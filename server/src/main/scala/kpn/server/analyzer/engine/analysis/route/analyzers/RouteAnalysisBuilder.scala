@@ -42,6 +42,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.ways.get,
       context.routeMap.get,
       context.unexpectedNodeIds.get,
+      context.unexpectedRelationIds.get,
       context.expectedName.get,
       context.structure.get,
       context.routeNodeAnalysis.get
@@ -71,6 +72,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     ways: Seq[Way],
     routeMap: RouteMap,
     unexpectedNodeIds: Seq[Long],
+    unexpectedRelationIds: Seq[Long],
     expectedName: String,
     structure: RouteStructure,
     routeNodeAnalysis: RouteNodeAnalysis
@@ -124,6 +126,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
     val routeAnalysis = RouteInfoAnalysis(
       unexpectedNodeIds,
+      unexpectedRelationIds,
       members,
       expectedName,
       nameDerivedFromNodes,

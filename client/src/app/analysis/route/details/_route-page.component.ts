@@ -189,7 +189,30 @@ export class RoutePageComponent implements OnInit {
   }
 
   factInfos(page: RouteDetailsPage): FactInfo[] {
-    return page.route.facts.map((fact) => new FactInfo(fact));
+    return page.route.facts.map((fact) => {
+      if (fact === 'RouteUnexpectedNode') {
+        const unexpectedNodeIds = page.route.analysis.unexpectedNodeIds;
+        return new FactInfo(
+          fact,
+          undefined,
+          undefined,
+          undefined,
+          unexpectedNodeIds
+        );
+      }
+      if (fact === 'RouteUnexpectedRelation') {
+        const unexpectedRelationIds = page.route.analysis.unexpectedRelationIds;
+        return new FactInfo(
+          fact,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          unexpectedRelationIds
+        );
+      }
+      return new FactInfo(fact);
+    });
   }
 
   hasFreeNodes(analysis: RouteInfoAnalysis): boolean {

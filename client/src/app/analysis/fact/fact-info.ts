@@ -6,6 +6,8 @@ export class FactInfo {
     public fact: Fact,
     public networkRef?: Ref,
     public routeRef?: Ref,
-    public nodeRef?: Ref
+    public nodeRef?: Ref,
+    public unexpectedNodeIds?: number[],
+    public unexpectedRelationIds?: number[]
   ) {}
 }

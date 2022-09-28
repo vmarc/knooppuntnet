@@ -1502,11 +1502,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/facts/network-fact-header.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/fact-details/subset-fact-details.component.ts</context>
@@ -1514,7 +1514,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">55,58</context>
+          <context context-type="linenumber">57,60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/link/josm-link.component.ts</context>
@@ -1529,11 +1529,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/facts/network-fact-header.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/fact-details/subset-fact-details.component.ts</context>
@@ -1541,7 +1541,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">51,54</context>
+          <context context-type="linenumber">53,56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/shared/link/josm-link.component.ts</context>
@@ -2052,17 +2052,17 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-node" datatype="html">
-        <source> The route relation contains 1 or more unexpected nodes </source>
+        <source> The route relation contains 1 or more unexpected nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-unexpected-node.component.ts</context>
-          <context context-type="linenumber">8,10</context>
+          <context context-type="linenumber">11,12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-relation" datatype="html">
-        <source> The route relation contains one or more unexpected relation members. In route relations we expect only members of type *&quot;way&quot;*, or members of type *&quot;node&quot;* with a tag *&quot;rwn_ref&quot;* or *&quot;rcn_ref&quot;*. </source>
+        <source> The route relation contains one or more unexpected relation members. In route relations we expect only members of type *&quot;way&quot;* and *&quot;node&quot;*: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
-          <context context-type="linenumber">8,12</context>
+          <context context-type="linenumber">10,13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-unused-segments" datatype="html">
@@ -2087,10 +2087,10 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description-missing" datatype="html">
-        <source> <x id="INTERPOLATION" equiv-text="{{ factName }}"/> description missing!! </source>
+        <source> <x id="INTERPOLATION" equiv-text="{{ factInfo.fact }}"/> description missing!! </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">135,137</context>
+          <context context-type="linenumber">138,140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -2391,7 +2391,7 @@
         <source>All facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/facts/facts-page.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-changes.title" datatype="html">
@@ -2540,7 +2540,7 @@
         <source>No facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-map.title" datatype="html">
@@ -4354,18 +4354,17 @@
       <trans-unit id="stats.route-unexpected-relation.comment" datatype="html">
         <source>
           Number of routes with one or more unexpected members.\In route relations we expect
-          only members of type *&quot;way&quot;*, or members of type *&quot;node&quot;* with tags
-          that make it a valid network node.</source>
+          only members of type *&quot;way&quot;* or *&quot;node&quot;*.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">335,338</context>
+          <context context-type="linenumber">335,337</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.name" datatype="html">
         <source>NetworkExtraMemberNode</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">348</context>
+          <context context-type="linenumber">347</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
@@ -4376,14 +4375,14 @@
           in the network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">349,353</context>
+          <context context-type="linenumber">348,352</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.name" datatype="html">
         <source>NetworkExtraMemberWay</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">363</context>
+          <context context-type="linenumber">362</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-way.comment" datatype="html">
@@ -4392,14 +4391,14 @@
           or network nodes as members in the node network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">364,366</context>
+          <context context-type="linenumber">363,365</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.name" datatype="html">
         <source>NetworkExtraMemberRelation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">376</context>
+          <context context-type="linenumber">375</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.network-extra-member-relation.comment" datatype="html">
@@ -4408,42 +4407,42 @@
           valid route relations or network nodes as members in the node network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">377,379</context>
+          <context context-type="linenumber">376,378</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.node-member-missing.name" datatype="html">
         <source>NodeMemberMissing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">389</context>
+          <context context-type="linenumber">388</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.node-member-missing.comment" datatype="html">
         <source>Number of nodes that are not included in the network relation.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">390</context>
+          <context context-type="linenumber">389</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.name-missing.name" datatype="html">
         <source>NameMissing</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">400</context>
+          <context context-type="linenumber">399</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.name-missing.comment" datatype="html">
         <source>Number of networks without *&quot;name&quot;* tag in the network relation.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">401</context>
+          <context context-type="linenumber">400</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-inaccessible.name" datatype="html">
         <source>RouteInaccessible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">411</context>
+          <context context-type="linenumber">410</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-inaccessible.comment" datatype="html">
@@ -4451,14 +4450,14 @@
           Number of [inaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">412,413</context>
+          <context context-type="linenumber">411,412</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.name" datatype="html">
         <source>RouteNodeNameMismatch</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">423</context>
+          <context context-type="linenumber">422</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-node-name-mismatch.comment" datatype="html">
@@ -4467,7 +4466,7 @@
           route name is expected to contain the start node name and the end node name, separated by a dash.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
-          <context context-type="linenumber">424,426</context>
+          <context context-type="linenumber">423,425</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.total" datatype="html">
@@ -4996,11 +4995,11 @@
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/fact-details/_subset-fact-details-page.component.ts</context>
-          <context context-type="linenumber">19,21</context>
+          <context context-type="linenumber">21,23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">21,24</context>
+          <context context-type="linenumber">23,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.no-facts" datatype="html">
@@ -5011,7 +5010,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/facts/_subset-facts-page.component.ts</context>
-          <context context-type="linenumber">31,34</context>
+          <context context-type="linenumber">33,36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.node-refs" datatype="html">
@@ -8572,49 +8571,56 @@
           <context context-type="linenumber">79,84</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.map-deviations.no-gpx" datatype="html">
-        <source> No GPX, no known deviations </source>
+      <trans-unit id="monitor.route.map-deviations.no-reference" datatype="html">
+        <source> No reference, so no known deviations </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">20,25</context>
+          <context context-type="linenumber">25,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-deviations.no-relation" datatype="html">
+        <source> OSM relation missing in route definition, so no known deviations. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
+          <context context-type="linenumber">38,43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-deviations" datatype="html">
         <source> No deviations </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">31,37</context>
+          <context context-type="linenumber">49,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.title" datatype="html">
-        <source>GPX segments where OSM is deviating</source>
+        <source>Deviations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">39,44</context>
+          <context context-type="linenumber">56,61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.deviation" datatype="html">
         <source>Deviation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">50,55</context>
+          <context context-type="linenumber">66,69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.length" datatype="html">
         <source>Length</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">52,57</context>
+          <context context-type="linenumber">68,73</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.map-layers.reference-layer.gpx" datatype="html">
-        <source>Reference</source>
+      <trans-unit id="monitor.route.map-layers.reference.gpx" datatype="html">
+        <source>GPX Reference</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
           <context context-type="linenumber">43,47</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.map-layers.reference-layer.osm" datatype="html">
+      <trans-unit id="monitor.route.map-layers.reference.osm" datatype="html">
         <source>OSM reference</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
@@ -8654,6 +8660,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-layers.component.ts</context>
           <context context-type="linenumber">105,112</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map.no-map" datatype="html">
+        <source>No map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-page.component.ts</context>
+          <context context-type="linenumber">20,23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.update.title" datatype="html">

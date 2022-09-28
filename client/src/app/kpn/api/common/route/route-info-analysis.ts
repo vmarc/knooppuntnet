@@ -6,6 +6,7 @@ import { RouteMemberInfo } from '../../custom/route-member-info';
 
 export interface RouteInfoAnalysis {
   readonly unexpectedNodeIds: number[];
+  readonly unexpectedRelationIds: number[];
   readonly members: RouteMemberInfo[];
   readonly expectedName: string;
   readonly nameDerivedFromNodes: boolean;
