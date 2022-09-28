@@ -87,16 +87,20 @@ class LegBuilderImpl(
       else {
         val source = LegEnd.node(legs.last.routes.last.sinkNode.nodeId.toLong)
         val sink = legEnds.head
-        val params = LegBuildParams(
-          networkType.name,
-          source,
-          sink,
-          proposed
-        )
-
-        buildLeg(params, graph) match {
-          case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail, legs :+ routeLeg, proposed)
-          case None => Seq.empty
+        if (source == sink) {
+          legEndsToPlanLegs(networkType, graph, legEnds.tail, legs, proposed)
+        }
+        else {
+          val params = LegBuildParams(
+            networkType.name,
+            source,
+            sink,
+            proposed
+          )
+          buildLeg(params, graph) match {
+            case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail, legs :+ routeLeg, proposed)
+            case None => Seq.empty
+          }
         }
       }
     }
