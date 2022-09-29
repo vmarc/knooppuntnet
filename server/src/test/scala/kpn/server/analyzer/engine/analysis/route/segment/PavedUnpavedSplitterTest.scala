@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
@@ -45,7 +46,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2)),
         Segment("unpaved", Seq(fragment3, fragment4)),
@@ -56,7 +57,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
   }
 
   test("nothing to split") {
-    PavedUnpavedSplitter.split(Seq.empty) shouldBe empty
+    PavedUnpavedSplitter.split(NetworkType.hiking, Seq.empty) shouldBe empty
   }
 
   test("single fragment") {
@@ -76,7 +77,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment1
     )
 
-    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1))
       )
@@ -123,7 +124,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2, fragment3, fragment4, fragment5))
       )
@@ -170,7 +171,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1)),
         Segment("unpaved", Seq(fragment2)),

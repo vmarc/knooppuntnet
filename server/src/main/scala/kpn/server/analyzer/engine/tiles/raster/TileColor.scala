@@ -27,6 +27,8 @@ object TileColor {
 
   val blue: Color = new Color(0, 0, 255)
 
+  val mediumBlue: Color = new Color(0, 0, 200)
+
   val darkBlue: Color = new Color(0, 0, 187)
 }
 

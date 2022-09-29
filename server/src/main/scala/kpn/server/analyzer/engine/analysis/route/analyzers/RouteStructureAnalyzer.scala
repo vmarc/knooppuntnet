@@ -50,7 +50,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
 
     if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(fragmentMap).segments(fragmentMap.ids)
+        unusedSegments = new SegmentBuilder(context.networkType, fragmentMap).segments(fragmentMap.ids)
       )
     }
     else {

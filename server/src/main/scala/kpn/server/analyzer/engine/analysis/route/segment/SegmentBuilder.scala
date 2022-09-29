@@ -1,13 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.data.Node
+import kpn.api.custom.NetworkType
 
 import scala.annotation.tailrec
 
 /*
  * Builds segments consisting of adjacent fragments.
  */
-class SegmentBuilder(fragmentMap: FragmentMap) {
+class SegmentBuilder(networkType: NetworkType, fragmentMap: FragmentMap) {
 
   def segments(availableFragmentIds: Seq[Int]): Seq[Segment] = {
     val optimize = fragmentMap.size < 50
@@ -28,7 +29,7 @@ class SegmentBuilder(fragmentMap: FragmentMap) {
 
       val sfs = reverse(sfs2) ++ sfs1
 
-      val segments = PavedUnpavedSplitter.split(sfs)
+      val segments = PavedUnpavedSplitter.split(networkType, sfs)
       val newFoundSegments = foundSegments ++ segments
 
       findSegments(optimize, newFoundSegments, remaining(availableFragmentIds, sfs))

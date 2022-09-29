@@ -7135,126 +7135,133 @@
         <source>Unpaved</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">29,33</context>
+          <context context-type="linenumber">29,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="planner.legend.surface-unknown" datatype="html">
+        <source>Surface unknown</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="linenumber">33,37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.proposed" datatype="html">
         <source>Proposed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">36,40</context>
+          <context context-type="linenumber">40,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-month" datatype="html">
         <source>Last month</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">42,45</context>
+          <context context-type="linenumber">46,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-half-month" datatype="html">
         <source>Last half year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">47,51</context>
+          <context context-type="linenumber">51,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-year" datatype="html">
         <source>Last year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">52,55</context>
+          <context context-type="linenumber">56,59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.last-two-years" datatype="html">
         <source>Last two years</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">57,61</context>
+          <context context-type="linenumber">61,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.more-than-tow-years-ago" datatype="html">
         <source>More than two years ago</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">63,67</context>
+          <context context-type="linenumber">67,71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.unknown" datatype="html">
         <source>Unknown</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">68,72</context>
+          <context context-type="linenumber">72,76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.analysis.ok" datatype="html">
         <source>OK</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">74,77</context>
+          <context context-type="linenumber">78,81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.ok-orphan" datatype="html">
         <source>OK Orphan</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">78,81</context>
+          <context context-type="linenumber">82,85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.review" datatype="html">
         <source>Review</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">82,85</context>
+          <context context-type="linenumber">86,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.survey.review-orphan" datatype="html">
         <source>Review Orphan</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">87,94</context>
+          <context context-type="linenumber">91,98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.start-node" datatype="html">
         <source>Start node icon</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">98,102</context>
+          <context context-type="linenumber">102,106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.start-node" datatype="html">
         <source>Start node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">102,107</context>
+          <context context-type="linenumber">106,111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.end-node" datatype="html">
         <source>End node icon</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">109,113</context>
+          <context context-type="linenumber">113,117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.end-node" datatype="html">
         <source>End node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">113,118</context>
+          <context context-type="linenumber">117,122</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.icon.via-node" datatype="html">
         <source>Via node icon</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">120,124</context>
+          <context context-type="linenumber">124,128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.marker.via-node" datatype="html">
         <source>Via node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
-          <context context-type="linenumber">124,132</context>
+          <context context-type="linenumber">128,136</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.options" datatype="html">

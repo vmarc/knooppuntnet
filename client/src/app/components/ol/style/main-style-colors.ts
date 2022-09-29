@@ -18,3 +18,6 @@ export const orange: Color = [255, 165, 0];
 export const proposedWhite: Color = [240, 240, 240];
 export const proposedColor: Color = [0, 150, 0, 0.4];
 export const proposedUnpavedColor: Color = [255, 165, 0, 0.4];
+
+export const surfaceUnknownColor: Color = [0, 0, 220];
+export const proposedSurfaceUnknownColor: Color = [0, 0, 220, 0.4];

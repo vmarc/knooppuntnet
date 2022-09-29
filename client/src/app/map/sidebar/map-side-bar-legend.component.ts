@@ -29,6 +29,10 @@ import { selectPreferencesShowLegend } from '../../core/preferences/preferences.
             <span i18n="@@planner.legend.unpaved">Unpaved</span>
           </div>
           <div>
+            <kpn-legend-icon color="rgb(0, 0, 200)"></kpn-legend-icon>
+            <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
+          </div>
+          <div>
             <kpn-legend-icon
               color="rgb(0, 200, 0)"
               [proposed]="true"

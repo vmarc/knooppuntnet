@@ -28,7 +28,7 @@ class SegmentAnalyzer(
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
   private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes, loop)
-  private val asIsLoopPathBuilder = new AsIsLoopPathBuilder(fragmentMap, allRouteNodes)
+  private val asIsLoopPathBuilder = new AsIsLoopPathBuilder(networkType, fragmentMap, allRouteNodes)
   private val allFragmentIds = fragmentMap.ids.toSet
 
   def structure: RouteStructure = {
@@ -98,7 +98,7 @@ class SegmentAnalyzer(
   }
 
   private def findUnusedSegments(usedSegments: Iterable[Segment]): Seq[Segment] = {
-    new UnusedSegmentAnalyzer(usedSegments, fragmentMap).find
+    new UnusedSegmentAnalyzer(networkType, usedSegments, fragmentMap).find
   }
 
   private def logStart(): Unit = {

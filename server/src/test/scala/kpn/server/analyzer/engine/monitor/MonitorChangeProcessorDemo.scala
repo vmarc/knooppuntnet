@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -31,13 +32,13 @@ class MonitorChangeProcessorDemo {
     val fragmentMap = new FragmentAnalyzer(Seq.empty, relation.wayMembers).fragmentMap
 
     log.infoElapsed {
-      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
     }
     log.infoElapsed {
-      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
     }
     val segments = log.infoElapsed {
-      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
     }
 
     log.info("segments.size=" + segments.size)
@@ -51,6 +52,4 @@ class MonitorChangeProcessorDemo {
     val rawData = new Parser().parse(xml.head)
     new DataBuilder(rawData).data.relations(routeId)
   }
-
 }
-

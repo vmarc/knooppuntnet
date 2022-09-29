@@ -198,7 +198,7 @@ class SegmentFinder(
   }
 
   private def buildPath(segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
-    new PathBuilder(allRouteNodes).buildPath(segmentFragments, broken)
+    new PathBuilder(allRouteNodes).buildPath(networkType, segmentFragments, broken)
   }
 
   private def oneWay(segments: Seq[Segment]): Boolean = {

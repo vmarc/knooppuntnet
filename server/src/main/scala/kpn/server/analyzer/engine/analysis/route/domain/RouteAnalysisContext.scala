@@ -8,6 +8,7 @@ import kpn.api.common.route.RouteMap
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
@@ -57,6 +58,10 @@ case class RouteAnalysisContext(
     scopedNetworkTypeOption.getOrElse {
       throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
     }
+  }
+
+  def networkType: NetworkType = {
+    scopedNetworkType.networkType
   }
 
   def withFact(fact: Fact): RouteAnalysisContext = {

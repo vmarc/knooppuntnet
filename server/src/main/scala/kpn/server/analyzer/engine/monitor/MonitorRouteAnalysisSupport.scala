@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.util.Log
@@ -41,7 +42,7 @@ object MonitorRouteAnalysisSupport {
     val fragmentMap = withoutTags(originalFragmentMap)
 
     val segments = log.infoElapsed {
-      ("segment builder", new SegmentBuilder(fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
     }
 
     segments.zipWithIndex.map { case (segment, index) =>

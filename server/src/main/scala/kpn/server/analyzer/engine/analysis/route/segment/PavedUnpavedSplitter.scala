@@ -1,16 +1,18 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.custom.NetworkType
+
 import scala.annotation.tailrec
 
 object PavedUnpavedSplitter {
 
   case class SurfaceSegmentFragment(surface: String, fragment: SegmentFragment)
 
-  def split(segmentFragments: Seq[SegmentFragment]): Seq[Segment] = {
+  def split(networkType: NetworkType, segmentFragments: Seq[SegmentFragment]): Seq[Segment] = {
 
     val surfaceSegmentFragments = segmentFragments.map { segmentFragment =>
       SurfaceSegmentFragment(
-        new SurfaceAnalyzer(segmentFragment.fragment.way).surface(),
+        new SurfaceAnalyzer(networkType, segmentFragment.fragment.way).surface(),
         segmentFragment
       )
     }

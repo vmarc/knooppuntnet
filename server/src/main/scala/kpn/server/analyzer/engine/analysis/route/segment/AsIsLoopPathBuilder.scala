@@ -1,10 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 
 import scala.annotation.tailrec
 
 class AsIsLoopPathBuilder(
+  networkType: NetworkType,
   fragmentMap: FragmentMap,
   allRouteNodes: Set[RouteNode],
 ) {
@@ -42,7 +44,7 @@ class AsIsLoopPathBuilder(
 
     if (remainingFragments.isEmpty) {
       if (segments.head.startNode.id == segments.last.endNode.id) {
-        new PathBuilder(allRouteNodes).buildPath(segments)
+        new PathBuilder(allRouteNodes).buildPath(networkType, segments)
       }
       else {
         None

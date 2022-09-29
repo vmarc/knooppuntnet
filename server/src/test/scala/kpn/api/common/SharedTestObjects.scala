@@ -572,6 +572,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteInfoAnalysis(
     unexpectedNodeIds: Seq[Long] = Seq.empty,
+    unexpectedRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     expectedName: String = "",
     map: RouteMap = RouteMap(),
@@ -581,6 +582,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       unexpectedNodeIds,
+      unexpectedRelationIds,
       members,
       expectedName,
       nameDerivedFromNodes = false,

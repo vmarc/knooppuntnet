@@ -34,7 +34,7 @@ class MonitorGroupPageBuilder(
             gpxFilename = None,
             osmHappy = false,
             gpxHappy = false,
-            happy = true
+            happy = false
           )
         }
       )

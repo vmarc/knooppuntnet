@@ -1,10 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 
-class UnusedSegmentAnalyzer(usedSegments: Iterable[Segment], fragmentMap: FragmentMap) {
+class UnusedSegmentAnalyzer(networkType: NetworkType, usedSegments: Iterable[Segment], fragmentMap: FragmentMap) {
 
   def find: Seq[Segment] = {
 
@@ -27,6 +28,6 @@ class UnusedSegmentAnalyzer(usedSegments: Iterable[Segment], fragmentMap: Fragme
         true
       }
     }
-    new SegmentBuilder(fragmentMap).segments(unused)
+    new SegmentBuilder(networkType, fragmentMap).segments(unused)
   }
 }

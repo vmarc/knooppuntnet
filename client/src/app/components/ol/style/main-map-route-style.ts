@@ -4,6 +4,8 @@ import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { MapMode } from '../services/map-mode';
 import { MapService } from '../services/map.service';
+import { surfaceUnknownColor } from './main-style-colors';
+import { proposedSurfaceUnknownColor } from './main-style-colors';
 import { proposedUnpavedColor } from './main-style-colors';
 import { proposedColor } from './main-style-colors';
 import { red } from './main-style-colors';
@@ -81,6 +83,12 @@ export class MainMapRouteStyle {
         color = proposedUnpavedColor;
       } else {
         color = orange;
+      }
+    } else if ('unknown' === surface) {
+      if (proposed) {
+        color = proposedSurfaceUnknownColor;
+      } else {
+        color = surfaceUnknownColor;
       }
     } else {
       if (proposed) {

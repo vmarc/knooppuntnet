@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.data.Way
+import kpn.api.custom.NetworkType
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.footwayPaved
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.highwayUnpaved
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiSurfacePaved
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiSurfaceUnpaved
@@ -49,8 +51,22 @@ object SurfaceAnalyzer {
     "ice",
     "salt",
     "roots",
-    // extra entries on top of wiki, based on openfietsmap
-    "shell", "shells", "ash", "bad", "clay", "cob", "compact", "erde", "gr", "loam", "peb", "soil", "shotter", "rock", "turf"
+    // extra entries on top of wiki, based on openfietsmap:
+    "shell",
+    "shells",
+    "ash",
+    "bad",
+    "clay",
+    "cob",
+    "compact",
+    "erde",
+    "gr",
+    "loam",
+    "peb",
+    "soil",
+    "shotter",
+    "rock",
+    "turf"
   )
 
   // wiki smoothness values not used to determine paved/unpaved: excellent, good, intermediate, bad
@@ -76,35 +92,87 @@ object SurfaceAnalyzer {
     "path",
     "bridleway",
     "track",
-    "unsurfaced",
-    "footway"
+    "unsurfaced"
+  )
+
+  val footwayPaved: Seq[String] = Seq(
+    "crossing",
+    "traffic_island",
+    "island",
+    "sidewalk"
   )
 }
 
-class SurfaceAnalyzer(way: Way) {
+class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
 
   def surface(): String = {
+    surfaceBasedOnSurfaceTag() match {
+      case Some(surface) => surface
+      case None =>
+        if (way.tags.has("tracktype", wikiTracktypePaved: _*)) {
+          "paved"
+        }
+        else if (way.tags.has("tracktype", wikiTracktypeUnpaved: _*)) {
+          "unpaved"
+        }
+        else if (way.tags.has("smoothness", wikiUnpavedSmoothness: _*)) {
+          "unpaved"
+        }
+        else if (way.tags.has("highway", "footway")) {
+          if (way.tags.has("footway", footwayPaved: _*)) {
+            "paved"
+          }
+          else {
+            "unpaved"
+          }
+        }
+        else if (way.tags.has("highway", "path")) {
+          "unknown"
+        }
+        else if (way.tags.has("highway", highwayUnpaved: _*)) {
+          "unpaved"
+        }
+        else {
+          "paved"
+        }
+    }
+  }
 
-    if (way.tags.has("surface", wikiSurfacePaved: _*)) {
-      "paved"
+  private def surfaceBasedOnSurfaceTag(): Option[String] = {
+    val tagKey = preferredSurfaceTagKey()
+    if (way.tags.has(tagKey, wikiSurfacePaved: _*)) {
+      Some("paved")
     }
-    else if (way.tags.has("surface", wikiSurfaceUnpaved: _*)) {
-      "unpaved"
-    }
-    else if (way.tags.has("tracktype", wikiTracktypePaved: _*)) {
-      "paved"
-    }
-    else if (way.tags.has("tracktype", wikiTracktypeUnpaved: _*)) {
-      "unpaved"
-    }
-    else if (way.tags.has("smoothness", wikiUnpavedSmoothness: _*)) {
-      "unpaved"
-    }
-    else if (way.tags.has("highway", highwayUnpaved: _*)) {
-      "unpaved"
+    else if (way.tags.has(tagKey, wikiSurfaceUnpaved: _*)) {
+      Some("unpaved")
     }
     else {
-      "paved"
+      None
+    }
+  }
+
+  private def preferredSurfaceTagKey(): String = {
+    if (networkType == NetworkType.hiking) {
+      if (way.tags.has("footway:surface")) {
+        "footway:surface"
+      }
+      else if (way.tags.has("cycleway:surface")) {
+        "cycleway:surface"
+      }
+      else {
+        "surface"
+      }
+    }
+    else if (networkType == NetworkType.cycling) {
+      if (way.tags.has("cycleway:surface")) {
+        "cycleway:surface"
+      }
+      else {
+        "surface"
+      }
+    }
+    else {
+      "surface"
     }
   }
 }

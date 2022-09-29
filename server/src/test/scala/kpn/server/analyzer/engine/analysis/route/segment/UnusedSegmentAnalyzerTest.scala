@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
@@ -77,7 +78,7 @@ class UnusedSegmentAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def analyze(usedSegments: Seq[Segment], fragments: Seq[Fragment]): Set[Seq[Long]] = {
     val fragmentMap = FragmentMap(fragments)
-    val segments: Seq[Segment] = new UnusedSegmentAnalyzer(usedSegments, fragmentMap).find
+    val segments: Seq[Segment] = new UnusedSegmentAnalyzer(NetworkType.hiking, usedSegments, fragmentMap).find
     Segment.toNodeIds(segments)
   }
 }

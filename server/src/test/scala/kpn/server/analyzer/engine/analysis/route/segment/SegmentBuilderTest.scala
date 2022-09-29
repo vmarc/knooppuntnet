@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.custom.NetworkType
 import kpn.core.util.UnitTest
 
 class SegmentBuilderTest extends UnitTest with SharedTestObjects {
@@ -69,7 +70,7 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
 
   private def assertSegments(fragments: Seq[Fragment], expectedSegmentNodeIds: String*): Unit = {
     val fragmentsMap = FragmentMap(fragments)
-    val segments = new SegmentBuilder(fragmentsMap).segments(fragmentsMap.ids)
+    val segments = new SegmentBuilder(NetworkType.hiking, fragmentsMap).segments(fragmentsMap.ids)
     segments.map(_.nodes.map(_.id).mkString("-")).toSet should equal(expectedSegmentNodeIds.toSet)
   }
 }
