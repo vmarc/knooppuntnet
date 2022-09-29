@@ -1,7 +1,7 @@
 {
   "data_format": 1,
   "data_url": "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/docs/taginfo.json",
-  "data_updated": "20211015T201507Z",
+  "data_updated": "20220929T235419Z",
   "project": {
     "name": "knooppuntnet",
     "description": "Route planner and quality analysis for walking and cycling networks",
@@ -964,14 +964,6 @@
       ]
     },
     {
-      "key": "oneway:bicycle",
-      "value": "no",
-      "description": "Used in oneway analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
       "key": "highway",
       "description": "Used in accessibility analysis",
       "object_types": [
@@ -1130,14 +1122,6 @@
     {
       "key": "surface",
       "value": "paving_stones",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "surface",
-      "value": "paving_stones:30",
       "description": "surface analysis",
       "object_types": [
         "way"
@@ -1562,14 +1546,6 @@
     {
       "key": "highway",
       "value": "unsurfaced",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "highway",
-      "value": "footway",
       "description": "surface analysis",
       "object_types": [
         "way"

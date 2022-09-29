@@ -22,7 +22,6 @@ object SurfaceAnalyzer {
     "concrete:lanes",
     "concrete:plates",
     "paving_stones",
-    "paving_stones:30", // added
     "paving_stones:lanes", // added
     "sett",
     "unhewn_cobblestone",
