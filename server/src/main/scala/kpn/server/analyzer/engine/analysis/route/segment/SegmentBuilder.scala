@@ -8,7 +8,7 @@ import scala.annotation.tailrec
 /*
  * Builds segments consisting of adjacent fragments.
  */
-class SegmentBuilder(networkType: NetworkType, fragmentMap: FragmentMap) {
+class SegmentBuilder(networkType: NetworkType, fragmentMap: FragmentMap, pavedUnpavedSplittingEnabled: Boolean = true) {
 
   def segments(availableFragmentIds: Seq[Int]): Seq[Segment] = {
     val optimize = fragmentMap.size < 50
@@ -29,7 +29,14 @@ class SegmentBuilder(networkType: NetworkType, fragmentMap: FragmentMap) {
 
       val sfs = reverse(sfs2) ++ sfs1
 
-      val segments = PavedUnpavedSplitter.split(networkType, sfs)
+      val segments = {
+        if (pavedUnpavedSplittingEnabled) {
+          PavedUnpavedSplitter.split(networkType, sfs)
+        }
+        else {
+          Seq(Segment("", sfs))
+        }
+      }
       val newFoundSegments = foundSegments ++ segments
 
       findSegments(optimize, newFoundSegments, remaining(availableFragmentIds, sfs))

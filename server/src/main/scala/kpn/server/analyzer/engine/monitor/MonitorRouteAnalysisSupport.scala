@@ -35,14 +35,12 @@ object MonitorRouteAnalysisSupport {
 
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
-    val originalFragmentMap = log.infoElapsed {
+    val fragmentMap = log.infoElapsed {
       ("fragment analyzer", new FragmentAnalyzer(Seq.empty, routeRelation.wayMembers).fragmentMap)
     }
 
-    val fragmentMap = withoutTags(originalFragmentMap)
-
     val segments = log.infoElapsed {
-      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
     }
 
     segments.zipWithIndex.map { case (segment, index) =>
@@ -63,17 +61,6 @@ object MonitorRouteAnalysisSupport {
       )
     }
   }
-
-  private def withoutTags(fragmentMap: FragmentMap): FragmentMap = {
-    new FragmentMap(
-      fragmentMap.all.map { fragment => // temporary hack to remove paved/unpaved info
-        val rawWayCopy = fragment.way.raw.copy(tags = Tags.empty)
-        val wayCopy = fragment.way.copy(raw = rawWayCopy)
-        fragment.copy(way = wayCopy)
-      }
-    )
-  }
-
 
   def toBounds(coordinates: Seq[Coordinate]): Bounds = {
     val minLat = coordinates.map(_.getY).min

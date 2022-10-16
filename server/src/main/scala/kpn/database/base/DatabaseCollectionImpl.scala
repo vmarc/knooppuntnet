@@ -72,7 +72,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def findOne[R: ClassTag](filter: Bson, log: Log): Option[R] = {
     log.debugElapsed {
       val future = collection.find[R](filter).headOption()
-      val doc = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
+      val doc = awaitResult(future, Duration(120, TimeUnit.SECONDS), log)
       (s"find - collection: '$collectionName'", doc)
     }
   }
