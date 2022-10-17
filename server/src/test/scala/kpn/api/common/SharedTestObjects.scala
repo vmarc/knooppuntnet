@@ -985,7 +985,14 @@ trait SharedTestObjects extends MockFactory {
       layers,
       tags,
       location,
-      tiles
+      tiles,
+      None,
+      None,
+      None,
+      None,
+      None,
+      link = false,
+      image = false
     )
   }
 

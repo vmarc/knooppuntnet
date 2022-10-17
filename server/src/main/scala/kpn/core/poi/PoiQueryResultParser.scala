@@ -31,7 +31,14 @@ class PoiQueryResultParser {
       Seq(layer),
       tags(xmlNode),
       Location.empty,
-      Seq.empty
+      Seq.empty,
+      None,
+      None,
+      None,
+      None,
+      None,
+      link = false,
+      image = false
     )
   }
 
@@ -49,7 +56,14 @@ class PoiQueryResultParser {
       Seq(layer),
       tags(xmlNode),
       Location.empty,
-      Seq.empty
+      Seq.empty,
+      None,
+      None,
+      None,
+      None,
+      None,
+      link = false,
+      image = false
     )
   }
 
@@ -67,7 +81,14 @@ class PoiQueryResultParser {
       Seq(layer),
       tags(xmlNode),
       Location.empty,
-      Seq.empty
+      Seq.empty,
+      None,
+      None,
+      None,
+      None,
+      None,
+      link = false,
+      image = false
     )
   }
 

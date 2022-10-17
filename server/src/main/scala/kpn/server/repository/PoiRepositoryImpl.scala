@@ -1,12 +1,17 @@
 package kpn.server.repository
 
 import kpn.api.common.Poi
+import kpn.api.common.poi.LocationPoiInfo
+import kpn.api.common.poi.LocationPoiParameters
+import kpn.api.custom.LocationKey
+import kpn.core.poi.PoiInfo
+import kpn.core.util.Log
+import kpn.database.actions.pois.MongoQueryLocationPoiCount
+import kpn.database.actions.pois.MongoQueryLocationPois
 import kpn.database.actions.pois.MongoQueryPoiAllTiles
 import kpn.database.actions.pois.MongoQueryPoiElementIds
 import kpn.database.actions.pois.MongoQueryTilePois
 import kpn.database.base.Database
-import kpn.core.poi.PoiInfo
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.poi.PoiRef
 import org.springframework.stereotype.Component
 
@@ -45,5 +50,13 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
 
   override def tilePoiInfos(tileName: String): Seq[PoiInfo] = {
     new MongoQueryTilePois(database).execute(tileName)
+  }
+
+  override def locationPois(locationName: String, parameters: LocationPoiParameters): Seq[LocationPoiInfo] = {
+    new MongoQueryLocationPois(database).execute(locationName, parameters)
+  }
+
+  override def locationPoiCount(locationName: String): Long = {
+    new MongoQueryLocationPoiCount(database).execute(locationName)
   }
 }

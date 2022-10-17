@@ -1,58 +1,56 @@
 package kpn.database.actions.pois
 
-import kpn.api.common.poi.LocationPoiInfo
-import kpn.api.common.poi.LocationPoiParameters
+import kpn.api.common.poi.LocationPoiLayerCount
 import kpn.core.util.Log
-import kpn.database.actions.pois.MongoQueryLocationPois.log
+import kpn.database.actions.pois.MongoQueryLocationPoiLayerCounts.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.limit
+import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
-import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object MongoQueryLocationPois {
+object MongoQueryLocationPoiLayerCounts {
   private val log = Log(classOf[MongoQueryLocationPois])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
-      val result = new MongoQueryLocationPois(database).execute("be-2-11016", LocationPoiParameters(500))
+    Mongo.executeIn("kpn-experimental") { database =>
+      val result = new MongoQueryLocationPoiLayerCounts(database).execute("be-2-11016")
       result.foreach(println)
     }
   }
 }
 
-class MongoQueryLocationPois(database: Database) {
-  def execute(locationName: String, parameters: LocationPoiParameters): Seq[LocationPoiInfo] = {
+class MongoQueryLocationPoiLayerCounts(database: Database) {
+  def execute(locationName: String): Seq[LocationPoiLayerCount] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(equal("location.names", locationName)),
-        sort(orderBy(ascending("layers.0"))),
-        skip((parameters.pageSize * parameters.pageIndex).toInt),
-        limit(parameters.pageSize.toInt),
+        unwind("$layers"),
+        group(
+          "$layers",
+          sum("count", 1)
+        ),
+        sort(orderBy(ascending("_id"))),
         project(
           fields(
-            computed("rowIndex", "0"),
-            include("elementType"),
-            include("elementId"),
-            include("layers"),
+            excludeId(),
+            computed("layer", "$_id"),
+            include("count"),
           )
         )
       )
-      val locationPoiInfos = database.pois.aggregate[LocationPoiInfo](pipeline, log).zipWithIndex.map { case (info, index) =>
-        val rowIndex = parameters.pageSize * parameters.pageIndex + index
-        info.copy( // could have done this in the aggregation?
-          rowIndex = rowIndex
-        )
-      }
-      (s"locationPoiInfos: ${locationPoiInfos.size}", locationPoiInfos)
+      val layerCounts = database.pois.aggregate[LocationPoiLayerCount](pipeline, log)
+      (s"layerCounts: ${layerCounts.size}", layerCounts)
     }
   }
 }

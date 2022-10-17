@@ -1,14 +1,9 @@
-package kpn.api.common.location
+package kpn.api.common.poi
 
 import kpn.api.common.TimeInfo
 
-case class LocationNodesPage(
+case class LocationPoisPage(
   timeInfo: TimeInfo,
-  summary: LocationSummary,
-  nodeCount: Long,
-  allNodeCount: Long,
-  factsNodeCount: Long,
-  surveyNodeCount: Long,
-  integrityCheckFailedNodeCount: Long,
-  nodes: Seq[LocationNodeInfo]
+  poiCount: Long,
+  pois: Seq[LocationPoiInfo]
 )

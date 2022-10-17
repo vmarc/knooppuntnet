@@ -15,6 +15,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.tile.TileCalculator
+import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
 import org.springframework.stereotype.Component
@@ -27,7 +28,8 @@ class PoiChangeAnalyzerImpl(
   taskRepository: TaskRepository,
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiQueryExecutor: PoiQueryExecutor,
-  locationAnalyzer: LocationAnalyzer
+  locationAnalyzer: LocationAnalyzer,
+  masterPoiAnalyzer: MasterPoiAnalyzer
 ) extends PoiChangeAnalyzer {
 
   private val log = Log(classOf[PoiChangeAnalyzerImpl])
@@ -99,10 +101,43 @@ class PoiChangeAnalyzerImpl(
       poiDefinitions.map(_.name),
       tags,
       location,
-      newTileNames
+      newTileNames,
+      None,
+      None,
+      None,
+      None,
+      None,
+      link = false,
+      image = false
     )
 
-    poiRepository.save(poi)
+    val context = masterPoiAnalyzer.analyze(poi)
+
+    val link = context.analysis.facebook.isDefined ||
+      context.analysis.twitter.isDefined ||
+      context.analysis.website.isDefined ||
+      context.analysis.wikidata.isDefined ||
+      context.analysis.wikipedia.isDefined ||
+      context.analysis.molenDatabase.isDefined ||
+      context.analysis.hollandscheMolenDatabase.isDefined ||
+      context.analysis.onroerendErfgoed.isDefined
+
+    val image = context.analysis.image.isDefined ||
+      context.analysis.imageLink.isDefined ||
+      context.analysis.imageThumbnail.isDefined ||
+      context.analysis.mapillary.isDefined
+
+    val enrichedPoi = poi.copy(
+      name = context.analysis.name,
+      subject = context.analysis.subject,
+      description = context.analysis.description,
+      addressLine1 = context.analysis.addressLine1,
+      addressLine2 = context.analysis.addressLine2,
+      link = link,
+      image = image
+    )
+
+    poiRepository.save(enrichedPoi)
     allTileNames.foreach(tileName => taskRepository.add(PoiTileTask.withTileName(tileName)))
     knownPoiCache.add(poiRef)
     logPoi(poi, "add/update")

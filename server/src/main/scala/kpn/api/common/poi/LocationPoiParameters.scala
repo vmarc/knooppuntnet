@@ -1,9 +1,6 @@
-package kpn.api.common.location
+package kpn.api.common.poi
 
-import kpn.api.custom.LocationNodesType
-
-case class LocationNodesParameters(
-  locationNodesType: LocationNodesType,
+case class LocationPoiParameters(
   pageSize: Long = 5,
   pageIndex: Long = 0
 )

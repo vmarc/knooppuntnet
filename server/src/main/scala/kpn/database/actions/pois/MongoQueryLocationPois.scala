@@ -22,7 +22,7 @@ object MongoQueryLocationPois {
   private val log = Log(classOf[MongoQueryLocationPois])
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       val result = new MongoQueryLocationPois(database).execute("be-2-11016", LocationPoiParameters(500))
       result.foreach(println)
     }
@@ -43,6 +43,13 @@ class MongoQueryLocationPois(database: Database) {
             include("elementType"),
             include("elementId"),
             include("layers"),
+            include("name"),
+            include("subject"),
+            include("description"),
+            include("addressLine1"),
+            include("addressLine2"),
+            include("link"),
+            include("image"),
           )
         )
       )

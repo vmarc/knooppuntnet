@@ -1,22 +1,16 @@
-package kpn.api.common.location
+package kpn.api.common.poi
 
-import kpn.api.common.LatLon
-import kpn.api.common.common.Ref
-import kpn.api.common.common.Reference
-import kpn.api.custom.Day
-import kpn.api.custom.Fact
-import kpn.api.custom.Timestamp
-
-case class LocationNodeInfo(
+case class LocationPoiInfo(
   rowIndex: Long,
-  id: Long,
-  name: String,
-  longName: String,
-  latitude: String,
-  longitude: String,
-  lastUpdated: Timestamp,
-  lastSurvey: Option[Day],
-  facts: Seq[Fact],
-  expectedRouteCount: String,
-  routeReferences: Seq[Reference]
-) extends LatLon
+  _id: String,
+  elementType: String,
+  elementId: Long,
+  layers: Seq[String],
+  name: Option[String],
+  subject: Option[String],
+  description: Option[String],
+  addressLine1: Option[String],
+  addressLine2: Option[String],
+  link: Boolean,
+  image: Boolean
+)

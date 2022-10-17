@@ -1,5 +1,3 @@
 package kpn.api.common.poi
 
-class LocationPoiLayerCount {
-
-}
+case class LocationPoiLayerCount(layer: String, count: Long)

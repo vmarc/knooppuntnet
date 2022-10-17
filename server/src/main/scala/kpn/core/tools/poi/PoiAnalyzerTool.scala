@@ -17,6 +17,8 @@ import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculator
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
+import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.PoiRepositoryImpl
 
@@ -36,12 +38,14 @@ object PoiAnalyzerTool {
           val locationAnalyzer = new LocationAnalyzerImpl(true)
           val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
           val tileCalculator: TileCalculator = new TileCalculatorImpl()
+          val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
           val tool = new PoiAnalyzerTool(
             poiLoader,
             poiScopeAnalyzer,
             poiRepository,
             tileCalculator,
-            locationAnalyzer
+            locationAnalyzer,
+            masterPoiAnalyzer
           )
           tool.analyze()
         }
@@ -62,7 +66,8 @@ class PoiAnalyzerTool(
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiRepository: PoiRepository,
   tileCalculator: TileCalculator,
-  locationAnalyzer: LocationAnalyzer
+  locationAnalyzer: LocationAnalyzer,
+  masterPoiAnalyzer: MasterPoiAnalyzer
 ) {
 
   private val log = Log(classOf[PoiAnalyzerTool])
@@ -84,13 +89,37 @@ class PoiAnalyzerTool(
                     val poiDefinitions = findPoiDefinitions(poi)
                     val layers = poiDefinitions.map(_.name).distinct.sorted
                     if (layers.nonEmpty) {
+
+                      val context = masterPoiAnalyzer.analyze(poi)
+
+                      val link = context.analysis.facebook.isDefined ||
+                        context.analysis.twitter.isDefined ||
+                        context.analysis.website.isDefined ||
+                        context.analysis.wikidata.isDefined ||
+                        context.analysis.wikipedia.isDefined ||
+                        context.analysis.molenDatabase.isDefined ||
+                        context.analysis.hollandscheMolenDatabase.isDefined ||
+                        context.analysis.onroerendErfgoed.isDefined
+
+                      val image = context.analysis.image.isDefined ||
+                        context.analysis.imageLink.isDefined ||
+                        context.analysis.imageThumbnail.isDefined ||
+                        context.analysis.mapillary.isDefined
+
                       val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
                       val location = Location(locationAnalyzer.findLocations(poi.latitude, poi.longitude))
                       poiRepository.save(
                         poi.copy(
                           layers = layers,
                           location = location,
-                          tiles = tileNames
+                          tiles = tileNames,
+                          name = context.analysis.name,
+                          subject = context.analysis.subject,
+                          description = context.analysis.description,
+                          addressLine1 = context.analysis.addressLine1,
+                          addressLine2 = context.analysis.addressLine2,
+                          link = link,
+                          image = image
                         )
                       )
                     }
