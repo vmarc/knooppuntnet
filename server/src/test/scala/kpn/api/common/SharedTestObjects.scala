@@ -988,9 +988,6 @@ trait SharedTestObjects extends MockFactory {
       tiles,
       None,
       None,
-      None,
-      None,
-      None,
       link = false,
       image = false
     )

@@ -34,9 +34,6 @@ class PoiQueryResultParser {
       Seq.empty,
       None,
       None,
-      None,
-      None,
-      None,
       link = false,
       image = false
     )
@@ -59,9 +56,6 @@ class PoiQueryResultParser {
       Seq.empty,
       None,
       None,
-      None,
-      None,
-      None,
       link = false,
       image = false
     )
@@ -82,9 +76,6 @@ class PoiQueryResultParser {
       tags(xmlNode),
       Location.empty,
       Seq.empty,
-      None,
-      None,
-      None,
       None,
       None,
       link = false,

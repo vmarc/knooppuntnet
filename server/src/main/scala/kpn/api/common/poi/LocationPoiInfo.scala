@@ -6,11 +6,8 @@ case class LocationPoiInfo(
   elementType: String,
   elementId: Long,
   layers: Seq[String],
-  name: Option[String],
-  subject: Option[String],
   description: Option[String],
-  addressLine1: Option[String],
-  addressLine2: Option[String],
+  address: Option[String],
   link: Boolean,
   image: Boolean
 )

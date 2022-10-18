@@ -43,11 +43,8 @@ class MongoQueryLocationPois(database: Database) {
             include("elementType"),
             include("elementId"),
             include("layers"),
-            include("name"),
-            include("subject"),
             include("description"),
-            include("addressLine1"),
-            include("addressLine2"),
+            include("address"),
             include("link"),
             include("image"),
           )

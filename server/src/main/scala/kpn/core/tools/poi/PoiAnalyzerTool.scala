@@ -108,16 +108,28 @@ class PoiAnalyzerTool(
 
                       val tileNames = tileCalculator.poiTiles(poi, poiDefinitions)
                       val location = Location(locationAnalyzer.findLocations(poi.latitude, poi.longitude))
+
+                      val description = context.analysis.name match {
+                        case Some(name) => Some(name)
+                        case None => context.analysis.description
+                      }
+
+                      val address = context.analysis.addressLine1 match {
+                        case None => context.analysis.addressLine2
+                        case Some(addressLine1) =>
+                          context.analysis.addressLine2 match {
+                            case Some(addressLine2) => Some(addressLine1 + ", " + addressLine2)
+                            case None => Some(addressLine1)
+                          }
+                      }
+
                       poiRepository.save(
                         poi.copy(
                           layers = layers,
                           location = location,
                           tiles = tileNames,
-                          name = context.analysis.name,
-                          subject = context.analysis.subject,
-                          description = context.analysis.description,
-                          addressLine1 = context.analysis.addressLine1,
-                          addressLine2 = context.analysis.addressLine2,
+                          description = description,
+                          address = address,
                           link = link,
                           image = image
                         )
