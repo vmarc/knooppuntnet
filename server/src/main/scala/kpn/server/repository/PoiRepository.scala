@@ -25,7 +25,7 @@ trait PoiRepository {
 
   def tilePoiInfos(tileName: String): Seq[PoiInfo]
 
-  def locationPois(locationName: String, parameters: LocationPoiParameters): Seq[LocationPoiInfo]
+  def locationPois(locationName: String, parameters: LocationPoiParameters, layers: Seq[String]): Seq[LocationPoiInfo]
 
-  def locationPoiCount(locationName: String): Long
+  def locationPoiCount(locationName: String, layers: Seq[String]): Long
 }

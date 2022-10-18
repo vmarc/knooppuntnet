@@ -40,10 +40,17 @@ class PoiController(poiFacade: PoiFacade) {
     @RequestParam language: String,
     @PathVariable country: Country,
     @PathVariable location: String,
-    @RequestBody parameters: LocationPoiParameters
+    @RequestBody parameters: LocationPoiParameters,
+    @RequestParam layers: String
   ): ApiResponse[LocationPoisPage] = {
     val locationKey = LocationKey(NetworkType.hiking, country, location)
-    poiFacade.locationPois(CurrentUser.name, toLanguage(language), locationKey, parameters)
+    poiFacade.locationPois(
+      CurrentUser.name,
+      toLanguage(language),
+      locationKey,
+      parameters,
+      layers
+    )
   }
 
   private def toLanguage(language: String): Language = {

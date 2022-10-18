@@ -52,11 +52,11 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
     new MongoQueryTilePois(database).execute(tileName)
   }
 
-  override def locationPois(locationName: String, parameters: LocationPoiParameters): Seq[LocationPoiInfo] = {
-    new MongoQueryLocationPois(database).execute(locationName, parameters)
+  override def locationPois(locationName: String, parameters: LocationPoiParameters, layers: Seq[String]): Seq[LocationPoiInfo] = {
+    new MongoQueryLocationPois(database).execute(locationName, parameters, layers)
   }
 
-  override def locationPoiCount(locationName: String): Long = {
-    new MongoQueryLocationPoiCount(database).execute(locationName)
+  override def locationPoiCount(locationName: String, layers: Seq[String]): Long = {
+    new MongoQueryLocationPoiCount(database).execute(locationName, layers)
   }
 }

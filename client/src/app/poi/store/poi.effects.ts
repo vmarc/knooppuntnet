@@ -7,7 +7,7 @@ import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { selectLocationNodesPageIndex } from '../../analysis/location/store/location.selectors';
+import { selectQueryParam } from '../../core/core.state';
 import { AppState } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
@@ -31,12 +31,13 @@ export class PoiEffects {
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('country')),
         this.store.select(selectRouteParam('location')),
+        this.store.select(selectQueryParam('layers')),
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationPoisPageIndex),
       ]),
-      mergeMap(([{}, country, location, pageSize, pageIndex]) =>
+      mergeMap(([{}, country, location, layers, pageSize, pageIndex]) =>
         this.poiService
-          .locationPois(country, location, pageSize, pageIndex)
+          .locationPois(country, location, layers, pageSize, pageIndex)
           .pipe(map((response) => actionLocationPoisPageLoaded(response)))
       )
     )

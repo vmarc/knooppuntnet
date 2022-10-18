@@ -18,7 +18,8 @@ trait PoiFacade {
     user: Option[String],
     language: Language,
     locationKey: LocationKey,
-    parameters: LocationPoiParameters
+    parameters: LocationPoiParameters,
+    layers: String
   ): ApiResponse[LocationPoisPage]
 
 }

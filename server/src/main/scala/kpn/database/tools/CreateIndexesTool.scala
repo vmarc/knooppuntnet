@@ -37,7 +37,7 @@ object CreateIndexesTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-history") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       new CreateIndexesTool(database).createIndexes()
     }
   }
@@ -310,6 +310,11 @@ class CreateIndexesTool(database: Database) {
         database.pois,
         "tiles",
         "tiles"
+      ),
+      Index(
+        database.pois,
+        "location.names",
+        "layers"
       )
     )
   }

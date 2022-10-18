@@ -17,11 +17,12 @@ class LocationPoisPageBuilder(
   def build(
     language: Language,
     locationKeyParam: LocationKey,
-    parameters: LocationPoiParameters
+    parameters: LocationPoiParameters,
+    layers: Seq[String]
   ): LocationPoisPage = {
     val locationKey = locationService.translate(language, locationKeyParam)
-    val poiCount = poiRepository.locationPoiCount(locationKey.name)
-    val pois = poiRepository.locationPois(locationKey.name, parameters)
+    val poiCount = poiRepository.locationPoiCount(locationKey.name, layers)
+    val pois = poiRepository.locationPois(locationKey.name, parameters, layers)
     LocationPoisPage(
       TimeInfoBuilder.timeInfo,
       poiCount,

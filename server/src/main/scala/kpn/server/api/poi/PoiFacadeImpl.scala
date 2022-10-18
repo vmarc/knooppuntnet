@@ -7,7 +7,6 @@ import kpn.api.common.PoiState
 import kpn.api.common.poi.LocationPoiParameters
 import kpn.api.common.poi.LocationPoisPage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiLocationGeoJson
@@ -53,9 +52,10 @@ class PoiFacadeImpl(
     user: Option[String],
     language: Language,
     locationKey: LocationKey,
-    parameters: LocationPoiParameters
+    parameters: LocationPoiParameters,
+    layers: String
   ): ApiResponse[LocationPoisPage] = {
-    val page = locationPoisPageBuilder.build(language, locationKey, parameters)
+    val page = locationPoisPageBuilder.build(language, locationKey, parameters, layers.split(","))
     ApiResponse(null, 1, Some(page))
   }
 }

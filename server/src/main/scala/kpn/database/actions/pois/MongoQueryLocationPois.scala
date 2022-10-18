@@ -11,6 +11,7 @@ import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -23,18 +24,25 @@ object MongoQueryLocationPois {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-experimental") { database =>
-      val result = new MongoQueryLocationPois(database).execute("be-2-11016", LocationPoiParameters(500))
+      val result = new MongoQueryLocationPois(database).execute("be-2-11016", LocationPoiParameters(500), Seq("pub"))
       result.foreach(println)
     }
   }
 }
 
 class MongoQueryLocationPois(database: Database) {
-  def execute(locationName: String, parameters: LocationPoiParameters): Seq[LocationPoiInfo] = {
+  def execute(locationName: String, parameters: LocationPoiParameters, layers: Seq[String]): Seq[LocationPoiInfo] = {
     log.debugElapsed {
       val pipeline = Seq(
-        filter(equal("location.names", locationName)),
-        sort(orderBy(ascending("layers.0"))),
+        filter(
+          and(
+            Seq(
+              Some(equal("location.names", locationName)),
+              LayerFilter.of(layers)
+            ).flatten: _*
+          )
+        ),
+        sort(orderBy(ascending("layers.0", "description"))),
         skip((parameters.pageSize * parameters.pageIndex).toInt),
         limit(parameters.pageSize.toInt),
         project(
@@ -50,6 +58,7 @@ class MongoQueryLocationPois(database: Database) {
           )
         )
       )
+
       val locationPoiInfos = database.pois.aggregate[LocationPoiInfo](pipeline, log).zipWithIndex.map { case (info, index) =>
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
         info.copy( // could have done this in the aggregation?
