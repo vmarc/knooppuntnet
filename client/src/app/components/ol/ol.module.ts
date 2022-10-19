@@ -13,6 +13,7 @@ import { NetworkMapComponent } from './components/network-map.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
 import { NodeMapComponent } from './components/node-map.component';
 import { NodeMovedMapComponent } from './components/node-moved-map.component';
+import { PoiDetailMapComponent } from './components/poi-detail-map.component';
 import { PoiMapComponent } from './components/poi-map.component';
 import { RouteChangeMapComponent } from './components/route-change-map.component';
 import { RouteControlComponent } from './components/route-control.component';
@@ -49,6 +50,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     LegNotFoundDialogComponent,
     LegHttpErrorDialogComponent,
     PoiMapComponent,
+    PoiDetailMapComponent,
   ],
   exports: [
     NodeMapComponent,
@@ -61,6 +63,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     NetworkMapComponent,
     RouteControlComponent,
     PoiMapComponent,
+    PoiDetailMapComponent,
   ],
   providers: [
     MapService,

@@ -26,60 +26,119 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
           [poi]="response.result.poiAnalysis"
         ></kpn-poi-analysis>
 
-        <mat-divider></mat-divider>
+        <mat-divider class="map-divider"></mat-divider>
+        <kpn-poi-detail-map [poiDetail]="response.result"></kpn-poi-detail-map>
+        <mat-divider class="map-divider"></mat-divider>
 
-        <p>
-          {{ response.result.poi.elementType }}
-          {{ response.result.poi.elementId }}
-        </p>
-        <p>
-          latitude={{ response.result.poi.latitude }} longitude={{
-            response.result.poi.longitude
-          }}
-        </p>
+        <kpn-data title="Identification" i18n-title="@@poi-detail.id">
+          <span class="kpn-line">
+            <span>{{ response.result.poi._id }}</span>
 
-        <p *ngFor="let layer of response.result.poi.layers">
-          layers={{ layer }}
-        </p>
+            <kpn-osm-link-node
+              *ngIf="response.result.poi.elementType === 'node'"
+              [nodeId]="response.result.poi.elementId"
+            >
+            </kpn-osm-link-node>
+            <kpn-osm-link-way
+              *ngIf="response.result.poi.elementType === 'way'"
+              [wayId]="response.result.poi.elementId"
+            >
+            </kpn-osm-link-way>
+            <kpn-osm-link-relation
+              *ngIf="response.result.poi.elementType === 'relation'"
+              [relationId]="response.result.poi.elementId"
+            >
+            </kpn-osm-link-relation>
 
-        <p *ngIf="response.result.poiState.imageLink">
-          imageLink=<a
-            class="external"
-            rel="nofollow noreferrer"
-            target="_blank"
-            href="{{ response.result.poiState.imageLink }}"
-            >{{ response.result.poiState.imageLink }}</a
-          >
-        </p>
-        <p *ngIf="response.result.poiState.imageStatus">
-          imageStatus={{ response.result.poiState.imageStatus }}
-        </p>
-        <p *ngIf="response.result.poiState.imageStatusDetail">
-          imageStatusDetail={{ response.result.poiState.imageStatusDetail }}
-        </p>
-        <p *ngIf="response.result.poiState.imageFirstSeen">
-          imageFirstSeen=
-          <kpn-timestamp
-            [timestamp]="response.result.poiState.imageFirstSeen"
-          ></kpn-timestamp>
-        </p>
-        <p *ngIf="response.result.poiState.imageLastSeen">
-          imageLastSeen=
-          <kpn-timestamp
-            [timestamp]="response.result.poiState.imageLastSeen"
-          ></kpn-timestamp>
-        </p>
+            <kpn-josm-node
+              *ngIf="response.result.poi.elementType === 'node'"
+              [nodeId]="response.result.poi.elementId"
+            >
+            </kpn-josm-node>
+            <kpn-josm-way
+              *ngIf="response.result.poi.elementType === 'way'"
+              [wayId]="response.result.poi.elementId"
+            >
+            </kpn-josm-way>
+            <kpn-josm-relation
+              *ngIf="response.result.poi.elementType === 'relation'"
+              [relationId]="response.result.poi.elementId"
+            >
+            </kpn-josm-relation>
+          </span>
+        </kpn-data>
 
-        <p>tiles={{ response.result.poi.tiles }}</p>
+        <kpn-data title="Layer(s)" i18n-title="@@poi-detail.layers">
+          <p *ngFor="let layer of response.result.poi.layers">
+            {{ layer }}
+          </p>
+        </kpn-data>
 
-        <div class="kpn-detail">
+        <kpn-data title="Tags" i18n-title="@@poi-detail.tags">
           <kpn-tags-table
             [tags]="tags(response.result.poi.tags)"
           ></kpn-tags-table>
-        </div>
+        </kpn-data>
+
+        <kpn-data title="Location" i18n-title="@@poi-detail.location">
+          <p *ngFor="let locationName of response.result.poi.location.names">
+            {{ locationName }}
+          </p>
+        </kpn-data>
+
+        <kpn-data
+          *ngIf="response.result.poiState.imageLink"
+          title="Image"
+          i18n-title="@@poi-detail.image"
+        >
+          <p>
+            <a
+              class="external"
+              rel="nofollow noreferrer"
+              target="_blank"
+              href="{{ response.result.poiState.imageLink }}"
+              >{{ response.result.poiState.imageLink }}</a
+            >
+          </p>
+
+          <p *ngIf="response.result.poiState.imageStatus">
+            imageStatus={{ response.result.poiState.imageStatus }}
+          </p>
+          <p *ngIf="response.result.poiState.imageStatusDetail">
+            imageStatusDetail={{ response.result.poiState.imageStatusDetail }}
+          </p>
+          <p *ngIf="response.result.poiState.imageFirstSeen">
+            imageFirstSeen=
+            <kpn-timestamp
+              [timestamp]="response.result.poiState.imageFirstSeen"
+            ></kpn-timestamp>
+          </p>
+          <p *ngIf="response.result.poiState.imageLastSeen">
+            imageLastSeen=
+            <kpn-timestamp
+              [timestamp]="response.result.poiState.imageLastSeen"
+            ></kpn-timestamp>
+          </p>
+        </kpn-data>
+
+        <p></p>
+
+        <kpn-data title="Tiles" i18n-title="@@poi-detail.tiles">
+          <p *ngFor="let tile of response.result.poi.tiles">
+            {{ tile }}
+          </p>
+        </kpn-data>
       </div>
     </div>
   `,
+  styles: [
+    `
+      .map-divider {
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    `,
+  ],
 })
 export class PoiDetailPageComponent implements OnInit {
   response$: Observable<ApiResponse<PoiDetail>>;

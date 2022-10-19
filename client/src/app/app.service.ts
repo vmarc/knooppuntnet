@@ -368,7 +368,7 @@ export class AppService {
     elementId: number
   ): Observable<ApiResponse<PoiDetail>> {
     const url = `/api/poi-detail/${elementType}/${elementId}`;
-    return this.http.get(url);
+    return this.http.get(url, { params: this.languageParams() });
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {

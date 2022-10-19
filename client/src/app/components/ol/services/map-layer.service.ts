@@ -7,6 +7,7 @@ import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteMap } from '@api/common/route/route-map';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { NetworkType } from '@api/custom/network-type';
+import { PoiDetail } from '@app/kpn/api/common/poi-detail';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -30,6 +31,7 @@ import { NodeMarkerLayer } from '../layers/node-marker-layer';
 import { NodeMovedLayer } from '../layers/node-moved-layer';
 import { OsmLayer } from '../layers/osm-layer';
 import { PoiAreasLayer } from '../layers/poi-areas-layer';
+import { PoiMarkerLayer } from '../layers/poi-marker-layer';
 import { PoiTileLayer } from '../layers/poi-tile-layer';
 import { RouteChangeLayers } from '../layers/route-change-layers';
 import { RouteLayers } from '../layers/route-layers';
@@ -117,6 +119,10 @@ export class MapLayerService {
 
   nodeMarkerLayer(nodeMapInfo: NodeMapInfo): MapLayer {
     return new NodeMarkerLayer(this.i18nService).build(nodeMapInfo);
+  }
+
+  poiMarkerLayer(poiDetail: PoiDetail): MapLayer {
+    return new PoiMarkerLayer(this.i18nService).build(poiDetail);
   }
 
   nodeMovedLayer(nodeMoved: NodeMoved): MapLayer {

@@ -12,7 +12,7 @@ trait PoiFacade {
 
   def areas(): ApiResponse[String]
 
-  def getPoiDetail(poiRef: PoiRef): ApiResponse[PoiDetail]
+  def getPoiDetail(language: Language, poiRef: PoiRef): ApiResponse[PoiDetail]
 
   def locationPois(
     user: Option[String],

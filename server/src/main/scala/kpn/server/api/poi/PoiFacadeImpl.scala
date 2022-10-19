@@ -4,6 +4,7 @@ import kpn.api.common.Language
 import kpn.api.common.PoiAnalysis
 import kpn.api.common.PoiDetail
 import kpn.api.common.PoiState
+import kpn.api.common.location.Location
 import kpn.api.common.poi.LocationPoiParameters
 import kpn.api.common.poi.LocationPoisPage
 import kpn.api.custom.ApiResponse
@@ -11,6 +12,7 @@ import kpn.api.custom.LocationKey
 import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiLocationGeoJson
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.LocationPoisPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
@@ -20,7 +22,8 @@ import org.springframework.stereotype.Component
 class PoiFacadeImpl(
   database: Database,
   poiPageBuilder: PoiPageBuilder,
-  locationPoisPageBuilder: LocationPoisPageBuilder
+  locationPoisPageBuilder: LocationPoisPageBuilder,
+  locationService: LocationService
 ) extends PoiFacade {
 
   override def areas(): ApiResponse[String] = {
@@ -30,18 +33,22 @@ class PoiFacadeImpl(
     response
   }
 
-  override def getPoiDetail(poiRef: PoiRef): ApiResponse[PoiDetail] = {
+  override def getPoiDetail(language: Language, poiRef: PoiRef): ApiResponse[PoiDetail] = {
     val poiDetailOption = database.pois.findByStringId(poiRef.toId).map { poi =>
+      val locationNames = poi.location.names.map(locationId => locationService.name(language, locationId))
+      val enrichedPoi = poi.copy(
+        location = Location(locationNames)
+      )
       database.poiStates.findByStringId(poiRef.toId) match {
         case None =>
           poiPageBuilder.build(poiRef) match {
-            case None => PoiDetail(poi, PoiAnalysis(), PoiState(poiRef.toId))
-            case Some(poiPage) => PoiDetail(poi, poiPage.analysis, PoiState(poiRef.toId))
+            case None => PoiDetail(enrichedPoi, PoiAnalysis(), PoiState(poiRef.toId))
+            case Some(poiPage) => PoiDetail(enrichedPoi, poiPage.analysis, PoiState(poiRef.toId))
           }
         case Some(poiState) =>
           poiPageBuilder.build(poiRef) match {
-            case None => PoiDetail(poi, PoiAnalysis(), poiState)
-            case Some(poiPage) => PoiDetail(poi, poiPage.analysis, poiState)
+            case None => PoiDetail(enrichedPoi, PoiAnalysis(), poiState)
+            case Some(poiPage) => PoiDetail(enrichedPoi, poiPage.analysis, poiState)
           }
       }
     }

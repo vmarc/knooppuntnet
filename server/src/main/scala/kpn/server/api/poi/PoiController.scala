@@ -29,10 +29,14 @@ class PoiController(poiFacade: PoiFacade) {
 
   @GetMapping(value = Array("/api/poi-detail/{elementType:node|way|relation}/{elementId}"))
   def getPoiDetail(
+    @RequestParam language: String,
     @PathVariable elementType: String,
     @PathVariable elementId: Long
   ): ApiResponse[PoiDetail] = {
-    poiFacade.getPoiDetail(PoiRef(elementType, elementId))
+    poiFacade.getPoiDetail(
+      toLanguage(language),
+      PoiRef(elementType, elementId)
+    )
   }
 
   @PostMapping(value = Array("/api/pois/{country}/{location}"))
