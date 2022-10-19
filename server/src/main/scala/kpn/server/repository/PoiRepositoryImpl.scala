@@ -2,11 +2,12 @@ package kpn.server.repository
 
 import kpn.api.common.Poi
 import kpn.api.common.poi.LocationPoiInfo
+import kpn.api.common.poi.LocationPoiLayerCount
 import kpn.api.common.poi.LocationPoiParameters
-import kpn.api.custom.LocationKey
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryLocationPoiCount
+import kpn.database.actions.pois.MongoQueryLocationPoiLayerCounts
 import kpn.database.actions.pois.MongoQueryLocationPois
 import kpn.database.actions.pois.MongoQueryPoiAllTiles
 import kpn.database.actions.pois.MongoQueryPoiElementIds
@@ -58,5 +59,9 @@ class PoiRepositoryImpl(database: Database) extends PoiRepository {
 
   override def locationPoiCount(locationName: String, layers: Seq[String]): Long = {
     new MongoQueryLocationPoiCount(database).execute(locationName, layers)
+  }
+
+  override def locationPoiLayerCounts(locationName: String): Seq[LocationPoiLayerCount] = {
+    new MongoQueryLocationPoiLayerCounts(database).execute(locationName)
   }
 }

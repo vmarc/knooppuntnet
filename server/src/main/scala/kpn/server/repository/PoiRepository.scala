@@ -2,8 +2,8 @@ package kpn.server.repository
 
 import kpn.api.common.Poi
 import kpn.api.common.poi.LocationPoiInfo
+import kpn.api.common.poi.LocationPoiLayerCount
 import kpn.api.common.poi.LocationPoiParameters
-import kpn.api.custom.LocationKey
 import kpn.core.poi.PoiInfo
 import kpn.server.analyzer.engine.poi.PoiRef
 
@@ -28,4 +28,6 @@ trait PoiRepository {
   def locationPois(locationName: String, parameters: LocationPoiParameters, layers: Seq[String]): Seq[LocationPoiInfo]
 
   def locationPoiCount(locationName: String, layers: Seq[String]): Long
+
+  def locationPoiLayerCounts(locationName: String): Seq[LocationPoiLayerCount]
 }

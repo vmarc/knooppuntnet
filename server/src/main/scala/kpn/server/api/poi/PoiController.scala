@@ -5,6 +5,7 @@ import kpn.api.common.Language
 import kpn.api.common.Languages
 import kpn.api.common.PoiDetail
 import kpn.api.common.poi.LocationPoiParameters
+import kpn.api.common.poi.LocationPoiSummaryPage
 import kpn.api.common.poi.LocationPoisPage
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
@@ -40,7 +41,7 @@ class PoiController(poiFacade: PoiFacade) {
   }
 
   @PostMapping(value = Array("/api/pois/{country}/{location}"))
-  def locationNodes(
+  def locationPois(
     @RequestParam language: String,
     @PathVariable country: Country,
     @PathVariable location: String,
@@ -54,6 +55,20 @@ class PoiController(poiFacade: PoiFacade) {
       locationKey,
       parameters,
       layers
+    )
+  }
+
+  @PostMapping(value = Array("/api/pois/{country}/{location}/summary"))
+  def locationPoiSummary(
+    @RequestParam language: String,
+    @PathVariable country: Country,
+    @PathVariable location: String
+  ): ApiResponse[LocationPoiSummaryPage] = {
+    val locationKey = LocationKey(NetworkType.hiking, country, location)
+    poiFacade.locationPoiSummary(
+      CurrentUser.name,
+      toLanguage(language),
+      locationKey
     )
   }
 

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { EffectsModule } from '@ngrx/effects';
@@ -11,6 +12,7 @@ import { SharedModule } from '../components/shared/shared.module';
 import { PoiAreasPageComponent } from './areas/poi-areas-page.component';
 import { PoiDetailPageComponent } from './detail/poi-detail-page.component';
 import { PoiLocationPoiTableComponent } from './list/poi-location-poi-table.component';
+import { LocationPoisSidebarComponent } from './list/poi-location-pois-sidebar.component';
 import { PoiLocationPoisPageComponent } from './list/poi-location-pois.component';
 import { PoiRoutingModule } from './poi-routing.module';
 import { PoiService } from './poi.service';
@@ -30,12 +32,14 @@ import { poiFeatureKey } from './store/poi.state';
     EffectsModule.forFeature([PoiEffects]),
     AnalysisComponentsModule,
     MatTableModule,
+    MatCheckboxModule,
   ],
   declarations: [
     PoiAreasPageComponent,
     PoiDetailPageComponent,
     PoiLocationPoisPageComponent,
     PoiLocationPoiTableComponent,
+    LocationPoisSidebarComponent,
   ],
   providers: [PoiService],
 })

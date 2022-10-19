@@ -14,3 +14,8 @@ export const selectLocationPoisPageIndex = createSelector(
   selectPoiState,
   (state: PoiState) => state.locationPoisPageIndex
 );
+
+export const selectLocationPoiSummaryPage = createSelector(
+  selectPoiState,
+  (state: PoiState) => state.locationPoiSummaryPage
+);

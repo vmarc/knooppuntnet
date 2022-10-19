@@ -1,3 +1,4 @@
+import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
 import { LocationPoisPage } from '@api/common/poi/location-pois-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
@@ -15,4 +16,13 @@ export const actionLocationPoisPageLoaded = createAction(
 export const actionLocationPoisPageIndex = createAction(
   '[LocationPoisPage] Page index',
   props<{ pageIndex: number }>()
+);
+
+export const actionLocationPoiSummaryPageInit = createAction(
+  '[LocationPoiSummaryPage] Init'
+);
+
+export const actionLocationPoiSummaryPageLoaded = createAction(
+  '[LocationPoiSummaryPage] Loaded',
+  props<ApiResponse<LocationPoiSummaryPage>>()
 );

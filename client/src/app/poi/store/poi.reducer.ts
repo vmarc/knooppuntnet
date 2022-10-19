@@ -1,6 +1,7 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionLocationPoiSummaryPageLoaded } from './poi.actions';
 import { actionLocationPoisPageInit } from './poi.actions';
 import { actionLocationPoisPageIndex } from './poi.actions';
 import { actionLocationPoisPageLoaded } from './poi.actions';
@@ -11,6 +12,7 @@ export const poiReducer = createReducer(
   on(routerNavigationAction, (state) => ({
     ...state,
     locationPoisPage: null,
+    locationPoiSummaryPage: null,
   })),
   on(actionLocationPoisPageInit, (state, response) => ({
     ...state,
@@ -23,5 +25,9 @@ export const poiReducer = createReducer(
   on(actionLocationPoisPageIndex, (state, { pageIndex }) => ({
     ...state,
     locationPoisPageIndex: pageIndex,
+  })),
+  on(actionLocationPoiSummaryPageLoaded, (state, response) => ({
+    ...state,
+    locationPoiSummaryPage: response,
   }))
 );

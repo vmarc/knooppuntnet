@@ -4,6 +4,7 @@ import { PoiAreasPageComponent } from './areas/poi-areas-page.component';
 import { BaseSidebarComponent } from '../base/base-sidebar.component';
 import { Util } from '../components/shared/util';
 import { PoiDetailPageComponent } from './detail/poi-detail-page.component';
+import { LocationPoisSidebarComponent } from './list/poi-location-pois-sidebar.component';
 import { PoiLocationPoisPageComponent } from './list/poi-location-pois.component';
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
   Util.routePath(
     'location/:country/:location/pois',
     PoiLocationPoisPageComponent,
-    BaseSidebarComponent
+    LocationPoisSidebarComponent
   ),
 ];
 

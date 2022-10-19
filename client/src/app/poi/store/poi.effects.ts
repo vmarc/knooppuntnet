@@ -13,6 +13,8 @@ import { selectRouteParam } from '../../core/core.state';
 import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { PoiService } from '../poi.service';
+import { actionLocationPoiSummaryPageLoaded } from './poi.actions';
+import { actionLocationPoiSummaryPageInit } from './poi.actions';
 import { actionLocationPoisPageIndex } from './poi.actions';
 import { actionLocationPoisPageLoaded } from './poi.actions';
 import { actionLocationPoisPageInit } from './poi.actions';
@@ -39,6 +41,22 @@ export class PoiEffects {
         this.poiService
           .locationPois(country, location, layers, pageSize, pageIndex)
           .pipe(map((response) => actionLocationPoisPageLoaded(response)))
+      )
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  locationPoiSummaryPageInit = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionLocationPoiSummaryPageInit),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('country')),
+        this.store.select(selectRouteParam('location')),
+      ]),
+      mergeMap(([{}, country, location]) =>
+        this.poiService
+          .locationPoiSummary(country, location)
+          .pipe(map((response) => actionLocationPoiSummaryPageLoaded(response)))
       )
     )
   );
