@@ -39,7 +39,7 @@ import { LocationOption } from './location-option';
             [value]="option"
           >
             {{ option.name }}
-            <span class="node-count">({{ option.nodeCount }})</span>
+            <span class="node-count">({{ nodeCount(option) }})</span>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -161,7 +161,7 @@ export class LocationSelectorComponent implements OnInit {
 
   private toOptions(path: string, location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    if (location.nodeCount > 0) {
+    if (location.nodeCount && location.nodeCount > 0) {
       const normalizedLocationName = Util.normalize(location.name);
       locationOptions.push(
         new LocationOption(
@@ -179,5 +179,12 @@ export class LocationSelectorComponent implements OnInit {
       });
     }
     return locationOptions;
+  }
+
+  nodeCount(option: LocationOption): number {
+    if (option.nodeCount) {
+      return option.nodeCount;
+    }
+    return 0;
   }
 }

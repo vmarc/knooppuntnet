@@ -138,9 +138,12 @@ export class LocationSelectionPageComponent implements OnInit {
     parents.forEach((parent) => childParents.push(parent));
     childParents.push(locationNode);
 
-    const localChildren = locationNode.children.map((child) =>
-      this.toLocalLocationNode(childParents, child)
-    );
+    let localChildren: LocalLocationNode[] = [];
+    if (locationNode.children) {
+      localChildren = locationNode.children.map((child) =>
+        this.toLocalLocationNode(childParents, child)
+      );
+    }
 
     return {
       path: localPath,

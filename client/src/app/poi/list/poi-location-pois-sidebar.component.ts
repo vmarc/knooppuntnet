@@ -1,6 +1,8 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Country } from '@api/custom/country';
+import { LocationNode } from '@app/kpn/api/common/location/location-node';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/core.state';
 import { actionLocationPoiSummaryPageInit } from '../store/poi.actions';
@@ -11,6 +13,17 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
+      <div class="location-selector">
+        <kpn-country-selector
+          (country)="countryChanged($event)"
+        ></kpn-country-selector>
+        <kpn-location-selector
+          [country]="country"
+          [locationNode]="locationNode"
+          (selection)="locationSelectionChanged($event)"
+        ></kpn-location-selector>
+      </div>
+
       <div *ngIf="response$ | async as response" class="filter">
         <div *ngIf="response.result as page">
           <div *ngFor="let group of page.groups">
@@ -34,6 +47,10 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
   `,
   styles: [
     `
+      .location-selector {
+        padding: 15px;
+      }
+
       .filter {
         padding: 25px 15px 25px 25px;
       }
@@ -67,9 +84,20 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
 export class LocationPoisSidebarComponent implements OnInit {
   readonly response$ = this.store.select(selectLocationPoiSummaryPage);
 
+  country = Country.be;
+  locationNode: LocationNode = null;
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationPoiSummaryPageInit());
+  }
+
+  countryChanged(country: Country): void {
+    console.log('country changed: ' + country);
+  }
+
+  locationSelectionChanged(location: string): void {
+    console.log('locationSelectionChanged: ' + location);
   }
 }

@@ -120,5 +120,6 @@ import { locationFeatureKey } from './store/location.state';
     LocationSidebarComponent,
   ],
   providers: [LocationService, LocationModeService, LocationSelectionService],
+  exports: [LocationSelectorComponent],
 })
 export class LocationModule {}

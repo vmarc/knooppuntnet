@@ -3,5 +3,5 @@
 export interface LocationNode {
   readonly name: string;
   readonly nodeCount: number;
-  readonly children: LocationNode[];
+  readonly children: LocationNode[] | undefined;
 }

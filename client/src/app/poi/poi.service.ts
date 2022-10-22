@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { LocationPoiParameters } from '@api/common/poi/location-poi-parameters';
 import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
 import { LocationPoisPage } from '@api/common/poi/location-pois-page';
+import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -40,6 +41,11 @@ export class PoiService {
   ): Observable<ApiResponse<LocationPoiSummaryPage>> {
     const url = `/api/pois/${country}/${location}/summary`;
     return this.http.post(url, {}, { params: this.languageParams() });
+  }
+
+  locations(): Observable<ApiResponse<PoiLocationsPage>> {
+    const url = `/api/poi/locations/${this.locale}`;
+    return this.http.get(url);
   }
 
   private languageParams(): HttpParams {

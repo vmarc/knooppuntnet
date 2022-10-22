@@ -8,7 +8,9 @@ import kpn.api.common.location.Location
 import kpn.api.common.poi.LocationPoiParameters
 import kpn.api.common.poi.LocationPoiSummaryPage
 import kpn.api.common.poi.LocationPoisPage
+import kpn.api.common.poi.PoiLocationsPage
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiLocationGeoJson
@@ -17,6 +19,7 @@ import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.analysis.pages.LocationPoiSummaryPageBuilder
 import kpn.server.api.analysis.pages.LocationPoisPageBuilder
+import kpn.server.api.analysis.pages.PoiLocationsPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
 import org.springframework.stereotype.Component
 
@@ -26,6 +29,7 @@ class PoiFacadeImpl(
   poiPageBuilder: PoiPageBuilder,
   locationPoisPageBuilder: LocationPoisPageBuilder,
   locationPoiSummaryPageBuilder: LocationPoiSummaryPageBuilder,
+  poiLocationsPageBuilder: PoiLocationsPageBuilder,
   locationService: LocationService
 ) extends PoiFacade {
 
@@ -75,6 +79,15 @@ class PoiFacadeImpl(
     locationKey: LocationKey
   ): ApiResponse[LocationPoiSummaryPage] = {
     val page = locationPoiSummaryPageBuilder.build(language, locationKey)
+    ApiResponse(null, 1, Some(page))
+  }
+
+  override def locations(
+    user: Option[String],
+    country: Country,
+    language: Language
+  ): ApiResponse[PoiLocationsPage] = {
+    val page = poiLocationsPageBuilder.build(country, language)
     ApiResponse(null, 1, Some(page))
   }
 }
