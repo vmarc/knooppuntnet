@@ -26,7 +26,7 @@ class LocationChangesPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey, parameters: LocationChangesParameters): Option[LocationChangesPage] = {
-    val locationKey = locationService.translate(language, locationKeyParam)
+    val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
     Some(
       LocationChangesPage(summary)

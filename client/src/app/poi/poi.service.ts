@@ -21,7 +21,6 @@ export class PoiService {
   ) {}
 
   locationPois(
-    country: string,
     location: string,
     layers: string,
     pageSize: number,
@@ -31,15 +30,14 @@ export class PoiService {
       pageSize,
       pageIndex,
     };
-    const url = `/api/pois/${country}/${location}?layers=${layers}`;
+    const url = `/api/pois/${location}?layers=${layers}`;
     return this.http.post(url, parameters, { params: this.languageParams() });
   }
 
   locationPoiSummary(
-    country: string,
     location: string
   ): Observable<ApiResponse<LocationPoiSummaryPage>> {
-    const url = `/api/pois/${country}/${location}/summary`;
+    const url = `/api/pois/${location}/summary`;
     return this.http.post(url, {}, { params: this.languageParams() });
   }
 

@@ -28,7 +28,7 @@ class LocationRoutesPageBuilderImpl(
   }
 
   private def buildPage(language: Language,locationKeyParam: LocationKey, parameters: LocationRoutesParameters): Option[LocationRoutesPage] = {
-    val locationKey = locationService.translate(language, locationKeyParam)
+    val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
     val routes = locationRepository.routes(locationKey, parameters)
 

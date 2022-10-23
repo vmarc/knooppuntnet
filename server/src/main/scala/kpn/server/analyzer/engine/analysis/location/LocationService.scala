@@ -12,6 +12,7 @@ trait LocationService {
 
   def replaceNames(language: Language, routeLocationAnalysis: RouteLocationAnalysis): RouteLocationAnalysis
 
-  def translate(language: Language, locationKeyParam: LocationKey): LocationKey
+  def toId(language: Language, location: String): String
 
+  def toIdBased(language: Language, locationKey: LocationKey): LocationKey
 }

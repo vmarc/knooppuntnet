@@ -12,7 +12,6 @@ import { selectLocationPoisPage } from '../store/poi.selectors';
     <div *ngIf="response$ | async as response">
       <div *ngIf="response.result as page">
         <kpn-poi-location-poi-table
-          [timeInfo]="page.timeInfo"
           [pois]="page.pois"
           [poiCount]="page.poiCount"
         >

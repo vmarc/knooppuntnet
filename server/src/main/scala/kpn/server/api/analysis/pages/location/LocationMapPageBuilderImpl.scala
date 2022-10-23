@@ -31,7 +31,7 @@ class LocationMapPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey): Option[LocationMapPage] = {
-    val locationKey = locationService.translate(language, locationKeyParam)
+    val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
     // TODO try first: ${locationKey.name}-minimized.geojson"
     val filename = s"/kpn/locations/${locationKey.country.domain}/geometries/${locationKey.name}.json"

@@ -18,10 +18,10 @@ class LocationPoiSummaryPageBuilder(
 
   def build(
     language: Language,
-    locationKeyParam: LocationKey
+    location: String
   ): LocationPoiSummaryPage = {
-    val locationKey = locationService.translate(language, locationKeyParam)
-    val counts = poiRepository.locationPoiLayerCounts(locationKey.name)
+    val locationId = locationService.toId(language, location)
+    val counts = poiRepository.locationPoiLayerCounts(locationId)
     val poiCountMap = counts.map(count => count.layer -> count.count).toMap
     val groups = PoiConfiguration.instance.groupDefinitions.map { groupDefinition =>
       val poiCounts = groupDefinition.definitions.map { poiDefinition =>

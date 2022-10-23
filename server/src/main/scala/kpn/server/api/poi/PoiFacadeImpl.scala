@@ -65,20 +65,20 @@ class PoiFacadeImpl(
   override def locationPois(
     user: Option[String],
     language: Language,
-    locationKey: LocationKey,
+    location: String,
     parameters: LocationPoiParameters,
     layers: String
   ): ApiResponse[LocationPoisPage] = {
-    val page = locationPoisPageBuilder.build(language, locationKey, parameters, layers.split(","))
+    val page = locationPoisPageBuilder.build(language, location, parameters, layers.split(","))
     ApiResponse(null, 1, Some(page))
   }
 
   override def locationPoiSummary(
     user: Option[String],
     language: Language,
-    locationKey: LocationKey
+    location: String
   ): ApiResponse[LocationPoiSummaryPage] = {
-    val page = locationPoiSummaryPageBuilder.build(language, locationKey)
+    val page = locationPoiSummaryPageBuilder.build(language, location)
     ApiResponse(null, 1, Some(page))
   }
 

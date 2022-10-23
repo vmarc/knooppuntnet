@@ -41,35 +41,31 @@ class PoiController(poiFacade: PoiFacade) {
     )
   }
 
-  @PostMapping(value = Array("/api/pois/{country}/{location}"))
+  @PostMapping(value = Array("/api/pois/{location}"))
   def locationPois(
     @RequestParam language: String,
-    @PathVariable country: Country,
     @PathVariable location: String,
     @RequestBody parameters: LocationPoiParameters,
     @RequestParam layers: String
   ): ApiResponse[LocationPoisPage] = {
-    val locationKey = LocationKey(NetworkType.hiking, country, location)
     poiFacade.locationPois(
       CurrentUser.name,
       toLanguage(language),
-      locationKey,
+      location,
       parameters,
       layers
     )
   }
 
-  @PostMapping(value = Array("/api/pois/{country}/{location}/summary"))
+  @PostMapping(value = Array("/api/pois/{location}/summary"))
   def locationPoiSummary(
     @RequestParam language: String,
-    @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationPoiSummaryPage] = {
-    val locationKey = LocationKey(NetworkType.hiking, country, location)
     poiFacade.locationPoiSummary(
       CurrentUser.name,
       toLanguage(language),
-      locationKey
+      location
     )
   }
 

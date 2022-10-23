@@ -31,15 +31,14 @@ export class PoiEffects {
         actionLocationPoisPageIndex
       ),
       concatLatestFrom(() => [
-        this.store.select(selectRouteParam('country')),
         this.store.select(selectRouteParam('location')),
         this.store.select(selectQueryParam('layers')),
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationPoisPageIndex),
       ]),
-      mergeMap(([{}, country, location, layers, pageSize, pageIndex]) =>
+      mergeMap(([{}, location, layers, pageSize, pageIndex]) =>
         this.poiService
-          .locationPois(country, location, layers, pageSize, pageIndex)
+          .locationPois(location, layers, pageSize, pageIndex)
           .pipe(map((response) => actionLocationPoisPageLoaded(response)))
       )
     )
@@ -49,13 +48,10 @@ export class PoiEffects {
   locationPoiSummaryPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionLocationPoiSummaryPageInit),
-      concatLatestFrom(() => [
-        this.store.select(selectRouteParam('country')),
-        this.store.select(selectRouteParam('location')),
-      ]),
-      mergeMap(([{}, country, location]) =>
+      concatLatestFrom(() => [this.store.select(selectRouteParam('location'))]),
+      mergeMap(([{}, location]) =>
         this.poiService
-          .locationPoiSummary(country, location)
+          .locationPoiSummary(location)
           .pipe(map((response) => actionLocationPoiSummaryPageLoaded(response)))
       )
     )

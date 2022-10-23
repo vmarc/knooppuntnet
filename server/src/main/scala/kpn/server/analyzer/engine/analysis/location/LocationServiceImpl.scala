@@ -45,16 +45,19 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     )
   }
 
-  override def translate(language: Language, locationKey: LocationKey): LocationKey = {
-    val nameParts = locationKey.name.split(":").toSeq
+  override def toIdBased(language: Language, locationKey: LocationKey): LocationKey = {
+    LocationKey(
+      locationKey.networkType,
+      locationKey.country,
+      toId(language, locationKey.name)
+    )
+  }
+
+  override def toId(language: Language, location: String): String = {
+    val nameParts = location.split(":").toSeq
     lookup(language, locationConfiguration.locations, nameParts, None) match {
-      case None => locationKey
-      case Some(locationDefinition) =>
-        LocationKey(
-          locationKey.networkType,
-          locationKey.country,
-          locationDefinition.id
-        )
+      case Some(locationDefinition) => locationDefinition.id
+      case None => location
     }
   }
 

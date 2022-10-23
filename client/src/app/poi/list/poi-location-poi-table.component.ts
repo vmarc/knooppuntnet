@@ -6,7 +6,6 @@ import { Input } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { LocationPoiInfo } from '@api/common/poi/location-poi-info';
-import { TimeInfo } from '@api/common/time-info';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -139,7 +138,6 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
   ],
 })
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
-  @Input() timeInfo: TimeInfo;
   @Input() pois: LocationPoiInfo[];
   @Input() poiCount: number;
 

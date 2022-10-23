@@ -23,7 +23,7 @@ class LocationEditPageBuilderImpl(
 
   override def build(language: Language, locationKeyParam: LocationKey): Option[LocationEditPage] = {
 
-    val locationKey = locationService.translate(language, locationKeyParam)
+    val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
 
     if (summary.nodeCount > maxNodes) {

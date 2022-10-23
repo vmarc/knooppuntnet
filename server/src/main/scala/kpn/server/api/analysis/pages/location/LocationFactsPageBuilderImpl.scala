@@ -25,7 +25,7 @@ class LocationFactsPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey): Option[LocationFactsPage] = {
-    val locationKey = locationService.translate(language, locationKeyParam)
+    val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
     val locationFacts = locationRepository.facts(locationKey.networkType, locationKey.name)
     Some(
