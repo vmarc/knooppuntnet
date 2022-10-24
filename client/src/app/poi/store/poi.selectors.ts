@@ -1,3 +1,5 @@
+import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { PoiState } from './poi.state';
@@ -18,4 +20,14 @@ export const selectLocationPoisPageIndex = createSelector(
 export const selectLocationPoiSummaryPage = createSelector(
   selectPoiState,
   (state: PoiState) => state.locationPoiSummaryPage
+);
+
+export const selectLocationPoiSummaryLocations = createSelector(
+  selectPoiState,
+  (state: PoiState) => state.locationPoiSummaryLocations
+);
+
+export const selectLocationPoiSummaryLocationNode = createSelector(
+  selectLocationPoiSummaryLocations,
+  (response: ApiResponse<PoiLocationsPage>) => response?.result.locationNode
 );

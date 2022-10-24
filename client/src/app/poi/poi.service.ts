@@ -8,6 +8,7 @@ import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-pag
 import { LocationPoisPage } from '@api/common/poi/location-pois-page';
 import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { Country } from '@api/custom/country';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from '../core/core.state';
@@ -41,8 +42,8 @@ export class PoiService {
     return this.http.post(url, {}, { params: this.languageParams() });
   }
 
-  locations(): Observable<ApiResponse<PoiLocationsPage>> {
-    const url = `/api/poi/locations/${this.locale}`;
+  locations(country: Country): Observable<ApiResponse<PoiLocationsPage>> {
+    const url = `/api/poi/locations/${country}/${this.locale}`;
     return this.http.get(url);
   }
 

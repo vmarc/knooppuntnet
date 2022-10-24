@@ -22,7 +22,7 @@ import { LocationOption } from './location-option';
       <mat-form-field class="selector-full-width">
         <input
           type="text"
-          placeholder="enter municipality or other administrative boundary name"
+          placeholder="municipality or other administrative boundary name"
           i18n-placeholder="@@location.selector.input.place-holder"
           matInput
           [formControl]="locationInputControl"
@@ -39,7 +39,9 @@ import { LocationOption } from './location-option';
             [value]="option"
           >
             {{ option.name }}
-            <span class="node-count">({{ nodeCount(option) }})</span>
+            <span *ngIf="nodeCount(option) > 0" class="node-count"
+              >({{ nodeCount(option) }})</span
+            >
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -88,6 +90,7 @@ import { LocationOption } from './location-option';
 export class LocationSelectorComponent implements OnInit {
   @Input() country: Country;
   @Input() locationNode: LocationNode;
+  @Input() all = false;
   @Output() selection = new EventEmitter<string>();
 
   warningSelectionMandatory = false;
@@ -105,6 +108,9 @@ export class LocationSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.options = this.toOptions('', this.locationNode);
+
+    console.log('options=' + JSON.stringify(this.options, null, 2));
+
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(''),
       map((value) => (typeof value === 'string' ? value : value.locationName)),
@@ -161,7 +167,10 @@ export class LocationSelectorComponent implements OnInit {
 
   private toOptions(path: string, location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    if (location.nodeCount && location.nodeCount > 0) {
+    if (
+      this.all ||
+      (location && location.nodeCount && location.nodeCount > 0)
+    ) {
       const normalizedLocationName = Util.normalize(location.name);
       locationOptions.push(
         new LocationOption(
@@ -173,10 +182,12 @@ export class LocationSelectorComponent implements OnInit {
       );
       const childPath =
         path.length > 0 ? path + ':' + location.name : location.name;
-      location.children.forEach((child) => {
-        const childLocationOptions = this.toOptions(childPath, child);
-        childLocationOptions.forEach((loc) => locationOptions.push(loc));
-      });
+      if (location.children) {
+        location.children.forEach((child) => {
+          const childLocationOptions = this.toOptions(childPath, child);
+          childLocationOptions.forEach((loc) => locationOptions.push(loc));
+        });
+      }
     }
     return locationOptions;
   }

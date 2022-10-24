@@ -15,7 +15,7 @@ import { PoiAnalysisModule } from '../components/poi/poi-analysis.module';
 import { SharedModule } from '../components/shared/shared.module';
 import { PoiAreasPageComponent } from './areas/poi-areas-page.component';
 import { PoiDetailPageComponent } from './detail/poi-detail-page.component';
-import { CountrySelectorComponent } from './list/country-selector.component';
+import { CountrySelectComponent } from './list/country-select.component';
 import { PoiLocationPoiTableComponent } from './list/poi-location-poi-table.component';
 import { LocationPoisSidebarComponent } from './list/poi-location-pois-sidebar.component';
 import { PoiLocationPoisPageComponent } from './list/poi-location-pois.component';
@@ -49,7 +49,7 @@ import { poiFeatureKey } from './store/poi.state';
     PoiLocationPoisPageComponent,
     PoiLocationPoiTableComponent,
     LocationPoisSidebarComponent,
-    CountrySelectorComponent,
+    CountrySelectComponent,
   ],
   providers: [PoiService],
 })

@@ -2,10 +2,11 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Country } from '@api/custom/country';
-import { LocationNode } from '@app/kpn/api/common/location/location-node';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/core.state';
+import { actionLocationPoiSummaryCountryChanged } from '../store/poi.actions';
 import { actionLocationPoiSummaryPageInit } from '../store/poi.actions';
+import { selectLocationPoiSummaryLocationNode } from '../store/poi.selectors';
 import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
 
 @Component({
@@ -14,14 +15,18 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
   template: `
     <kpn-sidebar>
       <div class="location-selector">
-        <kpn-country-selector
+        <kpn-country-select
           (country)="countryChanged($event)"
-        ></kpn-country-selector>
-        <kpn-location-selector
-          [country]="country"
-          [locationNode]="locationNode"
-          (selection)="locationSelectionChanged($event)"
-        ></kpn-location-selector>
+        ></kpn-country-select>
+
+        <div *ngIf="locationNode$ | async as locationNode">
+          <kpn-location-selector
+            [country]="country"
+            [locationNode]="locationNode"
+            [all]="true"
+            (selection)="locationSelectionChanged($event)"
+          ></kpn-location-selector>
+        </div>
       </div>
 
       <div *ngIf="response$ | async as response" class="filter">
@@ -83,9 +88,11 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
 })
 export class LocationPoisSidebarComponent implements OnInit {
   readonly response$ = this.store.select(selectLocationPoiSummaryPage);
+  readonly locationNode$ = this.store.select(
+    selectLocationPoiSummaryLocationNode
+  );
 
   country = Country.be;
-  locationNode: LocationNode = null;
 
   constructor(private store: Store<AppState>) {}
 
@@ -95,6 +102,9 @@ export class LocationPoisSidebarComponent implements OnInit {
 
   countryChanged(country: Country): void {
     console.log('country changed: ' + country);
+    if (country) {
+      this.store.dispatch(actionLocationPoiSummaryCountryChanged({ country }));
+    }
   }
 
   locationSelectionChanged(location: string): void {

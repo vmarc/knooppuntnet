@@ -1,6 +1,8 @@
 import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
 import { LocationPoisPage } from '@api/common/poi/location-pois-page';
+import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { Country } from '@api/custom/country';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
@@ -25,4 +27,14 @@ export const actionLocationPoiSummaryPageInit = createAction(
 export const actionLocationPoiSummaryPageLoaded = createAction(
   '[LocationPoiSummaryPage] Loaded',
   props<ApiResponse<LocationPoiSummaryPage>>()
+);
+
+export const actionLocationPoiSummaryCountryChanged = createAction(
+  '[LocationPoiSummaryPage] Country changed',
+  props<{ country: Country }>()
+);
+
+export const actionLocationPoiSummaryLocationsLoaded = createAction(
+  '[LocationPoiSummaryPage] Locations loaded',
+  props<ApiResponse<PoiLocationsPage>>()
 );
