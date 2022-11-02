@@ -1,9 +1,9 @@
 {
   "name": "knooppuntnet-client",
-  "version": "4.0.14",
+  "version": "4.0.15",
   "license": "MIT",
   "scripts": {
-    "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --proxy-config src/proxy-dev.conf.js",
+    "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --host 127.0.0.1 --port 4000 --proxy-config src/proxy-dev.conf.js",
     "lint": "node --max_old_space_size=8192 ./node_modules/.bin/ng lint",
     "ng": "ng",
     "build": "ng build",
@@ -50,6 +50,7 @@
     "maplibre-gl": "1.15.2",
     "ngrx-store-localstorage": "^14.0.0",
     "ngx-clipboard": "^15.1.0",
+    "ngx-cookie-service": "^14.0.1",
     "ngx-markdown": "14.0.1",
     "ol": "6.6.1",
     "ol-geocoder": "4.1.2",

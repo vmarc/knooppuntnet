@@ -30,6 +30,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MapPosition } from '../../../components/ol/domain/map-position';
 import { MainMapPositionService } from '../../../components/ol/services/main-map-position.service';
+import { selectFragment } from '../../../core/core.state';
 import { selectQueryParam } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
 import { PlannerService } from '../../planner.service';
@@ -133,8 +134,16 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
       combineLatest([
         this.plannerService.context.networkType$,
         this.store.select(selectQueryParam('plan')),
-      ]).subscribe(([networkType, planString]) => {
-        if (planString) {
+        this.store.select(selectFragment),
+      ]).subscribe(([networkType, planQueryParam, fragment]) => {
+        let planString = '';
+        if (planQueryParam) {
+          planString = planQueryParam;
+        } else if (fragment && fragment.startsWith('plan=')) {
+          planString = fragment.substring('plan='.length);
+        }
+
+        if (planString.length > 0) {
           const planParams: PlanParams = {
             networkType,
             planString,
