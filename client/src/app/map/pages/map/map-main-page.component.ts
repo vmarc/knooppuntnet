@@ -30,6 +30,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MapPosition } from '../../../components/ol/domain/map-position';
 import { MainMapPositionService } from '../../../components/ol/services/main-map-position.service';
+import { selectUrl } from "../../../core/core.state";
 import { selectFragment } from '../../../core/core.state';
 import { selectQueryParam } from '../../../core/core.state';
 import { selectRouteParam } from '../../../core/core.state';
@@ -135,18 +136,15 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
         this.plannerService.context.networkType$,
         this.store.select(selectQueryParam('plan')),
         this.store.select(selectFragment),
-      ]).subscribe(([networkType, planQueryParam, fragment]) => {
-        let planString = '';
-        if (planQueryParam) {
-          planString = planQueryParam;
-        } else if (fragment && fragment.startsWith('plan=')) {
-          planString = fragment.substring('plan='.length);
+        this.store.select(selectUrl),
+      ]).subscribe(([networkType, planString, fragment, url]) => {
+        if (fragment && fragment.startsWith('plan=')) {
+          window.location.href = url.replaceAll("#", "?");
         }
-
-        if (planString.length > 0) {
+        if (planString) {
           const planParams: PlanParams = {
             networkType,
-            planString,
+            planString
           };
           this.appService.plan(planParams).subscribe((response) => {
             const plan = PlanBuilder.build(response.result, planString);
