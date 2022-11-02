@@ -2839,7 +2839,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="location.selector.input.place-holder" datatype="html">
-        <source>enter municipality or other administrative boundary name</source>
+        <source>municipality or other administrative boundary name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
           <context context-type="linenumber">25,28</context>
@@ -2849,21 +2849,21 @@
         <source> Please make a selection in the field above </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">51,56</context>
+          <context context-type="linenumber">53,58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.selector.warning-selection-invalid" datatype="html">
         <source> Please select a value from the list </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">58,63</context>
+          <context context-type="linenumber">60,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.selector.button" datatype="html">
         <source> Location overview </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">65,72</context>
+          <context context-type="linenumber">67,74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.expand-all" datatype="html">
@@ -8695,6 +8695,104 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/areas/poi-areas-page.component.ts</context>
           <context context-type="linenumber">15,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi-detail.id" datatype="html">
+        <source>Identification</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/detail/poi-detail-page.component.ts</context>
+          <context context-type="linenumber">33,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi-detail.layers" datatype="html">
+        <source>Layer(s)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/detail/poi-detail-page.component.ts</context>
+          <context context-type="linenumber">71,72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi-detail.tags" datatype="html">
+        <source>Tags</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/detail/poi-detail-page.component.ts</context>
+          <context context-type="linenumber">77,79</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi-detail.location" datatype="html">
+        <source>Location</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/detail/poi-detail-page.component.ts</context>
+          <context context-type="linenumber">83,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi-detail.image" datatype="html">
+        <source>Image</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/detail/poi-detail-page.component.ts</context>
+          <context context-type="linenumber">92,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="poi-detail.tiles" datatype="html">
+        <source>Tiles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/detail/poi-detail-page.component.ts</context>
+          <context context-type="linenumber">126,127</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="country.selector.label" datatype="html">
+        <source>Country</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/country-select.component.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.nr" datatype="html">
+        <source> Nr </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">37,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.layer" datatype="html">
+        <source> Layer </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">48,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.id" datatype="html">
+        <source> Id </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">59,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.description" datatype="html">
+        <source> Description </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">74,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.address" datatype="html">
+        <source> Address </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">87,91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.link" datatype="html">
+        <source> Link </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">96,99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-pois.table.image" datatype="html">
+        <source> Image </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
+          <context context-type="linenumber">109,112</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.alcohol" datatype="html">
