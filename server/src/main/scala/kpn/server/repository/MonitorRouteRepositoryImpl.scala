@@ -81,10 +81,20 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
   }
 
   override def routeState(routeId: ObjectId): Option[MonitorRouteState] = {
-    database.monitorRouteStates.findOne[MonitorRouteState](
-      equal("routeId", routeId.raw),
-      log
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      sort(
+        orderBy(
+          descending(
+            "timestamp"
+          )
+        )
+      ),
+      limit(1)
     )
+    database.monitorRouteStates.optionAggregate[MonitorRouteState](pipeline, log)
   }
 
   override def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference] = {

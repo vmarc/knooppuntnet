@@ -70,7 +70,13 @@ class MonitorDemoAnalyzer() {
     val distances = log.infoElapsed {
       val result = referenceSampleCoordinates.toList.map { coordinate =>
         val point = geomFactory.createPoint(coordinate)
-        toMeters(osmRouteSegments.map(segment => segment.lineString.distance(point)).min)
+        val lineStringDistances = osmRouteSegments.map(segment => segment.lineString.distance(point))
+        if (lineStringDistances.nonEmpty) {
+          toMeters(lineStringDistances.min)
+        }
+        else {
+          0
+        }
       }
       (s"distances (refPoints=${referenceSampleCoordinates.size}, osmSegments=${osmRouteSegments.size})", result)
     }

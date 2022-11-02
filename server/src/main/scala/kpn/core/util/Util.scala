@@ -66,16 +66,21 @@ object Util {
   def classNameOf(obj: Any): String = obj.getClass.getSimpleName.filterNot(_ == '$')
 
   def mergeBounds(boundss: Seq[Bounds]): Bounds = {
-    val minLat = boundss.map(_.minLat).min
-    val maxLat = boundss.map(_.maxLat).max
-    val minLon = boundss.map(_.minLon).min
-    val maxLon = boundss.map(_.maxLon).max
-    Bounds(
-      minLat,
-      minLon,
-      maxLat,
-      maxLon
-    )
+    if (boundss.isEmpty) {
+      Bounds()
+    }
+    else {
+      val minLat = boundss.map(_.minLat).min
+      val maxLat = boundss.map(_.maxLat).max
+      val minLon = boundss.map(_.minLon).min
+      val maxLon = boundss.map(_.maxLon).max
+      Bounds(
+        minLat,
+        minLon,
+        maxLat,
+        maxLon
+      )
+    }
   }
 
   def split[T](separator: T, list: Seq[T]): Seq[Seq[T]] = {
