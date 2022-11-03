@@ -5,10 +5,9 @@ import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
-import kpn.api.custom.Tags
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
 import org.locationtech.jts.geom.Coordinate
@@ -45,7 +44,11 @@ object MonitorRouteAnalysisSupport {
       ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
     }
 
-    segments.zipWithIndex.map { case (segment, index) =>
+    val filteredSegments = segments.filterNot { segment =>
+      segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
+    }
+
+    filteredSegments.zipWithIndex.map { case (segment, index) =>
 
       val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
       val meters: Long = Math.round(toMeters(lineString.getLength))
