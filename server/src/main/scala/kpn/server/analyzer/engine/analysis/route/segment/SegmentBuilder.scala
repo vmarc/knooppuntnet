@@ -11,7 +11,7 @@ import scala.annotation.tailrec
 class SegmentBuilder(networkType: NetworkType, fragmentMap: FragmentMap, pavedUnpavedSplittingEnabled: Boolean = true) {
 
   def segments(availableFragmentIds: Seq[Int]): Seq[Segment] = {
-    val optimize = fragmentMap.size < 50
+    val optimize = true // fragmentMap.size < 50
     findSegments(optimize, Seq.empty, availableFragmentIds)
   }
 
