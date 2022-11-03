@@ -36,7 +36,9 @@ object MonitorRouteAnalysisSupport {
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
     val fragmentMap = log.infoElapsed {
-      ("fragment analyzer", new FragmentAnalyzer(Seq.empty, routeRelation.wayMembers).fragmentMap)
+      val allRelations = Seq(routeRelation) ++ routeRelation.relationMembers.map(_.relation)
+      val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
+      ("fragment analyzer", new FragmentAnalyzer(Seq.empty, allWayMembers).fragmentMap)
     }
 
     val segments = log.infoElapsed {
