@@ -315,6 +315,18 @@ class CreateIndexesTool(database: Database) {
         database.pois,
         "location.names",
         "layers"
+      ),
+      Index(
+        database.monitorRouteStates,
+        "routeId-timestamp",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "routeId",
+          ),
+          Indexes.descending(
+            "timestamp"
+          )
+        )
       )
     )
   }
