@@ -46,7 +46,7 @@ object MonitorRouteAnalysisSupport {
 
     val filteredSegments = segments.filterNot { segment =>
       segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
-    }
+    }.filterNot(_.nodes.size == 1) // TODO investigate why segment with one node in route P-GR128
 
     filteredSegments.zipWithIndex.map { case (segment, index) =>
 
