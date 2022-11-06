@@ -9,8 +9,10 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { MonitorMapMode } from '../route/map/monitor-map-mode';
 
 export class MonitorRouteSaveState {
   constructor(
@@ -34,7 +36,7 @@ export const initialState: MonitorState = {
   routeDescription: '',
   groupName: '',
   groupDescription: '',
-  mapMode: null,
+  mapMode: MonitorMapMode.comparison,
   mapReferenceVisible: false,
   mapMatchesVisible: false,
   mapDeviationsVisible: false,
@@ -52,6 +54,7 @@ export const initialState: MonitorState = {
   routeDetailsPage: null,
   routeMapPage: null,
   routeMapSelectedDeviation: null,
+  routeMapSelectedOsmSegment: null,
   routeChangesPageIndex: 0,
   routeChangesPage: null,
   routeChangePage: null,
@@ -66,7 +69,7 @@ export interface MonitorState {
   routeDescription: string;
   groupName: string;
   groupDescription: string;
-  mapMode: string;
+  mapMode: MonitorMapMode;
   mapReferenceVisible: boolean;
   mapMatchesVisible: boolean;
   mapDeviationsVisible: boolean;
@@ -84,6 +87,7 @@ export interface MonitorState {
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
   routeMapPage: ApiResponse<MonitorRouteMapPage>;
   routeMapSelectedDeviation: MonitorRouteDeviation;
+  routeMapSelectedOsmSegment: MonitorRouteSegment;
   routeChangesPageIndex: number;
   routeChangesPage: ApiResponse<MonitorRouteChangesPage>;
   routeChangePage: ApiResponse<MonitorRouteChangePage>;

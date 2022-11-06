@@ -1,6 +1,8 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { MonitorMapMode } from '../route/map/monitor-map-mode';
+import { actionMonitorRouteMapSelectOsmSegment } from './monitor.actions';
 import { actionMonitorRouteSaved } from './monitor.actions';
 import { actionMonitorRouteUploadInit } from './monitor.actions';
 import { actionMonitorRouteUploaded } from './monitor.actions';
@@ -271,7 +273,9 @@ export const monitorReducer = createReducer(
       mapMatchesVisible,
       mapDeviationsVisible,
       mapOsmRelationVisible,
-      mapMode: 'comparison',
+      mapMode: MonitorMapMode.comparison,
+      routeMapSelectedDeviation: null,
+      routeMapSelectedOsmSegment: null,
       routeMapPage: response,
     };
   }),
@@ -279,6 +283,12 @@ export const monitorReducer = createReducer(
     return {
       ...state,
       routeMapSelectedDeviation: deviation,
+    };
+  }),
+  on(actionMonitorRouteMapSelectOsmSegment, (state, segment) => {
+    return {
+      ...state,
+      routeMapSelectedOsmSegment: segment,
     };
   }),
   on(actionMonitorRouteChangesPageInit, (state) => ({
@@ -314,28 +324,30 @@ export const monitorReducer = createReducer(
       routeChangePage: response,
     };
   }),
-  on(actionMonitorRouteMapMode, (state, { mode }) => {
+  on(actionMonitorRouteMapMode, (state, { mapMode }) => {
     const mapReferenceVisible = false;
     let mapMatchesVisible = false;
     let mapDeviationsVisible = false;
     let mapOsmRelationVisible = false;
-    if (mode === 'comparison') {
+    if (mapMode === MonitorMapMode.comparison) {
       mapMatchesVisible = !!state.routeMapPage?.result?.reference.geometry;
       mapDeviationsVisible =
         (state.routeMapPage.result?.deviations?.length ?? 0) > 0;
       mapOsmRelationVisible =
         (state.routeMapPage.result?.osmSegments?.length ?? 0) > 0;
-    } else if (mode === 'osm-segments') {
+    } else if (mapMode === MonitorMapMode.osmSegments) {
       mapOsmRelationVisible = true;
     }
 
     return {
       ...state,
+      mapMode,
       mapReferenceVisible,
       mapMatchesVisible,
       mapDeviationsVisible,
       mapOsmRelationVisible,
-      mapMode: mode,
+      routeMapSelectedDeviation: null,
+      routeMapSelectedOsmSegment: null,
     };
   }),
   on(actionMonitorRouteMapReferenceVisible, (state, { visible }) => ({

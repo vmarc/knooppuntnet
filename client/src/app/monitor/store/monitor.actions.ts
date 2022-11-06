@@ -12,11 +12,13 @@ import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviati
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteSaveResult } from '@api/common/monitor/monitor-route-save-result';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
+import { MonitorMapMode } from '../route/map/monitor-map-mode';
 
 export const actionMonitorAdmin = createAction(
   '[Monitor] Admin',
@@ -121,12 +123,17 @@ export const actionMonitorRouteChangePageLoaded = createAction(
 
 export const actionMonitorRouteMapMode = createAction(
   '[Monitor] Map mode',
-  props<{ mode: string }>()
+  props<{ mapMode: MonitorMapMode }>()
 );
 
 export const actionMonitorRouteMapSelectDeviation = createAction(
   '[Monitor] Map select deviation',
   props<MonitorRouteDeviation | null>()
+);
+
+export const actionMonitorRouteMapSelectOsmSegment = createAction(
+  '[Monitor] Map select OSM segment',
+  props<MonitorRouteSegment | null>()
 );
 
 export const actionMonitorRouteMapFocus = createAction(
@@ -164,6 +171,10 @@ export const actionMonitorRouteMapJosmZoomToFitRoute = createAction(
 
 export const actionMonitorRouteMapJosmZoomToSelectedDeviation = createAction(
   '[Monitor] Map josm zoom to fit selected deviation'
+);
+
+export const actionMonitorRouteMapJosmZoomToSelectedOsmSegment = createAction(
+  '[Monitor] Map josm zoom to fit selected OSM segment'
 );
 
 export const actionMonitorGroupAdd = createAction(

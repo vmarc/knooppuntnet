@@ -20,6 +20,8 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteMapSelectOsmSegment } from './monitor.actions';
+import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from './monitor.actions';
 import { actionMonitorRouteAnalyzed } from './monitor.actions';
 import { actionMonitorRouteUploaded } from './monitor.actions';
 import { actionMonitorRouteSaved } from './monitor.actions';
@@ -64,6 +66,7 @@ import { actionMonitorRouteMapFocus } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
+import { selectMonitorRouteMapSelectedOsmSegment } from './monitor.selectors';
 import { selectMonitorRouteMapSelectedDeviation } from './monitor.selectors';
 import { selectMonitorRouteMapPage } from './monitor.selectors';
 import { selectMonitorRouteMapBounds } from './monitor.selectors';
@@ -350,9 +353,18 @@ export class MonitorEffects {
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapSelectNokSegment = createEffect(() =>
+  monitorRouteMapSelectDeviation = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteMapSelectDeviation),
+      filter((deviation) => !!deviation),
+      map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapSelectOsmSegment = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapSelectOsmSegment),
       filter((deviation) => !!deviation),
       map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
     )
@@ -393,6 +405,23 @@ export class MonitorEffects {
       ofType(actionMonitorRouteMapJosmZoomToSelectedDeviation),
       concatLatestFrom(() => [
         this.store.select(selectMonitorRouteMapSelectedDeviation),
+      ]),
+      filter(([{}, segment]) => !!segment),
+      map(([{}, segment]) => {
+        const editParameters: EditParameters = {
+          bounds: segment.bounds,
+        };
+        return actionSharedEdit(editParameters);
+      })
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapJosmZoomToFitSelectedOsmSegment = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapJosmZoomToSelectedOsmSegment),
+      concatLatestFrom(() => [
+        this.store.select(selectMonitorRouteMapSelectedOsmSegment),
       ]),
       filter(([{}, segment]) => !!segment),
       map(([{}, segment]) => {

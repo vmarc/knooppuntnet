@@ -3,7 +3,7 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
-import { actionMonitorRouteMapFocus } from '../../store/monitor.actions';
+import { actionMonitorRouteMapSelectOsmSegment } from '../../store/monitor.actions';
 import { selectMonitorRouteMapOsmSegments } from '../../store/monitor.selectors';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
@@ -54,10 +54,11 @@ export class MonitorRouteMapOsmSegmentsComponent {
   ) {}
 
   selectionChanged(event: MatSelectionListChange): void {
+    let segment: MonitorRouteSegment = null;
     if (event.options.length > 0) {
-      const segment: MonitorRouteSegment = event.options[0].value;
-      this.store.dispatch(actionMonitorRouteMapFocus(segment.bounds));
+      segment = event.options[0].value;
     }
+    this.store.dispatch(actionMonitorRouteMapSelectOsmSegment(segment));
   }
 
   segmentColor(segment: MonitorRouteSegment): string {

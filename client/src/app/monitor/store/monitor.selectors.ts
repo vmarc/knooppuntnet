@@ -1,5 +1,6 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
+import { MonitorMapMode } from '../route/map/monitor-map-mode';
 import { monitorFeatureKey } from './monitor.state';
 import { MonitorState } from './monitor.state';
 
@@ -115,6 +116,25 @@ export const selectMonitorRouteMapSelectedDeviation = createSelector(
   (state: MonitorState) => state.routeMapSelectedDeviation
 );
 
+export const selectMonitorRouteMapSelectedDeviationDisabled = createSelector(
+  selectMonitorState,
+  (state: MonitorState) =>
+    state.mapMode !== MonitorMapMode.comparison ||
+    !state.routeMapSelectedDeviation
+);
+
+export const selectMonitorRouteMapSelectedOsmSegment = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeMapSelectedOsmSegment
+);
+
+export const selectMonitorRouteMapSelectedOsmSegmentDisabled = createSelector(
+  selectMonitorState,
+  (state: MonitorState) =>
+    state.mapMode !== MonitorMapMode.osmSegments ||
+    !state.routeMapSelectedOsmSegment
+);
+
 export const selectMonitorRouteChangesPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeChangesPage
@@ -195,7 +215,7 @@ export const selectMonitorRouteMapMatchesEnabled = createSelector(
 export const selectMonitorRouteMapDeviationsEnabled = createSelector(
   selectMonitorState,
   (state: MonitorState) =>
-    state.mapMode === 'comparison' &&
+    state.mapMode === MonitorMapMode.comparison &&
     (state.routeMapPage?.result?.deviations?.length ?? 0) > 0
 );
 

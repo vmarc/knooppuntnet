@@ -5,12 +5,14 @@ import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from '../../store/monitor.actions';
 import { actionMonitorRouteMapJosmLoadRouteRelation } from '../../store/monitor.actions';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
 import { actionMonitorRouteMapJosmZoomToFitRoute } from '../../store/monitor.actions';
 import { actionMonitorRouteMapFocus } from '../../store/monitor.actions';
 import { actionMonitorRouteMapMode } from '../../store/monitor.actions';
-import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapSelectedOsmSegmentDisabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapSelectedDeviationDisabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapBounds } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.selectors';
@@ -78,6 +80,14 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
           >
             Zoom to selected deviation
           </button>
+          <button
+            mat-menu-item
+            (click)="josmZoomToSelectedOsmSegment()"
+            [disabled]="josmZoomToSelectedOsmSegmentDisabled$ | async"
+            i18n="@@monitor.route.map.action.josm.zoom-to-osm-segment"
+          >
+            Zoom to selected OSM segment
+          </button>
         </mat-menu>
       </div>
 
@@ -115,14 +125,18 @@ export class MonitorRouteMapControlComponent {
     .select(selectMonitorRouteMapOsmSegmentCount)
     .pipe(map((osmSegmentCount) => osmSegmentCount > 1));
 
-  readonly josmZoomToSelectedDeviationDisabled$ = this.store
-    .select(selectMonitorRouteMapSelectedDeviation)
-    .pipe(map((segment) => !segment));
+  readonly josmZoomToSelectedDeviationDisabled$ = this.store.select(
+    selectMonitorRouteMapSelectedDeviationDisabled
+  );
+
+  readonly josmZoomToSelectedOsmSegmentDisabled$ = this.store.select(
+    selectMonitorRouteMapSelectedOsmSegmentDisabled
+  );
 
   constructor(private store: Store<AppState>) {}
 
   modeChanged(event: MatRadioChange): void {
-    this.store.dispatch(actionMonitorRouteMapMode({ mode: event.value }));
+    this.store.dispatch(actionMonitorRouteMapMode({ mapMode: event.value }));
   }
 
   zoomToFitRoute(): void {
@@ -144,5 +158,9 @@ export class MonitorRouteMapControlComponent {
 
   josmZoomToSelectedDeviation(): void {
     this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedDeviation());
+  }
+
+  josmZoomToSelectedOsmSegment(): void {
+    this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedOsmSegment());
   }
 }

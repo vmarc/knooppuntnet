@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectFalse } from '../../../core/core.state';
@@ -10,7 +9,6 @@ import { actionMonitorRouteMapOsmRelationVisible } from '../../store/monitor.act
 import { actionMonitorRouteMapDeviationsVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapMatchesVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapReferenceVisible } from '../../store/monitor.actions';
-import { actionMonitorRouteMapMode } from '../../store/monitor.actions';
 import {
   selectMonitorRouteMapOsmRelationEnabled,
   selectMonitorRouteMapPage,
@@ -158,10 +156,6 @@ export class MonitorRouteMapLayersComponent {
   );
 
   constructor(private store: Store<AppState>) {}
-
-  modeChanged(event: MatRadioChange): void {
-    this.store.dispatch(actionMonitorRouteMapMode({ mode: event.value }));
-  }
 
   referenceVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(
