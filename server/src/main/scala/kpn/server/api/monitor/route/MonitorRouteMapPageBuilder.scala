@@ -1,5 +1,6 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.common.Bounds
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
@@ -31,7 +32,14 @@ class MonitorRouteMapPageBuilder(
           )
           val stateOption = routeRepository.routeState(route._id)
           val bounds = stateOption match {
-            case Some(state) => Util.mergeBounds(Seq(state.bounds, reference.bounds))
+            case Some(state) =>
+              if (reference.bounds == Bounds()) {
+                state.bounds
+              }
+              else {
+                Util.mergeBounds(Seq(state.bounds, reference.bounds))
+              }
+
             case None => reference.bounds
           }
 

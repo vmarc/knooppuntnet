@@ -8,6 +8,7 @@ import kpn.api.custom.Relation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.segment.MonitorSegmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
 import org.locationtech.jts.geom.Coordinate
@@ -32,6 +33,7 @@ object MonitorRouteAnalysisSupport {
     )
   }
 
+  // use all ways from all sub-relations to build segments
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
     val fragmentMap = log.infoElapsed {
@@ -64,6 +66,44 @@ object MonitorRouteAnalysisSupport {
         ),
         lineString
       )
+    }
+  }
+
+  // separate segment per sub-relation
+  def toRouteSegments2(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
+
+    log.infoElapsed {
+      val allRelations = relationsInRelation(routeRelation)
+      val routeSegments = allRelations.flatMap { relation =>
+        val wayMembers = relation.wayMembers
+        val fragmentMap = new FragmentAnalyzer(Seq.empty, wayMembers).fragmentMap
+        val segments = log.infoElapsed {
+          ("segment builder", new MonitorSegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
+        }
+
+        val filteredSegments = segments.filterNot { segment =>
+          segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
+        }.filterNot(_.nodes.size == 1) // TODO investigate why segment with one node in route P-GR128
+
+        filteredSegments.zipWithIndex.map { case (segment, index) =>
+
+          val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
+          val meters: Long = Math.round(toMeters(lineString.getLength))
+          val bounds = toBounds(lineString.getCoordinates.toSeq)
+          val geoJson = toGeoJson(lineString)
+
+          MonitorRouteSegmentData(
+            MonitorRouteSegment(
+              index + 1,
+              meters,
+              bounds,
+              geoJson
+            ),
+            lineString
+          )
+        }
+      }
+      ("toRouteSegments", routeSegments)
     }
   }
 
@@ -110,6 +150,12 @@ object MonitorRouteAnalysisSupport {
       indexes.map(index => osmCoordinates(index))
     }
     geomFactory.createLineString(coordinates.toArray)
+  }
+
+  private def relationsInRelation(parentRelation: Relation): Seq[Relation] = {
+    Seq(parentRelation) ++ parentRelation.relationMembers.flatMap { relationMember =>
+      relationsInRelation(relationMember.relation)
+    }
   }
 }
 
