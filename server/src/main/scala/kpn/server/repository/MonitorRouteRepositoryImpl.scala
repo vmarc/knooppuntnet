@@ -25,6 +25,7 @@ import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.or
 import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.descending
@@ -95,6 +96,66 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       limit(1)
     )
     database.monitorRouteStates.optionAggregate[MonitorRouteState](pipeline, log)
+  }
+
+  override def routeStates(routeId: ObjectId): Seq[MonitorRouteState] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      sort(
+        orderBy(
+          descending(
+            "timestamp"
+          )
+        )
+      )
+    )
+    database.monitorRouteStates.aggregate[MonitorRouteState](pipeline, log)
+  }
+
+  override def routeStateCount(routeId: ObjectId): Long = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      group(
+        "routeId",
+        sum("count", 1)
+      ),
+      project(
+        fields(
+          excludeId(),
+          include("count"),
+        )
+      )
+    )
+    database.monitorRouteStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
+  }
+
+  override def routeStateSize(routeId: ObjectId): Long = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      project(
+        fields(
+          include("routeId"),
+          computed("size", Document("""{ $sum: { $bsonSize: "$$ROOT" } }"""))
+        )
+      ),
+      group(
+        "routeId",
+        sum("count", "$size")
+      ),
+      project(
+        fields(
+          excludeId(),
+          include("count"),
+        )
+      )
+    )
+    database.monitorRouteStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
   }
 
   override def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference] = {
