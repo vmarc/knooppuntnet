@@ -35,7 +35,7 @@ export class DayInputComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.matDateLocale = this.locale;
+    this.matDateLocale = DayUtil.localeString(this.locale);
     this._adapter.setLocale(this.matDateLocale);
   }
 

@@ -84,6 +84,19 @@ export class DayUtil {
     if (locale === 'fr') {
       return 'DD/MM/YYYY';
     }
-    return 'YYYY-MM-DD';
+    return 'DD-MM-YYYY';
+  }
+
+  static localeString(locale: string): string {
+    if (locale === 'nl') {
+      return 'nl';
+    }
+    if (locale === 'de') {
+      return 'de';
+    }
+    if (locale === 'fr') {
+      return 'fr';
+    }
+    return 'nl';
   }
 }
