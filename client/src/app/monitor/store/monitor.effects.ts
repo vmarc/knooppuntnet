@@ -218,7 +218,7 @@ export class MonitorEffects {
           );
         }
         return this.monitorService
-          .routeUpdate(groupName, properties.name, properties)
+          .routeUpdate(groupName, parameters.initialProperties.name, properties)
           .pipe(
             map((response) => {
               if (
