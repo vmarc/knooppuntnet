@@ -21,3 +21,11 @@ export const proposedUnpavedColor: Color = [255, 165, 0, 0.4];
 
 export const surfaceUnknownColor: Color = [0, 0, 220];
 export const proposedSurfaceUnknownColor: Color = [0, 0, 220, 0.4];
+
+export const surveyUnknown: Color = [255, 255, 0];
+export const surveyUnknownNode: Color = [225, 225, 0];
+export const surveyLastMonth = lightGreen;
+export const surveyLastHalfYearStart = green;
+export const surveyLastYearStart = darkGreen;
+export const surveyLastTwoYearsStart = veryDarkGreen;
+export const surveyOlder = darkRed;

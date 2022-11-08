@@ -97,13 +97,14 @@ export class MainMapNodeStyle {
         style = NodeStyle.largeGreen;
       }
     } else if (this.mapService.mapMode === MapMode.survey) {
+      style = NodeStyle.largeSurveyUnknown;
       const survey = feature.get('survey');
       if (survey) {
         if (survey > this.mapService.surveyDateInfo().lastMonthStart) {
           if (proposed) {
             style = NodeStyle.proposedLargeLightGreen;
           } else {
-            style = NodeStyle.largeLightGreen;
+            style = NodeStyle.largeSurveyLastMonth;
           }
         } else if (
           survey > this.mapService.surveyDateInfo().lastHalfYearStart
@@ -111,13 +112,13 @@ export class MainMapNodeStyle {
           if (proposed) {
             style = NodeStyle.proposedLargeGreen;
           } else {
-            style = NodeStyle.largeGreen;
+            style = NodeStyle.largeSurveyLastHalfYearStart;
           }
         } else if (survey > this.mapService.surveyDateInfo().lastYearStart) {
           if (proposed) {
             style = NodeStyle.proposedLargeDarkGreen;
           } else {
-            style = NodeStyle.largeDarkGreen;
+            style = NodeStyle.largeSurveyLastYearStart;
           }
         } else if (
           survey > this.mapService.surveyDateInfo().lastTwoYearsStart
@@ -125,13 +126,13 @@ export class MainMapNodeStyle {
           if (proposed) {
             style = NodeStyle.proposedLargeVeryDarkGreen;
           } else {
-            style = NodeStyle.largeVeryDarkGreen;
+            style = NodeStyle.largeSurveyLastTwoYearsStart;
           }
         } else {
           if (proposed) {
             style = NodeStyle.proposedLargeDarkRed;
           } else {
-            style = NodeStyle.largeDarkRed;
+            style = NodeStyle.largeSurveyOlder;
           }
         }
       }

@@ -30,6 +30,9 @@ object TileColor {
   val mediumBlue: Color = new Color(0, 0, 200)
 
   val darkBlue: Color = new Color(0, 0, 187)
+
+  val yellow: Color = new Color(255, 255, 0)
+
 }
 
 trait TileColor {

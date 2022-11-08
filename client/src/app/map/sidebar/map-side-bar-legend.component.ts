@@ -68,7 +68,10 @@ import { selectPreferencesShowLegend } from '../../core/preferences/preferences.
             >
           </div>
           <div>
-            <kpn-legend-icon color="rgb(200, 200, 200)"></kpn-legend-icon>
+            <kpn-legend-icon
+              color="rgb(255, 255, 0)"
+              circleColor="rgb(225, 225, 0)"
+            ></kpn-legend-icon>
             <span i18n="@@planner.legend.survey.unknown">Unknown</span>
           </div>
         </div>

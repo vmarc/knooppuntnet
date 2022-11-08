@@ -20,7 +20,7 @@ class TileColorSurvey(dateInfo: SurveyDateInfo) extends TileColor {
 
   private def surveyColor(surveyDayOption: Option[Day]): Color = {
     surveyDayOption match {
-      case None => TileColor.gray
+      case None => TileColor.yellow
       case Some(surveyDay) =>
         if (!surveyDay.isBefore(dateInfo.lastMonthStart)) {
           TileColor.lightGreen
