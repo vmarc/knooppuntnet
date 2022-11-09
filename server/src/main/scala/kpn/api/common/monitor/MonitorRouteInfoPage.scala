@@ -8,5 +8,6 @@ case class MonitorRouteInfoPage(
   ref: Option[String] = None,
   nodeCount: Long = 0,
   wayCount: Long = 0,
-  relationCount: Long = 0
+  relationCount: Long = 0,
+  km: Long = 0
 )

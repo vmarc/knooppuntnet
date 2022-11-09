@@ -58,7 +58,12 @@ export class DayUtil {
       const year = this.year(day);
       const month = this.month(day);
       const dayPart = this.day(day);
-      return new Date(+year, +month, +dayPart);
+      return new Date(
+        +year,
+        +month - 1,
+        +dayPart,
+        12 // eliminate timezone and summer time differences
+      );
     }
     return null;
   }
@@ -67,7 +72,10 @@ export class DayUtil {
     if (date === null) {
       return null;
     }
-    return date.toISOString().substring(0, 'YYYY-MM-DD'.length);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dayPart = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${dayPart}`;
   }
 
   static now(): Day {

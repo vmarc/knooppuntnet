@@ -5,6 +5,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
+import kpn.core.common.RelationUtil
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
@@ -43,7 +44,7 @@ object MonitorRouteAnalysisSupport {
     }
 
     val segments = log.infoElapsed {
-      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
+      ("segment builder", new MonitorSegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
     }
 
     val filteredSegments = segments.filterNot { segment =>
@@ -73,7 +74,7 @@ object MonitorRouteAnalysisSupport {
   def toRouteSegments2(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
     log.infoElapsed {
-      val allRelations = relationsInRelation(routeRelation)
+      val allRelations = RelationUtil.relationsInRelation(routeRelation)
       val routeSegments = allRelations.flatMap { relation =>
         val wayMembers = relation.wayMembers
         val fragmentMap = new FragmentAnalyzer(Seq.empty, wayMembers).fragmentMap
@@ -150,12 +151,6 @@ object MonitorRouteAnalysisSupport {
       indexes.map(index => osmCoordinates(index))
     }
     geomFactory.createLineString(coordinates.toArray)
-  }
-
-  private def relationsInRelation(parentRelation: Relation): Seq[Relation] = {
-    Seq(parentRelation) ++ parentRelation.relationMembers.flatMap { relationMember =>
-      relationsInRelation(relationMember.relation)
-    }
   }
 }
 

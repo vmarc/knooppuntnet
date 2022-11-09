@@ -9,4 +9,5 @@ export interface MonitorRouteInfoPage {
   readonly nodeCount: number;
   readonly wayCount: number;
   readonly relationCount: number;
+  readonly km: number;
 }

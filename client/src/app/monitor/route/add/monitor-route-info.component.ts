@@ -12,15 +12,6 @@ import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-pag
     </div>
 
     <div class="section-body">
-      <kpn-data title="Relation" i18n-title="@@monitor.relation.summary.label">
-        {{ routeInfo.wayCount }}
-        <span i18n="@@monitor.relation.summary.ways">ways,</span>
-        {{ routeInfo.nodeCount }}
-        <span i18n="@@monitor.relation.summary.nodes">nodes,</span>
-        {{ routeInfo.relationCount }}
-        <span i18n="@@monitor.relation.summary.relations">relations</span>
-      </kpn-data>
-
       <kpn-data
         *ngIf="routeInfo.ref"
         title="Ref"
@@ -43,6 +34,20 @@ import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-pag
         i18n-title="@@monitor.relation.operator"
       >
         {{ routeInfo.operator }}
+      </kpn-data>
+
+      <kpn-data title="Relation" i18n-title="@@monitor.relation.summary.label">
+        {{ routeInfo.wayCount }}
+        <span i18n="@@monitor.relation.summary.ways">ways,</span>
+        {{ routeInfo.nodeCount }}
+        <span i18n="@@monitor.relation.summary.nodes">nodes,</span>
+        {{ routeInfo.relationCount }}
+        <span i18n="@@monitor.relation.summary.relations">relations</span>
+      </kpn-data>
+
+      <kpn-data title="Distance" i18n-title="@@monitor.relation.distance">
+        <span>{{ routeInfo.km }}</span>
+        <span i18n="@@monitor.relation.summary.km">km</span>
       </kpn-data>
     </div>
   `,

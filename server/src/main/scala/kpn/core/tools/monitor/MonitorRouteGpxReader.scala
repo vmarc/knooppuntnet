@@ -1,28 +1,34 @@
 package kpn.core.tools.monitor
 
 import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.LineString
 
 import java.io.File
 import scala.xml.Elem
 import scala.xml.XML
 
+object MonitorRouteGpxReader {
+  def main(args: Array[String]): Unit = {
+    val result = new MonitorRouteGpxReader().readFile("/share/fotos/GR59.gpx")
+    println(result.getLength)
+  }
+}
+
 class MonitorRouteGpxReader {
 
   private val geomFactory = new GeometryFactory
 
-  def readFile(filename: String): LineString = {
+  def readFile(filename: String): GeometryCollection = {
     read(XML.loadFile(new File(filename)))
   }
 
-  def readString(xmlString: String): LineString = {
+  def readString(xmlString: String): GeometryCollection = {
     read(XML.loadString(xmlString))
   }
 
-  def read(xml: Elem): LineString = {
-
-    val tracks = (xml \ "trk").map { trk =>
+  def read(xml: Elem): GeometryCollection = {
+    val tracks = (xml \ "trk").flatMap { trk =>
       (trk \ "trkseg").map { trkseg =>
         val coordinates = (trkseg \ "trkpt").map { trkpt =>
           val lat = (trkpt \ "@lat").text
@@ -32,14 +38,6 @@ class MonitorRouteGpxReader {
         geomFactory.createLineString(coordinates.toArray)
       }
     }
-    if (tracks.size != 1) {
-      throw new RuntimeException("Unexpected number of tracks in gpx file: " + tracks.size)
-    }
-    val track = tracks.head
-    if (track.size != 1) {
-      throw new RuntimeException("Unexpected number of track segments in gpx file: " + track.size)
-    }
-    track.head
+    geomFactory.createGeometryCollection(tracks.toArray)
   }
-
 }

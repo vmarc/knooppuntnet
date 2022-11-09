@@ -327,6 +327,18 @@ class CreateIndexesTool(database: Database) {
             "timestamp"
           )
         )
+      ),
+      Index(
+        database.monitorRouteReferences,
+        "routeId-created",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "routeId",
+          ),
+          Indexes.descending(
+            "created"
+          )
+        )
       )
     )
   }

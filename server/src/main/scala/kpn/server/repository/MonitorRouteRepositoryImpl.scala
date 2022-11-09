@@ -166,7 +166,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       sort(
         orderBy(
           descending(
-            "_id"
+            "created"
           )
         )
       ),

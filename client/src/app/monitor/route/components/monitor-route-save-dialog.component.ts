@@ -51,7 +51,7 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
           <span
             *ngIf="(analyzeStatus$ | async) === 'busy'"
             i18n="@@monitor.route.save-dialog.busy"
-            >This may take a wile, please wait...</span
+            >This may take a while, please wait...</span
           >
           <span *ngIf="done$ | async" i18n="@@monitor.route.save-dialog.saved"
             >Route saved!</span

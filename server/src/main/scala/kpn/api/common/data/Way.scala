@@ -4,7 +4,7 @@ import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
-case class Way(raw: RawWay, nodes: Seq[Node], length: Long) extends Element {
+case class Way(raw: RawWay, nodes: Seq[Node], length: Long /* meters */) extends Element {
 
   def id: Long = raw.id
 

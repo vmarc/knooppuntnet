@@ -85,21 +85,7 @@ class MonitorRouteUpdater(
       val reference = findRouteReference(route._id)
 
       if (isRouteChanged(group, route, properties)) {
-        val groupId = if (group.name != properties.groupName) {
-          val newGroup = findGroup(properties.groupName)
-          newGroup._id
-        }
-        else {
-          route.groupId
-        }
-        monitorRouteRepository.saveRoute(
-          route.copy(
-            groupId = groupId,
-            name = properties.name,
-            description = properties.description,
-            relationId = properties.relationId
-          )
-        )
+        updateRoute(group, route, properties)
       }
 
       if (properties.referenceType == "osm") {
@@ -147,6 +133,24 @@ class MonitorRouteUpdater(
       val reference = findRouteReference(route._id)
       monitorRouteAnalyzer.analyze(route, reference)
     }
+  }
+
+  private def updateRoute(group: MonitorGroup, route: MonitorRoute, properties: MonitorRouteProperties): Unit = {
+    val groupId = if (group.name != properties.groupName) {
+      val newGroup = findGroup(properties.groupName)
+      newGroup._id
+    }
+    else {
+      route.groupId
+    }
+    monitorRouteRepository.saveRoute(
+      route.copy(
+        groupId = groupId,
+        name = properties.name,
+        description = properties.description,
+        relationId = properties.relationId
+      )
+    )
   }
 
   private def updateOsmReference(user: String, route: MonitorRoute, properties: MonitorRouteProperties): MonitorRouteSaveResult = {
