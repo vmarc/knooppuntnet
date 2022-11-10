@@ -1,3 +1,4 @@
+import { Params } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
@@ -17,6 +18,7 @@ import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { MapPosition } from '../../components/ol/domain/map-position';
 import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
 import { MonitorMapMode } from '../route/map/monitor-map-mode';
 
@@ -93,9 +95,16 @@ export const actionMonitorRouteMapPageInit = createAction(
   '[MonitorRouteMapPage] Init'
 );
 
+export const actionMonitorRouteMapPageDestroy = createAction(
+  '[MonitorRouteMapPage] Destroy'
+);
+
 export const actionMonitorRouteMapPageLoaded = createAction(
   '[MonitorRouteMapPage] Loaded',
-  props<ApiResponse<MonitorRouteMapPage>>()
+  props<{
+    response: ApiResponse<MonitorRouteMapPage>;
+    queryParams: Params;
+  }>()
 );
 
 export const actionMonitorRouteChangesPageInit = createAction(
@@ -124,6 +133,11 @@ export const actionMonitorRouteChangePageLoaded = createAction(
 export const actionMonitorRouteMapMode = createAction(
   '[Monitor] Map mode',
   props<{ mapMode: MonitorMapMode }>()
+);
+
+export const actionMonitorRouteMapPositionChanged = createAction(
+  '[Monitor] Map position changed',
+  props<{ mapPosition: MapPosition }>()
 );
 
 export const actionMonitorRouteMapSelectDeviation = createAction(

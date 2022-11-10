@@ -12,6 +12,7 @@ import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page'
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
+import { MapPosition } from '../../components/ol/domain/map-position';
 import { MonitorMapMode } from '../route/map/monitor-map-mode';
 
 export class MonitorRouteSaveState {
@@ -41,6 +42,7 @@ export const initialState: MonitorState = {
   mapMatchesVisible: false,
   mapDeviationsVisible: false,
   mapOsmRelationVisible: false,
+  mapPosition: null,
   changesPageIndex: 0,
   changesPage: null,
   groupsPage: null,
@@ -74,6 +76,7 @@ export interface MonitorState {
   mapMatchesVisible: boolean;
   mapDeviationsVisible: boolean;
   mapOsmRelationVisible: boolean;
+  mapPosition: MapPosition;
   changesPageIndex: number;
   changesPage: ApiResponse<MonitorChangesPage>;
   groupsPage: ApiResponse<MonitorGroupsPage>;

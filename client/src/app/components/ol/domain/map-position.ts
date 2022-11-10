@@ -47,6 +47,11 @@ export class MapPosition {
   }
 
   toQueryParams(): Params {
+    const position = this.toQueryParam();
+    return { position };
+  }
+
+  toQueryParam(): string {
     const center: Coordinate = [this.x, this.y];
     const zoom = this.zoom;
 
@@ -55,8 +60,7 @@ export class MapPosition {
     const lat = c[1].toFixed(8);
     const z = Math.round(zoom);
 
-    const map = `${lat},${lng},${z}`;
-    return { map };
+    return `${lat},${lng},${z}`;
   }
 
   toNetworkMapPosition(

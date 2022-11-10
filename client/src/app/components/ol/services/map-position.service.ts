@@ -27,10 +27,21 @@ export class MapPositionService {
       });
   }
 
+  private updatePositionHandler = () => this.updateMapPosition();
+
   install(view: View): void {
+    this.uninstall();
     this.view = view;
-    this.view.on('change:resolution', () => this.updateMapPosition());
-    this.view.on('change:center', () => this.updateMapPosition());
+    this.view.on('change:resolution', this.updatePositionHandler);
+    this.view.on('change:center', this.updatePositionHandler);
+  }
+
+  uninstall(): void {
+    if (this.view) {
+      this.view.un('change:resolution', this.updatePositionHandler);
+      this.view.un('change:center', this.updatePositionHandler);
+      this.view = null;
+    }
   }
 
   private updateMapPosition(): void {

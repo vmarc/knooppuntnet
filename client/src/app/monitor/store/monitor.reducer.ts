@@ -1,7 +1,11 @@
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
 import { MonitorMapMode } from '../route/map/monitor-map-mode';
+import { actionMonitorRouteMapPageDestroy } from './monitor.actions';
+import { actionMonitorRouteMapPositionChanged } from './monitor.actions';
 import { actionMonitorRouteMapSelectOsmSegment } from './monitor.actions';
 import { actionMonitorRouteSaved } from './monitor.actions';
 import { actionMonitorRouteUploadInit } from './monitor.actions';
@@ -47,7 +51,6 @@ export const monitorReducer = createReducer(
   })),
   on(routerNavigationAction, (state) => ({
     ...state,
-    mapMode: null,
     routeGroups: null,
     changesPage: null,
     groupsPage: null,
@@ -58,9 +61,19 @@ export const monitorReducer = createReducer(
     routeUpdatePage: null,
     routeInfoPage: null,
     routeSaveState: null,
-    routeMapPage: null,
+    // routeMapPage: null, should not set routeMapPage to null when changing the url query parameters
     routeChangesPage: null,
     routeChangePage: null,
+  })),
+  on(actionMonitorRouteMapPageDestroy, (state) => ({
+    ...state,
+    routeMapPage: null,
+    mapMode: null,
+    mapReferenceVisible: null,
+    mapMatchesVisible: null,
+    mapDeviationsVisible: null,
+    mapOsmRelationVisible: null,
+    mapPosition: null,
   })),
   on(actionMonitorChangesPageInit, (state) => ({
     ...state,
@@ -246,7 +259,7 @@ export const monitorReducer = createReducer(
       routeDetailsPage: response,
     };
   }),
-  on(actionMonitorRouteMapPageLoaded, (state, response) => {
+  on(actionMonitorRouteMapPageLoaded, (state, { response, queryParams }) => {
     const result = response.result;
     const routeId = result?.routeId ?? state.routeId;
     const relationId = result?.relationId ?? state.relationId;
@@ -254,12 +267,66 @@ export const monitorReducer = createReducer(
     const routeDescription = result?.routeDescription ?? state.routeDescription;
     const groupName = result?.groupName ?? state.groupName;
     const groupDescription = result?.groupDescription ?? state.groupDescription;
-    const mapMatchesVisible = !!result?.matchesGeometry;
-    const mapDeviationsVisible = (result?.deviations?.length ?? 0) > 0;
-    const mapOsmRelationVisible = (result?.osmSegments?.length ?? 0) > 0;
-    const mapReferenceVisible =
-      (result?.reference?.geometry.length ?? 0) > 0 &&
+
+    let mapMatchesVisible = !!result?.matchesGeometry;
+    if (mapMatchesVisible && queryParams['matches']) {
+      mapMatchesVisible = queryParams['matches'] === 'true';
+    }
+
+    let mapDeviationsVisible = (result?.deviations?.length ?? 0) > 0;
+    if (mapDeviationsVisible && queryParams['deviations']) {
+      mapDeviationsVisible = queryParams['deviations'] === 'true';
+    }
+
+    let mapOsmRelationVisible = (result?.osmSegments?.length ?? 0) > 0;
+    if (mapOsmRelationVisible && queryParams['osm-relation']) {
+      mapOsmRelationVisible = queryParams['osm-relation'] === 'true';
+    }
+
+    const referenceAvailable = (result?.reference?.geometry.length ?? 0) > 0;
+    let mapReferenceVisible =
+      referenceAvailable &&
       !(mapMatchesVisible || mapDeviationsVisible || mapOsmRelationVisible);
+    if (referenceAvailable && queryParams['reference']) {
+      mapReferenceVisible = queryParams['reference'] === 'true';
+    }
+
+    let mapMode = MonitorMapMode.comparison;
+    if (queryParams['mode']) {
+      if (queryParams['mode'] === 'osm-segments') {
+        mapMode = MonitorMapMode.osmSegments;
+      }
+    }
+
+    let routeMapSelectedDeviation: MonitorRouteDeviation = null;
+    const selectedDeviation = queryParams['selected-deviation'];
+    console.log('selectedDeviation query param = ' + selectedDeviation);
+
+    if (!isNaN(Number(selectedDeviation))) {
+      const id = +selectedDeviation;
+      const selected = response?.result?.deviations?.find((d) => d.id === id);
+      if (selected) {
+        routeMapSelectedDeviation = selected;
+        console.log(
+          '   routeMapSelectedDeviation= ' +
+            JSON.stringify(routeMapSelectedDeviation)
+        );
+      } else {
+        console.log('   routeMapSelectedDeviation= NOTHING SELECTED');
+      }
+    }
+
+    let routeMapSelectedOsmSegment: MonitorRouteSegment = null;
+    const selectedOsmSegmentParam = queryParams['selected-osm-segment'];
+    if (!isNaN(Number(selectedOsmSegmentParam))) {
+      const id = +selectedOsmSegmentParam;
+      const selected = response?.result?.osmSegments?.find(
+        (segment) => segment.id === id
+      );
+      if (selected) {
+        routeMapSelectedOsmSegment = selected;
+      }
+    }
 
     return {
       ...state,
@@ -273,10 +340,16 @@ export const monitorReducer = createReducer(
       mapMatchesVisible,
       mapDeviationsVisible,
       mapOsmRelationVisible,
-      mapMode: MonitorMapMode.comparison,
-      routeMapSelectedDeviation: null,
-      routeMapSelectedOsmSegment: null,
+      mapMode,
+      routeMapSelectedDeviation,
+      routeMapSelectedOsmSegment,
       routeMapPage: response,
+    };
+  }),
+  on(actionMonitorRouteMapPositionChanged, (state, { mapPosition }) => {
+    return {
+      ...state,
+      mapPosition,
     };
   }),
   on(actionMonitorRouteMapSelectDeviation, (state, deviation) => {

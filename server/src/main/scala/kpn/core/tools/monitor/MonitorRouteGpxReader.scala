@@ -8,13 +8,6 @@ import java.io.File
 import scala.xml.Elem
 import scala.xml.XML
 
-object MonitorRouteGpxReader {
-  def main(args: Array[String]): Unit = {
-    val result = new MonitorRouteGpxReader().readFile("/share/fotos/GR59.gpx")
-    println(result.getLength)
-  }
-}
-
 class MonitorRouteGpxReader {
 
   private val geomFactory = new GeometryFactory

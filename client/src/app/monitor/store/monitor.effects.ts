@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -12,6 +14,7 @@ import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { EditParameters } from '../../analysis/components/edit/edit-parameters';
+import { selectQueryParams } from '../../core/core.state';
 import { AppState } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { selectRouteParams } from '../../core/core.state';
@@ -20,6 +23,12 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteMapPositionChanged } from './monitor.actions';
+import { actionMonitorRouteMapMode } from './monitor.actions';
+import { actionMonitorRouteMapMatchesVisible } from './monitor.actions';
+import { actionMonitorRouteMapDeviationsVisible } from './monitor.actions';
+import { actionMonitorRouteMapOsmRelationVisible } from './monitor.actions';
+import { actionMonitorRouteMapReferenceVisible } from './monitor.actions';
 import { actionMonitorRouteMapSelectOsmSegment } from './monitor.actions';
 import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from './monitor.actions';
 import { actionMonitorRouteAnalyzed } from './monitor.actions';
@@ -66,6 +75,7 @@ import { actionMonitorRouteMapFocus } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
+import { selectMonitorState } from './monitor.selectors';
 import { selectMonitorRouteMapSelectedOsmSegment } from './monitor.selectors';
 import { selectMonitorRouteMapSelectedDeviation } from './monitor.selectors';
 import { selectMonitorRouteMapPage } from './monitor.selectors';
@@ -343,11 +353,17 @@ export class MonitorEffects {
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
+        this.store.select(selectQueryParams),
       ]),
-      mergeMap(([{}, groupName, routeName]) =>
-        this.monitorService
-          .routeMap(groupName, routeName)
-          .pipe(map((response) => actionMonitorRouteMapPageLoaded(response)))
+      mergeMap(([{}, groupName, routeName, queryParams]) =>
+        this.monitorService.routeMap(groupName, routeName).pipe(
+          map((response) =>
+            actionMonitorRouteMapPageLoaded({
+              response,
+              queryParams,
+            })
+          )
+        )
       )
     )
   );
@@ -535,11 +551,71 @@ export class MonitorEffects {
     )
   );
 
+  // noinspection JSUnusedGlobalSymbols
+  routeMapQueryParamsEffect = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(
+          actionMonitorRouteMapPositionChanged,
+          actionMonitorRouteMapReferenceVisible,
+          actionMonitorRouteMapMatchesVisible,
+          actionMonitorRouteMapDeviationsVisible,
+          actionMonitorRouteMapOsmRelationVisible,
+          actionMonitorRouteMapMode
+        ),
+        concatLatestFrom(() => this.store.select(selectMonitorState)),
+        tap(([{}, state]) => {
+          let selectedDeviation = 0;
+          if (state.routeMapSelectedDeviation) {
+            selectedDeviation = state.routeMapSelectedDeviation.id;
+          }
+          let selectedOsmSegment = 0;
+          if (state.routeMapSelectedOsmSegment) {
+            selectedOsmSegment = state.routeMapSelectedOsmSegment.id;
+          }
+          let queryParams: Params = {
+            mode: state.mapMode,
+            reference: state.mapReferenceVisible,
+            matches: state.mapMatchesVisible,
+            deviations: state.mapDeviationsVisible,
+            'osm-relation': state.mapOsmRelationVisible,
+            'selected-deviation': selectedDeviation,
+            'selected-osm-segment': selectedOsmSegment,
+          };
+          if (state.mapPosition) {
+            queryParams = {
+              ...queryParams,
+              position: state.mapPosition.toQueryParam(),
+            };
+          }
+          this.router.navigate([], {
+            relativeTo: this.activatedRoute,
+            queryParams,
+            replaceUrl: true, // do not push a new entry to the browser history
+            queryParamsHandling: 'merge', // preserve other query params if there are any
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private actions$: Actions,
     private store: Store<AppState>,
     private router: Router,
     private monitorService: MonitorService,
-    private mapService: MonitorRouteMapService
+    private mapService: MonitorRouteMapService,
+    private activatedRoute: ActivatedRoute
   ) {}
+
+  updateQueryParam(name: string, value: string) {
+    const queryParams: Params = {};
+    queryParams[name] = value;
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams,
+      replaceUrl: true, // do not push a new entry to the browser history
+      queryParamsHandling: 'merge', // preserve other query params if there are any
+    });
+  }
 }

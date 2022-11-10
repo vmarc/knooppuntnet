@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
+import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
@@ -74,6 +75,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
           >
             <mat-list-option
               *ngFor="let segment of deviations$ | async"
+              [selected]="(selectedDeviationId$ | async) === segment.id"
               [value]="segment"
             >
               <div class="segment">
@@ -124,6 +126,9 @@ export class MonitorRouteMapDeviationsComponent {
   readonly osmRelationAvailable$ = this.store.select(
     selectMonitorRouteMapOsmRelationVisible
   );
+  readonly selectedDeviationId$ = this.store
+    .select(selectMonitorRouteMapSelectedDeviation)
+    .pipe(map((deviation) => deviation?.id));
 
   constructor(private store: Store<AppState>) {}
 

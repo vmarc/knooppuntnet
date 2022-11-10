@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectOsmSegment } from '../../store/monitor.actions';
+import { selectMonitorRouteMapSelectedOsmSegment } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmSegments } from '../../store/monitor.selectors';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
@@ -18,6 +20,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       <mat-list-option
         *ngFor="let segment of segments$ | async"
         [value]="segment"
+        [selected]="(selectedSegmentId$ | async) === segment.id"
       >
         <div class="segment">
           <span class="segment-id">{{ segment.id }}</span>
@@ -47,6 +50,9 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
 })
 export class MonitorRouteMapOsmSegmentsComponent {
   readonly segments$ = this.store.select(selectMonitorRouteMapOsmSegments);
+  readonly selectedSegmentId$ = this.store
+    .select(selectMonitorRouteMapSelectedOsmSegment)
+    .pipe(map((segment) => segment?.id));
 
   constructor(
     private mapService: MonitorRouteMapService,
