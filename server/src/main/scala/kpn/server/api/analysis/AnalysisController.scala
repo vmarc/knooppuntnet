@@ -49,12 +49,14 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.server.api.CurrentUser
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ResponseStatusException
 
 @RestController
 class AnalysisController(analysisFacade: AnalysisFacade) {
@@ -71,8 +73,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetNetworksPage] = {
-    val subset = Subset.of(country, networkType)
-    analysisFacade.subsetNetworks(CurrentUser.name, subset.get)
+    Subset.of(country, networkType) match {
+      case Some(subset) => analysisFacade.subsetNetworks(CurrentUser.name, subset)
+      case None => notFound()
+    }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
@@ -80,8 +84,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetFactsPage] = {
-    val subset = Subset.of(country, networkType)
-    analysisFacade.subsetFacts(CurrentUser.name, subset.get)
+    Subset.of(country, networkType) match {
+      case Some(subset) => analysisFacade.subsetFacts(CurrentUser.name, subset)
+      case None => notFound()
+    }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}/refs"))
@@ -90,9 +96,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: NetworkType,
     @PathVariable fact: String
   ): ApiResponse[SubsetFactRefs] = {
-    val subset = Subset.of(country, networkType).get // TODO improve
-    val f = Fact.withName(fact).get // TODO improve
-    analysisFacade.subsetFactRefs(CurrentUser.name, subset, f)
+    Subset.of(country, networkType) match {
+      case Some(subset) =>
+        Fact.withName(fact) match {
+          case Some(f) => analysisFacade.subsetFactRefs(CurrentUser.name, subset, f)
+          case None => notFound()
+        }
+      case None => notFound()
+    }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
@@ -101,9 +112,14 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: NetworkType,
     @PathVariable fact: String
   ): ApiResponse[SubsetFactDetailsPage] = {
-    val subset = Subset.of(country, networkType).get // TODO improve
-    val f = Fact.withName(fact).get // TODO improve
-    analysisFacade.subsetFactDetails(CurrentUser.name, subset, f)
+    Subset.of(country, networkType) match {
+      case Some(subset) =>
+        Fact.withName(fact) match {
+          case Some(f) => analysisFacade.subsetFactDetails(CurrentUser.name, subset, f)
+          case None => notFound()
+        }
+      case None => notFound()
+    }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
@@ -111,8 +127,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetOrphanNodesPage] = {
-    val subset = Subset.of(country, networkType)
-    analysisFacade.subsetOrphanNodes(CurrentUser.name, subset.get)
+    Subset.of(country, networkType) match {
+      case Some(subset) => analysisFacade.subsetOrphanNodes(CurrentUser.name, subset)
+      case None => notFound()
+    }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
@@ -120,8 +138,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetOrphanRoutesPage] = {
-    val subset = Subset.of(country, networkType)
-    analysisFacade.subsetOrphanRoutes(CurrentUser.name, subset.get)
+    Subset.of(country, networkType) match {
+      case Some(subset) => analysisFacade.subsetOrphanRoutes(CurrentUser.name, subset)
+      case None => notFound()
+    }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
@@ -129,8 +149,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetMapPage] = {
-    val subset = Subset.of(country, networkType)
-    analysisFacade.subsetMap(CurrentUser.name, subset.get)
+    Subset.of(country, networkType) match {
+      case Some(subset) => analysisFacade.subsetMap(CurrentUser.name, subset)
+      case None => notFound()
+    }
   }
 
   @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
@@ -139,12 +161,15 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable networkType: NetworkType,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[SubsetChangesPage] = {
-    val subset = Subset.of(country, networkType)
-    analysisFacade.subsetChanges(
-      CurrentUser.name,
-      subset.get,
-      parameters
-    )
+    Subset.of(country, networkType) match {
+      case None => notFound()
+      case Some(subset) =>
+        analysisFacade.subsetChanges(
+          CurrentUser.name,
+          subset,
+          parameters
+        )
+    }
   }
 
   @GetMapping(value = Array("/api/network/{networkId}"))
@@ -357,5 +382,9 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   private def toAnalysisStrategy(analysisStrategy: String): AnalysisStrategy = {
     AnalysisStrategy.all.find(_.toString.toLowerCase == analysisStrategy).getOrElse(LOCATION)
+  }
+
+  private def notFound[T](): ApiResponse[T] = {
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
   }
 }

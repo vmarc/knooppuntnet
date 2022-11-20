@@ -143,10 +143,12 @@ Generate tiles:
 
 	/kpn/scripts/04-generate-tiles.sh     # 5 hours
 
-Copy tiles to kpn server, on kpn server:
+Remove the old tiles:
 
 	cd /kpn/tiles-install
   rm -rf *
+
+Unpack the tiles:
 
 	/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1 
 
