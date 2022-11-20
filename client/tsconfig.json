@@ -3,8 +3,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@app/*": ["src/app/*"],
-      "@api/*": ["src/app/kpn/api/*"]
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@api/*": [
+        "src/app/kpn/api/*"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -15,7 +19,7 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "module": "es2020",
-    "target": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -23,7 +27,8 @@
       "dom",
       "esnext"
     ],
-    "skipLibCheck": true /* for openlayers */
+    "skipLibCheck": true,
+    "useDefineForClassFields": false
     //"strict": true
   },
   "angularCompilerOptions": {
