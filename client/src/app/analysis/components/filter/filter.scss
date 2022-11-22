@@ -31,19 +31,19 @@
   padding-top: 15px;
 }
 
+.filter-option {
+  display: inline-flex;
+  width: 150px;
+}
+
 .option-name {
   padding-left: 5px;
   flex: 1;
-  //display: inline-block;
-  //width: 140px; // filterOptionNameWidth.px
-  //max-width: 140px; // filterOptionNameWidth.px
   word-wrap: break-word;
 }
 
 .option-count {
   flex: 0;
-  //float: right;
-  //display: inline-block;
 }
 
 .count-links {
@@ -72,18 +72,4 @@
 
 .link {
   cursor: pointer;
-}
-
-.mat-radio-button {
-  display: block;
-  margin: 5px;
-}
-
-:host ::ng-deep .mat-radio-label {
-  display: flex;
-}
-
-:host ::ng-deep .mat-radio-label-content {
-  flex: 1;
-  display: flex;
 }

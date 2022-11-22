@@ -23,27 +23,33 @@ import { PlannerLayerService } from '../planner/services/planner-layer.service';
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-radio-group [value]="mapMode()" (change)="modeChanged($event)">
-          <mat-radio-button
-            value="surface"
-            class="mode-radio-button"
-            i18n="@@planner.surface"
-          >
-            Surface
-          </mat-radio-button>
-          <mat-radio-button
-            value="survey"
-            class="mode-radio-button"
-            i18n="@@planner.survey"
-          >
-            Date last survey
-          </mat-radio-button>
-          <mat-radio-button
-            value="analysis"
-            class="mode-radio-button"
-            i18n="@@planner.quality"
-          >
-            Node and route quality status
-          </mat-radio-button>
+          <div>
+            <mat-radio-button
+              value="surface"
+              class="mode-radio-button"
+              i18n="@@planner.surface"
+            >
+              Surface
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button
+              value="survey"
+              class="mode-radio-button"
+              i18n="@@planner.survey"
+            >
+              Date last survey
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button
+              value="analysis"
+              class="mode-radio-button"
+              i18n="@@planner.quality"
+            >
+              Node and route quality status
+            </mat-radio-button>
+          </div>
         </mat-radio-group>
         <!--
         <div class="kpn-spacer-above">
@@ -61,11 +67,6 @@ import { PlannerLayerService } from '../planner/services/planner-layer.service';
   `,
   styles: [
     `
-      mat-radio-button {
-        display: block;
-        margin: 10px;
-      }
-
       .file-input {
         display: none;
       }

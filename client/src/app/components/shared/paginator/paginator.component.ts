@@ -23,6 +23,13 @@ import { MatPaginator } from '@angular/material/paginator';
     >
     </mat-paginator>
   `,
+  styles: [
+    `
+      mat-paginator {
+        background-color: transparent;
+      }
+    `,
+  ],
 })
 export class PaginatorComponent implements AfterViewInit {
   @Input() pageSize: number;

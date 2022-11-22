@@ -112,11 +112,6 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
       .map-layers {
         margin-top: 1em;
       }
-
-      mat-radio-button {
-        display: block;
-        padding-bottom: 10px;
-      }
     `,
   ],
 })

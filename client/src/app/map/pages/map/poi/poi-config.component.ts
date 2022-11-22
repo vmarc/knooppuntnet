@@ -76,10 +76,6 @@ import { Subscriptions } from '../../../../util/Subscriptions';
   `,
   styles: [
     `
-      ::ng-deep .mat-radio-button.mat-radio-disabled .mat-radio-outer-circle {
-        border-color: rgba(0, 0, 0, 0.1);
-      }
-
       .poi-config {
         border-bottom: 1px solid lightgray;
         padding-top: 10px;

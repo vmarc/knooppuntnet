@@ -16,30 +16,36 @@ import { OverviewService } from '../overview.service';
           [value]="formatPreference$ | async"
           (change)="optionChanged($event)"
         >
-          <mat-radio-button
-            [value]="optionList"
-            title="Show overview in list format"
-            i18n-title="@@overview.sidebar.list.title"
-            i18n="@@overview.sidebar.list"
-          >
-            List
-          </mat-radio-button>
-          <mat-radio-button
-            [value]="optionTable"
-            title="Show overview in table format"
-            i18n-title="@@overview.sidebar.table.title"
-            i18n="@@overview.sidebar.table"
-          >
-            Table
-          </mat-radio-button>
-          <mat-radio-button
-            [value]="optionAutomatic"
-            title="Use list or table format depending on page width"
-            i18n-title="@@overview.sidebar.automatic.title"
-            i18n="@@overview.sidebar.table.automatic"
-          >
-            Automatic selection
-          </mat-radio-button>
+          <div>
+            <mat-radio-button
+              [value]="optionList"
+              title="Show overview in list format"
+              i18n-title="@@overview.sidebar.list.title"
+              i18n="@@overview.sidebar.list"
+            >
+              List
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button
+              [value]="optionTable"
+              title="Show overview in table format"
+              i18n-title="@@overview.sidebar.table.title"
+              i18n="@@overview.sidebar.table"
+            >
+              Table
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button
+              [value]="optionAutomatic"
+              title="Use list or table format depending on page width"
+              i18n-title="@@overview.sidebar.automatic.title"
+              i18n="@@overview.sidebar.table.automatic"
+            >
+              Automatic selection
+            </mat-radio-button>
+          </div>
         </mat-radio-group>
       </div>
     </kpn-sidebar>
@@ -54,16 +60,6 @@ import { OverviewService } from '../overview.service';
 
       .options-title {
         font-weight: bold;
-      }
-
-      mat-radio-group {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        display: block;
-      }
-
-      mat-radio-button {
-        display: block;
         padding-bottom: 10px;
       }
     `,

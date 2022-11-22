@@ -36,16 +36,13 @@ import { map } from 'rxjs/operators';
   `,
   styles: [
     `
-      mat-button-toggle-group {
-        margin-left: 100px;
-      }
-
-      ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
+      :host ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
         width: 34px;
         height: 34px;
       }
 
-      ::ng-deep
+      :host
+        ::ng-deep
         .mat-button-toggle
         > .mat-button-toggle-button
         > .mat-button-toggle-label-content {
@@ -68,7 +65,7 @@ export class NetworkTypeSelectorComponent implements OnInit {
   }
 
   networkTypeChanged(event: MatButtonToggleChange) {
-    this.router.navigate(['../../' + event.value], {
+    this.router.navigate(['../' + event.value], {
       relativeTo: this.activatedRoute,
     });
   }

@@ -8,8 +8,8 @@ import { PageService } from '../page.service';
   template: `
     <mat-nav-list>
       <mat-list-item (click)="back()">
-        <mat-icon svgIcon="back" mat-list-icon></mat-icon>
-        <span i18n="@@sidebar.back">back</span>
+        <mat-icon svgIcon="back" matListItemIcon></mat-icon>
+        <span i18n="@@sidebar.back" matListItemTitle>back</span>
       </mat-list-item>
     </mat-nav-list>
   `,
@@ -17,12 +17,8 @@ import { PageService } from '../page.service';
     `
       mat-nav-list {
         padding-top: 0;
-        height: 48px;
+        height: 40px;
         border-bottom: 1px solid rgb(240, 240, 240);
-      }
-
-      .mat-list-base .mat-list-item.mat-list-item-with-avatar {
-        height: 48px;
       }
 
       span {

@@ -17,10 +17,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
         top: -24px;
         right: -24px;
       }
-
-      .mat-icon-button ::ng-deep .mat-button-focus-overlay {
-        display: none;
-      }
     `,
   ],
 })

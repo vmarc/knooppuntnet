@@ -20,8 +20,10 @@ import { FilterOptionGroup } from '../../../kpn/filter/filter-option-group';
           [value]="option.name"
           [disabled]="option.count === 0"
         >
-          <span class="option-name">{{ optionName(option) }}</span>
-          <span class="option-count">{{ option.count }}</span>
+          <div class="filter-option">
+            <span class="option-name">{{ optionName(option) }}</span>
+            <span class="option-count">{{ option.count }}</span>
+          </div>
         </mat-radio-button>
       </mat-radio-group>
     </div>

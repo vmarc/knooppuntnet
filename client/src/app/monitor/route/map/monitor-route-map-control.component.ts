@@ -104,11 +104,6 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         padding: 1em;
       }
 
-      mat-radio-button {
-        display: block;
-        padding-bottom: 10px;
-      }
-
       .josm {
         padding-left: 0.8em;
       }

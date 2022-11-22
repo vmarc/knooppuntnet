@@ -33,8 +33,7 @@ a:visited {
 }
 
 a.external {
-  background: white url('/assets/images/external.png') no-repeat scroll right
-    center;
+  background: white url('/assets/images/external.png') no-repeat scroll right center;
   padding-right: 13px;
 }
 
@@ -138,11 +137,11 @@ table.kpn-bordered-table {
   }
 }
 
-.mat-list .mat-list-item {
+.mat-mdc-list .mat-mdc-list-item {
   height: 32px;
 }
 
-.mat-stroked-button:not([disabled]) {
+.mat-mdc-outlined-button:not([disabled]) {
   background-color: white;
 }
 
@@ -374,8 +373,7 @@ ul.links li + li:before {
 }
 
 .sidebar-logo {
-  background: rgba(254, 254, 254, 255) url('/assets/images/logo.svg') no-repeat
-    center;
+  background: rgba(254, 254, 254, 255) url('/assets/images/logo.svg') no-repeat center;
   background-position-y: 30px;
 }
 
@@ -426,29 +424,30 @@ ul.links li + li:before {
   top: 0;
 }
 
-table.mat-table {
+table.mat-mdc-table {
   border-top: 1px solid lightgray;
   border-left: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
 
-table.mat-table > thead > tr.mat-header-row,
-table.mat-table > tbody > tr.mat-row,
-table.mat-table > tfoot > tr.mat-footer-row {
+table.mat-mdc-table > thead > tr.mat-mdc-header-row,
+table.mat-mdc-table > tbody > tr.mat-mdc-row,
+table.mat-mdc-table > tfoot > tr.mat-mdc-footer-row {
   height: 2.5rem;
 }
 
-table.mat-table > thead > tr.mat-header-row > th.mat-header-cell,
-table.mat-table > thead > tr.mat-header-row > th.mat-header-cell:first-of-type,
-table.mat-table > tbody > tr.mat-row > td.mat-cell,
-table.mat-table > tbody > tr.mat-row > td.mat-cell:first-of-type {
-  font-size: 16px;
+table.mat-mdc-table > thead > tr.mat-mdc-header-row > th.mat-mdc-header-cell,
+table.mat-mdc-table > thead > tr.mat-mdc-header-row > th.mat-mdc-header-cell:first-of-type,
+table.mat-mdc-table > tbody > tr.mat-mdc-row > td.mat-mdc-cell,
+table.mat-mdc-table > tbody > tr.mat-mdc-row > td.mat-mdc-cell:first-of-type {
+  //font-size: 16px;
   text-align: left;
   border-right: 1px solid lightgray;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
-table.mat-table > thead > tr.mat-header-row > th.mat-header-cell {
+table.mat-mdc-table > thead > tr.mat-mdc-header-row > th.mat-mdc-header-cell {
   vertical-align: top;
   padding-top: 0.5rem;
   font-weight: bold;
@@ -537,4 +536,13 @@ markdown > p > em:after {
   color: red;
   font-size: 0.8em;
   padding-bottom: 3em;
+}
+
+// knooppuntnet specifics after Angular 15 update:
+.mdc-form-field {
+  height: 28px;
+}
+
+.poi-config .mat-mdc-radio-button .mdc-radio [aria-disabled=true] .mdc-radio__native-control:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle, .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:disabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
+  opacity: 0.1 !important;
 }

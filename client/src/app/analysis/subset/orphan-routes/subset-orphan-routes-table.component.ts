@@ -130,7 +130,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
         width: 3rem;
       }
 
-      td.mat-cell:first-of-type {
+      td.mat-mdc-cell:first-of-type {
         padding-left: 10px;
       }
 

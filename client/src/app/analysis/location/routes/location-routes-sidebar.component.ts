@@ -24,31 +24,39 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
           [value]="locationRoutesType.all"
           (change)="locationRoutesTypeChanged($event)"
         >
-          <mat-radio-button [value]="locationRoutesType.all">
-            <span i18n="@@location-routes-sidebar.filter.all">All</span
-            ><span class="kpn-brackets">{{
-              response.result.allRouteCount
-            }}</span>
-          </mat-radio-button>
-          <mat-radio-button [value]="locationRoutesType.facts">
-            <span i18n="@@location-routes-sidebar.filter.facts">Facts</span
-            ><span class="kpn-brackets">{{
-              response.result.factsRouteCount
-            }}</span>
-          </mat-radio-button>
-          <mat-radio-button [value]="locationRoutesType.inaccessible">
-            <span i18n="@@location-routes-sidebar.filter.inaccessible"
-              >Inaccessible</span
-            ><span class="kpn-brackets">{{
-              response.result.inaccessibleRouteCount
-            }}</span>
-          </mat-radio-button>
-          <mat-radio-button [value]="locationRoutesType.survey">
-            <span i18n="@@location-routes-sidebar.filter.survey">Survey</span
-            ><span class="kpn-brackets">{{
-              response.result.surveyRouteCount
-            }}</span>
-          </mat-radio-button>
+          <div>
+            <mat-radio-button [value]="locationRoutesType.all">
+              <span i18n="@@location-routes-sidebar.filter.all">All</span
+              ><span class="kpn-brackets">{{
+                response.result.allRouteCount
+              }}</span>
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button [value]="locationRoutesType.facts">
+              <span i18n="@@location-routes-sidebar.filter.facts">Facts</span
+              ><span class="kpn-brackets">{{
+                response.result.factsRouteCount
+              }}</span>
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button [value]="locationRoutesType.inaccessible">
+              <span i18n="@@location-routes-sidebar.filter.inaccessible"
+                >Inaccessible</span
+              ><span class="kpn-brackets">{{
+                response.result.inaccessibleRouteCount
+              }}</span>
+            </mat-radio-button>
+          </div>
+          <div>
+            <mat-radio-button [value]="locationRoutesType.survey">
+              <span i18n="@@location-routes-sidebar.filter.survey">Survey</span
+              ><span class="kpn-brackets">{{
+                response.result.surveyRouteCount
+              }}</span>
+            </mat-radio-button>
+          </div>
         </mat-radio-group>
       </div>
     </kpn-sidebar>
@@ -61,13 +69,6 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
 
       .title {
         padding-bottom: 10px;
-      }
-
-      mat-radio-button {
-        display: block;
-        padding-top: 5px;
-        min-height: 17px;
-        width: 210px;
       }
     `,
   ],

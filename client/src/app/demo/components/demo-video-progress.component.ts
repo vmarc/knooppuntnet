@@ -11,13 +11,19 @@ import { selectDemoProgress } from '../store/demo.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="progress">
-      <mat-slider
-        min="0"
-        max="1"
-        step="0.005"
-        [value]="progress$ | async"
-        (input)="updateProgress($event)"
-      >
+      <mat-slider min="0" max="1" step="0.005" #ngSlider
+        ><input
+          matSliderThumb
+          [value]="progress$ | async"
+          (input)="
+            updateProgress({
+              source: ngSliderThumb,
+              parent: ngSlider,
+              value: ngSliderThumb.value
+            })
+          "
+          #ngSliderThumb="matSliderThumb"
+        />
       </mat-slider>
     </div>
   `,
