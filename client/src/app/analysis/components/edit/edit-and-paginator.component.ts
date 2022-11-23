@@ -11,7 +11,10 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="edit-and-paginator">
-      <kpn-edit-link (edit)="editClicked()" title="{{ title }}"></kpn-edit-link>
+      <kpn-edit-link
+        (edit)="editClicked()"
+        title="{{ editLinkTitle }}"
+      ></kpn-edit-link>
       <div class="paginator">
         <kpn-paginator
           [pageSize]="pageSize"
@@ -38,7 +41,7 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
   ],
 })
 export class EditAndPaginatorComponent {
-  @Input() title: string;
+  @Input() editLinkTitle: string;
   @Input() pageSize: number;
   @Input() pageIndex: number;
   @Input() length: number;

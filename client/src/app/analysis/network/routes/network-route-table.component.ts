@@ -31,8 +31,8 @@ import { NetworkRoutesService } from './network-routes.service';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      title="Load the routes in this page in the editor (like JOSM)"
-      i18n-title="@@network-routes.edit.title"
+      editLinkTitle="Load the routes in this page in the editor (like JOSM)"
+      i18n-editLinkTitle="@@network-routes.edit.title"
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routes?.length"

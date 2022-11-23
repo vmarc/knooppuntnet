@@ -22,8 +22,8 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      title="Load the nodes in this page in the editor (like JOSM)"
-      i18n-title="@@subset-orphan-nodes.edit.title"
+      editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
+      i18n-editLinkTitle="@@subset-orphan-nodes.edit.title"
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"

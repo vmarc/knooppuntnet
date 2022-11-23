@@ -27,8 +27,8 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      title="Load the routes in this page in the editor (like JOSM)"
-      i18n-title="@@location-routes.edit.title"
+      editLinkTitle="Load the routes in this page in the editor (like JOSM)"
+      i18n-editLinkTitle="@@location-routes.edit.title"
       [pageIndex]="pageIndex$ | async"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize$ | async"

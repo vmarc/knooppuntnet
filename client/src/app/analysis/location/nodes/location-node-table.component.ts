@@ -28,8 +28,8 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      title="Load the nodes in this page in the editor (like JOSM)"
-      i18n-title="@@location-nodes.edit.title"
+      editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
+      i18n-editLinkTitle="@@location-nodes.edit.title"
       [pageIndex]="pageIndex$ | async"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize$ | async"
