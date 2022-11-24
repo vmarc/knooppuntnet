@@ -40,6 +40,10 @@ import { Stat } from '../domain/stat';
         margin-bottom: 0;
       }
 
+      ::ng-deep .comment-cell {
+        min-width: 15em;
+      }
+
       .value-cell {
         white-space: nowrap;
         text-align: right;

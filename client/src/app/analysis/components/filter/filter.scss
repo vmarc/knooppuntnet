@@ -1,5 +1,5 @@
 .filter {
-  width: 200px; /* filterWidth =  UiPage.sideBarWidth - (2 * paddingHorizontal) */
+  width: 300px;
   padding: 25px 15px 25px 25px;
 }
 
@@ -7,7 +7,7 @@
   display: block;
   padding-top: 5px;
   min-height: 17px;
-  width: 210px; /* filterRowWidth.px */
+  width: 260px;
 }
 
 .row i {
@@ -33,7 +33,7 @@
 
 .filter-option {
   display: inline-flex;
-  width: 150px;
+  width: 205px;
 }
 
 .option-name {

@@ -25,6 +25,7 @@ import { Component, Input } from '@angular/core';
       .title {
         display: flex;
         align-items: center;
+        padding-top: 2em;
       }
 
       .title-text {

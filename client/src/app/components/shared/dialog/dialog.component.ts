@@ -14,8 +14,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       .close-button {
         background-color: white;
         float: right;
-        top: -24px;
-        right: -24px;
+        z-index: 100;
       }
     `,
   ],

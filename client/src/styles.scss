@@ -33,7 +33,7 @@ a:visited {
 }
 
 a.external {
-  background: white url('/assets/images/external.png') no-repeat scroll right center;
+  background: transparent url('/assets/images/external.png') no-repeat scroll right center;
   padding-right: 13px;
 }
 
@@ -428,6 +428,7 @@ table.mat-mdc-table {
   border-top: 1px solid lightgray;
   border-left: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+  min-width: fit-content;
 }
 
 table.mat-mdc-table > thead > tr.mat-mdc-header-row,
@@ -546,3 +547,18 @@ markdown > p > em:after {
 .poi-config .mat-mdc-radio-button .mdc-radio [aria-disabled=true] .mdc-radio__native-control:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle, .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:disabled:not(:checked)+.mdc-radio__background .mdc-radio__outer-circle {
   opacity: 0.1 !important;
 }
+
+.mat-drawer-container {
+  background-color: white;
+}
+
+.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field {
+  background-color: white;
+}
+
+.mdc-dialog__actions  {
+  padding-left: 1.5em !important;
+  padding-top: 1em !important;
+  padding-bottom: 1em !important;
+}
+

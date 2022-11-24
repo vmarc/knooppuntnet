@@ -9,13 +9,13 @@ import { Stat } from '../domain/stat';
     <div class="item">
       <div class="header">
         <div (click)="toggleOpen()" class="title">
-          <div class="expand-collapse-icon">
+          <span class="expand-collapse-icon">
             <mat-icon svgIcon="expand" *ngIf="open" mat-list-icon></mat-icon>
             <mat-icon svgIcon="collapse" *ngIf="!open" mat-list-icon></mat-icon>
-          </div>
-          <div class="name">
+          </span>
+          <span class="name">
             {{ stat.configuration.name }}
-          </div>
+          </span>
         </div>
         <div class="total">
           {{ stat.total() }}
@@ -49,17 +49,15 @@ import { Stat } from '../domain/stat';
 
       .header {
         display: flex;
-        max-width: 40em;
+        max-width: 20em;
+        align-items: center;
       }
 
       .title {
         flex: 0 0 auto;
         cursor: pointer;
-      }
-
-      .name {
-        display: inline-block;
-        vertical-align: middle;
+        display: flex;
+        align-items: center;
       }
 
       .total {
@@ -69,7 +67,7 @@ import { Stat } from '../domain/stat';
       }
 
       .expand-collapse-icon {
-        display: inline-block;
+        padding-top: 5px;
       }
 
       ::ng-deep .expand-collapse-icon svg {

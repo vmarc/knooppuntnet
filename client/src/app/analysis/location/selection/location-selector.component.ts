@@ -20,10 +20,12 @@ import { LocationOption } from './location-option';
   template: `
     <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
       <mat-form-field class="selector-full-width">
+        <mat-label i18n="@@location.selector.input.label"
+          >municipality or other administrative boundary name
+        </mat-label>
         <input
           type="text"
-          placeholder="municipality or other administrative boundary name"
-          i18n-placeholder="@@location.selector.input.place-holder"
+          placeholder=""
           matInput
           [formControl]="locationInputControl"
           [matAutocomplete]="auto"

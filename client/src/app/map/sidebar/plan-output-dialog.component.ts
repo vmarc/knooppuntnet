@@ -110,17 +110,17 @@ import { PlanUtil } from '../planner/plan/plan-util';
       .dialog-content {
         display: flex;
         flex-direction: column;
-        width: 242px;
       }
 
       .dialog-content > button {
         margin-top: 5px;
         margin-bottom: 5px;
+        width: 225px;
       }
 
       img {
-        margin-top: 1em;
-        margin-bottom: 1em;
+        margin-top: 15px;
+        margin-bottom: 15px;
         width: 225px;
         height: 225px;
         border: 1px solid lightgray;

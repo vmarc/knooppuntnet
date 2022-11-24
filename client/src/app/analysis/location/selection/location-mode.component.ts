@@ -16,20 +16,24 @@ import { LocationModeService } from './location-mode.service';
       </div>
 
       <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
-        <mat-radio-button
-          value="name"
-          title="Name"
-          i18n="@@analysis.location.search-by-name"
-        >
-          Search by name
-        </mat-radio-button>
-        <mat-radio-button
-          value="tree"
-          title="Tree"
-          i18n="@@analysis.location.select-from-tree"
-        >
-          Select from tree
-        </mat-radio-button>
+        <div>
+          <mat-radio-button
+            value="name"
+            title="Name"
+            i18n="@@analysis.location.search-by-name"
+          >
+            Search by name
+          </mat-radio-button>
+        </div>
+        <div>
+          <mat-radio-button
+            value="tree"
+            title="Tree"
+            i18n="@@analysis.location.select-from-tree"
+          >
+            Select from tree
+          </mat-radio-button>
+        </div>
       </mat-radio-group>
     </div>
   `,

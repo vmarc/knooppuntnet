@@ -21,20 +21,24 @@ import { AnalysisStrategy } from '../../core/preferences/preferences.state';
         [value]="strategy$ | async"
         (change)="onStrategyChange($event)"
       >
-        <mat-radio-button
-          value="location"
-          title="Location"
-          i18n="@@analysis.by-location"
-        >
-          Explore by location
-        </mat-radio-button>
-        <mat-radio-button
-          value="network"
-          title="Network"
-          i18n="@@analysis.by-network"
-        >
-          Explore by network
-        </mat-radio-button>
+        <div>
+          <mat-radio-button
+            value="location"
+            title="Location"
+            i18n="@@analysis.by-location"
+          >
+            Explore by location
+          </mat-radio-button>
+        </div>
+        <div>
+          <mat-radio-button
+            value="network"
+            title="Network"
+            i18n="@@analysis.by-network"
+          >
+            Explore by network
+          </mat-radio-button>
+        </div>
       </mat-radio-group>
     </div>
   `,

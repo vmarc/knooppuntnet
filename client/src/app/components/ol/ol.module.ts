@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from '../shared/shared.module';
 import { LayerSwitcherComponent } from './components/layer-switcher.component';
@@ -34,6 +35,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     MatProgressBarModule,
     SharedModule,
     MatDialogModule,
+    MatIconModule,
   ],
   declarations: [
     NodeMapComponent,
