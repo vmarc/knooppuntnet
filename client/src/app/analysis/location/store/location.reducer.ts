@@ -2,12 +2,17 @@ import { LocationKey } from '@api/custom/location-key';
 import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { LocationRoutesType } from '@api/custom/location-routes-type';
 import { routerNavigatedAction } from '@ngrx/router-store';
-import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { Util } from '../../../components/shared/util';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionLocationEditPageDestroy } from './location.actions';
+import { actionLocationChangesPageDestroy } from './location.actions';
+import { actionLocationMapPageDestroy } from './location.actions';
+import { actionLocationFactsPageDestroy } from './location.actions';
+import { actionLocationRoutesPageDestroy } from './location.actions';
+import { actionLocationNodesPageDestroy } from './location.actions';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationNodesPageInit } from './location.actions';
@@ -26,15 +31,6 @@ import { initialState } from './location.state';
 
 export const locationReducer = createReducer(
   initialState,
-  on(routerNavigationAction, (state, action) => ({
-    ...state,
-    nodesPage: null,
-    routesPage: null,
-    factsPage: null,
-    mapPage: null,
-    changesPage: null,
-    editPage: null,
-  })),
   on(routerNavigatedAction, (state, action) => {
     const params = Util.paramsIn(action.payload.routerState.root);
     const networkType = NetworkTypes.withName(params.get('networkType'));
@@ -73,6 +69,12 @@ export const locationReducer = createReducer(
     nodesPage: response,
     locationSummary: response.result?.summary,
   })),
+  on(actionLocationNodesPageDestroy, (state, {}) => ({
+    ...state,
+    nodesPage: undefined,
+    nodesPageIndex: undefined,
+    nodesPageType: undefined,
+  })),
   on(actionLocationRoutesPageInit, (state, {}) => ({
     ...state,
     routesPageType: LocationRoutesType.all,
@@ -96,24 +98,47 @@ export const locationReducer = createReducer(
     routesPage: response,
     locationSummary: response.result?.summary,
   })),
+  on(actionLocationRoutesPageDestroy, (state, {}) => ({
+    ...state,
+    routesPage: undefined,
+    routesPageIndex: undefined,
+    routesPageType: undefined,
+  })),
   on(actionLocationFactsPageLoaded, (state, response) => ({
     ...state,
     factsPage: response,
     locationSummary: response.result?.summary,
+  })),
+  on(actionLocationFactsPageDestroy, (state, response) => ({
+    ...state,
+    factsPage: undefined,
   })),
   on(actionLocationMapPageLoaded, (state, response) => ({
     ...state,
     mapPage: response,
     locationSummary: response.result?.summary,
   })),
+  on(actionLocationMapPageDestroy, (state, response) => ({
+    ...state,
+    mapPage: undefined,
+  })),
   on(actionLocationChangesPageLoaded, (state, response) => ({
     ...state,
     changesPage: response,
     locationSummary: response.result?.summary,
   })),
+  on(actionLocationChangesPageDestroy, (state, response) => ({
+    ...state,
+    changesPage: undefined,
+    changesPageIndex: undefined,
+  })),
   on(actionLocationEditPageLoaded, (state, response) => ({
     ...state,
     editPage: response,
     locationSummary: response.result?.summary,
+  })),
+  on(actionLocationEditPageDestroy, (state, response) => ({
+    ...state,
+    editPage: undefined,
   }))
 );

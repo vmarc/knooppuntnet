@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
+import { actionLocationSelectionPageDestroy } from '../store/location.actions';
 import { actionLocationSelectionPageInit } from '../store/location.actions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationModeService } from './location-mode.service';
@@ -83,7 +85,7 @@ import { LocationSelectionService } from './location-selection.service';
     `,
   ],
 })
-export class LocationSelectionPageComponent implements OnInit {
+export class LocationSelectionPageComponent implements OnInit, OnDestroy {
   locationNode$: Observable<LocalLocationNode>;
 
   networkType: NetworkType;
@@ -127,6 +129,10 @@ export class LocationSelectionPageComponent implements OnInit {
       ),
       map((locationNode) => this.toLocalLocationNode([], locationNode))
     );
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionLocationSelectionPageDestroy());
   }
 
   private toLocalLocationNode(

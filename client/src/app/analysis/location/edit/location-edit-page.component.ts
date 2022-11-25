@@ -1,8 +1,10 @@
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
+import { actionLocationEditPageDestroy } from '../store/location.actions';
 import { actionLocationEditPageInit } from '../store/location.actions';
 import { selectLocationEditPage } from '../store/location.selectors';
 
@@ -72,7 +74,7 @@ import { selectLocationEditPage } from '../store/location.selectors';
     `,
   ],
 })
-export class LocationEditPageComponent implements OnInit {
+export class LocationEditPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectLocationEditPage);
   readonly noHttpError$ = this.store
     .select(selectSharedHttpError)
@@ -82,5 +84,9 @@ export class LocationEditPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationEditPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionLocationEditPageDestroy());
   }
 }

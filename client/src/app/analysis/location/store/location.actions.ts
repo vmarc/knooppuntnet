@@ -15,6 +15,10 @@ export const actionLocationSelectionPageInit = createAction(
   '[LocationSelectionPage] Init'
 );
 
+export const actionLocationSelectionPageDestroy = createAction(
+  '[LocationSelectionPage] Destroy'
+);
+
 export const actionLocationSelectionPageStrategy = createAction(
   '[LocationSelectionPage] Strategy',
   props<{ strategy: AnalysisStrategy }>()
@@ -22,6 +26,10 @@ export const actionLocationSelectionPageStrategy = createAction(
 
 export const actionLocationNodesPageInit = createAction(
   '[LocationNodesPage] Init'
+);
+
+export const actionLocationNodesPageDestroy = createAction(
+  '[LocationNodesPage] Destroy'
 );
 
 export const actionLocationNodesType = createAction(
@@ -48,6 +56,10 @@ export const actionLocationRoutesPageInit = createAction(
   '[LocationRoutesPage] Init'
 );
 
+export const actionLocationRoutesPageDestroy = createAction(
+  '[LocationRoutesPage] Destroy'
+);
+
 export const actionLocationRoutesType = createAction(
   '[LocationRoutesPage] Type',
   props<{ locationRoutesType: LocationRoutesType }>()
@@ -72,12 +84,20 @@ export const actionLocationFactsPageInit = createAction(
   '[LocationFactsPage] Init'
 );
 
+export const actionLocationFactsPageDestroy = createAction(
+  '[LocationFactsPage] Destroy'
+);
+
 export const actionLocationFactsPageLoaded = createAction(
   '[LocationFactsPage] Loaded',
   props<ApiResponse<LocationFactsPage>>()
 );
 
 export const actionLocationMapPageInit = createAction('[LocationMapPage] Init');
+
+export const actionLocationMapPageDestroy = createAction(
+  '[LocationMapPage] Destroy'
+);
 
 export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',
@@ -88,6 +108,10 @@ export const actionLocationChangesPageInit = createAction(
   '[LocationChangesPage] Init'
 );
 
+export const actionLocationChangesPageDestroy = createAction(
+  '[LocationChangesPage] Destroy'
+);
+
 export const actionLocationChangesPageLoaded = createAction(
   '[LocationChangesPage] Loaded',
   props<ApiResponse<LocationChangesPage>>()
@@ -95,6 +119,10 @@ export const actionLocationChangesPageLoaded = createAction(
 
 export const actionLocationEditPageInit = createAction(
   '[LocationEditPage] Init'
+);
+
+export const actionLocationEditPageDestroy = createAction(
+  '[LocationEditPage] Destroy'
 );
 
 export const actionLocationEditPageLoaded = createAction(

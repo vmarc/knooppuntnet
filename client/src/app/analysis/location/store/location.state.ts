@@ -13,33 +13,33 @@ import { LocationRoutesType } from '@api/custom/location-routes-type';
 export const initialState: LocationState = {
   locationKey: null,
   locationSummary: null,
-  nodesPageType: LocationNodesType.all,
-  nodesPageIndex: 0,
-  nodesPage: null,
-  routesPageType: LocationRoutesType.all,
-  routesPageIndex: 0,
-  routesPage: null,
-  factsPage: null,
-  mapPage: null,
-  changesPageIndex: 0,
-  changesPage: null,
-  editPage: null,
+  nodesPageType: undefined,
+  nodesPageIndex: undefined,
+  nodesPage: undefined,
+  routesPageType: undefined,
+  routesPageIndex: undefined,
+  routesPage: undefined,
+  factsPage: undefined,
+  mapPage: undefined,
+  changesPageIndex: undefined,
+  changesPage: undefined,
+  editPage: undefined,
 };
 
 export interface LocationState {
   locationKey: LocationKey;
   locationSummary: LocationSummary;
-  nodesPageType: LocationNodesType;
-  nodesPageIndex: number;
-  nodesPage: ApiResponse<LocationNodesPage>;
-  routesPageType: LocationRoutesType;
-  routesPageIndex: number;
-  routesPage: ApiResponse<LocationRoutesPage>;
-  factsPage: ApiResponse<LocationFactsPage>;
-  mapPage: ApiResponse<LocationMapPage>;
-  changesPageIndex: number;
-  changesPage: ApiResponse<LocationChangesPage>;
-  editPage: ApiResponse<LocationEditPage>;
+  nodesPageType: LocationNodesType | undefined;
+  nodesPageIndex: number | undefined;
+  nodesPage: ApiResponse<LocationNodesPage> | undefined;
+  routesPageType: LocationRoutesType | undefined;
+  routesPageIndex: number | undefined;
+  routesPage: ApiResponse<LocationRoutesPage> | undefined;
+  factsPage: ApiResponse<LocationFactsPage> | undefined;
+  mapPage: ApiResponse<LocationMapPage> | undefined;
+  changesPageIndex: number | undefined;
+  changesPage: ApiResponse<LocationChangesPage> | undefined;
+  editPage: ApiResponse<LocationEditPage> | undefined;
 }
 
 export const locationFeatureKey = 'location';

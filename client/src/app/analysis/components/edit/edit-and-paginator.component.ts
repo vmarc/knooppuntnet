@@ -17,6 +17,8 @@ import { PaginatorComponent } from '../../../components/shared/paginator/paginat
       ></kpn-edit-link>
       <div class="paginator">
         <kpn-paginator
+          [pageIndex]="pageIndex"
+          (pageIndexChange)="onPageIndexChange($event)"
           [pageSize]="pageSize"
           (pageSizeChange)="onPageSizeChange($event)"
           [length]="length"
@@ -61,5 +63,9 @@ export class EditAndPaginatorComponent {
 
   onPageSizeChange(pageSize: number) {
     this.pageSizeChange.emit(pageSize);
+  }
+
+  onPageIndexChange(pageIndex: number) {
+    this.pageIndexChange.emit(pageIndex);
   }
 }

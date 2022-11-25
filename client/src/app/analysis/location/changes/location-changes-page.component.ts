@@ -1,8 +1,10 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
+import { actionLocationChangesPageDestroy } from '../store/location.actions';
 import { actionLocationChangesPageInit } from '../store/location.actions';
 import { selectLocationChangesPage } from '../store/location.selectors';
 
@@ -26,12 +28,16 @@ import { selectLocationChangesPage } from '../store/location.selectors';
     </div>
   `,
 })
-export class LocationChangesPageComponent implements OnInit {
+export class LocationChangesPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectLocationChangesPage);
 
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationChangesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionLocationChangesPageDestroy());
   }
 }

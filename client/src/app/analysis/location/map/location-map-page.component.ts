@@ -1,9 +1,11 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
+import { actionLocationMapPageDestroy } from '../store/location.actions';
 import { actionLocationMapPageInit } from '../store/location.actions';
 import { selectLocationKey } from '../store/location.selectors';
 import { selectLocationMapPage } from '../store/location.selectors';
@@ -33,7 +35,7 @@ import { selectLocationMapPage } from '../store/location.selectors';
     </div>
   `,
 })
-export class LocationMapPageComponent implements OnInit {
+export class LocationMapPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectLocationMapPage);
   readonly networkType$ = this.store
     .select(selectLocationKey)
@@ -43,5 +45,9 @@ export class LocationMapPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationMapPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionLocationMapPageDestroy());
   }
 }
