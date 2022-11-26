@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -5,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteDeletePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDeletePageInit } from '../../store/monitor.actions';
 import { actionMonitorRouteDelete } from '../../store/monitor.actions';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
@@ -62,7 +64,7 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRouteDeletePageComponent implements OnInit {
+export class MonitorRouteDeletePageComponent implements OnInit, OnDestroy {
   readonly groupName$ = this.store.select(selectRouteParam('groupName'));
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupLink$ = this.groupName$.pipe(
@@ -75,6 +77,10 @@ export class MonitorRouteDeletePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteDeletePageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorRouteDeletePageDestroy());
   }
 
   delete(): void {

@@ -31,69 +31,69 @@ export class MonitorRouteSaveState {
 export const initialState: MonitorState = {
   admin: false,
   adminRole: false,
-  routeId: '',
-  relationId: 0,
-  routeName: '',
-  routeDescription: '',
-  groupName: '',
-  groupDescription: '',
-  mapMode: MonitorMapMode.comparison,
-  mapReferenceVisible: false,
-  mapMatchesVisible: false,
-  mapDeviationsVisible: false,
-  mapOsmRelationVisible: false,
-  mapPosition: null,
-  changesPageIndex: 0,
-  changesPage: null,
-  groupsPage: null,
-  groupPage: null,
-  groupChangesPageIndex: 0,
-  groupChangesPage: null,
-  routeAddPage: null,
-  routeUpdatePage: null,
-  routeInfoPage: null,
-  routeSaveState: null,
-  routeDetailsPage: null,
-  routeMapPage: null,
-  routeMapSelectedDeviation: null,
-  routeMapSelectedOsmSegment: null,
-  routeChangesPageIndex: 0,
-  routeChangesPage: null,
-  routeChangePage: null,
+  routeId: undefined,
+  relationId: undefined,
+  routeName: undefined,
+  routeDescription: undefined,
+  groupName: undefined,
+  groupDescription: undefined,
+  mapMode: undefined,
+  mapReferenceVisible: undefined,
+  mapMatchesVisible: undefined,
+  mapDeviationsVisible: undefined,
+  mapOsmRelationVisible: undefined,
+  mapPosition: undefined,
+  changesPageIndex: undefined,
+  changesPage: undefined,
+  groupsPage: undefined,
+  groupPage: undefined,
+  groupChangesPageIndex: undefined,
+  groupChangesPage: undefined,
+  routeAddPage: undefined,
+  routeUpdatePage: undefined,
+  routeInfoPage: undefined,
+  routeSaveState: undefined,
+  routeDetailsPage: undefined,
+  routeMapPage: undefined,
+  routeMapSelectedDeviation: undefined,
+  routeMapSelectedOsmSegment: undefined,
+  routeChangesPageIndex: undefined,
+  routeChangesPage: undefined,
+  routeChangePage: undefined,
 };
 
 export interface MonitorState {
   admin: boolean;
   adminRole: boolean;
-  routeId: string;
-  relationId: number;
-  routeName: string;
-  routeDescription: string;
-  groupName: string;
-  groupDescription: string;
-  mapMode: MonitorMapMode;
-  mapReferenceVisible: boolean;
-  mapMatchesVisible: boolean;
-  mapDeviationsVisible: boolean;
-  mapOsmRelationVisible: boolean;
-  mapPosition: MapPosition;
-  changesPageIndex: number;
-  changesPage: ApiResponse<MonitorChangesPage>;
-  groupsPage: ApiResponse<MonitorGroupsPage>;
-  groupPage: ApiResponse<MonitorGroupPage>;
-  groupChangesPageIndex: number;
-  groupChangesPage: ApiResponse<MonitorGroupChangesPage>;
-  routeAddPage: ApiResponse<MonitorRouteAddPage>;
-  routeUpdatePage: ApiResponse<MonitorRouteUpdatePage>;
-  routeInfoPage: ApiResponse<MonitorRouteInfoPage>;
+  routeId: string | undefined;
+  relationId: number | undefined;
+  routeName: string | undefined;
+  routeDescription: string | undefined;
+  groupName: string | undefined;
+  groupDescription: string | undefined;
+  mapMode: MonitorMapMode | undefined;
+  mapReferenceVisible: boolean | undefined;
+  mapMatchesVisible: boolean | undefined;
+  mapDeviationsVisible: boolean | undefined;
+  mapOsmRelationVisible: boolean | undefined;
+  mapPosition: MapPosition | undefined;
+  changesPageIndex: number | undefined;
+  changesPage: ApiResponse<MonitorChangesPage> | undefined;
+  groupsPage: ApiResponse<MonitorGroupsPage> | undefined;
+  groupPage: ApiResponse<MonitorGroupPage> | undefined;
+  groupChangesPageIndex: number | undefined;
+  groupChangesPage: ApiResponse<MonitorGroupChangesPage> | undefined;
+  routeAddPage: ApiResponse<MonitorRouteAddPage> | undefined;
+  routeUpdatePage: ApiResponse<MonitorRouteUpdatePage> | undefined;
+  routeInfoPage: ApiResponse<MonitorRouteInfoPage> | undefined;
   routeSaveState: MonitorRouteSaveState | null;
-  routeDetailsPage: ApiResponse<MonitorRouteDetailsPage>;
-  routeMapPage: ApiResponse<MonitorRouteMapPage>;
-  routeMapSelectedDeviation: MonitorRouteDeviation;
-  routeMapSelectedOsmSegment: MonitorRouteSegment;
-  routeChangesPageIndex: number;
-  routeChangesPage: ApiResponse<MonitorRouteChangesPage>;
-  routeChangePage: ApiResponse<MonitorRouteChangePage>;
+  routeDetailsPage: ApiResponse<MonitorRouteDetailsPage> | undefined;
+  routeMapPage: ApiResponse<MonitorRouteMapPage> | undefined;
+  routeMapSelectedDeviation: MonitorRouteDeviation | undefined;
+  routeMapSelectedOsmSegment: MonitorRouteSegment | undefined;
+  routeChangesPageIndex: number | undefined;
+  routeChangesPage: ApiResponse<MonitorRouteChangesPage> | undefined;
+  routeChangePage: ApiResponse<MonitorRouteChangePage> | undefined;
 }
 
 export const monitorFeatureKey = 'monitor';

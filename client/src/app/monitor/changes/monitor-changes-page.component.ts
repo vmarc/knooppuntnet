@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,6 +9,7 @@ import { actionPreferencesPageSize } from '../../core/preferences/preferences.ac
 import { actionPreferencesImpact } from '../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
+import { actionMonitorChangesPageDestroy } from '../store/monitor.actions';
 import { actionMonitorChangesPageIndex } from '../store/monitor.actions';
 import { actionMonitorChangesPageInit } from '../store/monitor.actions';
 import { selectMonitorChangesPage } from '../store/monitor.selectors';
@@ -61,7 +63,7 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
     </div>
   `,
 })
-export class MonitorChangesPageComponent implements OnInit {
+export class MonitorChangesPageComponent implements OnInit, OnDestroy {
   readonly impact$ = this.store.select(selectPreferencesImpact);
   readonly pageSize$ = this.store.select(selectPreferencesPageSize);
   readonly response$ = this.store.select(selectMonitorChangesPage);
@@ -70,6 +72,10 @@ export class MonitorChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorChangesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorChangesPageDestroy());
   }
 
   impactChanged(event: MatSlideToggleChange) {

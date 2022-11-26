@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -5,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectDefined } from '../../core/core.state';
 import { AppState } from '../../core/core.state';
+import { actionMonitorGroupsPageDestroy } from '../store/monitor.actions';
 import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
 import { selectMonitorGroupsPage } from '../store/monitor.selectors';
 import { selectMonitorAdmin } from '../store/monitor.selectors';
@@ -63,7 +65,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorGroupsPageComponent implements OnInit {
+export class MonitorGroupsPageComponent implements OnInit, OnDestroy {
   readonly admin$ = this.store.select(selectMonitorAdmin);
   readonly response$ = selectDefined(this.store, selectMonitorGroupsPage);
   readonly hasGroups$ = this.response$.pipe(
@@ -80,5 +82,9 @@ export class MonitorGroupsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupsPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorGroupsPageDestroy());
   }
 }

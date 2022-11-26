@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -6,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { actionPreferencesImpact } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
+import { actionMonitorGroupChangesPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupChangesPageIndex } from '../../store/monitor.actions';
 import { actionMonitorGroupChangesPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupChangesPage } from '../../store/monitor.selectors';
@@ -63,7 +65,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
     </div>
   `,
 })
-export class MonitorGroupChangesPageComponent implements OnInit {
+export class MonitorGroupChangesPageComponent implements OnInit, OnDestroy {
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly impact$ = this.store.select(selectPreferencesImpact);
@@ -73,6 +75,10 @@ export class MonitorGroupChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupChangesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorGroupChangesPageDestroy());
   }
 
   impactChanged(event: MatSlideToggleChange) {

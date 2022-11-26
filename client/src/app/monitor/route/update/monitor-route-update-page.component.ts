@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,6 +8,7 @@ import { selectRouteParam } from '../../../core/core.state';
 import { selectDefined } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
+import { actionMonitorRouteUpdatePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
@@ -45,7 +47,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
     </div>
   `,
 })
-export class MonitorRouteUpdatePageComponent implements OnInit {
+export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
   readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);
   readonly groupName$ = this.store.select(selectRouteParam('groupName'));
   readonly routeName$ = this.store.select(selectRouteParam('routeName'));
@@ -61,5 +63,9 @@ export class MonitorRouteUpdatePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteUpdatePageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorRouteUpdatePageDestroy());
   }
 }

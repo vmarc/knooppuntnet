@@ -15,6 +15,7 @@ import { first } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
 import { Subscriptions } from '../../../util/Subscriptions';
+import { actionMonitorRouteSaveDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteSaveInit } from '../../store/monitor.actions';
 import { selectMonitorRouteSaveState } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
@@ -140,6 +141,7 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    this.store.dispatch(actionMonitorRouteSaveDestroy());
   }
 
   backToGroup(): void {

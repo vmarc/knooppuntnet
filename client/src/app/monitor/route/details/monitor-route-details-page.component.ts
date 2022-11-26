@@ -1,9 +1,11 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteDetailsPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 
@@ -100,13 +102,17 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRouteDetailsPageComponent implements OnInit {
+export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);
 
   constructor(private snackBar: MatSnackBar, private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteDetailsPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorRouteDetailsPageDestroy());
   }
 
   gpxUpload(): void {

@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -5,6 +6,7 @@ import { Timestamp } from '@api/custom/timestamp';
 import { Store } from '@ngrx/store';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteChangePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteChangePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
 import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
@@ -240,7 +242,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
     `,
   ],
 })
-export class MonitorRouteChangePageComponent implements OnInit {
+export class MonitorRouteChangePageComponent implements OnInit, OnDestroy {
   util = Util;
 
   readonly routeName$ = this.store.select(selectMonitorRouteName);
@@ -250,6 +252,10 @@ export class MonitorRouteChangePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteChangePageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorRouteChangePageDestroy());
   }
 
   timestamp(timestampString: string): Timestamp {

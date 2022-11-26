@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
+import { actionMonitorGroupUpdateDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdate } from '../../store/monitor.actions';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
@@ -49,7 +51,7 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
     </div>
   `,
 })
-export class MonitorGroupUpdatePageComponent implements OnInit {
+export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
   private initialName = '';
   readonly name = new FormControl<string>('', {
     validators: [
@@ -91,6 +93,10 @@ export class MonitorGroupUpdatePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupUpdateInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionMonitorGroupUpdateDestroy());
   }
 
   update(groupId: string): void {

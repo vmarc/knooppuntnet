@@ -31,6 +31,10 @@ export const actionMonitorGroupsPageInit = createAction(
   '[MonitorGroupsPage] Init'
 );
 
+export const actionMonitorGroupsPageDestroy = createAction(
+  '[MonitorGroupsPage] Destroy'
+);
+
 export const actionMonitorGroupsPageLoaded = createAction(
   '[MonitorGroupsPage] Loaded',
   props<ApiResponse<MonitorGroupsPage>>()
@@ -45,6 +49,10 @@ export const actionMonitorGroupDeleteInit = createAction(
   '[MonitorAdminGroupDeletePage] Init'
 );
 
+export const actionMonitorGroupDeleteDestroy = createAction(
+  '[MonitorAdminGroupDeletePage] Destroy'
+);
+
 export const actionMonitorGroupDeleteLoaded = createAction(
   '[MonitorAdminGroupDeletePage] Loaded',
   props<ApiResponse<MonitorGroupPage>>()
@@ -52,6 +60,10 @@ export const actionMonitorGroupDeleteLoaded = createAction(
 
 export const actionMonitorGroupUpdateInit = createAction(
   '[MonitorAdminGroupUpdatePage] Init'
+);
+
+export const actionMonitorGroupUpdateDestroy = createAction(
+  '[MonitorAdminGroupUpdatePage] Destroy'
 );
 
 export const actionMonitorGroupUpdateLoaded = createAction(
@@ -63,6 +75,10 @@ export const actionMonitorGroupPageInit = createAction(
   '[MonitorGroupPage] Init'
 );
 
+export const actionMonitorGroupPageDestroy = createAction(
+  '[MonitorGroupPage] Destroy'
+);
+
 export const actionMonitorGroupPageLoaded = createAction(
   '[MonitorGroupPage] Loaded',
   props<ApiResponse<MonitorGroupPage>>()
@@ -70,6 +86,10 @@ export const actionMonitorGroupPageLoaded = createAction(
 
 export const actionMonitorGroupChangesPageInit = createAction(
   '[MonitorGroupChangesPage] Init'
+);
+
+export const actionMonitorGroupChangesPageDestroy = createAction(
+  '[MonitorGroupChangesPage] Destroy'
 );
 
 export const actionMonitorGroupChangesPageIndex = createAction(
@@ -84,6 +104,10 @@ export const actionMonitorGroupChangesPageLoaded = createAction(
 
 export const actionMonitorRouteDetailsPageInit = createAction(
   '[MonitorRouteDetailsPage] Init'
+);
+
+export const actionMonitorRouteDetailsPageDestroy = createAction(
+  '[MonitorRouteDetailsPage] Destroy'
 );
 
 export const actionMonitorRouteDetailsPageLoaded = createAction(
@@ -111,6 +135,10 @@ export const actionMonitorRouteChangesPageInit = createAction(
   '[MonitorRouteChangesPage] Init'
 );
 
+export const actionMonitorRouteChangesPageDestroy = createAction(
+  '[MonitorRouteChangesPage] Destroy'
+);
+
 export const actionMonitorRouteChangesPageIndex = createAction(
   '[MonitorRouteChangesPage] Page index',
   props<{ pageIndex: number }>()
@@ -123,6 +151,10 @@ export const actionMonitorRouteChangesPageLoaded = createAction(
 
 export const actionMonitorRouteChangePageInit = createAction(
   '[MonitorRouteChangePage] Init'
+);
+
+export const actionMonitorRouteChangePageDestroy = createAction(
+  '[MonitorRouteChangePage] Destroy'
 );
 
 export const actionMonitorRouteChangePageLoaded = createAction(
@@ -219,6 +251,10 @@ export const actionMonitorRouteAddPageInit = createAction(
   '[MonitorRouteAddPage] Init'
 );
 
+export const actionMonitorRouteAddPageDestroy = createAction(
+  '[MonitorRouteAddPage] Destroy'
+);
+
 export const actionMonitorRouteAddPageLoaded = createAction(
   '[MonitorRouteAddPage] Loaded',
   props<ApiResponse<MonitorRouteAddPage>>()
@@ -227,6 +263,10 @@ export const actionMonitorRouteAddPageLoaded = createAction(
 export const actionMonitorRouteSaveInit = createAction(
   '[Monitor] Route save init',
   props<MonitorRouteParameters>()
+);
+
+export const actionMonitorRouteSaveDestroy = createAction(
+  '[Monitor] Route save Destroy'
 );
 
 export const actionMonitorRouteUploadInit = createAction(
@@ -252,8 +292,16 @@ export const actionMonitorRouteDeletePageInit = createAction(
   '[Monitor] Route delete init'
 );
 
+export const actionMonitorRouteDeletePageDestroy = createAction(
+  '[Monitor] Route delete Destroy'
+);
+
 export const actionMonitorRouteUpdatePageInit = createAction(
   '[MonitorRouteUpdatePage] Init'
+);
+
+export const actionMonitorRouteUpdatePageDestroy = createAction(
+  '[MonitorRouteUpdatePage] Destroy'
 );
 
 export const actionMonitorRouteUpdatePageLoaded = createAction(
@@ -270,6 +318,10 @@ export const actionMonitorRouteInfoLoaded = createAction(
 
 export const actionMonitorChangesPageInit = createAction(
   '[MonitorChangesPage] Init'
+);
+
+export const actionMonitorChangesPageDestroy = createAction(
+  '[MonitorChangesPage] Destroy'
 );
 
 export const actionMonitorChangesPageIndex = createAction(
