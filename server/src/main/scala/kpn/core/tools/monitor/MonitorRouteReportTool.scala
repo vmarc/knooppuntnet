@@ -6,17 +6,17 @@ import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepository
 import kpn.server.repository.MonitorRouteRepositoryImpl
 
-object MonitorRouteReport {
+object MonitorRouteReportTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
+    Mongo.executeIn("kpn-experimental") { database =>
       val groupRepository = new MonitorGroupRepositoryImpl(database)
       val routeRepository = new MonitorRouteRepositoryImpl(database)
-      new MonitorRouteReport(groupRepository, routeRepository).report()
+      new MonitorRouteReportTool(groupRepository, routeRepository).report()
     }
   }
 }
 
-class MonitorRouteReport(
+class MonitorRouteReportTool(
   groupRepository: MonitorGroupRepository,
   routeRepository: MonitorRouteRepository
 ) {

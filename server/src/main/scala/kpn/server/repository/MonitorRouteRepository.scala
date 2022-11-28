@@ -38,6 +38,8 @@ trait MonitorRouteRepository {
 
   def routeStateSize(routeId: ObjectId): Long
 
+  def routeStateInfos(routeId: ObjectId): Seq[MonitorRouteStateInfo]
+
   def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference]
 
   def routeReference(referenceId: ObjectId): Option[MonitorRouteReference]

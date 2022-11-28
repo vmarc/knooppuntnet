@@ -72,13 +72,15 @@ trait DatabaseCollection[T] {
 
   def deleteByStringId(_id: String, log: Log = collectionLog): Unit
 
-  def deleteByObjectId(_id: ObjectId, log: Log): Unit
+  def deleteByObjectId(_id: ObjectId, log: Log = collectionLog): Unit
 
-  def deleteMany(filter: Bson, log: Log): Unit
+  def deleteMany(filter: Bson, log: Log = collectionLog): Unit
 
   def ids(log: Log = collectionLog): Seq[Long]
 
   def stringIds(log: Log = collectionLog): Seq[String]
+
+  def objectIds(log: Log = collectionLog): Seq[ObjectId]
 
   def insertMany(docs: Seq[T], log: Log = collectionLog): Unit
 
@@ -88,5 +90,5 @@ trait DatabaseCollection[T] {
 
   def updateOne(filter: Bson, update: Seq[Bson], log: Log = collectionLog): Unit
 
-  def drop(log: Log): Unit
+  def drop(log: Log = collectionLog): Unit
 }

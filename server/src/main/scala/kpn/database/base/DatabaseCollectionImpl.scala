@@ -8,6 +8,7 @@ import kpn.core.util.Log
 import kpn.database.util.Mongo
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.fields
@@ -210,6 +211,10 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
       val docs = awaitResult(future, Duration(15, TimeUnit.MINUTES), log)
       (s"collection: '$collectionName', ids: ${docs.size}", docs.map(_._id))
     }
+  }
+
+  override def objectIds(log: Log): Seq[ObjectId] = {
+    aggregate[ObjectIdId](Seq(project(fields(include("_id"))))).map(_._id)
   }
 
   override def insertMany(docs: Seq[T], log: Log): Unit = {
