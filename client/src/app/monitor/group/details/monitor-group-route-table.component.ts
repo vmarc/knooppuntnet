@@ -99,29 +99,76 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="distance">
+      <ng-container matColumnDef="reference-type">
         <th
           mat-header-cell
+          [colSpan]="3"
           *matHeaderCellDef
-          i18n="@@monitor.group.route-table.distance"
+          i18n="@@monitor.group.route-table.reference-type"
         >
-          Distance
+          Reference
         </th>
         <td mat-cell *matCellDef="let route">
-          {{ route.distance }}
+          {{ route.referenceType }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="status">
+      <ng-container matColumnDef="reference-day">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          {{ route.referenceDay }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reference-distance">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          <span *ngIf="route.referenceType">
+            {{ route.referenceDistance + ' km' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deviation-count">
         <th
           mat-header-cell
           *matHeaderCellDef
-          i18n="@@monitor.group.route-table.status"
+          [colSpan]="2"
+          i18n="@@monitor.group.route-table.deviations"
         >
-          Status
+          Deviations
         </th>
         <td mat-cell *matCellDef="let route">
-          <mat-icon *ngIf="route.happy" svgIcon="happy"></mat-icon>
+          <span *ngIf="route.referenceType">
+            {{ route.deviationCount }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deviation-distance">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          <span *ngIf="route.referenceType && route.deviationCount > 0">
+            {{ route.deviationDistance + ' km' }}
+          </span>
+          <span *ngIf="route.referenceType && route.deviationCount === 0">
+            -
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="osm-segment-count">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.route-table.osm-segment-count"
+        >
+          OSM segments
+        </th>
+        <td mat-cell *matCellDef="let route">
+          <span *ngIf="!!route.relationId">
+            {{ route.osmSegmentCount }}
+          </span>
         </td>
       </ng-container>
 
@@ -163,6 +210,38 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         padding-left: 1em;
         color: red;
       }
+
+      .mat-column-name {
+        white-space: nowrap;
+      }
+
+      .mat-column-description {
+        min-width: 12em;
+      }
+
+      .mat-column-reference-day {
+        white-space: nowrap;
+      }
+
+      .mat-column-reference-distance {
+        text-align: right !important;
+        white-space: nowrap;
+      }
+
+      .mat-column-deviation-count {
+        text-align: right !important;
+        white-space: nowrap;
+      }
+
+      .mat-column-deviation-distance {
+        text-align: right !important;
+        white-space: nowrap;
+      }
+
+      .mat-column-osm-segment-count {
+        text-align: right !important;
+        white-space: nowrap;
+      }
     `,
   ],
 })
@@ -174,36 +253,41 @@ export class MonitorGroupRouteTableComponent implements OnInit {
 
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 
+  private readonly columns = [
+    'nr',
+    'name',
+    'happy',
+    'map',
+    'relationId',
+    'description',
+    'reference-type',
+    'reference-day',
+    'reference-distance',
+    'deviation-count',
+    'deviation-distance',
+    'osm-segment-count',
+  ];
+
+  private readonly columnsWithoutHeader = [
+    'happy',
+    'reference-day',
+    'reference-distance',
+    'deviation-distance',
+  ];
+
   readonly displayedColumns$ = this.admin$.pipe(
     map((admin) => {
       if (admin) {
-        return [
-          'nr',
-          'name',
-          'happy',
-          'map',
-          'relationId',
-          'description',
-          'distance',
-          'status',
-          'actions',
-        ];
+        return [...this.columns, 'actions'];
       }
-      return [
-        'nr',
-        'name',
-        'happy',
-        'map',
-        'relationId',
-        'description',
-        'distance',
-        'status',
-      ];
+      return this.columns;
     })
   );
 
   readonly displayedHeaders$ = this.displayedColumns$.pipe(
-    map((columnNames) => columnNames.filter((name) => name !== 'happy'))
+    map((columnNames) =>
+      columnNames.filter((name) => !this.columnsWithoutHeader.includes(name))
+    )
   );
 
   constructor(

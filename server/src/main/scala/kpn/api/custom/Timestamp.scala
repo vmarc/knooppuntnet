@@ -52,6 +52,8 @@ object Timestamp {
 
 case class Timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int, second: Int) {
 
+  def toDay: Day = Day(year, month, Some(day))
+
   def key: String = s"$year$monthString$dayString$hourString$minuteString$secondString"
 
   def yyyymmdd: String = s"$year-$monthString-$dayString"

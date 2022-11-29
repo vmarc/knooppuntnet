@@ -30,7 +30,15 @@ object MonitorRouteAnalysisSupport {
       groupId,
       routeName,
       description,
-      relationId
+      relationId,
+      // new
+      referenceType = "",
+      referenceDay = None,
+      referenceDistance = 0,
+      deviationDistance = 0,
+      deviationCount = 0,
+      osmSegmentCount = 0,
+      happy = false
     )
   }
 

@@ -28,13 +28,13 @@ class MonitorGroupPageBuilder(
             route.name,
             route.description,
             route.relationId,
-            wayCount = 0,
-            osmDistance = 0,
-            gpxDistance = 0,
-            gpxFilename = None,
-            osmHappy = false,
-            gpxHappy = false,
-            happy = false
+            route.referenceType,
+            route.referenceDay,
+            route.referenceDistance,
+            route.deviationDistance,
+            route.deviationCount,
+            route.osmSegmentCount,
+            route.happy
           )
         }
       )

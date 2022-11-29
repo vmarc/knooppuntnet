@@ -8,7 +8,7 @@ import kpn.server.repository.MonitorRouteRepositoryImpl
 object MonitorRouteStateCleanupTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-prod") { database =>
-      new MonitorRouteStateCleanupTool(database).cleanup()
+      new MonitorRouteMigrationTool(database).migrate()
     }
   }
 }

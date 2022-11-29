@@ -64,6 +64,14 @@ class MonitorRouteUpdater(
         properties.name,
         properties.description,
         relationId,
+        // new
+        referenceType = "",
+        referenceDay = None,
+        referenceDistance = 0,
+        deviationDistance = 0,
+        deviationCount = 0,
+        osmSegmentCount = 0,
+        happy = false
       )
       monitorRouteRepository.saveRoute(route)
 

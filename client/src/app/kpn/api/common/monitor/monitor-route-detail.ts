@@ -1,16 +1,18 @@
 // this file is generated, please do not modify
 
+import { Day } from '../../custom/day';
+
 export interface MonitorRouteDetail {
   readonly rowIndex: number;
   readonly routeId: string;
   readonly name: string;
   readonly description: string;
   readonly relationId: number;
-  readonly wayCount: number;
-  readonly osmDistance: number;
-  readonly gpxDistance: number;
-  readonly gpxFilename: string;
-  readonly osmHappy: boolean;
-  readonly gpxHappy: boolean;
+  readonly referenceType: string;
+  readonly referenceDay: Day;
+  readonly referenceDistance: number;
+  readonly deviationDistance: number;
+  readonly deviationCount: number;
+  readonly osmSegmentCount: number;
   readonly happy: boolean;
 }
