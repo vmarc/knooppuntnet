@@ -6357,14 +6357,6 @@ The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not adde
           <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="location.selector.input.place-holder" datatype="html">
-        <source>municipality or other administrative boundary name</source>
-        <target>entrez la municipalité ou un autre nom de limite administrative</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">25,28</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location.selector.button" datatype="html">
         <source>Location overview</source>
         <target>Vue d&apos;ensemble</target>
@@ -10066,28 +10058,12 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">95,96</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.group.route-table.distance" datatype="html">
-        <source>Distance</source>
-        <target>Distance</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">108,109</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.group.route-table.status" datatype="html">
-        <source>Status</source>
-        <target>Status</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">121,122</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.group.route-table.actions" datatype="html">
         <source>Actions</source>
         <target>Actions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">134,135</context>
+          <context context-type="linenumber">181,182</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10095,7 +10071,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Update</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">185</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
@@ -10107,7 +10083,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">191</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
@@ -11100,6 +11076,30 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
           <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.deviations" datatype="html">
+        <source>Deviations</source>
+        <target>Deviations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">139,140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.osm-segment-count" datatype="html">
+        <source>OSM segments</source>
+        <target>OSM segments</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">166,167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.reference" datatype="html">
+        <source>Reference</source>
+        <target>Reference</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">109,110</context>
         </context-group>
       </trans-unit>
     </body>

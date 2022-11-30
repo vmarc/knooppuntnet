@@ -6348,14 +6348,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="location.selector.input.place-holder" datatype="html">
-        <source>municipality or other administrative boundary name</source>
-        <target>gemeente of ander administratief gebied</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">25,28</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location.selector.button" datatype="html">
         <source>Location overview</source>
         <target>Locatie-overzicht</target>
@@ -10055,28 +10047,12 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">95,96</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.group.route-table.distance" datatype="html">
-        <source>Distance</source>
-        <target>Afstand</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">108,109</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.group.route-table.status" datatype="html">
-        <source>Status</source>
-        <target>Status</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">121,122</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.group.route-table.actions" datatype="html">
         <source>Actions</source>
         <target>Acties</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">134,135</context>
+          <context context-type="linenumber">181,182</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10084,7 +10060,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Aanpassen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">185</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
@@ -10096,7 +10072,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Verwijderen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">191</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
@@ -11089,6 +11065,30 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
           <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.deviations" datatype="html">
+        <source>Deviations</source>
+        <target>Afwijkingen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">139,140</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.osm-segment-count" datatype="html">
+        <source>OSM segments</source>
+        <target>OSM segmenten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">166,167</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.reference" datatype="html">
+        <source>Reference</source>
+        <target>Referentie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">109,110</context>
         </context-group>
       </trans-unit>
     </body>

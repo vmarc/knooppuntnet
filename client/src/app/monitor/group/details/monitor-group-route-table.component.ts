@@ -104,7 +104,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           mat-header-cell
           [colSpan]="3"
           *matHeaderCellDef
-          i18n="@@monitor.group.route-table.reference-type"
+          i18n="@@monitor.group.route-table.reference"
         >
           Reference
         </th>
