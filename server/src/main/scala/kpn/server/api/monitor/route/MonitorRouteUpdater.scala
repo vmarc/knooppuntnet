@@ -40,7 +40,7 @@ object MonitorRouteUpdater {
         monitorRouteRelationRepository,
         monitorRouteAnalyzer
       )
-      updater.analyze("A", "a")
+      updater.analyze("fr-iwn-Camino", "Voie-Toulouse")
     }
   }
 }

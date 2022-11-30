@@ -47,7 +47,7 @@ object MonitorRouteAnalysisSupport {
 
     val fragmentMap = log.infoElapsed {
       val allRelations = Seq(routeRelation) ++ routeRelation.relationMembers.map(_.relation)
-      val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
+      val allWayMembers = allRelations.flatMap(relation => relation.wayMembers).filterNot(_.role.contains("place_of_worship"))
       ("fragment analyzer", new FragmentAnalyzer(Seq.empty, allWayMembers).fragmentMap)
     }
 
