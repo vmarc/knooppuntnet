@@ -65,14 +65,15 @@ class MonitorRouteUpdater(
         properties.description,
         relationId,
         // new
-        referenceType = "",
-        referenceDay = None,
+        referenceType = properties.referenceType,
+        referenceDay = properties.osmReferenceDay,
         referenceDistance = 0,
         deviationDistance = 0,
         deviationCount = 0,
         osmSegmentCount = 0,
         happy = false
       )
+
       monitorRouteRepository.saveRoute(route)
 
       if (properties.referenceType == "osm") {

@@ -6,11 +6,12 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.monitor.MonitorRouteStateUpdater
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.repository.MonitorGroupRepositoryImpl
@@ -30,7 +31,7 @@ object MonitorDemoUpdateTool {
       MonitorDemoUpdateToolOptions.parse(args) match {
         case Some(options) =>
           Mongo.executeIn(options.databaseName) { database =>
-            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+            val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
             new MonitorDemoUpdateTool(database, overpassQueryExecutor).analyze()
           }
           log.info("Done")
@@ -119,29 +120,6 @@ class MonitorDemoUpdateTool(
     now: Timestamp
   ): Unit = {
     val analyzedRouteState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
-    val newRouteState = routeRepository.routeState(route._id) match {
-      case None =>
-        // no previous state found, so we save the analysis result as is
-        log.info(s"""save first time analysis""")
-        analyzedRouteState
-      case Some(previousState) =>
-        val stateWithSameIdAndTimestamp = previousState.copy(
-          _id = analyzedRouteState._id,
-          timestamp = analyzedRouteState.timestamp
-        )
-        if (analyzedRouteState == stateWithSameIdAndTimestamp) {
-          // no change: previous analysis result is the same as the current analysis result
-          // we update the document already in the database to save the last analysis timestamp
-          log.info("same analysis result (updating timestamp only)")
-          analyzedRouteState.copy(_id = previousState._id)
-        }
-        else {
-          // the current analysis result is different from the previous analysis result
-          // we keep the previous analysis document and save the new analysis document
-          log.info("new analysis result")
-          analyzedRouteState
-        }
-    }
-    routeRepository.saveRouteState(newRouteState)
+    new MonitorRouteStateUpdater(routeRepository).update(route, analyzedRouteState)
   }
 }
