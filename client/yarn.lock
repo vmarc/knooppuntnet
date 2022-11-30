@@ -7207,6 +7207,13 @@ ngx-cookie-service@^14.0.1:
   dependencies:
     tslib "^2.0.0"
 
+ngx-device-detector@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-device-detector/-/ngx-device-detector-4.0.1.tgz#50cd5c88f805d78aac473be1fdae49186ada13bf"
+  integrity sha512-n0c9nOs7900r0pL/m4L0vaDvyf72xhKIC6bpr4BZYazWeRxankO1SqJZijqoMGxiUZnZAQqXkyhRkBIErgoKVg==
+  dependencies:
+    tslib "^2.0.0"
+
 ngx-markdown@14.0.1:
   version "14.0.1"
   resolved "https://registry.yarnpkg.com/ngx-markdown/-/ngx-markdown-14.0.1.tgz#5e97d91012dd3f429635aa7a18b2b75051eea85e"

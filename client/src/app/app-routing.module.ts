@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { JosmComponent } from './josm.component';
 
 const routes: Routes = [
+  {
+    path: 'josm',
+    component: JosmComponent,
+  },
   {
     path: 'analysis',
     loadChildren: () =>
