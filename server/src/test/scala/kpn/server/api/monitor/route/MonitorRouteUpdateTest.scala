@@ -43,11 +43,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group.name,
       name = "route",
       description = "description",
+      comment = None,
       relationId = Some(1L),
-      referenceType = "gpx",
-      osmReferenceDay = None,
-      gpxFileChanged = true,
-      gpxFilename = Some("filename")
+      referenceType = Some("gpx"),
+      referenceDay = None,
+      referenceFileChanged = true,
+      referenceFilename = Some("filename")
     )
 
     updater.add("user", "group", properties)
@@ -88,11 +89,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group.name,
       name = "route",
       description = "description",
+      comment = None,
       relationId = Some(1L),
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, 11)),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     updater.add("user", "group", properties)
@@ -119,7 +121,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
         reference.user should equal("user")
         reference.bounds should equal(Bounds(1, 1, 3, 3))
         reference.referenceType should equal("osm")
-        reference.osmReferenceDay should equal(Some(Day(2022, 8, 11)))
+        reference.referenceDay should equal(Some(Day(2022, 8, 11)))
         reference.segmentCount should equal(1)
         reference.filename should equal(None)
         reference.geometry should equal("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[1,1],[2,2],[3,3]]}]}""")
@@ -140,8 +142,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val group = newMonitorGroup("group", "")
 
-    val route = MonitorRoute(
-      ObjectId(),
+    val route = newMonitorRoute(
       group._id,
       name = "route",
       description = "description",
@@ -156,7 +157,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       "user",
       bounds = Bounds(1, 1, 3, 3),
       referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
+      referenceDay = Some(Day(2022, 8, 11)),
       segmentCount = 1,
       filename = None,
       geometry = "bla"
@@ -182,11 +183,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group.name,
       name = "route",
       description = "description",
+      comment = None,
       relationId = Some(1L),
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, 11)),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     updater.update("user", "group", "route", properties)
@@ -200,12 +202,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
   test("route update - name") {
 
     val group = newMonitorGroup("group", "")
-    val route = newMonitorRoute(group._id, "route", "", Some(1L))
+    val route = newMonitorRoute(group._id, "route", "", None, Some(1L))
     val reference = newMonitorRouteReference(
       routeId = route._id,
       relationId = route.relationId,
       referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
+      referenceDay = Some(Day(2022, 8, 11)),
     )
 
     val monitorGroupRepository = stub[MonitorGroupRepository]
@@ -228,11 +230,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group.name,
       name = "route-changed", // <-- changed
       description = "description-changed", // <-- changed
+      comment = None,
       relationId = Some(1L),
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, Some(11))),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, Some(11))),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     val result = updater.update("user", "group", "route", properties)
@@ -253,12 +256,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val group1 = newMonitorGroup("group1", "")
     val group2 = newMonitorGroup("group2", "")
-    val route = newMonitorRoute(group1._id, "route", "", Some(1L))
+    val route = newMonitorRoute(group1._id, "route", "", None, Some(1L))
     val reference = newMonitorRouteReference(
       routeId = route._id,
       relationId = route.relationId,
       referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
+      referenceDay = Some(Day(2022, 8, 11)),
     )
 
     val monitorGroupRepository = stub[MonitorGroupRepository]
@@ -282,11 +285,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group2.name, // <-- changed
       name = "route",
       description = "",
+      comment = None,
       relationId = Some(1L),
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, Some(11))),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, Some(11))),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     val result = updater.update("user", "group1", "route", properties)
@@ -306,8 +310,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val group = newMonitorGroup("group", "")
 
-    val route = MonitorRoute(
-      ObjectId(),
+    val route = newMonitorRoute(
       group._id,
       name = "route",
       description = "description",
@@ -322,7 +325,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       "user",
       bounds = Bounds(1, 1, 3, 3),
       referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
+      referenceDay = Some(Day(2022, 8, 11)),
       segmentCount = 1,
       filename = None,
       geometry = "bla"
@@ -349,11 +352,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group.name,
       name = "route",
       description = "description",
+      comment = None,
       relationId = Some(2L), // <-- changed
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, Some(11))),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, Some(11))),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     val result = updater.update("user", "group", "route", properties)
@@ -376,7 +380,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
         reference.user should equal("user")
         reference.bounds should equal(Bounds(1, 1, 2, 2))
         reference.referenceType should equal("osm")
-        reference.osmReferenceDay should equal(Some(Day(2022, 8, 11)))
+        reference.referenceDay should equal(Some(Day(2022, 8, 11)))
         reference.segmentCount should equal(1)
         reference.filename should equal(None)
         reference.geometry should equal("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[1,1],[2,2]]}]}""")
@@ -413,11 +417,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = "group",
       name = "route",
       description = "description",
+      comment = None,
       relationId = Some(1L),
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, 11)),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, 11)),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     intercept[IllegalArgumentException] {
@@ -448,11 +453,12 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       groupName = group.name,
       name = "route",
       description = "description",
+      comment = None,
       relationId = Some(1L),
-      referenceType = "osm",
-      osmReferenceDay = Some(Day(2022, 8, Some(11))),
-      gpxFileChanged = false,
-      gpxFilename = None
+      referenceType = Some("osm"),
+      referenceDay = Some(Day(2022, 8, Some(11))),
+      referenceFileChanged = false,
+      referenceFilename = None
     )
 
     val expectedMessage = s"""[route-update, group=group, route=route] Could not find route with name "route" in group "${group._id.oid}""""

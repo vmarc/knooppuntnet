@@ -6,7 +6,7 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -31,7 +31,7 @@ object MonitorDemoUpdateTool {
       MonitorDemoUpdateToolOptions.parse(args) match {
         case Some(options) =>
           Mongo.executeIn(options.databaseName) { database =>
-            val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
             new MonitorDemoUpdateTool(database, overpassQueryExecutor).analyze()
           }
           log.info("Done")
@@ -120,6 +120,6 @@ class MonitorDemoUpdateTool(
     now: Timestamp
   ): Unit = {
     val analyzedRouteState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
-    new MonitorRouteStateUpdater(routeRepository).update(route, analyzedRouteState)
+    new MonitorRouteStateUpdater(routeRepository).update(route, analyzedRouteState, routeReference)
   }
 }

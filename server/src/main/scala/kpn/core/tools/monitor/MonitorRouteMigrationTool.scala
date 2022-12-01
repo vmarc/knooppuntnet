@@ -29,16 +29,19 @@ class MonitorRouteMigrationTool(database: Database) {
               case None => println("  reference not found")
               case Some(reference) =>
                 val referenceDistance = state.gpxDistance // km
-                val deviationDistance = Math.round(state.deviations.map(_.distance).sum / 1000)
+                val deviationDistance = Math.round(state.deviations.map(_.distance).sum.toFloat / 1000)
                 val deviationCount = state.deviations.size
                 val osmSegmentCount = state.osmSegments.size
                 val happy = referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
                 val migratedRoute = route.copy(
-                  referenceType = reference.referenceType,
+                  referenceType = Some(reference.referenceType),
                   referenceDay = Some(reference.created.toDay),
+                  referenceFilename = reference.filename,
                   referenceDistance = referenceDistance,
                   deviationDistance = deviationDistance,
                   deviationCount = deviationCount,
+                  osmWayCount = state.wayCount,
+                  osmDistance = state.osmDistance,
                   osmSegmentCount = osmSegmentCount,
                   happy = happy
                 )

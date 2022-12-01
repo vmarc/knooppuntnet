@@ -161,9 +161,15 @@ class MonitorDemoAnalyzer() {
     // TODO merge gpx bounds + ok
     val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ deviations.map(_.bounds))
 
+    val wayCount = {
+      val allRelations = Seq(routeRelation) ++ routeRelation.relationMembers.map(_.relation)
+      val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
+      allWayMembers.size
+    }
+
     MonitorRouteAnalysis(
       routeRelation,
-      routeRelation.wayMembers.size,
+      wayCount,
       osmDistance,
       gpxDistance,
       bounds,

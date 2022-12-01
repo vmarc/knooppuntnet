@@ -47,7 +47,7 @@ class MonitorRouteAnalyzerImpl(
       user = user,
       bounds = bounds,
       referenceType = "gpx", // "osm" | "gpx"
-      osmReferenceDay = None,
+      referenceDay = None,
       segmentCount = 1, // number of tracks in gpx always 1, multiple track not supported yet
       filename = Some(filename),
       geometry = geoJson
@@ -75,7 +75,7 @@ class MonitorRouteAnalyzerImpl(
           case None =>
           case Some(routeRelation) =>
             val monitorRouteState = new MonitorDemoAnalyzer().analyze(route, reference, routeRelation, now)
-            new MonitorRouteStateUpdater(monitorRouteRepository).update(route, monitorRouteState)
+            new MonitorRouteStateUpdater(monitorRouteRepository).update(route, monitorRouteState, reference)
         }
     }
   }

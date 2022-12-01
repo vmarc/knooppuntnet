@@ -63,20 +63,23 @@ class MonitorRouteUpdater(
         group._id,
         properties.name,
         properties.description,
+        properties.comment,
         relationId,
-        // new
         referenceType = properties.referenceType,
-        referenceDay = properties.osmReferenceDay,
+        referenceDay = properties.referenceDay,
+        referenceFilename = properties.referenceFilename,
         referenceDistance = 0,
         deviationDistance = 0,
         deviationCount = 0,
+        osmWayCount = 0,
+        osmDistance = 0,
         osmSegmentCount = 0,
         happy = false
       )
 
       monitorRouteRepository.saveRoute(route)
 
-      if (properties.referenceType == "osm") {
+      if (properties.referenceType.contains("osm")) {
         updateOsmReference(user, route, properties)
       }
       else {
@@ -97,7 +100,7 @@ class MonitorRouteUpdater(
         updateRoute(group, route, properties)
       }
 
-      if (properties.referenceType == "osm") {
+      if (properties.referenceType.contains("osm")) {
         if (isOsmReferenceChanged(reference, properties) || isRelationIdChanged(route, properties)) {
           val updatedRoute = if (isRelationIdChanged(route, properties)) {
             route.copy(
@@ -114,8 +117,8 @@ class MonitorRouteUpdater(
           MonitorRouteSaveResult()
         }
       }
-      else if (properties.referenceType == "gpx") {
-        if (properties.gpxFileChanged) {
+      else if (properties.referenceType.contains("gpx")) {
+        if (properties.referenceFileChanged) {
           // reference has changed, but details will arrive in next api call
           // re-analyze only after reference has been updated
           MonitorRouteSaveResult()
@@ -157,7 +160,11 @@ class MonitorRouteUpdater(
         groupId = groupId,
         name = properties.name,
         description = properties.description,
-        relationId = properties.relationId
+        relationId = properties.relationId,
+        referenceType = properties.referenceType,
+        referenceDay = properties.referenceDay,
+        referenceFilename = properties.referenceFilename,
+        comment = properties.comment
       )
     )
   }
@@ -174,7 +181,7 @@ class MonitorRouteUpdater(
           user = user,
           bounds = Bounds(),
           referenceType = "osm",
-          osmReferenceDay = properties.osmReferenceDay,
+          referenceDay = properties.referenceDay,
           segmentCount = 0,
           filename = None,
           geometry = ""
@@ -184,9 +191,9 @@ class MonitorRouteUpdater(
 
       case Some(relationId) =>
 
-        val osmReferenceDay = findOsmReferenceDay(properties)
+        val referenceDay = findReferenceDay(properties)
 
-        monitorRouteRelationRepository.load(Timestamp(osmReferenceDay), relationId) match {
+        monitorRouteRelationRepository.load(Timestamp(referenceDay), relationId) match {
           case None =>
             val reference = MonitorRouteReference(
               ObjectId(),
@@ -196,7 +203,7 @@ class MonitorRouteUpdater(
               user = user,
               bounds = Bounds(),
               referenceType = "osm",
-              osmReferenceDay = properties.osmReferenceDay,
+              referenceDay = properties.referenceDay,
               segmentCount = 0,
               filename = None,
               geometry = ""
@@ -222,7 +229,7 @@ class MonitorRouteUpdater(
               user = user,
               bounds = bounds,
               referenceType = "osm",
-              osmReferenceDay = properties.osmReferenceDay,
+              referenceDay = properties.referenceDay,
               segmentCount = routeSegments.size,
               filename = None,
               geometry = geometry
@@ -264,9 +271,9 @@ class MonitorRouteUpdater(
     }
   }
 
-  private def findOsmReferenceDay(properties: MonitorRouteProperties): Day = {
-    properties.osmReferenceDay.getOrElse {
-      throw new IllegalArgumentException(s"""${Log.contextString} osmReferenceDay is required in route with referenceType="osm"""")
+  private def findReferenceDay(properties: MonitorRouteProperties): Day = {
+    properties.referenceDay.getOrElse {
+      throw new IllegalArgumentException(s"""${Log.contextString} referenceDay is required in route with referenceType="osm"""")
     }
   }
 
@@ -284,13 +291,17 @@ class MonitorRouteUpdater(
     route.name != properties.name ||
       route.description != properties.description ||
       route.relationId != properties.relationId ||
+      route.referenceType != properties.referenceType ||
+      route.referenceDay != properties.referenceDay ||
+      route.referenceFilename != properties.referenceFilename ||
+      route.comment != properties.comment ||
       group.name != properties.groupName
   }
 
   private def isOsmReferenceChanged(reference: MonitorRouteReference, properties: MonitorRouteProperties): Boolean = {
     reference.referenceType != properties.referenceType ||
       reference.relationId != properties.relationId ||
-      reference.osmReferenceDay != properties.osmReferenceDay
+      reference.referenceDay != properties.referenceDay
   }
 
   private def isRelationIdChanged(route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {

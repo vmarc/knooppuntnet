@@ -24,67 +24,77 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 
       <div *ngIf="response.result as route">
         <kpn-data title="Summary">
-          <p class="kpn-separated">
-            <kpn-osm-link-relation
-              [relationId]="route.relationId"
-            ></kpn-osm-link-relation>
-            <kpn-josm-relation
-              [relationId]="route.relationId"
-            ></kpn-josm-relation>
+          <p
+            *ngIf="!route.relationId"
+            i18n="@@monitor.route.details.relation-id-undefined"
+          >
+            Route relation has not been defined yet
           </p>
+          <div *ngIf="route.relationId">
+            <p class="kpn-separated">
+              <kpn-osm-link-relation
+                [title]="route.relationId.toString()"
+                [relationId]="route.relationId"
+              ></kpn-osm-link-relation>
+              <kpn-josm-relation
+                [relationId]="route.relationId"
+              ></kpn-josm-relation>
+            </p>
+            <p i18n="@@monitor.route.details.ways">{{ route.wayCount }} ways</p>
+            <p class="kpn-km">{{ route.osmDistance }}</p>
+          </div>
         </kpn-data>
 
-        <kpn-data title="OSM">
-          <p i18n="@@monitor.route.details.ways">{{ route.wayCount }} ways</p>
-          <p class="kpn-km">{{ route.osmDistance }}</p>
-        </kpn-data>
-
-        <kpn-data title="GPX">
-          <p>
-            {{ route.gpxFilename }}
+        <kpn-data title="Reference">
+          <div
+            *ngIf="!route.referenceType"
+            i18n="@@monitor.route.details.reference-undefined"
+          >
+            Reference not defined yet
+          </div>
+          <p *ngIf="!!route.referenceType">
+            <span>{{ route.referenceDay }}</span>
           </p>
-          <p class="kpn-km">{{ route.gpxDistance }}</p>
+          <p
+            *ngIf="route.referenceType === 'osm'"
+            i18n="@@monitor.route.details.reference.osm"
+          >
+            OSM relation snapshot
+          </p>
+          <div *ngIf="route.referenceType === 'gpx'">
+            <p>
+              {{ 'GPX: "' + route.referenceFilename + '"' }}
+            </p>
+          </div>
+          <p class="kpn-km">{{ route.referenceDistance }}</p>
         </kpn-data>
 
-        <kpn-data title="Analysis">
+        <kpn-data *ngIf="route.relationId" title="Analysis">
           <p *ngIf="route.happy" class="kpn-line">
             <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
             <kpn-icon-happy></kpn-icon-happy>
           </p>
-          <div *ngIf="!route.happy && route.gpxDistance === 0">
-            <p i18n="@@monitor.route.details.analysis.no-deviations">
-              No GPX, so no known deviations.
+          <div *ngIf="!route.happy">
+            <p>
+              <span>{{ route.deviationCount + ' ' }}</span>
+              <span i18n="@@monitor.route.details.analysis.deviations"
+                >deviations</span
+              >
+              <span class="kpn-brackets">
+                <span class="kpn-km">{{ route.deviationDistance }}</span>
+              </span>
+            </p>
+            <p>
+              <span>{{ route.osmSegmentCount + ' ' }}</span>
+              <span i18n="@@monitor.route.details.analysis.osm-segments"
+                >OSM segment(s)</span
+              >
             </p>
           </div>
-          <div *ngIf="!route.happy && route.osmSegmentCount === 1">
-            <p i18n="@@monitor.route.details.analysis.trace">
-              The OSM route looks ok: a GPX trace can be created from it.
-            </p>
-          </div>
+        </kpn-data>
 
-          <div *ngIf="route.osmSegmentCount > 1" class="kpn-line warning-line">
-            <div>
-              <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>
-            </div>
-            <span i18n="@@monitor.route.details.analysis.osm-segment-warning"
-              >The OSM route relation contains
-              {{ route.osmSegmentCount }} segments. It will not be possible to
-              create a GPX trace from it.</span
-            >
-          </div>
-          <div
-            *ngIf="route.gpxNokSegmentCount > 0"
-            class="kpn-line warning-line"
-          >
-            <div>
-              <mat-icon svgIcon="warning" class="warning-icon"></mat-icon>
-            </div>
-            <span i18n="@@monitor.route.details.analysis.gpx-segment-warning"
-              >There are {{ route.gpxNokSegmentCount }} segments in the GPX
-              trace where the distance to the closest OSM way is more than 10
-              meters.</span
-            >
-          </div>
+        <kpn-data *ngIf="route.comment" title="Comment">
+          <markdown [data]="route.comment"></markdown>
         </kpn-data>
       </div>
     </div>

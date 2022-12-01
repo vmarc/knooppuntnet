@@ -13,7 +13,7 @@ import { FormControl } from '@angular/forms';
       <mat-radio-group [formControl]="referenceType">
         <mat-radio-button class="answer" value="gpx">
           <span i18n="@@monitor.route.properties.reference-type.gpx"
-            >A GPX trace that you will upload</span
+            >A GPX trace that you will upload now</span
           >
         </mat-radio-button>
         <mat-radio-button class="answer" value="osm">

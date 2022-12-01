@@ -1012,14 +1012,36 @@ trait SharedTestObjects extends MockFactory {
     groupId: ObjectId,
     name: String,
     description: String,
-    routeId: Option[Long]
+    comment: Option[String] = None,
+    relationId: Option[Long] = None,
+    referenceType: Option[String] = None,
+    referenceDay: Option[Day] = None,
+    referenceDistance: Long = 0,
+    referenceFilename: Option[String] = None,
+    deviationDistance: Long = 0,
+    deviationCount: Long = 0,
+    osmWayCount: Long = 0,
+    osmDistance: Long = 0,
+    osmSegmentCount: Long = 0,
+    happy: Boolean = false
   ): MonitorRoute = {
     MonitorRoute(
       ObjectId(),
       groupId,
       name,
       description,
-      routeId
+      comment,
+      relationId,
+      referenceType,
+      referenceDay,
+      referenceFilename,
+      referenceDistance,
+      deviationDistance,
+      deviationCount,
+      osmWayCount,
+      osmDistance,
+      osmSegmentCount,
+      happy: Boolean
     )
   }
 
@@ -1059,7 +1081,7 @@ trait SharedTestObjects extends MockFactory {
     user: String = "",
     bounds: Bounds = Bounds(),
     referenceType: String = "", // "osm" | "gpx"
-    osmReferenceDay: Option[Day] = None,
+    referenceDay: Option[Day] = None,
     segmentCount: Long = 0,
     filename: Option[String] = None,
     geometry: String = ""
@@ -1072,7 +1094,7 @@ trait SharedTestObjects extends MockFactory {
       user,
       bounds,
       referenceType,
-      osmReferenceDay,
+      referenceDay,
       segmentCount,
       filename,
       geometry

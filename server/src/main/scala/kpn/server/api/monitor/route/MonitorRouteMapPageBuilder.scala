@@ -25,7 +25,7 @@ class MonitorRouteMapPageBuilder(
             reference.bounds,
             0, // TODO distance
             reference.referenceType,
-            reference.osmReferenceDay,
+            reference.referenceDay,
             reference.segmentCount,
             reference.filename,
             reference.geometry

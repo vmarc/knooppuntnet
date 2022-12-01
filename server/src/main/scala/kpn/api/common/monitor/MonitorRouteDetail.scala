@@ -8,7 +8,7 @@ case class MonitorRouteDetail(
   name: String,
   description: String,
   relationId: Option[Long],
-  referenceType: String,
+  referenceType: Option[String],
   referenceDay: Option[Day],
   referenceDistance: Long,
   deviationDistance: Long,

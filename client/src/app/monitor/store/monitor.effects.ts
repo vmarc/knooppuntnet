@@ -220,7 +220,7 @@ export class MonitorEffects {
         if (parameters.mode === 'add') {
           return this.monitorService.routeAdd(groupName, properties).pipe(
             map((response) => {
-              if (parameters.gpxFile) {
+              if (parameters.referenceFile) {
                 return actionMonitorRouteUploadInit(parameters);
               }
               return actionMonitorRouteSaved(response);
@@ -233,7 +233,7 @@ export class MonitorEffects {
             map((response) => {
               if (
                 properties.referenceType === 'gpx' &&
-                properties.gpxFileChanged
+                properties.referenceFileChanged
               ) {
                 return actionMonitorRouteUploadInit(parameters);
               }
@@ -254,7 +254,7 @@ export class MonitorEffects {
           .routeGpxUpload(
             groupName,
             parameters.properties.name,
-            parameters.gpxFile
+            parameters.referenceFile
           )
           .pipe(map(() => actionMonitorRouteUploaded(parameters)));
       })

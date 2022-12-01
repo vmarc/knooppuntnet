@@ -64,7 +64,7 @@ class MonitorRouteChangePageBuilder(
       routeReference.bounds,
       0, // TODO distance
       routeReference.referenceType,
-      routeReference.osmReferenceDay,
+      routeReference.referenceDay,
       routeReference.segmentCount,
       routeReference.filename,
       routeReference.geometry

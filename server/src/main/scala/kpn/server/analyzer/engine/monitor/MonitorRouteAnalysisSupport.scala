@@ -24,24 +24,6 @@ object MonitorRouteAnalysisSupport {
   private val geomFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteAnalysisSupport])
 
-  def toRoute(groupId: ObjectId, routeName: String, description: String, relationId: Option[Long]): MonitorRoute = {
-    MonitorRoute(
-      ObjectId(),
-      groupId,
-      routeName,
-      description,
-      relationId,
-      // new
-      referenceType = "",
-      referenceDay = None,
-      referenceDistance = 0,
-      deviationDistance = 0,
-      deviationCount = 0,
-      osmSegmentCount = 0,
-      happy = false
-    )
-  }
-
   // use all ways from all sub-relations to build segments
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 

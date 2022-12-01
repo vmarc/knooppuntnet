@@ -230,7 +230,7 @@ export const monitorReducer = createReducer(
     } else {
       const gpx =
         parameters.properties.referenceType === 'gpx' &&
-        parameters.properties.gpxFileChanged;
+        parameters.properties.referenceFileChanged;
       routeSaveState = {
         ...new MonitorRouteSaveState(),
         saveRouteEnabled: true,

@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
@@ -18,6 +19,7 @@ import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { DayUtil } from '../../../components/shared/day-util';
 import { AppState } from '../../../core/core.state';
+import { Subscriptions } from '../../../util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 import { MonitorRouteParameters } from './monitor-route-parameters';
@@ -84,6 +86,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       <mat-step
         label="Reference details"
         i18n-label="@@monitor.route.properties.step.reference-details"
+        [stepControl]="referenceDetailsForm"
       >
         <form
           [formGroup]="referenceDetailsForm"
@@ -93,9 +96,21 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
             [ngForm]="ngReferenceDetailsForm"
             [referenceType]="referenceType"
             [osmReferenceDate]="osmReferenceDate"
-            [gpxFilename]="gpxFilename"
-            [gpxFile]="gpxFile"
+            [gpxReferenceDate]="gpxReferenceDate"
+            [referenceFilename]="referenceFilename"
+            [referenceFile]="referenceFile"
           ></kpn-monitor-route-properties-step-5-reference-details>
+        </form>
+      </mat-step>
+      <mat-step
+        label="Comment"
+        i18n-label="@@monitor.route.properties.step.comment"
+        [stepControl]="commentForm"
+      >
+        <form [formGroup]="commentForm">
+          <kpn-monitor-route-properties-step-6-comment
+            [comment]="comment"
+          ></kpn-monitor-route-properties-step-6-comment>
         </form>
       </mat-step>
     </mat-stepper>
@@ -125,7 +140,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
     </div>
   `,
 })
-export class MonitorRoutePropertiesComponent implements OnInit {
+export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   @Input() mode: string;
   @Input() groupName: string;
   @Input() initialProperties: MonitorRouteProperties = null;
@@ -151,9 +166,21 @@ export class MonitorRoutePropertiesComponent implements OnInit {
     null,
     Validators.required
   );
-  readonly osmReferenceDate = new FormControl<Date | null>(null);
-  readonly gpxFilename = new FormControl<string | null>(null);
-  readonly gpxFile = new FormControl<File | null>(null);
+  readonly osmReferenceDate = new FormControl<Date | null>(
+    null,
+    this.osmReferenceDayValidator()
+  );
+  readonly gpxReferenceDate = new FormControl<Date | null>(
+    null,
+    this.gpxReferenceDayValidator()
+  );
+  readonly referenceFilename = new FormControl<string | null>(
+    null,
+    this.gpxReferenceFilenameValidator()
+  );
+  readonly referenceFile = new FormControl<File | null>(null);
+
+  readonly comment = new FormControl<string | null>(null);
 
   readonly groupForm = new FormGroup({
     group: this.group,
@@ -178,8 +205,13 @@ export class MonitorRoutePropertiesComponent implements OnInit {
 
   readonly referenceDetailsForm = new FormGroup({
     osmReferenceDate: this.osmReferenceDate,
-    gpxFilename: this.gpxFilename,
-    gpxFile: this.gpxFile,
+    gpxReferenceDate: this.gpxReferenceDate,
+    referenceFilename: this.referenceFilename,
+    referenceFile: this.referenceFile,
+  });
+
+  readonly commentForm = new FormGroup({
+    comment: this.comment,
   });
 
   readonly form = new FormGroup(
@@ -189,11 +221,14 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       relationIdForm: this.relationIdForm,
       referenceTypeForm: this.referenceTypeForm,
       referenceDetailsForm: this.referenceDetailsForm,
+      commentForm: this.commentForm,
     },
     {
       asyncValidators: this.asyncUpdateRouteNameUniqueValidator(),
     }
   );
+
+  private readonly subscriptions = new Subscriptions();
 
   constructor(
     private monitorService: MonitorService,
@@ -207,6 +242,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
         group: { groupName: this.groupName, groupDescription: '' },
       });
       this.osmReferenceDate.setValue(new Date());
+      this.gpxReferenceDate.setValue(new Date());
     } else {
       const initialGroup = this.routeGroups.find(
         (g) => g.groupName === this.initialProperties.groupName
@@ -218,7 +254,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
         name: this.initialProperties.name,
         description: this.initialProperties.description,
       });
-      this.relationIdForm.setValue({
+      this.relationIdForm.patchValue({
         relationIdKnown: !!this.initialProperties.relationId,
         relationId: this.initialProperties.relationId,
       });
@@ -226,13 +262,27 @@ export class MonitorRoutePropertiesComponent implements OnInit {
         referenceType: this.initialProperties.referenceType,
       });
       this.referenceDetailsForm.patchValue({
-        osmReferenceDate: DayUtil.toDate(
-          this.initialProperties.osmReferenceDay
-        ),
-        gpxFilename: this.initialProperties.gpxFilename,
-        gpxFile: null,
+        osmReferenceDate: DayUtil.toDate(this.initialProperties.referenceDay),
+        gpxReferenceDate: DayUtil.toDate(this.initialProperties.referenceDay),
+        referenceFilename: this.initialProperties.referenceFilename,
+        referenceFile: null,
+      });
+      this.commentForm.patchValue({
+        comment: this.initialProperties.comment,
       });
     }
+
+    this.subscriptions.add(
+      this.referenceTypeForm.valueChanges.subscribe(() => {
+        this.referenceFilename.updateValueAndValidity();
+        this.gpxReferenceDate.updateValueAndValidity();
+        this.osmReferenceDate.updateValueAndValidity();
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 
   groupLink(): string {
@@ -250,7 +300,7 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       mode: this.mode,
       initialProperties: this.initialProperties,
       properties: this.buildProperties(),
-      gpxFile: this.gpxFile.value,
+      referenceFile: this.referenceFile.value,
     };
 
     this.dialog.open(MonitorRouteSaveDialogComponent, {
@@ -260,9 +310,11 @@ export class MonitorRoutePropertiesComponent implements OnInit {
   }
 
   private buildProperties(): MonitorRouteProperties {
-    let osmReferenceDay: Day = null;
+    let referenceDay: Day = null;
     if (this.referenceType.value === 'osm') {
-      osmReferenceDay = DayUtil.toDay(this.osmReferenceDate.value);
+      referenceDay = DayUtil.toDay(this.osmReferenceDate.value);
+    } else if (this.referenceType.value === 'gpx') {
+      referenceDay = DayUtil.toDay(this.gpxReferenceDate.value);
     }
     return {
       name: this.name.value,
@@ -270,9 +322,10 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       groupName: this.group.value?.groupName,
       relationId: this.relationId.value,
       referenceType: this.referenceType.value,
-      osmReferenceDay,
-      gpxFileChanged: !!this.gpxFile.value,
-      gpxFilename: this.gpxFilename.value,
+      referenceDay,
+      referenceFilename: this.referenceFilename.value,
+      referenceFileChanged: !!this.referenceFile.value,
+      comment: this.comment.value,
     };
   }
 
@@ -346,5 +399,38 @@ export class MonitorRoutePropertiesComponent implements OnInit {
       }),
       catchError(() => of(null))
     );
+  }
+
+  private gpxReferenceFilenameValidator(): ValidatorFn {
+    return (): ValidationErrors | null => {
+      if (this.referenceType.value === 'gpx') {
+        if (!this.referenceFilename.value) {
+          return { required: true };
+        }
+      }
+      return null;
+    };
+  }
+
+  private gpxReferenceDayValidator(): ValidatorFn {
+    return (): ValidationErrors | null => {
+      if (this.referenceType.value === 'gpx') {
+        if (!this.gpxReferenceDate.value) {
+          return { required: true };
+        }
+      }
+      return null;
+    };
+  }
+
+  private osmReferenceDayValidator(): ValidatorFn {
+    return (): ValidationErrors | null => {
+      if (this.referenceType.value === 'osm') {
+        if (!this.osmReferenceDate.value) {
+          return { required: true };
+        }
+      }
+      return null;
+    };
   }
 }

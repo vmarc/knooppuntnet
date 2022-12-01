@@ -4,5 +4,5 @@ export interface MonitorRouteParameters {
   mode: string;
   initialProperties: MonitorRouteProperties;
   properties: MonitorRouteProperties;
-  gpxFile: File | null;
+  referenceFile: File | null;
 }

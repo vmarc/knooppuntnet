@@ -9,12 +9,16 @@ case class MonitorRoute(
   groupId: ObjectId,
   name: String,
   description: String,
+  comment: Option[String],
   relationId: Option[Long],
-  referenceType: String,
+  referenceType: Option[String],
   referenceDay: Option[Day],
+  referenceFilename: Option[String],
   referenceDistance: Long,
   deviationDistance: Long,
   deviationCount: Long,
+  osmWayCount: Long,
+  osmDistance: Long,
   osmSegmentCount: Long,
   happy: Boolean
 ) extends WithObjectId

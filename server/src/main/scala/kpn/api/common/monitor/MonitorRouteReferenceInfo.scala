@@ -10,7 +10,7 @@ case class MonitorRouteReferenceInfo(
   bounds: Bounds,
   distance: Long,
   referenceType: String, // "osm" | "gpx"
-  osmReferenceDay: Option[Day],
+  referenceDay: Option[Day],
   segmentCount: Long,
   gpxFilename: Option[String],
   geometry: String

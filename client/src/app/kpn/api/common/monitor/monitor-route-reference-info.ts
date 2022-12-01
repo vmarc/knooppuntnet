@@ -10,7 +10,7 @@ export interface MonitorRouteReferenceInfo {
   readonly bounds: Bounds;
   readonly distance: number;
   readonly referenceType: string;
-  readonly osmReferenceDay: Day;
+  readonly referenceDay: Day;
   readonly segmentCount: number;
   readonly gpxFilename: string;
   readonly geometry: string;

@@ -42,11 +42,12 @@ class MonitorRouteUpdatePageBuilder(
                       groupName = group.name,
                       name = route.name,
                       description = route.description,
+                      comment = route.comment,
                       relationId = route.relationId,
-                      referenceType = reference.referenceType,
-                      osmReferenceDay = reference.osmReferenceDay,
-                      gpxFileChanged = false,
-                      gpxFilename = reference.filename
+                      referenceType = route.referenceType,
+                      referenceDay = route.referenceDay,
+                      referenceFileChanged = false,
+                      referenceFilename = reference.filename
                     )
                   )
                 )
