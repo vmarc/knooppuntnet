@@ -6,10 +6,10 @@ import { PageWidth } from '../../components/shared/page-width';
 import { PageWidthService } from '../../components/shared/page-width.service';
 import { PlannerService } from '../planner.service';
 import { PlannerCommandReset } from '../planner/commands/planner-command-reset';
+import { PlannerCommandReverse } from '../planner/commands/planner-command-reverse';
 import { Plan } from '../planner/plan/plan';
 import { PlanReverser } from '../planner/plan/plan-reverser';
 import { PlanOutputDialogComponent } from './plan-output-dialog.component';
-import { PlannerCommandReverse } from '../planner/commands/planner-command-reverse';
 
 @Component({
   selector: 'kpn-plan-actions',
@@ -141,7 +141,10 @@ export class PlanActionsComponent implements OnInit {
   }
 
   output(): void {
-    this.dialog.open(PlanOutputDialogComponent);
+    this.dialog.open(PlanOutputDialogComponent, {
+      minWidth: 280,
+      autoFocus: false,
+    });
   }
 
   undoEnabled(): boolean {

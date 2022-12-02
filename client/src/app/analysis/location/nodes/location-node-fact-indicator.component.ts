@@ -31,6 +31,7 @@ export class LocationNodeFactIndicatorComponent implements OnInit {
   onOpenDialog() {
     this.dialog.open(LocationNodeFactIndicatorDialogComponent, {
       data: this.color,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

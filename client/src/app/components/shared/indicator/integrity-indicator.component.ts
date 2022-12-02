@@ -25,6 +25,7 @@ export class IntegrityIndicatorComponent {
   onOpenDialog() {
     this.dialog.open(IntegrityIndicatorDialogComponent, {
       data: this.data,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

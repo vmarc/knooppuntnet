@@ -20,6 +20,7 @@ export class SharedEffects {
           if (editParameters) {
             this.dialog.open(EditDialogComponent, {
               data: editParameters,
+              autoFocus: false,
               maxWidth: 600,
             });
           }

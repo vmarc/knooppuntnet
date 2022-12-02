@@ -43,6 +43,7 @@ export class SubsetMapPageComponent implements OnInit {
     if (network) {
       this.dialog.open(SubsetMapNetworkDialogComponent, {
         data: network,
+        autoFocus: false,
         maxWidth: 600,
       });
     }

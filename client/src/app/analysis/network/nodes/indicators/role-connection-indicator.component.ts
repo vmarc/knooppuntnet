@@ -31,6 +31,7 @@ export class RoleConnectionIndicatorComponent implements OnInit {
   onOpenDialog() {
     this.dialog.open(RoleConnectionIndicatorDialogComponent, {
       data: this.color,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

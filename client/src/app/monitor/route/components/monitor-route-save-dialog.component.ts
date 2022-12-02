@@ -22,11 +22,7 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>
-      <div
-        mat-dialog-title
-        i18n="@@monitor.route.save-dialog.title"
-        cdkFocusInitial
-      >
+      <div mat-dialog-title i18n="@@monitor.route.save-dialog.title">
         Save route
       </div>
       <div mat-dialog-content>

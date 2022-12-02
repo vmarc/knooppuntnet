@@ -38,6 +38,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
     );
     this.dialog.open(RouteAccessibleIndicatorDialogComponent, {
       data,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

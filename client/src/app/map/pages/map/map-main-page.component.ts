@@ -98,9 +98,15 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ) {
     this.plannerService.context.error$.subscribe((error) => {
       if (error instanceof HttpErrorResponse) {
-        this.dialog.open(LegHttpErrorDialogComponent, { maxWidth: 600 });
+        this.dialog.open(LegHttpErrorDialogComponent, {
+          autoFocus: false,
+          maxWidth: 600,
+        });
       } else if ('leg-not-found' === error.message) {
-        this.dialog.open(LegNotFoundDialogComponent, { maxWidth: 600 });
+        this.dialog.open(LegNotFoundDialogComponent, {
+          autoFocus: false,
+          maxWidth: 600,
+        });
       }
     });
   }
@@ -184,7 +190,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   zoomInToRoute(): void {
     if (this.plannerService.context.plan.legs.isEmpty()) {
-      this.dialog.open(NoRouteDialogComponent, { maxWidth: 600 });
+      this.dialog.open(NoRouteDialogComponent, {
+        autoFocus: false,
+        maxWidth: 600,
+      });
     } else {
       const bounds = this.plannerService.context.plan.bounds();
       if (bounds !== null) {

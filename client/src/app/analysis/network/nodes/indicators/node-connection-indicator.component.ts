@@ -31,6 +31,7 @@ export class NodeConnectionIndicatorComponent implements OnInit {
   onOpenDialog() {
     this.dialog.open(NodeConnectionIndicatorDialogComponent, {
       data: this.color,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

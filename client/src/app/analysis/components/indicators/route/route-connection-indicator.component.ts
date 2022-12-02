@@ -31,6 +31,7 @@ export class RouteConnectionIndicatorComponent implements OnInit {
   onOpenDialog() {
     this.dialog.open(RouteConnectionIndicatorDialogComponent, {
       data: this.color,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

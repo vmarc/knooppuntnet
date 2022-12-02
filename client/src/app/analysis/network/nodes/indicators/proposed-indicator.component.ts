@@ -32,6 +32,7 @@ export class ProposedIndicatorComponent implements OnInit {
   onOpenDialog() {
     this.dialog.open(ProposedIndicatorDialogComponent, {
       data: this.color,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

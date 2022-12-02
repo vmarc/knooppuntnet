@@ -30,6 +30,7 @@ export class RouteProposedIndicatorComponent implements OnInit {
   onOpenDialog() {
     this.dialog.open(RouteProposedIndicatorDialogComponent, {
       data: this.color,
+      autoFocus: false,
       maxWidth: 600,
     });
   }

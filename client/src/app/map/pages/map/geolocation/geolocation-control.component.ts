@@ -69,6 +69,7 @@ export class GeolocationControlComponent {
   onClick(): void {
     if (!navigator.geolocation) {
       this.dialog.open(GeolocationUnavailableDialogComponent, {
+        autoFocus: false,
         maxWidth: 600,
       });
     } else {
@@ -83,18 +84,22 @@ export class GeolocationControlComponent {
         (positionError: GeolocationPositionError) => {
           if (positionError.code === 1) {
             this.dialog.open(GeolocationPermissionDeniedDialogComponent, {
+              autoFocus: false,
               maxWidth: 600,
             });
           } else if (positionError.code === 2) {
             this.dialog.open(GeolocationUnavailableDialogComponent, {
+              autoFocus: false,
               maxWidth: 600,
             });
           } else if (positionError.code === 3) {
             this.dialog.open(GeolocationTimeoutDialogComponent, {
+              autoFocus: false,
               maxWidth: 600,
             });
           } else {
             this.dialog.open(GeolocationUnavailableDialogComponent, {
+              autoFocus: false,
               maxWidth: 600,
             });
           }

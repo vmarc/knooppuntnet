@@ -34,7 +34,7 @@ export class JosmLinkComponent {
     this.appService.edit(fullUrl).subscribe(
       (result) => {},
       (err) => {
-        this.dialog.open(TimeoutComponent, { maxWidth: 500 });
+        this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });
       }
     );
   }

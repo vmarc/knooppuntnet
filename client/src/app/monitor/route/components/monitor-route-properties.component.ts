@@ -308,6 +308,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     this.dialog
       .open(MonitorRouteSaveDialogComponent, {
         data,
+        autoFocus: false,
         maxWidth: 600,
       })
       .afterClosed()
