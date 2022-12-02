@@ -139,7 +139,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           Deviations
         </th>
         <td mat-cell *matCellDef="let route">
-          <span *ngIf="route.referenceType">
+          <span *ngIf="route.referenceType && route.relationId">
             {{ route.deviationCount }}
           </span>
         </td>
@@ -151,7 +151,13 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           <span *ngIf="route.referenceType && route.deviationCount > 0">
             {{ route.deviationDistance + ' km' }}
           </span>
-          <span *ngIf="route.referenceType && route.deviationCount === 0">
+          <span
+            *ngIf="
+              route.referenceType &&
+              route.relationId &&
+              route.deviationCount === 0
+            "
+          >
             -
           </span>
         </td>

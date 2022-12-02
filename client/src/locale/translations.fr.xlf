@@ -9499,7 +9499,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">124</context>
+          <context context-type="linenumber">140</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -10063,7 +10063,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Actions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">181,182</context>
+          <context context-type="linenumber">187,188</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10071,7 +10071,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Update</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">185</context>
+          <context context-type="linenumber">191</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
@@ -10083,7 +10083,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">191</context>
+          <context context-type="linenumber">197</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
@@ -10377,6 +10377,10 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
           <context context-type="linenumber">45,47</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">117,119</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="action.back" datatype="html">
         <source>Back</source>
@@ -10395,7 +10399,11 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">53,55</context>
+          <context context-type="linenumber">114,116</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-6-comment.component.ts</context>
+          <context context-type="linenumber">16,18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.relation.question" datatype="html">
@@ -10479,8 +10487,8 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-type.gpx" datatype="html">
-        <source>A GPX trace that you will upload</source>
-        <target>A GPX trace that you will upload</target>
+        <source>A GPX trace that you will upload now</source>
+        <target>A GPX trace that you will upload now</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
           <context context-type="linenumber">16</context>
@@ -10502,20 +10510,12 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">36,38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.properties.reference-details.date" datatype="html">
-        <source>Select the date of the route relation state that will serve as a reference (default today):</source>
-        <target>Select the date of the route relation state that will serve as a reference (default today):</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">10,13</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file" datatype="html">
         <source>Select the file that contains the GPX trace:</source>
         <target>Select the file that contains the GPX trace:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">23,25</context>
+          <context context-type="linenumber">40,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file.select" datatype="html">
@@ -10523,7 +10523,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Select file</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">38,40</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file.name" datatype="html">
@@ -10531,7 +10531,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>File</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.save" datatype="html">
@@ -10539,7 +10539,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Save</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">122,123</context>
+          <context context-type="linenumber">138,139</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.title" datatype="html">
@@ -10547,7 +10547,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Save route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">26,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.busy" datatype="html">
@@ -10555,7 +10555,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>This may take a while, please wait...</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.saved" datatype="html">
@@ -10563,7 +10563,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Route saved!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.back" datatype="html">
@@ -10571,7 +10571,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Back to group</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">91,92</context>
+          <context context-type="linenumber">87,88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.analysis-result" datatype="html">
@@ -10579,7 +10579,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Go to analysis result</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">99,100</context>
+          <context context-type="linenumber">95,96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.delete.title" datatype="html">
@@ -10623,11 +10623,11 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.ways" datatype="html">
-        <source><x equiv-text="ways&lt;/p&gt;           &lt;p class=&quot;kpn-km&quot;&gt;{{ route.osmDistance }}&lt;/p&gt;         &lt;/kpn-dat" id="INTERPOLATION"/> ways</source>
-        <target><x equiv-text="ways&lt;/p&gt;           &lt;p class=&quot;kpn-km&quot;&gt;{{ route.osmDistance }}&lt;/p&gt;         &lt;/kpn-dat" id="INTERPOLATION"/> ways</target>
+        <source><x equiv-text="ways&lt;/p&gt;             &lt;p class=&quot;kpn-km&quot;&gt;{{ route.osmDistance }}&lt;/p&gt;           &lt;/div" id="INTERPOLATION"/> ways</source>
+        <target><x equiv-text="ways&lt;/p&gt;             &lt;p class=&quot;kpn-km&quot;&gt;{{ route.osmDistance }}&lt;/p&gt;           &lt;/div" id="INTERPOLATION"/> ways</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.ok" datatype="html">
@@ -10635,39 +10635,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>All ok</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">51</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.details.analysis.no-deviations" datatype="html">
-        <source>No GPX, so no known deviations.</source>
-        <target>No GPX, so no known deviations.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">56,57</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.details.analysis.trace" datatype="html">
-        <source>The OSM route looks ok: a GPX trace can be created from it.</source>
-        <target>The OSM route looks ok: a GPX trace can be created from it.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">61,62</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.details.analysis.osm-segment-warning" datatype="html">
-        <source>The OSM route relation contains <x equiv-text="{{ route.osmSegmentCount }}" id="INTERPOLATION"/> segments. It will not be possible to create a GPX trace from it.</source>
-        <target>The OSM route relation contains <x equiv-text="{{ route.osmSegmentCount }}" id="INTERPOLATION"/> segments. It will not be possible to create a GPX trace from it.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">70,72</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.details.analysis.gpx-segment-warning" datatype="html">
-        <source>There are <x equiv-text="{{ route.gpxNokSegmentCount }}" id="INTERPOLATION"/> segments in the GPX trace where the distance to the closest OSM way is more than 10 meters.</source>
-        <target>There are <x equiv-text="{{ route.gpxNokSegmentCount }}" id="INTERPOLATION"/> segments in the GPX trace where the distance to the closest OSM way is more than 10 meters.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">83,85</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map.mode.comparison" datatype="html">
@@ -10803,7 +10771,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Group</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">33,32</context>
+          <context context-type="linenumber">36,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.name-description" datatype="html">
@@ -10811,7 +10779,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Route name and description</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.osm-relation" datatype="html">
@@ -10819,7 +10787,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>OSM relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.reference-type" datatype="html">
@@ -10827,7 +10795,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Reference type</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.reference-details" datatype="html">
@@ -10835,7 +10803,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Reference details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">85</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.name.unique" datatype="html">
@@ -10843,7 +10811,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>The route name should be unique within its the group. A route with name &quot;<x equiv-text="{{ name.value }}" id="INTERPOLATION"/>&quot; already exists within group &quot;<x equiv-text="{{         group.value.groupName       }}" id="INTERPOLATION_1"/>&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">108,112</context>
+          <context context-type="linenumber">124,128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.no-relation-id" datatype="html">
@@ -10851,7 +10819,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Note: we cannot yet perform an analysis. The reference information is still incomplete. The relation id has not been specified.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">64,66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.osm-relation-not-found" datatype="html">
@@ -10859,20 +10827,20 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Note: we cannot yet perform an analysis. The reference information is still incomplete. No route with given relation id was found at given reference date.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">75,78</context>
+          <context context-type="linenumber">71,74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-reference" datatype="html">
-        <source>No reference, so no known deviations</source>
-        <target>No reference, so no known deviations</target>
+        <source>No reference, so no analysis results.</source>
+        <target>No reference, so no analysis results.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">26,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-relation" datatype="html">
-        <source>OSM relation missing in route definition, so no known deviations.</source>
-        <target>OSM relation missing in route definition, so no known deviations.</target>
+        <source>OSM relation missing in route definition, so no analysis results.</source>
+        <target>OSM relation missing in route definition, so no analysis results.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
           <context context-type="linenumber">39,40</context>
@@ -11091,7 +11059,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>OSM segments</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">166,167</context>
+          <context context-type="linenumber">172,173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.reference" datatype="html">
@@ -11100,6 +11068,110 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
           <context context-type="linenumber">109,110</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.day" datatype="html">
+        <source>Select the date of the route relation state that will serve as a reference (default today):</source>
+        <target>Select the date of the route relation state that will serve as a reference (default today):</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">10,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.day.label" datatype="html">
+        <source>Reference day</source>
+        <target>Reference day</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">91</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.reference-day.required" datatype="html">
+        <source>Reference day is required</source>
+        <target>Reference day is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">33,35</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">107,109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.reference-filename.required" datatype="html">
+        <source>Reference filename is required</source>
+        <target>Reference filename is required</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">79,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.gpx.reference-day" datatype="html">
+        <source>Select the date at which the gpx trace was recorded or was known to be valid (default today):</source>
+        <target>Select the date at which the gpx trace was recorded or was known to be valid (default today):</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">84,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.comment.label" datatype="html">
+        <source>Additional information about the route (optional):</source>
+        <target>Additional information about the route (optional):</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-6-comment.component.ts</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.step.comment" datatype="html">
+        <source>Comment</source>
+        <target>Comment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
+          <context context-type="linenumber">108,107</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.relation-id-undefined" datatype="html">
+        <source>Route relation has not been defined yet</source>
+        <target>Route relation has not been defined yet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.reference-undefined" datatype="html">
+        <source>Reference not defined yet</source>
+        <target>Reference not defined yet</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">53,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.reference.osm" datatype="html">
+        <source>OSM relation snapshot</source>
+        <target>OSM relation snapshot</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">62,63</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.analysis.deviations" datatype="html">
+        <source>deviations</source>
+        <target>deviations</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.analysis.osm-segments" datatype="html">
+        <source>OSM segment(s)</source>
+        <target>OSM segment(s)</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
     </body>

@@ -23,7 +23,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
     ></div>
     <ng-template #noReference>
       <p i18n="@@monitor.route.map-deviations.no-reference">
-        No reference, so no known deviations
+        No reference, so no analysis results.
       </p>
     </ng-template>
     <ng-template #referenceAvailable>
@@ -36,7 +36,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
       ></div>
       <ng-template #noOsmRelation>
         <p i18n="@@monitor.route.map-deviations.no-relation">
-          OSM relation missing in route definition, so no known deviations.
+          OSM relation missing in route definition, so no analysis results.
         </p>
       </ng-template>
       <ng-template #osmRelationAvailable>
