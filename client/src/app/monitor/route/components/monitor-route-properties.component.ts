@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { Day } from '@app/kpn/api/custom/day';
@@ -233,7 +234,8 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   constructor(
     private monitorService: MonitorService,
     private store: Store<AppState>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -303,10 +305,20 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       referenceFile: this.referenceFile.value,
     };
 
-    this.dialog.open(MonitorRouteSaveDialogComponent, {
-      data,
-      maxWidth: 600,
-    });
+    this.dialog
+      .open(MonitorRouteSaveDialogComponent, {
+        data,
+        maxWidth: 600,
+      })
+      .afterClosed()
+      .subscribe((response) => {
+        let url = `/monitor/groups/${this.groupName}`;
+        if (response === 'navigate-to-analysis-result') {
+          const routeName = data.properties.name;
+          url = `/monitor/groups/${this.groupName}/routes/${routeName}/map`;
+        }
+        this.router.navigateByUrl(url);
+      });
   }
 
   private buildProperties(): MonitorRouteProperties {

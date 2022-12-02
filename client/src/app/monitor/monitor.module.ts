@@ -63,8 +63,8 @@ import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-de
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
 import { LegendLineComponent } from './route/map/legend-line';
 import { MonitorRouteMapControlComponent } from './route/map/monitor-route-map-control.component';
-import { MonitorRouteMapLayersComponent } from './route/map/monitor-route-map-layers.component';
 import { MonitorRouteMapDeviationsComponent } from './route/map/monitor-route-map-deviations.component';
+import { MonitorRouteMapLayersComponent } from './route/map/monitor-route-map-layers.component';
 import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-map-osm-segments.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';

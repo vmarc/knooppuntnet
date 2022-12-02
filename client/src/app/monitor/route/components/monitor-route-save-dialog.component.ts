@@ -4,21 +4,17 @@ import { Inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { MonitorService } from '@app/monitor/monitor.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { first } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { actionMonitorRouteSaveDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteSaveInit } from '../../store/monitor.actions';
 import { selectMonitorRouteSaveState } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { MonitorRouteParameters } from './monitor-route-parameters';
 
 @Component({
@@ -26,7 +22,11 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>
-      <div mat-dialog-title i18n="@@monitor.route.save-dialog.title">
+      <div
+        mat-dialog-title
+        i18n="@@monitor.route.save-dialog.title"
+        cdkFocusInitial
+      >
         Save route
       </div>
       <div mat-dialog-content>
@@ -130,8 +130,7 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<MonitorRouteSaveDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public parameters: MonitorRouteParameters,
     private monitorService: MonitorService,
-    private store: Store<AppState>,
-    private router: Router
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
@@ -145,38 +144,11 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
   }
 
   backToGroup(): void {
-    this.store
-      .select(selectMonitorGroupName)
-      .pipe(
-        first(),
-        tap((groupName) => {
-          const url = `/monitor/groups/${groupName}`;
-          this.closeAndNavigateTo(url);
-        })
-      )
-      .subscribe();
+    this.dialogRef.close('navigate-to-route-list');
   }
 
   gotoAnalysisResult(): void {
-    this.store
-      .select(selectMonitorGroupName)
-      .pipe(
-        first(),
-        tap((groupName) => {
-          const routeName = this.parameters.properties.name;
-          const url = `/monitor/groups/${groupName}/routes/${routeName}/map`;
-          this.closeAndNavigateTo(url);
-        })
-      )
-      .subscribe();
-  }
-
-  private closeAndNavigateTo(url: string): void {
-    this.dialogRef
-      .afterClosed()
-      .pipe(tap(() => this.router.navigateByUrl(url)))
-      .subscribe();
-    this.dialogRef.close();
+    this.dialogRef.close('navigate-to-analysis-result');
   }
 
   private closeDialogUponHttpError(): void {
