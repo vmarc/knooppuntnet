@@ -33,7 +33,7 @@ object MonitorUpdateTool {
       MonitorUpdateToolOptions.parse(args) match {
         case Some(options) =>
           Mongo.executeIn(options.databaseName) { database =>
-            val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
             new MonitorUpdateTool(database, overpassQueryExecutor).analyze()
           }
           log.info("Done")
@@ -122,6 +122,6 @@ class MonitorUpdateTool(
     now: Timestamp
   ): Unit = {
     val analyzedRouteState = new MonitorRouteStateAnalyzer().analyze(route, routeReference, routeRelation, now)
-    new MonitorRouteStateUpdater(routeRepository).update(route, analyzedRouteState, routeReference)
+    new MonitorRouteStateUpdater(routeRepository).update(route, analyzedRouteState)
   }
 }

@@ -7,10 +7,10 @@ object MonitorRouteWayFilter {
   private val ignoredRoles = Seq("place_of_worship", "guest_house", "outer", "inner")
 
   def filter(wayMembers: Seq[WayMember]): Seq[WayMember] = {
-    filterBuildings(filterIngoredRoles(wayMembers))
+    filterBuildings(filterIgnoredRoles(wayMembers))
   }
 
-  private def filterIngoredRoles(wayMembers: Seq[WayMember]): Seq[WayMember] = {
+  private def filterIgnoredRoles(wayMembers: Seq[WayMember]): Seq[WayMember] = {
     wayMembers.filter { member =>
       member.role match {
         case Some(role) => !ignoredRoles.contains(role)
@@ -21,7 +21,7 @@ object MonitorRouteWayFilter {
 
   private def filterBuildings(wayMembers: Seq[WayMember]): Seq[WayMember] = {
     wayMembers.filter { member =>
-      !member.way.tags.has("building", "yes")
+      !member.way.tags.has("building")
     }
   }
 

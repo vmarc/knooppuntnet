@@ -7,7 +7,7 @@ import kpn.server.repository.MonitorRouteRepository
 
 class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
 
-  def update(route: MonitorRoute, newState: MonitorRouteState, routeReference: MonitorRouteReference): Unit = {
+  def update(route: MonitorRoute, newState: MonitorRouteState): Unit = {
 
     val state = routeRepository.routeState(route._id) match {
       case Some(previousState) => newState.copy(_id = previousState._id)
@@ -15,17 +15,12 @@ class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
     }
     routeRepository.saveRouteState(state)
 
-    val referenceDistance = state.gpxDistance // km
     val deviationDistance = Math.round(state.deviations.map(_.distance).sum.toFloat / 1000)
     val deviationCount = state.deviations.size
     val osmSegmentCount = state.osmSegments.size
-    val happy = referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
+    val happy = route.referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
 
     val newRoute = route.copy(
-      referenceType = Some(routeReference.referenceType),
-      referenceDay = routeReference.referenceDay,
-      referenceFilename = routeReference.filename,
-      referenceDistance = referenceDistance,
       deviationDistance = deviationDistance,
       deviationCount = deviationCount,
       osmWayCount = newState.wayCount,

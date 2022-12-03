@@ -3,12 +3,13 @@ package kpn.core.tools.monitor
 import kpn.api.custom.Day
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
 
 object MonitorRoutePatchTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
+    Mongo.executeIn("kpn-prod") { database =>
       new MonitorRoutePatchTool(database).patch()
     }
   }
@@ -107,28 +108,42 @@ class MonitorRoutePatchTool(database: Database) {
 
 
     groupRepository.groups().sortBy(_.name).foreach { group =>
-      if (group.name == "SGR") {
-        sgrUpdates.foreach { update =>
-          routeRepository.routeByName(group._id, update._1).foreach { route =>
-            routeRepository.saveRoute(
-              route.copy(referenceDay = Some(update._2))
-            )
-          }
+      groupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
+        println(s"${group.name}:${route.name}")
+        routeRepository.routeReferenceRouteWithId(route._id) match {
+          case None => println("  reference not found")
+          case Some(reference) =>
+            if (group.name == "SGR") {
+              sgrUpdates.find(_._1 == route.name) match {
+                case Some(pair) => updateRoute(route, Some(pair._2))
+                case None =>
+                  val referenceDay = route.referenceType match {
+                    case Some(referenceType) => Some(reference.created.toDay)
+                    case None => None
+                  }
+                  updateRoute(route, referenceDay)
+              }
+            }
+            else {
+              updateRoute(route, Some(reference.created.toDay))
+            }
         }
       }
-      else {
-        groupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
-          println(s"${group.name}:${route.name}")
-          routeRepository.routeReferenceRouteWithId(route._id) match {
-            case None => println("  reference not found")
-            case Some(reference) =>
-              val migratedRoute = route.copy(
-                referenceDay = Some(reference.created.toDay),
-              )
-              routeRepository.saveRoute(migratedRoute)
-          }
+    }
+  }
+
+  private def updateRoute(route: MonitorRoute, referenceDay: Option[Day]): Unit = {
+    val migratedRoute = route.copy(
+      referenceDay = referenceDay,
+    )
+    routeRepository.saveRoute(migratedRoute)
+    routeRepository.routeReferenceRouteWithId(route._id) match {
+      case Some(reference) =>
+        if (reference.referenceDay.isEmpty) {
+          routeRepository.saveRouteReference(
+            reference.copy(referenceDay = referenceDay)
+          )
         }
-      }
     }
   }
 }
