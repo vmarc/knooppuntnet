@@ -25,11 +25,17 @@ object MonitorRouteAnalysisSupport {
   def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
 
     val fragmentMap = log.infoElapsed {
-      val allRelations = Seq(routeRelation) ++ routeRelation.relationMembers.map(_.relation)
+      val allRelations = RelationUtil.relationsInRelation(routeRelation)
       val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
-      val filteredWayMembers = allWayMembers.filterNot(member => member.role.contains("place_of_worship") || member.role.contains("guest_house") || member.role.contains("outer") || member.role.contains("inner"))
+      val filteredWayMembers = MonitorRouteWayFilter.filter(allWayMembers)
       ("fragment analyzer", new FragmentAnalyzer(Seq.empty, filteredWayMembers).fragmentMap)
     }
+
+    // new, do single (sub-)relation only:
+    //    val fragmentMap = log.infoElapsed {
+    //      val filteredWayMembers = MonitorRouteWayFilter.filter(routeRelation.wayMembers)
+    //      ("fragment analyzer", new FragmentAnalyzer(Seq.empty, filteredWayMembers).fragmentMap)
+    //    }
 
     val segments = log.infoElapsed {
       ("segment builder", new MonitorSegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
@@ -46,53 +52,43 @@ object MonitorRouteAnalysisSupport {
       val bounds = toBounds(lineString.getCoordinates.toSeq)
       val geoJson = toGeoJson(lineString)
 
+      val startId = {
+        segment.fragments.headOption match {
+          case None =>
+            0 // TODO throw exception
+          case Some(f) =>
+            f.fragment.nodes.headOption match {
+              case None =>
+                0 // TODO throw exception
+              case Some(n) => n.id
+            }
+        }
+      }
+      val endId = {
+        segment.fragments.lastOption match {
+          case None =>
+            0 // TODO throw exception
+          case Some(f) =>
+            f.fragment.nodes.lastOption match {
+              case None =>
+                0 // TODO throw exception
+              case Some(n) => n.id
+            }
+        }
+      }
+
       MonitorRouteSegmentData(
+        index + 1,
         MonitorRouteSegment(
           index + 1,
+          startId,
+          endId,
           meters,
           bounds,
           geoJson
         ),
         lineString
       )
-    }
-  }
-
-  // separate segment per sub-relation
-  def toRouteSegments2(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
-
-    log.infoElapsed {
-      val allRelations = RelationUtil.relationsInRelation(routeRelation)
-      val routeSegments = allRelations.flatMap { relation =>
-        val wayMembers = relation.wayMembers
-        val fragmentMap = new FragmentAnalyzer(Seq.empty, wayMembers).fragmentMap
-        val segments = log.infoElapsed {
-          ("segment builder", new MonitorSegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
-        }
-
-        val filteredSegments = segments.filterNot { segment =>
-          segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
-        }.filterNot(_.nodes.size == 1) // TODO investigate why segment with one node in route P-GR128
-
-        filteredSegments.zipWithIndex.map { case (segment, index) =>
-
-          val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
-          val meters: Long = Math.round(toMeters(lineString.getLength))
-          val bounds = toBounds(lineString.getCoordinates.toSeq)
-          val geoJson = toGeoJson(lineString)
-
-          MonitorRouteSegmentData(
-            MonitorRouteSegment(
-              index + 1,
-              meters,
-              bounds,
-              geoJson
-            ),
-            lineString
-          )
-        }
-      }
-      ("toRouteSegments", routeSegments)
     }
   }
 

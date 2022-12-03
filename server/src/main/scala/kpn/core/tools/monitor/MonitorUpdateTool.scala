@@ -7,10 +7,12 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.monitor.MonitorRouteStateAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteStateUpdater
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
@@ -22,17 +24,17 @@ import org.mongodb.scala.model.Sorts.orderBy
 
 import scala.xml.XML
 
-object MonitorDemoUpdateTool {
-  private val log = Log(classOf[MonitorDemoUpdateTool])
+object MonitorUpdateTool {
+  private val log = Log(classOf[MonitorUpdateTool])
 
   def main(args: Array[String]): Unit = {
 
     val exit: Int = try {
-      MonitorDemoUpdateToolOptions.parse(args) match {
+      MonitorUpdateToolOptions.parse(args) match {
         case Some(options) =>
           Mongo.executeIn(options.databaseName) { database =>
-            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
-            new MonitorDemoUpdateTool(database, overpassQueryExecutor).analyze()
+            val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+            new MonitorUpdateTool(database, overpassQueryExecutor).analyze()
           }
           log.info("Done")
           0
@@ -52,12 +54,12 @@ object MonitorDemoUpdateTool {
   }
 }
 
-class MonitorDemoUpdateTool(
+class MonitorUpdateTool(
   database: Database,
   overpassQueryExecutor: OverpassQueryExecutor
 ) {
 
-  private val log = Log(classOf[MonitorDemoUpdateTool])
+  private val log = Log(classOf[MonitorUpdateTool])
   private val groupRepository = new MonitorGroupRepositoryImpl(database)
   private val routeRepository = new MonitorRouteRepositoryImpl(database)
   private val now = Time.now
@@ -119,7 +121,7 @@ class MonitorDemoUpdateTool(
     routeRelation: Relation,
     now: Timestamp
   ): Unit = {
-    val analyzedRouteState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
+    val analyzedRouteState = new MonitorRouteStateAnalyzer().analyze(route, routeReference, routeRelation, now)
     new MonitorRouteStateUpdater(routeRepository).update(route, analyzedRouteState, routeReference)
   }
 }

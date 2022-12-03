@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.server.analyzer.engine.monitor
 
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteDeviation
@@ -6,10 +6,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.core.util.Util
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysis
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
-import kpn.server.analyzer.engine.monitor.MonitorRouteSegmentData
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
@@ -25,22 +22,28 @@ case class AnalysisResult(
   matches: MultiLineString
 )
 
-class MonitorDemoAnalyzer() {
+class MonitorRouteStateAnalyzer() {
 
   private val geomFactory = new GeometryFactory
   private val sampleDistanceMeters = 10
   private val toleranceMeters = 10
-  private val log = Log(classOf[MonitorDemoAnalyzer])
+  private val log = Log(classOf[MonitorRouteStateAnalyzer])
 
   def analyze(
     route: MonitorRoute,
     routeReference: MonitorRouteReference,
-    routeRelation: Relation,
+    routeRootRelation: Relation,
     now: Timestamp
   ): MonitorRouteState = {
 
-    val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRelation)
-    val routeAnalysis = analyzeChange(routeReference, routeRelation, routeSegments)
+    val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(routeRootRelation)
+    val routeAnalysis = analyzeChange(routeReference, routeRootRelation, routeSegments)
+
+    //    val subRelations = RelationUtil.relationsInRelation(routeRootRelation)
+    //    val subRelationDatas = subRelations.map { subRouteRelation =>
+    //      val subRouteSegments = MonitorRouteAnalysisSupport.toRouteSegments(subRouteRelation)
+    //      MonitorSubRelationData(subRouteRelation, subRouteSegments)
+    //    }
 
     val happy = routeAnalysis.gpxDistance > 0 &&
       routeAnalysis.deviations.isEmpty &&
@@ -69,14 +72,7 @@ class MonitorDemoAnalyzer() {
   ): MonitorRouteAnalysis = {
 
     val referenceGeoJson = new GeoJsonReader().read(reference.geometry)
-    val collection = referenceGeoJson match {
-      case geometryCollection: GeometryCollection => geometryCollection
-      case _ => geomFactory.createGeometryCollection(Array(referenceGeoJson))
-    }
-
-    val referenceLineStrings: Seq[LineString] = 0.until(collection.getNumGeometries).map { index =>
-      collection.getGeometryN(index).asInstanceOf[LineString]
-    }
+    val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(referenceGeoJson)
 
     val analysisResults = referenceLineStrings.map { referenceLineString =>
       val referenceMeters = MonitorRouteAnalysisSupport.toMeters(referenceLineString.getLength)

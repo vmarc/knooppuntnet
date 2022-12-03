@@ -15,6 +15,7 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteStateAnalyzer
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
@@ -88,7 +89,7 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
           case None =>
           case Some(relationId) =>
             val routeRelation = readRouteRelation(relationId)
-            val routeState = new MonitorDemoAnalyzer().analyze(route, routeReference, routeRelation, now)
+            val routeState = new MonitorRouteStateAnalyzer().analyze(route, routeReference, routeRelation, now)
             database.monitorRouteStates.save(routeState)
         }
       }
