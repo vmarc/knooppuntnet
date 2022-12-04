@@ -20,9 +20,7 @@ object MonitorRouteWayFilter {
   }
 
   private def filterBuildings(wayMembers: Seq[WayMember]): Seq[WayMember] = {
-    wayMembers.filter { member =>
-      !member.way.tags.has("building")
-    }
+    wayMembers.filterNot(_.way.tags.has("building"))
   }
 
 }
