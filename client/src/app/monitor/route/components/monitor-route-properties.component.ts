@@ -22,7 +22,6 @@ import { DayUtil } from '../../../components/shared/day-util';
 import { AppState } from '../../../core/core.state';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
-import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 import { MonitorRouteParameters } from './monitor-route-parameters';
 import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.component';
 
@@ -289,12 +288,6 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   groupLink(): string {
     return `/monitor/groups/${this.groupName}`;
-  }
-
-  getRouteInformation(): void {
-    this.store.dispatch(
-      actionMonitorRouteInfo({ relationId: this.relationId.value })
-    );
   }
 
   save(): void {

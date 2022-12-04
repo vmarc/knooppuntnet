@@ -12,7 +12,6 @@ import { FormControl } from '@angular/forms';
         reference (default today):
       </p>
       <kpn-day-input
-        [ngForm]="ngForm"
         [date]="osmReferenceDate"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
@@ -21,9 +20,7 @@ import { FormControl } from '@angular/forms';
       <div
         *ngIf="
           osmReferenceDate.invalid &&
-          (osmReferenceDate.dirty ||
-            osmReferenceDate.touched ||
-            ngForm.submitted)
+          (osmReferenceDate.touched || ngForm.submitted)
         "
         class="kpn-form-error"
       >
@@ -31,7 +28,7 @@ import { FormControl } from '@angular/forms';
           *ngIf="osmReferenceDate.errors?.required"
           i18n="@@monitor.route.reference-day.required"
         >
-          Reference day is required
+          Please provide a valid reference day
         </div>
       </div>
     </div>
@@ -86,7 +83,6 @@ import { FormControl } from '@angular/forms';
         valid (default today):
       </p>
       <kpn-day-input
-        [ngForm]="ngForm"
         [date]="gpxReferenceDate"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
@@ -95,9 +91,7 @@ import { FormControl } from '@angular/forms';
       <div
         *ngIf="
           gpxReferenceDate.invalid &&
-          (gpxReferenceDate.dirty ||
-            gpxReferenceDate.touched ||
-            ngForm.submitted)
+          (gpxReferenceDate.touched || ngForm.submitted)
         "
         class="kpn-form-error"
       >
@@ -105,7 +99,7 @@ import { FormControl } from '@angular/forms';
           *ngIf="gpxReferenceDate.errors?.required"
           i18n="@@monitor.route.reference-day.required"
         >
-          Reference day is required
+          Please provide a valid reference day
         </div>
       </div>
     </div>

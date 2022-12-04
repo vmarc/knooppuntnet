@@ -116,7 +116,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
       <ng-container matColumnDef="reference-day">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          {{ route.referenceDay }}
+          {{ route.referenceDay | day }}
         </td>
       </ng-container>
 

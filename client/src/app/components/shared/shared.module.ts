@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -18,6 +20,7 @@ import { SpinnerModule } from '../../spinner/spinner.module';
 import { CountryNameComponent } from './country-name.component';
 import { DataComponent } from './data/data.component';
 import { DayComponent } from './day/day.component';
+import { KpnDateAdapter } from './day/kpn-date-adapter';
 import { DialogComponent } from './dialog/dialog.component';
 import { WarningDialogComponent } from './dialog/warning-dialog.component';
 import { ErrorComponent } from './error/error.component';
@@ -107,6 +110,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
+    MatNativeDateModule,
   ],
   declarations: [
     LinkChangesetComponent,
@@ -259,6 +263,12 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     IntegrityIndicatorComponent,
     DayInputComponent,
   ],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'de' }],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: KpnDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+  ],
 })
 export class SharedModule {}

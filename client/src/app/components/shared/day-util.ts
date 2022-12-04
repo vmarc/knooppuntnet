@@ -26,7 +26,7 @@ export class DayUtil {
     if (day) {
       const year = this.year(day);
       const month = this.month(day);
-      if (day.length > '2021-08'.length) {
+      if (day.length > 'YYYY-MM'.length) {
         const dayPart = this.day(day);
         if (locale === 'nl') {
           return `${dayPart}-${month}-${year}`;
@@ -92,19 +92,6 @@ export class DayUtil {
     if (locale === 'fr') {
       return 'DD/MM/YYYY';
     }
-    return 'DD-MM-YYYY';
-  }
-
-  static localeString(locale: string): string {
-    if (locale === 'nl') {
-      return 'nl';
-    }
-    if (locale === 'de') {
-      return 'de';
-    }
-    if (locale === 'fr') {
-      return 'fr';
-    }
-    return 'nl';
+    return 'YYYY-MM-DD';
   }
 }

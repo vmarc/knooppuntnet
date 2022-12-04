@@ -1,13 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Input } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { DateAdapter } from '@angular/material/core';
 import { DayUtil } from '../day-util';
 
 @Component({
@@ -23,23 +19,13 @@ import { DayUtil } from '../day-util';
     </mat-form-field>
   `,
 })
-export class DayInputComponent implements OnInit {
-  @Input() ngForm: FormGroupDirective;
+export class DayInputComponent {
   @Input() date: FormControl<Date | null>;
   @Input() label: string;
 
-  constructor(
-    @Inject(LOCALE_ID) public locale: string,
-    private _adapter: DateAdapter<any>,
-    @Inject(MAT_DATE_LOCALE) private matDateLocale: string
-  ) {}
-
-  ngOnInit(): void {
-    this.matDateLocale = DayUtil.localeString(this.locale);
-    this._adapter.setLocale(this.matDateLocale);
-  }
+  constructor(@Inject(MAT_DATE_LOCALE) private matDateLocale: string) {}
 
   dateFormatString(): string {
-    return DayUtil.formatString(this.locale);
+    return DayUtil.formatString(this.matDateLocale);
   }
 }

@@ -40,7 +40,10 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
                 [relationId]="route.relationId"
               ></kpn-josm-relation>
             </p>
-            <p i18n="@@monitor.route.details.ways">{{ route.wayCount }} ways</p>
+            <p>
+              <span>{{ route.wayCount }}</span>
+              <span i18n="@@monitor.route.details.ways">ways</span>
+            </p>
             <p class="kpn-km">{{ route.osmDistance }}</p>
           </div>
         </kpn-data>
@@ -53,7 +56,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
             Reference not defined yet
           </div>
           <p *ngIf="!!route.referenceType">
-            <span>{{ route.referenceDay }}</span>
+            <span>{{ route.referenceDay | day }}</span>
           </p>
           <p
             *ngIf="route.referenceType === 'osm'"
