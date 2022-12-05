@@ -7,6 +7,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState

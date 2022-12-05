@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
-import kpn.server.analyzer.engine.monitor.MonitorChangeImpactAnalyzerImpl
+import kpn.server.analyzer.engine.monitor.changes.MonitorChangeImpactAnalyzerImpl
 import org.apache.commons.io.FileUtils
 
 import java.io.File

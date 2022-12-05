@@ -1,4 +1,6 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.tryout
+
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 
 case class XxxSegmentFragment(fragment: MonitorRouteSegmentData, reversed: Boolean = false) {
 

@@ -9,6 +9,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.MonitorSegmentBuilder
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory

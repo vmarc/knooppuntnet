@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.domain
 
 import kpn.api.custom.Relation
 

@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.changes
 
 import kpn.api.base.ObjectId
 import kpn.api.common.LatLonImpl
@@ -10,7 +10,10 @@ import kpn.core.util.Util
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference

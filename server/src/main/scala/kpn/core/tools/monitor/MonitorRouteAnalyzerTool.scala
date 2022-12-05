@@ -8,10 +8,10 @@ import kpn.database.util.Mongo
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.monitor.MonitorChangeImpactAnalyzerFileImpl
-import kpn.server.analyzer.engine.monitor.MonitorChangeProcessor
-import kpn.server.analyzer.engine.monitor.MonitorChangeProcessorImpl
-import kpn.server.analyzer.engine.monitor.MonitorRouteLoaderFileImpl
+import kpn.server.analyzer.engine.monitor.changes.MonitorChangeImpactAnalyzerFileImpl
+import kpn.server.analyzer.engine.monitor.changes.MonitorChangeProcessor
+import kpn.server.analyzer.engine.monitor.changes.MonitorChangeProcessorImpl
+import kpn.server.analyzer.engine.monitor.changes.MonitorRouteLoaderFileImpl
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl

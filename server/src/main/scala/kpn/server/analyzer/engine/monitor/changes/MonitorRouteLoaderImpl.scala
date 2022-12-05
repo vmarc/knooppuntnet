@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.changes
 
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawRelation
