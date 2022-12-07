@@ -74,7 +74,8 @@ class MonitorRouteUpdater(
         osmWayCount = 0,
         osmDistance = 0,
         osmSegmentCount = 0,
-        happy = false
+        happy = false,
+        relations = None // TODO add information about sub-relations where applicable
       )
 
       monitorRouteRepository.saveRoute(route)

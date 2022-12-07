@@ -63,7 +63,8 @@ class MonitorRouteStateAnalyzer() {
       routeAnalysis.osmSegments,
       routeAnalysis.matchesGeometry,
       routeAnalysis.deviations,
-      happy
+      happy,
+      Seq.empty // TODO add state per sub-relation where applicable
     )
   }
 
@@ -174,7 +175,8 @@ class MonitorRouteStateAnalyzer() {
       osmRouteSegments.map(_.segment),
       Some(gpxGeometry),
       matchesGeometry,
-      deviations
+      deviations,
+      relations = Seq.empty // TODO add analysis result per sub-relation where applicable
     )
   }
 }

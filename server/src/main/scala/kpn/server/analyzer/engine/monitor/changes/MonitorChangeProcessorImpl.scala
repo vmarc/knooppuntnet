@@ -209,7 +209,8 @@ class MonitorChangeProcessorImpl(
         afterRoute.osmSegments,
         afterRoute.matchesGeometry,
         afterRoute.deviations,
-        happy
+        happy,
+        osmSuperSegments = Seq.empty // TODO add osm super segments
       )
 
       monitorRouteRepository.saveRouteState(routeState)
@@ -288,7 +289,8 @@ class MonitorChangeProcessorImpl(
       osmRouteSegments.map(_.segment),
       Some(gpxGeometry),
       okGeometry,
-      deviations
+      deviations,
+      relations = Seq.empty // TODO add analysis result per sub-relation where applicable
     )
   }
 

@@ -28,7 +28,10 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.api.monitor.domain.MonitorRouteStateRelation
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
@@ -127,12 +130,24 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[MonitorRoute]("monitor-routes"))
   }
 
+  override def monitorRouteRelations: DatabaseCollection[MonitorRouteRelation] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteRelation]("monitor-route-relations"))
+  }
+
   override def monitorRouteReferences: DatabaseCollection[MonitorRouteReference] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteReference]("monitor-route-references"))
   }
 
+  override def monitorRouteReferenceRelations: DatabaseCollection[MonitorRouteReferenceRelation] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteReferenceRelation]("monitor-route-reference-relations"))
+  }
+
   override def monitorRouteStates: DatabaseCollection[MonitorRouteState] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteState]("monitor-route-states"))
+  }
+
+  override def monitorRouteStateRelations: DatabaseCollection[MonitorRouteStateRelation] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteStateRelation]("monitor-route-state-relations"))
   }
 
   override def monitorRouteChanges: DatabaseCollection[MonitorRouteChange] = {

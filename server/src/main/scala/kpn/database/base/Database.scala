@@ -9,7 +9,6 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
-import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
@@ -28,9 +27,11 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.api.monitor.domain.MonitorRouteStateRelation
 import org.mongodb.scala.MongoCollection
-import org.mongodb.scala.MongoDatabase
 
 import scala.reflect.ClassTag
 
@@ -80,9 +81,15 @@ trait Database {
 
   def monitorRoutes: DatabaseCollection[MonitorRoute]
 
+  def monitorRouteRelations: DatabaseCollection[MonitorRouteRelation]
+
   def monitorRouteReferences: DatabaseCollection[MonitorRouteReference]
 
+  def monitorRouteReferenceRelations: DatabaseCollection[MonitorRouteReferenceRelation]
+
   def monitorRouteStates: DatabaseCollection[MonitorRouteState]
+
+  def monitorRouteStateRelations: DatabaseCollection[MonitorRouteStateRelation]
 
   def monitorRouteChanges: DatabaseCollection[MonitorRouteChange]
 

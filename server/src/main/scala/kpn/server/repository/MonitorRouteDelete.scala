@@ -10,8 +10,11 @@ class MonitorRouteDelete(database: Database) {
   def delete(routeId: ObjectId, log: Log): Unit = {
     database.monitorRoutes.deleteByObjectId(routeId, log)
     val routeFilter = equal("routeId", routeId.raw)
+    database.monitorRouteRelations.deleteMany(routeFilter, log)
     database.monitorRouteReferences.deleteMany(routeFilter, log)
+    database.monitorRouteReferenceRelations.deleteMany(routeFilter, log)
     database.monitorRouteStates.deleteMany(routeFilter, log)
+    database.monitorRouteStateRelations.deleteMany(routeFilter, log)
     database.monitorRouteChanges.deleteMany(routeFilter, log)
     database.monitorRouteChangeGeometries.deleteMany(routeFilter, log)
   }

@@ -8,7 +8,10 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.api.monitor.domain.MonitorRouteStateRelation
 
 trait MonitorRouteRepository {
 
@@ -16,11 +19,17 @@ trait MonitorRouteRepository {
 
   def saveRoute(route: MonitorRoute): Unit
 
+  def saveRouteRelation(routeRelation: MonitorRouteRelation): Unit
+
   def deleteRoute(routeId: ObjectId): Unit
 
   def saveRouteState(routeState: MonitorRouteState): Unit
 
+  def saveRouteStateRelation(routeStateRelation: MonitorRouteStateRelation): Unit
+
   def saveRouteReference(routeReference: MonitorRouteReference): Unit
+
+  def saveRouteReferenceRelation(routeReferenceRelation: MonitorRouteReferenceRelation): Unit
 
   def saveRouteChange(routeChange: MonitorRouteChange): Unit
 

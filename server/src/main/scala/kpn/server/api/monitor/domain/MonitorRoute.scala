@@ -11,14 +11,22 @@ case class MonitorRoute(
   description: String,
   comment: Option[String],
   relationId: Option[Long],
+
+  // reference information
   referenceType: Option[String],
   referenceDay: Option[Day],
   referenceFilename: Option[String],
   referenceDistance: Long,
+
+  // analysis results
   deviationDistance: Long,
   deviationCount: Long,
   osmWayCount: Long,
   osmDistance: Long,
   osmSegmentCount: Long,
-  happy: Boolean
+  happy: Boolean,
+
+  // extra route information and analysis results
+  relations: Option[Seq[MonitorRouteRelation]]
+
 ) extends WithObjectId

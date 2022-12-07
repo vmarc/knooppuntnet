@@ -83,7 +83,9 @@ import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -1023,7 +1025,8 @@ trait SharedTestObjects extends MockFactory {
     osmWayCount: Long = 0,
     osmDistance: Long = 0,
     osmSegmentCount: Long = 0,
-    happy: Boolean = false
+    happy: Boolean = false,
+    relations: Option[Seq[MonitorRouteRelation]] = None
   ): MonitorRoute = {
     MonitorRoute(
       ObjectId(),
@@ -1041,7 +1044,8 @@ trait SharedTestObjects extends MockFactory {
       osmWayCount,
       osmDistance,
       osmSegmentCount,
-      happy: Boolean
+      happy,
+      relations
     )
   }
 
@@ -1111,7 +1115,9 @@ trait SharedTestObjects extends MockFactory {
     referenceId: Option[ObjectId] = None,
     osmSegments: Seq[MonitorRouteSegment] = Seq.empty,
     matchesGeometry: Option[String] = None,
-    deviations: Seq[MonitorRouteDeviation] = Seq.empty
+    deviations: Seq[MonitorRouteDeviation] = Seq.empty,
+    happy: Boolean = false,
+    osmSuperSegments: Seq[MonitorRouteSuperSegment] = Seq.empty
   ): MonitorRouteState = {
     MonitorRouteState(
       ObjectId(),
@@ -1125,7 +1131,8 @@ trait SharedTestObjects extends MockFactory {
       osmSegments,
       matchesGeometry,
       deviations,
-      happy = false
+      happy,
+      osmSuperSegments
     )
   }
 

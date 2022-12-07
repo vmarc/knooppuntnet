@@ -5,20 +5,17 @@ import kpn.api.base.WithObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.Timestamp
 
-case class MonitorRouteState(
+case class MonitorRouteStateRelation(
   _id: ObjectId,
-  routeId: ObjectId,
-  timestamp: Timestamp, // time of most recent analysis
+  routeId: ObjectId, // combination of routeId
+  relationId: Long,  //   and relationId should be unique
   wayCount: Long,
   osmDistance: Long,
-  gpxDistance: Long,
   bounds: Bounds,
-  referenceId: Option[ObjectId],
+  referenceId: Option[ObjectId], // reference to MonitorRouteReferenceRelation document
   osmSegments: Seq[MonitorRouteSegment],
   matchesGeometry: Option[String],
   deviations: Seq[MonitorRouteDeviation],
-  happy: Boolean,
-  osmSuperSegments: Seq[MonitorRouteSuperSegment]
+  happy: Boolean
 ) extends WithObjectId

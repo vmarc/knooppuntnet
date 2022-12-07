@@ -75,7 +75,8 @@ class MonitorDemoTool(database: Database, overpassQueryExecutor: OverpassQueryEx
           osmWayCount = 0,
           osmDistance = 0,
           osmSegmentCount = 0,
-          happy = false
+          happy = false,
+          relations = None
         )
         database.monitorRoutes.save(route)
 
