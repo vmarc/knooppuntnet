@@ -108,6 +108,45 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
+  test("route with nested sub-relations") {
+
+    withDatabase { database =>
+
+      val group = newMonitorGroup("group", "")
+      val route = newMonitorRoute(
+        group._id,
+        "route",
+        "description",
+        relations = Some(
+          Seq(
+            newMonitorRouteRelation(
+              1L,
+              "1",
+              relations = Seq(
+                newMonitorRouteRelation(11L, "11"),
+                newMonitorRouteRelation(12L, "12")
+              )
+            ),
+            newMonitorRouteRelation(
+              2L,
+              "2",
+              relations = Seq(
+                newMonitorRouteRelation(21L, "21"),
+                newMonitorRouteRelation(22L, "22")
+              )
+            )
+          )
+        )
+      )
+
+      database.monitorGroups.save(group)
+      database.monitorRoutes.save(route)
+
+      database.monitorRoutes.findByObjectId(route._id) should equal(Some(route))
+
+    }
+  }
+
   private def buildChange(groupName: String /*TODO MON remove*/ , routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
     newMonitorRouteChange(
       newChangeKey(

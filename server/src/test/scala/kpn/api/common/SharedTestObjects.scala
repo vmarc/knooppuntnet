@@ -1049,6 +1049,30 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
+  def newMonitorRouteRelation(
+    relationId: Long,
+    name: String,
+    deviationDistance: Long = 0,
+    deviationCount: Long = 0,
+    osmWayCount: Long = 0,
+    osmDistance: Long = 0,
+    osmSegmentCount: Long = 0,
+    happy: Boolean = false,
+    relations: Seq[MonitorRouteRelation] = Seq.empty
+  ): MonitorRouteRelation = {
+    MonitorRouteRelation(
+      relationId,
+      name,
+      deviationDistance,
+      deviationCount,
+      osmWayCount,
+      osmDistance,
+      osmSegmentCount,
+      happy,
+      relations
+    )
+  }
+
   def newMonitorRouteChange(
     key: ChangeKey,
     wayCount: Long = 0,

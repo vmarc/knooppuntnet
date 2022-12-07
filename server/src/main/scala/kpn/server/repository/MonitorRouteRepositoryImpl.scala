@@ -12,7 +12,6 @@ import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
-import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.api.monitor.domain.MonitorRouteStateRelation
 import org.mongodb.scala.Document
@@ -46,10 +45,6 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
 
   override def saveRoute(route: MonitorRoute): Unit = {
     database.monitorRoutes.save(route, log)
-  }
-
-  override def saveRouteRelation(routeRelation: MonitorRouteRelation): Unit = {
-    database.monitorRouteRelations.save(routeRelation, log)
   }
 
   override def deleteRoute(routeId: ObjectId): Unit = {

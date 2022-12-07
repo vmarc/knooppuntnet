@@ -28,7 +28,6 @@ import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
-import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.api.monitor.domain.MonitorRouteStateRelation
 import org.mongodb.scala.MongoCollection
@@ -80,8 +79,6 @@ trait Database {
   def monitorGroups: DatabaseCollection[MonitorGroup]
 
   def monitorRoutes: DatabaseCollection[MonitorRoute]
-
-  def monitorRouteRelations: DatabaseCollection[MonitorRouteRelation]
 
   def monitorRouteReferences: DatabaseCollection[MonitorRouteReference]
 

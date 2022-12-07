@@ -130,10 +130,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[MonitorRoute]("monitor-routes"))
   }
 
-  override def monitorRouteRelations: DatabaseCollection[MonitorRouteRelation] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRouteRelation]("monitor-route-relations"))
-  }
-
   override def monitorRouteReferences: DatabaseCollection[MonitorRouteReference] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteReference]("monitor-route-references"))
   }
