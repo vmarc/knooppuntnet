@@ -138,6 +138,7 @@ class MonitorRoutePatchTool(database: Database) {
     )
     routeRepository.saveRoute(migratedRoute)
     routeRepository.routeReferenceRouteWithId(route._id) match {
+      case None =>
       case Some(reference) =>
         if (reference.referenceDay.isEmpty) {
           routeRepository.saveRouteReference(

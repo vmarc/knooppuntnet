@@ -76,7 +76,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     val group = newMonitorGroup("group", "")
     (monitorGroupRepository.groupByName _).when("group").returns(Some(group))
     (monitorRouteRepository.routeByName _).when(group._id, "route").returns(None)
-    (monitorRouteRelationRepository.load _).when(Timestamp(2022, 8, 11, 0, 0, 0), 1L).returns(buildRelation())
+    (monitorRouteRelationRepository.load _).when(Some(Timestamp(2022, 8, 11, 0, 0, 0)), 1L).returns(buildRelation())
 
     val updater = new MonitorRouteUpdater(
       monitorGroupRepository,
@@ -240,7 +240,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val result = updater.update("user", "group", "route", properties)
 
-    result should equal(MonitorRouteSaveResult(analyzed = false))
+    result should equal(MonitorRouteSaveResult())
 
     val expectedUpdatedRoute = route.copy(
       name = "route-changed",
@@ -295,7 +295,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
 
     val result = updater.update("user", "group1", "route", properties)
 
-    result should equal(MonitorRouteSaveResult(analyzed = false))
+    result should equal(MonitorRouteSaveResult())
 
     val expectedUpdatedRoute = route.copy(
       groupId = group2._id
@@ -339,7 +339,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
     (monitorGroupRepository.groupByName _).when("group").returns(Some(group))
     (monitorRouteRepository.routeByName _).when(group._id, "route").returns(Some(route))
     (monitorRouteRepository.routeReferenceRouteWithId _).when(route._id).returns(Some(reference))
-    (monitorRouteRelationRepository.load _).when(Timestamp(2022, 8, 11, 0, 0, 0), 2L).returns(buildOtherRelation())
+    (monitorRouteRelationRepository.load _).when(Some(Timestamp(2022, 8, 11, 0, 0, 0)), 2L).returns(buildOtherRelation())
 
     val updater = new MonitorRouteUpdater(
       monitorGroupRepository,

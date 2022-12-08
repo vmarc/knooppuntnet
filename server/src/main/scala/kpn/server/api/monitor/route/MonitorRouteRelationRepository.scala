@@ -15,8 +15,8 @@ class MonitorRouteRelationRepository(
   overpassQueryExecutor: OverpassQueryExecutor,
 ) {
 
-  def load(timestamp: Timestamp, relationId: Long): Option[Relation] = {
-    val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(relationId))
+  def load(timestamp: Option[Timestamp], relationId: Long): Option[Relation] = {
+    val xmlString = overpassQueryExecutor.executeQuery(timestamp, QueryRelation(relationId))
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     val data = new DataBuilder(rawData).data

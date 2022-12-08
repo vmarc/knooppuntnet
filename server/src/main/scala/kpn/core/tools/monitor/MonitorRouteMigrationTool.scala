@@ -1,66 +1,49 @@
 package kpn.core.tools.monitor
 
+import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.core.overpass.OverpassQueryExecutor
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.api.monitor.route.MonitorRouteRelationRepository
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
 
 object MonitorRouteMigrationTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
-      new MonitorRouteMigrationTool(database).migrate()
+    Mongo.executeIn("kpn-experimental") { database =>
+      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+      new MonitorRouteMigrationTool(database, overpassQueryExecutor).migrate()
     }
   }
 }
 
-class MonitorRouteMigrationTool(database: Database) {
+class MonitorRouteMigrationTool(database: Database, overpassQueryExecutor: OverpassQueryExecutor) {
 
   private val groupRepository = new MonitorGroupRepositoryImpl(database)
   private val routeRepository = new MonitorRouteRepositoryImpl(database)
+  private val routeRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
 
   def migrate(): Unit = {
     groupRepository.groups().sortBy(_.name).foreach { group =>
       groupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
         println(s"${group.name}:${route.name}")
-        routeRepository.routeState(route._id) match {
-          case None => println("  state not found")
-          case Some(state) =>
-            routeRepository.routeReferenceRouteWithId(route._id) match {
-              case None => println("  reference not found")
-              case Some(reference) =>
-                val referenceDistance = state.gpxDistance // km
-                val deviationDistance = Math.round(state.deviations.map(_.distance).sum.toFloat / 1000)
-                val deviationCount = state.deviations.size
-                val osmSegmentCount = state.osmSegments.size
-                val happy = referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
-                val migratedRoute = route.copy(
-                  referenceType = Some(reference.referenceType),
-                  referenceDay = Some(reference.created.toDay),
-                  referenceFilename = reference.filename,
-                  referenceDistance = referenceDistance,
-                  deviationDistance = deviationDistance,
-                  deviationCount = deviationCount,
-                  osmWayCount = state.wayCount,
-                  osmDistance = state.osmDistance,
-                  osmSegmentCount = osmSegmentCount,
-                  happy = happy
+        route.relationId match {
+          case None => println("    no relationId")
+          case Some(relationId) =>
+            routeRelationRepository.load(None, relationId) match {
+              case None => println("    could not load relation from overpass")
+              case Some(relation) =>
+                println("    migrated")
+                routeRepository.saveRoute(
+                  route.copy(
+                    relation = Some(
+                      MonitorRouteRelation.from(relation)
+                    )
+                  )
                 )
-                routeRepository.saveRoute(migratedRoute)
             }
         }
-      }
-    }
-  }
-
-  def migrate2(): Unit = {
-    groupRepository.groups().sortBy(_.name).foreach { group =>
-      groupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
-        println(s"${group.name}:${route.name}")
-        val happy = route.referenceDistance > 0 && route.deviationCount == 0 && route.osmSegmentCount == 1
-        val migratedRoute = route.copy(
-          happy = happy
-        )
-        routeRepository.saveRoute(migratedRoute)
       }
     }
   }

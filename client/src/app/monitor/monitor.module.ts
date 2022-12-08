@@ -60,7 +60,12 @@ import { MonitorRoutePropertiesComponent } from './route/components/monitor-rout
 import { MonitorRouteSaveDialogComponent } from './route/components/monitor-route-save-dialog.component';
 import { MonitorRouteSaveStepComponent } from './route/components/monitor-route-save-step.component';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
+import { MonitorRouteDetailsAnalysisComponent } from './route/details/monitor-route-details-analysis.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
+import { MonitorRouteDetailsReferenceComponent } from './route/details/monitor-route-details-reference.component';
+import { MonitorRouteDetailsSummaryComponent } from './route/details/monitor-route-details-summary.component';
+import { MonitorRouteRelationComponent } from './route/details/monitor-route-relation.component';
+import { MonitorRouteDetailsStructureComponent } from './route/details/monitor-route-details-structure.component';
 import { LegendLineComponent } from './route/map/legend-line';
 import { MonitorRouteMapControlComponent } from './route/map/monitor-route-map-control.component';
 import { MonitorRouteMapDeviationsComponent } from './route/map/monitor-route-map-deviations.component';
@@ -148,6 +153,11 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRoutePropertiesStep6CommentComponent,
     MonitorRouteSaveDialogComponent,
     MonitorRouteSaveStepComponent,
+    MonitorRouteRelationComponent,
+    MonitorRouteDetailsStructureComponent,
+    MonitorRouteDetailsSummaryComponent,
+    MonitorRouteDetailsReferenceComponent,
+    MonitorRouteDetailsAnalysisComponent,
   ],
   exports: [],
   providers: [MonitorService],

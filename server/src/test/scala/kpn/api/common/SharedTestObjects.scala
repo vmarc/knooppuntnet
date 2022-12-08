@@ -36,6 +36,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.monitor.MonitorRouteDeviation
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
@@ -83,7 +84,6 @@ import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
 import org.scalamock.scalatest.MockFactory
@@ -1026,7 +1026,7 @@ trait SharedTestObjects extends MockFactory {
     osmDistance: Long = 0,
     osmSegmentCount: Long = 0,
     happy: Boolean = false,
-    relations: Option[Seq[MonitorRouteRelation]] = None
+    relation: Option[MonitorRouteRelation] = None
   ): MonitorRoute = {
     MonitorRoute(
       ObjectId(),
@@ -1045,13 +1045,15 @@ trait SharedTestObjects extends MockFactory {
       osmDistance,
       osmSegmentCount,
       happy,
-      relations
+      relation
     )
   }
 
   def newMonitorRouteRelation(
     relationId: Long,
-    name: String,
+    name: Option[String] = None,
+    from: Option[String] = None,
+    to: Option[String] = None,
     deviationDistance: Long = 0,
     deviationCount: Long = 0,
     osmWayCount: Long = 0,
@@ -1063,6 +1065,8 @@ trait SharedTestObjects extends MockFactory {
     MonitorRouteRelation(
       relationId,
       name,
+      from,
+      to,
       deviationDistance,
       deviationCount,
       osmWayCount,

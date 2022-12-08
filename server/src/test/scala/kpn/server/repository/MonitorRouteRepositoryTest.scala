@@ -117,22 +117,26 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         group._id,
         "route",
         "description",
-        relations = Some(
-          Seq(
-            newMonitorRouteRelation(
-              1L,
-              "1",
-              relations = Seq(
-                newMonitorRouteRelation(11L, "11"),
-                newMonitorRouteRelation(12L, "12")
-              )
-            ),
-            newMonitorRouteRelation(
-              2L,
-              "2",
-              relations = Seq(
-                newMonitorRouteRelation(21L, "21"),
-                newMonitorRouteRelation(22L, "22")
+        relation = Some(
+          newMonitorRouteRelation(
+            1L,
+            Some("1"),
+            relations = Seq(
+              newMonitorRouteRelation(
+                11L,
+                Some("11"),
+                relations = Seq(
+                  newMonitorRouteRelation(111L, Some("11")),
+                  newMonitorRouteRelation(112L, Some("12"))
+                )
+              ),
+              newMonitorRouteRelation(
+                12L,
+                Some("12"),
+                relations = Seq(
+                  newMonitorRouteRelation(121L, Some("121")),
+                  newMonitorRouteRelation(122L, Some("122"))
+                )
               )
             )
           )

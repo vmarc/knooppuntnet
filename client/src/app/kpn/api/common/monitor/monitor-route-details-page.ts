@@ -1,6 +1,7 @@
 // this file is generated, please do not modify
 
 import { Day } from '../../custom/day';
+import { MonitorRouteRelation } from './monitor-route-relation';
 
 export interface MonitorRouteDetailsPage {
   readonly routeId: string;
@@ -20,4 +21,5 @@ export interface MonitorRouteDetailsPage {
   readonly happy: boolean;
   readonly wayCount: number;
   readonly osmDistance: number;
+  readonly relation: MonitorRouteRelation;
 }

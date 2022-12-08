@@ -38,7 +38,7 @@ class MonitorRepairOsmReferencesTool(database: Database) {
               routeRepository.routeReferenceRouteWithId(route._id) match {
                 case None =>
                 case Some(reference) =>
-                  relationRepository.load(Timestamp(reference.referenceDay.get), relationId) match {
+                  relationRepository.load(Some(Timestamp(reference.referenceDay.get)), relationId) match {
                     case None =>
                     case Some(relation) =>
                       val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(relation)

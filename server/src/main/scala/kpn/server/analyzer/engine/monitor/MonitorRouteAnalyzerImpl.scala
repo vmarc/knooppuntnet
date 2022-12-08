@@ -87,7 +87,7 @@ class MonitorRouteAnalyzerImpl(
           case None =>
           case Some(routeRelation) =>
             val monitorRouteState = new MonitorRouteStateAnalyzer().analyze(route, reference, routeRelation, now)
-            new MonitorRouteStateUpdater(monitorRouteRepository).update(route, monitorRouteState)
+            new MonitorRouteStateUpdater(monitorRouteRepository).update(route, monitorRouteState, routeRelation)
         }
     }
   }

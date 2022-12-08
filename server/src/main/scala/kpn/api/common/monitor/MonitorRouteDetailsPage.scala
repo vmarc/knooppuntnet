@@ -20,4 +20,5 @@ case class MonitorRouteDetailsPage(
   happy: Boolean,
   wayCount: Long,
   osmDistance: Long,
+  relation: Option[MonitorRouteRelation]
 )

@@ -10615,16 +10615,16 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>ways</source>
         <target>wegen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.ok" datatype="html">
         <source>All ok</source>
         <target>Alles goed</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map.mode.comparison" datatype="html">
@@ -11127,40 +11127,80 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Route relation has not been defined yet</source>
         <target>Route relatie is nog niet gedefinieerd</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.reference-undefined" datatype="html">
         <source>Reference not defined yet</source>
         <target>Referentie nog niet gedefinieerd</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">56,57</context>
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-reference.component.ts</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.reference.osm" datatype="html">
         <source>OSM relation snapshot</source>
         <target>OSM relatie</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">65,66</context>
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-reference.component.ts</context>
+          <context context-type="linenumber">22,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.deviations" datatype="html">
         <source>deviations</source>
         <target>Afwijkingen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.osm-segments" datatype="html">
         <source>OSM segment(s)</source>
         <target>OSM segment(en)</target>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.summary" datatype="html">
+        <source>Summary</source>
+        <target>Samenvatting</target>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.reference" datatype="html">
+        <source>Reference</source>
+        <target>Referentie</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.analysis" datatype="html">
+        <source>Analysis</source>
+        <target>Analyse</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.comment" datatype="html">
+        <source>Comment</source>
+        <target>Commentaar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">54,53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.structure" datatype="html">
+        <source>Structure</source>
+        <target>Structuur</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
     </body>

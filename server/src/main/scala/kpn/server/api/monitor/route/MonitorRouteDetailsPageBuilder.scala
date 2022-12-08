@@ -32,6 +32,7 @@ class MonitorRouteDetailsPageBuilder(
           route.happy,
           route.osmWayCount,
           route.osmDistance,
+          route.relation
         )
       }
     }

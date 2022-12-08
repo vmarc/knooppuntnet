@@ -23,97 +23,50 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
       </div>
 
       <div *ngIf="response.result as route">
-        <kpn-data title="Summary">
-          <p
-            *ngIf="!route.relationId"
-            i18n="@@monitor.route.details.relation-id-undefined"
-          >
-            Route relation has not been defined yet
-          </p>
-          <div *ngIf="route.relationId">
-            <p class="kpn-separated">
-              <kpn-osm-link-relation
-                [title]="route.relationId.toString()"
-                [relationId]="route.relationId"
-              ></kpn-osm-link-relation>
-              <kpn-josm-relation
-                [relationId]="route.relationId"
-              ></kpn-josm-relation>
-            </p>
-            <p>
-              <span>{{ route.wayCount }}</span>
-              <span i18n="@@monitor.route.details.ways">ways</span>
-            </p>
-            <p class="kpn-km">{{ route.osmDistance }}</p>
-          </div>
+        <kpn-data title="Summary" i18n-title="@@monitor.route.details.summary">
+          <kpn-monitor-route-details-summary
+            [page]="route"
+          ></kpn-monitor-route-details-summary>
         </kpn-data>
 
-        <kpn-data title="Reference">
-          <div
-            *ngIf="!route.referenceType"
-            i18n="@@monitor.route.details.reference-undefined"
-          >
-            Reference not defined yet
-          </div>
-          <p *ngIf="!!route.referenceType">
-            <span>{{ route.referenceDay | day }}</span>
-          </p>
-          <p
-            *ngIf="route.referenceType === 'osm'"
-            i18n="@@monitor.route.details.reference.osm"
-          >
-            OSM relation snapshot
-          </p>
-          <div *ngIf="route.referenceType === 'gpx'">
-            <p>
-              {{ 'GPX: "' + route.referenceFilename + '"' }}
-            </p>
-          </div>
-          <p class="kpn-km">{{ route.referenceDistance }}</p>
+        <kpn-data
+          title="Reference"
+          i18n-title="@@monitor.route.details.reference"
+        >
+          <kpn-monitor-route-details-reference
+            [page]="route"
+          ></kpn-monitor-route-details-reference>
         </kpn-data>
 
-        <kpn-data *ngIf="route.relationId" title="Analysis">
-          <p *ngIf="route.happy" class="kpn-line">
-            <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
-            <kpn-icon-happy></kpn-icon-happy>
-          </p>
-          <div *ngIf="!route.happy">
-            <p>
-              <span>{{ route.deviationCount + ' ' }}</span>
-              <span i18n="@@monitor.route.details.analysis.deviations"
-                >deviations</span
-              >
-              <span class="kpn-brackets">
-                <span class="kpn-km">{{ route.deviationDistance }}</span>
-              </span>
-            </p>
-            <p>
-              <span>{{ route.osmSegmentCount + ' ' }}</span>
-              <span i18n="@@monitor.route.details.analysis.osm-segments"
-                >OSM segment(s)</span
-              >
-            </p>
-          </div>
+        <kpn-data
+          *ngIf="route.relationId"
+          title="Analysis"
+          i18n-title="@@monitor.route.details.analysis"
+        >
+          <kpn-monitor-route-details-analysis
+            [page]="route"
+          ></kpn-monitor-route-details-analysis>
         </kpn-data>
 
-        <kpn-data *ngIf="route.comment" title="Comment">
+        <kpn-data
+          *ngIf="route.comment"
+          title="Comment"
+          i18n-title="@@monitor.route.details.comment"
+        >
           <markdown [data]="route.comment"></markdown>
+        </kpn-data>
+
+        <kpn-data
+          *ngIf="route.relation.relations?.length > 0"
+          title="Structure"
+          i18n-title="@@monitor.route.details.structure"
+        >
+          <kpn-monitor-route-details-structure [relation]="route.relation">
+          </kpn-monitor-route-details-structure>
         </kpn-data>
       </div>
     </div>
   `,
-  styles: [
-    `
-      .warning-line {
-        padding-bottom: 1em;
-      }
-
-      .warning-icon {
-        width: 2em;
-        height: 2em;
-      }
-    `,
-  ],
 })
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);

@@ -2,6 +2,7 @@ package kpn.server.api.monitor.domain
 
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Day
 
 case class MonitorRoute(
@@ -26,7 +27,5 @@ case class MonitorRoute(
   osmSegmentCount: Long,
   happy: Boolean,
 
-  // extra route information and analysis results
-  relations: Option[Seq[MonitorRouteRelation]]
-
+  relation: Option[MonitorRouteRelation]
 ) extends WithObjectId

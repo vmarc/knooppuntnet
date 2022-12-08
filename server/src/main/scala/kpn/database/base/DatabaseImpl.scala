@@ -9,6 +9,7 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
@@ -29,7 +30,6 @@ import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
-import kpn.server.api.monitor.domain.MonitorRouteRelation
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.api.monitor.domain.MonitorRouteStateRelation
 import org.mongodb.scala.MongoCollection

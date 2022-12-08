@@ -50,7 +50,7 @@ class MonitorRouteUpdater(
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
-  monitorRouteAnalyzer: MonitorRouteAnalyzer
+  monitorRouteAnalyzer: MonitorRouteAnalyzer,
 ) {
 
   def add(user: String, groupName: String, properties: MonitorRouteProperties): MonitorRouteSaveResult = {
@@ -75,7 +75,7 @@ class MonitorRouteUpdater(
         osmDistance = 0,
         osmSegmentCount = 0,
         happy = false,
-        relations = None // TODO add information about sub-relations where applicable
+        relation = None
       )
 
       monitorRouteRepository.saveRoute(route)
@@ -194,7 +194,7 @@ class MonitorRouteUpdater(
 
         val referenceDay = findReferenceDay(properties)
 
-        monitorRouteRelationRepository.load(Timestamp(referenceDay), relationId) match {
+        monitorRouteRelationRepository.load(Some(Timestamp(referenceDay)), relationId) match {
           case None =>
             val reference = MonitorRouteReference(
               ObjectId(),
@@ -300,7 +300,7 @@ class MonitorRouteUpdater(
   }
 
   private def isOsmReferenceChanged(reference: MonitorRouteReference, properties: MonitorRouteProperties): Boolean = {
-    reference.referenceType != properties.referenceType ||
+    Some(reference.referenceType) != properties.referenceType ||
       reference.relationId != properties.relationId ||
       reference.referenceDay != properties.referenceDay
   }
