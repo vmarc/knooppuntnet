@@ -20,7 +20,7 @@ class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
     val deviationCount = state.deviations.size
     val osmSegmentCount = state.osmSegments.size
     val happy = route.referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
-    val relation = MonitorRouteRelation.from(routeRelation)
+    val relation = MonitorRouteRelation.from(routeRelation, None)
 
     val newRoute = route.copy(
       deviationDistance = deviationDistance,

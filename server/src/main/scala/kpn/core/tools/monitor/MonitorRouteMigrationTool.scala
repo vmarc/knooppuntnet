@@ -38,7 +38,7 @@ class MonitorRouteMigrationTool(database: Database, overpassQueryExecutor: Overp
                 routeRepository.saveRoute(
                   route.copy(
                     relation = Some(
-                      MonitorRouteRelation.from(relation)
+                      MonitorRouteRelation.from(relation, None)
                     )
                   )
                 )

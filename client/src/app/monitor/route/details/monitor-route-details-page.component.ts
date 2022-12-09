@@ -61,9 +61,12 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           title="Structure"
           i18n-title="@@monitor.route.details.structure"
         >
-          <kpn-monitor-route-details-structure [relation]="route.relation">
-          </kpn-monitor-route-details-structure>
         </kpn-data>
+        <kpn-monitor-route-details-structure
+          *ngIf="route.relation.relations?.length > 0"
+          [relation]="route.relation"
+        >
+        </kpn-monitor-route-details-structure>
       </div>
     </div>
   `,
