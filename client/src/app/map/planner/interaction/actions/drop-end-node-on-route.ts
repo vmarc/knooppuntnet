@@ -1,8 +1,8 @@
+import { PlanNode } from '@api/common/planner/plan-node';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PlanNode } from '@api/common/planner/plan-node';
 import { PlannerCommandReplaceLeg } from '../../commands/planner-command-replace-leg';
 import { PlannerContext } from '../../context/planner-context';
 import { FeatureId } from '../../features/feature-id';
@@ -23,18 +23,18 @@ export class DropEndNodeOnRoute {
   ): void {
     const oldLeg = this.context.plan.legs.last(null);
     if (oldLeg) {
-      this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe(
-        (newLeg) => {
+      this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe({
+        next: (newLeg) => {
           if (newLeg) {
             const command = new PlannerCommandReplaceLeg(oldLeg, newLeg);
             this.context.execute(command);
           }
         },
-        (error) => {
+        error: (error) => {
           this.context.resetDragFlag(dragFlag);
           this.context.errorDialog(error);
-        }
-      );
+        },
+      });
     }
   }
 

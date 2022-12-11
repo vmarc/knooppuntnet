@@ -45,7 +45,6 @@ export class PdfDocumentModel {
   }
 
   pageRowCount(pageIndex: number): number {
-    const maxNodesPerPage = this.maxRowsPerPage * this.maxColumnCount;
     let rowCount = 0;
     if (pageIndex < this.pageCount() - 1) {
       rowCount = this.maxRowsPerPage;

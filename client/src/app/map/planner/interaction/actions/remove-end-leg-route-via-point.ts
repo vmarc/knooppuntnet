@@ -1,9 +1,9 @@
-import { PlannerContext } from '../../context/planner-context';
-import { PlanLeg } from '../../plan/plan-leg';
-import { PlanUtil } from '../../plan/plan-util';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerCommandReplaceLeg } from '../../commands/planner-command-replace-leg';
+import { PlannerContext } from '../../context/planner-context';
+import { PlanLeg } from '../../plan/plan-leg';
+import { PlanUtil } from '../../plan/plan-util';
 
 export class RemoveEndLegRouteViaPoint {
   constructor(private readonly context: PlannerContext) {}
@@ -11,10 +11,10 @@ export class RemoveEndLegRouteViaPoint {
   remove(oldLeg: PlanLeg): void {
     this.buildNewLeg(oldLeg)
       .pipe(map((newLeg) => new PlannerCommandReplaceLeg(oldLeg, newLeg)))
-      .subscribe(
-        (command) => this.context.execute(command),
-        (error) => this.context.errorDialog(error)
-      );
+      .subscribe({
+        next: (command) => this.context.execute(command),
+        error: (error) => this.context.errorDialog(error),
+      });
   }
 
   private buildNewLeg(oldLeg: PlanLeg): Observable<PlanLeg> {

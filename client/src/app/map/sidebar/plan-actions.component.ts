@@ -131,13 +131,13 @@ export class PlanActionsComponent implements OnInit {
 
   reverse(): void {
     const oldPlan = this.plannerService.context.plan;
-    new PlanReverser(this.plannerService.context).reverse(oldPlan).subscribe(
-      (newPlan) => {
+    new PlanReverser(this.plannerService.context).reverse(oldPlan).subscribe({
+      next: (newPlan) => {
         const command = new PlannerCommandReverse(oldPlan, newPlan);
         this.plannerService.context.execute(command);
       },
-      (error) => this.plannerService.context.errorDialog(error)
-    );
+      error: (error) => this.plannerService.context.errorDialog(error),
+    });
   }
 
   output(): void {

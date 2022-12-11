@@ -38,8 +38,6 @@ export class ChangeFilterPeriodComponent {
   @Input() option: ChangesFilterOption;
   @Output() optionSelected = new EventEmitter<ChangeOption>();
 
-  constructor() {}
-
   impactedCountClicked(): void {
     this.countClicked(true);
   }

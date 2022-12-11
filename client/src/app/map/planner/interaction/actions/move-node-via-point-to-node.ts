@@ -33,13 +33,13 @@ export class MoveNodeViaPointToNode {
             new PlannerCommandMoveViaPoint(oldLeg1, oldLeg2, newLeg1, newLeg2)
         )
       )
-      .subscribe(
-        (command) => this.context.execute(command),
-        (error) => {
+      .subscribe({
+        next: (command) => this.context.execute(command),
+        error: (error) => {
           this.context.resetDragFlag(dragFlag);
           this.context.errorDialog(error);
-        }
-      );
+        },
+      });
   }
 
   private buildNewLeg1(

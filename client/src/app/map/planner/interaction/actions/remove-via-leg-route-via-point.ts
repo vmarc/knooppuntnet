@@ -20,8 +20,8 @@ export class RemoveViaLegRouteViaPoint {
         oldLeg1.sourceNode,
         oldLeg2.sinkNode,
         oldLeg2.sinkFlag
-      ).subscribe(
-        (newLeg) => {
+      ).subscribe({
+        next: (newLeg) => {
           const command = new PlannerCommandRemoveViaPoint(
             oldLeg1,
             oldLeg2,
@@ -29,8 +29,8 @@ export class RemoveViaLegRouteViaPoint {
           );
           this.context.execute(command);
         },
-        (error) => this.context.errorDialog(error)
-      );
+        error: (error) => this.context.errorDialog(error),
+      });
     }
   }
 

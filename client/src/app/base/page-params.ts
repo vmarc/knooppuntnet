@@ -35,9 +35,9 @@ export class PageParams {
     let year: number;
     let month: number;
     let day: number;
-    let pageSize = 25;
+    let pageSize: number;
     let pageIndex = 0;
-    let impact = true;
+    let impact: boolean;
 
     if (this.queryParams['year']) {
       year = +this.queryParams['year'];

@@ -12,10 +12,10 @@ export class AddLeg {
   add(sinkNode: PlanNode): void {
     this.buildLeg(sinkNode)
       .pipe(map((leg) => new PlannerCommandAddLeg(leg)))
-      .subscribe(
-        (command) => this.context.execute(command),
-        (error) => this.context.errorDialog(error)
-      );
+      .subscribe({
+        next: (command) => this.context.execute(command),
+        error: (error) => this.context.errorDialog(error),
+      });
   }
 
   private buildLeg(sinkNode: PlanNode): Observable<PlanLeg> {

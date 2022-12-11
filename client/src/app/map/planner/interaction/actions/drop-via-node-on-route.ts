@@ -1,8 +1,8 @@
+import { PlanNode } from '@api/common/planner/plan-node';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { PlanNode } from '@api/common/planner/plan-node';
 import { PlannerCommandMoveViaPointToViaRoute } from '../../commands/planner-command-move-via-point-to-via-route';
 import { PlannerContext } from '../../context/planner-context';
 import { FeatureId } from '../../features/feature-id';
@@ -49,13 +49,13 @@ export class DropViaNodeOnRoute {
           )
         )
       )
-      .subscribe(
-        (command) => this.context.execute(command),
-        (error) => {
+      .subscribe({
+        next: (command) => this.context.execute(command),
+        error: (error) => {
           this.context.resetDragFlag(dragFlag);
           this.context.errorDialog(error);
-        }
-      );
+        },
+      });
   }
 
   private buildNewLeg1(

@@ -1,11 +1,9 @@
-import { Color } from 'ol/color';
 import { surveyUnknownNode } from './main-style-colors';
 import { surveyOlder } from './main-style-colors';
 import { surveyLastTwoYearsStart } from './main-style-colors';
 import { surveyLastYearStart } from './main-style-colors';
 import { surveyLastHalfYearStart } from './main-style-colors';
 import { surveyLastMonth } from './main-style-colors';
-import { surveyUnknown } from './main-style-colors';
 import { darkBlue } from './main-style-colors';
 import { blue } from './main-style-colors';
 import { gray } from './main-style-colors';

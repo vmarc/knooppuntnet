@@ -107,7 +107,6 @@ export class LocationPageHeaderComponent {
 
   readonly pageTitle$ = this.locationKey$.pipe(
     map((locationKey) => {
-      const key = `${locationKey.networkType}/${locationKey.country}/${locationKey.name}`;
       return `${locationKey.name} | ${this.pageTitle}`;
     })
   );

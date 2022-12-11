@@ -1,13 +1,13 @@
-import { PlannerContext } from '../../context/planner-context';
-import { PlanUtil } from '../../plan/plan-util';
-import { PlannerCommandRemoveViaPoint } from '../../commands/planner-command-remove-via-point';
-import { PlannerDragFlag } from '../planner-drag-flag';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { Observable } from 'rxjs';
-import { PlanLeg } from '../../plan/plan-leg';
 import { map } from 'rxjs/operators';
+import { PlannerCommandRemoveViaPoint } from '../../commands/planner-command-remove-via-point';
+import { PlannerContext } from '../../context/planner-context';
 import { FeatureId } from '../../features/feature-id';
 import { PlanFlag } from '../../plan/plan-flag';
+import { PlanLeg } from '../../plan/plan-leg';
+import { PlanUtil } from '../../plan/plan-util';
+import { PlannerDragFlag } from '../planner-drag-flag';
 
 export class RemoveViaPoint {
   constructor(private readonly context: PlannerContext) {}
@@ -34,8 +34,8 @@ export class RemoveViaPoint {
       sinkNode.coordinate
     );
 
-    this.buildLeg(source, sink, sinkFlag).subscribe(
-      (newLeg) => {
+    this.buildLeg(source, sink, sinkFlag).subscribe({
+      next: (newLeg) => {
         const command = new PlannerCommandRemoveViaPoint(
           oldLeg1,
           oldLeg2,
@@ -43,8 +43,8 @@ export class RemoveViaPoint {
         );
         this.context.execute(command);
       },
-      (error) => this.context.errorDialog(error)
-    );
+      error: (error) => this.context.errorDialog(error),
+    });
   }
 
   private buildLeg(

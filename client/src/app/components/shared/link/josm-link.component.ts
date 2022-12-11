@@ -31,11 +31,11 @@ export class JosmLinkComponent {
     const fullUrl = `${url}/${this.kind}/${this.elementId}${
       this.full ? '/full' : ''
     }`;
-    this.appService.edit(fullUrl).subscribe(
-      (result) => {},
-      (err) => {
+    this.appService.edit(fullUrl).subscribe({
+      next: (result) => {},
+      error: (err) => {
         this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });
-      }
-    );
+      },
+    });
   }
 }

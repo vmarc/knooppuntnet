@@ -1,11 +1,11 @@
-import { PlannerContext } from '../../context/planner-context';
-import { PlanNode } from '@api/common/planner/plan-node';
-import { PlanUtil } from '../../plan/plan-util';
-import { PlannerCommandReplaceLeg } from '../../commands/planner-command-replace-leg';
 import { LegEnd } from '@api/common/planner/leg-end';
+import { PlanNode } from '@api/common/planner/plan-node';
 import { Observable } from 'rxjs';
-import { PlanLeg } from '../../plan/plan-leg';
 import { map } from 'rxjs/operators';
+import { PlannerCommandReplaceLeg } from '../../commands/planner-command-replace-leg';
+import { PlannerContext } from '../../context/planner-context';
+import { PlanLeg } from '../../plan/plan-leg';
+import { PlanUtil } from '../../plan/plan-util';
 import { PlannerDragFlag } from '../planner-drag-flag';
 
 export class MoveEndPoint {
@@ -19,13 +19,13 @@ export class MoveEndPoint {
       const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
       this.buildLeg(source, sink)
         .pipe(map((newLeg) => new PlannerCommandReplaceLeg(oldLeg, newLeg)))
-        .subscribe(
-          (command) => this.context.execute(command),
-          (error) => {
+        .subscribe({
+          next: (command) => this.context.execute(command),
+          error: (error) => {
             this.context.resetDragFlag(dragFlag);
             this.context.errorDialog(error);
-          }
-        );
+          },
+        });
     }
   }
 

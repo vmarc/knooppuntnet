@@ -50,16 +50,16 @@ export class MoveRouteViaPointToNode {
             new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2)
         )
       )
-      .subscribe(
-        (command) => this.context.execute(command),
-        (error) => {
+      .subscribe({
+        next: (command) => this.context.execute(command),
+        error: (error) => {
           this.context.markerLayer.updateFlagCoordinate(
             dragFlag.featureId,
             oldNode.coordinate
           );
           this.context.errorDialog(error);
-        }
-      );
+        },
+      });
   }
 
   private buildNewLeg1(

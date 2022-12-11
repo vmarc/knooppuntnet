@@ -13,8 +13,8 @@ export class MoveFirstLegSource {
   move(dragFlag: PlannerDragFlag, newSourceNode: PlanNode): void {
     const oldLeg = this.context.plan.legs.first(null);
     if (oldLeg) {
-      this.buildNewLeg(newSourceNode, oldLeg).subscribe(
-        (newLeg) => {
+      this.buildNewLeg(newSourceNode, oldLeg).subscribe({
+        next: (newLeg) => {
           if (newLeg) {
             const oldSourceNode = this.context.plan.sourceNode;
             const oldSourceFlag = this.context.plan.sourceFlag;
@@ -32,11 +32,11 @@ export class MoveFirstLegSource {
             this.context.execute(command);
           }
         },
-        (error) => {
+        error: (error) => {
           this.context.resetDragFlag(dragFlag);
           this.context.errorDialog(error);
-        }
-      );
+        },
+      });
     }
   }
 

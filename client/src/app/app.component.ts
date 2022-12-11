@@ -99,18 +99,18 @@ export class AppComponent implements OnInit, OnDestroy {
     setTag('knooppuntnet-version', versionService.version);
 
     this.subscriptions.add(
-      router.events.subscribe(
-        (event) => {
+      router.events.subscribe({
+        next: (event) => {
           if (event instanceof RouteConfigLoadStart) {
             this.spinnerService.start(`lazy-load-${event.route.path}`);
           } else if (event instanceof RouteConfigLoadEnd) {
             this.spinnerService.end(`lazy-load-${event.route.path}`);
           }
         },
-        (error) => {
+        error: (error) => {
           console.log('AppComponent router event error: ' + error.toString());
-        }
-      )
+        },
+      })
     );
   }
 

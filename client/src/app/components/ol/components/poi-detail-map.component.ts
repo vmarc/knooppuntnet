@@ -6,7 +6,6 @@ import { List } from 'immutable';
 import Map from 'ol/Map';
 import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
-import { Subscriptions } from '../../../util/Subscriptions';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';

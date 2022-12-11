@@ -29,10 +29,10 @@ export class DropLegOnNode {
             )
           )
         )
-        .subscribe(
-          (command) => this.context.execute(command),
-          (error) => this.context.errorDialog(error)
-        );
+        .subscribe({
+          next: (command) => this.context.execute(command),
+          error: (error) => this.context.errorDialog(error),
+        });
     }
   }
 
