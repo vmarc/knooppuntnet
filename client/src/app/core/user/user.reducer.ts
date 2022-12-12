@@ -23,7 +23,7 @@ export const userReducer = createReducer(
       returnUrl,
     })
   ),
-  on(actionUserLoginCompleted, actionUserLogoutCompleted, (state, {}) => ({
+  on(actionUserLoginCompleted, actionUserLogoutCompleted, (state) => ({
     ...state,
     returnUrl: null,
   })),
@@ -32,7 +32,7 @@ export const userReducer = createReducer(
     user,
     returnUrl,
   })),
-  on(actionUserLoggedOut, (state, {}) => ({
+  on(actionUserLoggedOut, (state) => ({
     ...state,
     user: null,
   }))

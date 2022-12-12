@@ -16,7 +16,7 @@ import { initialState } from './route.state';
 
 export const routeReducer = createReducer(
   initialState,
-  on(routerNavigationAction, (state, {}) => ({
+  on(routerNavigationAction, (state) => ({
     ...state,
     detailsPage: null,
     mapPage: null,

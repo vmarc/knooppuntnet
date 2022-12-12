@@ -113,7 +113,7 @@ export const networkReducer = createReducer(
     mapPage: response,
     mapPositionFromUrl,
   })),
-  on(actionNetworkChangesPageInit, (state, {}) => ({
+  on(actionNetworkChangesPageInit, (state) => ({
     ...state,
     changesParameters: {
       ...state.changesParameters,

@@ -48,7 +48,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(actionUserLoginLinkClicked),
       concatLatestFrom(() => [this.store.select(selectUrl)]),
-      map(([{}, url]) => {
+      map(([_, url]) => {
         let returnUrl = url;
         if (returnUrl.endsWith('/login')) {
           returnUrl = '/';
@@ -78,7 +78,7 @@ export class UserEffects {
       this.actions$.pipe(
         ofType(actionUserLogin),
         concatLatestFrom(() => [this.store.select(selectUserReturnUrl)]),
-        mergeMap(([{}, returnUrl]) => {
+        mergeMap(([_, returnUrl]) => {
           const encodedReturnUrl = ReturnUrl.encode(returnUrl);
           const baseHref = this.location.prepareExternalUrl('/');
           let loginUrl = '/api/login?callbackUrl=';
@@ -125,7 +125,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(actionUserReceived),
       concatLatestFrom(() => [this.store.select(selectUserReturnUrl)]),
-      mergeMap(([{}, returnUrl]) => {
+      mergeMap(([_, returnUrl]) => {
         const promise = this.router.navigateByUrl(returnUrl);
         return from(promise);
       }),
@@ -138,7 +138,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(actionUserLogoutLinkClicked),
       concatLatestFrom(() => [this.store.select(selectUrl)]),
-      map(([{}, url]) => {
+      map(([_, url]) => {
         let returnUrl = url;
         if (returnUrl.endsWith('/login')) {
           returnUrl = '/';
@@ -186,7 +186,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(actionUserLoggedOut),
       concatLatestFrom(() => [this.store.select(selectUserReturnUrl)]),
-      mergeMap(([{}, returnUrl]) => {
+      mergeMap(([_, returnUrl]) => {
         const promise = this.router.navigateByUrl(returnUrl);
         return from(promise);
       }),

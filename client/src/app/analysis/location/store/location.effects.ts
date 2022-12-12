@@ -53,7 +53,7 @@ export class LocationEffects {
           this.store.select(selectRouteParam('networkType')),
           this.store.select(selectRouteParam('country')),
         ]),
-        tap(([{}, networkType, country]) => {
+        tap(([_, networkType, country]) => {
           const url = `/analysis/${networkType}/${country}/networks`;
           this.router.navigate([url]);
         })
@@ -76,7 +76,7 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationNodesPageIndex),
       ]),
-      mergeMap(([{}, locationKey, locationNodesType, pageSize, pageIndex]) => {
+      mergeMap(([_, locationKey, locationNodesType, pageSize, pageIndex]) => {
         const parameters: LocationNodesParameters = {
           locationNodesType,
           pageSize,
@@ -103,7 +103,7 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationRoutesPageIndex),
       ]),
-      mergeMap(([{}, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+      mergeMap(([_, locationKey, locationRoutesType, pageSize, pageIndex]) => {
         const parameters: LocationRoutesParameters = {
           locationRoutesType,
           pageSize,
@@ -120,7 +120,7 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(actionLocationFactsPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([{}, locationKey]) =>
+      mergeMap(([_, locationKey]) =>
         this.appService.locationFacts(locationKey)
       ),
       map((response) => actionLocationFactsPageLoaded(response))
@@ -132,7 +132,7 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(actionLocationMapPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([{}, locationKey]) => this.appService.locationMap(locationKey)),
+      mergeMap(([_, locationKey]) => this.appService.locationMap(locationKey)),
       map((response) => actionLocationMapPageLoaded(response))
     )
   );
@@ -146,7 +146,7 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationChangesPageIndex),
       ]),
-      mergeMap(([{}, locationKey, pageSize, pageIndex]) => {
+      mergeMap(([_, locationKey, pageSize, pageIndex]) => {
         const parameters: LocationChangesParameters = {
           pageSize,
           pageIndex,
@@ -162,9 +162,7 @@ export class LocationEffects {
     this.actions$.pipe(
       ofType(actionLocationEditPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([{}, locationKey]) =>
-        this.appService.locationEdit(locationKey)
-      ),
+      mergeMap(([_, locationKey]) => this.appService.locationEdit(locationKey)),
       map((response) => actionLocationEditPageLoaded(response))
     )
   );

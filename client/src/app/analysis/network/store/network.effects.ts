@@ -54,7 +54,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      map(([{}, networkId]) =>
+      map(([_, networkId]) =>
         actionNetworkDetailsPageLoad({ networkId: +networkId })
       )
     )
@@ -74,7 +74,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkFactsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      map(([{}, networkId]) =>
+      map(([_, networkId]) =>
         actionNetworkFactsPageLoad({ networkId: +networkId })
       )
     )
@@ -94,7 +94,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      map(([{}, networkId]) =>
+      map(([_, networkId]) =>
         actionNetworkNodesPageLoad({ networkId: +networkId })
       )
     )
@@ -114,7 +114,7 @@ export class NetworkEffects {
     this.actions$.pipe(
       ofType(actionNetworkRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      map(([{}, networkId]) =>
+      map(([_, networkId]) =>
         actionNetworkRoutesPageLoad({ networkId: +networkId })
       )
     )
@@ -137,7 +137,7 @@ export class NetworkEffects {
         this.store.select(selectRouteParam('networkId')),
         this.store.select(selectQueryParam('position')),
       ]),
-      map(([{}, networkId, mapPositionString]) => {
+      map(([_, networkId, mapPositionString]) => {
         let mapPositionFromUrl: NetworkMapPosition = null;
         if (mapPositionString) {
           const mapPosition = MapPosition.fromQueryParam(mapPositionString);
@@ -185,7 +185,7 @@ export class NetworkEffects {
       ]),
       map(
         ([
-          {},
+          _,
           routeParams,
           queryParams,
           preferencesImpact,
@@ -217,7 +217,7 @@ export class NetworkEffects {
         this.store.select(selectNetworkId),
         this.store.select(selectNetworkChangesParameters),
       ]),
-      mergeMap(([{}, networkId, changesParameters]) => {
+      mergeMap(([_, networkId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() =>

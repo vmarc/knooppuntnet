@@ -38,7 +38,7 @@ export class PoiEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationPoisPageIndex),
       ]),
-      mergeMap(([{}, location, layers, pageSize, pageIndex]) =>
+      mergeMap(([_, location, layers, pageSize, pageIndex]) =>
         this.poiService
           .locationPois(location, layers, pageSize, pageIndex)
           .pipe(map((response) => actionLocationPoisPageLoaded(response)))
@@ -51,7 +51,7 @@ export class PoiEffects {
     this.actions$.pipe(
       ofType(actionLocationPoiSummaryPageInit),
       concatLatestFrom(() => [this.store.select(selectRouteParam('location'))]),
-      mergeMap(([{}, location]) =>
+      mergeMap(([_, location]) =>
         this.poiService
           .locationPoiSummary(location)
           .pipe(map((response) => actionLocationPoiSummaryPageLoaded(response)))

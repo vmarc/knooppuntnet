@@ -46,7 +46,7 @@ export const locationReducer = createReducer(
     }
     return state;
   }),
-  on(actionLocationNodesPageInit, (state, {}) => ({
+  on(actionLocationNodesPageInit, (state) => ({
     ...state,
     nodesPageType: LocationNodesType.all,
     nodesPageIndex: 0,
@@ -56,7 +56,7 @@ export const locationReducer = createReducer(
     nodesPageType: locationNodesType,
     nodesPageIndex: 0,
   })),
-  on(actionLocationNodesPageSize, (state, {}) => ({
+  on(actionLocationNodesPageSize, (state) => ({
     ...state,
     nodesPageIndex: 0,
   })),
@@ -69,13 +69,13 @@ export const locationReducer = createReducer(
     nodesPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationNodesPageDestroy, (state, {}) => ({
+  on(actionLocationNodesPageDestroy, (state) => ({
     ...state,
     nodesPage: undefined,
     nodesPageIndex: undefined,
     nodesPageType: undefined,
   })),
-  on(actionLocationRoutesPageInit, (state, {}) => ({
+  on(actionLocationRoutesPageInit, (state) => ({
     ...state,
     routesPageType: LocationRoutesType.all,
     routesPageIndex: 0,
@@ -85,7 +85,7 @@ export const locationReducer = createReducer(
     routesPageType: locationRoutesType,
     routesPageIndex: 0,
   })),
-  on(actionLocationRoutesPageSize, (state, {}) => ({
+  on(actionLocationRoutesPageSize, (state) => ({
     ...state,
     routesPageIndex: 0,
   })),
@@ -98,7 +98,7 @@ export const locationReducer = createReducer(
     routesPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationRoutesPageDestroy, (state, {}) => ({
+  on(actionLocationRoutesPageDestroy, (state) => ({
     ...state,
     routesPage: undefined,
     routesPageIndex: undefined,
@@ -109,7 +109,7 @@ export const locationReducer = createReducer(
     factsPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationFactsPageDestroy, (state, response) => ({
+  on(actionLocationFactsPageDestroy, (state) => ({
     ...state,
     factsPage: undefined,
   })),
@@ -118,7 +118,7 @@ export const locationReducer = createReducer(
     mapPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationMapPageDestroy, (state, response) => ({
+  on(actionLocationMapPageDestroy, (state) => ({
     ...state,
     mapPage: undefined,
   })),
@@ -127,7 +127,7 @@ export const locationReducer = createReducer(
     changesPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationChangesPageDestroy, (state, response) => ({
+  on(actionLocationChangesPageDestroy, (state) => ({
     ...state,
     changesPage: undefined,
     changesPageIndex: undefined,
@@ -137,7 +137,7 @@ export const locationReducer = createReducer(
     editPage: response,
     locationSummary: response.result?.summary,
   })),
-  on(actionLocationEditPageDestroy, (state, response) => ({
+  on(actionLocationEditPageDestroy, (state) => ({
     ...state,
     editPage: undefined,
   }))

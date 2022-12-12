@@ -16,7 +16,7 @@ import { initialState } from './node.state';
 
 export const nodeReducer = createReducer(
   initialState,
-  on(routerNavigationAction, (state, {}) => ({
+  on(routerNavigationAction, (state) => ({
     ...state,
     detailsPage: null,
     mapPage: null,

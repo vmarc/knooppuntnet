@@ -72,7 +72,7 @@ export const preferencesReducer = createReducer(
       strategy: action.strategy,
     })
   ),
-  on(actionLocationSelectionPageInit, (state, {}) => ({
+  on(actionLocationSelectionPageInit, (state) => ({
     ...state,
     strategy: AnalysisStrategy.location,
   })),

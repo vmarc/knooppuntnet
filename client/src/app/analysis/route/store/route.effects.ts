@@ -44,7 +44,7 @@ export class RouteEffects {
     this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
-      map(([{}, routeId]) => actionRouteDetailsPageLoad({ routeId }))
+      map(([_, routeId]) => actionRouteDetailsPageLoad({ routeId }))
     )
   );
 
@@ -65,7 +65,7 @@ export class RouteEffects {
         this.store.select(selectRouteParam('routeId')),
         this.store.select(selectQueryParam('position')),
       ]),
-      map(([{}, routeId, mapPositionString]) => {
+      map(([_, routeId, mapPositionString]) => {
         const mapPositionFromUrl =
           MapPosition.fromQueryParam(mapPositionString);
         return actionRouteMapPageLoad({ routeId, mapPositionFromUrl });
@@ -102,7 +102,7 @@ export class RouteEffects {
       ]),
       map(
         ([
-          {},
+          _,
           routeParams,
           queryParams,
           preferencesImpact,
@@ -134,7 +134,7 @@ export class RouteEffects {
         this.store.select(selectRouteId),
         this.store.select(selectRouteChangesParameters),
       ]),
-      mergeMap(([{}, routeId, changesParameters]) => {
+      mergeMap(([_, routeId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() => {

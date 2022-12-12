@@ -82,7 +82,7 @@ export const changesReducer = createReducer(
       pageIndex: 0,
     },
   })),
-  on(actionChangesPageInit, (state, {}) => ({
+  on(actionChangesPageInit, (state) => ({
     ...state,
     pageIndex: 0,
   })),

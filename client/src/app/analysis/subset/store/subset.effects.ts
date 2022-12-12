@@ -57,7 +57,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
-      map(([{}, routeParams]) => {
+      map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetNetworksPageLoad({ subset });
       })
@@ -78,7 +78,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
-      map(([{}, routeParams]) => {
+      map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetFactsPageLoad({ subset });
       })
@@ -139,7 +139,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
-      map(([{}, routeParams]) => {
+      map(([_, routeParams]) => {
         const subsetFact = new PageParams(routeParams).subsetFact();
         return actionSubsetFactDetailsPageLoad({ subsetFact });
       })
@@ -165,7 +165,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
-      map(([{}, routeParams]) => {
+      map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetOrphanNodesPageLoad({ subset });
       })
@@ -186,7 +186,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
-      map(([{}, routeParams]) => {
+      map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetOrphanRoutesPageLoad({ subset });
       })
@@ -207,7 +207,7 @@ export class SubsetEffects {
     this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
-      map(([{}, routeParams]) => {
+      map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetMapPageLoad({ subset });
       })
@@ -235,7 +235,7 @@ export class SubsetEffects {
       ]),
       map(
         ([
-          {},
+          _,
           routeParams,
           queryParams,
           preferencesImpact,
@@ -267,7 +267,7 @@ export class SubsetEffects {
         this.store.select(selectSubset),
         this.store.select(selectSubsetChangesParameters),
       ]),
-      mergeMap(([{}, subset, changesParameters]) => {
+      mergeMap(([_, subset, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() =>

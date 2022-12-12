@@ -105,7 +105,7 @@ export class MonitorEffects {
         this.store.select(selectRouteParams),
         this.store.select(selectMonitorAdmin),
       ]),
-      mergeMap(([{}, admin]) => {
+      mergeMap(([_, admin]) => {
         if (admin) {
           return this.monitorService
             .groups()
@@ -123,7 +123,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([{}, groupName]) =>
+      mergeMap(([_, groupName]) =>
         this.monitorService
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupPageLoaded(response)))
@@ -144,7 +144,7 @@ export class MonitorEffects {
         this.store.select(selectMonitorGroupChangesPageIndex),
         this.store.select(selectPreferencesImpact),
       ]),
-      mergeMap(([{}, groupName, pageSize, pageIndex, impact]) => {
+      mergeMap(([_, groupName, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
           pageSize,
           pageIndex,
@@ -164,7 +164,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupDeleteInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([{}, groupName]) =>
+      mergeMap(([_, groupName]) =>
         this.monitorService
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupDeleteLoaded(response)))
@@ -177,7 +177,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupUpdateInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([{}, groupName]) =>
+      mergeMap(([_, groupName]) =>
         this.monitorService
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupUpdateLoaded(response)))
@@ -190,7 +190,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorRouteAddPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([{}, groupName]) =>
+      mergeMap(([_, groupName]) =>
         this.monitorService
           .routeAddPage(groupName)
           .pipe(map((response) => actionMonitorRouteAddPageLoaded(response)))
@@ -282,7 +282,7 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
       ]),
-      mergeMap(([{}, groupName, routeName]) =>
+      mergeMap(([_, groupName, routeName]) =>
         this.monitorService
           .routeUpdatePage(groupName, routeName)
           .pipe(map((response) => actionMonitorRouteUpdatePageLoaded(response)))
@@ -298,7 +298,7 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
       ]),
-      mergeMap(([{}, groupName, routeName]) =>
+      mergeMap(([_, groupName, routeName]) =>
         this.monitorService
           .route(groupName, routeName)
           .pipe(
@@ -317,7 +317,7 @@ export class MonitorEffects {
           this.store.select(selectRouteParam('groupName')),
           this.store.select(selectRouteParam('routeName')),
         ]),
-        mergeMap(([{}, groupName, routeName]) =>
+        mergeMap(([_, groupName, routeName]) =>
           this.monitorService
             .routeDelete(groupName, routeName)
             .pipe(
@@ -336,7 +336,7 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
       ]),
-      mergeMap(([{}, groupName, routeName]) =>
+      mergeMap(([_, groupName, routeName]) =>
         this.monitorService
           .route(groupName, routeName)
           .pipe(
@@ -355,7 +355,7 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('routeName')),
         this.store.select(selectQueryParams),
       ]),
-      mergeMap(([{}, groupName, routeName, queryParams]) =>
+      mergeMap(([_, groupName, routeName, queryParams]) =>
         this.monitorService.routeMap(groupName, routeName).pipe(
           map((response) =>
             actionMonitorRouteMapPageLoaded({
@@ -391,7 +391,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorRouteMapJosmLoadRouteRelation),
       concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
-      map(([{}, page]) => {
+      map(([_, page]) => {
         const editParameters: EditParameters = {
           relationIds: [page.result.relationId],
           fullRelation: true,
@@ -406,7 +406,7 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorRouteMapJosmZoomToFitRoute),
       concatLatestFrom(() => [this.store.select(selectMonitorRouteMapBounds)]),
-      map(([{}, bounds]) => {
+      map(([_, bounds]) => {
         const editParameters: EditParameters = {
           bounds,
         };
@@ -422,8 +422,8 @@ export class MonitorEffects {
       concatLatestFrom(() => [
         this.store.select(selectMonitorRouteMapSelectedDeviation),
       ]),
-      filter(([{}, segment]) => !!segment),
-      map(([{}, segment]) => {
+      filter(([_, segment]) => !!segment),
+      map(([_, segment]) => {
         const editParameters: EditParameters = {
           bounds: segment.bounds,
         };
@@ -439,8 +439,8 @@ export class MonitorEffects {
       concatLatestFrom(() => [
         this.store.select(selectMonitorRouteMapSelectedOsmSegment),
       ]),
-      filter(([{}, segment]) => !!segment),
-      map(([{}, segment]) => {
+      filter(([_, segment]) => !!segment),
+      map(([_, segment]) => {
         const editParameters: EditParameters = {
           bounds: segment.bounds,
         };
@@ -462,7 +462,7 @@ export class MonitorEffects {
         this.store.select(selectMonitorGroupChangesPageIndex),
         this.store.select(selectPreferencesImpact),
       ]),
-      mergeMap(([{}, monitorRouteId, pageSize, pageIndex, impact]) => {
+      mergeMap(([_, monitorRouteId, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
           pageSize,
           pageIndex,
@@ -486,7 +486,7 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('changeSetId')),
         this.store.select(selectRouteParam('replicationNumber')),
       ]),
-      mergeMap(([{}, monitorRouteId, changeSetId, replicationNumber]) =>
+      mergeMap(([_, monitorRouteId, changeSetId, replicationNumber]) =>
         this.monitorService
           .routeChange(monitorRouteId, changeSetId, replicationNumber)
           .pipe(map((response) => actionMonitorRouteChangePageLoaded(response)))
@@ -538,7 +538,7 @@ export class MonitorEffects {
         this.store.select(selectMonitorChangesPageIndex),
         this.store.select(selectPreferencesImpact),
       ]),
-      mergeMap(([{}, pageSize, pageIndex, impact]) => {
+      mergeMap(([_, pageSize, pageIndex, impact]) => {
         const parameters: MonitorChangesParameters = {
           pageSize,
           pageIndex,
@@ -564,7 +564,7 @@ export class MonitorEffects {
           actionMonitorRouteMapMode
         ),
         concatLatestFrom(() => this.store.select(selectMonitorState)),
-        tap(([{}, state]) => {
+        tap(([_, state]) => {
           let selectedDeviation = 0;
           if (state.routeMapSelectedDeviation) {
             selectedDeviation = state.routeMapSelectedDeviation.id;

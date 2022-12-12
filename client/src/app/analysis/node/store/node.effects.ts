@@ -44,7 +44,7 @@ export class NodeEffects {
     this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
-      map(([{}, nodeId]) => actionNodeDetailsPageLoad({ nodeId }))
+      map(([_, nodeId]) => actionNodeDetailsPageLoad({ nodeId }))
     )
   );
 
@@ -65,7 +65,7 @@ export class NodeEffects {
         this.store.select(selectRouteParam('nodeId')),
         this.store.select(selectQueryParam('position')),
       ]),
-      map(([{}, nodeId, mapPositionString]) => {
+      map(([_, nodeId, mapPositionString]) => {
         const mapPositionFromUrl =
           MapPosition.fromQueryParam(mapPositionString);
         return actionNodeMapPageLoad({ nodeId, mapPositionFromUrl });
@@ -102,7 +102,7 @@ export class NodeEffects {
       ]),
       map(
         ([
-          {},
+          _,
           routeParams,
           queryParams,
           preferencesImpact,
@@ -134,7 +134,7 @@ export class NodeEffects {
         this.store.select(selectNodeId),
         this.store.select(selectNodeChangesParameters),
       ]),
-      mergeMap(([{}, nodeId, changesParameters]) => {
+      mergeMap(([_, nodeId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() =>

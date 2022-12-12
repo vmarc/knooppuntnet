@@ -43,7 +43,7 @@ export class ChangesEffects {
       ]),
       map(
         ([
-          {},
+          _,
           queryParams,
           preferencesAnalysisStrategy,
           preferencesImpact,
@@ -76,7 +76,7 @@ export class ChangesEffects {
         this.store.select(selectPreferencesAnalysisStrategy),
         this.store.select(selectChangesParameters),
       ]),
-      mergeMap(([{}, strategy, changesParameters]) => {
+      mergeMap(([_, strategy, changesParameters]) => {
         const promise = this.navigate(strategy, changesParameters);
         return from(promise).pipe(
           mergeMap(() => this.appService.changes(strategy, changesParameters)),
