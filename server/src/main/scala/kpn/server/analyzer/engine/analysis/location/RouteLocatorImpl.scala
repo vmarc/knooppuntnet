@@ -80,7 +80,8 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
       routeMap.backwardPath.toSeq.flatMap(_.segments),
       routeMap.unusedSegments,
       routeMap.startTentaclePaths.flatMap(_.segments),
-      routeMap.endTentaclePaths.flatMap(_.segments)
+      routeMap.endTentaclePaths.flatMap(_.segments),
+      routeMap.freePaths.flatMap(_.segments)
     ).flatten
   }
 
