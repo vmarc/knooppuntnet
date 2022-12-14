@@ -61,6 +61,7 @@ import { Subscriptions } from './util/Subscriptions';
         left: 0;
         width: 100%;
         height: 48px;
+        z-index: 1001;
       }
 
       .page-contents {
