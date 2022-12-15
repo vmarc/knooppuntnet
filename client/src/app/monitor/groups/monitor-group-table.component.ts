@@ -60,14 +60,25 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         >
           Actions
         </th>
-        <td mat-cell *matCellDef="let group">
-          <a [routerLink]="updateLink(group)" i18n="@@action.update">Update</a>
-          <a
-            [routerLink]="deleteLink(group)"
-            class="delete"
-            i18n="@@action.delete"
-            >Delete</a
+        <td mat-cell *matCellDef="let group" class="kpn-action-cell">
+          <button
+            mat-icon-button
+            [routerLink]="updateLink(group)"
+            title="Update"
+            i18n-title="@@action.update"
+            class="kpn-action-button kpn-link"
           >
+            <mat-icon svgIcon="pencil"></mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            [routerLink]="deleteLink(group)"
+            title="delete"
+            i18n-title="@@action.delete"
+            class="kpn-action-button kpn-warning"
+          >
+            <mat-icon svgIcon="garbage"></mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -78,14 +89,6 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
       ></tr>
     </table>
   `,
-  styles: [
-    `
-      .delete {
-        padding-left: 1em;
-        color: red;
-      }
-    `,
-  ],
 })
 export class MonitorGroupTableComponent implements OnInit {
   @Input() groups: MonitorGroupDetail[];

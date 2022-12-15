@@ -77,7 +77,11 @@ strong {
 }
 
 .kpn-warning {
-  color: red;
+  color: red !important;
+}
+
+.kpn-link {
+  color: blue !important;
 }
 
 .kpn-table {
@@ -537,6 +541,18 @@ markdown > p > em:after {
   color: red;
   font-size: 0.8em;
   padding-bottom: 3em;
+}
+
+.kpn-action-cell {
+  padding: 0 !important;
+  min-width: 78px !important;
+}
+
+.kpn-action-button {
+  transform: scale(0.7) !important;
+  padding: 0 !important;
+  width: 38px !important;
+  height: 38px !important;
 }
 
 // knooppuntnet specifics after Angular 15 update:

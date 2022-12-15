@@ -186,16 +186,25 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         >
           Actions
         </th>
-        <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeUpdateLink(route)" i18n="@@action.update"
-            >Update</a
+        <td mat-cell *matCellDef="let route" class="kpn-action-cell">
+          <button
+            mat-icon-button
+            [routerLink]="routeUpdateLink(route)"
+            title="Update"
+            i18n-title="@@action.update"
+            class="kpn-action-button kpn-link"
           >
-          <a
+            <mat-icon svgIcon="pencil"></mat-icon>
+          </button>
+          <button
+            mat-icon-button
             [routerLink]="routeDeleteLink(route)"
-            class="delete"
-            i18n="@@action.delete"
-            >Delete</a
+            title="delete"
+            i18n-title="@@action.delete"
+            class="kpn-action-button kpn-warning"
           >
+            <mat-icon svgIcon="garbage"></mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -210,11 +219,6 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
     `
       .id {
         width: 12em;
-      }
-
-      .delete {
-        padding-left: 1em;
-        color: red;
       }
 
       .mat-column-name {

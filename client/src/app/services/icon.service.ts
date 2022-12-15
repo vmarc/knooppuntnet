@@ -123,6 +123,20 @@ export class IconService {
         require('!svg-inline-loader!src/assets/images/remove.svg')
       )
     );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'pencil',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/pencil.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'garbage',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/garbage.svg')
+      )
+    );
   }
 
   private registerNetworkTypeIcons() {
