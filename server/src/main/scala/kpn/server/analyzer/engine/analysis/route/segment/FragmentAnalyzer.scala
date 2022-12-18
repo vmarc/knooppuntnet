@@ -24,6 +24,8 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
   private val routeNodeIds = routeNodes.map(_.id)
 
+  private val nodeMap = log.infoElapsed("build node map", wayMembers.flatMap(wayMember => wayMember.way.nodes.map(node => node.id -> wayMember)).groupBy(_._1)).map(x => x._1 -> x._2.map(_._2))
+
   def fragmentMap: FragmentMap = {
     val fragments = wayMembers.flatMap { wayMember =>
       fragmentsIn(wayMember)
@@ -92,12 +94,10 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
   }
 
   private def findNodesTouchingOtherWays(wayMember: WayMember, candidateNodeIds: Seq[Long]): Seq[Long] = {
-    wayMembers.flatMap { m =>
-      if (m.way.id != wayMember.way.id) {
-        m.way.nodes.filter(node => candidateNodeIds.contains(node.id)).map(_.id)
-      }
-      else {
-        Seq.empty
+    candidateNodeIds.filter { nodeId =>
+      nodeMap.get(nodeId) match {
+        case Some(members) => members.exists(_ != wayMember)
+        case None => false
       }
     }
   }
