@@ -17,7 +17,7 @@ class FragmentFilterTest extends UnitTest with SharedTestObjects {
 
   private def filteredSize(tags: Tags): Int = {
 
-    val nodes: Seq[Node] = Seq(
+    val nodes = Vector(
       newNode(1001),
       newNode(1002),
       newNode(1003)

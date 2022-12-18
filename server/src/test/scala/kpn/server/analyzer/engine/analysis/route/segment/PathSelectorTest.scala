@@ -49,7 +49,7 @@ class PathSelectorTest extends UnitTest with SharedTestObjects {
   }
 
   private def path(wayId: Long, length: Int, broken: Boolean = false): Path = {
-    val fragment = Fragment.create(None, None, newWay(wayId, length = length), Seq.empty, None)
+    val fragment = Fragment.create(None, None, newWay(wayId, length = length), Vector.empty, None)
     val segment = Segment("", Seq(SegmentFragment(fragment)))
     Path(
       None,

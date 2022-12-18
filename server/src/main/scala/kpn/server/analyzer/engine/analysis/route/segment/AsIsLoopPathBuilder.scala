@@ -54,10 +54,10 @@ class AsIsLoopPathBuilder(
       val fragment = remainingFragments.head
       val previousEndNode = segments.last.endNode
 
-      val reversedOption = if (previousEndNode.id == fragment.nodes.head.id) {
+      val reversedOption = if (previousEndNode.id == fragment.startNodeId) {
         Some(false)
       }
-      else if (previousEndNode.id == fragment.nodes.last.id) {
+      else if (previousEndNode.id == fragment.endNodeId) {
         Some(true)
       }
       else {

@@ -16,7 +16,7 @@ class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects
   private val node2 = newNode(2)
   private val node3 = newNode(3)
   private val node4 = newNode(4)
-  private val wayNodes = Seq(node1, node2, node3)
+  private val wayNodes = Vector(node1, node2, node3)
 
   test("a node cannot connect to a fragment if it is not the start or endnode of the fragment") {
     assert(!canConnect(NetworkType.all, SegmentDirection.Both, node4, None))

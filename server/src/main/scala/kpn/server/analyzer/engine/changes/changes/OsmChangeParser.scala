@@ -41,7 +41,7 @@ class OsmChangeParser {
 
   def way(node: scala.xml.Node): RawWay = {
     val wayNodeIds = (node \ "nd").map { t => (t \ "@ref").text.toLong}
-    RawWay(id(node), version(node), timestamp(node), changeSetId(node), wayNodeIds, tags(node))
+    RawWay(id(node), version(node), timestamp(node), changeSetId(node), wayNodeIds.toVector, tags(node))
   }
 
   private def relation(node: scala.xml.Node): RawRelation = {

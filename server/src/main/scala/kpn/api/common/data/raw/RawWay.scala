@@ -8,7 +8,7 @@ case class RawWay(
   version: Long,
   timestamp: Timestamp,
   changeSetId: Long,
-  nodeIds: Seq[Long],
+  nodeIds: Vector[Long],
   tags: Tags
 ) extends RawElement {
 

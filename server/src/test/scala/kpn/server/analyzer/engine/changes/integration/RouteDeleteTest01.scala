@@ -140,7 +140,7 @@ class RouteDeleteTest01 extends IntegrationTest {
             ways = Seq(
               newRawWay(
                 101,
-                nodeIds = Seq(1001, 1002),
+                nodeIds = Vector(1001, 1002),
                 tags = Tags.from("highway" -> "unclassified")
               )
             )

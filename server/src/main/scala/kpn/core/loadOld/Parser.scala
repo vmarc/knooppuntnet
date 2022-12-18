@@ -49,7 +49,7 @@ class Parser() {
       val changeSetId = (w \ "@changeset").text.toLong
       val nodeIds = (w \ "nd").map(t => (t \ "@ref").text.toLong)
       val tags = tagsIn(w)
-      RawWay(id, version, timestamp, changeSetId, nodeIds, tags)
+      RawWay(id, version, timestamp, changeSetId, nodeIds.toVector, tags)
     }
   }
 

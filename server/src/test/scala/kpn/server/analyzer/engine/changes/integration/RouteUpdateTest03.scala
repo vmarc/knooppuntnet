@@ -46,7 +46,7 @@ class RouteUpdateTest03 extends IntegrationTest {
         Seq(
           newRawWay(
             102,
-            nodeIds = Seq(1002, 1003),
+            nodeIds = Vector(1002, 1003),
             tags = Tags.from(
               "highway" -> "unclassified"
             )

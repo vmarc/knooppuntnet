@@ -113,7 +113,7 @@ class MonitorSegmentBuilder(
       }
       val segments = connectableFragmentIds.take(maxFragments).map { fragmentId =>
         val fragment = fragmentMap(fragmentId)
-        val reversed = node.id == fragment.nodes.last.id
+        val reversed = node.id == fragment.endNodeId
         val segmentFragment = SegmentFragment(fragment, reversed)
         val newSegmentFragments = segmentFragments :+ segmentFragment
         val remainingFragments = availableFragmentIds.filterNot(_ == fragmentId)
@@ -139,8 +139,8 @@ class MonitorSegmentBuilder(
    */
   private def canConnect(visitedNodeIds: Set[Long], node: Node, fragmentId: Int): Boolean = {
     val fragment = fragmentMap(fragmentId)
-    val startNodeId = fragment.nodes.head.id
-    val endNodeId = fragment.nodes.last.id
+    val startNodeId = fragment.startNodeId
+    val endNodeId = fragment.endNodeId
     node.id == startNodeId && (!visitedNodeIds.contains(endNodeId)) ||
       node.id == endNodeId && (!visitedNodeIds.contains(startNodeId))
   }

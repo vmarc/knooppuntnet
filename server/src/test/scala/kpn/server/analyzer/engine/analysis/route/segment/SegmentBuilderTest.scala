@@ -19,9 +19,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq.empty, None)
-    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq.empty, None)
-    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq.empty, None)
+    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Vector(node1, node2)), Vector.empty, None)
+    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Vector(node2, node3, node4)), Vector.empty, None)
+    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Vector(node5, node6)), Vector.empty, None)
 
     val fragments: Seq[Fragment] = Seq(fragment1, fragment2, fragment3)
 
@@ -37,9 +37,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Seq(node1, node2)), Seq.empty, None)
-    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Seq(node2, node3, node4)), Seq.empty, None)
-    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Seq(node5, node6)), Seq.empty, None)
+    val fragment1 = Fragment.create(None, None, newWay(10, nodes = Vector(node1, node2)), Vector.empty, None)
+    val fragment2 = Fragment.create(None, None, newWay(11, nodes = Vector(node2, node3, node4)), Vector.empty, None)
+    val fragment3 = Fragment.create(None, None, newWay(12, nodes = Vector(node5, node6)), Vector.empty, None)
 
     val fragments: Seq[Fragment] = Seq(fragment2, fragment3, fragment1)
 
@@ -55,9 +55,9 @@ class SegmentBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newNode(5)
     val node6 = newNode(6)
 
-    val way1 = newWay(10, nodes = Seq(node1, node2, node3), length = 100)
-    val way2 = newWay(11, nodes = Seq(node3, node4, node5), length = 50)
-    val way3 = newWay(12, nodes = Seq(node3, node6), length = 200)
+    val way1 = newWay(10, nodes = Vector(node1, node2, node3), length = 100)
+    val way2 = newWay(11, nodes = Vector(node3, node4, node5), length = 50)
+    val way3 = newWay(12, nodes = Vector(node3, node6), length = 200)
 
     val fragment1 = Fragment.create(way = way1)
     val fragment2 = Fragment.create(way = way2)

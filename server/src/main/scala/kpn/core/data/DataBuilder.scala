@@ -100,14 +100,14 @@ class DataBuilder(rawData: RawData, log: Log = DataBuilder.log) {
 
   private def buildWays: Map[Long, Way] = {
     rawData.ways.map { raw =>
-      val wayNodes: Seq[Node] = buildWayNodes(raw)
+      val wayNodes = buildWayNodes(raw)
       val length = Haversine.meters(wayNodes.map(_.raw))
       val way: Way = Way(raw, wayNodes, length)
       raw.id -> way
     }.toMap
   }
 
-  private def buildWayNodes(rawWay: RawWay): Seq[Node] = {
+  private def buildWayNodes(rawWay: RawWay): Vector[Node] = {
     rawWay.nodeIds.flatMap { nodeId =>
       nodes.get(nodeId) match {
         case Some(node) => Some(node)

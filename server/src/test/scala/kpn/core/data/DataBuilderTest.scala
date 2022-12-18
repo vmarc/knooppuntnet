@@ -21,8 +21,8 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val node5 = newRawNode(105, tags = Tags.from("name" -> "05"))
     val node6 = newRawNode(106, tags = Tags.from("name" -> "06"))
 
-    val way1 = newRawWay(11, nodeIds = Seq(103, 104))
-    val way2 = newRawWay(12, nodeIds = Seq(105, 106))
+    val way1 = newRawWay(11, nodeIds = Vector(103, 104))
+    val way2 = newRawWay(12, nodeIds = Vector(105, 106))
 
     val relation1 = newRawRelation(1)
     val relation2 = newRawRelation(2)
@@ -110,7 +110,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
   test("way node missing") {
 
     val node = newRawNode(101)
-    val way = newRawWay(10, nodeIds = Seq(101, 102))
+    val way = newRawWay(10, nodeIds = Vector(101, 102))
 
     val rawData = RawData(None, Seq(node), Seq(way), Seq.empty)
 
@@ -196,7 +196,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val node1 = newRawNode(101, tags = Tags.from("name" -> "01"))
     val node2 = newRawNode(102)
     val node3 = newRawNode(103)
-    val way = newRawWay(11, nodeIds = Seq(102, 103))
+    val way = newRawWay(11, nodeIds = Vector(102, 103))
 
     val relation = newRawRelation(
       1, members = Seq(

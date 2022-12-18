@@ -130,7 +130,7 @@ trait SharedTestObjects extends MockFactory {
     version: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
-    nodeIds: Seq[Long] = Seq.empty,
+    nodeIds: Vector[Long] = Vector.empty,
     tags: Tags = Tags.empty
   ): RawWay = {
     RawWay(
@@ -319,7 +319,7 @@ trait SharedTestObjects extends MockFactory {
     version: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
-    nodes: Seq[Node] = Seq.empty,
+    nodes: Vector[Node] = Vector.empty,
     tags: Tags = Tags.empty,
     length: Int = 0
   ): Way = {

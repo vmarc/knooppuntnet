@@ -10,10 +10,14 @@ object Fragment {
     start: Option[RouteNode] = None,
     end: Option[RouteNode] = None,
     way: Way,
-    nodeSubset: Seq[Node] = Seq.empty,
+    nodeSubset: Vector[Node] = Vector.empty,
     role: Option[String] = None
   ): Fragment = {
-    Fragment(-1, start, end, way, nodeSubset, role)
+    val nodes = if (nodeSubset.isEmpty) way.nodes else nodeSubset
+    val meters = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
+    val startNodeId = nodes.head.id
+    val endNodeId = nodes.last.id
+    Fragment(-1, start, end, way, nodeSubset, role, startNodeId, endNodeId, nodes, meters)
   }
 }
 
@@ -32,12 +36,10 @@ case class Fragment(
   start: Option[RouteNode] = None,
   end: Option[RouteNode] = None,
   way: Way,
-  nodeSubset: Seq[Node] = Seq.empty,
-  role: Option[String] = None
-) {
-
-  def nodes: Seq[Node] = if (nodeSubset.isEmpty) way.nodes else nodeSubset
-
-  def meters: Long = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
-
-}
+  nodeSubset: Vector[Node] = Vector.empty,
+  role: Option[String] = None,
+  startNodeId: Long,
+  endNodeId: Long,
+  nodes: Seq[Node],
+  meters: Long
+)

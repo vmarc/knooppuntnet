@@ -41,7 +41,7 @@ class RouteTestData(
 
   def way(wayId: Long, tags: Tags, nodeIds: Long*): RawWay = {
     addNodesIfMissing(nodeIds)
-    val w = newRawWay(wayId, nodeIds = nodeIds, tags = tags)
+    val w = newRawWay(wayId, nodeIds = nodeIds.toVector, tags = tags)
     wayBuffer += w
     w
   }

@@ -7,15 +7,12 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 
 import scala.collection.mutable.ListBuffer
 
 object TestData {
-
-  private val defaultTimestamp = Timestamp(2015, 8, 11)
 
   def node(data: Data, id: Long): RawNode = {
     data.raw.nodeWithId(id).get
@@ -45,13 +42,13 @@ class TestData() extends SharedTestObjects {
   }
 
   def way(id: Long, nodeIds: Long*): RawWay = {
-    val w = newRawWay(id, tags = Tags.from("highway" -> "unclassified"), nodeIds = nodeIds)
+    val w = newRawWay(id, tags = Tags.from("highway" -> "unclassified"), nodeIds = nodeIds.toVector)
     ways += w
     w
   }
 
   def way(id: Long, tags: Tags, nodeIds: Long*): RawWay = {
-    val w = newRawWay(id, nodeIds = nodeIds, tags = tags)
+    val w = newRawWay(id, nodeIds = nodeIds.toVector, tags = tags)
     ways += w
     w
   }

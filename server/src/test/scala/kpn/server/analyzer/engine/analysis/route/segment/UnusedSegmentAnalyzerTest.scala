@@ -60,7 +60,7 @@ class UnusedSegmentAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("if one fragment of a closed loop is used, then entire loop is considered used") {
 
-    val way1 = newWay(10, nodes = Seq(n1, n2, n3, n4, n1))
+    val way1 = newWay(10, nodes = Vector(n1, n2, n3, n4, n1))
     val way2 = newWay(30)
 
     val b = new FragmentBuilder

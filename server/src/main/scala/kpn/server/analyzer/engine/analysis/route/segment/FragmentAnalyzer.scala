@@ -42,12 +42,12 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
     if (wayMember.way.nodes.size < 3) {
       // a way with only 2 nodes cannot be split up any further
-      Seq(fragment(wayMember, Seq.empty))
+      Seq(fragment(wayMember, Vector.empty))
     }
     else {
       val splitIndexes = indexesAtWhichToSplit(wayMember)
       if (splitIndexes.isEmpty) {
-        Seq(fragment(wayMember, Seq.empty))
+        Seq(fragment(wayMember, Vector.empty))
       }
       else {
         splitIndexes.sliding(2).toSeq.map { case Seq(from, to) =>
@@ -115,7 +115,7 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
     WayAnalyzer.isRoundabout(way) || WayAnalyzer.isClosedLoop(way)
   }
 
-  private def fragment(wayMember: WayMember, subsetNodes: Seq[Node]): Fragment = {
+  private def fragment(wayMember: WayMember, subsetNodes: Vector[Node]): Fragment = {
     val nodes = if (subsetNodes.isEmpty) wayMember.way.nodes else subsetNodes
     val start = routeNodes.find(routeNode => routeNode.id == nodes.head.id)
     val end = routeNodes.find(routeNode => routeNode.id == nodes.last.id)

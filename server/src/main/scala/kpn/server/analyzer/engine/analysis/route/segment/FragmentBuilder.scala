@@ -10,7 +10,7 @@ class FragmentBuilder {
   val fragments: ListBuffer[Fragment] = ListBuffer[Fragment]()
 
   def fragment(way: Way, nodes: Node*): SegmentFragment = {
-    val f = Fragment.create(None, None, way, nodes, None)
+    val f = Fragment.create(None, None, way, nodes.toVector, None)
     fragments += f
     SegmentFragment(f)
   }

@@ -64,7 +64,7 @@ case class OverpassData(
   }
 
   def way(id: Long, nodeIds: Long*): OverpassData = {
-    val w = newRawWay(id, nodeIds = nodeIds, tags = Tags.from("highway" -> "unclassified"))
+    val w = newRawWay(id, nodeIds = nodeIds.toVector, tags = Tags.from("highway" -> "unclassified"))
     copy(ways = ways :+ w)
   }
 
