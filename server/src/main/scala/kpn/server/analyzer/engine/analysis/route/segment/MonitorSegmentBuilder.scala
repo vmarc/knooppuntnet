@@ -17,10 +17,10 @@ class MonitorSegmentBuilder(
 
   private val log = Log(classOf[MonitorSegmentBuilder])
 
-  val runAwayAnalysisCountMax = 10000
-  var runAwayAnalysisCount = 0
-  var runAwayAnalysisDetected = false
-  var runAwayAnalysisDetectedCount = 0
+  private val runAwayAnalysisCountMax = 10000
+  private var runAwayAnalysisCount = 0
+  private var runAwayAnalysisDetected = false
+  private var runAwayAnalysisDetectedCount = 0
 
   def segments(availableFragmentIds: Seq[Int]): Seq[Segment] = {
     val optimize = true // fragmentMap.size < 50
@@ -29,9 +29,13 @@ class MonitorSegmentBuilder(
 
   @tailrec
   private def findSegments(optimize: Boolean, foundSegments: Seq[Segment], availableFragmentIds: Seq[Int]): Seq[Segment] = {
-    log.trace(s"RESET runAwayAnalysisCount (findSegments())")
+    if (log.isTraceEnabled) {
+      log.trace(s"RESET runAwayAnalysisCount (findSegments())")
+    }
     runAwayAnalysisCount = 0
-    log.trace(s"findSegments(): foundSegments=${foundSegments.size}, availableFragment=${availableFragmentIds.size}")
+    if (log.isTraceEnabled) {
+      log.trace(s"findSegments(): foundSegments=${foundSegments.size}, availableFragment=${availableFragmentIds.size}")
+    }
     if (availableFragmentIds.isEmpty) {
       foundSegments
     }
@@ -39,10 +43,14 @@ class MonitorSegmentBuilder(
       val segmentFragment = SegmentFragment(fragmentMap(availableFragmentIds.head))
       val remainingFragmentIds = availableFragmentIds.filterNot(id => id == segmentFragment.fragment.id)
 
-      log.trace(s"RESET runAwayAnalysisCount (findSegments()2)")
+      if (log.isTraceEnabled) {
+        log.trace(s"RESET runAwayAnalysisCount (findSegments()2)")
+      }
       runAwayAnalysisCount = 0
       val sfs1 = findFragments("1", 0, optimize, Seq(segmentFragment), remainingFragmentIds, segmentFragment.endNode)
-      log.trace(s"RESET runAwayAnalysisCount (findSegments()3)")
+      if (log.isTraceEnabled) {
+        log.trace(s"RESET runAwayAnalysisCount (findSegments()3)")
+      }
       runAwayAnalysisCount = 0
       val sfs2 = findFragments("2", 0, optimize, Seq.empty, remaining(remainingFragmentIds, sfs1), segmentFragment.startNode)
 
@@ -78,8 +86,15 @@ class MonitorSegmentBuilder(
 
     runAwayAnalysisCount = runAwayAnalysisCount + 1
 
-    log.trace(s"findFragments($tag): runAwayAnalysisCount=$runAwayAnalysisCount, level=$level, segmentFragments=${segmentFragments.size}, availableFragment=${availableFragmentIds.size}")
-    val visitedNodeIds = segmentFragments.flatMap(sf => List(sf.startNode, sf.endNode)).map(_.id)
+    if (log.isTraceEnabled) {
+      log.trace(s"findFragments($tag): runAwayAnalysisCount=$runAwayAnalysisCount, level=$level, segmentFragments=${segmentFragments.size}, availableFragment=${availableFragmentIds.size}")
+    }
+    val visitedNodeIds = {
+      val visitedStartNodeIds = segmentFragments.map(_.startNode.id).toSet
+      val visitedEndNodeIds = segmentFragments.map(_.endNode.id).toSet
+      visitedStartNodeIds ++ visitedEndNodeIds
+    }
+
     val connectableFragmentIds = availableFragmentIds.filter(fragmentId => canConnect(visitedNodeIds, node, fragmentId))
 
     if (runAwayAnalysisCount > runAwayAnalysisCountMax) {
@@ -93,7 +108,9 @@ class MonitorSegmentBuilder(
     }
     else {
       val maxFragments = if (optimize) 5 else 1
-      log.trace(s"    connectableFragments=${connectableFragmentIds.size}")
+      if (log.isTraceEnabled) {
+        log.trace(s"    connectableFragments=${connectableFragmentIds.size}")
+      }
       val segments = connectableFragmentIds.take(maxFragments).map { fragmentId =>
         val fragment = fragmentMap(fragmentId)
         val reversed = node.id == fragment.nodes.last.id
@@ -120,7 +137,7 @@ class MonitorSegmentBuilder(
     The node can be connected if it matches the start or end node of given fragment,
     and given node was not visited yet.
    */
-  private def canConnect(visitedNodeIds: Seq[Long], node: Node, fragmentId: Int): Boolean = {
+  private def canConnect(visitedNodeIds: Set[Long], node: Node, fragmentId: Int): Boolean = {
     val fragment = fragmentMap(fragmentId)
     val startNodeId = fragment.nodes.head.id
     val endNodeId = fragment.nodes.last.id
