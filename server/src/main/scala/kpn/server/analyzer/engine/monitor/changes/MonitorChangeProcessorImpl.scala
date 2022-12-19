@@ -1,17 +1,14 @@
 package kpn.server.analyzer.engine.monitor.changes
 
 import kpn.api.base.ObjectId
+import kpn.api.common.Bounds
 import kpn.api.common.LatLonImpl
-import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.core.util.Util
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -19,10 +16,7 @@ import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.repository.MonitorRouteRepository
-import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.MultiLineString
-import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.springframework.stereotype.Component
 
 @Component
@@ -114,14 +108,14 @@ class MonitorChangeProcessorImpl(
   ): Unit = {
 
     val beforeRouteSegments = log.infoElapsed {
-      ("toRouteSegments before", MonitorRouteAnalysisSupport.toRouteSegments(beforeRelation))
+      ("toRouteSegments before", Seq.empty /* MonitorRouteAnalysisSupport.toRouteSegments(beforeRelation) */ )
     }
     val beforeRoute = log.infoElapsed {
       ("analyze change before", analyzeChange(reference, beforeRelation, beforeRouteSegments))
     }
 
     val afterRouteSegments = log.infoElapsed {
-      ("toRouteSegments after", MonitorRouteAnalysisSupport.toRouteSegments(afterRelation))
+      ("toRouteSegments after", Seq.empty /* MonitorRouteAnalysisSupport.toRouteSegments(afterRelation) */ )
     }
     val afterRoute = log.infoElapsed {
       ("analyze change after", analyzeChange(reference, afterRelation, afterRouteSegments))
@@ -220,78 +214,17 @@ class MonitorChangeProcessorImpl(
   }
 
   private def analyzeChange(reference: MonitorRouteReference, routeRelation: Relation, osmRouteSegments: Seq[MonitorRouteSegmentData]): MonitorRouteAnalysis = {
-
-    val gpxLineString = new GeoJsonReader().read(reference.geometry)
-
-    val (okOption: Option[MultiLineString], deviations: Seq[MonitorRouteDeviation]) = {
-
-      val distanceBetweenSamples = sampleDistanceMeters.toDouble * gpxLineString.getLength / MonitorRouteAnalysisSupport.toMeters(gpxLineString.getLength)
-      val densifiedGpx = Densifier.densify(gpxLineString, distanceBetweenSamples)
-      val sampleCoordinates = densifiedGpx.getCoordinates.toSeq
-
-      val distances = sampleCoordinates.toList.map { coordinate =>
-        val point = geomFactory.createPoint(coordinate)
-        toMeters(osmRouteSegments.map(segment => segment.lineString.distance(point)).min)
-      }
-
-      val withinTolerance = distances.map(distance => distance < toleranceMeters)
-      val okAndIndexes = withinTolerance.zipWithIndex.map { case (ok, index) => ok -> index }
-      val splittedOkAndIndexes = MonitorRouteAnalysisSupport.split(okAndIndexes)
-
-      val ok: MultiLineString = MonitorRouteAnalysisSupport.toMultiLineString(sampleCoordinates, splittedOkAndIndexes.filter(_.head._1))
-
-      val noks = splittedOkAndIndexes.filterNot(_.head._1)
-
-      val nok = noks.zipWithIndex.map { case (segment, segmentIndex) =>
-        val segmentIndexes = segment.map(_._2)
-        val maxDistance = distances.zipWithIndex.filter { case (distance, index) =>
-          segmentIndexes.contains(index)
-        }.map { case (distance, index) =>
-          distance
-        }.max
-
-        val lineString = MonitorRouteAnalysisSupport.toLineString(sampleCoordinates, segment)
-        val meters: Long = Math.round(toMeters(lineString.getLength))
-        val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
-        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
-
-        MonitorRouteDeviation(
-          segmentIndex + 1,
-          meters,
-          maxDistance.toLong,
-          bounds,
-          geoJson
-        )
-      }
-
-      val xx: Seq[MonitorRouteDeviation] = nok.sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>
-        s.copy(id = index + 1)
-      }
-
-      (Some(ok), xx)
-    }
-
-    val gpxDistance = Math.round(toMeters(gpxLineString.getLength / 1000))
-    val osmDistance = Math.round(osmRouteSegments.map(_.segment.meters).sum.toDouble / 1000)
-
-    val gpxGeometry = MonitorRouteAnalysisSupport.toGeoJson(gpxLineString)
-    val okGeometry = okOption.map(geometry => MonitorRouteAnalysisSupport.toGeoJson(geometry))
-
-    // TODO merge gpx bounds + ok
-    val bounds = Util.mergeBounds(osmRouteSegments.map(_.segment.bounds) ++ deviations.map(_.bounds))
-
     MonitorRouteAnalysis(
       routeRelation,
       routeRelation.wayMembers.size,
-      osmDistance,
-      gpxDistance,
-      bounds,
+      0,
+      0,
+      Bounds(),
       osmRouteSegments.map(_.segment),
-      Some(gpxGeometry),
-      okGeometry,
-      deviations,
-      relations = Seq.empty // TODO add analysis result per sub-relation where applicable
+      None,
+      None,
+      Seq.empty,
+      Seq.empty
     )
   }
-
 }

@@ -1,15 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.Bounds
-import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.NetworkType
-import kpn.api.custom.Relation
-import kpn.core.common.RelationUtil
-import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.MonitorSegmentBuilder
-import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -20,78 +11,6 @@ import org.locationtech.jts.io.geojson.GeoJsonWriter
 object MonitorRouteAnalysisSupport {
 
   private val geomFactory = new GeometryFactory
-  private val log = Log(classOf[MonitorRouteAnalysisSupport])
-
-  // use all ways from all sub-relations to build segments
-  def toRouteSegments(routeRelation: Relation): Seq[MonitorRouteSegmentData] = {
-
-    val fragmentMap = log.infoElapsed {
-      val allRelations = RelationUtil.relationsInRelation(routeRelation)
-      val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
-      val filteredWayMembers = MonitorRouteWayFilter.filter(allWayMembers)
-      ("fragment analyzer", new FragmentAnalyzer(Seq.empty, filteredWayMembers).fragmentMap)
-    }
-
-    // new, do single (sub-)relation only:
-    //    val fragmentMap = log.infoElapsed {
-    //      val filteredWayMembers = MonitorRouteWayFilter.filter(routeRelation.wayMembers)
-    //      ("fragment analyzer", new FragmentAnalyzer(Seq.empty, filteredWayMembers).fragmentMap)
-    //    }
-
-    val segments = log.infoElapsed {
-      ("segment builder", new MonitorSegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
-    }
-
-    val filteredSegments = segments.filterNot { segment =>
-      segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
-    }.filterNot(_.nodes.size == 1) // TODO investigate why segment with one node in route P-GR128
-
-    filteredSegments.zipWithIndex.map { case (segment, index) =>
-
-      val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
-      val meters: Long = Math.round(toMeters(lineString.getLength))
-      val bounds = toBounds(lineString.getCoordinates.toSeq)
-      val geoJson = toGeoJson(lineString)
-
-      val startId = {
-        segment.fragments.headOption match {
-          case None =>
-            0 // TODO throw exception
-          case Some(f) =>
-            f.fragment.nodes.headOption match {
-              case None =>
-                0 // TODO throw exception
-              case Some(n) => n.id
-            }
-        }
-      }
-      val endId = {
-        segment.fragments.lastOption match {
-          case None =>
-            0 // TODO throw exception
-          case Some(f) =>
-            f.fragment.nodes.lastOption match {
-              case None =>
-                0 // TODO throw exception
-              case Some(n) => n.id
-            }
-        }
-      }
-
-      MonitorRouteSegmentData(
-        index + 1,
-        MonitorRouteSegment(
-          index + 1,
-          startId,
-          endId,
-          meters,
-          bounds,
-          geoJson
-        ),
-        lineString
-      )
-    }
-  }
 
   def toBounds(coordinates: Seq[Coordinate]): Bounds = {
     val minLat = coordinates.map(_.getY).min
@@ -137,7 +56,4 @@ object MonitorRouteAnalysisSupport {
     }
     geomFactory.createLineString(coordinates.toArray)
   }
-}
-
-class MonitorRouteAnalysisSupport {
 }
