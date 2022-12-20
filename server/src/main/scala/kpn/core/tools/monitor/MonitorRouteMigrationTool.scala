@@ -11,7 +11,7 @@ import kpn.server.repository.MonitorRouteRepositoryImpl
 
 object MonitorRouteMigrationTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
+    Mongo.executeIn("kpn-monitor") { database =>
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
       new MonitorRouteMigrationTool(database, overpassQueryExecutor).migrate()
     }

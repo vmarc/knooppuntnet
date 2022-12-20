@@ -1,6 +1,10 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.Bounds
+import kpn.api.common.data.WayMember
+import kpn.api.custom.Relation
+import kpn.core.common.RelationUtil
+import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -42,18 +46,31 @@ object MonitorRouteAnalysisSupport {
     }
   }
 
-  def toMultiLineString(sampleCoordinates: Seq[Coordinate], segments: List[List[(Boolean, Int)]]): MultiLineString = {
-    geomFactory.createMultiLineString(segments.map(segment => toLineString(sampleCoordinates, segment)).toArray)
+  def toMultiLineString(sampleCoordinates: Seq[Coordinate], sequences: Seq[ReferenceCoordinateSequence]): MultiLineString = {
+    geomFactory.createMultiLineString(sequences.map(sequence => toLineString(sampleCoordinates, sequence)).toArray)
   }
 
-  def toLineString(osmCoordinates: Seq[Coordinate], segment: List[(Boolean, Int)]): LineString = {
-    val indexes = segment.map(_._2)
-    val coordinates = if (indexes.size == 1) {
-      Seq(osmCoordinates.head, osmCoordinates.head)
+  def toLineString(osmCoordinates: Seq[Coordinate], sequence: ReferenceCoordinateSequence): LineString = {
+    val coordinates = if (sequence.indexes.size == 1) {
+      Seq(osmCoordinates.head, osmCoordinates.head) // TODO investigate why this is useful
     }
     else {
-      indexes.map(index => osmCoordinates(index))
+      sequence.indexes.map(index => osmCoordinates(index))
     }
     geomFactory.createLineString(coordinates.toArray)
   }
+
+  def toSampleCoordinates(sampleDistanceMeters: Int, lineString: LineString): Seq[Coordinate] = {
+    val referenceMeters = toMeters(lineString.getLength)
+    val distanceBetweenSamples = sampleDistanceMeters.toDouble * lineString.getLength / referenceMeters
+    val densifiedLineString = Densifier.densify(lineString, distanceBetweenSamples)
+    densifiedLineString.getCoordinates.toSeq
+  }
+
+  def filteredWayMembers(relation: Relation): Seq[WayMember] = {
+    val allRelations = RelationUtil.relationsInRelation(relation)
+    val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
+    MonitorRouteWayFilter.filter(allWayMembers)
+  }
+
 }

@@ -13,6 +13,7 @@ import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzerImpl
+import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
@@ -213,11 +214,11 @@ class MonitorRouteUpdater(
             MonitorRouteSaveResult(errors = Seq("osm-relation-not-found"))
 
           case Some(relation) =>
-            val nodes = relation.wayMembers.flatMap(_.way.nodes)
-            val bounds = Bounds.from(nodes)
-            val routeSegments = MonitorRouteAnalysisSupport.toRouteSegments(relation)
+            val wayMembers = MonitorRouteAnalysisSupport.filteredWayMembers(relation)
+            val analysis = new MonitorRouteOsmSegmentAnalyzer().analyze(wayMembers)
+            val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
             val geomFactory = new GeometryFactory
-            val geometryCollection = new GeometryCollection(routeSegments.map(_.lineString).toArray, geomFactory)
+            val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
             val geoJsonWriter = new GeoJsonWriter()
             geoJsonWriter.setEncodeCRS(false)
             val geometry = geoJsonWriter.write(geometryCollection)
@@ -231,7 +232,7 @@ class MonitorRouteUpdater(
               bounds = bounds,
               referenceType = "osm",
               referenceDay = properties.referenceDay,
-              segmentCount = routeSegments.size,
+              segmentCount = analysis.routeSegments.size,
               filename = None,
               geometry = geometry
             )

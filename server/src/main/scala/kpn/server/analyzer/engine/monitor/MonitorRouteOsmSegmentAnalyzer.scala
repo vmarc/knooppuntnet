@@ -83,7 +83,5 @@ class MonitorRouteOsmSegmentAnalyzer() {
       osmDistance,
       routeSegments
     )
-
   }
-
 }

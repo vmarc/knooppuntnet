@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.base.ObjectId
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
-import kpn.core.common.RelationUtil
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -19,10 +18,7 @@ class MonitorRouteStateAnalyzer() {
     now: Timestamp
   ): MonitorRouteState = {
 
-    val allRelations = RelationUtil.relationsInRelation(routeRootRelation)
-    val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
-    val wayMembers = MonitorRouteWayFilter.filter(allWayMembers)
-
+    val wayMembers = MonitorRouteAnalysisSupport.filteredWayMembers(routeRootRelation)
     val osmSegmentAnalysis = new MonitorRouteOsmSegmentAnalyzer().analyze(wayMembers)
     val deviationAnalysis = new MonitorRouteDeviationAnalyzer().analyze(wayMembers.map(_.way), routeReference)
 
