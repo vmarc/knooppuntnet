@@ -62,14 +62,21 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           i18n-title="@@monitor.route.details.structure"
         >
         </kpn-data>
-        <kpn-monitor-route-details-structure
-          *ngIf="route.relation?.relations?.length > 0"
-          [relation]="route.relation"
-        >
-        </kpn-monitor-route-details-structure>
+        <div class="structure">
+          <kpn-monitor-route-details-structure
+            *ngIf="route.relation?.relations?.length > 0"
+            [relation]="route.relation"
+          >
+          </kpn-monitor-route-details-structure>
+        </div>
       </div>
     </div>
   `,
+  styles: [`
+    .structure {
+      padding-top: 1em;
+    }
+  `]
 })
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);

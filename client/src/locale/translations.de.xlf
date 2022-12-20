@@ -10076,23 +10076,23 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Aktualisieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">191</context>
+          <context context-type="linenumber">194,193</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">68,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.delete" datatype="html">
-        <source>Delete</source>
+        <source>delete</source>
         <target>Löschen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">197</context>
+          <context context-type="linenumber">203,202</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-group-table.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">77,76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.update.title" datatype="html">
@@ -11217,6 +11217,54 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
           <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.nr" datatype="html">
+        <source>Nr</source>
+        <target>Nr</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.relation" datatype="html">
+        <source>Relation</source>
+        <target>Relation</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">32,34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.name" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.role" datatype="html">
+        <source>Role</source>
+        <target>Role</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">66,68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.distance" datatype="html">
+        <source>Distance</source>
+        <target>Distance</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">79,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.survey" datatype="html">
+        <source>Survey</source>
+        <target>Survey</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">92,94</context>
         </context-group>
       </trans-unit>
     </body>

@@ -64,7 +64,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
             <span
               class="segment-deviation"
               i18n="@@monitor.route.map-deviations.deviation"
-              >Deviation</span
+            >Deviation</span
             >
             <span i18n="@@monitor.route.map-deviations.length">Length</span>
           </div>
@@ -80,9 +80,10 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
             >
               <div class="segment">
                 <span class="segment-id">{{ segment.id }}</span>
-                <span class="segment-deviation">{{
+                <span *ngIf="segment.distance === 2500" class="segment-deviation">{{longDistance}}</span>
+                <span *ngIf="segment.distance !== 2500" class="segment-deviation">{{
                   segment.distance | distance
-                }}</span>
+                  }}</span>
                 <span>{{ segment.meters | distance }}</span>
               </div>
             </mat-list-option>
@@ -129,6 +130,8 @@ export class MonitorRouteMapDeviationsComponent {
   readonly selectedDeviationId$ = this.store
     .select(selectMonitorRouteMapSelectedDeviation)
     .pipe(map((deviation) => deviation?.id));
+
+  readonly longDistance = '> 2.5 km';
 
   constructor(private store: Store<AppState>) {}
 
