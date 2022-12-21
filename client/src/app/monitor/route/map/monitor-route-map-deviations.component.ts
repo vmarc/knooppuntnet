@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
+import { selectMonitorRouteMapOsmRelationEmpty } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
@@ -31,9 +32,23 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
         *ngIf="
           osmRelationAvailable$ | async;
           then osmRelationAvailable;
-          else noOsmRelation
+          else osmRelationNotAvailable
         "
       ></div>
+      <ng-template #osmRelationNotAvailable>
+        <div
+          *ngIf="
+            osmRelationEmpty$ | async;
+            then osmRelationEmpty;
+            else noOsmRelation
+          "
+        ></div>
+      </ng-template>
+      <ng-template #osmRelationEmpty>
+        <p i18n="@@monitor.route.map-deviations.relation-empty">
+          OSM relation empty, so no analysis results.
+        </p>
+      </ng-template>
       <ng-template #noOsmRelation>
         <p i18n="@@monitor.route.map-deviations.no-relation">
           OSM relation missing in route definition, so no analysis results.
@@ -64,7 +79,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
             <span
               class="segment-deviation"
               i18n="@@monitor.route.map-deviations.deviation"
-            >Deviation</span
+              >Deviation</span
             >
             <span i18n="@@monitor.route.map-deviations.length">Length</span>
           </div>
@@ -80,10 +95,16 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
             >
               <div class="segment">
                 <span class="segment-id">{{ segment.id }}</span>
-                <span *ngIf="segment.distance === 2500" class="segment-deviation">{{longDistance}}</span>
-                <span *ngIf="segment.distance !== 2500" class="segment-deviation">{{
-                  segment.distance | distance
-                  }}</span>
+                <span
+                  *ngIf="segment.distance === 2500"
+                  class="segment-deviation"
+                  >{{ longDistance }}</span
+                >
+                <span
+                  *ngIf="segment.distance !== 2500"
+                  class="segment-deviation"
+                  >{{ segment.distance | distance }}</span
+                >
                 <span>{{ segment.meters | distance }}</span>
               </div>
             </mat-list-option>
@@ -126,6 +147,9 @@ export class MonitorRouteMapDeviationsComponent {
   );
   readonly osmRelationAvailable$ = this.store.select(
     selectMonitorRouteMapOsmRelationVisible
+  );
+  readonly osmRelationEmpty$ = this.store.select(
+    selectMonitorRouteMapOsmRelationEmpty
   );
   readonly selectedDeviationId$ = this.store
     .select(selectMonitorRouteMapSelectedDeviation)

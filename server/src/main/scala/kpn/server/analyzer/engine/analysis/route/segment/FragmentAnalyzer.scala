@@ -24,7 +24,9 @@ class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
 
   private val routeNodeIds = routeNodes.map(_.id)
 
-  private val nodeMap = log.infoElapsed("build node map", wayMembers.flatMap(wayMember => wayMember.way.nodes.map(node => node.id -> wayMember)).groupBy(_._1)).map(x => x._1 -> x._2.map(_._2))
+  private val nodeMap = wayMembers.flatMap(wayMember =>
+    wayMember.way.nodes.map(node => node.id -> wayMember)
+  ).groupBy(_._1).map(x => x._1 -> x._2.map(_._2))
 
   def fragmentMap: FragmentMap = {
     val fragments = wayMembers.flatMap { wayMember =>

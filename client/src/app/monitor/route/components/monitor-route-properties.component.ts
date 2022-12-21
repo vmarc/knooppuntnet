@@ -322,11 +322,17 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     } else if (this.referenceType.value === 'gpx') {
       referenceDay = DayUtil.toDay(this.gpxReferenceDate.value);
     }
+
+    let relationId = undefined;
+    if (this.relationIdKnown.value === true) {
+      relationId = this.relationId.value;
+    }
+
     return {
       name: this.name.value,
       description: this.description.value,
       groupName: this.group.value?.groupName,
-      relationId: this.relationId.value,
+      relationId,
       referenceType: this.referenceType.value,
       referenceDay,
       referenceFilename: this.referenceFilename.value,

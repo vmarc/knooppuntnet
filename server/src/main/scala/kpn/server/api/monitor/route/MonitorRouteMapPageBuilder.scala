@@ -36,6 +36,9 @@ class MonitorRouteMapPageBuilder(
               if (reference.bounds == Bounds()) {
                 state.bounds
               }
+              else if (state.bounds == Bounds()) {
+                reference.bounds
+              }
               else {
                 Util.mergeBounds(Seq(state.bounds, reference.bounds))
               }

@@ -8750,42 +8750,49 @@
         <source> No reference, so no analysis results. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">26,27</context>
+          <context context-type="linenumber">27,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-deviations.relation-empty" datatype="html">
+        <source> OSM relation empty, so no analysis results. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
+          <context context-type="linenumber">49,50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-relation" datatype="html">
         <source> OSM relation missing in route definition, so no analysis results. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">39,40</context>
+          <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-deviations" datatype="html">
         <source> No deviations </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">50,51</context>
+          <context context-type="linenumber">66,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.title" datatype="html">
         <source>Deviations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.deviation" datatype="html">
         <source>Deviation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.length" datatype="html">
         <source>Length</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-layers.reference.gpx" datatype="html">

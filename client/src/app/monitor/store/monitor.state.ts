@@ -42,6 +42,7 @@ export const initialState: MonitorState = {
   mapMatchesVisible: undefined,
   mapDeviationsVisible: undefined,
   mapOsmRelationVisible: undefined,
+  mapOsmRelationEmpty: undefined,
   mapPosition: undefined,
   changesPageIndex: undefined,
   changesPage: undefined,
@@ -76,6 +77,7 @@ export interface MonitorState {
   mapMatchesVisible: boolean | undefined;
   mapDeviationsVisible: boolean | undefined;
   mapOsmRelationVisible: boolean | undefined;
+  mapOsmRelationEmpty: boolean | undefined;
   mapPosition: MapPosition | undefined;
   changesPageIndex: number | undefined;
   changesPage: ApiResponse<MonitorChangesPage> | undefined;

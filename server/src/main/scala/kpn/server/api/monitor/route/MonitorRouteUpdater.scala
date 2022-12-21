@@ -98,8 +98,11 @@ class MonitorRouteUpdater(
       val route = findRoute(group._id, routeName)
       val reference = findRouteReference(route._id)
 
-      if (isRouteChanged(group, route, properties)) {
+      val updatedRoute = if (isRouteChanged(group, route, properties)) {
         updateRoute(group, route, properties)
+      }
+      else {
+        route
       }
 
       if (properties.referenceType.contains("osm")) {
@@ -127,7 +130,7 @@ class MonitorRouteUpdater(
         }
         else if (isRelationIdChanged(route, properties)) {
           // reference does not change, but we have re-analyze because the relationId has changed
-          monitorRouteAnalyzer.analyze(route, reference)
+          monitorRouteAnalyzer.analyze(updatedRoute, reference)
           MonitorRouteSaveResult(analyzed = true)
         }
         else {
@@ -149,7 +152,7 @@ class MonitorRouteUpdater(
     }
   }
 
-  private def updateRoute(group: MonitorGroup, route: MonitorRoute, properties: MonitorRouteProperties): Unit = {
+  private def updateRoute(group: MonitorGroup, route: MonitorRoute, properties: MonitorRouteProperties): MonitorRoute = {
     val groupId = if (group.name != properties.groupName) {
       val newGroup = findGroup(properties.groupName)
       newGroup._id
@@ -157,18 +160,19 @@ class MonitorRouteUpdater(
     else {
       route.groupId
     }
-    monitorRouteRepository.saveRoute(
-      route.copy(
-        groupId = groupId,
-        name = properties.name,
-        description = properties.description,
-        relationId = properties.relationId,
-        referenceType = properties.referenceType,
-        referenceDay = properties.referenceDay,
-        referenceFilename = properties.referenceFilename,
-        comment = properties.comment
-      )
+    val updatedRoute = route.copy(
+      groupId = groupId,
+      name = properties.name,
+      description = properties.description,
+      relationId = properties.relationId,
+      referenceType = properties.referenceType,
+      referenceDay = properties.referenceDay,
+      referenceFilename = properties.referenceFilename,
+      comment = properties.comment
     )
+
+    monitorRouteRepository.saveRoute(updatedRoute)
+    updatedRoute
   }
 
   private def updateOsmReference(user: String, route: MonitorRoute, properties: MonitorRouteProperties): MonitorRouteSaveResult = {

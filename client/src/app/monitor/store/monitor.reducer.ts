@@ -331,7 +331,8 @@ export const monitorReducer = createReducer(
     const groupName = result?.groupName ?? state.groupName;
     const groupDescription = result?.groupDescription ?? state.groupDescription;
 
-    let mapMatchesVisible = !!result?.matchesGeometry;
+    let mapMatchesVisible =
+      !!result?.matchesGeometry && (result?.osmSegments?.length ?? 0) > 0;
     if (mapMatchesVisible && queryParams['matches']) {
       mapMatchesVisible = queryParams['matches'] === 'true';
     }
@@ -345,6 +346,9 @@ export const monitorReducer = createReducer(
     if (mapOsmRelationVisible && queryParams['osm-relation']) {
       mapOsmRelationVisible = queryParams['osm-relation'] === 'true';
     }
+
+    const mapOsmRelationEmpty =
+      (result?.osmSegments?.length ?? 0) == 0 && !!result?.relationId;
 
     const referenceAvailable = (result?.reference?.geometry.length ?? 0) > 0;
     let mapReferenceVisible =
@@ -370,12 +374,6 @@ export const monitorReducer = createReducer(
       const selected = response?.result?.deviations?.find((d) => d.id === id);
       if (selected) {
         routeMapSelectedDeviation = selected;
-        console.log(
-          '   routeMapSelectedDeviation= ' +
-            JSON.stringify(routeMapSelectedDeviation)
-        );
-      } else {
-        console.log('   routeMapSelectedDeviation= NOTHING SELECTED');
       }
     }
 
@@ -403,6 +401,7 @@ export const monitorReducer = createReducer(
       mapMatchesVisible,
       mapDeviationsVisible,
       mapOsmRelationVisible,
+      mapOsmRelationEmpty,
       mapMode,
       routeMapSelectedDeviation,
       routeMapSelectedOsmSegment,
