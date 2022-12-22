@@ -18,7 +18,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
           >deviations</span
         >
         <span class="kpn-brackets">
-          <span class="kpn-km">{{ page.deviationDistance }}</span>
+          <span>{{ page.deviationDistance | distance }}</span>
         </span>
       </p>
       <p>

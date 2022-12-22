@@ -124,7 +124,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
           <span *ngIf="route.referenceType">
-            {{ route.referenceDistance + ' km' }}
+            {{ route.referenceDistance | distance }}
           </span>
         </td>
       </ng-container>
@@ -149,7 +149,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
           <span *ngIf="route.referenceType && route.deviationCount > 0">
-            {{ route.deviationDistance + ' km' }}
+            {{ route.deviationDistance | distance }}
           </span>
           <span
             *ngIf="

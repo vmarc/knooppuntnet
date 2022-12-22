@@ -57,7 +57,7 @@ class MonitorRouteAnalyzerImpl(
 
     val gpxDistance = {
       val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometry)
-      Math.round(toMeters(referenceLineStrings.map(_.getLength).sum / 1000))
+      Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
     }
 
     val updatedRoute = route.copy(

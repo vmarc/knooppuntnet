@@ -25,7 +25,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
         <span>{{ page.wayCount }}</span>
         <span i18n="@@monitor.route.details.ways">ways</span>
       </p>
-      <p class="kpn-km">{{ page.osmDistance }}</p>
+      <p>{{ page.osmDistance | distance }}</p>
     </div>
   `,
 })

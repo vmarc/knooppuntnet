@@ -6,7 +6,6 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
-import kpn.core.overpass.QueryRelationOnly
 import org.springframework.stereotype.Component
 
 import scala.xml.XML

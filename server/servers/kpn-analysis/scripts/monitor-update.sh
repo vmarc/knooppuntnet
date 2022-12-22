@@ -7,4 +7,4 @@ nohup /kpn/java/bin/java \
   -Xss128M \
   -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.core.tools.monitor.MonitorUpdateTool org.springframework.boot.loader.PropertiesLauncher \
-  -d kpn-prod >> /kpn/logs/monitor-update-tool-stdout.log 2>&1 &
+  --database kpn-prod --remote false>> /kpn/logs/monitor-update-tool-stdout.log 2>&1 &

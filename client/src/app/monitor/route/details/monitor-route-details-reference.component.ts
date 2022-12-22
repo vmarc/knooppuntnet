@@ -27,7 +27,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
         {{ 'GPX: "' + page.referenceFilename + '"' }}
       </p>
     </div>
-    <p class="kpn-km">{{ page.referenceDistance }}</p>
+    <p>{{ page.referenceDistance | distance }}</p>
   `,
 })
 export class MonitorRouteDetailsReferenceComponent {
