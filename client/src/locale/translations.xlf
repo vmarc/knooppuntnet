@@ -8331,7 +8331,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.day" datatype="html">
-        <source> Select the date of the route relation state that will serve as a reference (default today): </source>
+        <source> Select the date of the route relation state that will serve as a reference: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
           <context context-type="linenumber">10,13</context>
@@ -8388,7 +8388,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.gpx.reference-day" datatype="html">
-        <source> Select the date at which the gpx trace was recorded or was known to be valid (default today): </source>
+        <source> Select the date at which the gpx trace was recorded or was known to be valid: </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
           <context context-type="linenumber">81,84</context>
