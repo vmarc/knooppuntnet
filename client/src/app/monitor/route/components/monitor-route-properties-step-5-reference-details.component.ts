@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
     <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
       <p i18n="@@monitor.route.properties.reference-details.day">
         Select the date of the route relation state that will serve as a
-        reference (default today):
+        reference:
       </p>
       <kpn-day-input
         [date]="osmReferenceDate"
@@ -80,7 +80,7 @@ import { FormControl } from '@angular/forms';
 
       <p i18n="@@monitor.route.properties.reference-details.gpx.reference-day">
         Select the date at which the gpx trace was recorded or was known to be
-        valid (default today):
+        valid:
       </p>
       <kpn-day-input
         [date]="gpxReferenceDate"

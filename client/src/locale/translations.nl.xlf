@@ -11044,8 +11044,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.day" datatype="html">
-        <source>Select the date of the route relation state that will serve as a reference (default today):</source>
-        <target>Geef de datum waarop de staat van de routerelatie zal dienen als referentie (standaard vandaag):</target>
+        <source>Select the date of the route relation state that will serve as a reference:</source>
+        <target>Geef de datum waarop de staat van de routerelatie zal dienen als referentie:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
           <context context-type="linenumber">10,13</context>
@@ -11084,8 +11084,8 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.gpx.reference-day" datatype="html">
-        <source>Select the date at which the gpx trace was recorded or was known to be valid (default today):</source>
-        <target>Geef de datum waarop het gpx-spoor opgenomen werd of waarvan geweten is dat het gpx-spoor geldig is (standaard vandaag):</target>
+        <source>Select the date at which the gpx trace was recorded or was known to be valid:</source>
+        <target>Geef de datum waarop het gpx-spoor opgenomen werd of waarvan geweten is dat het gpx-spoor geldig is:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
           <context context-type="linenumber">81,84</context>
