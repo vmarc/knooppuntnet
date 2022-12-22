@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { Day } from '@app/kpn/api/custom/day';
-import { urlFragmentValidator } from '@app/monitor/validator/url-fragment-validator';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -149,11 +148,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   readonly group = new FormControl<MonitorRouteGroup | null>(null);
 
   readonly name = new FormControl<string>('', {
-    validators: [
-      Validators.required,
-      urlFragmentValidator,
-      Validators.maxLength(15),
-    ],
+    validators: [Validators.required, Validators.maxLength(15)],
     asyncValidators: this.asyncAddRouteNameUniqueValidator(),
   });
   readonly description = new FormControl<string>('', [

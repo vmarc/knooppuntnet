@@ -1468,7 +1468,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">45</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
@@ -1476,11 +1476,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="linenumber">138</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -7703,28 +7703,28 @@
         <source>Monitor - add group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.add.comment.1" datatype="html">
         <source> Create a new group containing routes to be monitored. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">22,23</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.add.comment.2" datatype="html">
         <source> Provide a short name (that will be used in the browser address), and a title for the group (probably describing who will be maintaining the route group). </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">25,28</context>
+          <context context-type="linenumber">24,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.add.action" datatype="html">
         <source> Add group </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">44,45</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.monitor.group" datatype="html">
@@ -7775,27 +7775,20 @@
           <context context-type="linenumber">18,20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.group.name.url-fragment-invalid" datatype="html">
-        <source> Invalid name: only use alphanumeric characters and dashes. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
-          <context context-type="linenumber">24,26</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.group.name.maxlength" datatype="html">
         <source> Too long (max= <x id="INTERPOLATION" equiv-text="{{ name.errors.maxlength.requiredLength }}"/>, actual=<x id="INTERPOLATION_1" equiv-text="{{
             name.errors.maxlength.actualLength
           }}"/>). </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
-          <context context-type="linenumber">30,34</context>
+          <context context-type="linenumber">24,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.name.unique" datatype="html">
         <source> Name should be unique. A group with this name already exists. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
-          <context context-type="linenumber">38,40</context>
+          <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.menu.routes" datatype="html">
@@ -7957,21 +7950,21 @@
         <source>Monitor - update group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.update.group-not-found" datatype="html">
         <source>Group not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.update.action" datatype="html">
         <source> Update group </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">45,46</context>
+          <context context-type="linenumber">44,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.table.name" datatype="html">
@@ -8163,27 +8156,20 @@
           <context context-type="linenumber">18,20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.name.url-fragment-invalid" datatype="html">
-        <source> Invalid name: only use alphanumeric characters and dashes. </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
-          <context context-type="linenumber">24,26</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.name.maxlength" datatype="html">
         <source> Too long (max= <x id="INTERPOLATION" equiv-text="{{ name.errors.maxlength.requiredLength }}"/>, actual=<x id="INTERPOLATION_1" equiv-text="{{
             name.errors.maxlength.actualLength
           }}"/>). </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
-          <context context-type="linenumber">30,34</context>
+          <context context-type="linenumber">24,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.name.unique" datatype="html">
         <source> The route name should be unique within the group. A route with this name already exists within this group. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
-          <context context-type="linenumber">38,41</context>
+          <context context-type="linenumber">32,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.menu.details" datatype="html">
@@ -8419,42 +8405,42 @@
         <source>Group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">35,34</context>
+          <context context-type="linenumber">34,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.name-description" datatype="html">
         <source>Route name and description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.osm-relation" datatype="html">
         <source>OSM relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.reference-type" datatype="html">
         <source>Reference type</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.reference-details" datatype="html">
         <source>Reference details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.comment" datatype="html">
         <source>Comment</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">107,106</context>
+          <context context-type="linenumber">106,105</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.name.unique" datatype="html">
@@ -8463,14 +8449,14 @@
       }}"/>&quot;. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">123,127</context>
+          <context context-type="linenumber">122,126</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.save" datatype="html">
         <source> Save </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">137,138</context>
+          <context context-type="linenumber">136,137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.title" datatype="html">

@@ -13,7 +13,6 @@ import { actionMonitorGroupUpdateDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdate } from '../../store/monitor.actions';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
-import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 
 @Component({
   selector: 'kpn-monitor-group-update-page',
@@ -54,11 +53,7 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
   private initialName = '';
   readonly name = new FormControl<string>('', {
-    validators: [
-      Validators.required,
-      urlFragmentValidator,
-      Validators.maxLength(15),
-    ],
+    validators: [Validators.required, Validators.maxLength(15)],
     asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
       () => this.initialName
     ),
