@@ -7,7 +7,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorGroupAdd } from '../../store/monitor.actions';
-import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 
 @Component({
   selector: 'kpn-monitor-group-add-page',
@@ -50,11 +49,7 @@ import { urlFragmentValidator } from '../../validator/url-fragment-validator';
 })
 export class MonitorGroupAddPageComponent {
   readonly name = new FormControl<string>('', {
-    validators: [
-      Validators.required,
-      urlFragmentValidator,
-      Validators.maxLength(15),
-    ],
+    validators: [Validators.required, Validators.maxLength(15)],
     asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
       () => ''
     ),

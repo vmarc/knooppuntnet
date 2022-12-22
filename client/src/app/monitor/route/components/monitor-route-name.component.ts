@@ -19,12 +19,6 @@ import { FormControl } from '@angular/forms';
           Name is required.
         </div>
         <div
-          *ngIf="name.errors?.urlFragmentInvalid"
-          i18n="@@monitor.route.name.url-fragment-invalid"
-        >
-          Invalid name: only use alphanumeric characters and dashes.
-        </div>
-        <div
           *ngIf="name.errors?.maxlength"
           i18n="@@monitor.route.name.maxlength"
         >
