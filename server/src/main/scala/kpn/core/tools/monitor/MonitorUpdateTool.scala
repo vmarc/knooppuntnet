@@ -7,6 +7,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -32,7 +33,14 @@ object MonitorUpdateTool {
       MonitorUpdateToolOptions.parse(args) match {
         case Some(options) =>
           Mongo.executeIn(options.databaseName) { database =>
-            val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+            val overpassQueryExecutor = {
+              if (options.remote) {
+                new OverpassQueryExecutorRemoteImpl()
+              }
+              else {
+                new OverpassQueryExecutorImpl()
+              }
+            }
             new MonitorUpdateTool(database, overpassQueryExecutor).analyze()
           }
           log.info("Done")

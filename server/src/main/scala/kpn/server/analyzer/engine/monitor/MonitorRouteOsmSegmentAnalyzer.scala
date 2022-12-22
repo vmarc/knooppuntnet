@@ -77,7 +77,7 @@ class MonitorRouteOsmSegmentAnalyzer() {
       )
     }
 
-    val osmDistance = Math.round(routeSegments.map(_.segment.meters).sum.toDouble / 1000)
+    val osmDistance = routeSegments.map(_.segment.meters).sum
 
     MonitorRouteOsmSegmentAnalysis(
       osmDistance,

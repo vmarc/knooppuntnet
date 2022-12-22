@@ -80,7 +80,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
           Distance
         </th>
         <td mat-cell *matCellDef="let row">
-          <div class="distance">{{ row.distance }}</div>
+          <div class="distance">{{ row.relation.osmDistance | distance }}</div>
         </td>
       </ng-container>
 
@@ -174,7 +174,6 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     return {
       level,
       name: this.relationName(relation),
-      distance: this.relationDistance(relation),
       relation,
     };
   }
@@ -187,14 +186,5 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
       name = `${relation.from} - ${relation.to}`;
     }
     return name;
-  }
-
-  private relationDistance(relation: MonitorRouteRelation): string {
-    const meters = relation.osmDistance;
-    if (meters > 1000) {
-      const km = Math.round(meters / 1000);
-      return `${km}km`;
-    }
-    return `${meters}m`;
   }
 }

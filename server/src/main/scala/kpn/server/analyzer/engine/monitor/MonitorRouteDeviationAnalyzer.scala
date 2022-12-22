@@ -39,7 +39,7 @@ class MonitorRouteDeviationAnalyzer() {
 
     val allMatches = geomFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
 
-    val referenceDistance = Math.round(toMeters(referenceSegments.map(_.getLength).sum / 1000))
+    val referenceDistance = Math.round(toMeters(referenceSegments.map(_.getLength).sum))
 
     val referenceGeometry = MonitorRouteAnalysisSupport.toGeoJson(referenceGeoJson)
     val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))

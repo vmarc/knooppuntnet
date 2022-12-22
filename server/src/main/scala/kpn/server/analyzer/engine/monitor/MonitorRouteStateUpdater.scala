@@ -16,7 +16,7 @@ class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
     }
     routeRepository.saveRouteState(state)
 
-    val deviationDistance = Math.round(state.deviations.map(_.distance).sum.toFloat / 1000)
+    val deviationDistance = state.deviations.map(_.distance).sum
     val deviationCount = state.deviations.size
     val osmSegmentCount = state.osmSegments.size
     val happy = route.referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
