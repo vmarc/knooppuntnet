@@ -9,6 +9,7 @@ import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
+import View from 'ol/View';
 import { Util } from '../../../components/shared/util';
 import { AppState } from '../../../core/core.state';
 import { Subscriptions } from '../../../util/Subscriptions';
@@ -110,6 +111,10 @@ export class MonitorRouteMapService implements OnDestroy {
   styleForSegmentId(id: number): Style {
     const index = id % 10;
     return this.osmSegmentStyles[index];
+  }
+
+  getView(): View {
+    return this.map.getView();
   }
 
   private initialize(): void {

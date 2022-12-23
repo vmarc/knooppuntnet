@@ -4,6 +4,7 @@ import { MonitorRouteDeviation } from '@app/kpn/api/common/monitor/monitor-route
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
+import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
 import { selectMonitorRouteMapOsmRelationEmpty } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
@@ -84,28 +85,55 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
             <span i18n="@@monitor.route.map-deviations.length">Length</span>
           </div>
 
+          <mat-menu #appMenu="matMenu">
+            <ng-template matMenuContent let-deviation="deviation">
+              <button
+                mat-menu-item
+                (click)="josmZoomToSelectedDeviation()"
+                i18n="@@monitor.route.map-deviations.zoom-josm"
+              >
+                Go here in JOSM
+              </button>
+              <button
+                mat-menu-item
+                (click)="zoomToDeviationInOpenstreetMap(deviation)"
+                i18n="@@monitor.route.map-deviations.zoom-openstreetmap"
+              >
+                Go here in openstreetmap.org
+              </button>
+            </ng-template>
+          </mat-menu>
+
           <mat-selection-list
             [multiple]="false"
             (selectionChange)="selectionChanged($event)"
           >
             <mat-list-option
-              *ngFor="let segment of deviations$ | async"
-              [selected]="(selectedDeviationId$ | async) === segment.id"
-              [value]="segment"
+              *ngFor="let deviation of deviations$ | async"
+              [selected]="(selectedDeviationId$ | async) === deviation.id"
+              [value]="deviation"
             >
               <div class="segment">
-                <span class="segment-id">{{ segment.id }}</span>
+                <span class="segment-id">{{ deviation.id }}</span>
                 <span
-                  *ngIf="segment.distance === 2500"
+                  *ngIf="deviation.distance === 2500"
                   class="segment-deviation"
                   >{{ longDistance }}</span
                 >
                 <span
-                  *ngIf="segment.distance !== 2500"
+                  *ngIf="deviation.distance !== 2500"
                   class="segment-deviation"
-                  >{{ segment.distance | distance }}</span
+                  >{{ deviation.distance | distance }}</span
                 >
-                <span>{{ segment.meters | distance }}</span>
+                <span>{{ deviation.meters | distance }}</span>
+                <button
+                  mat-icon-button
+                  [matMenuTriggerFor]="appMenu"
+                  [matMenuTriggerData]="{ deviation: deviation }"
+                  class="popup-menu"
+                >
+                  <mat-icon svgIcon="menu-dots"></mat-icon>
+                </button>
               </div>
             </mat-list-option>
           </mat-selection-list>
@@ -121,6 +149,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
 
       .segment {
         display: flex;
+        align-items: center;
       }
 
       .segment-header {
@@ -133,6 +162,10 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
 
       .segment-deviation {
         width: 5em;
+      }
+
+      .popup-menu {
+        margin-left: auto;
       }
     `,
   ],
@@ -165,5 +198,15 @@ export class MonitorRouteMapDeviationsComponent {
       deviation = event.options[0].value;
     }
     this.store.dispatch(actionMonitorRouteMapSelectDeviation(deviation));
+  }
+
+  josmZoomToSelectedDeviation(): void {
+    this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedDeviation());
+  }
+
+  zoomToDeviationInOpenstreetMap(deviation: MonitorRouteDeviation): void {
+    const bounds = deviation.bounds;
+    const url = `https://www.openstreetmap.org/?bbox=${bounds.minLon},${bounds.minLat},${bounds.maxLon},${bounds.maxLat}`;
+    window.open(url, 'openstreetmap');
   }
 }
