@@ -10696,7 +10696,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Geen afwijkingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">65,66</context>
+          <context context-type="linenumber">66,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.title" datatype="html">
@@ -10704,7 +10704,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Afwijkingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.deviation" datatype="html">
@@ -10712,7 +10712,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Afwijking</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">82</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.length" datatype="html">
@@ -10720,7 +10720,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Lengte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.update.title" datatype="html">
@@ -10808,7 +10808,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Geen referentie, dus geen analyseresultaten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">27,28</context>
+          <context context-type="linenumber">28,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.no-relation" datatype="html">
@@ -10816,7 +10816,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>OSM-relatie ontbreekt in routedefinitie, dus geen analyseresultaten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">54,55</context>
+          <context context-type="linenumber">55,56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-layers.reference.gpx" datatype="html">
@@ -11240,7 +11240,23 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>OSM-relatie is leeg, dus geen analyseresultaten.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-deviations.zoom-josm" datatype="html">
+        <source>Go here in JOSM</source>
+        <target>Ga naar hier in JOSM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
+          <context context-type="linenumber">95,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.map-deviations.zoom-openstreetmap" datatype="html">
+        <source>Go here in openstreetmap.org</source>
+        <target>Ga naar hier in openstreetmap.org</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-deviations.component.ts</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
       </trans-unit>
     </body>

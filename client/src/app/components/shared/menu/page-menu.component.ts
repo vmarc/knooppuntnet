@@ -5,15 +5,28 @@ import { Component } from '@angular/core';
   selector: 'kpn-page-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="menu">
-      <ng-content></ng-content>
+    <div class="menu-wrapper">
+      <div class="menu">
+        <ng-content></ng-content>
+      </div>
+      <div class="menu-extra">
+        <ng-content select=".menu-extra-item" class=""></ng-content>
+      </div>
     </div>
     <mat-divider></mat-divider>
   `,
   styles: [
     `
+      .menu-wrapper {
+        display: flex;
+      }
       .menu {
         line-height: 30px;
+      }
+
+      .menu-extra {
+        line-height: 30px;
+        margin-left: auto;
       }
 
       ::ng-deep .menu :not(:last-child):after {

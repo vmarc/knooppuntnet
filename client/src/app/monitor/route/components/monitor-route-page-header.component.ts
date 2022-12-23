@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { toLonLat } from 'ol/proj';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
-import { selectMonitorRouteId } from '../../store/monitor.selectors';
-import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
+import { MonitorRouteMapService } from '../map/monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-page-header',
@@ -45,16 +45,23 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
       >
         Map
       </kpn-page-menu-option>
+
+      <div *ngIf="pageName === 'map'" class="menu-extra-item">
+        <a (click)="gotoOpenstreetmap()" class="external">
+          {{ osmLinkLabel }}
+        </a>
+        <a (click)="editWithId()" class="external id-link">
+          {{ idEditorLinkLabel }}
+        </a>
+      </div>
     </kpn-page-menu>
 
     <kpn-error></kpn-error>
   `,
   styles: [
     `
-      .title {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+      .id-link {
+        padding-left: 1em;
       }
     `,
   ],
@@ -63,9 +70,10 @@ export class MonitorRoutePageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
+  readonly osmLinkLabel = 'openstreetmap.org';
+  readonly idEditorLinkLabel = 'iD';
+
   readonly groupName$ = this.store.select(selectRouteParam('groupName'));
-  readonly routeId$ = this.store.select(selectMonitorRouteId);
   readonly routeName$ = this.store.select(selectRouteParam('routeName'));
   readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
   readonly groupLink$ = this.groupName$.pipe(
@@ -92,5 +100,22 @@ export class MonitorRoutePageHeaderComponent {
     )
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(
+    private store: Store<AppState>,
+    private mapService: MonitorRouteMapService
+  ) {}
+
+  gotoOpenstreetmap(): void {
+    const zoom = Math.round(this.mapService.getView().getZoom());
+    const center = toLonLat(this.mapService.getView().getCenter());
+    const url = `https://www.openstreetmap.org/#map=${zoom}/${center[1]}/${center[0]}`;
+    window.open(url, '_blank');
+  }
+
+  editWithId(): void {
+    const zoom = Math.round(this.mapService.getView().getZoom());
+    const center = toLonLat(this.mapService.getView().getCenter());
+    const url = `https://www.openstreetmap.org/edit?editor=id#map=${zoom}/${center[1]}/${center[0]}`;
+    window.open(url, '_blank');
+  }
 }
