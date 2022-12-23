@@ -3,6 +3,9 @@ import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
 import { MonitorMapMode } from '../route/map/monitor-map-mode';
+import { actionMonitorRouteAddPageLoad } from './monitor.actions';
+import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
+import { actionMonitorRouteMapPageLoad } from './monitor.actions';
 import { actionMonitorRouteSaveDestroy } from './monitor.actions';
 import { actionMonitorChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteUpdatePageDestroy } from './monitor.actions';
@@ -153,9 +156,13 @@ export const monitorReducer = createReducer(
     adminRole: response?.result?.adminRole === true,
     groupPage: response,
   })),
-  on(actionMonitorGroupUpdateDestroy, (state, response) => ({
+  on(actionMonitorGroupUpdateDestroy, (state) => ({
     ...state,
     groupPage: undefined,
+  })),
+  on(actionMonitorRouteAddPageLoad, (state, { groupName }) => ({
+    ...state,
+    groupName,
   })),
   on(actionMonitorRouteAddPageLoaded, (state, response) => {
     const groupName = response.result
@@ -291,6 +298,13 @@ export const monitorReducer = createReducer(
       },
     };
   }),
+  on(actionMonitorRouteDetailsPageLoad, (state, { groupName, routeName }) => {
+    return {
+      ...state,
+      routeName,
+      groupName,
+    };
+  }),
   on(actionMonitorRouteDetailsPageLoaded, (state, response) => {
     const result = response.result;
     const routeId = result?.routeId ?? state.routeId;
@@ -310,7 +324,7 @@ export const monitorReducer = createReducer(
       routeDetailsPage: response,
     };
   }),
-  on(actionMonitorRouteDetailsPageDestroy, (state, response) => {
+  on(actionMonitorRouteDetailsPageDestroy, (state) => {
     return {
       ...state,
       routeId: undefined,
@@ -320,6 +334,13 @@ export const monitorReducer = createReducer(
       groupName: undefined,
       groupDescription: undefined,
       routeDetailsPage: undefined,
+    };
+  }),
+  on(actionMonitorRouteMapPageLoad, (state, { groupName, routeName }) => {
+    return {
+      ...state,
+      routeName,
+      groupName,
     };
   }),
   on(actionMonitorRouteMapPageLoaded, (state, { response, queryParams }) => {

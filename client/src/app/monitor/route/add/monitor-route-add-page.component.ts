@@ -4,10 +4,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteAddPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteAddPageInit } from '../../store/monitor.actions';
+import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteAddPage } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 
@@ -38,7 +38,7 @@ import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 })
 export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteAddPage);
-  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)

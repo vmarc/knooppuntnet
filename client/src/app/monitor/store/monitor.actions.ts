@@ -75,6 +75,11 @@ export const actionMonitorGroupPageInit = createAction(
   '[MonitorGroupPage] Init'
 );
 
+export const actionMonitorGroupPageLoad = createAction(
+  '[MonitorGroupPage] Load',
+  props<{ groupName: string }>()
+);
+
 export const actionMonitorGroupPageDestroy = createAction(
   '[MonitorGroupPage] Destroy'
 );
@@ -106,8 +111,9 @@ export const actionMonitorRouteDetailsPageInit = createAction(
   '[MonitorRouteDetailsPage] Init'
 );
 
-export const actionMonitorRouteDetailsPageDestroy = createAction(
-  '[MonitorRouteDetailsPage] Destroy'
+export const actionMonitorRouteDetailsPageLoad = createAction(
+  '[MonitorRouteDetailsPage] Load',
+  props<{ groupName: string; routeName: string }>()
 );
 
 export const actionMonitorRouteDetailsPageLoaded = createAction(
@@ -115,8 +121,17 @@ export const actionMonitorRouteDetailsPageLoaded = createAction(
   props<ApiResponse<MonitorRouteDetailsPage>>()
 );
 
+export const actionMonitorRouteDetailsPageDestroy = createAction(
+  '[MonitorRouteDetailsPage] Destroy'
+);
+
 export const actionMonitorRouteMapPageInit = createAction(
   '[MonitorRouteMapPage] Init'
+);
+
+export const actionMonitorRouteMapPageLoad = createAction(
+  '[MonitorRouteMapPage] Load',
+  props<{ groupName: string; routeName: string }>()
 );
 
 export const actionMonitorRouteMapPageDestroy = createAction(
@@ -249,6 +264,11 @@ export const actionMonitorRouteAdminRelationIdChanged = createAction(
 
 export const actionMonitorRouteAddPageInit = createAction(
   '[MonitorRouteAddPage] Init'
+);
+
+export const actionMonitorRouteAddPageLoad = createAction(
+  '[MonitorRouteAddPage] Load',
+  props<{ groupName: string }>()
 );
 
 export const actionMonitorRouteAddPageDestroy = createAction(

@@ -23,6 +23,10 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorGroupPageLoad } from './monitor.actions';
+import { actionMonitorRouteAddPageLoad } from './monitor.actions';
+import { actionMonitorRouteMapPageLoad } from './monitor.actions';
+import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
 import { actionMonitorRouteMapPositionChanged } from './monitor.actions';
 import { actionMonitorRouteMapMode } from './monitor.actions';
 import { actionMonitorRouteMapMatchesVisible } from './monitor.actions';
@@ -123,7 +127,15 @@ export class MonitorEffects {
     this.actions$.pipe(
       ofType(actionMonitorGroupPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([_, groupName]) =>
+      map(([_, groupName]) => actionMonitorGroupPageLoad({ groupName }))
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorGroupPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorGroupPageLoad),
+      mergeMap(({ groupName }) =>
         this.monitorService
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupPageLoaded(response)))
@@ -186,11 +198,19 @@ export class MonitorEffects {
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteAddPage = createEffect(() =>
+  monitorRouteAddPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteAddPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
-      mergeMap(([_, groupName]) =>
+      map(([_, groupName]) => actionMonitorRouteAddPageLoad({ groupName }))
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteAddPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteAddPageLoad),
+      mergeMap(({ groupName }) =>
         this.monitorService
           .routeAddPage(groupName)
           .pipe(map((response) => actionMonitorRouteAddPageLoaded(response)))
@@ -336,7 +356,17 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
       ]),
-      mergeMap(([_, groupName, routeName]) =>
+      map(([_, groupName, routeName]) =>
+        actionMonitorRouteDetailsPageLoad({ groupName, routeName })
+      )
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteDetailsPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteDetailsPageLoad),
+      mergeMap(({ groupName, routeName }) =>
         this.monitorService
           .route(groupName, routeName)
           .pipe(
@@ -350,6 +380,20 @@ export class MonitorEffects {
   monitorRouteMapPageInit = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteMapPageInit),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+      ]),
+      map(([_, groupName, routeName]) =>
+        actionMonitorRouteMapPageLoad({ groupName, routeName })
+      )
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapPageLoad = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapPageLoad),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),

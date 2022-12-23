@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { toLonLat } from 'ol/proj';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
@@ -73,8 +72,8 @@ export class MonitorRoutePageHeaderComponent {
   readonly osmLinkLabel = 'openstreetmap.org';
   readonly idEditorLinkLabel = 'iD';
 
-  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
-  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
+  readonly routeName$ = this.store.select(selectMonitorRouteName);
   readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
   readonly groupLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/groups/${groupName}`)

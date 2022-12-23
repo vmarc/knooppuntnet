@@ -5,10 +5,10 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { selectRouteParam } from '../../../core/core.state';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorGroupPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupPageInit } from '../../store/monitor.actions';
+import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
@@ -60,7 +60,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   `,
 })
 export class MonitorGroupPageComponent implements OnInit, OnDestroy {
-  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
+  readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
   readonly addRouteLink$ = this.groupName$.pipe(
     map((groupName) => `/monitor/admin/groups/${groupName}/routes/add`)
