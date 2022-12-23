@@ -28,14 +28,14 @@ analysis and quality assurance of these networks, and monitoring long distance w
 
 <a name="screenshots"></a>
 
-You can plan a walking route by clicking on a start node and an destination node 
+You can plan a walking route by clicking on a start node and destination node 
 (and optionally intermediate nodes that you want to pass through). You can output
 the planned route in a pdf document and/or a gpx track.
 
 ![planner](docs/readme-planner.png)
 
 In the analysis section of knooppuntnet, you can get an overview of all nodes and routes
-in a given node nodenetwork, and explore issues that knooppuntnet finds. Directs links to
+in a given node network, and explore issues that knooppuntnet finds. Directs links to
 editors make it easier to fix problems in the OpenStreetMap database.
 
 ![analysis](docs/readme-analysis.png)
