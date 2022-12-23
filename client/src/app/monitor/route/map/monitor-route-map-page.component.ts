@@ -41,6 +41,12 @@ export class MonitorRouteMapPageComponent implements OnInit, OnDestroy {
   }
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {
-    return !!page && page.bounds.maxLat > 0;
+    return (
+      !!page &&
+      (page.bounds.minLat !== 0 ||
+        page.bounds.minLon !== 0 ||
+        page.bounds.maxLat !== 0 ||
+        page.bounds.maxLon !== 0)
+    );
   }
 }
