@@ -113,6 +113,10 @@ Only first time:
     
     Update .env file with max zoom level 14.
 
+Currently used bounding box:
+
+    http://bboxfinder.com/#36,-9.3,55.15,24.5
+
 Prepare:
 
   cd /kpn/openmaptiles/data
