@@ -6,6 +6,7 @@ import kpn.database.base.Database
 import kpn.database.base.ObjectIdId
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.OldMonitorRoute
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
@@ -57,6 +58,13 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
 
   override def groupRoutes(groupId: ObjectId): Seq[MonitorRoute] = {
     database.monitorRoutes.find[MonitorRoute](
+      equal("groupId", groupId.raw),
+      log
+    )
+  }
+
+  override def groupOldRoutes(groupId: ObjectId): Seq[OldMonitorRoute] = {
+    database.oldMonitorRoutes.find[OldMonitorRoute](
       equal("groupId", groupId.raw),
       log
     )

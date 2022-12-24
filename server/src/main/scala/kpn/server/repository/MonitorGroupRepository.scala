@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.base.ObjectId
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.OldMonitorRoute
 
 trait MonitorGroupRepository {
 
@@ -18,4 +19,5 @@ trait MonitorGroupRepository {
 
   def groupRoutes(groupId: ObjectId): Seq[MonitorRoute]
 
+  def oldGroupRoutes(groupId: ObjectId): Seq[OldMonitorRoute]
 }

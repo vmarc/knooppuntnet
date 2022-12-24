@@ -9,8 +9,6 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.statistics.StatisticValues
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
@@ -30,8 +28,13 @@ import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.MonitorRouteRelationState
 import kpn.server.api.monitor.domain.MonitorRouteState
-import kpn.server.api.monitor.domain.MonitorRouteStateRelation
+import kpn.server.api.monitor.domain.OldMonitorRoute
+import kpn.server.api.monitor.domain.OldMonitorRouteReference
+import kpn.server.api.monitor.domain.OldMonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.OldMonitorRouteRelationState
+import kpn.server.api.monitor.domain.OldMonitorRouteState
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
@@ -130,20 +133,40 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[MonitorRoute]("monitor-routes"))
   }
 
+  override def oldMonitorRoutes: DatabaseCollection[OldMonitorRoute] = {
+    new DatabaseCollectionImpl(database.getCollection[OldMonitorRoute]("old-monitor-routes"))
+  }
+
   override def monitorRouteReferences: DatabaseCollection[MonitorRouteReference] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteReference]("monitor-route-references"))
+  }
+
+  override def oldMonitorRouteReferences: DatabaseCollection[OldMonitorRouteReference] = {
+    new DatabaseCollectionImpl(database.getCollection[OldMonitorRouteReference]("old-monitor-route-references"))
   }
 
   override def monitorRouteReferenceRelations: DatabaseCollection[MonitorRouteReferenceRelation] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteReferenceRelation]("monitor-route-reference-relations"))
   }
 
+  override def oldMonitorRouteReferenceRelations: DatabaseCollection[OldMonitorRouteReferenceRelation] = {
+    new DatabaseCollectionImpl(database.getCollection[OldMonitorRouteReferenceRelation]("old-monitor-route-reference-relations"))
+  }
+
   override def monitorRouteStates: DatabaseCollection[MonitorRouteState] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteState]("monitor-route-states"))
   }
 
-  override def monitorRouteStateRelations: DatabaseCollection[MonitorRouteStateRelation] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRouteStateRelation]("monitor-route-state-relations"))
+  override def oldMonitorRouteStates: DatabaseCollection[OldMonitorRouteState] = {
+    new DatabaseCollectionImpl(database.getCollection[OldMonitorRouteState]("old-monitor-route-states"))
+  }
+
+  override def monitorRouteRelationStates: DatabaseCollection[MonitorRouteRelationState] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteRelationState]("monitor-route-relation-states"))
+  }
+
+  override def oldMonitorRouteRelationStates: DatabaseCollection[OldMonitorRouteRelationState] = {
+    new DatabaseCollectionImpl(database.getCollection[OldMonitorRouteRelationState]("old-monitor-route-relation-states"))
   }
 
   override def monitorRouteChanges: DatabaseCollection[MonitorRouteChange] = {

@@ -13,7 +13,7 @@ class MonitorRouteDelete(database: Database) {
     database.monitorRouteReferences.deleteMany(routeFilter, log)
     database.monitorRouteReferenceRelations.deleteMany(routeFilter, log)
     database.monitorRouteStates.deleteMany(routeFilter, log)
-    database.monitorRouteStateRelations.deleteMany(routeFilter, log)
+    database.monitorRouteRelationStates.deleteMany(routeFilter, log)
     database.monitorRouteChanges.deleteMany(routeFilter, log)
     database.monitorRouteChangeGeometries.deleteMany(routeFilter, log)
   }
