@@ -5,7 +5,7 @@ import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 
-object MonitorRouteFilter {
+object MonitorFilter {
 
   private val ignoredRoles = Seq("place_of_worship", "guest_house", "outer", "inner")
 

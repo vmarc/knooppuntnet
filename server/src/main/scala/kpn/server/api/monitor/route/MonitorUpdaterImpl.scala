@@ -15,6 +15,7 @@ class MonitorUpdaterImpl(
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateRoute: MonitorUpdateRoute,
+  monitorUpdateStructure: MonitorUpdateStructure,
   monitorUpdateReference: MonitorUpdateReference,
   monitorUpdateAnalyzer: MonitorUpdateAnalyzer,
   saver: MonitorUpdateSaver
@@ -26,6 +27,7 @@ class MonitorUpdaterImpl(
       assertNewRoute(group, properties.name)
       var context = MonitorUpdateContext(group)
       context = monitorUpdateRoute.update(context, ObjectId(), user, properties)
+      context = monitorUpdateStructure.update(context)
       context = monitorUpdateReference.update(context)
       context = monitorUpdateAnalyzer.analyze(context)
       context = saver.save(context)
@@ -39,6 +41,7 @@ class MonitorUpdaterImpl(
       val oldRoute = findRoute(group._id, routeName)
       var context = MonitorUpdateContext(group, oldRoute = Some(oldRoute))
       context = monitorUpdateRoute.update(context, oldRoute._id, user, properties)
+      context = monitorUpdateStructure.update(context)
       context = monitorUpdateReference.update(context)
       context = monitorUpdateAnalyzer.analyze(context)
       context = saver.save(context)

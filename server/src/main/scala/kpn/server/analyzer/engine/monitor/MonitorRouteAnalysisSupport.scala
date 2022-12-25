@@ -70,7 +70,7 @@ object MonitorRouteAnalysisSupport {
   def filteredWayMembers(relation: Relation): Seq[WayMember] = {
     val allRelations = RelationUtil.relationsInRelation(relation)
     val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
-    MonitorRouteFilter.filterWayMembers(allWayMembers)
+    MonitorFilter.filterWayMembers(allWayMembers)
   }
 
 }

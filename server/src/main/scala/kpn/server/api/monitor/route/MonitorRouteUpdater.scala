@@ -14,7 +14,7 @@ import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzerImpl
-import kpn.server.analyzer.engine.monitor.MonitorRouteFilter
+import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.api.monitor.domain.MonitorGroup
@@ -77,10 +77,10 @@ class MonitorRouteUpdater(
                 monitorRouteRelationRepository.load(Some(Timestamp(referenceDay)), relationId) match {
                   case None => None // TODO add error in MonitorRouteSaveResult !!
                   case Some(relation) =>
-                    val relations: Seq[Relation] = MonitorRouteFilter.relationsInRelation(relation)
+                    val relations: Seq[Relation] = MonitorFilter.relationsInRelation(relation)
                     val references = relations.map { routeRelation =>
 
-                      val wayMembers = MonitorRouteFilter.filterWayMembers(routeRelation.wayMembers)
+                      val wayMembers = MonitorFilter.filterWayMembers(routeRelation.wayMembers)
                       val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
                       val analysis = new MonitorRouteOsmSegmentAnalyzerImpl().analyze(wayMembers)
 

@@ -1,9 +1,10 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.util.Util
+import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.api.monitor.domain.MonitorRouteRelationReference
@@ -30,6 +31,23 @@ class MonitorUpdateAnalyzerImpl(
     val happy = osmSegmentCount == 1 && deviationCount == 0
 
     val updatedNewRoute = context.newRoute.map { newRoute =>
+      val updatedMonitorRouteRelation = newRoute.relation match {
+        case None => None
+        case Some(monitorRouteRelation) =>
+          val relations = monitorRouteRelation.relations.map(xx => updateMonitorRouteRelation(states, xx))
+          Some(
+            monitorRouteRelation.copy(
+              deviationDistance = deviationDistance,
+              deviationCount = deviationCount,
+              osmWayCount = osmWayCount,
+              osmDistance = osmDistance,
+              osmSegmentCount = osmSegmentCount,
+              happy = happy,
+              relations = relations
+            )
+          )
+      }
+
       newRoute.copy(
         deviationDistance = deviationDistance,
         deviationCount = deviationCount,
@@ -37,6 +55,7 @@ class MonitorUpdateAnalyzerImpl(
         osmDistance = osmDistance,
         osmSegmentCount = osmSegmentCount,
         happy = happy,
+        relation = updatedMonitorRouteRelation
       )
     }
 
@@ -52,7 +71,7 @@ class MonitorUpdateAnalyzerImpl(
       case None => None
       case Some(relation) =>
 
-        val wayMembers = MonitorRouteFilter.filterWayMembers(relation.wayMembers)
+        val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
         val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
         val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.geometry)
 
@@ -89,6 +108,28 @@ class MonitorUpdateAnalyzerImpl(
             routeAnalysis.deviations,
             happy
           )
+        )
+    }
+  }
+
+  private def updateMonitorRouteRelation(states: Seq[MonitorRouteRelationState], monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
+
+    val relations = monitorRouteRelation.relations.map(rel => updateMonitorRouteRelation(states, rel))
+
+    states.find(_.relationId == monitorRouteRelation.relationId) match {
+      case None =>
+        monitorRouteRelation.copy(
+          relations = relations
+        )
+      case Some(state) =>
+        monitorRouteRelation.copy(
+          deviationDistance = state.deviations.map(_.distance).sum,
+          deviationCount = state.deviations.size,
+          osmWayCount = state.wayCount,
+          osmDistance = state.osmDistance,
+          osmSegmentCount = state.osmSegments.size,
+          happy = state.happy,
+          relations = relations
         )
     }
   }

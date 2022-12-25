@@ -3,7 +3,7 @@ package kpn.server.api.monitor.route
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.monitor.MonitorRouteFilter
+import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 
 import scala.util.Failure
@@ -22,14 +22,14 @@ class MonitorRouteRelationBuilder {
     }
     val osmWayCount = relation.wayMembers.size
 
-    val relationDatas = MonitorRouteFilter.filterRelationMembers(relation.relationMembers).map { member =>
+    val relationDatas = MonitorFilter.filterRelationMembers(relation.relationMembers).map { member =>
       build(member.relation, member.role)
     }
 
     // TODO remove:
     // val subRelationsDistance = relationDatas.map(_.relation.osmDistance).sum
 
-    val wayMembers = MonitorRouteFilter.filterWayMembers(relation.wayMembers)
+    val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
     val osmSegmentAnalysis = new MonitorRouteOsmSegmentAnalyzerImpl().analyze(wayMembers)
 
     //    val deviationAnalysis = new MonitorRouteDeviationAnalyzer().analyze(wayMembers.map(_.way), routeReference)
