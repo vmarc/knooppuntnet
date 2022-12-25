@@ -12,6 +12,7 @@ case class MonitorRoute(
   description: String,
   comment: Option[String],
   relationId: Option[Long],
+  user: String,
 
   // reference information
   referenceType: Option[String],

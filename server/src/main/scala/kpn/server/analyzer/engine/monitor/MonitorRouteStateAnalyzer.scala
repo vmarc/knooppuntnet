@@ -19,8 +19,8 @@ class MonitorRouteStateAnalyzer() {
   ): MonitorRouteState = {
 
     val wayMembers = MonitorRouteAnalysisSupport.filteredWayMembers(routeRootRelation)
-    val osmSegmentAnalysis = new MonitorRouteOsmSegmentAnalyzer().analyze(wayMembers)
-    val deviationAnalysis = new MonitorRouteDeviationAnalyzer().analyze(wayMembers.map(_.way), routeReference)
+    val osmSegmentAnalysis = new MonitorRouteOsmSegmentAnalyzerImpl().analyze(wayMembers)
+    val deviationAnalysis = new MonitorRouteDeviationAnalyzerImpl().analyze(wayMembers.map(_.way), routeReference.geometry)
 
     // TODO merge gpx bounds + ok
     val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))

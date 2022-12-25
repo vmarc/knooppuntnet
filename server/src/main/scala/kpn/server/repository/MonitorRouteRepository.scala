@@ -8,9 +8,10 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.MonitorRouteRelationReference
 import kpn.server.api.monitor.domain.MonitorRouteRelationState
 import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.api.monitor.domain.OldMonitorRoute
 import kpn.server.api.monitor.domain.OldMonitorRouteReference
 import kpn.server.api.monitor.domain.OldMonitorRouteState
 
@@ -28,7 +29,7 @@ trait MonitorRouteRepository {
 
   def saveRouteReference(routeReference: MonitorRouteReference): Unit
 
-  def saveRouteReferenceRelation(routeReferenceRelation: MonitorRouteReferenceRelation): Unit
+  def saveRouteRelationReference(routeRelationReference: MonitorRouteRelationReference): Unit
 
   def saveRouteChange(routeChange: MonitorRouteChange): Unit
 
@@ -37,6 +38,8 @@ trait MonitorRouteRepository {
   def routeById(routeId: ObjectId): Option[MonitorRoute]
 
   def routeByName(groupId: ObjectId, routeName: String): Option[MonitorRoute]
+
+  def oldRouteByName(groupId: ObjectId, routeName: String): Option[OldMonitorRoute]
 
   def routeState(routeId: ObjectId): Option[MonitorRouteState]
 
@@ -51,6 +54,8 @@ trait MonitorRouteRepository {
   def routeStateInfos(routeId: ObjectId): Seq[MonitorRouteStateInfo]
 
   def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference]
+
+  def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference]
 
   def routeReference(referenceId: ObjectId): Option[MonitorRouteReference]
 

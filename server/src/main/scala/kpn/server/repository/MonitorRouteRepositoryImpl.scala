@@ -11,9 +11,10 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteReferenceRelation
+import kpn.server.api.monitor.domain.MonitorRouteRelationReference
 import kpn.server.api.monitor.domain.MonitorRouteRelationState
 import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.api.monitor.domain.OldMonitorRoute
 import kpn.server.api.monitor.domain.OldMonitorRouteReference
 import kpn.server.api.monitor.domain.OldMonitorRouteState
 import org.mongodb.scala.Document
@@ -65,8 +66,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteReferences.save(routeReference, log)
   }
 
-  override def saveRouteReferenceRelation(routeReferenceRelation: MonitorRouteReferenceRelation): Unit = {
-    database.monitorRouteReferenceRelations.save(routeReferenceRelation, log)
+  override def saveRouteRelationReference(routeRelationReference: MonitorRouteRelationReference): Unit = {
+    database.monitorRouteRelationReferences.save(routeRelationReference, log)
   }
 
   override def saveRouteChange(routeChange: MonitorRouteChange): Unit = {
@@ -91,6 +92,18 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorRoutes.optionAggregate[MonitorRoute](pipeline, log)
+  }
+
+  override def oldRouteByName(groupId: ObjectId, routeName: String): Option[OldMonitorRoute] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("groupId", groupId.raw),
+          equal("name", routeName),
+        )
+      )
+    )
+    database.oldMonitorRoutes.optionAggregate[OldMonitorRoute](pipeline, log)
   }
 
   override def routeState(routeId: ObjectId): Option[MonitorRouteState] = {
@@ -223,6 +236,23 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       limit(1)
     )
     database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
+  }
+
+  override def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      sort(
+        orderBy(
+          descending(
+            "created"
+          )
+        )
+      ),
+      limit(1)
+    )
+    database.oldMonitorRouteReferences.optionAggregate[OldMonitorRouteReference](pipeline, log)
   }
 
   override def routeReference(referenceId: ObjectId): Option[MonitorRouteReference] = {

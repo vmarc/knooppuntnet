@@ -5,6 +5,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
+import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
@@ -13,10 +14,13 @@ import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzerImpl
+import kpn.server.analyzer.engine.monitor.MonitorRouteFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteRelationReference
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepository
@@ -58,14 +62,74 @@ class MonitorRouteUpdater(
     Log.context(Seq("add-route", s"group=$groupName", s"route=${properties.name}")) {
       val group = findGroup(groupName)
       assertNewRoute(group, properties.name)
-      val relationId = properties.relationId
+
+      val routeId = ObjectId()
+
+      var context = MonitorUpdateContext(group)
+
+      if (properties.referenceType.contains("osm")) {
+        properties.relationId match {
+          case None => None // TODO add error in MonitorRouteSaveResult ???
+          case Some(relationId) =>
+            properties.referenceDay match {
+              case None => // TODO add error in MonitorRouteSaveResult ???
+              case Some(referenceDay) =>
+                monitorRouteRelationRepository.load(Some(Timestamp(referenceDay)), relationId) match {
+                  case None => None // TODO add error in MonitorRouteSaveResult !!
+                  case Some(relation) =>
+                    val relations: Seq[Relation] = MonitorRouteFilter.relationsInRelation(relation)
+                    val references = relations.map { routeRelation =>
+
+                      val wayMembers = MonitorRouteFilter.filterWayMembers(routeRelation.wayMembers)
+                      val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
+                      val analysis = new MonitorRouteOsmSegmentAnalyzerImpl().analyze(wayMembers)
+
+                      val geomFactory = new GeometryFactory
+                      val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
+                      val geoJsonWriter = new GeoJsonWriter()
+                      geoJsonWriter.setEncodeCRS(false)
+                      val geometry = geoJsonWriter.write(geometryCollection)
+
+                      MonitorRouteRelationReference(
+                        ObjectId(),
+                        routeId,
+                        routeRelation.id,
+                        analysis.osmDistance,
+                        bounds,
+                        analysis.routeSegments.size,
+                        geometry
+                      )
+                    }
+
+                    context = context.copy(
+                      newReferences = references
+                    )
+                }
+            }
+        }
+      }
+
+      val monitorRouteRelationData = properties.relationId match {
+        case None => None
+        case Some(relationId) =>
+          monitorRouteRelationRepository.load(None, relationId) match {
+            case None => None // TODO add error in MonitorRouteSaveResult !!
+            case Some(relation) =>
+              Some(
+                new MonitorRouteRelationBuilder().build(relation, None)
+              )
+          }
+      }
+
+
       val route = MonitorRoute(
         ObjectId(),
         group._id,
         properties.name,
         properties.description,
         properties.comment,
-        relationId,
+        properties.relationId,
+        user,
         referenceType = properties.referenceType,
         referenceDay = properties.referenceDay,
         referenceFilename = properties.referenceFilename,
@@ -76,19 +140,12 @@ class MonitorRouteUpdater(
         osmDistance = 0,
         osmSegmentCount = 0,
         happy = false,
-        relation = None
+        relation = monitorRouteRelationData.map(_.relation)
       )
 
       monitorRouteRepository.saveRoute(route)
 
-      if (properties.referenceType.contains("osm")) {
-        updateOsmReference(user, route, properties)
-      }
-      else {
-        // the route reference will be created at the time the gpxfile is uploaded
-        // the route analysis will be done in a separate call, after the gpx file has been uploaded
-        MonitorRouteSaveResult()
-      }
+      MonitorRouteSaveResult()
     }
   }
 
@@ -219,7 +276,7 @@ class MonitorRouteUpdater(
 
           case Some(relation) =>
             val wayMembers = MonitorRouteAnalysisSupport.filteredWayMembers(relation)
-            val analysis = new MonitorRouteOsmSegmentAnalyzer().analyze(wayMembers)
+            val analysis = new MonitorRouteOsmSegmentAnalyzerImpl().analyze(wayMembers)
             val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
             val geomFactory = new GeometryFactory
             val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
@@ -313,4 +370,5 @@ class MonitorRouteUpdater(
   private def isRelationIdChanged(route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {
     route.relationId != properties.relationId
   }
+
 }

@@ -63,7 +63,7 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
     )
   }
 
-  override def groupOldRoutes(groupId: ObjectId): Seq[OldMonitorRoute] = {
+  override def oldGroupRoutes(groupId: ObjectId): Seq[OldMonitorRoute] = {
     database.oldMonitorRoutes.find[OldMonitorRoute](
       equal("groupId", groupId.raw),
       log

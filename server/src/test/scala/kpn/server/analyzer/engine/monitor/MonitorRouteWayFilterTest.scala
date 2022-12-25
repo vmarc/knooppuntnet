@@ -9,7 +9,7 @@ class MonitorRouteWayFilterTest extends UnitTest with SharedTestObjects {
 
   test("filter") {
 
-    val wayMembers = MonitorRouteWayFilter.filter(
+    val wayMembers = MonitorRouteFilter.filterWayMembers(
       Seq(
         WayMember(newWay(1), None),
         WayMember(newWay(2), Some("place_of_worship")),
