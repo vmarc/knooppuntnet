@@ -71,7 +71,8 @@ trait MonitorFacade {
   def routeMap(
     user: Option[String],
     groupName: String,
-    routeName: String
+    routeName: String,
+    relationId: Option[Long]
   ): ApiResponse[MonitorRouteMapPage]
 
   def routeChanges(

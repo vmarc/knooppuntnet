@@ -23,6 +23,7 @@ import { selectPreferencesImpact } from '../../core/preferences/preferences.sele
 import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
+import { actionMonitorRouteMapSelectSubRelation } from './monitor.actions';
 import { actionMonitorGroupPageLoad } from './monitor.actions';
 import { actionMonitorRouteAddPageLoad } from './monitor.actions';
 import { actionMonitorRouteMapPageLoad } from './monitor.actions';
@@ -385,7 +386,24 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('routeName')),
       ]),
       map(([_, groupName, routeName]) =>
-        actionMonitorRouteMapPageLoad({ groupName, routeName })
+        actionMonitorRouteMapPageLoad({ groupName, routeName, relationId: 0 })
+      )
+    )
+  );
+
+  monitorRouteMapSelectSubRelation = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteMapSelectSubRelation),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+      ]),
+      map(([monitorRouteSubRelation, groupName, routeName]) =>
+        actionMonitorRouteMapPageLoad({
+          groupName,
+          routeName,
+          relationId: monitorRouteSubRelation.relationId,
+        })
       )
     )
   );
@@ -399,8 +417,8 @@ export class MonitorEffects {
         this.store.select(selectRouteParam('routeName')),
         this.store.select(selectQueryParams),
       ]),
-      mergeMap(([_, groupName, routeName, queryParams]) =>
-        this.monitorService.routeMap(groupName, routeName).pipe(
+      mergeMap(([{ relationId }, groupName, routeName, queryParams]) =>
+        this.monitorService.routeMap(groupName, routeName, relationId).pipe(
           map((response) =>
             actionMonitorRouteMapPageLoaded({
               response,

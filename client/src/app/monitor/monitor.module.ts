@@ -59,6 +59,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './route/components/
 import { MonitorRoutePropertiesComponent } from './route/components/monitor-route-properties.component';
 import { MonitorRouteSaveDialogComponent } from './route/components/monitor-route-save-dialog.component';
 import { MonitorRouteSaveStepComponent } from './route/components/monitor-route-save-step.component';
+import { MonitorRouteSubRelationMenuOptionComponent } from './route/components/monitor-route-sub-relation-menu-option.component';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
 import { MonitorRouteDetailsAnalysisComponent } from './route/details/monitor-route-details-analysis.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
@@ -156,6 +157,7 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteDetailsSummaryComponent,
     MonitorRouteDetailsReferenceComponent,
     MonitorRouteDetailsAnalysisComponent,
+    MonitorRouteSubRelationMenuOptionComponent,
   ],
   exports: [],
   providers: [MonitorService],

@@ -113,9 +113,10 @@ export class MonitorService {
 
   routeMap(
     groupName: string,
-    routeName: string
+    routeName: string,
+    relationId: number
   ): Observable<ApiResponse<MonitorRouteMapPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/map`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/map/${relationId}`;
     return this.http.get(url);
   }
 

@@ -14,6 +14,7 @@ import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-pag
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteSaveResult } from '@api/common/monitor/monitor-route-save-result';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
+import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
@@ -131,7 +132,7 @@ export const actionMonitorRouteMapPageInit = createAction(
 
 export const actionMonitorRouteMapPageLoad = createAction(
   '[MonitorRouteMapPage] Load',
-  props<{ groupName: string; routeName: string }>()
+  props<{ groupName: string; routeName: string; relationId: number }>()
 );
 
 export const actionMonitorRouteMapPageDestroy = createAction(
@@ -236,6 +237,11 @@ export const actionMonitorRouteMapJosmZoomToSelectedDeviation = createAction(
 
 export const actionMonitorRouteMapJosmZoomToSelectedOsmSegment = createAction(
   '[Monitor] Map josm zoom to fit selected OSM segment'
+);
+
+export const actionMonitorRouteMapSelectSubRelation = createAction(
+  '[Monitor] Map select sub relation',
+  props<MonitorRouteSubRelation>()
 );
 
 export const actionMonitorGroupAdd = createAction(

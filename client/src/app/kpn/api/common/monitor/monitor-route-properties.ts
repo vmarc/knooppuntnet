@@ -3,13 +3,13 @@
 import { Day } from '../../custom/day';
 
 export interface MonitorRouteProperties {
+  readonly groupName?: string;
   readonly name?: string;
   readonly description?: string;
-  readonly groupName?: string;
+  readonly comment?: string;
   readonly relationId?: number;
   readonly referenceType?: string;
   readonly referenceDay?: Day;
   readonly referenceFilename?: string;
   readonly referenceFileChanged?: boolean;
-  readonly comment?: string;
 }

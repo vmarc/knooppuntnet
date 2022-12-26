@@ -148,11 +148,12 @@ class MonitorFacadeImpl(
   override def routeMap(
     user: Option[String],
     groupName: String,
-    routeName: String
+    routeName: String,
+    relationId: Option[Long]
   ): ApiResponse[MonitorRouteMapPage] = {
     val args = s"$groupName:$routeName"
     api.execute(user, "monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(EN, groupName, routeName))
+      reply(monitorRouteMapPageBuilder.build(EN, groupName, routeName, relationId))
     }
   }
 

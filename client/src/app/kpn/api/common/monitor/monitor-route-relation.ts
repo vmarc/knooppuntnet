@@ -1,10 +1,14 @@
 // this file is generated, please do not modify
 
+import { Day } from '../../custom/day';
+
 export interface MonitorRouteRelation {
   readonly relationId: number;
   readonly name: string;
   readonly from: string;
   readonly to: string;
+  readonly role: string;
+  readonly survey: Day;
   readonly deviationDistance: number;
   readonly deviationCount: number;
   readonly osmWayCount: number;

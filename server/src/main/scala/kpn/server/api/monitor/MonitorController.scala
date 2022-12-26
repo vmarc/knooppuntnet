@@ -125,11 +125,20 @@ class MonitorController(
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
-  def routeMap(
+  def routeMap( // TODO MON cleanup - no longer needed?
     @PathVariable groupName: String,
-    @PathVariable routeName: String
+    @PathVariable routeName: String,
   ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(CurrentUser.name, groupName, routeName)
+    facade.routeMap(CurrentUser.name, groupName, routeName, None)
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map/{relationId}"))
+  def routeRelationMap(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+    @PathVariable relationId: Long,
+  ): ApiResponse[MonitorRouteMapPage] = {
+    facade.routeMap(CurrentUser.name, groupName, routeName, Some(relationId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))

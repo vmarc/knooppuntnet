@@ -4,7 +4,11 @@ import kpn.api.common.Bounds
 import kpn.api.common.Language
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
+import kpn.core.common.Time
+import kpn.core.util.Triplet
 import kpn.core.util.Util
+import kpn.server.api.monitor.MonitorUtil
+import kpn.server.api.monitor.domain.MonitorRouteSubRelation
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -15,13 +19,49 @@ class MonitorRouteMapPageBuilder(
   routeRepository: MonitorRouteRepository
 ) {
 
-  def build(language: Language, groupName: String, routeName: String): Option[MonitorRouteMapPage] = {
+  def build(language: Language, groupName: String, routeName: String, relationId: Option[Long]): Option[MonitorRouteMapPage] = {
     groupRepository.groupByName(groupName).flatMap { group =>
       routeRepository.routeByName(group._id, routeName).map { route =>
-        routeRepository.routeReferenceRouteWithId(route._id) match {
+
+        val subRelations = MonitorUtil.subRelationsIn(route).tail
+
+        val currentSubRelationId = relationId match {
+          case Some(relId) =>
+            if (relId == 0) {
+              if (subRelations.isEmpty) {
+                route.relationId.get // TODO is ok???
+              }
+              else {
+                subRelations.head.relationId
+              }
+            }
+            else {
+              relId
+            }
+          case None =>
+            if (subRelations.isEmpty) {
+              route.relationId.get // TODO is ok???
+            }
+            else {
+              subRelations.head.relationId
+            }
+        }
+
+        val (prevSubRelation, nextSubRelation) =
+          if (subRelations.nonEmpty) {
+            Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == currentSubRelationId) match {
+              case None => (None, None)
+              case Some(triplet) => (triplet.previous, triplet.next)
+            }
+          }
+          else {
+            (None, None)
+          }
+
+        routeRepository.routeRelationReference(route._id, currentSubRelationId) match {
           case None =>
 
-            val stateOption = routeRepository.routeState(route._id)
+            val stateOption = routeRepository.routeRelationState(route._id, currentSubRelationId)
             val bounds = stateOption match {
               case Some(state) => state.bounds
               case None => Bounds()
@@ -35,23 +75,26 @@ class MonitorRouteMapPageBuilder(
               group.name,
               group.description,
               bounds,
+              nextSubRelation,
+              prevSubRelation,
               stateOption.toSeq.flatMap(_.osmSegments),
               stateOption.flatMap(_.matchesGeometry),
               stateOption.toSeq.flatMap(_.deviations),
-              None
+              None,
+              subRelations
             )
 
           case Some(reference) =>
 
             val referenceInfo = MonitorRouteReferenceInfo(
-              reference.created,
-              reference.user,
+              Time.now, // reference.created,
+              "TODO", // reference.user,
               reference.bounds,
               0, // TODO distance
-              reference.referenceType,
-              reference.referenceDay,
+              "", // reference.referenceType,
+              None, // TODO reference.referenceDay,
               reference.segmentCount,
-              reference.filename,
+              None, // reference.filename,
               reference.geometry
             )
             val stateOption = routeRepository.routeState(route._id)
@@ -78,10 +121,13 @@ class MonitorRouteMapPageBuilder(
               group.name,
               group.description,
               bounds,
+              nextSubRelation,
+              prevSubRelation,
               stateOption.toSeq.flatMap(_.osmSegments),
               stateOption.flatMap(_.matchesGeometry),
               stateOption.toSeq.flatMap(_.deviations),
-              Some(referenceInfo)
+              Some(referenceInfo),
+              subRelations
             )
         }
       }

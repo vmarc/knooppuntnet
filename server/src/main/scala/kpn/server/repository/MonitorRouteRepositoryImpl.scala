@@ -140,6 +140,18 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.oldMonitorRouteStates.optionAggregate[OldMonitorRouteState](pipeline, log)
   }
 
+  override def routeRelationState(routeId: ObjectId, relationId: Long): Option[MonitorRouteRelationState] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("routeId", routeId.raw),
+          equal("relationId", relationId),
+        )
+      ),
+    )
+    database.monitorRouteRelationStates.optionAggregate[MonitorRouteRelationState](pipeline, log)
+  }
+
   override def routeStates(routeId: ObjectId): Seq[MonitorRouteState] = {
     val pipeline = Seq(
       filter(
@@ -236,6 +248,18 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       limit(1)
     )
     database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
+  }
+
+  override def routeRelationReference(routeId: ObjectId, relationId: Long): Option[MonitorRouteRelationReference] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("routeId", routeId.raw),
+          equal("relationId", relationId),
+        )
+      )
+    )
+    database.monitorRouteRelationReferences.optionAggregate[MonitorRouteRelationReference](pipeline, log)
   }
 
   override def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference] = {

@@ -119,7 +119,7 @@ export class MonitorRouteMapLayersComponent {
   readonly mode$ = this.store.select(selectMonitorRouteMapMode);
   readonly referenceType$ = this.store
     .select(selectMonitorRouteMapPage)
-    .pipe(map((response) => response?.result?.reference.referenceType));
+    .pipe(map((response) => response?.result?.reference?.referenceType));
 
   readonly referenceVisible$ = this.store.select(
     selectMonitorRouteMapReferenceVisible

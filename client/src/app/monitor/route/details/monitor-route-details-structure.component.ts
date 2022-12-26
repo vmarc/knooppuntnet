@@ -3,7 +3,12 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { MonitorRouteRelation } from '@api/common/monitor/monitor-route-relation';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
+import { AppState } from '../../../core/core.state';
+import { selectMonitorAdmin } from '../../store/monitor.selectors';
 import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 
 @Component({
@@ -24,6 +29,48 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [colSpan]="2"
+          i18n="@@monitor.route.relation-table.name"
+        >
+          Name
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <div *ngIf="row.level === 1" class="level-1">{{ row.name }}</div>
+          <div *ngIf="row.level === 2" class="level-2">{{ row.name }}</div>
+          <div *ngIf="row.level === 3" class="level-3">{{ row.name }}</div>
+          <div *ngIf="row.level === 4" class="level-4">{{ row.name }}</div>
+          <div *ngIf="row.level === 5" class="level-5">{{ row.name }}</div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="happy">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          <mat-icon *ngIf="route.relation.happy" svgIcon="happy"></mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="map">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.route-table.map"
+        >
+          Map
+        </th>
+        <td mat-cell *matCellDef="let route">
+          <a
+            [routerLink]="routeMapLink(route)"
+            i18n="@@monitor.group.route-table.map-link"
+            >map</a
+          >
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="relation">
         <th
           mat-header-cell
@@ -38,23 +85,6 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
             [title]="row.relation.relationId.toString()"
           >
           </kpn-osm-link-relation>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.name"
-        >
-          Name
-        </th>
-        <td mat-cell *matCellDef="let row">
-          <div *ngIf="row.level === 1" class="level-1">{{ row.name }}</div>
-          <div *ngIf="row.level === 2" class="level-2">{{ row.name }}</div>
-          <div *ngIf="row.level === 3" class="level-3">{{ row.name }}</div>
-          <div *ngIf="row.level === 4" class="level-4">{{ row.name }}</div>
-          <div *ngIf="row.level === 5" class="level-5">{{ row.name }}</div>
         </td>
       </ng-container>
 
@@ -97,8 +127,100 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <ng-container matColumnDef="reference-type">
+        <th
+          mat-header-cell
+          [colSpan]="3"
+          *matHeaderCellDef
+          i18n="@@monitor.group.route-table.reference"
+        >
+          Reference
+        </th>
+        <td mat-cell *matCellDef="let route">
+          {{ route.referenceType }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reference-day">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          {{ route.relation.referenceDay | day }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="reference-distance">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          <span *ngIf="route.relation.referenceType">
+            {{ route.relation.referenceDistance | distance }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deviation-count">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [colSpan]="2"
+          i18n="@@monitor.group.route-table.deviations"
+        >
+          Deviations
+        </th>
+        <td mat-cell *matCellDef="let route">
+          <span>
+            {{ route.relation.deviationCount }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="deviation-distance">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let route">
+          <span *ngIf="route.deviationCount > 0">
+            {{ route.deviationDistance | distance }}
+          </span>
+          <span *ngIf="route.relation.deviationCount === 0"> - </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="osm-segment-count">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.route-table.osm-segment-count"
+        >
+          OSM segments
+        </th>
+        <td mat-cell *matCellDef="let route">
+          <span>
+            {{ route.relation.osmSegmentCount }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.route-table.actions"
+        >
+          Actions
+        </th>
+        <td mat-cell *matCellDef="let route" class="kpn-action-cell">
+          <button
+            mat-icon-button
+            [routerLink]="uploadGpx(route)"
+            title="Upload"
+            i18n-title="@@action.upload"
+            class="kpn-action-button kpn-link"
+          >
+            <mat-icon svgIcon="upload"></mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders$ | async"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns$ | async"></tr>
     </table>
   `,
   styles: [
@@ -133,15 +255,49 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 export class MonitorRouteDetailsStructureComponent implements OnInit {
   @Input() relation: MonitorRouteRelation;
 
+  readonly admin$ = this.store.select(selectMonitorAdmin);
+
   readonly dataSource = new MatTableDataSource<MonitorRouteRelationRow>();
-  readonly displayedColumns = [
+  readonly columns = [
     'nr',
-    'relation',
     'name',
+    'happy',
+    'map',
+    'relation',
     'role',
     'distance',
     'survey',
+    'reference-type',
+    'reference-day',
+    'reference-distance',
+    'deviation-count',
+    'deviation-distance',
+    'osm-segment-count',
   ];
+
+  private readonly columnsWithoutHeader = [
+    'happy',
+    'reference-day',
+    'reference-distance',
+    'deviation-distance',
+  ];
+
+  readonly displayedColumns$ = this.admin$.pipe(
+    map((admin) => {
+      if (admin) {
+        return [...this.columns, 'actions'];
+      }
+      return this.columns;
+    })
+  );
+
+  readonly displayedHeaders$ = this.displayedColumns$.pipe(
+    map((columnNames) =>
+      columnNames.filter((name) => !this.columnsWithoutHeader.includes(name))
+    )
+  );
+
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.flattenRelationTree();
@@ -176,6 +332,16 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
       name: this.relationName(relation),
       relation,
     };
+  }
+
+  routeMapLink(route: MonitorRouteDetail): string {
+    // return `/monitor/groups/${this.groupName}/routes/${route.name}/map`;
+    return '';
+  }
+
+  uploadGpx(route: MonitorRouteDetail): string {
+    // return `/monitor/admin/groups/${this.groupName}/routes/${route.name}`;
+    return '';
   }
 
   private relationName(relation: MonitorRouteRelation): string {
