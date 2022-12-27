@@ -1,8 +1,8 @@
 package kpn.server.api.monitor
 
 import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.api.common.monitor.MonitorRouteSubRelation
 import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteSubRelation
 
 object MonitorUtil {
 

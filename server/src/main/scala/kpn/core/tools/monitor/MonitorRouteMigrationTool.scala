@@ -17,6 +17,7 @@ import kpn.server.api.monitor.route.MonitorUpdateRouteImpl
 import kpn.server.api.monitor.route.MonitorUpdateSaverImpl
 import kpn.server.api.monitor.route.MonitorUpdateStructureImpl
 import kpn.server.api.monitor.route.MonitorUpdaterImpl
+import kpn.server.api.monitor.route.XxxImpl
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
 import org.mongodb.scala.MongoNamespace
@@ -38,10 +39,18 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   private val monitorUpdateReference = new MonitorUpdateReferenceImpl(monitorRouteRelationRepository, monitorRouteOsmSegmentAnalyzer)
-  private val monitorUpdateAnalyzer = new MonitorUpdateAnalyzerImpl(
+
+  private val xxx = new XxxImpl(
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer,
     monitorRouteDeviationAnalyzer
+  )
+
+  private val monitorUpdateAnalyzer = new MonitorUpdateAnalyzerImpl(
+    monitorRouteRelationRepository,
+    monitorRouteOsmSegmentAnalyzer,
+    monitorRouteDeviationAnalyzer,
+    xxx
   )
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
@@ -53,7 +62,8 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
     monitorUpdateStructure,
     monitorUpdateReference,
     monitorUpdateAnalyzer,
-    saver
+    saver,
+    xxx
   )
 }
 
@@ -83,8 +93,8 @@ object MonitorRouteMigrationTool {
       val configuration = new MonitorRouteMigrationConfiguration(database)
       val tool = new MonitorRouteMigrationTool(configuration)
       // tool.renameRouteCollections()
-      // tool.addExampleSuperRoute(exampleSuperRoute)
-      tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
+      tool.addExampleSuperRoute(exampleSuperRoute)
+      // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
       // tool.migrate()
     }
   }
@@ -100,6 +110,34 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
 
   def addExampleSuperRoute(exampleSuperRoute: MonitorExampleSuperRoute): Unit = {
 
+    configuration.monitorGroupRepository.groupByName("AAA") match {
+      case None => println("group not found")
+      case Some(group) =>
+        configuration.monitorRouteRepository.routeByName(group._id, "example") match {
+          case Some(route) => configuration.monitorRouteRepository.deleteRoute(route._id)
+          case None =>
+        }
+
+        val properties = MonitorRouteProperties(
+          group.name,
+          "example",
+          "example route with gpx trace per sub relation",
+          Some("comment"),
+          Some(exampleSuperRoute.relationId),
+          "multi-gpx",
+          None,
+          None,
+          referenceFileChanged = false,
+        )
+        configuration.monitorUpdater.add("user", group.name, properties)
+
+        exampleSuperRoute.relations.foreach { superRouteRelation =>
+          superRouteRelation.relationId
+          superRouteRelation.referenceFilename
+
+        }
+
+    }
   }
 
   def migrateOne(groupName: String, routeName: String): Unit = {
@@ -139,7 +177,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       route.description,
       route.comment,
       route.relationId,
-      route.referenceType,
+      route.referenceType.get,
       route.referenceDay,
       route.referenceFilename,
       referenceFileChanged = false,

@@ -16,7 +16,7 @@ class MonitorUpdateSaverImpl(
     }
 
     context.newReferences.foreach { routeRelationReference =>
-      monitorRouteRepository.saveRouteRelationReference(routeRelationReference)
+      monitorRouteRepository.saveRouteReference(routeRelationReference)
     }
 
     context.newStates.foreach { state =>

@@ -1,4 +1,4 @@
-package kpn.server.api.monitor.domain
+package kpn.api.common.monitor
 
 case class MonitorRouteSubRelation(
   relationId: Long,

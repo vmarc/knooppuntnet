@@ -32,12 +32,13 @@ class MonitorRouteAnalyzerImpl(
     analyzeRoute(route, reference, now)
   }
 
-  override def processGpxFileUpload(user: String, route: MonitorRoute, filename: String, xml: Elem): MonitorRouteSaveResult = {
+  override def processGpxFileUpload(user: String, route: MonitorRoute, relationId: Long, filename: String, xml: Elem): MonitorRouteSaveResult = {
 
     val now = Time.now
     val geometry = new MonitorRouteGpxReader().read(xml)
     val bounds = geometryBounds(geometry)
     val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometry)
+    val distance = Math.round(geometry.getLength)
 
     val reference = MonitorRouteReference(
       ObjectId(),
@@ -47,7 +48,8 @@ class MonitorRouteAnalyzerImpl(
       user = user,
       bounds = bounds,
       referenceType = "gpx", // "osm" | "gpx"
-      referenceDay = route.referenceDay,
+      referenceDay = route.referenceDay.get,
+      distance = distance,
       segmentCount = 1, // TODO number of tracks in gpx always 1, multiple track not supported yet
       filename = Some(filename),
       geometry = geoJson

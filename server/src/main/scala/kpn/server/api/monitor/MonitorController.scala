@@ -17,6 +17,7 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
+import kpn.core.common.Time
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -181,14 +182,25 @@ class MonitorController(
     facade.routeInfo(CurrentUser.name, routeId)
   }
 
-  @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/upload"))
+  @PostMapping(value = Array(s"groups/{groupName}/routes/{routeName}/upload/{relationId}"))
   def routeReferenceGpxFileUpload(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
+    @PathVariable relationId: Long,
     @RequestParam("file") file: MultipartFile
   ): ApiResponse[MonitorRouteSaveResult] = {
+
     val xml = XML.load(file.getInputStream)
-    facade.routeReferenceGpxFileUpload(CurrentUser.name, groupName, routeName, file.getOriginalFilename, xml)
+
+    facade.upload(
+      CurrentUser.name,
+      groupName,
+      routeName,
+      relationId,
+      Time.now.toDay, // TODO should get reference day from client !!!
+      file.getOriginalFilename,
+      xml
+    )
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/analyze"))

@@ -18,6 +18,7 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Day
 import kpn.core.common.TimestampLocal
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.api.Api
@@ -32,6 +33,7 @@ import kpn.server.api.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.api.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteUpdatePageBuilder
 import kpn.server.api.monitor.route.MonitorRouteUpdater
+import kpn.server.api.monitor.route.MonitorUpdater
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRepository
 import kpn.server.repository.MonitorRouteRepository
@@ -56,7 +58,8 @@ class MonitorFacadeImpl(
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorRouteAnalyzer: MonitorRouteAnalyzer
+  monitorRouteAnalyzer: MonitorRouteAnalyzer,
+  monitorUpdater: MonitorUpdater
 ) extends MonitorFacade {
 
   override def changes(
@@ -280,10 +283,12 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeReferenceGpxFileUpload(
+  override def upload(
     user: Option[String],
     groupName: String,
     routeName: String,
+    relationId: Long,
+    referenceDay: Day,
     filename: String,
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult] = {
@@ -292,7 +297,7 @@ class MonitorFacadeImpl(
       reply(
         monitorGroupRepository.groupByName(groupName).flatMap { group =>
           monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-            monitorRouteAnalyzer.processGpxFileUpload(user.get, route, filename, xml)
+            monitorUpdater.upload(user.get, route, relationId, referenceDay, filename, xml)
           }
         }
       )

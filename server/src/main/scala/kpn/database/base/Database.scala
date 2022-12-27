@@ -27,7 +27,6 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteRelationReference
 import kpn.server.api.monitor.domain.MonitorRouteRelationState
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.api.monitor.domain.OldMonitorRoute
@@ -90,8 +89,6 @@ trait Database {
   def monitorRouteReferences: DatabaseCollection[MonitorRouteReference]
 
   def oldMonitorRouteReferences: DatabaseCollection[OldMonitorRouteReference]
-
-  def monitorRouteRelationReferences: DatabaseCollection[MonitorRouteRelationReference]
 
   def oldMonitorRouteReferenceRelations: DatabaseCollection[OldMonitorRouteReferenceRelation]
 

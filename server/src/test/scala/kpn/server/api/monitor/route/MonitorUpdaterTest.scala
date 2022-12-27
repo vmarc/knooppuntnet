@@ -18,7 +18,7 @@ import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
 import org.scalamock.scalatest.MockFactory
 
-class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactory {
 
   test("add route with gpx reference") {
 
@@ -327,7 +327,7 @@ class MonitorRouteUpdateTest extends UnitTest with SharedTestObjects with MockFa
       bounds = Bounds(1, 1, 3, 3),
       referenceType = "osm",
       referenceDay = Day(2022, 8, 11),
-      distance = 0L,
+      distance = 0,
       segmentCount = 1,
       filename = None,
       geometry = "bla"

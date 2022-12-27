@@ -11,16 +11,14 @@ import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzerImpl
-import kpn.server.analyzer.engine.monitor.MonitorFilter
-import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteRelationReference
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepository
@@ -90,13 +88,18 @@ class MonitorRouteUpdater(
                       geoJsonWriter.setEncodeCRS(false)
                       val geometry = geoJsonWriter.write(geometryCollection)
 
-                      MonitorRouteRelationReference(
+                      MonitorRouteReference(
                         ObjectId(),
                         routeId,
-                        routeRelation.id,
-                        analysis.osmDistance,
+                        Some(routeRelation.id),
+                        Time.now,
+                        user,
                         bounds,
+                        "osm",
+                        properties.referenceDay.get,
+                        analysis.osmDistance,
                         analysis.routeSegments.size,
+                        None,
                         geometry
                       )
                     }
@@ -162,7 +165,7 @@ class MonitorRouteUpdater(
         route
       }
 
-      if (properties.referenceType.contains("osm")) {
+      if (properties.referenceType == "osm") {
         if (isOsmReferenceChanged(reference, properties) || isRelationIdChanged(route, properties)) {
           val updatedRoute = if (isRelationIdChanged(route, properties)) {
             route.copy(
@@ -179,7 +182,7 @@ class MonitorRouteUpdater(
           MonitorRouteSaveResult()
         }
       }
-      else if (properties.referenceType.contains("gpx")) {
+      else if (properties.referenceType == "gpx") {
         if (properties.referenceFileChanged) {
           // reference has changed, but details will arrive in next api call
           // re-analyze only after reference has been updated
@@ -236,6 +239,9 @@ class MonitorRouteUpdater(
 
     properties.relationId match {
       case None =>
+
+        val distance = 0L // TODO pick up distance from detailed data
+
         val reference = MonitorRouteReference(
           ObjectId(),
           routeId = route._id,
@@ -244,7 +250,8 @@ class MonitorRouteUpdater(
           user = user,
           bounds = Bounds(),
           referenceType = "osm",
-          referenceDay = properties.referenceDay,
+          referenceDay = properties.referenceDay.get,
+          distance = distance,
           segmentCount = 0,
           filename = None,
           geometry = ""
@@ -266,8 +273,9 @@ class MonitorRouteUpdater(
               user = user,
               bounds = Bounds(),
               referenceType = "osm",
-              referenceDay = properties.referenceDay,
-              segmentCount = 0,
+              referenceDay = properties.referenceDay.get,
+              distance = 0, // TODO set proper value
+              segmentCount = 0, // TODO set proper value
               filename = None,
               geometry = ""
             )
@@ -284,6 +292,8 @@ class MonitorRouteUpdater(
             geoJsonWriter.setEncodeCRS(false)
             val geometry = geoJsonWriter.write(geometryCollection)
 
+            val distance = Math.round(geometryCollection.getLength)
+
             val reference = MonitorRouteReference(
               ObjectId(),
               routeId = route._id,
@@ -292,7 +302,8 @@ class MonitorRouteUpdater(
               user = user,
               bounds = bounds,
               referenceType = "osm",
-              referenceDay = properties.referenceDay,
+              referenceDay = properties.referenceDay.get,
+              distance = distance,
               segmentCount = analysis.routeSegments.size,
               filename = None,
               geometry = geometry
@@ -362,9 +373,9 @@ class MonitorRouteUpdater(
   }
 
   private def isOsmReferenceChanged(reference: MonitorRouteReference, properties: MonitorRouteProperties): Boolean = {
-    Some(reference.referenceType) != properties.referenceType ||
+    reference.referenceType != properties.referenceType ||
       reference.relationId != properties.relationId ||
-      reference.referenceDay != properties.referenceDay
+      !properties.referenceDay.contains(reference.referenceDay)
   }
 
   private def isRelationIdChanged(route: MonitorRoute, properties: MonitorRouteProperties): Boolean = {

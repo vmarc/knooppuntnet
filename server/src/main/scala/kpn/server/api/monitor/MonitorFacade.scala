@@ -17,6 +17,7 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Day
 
 import scala.xml.Elem
 
@@ -129,10 +130,12 @@ trait MonitorFacade {
     routeName: String
   ): Unit
 
-  def routeReferenceGpxFileUpload(
+  def upload(
     user: Option[String],
     groupName: String,
     routeName: String,
+    relationId: Long,
+    referenceDay: Day,
     filename: String,
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult]

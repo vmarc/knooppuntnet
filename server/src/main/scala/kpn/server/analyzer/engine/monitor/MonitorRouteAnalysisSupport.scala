@@ -37,6 +37,17 @@ object MonitorRouteAnalysisSupport {
     new GeoJsonWriter().write(geometry).replaceAll("EPSG:0", "EPSG:4326")
   }
 
+  def geometryBounds(geometry: Geometry): Bounds = {
+    val envelope = geometry.getEnvelopeInternal
+    Bounds(
+      envelope.getMinY, // minLat
+      envelope.getMinX, // minLon
+      envelope.getMaxY, // maxLat
+      envelope.getMaxX, // maxLon
+    )
+  }
+
+
   def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
     list match {
       case Nil => Nil

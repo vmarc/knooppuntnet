@@ -15,7 +15,7 @@ case class MonitorRoute(
   user: String,
 
   // reference information
-  referenceType: Option[String],
+  referenceType: String,
   referenceDay: Option[Day],
   referenceFilename: Option[String],
   referenceDistance: Long,

@@ -1,7 +1,6 @@
 package kpn.api.common.monitor
 
 import kpn.api.common.Bounds
-import kpn.server.api.monitor.domain.MonitorRouteSubRelation
 
 case class MonitorRouteMapPage(
   routeId: String,

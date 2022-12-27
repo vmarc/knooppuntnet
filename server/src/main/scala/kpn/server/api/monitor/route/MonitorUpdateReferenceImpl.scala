@@ -4,10 +4,11 @@ import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
+import kpn.core.common.Time
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteRelationReference
+import kpn.server.api.monitor.domain.MonitorRouteReference
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonWriter
@@ -88,13 +89,18 @@ class MonitorUpdateReferenceImpl(
                   geoJsonWriter.setEncodeCRS(false)
                   val geometry = geoJsonWriter.write(geometryCollection)
 
-                  MonitorRouteRelationReference(
+                  MonitorRouteReference(
                     ObjectId(),
                     newRoute._id,
-                    routeRelation.id,
-                    analysis.osmDistance,
+                    Some(routeRelation.id),
+                    Time.now,
+                    "TODO user",
                     bounds,
+                    "osm",
+                    newRoute.referenceDay.get,
+                    analysis.osmDistance,
                     analysis.routeSegments.size,
+                    None,
                     geometry
                   )
                 }

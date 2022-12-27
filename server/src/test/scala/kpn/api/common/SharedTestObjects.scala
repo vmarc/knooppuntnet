@@ -1017,7 +1017,7 @@ trait SharedTestObjects extends MockFactory {
     comment: Option[String] = None,
     relationId: Option[Long] = None,
     user: String = "",
-    referenceType: Option[String] = None,
+    referenceType: String = "gpx",
     referenceDay: Option[Day] = None,
     referenceDistance: Long = 0,
     referenceFilename: Option[String] = None,
@@ -1119,7 +1119,8 @@ trait SharedTestObjects extends MockFactory {
     user: String = "",
     bounds: Bounds = Bounds(),
     referenceType: String = "", // "osm" | "gpx"
-    referenceDay: Option[Day] = None,
+    referenceDay: Day = Time.now.toDay,
+    distance: Long = 0,
     segmentCount: Long = 0,
     filename: Option[String] = None,
     geometry: String = ""
@@ -1133,6 +1134,7 @@ trait SharedTestObjects extends MockFactory {
       bounds,
       referenceType,
       referenceDay,
+      distance,
       segmentCount,
       filename,
       geometry

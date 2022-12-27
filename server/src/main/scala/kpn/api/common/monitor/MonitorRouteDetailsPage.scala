@@ -10,7 +10,7 @@ case class MonitorRouteDetailsPage(
   routeDescription: String,
   relationId: Option[Long],
   comment: Option[String],
-  referenceType: Option[String],
+  referenceType: String,
   referenceDay: Option[Day],
   referenceFilename: Option[String],
   referenceDistance: Long,

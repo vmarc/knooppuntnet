@@ -16,6 +16,7 @@ trait MonitorRouteAnalyzer {
   def processGpxFileUpload(
     user: String,
     route: MonitorRoute,
+    relationId: Long,
     filename: String,
     xml: Elem
   ): MonitorRouteSaveResult
