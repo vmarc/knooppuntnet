@@ -193,7 +193,8 @@ class MonitorChangeProcessorImpl(
       val happy = false
       val routeState = MonitorRouteState(
         ObjectId(),
-        null, // routeId,
+        null, // TODO routeId,
+        1L, // TODO relationId
         afterRoute.relation.timestamp,
         afterRoute.wayCount,
         afterRoute.osmDistance,

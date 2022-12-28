@@ -61,7 +61,7 @@ class MonitorRouteMapPageBuilder(
         routeRepository.routeRelationReference(route._id, currentSubRelationId) match {
           case None =>
 
-            val stateOption = routeRepository.routeRelationState(route._id, currentSubRelationId)
+            val stateOption = routeRepository.routeState(route._id, currentSubRelationId)
             val bounds = stateOption match {
               case Some(state) => state.bounds
               case None => Bounds()
@@ -97,7 +97,7 @@ class MonitorRouteMapPageBuilder(
               None, // reference.filename,
               reference.geometry
             )
-            val stateOption = routeRepository.routeState(route._id)
+            val stateOption = routeRepository.routeState(route._id, route.relationId.get)
             val bounds = stateOption match {
               case Some(state) =>
                 if (reference.bounds == Bounds()) {

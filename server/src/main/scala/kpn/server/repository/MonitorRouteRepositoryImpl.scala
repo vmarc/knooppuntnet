@@ -11,7 +11,6 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteRelationState
 import kpn.server.api.monitor.domain.MonitorRouteState
 import kpn.server.api.monitor.domain.OldMonitorRoute
 import kpn.server.api.monitor.domain.OldMonitorRouteReference
@@ -57,10 +56,6 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteStates.save(routeState, log)
   }
 
-  override def saveRouteRelationState(routeRelationState: MonitorRouteRelationState): Unit = {
-    database.monitorRouteRelationStates.save(routeRelationState, log)
-  }
-
   override def saveRouteReference(routeReference: MonitorRouteReference): Unit = {
     database.monitorRouteReferences.save(routeReference, log)
   }
@@ -101,19 +96,14 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.oldMonitorRoutes.optionAggregate[OldMonitorRoute](pipeline, log)
   }
 
-  override def routeState(routeId: ObjectId): Option[MonitorRouteState] = {
+  override def routeState(routeId: ObjectId, relationId: Long): Option[MonitorRouteState] = {
     val pipeline = Seq(
       filter(
-        equal("routeId", routeId.raw),
+        and(
+          equal("routeId", routeId.raw),
+          equal("relationId", relationId),
+        ),
       ),
-      sort(
-        orderBy(
-          descending(
-            "timestamp"
-          )
-        )
-      ),
-      limit(1)
     )
     database.monitorRouteStates.optionAggregate[MonitorRouteState](pipeline, log)
   }
@@ -133,18 +123,6 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       limit(1)
     )
     database.oldMonitorRouteStates.optionAggregate[OldMonitorRouteState](pipeline, log)
-  }
-
-  override def routeRelationState(routeId: ObjectId, relationId: Long): Option[MonitorRouteRelationState] = {
-    val pipeline = Seq(
-      filter(
-        and(
-          equal("routeId", routeId.raw),
-          equal("relationId", relationId),
-        )
-      ),
-    )
-    database.monitorRouteRelationStates.optionAggregate[MonitorRouteRelationState](pipeline, log)
   }
 
   override def routeStates(routeId: ObjectId): Seq[MonitorRouteState] = {
@@ -282,7 +260,7 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.oldMonitorRouteReferences.findByObjectId(referenceId, log)
   }
 
-  override def superRouteSummary(routeId: ObjectId): Option[Long] = {
+  override def superRouteReferenceSummary(routeId: ObjectId): Option[Long] = {
     val pipeline = Seq(
       filter(
         equal("routeId", routeId.raw),
@@ -300,6 +278,32 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     )
 
     database.monitorRouteReferences.optionAggregate[Distance](pipeline, log).map(_.distance)
+  }
+
+  override def superRouteStateSummary(routeId: ObjectId): Option[MonitorRouteStateSummary] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      project(
+        fields(
+          excludeId(),
+          computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
+          computed("deviationCount", Document("""{ $size: "$deviations" }""")),
+          include("wayCount"),
+          include("osmDistance"),
+        )
+      ),
+      group(
+        1L,
+        sum("deviationDistance", "$deviationDistance"),
+        sum("deviationCount", "$deviationCount"),
+        sum("osmWayCount", "$wayCount"),
+        sum("osmDistance", "$osmDistance"),
+      ),
+    )
+
+    database.monitorRouteStates.optionAggregate[MonitorRouteStateSummary](pipeline, log)
   }
 
   override def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange] = {

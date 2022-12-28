@@ -1,7 +1,9 @@
 package kpn.server.repository
 
+import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -88,7 +90,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       val group = newMonitorGroup("group", "")
       val route = newMonitorRoute(group._id, "route", "description")
       val reference = newMonitorRouteReference(route._id)
-      val state = newMonitorRouteState(route._id)
+      val state = newMonitorRouteState(route._id, 1L)
 
       database.monitorGroups.save(group)
       database.monitorRoutes.save(route)
@@ -151,7 +153,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("superRouteSummary") {
+  test("superRouteRelationSummary") {
 
     withDatabase { database =>
 
@@ -204,12 +206,101 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       database.monitorRouteReferences.save(reference2)
 
       val routeRepository = new MonitorRouteRepositoryImpl(database)
-      val distance = routeRepository.superRouteSummary(route._id)
+      val distance = routeRepository.superRouteReferenceSummary(route._id)
 
       distance should equal(Some(300L))
     }
   }
 
+  test("superRouteStateSummary") {
+
+    withDatabase { database =>
+
+      val group = newMonitorGroup("group", "")
+      val route = newMonitorRoute(
+        group._id,
+        "route",
+        "description",
+        relation = Some(
+          newMonitorRouteRelation(
+            1L,
+            Some("1"),
+            relations = Seq(
+              newMonitorRouteRelation(
+                11L,
+                Some("11"),
+                relations = Seq(
+                  newMonitorRouteRelation(111L, Some("11")),
+                  newMonitorRouteRelation(112L, Some("12"))
+                )
+              ),
+              newMonitorRouteRelation(
+                12L,
+                Some("12"),
+                relations = Seq(
+                  newMonitorRouteRelation(121L, Some("121")),
+                  newMonitorRouteRelation(122L, Some("122"))
+                )
+              )
+            )
+          )
+        )
+      )
+
+      val state1 = newMonitorRouteState(
+        route._id,
+        relationId = 11L,
+        wayCount = 10L,
+        osmDistance = 100L,
+        deviations = Seq(
+          MonitorRouteDeviation(
+            1L,
+            meters = 20L,
+            distance = 0L,
+            bounds = Bounds(),
+            geoJson = ""
+          ),
+          MonitorRouteDeviation(
+            2L,
+            meters = 30L,
+            distance = 0L,
+            bounds = Bounds(),
+            geoJson = ""
+          )
+        )
+      )
+      val state2 = newMonitorRouteState(
+        route._id,
+        relationId = 12L,
+        wayCount = 20L,
+        osmDistance = 200L,
+        deviations = Seq(
+          MonitorRouteDeviation(
+            1L,
+            meters = 40L,
+            distance = 0L,
+            bounds = Bounds(),
+            geoJson = ""
+          ),
+        )
+      )
+
+      database.monitorGroups.save(group)
+      database.monitorRoutes.save(route)
+      database.monitorRouteStates.save(state1)
+      database.monitorRouteStates.save(state2)
+
+      val routeRepository = new MonitorRouteRepositoryImpl(database)
+      routeRepository.superRouteStateSummary(route._id) match {
+        case None => fail("could not retrieve state summary")
+        case Some(monitorRouteStateSummary) =>
+          monitorRouteStateSummary.deviationDistance should equal(90L)
+          monitorRouteStateSummary.deviationCount should equal(3L)
+          monitorRouteStateSummary.osmWayCount should equal(30L)
+          monitorRouteStateSummary.osmDistance should equal(300L)
+      }
+    }
+  }
 
   private def buildChange(groupName: String /*TODO MON remove*/ , routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
     newMonitorRouteChange(

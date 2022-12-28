@@ -24,7 +24,8 @@ trait MonitorUpdater {
 
   def upload(
     user: String,
-    route: MonitorRoute,
+    groupName: String,
+    routeName: String,
     relationId: Long,
     referenceDay: Day,
     filename: String,

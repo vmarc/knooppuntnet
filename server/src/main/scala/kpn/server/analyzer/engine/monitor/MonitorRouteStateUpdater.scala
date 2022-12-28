@@ -10,7 +10,7 @@ class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
 
   def update(route: MonitorRoute, newState: MonitorRouteState, routeRelation: Relation): Unit = {
 
-    val state = routeRepository.routeState(route._id) match {
+    val state = routeRepository.routeState(route._id, route.relationId.get) match {
       case Some(previousState) => newState.copy(_id = previousState._id)
       case None => newState
     }

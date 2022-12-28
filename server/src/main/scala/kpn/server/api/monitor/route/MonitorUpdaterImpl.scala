@@ -72,87 +72,92 @@ class MonitorUpdaterImpl(
 
   override def upload(
     user: String,
-    route: MonitorRoute,
+    groupName: String,
+    routeName: String,
     relationId: Long,
     referenceDay: Day,
     filename: String,
     xml: Elem
   ): MonitorRouteSaveResult = {
 
-    val now = Time.now
-    val geometryCollection = new MonitorRouteGpxReader().read(xml)
-    val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
-    val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+    Log.context(Seq("route-update", s"group=$groupName", s"route=$routeName")) {
+      val group = findGroup(groupName)
+      val oldRoute = findRoute(group._id, routeName)
+      var context = MonitorUpdateContext(group, oldRoute = Some(oldRoute))
 
-    // TODO should delete already existing reference here?
+      val now = Time.now
+      val geometryCollection = new MonitorRouteGpxReader().read(xml)
+      val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
+      val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
 
-    val distance = Math.round(geometryCollection.getLength)
-    val segmentCount = geometryCollection.getNumGeometries
+      // TODO should delete already existing reference here?
 
-    val reference = MonitorRouteReference(
-      ObjectId(),
-      routeId = route._id,
-      relationId = Some(relationId),
-      created = now,
-      user = user,
-      bounds = bounds,
-      referenceType = "gpx", // "osm" | "gpx"
-      referenceDay = referenceDay,
-      distance = distance,
-      segmentCount = segmentCount,
-      filename = Some(filename),
-      geometry = geoJson
-    )
+      val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+      val distance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
 
-    monitorRouteRepository.saveRouteReference(reference)
+      val segmentCount = geometryCollection.getNumGeometries
 
 
-    route.referenceType match {
-      case "gpx" =>
-        val gpxDistance = {
-          val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
-          Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
-        }
+      val reference = MonitorRouteReference(
+        ObjectId(),
+        routeId = oldRoute._id,
+        relationId = Some(relationId),
+        created = now,
+        user = user,
+        bounds = bounds,
+        referenceType = "gpx", // "osm" | "gpx"
+        referenceDay = referenceDay,
+        distance = distance,
+        segmentCount = segmentCount,
+        filename = Some(filename),
+        geometry = geoJson
+      )
 
-        val updatedRoute = route.copy(
-          referenceFilename = reference.filename,
-          referenceDistance = gpxDistance,
-        )
-        monitorRouteRepository.saveRoute(updatedRoute)
+      context = context.copy(
+        newReferences = context.newReferences ++ Seq(reference)
+      )
 
-        MonitorRouteSaveResult()
+      oldRoute.referenceType match {
+        case "gpx" =>
+          val gpxDistance = {
+            val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+            Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
+          }
 
-      case "multi-gpx" =>
+          val updatedRoute = oldRoute.copy(
+            referenceFilename = reference.filename,
+            referenceDistance = gpxDistance,
+          )
 
-        // TODO perform analysis of the sub-relation !!
+          context = context.copy(
+            newRoute = Some(updatedRoute)
+          )
 
-        val state = xxx.analyzeReference(route._id, reference)
+          context = saver.save(context)
 
-//        var context = MonitorUpdateContext(group)
-//        context = monitorUpdateRoute.update(context, ObjectId(), user, properties)
-//        context = monitorUpdateStructure.update(context)
-//        context = monitorUpdateReference.update(context)
-//        context = monitorUpdateAnalyzer.analyze(context)
-//        context = saver.save(context)
-//        context.saveResult
+          MonitorRouteSaveResult()
 
+        case "multi-gpx" =>
 
-        val referenceDistance = monitorRouteRepository.superRouteSummary(route._id) match {
-          case Some(distance) => distance
-          case None => 0
-        }
+          // TODO perform analysis of the sub-relation !!
 
-        val updatedRoute = route.copy(
-          referenceDistance = referenceDistance,
-        )
-        monitorRouteRepository.saveRoute(updatedRoute)
+          xxx.analyzeReference(oldRoute._id, reference) match {
+            case None =>
+            case Some(state) =>
+              context = context.copy(
+                newStates = context.newStates :+ state
+              )
+          }
 
-        MonitorRouteSaveResult()
+          context = saver.save(context)
+
+          MonitorRouteSaveResult()
 
 
-      case _ =>
-        MonitorRouteSaveResult()
+        case _ =>
+          MonitorRouteSaveResult()
 
+      }
     }
   }
 

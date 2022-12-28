@@ -45,6 +45,7 @@ class MonitorRouteStateAnalyzer() {
     MonitorRouteState(
       ObjectId(),
       route._id,
+      route.relationId.get,
       now,
       routeAnalysis.wayCount,
       routeAnalysis.osmDistance,

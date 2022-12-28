@@ -295,11 +295,9 @@ class MonitorFacadeImpl(
     api.execute(user, "monitor-route-reference", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(
-        monitorGroupRepository.groupByName(groupName).flatMap { group =>
-          monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-            monitorUpdater.upload(user.get, route, relationId, referenceDay, filename, xml)
-          }
-        }
+        Some(
+          monitorUpdater.upload(user.get, groupName, routeName, relationId, referenceDay, filename, xml)
+        )
       )
     }
   }

@@ -1,13 +1,14 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
+import kpn.core.common.Time
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteRelationState
+import kpn.server.api.monitor.domain.MonitorRouteState
 import org.springframework.stereotype.Component
 
 @Component
@@ -17,7 +18,7 @@ class XxxImpl(
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
 ) {
 
-  def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteRelationState] = {
+  def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteState] = {
 
     monitorRouteRelationRepository.loadTopLevel(None, reference.relationId.get) match {
       case None => None
@@ -47,18 +48,21 @@ class XxxImpl(
           routeAnalysis.osmSegments.size == 1
 
         Some(
-          MonitorRouteRelationState(
+          MonitorRouteState(
             ObjectId(),
             routeId,
             reference.relationId.get,
+            Time.now,
             routeAnalysis.wayCount,
             routeAnalysis.osmDistance,
+            0L, // TODO remove
             routeAnalysis.bounds,
             Some(reference._id),
             routeAnalysis.osmSegments,
             routeAnalysis.matchesGeometry,
             routeAnalysis.deviations,
-            happy
+            happy,
+            Seq.empty // TODO remove
           )
         )
     }

@@ -1143,6 +1143,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newMonitorRouteState(
     routeId: ObjectId,
+    relationId: Long,
     timestamp: Timestamp = defaultTimestamp,
     wayCount: Long = 0,
     osmDistance: Long = 0,
@@ -1158,6 +1159,7 @@ trait SharedTestObjects extends MockFactory {
     MonitorRouteState(
       ObjectId(),
       routeId,
+      relationId,
       timestamp,
       wayCount,
       osmDistance,

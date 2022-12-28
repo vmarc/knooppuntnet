@@ -5,7 +5,7 @@ import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteRelationState
+import kpn.server.api.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
   group: MonitorGroup,
@@ -13,8 +13,8 @@ case class MonitorUpdateContext(
   newRoute: Option[MonitorRoute] = None,
   oldReferences: Seq[MonitorRouteReference] = Seq.empty,
   newReferences: Seq[MonitorRouteReference] = Seq.empty,
-  oldStates: Seq[MonitorRouteRelationState] = Seq.empty,
-  newStates: Seq[MonitorRouteRelationState] = Seq.empty,
+  oldStates: Seq[MonitorRouteState] = Seq.empty,
+  newStates: Seq[MonitorRouteState] = Seq.empty,
   saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult()
 ) {
 
