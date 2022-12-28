@@ -18,7 +18,7 @@ import org.scalamock.scalatest.MockFactory
 import scala.xml.Elem
 import scala.xml.XML
 
-class MonitorUpdaterIntegrationTest extends UnitTest with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFactory {
 
   test("add route with gpx references per sub-relation") {
 
@@ -26,7 +26,7 @@ class MonitorUpdaterIntegrationTest extends UnitTest with SharedTestObjects with
 
       val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
 
-      val data = OverpassData()
+      val mainRelationData = OverpassData()
         .relation(
           1,
           tags = Tags.from(
@@ -50,12 +50,11 @@ class MonitorUpdaterIntegrationTest extends UnitTest with SharedTestObjects with
           ),
         )
 
-
-      val mainRelationStructure: Relation = new MonitorRelationDataBuilder(data.rawData).data.relations(1L)
+      val mainRelationStructure: Relation = new MonitorRelationDataBuilder(mainRelationData.rawData).data.relations(1L)
 
       (monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(mainRelationStructure))
 
-      val data1 = OverpassData()
+      val subRelationsOverpassData = OverpassData()
         .node(1001, latitude = "51.4633666", longitude = "4.4553911")
         .node(1002, latitude = "51.4618272", longitude = "4.4562458")
         .node(1003, latitude = "51.4614496", longitude = "4.4550560")
@@ -80,8 +79,9 @@ class MonitorUpdaterIntegrationTest extends UnitTest with SharedTestObjects with
           )
         )
 
-      val subRelation1 = new DataBuilder(data1.rawData).data.relations(11L)
-      val subRelation2 = new DataBuilder(data1.rawData).data.relations(12L)
+      val subRelationsData = new DataBuilder(subRelationsOverpassData.rawData).data
+      val subRelation1 = subRelationsData.relations(11L)
+      val subRelation2 = subRelationsData.relations(12L)
 
       (monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
       (monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
@@ -128,10 +128,8 @@ class MonitorUpdaterIntegrationTest extends UnitTest with SharedTestObjects with
           val subRelation1 = monitorRouteRelation.relations.head
           subRelation1.relationId should equal(11L)
           subRelation1.name should equal(Some("sub-relation-1"))
-          //              subRelation1.from: Option[String],
-          //              subRelation1.to: Option[String],
-          subRelation1.role should equal(None) //: Option[String],
-          subRelation1.survey should equal(None) //: Option[Day],
+          subRelation1.role should equal(None)
+          subRelation1.survey should equal(None)
           subRelation1.deviationDistance should equal(0)
           subRelation1.deviationCount should equal(0)
           subRelation1.osmWayCount should equal(0)

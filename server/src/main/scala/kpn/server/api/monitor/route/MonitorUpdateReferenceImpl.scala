@@ -73,7 +73,7 @@ class MonitorUpdateReferenceImpl(
         newRoute.referenceDay match {
           case None => context // TODO add error in MonitorRouteSaveResult ???
           case Some(referenceDay) =>
-            monitorRouteRelationRepository.load(Some(Timestamp(referenceDay)), relationId) match {
+            monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), relationId) match {
               case None => context // TODO add error in MonitorRouteSaveResult !!
               case Some(relation) =>
                 val relations: Seq[Relation] = MonitorFilter.relationsInRelation(relation)
