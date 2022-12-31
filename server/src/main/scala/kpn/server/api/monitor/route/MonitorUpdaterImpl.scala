@@ -1,20 +1,15 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.{MonitorRouteProperties, MonitorRouteSaveResult}
 import kpn.api.custom.Day
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
-import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
-import kpn.server.api.monitor.domain.MonitorGroup
-import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.repository.MonitorGroupRepository
-import kpn.server.repository.MonitorRouteRepository
+import kpn.server.analyzer.engine.monitor.{MonitorRouteAnalysisSupport, MonitorRouteReferenceUtil}
+import kpn.server.api.monitor.domain.{MonitorGroup, MonitorRoute, MonitorRouteReference}
+import kpn.server.repository.{MonitorGroupRepository, MonitorRouteRepository}
 import org.springframework.stereotype.Component
 
 import scala.xml.Elem
@@ -40,7 +35,7 @@ class MonitorUpdaterImpl(
     Log.context(Seq("add-route", s"group=$groupName", s"route=${properties.name}")) {
       val group = findGroup(groupName)
       assertNewRoute(group, properties.name)
-      var context = MonitorUpdateContext(group)
+      var context = MonitorUpdateContext(group, properties.referenceType)
       context = monitorUpdateRoute.update(context, ObjectId(), user, properties)
       context = monitorUpdateStructure.update(context)
       context = monitorUpdateReference.update(context)
@@ -60,7 +55,7 @@ class MonitorUpdaterImpl(
     Log.context(Seq("route-update", s"group=$groupName", s"route=$routeName")) {
       val group = findGroup(groupName)
       val oldRoute = findRoute(group._id, routeName)
-      var context = MonitorUpdateContext(group, oldRoute = Some(oldRoute))
+      var context = MonitorUpdateContext(group, properties.referenceType, oldRoute = Some(oldRoute))
       context = monitorUpdateRoute.update(context, oldRoute._id, user, properties)
       context = monitorUpdateStructure.update(context)
       context = monitorUpdateReference.update(context)
@@ -83,7 +78,7 @@ class MonitorUpdaterImpl(
     Log.context(Seq("route-update", s"group=$groupName", s"route=$routeName")) {
       val group = findGroup(groupName)
       val oldRoute = findRoute(group._id, routeName)
-      var context = MonitorUpdateContext(group, oldRoute = Some(oldRoute))
+      var context = MonitorUpdateContext(group, oldRoute.referenceType, oldRoute = Some(oldRoute))
 
       val now = Time.now
       val geometryCollection = new MonitorRouteGpxReader().read(xml)

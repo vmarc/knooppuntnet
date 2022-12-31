@@ -1,14 +1,13 @@
 package kpn.server.api.monitor
 
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSubRelation
+import kpn.api.common.monitor.{MonitorRouteRelation, MonitorRouteSubRelation}
 import kpn.server.api.monitor.domain.MonitorRoute
 
 object MonitorUtil {
 
   def subRelationsIn(route: MonitorRoute): Seq[MonitorRouteSubRelation] = {
     route.relation match {
-      case Some(monitorRouteRelation) => xx(monitorRouteRelation)
+      case Some(monitorRouteRelation) => monitorRouteRelation.relations.flatMap(xx)
       case None => Seq.empty
     }
   }

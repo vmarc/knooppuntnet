@@ -1,16 +1,11 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.common.Bounds
-import kpn.api.common.Language
-import kpn.api.common.monitor.MonitorRouteMapPage
-import kpn.api.common.monitor.MonitorRouteReferenceInfo
-import kpn.api.common.monitor.MonitorRouteSubRelation
+import kpn.api.common.{Bounds, Language}
+import kpn.api.common.monitor.{MonitorRouteMapPage, MonitorRouteReferenceInfo, MonitorRouteSubRelation}
 import kpn.core.common.Time
-import kpn.core.util.Triplet
-import kpn.core.util.Util
+import kpn.core.util.{Triplet, Util}
 import kpn.server.api.monitor.MonitorUtil
-import kpn.server.repository.MonitorGroupRepository
-import kpn.server.repository.MonitorRouteRepository
+import kpn.server.repository.{MonitorGroupRepository, MonitorRouteRepository}
 import org.springframework.stereotype.Component
 
 @Component
@@ -23,7 +18,7 @@ class MonitorRouteMapPageBuilder(
     groupRepository.groupByName(groupName).flatMap { group =>
       routeRepository.routeByName(group._id, routeName).map { route =>
 
-        val subRelations = MonitorUtil.subRelationsIn(route).tail
+        val subRelations = MonitorUtil.subRelationsIn(route)
 
         val currentSubRelationId = relationId match {
           case Some(relId) =>

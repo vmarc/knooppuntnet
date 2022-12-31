@@ -1,7 +1,6 @@
 package kpn.server.api.monitor.domain
 
-import kpn.api.base.ObjectId
-import kpn.api.base.WithObjectId
+import kpn.api.base.{ObjectId, WithObjectId}
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Day
 
@@ -29,4 +28,10 @@ case class MonitorRoute(
   happy: Boolean,
 
   relation: Option[MonitorRouteRelation]
-) extends WithObjectId
+) extends WithObjectId {
+
+  def isSuperRoute: Boolean = relation match {
+    case None => throw new RuntimeException("could not determine wether super route yet")
+    case Some(monitorRouteRelation) => monitorRouteRelation.relations.nonEmpty
+  }
+}
