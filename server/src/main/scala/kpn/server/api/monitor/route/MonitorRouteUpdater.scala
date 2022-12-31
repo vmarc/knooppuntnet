@@ -2,16 +2,25 @@ package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
-import kpn.api.common.monitor.{MonitorRouteProperties, MonitorRouteSaveResult}
-import kpn.api.custom.{Day, Relation, Timestamp}
+import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.custom.Day
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.monitor._
-import kpn.server.api.monitor.domain.{MonitorGroup, MonitorRoute, MonitorRouteReference}
-import kpn.server.repository.{MonitorGroupRepository, MonitorGroupRepositoryImpl, MonitorRouteRepository, MonitorRouteRepositoryImpl}
-import org.locationtech.jts.geom.{GeometryCollection, GeometryFactory}
+import kpn.server.api.monitor.domain.MonitorGroup
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.repository.MonitorGroupRepository
+import kpn.server.repository.MonitorGroupRepositoryImpl
+import kpn.server.repository.MonitorRouteRepository
+import kpn.server.repository.MonitorRouteRepositoryImpl
+import org.locationtech.jts.geom.GeometryCollection
+import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 

@@ -1,15 +1,20 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.{MonitorRouteProperties, MonitorRouteSaveResult}
+import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
-import kpn.server.analyzer.engine.monitor.{MonitorRouteAnalysisSupport, MonitorRouteReferenceUtil}
-import kpn.server.api.monitor.domain.{MonitorGroup, MonitorRoute, MonitorRouteReference}
-import kpn.server.repository.{MonitorGroupRepository, MonitorRouteRepository}
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
+import kpn.server.api.monitor.domain.MonitorGroup
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.repository.MonitorGroupRepository
+import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 import scala.xml.Elem

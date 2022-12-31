@@ -2,12 +2,16 @@ package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
-import kpn.api.custom.{Relation, Timestamp}
+import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import kpn.server.analyzer.engine.monitor.{MonitorFilter, MonitorRouteOsmSegmentAnalyzer}
+import kpn.server.analyzer.engine.monitor.MonitorFilter
+import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.api.monitor.MonitorUtil
-import kpn.server.api.monitor.domain.{MonitorRoute, MonitorRouteReference}
-import org.locationtech.jts.geom.{GeometryCollection, GeometryFactory}
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import org.locationtech.jts.geom.GeometryCollection
+import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 

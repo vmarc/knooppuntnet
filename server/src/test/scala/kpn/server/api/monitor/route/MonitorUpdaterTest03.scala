@@ -3,7 +3,10 @@ package kpn.server.api.monitor.route
 import kpn.api.base.ObjectId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.custom.{Day, Relation, Tags, Timestamp}
+import kpn.api.custom.Day
+import kpn.api.custom.Relation
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
