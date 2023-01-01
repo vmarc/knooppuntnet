@@ -1053,9 +1053,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newMonitorRouteRelation(
     relationId: Long,
-    name: Option[String] = None,
-    from: Option[String] = None,
-    to: Option[String] = None,
+    name: String = "",
     role: Option[String] = None,
     survey: Option[Day] = None,
     deviationDistance: Long = 0,
@@ -1069,8 +1067,6 @@ trait SharedTestObjects extends MockFactory {
     MonitorRouteRelation(
       relationId,
       name,
-      from,
-      to,
       role,
       survey,
       deviationDistance,

@@ -12,9 +12,20 @@ object MonitorRouteRelation {
 
   def from(relation: Relation, role: Option[String]): MonitorRouteRelation = {
 
-    val name = relation.tags("name")
-    val from = relation.tags("from")
-    val to = relation.tags("to")
+    val name = relation.tags("name") match {
+      case Some(name) => name
+      case None =>
+        relation.tags("from") match {
+          case None => "?" // TODO get  name from 'name:fr', 'name:nl', etc.
+          case Some(from) =>
+            relation.tags("to") match {
+              case None => "?"
+              case Some(to) => s"$from-$to"
+            }
+        }
+    }
+
+
     val survey = SurveyDateAnalyzer.analyze(relation.tags) match {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
@@ -31,8 +42,6 @@ object MonitorRouteRelation {
     MonitorRouteRelation(
       relationId = relation.id,
       name = name,
-      from = from,
-      to = to,
       role = role,
       survey = survey,
       deviationDistance = 0,
@@ -48,9 +57,7 @@ object MonitorRouteRelation {
 
 case class MonitorRouteRelation(
   relationId: Long,
-  name: Option[String],
-  from: Option[String],
-  to: Option[String],
+  name: String,
   role: Option[String],
   survey: Option[Day],
   deviationDistance: Long,

@@ -13,9 +13,19 @@ class MonitorRouteRelationBuilder {
 
   def build(relation: Relation, role: Option[String]): MonitorRouteRelationData = {
 
-    val name = relation.tags("name")
-    val from = relation.tags("from")
-    val to = relation.tags("to")
+    val name = relation.tags("name") match { // TODO code duplicated in MonitorRouteRelation.from
+      case Some(name) => name
+      case None =>
+        relation.tags("from") match {
+          case None => "?" // TODO get  name from 'name:fr', 'name:nl', etc.
+          case Some(from) =>
+            relation.tags("to") match {
+              case None => "?"
+              case Some(to) => s"$from-$to"
+            }
+        }
+    }
+
     val survey = SurveyDateAnalyzer.analyze(relation.tags) match {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
@@ -38,8 +48,6 @@ class MonitorRouteRelationBuilder {
     val monitorRouteRelation = MonitorRouteRelation(
       relationId = relation.id,
       name = name,
-      from = from,
-      to = to,
       role = role,
       survey = survey,
       deviationDistance = 0,

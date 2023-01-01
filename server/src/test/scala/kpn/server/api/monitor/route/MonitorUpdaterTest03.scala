@@ -129,7 +129,7 @@ class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects with MockFact
           monitorRouteRelation.relations.size should equal(2)
           val subRelation1 = monitorRouteRelation.relations.head
           subRelation1.relationId should equal(11L)
-          subRelation1.name should equal(Some("sub-relation-1"))
+          subRelation1.name should equal("sub-relation-1")
           subRelation1.role should equal(None)
           subRelation1.survey should equal(None)
           subRelation1.deviationDistance should equal(0L)
@@ -142,7 +142,7 @@ class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects with MockFact
 
           val subRelation2 = monitorRouteRelation.relations(1)
           subRelation2.relationId should equal(12L)
-          subRelation2.name should equal(Some("sub-relation-2"))
+          subRelation2.name should equal("sub-relation-2")
           subRelation2.role should equal(None)
           subRelation2.survey should equal(None)
           subRelation2.deviationDistance should equal(0L)

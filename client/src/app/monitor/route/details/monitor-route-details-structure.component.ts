@@ -7,7 +7,7 @@ import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { MonitorRouteRelation } from '@api/common/monitor/monitor-route-relation';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
+import { AppState } from '@app/core/core.state';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 
@@ -329,7 +329,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   ): MonitorRouteRelationRow {
     return {
       level,
-      name: this.relationName(relation),
+      name: relation.name,
       relation,
     };
   }
@@ -342,15 +342,5 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   uploadGpx(route: MonitorRouteDetail): string {
     // return `/monitor/admin/groups/${this.groupName}/routes/${route.name}`;
     return '';
-  }
-
-  private relationName(relation: MonitorRouteRelation): string {
-    let name = '?';
-    if (relation.name) {
-      name = relation.name;
-    } else if (relation.from && relation.to) {
-      name = `${relation.from} - ${relation.to}`;
-    }
-    return name;
   }
 }

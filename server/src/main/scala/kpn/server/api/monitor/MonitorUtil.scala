@@ -19,10 +19,6 @@ object MonitorUtil {
   }
 
   private def toMonitorSubRelation(monitorRouteRelation: MonitorRouteRelation): MonitorRouteSubRelation = {
-    val name = monitorRouteRelation.name match {
-      case None => "TODO just one name in MonitorRouteRelation"
-      case Some(x) => x
-    }
-    MonitorRouteSubRelation(monitorRouteRelation.relationId, name)
+    MonitorRouteSubRelation(monitorRouteRelation.relationId, monitorRouteRelation.name)
   }
 }

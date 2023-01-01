@@ -122,22 +122,22 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         relation = Some(
           newMonitorRouteRelation(
             1L,
-            Some("1"),
+            "1",
             relations = Seq(
               newMonitorRouteRelation(
                 11L,
-                Some("11"),
+                "11",
                 relations = Seq(
-                  newMonitorRouteRelation(111L, Some("11")),
-                  newMonitorRouteRelation(112L, Some("12"))
+                  newMonitorRouteRelation(111L, "111"),
+                  newMonitorRouteRelation(112L, "112")
                 )
               ),
               newMonitorRouteRelation(
                 12L,
-                Some("12"),
+                "12",
                 relations = Seq(
-                  newMonitorRouteRelation(121L, Some("121")),
-                  newMonitorRouteRelation(122L, Some("122"))
+                  newMonitorRouteRelation(121L, "121"),
+                  newMonitorRouteRelation(122L, "122")
                 )
               )
             )
@@ -165,22 +165,22 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         relation = Some(
           newMonitorRouteRelation(
             1L,
-            Some("1"),
+            "1",
             relations = Seq(
               newMonitorRouteRelation(
                 11L,
-                Some("11"),
+                "11",
                 relations = Seq(
-                  newMonitorRouteRelation(111L, Some("11")),
-                  newMonitorRouteRelation(112L, Some("12"))
+                  newMonitorRouteRelation(111L, "111"),
+                  newMonitorRouteRelation(112L, "112")
                 )
               ),
               newMonitorRouteRelation(
                 12L,
-                Some("12"),
+                "12",
                 relations = Seq(
-                  newMonitorRouteRelation(121L, Some("121")),
-                  newMonitorRouteRelation(122L, Some("122"))
+                  newMonitorRouteRelation(121L, "121"),
+                  newMonitorRouteRelation(122L, "122")
                 )
               )
             )
@@ -224,22 +224,22 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         relation = Some(
           newMonitorRouteRelation(
             1L,
-            Some("1"),
+            "1",
             relations = Seq(
               newMonitorRouteRelation(
                 11L,
-                Some("11"),
+                "11",
                 relations = Seq(
-                  newMonitorRouteRelation(111L, Some("11")),
-                  newMonitorRouteRelation(112L, Some("12"))
+                  newMonitorRouteRelation(111L, "111"),
+                  newMonitorRouteRelation(112L, "112")
                 )
               ),
               newMonitorRouteRelation(
                 12L,
-                Some("12"),
+                "12",
                 relations = Seq(
-                  newMonitorRouteRelation(121L, Some("121")),
-                  newMonitorRouteRelation(122L, Some("122"))
+                  newMonitorRouteRelation(121L, "121"),
+                  newMonitorRouteRelation(122L, "122")
                 )
               )
             )
