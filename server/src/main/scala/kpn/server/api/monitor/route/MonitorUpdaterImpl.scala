@@ -7,8 +7,8 @@ import kpn.api.custom.Day
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
@@ -28,7 +28,7 @@ class MonitorUpdaterImpl(
   monitorUpdateReference: MonitorUpdateReference,
   monitorUpdateAnalyzer: MonitorUpdateAnalyzer,
   saver: MonitorUpdateSaver,
-  xxx: XxxImpl,
+  monitorRouteRelationAnalyzer: MonitorRouteRelationAnalyzer,
 ) extends MonitorUpdater {
 
   def add(
@@ -81,6 +81,7 @@ class MonitorUpdaterImpl(
   ): MonitorRouteSaveResult = {
 
     Log.context(Seq("route-update", s"group=$groupName", s"route=$routeName")) {
+
       val group = findGroup(groupName)
       val oldRoute = findRoute(group._id, routeName)
       var context = MonitorUpdateContext(group, oldRoute.referenceType, oldRoute = Some(oldRoute))
@@ -96,7 +97,6 @@ class MonitorUpdaterImpl(
       val distance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
 
       val segmentCount = geometryCollection.getNumGeometries
-
 
       val reference = MonitorRouteReference(
         ObjectId(),
@@ -114,25 +114,27 @@ class MonitorUpdaterImpl(
       )
 
       context = context.copy(
-        newReferences = context.newReferences ++ Seq(reference)
+        newReferences = context.newReferences :+ reference
       )
 
-      oldRoute.referenceType match {
+      context.referenceType match {
         case "gpx" =>
-          val gpxDistance = {
+          val referenceDistance = {
             val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
             Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
           }
 
           val updatedRoute = oldRoute.copy(
+            referenceDay = Some(referenceDay),
             referenceFilename = reference.filename,
-            referenceDistance = gpxDistance,
+            referenceDistance = referenceDistance,
           )
 
           context = context.copy(
             newRoute = Some(updatedRoute)
           )
 
+          context = monitorUpdateAnalyzer.analyze(context)
           context = saver.save(context)
 
           MonitorRouteSaveResult()
@@ -141,7 +143,7 @@ class MonitorUpdaterImpl(
 
           // TODO perform analysis of the sub-relation !!
 
-          xxx.analyzeReference(oldRoute._id, reference) match {
+          monitorRouteRelationAnalyzer.analyzeReference(oldRoute._id, reference) match {
             case None =>
             case Some(state) =>
               context = context.copy(
@@ -152,7 +154,6 @@ class MonitorUpdaterImpl(
           context = saver.save(context)
 
           MonitorRouteSaveResult()
-
 
         case _ =>
           MonitorRouteSaveResult()

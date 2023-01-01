@@ -198,14 +198,11 @@ class MonitorChangeProcessorImpl(
         afterRoute.relation.timestamp,
         afterRoute.wayCount,
         afterRoute.osmDistance,
-        afterRoute.gpxDistance,
         afterRoute.bounds,
-        Some(reference._id),
         afterRoute.osmSegments,
         afterRoute.matchesGeometry,
         afterRoute.deviations,
         happy,
-        osmSuperSegments = Seq.empty // TODO add osm super segments
       )
 
       monitorRouteRepository.saveRouteState(routeState)

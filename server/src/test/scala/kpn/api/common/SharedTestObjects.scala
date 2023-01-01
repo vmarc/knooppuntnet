@@ -85,7 +85,6 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
-import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {
@@ -1143,14 +1142,11 @@ trait SharedTestObjects extends MockFactory {
     timestamp: Timestamp = defaultTimestamp,
     wayCount: Long = 0,
     osmDistance: Long = 0,
-    gpxDistance: Long = 0,
     bounds: Bounds = Bounds(),
-    referenceId: Option[ObjectId] = None,
     osmSegments: Seq[MonitorRouteSegment] = Seq.empty,
     matchesGeometry: Option[String] = None,
     deviations: Seq[MonitorRouteDeviation] = Seq.empty,
-    happy: Boolean = false,
-    osmSuperSegments: Seq[MonitorRouteSuperSegment] = Seq.empty
+    happy: Boolean = false
   ): MonitorRouteState = {
     MonitorRouteState(
       ObjectId(),
@@ -1159,14 +1155,11 @@ trait SharedTestObjects extends MockFactory {
       timestamp,
       wayCount,
       osmDistance,
-      gpxDistance,
       bounds,
-      referenceId,
       osmSegments,
       matchesGeometry,
       deviations,
       happy,
-      osmSuperSegments
     )
   }
 

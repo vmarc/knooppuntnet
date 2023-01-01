@@ -17,7 +17,7 @@ import kpn.server.api.monitor.route.MonitorUpdateRouteImpl
 import kpn.server.api.monitor.route.MonitorUpdateSaverImpl
 import kpn.server.api.monitor.route.MonitorUpdateStructureImpl
 import kpn.server.api.monitor.route.MonitorUpdaterImpl
-import kpn.server.api.monitor.route.XxxImpl
+import kpn.server.api.monitor.route.MonitorRouteRelationAnalyzerImpl
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
 import org.mongodb.scala.MongoNamespace
@@ -40,17 +40,14 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   private val monitorUpdateReference = new MonitorUpdateReferenceImpl(monitorRouteRelationRepository, monitorRouteOsmSegmentAnalyzer)
 
-  private val xxx = new XxxImpl(
+  private val monitorRouteRelationAnalyzer = new MonitorRouteRelationAnalyzerImpl(
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer,
     monitorRouteDeviationAnalyzer
   )
 
   private val monitorUpdateAnalyzer = new MonitorUpdateAnalyzerImpl(
-    monitorRouteRelationRepository,
-    monitorRouteOsmSegmentAnalyzer,
-    monitorRouteDeviationAnalyzer,
-    xxx
+    monitorRouteRelationAnalyzer
   )
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
@@ -63,7 +60,7 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
     monitorUpdateReference,
     monitorUpdateAnalyzer,
     saver,
-    xxx
+    monitorRouteRelationAnalyzer
   )
 }
 

@@ -12,13 +12,13 @@ import kpn.server.api.monitor.domain.MonitorRouteState
 import org.springframework.stereotype.Component
 
 @Component
-class XxxImpl(
+class MonitorRouteRelationAnalyzerImpl(
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
-) {
+) extends MonitorRouteRelationAnalyzer {
 
-  def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteState] = {
+  override def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteState] = {
 
     monitorRouteRelationRepository.loadTopLevel(None, reference.relationId.get) match {
       case None => None
@@ -55,14 +55,11 @@ class XxxImpl(
             Time.now,
             routeAnalysis.wayCount,
             routeAnalysis.osmDistance,
-            0L, // TODO remove
             routeAnalysis.bounds,
-            Some(reference._id),
             routeAnalysis.osmSegments,
             routeAnalysis.matchesGeometry,
             routeAnalysis.deviations,
             happy,
-            Seq.empty // TODO remove
           )
         )
     }

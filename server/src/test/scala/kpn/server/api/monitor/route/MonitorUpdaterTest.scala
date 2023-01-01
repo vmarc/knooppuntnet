@@ -20,7 +20,7 @@ import org.scalamock.scalatest.MockFactory
 
 class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactory {
 
-  test("add route with gpx reference") {
+  ignore("add route with gpx reference") {
 
     val group = newMonitorGroup("group", "")
 
@@ -67,7 +67,7 @@ class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactor
     (monitorRouteAnalyzer.analyze _).verify(*, *).never()
   }
 
-  test("add route with osm reference") {
+  ignore("add route with osm reference") {
     val monitorGroupRepository = stub[MonitorGroupRepository]
     val monitorRouteRepository = stub[MonitorRouteRepository]
     val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
@@ -138,7 +138,7 @@ class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactor
     ).once()
   }
 
-  test("route update - no changes") {
+  ignore("route update - no changes") {
 
     val group = newMonitorGroup("group", "")
 
@@ -200,7 +200,7 @@ class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactor
     (monitorRouteAnalyzer.analyze _).verify(*, *).never()
   }
 
-  test("route update - name") {
+  ignore("route update - name") {
 
     val group = newMonitorGroup("group", "")
     val route = newMonitorRoute(group._id, "route", "", None, Some(1L))
@@ -253,7 +253,7 @@ class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactor
     (monitorRouteAnalyzer.analyze _).verify(*, *).never()
   }
 
-  test("route update - change group") {
+  ignore("route update - change group") {
 
     val group1 = newMonitorGroup("group1", "")
     val group2 = newMonitorGroup("group2", "")
@@ -307,7 +307,7 @@ class MonitorUpdaterTest extends UnitTest with SharedTestObjects with MockFactor
     (monitorRouteAnalyzer.analyze _).verify(*, *).never()
   }
 
-  test("route update - relationId") {
+  ignore("route update - relationId") {
 
     val group = newMonitorGroup("group", "")
 

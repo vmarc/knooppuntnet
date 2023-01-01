@@ -13,17 +13,14 @@ class MonitorUpdaterConfiguration(database: Database, monitorRouteRelationReposi
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   private val monitorUpdateReference = new MonitorUpdateReferenceImpl(monitorRouteRelationRepository, monitorRouteOsmSegmentAnalyzer)
-  private val xxx = new XxxImpl(
+  private val monitorRouteRelationAnalyzer = new MonitorRouteRelationAnalyzerImpl(
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer,
     monitorRouteDeviationAnalyzer
   )
 
   private val monitorUpdateAnalyzer = new MonitorUpdateAnalyzerImpl(
-    monitorRouteRelationRepository,
-    monitorRouteOsmSegmentAnalyzer,
-    monitorRouteDeviationAnalyzer,
-    xxx
+    monitorRouteRelationAnalyzer
   )
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
@@ -36,6 +33,6 @@ class MonitorUpdaterConfiguration(database: Database, monitorRouteRelationReposi
     monitorUpdateReference,
     monitorUpdateAnalyzer,
     saver,
-    xxx
+    monitorRouteRelationAnalyzer
   )
 }

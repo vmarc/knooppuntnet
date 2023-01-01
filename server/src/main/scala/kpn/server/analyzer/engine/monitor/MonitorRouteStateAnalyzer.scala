@@ -49,14 +49,11 @@ class MonitorRouteStateAnalyzer() {
       now,
       routeAnalysis.wayCount,
       routeAnalysis.osmDistance,
-      routeAnalysis.gpxDistance,
       routeAnalysis.bounds,
-      Some(routeReference._id),
       routeAnalysis.osmSegments,
       routeAnalysis.matchesGeometry,
       routeAnalysis.deviations,
-      happy,
-      Seq.empty // TODO add state per sub-relation where applicable
+      happy
     )
   }
 }

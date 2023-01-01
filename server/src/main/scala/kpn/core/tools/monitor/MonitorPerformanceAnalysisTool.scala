@@ -88,10 +88,8 @@ class MonitorPerformanceAnalysisTool(database: Database) {
     val analyzedRouteState = analyzer.analyze(route, routeReference, routeRelation, now)
     println(s"wayCount=${analyzedRouteState.wayCount}")
     println(s"osmDistance=${analyzedRouteState.osmDistance}")
-    println(s"gpxDistance=${analyzedRouteState.gpxDistance}")
     println(s"osmSegments.size=${analyzedRouteState.osmSegments.size}")
     println(s"deviations.size=${analyzedRouteState.deviations.size}")
-    println(s"osmSuperSegments.size=${analyzedRouteState.osmSuperSegments.size}")
     new MonitorRouteStateUpdater(monitorRouteRepository).update(route, analyzedRouteState, routeRelation)
   }
 }

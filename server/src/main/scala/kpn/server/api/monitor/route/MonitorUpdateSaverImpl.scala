@@ -75,11 +75,6 @@ class MonitorUpdateSaverImpl(
         // TODO at this point there should not be an empty oldRoute.relation!!
         val state = context.newStates.head // TODO there should be exactly 1 state, add assertion?
 
-        val referenceDistance = context.newReferences.find(_.relationId.contains(state.relationId)) match {
-          case Some(ref) => ref.distance
-          case None => context.route.referenceDistance
-        }
-
         val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(context, relation))
 
         val updatedRoute = context.route.copy(
@@ -87,7 +82,8 @@ class MonitorUpdateSaverImpl(
           deviationCount = state.deviations.size,
           osmWayCount = state.wayCount,
           osmDistance = state.osmDistance,
-          referenceDistance = referenceDistance,
+          osmSegmentCount = state.osmSegments.size,
+          happy = state.osmSegments.size == 1 && state.deviations.isEmpty,
           relation = relation
         )
         context = context.copy(
