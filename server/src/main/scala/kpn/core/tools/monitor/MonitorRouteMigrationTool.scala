@@ -32,8 +32,10 @@ case class MonitorExampleSuperRouteRelation(relationId: Long, referenceFilename:
 
 class MonitorRouteMigrationConfiguration(val database: Database) {
 
+  val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
+  val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
   private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-  private val monitorUpdateRoute = new MonitorUpdateRouteImpl()
+  private val monitorUpdateRoute = new MonitorUpdateRouteImpl(monitorGroupRepository)
   private val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
   private val monitorUpdateStructure = new MonitorUpdateStructureImpl(monitorRouteRelationRepository)
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
@@ -49,8 +51,6 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   private val monitorUpdateAnalyzer = new MonitorUpdateAnalyzerImpl(
     monitorRouteRelationAnalyzer
   )
-  val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
-  val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
   private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
   val monitorUpdater = new MonitorUpdaterImpl(
     monitorGroupRepository,

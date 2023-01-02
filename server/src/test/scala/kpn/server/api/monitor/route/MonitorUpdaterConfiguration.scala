@@ -8,7 +8,9 @@ import kpn.server.repository.MonitorRouteRepositoryImpl
 
 class MonitorUpdaterConfiguration(database: Database, monitorRouteRelationRepository: MonitorRouteRelationRepository) {
 
-  private val monitorUpdateRoute = new MonitorUpdateRouteImpl()
+  val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
+  val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
+  private val monitorUpdateRoute = new MonitorUpdateRouteImpl(monitorGroupRepository)
   private val monitorUpdateStructure = new MonitorUpdateStructureImpl(monitorRouteRelationRepository)
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
@@ -22,8 +24,6 @@ class MonitorUpdaterConfiguration(database: Database, monitorRouteRelationReposi
   private val monitorUpdateAnalyzer = new MonitorUpdateAnalyzerImpl(
     monitorRouteRelationAnalyzer
   )
-  val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
-  val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
   private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
   val monitorUpdater = new MonitorUpdaterImpl(
     monitorGroupRepository,

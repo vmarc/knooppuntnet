@@ -20,7 +20,6 @@ import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Day
 import kpn.core.common.TimestampLocal
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalyzer
 import kpn.server.api.Api
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.group.MonitorGroupNamesBuilder
@@ -32,7 +31,6 @@ import kpn.server.api.monitor.route.MonitorRouteDetailsPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.api.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.api.monitor.route.MonitorRouteUpdatePageBuilder
-import kpn.server.api.monitor.route.MonitorRouteUpdater
 import kpn.server.api.monitor.route.MonitorUpdater
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRepository
@@ -49,7 +47,6 @@ class MonitorFacadeImpl(
   monitorGroupNamesBuilder: MonitorGroupNamesBuilder,
   monitorGroupPageBuilder: MonitorGroupPageBuilder,
   monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
-  monitorRouteUpdater: MonitorRouteUpdater,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
@@ -58,7 +55,6 @@ class MonitorFacadeImpl(
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorRouteAnalyzer: MonitorRouteAnalyzer,
   monitorUpdater: MonitorUpdater
 ) extends MonitorFacade {
 
@@ -235,7 +231,7 @@ class MonitorFacadeImpl(
       assertAdminUser(user)
       reply(
         Some(
-          monitorRouteUpdater.add(user.get, groupName, properties)
+          monitorUpdater.add(user.get, groupName, properties)
         )
       )
     }
@@ -248,7 +244,8 @@ class MonitorFacadeImpl(
   ): Unit = {
     api.execute(user, "monitor-route-analyze", s"$groupName:$routeName") {
       assertAdminUser(user)
-      monitorRouteUpdater.analyze(groupName, routeName)
+      // monitorUpdater.analyze(groupName, routeName)
+      throw new RuntimeException("routeAnalyze should not be needed anymore... analysis already done after upload")
     }
   }
 
@@ -262,7 +259,7 @@ class MonitorFacadeImpl(
       assertAdminUser(user)
       reply(
         Some(
-          monitorRouteUpdater.update(user.get, groupName, routeName, properties)
+          monitorUpdater.update(user.get, groupName, routeName, properties)
         )
       )
     }

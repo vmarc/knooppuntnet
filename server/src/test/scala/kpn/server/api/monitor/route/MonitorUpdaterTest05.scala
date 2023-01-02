@@ -4,6 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Tags
@@ -101,7 +102,9 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
         None,
         referenceFileChanged = false,
       )
-      config.monitorUpdater.add("user", group.name, properties)
+
+      val saveResult = config.monitorUpdater.add("user", group.name, properties)
+      saveResult should equal(MonitorRouteSaveResult())
 
       val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.groupId should equal(group._id)
@@ -167,7 +170,7 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
           |""".stripMargin
       )
 
-      val saveResult1 = config.monitorUpdater.upload(
+      val uploadSaveResult1 = config.monitorUpdater.upload(
         "user",
         group.name,
         route.name,
@@ -177,7 +180,11 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
         xml1
       )
 
-      // saveResult1.analyzed should equal(true)
+      uploadSaveResult1 should equal(
+        MonitorRouteSaveResult(
+          analyzed = true
+        )
+      )
 
       val routeUpdated1 = config.monitorRouteRepository.routeByName(group._id, "route-name").get
 
@@ -212,7 +219,7 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
           |""".stripMargin
       )
 
-      val saveResult2 = config.monitorUpdater.upload(
+      val uploadSaveResult2 = config.monitorUpdater.upload(
         "user",
         group.name,
         route.name,
@@ -222,7 +229,11 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
         xml2
       )
 
-      // saveResult2.analyzed should equal(true)
+      uploadSaveResult2 should equal(
+        MonitorRouteSaveResult(
+          analyzed = true
+        )
+      )
 
       val routeUpdated2 = config.monitorRouteRepository.routeByName(group._id, "route-name").get
 

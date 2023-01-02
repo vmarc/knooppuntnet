@@ -8,15 +8,16 @@ import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
-  group: MonitorGroup,
-  referenceType: String,
+  group: Option[MonitorGroup] = None,
+  referenceType: Option[String] = None,
   oldRoute: Option[MonitorRoute] = None,
   newRoute: Option[MonitorRoute] = None,
   oldReferences: Seq[MonitorRouteReference] = Seq.empty,
   newReferences: Seq[MonitorRouteReference] = Seq.empty,
   oldStates: Seq[MonitorRouteState] = Seq.empty,
   newStates: Seq[MonitorRouteState] = Seq.empty,
-  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult()
+  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult(),
+  abort: Boolean = false
 ) {
 
   def routeId: ObjectId = {

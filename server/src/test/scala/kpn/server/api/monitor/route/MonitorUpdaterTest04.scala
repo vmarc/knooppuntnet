@@ -4,6 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
@@ -70,7 +71,11 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFact
         None,
         referenceFileChanged = false,
       )
-      config.monitorUpdater.add("user", group.name, properties)
+
+      val addSaveResult = config.monitorUpdater.add("user", group.name, properties)
+      addSaveResult should equal(
+        MonitorRouteSaveResult()
+      )
 
       val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.groupId should equal(group._id)
@@ -123,7 +128,7 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFact
           |""".stripMargin
       )
 
-      val saveResult1 = config.monitorUpdater.upload(
+      val uploadSaveResult = config.monitorUpdater.upload(
         "user",
         group.name,
         route.name,
@@ -133,7 +138,11 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFact
         xml1
       )
 
-      // saveResult1.analyzed should equal(true)
+      uploadSaveResult should equal(
+        MonitorRouteSaveResult(
+          analyzed = true
+        )
+      )
 
       val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route-name").get
 

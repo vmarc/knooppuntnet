@@ -15,6 +15,9 @@ class MonitorUpdateAnalyzerImpl(
 
     context.copy(
       newStates = states,
+      saveResult = context.saveResult.copy(
+        analyzed = states.nonEmpty
+      )
     )
   }
 }

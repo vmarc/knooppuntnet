@@ -25,10 +25,11 @@ class MonitorUpdateReferenceImpl(
 
     context.oldRoute match {
       case None =>
+
         context.newRoute match {
           case None => context
           case Some(newRoute) =>
-            if (newRoute.referenceType.contains("osm")) {
+            if (newRoute.referenceType == "osm") {
               updateOsmReferences(context, newRoute)
             }
             else {
@@ -44,19 +45,18 @@ class MonitorUpdateReferenceImpl(
             if (isOsmReferenceChanged(oldRoute, newRoute)) {
               updateOsmReferences(context, newRoute)
             }
-            else if (isGpxReferenceChanged(oldRoute, newRoute)) {
+            else if (isGpxReferenceChanged(oldRoute, newRoute)) { // TODO also have to check for "multi-gpx"?
               context
             }
             else {
               context
             }
-
         }
     }
   }
 
   private def isOsmReferenceChanged(oldRoute: MonitorRoute, newRoute: MonitorRoute): Boolean = {
-    newRoute.referenceType.contains("osm") && (
+    newRoute.referenceType == "osm" && (
       oldRoute.referenceType != newRoute.referenceType ||
         oldRoute.relationId != newRoute.relationId ||
         oldRoute.referenceDay != newRoute.referenceDay
@@ -64,7 +64,10 @@ class MonitorUpdateReferenceImpl(
   }
 
   private def isGpxReferenceChanged(oldRoute: MonitorRoute, newRoute: MonitorRoute): Boolean = {
-    throw new RuntimeException("TODO")
+    newRoute.referenceType == "gpx" && (
+      oldRoute.referenceType != newRoute.referenceType ||
+        oldRoute.referenceDay != newRoute.referenceDay
+      )
   }
 
   private def updateOsmReferences(context: MonitorUpdateContext, newRoute: MonitorRoute): MonitorUpdateContext = {

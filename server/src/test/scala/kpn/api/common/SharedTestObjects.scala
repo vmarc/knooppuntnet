@@ -1000,7 +1000,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newMonitorGroup(
     name: String,
-    description: String
+    description: String = ""
   ): MonitorGroup = {
     MonitorGroup(
       ObjectId(),
@@ -1012,7 +1012,7 @@ trait SharedTestObjects extends MockFactory {
   def newMonitorRoute(
     groupId: ObjectId,
     name: String,
-    description: String,
+    description: String = "",
     comment: Option[String] = None,
     relationId: Option[Long] = None,
     user: String = "",

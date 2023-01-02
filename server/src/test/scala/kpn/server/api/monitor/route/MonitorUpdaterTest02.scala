@@ -19,7 +19,7 @@ import kpn.server.api.monitor.domain.MonitorGroup
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedTestObjects with MockFactory {
 
   override def beforeEach(): Unit = {
     Time.set(Timestamp(2023, 1, 1))
@@ -29,11 +29,52 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
     Time.clear()
   }
 
-  test("add simple route with osm reference") {
+  test("add simple route with osm reference, but first without relationId") {
 
     withDatabase() { database =>
 
       val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
+
+      val config = new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
+      val group = MonitorGroup(ObjectId(), "group", "")
+      config.monitorGroupRepository.saveGroup(group)
+
+      val properties = MonitorRouteProperties(
+        group.name,
+        "route-name",
+        "",
+        None,
+        None,
+        "osm",
+        Some(Day(2022, 12, 1)),
+        None,
+        referenceFileChanged = false,
+      )
+      val saveResult = config.monitorUpdater.add("user", group.name, properties)
+      saveResult should equal(MonitorRouteSaveResult())
+
+      val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
+      route.groupId should equal(group._id)
+      route.name should equal("route-name")
+      route.description should equal("")
+      route.comment should equal(None)
+      route.relationId should equal(None)
+      route.user should equal("user")
+      route.referenceType should equal("osm")
+      route.referenceDay should equal(Some(Day(2022, 12, 1)))
+      route.referenceFilename should equal(None)
+      route.referenceDistance should equal(0L)
+      route.deviationDistance should equal(0L)
+      route.deviationCount should equal(0L)
+      route.osmWayCount should equal(0L)
+      route.osmDistance should equal(0L)
+      route.osmSegmentCount should equal(0L)
+      route.happy should equal(false)
+
+      route.relation should equal(None)
+
+      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
+      config.monitorRouteRepository.routeState(route._id, 1L) should equal(None)
 
       val mainRelationData = OverpassData()
         .relation(
@@ -67,58 +108,47 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
       (monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(detailRelation))
       (monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 12, 1)), 1L).returns(Some(detailRelation))
 
-      val config = new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
-      val group = MonitorGroup(ObjectId(), "group", "")
-      config.monitorGroupRepository.saveGroup(group)
-
-      val properties = MonitorRouteProperties(
-        group.name,
-        "route-name",
-        "route-description",
-        Some("route-comment"),
-        Some(1L),
-        "osm",
-        Some(Day(2022, 12, 1)),
-        None,
-        referenceFileChanged = false,
+      val updatedProperties = properties.copy(
+        relationId = Some(1)
       )
-      val saveResult = config.monitorUpdater.add("user", group.name, properties)
-      saveResult should equal(
+
+      val updateSaveResult = config.monitorUpdater.update("user", group.name, route.name, updatedProperties)
+      updateSaveResult should equal(
         MonitorRouteSaveResult(
-          analyzed = true
+          analyzed = true,
         )
       )
 
-      val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.groupId should equal(group._id)
-      route.name should equal("route-name")
-      route.description should equal("route-description")
-      route.comment should equal(Some("route-comment"))
-      route.relationId should equal(Some(1L))
-      route.user should equal("user")
-      route.referenceType should equal("osm")
-      route.referenceDay should equal(Some(Day(2022, 12, 1)))
-      route.referenceFilename should equal(None)
-      route.referenceDistance should equal(196L)
-      route.deviationDistance should equal(0L)
-      route.deviationCount should equal(0L)
-      route.osmWayCount should equal(1L)
-      route.osmDistance should equal(196L)
-      route.osmSegmentCount should equal(1L)
-      route.happy should equal(true)
+      val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route-name").get
+      updatedRoute.groupId should equal(group._id)
+      updatedRoute.name should equal("route-name")
+      updatedRoute.description should equal("")
+      updatedRoute.comment should equal(None)
+      updatedRoute.relationId should equal(Some(1L))
+      updatedRoute.user should equal("user")
+      updatedRoute.referenceType should equal("osm")
+      updatedRoute.referenceDay should equal(Some(Day(2022, 12, 1)))
+      updatedRoute.referenceFilename should equal(None)
+      updatedRoute.referenceDistance should equal(196L)
+      updatedRoute.deviationDistance should equal(0L)
+      updatedRoute.deviationCount should equal(0L)
+      updatedRoute.osmWayCount should equal(1L)
+      updatedRoute.osmDistance should equal(196L)
+      updatedRoute.osmSegmentCount should equal(1L)
+      updatedRoute.happy should equal(true)
 
-      val relation = route.relation.get
-      relation.relationId should equal(1L)
-      relation.name should equal("route-name")
-      relation.role should equal(None)
-      relation.survey should equal(None)
-      relation.deviationDistance should equal(0L)
-      relation.deviationCount should equal(0L)
-      relation.osmWayCount should equal(1L)
-      relation.osmDistance should equal(196L)
-      relation.osmSegmentCount should equal(1)
-      relation.happy should equal(true)
-      relation.relations.size should equal(0)
+      val updatedRelation = updatedRoute.relation.get
+      updatedRelation.relationId should equal(1L)
+      updatedRelation.name should equal("route-name")
+      updatedRelation.role should equal(None)
+      updatedRelation.survey should equal(None)
+      updatedRelation.deviationDistance should equal(0L)
+      updatedRelation.deviationCount should equal(0L)
+      updatedRelation.osmWayCount should equal(1L)
+      updatedRelation.osmDistance should equal(196L)
+      updatedRelation.osmSegmentCount should equal(1)
+      updatedRelation.happy should equal(true)
+      updatedRelation.relations.size should equal(0)
 
       val reference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
       reference.routeId should equal(route._id)
