@@ -42,7 +42,6 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
 
     val referenceDistance = Math.round(toMeters(referenceSegments.map(_.getLength).sum))
 
-    // val referenceGeometry = MonitorRouteAnalysisSupport.toGeoJson(referenceGeoJson)
     val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))
 
     val deviations = analysisResults.flatMap(_.deviations).sortBy(_.distance).reverse.zipWithIndex.map { case (s, index) =>

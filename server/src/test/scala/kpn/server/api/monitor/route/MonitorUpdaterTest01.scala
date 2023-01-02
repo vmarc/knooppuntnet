@@ -142,7 +142,7 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
           )
         )
       )
-      state.matchesGeometry should equal(Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.45543384,51.46328963],[4.45547657,51.46321266],[4.45551931,51.46313569],[4.45556204,51.46305872],[4.45560477,51.46298175],[4.45564751,51.46290478],[4.45569024,51.46282781],[4.45573298,51.46275084],[4.45577571,51.46267387],[4.45581845,51.4625969],[4.45586119,51.46251993],[4.45590392,51.46244296],[4.45594666,51.46236599],[4.45598939,51.46228902],[4.45603213,51.46221205],[4.45607486,51.46213508],[4.45611759,51.46205811],[4.45616033,51.46198114],[4.45620306,51.46190417],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""))
+      state.matchesGeometry should equal(Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""))
       state.deviations should equal(Seq.empty)
       state.happy should equal(true)
     }

@@ -12,6 +12,8 @@ import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.geom.MultiLineString
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 
+import scala.annotation.tailrec
+
 object MonitorRouteAnalysisSupport {
 
   private val geomFactory = new GeometryFactory
@@ -58,7 +60,8 @@ object MonitorRouteAnalysisSupport {
   }
 
   def toMultiLineString(sampleCoordinates: Seq[Coordinate], sequences: Seq[ReferenceCoordinateSequence]): MultiLineString = {
-    geomFactory.createMultiLineString(sequences.map(sequence => toLineString(sampleCoordinates, sequence)).toArray)
+    val lineStrings = sequences.map(sequence => toLineString(sampleCoordinates, sequence))
+    geomFactory.createMultiLineString(lineStrings.toArray)
   }
 
   def toLineString(osmCoordinates: Seq[Coordinate], sequence: ReferenceCoordinateSequence): LineString = {
@@ -66,9 +69,42 @@ object MonitorRouteAnalysisSupport {
       Seq(osmCoordinates.head, osmCoordinates.head) // TODO investigate why this is useful
     }
     else {
-      sequence.indexes.map(index => osmCoordinates(index))
+      simplifyCoordinates(sequence.indexes.map(index => osmCoordinates(index)).toList)
     }
     geomFactory.createLineString(coordinates.toArray)
+  }
+
+  private def simplifyCoordinates(coordinates: List[Coordinate]): List[Coordinate] = {
+    if (coordinates.size < 3) {
+      coordinates
+    }
+    else {
+      simplify2(List(coordinates.head), coordinates.head, coordinates.tail).reverse
+    }
+  }
+
+  @tailrec
+  private def simplify2(selectedCoordinates: List[Coordinate], currentCoordinate: Coordinate, remainder: List[Coordinate]): List[Coordinate] = {
+    remainder.headOption match {
+      case None => selectedCoordinates
+      case Some(middleCoordinate) =>
+        val newRemainder = remainder.tail
+        newRemainder.headOption match {
+          case None => middleCoordinate :: selectedCoordinates
+          case Some(nextCoordinate) =>
+            val lineString = geomFactory.createLineString(Array(currentCoordinate, nextCoordinate))
+            val point = geomFactory.createPoint(middleCoordinate)
+            val distance = toMeters(lineString.distance(point))
+            if (distance < 0.5d) {
+              // swallow the  middle coordinate
+              simplify2(selectedCoordinates, currentCoordinate, newRemainder)
+            }
+            else {
+              // keep the  middle coordinate, and continue simplifying
+              simplify2(middleCoordinate :: selectedCoordinates, middleCoordinate, newRemainder)
+            }
+        }
+    }
   }
 
   def toSampleCoordinates(sampleDistanceMeters: Int, lineString: LineString): Seq[Coordinate] = {
