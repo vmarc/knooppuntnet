@@ -5,9 +5,11 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
+import org.scalamock.scalatest.MockFactory
 
-class MonitorUpdaterConfiguration(database: Database, monitorRouteRelationRepository: MonitorRouteRelationRepository) {
+class MonitorUpdaterConfiguration(database: Database) extends MockFactory {
 
+  val monitorRouteRelationRepository: MonitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
   private val monitorUpdateRoute = new MonitorUpdateRouteImpl(monitorGroupRepository)

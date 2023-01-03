@@ -33,9 +33,7 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
-
-      val config = new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
+      val config = new MonitorUpdaterConfiguration(database)
       val group = MonitorGroup(ObjectId(), "group", "")
       config.monitorGroupRepository.saveGroup(group)
 
@@ -86,7 +84,7 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
 
       val relationStructure = new MonitorRelationDataBuilder(mainRelationData.rawData).data.relations(1L)
 
-      (monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relationStructure))
+      (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relationStructure))
 
       val detailOverpassData = OverpassData()
         .node(1001, latitude = "51.4633666", longitude = "4.4553911")
@@ -105,8 +103,8 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
       val detailData = new DataBuilder(detailOverpassData.rawData).data
       val detailRelation = detailData.relations(1L)
 
-      (monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(detailRelation))
-      (monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 12, 1)), 1L).returns(Some(detailRelation))
+      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(detailRelation))
+      (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 12, 1)), 1L).returns(Some(detailRelation))
 
       val updatedProperties = properties.copy(
         relationId = Some(1)

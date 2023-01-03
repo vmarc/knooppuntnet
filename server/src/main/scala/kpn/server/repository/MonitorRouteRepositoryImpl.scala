@@ -52,6 +52,11 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     new MonitorRouteDelete(database).delete(routeId, log)
   }
 
+  override def deleteRouteReferences(routeId: ObjectId): Unit = {
+    val routeFilter = equal("routeId", routeId.raw)
+    database.monitorRouteReferences.deleteMany(routeFilter, log)
+  }
+
   override def saveRouteState(routeState: MonitorRouteState): Unit = {
     database.monitorRouteStates.save(routeState, log)
   }
@@ -233,6 +238,15 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
+  }
+
+  override def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      )
+    )
+    database.monitorRouteReferences.aggregate[MonitorRouteReference](pipeline, log)
   }
 
   override def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference] = {

@@ -25,7 +25,7 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
 
     withDatabase() { database =>
 
-      val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
+      val config = new MonitorUpdaterConfiguration(database)
 
       val mainRelationData = OverpassData()
         .relation(
@@ -53,7 +53,7 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
 
       val mainRelationStructure: Relation = new MonitorRelationDataBuilder(mainRelationData.rawData).data.relations(1L)
 
-      (monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(mainRelationStructure))
+      (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(mainRelationStructure))
 
       val subRelationsOverpassData = OverpassData()
         .node(1001, latitude = "51.4633666", longitude = "4.4553911")
@@ -84,10 +84,9 @@ class MonitorUpdaterTest05 extends UnitTest with SharedTestObjects with MockFact
       val subRelation1 = subRelationsData.relations(11L)
       val subRelation2 = subRelationsData.relations(12L)
 
-      (monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
-      (monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
+      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
+      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
 
-      val config = new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
       val group = MonitorGroup(ObjectId(), "group", "")
       config.monitorGroupRepository.saveGroup(group)
 

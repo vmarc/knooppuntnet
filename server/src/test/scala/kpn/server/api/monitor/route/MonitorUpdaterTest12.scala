@@ -25,11 +25,10 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val monitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
-      val config = new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
+      val config = new MonitorUpdaterConfiguration(database)
 
-      val group1 = newMonitorGroup("group1", "")
-      val group2 = newMonitorGroup("group2", "")
+      val group1 = newMonitorGroup("group1")
+      val group2 = newMonitorGroup("group2")
       val route = newMonitorRoute(
         group1._id,
         name = "route",

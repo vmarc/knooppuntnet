@@ -21,6 +21,8 @@ trait MonitorRouteRepository {
 
   def deleteRoute(routeId: ObjectId): Unit
 
+  def deleteRouteReferences(routeId: ObjectId): Unit
+
   def saveRouteState(routeState: MonitorRouteState): Unit
 
   def saveRouteReference(routeReference: MonitorRouteReference): Unit
@@ -50,6 +52,8 @@ trait MonitorRouteRepository {
   def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference]
 
   def routeRelationReference(routeId: ObjectId, relationId: Long): Option[MonitorRouteReference]
+
+  def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference]
 
   def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference]
 

@@ -13,12 +13,12 @@ case class MonitorUpdateContext(
   referenceType: Option[String] = None,
   oldRoute: Option[MonitorRoute] = None,
   newRoute: Option[MonitorRoute] = None,
+  removeOldReferences: Boolean = false,
   oldReferences: Seq[MonitorRouteReference] = Seq.empty,
   newReferences: Seq[MonitorRouteReference] = Seq.empty,
   oldStates: Seq[MonitorRouteState] = Seq.empty,
   newStates: Seq[MonitorRouteState] = Seq.empty,
-  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult(),
-  abort: Boolean = false
+  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult()
 ) {
 
   def routeId: ObjectId = {

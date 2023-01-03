@@ -13,15 +13,15 @@ class MonitorUpdateStructureImpl(
 
     context.newRoute match {
       case None =>
-        // no changes to route properties, so need to pick up route structure again
+        // no changes to route properties, so no need to pick up route structure again
         context
 
       case Some(newRoute) =>
         newRoute.relationId match {
           case None =>
             // relationId has not been defined for the route yet, so cannot pick up route structure yet
+            // TODO if the old route contained a relationId, and the new one does not, we have stuff to delete?
             context
-          // TODO if the old route contained a relationId, and the new one does not, we have stuff to delete?
 
           case Some(relationId) =>
 

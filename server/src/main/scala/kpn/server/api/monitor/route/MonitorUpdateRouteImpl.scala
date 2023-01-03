@@ -2,7 +2,6 @@ package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.core.util.Log
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.repository.MonitorGroupRepository
 import org.springframework.stereotype.Component
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Component
 class MonitorUpdateRouteImpl(
   monitorGroupRepository: MonitorGroupRepository
 ) extends MonitorUpdateRoute {
-
-  private val log = Log(classOf[MonitorUpdateRouteImpl])
 
   override def update(
     context: MonitorUpdateContext,
@@ -38,13 +35,8 @@ class MonitorUpdateRouteImpl(
 
     groupIdOption match {
       case None =>
-        val exception = s"""Could not find group with name "${properties.groupName}""""
-        log.error(exception)
-        context.copy(
-          abort = true,
-          saveResult = context.saveResult.copy(
-            exception = Some(exception)
-          )
+        throw new IllegalArgumentException(
+          s"""Could not find group with name "${properties.groupName}""""
         )
 
       case Some(groupId) =>
@@ -66,10 +58,12 @@ class MonitorUpdateRouteImpl(
           osmDistance = 0L,
           osmSegmentCount = 0L,
           happy = false,
-          relation = None //  TODO monitorRouteRelationData.map(_.relation)
+          relation = None
         )
 
-        context.copy(newRoute = Some(newRoute))
+        context.copy(
+          newRoute = Some(newRoute)
+        )
     }
   }
 }

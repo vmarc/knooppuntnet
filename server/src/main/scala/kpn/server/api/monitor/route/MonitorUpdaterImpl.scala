@@ -39,27 +39,26 @@ class MonitorUpdaterImpl(
 
     Log.context(Seq("route-add", s"group=$groupName", s"route=${properties.name}")) {
       var context = MonitorUpdateContext(user)
-      context = findGroup(context, groupName)
-      if (!context.abort) {
+      try {
+        context = findGroup(context, groupName)
         context = assertNewRoute(context, properties.name)
         context = context.copy(
           referenceType = Some(properties.referenceType)
         )
-      }
-      if (!context.abort) {
         context = monitorUpdateRoute.update(context, user, properties)
-      }
-      if (!context.abort) {
         context = monitorUpdateStructure.update(context)
-      }
-      if (!context.abort) {
         context = monitorUpdateReference.update(context)
-      }
-      if (!context.abort) {
         context = monitorUpdateAnalyzer.analyze(context)
-      }
-      if (!context.abort) {
         context = saver.save(context)
+      }
+      catch {
+        case e: RuntimeException =>
+          log.error(s"Could not add route", e)
+          context = context.copy(
+            saveResult = context.saveResult.copy(
+              exception = Some(e.getMessage)
+            )
+          )
       }
       context.saveResult
     }
@@ -73,30 +72,27 @@ class MonitorUpdaterImpl(
   ): MonitorRouteSaveResult = {
 
     Log.context(Seq("route-update", s"group=$groupName", s"route=$routeName")) {
-
       var context = MonitorUpdateContext(user)
-      context = findGroup(context, groupName)
-      if (!context.abort) {
+      try {
+        context = findGroup(context, groupName)
         context = findRoute(context, routeName)
         context = context.copy(
           referenceType = Some(properties.referenceType)
         )
-      }
-
-      if (!context.abort) {
         context = monitorUpdateRoute.update(context, user, properties)
-      }
-      if (!context.abort) {
         context = monitorUpdateStructure.update(context)
-      }
-      if (!context.abort) {
         context = monitorUpdateReference.update(context)
-      }
-      if (!context.abort) {
         context = monitorUpdateAnalyzer.analyze(context)
-      }
-      if (!context.abort) {
         context = saver.save(context)
+      }
+      catch {
+        case e: RuntimeException =>
+          log.error(s"Could not update route", e)
+          context = context.copy(
+            saveResult = context.saveResult.copy(
+              exception = Some(e.getMessage)
+            )
+          )
       }
       context.saveResult
     }
@@ -114,18 +110,12 @@ class MonitorUpdaterImpl(
 
     Log.context(Seq("route-upload", s"group=$groupName", s"route=$routeName")) {
       var context = MonitorUpdateContext(user)
-      context = findGroup(context, groupName)
-      if (!context.abort) {
+      try {
+        context = findGroup(context, groupName)
         context = findRoute(context, routeName)
-      }
-      if (!context.abort) {
         context = context.copy(
           referenceType = Some(context.oldRoute.get.referenceType)
         )
-      }
-
-      if (!context.abort) {
-
         val now = Time.now
         val geometryCollection = new MonitorRouteGpxReader().read(xml)
         val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
@@ -197,6 +187,15 @@ class MonitorUpdaterImpl(
           case _ =>
         }
       }
+      catch {
+        case e: RuntimeException =>
+          log.error(s"Could not upload reference", e)
+          context = context.copy(
+            saveResult = context.saveResult.copy(
+              exception = Some(e.getMessage)
+            )
+          )
+      }
       context.saveResult
     }
   }
@@ -207,8 +206,7 @@ class MonitorUpdaterImpl(
       case None => log.error(s"Route ${routeId.oid} not found")
       case Some(route) =>
 
-        // TODO load all references
-        val oldReferences: Seq[MonitorRouteReference] = Seq.empty
+        val oldReferences = monitorRouteRepository.routeReferences(routeId)
 
         var context = MonitorUpdateContext("").copy(
           oldRoute = Some(route),
@@ -216,11 +214,18 @@ class MonitorUpdaterImpl(
           oldReferences = oldReferences
         )
 
-        if (!context.abort) {
+        try {
           context = monitorUpdateAnalyzer.analyze(context)
-        }
-        if (!context.abort) {
           context = saver.save(context)
+        }
+        catch {
+          case e: RuntimeException =>
+            log.error(s"Could not analyzeAll(routeId=${routeId.oid})", e)
+            context = context.copy(
+              saveResult = context.saveResult.copy(
+                exception = Some(e.getMessage)
+              )
+            )
         }
     }
   }
@@ -237,30 +242,18 @@ class MonitorUpdaterImpl(
               referenceType = Some(route.referenceType),
               oldReferences = Seq(reference)
             )
-            if (!context.abort) {
-              context = monitorUpdateAnalyzer.analyze(context)
-            }
-            if (!context.abort) {
-              context = saver.save(context)
-            }
+            context = monitorUpdateAnalyzer.analyze(context)
+            context = saver.save(context)
         }
     }
   }
 
   private def findGroup(context: MonitorUpdateContext, groupName: String): MonitorUpdateContext = {
     monitorGroupRepository.groupByName(groupName) match {
+      case Some(group) => context.copy(group = Some(group))
       case None =>
-        val exception = s"""Could not find group with name "$groupName""""
-        log.error(exception)
-        context.copy(
-          abort = true,
-          saveResult = context.saveResult.copy(
-            exception = Some(exception)
-          )
-        )
-      case Some(group) =>
-        context.copy(
-          group = Some(group)
+        throw new IllegalArgumentException(
+          s"""Could not find group with name "$groupName""""
         )
     }
   }
@@ -270,18 +263,10 @@ class MonitorUpdaterImpl(
       case None => context
       case Some(group) =>
         monitorRouteRepository.routeByName(group._id, routeName) match {
+          case Some(route) => context.copy(oldRoute = Some(route))
           case None =>
-            val exception = s"""Could not find route with name "$routeName" in group "${group.name}""""
-            log.error(exception)
-            context.copy(
-              abort = true,
-              saveResult = context.saveResult.copy(
-                exception = Some(exception)
-              )
-            )
-          case Some(route) =>
-            context.copy(
-              oldRoute = Some(route)
+            throw new IllegalArgumentException(
+              s"""Could not find route with name "$routeName" in group "${group.name}""""
             )
         }
     }
@@ -294,13 +279,8 @@ class MonitorUpdaterImpl(
         monitorRouteRepository.routeByName(group._id, routeName) match {
           case None => context
           case Some(route) =>
-            val exception = s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
-            log.error(exception)
-            context.copy(
-              abort = true,
-              saveResult = context.saveResult.copy(
-                exception = Some(exception)
-              )
+            throw new IllegalStateException(
+              s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
             )
         }
     }
