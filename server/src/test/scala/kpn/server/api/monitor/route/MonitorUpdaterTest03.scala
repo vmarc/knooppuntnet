@@ -1,10 +1,8 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.custom.Day
-import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
@@ -12,10 +10,8 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
-import kpn.server.api.monitor.domain.MonitorGroup
-import org.scalamock.scalatest.MockFactory
 
-class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects {
 
   test("add superroute osm reference") {
 
@@ -24,71 +20,10 @@ class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects with MockFact
     withDatabase() { database =>
 
       val config = new MonitorUpdaterConfiguration(database)
+      setupLoadStructure(config)
+      setupLoadTopLevel(config, referenceDay)
 
-      val mainRelationData = OverpassData()
-        .relation(
-          1,
-          tags = Tags.from(
-            "name" -> "main-relation"
-          ),
-          members = Seq(
-            newMember("relation", 11),
-            newMember("relation", 12)
-          )
-        )
-        .relation(
-          11,
-          tags = Tags.from(
-            "name" -> "sub-relation-1"
-          ),
-        )
-        .relation(
-          12,
-          tags = Tags.from(
-            "name" -> "sub-relation-2"
-          ),
-        )
-
-      val mainRelationStructure: Relation = new MonitorRelationDataBuilder(mainRelationData.rawData).data.relations(1L)
-
-      (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(mainRelationStructure))
-
-      val subRelationsOverpassData = OverpassData()
-        .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-        .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-        .node(1003, latitude = "51.4614496", longitude = "4.4550560")
-        .way(101, 1001, 1002)
-        .way(102, 1002, 1003)
-        .relation(
-          11,
-          tags = Tags.from(
-            "name" -> "sub-relation-1"
-          ),
-          members = Seq(
-            newMember("way", 101),
-          )
-        )
-        .relation(
-          12,
-          tags = Tags.from(
-            "name" -> "sub-relation-2"
-          ),
-          members = Seq(
-            newMember("way", 102),
-          )
-        )
-
-      val subRelationsData = new DataBuilder(subRelationsOverpassData.rawData).data
-      val subRelation1 = subRelationsData.relations(11L)
-      val subRelation2 = subRelationsData.relations(12L)
-
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 11L).returns(Some(subRelation1))
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 12L).returns(Some(subRelation2))
-
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
-
-      val group = MonitorGroup(ObjectId(), "group", "")
+      val group = newMonitorGroup("group")
       config.monitorGroupRepository.saveGroup(group)
 
       val properties = MonitorRouteProperties(
@@ -153,5 +88,73 @@ class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects with MockFact
           subRelation2.relations.size should equal(0)
       }
     }
+  }
+
+  private def setupLoadStructure(config: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "main-relation"
+        ),
+        members = Seq(
+          newMember("relation", 11),
+          newMember("relation", 12)
+        )
+      )
+      .relation(
+        11,
+        tags = Tags.from(
+          "name" -> "sub-relation-1"
+        ),
+      )
+      .relation(
+        12,
+        tags = Tags.from(
+          "name" -> "sub-relation-2"
+        ),
+      )
+
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+  }
+
+  private def setupLoadTopLevel(config: MonitorUpdaterConfiguration, referenceDay: Day): Unit = {
+
+    val overpassData = OverpassData()
+      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
+      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .node(1003, latitude = "51.4614496", longitude = "4.4550560")
+      .way(101, 1001, 1002)
+      .way(102, 1002, 1003)
+      .relation(
+        11,
+        tags = Tags.from(
+          "name" -> "sub-relation-1"
+        ),
+        members = Seq(
+          newMember("way", 101),
+        )
+      )
+      .relation(
+        12,
+        tags = Tags.from(
+          "name" -> "sub-relation-2"
+        ),
+        members = Seq(
+          newMember("way", 102),
+        )
+      )
+
+    val data = new DataBuilder(overpassData.rawData).data
+    val subRelation1 = data.relations(11L)
+    val subRelation2 = data.relations(12L)
+
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 11L).returns(Some(subRelation1))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 12L).returns(Some(subRelation2))
+
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
   }
 }

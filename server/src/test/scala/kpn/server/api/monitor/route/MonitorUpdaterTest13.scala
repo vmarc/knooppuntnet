@@ -6,10 +6,9 @@ import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest13 extends UnitTest with BeforeAndAfterEach with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest13 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   test("cannot add route that already exists") {
 

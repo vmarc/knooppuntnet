@@ -1,6 +1,5 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
@@ -15,11 +14,9 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
-import kpn.server.api.monitor.domain.MonitorGroup
-import org.scalamock.scalatest.MockFactory
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def beforeEach(): Unit = {
     Time.set(Timestamp(2023, 1, 1))
@@ -34,7 +31,7 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
     withDatabase() { database =>
 
       val config = new MonitorUpdaterConfiguration(database)
-      val group = MonitorGroup(ObjectId(), "group", "")
+      val group = newMonitorGroup("group")
       config.monitorGroupRepository.saveGroup(group)
 
       val properties = MonitorRouteProperties(
@@ -74,37 +71,8 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
       config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
       config.monitorRouteRepository.routeState(route._id, 1L) should equal(None)
 
-      val mainRelationData = OverpassData()
-        .relation(
-          1,
-          tags = Tags.from(
-            "name" -> "route-name"
-          ),
-        )
-
-      val relationStructure = new MonitorRelationDataBuilder(mainRelationData.rawData).data.relations(1L)
-
-      (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relationStructure))
-
-      val detailOverpassData = OverpassData()
-        .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-        .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-        .way(101, 1001, 1002)
-        .relation(
-          1,
-          tags = Tags.from(
-            "name" -> "route-name"
-          ),
-          members = Seq(
-            newMember("way", 101),
-          )
-        )
-
-      val detailData = new DataBuilder(detailOverpassData.rawData).data
-      val detailRelation = detailData.relations(1L)
-
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(detailRelation))
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 12, 1)), 1L).returns(Some(detailRelation))
+      setupLoadStructure(config)
+      setupLoadTopLevel(config)
 
       val updatedProperties = properties.copy(
         relationId = Some(1)
@@ -179,5 +147,40 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
       state.deviations should equal(Seq.empty)
       state.happy should equal(true)
     }
+  }
+
+  private def setupLoadStructure(config: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+      )
+
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+  }
+
+  private def setupLoadTopLevel(config: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
+      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .way(101, 1001, 1002)
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+        members = Seq(
+          newMember("way", 101),
+        )
+      )
+
+    val relation = new DataBuilder(overpassData.rawData).data.relations(1L)
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(relation))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 12, 1)), 1L).returns(Some(relation))
   }
 }

@@ -8,10 +8,9 @@ import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def beforeEach(): Unit = {
     Time.set(Timestamp(2023, 1, 1))

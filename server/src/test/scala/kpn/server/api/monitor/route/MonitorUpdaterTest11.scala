@@ -56,7 +56,7 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
         groupName = group.name,
         name = "route-name-changed", // <-- changed
         description = "description-changed", // <-- changed
-        comment = Some("comment-changed"),
+        comment = Some("comment-changed"), // <-- changed
         relationId = Some(1L),
         referenceType = "osm",
         referenceDay = Some(Day(2022, 8, Some(11))),

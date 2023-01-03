@@ -6,10 +6,9 @@ import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import org.scalamock.scalatest.MockFactory
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest14 extends UnitTest with BeforeAndAfterEach with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest14 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   test("add/update/upload - group not found") {
 
@@ -43,7 +42,15 @@ class MonitorUpdaterTest14 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val saveResult3 = config.monitorUpdater.upload("user", "unknown-group", "route-name", 1L, Day(2022, 8, 11), "filename", null)
+      val saveResult3 = config.monitorUpdater.upload(
+        "user",
+        "unknown-group",
+        "route-name",
+        1L,
+        Day(2022, 8, 11),
+        "filename",
+        null
+      )
       saveResult3 should equal(
         MonitorRouteSaveResult(
           exception = Some("""Could not find group with name "unknown-group""""

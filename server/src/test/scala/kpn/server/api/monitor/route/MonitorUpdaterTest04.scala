@@ -1,6 +1,5 @@
 package kpn.server.api.monitor.route
 
-import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
@@ -12,51 +11,20 @@ import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
-import kpn.server.api.monitor.domain.MonitorGroup
-import org.scalamock.scalatest.MockFactory
 
 import scala.xml.XML
 
-class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFactory {
+class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects {
 
   test("add non-super route with single gpx reference") {
 
     withDatabase() { database =>
 
       val config = new MonitorUpdaterConfiguration(database)
+      setupLoadStructure(config)
+      setupLoadTopLevel(config)
 
-      val structureOverpassData = OverpassData()
-        .relation(
-          1,
-          tags = Tags.from(
-            "name" -> "route-name"
-          )
-        )
-
-      val relationStructure = new MonitorRelationDataBuilder(structureOverpassData.rawData).data.relations(1L)
-
-      (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relationStructure))
-
-      val overpassData = OverpassData()
-        .node(1001, latitude = "51.4633666", longitude = "4.4553911")
-        .node(1002, latitude = "51.4618272", longitude = "4.4562458")
-        .way(101, 1001, 1002)
-        .relation(
-          1,
-          tags = Tags.from(
-            "name" -> "route-name"
-          ),
-          members = Seq(
-            newMember("way", 101),
-          )
-        )
-
-      val relationData = new DataBuilder(overpassData.rawData).data
-      val relation = relationData.relations(1L)
-
-      (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(relation))
-
-      val group = MonitorGroup(ObjectId(), "group", "")
+      val group = newMonitorGroup("group")
       config.monitorGroupRepository.saveGroup(group)
 
       val properties = MonitorRouteProperties(
@@ -72,9 +40,7 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFact
       )
 
       val addSaveResult = config.monitorUpdater.add("user", group.name, properties)
-      addSaveResult should equal(
-        MonitorRouteSaveResult()
-      )
+      addSaveResult should equal(MonitorRouteSaveResult())
 
       val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.groupId should equal(group._id)
@@ -109,7 +75,6 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFact
           monitorRouteRelation.osmSegmentCount should equal(0)
           monitorRouteRelation.happy should equal(false)
           monitorRouteRelation.relations.size should equal(0)
-
       }
 
       // TODO verify that reference does not exist in the database yet?
@@ -163,5 +128,37 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects with MockFact
       reference.segmentCount should equal(1)
       reference.geometry should equal("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}""")
     }
+  }
+
+  private def setupLoadStructure(config: MonitorUpdaterConfiguration): Unit = {
+    val overpassData = OverpassData()
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route-name"
+        )
+      )
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+  }
+
+  private def setupLoadTopLevel(config: MonitorUpdaterConfiguration): Unit = {
+
+    val overpassData = OverpassData()
+      .node(1001, latitude = "51.4633666", longitude = "4.4553911")
+      .node(1002, latitude = "51.4618272", longitude = "4.4562458")
+      .way(101, 1001, 1002)
+      .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "route-name"
+        ),
+        members = Seq(
+          newMember("way", 101),
+        )
+      )
+
+    val relation = new DataBuilder(overpassData.rawData).data.relations(1L)
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(relation))
   }
 }
