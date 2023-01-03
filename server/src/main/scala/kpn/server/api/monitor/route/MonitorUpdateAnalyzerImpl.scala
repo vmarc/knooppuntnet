@@ -1,6 +1,5 @@
 package kpn.server.api.monitor.route
 
-import kpn.server.api.monitor.domain.MonitorRouteReference
 import org.springframework.stereotype.Component
 
 @Component
@@ -9,9 +8,16 @@ class MonitorUpdateAnalyzerImpl(
 ) extends MonitorUpdateAnalyzer {
 
   def analyze(context: MonitorUpdateContext): MonitorUpdateContext = {
-    val states = context.newReferences.flatMap { reference: MonitorRouteReference =>
+
+    val states1 = context.oldReferences.flatMap { reference =>
       monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference)
     }
+
+    val states2 = context.newReferences.flatMap { reference =>
+      monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference)
+    }
+
+    val states = states1 ++ states2
 
     context.copy(
       newStates = states,

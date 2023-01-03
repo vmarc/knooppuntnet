@@ -1,9 +1,9 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
-import kpn.server.api.monitor.domain.MonitorRoute
 
 import scala.xml.Elem
 
@@ -31,5 +31,9 @@ trait MonitorUpdater {
     filename: String,
     xml: Elem
   ): MonitorRouteSaveResult
+
+  def analyzeAll(routeId: ObjectId): Unit
+
+  def analyzeRelation(routeId: ObjectId, relationId: Long): Unit
 
 }

@@ -8,6 +8,7 @@ import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
+  user: String,
   group: Option[MonitorGroup] = None,
   referenceType: Option[String] = None,
   oldRoute: Option[MonitorRoute] = None,

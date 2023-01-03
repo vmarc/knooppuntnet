@@ -38,7 +38,7 @@ class MonitorUpdaterImpl(
   ): MonitorRouteSaveResult = {
 
     Log.context(Seq("route-add", s"group=$groupName", s"route=${properties.name}")) {
-      var context = MonitorUpdateContext()
+      var context = MonitorUpdateContext(user)
       context = findGroup(context, groupName)
       if (!context.abort) {
         context = assertNewRoute(context, properties.name)
@@ -74,7 +74,7 @@ class MonitorUpdaterImpl(
 
     Log.context(Seq("route-update", s"group=$groupName", s"route=$routeName")) {
 
-      var context = MonitorUpdateContext()
+      var context = MonitorUpdateContext(user)
       context = findGroup(context, groupName)
       if (!context.abort) {
         context = findRoute(context, routeName)
@@ -113,7 +113,7 @@ class MonitorUpdaterImpl(
   ): MonitorRouteSaveResult = {
 
     Log.context(Seq("route-upload", s"group=$groupName", s"route=$routeName")) {
-      var context = MonitorUpdateContext()
+      var context = MonitorUpdateContext(user)
       context = findGroup(context, groupName)
       if (!context.abort) {
         context = findRoute(context, routeName)
@@ -198,6 +198,52 @@ class MonitorUpdaterImpl(
         }
       }
       context.saveResult
+    }
+  }
+
+  override def analyzeAll(routeId: ObjectId): Unit = {
+
+    monitorRouteRepository.routeById(routeId) match {
+      case None => log.error(s"Route ${routeId.oid} not found")
+      case Some(route) =>
+
+        // TODO load all references
+        val oldReferences: Seq[MonitorRouteReference] = Seq.empty
+
+        var context = MonitorUpdateContext("").copy(
+          oldRoute = Some(route),
+          referenceType = Some(route.referenceType),
+          oldReferences = oldReferences
+        )
+
+        if (!context.abort) {
+          context = monitorUpdateAnalyzer.analyze(context)
+        }
+        if (!context.abort) {
+          context = saver.save(context)
+        }
+    }
+  }
+
+  override def analyzeRelation(routeId: ObjectId, relationId: Long): Unit = {
+    monitorRouteRepository.routeById(routeId) match {
+      case None => log.error(s"Route ${routeId.oid} not found")
+      case Some(route) =>
+        monitorRouteRepository.routeRelationReference(routeId, relationId) match {
+          case None => log.error(s"Route ${route.name}, reference for relation $relationId not found")
+          case Some(reference) =>
+            var context = MonitorUpdateContext("").copy(
+              oldRoute = Some(route),
+              referenceType = Some(route.referenceType),
+              oldReferences = Seq(reference)
+            )
+            if (!context.abort) {
+              context = monitorUpdateAnalyzer.analyze(context)
+            }
+            if (!context.abort) {
+              context = saver.save(context)
+            }
+        }
     }
   }
 

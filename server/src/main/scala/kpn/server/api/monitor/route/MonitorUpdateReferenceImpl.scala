@@ -2,6 +2,7 @@ package kpn.server.api.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
+import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -25,7 +26,6 @@ class MonitorUpdateReferenceImpl(
 
     context.oldRoute match {
       case None =>
-
         context.newRoute match {
           case None => context
           case Some(newRoute) =>
@@ -36,17 +36,12 @@ class MonitorUpdateReferenceImpl(
               context
             }
         }
-
       case Some(oldRoute) =>
         context.newRoute match {
           case None => context
           case Some(newRoute) =>
-
             if (isOsmReferenceChanged(oldRoute, newRoute)) {
               updateOsmReferences(context, newRoute)
-            }
-            else if (isGpxReferenceChanged(oldRoute, newRoute)) { // TODO also have to check for "multi-gpx"?
-              context
             }
             else {
               context
@@ -63,13 +58,6 @@ class MonitorUpdateReferenceImpl(
       )
   }
 
-  private def isGpxReferenceChanged(oldRoute: MonitorRoute, newRoute: MonitorRoute): Boolean = {
-    newRoute.referenceType == "gpx" && (
-      oldRoute.referenceType != newRoute.referenceType ||
-        oldRoute.referenceDay != newRoute.referenceDay
-      )
-  }
-
   private def updateOsmReferences(context: MonitorUpdateContext, newRoute: MonitorRoute): MonitorUpdateContext = {
 
     newRoute.relation match {
@@ -80,63 +68,124 @@ class MonitorUpdateReferenceImpl(
             newRoute.referenceDay match {
               case None => context // TODO add error in MonitorRouteSaveResult ???
               case Some(referenceDay) =>
-                monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), relationId) match {
-                  case None => context // TODO add error in MonitorRouteSaveResult !!
-                  case Some(relation) =>
-                    val relations: Seq[Relation] = MonitorFilter.relationsInRelation(relation)
-                    val references = relations.map { routeRelation =>
-
-                      val wayMembers = MonitorFilter.filterWayMembers(routeRelation.wayMembers)
-                      val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
-                      val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-
-                      val geomFactory = new GeometryFactory
-                      val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
-                      val geoJsonWriter = new GeoJsonWriter()
-                      geoJsonWriter.setEncodeCRS(false)
-                      val geometry = geoJsonWriter.write(geometryCollection)
-
-                      MonitorRouteReference(
-                        ObjectId(),
-                        newRoute._id,
-                        Some(routeRelation.id),
-                        Time.now,
-                        "TODO user",
-                        bounds,
-                        "osm",
-                        newRoute.referenceDay.get,
-                        analysis.osmDistance,
-                        analysis.routeSegments.size,
-                        None,
-                        geometry
-                      )
-                    }
-
-                    val referenceDistance = references.map(_.distance).sum
-                    val updatedNewRoute = context.newRoute.map { route =>
-                      route.copy(
-                        referenceDistance = referenceDistance
-                      )
-                    }
-
-                    context.copy(
-                      newRoute = updatedNewRoute,
-                      newReferences = references,
-                    )
-                }
+                updateSingleReference(context, newRoute, relationId, referenceDay)
             }
         }
-
 
       case Some(monitorRouteRelation) =>
 
         val references = if (monitorRouteRelation.relations.isEmpty) {
+          updateSingleReference2(context, newRoute)
+        }
+        else {
+          updateSuperRouteReferences(context, newRoute)
+        }
+        context.copy(
+          newReferences = context.newReferences ++ references
+        )
+    }
+  }
 
-          monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(newRoute.referenceDay.get /*TODO make more safe*/)), newRoute.relationId.get /*TODO make more safe*/) match {
-            case None => Seq.empty // TODO add error in MonitorRouteSaveResult !!
-            case Some(relation) =>
 
-              val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
+  private def updateSingleReference(
+    context: MonitorUpdateContext,
+    newRoute: MonitorRoute,
+    relationId: Long,
+    referenceDay: Day
+  ): MonitorUpdateContext = {
+
+    monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), relationId) match {
+      case None => context // TODO add error in MonitorRouteSaveResult !!
+      case Some(relation) =>
+        val relations: Seq[Relation] = MonitorFilter.relationsInRelation(relation)
+        val references = relations.map { routeRelation =>
+
+          val wayMembers = MonitorFilter.filterWayMembers(routeRelation.wayMembers)
+          val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
+          val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+
+          val geomFactory = new GeometryFactory
+          val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
+          val geoJsonWriter = new GeoJsonWriter()
+          geoJsonWriter.setEncodeCRS(false)
+          val geometry = geoJsonWriter.write(geometryCollection)
+
+          MonitorRouteReference(
+            ObjectId(),
+            newRoute._id,
+            Some(routeRelation.id),
+            Time.now,
+            context.user,
+            bounds,
+            "osm",
+            newRoute.referenceDay.get,
+            analysis.osmDistance,
+            analysis.routeSegments.size,
+            None,
+            geometry
+          )
+        }
+
+        val referenceDistance = references.map(_.distance).sum
+        val updatedNewRoute = context.newRoute.map { route =>
+          route.copy(
+            referenceDistance = referenceDistance
+          )
+        }
+
+        context.copy(
+          newRoute = updatedNewRoute,
+          newReferences = references,
+        )
+    }
+  }
+
+  private def updateSingleReference2(context: MonitorUpdateContext, newRoute: MonitorRoute): Seq[MonitorRouteReference] = {
+
+    monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(newRoute.referenceDay.get /*TODO make more safe*/)), newRoute.relationId.get /*TODO make more safe*/) match {
+      case None => Seq.empty // TODO add error in MonitorRouteSaveResult !!
+      case Some(relation) =>
+
+        val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
+        val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
+        val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+
+        val geomFactory = new GeometryFactory
+        val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
+        val geoJsonWriter = new GeoJsonWriter()
+        geoJsonWriter.setEncodeCRS(false)
+        val geometry = geoJsonWriter.write(geometryCollection)
+
+        Seq(
+          MonitorRouteReference(
+            ObjectId(),
+            newRoute._id,
+            Some(relation.id),
+            Time.now,
+            context.user,
+            bounds,
+            "osm",
+            newRoute.referenceDay.get,
+            analysis.osmDistance,
+            analysis.routeSegments.size,
+            None,
+            geometry
+          )
+        )
+    }
+  }
+
+
+  private def updateSuperRouteReferences(context: MonitorUpdateContext, newRoute: MonitorRoute): Seq[MonitorRouteReference] = {
+    MonitorUtil.subRelationsIn(newRoute).flatMap { monitorRouteSubRelation =>
+      newRoute.referenceDay match {
+        case None => None // TODO add error in MonitorRouteSaveResult ???
+        case Some(referenceDay) =>
+          monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), monitorRouteSubRelation.relationId) match {
+            case None => None // TODO add error in MonitorRouteSaveResult !!
+            case Some(subRelation) =>
+
+              val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
               val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
               val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
@@ -146,13 +195,13 @@ class MonitorUpdateReferenceImpl(
               geoJsonWriter.setEncodeCRS(false)
               val geometry = geoJsonWriter.write(geometryCollection)
 
-              Seq(
+              Some(
                 MonitorRouteReference(
                   ObjectId(),
                   newRoute._id,
-                  Some(relation.id),
+                  Some(subRelation.id),
                   Time.now,
-                  "TODO user",
+                  context.user,
                   bounds,
                   "osm",
                   newRoute.referenceDay.get,
@@ -163,50 +212,8 @@ class MonitorUpdateReferenceImpl(
                 )
               )
           }
-
-        }
-        else {
-          MonitorUtil.subRelationsIn(newRoute).flatMap { monitorRouteSubRelation =>
-            newRoute.referenceDay match {
-              case None => None // TODO add error in MonitorRouteSaveResult ???
-              case Some(referenceDay) =>
-                monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), monitorRouteSubRelation.relationId) match {
-                  case None => None // TODO add error in MonitorRouteSaveResult !!
-                  case Some(subRelation) =>
-
-                    val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
-                    val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
-                    val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-
-                    val geomFactory = new GeometryFactory
-                    val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
-                    val geoJsonWriter = new GeoJsonWriter()
-                    geoJsonWriter.setEncodeCRS(false)
-                    val geometry = geoJsonWriter.write(geometryCollection)
-
-                    Some(
-                      MonitorRouteReference(
-                        ObjectId(),
-                        newRoute._id,
-                        Some(subRelation.id),
-                        Time.now,
-                        "TODO user",
-                        bounds,
-                        "osm",
-                        newRoute.referenceDay.get,
-                        analysis.osmDistance,
-                        analysis.routeSegments.size,
-                        None,
-                        geometry
-                      )
-                    )
-                }
-            }
-          }
-        }
-        context.copy(
-          newReferences = context.newReferences ++ references
-        )
+      }
     }
   }
 }
+

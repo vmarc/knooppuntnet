@@ -3,4 +3,5 @@
 export interface MonitorRouteSaveResult {
   readonly analyzed: boolean;
   readonly errors: string[];
+  readonly exception: string;
 }
