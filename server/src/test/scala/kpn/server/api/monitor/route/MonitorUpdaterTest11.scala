@@ -1,20 +1,23 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.base.ObjectId
+import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  override def beforeEach(): Unit = {
-    Time.set(Timestamp(2023, 2, 1))
-  }
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -25,26 +28,78 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
     withDatabase() { database =>
       val config = new MonitorUpdaterConfiguration(database)
       val group = newMonitorGroup("group")
-      val route = newMonitorRoute(
-        group._id,
+      val route = MonitorRoute(
+        ObjectId(),
+        groupId = group._id,
         name = "route-name",
-        description = "description",
-        comment = Some("comment"),
+        description = "route-description",
+        comment = Some("route-comment"),
         relationId = Some(1L),
+        user = "user1",
+        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
-        referenceFilename = None
-      )
-      val state = newMonitorRouteState(
-        route._id,
-        relationId = 1L,
-        timestamp = Timestamp(2023, 1, 1),
+        referenceDay = Some(Day(2022, 8, 1)),
+        referenceFilename = None,
+        referenceDistance = 196L,
+        deviationDistance = 0L,
+        deviationCount = 0L,
+        osmWayCount = 1L,
+        osmDistance = 196L,
+        osmSegmentCount = 1L,
+        happy = true,
+        relation = Some(
+          MonitorRouteRelation(
+            relationId = 1L,
+            name = "route-name",
+            role = None,
+            survey = None,
+            deviationDistance = 0L,
+            deviationCount = 0L,
+            osmWayCount = 1L,
+            osmDistance = 196L,
+            osmSegmentCount = 1L,
+            happy = true,
+            relations = Seq.empty
+          )
+        )
       )
 
-      val reference = newMonitorRouteReference(
-        route._id,
+      val state = MonitorRouteState(
+        ObjectId(),
+        routeId = route._id,
+        relationId = 1L,
+        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        wayCount = 1L,
+        osmDistance = 196L,
+        bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        osmSegments = Seq(
+          MonitorRouteSegment(
+            1L,
+            1001L,
+            1002L,
+            196L,
+            Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+            """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+          )
+        ),
+        matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+        deviations = Seq.empty,
+        happy = true
+      )
+
+      val reference = MonitorRouteReference(
+        ObjectId(),
+        routeId = route._id,
         relationId = Some(1L),
-        created = Timestamp(2023, 1, 1),
+        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+        user = "user1",
+        bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+        referenceType = "osm",
+        referenceDay = Day(2022, 8, 1),
+        distance = 196L,
+        segmentCount = 1L,
+        filename = None,
+        geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
       )
 
       config.monitorGroupRepository.saveGroup(group)
@@ -59,21 +114,28 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
         comment = Some("comment-changed"), // <-- changed
         relationId = Some(1L),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceDay = Some(Day(2022, 8, Some(1))),
         referenceFileChanged = false,
         referenceFilename = None
       )
 
-      val saveResult = config.monitorUpdater.update("user", group.name, route.name, properties)
+      Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
+      val saveResult = config.monitorUpdater.update("user2", group.name, route.name, properties)
       saveResult should equal(MonitorRouteSaveResult()) // not analyzed, no errors
 
       val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route-name-changed").get
       val updatedState = config.monitorRouteRepository.routeState(route._id, 1L).get
       val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
 
-      updatedRoute.name should equal("route-name-changed")
-      updatedRoute.description should equal("description-changed")
-      updatedRoute.comment should equal(Some("comment-changed"))
+      updatedRoute.shouldMatchTo(
+        route.copy(
+          name = "route-name-changed",
+          description = "description-changed",
+          comment = Some("comment-changed"),
+          user = "user2",
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0)
+        )
+      )
 
       updatedState should equal(state) // no change
       updatedReference should equal(reference) // no change

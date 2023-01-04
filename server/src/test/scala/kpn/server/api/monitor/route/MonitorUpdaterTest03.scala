@@ -2,16 +2,24 @@ package kpn.server.api.monitor.route
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
+import kpn.server.api.monitor.domain.MonitorRoute
+import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects {
+class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  override def afterEach(): Unit = {
+    Time.clear()
+  }
 
   test("add superroute osm reference") {
 
@@ -37,56 +45,75 @@ class MonitorUpdaterTest03 extends UnitTest with SharedTestObjects {
         None,
         referenceFileChanged = false,
       )
+
+      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       config.monitorUpdater.add("user", group.name, properties)
 
       val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.groupId should equal(group._id)
-      route.name should equal("route-name")
-      route.description should equal("route-description")
-      route.comment should equal(Some("route-comment"))
-      route.relationId should equal(Some(1L))
-      route.user should equal("user")
-      route.referenceType should equal("osm")
-      route.referenceDay should equal(Some(referenceDay))
-      route.referenceFilename should equal(None)
-      route.referenceDistance should equal(335L)
-      route.deviationDistance should equal(0L)
-      route.deviationCount should equal(0L)
-      route.osmWayCount should equal(2L)
-      route.osmDistance should equal(335L)
-      route.osmSegmentCount should equal(0) // TODO not implemented yet??
-      route.happy should equal(false) // TODO needs osmSegmentCount
-
-      route.relation match {
-        case None => fail("MonitorRouteRelation not found")
-        case Some(monitorRouteRelation) =>
-          monitorRouteRelation.relations.size should equal(2)
-          val subRelation1 = monitorRouteRelation.relations.head
-          subRelation1.relationId should equal(11L)
-          subRelation1.name should equal("sub-relation-1")
-          subRelation1.role should equal(None)
-          subRelation1.survey should equal(None)
-          subRelation1.deviationDistance should equal(0L)
-          subRelation1.deviationCount should equal(0L)
-          subRelation1.osmWayCount should equal(1L)
-          subRelation1.osmDistance should equal(196L)
-          subRelation1.osmSegmentCount should equal(1L)
-          subRelation1.happy should equal(true)
-          subRelation1.relations.size should equal(0)
-
-          val subRelation2 = monitorRouteRelation.relations(1)
-          subRelation2.relationId should equal(12L)
-          subRelation2.name should equal("sub-relation-2")
-          subRelation2.role should equal(None)
-          subRelation2.survey should equal(None)
-          subRelation2.deviationDistance should equal(0L)
-          subRelation2.deviationCount should equal(0L)
-          subRelation2.osmWayCount should equal(1L)
-          subRelation2.osmDistance should equal(139L)
-          subRelation2.osmSegmentCount should equal(1L)
-          subRelation1.happy should equal(true)
-          subRelation2.relations.size should equal(0)
-      }
+      route.shouldMatchTo(
+        MonitorRoute(
+          route._id,
+          groupId = group._id,
+          name = "route-name",
+          description = "route-description",
+          comment = Some("route-comment"),
+          relationId = Some(1L),
+          user = "user",
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          referenceType = "osm",
+          referenceDay = Some(referenceDay),
+          referenceFilename = None,
+          referenceDistance = 335L,
+          deviationDistance = 0L,
+          deviationCount = 0L,
+          osmWayCount = 2L,
+          osmDistance = 335L,
+          osmSegmentCount = 0, // TODO not implemented yet??
+          happy = false, // TODO needs osmSegmentCount
+          relation = Some(
+            MonitorRouteRelation(
+              relationId = 1L,
+              name = "main-relation",
+              role = None,
+              survey = None,
+              deviationDistance = 0L,
+              deviationCount = 0L,
+              osmWayCount = 0L, // TODO 2L,
+              osmDistance = 0L, // TODO 335L,
+              osmSegmentCount = 0L, // TODO 1L,
+              happy = false, // TODO true,
+              relations = Seq(
+                MonitorRouteRelation(
+                  relationId = 11L,
+                  name = "sub-relation-1",
+                  role = None,
+                  survey = None,
+                  deviationDistance = 0L,
+                  deviationCount = 0L,
+                  osmWayCount = 1L,
+                  osmDistance = 196L,
+                  osmSegmentCount = 1L,
+                  happy = true,
+                  relations = Seq.empty
+                ),
+                MonitorRouteRelation(
+                  relationId = 12L,
+                  name = "sub-relation-2",
+                  role = None,
+                  survey = None,
+                  deviationDistance = 0L,
+                  deviationCount = 0L,
+                  osmWayCount = 1L,
+                  osmDistance = 139L,
+                  osmSegmentCount = 1L,
+                  happy = true,
+                  relations = Seq.empty
+                )
+              )
+            )
+          )
+        )
+      )
     }
   }
 

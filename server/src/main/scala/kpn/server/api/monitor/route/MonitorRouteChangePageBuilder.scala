@@ -59,7 +59,7 @@ class MonitorRouteChangePageBuilder(
 
   private def buildPage(comment: Option[String], routeChange: MonitorRouteChange, routeChangeGeometry: MonitorRouteChangeGeometry, group: MonitorGroup, routeReference: MonitorRouteReference) = {
     val reference = MonitorRouteReferenceInfo(
-      routeReference.created,
+      routeReference.timestamp,
       routeReference.user,
       routeReference.bounds,
       0, // TODO distance

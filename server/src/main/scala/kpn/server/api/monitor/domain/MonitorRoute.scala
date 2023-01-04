@@ -4,6 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 
 
 case class MonitorRoute(
@@ -14,6 +15,7 @@ case class MonitorRoute(
   comment: Option[String],
   relationId: Option[Long],
   user: String,
+  timestamp: Timestamp,
 
   // reference information
   referenceType: String,

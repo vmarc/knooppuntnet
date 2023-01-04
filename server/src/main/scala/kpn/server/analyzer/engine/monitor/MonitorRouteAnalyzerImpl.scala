@@ -44,7 +44,7 @@ class MonitorRouteAnalyzerImpl(
       ObjectId(),
       routeId = route._id,
       relationId = route.relationId,
-      created = now,
+      timestamp = now,
       user = user,
       bounds = bounds,
       referenceType = "gpx", // "osm" | "gpx"

@@ -10,7 +10,7 @@ case class MonitorRouteReference(
   _id: ObjectId,
   routeId: ObjectId,
   relationId: Option[Long],
-  created: Timestamp,
+  timestamp: Timestamp,
   user: String,
   bounds: Bounds,
   referenceType: String, // "osm" | "gpx"
