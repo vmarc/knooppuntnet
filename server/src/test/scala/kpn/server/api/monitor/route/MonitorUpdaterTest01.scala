@@ -79,6 +79,7 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
           osmDistance = 196L,
           osmSegmentCount = 1L,
           happy = true,
+          superRouteOsmSegments = Seq.empty, // TODO ???
           relation = Some(
             MonitorRouteRelation(
               relationId = 1L,

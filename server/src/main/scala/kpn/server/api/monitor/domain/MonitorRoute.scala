@@ -31,6 +31,7 @@ case class MonitorRoute(
   osmSegmentCount: Long,
   happy: Boolean,
 
+  superRouteOsmSegments: Seq[MonitorRouteSuperSegment],
   relation: Option[MonitorRouteRelation]
 ) extends WithObjectId {
 

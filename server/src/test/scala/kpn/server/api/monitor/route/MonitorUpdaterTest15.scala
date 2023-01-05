@@ -4,21 +4,10 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
-import kpn.api.custom.Timestamp
-import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest15 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
-
-  override def beforeEach(): Unit = {
-    Time.set(Timestamp(2023, 1, 1))
-  }
-
-  override def afterEach(): Unit = {
-    Time.clear()
-  }
+class MonitorUpdaterTest15 extends UnitTest with SharedTestObjects {
 
   test("update/upload - route not found") {
 

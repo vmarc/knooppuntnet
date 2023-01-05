@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.NameRow
@@ -24,6 +25,7 @@ import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.or
@@ -209,6 +211,31 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorRouteStates.aggregate[MonitorRouteStateInfo](pipeline, log)
+  }
+
+  override def routeStateSegments(routeId: ObjectId): Seq[MonitorRouteSegmentInfo] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      unwind("$osmSegments"),
+      project(
+        fields(
+          computed("id", "0"),
+          include("relationId"),
+          computed("osmSegmentId", "$id"),
+          include("startNodeId"),
+          include("endNodeId"),
+          include("meters"),
+          include("bounds"),
+        )
+      ),
+    )
+
+    val segments = database.monitorRouteStates.aggregate[MonitorRouteSegmentInfo](pipeline, log)
+    segments.zipWithIndex.map { case (segment, index) =>
+      segment.copy(id = index + 1)
+    }
   }
 
   override def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference] = {

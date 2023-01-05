@@ -70,6 +70,7 @@ class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedT
           osmDistance = 335L,
           osmSegmentCount = 0, // TODO not implemented yet??
           happy = false, // TODO needs osmSegmentCount
+          superRouteOsmSegments = Seq.empty, // TODO ???
           relation = Some(
             MonitorRouteRelation(
               relationId = 1L,
@@ -78,10 +79,10 @@ class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedT
               survey = None,
               deviationDistance = 0L,
               deviationCount = 0L,
-              osmWayCount = 0L, // TODO 2L,
-              osmDistance = 0L, // TODO 335L,
-              osmSegmentCount = 0L, // TODO 1L,
-              happy = false, // TODO true,
+              osmWayCount = 0L,
+              osmDistance = 0L,
+              osmSegmentCount = 0L,
+              happy = false,
               relations = Seq(
                 MonitorRouteRelation(
                   relationId = 11L,

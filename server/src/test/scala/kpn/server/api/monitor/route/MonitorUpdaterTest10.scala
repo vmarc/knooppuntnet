@@ -12,10 +12,6 @@ import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
-  override def beforeEach(): Unit = {
-    Time.set(Timestamp(2023, 1, 1))
-  }
-
   override def afterEach(): Unit = {
     Time.clear()
   }
@@ -65,6 +61,7 @@ class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedT
         referenceFileChanged = false,
       )
 
+      Time.set(Timestamp(2023, 1, 1))
       val saveResult = config.monitorUpdater.update("user", "group", "route", properties)
 
       saveResult should equal(MonitorRouteSaveResult())

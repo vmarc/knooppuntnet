@@ -2,9 +2,8 @@ package kpn.server.analyzer.engine.monitor.tryout
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.monitor.domain.MonitorRouteRelationSegment
 import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
 import kpn.server.api.monitor.domain.MonitorRouteSuperSegmentElement
 
@@ -17,14 +16,14 @@ class MonitorRouteSuperSegmentBuilderTest extends UnitTest with SharedTestObject
   test("single segment") {
 
     val segments = Seq(
-      MonitorRouteRelationSegment(1L, segment(11L, 1001, 1002)),
+      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
     )
 
     MonitorRouteSuperSegmentBuilder.build(segments).shouldMatchTo(
       Seq(
         MonitorRouteSuperSegment(
           Seq(
-            MonitorRouteSuperSegmentElement(1L, 11L, reversed = false),
+            MonitorRouteSuperSegmentElement(11, 1, 100, Bounds(1, 1, 1, 1), reversed = false),
           )
         )
       )
@@ -34,16 +33,16 @@ class MonitorRouteSuperSegmentBuilderTest extends UnitTest with SharedTestObject
   test("two directly adjecent segments") {
 
     val segments = Seq(
-      MonitorRouteRelationSegment(1L, segment(11L, 1001, 1002)),
-      MonitorRouteRelationSegment(2L, segment(21L, 1002, 1003)),
+      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      MonitorRouteSegmentInfo(2, 12, 1, 1002, 1003, 200, Bounds(2, 2, 2, 2)),
     )
 
     MonitorRouteSuperSegmentBuilder.build(segments).shouldMatchTo(
       Seq(
         MonitorRouteSuperSegment(
           Seq(
-            MonitorRouteSuperSegmentElement(1L, 11L, reversed = false),
-            MonitorRouteSuperSegmentElement(2L, 21L, reversed = false),
+            MonitorRouteSuperSegmentElement(11, 1, 100, Bounds(1, 1, 1, 1), reversed = false),
+            MonitorRouteSuperSegmentElement(12, 1, 200, Bounds(2, 2, 2, 2), reversed = false),
           )
         )
       )
@@ -53,18 +52,18 @@ class MonitorRouteSuperSegmentBuilderTest extends UnitTest with SharedTestObject
   test("three directly adjecent segments, but not in sorted order") {
 
     val segments = Seq(
-      MonitorRouteRelationSegment(1L, segment(11L, 1001, 1002)),
-      MonitorRouteRelationSegment(1L, segment(12L, 1003, 1004)),
-      MonitorRouteRelationSegment(1L, segment(13L, 1002, 1003)),
+      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      MonitorRouteSegmentInfo(2, 12, 1, 1003, 1004, 200, Bounds(2, 2, 2, 2)),
+      MonitorRouteSegmentInfo(3, 13, 1, 1002, 1003, 300, Bounds(3, 3, 3, 3)),
     )
 
     MonitorRouteSuperSegmentBuilder.build(segments).shouldMatchTo(
       Seq(
         MonitorRouteSuperSegment(
           Seq(
-            MonitorRouteSuperSegmentElement(1L, 11L, reversed = false),
-            MonitorRouteSuperSegmentElement(1L, 13L, reversed = false),
-            MonitorRouteSuperSegmentElement(1L, 12L, reversed = false),
+            MonitorRouteSuperSegmentElement(11, 1, 100, Bounds(1, 1, 1, 1), reversed = false),
+            MonitorRouteSuperSegmentElement(13, 1, 300, Bounds(3, 3, 3, 3), reversed = false),
+            MonitorRouteSuperSegmentElement(12, 1, 200, Bounds(2, 2, 2, 2), reversed = false),
           )
         )
       )
@@ -74,38 +73,27 @@ class MonitorRouteSuperSegmentBuilderTest extends UnitTest with SharedTestObject
   test("two super segments, one with a reversed segment in the middle") {
 
     val segments = Seq(
-      MonitorRouteRelationSegment(1L, segment(11L, 1001, 1002)),
-      MonitorRouteRelationSegment(1L, segment(12L, 1003, 1004)),
-      MonitorRouteRelationSegment(2L, segment(21L, 1005, 1002)),
-      MonitorRouteRelationSegment(3L, segment(31L, 1005, 1006)),
+      MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
+      MonitorRouteSegmentInfo(2, 11, 2, 1003, 1004, 200, Bounds(2, 2, 2, 2)),
+      MonitorRouteSegmentInfo(3, 12, 1, 1005, 1002, 300, Bounds(3, 3, 3, 3)),
+      MonitorRouteSegmentInfo(4, 12, 2, 1005, 1006, 400, Bounds(4, 4, 4, 4)),
     )
 
     MonitorRouteSuperSegmentBuilder.build(segments).shouldMatchTo(
       Seq(
         MonitorRouteSuperSegment(
           Seq(
-            MonitorRouteSuperSegmentElement(1L, 11L, reversed = false),
-            MonitorRouteSuperSegmentElement(2L, 21L, reversed = true),
-            MonitorRouteSuperSegmentElement(3L, 31L, reversed = false)
+            MonitorRouteSuperSegmentElement(11, 1, 100, Bounds(1, 1, 1, 1), reversed = false),
+            MonitorRouteSuperSegmentElement(12, 1, 300, Bounds(3, 3, 3, 3), reversed = true),
+            MonitorRouteSuperSegmentElement(12, 2, 400, Bounds(4, 4, 4, 4), reversed = false)
           )
         ),
         MonitorRouteSuperSegment(
           Seq(
-            MonitorRouteSuperSegmentElement(1L, 12L, reversed = false)
+            MonitorRouteSuperSegmentElement(11, 2, 200, Bounds(2, 2, 2, 2), reversed = false)
           )
         )
       )
-    )
-  }
-
-  private def segment(id: Long, startNodeId: Long, endNodeId: Long): MonitorRouteSegment = {
-    MonitorRouteSegment(
-      id,
-      startNodeId,
-      endNodeId,
-      0,
-      Bounds(),
-      ""
     )
   }
 }

@@ -3,18 +3,28 @@ package kpn.server.api.monitor.route
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
+import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
+import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteReference
+import org.scalatest.BeforeAndAfterEach
 
 import scala.xml.XML
 
-class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects {
+class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  override def afterEach(): Unit = {
+    Time.clear()
+  }
 
   test("add non-super route with single gpx reference") {
 
@@ -39,45 +49,51 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects {
         referenceFileChanged = false,
       )
 
+      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val addSaveResult = config.monitorUpdater.add("user", group.name, properties)
       addSaveResult should equal(MonitorRouteSaveResult())
 
       val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.groupId should equal(group._id)
-      route.name should equal("route-name")
-      route.description should equal("route-description")
-      route.comment should equal(Some("route-comment"))
-      route.relationId should equal(Some(1L))
-      route.user should equal("user")
-      route.referenceType should equal("gpx")
-      route.referenceDay should equal(None)
-      route.referenceFilename should equal(None)
-      route.referenceDistance should equal(0)
-      route.deviationDistance should equal(0)
-      route.deviationCount should equal(0)
-      route.osmWayCount should equal(0)
-      route.osmDistance should equal(0)
-      route.osmSegmentCount should equal(0)
-      route.happy should equal(false)
+      route.shouldMatchTo(
+        MonitorRoute(
+          route._id,
+          groupId = group._id,
+          name = "route-name",
+          description = "route-description",
+          comment = Some("route-comment"),
+          relationId = Some(1L),
+          user = "user",
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          referenceType = "gpx",
+          referenceDay = None,
+          referenceFilename = None,
+          referenceDistance = 0L,
+          deviationDistance = 0L,
+          deviationCount = 0L,
+          osmWayCount = 0L,
+          osmDistance = 0L,
+          osmSegmentCount = 0L,
+          happy = false,
+          superRouteOsmSegments = Seq.empty, // TODO ???
+          relation = Some(
+            MonitorRouteRelation(
+              relationId = 1L,
+              name = "route-name",
+              role = None,
+              survey = None,
+              deviationDistance = 0L,
+              deviationCount = 0L,
+              osmWayCount = 0L,
+              osmDistance = 0L,
+              osmSegmentCount = 0L,
+              happy = false,
+              relations = Seq.empty
+            )
+          )
+        )
+      )
 
-      route.relation match {
-        case None => fail("MonitorRouteRelation not found")
-        case Some(monitorRouteRelation) =>
-          monitorRouteRelation.relations.size should equal(0)
-          monitorRouteRelation.relationId should equal(1L)
-          monitorRouteRelation.name should equal("route-name")
-          monitorRouteRelation.role should equal(None)
-          monitorRouteRelation.survey should equal(None)
-          monitorRouteRelation.deviationDistance should equal(0)
-          monitorRouteRelation.deviationCount should equal(0)
-          monitorRouteRelation.osmWayCount should equal(0)
-          monitorRouteRelation.osmDistance should equal(0)
-          monitorRouteRelation.osmSegmentCount should equal(0)
-          monitorRouteRelation.happy should equal(false)
-          monitorRouteRelation.relations.size should equal(0)
-      }
-
-      // TODO verify that reference does not exist in the database yet?
+      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
 
       val xml1 = XML.loadString(
         """
@@ -92,13 +108,14 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects {
           |""".stripMargin
       )
 
+      Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
       val uploadSaveResult = config.monitorUpdater.upload(
-        "user",
+        "user2",
         group.name,
         route.name,
         1L,
-        Day(2022, 12, 1),
-        "filename-1",
+        Day(2022, 8, 1),
+        "filename",
         xml1
       )
 
@@ -108,25 +125,54 @@ class MonitorUpdaterTest04 extends UnitTest with SharedTestObjects {
         )
       )
 
-      val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route-name").get
-
-      updatedRoute.referenceDay should equal(Some(Day(2022, 12, 1)))
-      updatedRoute.referenceFilename should equal(Some("filename-1"))
-      updatedRoute.referenceDistance should equal(196L)
-      updatedRoute.deviationDistance should equal(0L)
-      updatedRoute.deviationCount should equal(0L)
-      updatedRoute.osmWayCount should equal(1L)
-      updatedRoute.osmDistance should equal(196L)
-      updatedRoute.osmSegmentCount should equal(1L)
-      updatedRoute.happy should equal(true)
+      config.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
+        Some(
+          route.copy(
+            referenceDay = Some(Day(2022, 8, 1)),
+            referenceFilename = Some("filename"),
+            referenceDistance = 196L,
+            deviationDistance = 0L,
+            deviationCount = 0L,
+            osmWayCount = 1L,
+            osmDistance = 196L,
+            osmSegmentCount = 1L,
+            happy = true,
+            relation = Some(
+              MonitorRouteRelation(
+                relationId = 1L,
+                name = "route-name",
+                role = None,
+                survey = None,
+                deviationDistance = 0L,
+                deviationCount = 0L,
+                osmWayCount = 1L,
+                osmDistance = 196L,
+                osmSegmentCount = 1L,
+                happy = true,
+                relations = Seq.empty
+              )
+            )
+          )
+        )
+      )
 
       val reference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
-      reference.routeId should equal(route._id)
-      reference.relationId should equal(Some(1L))
-      reference.distance should equal(196L)
-      reference.bounds should equal(Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458))
-      reference.segmentCount should equal(1)
-      reference.geometry should equal("""{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}""")
+      reference.shouldMatchTo(
+        MonitorRouteReference(
+          reference._id,
+          routeId = route._id,
+          relationId = Some(1L),
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+          user = "user2",
+          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          referenceType = "gpx",
+          referenceDay = Day(2022, 8, 1),
+          distance = 196L,
+          segmentCount = 1L,
+          filename = Some("filename"),
+          geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+        )
+      )
     }
   }
 

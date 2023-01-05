@@ -3,6 +3,7 @@ package kpn.server.repository
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.server.api.monitor.domain.MonitorGroupRouteCount
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteChange
@@ -48,6 +49,8 @@ trait MonitorRouteRepository {
   def routeStateSize(routeId: ObjectId): Long
 
   def routeStateInfos(routeId: ObjectId): Seq[MonitorRouteStateInfo]
+
+  def routeStateSegments(routeId: ObjectId): Seq[MonitorRouteSegmentInfo]
 
   def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference]
 

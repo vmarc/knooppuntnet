@@ -1,6 +1,7 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.server.analyzer.engine.monitor.tryout.MonitorRouteSuperSegmentBuilder
 import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
@@ -57,6 +58,7 @@ class MonitorUpdateSaverImpl(
     if (context.newStates.nonEmpty) {
 
       if (context.route.isSuperRoute) {
+
         monitorRouteRepository.superRouteStateSummary(context.routeId) match {
           case None => // cannot do update
           case Some(monitorRouteStateSummary) =>
@@ -74,6 +76,19 @@ class MonitorUpdateSaverImpl(
               newRoute = Some(updatedRoute)
             )
         }
+
+        val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.routeId)
+        val superRouteSuperSegments = MonitorRouteSuperSegmentBuilder.build(monitorRouteSegmentInfos)
+        val happy = superRouteSuperSegments.size == 1 && context.newRoute.map(_.deviationCount).sum == 0
+
+        val updatedRoute = context.route.copy(
+          superRouteOsmSegments = superRouteSuperSegments,
+          osmSegmentCount = superRouteSuperSegments.size,
+          happy = happy
+        )
+        context = context.copy(
+          newRoute = Some(updatedRoute)
+        )
       }
       else {
         // TODO at this point there should not be an empty oldRoute.relation!!

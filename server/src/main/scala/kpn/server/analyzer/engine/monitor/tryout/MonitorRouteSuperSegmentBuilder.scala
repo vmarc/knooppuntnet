@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.monitor.tryout
 
-import kpn.server.analyzer.engine.monitor.domain.MonitorRouteRelationSegment
+import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.server.analyzer.engine.monitor.domain.SuperSegment
 import kpn.server.analyzer.engine.monitor.domain.SuperSegmentElement
 import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
@@ -9,7 +9,7 @@ import kpn.server.api.monitor.domain.MonitorRouteSuperSegmentElement
 import scala.annotation.tailrec
 
 object MonitorRouteSuperSegmentBuilder {
-  def build(segments: Seq[MonitorRouteRelationSegment]): Seq[MonitorRouteSuperSegment] = {
+  def build(segments: Seq[MonitorRouteSegmentInfo]): Seq[MonitorRouteSuperSegment] = {
     val segmentMap = segments.map(s => s.id -> s).toMap
     val segmentIds = segments.map(_.id)
     val superSegments = new MonitorRouteSuperSegmentBuilder(segmentMap).build(segmentIds)
@@ -18,7 +18,9 @@ object MonitorRouteSuperSegmentBuilder {
         superSegment.segments.map { element =>
           MonitorRouteSuperSegmentElement(
             element.relationSegment.relationId,
-            element.relationSegment.segment.id,
+            element.relationSegment.osmSegmentId,
+            element.relationSegment.meters,
+            element.relationSegment.bounds,
             element.reversed
           )
         }
@@ -27,12 +29,12 @@ object MonitorRouteSuperSegmentBuilder {
   }
 }
 
-class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelationSegment]) {
+class MonitorRouteSuperSegmentBuilder(segmentMap: Map[Long, MonitorRouteSegmentInfo]) {
 
   private val traceEnabled = false
   private val trace = new StringBuilder()
 
-  def build(availableSegmentIds: Seq[String]): Seq[SuperSegment] = {
+  def build(availableSegmentIds: Seq[Long]): Seq[SuperSegment] = {
     val result = findSuperSegments(Seq.empty, availableSegmentIds)
     if (traceEnabled) {
       println(trace.toString())
@@ -43,7 +45,7 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelati
   @tailrec
   private def findSuperSegments(
     foundSuperSegments: Seq[SuperSegment],
-    availableSegmentIds: Seq[String]
+    availableSegmentIds: Seq[Long]
   ): Seq[SuperSegment] = {
 
     if (traceEnabled) {
@@ -93,7 +95,7 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelati
   private def findSuperSegmentElements(
     level: Int,
     foundSuperSegmentElements: Seq[SuperSegmentElement],
-    availableSegmentIds: Seq[String],
+    availableSegmentIds: Seq[Long],
     nodeId: Long // starting point for finding further super segment elements
   ): Seq[SuperSegmentElement] = {
 
@@ -129,7 +131,7 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelati
       val maxFragments = 5 //if (optimize) 5 else 1
       val segments = connectableSegmentIds.take(maxFragments).map { segmentId =>
         val relationSegment = segmentMap(segmentId)
-        val reversed = nodeId == relationSegment.segment.endNodeId
+        val reversed = nodeId == relationSegment.endNodeId
         val segmentElement = SuperSegmentElement(relationSegment, reversed)
         val newSegmentElements = foundSuperSegmentElements :+ segmentElement
         val remainingElements = availableSegmentIds.filterNot(_ == segmentId)
@@ -148,36 +150,36 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelati
   }
 
   private def stillAvailableSegmentIds(
-    availableSegmentIds: Seq[String],
+    availableSegmentIds: Seq[Long],
     superSegmentElements: Seq[SuperSegmentElement]
-  ): Seq[String] = {
+  ): Seq[Long] = {
     val usedSegmentIds = superSegmentElements.map(_.relationSegment.id).toSet
     availableSegmentIds.filterNot(usedSegmentIds.contains)
   }
 
   private def length(elements: Seq[SuperSegmentElement]): Long = {
-    elements.map(_.relationSegment.segment.meters).sum
+    elements.map(_.relationSegment.meters).sum
   }
 
   private def reverse(elments: Seq[SuperSegmentElement]): Seq[SuperSegmentElement] = {
     elments.reverse.map(sf => SuperSegmentElement(sf.relationSegment, !sf.reversed))
   }
 
-  private def canConnect(level: Int, visitedNodeIds: Seq[Long], nodeId: Long, segmentId: String): Boolean = {
+  private def canConnect(level: Int, visitedNodeIds: Seq[Long], nodeId: Long, segmentId: Long): Boolean = {
     val relationSegment = segmentMap(segmentId)
     val startNodeId = relationSegment.startNodeId
     val endNodeId = relationSegment.endNodeId
     val result = nodeId == startNodeId && (!visitedNodeIds.contains(endNodeId)) ||
       nodeId == endNodeId && (!visitedNodeIds.contains(startNodeId))
     if (traceEnabled) {
-      trace.append(s"${indent(level)}  canConnect(nodeId=$nodeId, segmentId=${segmentId}, start=$startNodeId, end=$endNodeId, result=$result)\n")
+      trace.append(s"${indent(level)}  canConnect(nodeId=$nodeId, segmentId=$segmentId, start=$startNodeId, end=$endNodeId, result=$result)\n")
     }
     result
   }
 
   private def contextFindSuperSegments(
     foundSuperSegments: Seq[SuperSegment],
-    availableSegmentIds: Seq[String]
+    availableSegmentIds: Seq[Long]
   ): String = {
 
     val availableSegmentIdsString = availableSegmentIds.mkString(", ")
@@ -200,7 +202,7 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelati
   private def contextFindSegmentElements(
     level: Int,
     foundSuperSegmentElements: Seq[SuperSegmentElement],
-    availableSegmentIds: Seq[String],
+    availableSegmentIds: Seq[Long],
     nodeId: Long
   ): String = {
 
@@ -225,7 +227,7 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[String, MonitorRouteRelati
     val start = segment.startNodeId
     val end = segment.endNodeId
     val reversed = segment.reversed
-    s"segment(id=$id, start=$start, end=$end, reversed=$reversed)"
+    s"segment(id=$id, relationId=$relationId, start=$start, end=$end, reversed=$reversed)"
   }
 
   private def indent(level: Int): String = {
