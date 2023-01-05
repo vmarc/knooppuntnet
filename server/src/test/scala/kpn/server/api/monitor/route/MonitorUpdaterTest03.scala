@@ -1,5 +1,6 @@
 package kpn.server.api.monitor.route
 
+import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
@@ -13,6 +14,8 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
+import kpn.server.api.monitor.domain.MonitorRouteSuperSegmentElement
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
@@ -39,7 +42,7 @@ class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedT
         "route-name",
         "route-description",
         Some("route-comment"),
-        Some(1L),
+        Some(1),
         "osm",
         Some(referenceDay),
         None,
@@ -57,56 +60,75 @@ class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedT
           name = "route-name",
           description = "route-description",
           comment = Some("route-comment"),
-          relationId = Some(1L),
+          relationId = Some(1),
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "osm",
           referenceDay = Some(referenceDay),
           referenceFilename = None,
-          referenceDistance = 335L,
-          deviationDistance = 0L,
-          deviationCount = 0L,
-          osmWayCount = 2L,
-          osmDistance = 335L,
-          osmSegmentCount = 0, // TODO not implemented yet??
-          happy = false, // TODO needs osmSegmentCount
-          superRouteOsmSegments = Seq.empty, // TODO ???
+          referenceDistance = 335,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 2,
+          osmDistance = 335,
+          osmSegmentCount = 1,
+          happy = true,
+          superRouteOsmSegments = Seq(
+            MonitorRouteSuperSegment(
+              Seq(
+                MonitorRouteSuperSegmentElement(
+                  relationId = 12,
+                  segmentId = 0,
+                  meters = 0,
+                  bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
+                  reversed = false
+                ),
+                MonitorRouteSuperSegmentElement(
+                  relationId = 11,
+                  segmentId = 0,
+                  meters = 0,
+                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                  reversed = false
+                )
+              )
+            )
+          ),
           relation = Some(
             MonitorRouteRelation(
-              relationId = 1L,
+              relationId = 1,
               name = "main-relation",
               role = None,
               survey = None,
-              deviationDistance = 0L,
-              deviationCount = 0L,
-              osmWayCount = 0L,
-              osmDistance = 0L,
-              osmSegmentCount = 0L,
+              deviationDistance = 0,
+              deviationCount = 0,
+              osmWayCount = 0,
+              osmDistance = 0,
+              osmSegmentCount = 0,
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(
-                  relationId = 11L,
+                  relationId = 11,
                   name = "sub-relation-1",
                   role = None,
                   survey = None,
-                  deviationDistance = 0L,
-                  deviationCount = 0L,
-                  osmWayCount = 1L,
-                  osmDistance = 196L,
-                  osmSegmentCount = 1L,
+                  deviationDistance = 0,
+                  deviationCount = 0,
+                  osmWayCount = 1,
+                  osmDistance = 196,
+                  osmSegmentCount = 1,
                   happy = true,
                   relations = Seq.empty
                 ),
                 MonitorRouteRelation(
-                  relationId = 12L,
+                  relationId = 12,
                   name = "sub-relation-2",
                   role = None,
                   survey = None,
-                  deviationDistance = 0L,
-                  deviationCount = 0L,
-                  osmWayCount = 1L,
-                  osmDistance = 139L,
-                  osmSegmentCount = 1L,
+                  deviationDistance = 0,
+                  deviationCount = 0,
+                  osmWayCount = 1,
+                  osmDistance = 139,
+                  osmSegmentCount = 1,
                   happy = true,
                   relations = Seq.empty
                 )
@@ -144,8 +166,8 @@ class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedT
         ),
       )
 
-    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
-    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
   }
 
   private def setupLoadTopLevel(config: MonitorUpdaterConfiguration, referenceDay: Day): Unit = {
@@ -176,13 +198,13 @@ class MonitorUpdaterTest03 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
     val data = new DataBuilder(overpassData.rawData).data
-    val subRelation1 = data.relations(11L)
-    val subRelation2 = data.relations(12L)
+    val subRelation1 = data.relations(11)
+    val subRelation2 = data.relations(12)
 
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 11L).returns(Some(subRelation1))
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 12L).returns(Some(subRelation2))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 11).returns(Some(subRelation1))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 12).returns(Some(subRelation2))
 
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
   }
 }

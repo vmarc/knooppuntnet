@@ -34,31 +34,31 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
         name = "route-name",
         description = "route-description",
         comment = Some("route-comment"),
-        relationId = Some(1L),
+        relationId = Some(1),
         user = "user1",
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
         referenceDay = Some(Day(2022, 8, 1)),
         referenceFilename = None,
-        referenceDistance = 196L,
-        deviationDistance = 0L,
-        deviationCount = 0L,
-        osmWayCount = 1L,
-        osmDistance = 196L,
-        osmSegmentCount = 1L,
+        referenceDistance = 196,
+        deviationDistance = 0,
+        deviationCount = 0,
+        osmWayCount = 1,
+        osmDistance = 196,
+        osmSegmentCount = 1,
         happy = true,
-        superRouteOsmSegments = Seq.empty, // TODO ???
+        superRouteOsmSegments = Seq.empty,
         relation = Some(
           MonitorRouteRelation(
-            relationId = 1L,
+            relationId = 1,
             name = "route-name",
             role = None,
             survey = None,
-            deviationDistance = 0L,
-            deviationCount = 0L,
-            osmWayCount = 1L,
-            osmDistance = 196L,
-            osmSegmentCount = 1L,
+            deviationDistance = 0,
+            deviationCount = 0,
+            osmWayCount = 1,
+            osmDistance = 196,
+            osmSegmentCount = 1,
             happy = true,
             relations = Seq.empty
           )
@@ -68,17 +68,17 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
       val state = MonitorRouteState(
         ObjectId(),
         routeId = route._id,
-        relationId = 1L,
+        relationId = 1,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-        wayCount = 1L,
-        osmDistance = 196L,
+        wayCount = 1,
+        osmDistance = 196,
         bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         osmSegments = Seq(
           MonitorRouteSegment(
-            1L,
-            1001L,
-            1002L,
-            196L,
+            1,
+            1001,
+            1002,
+            196,
             Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
             """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
           )
@@ -91,14 +91,14 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
       val reference = MonitorRouteReference(
         ObjectId(),
         routeId = route._id,
-        relationId = Some(1L),
+        relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user1",
         bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = "osm",
         referenceDay = Day(2022, 8, 1),
-        distance = 196L,
-        segmentCount = 1L,
+        distance = 196,
+        segmentCount = 1,
         filename = None,
         geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
       )
@@ -113,7 +113,7 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
         name = "route-name-changed", // <-- changed
         description = "description-changed", // <-- changed
         comment = Some("comment-changed"), // <-- changed
-        relationId = Some(1L),
+        relationId = Some(1),
         referenceType = "osm",
         referenceDay = Some(Day(2022, 8, Some(1))),
         referenceFileChanged = false,
@@ -125,8 +125,8 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
       saveResult should equal(MonitorRouteSaveResult()) // not analyzed, no errors
 
       val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route-name-changed").get
-      val updatedState = config.monitorRouteRepository.routeState(route._id, 1L).get
-      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
+      val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
 
       updatedRoute.shouldMatchTo(
         route.copy(

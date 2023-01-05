@@ -16,6 +16,8 @@ import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.MonitorRouteReference
+import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
+import kpn.server.api.monitor.domain.MonitorRouteSuperSegmentElement
 import org.scalatest.BeforeAndAfterEach
 
 import scala.xml.Elem
@@ -43,7 +45,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         "route-name",
         "route-description",
         Some("route-comment"),
-        Some(1L),
+        Some(1),
         "multi-gpx",
         None,
         None,
@@ -62,56 +64,56 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
           name = "route-name",
           description = "route-description",
           comment = Some("route-comment"),
-          relationId = Some(1L),
+          relationId = Some(1),
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "multi-gpx",
           referenceDay = None,
-          referenceDistance = 0L,
+          referenceDistance = 0,
           referenceFilename = None,
-          deviationDistance = 0L,
-          deviationCount = 0L,
-          osmWayCount = 0L,
-          osmDistance = 0L,
-          osmSegmentCount = 0L,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 0,
+          osmDistance = 0,
+          osmSegmentCount = 0,
           happy = false,
-          superRouteOsmSegments = Seq.empty, // TODO ???
+          superRouteOsmSegments = Seq.empty,
           relation = Some(
             MonitorRouteRelation(
-              relationId = 1L,
+              relationId = 1,
               name = "main-relation",
               role = None,
               survey = None,
-              deviationDistance = 0L,
-              deviationCount = 0L,
-              osmWayCount = 0L,
-              osmDistance = 0L,
-              osmSegmentCount = 0L,
+              deviationDistance = 0,
+              deviationCount = 0,
+              osmWayCount = 0,
+              osmDistance = 0,
+              osmSegmentCount = 0,
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(
-                  relationId = 11L,
+                  relationId = 11,
                   name = "sub-relation-1",
                   role = None,
                   survey = None,
-                  deviationDistance = 0L,
-                  deviationCount = 0L,
-                  osmWayCount = 0L,
-                  osmDistance = 0L,
-                  osmSegmentCount = 0L,
+                  deviationDistance = 0,
+                  deviationCount = 0,
+                  osmWayCount = 0,
+                  osmDistance = 0,
+                  osmSegmentCount = 0,
                   happy = false,
                   relations = Seq.empty
                 ),
                 MonitorRouteRelation(
-                  relationId = 12L,
+                  relationId = 12,
                   name = "sub-relation-2",
                   role = None,
                   survey = None,
-                  deviationDistance = 0L,
-                  deviationCount = 0L,
-                  osmWayCount = 0L,
-                  osmDistance = 0L,
-                  osmSegmentCount = 0L,
+                  deviationDistance = 0,
+                  deviationCount = 0,
+                  osmWayCount = 0,
+                  osmDistance = 0,
+                  osmSegmentCount = 0,
                   happy = false,
                   relations = Seq.empty
                 )
@@ -121,9 +123,9 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 11L) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 12L) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
 
       val xml1 = XML.loadString(
         """
@@ -143,7 +145,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         "user",
         group.name,
         route.name,
-        11L,
+        11,
         Day(2022, 8, 1),
         "filename-1",
         xml1
@@ -160,20 +162,33 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         route.copy(
           referenceDay = None,
           referenceFilename = None,
-          referenceDistance = 196L,
-          deviationDistance = 0L,
-          deviationCount = 0L,
-          osmWayCount = 1L,
-          osmDistance = 196L,
-          osmSegmentCount = 0L, // TODO overall osmSegmentCount still needs to be determined!
-          happy = false, // TODO happy cannot be determined until osmSegmentCount is calculated
+          referenceDistance = 196,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 1,
+          osmDistance = 196,
+          osmSegmentCount = 1,
+          happy = true,
+          superRouteOsmSegments = Seq(
+            MonitorRouteSuperSegment(
+              Seq(
+                MonitorRouteSuperSegmentElement(
+                  relationId = 11,
+                  segmentId = 0,
+                  meters = 0,
+                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                  reversed = false
+                )
+              )
+            )
+          ),
           relation = route.relation.map { relation =>
             relation.copy(
               relations = Seq(
                 relation.relations.head.copy(
-                  osmWayCount = 1L,
-                  osmDistance = 196L,
-                  osmSegmentCount = 1L,
+                  osmWayCount = 1,
+                  osmDistance = 196,
+                  osmSegmentCount = 1,
                   happy = true,
                 ),
                 relation.relations(1)
@@ -183,26 +198,26 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val reference1 = config.monitorRouteRepository.routeRelationReference(route._id, 11L).get
+      val reference1 = config.monitorRouteRepository.routeRelationReference(route._id, 11).get
       reference1.shouldMatchTo(
         MonitorRouteReference(
           reference1._id,
           routeId = route._id,
-          relationId = Some(11L),
+          relationId = Some(11),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx", // TODO should be "multi-gpx" ???
           referenceDay = Day(2022, 8, 1),
-          distance = 196L,
-          segmentCount = 1L,
+          distance = 196,
+          segmentCount = 1,
           filename = Some("filename-1"),
           geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 12L) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
 
       val xml2: Elem = XML.loadString(
         """
@@ -222,7 +237,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         "user",
         group.name,
         route.name,
-        12L,
+        12,
         Day(2022, 8, 2),
         "filename-2",
         xml2
@@ -239,26 +254,46 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         route.copy(
           referenceDay = None,
           referenceFilename = None,
-          referenceDistance = 335L,
-          deviationDistance = 0L,
-          deviationCount = 0L,
-          osmWayCount = 2L,
-          osmDistance = 335L,
-          osmSegmentCount = 0L, // TODO overall osmSegmentCount still needs to be determined!
-          happy = false, // TODO happy cannot be determined until osmSegmentCount is calculated
+          referenceDistance = 335,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 2,
+          osmDistance = 335,
+          osmSegmentCount = 1,
+          happy = true,
+          superRouteOsmSegments = Seq(
+            MonitorRouteSuperSegment(
+              Seq(
+                MonitorRouteSuperSegmentElement(
+                  relationId = 12,
+                  segmentId = 0,
+                  meters = 0,
+                  bounds = Bounds(51.4614496,4.455056,51.4618272,4.4562458),
+                  reversed = false
+                ),
+                MonitorRouteSuperSegmentElement(
+                  relationId = 11,
+                  segmentId = 0,
+                  meters = 0,
+                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                  reversed = false
+                )
+              )
+            )
+          ),
           relation = route.relation.map { relation =>
             relation.copy(
               relations = Seq(
                 relation.relations.head.copy(
-                  osmWayCount = 1L,
-                  osmDistance = 196L,
-                  osmSegmentCount = 1L,
+                  osmWayCount = 1,
+                  osmDistance = 196,
+                  osmSegmentCount = 1,
                   happy = true,
                 ),
                 relation.relations(1).copy(
-                  osmWayCount = 1L,
-                  osmDistance = 139L,
-                  osmSegmentCount = 1L,
+                  osmWayCount = 1,
+                  osmDistance = 139,
+                  osmSegmentCount = 1,
                   happy = true,
                 )
               )
@@ -267,21 +302,21 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 11L).shouldMatchTo(Some(reference1))
+      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 11).shouldMatchTo(Some(reference1))
 
-      val reference2 = config.monitorRouteRepository.routeRelationReference(route._id, 12L).get
+      val reference2 = config.monitorRouteRepository.routeRelationReference(route._id, 12).get
       reference2.shouldMatchTo(
         MonitorRouteReference(
           reference2._id,
           routeId = route._id,
-          relationId = Some(12L),
+          relationId = Some(12),
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "gpx", // TODO should be "multi-gpx" ???
           referenceDay = Day(2022, 8, 2),
-          distance = 139L,
+          distance = 139,
           segmentCount = 1,
           filename = Some("filename-2"),
           geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
@@ -316,8 +351,8 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         ),
       )
 
-    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
-    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
   }
 
   private def setupLoadTopLevel(config: MonitorUpdaterConfiguration): Unit = {
@@ -348,10 +383,10 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
     val data = new DataBuilder(overpassData.rawData).data
-    val subRelation1 = data.relations(11L)
-    val subRelation2 = data.relations(12L)
+    val subRelation1 = data.relations(11)
+    val subRelation2 = data.relations(12)
 
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11L).returns(Some(subRelation1))
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12L).returns(Some(subRelation2))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
   }
 }

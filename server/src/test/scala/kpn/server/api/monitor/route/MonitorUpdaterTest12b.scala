@@ -27,7 +27,7 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
       val route = newMonitorRoute(
         group1._id,
         name = "route",
-        relationId = Some(1L),
+        relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
         referenceDay = Some(Day(2022, 8, Some(1))),
@@ -35,7 +35,7 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
       )
       val state = newMonitorRouteState(
         routeId = route._id,
-        relationId = 1L,
+        relationId = 1,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
       )
       val reference = newMonitorRouteReference(
@@ -56,7 +56,7 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
         name = "route",
         description = "",
         comment = None,
-        relationId = Some(1L),
+        relationId = Some(1),
         referenceType = "osm",
         referenceDay = Some(Day(2022, 8, Some(11))),
         referenceFilename = None,
@@ -73,8 +73,8 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
       )
 
       val updatedRoute = config.monitorRouteRepository.routeByName(group1._id, "route").get
-      val updatedState = config.monitorRouteRepository.routeState(route._id, 1L).get
-      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
+      val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
 
       updatedRoute should equal(route)
       updatedState should equal(state)

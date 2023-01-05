@@ -42,7 +42,7 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
         "route-name",
         "route-description",
         Some("route-comment"),
-        Some(1L),
+        Some(1),
         "gpx",
         None,
         None,
@@ -61,31 +61,31 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
           name = "route-name",
           description = "route-description",
           comment = Some("route-comment"),
-          relationId = Some(1L),
+          relationId = Some(1),
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "gpx",
           referenceDay = None,
           referenceFilename = None,
-          referenceDistance = 0L,
-          deviationDistance = 0L,
-          deviationCount = 0L,
-          osmWayCount = 0L,
-          osmDistance = 0L,
-          osmSegmentCount = 0L,
+          referenceDistance = 0,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 0,
+          osmDistance = 0,
+          osmSegmentCount = 0,
           happy = false,
-          superRouteOsmSegments = Seq.empty, // TODO ???
+          superRouteOsmSegments = Seq.empty,
           relation = Some(
             MonitorRouteRelation(
-              relationId = 1L,
+              relationId = 1,
               name = "route-name",
               role = None,
               survey = None,
-              deviationDistance = 0L,
-              deviationCount = 0L,
-              osmWayCount = 0L,
-              osmDistance = 0L,
-              osmSegmentCount = 0L,
+              deviationDistance = 0,
+              deviationCount = 0,
+              osmWayCount = 0,
+              osmDistance = 0,
+              osmSegmentCount = 0,
               happy = false,
               relations = Seq.empty
             )
@@ -93,7 +93,7 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
 
       val xml1 = XML.loadString(
         """
@@ -113,7 +113,7 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
         "user2",
         group.name,
         route.name,
-        1L,
+        1,
         Day(2022, 8, 1),
         "filename",
         xml1
@@ -130,24 +130,24 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
           route.copy(
             referenceDay = Some(Day(2022, 8, 1)),
             referenceFilename = Some("filename"),
-            referenceDistance = 196L,
-            deviationDistance = 0L,
-            deviationCount = 0L,
-            osmWayCount = 1L,
-            osmDistance = 196L,
-            osmSegmentCount = 1L,
+            referenceDistance = 196,
+            deviationDistance = 0,
+            deviationCount = 0,
+            osmWayCount = 1,
+            osmDistance = 196,
+            osmSegmentCount = 1,
             happy = true,
             relation = Some(
               MonitorRouteRelation(
-                relationId = 1L,
+                relationId = 1,
                 name = "route-name",
                 role = None,
                 survey = None,
-                deviationDistance = 0L,
-                deviationCount = 0L,
-                osmWayCount = 1L,
-                osmDistance = 196L,
-                osmSegmentCount = 1L,
+                deviationDistance = 0,
+                deviationCount = 0,
+                osmWayCount = 1,
+                osmDistance = 196,
+                osmSegmentCount = 1,
                 happy = true,
                 relations = Seq.empty
               )
@@ -156,19 +156,19 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val reference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
+      val reference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
       reference.shouldMatchTo(
         MonitorRouteReference(
           reference._id,
           routeId = route._id,
-          relationId = Some(1L),
+          relationId = Some(1),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user2",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx",
           referenceDay = Day(2022, 8, 1),
-          distance = 196L,
-          segmentCount = 1L,
+          distance = 196,
+          segmentCount = 1,
           filename = Some("filename"),
           geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
@@ -184,8 +184,8 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
           "name" -> "route-name"
         )
       )
-    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
-    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
   }
 
   private def setupLoadTopLevel(config: MonitorUpdaterConfiguration): Unit = {
@@ -204,7 +204,7 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1L)
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(relation))
+    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
   }
 }

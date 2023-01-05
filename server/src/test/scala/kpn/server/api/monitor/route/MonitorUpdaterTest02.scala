@@ -66,20 +66,20 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
           referenceType = "osm",
           referenceDay = Some(Day(2022, 8, 1)),
           referenceFilename = None,
-          referenceDistance = 0L,
-          deviationDistance = 0L,
-          deviationCount = 0L,
-          osmWayCount = 0L,
-          osmDistance = 0L,
-          osmSegmentCount = 0L,
+          referenceDistance = 0,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 0,
+          osmDistance = 0,
+          osmSegmentCount = 0,
           happy = false,
-          superRouteOsmSegments = Seq.empty, // TODO ???
+          superRouteOsmSegments = Seq.empty,
           relation = None // route structure not known yet
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1L) should equal(None)
-      config.monitorRouteRepository.routeState(route._id, 1L) should equal(None)
+      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      config.monitorRouteRepository.routeState(route._id, 1) should equal(None)
 
       setupLoadStructure(config)
       setupLoadTopLevel(config)
@@ -105,31 +105,31 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
             name = "route-name",
             description = "",
             comment = None,
-            relationId = Some(1L), // relationId filled in
+            relationId = Some(1), // relationId filled in
             user = "user",
             timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
             referenceType = "osm",
             referenceDay = Some(Day(2022, 8, 1)),
             referenceFilename = None,
-            referenceDistance = 196L,
-            deviationDistance = 0L,
-            deviationCount = 0L,
-            osmWayCount = 1L,
-            osmDistance = 196L,
-            osmSegmentCount = 1L,
+            referenceDistance = 196,
+            deviationDistance = 0,
+            deviationCount = 0,
+            osmWayCount = 1,
+            osmDistance = 196,
+            osmSegmentCount = 1,
             happy = true,
-            superRouteOsmSegments = Seq.empty, // TODO ???
+            superRouteOsmSegments = Seq.empty,
             relation = Some(
               MonitorRouteRelation(
-                relationId = 1L,
+                relationId = 1,
                 name = "route-name",
                 role = None,
                 survey = None,
-                deviationDistance = 0L,
-                deviationCount = 0L,
-                osmWayCount = 1L,
-                osmDistance = 196L,
-                osmSegmentCount = 1L,
+                deviationDistance = 0,
+                deviationCount = 0,
+                osmWayCount = 1,
+                osmDistance = 196,
+                osmSegmentCount = 1,
                 happy = true,
                 relations = Seq.empty
               )
@@ -138,40 +138,40 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val reference = config.monitorRouteRepository.routeRelationReference(route._id, 1L).get
+      val reference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
       reference.shouldMatchTo(
         MonitorRouteReference(
           reference._id,
           routeId = route._id,
-          relationId = Some(1L),
+          relationId = Some(1),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
           referenceDay = Day(2022, 8, 1),
-          distance = 196L,
-          segmentCount = 1L,
+          distance = 196,
+          segmentCount = 1,
           filename = None,
           geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
         )
       )
 
-      val state = config.monitorRouteRepository.routeState(route._id, 1L).get
+      val state = config.monitorRouteRepository.routeState(route._id, 1).get
       state.shouldMatchTo(
         MonitorRouteState(
           state._id,
           routeId = route._id,
-          relationId = 1L,
+          relationId = 1,
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-          wayCount = 1L,
-          osmDistance = 196L,
+          wayCount = 1,
+          osmDistance = 196,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
-              1L,
-              1001L,
-              1002L,
-              196L,
+              1,
+              1001,
+              1002,
+              196,
               Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )
@@ -194,8 +194,8 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
         ),
       )
 
-    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1L)
-    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1L).returns(Some(relation))
+    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
+    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
   }
 
   private def setupLoadTopLevel(config: MonitorUpdaterConfiguration): Unit = {
@@ -214,8 +214,8 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1L)
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1L).returns(Some(relation))
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 1)), 1L).returns(Some(relation))
+    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
+    (config.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 1)), 1).returns(Some(relation))
   }
 }
