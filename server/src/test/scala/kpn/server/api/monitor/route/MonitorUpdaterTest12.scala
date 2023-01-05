@@ -20,7 +20,7 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val group1 = newMonitorGroup("group1")
       val group2 = newMonitorGroup("group2")
@@ -39,10 +39,10 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
         referenceDay = Day(2022, 8, 11),
       )
 
-      config.monitorGroupRepository.saveGroup(group1)
-      config.monitorGroupRepository.saveGroup(group2)
-      config.monitorRouteRepository.saveRoute(route)
-      config.monitorRouteRepository.saveRouteReference(reference)
+      configuration.monitorGroupRepository.saveGroup(group1)
+      configuration.monitorGroupRepository.saveGroup(group2)
+      configuration.monitorRouteRepository.saveRoute(route)
+      configuration.monitorRouteRepository.saveRouteReference(reference)
 
       val properties = MonitorRouteProperties(
         groupName = group2.name, // <-- changed
@@ -57,12 +57,12 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2023, 1, 1))
-      val saveResult = config.monitorUpdater.update("user", "group1", "route", properties)
+      val saveResult = configuration.monitorUpdater.update("user", "group1", "route", properties)
 
       saveResult should equal(MonitorRouteSaveResult())
 
-      val updatedRoute = config.monitorRouteRepository.routeByName(group2._id, "route").get
-      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group2._id, "route").get
+      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
       // TODO val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
 
       updatedRoute.groupId should equal(group2._id)

@@ -32,7 +32,6 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
       segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
     }.filterNot(_.nodes.size == 1) // TODO investigate why segment with one node in route P-GR128
 
-
     val routeSegments = filteredSegments.zipWithIndex.map { case (segment, index) =>
 
       val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)

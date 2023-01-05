@@ -9,8 +9,11 @@ import kpn.server.api.monitor.domain.MonitorRoute
 import kpn.server.api.monitor.domain.OldMonitorRoute
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.include
+import org.mongodb.scala.model.Sorts.ascending
+import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
 
 @Component
@@ -61,6 +64,19 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
       equal("groupId", groupId.raw),
       log
     )
+  }
+
+  override def groupRouteIds(groupId: ObjectId): Seq[ObjectId] = {
+    val pipeline = Seq(
+      filter(
+        equal("groupId", groupId.raw)
+      ),
+      sort(orderBy(ascending("name"))),
+      project(
+        include("_id")
+      )
+    )
+    database.monitorRoutes.aggregate[ObjectIdId](pipeline, log).map(_._id)
   }
 
   override def oldGroupRoutes(groupId: ObjectId): Seq[OldMonitorRoute] = {

@@ -20,7 +20,7 @@ class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val group = newMonitorGroup("group")
       val route = newMonitorRoute(
@@ -44,10 +44,10 @@ class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedT
         timestamp = Timestamp(2022, 8, 11),
       )
 
-      config.monitorGroupRepository.saveGroup(group)
-      config.monitorRouteRepository.saveRoute(route)
-      config.monitorRouteRepository.saveRouteReference(reference)
-      config.monitorRouteRepository.saveRouteState(state)
+      configuration.monitorGroupRepository.saveGroup(group)
+      configuration.monitorRouteRepository.saveRoute(route)
+      configuration.monitorRouteRepository.saveRouteReference(reference)
+      configuration.monitorRouteRepository.saveRouteState(state)
 
       val properties = MonitorRouteProperties(
         groupName = group.name,
@@ -62,13 +62,13 @@ class MonitorUpdaterTest10 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2023, 1, 1))
-      val saveResult = config.monitorUpdater.update("user", "group", "route", properties)
+      val saveResult = configuration.monitorUpdater.update("user", "group", "route", properties)
 
       saveResult should equal(MonitorRouteSaveResult())
 
-      val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route").get
-      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
-      val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
+      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
 
       updatedRoute should equal(route)
       updatedReference should equal(reference)

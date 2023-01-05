@@ -14,7 +14,7 @@ class MonitorUpdaterTest14 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val properties = MonitorRouteProperties(
         groupName = "unknown-group",
@@ -28,21 +28,21 @@ class MonitorUpdaterTest14 extends UnitTest with BeforeAndAfterEach with SharedT
         referenceFilename = None
       )
 
-      val saveResult1 = config.monitorUpdater.add("user", "unknown-group", properties)
+      val saveResult1 = configuration.monitorUpdater.add("user", "unknown-group", properties)
       saveResult1 should equal(
         MonitorRouteSaveResult(
           exception = Some("""Could not find group with name "unknown-group"""")
         )
       )
 
-      val saveResult2 = config.monitorUpdater.update("user", "unknown-group", "route-name", properties)
+      val saveResult2 = configuration.monitorUpdater.update("user", "unknown-group", "route-name", properties)
       saveResult2 should equal(
         MonitorRouteSaveResult(
           exception = Some("""Could not find group with name "unknown-group"""")
         )
       )
 
-      val saveResult3 = config.monitorUpdater.upload(
+      val saveResult3 = configuration.monitorUpdater.upload(
         "user",
         "unknown-group",
         "route-name",

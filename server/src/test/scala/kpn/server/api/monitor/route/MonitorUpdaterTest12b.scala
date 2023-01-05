@@ -20,7 +20,7 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val group1 = newMonitorGroup("group1")
 
@@ -46,10 +46,10 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
         referenceDay = Day(2022, 8, 1),
       )
 
-      config.monitorGroupRepository.saveGroup(group1)
-      config.monitorRouteRepository.saveRoute(route)
-      config.monitorRouteRepository.saveRouteState(state)
-      config.monitorRouteRepository.saveRouteReference(reference)
+      configuration.monitorGroupRepository.saveGroup(group1)
+      configuration.monitorRouteRepository.saveRoute(route)
+      configuration.monitorRouteRepository.saveRouteState(state)
+      configuration.monitorRouteRepository.saveRouteReference(reference)
 
       val properties = MonitorRouteProperties(
         groupName = "group2", // <-- changed, but there is no group2
@@ -64,7 +64,7 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
       )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val saveResult = config.monitorUpdater.update("user", "group1", "route", properties)
+      val saveResult = configuration.monitorUpdater.update("user", "group1", "route", properties)
 
       saveResult should equal(
         MonitorRouteSaveResult(
@@ -72,9 +72,9 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
         )
       )
 
-      val updatedRoute = config.monitorRouteRepository.routeByName(group1._id, "route").get
-      val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
-      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group1._id, "route").get
+      val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
 
       updatedRoute should equal(route)
       updatedState should equal(state)

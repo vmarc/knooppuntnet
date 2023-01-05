@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor.tryout
+package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.server.analyzer.engine.monitor.domain.SuperSegment
@@ -231,7 +231,7 @@ class MonitorRouteSuperSegmentBuilder(segmentMap: Map[Long, MonitorRouteSegmentI
   }
 
   private def indent(level: Int): String = {
-    0.to(level).map(i => "  ").mkString
+    0.to(level).map(_ => "  ").mkString
   }
 
 }

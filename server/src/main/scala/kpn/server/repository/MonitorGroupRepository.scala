@@ -19,5 +19,7 @@ trait MonitorGroupRepository {
 
   def groupRoutes(groupId: ObjectId): Seq[MonitorRoute]
 
+  def groupRouteIds(groupId: ObjectId): Seq[ObjectId]
+
   def oldGroupRoutes(groupId: ObjectId): Seq[OldMonitorRoute]
 }

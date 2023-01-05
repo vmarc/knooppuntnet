@@ -385,6 +385,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   }
 
   private def notFound[T](): ApiResponse[T] = {
-    throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND)
   }
 }

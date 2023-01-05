@@ -10,6 +10,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.OldMonitorRoute
 import kpn.server.api.monitor.domain.OldMonitorRouteReference
+import kpn.server.api.monitor.route.MonitorRouteRelationAnalyzerImpl
 import kpn.server.api.monitor.route.MonitorRouteRelationRepository
 import kpn.server.api.monitor.route.MonitorUpdateAnalyzerImpl
 import kpn.server.api.monitor.route.MonitorUpdateReferenceImpl
@@ -17,7 +18,6 @@ import kpn.server.api.monitor.route.MonitorUpdateRouteImpl
 import kpn.server.api.monitor.route.MonitorUpdateSaverImpl
 import kpn.server.api.monitor.route.MonitorUpdateStructureImpl
 import kpn.server.api.monitor.route.MonitorUpdaterImpl
-import kpn.server.api.monitor.route.MonitorRouteRelationAnalyzerImpl
 import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
 import org.mongodb.scala.MongoNamespace
@@ -129,9 +129,8 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
         configuration.monitorUpdater.add("user", group.name, properties)
 
         exampleSuperRoute.relations.foreach { superRouteRelation =>
-          superRouteRelation.relationId
-          superRouteRelation.referenceFilename
-
+          //  superRouteRelation.relationId
+          //  superRouteRelation.referenceFilename
         }
 
     }

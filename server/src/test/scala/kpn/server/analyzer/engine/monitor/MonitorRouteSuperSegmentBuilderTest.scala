@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor.tryout
+package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects

@@ -87,7 +87,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val group = newMonitorGroup("group", "")
+      val group = newMonitorGroup("group")
       val route = newMonitorRoute(group._id, "route", "description")
       val reference = newMonitorRouteReference(route._id)
       val state = newMonitorRouteState(route._id, 1L)
@@ -114,7 +114,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val group = newMonitorGroup("group", "")
+      val group = newMonitorGroup("group")
       val route = newMonitorRoute(
         group._id,
         "route",
@@ -157,7 +157,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val group = newMonitorGroup("group", "")
+      val group = newMonitorGroup("group")
       val route = newMonitorRoute(
         group._id,
         "route",
@@ -216,7 +216,7 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val group = newMonitorGroup("group", "")
+      val group = newMonitorGroup("group")
       val route = newMonitorRoute(
         group._id,
         "route",

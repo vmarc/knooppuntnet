@@ -74,9 +74,9 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val group = newMonitorGroup("group", "")
-      val route1 = newMonitorRoute(group._id, "route1", "")
-      val route2 = newMonitorRoute(group._id, "route2", "")
+      val group = newMonitorGroup("group")
+      val route1 = newMonitorRoute(group._id, "route1")
+      val route2 = newMonitorRoute(group._id, "route2")
       val reference1 = newMonitorRouteReference(route1._id)
       val reference2 = newMonitorRouteReference(route2._id)
       val state1 = newMonitorRouteState(route1._id, 1L)

@@ -33,12 +33,12 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
-      setupLoadStructure(config)
-      setupLoadTopLevel(config)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
+      setupLoadStructure(configuration)
+      setupLoadTopLevel(configuration)
 
       val group = newMonitorGroup("group")
-      config.monitorGroupRepository.saveGroup(group)
+      configuration.monitorGroupRepository.saveGroup(group)
 
       val properties = MonitorRouteProperties(
         group.name,
@@ -53,10 +53,10 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-      val saveResult = config.monitorUpdater.add("user", group.name, properties)
+      val saveResult = configuration.monitorUpdater.add("user", group.name, properties)
       saveResult should equal(MonitorRouteSaveResult())
 
-      val route = config.monitorRouteRepository.routeByName(group._id, "route-name").get
+      val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
         MonitorRoute(
           _id = route._id,
@@ -123,9 +123,9 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(None)
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
 
       val xml1 = XML.loadString(
         """
@@ -141,7 +141,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val uploadSaveResult1 = config.monitorUpdater.upload(
+      val uploadSaveResult1 = configuration.monitorUpdater.upload(
         "user",
         group.name,
         route.name,
@@ -157,7 +157,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val routeUpdated1 = config.monitorRouteRepository.routeByName(group._id, "route-name").get
+      val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated1.shouldMatchTo(
         route.copy(
           referenceDay = None,
@@ -198,7 +198,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val reference1 = config.monitorRouteRepository.routeRelationReference(route._id, 11).get
+      val reference1 = configuration.monitorRouteRepository.routeRelationReference(route._id, 11).get
       reference1.shouldMatchTo(
         MonitorRouteReference(
           reference1._id,
@@ -216,8 +216,8 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
 
       val xml2: Elem = XML.loadString(
         """
@@ -233,7 +233,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2022, 8, 13, 12, 0, 0))
-      val uploadSaveResult2 = config.monitorUpdater.upload(
+      val uploadSaveResult2 = configuration.monitorUpdater.upload(
         "user",
         group.name,
         route.name,
@@ -249,7 +249,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      val routeUpdated2 = config.monitorRouteRepository.routeByName(group._id, "route-name").get
+      val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated2.shouldMatchTo(
         route.copy(
           referenceDay = None,
@@ -302,10 +302,10 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
         )
       )
 
-      config.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      config.monitorRouteRepository.routeRelationReference(route._id, 11).shouldMatchTo(Some(reference1))
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeRelationReference(route._id, 11).shouldMatchTo(Some(reference1))
 
-      val reference2 = config.monitorRouteRepository.routeRelationReference(route._id, 12).get
+      val reference2 = configuration.monitorRouteRepository.routeRelationReference(route._id, 12).get
       reference2.shouldMatchTo(
         MonitorRouteReference(
           reference2._id,
@@ -325,7 +325,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
     }
   }
 
-  private def setupLoadStructure(config: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
 
     val overpassData = OverpassData()
       .relation(
@@ -352,10 +352,10 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
     val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
-    (config.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
   }
 
-  private def setupLoadTopLevel(config: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
 
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")
@@ -386,7 +386,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
     val subRelation1 = data.relations(11)
     val subRelation2 = data.relations(12)
 
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
-    (config.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
   }
 }

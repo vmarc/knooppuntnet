@@ -13,7 +13,7 @@ class MonitorUpdaterTest15 extends UnitTest with SharedTestObjects {
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val properties = MonitorRouteProperties(
         groupName = "group-name",
@@ -28,16 +28,16 @@ class MonitorUpdaterTest15 extends UnitTest with SharedTestObjects {
       )
 
       val group = newMonitorGroup("group-name")
-      config.monitorGroupRepository.saveGroup(group)
+      configuration.monitorGroupRepository.saveGroup(group)
 
-      val saveResult1 = config.monitorUpdater.update("user", "group-name", "unknown-route-name", properties)
+      val saveResult1 = configuration.monitorUpdater.update("user", "group-name", "unknown-route-name", properties)
       saveResult1 should equal(
         MonitorRouteSaveResult(
           exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
         )
       )
 
-      val saveResult2 = config.monitorUpdater.upload("user", "group-name", "unknown-route-name", 1, Day(2022, 8, 11), "filename", null)
+      val saveResult2 = configuration.monitorUpdater.upload("user", "group-name", "unknown-route-name", 1, Day(2022, 8, 11), "filename", null)
       saveResult2 should equal(
         MonitorRouteSaveResult(
           exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")

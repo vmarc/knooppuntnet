@@ -26,7 +26,7 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
   test("update name, description and comment (state and reference unchanged, no analysis)") {
 
     withDatabase() { database =>
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
       val group = newMonitorGroup("group")
       val route = MonitorRoute(
         ObjectId(),
@@ -103,10 +103,10 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
         geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
       )
 
-      config.monitorGroupRepository.saveGroup(group)
-      config.monitorRouteRepository.saveRoute(route)
-      config.monitorRouteRepository.saveRouteState(state)
-      config.monitorRouteRepository.saveRouteReference(reference)
+      configuration.monitorGroupRepository.saveGroup(group)
+      configuration.monitorRouteRepository.saveRoute(route)
+      configuration.monitorRouteRepository.saveRouteState(state)
+      configuration.monitorRouteRepository.saveRouteReference(reference)
 
       val properties = MonitorRouteProperties(
         groupName = group.name,
@@ -121,12 +121,12 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val saveResult = config.monitorUpdater.update("user2", group.name, route.name, properties)
+      val saveResult = configuration.monitorUpdater.update("user2", group.name, route.name, properties)
       saveResult should equal(MonitorRouteSaveResult()) // not analyzed, no errors
 
-      val updatedRoute = config.monitorRouteRepository.routeByName(group._id, "route-name-changed").get
-      val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
-      val updatedReference = config.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name-changed").get
+      val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
 
       updatedRoute.shouldMatchTo(
         route.copy(

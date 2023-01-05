@@ -8,7 +8,7 @@ import kpn.server.repository.MonitorRouteRepositoryImpl
 
 object MonitorRouteReportTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
+    Mongo.executeIn("kpn-prod") { database =>
       val groupRepository = new MonitorGroupRepositoryImpl(database)
       val routeRepository = new MonitorRouteRepositoryImpl(database)
       new MonitorRouteReportTool(groupRepository, routeRepository).report()

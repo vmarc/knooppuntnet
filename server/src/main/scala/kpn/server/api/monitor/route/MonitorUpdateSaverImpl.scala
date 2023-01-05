@@ -1,7 +1,7 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.server.analyzer.engine.monitor.tryout.MonitorRouteSuperSegmentBuilder
+import kpn.server.analyzer.engine.monitor.MonitorRouteSuperSegmentBuilder
 import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 

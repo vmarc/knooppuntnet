@@ -14,7 +14,7 @@ class MonitorUpdaterTest13 extends UnitTest with BeforeAndAfterEach with SharedT
 
     withDatabase() { database =>
 
-      val config = new MonitorUpdaterConfiguration(database)
+      val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val group = newMonitorGroup("group-name")
       val route = newMonitorRoute(
@@ -27,8 +27,8 @@ class MonitorUpdaterTest13 extends UnitTest with BeforeAndAfterEach with SharedT
         referenceFilename = None,
       )
 
-      config.monitorGroupRepository.saveGroup(group)
-      config.monitorRouteRepository.saveRoute(route)
+      configuration.monitorGroupRepository.saveGroup(group)
+      configuration.monitorRouteRepository.saveRoute(route)
 
       val properties = MonitorRouteProperties(
         groupName = "group-name",
@@ -42,7 +42,7 @@ class MonitorUpdaterTest13 extends UnitTest with BeforeAndAfterEach with SharedT
         referenceFilename = None
       )
 
-      val saveResult = config.monitorUpdater.add("user", "group-name", properties)
+      val saveResult = configuration.monitorUpdater.add("user", "group-name", properties)
       saveResult should equal(
         MonitorRouteSaveResult(
           exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")

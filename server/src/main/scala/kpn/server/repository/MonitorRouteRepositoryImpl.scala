@@ -192,27 +192,6 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteStates.aggregate[MonitorRouteCount](pipeline, log).map(_.count).sum
   }
 
-  override def routeStateInfos(routeId: ObjectId): Seq[MonitorRouteStateInfo] = {
-    val pipeline = Seq(
-      filter(
-        equal("routeId", routeId.raw),
-      ),
-      project(
-        fields(
-          include("timestamp"),
-        )
-      ),
-      sort(
-        orderBy(
-          descending(
-            "timestamp"
-          )
-        )
-      )
-    )
-    database.monitorRouteStates.aggregate[MonitorRouteStateInfo](pipeline, log)
-  }
-
   override def routeStateSegments(routeId: ObjectId): Seq[MonitorRouteSegmentInfo] = {
     val pipeline = Seq(
       filter(
