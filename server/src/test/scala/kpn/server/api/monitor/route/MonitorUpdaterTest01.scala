@@ -16,6 +16,8 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
@@ -78,8 +80,19 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
           osmWayCount = 1,
           osmDistance = 196,
           osmSegmentCount = 1,
-          happy = true,
-          superRouteOsmSegments = Seq.empty,
+          osmSegments = Seq(
+            MonitorRouteOsmSegment(
+              Seq(
+                MonitorRouteOsmSegmentElement(
+                  relationId = 1,
+                  segmentId = 1,
+                  meters = 196,
+                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                  reversed = false
+                )
+              )
+            )
+          ),
           relation = Some(
             MonitorRouteRelation(
               relationId = 1,
@@ -94,7 +107,8 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
               happy = true,
               relations = Seq.empty
             )
-          )
+          ),
+          happy = true
         )
       )
 
@@ -128,12 +142,12 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
-              1,
-              1001,
-              1002,
-              196,
-              Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-              """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+              id = 1,
+              startNodeId = 1001,
+              endNodeId = 1002,
+              meters = 196,
+              bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+              geoJson = """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )
           ),
           matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),

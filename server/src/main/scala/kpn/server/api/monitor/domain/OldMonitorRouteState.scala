@@ -20,5 +20,5 @@ case class OldMonitorRouteState(
   matchesGeometry: Option[String],
   deviations: Seq[MonitorRouteDeviation],
   happy: Boolean,
-  osmSuperSegments: Seq[MonitorRouteSuperSegment]
+  osmSuperSegments: Seq[MonitorRouteOsmSegment]
 ) extends WithObjectId

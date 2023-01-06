@@ -19,5 +19,4 @@ case class MonitorRouteState(
   matchesGeometry: Option[String],
   deviations: Seq[MonitorRouteDeviation],
   happy: Boolean,
-  // osmSuperSegments: Seq[MonitorRouteSuperSegment] // TODO move to MonitorRoute document
 ) extends WithObjectId

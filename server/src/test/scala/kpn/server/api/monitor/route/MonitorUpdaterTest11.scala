@@ -47,7 +47,7 @@ class MonitorUpdaterTest11 extends UnitTest with BeforeAndAfterEach with SharedT
         osmDistance = 196,
         osmSegmentCount = 1,
         happy = true,
-        superRouteOsmSegments = Seq.empty,
+        osmSegments = Seq.empty,
         relation = Some(
           MonitorRouteRelation(
             relationId = 1,

@@ -29,10 +29,9 @@ case class MonitorRoute(
   osmWayCount: Long,
   osmDistance: Long,
   osmSegmentCount: Long,
+  osmSegments: Seq[MonitorRouteOsmSegment],
+  relation: Option[MonitorRouteRelation],
   happy: Boolean,
-
-  superRouteOsmSegments: Seq[MonitorRouteSuperSegment],
-  relation: Option[MonitorRouteRelation]
 ) extends WithObjectId {
 
   def isSuperRoute: Boolean = relation match {

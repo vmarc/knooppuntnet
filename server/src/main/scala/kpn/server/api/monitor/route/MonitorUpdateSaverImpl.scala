@@ -1,7 +1,7 @@
 package kpn.server.api.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.server.analyzer.engine.monitor.MonitorRouteSuperSegmentBuilder
+import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
@@ -57,58 +57,36 @@ class MonitorUpdateSaverImpl(
 
     if (context.newStates.nonEmpty) {
 
-      if (context.route.isSuperRoute) {
+      monitorRouteRepository.superRouteStateSummary(context.routeId) match {
+        case None => // cannot do update
+        case Some(monitorRouteStateSummary) =>
 
-        monitorRouteRepository.superRouteStateSummary(context.routeId) match {
-          case None => // cannot do update
-          case Some(monitorRouteStateSummary) =>
+          val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(context, relation))
 
-            val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(context, relation))
-
-            val updatedRoute = context.route.copy(
-              deviationDistance = monitorRouteStateSummary.deviationDistance,
-              deviationCount = monitorRouteStateSummary.deviationCount,
-              osmWayCount = monitorRouteStateSummary.osmWayCount,
-              osmDistance = monitorRouteStateSummary.osmDistance,
-              relation = relation
-            )
-            context = context.copy(
-              newRoute = Some(updatedRoute)
-            )
-        }
-
-        val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.routeId)
-        val superRouteSuperSegments = MonitorRouteSuperSegmentBuilder.build(monitorRouteSegmentInfos)
-        val happy = superRouteSuperSegments.size == 1 && context.newRoute.map(_.deviationCount).sum == 0
-
-        val updatedRoute = context.route.copy(
-          superRouteOsmSegments = superRouteSuperSegments,
-          osmSegmentCount = superRouteSuperSegments.size,
-          happy = happy
-        )
-        context = context.copy(
-          newRoute = Some(updatedRoute)
-        )
+          val updatedRoute = context.route.copy(
+            deviationDistance = monitorRouteStateSummary.deviationDistance,
+            deviationCount = monitorRouteStateSummary.deviationCount,
+            osmWayCount = monitorRouteStateSummary.osmWayCount,
+            osmDistance = monitorRouteStateSummary.osmDistance,
+            relation = relation
+          )
+          context = context.copy(
+            newRoute = Some(updatedRoute)
+          )
       }
-      else {
-        // TODO at this point there should not be an empty oldRoute.relation!!
-        val state = context.newStates.head // TODO there should be exactly 1 state, add assertion?
 
-        val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(context, relation))
+      val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.routeId)
+      val superRouteSuperSegments = MonitorRouteOsmSegmentBuilder.build(monitorRouteSegmentInfos)
+      val happy = superRouteSuperSegments.size == 1 && context.newRoute.map(_.deviationCount).sum == 0
 
-        val updatedRoute = context.route.copy(
-          deviationDistance = state.deviations.map(_.meters).sum,
-          deviationCount = state.deviations.size,
-          osmWayCount = state.wayCount,
-          osmDistance = state.osmDistance,
-          osmSegmentCount = state.osmSegments.size,
-          happy = state.osmSegments.size == 1 && state.deviations.isEmpty,
-          relation = relation
-        )
-        context = context.copy(
-          newRoute = Some(updatedRoute)
-        )
-      }
+      val updatedRoute = context.route.copy(
+        osmSegments = superRouteSuperSegments,
+        osmSegmentCount = superRouteSuperSegments.size,
+        happy = happy
+      )
+      context = context.copy(
+        newRoute = Some(updatedRoute)
+      )
     }
 
     context.newRoute match {

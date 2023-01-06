@@ -33,6 +33,7 @@ import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
+import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 import org.springframework.stereotype.Component
@@ -200,13 +201,20 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       unwind("$osmSegments"),
       project(
         fields(
-          computed("id", "0"),
+          computed("id", "0"), // updated in Scala code below
           include("relationId"),
-          computed("osmSegmentId", "$id"),
-          include("startNodeId"),
-          include("endNodeId"),
-          include("meters"),
-          include("bounds"),
+          computed("osmSegmentId", "$osmSegments.id"),
+          computed("startNodeId", "$osmSegments.startNodeId"),
+          computed("endNodeId", "$osmSegments.endNodeId"),
+          computed("meters", "$osmSegments.meters"),
+          computed("bounds", "$osmSegments.bounds"),
+        )
+      ),
+      sort(
+        orderBy(
+          ascending(
+            "relationId", "osmSegmentId"
+          )
         )
       ),
     )

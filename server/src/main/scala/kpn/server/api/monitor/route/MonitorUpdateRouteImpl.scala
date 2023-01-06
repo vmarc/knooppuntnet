@@ -67,7 +67,7 @@ class MonitorUpdateRouteImpl(
               osmDistance = 0L,
               osmSegmentCount = 0L,
               happy = false,
-              superRouteOsmSegments = Seq.empty,
+              osmSegments = Seq.empty,
               relation = None
             )
           )

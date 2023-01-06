@@ -16,6 +16,8 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
@@ -73,7 +75,7 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
           osmDistance = 0,
           osmSegmentCount = 0,
           happy = false,
-          superRouteOsmSegments = Seq.empty,
+          osmSegments = Seq.empty,
           relation = None // route structure not known yet
         )
       )
@@ -118,7 +120,19 @@ class MonitorUpdaterTest02 extends UnitTest with BeforeAndAfterEach with SharedT
             osmDistance = 196,
             osmSegmentCount = 1,
             happy = true,
-            superRouteOsmSegments = Seq.empty,
+            osmSegments = Seq(
+              MonitorRouteOsmSegment(
+                Seq(
+                  MonitorRouteOsmSegmentElement(
+                    relationId = 1,
+                    segmentId = 1,
+                    meters = 196,
+                    bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                    reversed = false
+                  )
+                )
+              )
+            ),
             relation = Some(
               MonitorRouteRelation(
                 relationId = 1,

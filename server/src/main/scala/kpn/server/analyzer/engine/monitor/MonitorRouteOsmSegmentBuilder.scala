@@ -3,20 +3,20 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.server.analyzer.engine.monitor.domain.SuperSegment
 import kpn.server.analyzer.engine.monitor.domain.SuperSegmentElement
-import kpn.server.api.monitor.domain.MonitorRouteSuperSegment
-import kpn.server.api.monitor.domain.MonitorRouteSuperSegmentElement
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegmentElement
 
 import scala.annotation.tailrec
 
-object MonitorRouteSuperSegmentBuilder {
-  def build(segments: Seq[MonitorRouteSegmentInfo]): Seq[MonitorRouteSuperSegment] = {
+object MonitorRouteOsmSegmentBuilder {
+  def build(segments: Seq[MonitorRouteSegmentInfo]): Seq[MonitorRouteOsmSegment] = {
     val segmentMap = segments.map(s => s.id -> s).toMap
     val segmentIds = segments.map(_.id)
-    val superSegments = new MonitorRouteSuperSegmentBuilder(segmentMap).build(segmentIds)
+    val superSegments = new MonitorRouteOsmSegmentBuilder(segmentMap).build(segmentIds)
     superSegments.map { superSegment =>
-      MonitorRouteSuperSegment(
+      MonitorRouteOsmSegment(
         superSegment.segments.map { element =>
-          MonitorRouteSuperSegmentElement(
+          MonitorRouteOsmSegmentElement(
             element.relationSegment.relationId,
             element.relationSegment.osmSegmentId,
             element.relationSegment.meters,
@@ -29,7 +29,7 @@ object MonitorRouteSuperSegmentBuilder {
   }
 }
 
-class MonitorRouteSuperSegmentBuilder(segmentMap: Map[Long, MonitorRouteSegmentInfo]) {
+class MonitorRouteOsmSegmentBuilder(segmentMap: Map[Long, MonitorRouteSegmentInfo]) {
 
   private val traceEnabled = false
   private val trace = new StringBuilder()

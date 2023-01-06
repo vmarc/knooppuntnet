@@ -2,7 +2,7 @@ package kpn.server.api.monitor.domain
 
 import kpn.api.common.Bounds
 
-case class MonitorRouteSuperSegmentElement(
+case class MonitorRouteOsmSegmentElement(
   relationId: Long,
   segmentId: Long,
   meters: Long,
