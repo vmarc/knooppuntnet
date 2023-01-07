@@ -15,9 +15,9 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.api.monitor.MonitorRelationDataBuilder
 import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.api.monitor.domain.MonitorRouteOsmSegmentElement
+import kpn.server.api.monitor.domain.MonitorRouteReference
 import org.scalatest.BeforeAndAfterEach
 
 import scala.xml.Elem
@@ -84,6 +84,9 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
               name = "main-relation",
               role = None,
               survey = None,
+              referenceDay = None,
+              referenceFilename = None,
+              referenceDistance = 0,
               deviationDistance = 0,
               deviationCount = 0,
               osmWayCount = 0,
@@ -96,6 +99,9 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
                   name = "sub-relation-1",
                   role = None,
                   survey = None,
+                  referenceDay = None,
+                  referenceFilename = None,
+                  referenceDistance = 0,
                   deviationDistance = 0,
                   deviationCount = 0,
                   osmWayCount = 0,
@@ -109,6 +115,9 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
                   name = "sub-relation-2",
                   role = None,
                   survey = None,
+                  referenceDay = None,
+                  referenceFilename = None,
+                  referenceDistance = 0,
                   deviationDistance = 0,
                   deviationCount = 0,
                   osmWayCount = 0,
@@ -186,6 +195,9 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
             relation.copy(
               relations = Seq(
                 relation.relations.head.copy(
+                  referenceDay = Some(Day(2022, 8, 1)),
+                  referenceFilename = Some("filename-1"),
+                  referenceDistance = 196,
                   osmWayCount = 1,
                   osmDistance = 196,
                   osmSegmentCount = 1,
@@ -275,7 +287,7 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
                   relationId = 12,
                   segmentId = 1,
                   meters = 139,
-                  bounds = Bounds(51.4614496,4.455056,51.4618272,4.4562458),
+                  bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
                   reversed = false
                 ),
               )
@@ -285,12 +297,18 @@ class MonitorUpdaterTest05 extends UnitTest with BeforeAndAfterEach with SharedT
             relation.copy(
               relations = Seq(
                 relation.relations.head.copy(
+                  referenceDay = Some(Day(2022, 8, 1)),
+                  referenceFilename = Some("filename-1"),
+                  referenceDistance = 196,
                   osmWayCount = 1,
                   osmDistance = 196,
                   osmSegmentCount = 1,
                   happy = true,
                 ),
                 relation.relations(1).copy(
+                  referenceDay = Some(Day(2022, 8, 2)),
+                  referenceFilename = Some("filename-2"),
+                  referenceDistance = 139,
                   osmWayCount = 1,
                   osmDistance = 139,
                   osmSegmentCount = 1,

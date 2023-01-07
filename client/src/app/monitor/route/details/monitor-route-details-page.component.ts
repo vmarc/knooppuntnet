@@ -66,17 +66,20 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           <kpn-monitor-route-details-structure
             *ngIf="route.relation?.relations?.length > 0"
             [relation]="route.relation"
+            [referenceType]="route.referenceType"
           >
           </kpn-monitor-route-details-structure>
         </div>
       </div>
     </div>
   `,
-  styles: [`
-    .structure {
-      padding-top: 1em;
-    }
-  `]
+  styles: [
+    `
+      .structure {
+        padding-top: 1em;
+      }
+    `,
+  ],
 })
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);

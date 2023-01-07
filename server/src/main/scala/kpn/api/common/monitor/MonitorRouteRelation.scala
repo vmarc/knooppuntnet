@@ -25,7 +25,6 @@ object MonitorRouteRelation {
         }
     }
 
-
     val survey = SurveyDateAnalyzer.analyze(relation.tags) match {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
@@ -44,6 +43,9 @@ object MonitorRouteRelation {
       name = name,
       role = role,
       survey = survey,
+      referenceDay = None,
+      referenceFilename = None,
+      referenceDistance = 0,
       deviationDistance = 0,
       deviationCount = 0,
       osmWayCount = osmWayCount,
@@ -60,6 +62,9 @@ case class MonitorRouteRelation(
   name: String,
   role: Option[String],
   survey: Option[Day],
+  referenceDay: Option[Day], // only filled in for referenceType = "multi-gpx"
+  referenceFilename: Option[String], // only filled in for referenceType = "multi-gpx"
+  referenceDistance: Long, // only filled in for referenceType = "multi-gpx"
   deviationDistance: Long,
   deviationCount: Long,
   osmWayCount: Long,

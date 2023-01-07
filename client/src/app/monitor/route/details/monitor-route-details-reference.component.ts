@@ -13,7 +13,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
     >
       Reference not defined yet
     </div>
-    <p *ngIf="!!page.referenceType">
+    <p *ngIf="page.referenceType === 'osm' || page.referenceType === 'gpx'">
       <span>{{ page.referenceDay | day }}</span>
     </p>
     <p
@@ -21,6 +21,12 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
       i18n="@@monitor.route.details.reference.osm"
     >
       OSM relation snapshot
+    </p>
+    <p
+      *ngIf="page.referenceType === 'multi-gpx'"
+      i18n="@@monitor.route.details.reference.multi-gpx"
+    >
+      GPX trace per sub relation
     </p>
     <div *ngIf="page.referenceType === 'gpx'">
       <p>

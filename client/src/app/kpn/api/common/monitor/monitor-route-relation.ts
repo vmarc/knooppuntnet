@@ -7,6 +7,9 @@ export interface MonitorRouteRelation {
   readonly name: string;
   readonly role: string;
   readonly survey: Day;
+  readonly referenceDay: Day;
+  readonly referenceFilename: string;
+  readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly deviationCount: number;
   readonly osmWayCount: number;

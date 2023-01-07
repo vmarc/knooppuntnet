@@ -17,7 +17,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
         <span i18n="@@monitor.route.details.analysis.deviations"
           >deviations</span
         >
-        <span class="kpn-brackets">
+        <span *ngIf="page.deviationCount > 0" class="kpn-brackets">
           <span>{{ page.deviationDistance | distance }}</span>
         </span>
       </p>

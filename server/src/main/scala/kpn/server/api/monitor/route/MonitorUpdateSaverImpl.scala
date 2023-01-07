@@ -27,7 +27,6 @@ class MonitorUpdateSaverImpl(
     }
 
     if (context.newReferences.nonEmpty) {
-      // TODO this is only needed for routes with multiple references !
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {
         case None =>
         case Some(referenceDistance) =>
@@ -36,8 +35,19 @@ class MonitorUpdateSaverImpl(
               context.oldRoute match {
                 case None =>
                 case Some(oldRoute) =>
+
+                  val updatedRelation = if (context.referenceType.contains("multi-gpx")) {
+                    oldRoute.relation.map { monitorRouteRelation =>
+                      udpateMonitorRouteRelation(context, monitorRouteRelation)
+                    }
+                  }
+                  else {
+                    oldRoute.relation
+                  }
+
                   val updatedRoute = oldRoute.copy(
-                    referenceDistance = referenceDistance
+                    referenceDistance = referenceDistance,
+                    relation = updatedRelation
                   )
                   context = context.copy(
                     newRoute = Some(updatedRoute)
@@ -45,8 +55,17 @@ class MonitorUpdateSaverImpl(
               }
 
             case Some(newRoute) =>
+              val updatedRelation = if (context.referenceType.contains("multi-gpx")) {
+                newRoute.relation.map { monitorRouteRelation =>
+                  udpateMonitorRouteRelation(context, monitorRouteRelation)
+                }
+              }
+              else {
+                newRoute.relation
+              }
               val updatedRoute = newRoute.copy(
-                referenceDistance = referenceDistance
+                referenceDistance = referenceDistance,
+                relation = updatedRelation
               )
               context = context.copy(
                 newRoute = Some(updatedRoute)
@@ -117,6 +136,28 @@ class MonitorUpdateSaverImpl(
           happy = state.happy,
           relations = updatedRelations
         )
+    }
+  }
+
+  private def udpateMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
+    if (context.newReferences.nonEmpty) {
+      val relations = monitorRouteRelation.relations.map(r => udpateMonitorRouteRelation(context, r))
+      context.newReferences.find(_.relationId.contains(monitorRouteRelation.relationId)) match {
+        case None =>
+          monitorRouteRelation.copy(
+            relations = relations
+          )
+        case Some(reference) =>
+          monitorRouteRelation.copy(
+            referenceDay = Some(reference.referenceDay),
+            referenceFilename = reference.filename,
+            referenceDistance = reference.distance,
+            relations = relations
+          )
+      }
+    }
+    else {
+      monitorRouteRelation
     }
   }
 }

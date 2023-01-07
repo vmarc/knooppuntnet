@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { MonitorRouteRelation } from '@api/common/monitor/monitor-route-relation';
+import { AppState } from '@app/core/core.state';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '@app/core/core.state';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 
@@ -127,7 +127,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="reference-type">
+      <ng-container matColumnDef="reference-day">
         <th
           mat-header-cell
           [colSpan]="3"
@@ -137,21 +137,23 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
           Reference
         </th>
         <td mat-cell *matCellDef="let route">
-          {{ route.referenceType }}
+          {{ route.relation.referenceDay | day }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="reference-day">
+      <ng-container matColumnDef="reference-filename">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          {{ route.relation.referenceDay | day }}
+          <span>
+            {{ route.relation.referenceFilename }}
+          </span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="reference-distance">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          <span *ngIf="route.relation.referenceType">
+          <span>
             {{ route.relation.referenceDistance | distance }}
           </span>
         </td>
@@ -254,11 +256,13 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {
   @Input() relation: MonitorRouteRelation;
+  @Input() referenceType: String;
 
   readonly admin$ = this.store.select(selectMonitorAdmin);
 
   readonly dataSource = new MatTableDataSource<MonitorRouteRelationRow>();
-  readonly columns = [
+
+  readonly mainColumns = [
     'nr',
     'name',
     'happy',
@@ -267,9 +271,15 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'role',
     'distance',
     'survey',
-    'reference-type',
+  ];
+
+  readonly referenceColumns = [
     'reference-day',
+    'reference-filename',
     'reference-distance',
+  ];
+
+  readonly analysisColumns = [
     'deviation-count',
     'deviation-distance',
     'osm-segment-count',
@@ -277,17 +287,22 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
 
   private readonly columnsWithoutHeader = [
     'happy',
-    'reference-day',
+    'reference-filename',
     'reference-distance',
     'deviation-distance',
   ];
 
   readonly displayedColumns$ = this.admin$.pipe(
     map((admin) => {
-      if (admin) {
-        return [...this.columns, 'actions'];
+      let columns = [...this.mainColumns];
+      if (this.referenceType === 'multi-gpx') {
+        columns = columns.concat(this.referenceColumns);
       }
-      return this.columns;
+      columns = columns.concat(this.analysisColumns);
+      if (admin) {
+        columns = [...columns, 'actions'];
+      }
+      return columns;
     })
   );
 

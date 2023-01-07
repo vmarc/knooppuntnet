@@ -1,6 +1,7 @@
 package kpn.core.tools.monitor
 
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
@@ -22,9 +23,12 @@ import kpn.server.repository.MonitorGroupRepositoryImpl
 import kpn.server.repository.MonitorRouteRepositoryImpl
 import org.mongodb.scala.MongoNamespace
 
+import java.io.File
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
+import scala.xml.Elem
+import scala.xml.XML
 
 case class MonitorExampleSuperRoute(relationId: Long, relations: Seq[MonitorExampleSuperRouteRelation])
 
@@ -129,10 +133,17 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
         configuration.monitorUpdater.add("user", group.name, properties)
 
         exampleSuperRoute.relations.foreach { superRouteRelation =>
-          //  superRouteRelation.relationId
-          //  superRouteRelation.referenceFilename
+          val xml: Elem = XML.loadFile(new File(superRouteRelation.referenceFilename))
+          configuration.monitorUpdater.upload(
+            user = "user",
+            groupName = group.name,
+            routeName = properties.name,
+            relationId = superRouteRelation.relationId,
+            referenceDay = Time.now.toDay,
+            filename = superRouteRelation.referenceFilename,
+            xml = xml
+          )
         }
-
     }
   }
 
