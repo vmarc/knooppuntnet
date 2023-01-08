@@ -116,7 +116,10 @@ export class MonitorService {
     routeName: string,
     relationId: number
   ): Observable<ApiResponse<MonitorRouteMapPage>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/map/${relationId}`;
+    let url = `/api/monitor/groups/${groupName}/routes/${routeName}/map`;
+    if (relationId !== 0) {
+      url = url + `/${relationId}`;
+    }
     return this.http.get(url);
   }
 
@@ -160,11 +163,12 @@ export class MonitorService {
   routeGpxUpload(
     groupName: string,
     routeName: string,
-    file: File
+    file: File,
+    relationId: number
   ): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload/${relationId}`;
     return this.http.post(url, formData);
   }
 

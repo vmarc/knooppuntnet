@@ -271,11 +271,13 @@ export class MonitorEffects {
       ofType(actionMonitorRouteUploadInit),
       concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
       mergeMap(([parameters, groupName]) => {
+        const relationId = 0;
         return this.monitorService
           .routeGpxUpload(
             groupName,
             parameters.properties.name,
-            parameters.referenceFile
+            parameters.referenceFile,
+            relationId
           )
           .pipe(map(() => actionMonitorRouteUploaded(parameters)));
       })

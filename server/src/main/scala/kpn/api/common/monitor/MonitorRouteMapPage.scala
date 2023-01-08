@@ -9,7 +9,7 @@ case class MonitorRouteMapPage(
   routeDescription: String,
   groupName: String,
   groupDescription: String,
-  bounds: Bounds,
+  bounds: Option[Bounds],
   nextSubRelation: Option[MonitorRouteSubRelation],
   prevSubRelation: Option [MonitorRouteSubRelation],
 

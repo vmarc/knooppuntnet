@@ -20,48 +20,50 @@ class MonitorRouteRelationAnalyzerImpl(
 
   override def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteState] = {
 
-    monitorRouteRelationRepository.loadTopLevel(None, reference.relationId.get) match {
-      case None => None
-      case Some(relation) =>
+    reference.relationId.flatMap { relationId =>
+      monitorRouteRelationRepository.loadTopLevel(None, relationId) match {
+        case None => None
+        case Some(relation) =>
 
-        val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
-        val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-        val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.geometry)
+          val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
+          val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+          val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.geometry)
 
-        val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
+          val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
 
-        val routeAnalysis = MonitorRouteAnalysis(
-          relation,
-          wayMembers.size,
-          osmSegmentAnalysis.osmDistance,
-          deviationAnalysis.referenceDistance,
-          bounds,
-          osmSegmentAnalysis.routeSegments.map(_.segment),
-          Some(deviationAnalysis.referenceGeometry),
-          deviationAnalysis.matchesGeometry,
-          deviationAnalysis.deviations,
-          relations = Seq.empty
-        )
-
-        val happy = routeAnalysis.gpxDistance > 0 &&
-          routeAnalysis.deviations.isEmpty &&
-          routeAnalysis.osmSegments.size == 1
-
-        Some(
-          MonitorRouteState(
-            ObjectId(),
-            routeId,
-            reference.relationId.get,
-            Time.now,
-            routeAnalysis.wayCount,
-            routeAnalysis.osmDistance,
-            routeAnalysis.bounds,
-            routeAnalysis.osmSegments,
-            routeAnalysis.matchesGeometry,
-            routeAnalysis.deviations,
-            happy,
+          val routeAnalysis = MonitorRouteAnalysis(
+            relation,
+            wayMembers.size,
+            osmSegmentAnalysis.osmDistance,
+            deviationAnalysis.referenceDistance,
+            bounds,
+            osmSegmentAnalysis.routeSegments.map(_.segment),
+            Some(deviationAnalysis.referenceGeometry),
+            deviationAnalysis.matchesGeometry,
+            deviationAnalysis.deviations,
+            relations = Seq.empty
           )
-        )
+
+          val happy = routeAnalysis.gpxDistance > 0 &&
+            routeAnalysis.deviations.isEmpty &&
+            routeAnalysis.osmSegments.size == 1
+
+          Some(
+            MonitorRouteState(
+              ObjectId(),
+              routeId,
+              reference.relationId.get,
+              Time.now,
+              routeAnalysis.wayCount,
+              routeAnalysis.osmDistance,
+              routeAnalysis.bounds,
+              routeAnalysis.osmSegments,
+              routeAnalysis.matchesGeometry,
+              routeAnalysis.deviations,
+              happy,
+            )
+          )
+      }
     }
   }
 }

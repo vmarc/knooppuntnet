@@ -125,7 +125,7 @@ class MonitorUpdaterImpl(
         val reference = MonitorRouteReference(
           ObjectId(),
           routeId = context.routeId,
-          relationId = Some(relationId),
+          relationId = if (relationId == 0L) None else Some(relationId),
           timestamp = now,
           user = user,
           bounds = bounds,
