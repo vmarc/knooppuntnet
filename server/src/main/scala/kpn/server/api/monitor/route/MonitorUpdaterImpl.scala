@@ -134,7 +134,7 @@ class MonitorUpdaterImpl(
           distance = distance,
           segmentCount = segmentCount,
           filename = Some(filename),
-          geometry = geoJson
+          geoJson = geoJson
         )
 
         context = context.copy(

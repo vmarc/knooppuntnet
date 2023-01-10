@@ -10,7 +10,7 @@ import scala.xml.XML
 
 class MonitorRouteGpxReader {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
 
   def readFile(filename: String): GeometryCollection = {
     read(XML.loadFile(new File(filename)))
@@ -28,9 +28,9 @@ class MonitorRouteGpxReader {
           val lon = (trkpt \ "@lon").text
           new Coordinate(lon.toDouble, lat.toDouble)
         }
-        geomFactory.createLineString(coordinates.toArray)
+        geometryFactory.createLineString(coordinates.toArray)
       }
     }
-    geomFactory.createGeometryCollection(tracks.toArray)
+    geometryFactory.createGeometryCollection(tracks.toArray)
   }
 }

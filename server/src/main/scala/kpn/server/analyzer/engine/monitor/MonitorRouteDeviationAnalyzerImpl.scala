@@ -21,16 +21,16 @@ case class ReferenceCoordinateSequence(
 @Component
 class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
   private val sampleDistanceMeters = 10
   private val toleranceMeters = 10
   private val log = Log(classOf[MonitorRouteDeviationAnalyzer])
 
-  def analyze(ways: Seq[Way], referenceGeometry: String): MonitorRouteDeviationAnalysis = {
+  def analyze(ways: Seq[Way], referenceGeoJson: String): MonitorRouteDeviationAnalysis = {
 
     val tree = buildRTree(ways)
-    val referenceGeoJson = new GeoJsonReader().read(referenceGeometry)
-    val referenceSegments = MonitorRouteReferenceUtil.toLineStrings(referenceGeoJson)
+    val referenceGeometry = new GeoJsonReader().read(referenceGeoJson)
+    val referenceSegments = MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
 
     val analysisResults = referenceSegments.zipWithIndex.map { case (referenceSegment, index) =>
       Log.context(s"reference segment ${index + 1}/${referenceSegments.size}") {
@@ -38,7 +38,7 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
       }
     }
 
-    val allMatches = geomFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
+    val allMatches = geometryFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
 
     val referenceDistance = Math.round(toMeters(referenceSegments.map(_.getLength).sum))
 
@@ -51,7 +51,7 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
     MonitorRouteDeviationAnalysis(
       analysisResults,
       referenceDistance,
-      referenceGeometry,
+      referenceGeoJson,
       matchesGeometry,
       deviations
     )
@@ -60,7 +60,7 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
   private def buildRTree(ways: Seq[Way]): STRtree = {
     val tree = new STRtree(4)
     ways.foreach { way =>
-      val linestring = geomFactory.createLineString(
+      val linestring = geometryFactory.createLineString(
         way.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray
       )
       tree.insert(linestring.getEnvelopeInternal, linestring)
@@ -111,7 +111,7 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
   private def analyzeDistances(tree: STRtree, referenceSampleCoordinates: Seq[Coordinate]): Vector[Double] = {
     log.infoElapsed {
       val distances = referenceSampleCoordinates.toVector.map { coordinate =>
-        val point = geomFactory.createPoint(coordinate)
+        val point = geometryFactory.createPoint(coordinate)
         val lineStrings = findNearLineStrings(tree, coordinate)
         val lineStringDistances = lineStrings.map { lineString =>
           lineString.distance(point)

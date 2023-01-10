@@ -16,7 +16,7 @@ import scala.annotation.tailrec
 
 object MonitorRouteAnalysisSupport {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
 
   def toBounds(coordinates: Seq[Coordinate]): Bounds = {
     val minLat = coordinates.map(_.getY).min
@@ -61,7 +61,7 @@ object MonitorRouteAnalysisSupport {
 
   def toMultiLineString(sampleCoordinates: Seq[Coordinate], sequences: Seq[ReferenceCoordinateSequence]): MultiLineString = {
     val lineStrings = sequences.map(sequence => toLineString(sampleCoordinates, sequence))
-    geomFactory.createMultiLineString(lineStrings.toArray)
+    geometryFactory.createMultiLineString(lineStrings.toArray)
   }
 
   def toLineString(osmCoordinates: Seq[Coordinate], sequence: ReferenceCoordinateSequence): LineString = {
@@ -71,10 +71,10 @@ object MonitorRouteAnalysisSupport {
     else {
       simplifyCoordinates(sequence.indexes.map(index => osmCoordinates(index)).toList)
     }
-    geomFactory.createLineString(coordinates.toArray)
+    geometryFactory.createLineString(coordinates.toArray)
   }
 
-  private def simplifyCoordinates(coordinates: List[Coordinate]): List[Coordinate] = {
+  def simplifyCoordinates(coordinates: List[Coordinate]): List[Coordinate] = {
     if (coordinates.size < 3) {
       coordinates
     }
@@ -92,8 +92,8 @@ object MonitorRouteAnalysisSupport {
         newRemainder.headOption match {
           case None => middleCoordinate :: selectedCoordinates
           case Some(nextCoordinate) =>
-            val lineString = geomFactory.createLineString(Array(currentCoordinate, nextCoordinate))
-            val point = geomFactory.createPoint(middleCoordinate)
+            val lineString = geometryFactory.createLineString(Array(currentCoordinate, nextCoordinate))
+            val point = geometryFactory.createPoint(middleCoordinate)
             val distance = toMeters(lineString.distance(point))
             if (distance < 0.5d) {
               // swallow the  middle coordinate

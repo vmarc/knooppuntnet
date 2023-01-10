@@ -7,7 +7,7 @@ import org.locationtech.jts.geom.GeometryFactory
 
 class CommandEncoderTest extends UnitTest {
 
-  private val gf = new GeometryFactory()
+  private val geometryFactory = new GeometryFactory()
 
   test("commands") { // Ex.: MoveTo(3, 6), LineTo(8, 12), LineTo(20, 34), ClosePath
     val coordinates = Seq(
@@ -56,7 +56,7 @@ class CommandEncoderTest extends UnitTest {
       new Coordinate(3, 6)
     )
     assert(Orientation.isCCW(coordinates.toArray))
-    val polygon = gf.createPolygon(coordinates.toArray)
+    val polygon = geometryFactory.createPolygon(coordinates.toArray)
     val commands = new CommandEncoder().makeCommands1(polygon)
     commands should equal(Seq(9, 6, 12, 18, 10, 12, 24, 44, 15))
   }
@@ -69,7 +69,7 @@ class CommandEncoderTest extends UnitTest {
       new Coordinate(3, 6)
     )
     assert(!Orientation.isCCW(coordinates.toArray))
-    val polygon = gf.createPolygon(coordinates.toArray)
+    val polygon = geometryFactory.createPolygon(coordinates.toArray)
     val commands = new CommandEncoder().makeCommands1(polygon)
     commands should equal(Seq(9, 6, 12, 18, 10, 12, 24, 44, 15))
   }

@@ -10,7 +10,7 @@ import org.locationtech.jts.geom.impl.CoordinateArraySequence
 
 class PolygonBuilder(element: String, data: SkeletonData) {
 
-  private val factory: GeometryFactory = new GeometryFactory()
+  private val geometryFactory = new GeometryFactory()
 
   def polygons(): Seq[Polygon] = {
     val countryRelation = data.relations(data.countryRelationId)
@@ -19,13 +19,13 @@ class PolygonBuilder(element: String, data: SkeletonData) {
     log(outers, "outer")
     log(inners, "inner")
     val polygons = outers.map { outer =>
-      val locator = new IndexedPointInAreaLocator(new Polygon(outer, Array[LinearRing](), factory))
+      val locator = new IndexedPointInAreaLocator(new Polygon(outer, Array[LinearRing](), geometryFactory))
       val holes = inners.filter { inner =>
         inner.getCoordinates.exists { c =>
           locator.locate(c) == Location.INTERIOR
         }
       }
-      new Polygon(outer, holes.toArray, factory)
+      new Polygon(outer, holes.toArray, geometryFactory)
     }
     polygons
   }
@@ -38,7 +38,7 @@ class PolygonBuilder(element: String, data: SkeletonData) {
 
   private def toRing(ring: Ring): LinearRing = {
     val coordinates = (Seq(ring.ways.head.nodeIds.head) ++ ring.ways.flatMap(_.nodeIds.tail)).map(data.nodes).map(toCoordinate)
-    new LinearRing(new CoordinateArraySequence(coordinates.toArray), factory)
+    new LinearRing(new CoordinateArraySequence(coordinates.toArray), geometryFactory)
   }
 
   private def toCoordinate(node: SkeletonNode): Coordinate = {

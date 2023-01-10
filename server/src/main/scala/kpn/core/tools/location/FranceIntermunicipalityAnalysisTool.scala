@@ -154,8 +154,8 @@ class FranceIntermunicipalityAnalysisTool {
       polygons.head
     }
     else {
-      val geomFactory = new GeometryFactory
-      new GeometryCollection(polygons.toArray, geomFactory)
+      val geometryFactory = new GeometryFactory
+      new GeometryCollection(polygons.toArray, geometryFactory)
     }
     IntermunicipalityGeometry(
       intermunicipalityType,

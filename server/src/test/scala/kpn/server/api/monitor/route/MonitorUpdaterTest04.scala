@@ -191,7 +191,7 @@ class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedT
           distance = 196,
           segmentCount = 1,
           filename = Some("filename"),
-          geometry = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
       )
     }

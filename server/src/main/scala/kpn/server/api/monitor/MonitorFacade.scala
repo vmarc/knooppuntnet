@@ -124,12 +124,6 @@ trait MonitorFacade {
     routeName: String
   ): Unit
 
-  def routeAnalyze(
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): Unit
-
   def upload(
     user: Option[String],
     groupName: String,

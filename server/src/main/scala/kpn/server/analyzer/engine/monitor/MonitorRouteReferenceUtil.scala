@@ -7,12 +7,12 @@ import org.locationtech.jts.geom.LineString
 
 object MonitorRouteReferenceUtil {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
 
-  def toLineStrings(referenceGeoJson: Geometry): Seq[LineString] = {
-    val collection = referenceGeoJson match {
+  def toLineStrings(referenceGeometry: Geometry): Seq[LineString] = {
+    val collection = referenceGeometry match {
       case geometryCollection: GeometryCollection => geometryCollection
-      case _ => geomFactory.createGeometryCollection(Array(referenceGeoJson))
+      case _ => geometryFactory.createGeometryCollection(Array(referenceGeometry))
     }
     0.until(collection.getNumGeometries).map { index =>
       collection.getGeometryN(index).asInstanceOf[LineString]

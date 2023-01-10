@@ -12,8 +12,8 @@ class MonitorRouteAnalysisSupportTest extends UnitTest {
     val coordinate2 = new Coordinate(51.4618272, 4.4562458)
     val coordinate3 = new Coordinate(51.4614496, 4.4550560)
 
-    val geomFactory = new GeometryFactory
-    val originalLineString = geomFactory.createLineString(Array(coordinate1, coordinate2, coordinate3))
+    val geometryFactory = new GeometryFactory
+    val originalLineString = geometryFactory.createLineString(Array(coordinate1, coordinate2, coordinate3))
 
     val coordinates = MonitorRouteAnalysisSupport.toSampleCoordinates(10, originalLineString)
 

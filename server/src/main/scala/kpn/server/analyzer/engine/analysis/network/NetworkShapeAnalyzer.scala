@@ -35,12 +35,12 @@ class NetworkShapeAnalyzer(networkRelation: Relation) {
   }
 
   private def toGeometryCollection(nodes: Iterable[Node]): GeometryCollection = {
-    val factory = new GeometryFactory()
+    val geometryFactory = new GeometryFactory()
     val points = nodes.map { node: Node =>
       val c = new Coordinate(node.latitude.toDouble, node.longitude.toDouble)
-      factory.createPoint(c)
+      geometryFactory.createPoint(c)
     }
-    new GeometryCollection(points.toArray, factory)
+    new GeometryCollection(points.toArray, geometryFactory)
   }
 
   private def bounds(coordinates: List[Coordinate]): Bounds = {

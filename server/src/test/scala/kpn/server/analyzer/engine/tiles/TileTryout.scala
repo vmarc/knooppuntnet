@@ -15,7 +15,7 @@ import org.locationtech.jts.geom.GeometryFactory
 
 object TileTryout {
 
-  private val geomFactory = new GeometryFactory()
+  private val geometryFactory = new GeometryFactory()
 
   def main(args: Array[String]): Unit = {
 
@@ -42,13 +42,13 @@ object TileTryout {
   }
 
   private def loadMvt(filename: String): JtsMvt = {
-    MvtReader.loadMvt(new File(filename), geomFactory, new TagKeyValueMapConverter())
+    MvtReader.loadMvt(new File(filename), geometryFactory, new TagKeyValueMapConverter())
   }
 
   private def loadPbf(filename: String): JtsMvt = {
     val gzipped: InputStream = new FileInputStream(filename)
     val ungzipped: InputStream = new GZIPInputStream(gzipped)
-    MvtReader.loadMvt(ungzipped, geomFactory, new TagKeyValueMapConverter())
+    MvtReader.loadMvt(ungzipped, geometryFactory, new TagKeyValueMapConverter())
   }
 
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 @Component
 class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
 
   def locate(routeMap: RouteMap): RouteLocationAnalysis = {
 
@@ -58,7 +58,7 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
         new Coordinate(lon, lat)
       }
       if (coordinates.size > 1) {
-        Some(geomFactory.createLineString(coordinates.toArray))
+        Some(geometryFactory.createLineString(coordinates.toArray))
       }
       else {
         None

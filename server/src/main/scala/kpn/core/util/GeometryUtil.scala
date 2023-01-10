@@ -11,7 +11,7 @@ import org.locationtech.jts.geom.impl.CoordinateArraySequence
 
 object GeometryUtil {
 
-  private val factory = new GeometryFactory()
+  private val geometryFactory = new GeometryFactory()
 
   def clip(geometry: Geometry, envelope: Envelope): Geometry = {
     val clipper = new GeometryClipper(envelope)
@@ -27,7 +27,7 @@ object GeometryUtil {
       new Coordinate(left, bottom),
       new Coordinate(left, top)
     )
-    val boundingBox = new LinearRing(new CoordinateArraySequence(coordinates.toArray), factory)
+    val boundingBox = new LinearRing(new CoordinateArraySequence(coordinates.toArray), geometryFactory)
     boundingBox.getEnvelopeInternal
   }
 

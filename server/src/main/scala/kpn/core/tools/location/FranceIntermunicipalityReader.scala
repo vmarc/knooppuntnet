@@ -12,7 +12,7 @@ class FranceIntermunicipalityReader(intermunicipalitiesDir: String, locationId: 
 
   def read(): LocationData = {
     Log.context(s"intermunicipality $locationId") {
-      val geomFactory = new GeometryFactory
+      val geometryFactory = new GeometryFactory
       val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$locationId.xml")
       val data = new DataBuilder(rawData).data
       val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
@@ -28,7 +28,7 @@ class FranceIntermunicipalityReader(intermunicipalitiesDir: String, locationId: 
         polygons.head
       }
       else {
-        new GeometryCollection(polygons.toArray, geomFactory)
+        new GeometryCollection(polygons.toArray, geometryFactory)
       }
       val names = LocationNames.from(relation.tags, name)
       LocationData(

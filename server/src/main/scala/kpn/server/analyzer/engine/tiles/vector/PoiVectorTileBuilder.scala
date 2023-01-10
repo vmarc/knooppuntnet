@@ -15,7 +15,7 @@ class PoiVectorTileBuilder {
 
   def build(data: PoiTileData): Array[Byte] = {
 
-    val geomFactory = new GeometryFactory
+    val geometryFactory = new GeometryFactory
 
     val encoder = new VectorTileEncoder(Tile.POI_CLIP_BUFFER)
 
@@ -28,7 +28,7 @@ class PoiVectorTileBuilder {
     }
 
     data.pois.foreach { poi =>
-      val point: Point = geomFactory.createPoint(new Coordinate(scaleLon(poi.lon), scaleLat(poi.lat)))
+      val point: Point = geometryFactory.createPoint(new Coordinate(scaleLon(poi.lon), scaleLat(poi.lat)))
       val userData = ListMap(
         "type" -> poi.elementType,
         "id" -> poi.elementId.toString

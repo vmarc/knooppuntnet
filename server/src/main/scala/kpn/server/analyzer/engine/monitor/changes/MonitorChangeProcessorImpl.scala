@@ -28,7 +28,7 @@ class MonitorChangeProcessorImpl(
 
   private val log = Log(classOf[MonitorChangeProcessorImpl])
   private val elementIdMap = ElementIdMap()
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
   private val sampleDistanceMeters = 10
   private val toleranceMeters = 10
 

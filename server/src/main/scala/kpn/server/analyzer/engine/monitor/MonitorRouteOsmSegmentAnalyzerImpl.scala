@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component
 @Component
 class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyzer {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteOsmSegmentAnalyzerImpl])
 
   def analyze(wayMembers: Seq[WayMember]): MonitorRouteOsmSegmentAnalysis = {
@@ -34,7 +34,7 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
 
     val routeSegments = filteredSegments.zipWithIndex.map { case (segment, index) =>
 
-      val lineString = geomFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
+      val lineString = geometryFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
       val meters: Long = Math.round(toMeters(lineString.getLength))
       val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
       val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)

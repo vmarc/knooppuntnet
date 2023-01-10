@@ -237,18 +237,6 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeAnalyze(
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): Unit = {
-    api.execute(user, "monitor-route-analyze", s"$groupName:$routeName") {
-      assertAdminUser(user)
-      // monitorUpdater.analyze(groupName, routeName)
-      throw new RuntimeException("routeAnalyze should not be needed anymore... analysis already done after upload")
-    }
-  }
-
   override def routeUpdate(
     user: Option[String],
     groupName: String,

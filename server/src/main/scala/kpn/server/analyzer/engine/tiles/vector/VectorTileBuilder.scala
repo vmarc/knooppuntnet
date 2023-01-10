@@ -12,7 +12,7 @@ class VectorTileBuilder extends TileBuilder {
 
   def build(data: TileData): Array[Byte] = {
 
-    val geomFactory = new GeometryFactory
+    val geometryFactory = new GeometryFactory
 
     val encoder = new VectorTileEncoder()
 
@@ -25,7 +25,7 @@ class VectorTileBuilder extends TileBuilder {
     }
 
     data.nodes.foreach { node =>
-      val point: Point = geomFactory.createPoint(new Coordinate(scaleLon(node.lon), scaleLat(node.lat)))
+      val point: Point = geometryFactory.createPoint(new Coordinate(scaleLon(node.lon), scaleLat(node.lat)))
 
       val userData = Seq(
         Some("id" -> node.id.toString),
@@ -46,7 +46,7 @@ class VectorTileBuilder extends TileBuilder {
             new Coordinate(scaleLon(line.p2.x), scaleLat(line.p2.y))
           )
         }
-        val lineString = geomFactory.createLineString(coordinates.toArray)
+        val lineString = geometryFactory.createLineString(coordinates.toArray)
         val userData = Seq(
           Some("id" -> (tileRoute.routeId.toString + "-" + segment.pathId)),
           Some("name" -> tileRoute.routeName),

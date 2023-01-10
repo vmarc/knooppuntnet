@@ -13,7 +13,7 @@ import java.util.zip.GZIPInputStream
 
 object TileViewTool {
 
-  private val geomFactory = new GeometryFactory()
+  private val geometryFactory = new GeometryFactory()
 
   def main(args: Array[String]): Unit = {
     new TileViewTool().print("/home/marcv/Downloads/14_8390_5401.mvt")
@@ -23,7 +23,7 @@ object TileViewTool {
 
 class TileViewTool() {
 
-  import TileViewTool.geomFactory
+  import TileViewTool.geometryFactory
 
   def print(filename: String): Unit = {
     val tile = load(filename)
@@ -48,13 +48,13 @@ class TileViewTool() {
   }
 
   private def loadMvt(filename: String): JtsMvt = {
-    MvtReader.loadMvt(new File(filename), geomFactory, new TagKeyValueMapConverter())
+    MvtReader.loadMvt(new File(filename), geometryFactory, new TagKeyValueMapConverter())
   }
 
   private def loadPbf(filename: String): JtsMvt = {
     val gzipped: InputStream = new FileInputStream(filename)
     val ungzipped: InputStream = new GZIPInputStream(gzipped)
-    MvtReader.loadMvt(ungzipped, geomFactory, new TagKeyValueMapConverter())
+    MvtReader.loadMvt(ungzipped, geometryFactory, new TagKeyValueMapConverter())
   }
 
 }

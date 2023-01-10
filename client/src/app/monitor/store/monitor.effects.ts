@@ -285,19 +285,6 @@ export class MonitorEffects {
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteGpxUploaded = createEffect(() =>
-    this.actions$.pipe(
-      ofType(actionMonitorRouteUploaded),
-      concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
-      mergeMap(([parameters, groupName]) => {
-        return this.monitorService
-          .routeAnalyze(groupName, parameters.properties.name)
-          .pipe(map(() => actionMonitorRouteAnalyzed()));
-      })
-    )
-  );
-
-  // noinspection JSUnusedGlobalSymbols
   monitorRouteUpdatePage = createEffect(() =>
     this.actions$.pipe(
       ofType(actionMonitorRouteUpdatePageInit),
@@ -310,6 +297,15 @@ export class MonitorEffects {
           .routeUpdatePage(groupName, routeName)
           .pipe(map((response) => actionMonitorRouteUpdatePageLoaded(response)))
       )
+    )
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteGpxUploaded = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actionMonitorRouteUploaded),
+      concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
+      map(([parameters, groupName]) => actionMonitorRouteAnalyzed())
     )
   );
 

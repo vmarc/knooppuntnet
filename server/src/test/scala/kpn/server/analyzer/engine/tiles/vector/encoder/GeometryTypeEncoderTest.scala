@@ -13,8 +13,8 @@ class GeometryTypeEncoderTest extends UnitTest {
       new Coordinate(8, 12),
       new Coordinate(20, 34)
     )
-    val gf = new GeometryFactory()
-    val geometry = gf.createLineString(cs)
+    val geometryFactory = new GeometryFactory()
+    val geometry = geometryFactory.createLineString(cs)
 
     GeometryTypeEncoder.encode(geometry) should equal(ProtobufVectorTile.Tile.LINESTRING)
   }

@@ -20,7 +20,7 @@ class RouteSegmentBuilder(zoomLevel: Int) {
     (Tile.lon(zoomLevel, tileX + 1) - Tile.lon(zoomLevel, tileX)) / 256d
   }
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
 
   def from(route: RouteTileInfo): Seq[RouteTileSegment] = {
 
@@ -57,7 +57,7 @@ class RouteSegmentBuilder(zoomLevel: Int) {
     }
     else {
       if (zoomLevel < ZoomLevel.vectorTileMinZoom) {
-        val lineString = geomFactory.createLineString(coordinates.toArray)
+        val lineString = geometryFactory.createLineString(coordinates.toArray)
         val simplifiedLineString: LineString = DouglasPeuckerSimplifier.simplify(lineString, distanceTolerance).asInstanceOf[LineString]
         val simplifiedCoordinates = simplifiedLineString.getCoordinates.toSeq
 

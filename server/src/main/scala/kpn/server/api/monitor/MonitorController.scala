@@ -203,14 +203,6 @@ class MonitorController(
     )
   }
 
-  @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/analyze"))
-  def routeAnalyze(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-  ): Unit = {
-    facade.routeAnalyze(CurrentUser.name, groupName, routeName)
-  }
-
   @GetMapping(value = Array("groups/{groupName}/route-names"))
   def routeNames(
     @PathVariable groupName: String,

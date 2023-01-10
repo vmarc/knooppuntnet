@@ -9,11 +9,11 @@ import org.locationtech.jts.io.geojson.GeoJsonWriter
 
 class PoiLocationGeoJson {
 
-  private val geomFactory = new GeometryFactory
+  private val geometryFactory = new GeometryFactory
 
   def geoJsonString(): String = {
     val boundingBoxes = PoiLocation.allBoundingBoxes.map(toGeometry)
-    val geometryCollection = new GeometryCollection(boundingBoxes.toArray, geomFactory)
+    val geometryCollection = new GeometryCollection(boundingBoxes.toArray, geometryFactory)
     val geoJsonWriter = new GeoJsonWriter()
     geoJsonWriter.setEncodeCRS(false)
     geoJsonWriter.write(geometryCollection)
@@ -27,7 +27,7 @@ class PoiLocationGeoJson {
       new Coordinate(rectangle.xMin, rectangle.yMax),
       new Coordinate(rectangle.xMin, rectangle.yMin)
     )
-    geomFactory.createLineString(coordinates.toArray)
+    geometryFactory.createLineString(coordinates.toArray)
   }
 
 }

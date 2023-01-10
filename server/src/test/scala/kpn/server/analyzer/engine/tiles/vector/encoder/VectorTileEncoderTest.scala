@@ -8,7 +8,7 @@ import scala.collection.immutable.ListMap
 
 class VectorTileEncoderTest extends UnitTest {
 
-  private val gf = new GeometryFactory()
+  private val geometryFactory = new GeometryFactory()
 
   test("Encode") {
     val geometry1 = {
@@ -17,7 +17,7 @@ class VectorTileEncoderTest extends UnitTest {
         new Coordinate(8, 12),
         new Coordinate(20, 34)
       )
-      gf.createLineString(cs)
+      geometryFactory.createLineString(cs)
     }
 
     val geometry2 = {
@@ -27,7 +27,7 @@ class VectorTileEncoderTest extends UnitTest {
         new Coordinate(20, 34),
         new Coordinate(33, 72)
       )
-      gf.createLineString(cs)
+      geometryFactory.createLineString(cs)
     }
 
     val obsoleteAttributes = new java.util.HashMap[String, String]()
@@ -44,7 +44,7 @@ class VectorTileEncoderTest extends UnitTest {
 
   test("NullAttributeValue") {
     val vtm = new VectorTileEncoder()
-    val geometry = gf.createPoint(new Coordinate(3, 6))
+    val geometry = geometryFactory.createPoint(new Coordinate(3, 6))
     val attributes = ListMap(
       "key1" -> "value1",
       "key2" -> null,
@@ -63,7 +63,7 @@ class VectorTileEncoderTest extends UnitTest {
 
   test("AttributeTypes") {
     val vtm = new VectorTileEncoder()
-    val geometry = gf.createPoint(new Coordinate(3, 6))
+    val geometry = geometryFactory.createPoint(new Coordinate(3, 6))
     val attributes = new java.util.HashMap[String, Object]()
     attributes.put("key1", "value1")
     attributes.put("key2", Integer.valueOf(123))

@@ -38,7 +38,7 @@ class MonitorRouteMapPageBuilder(
                   reference.referenceDay,
                   reference.segmentCount,
                   reference.filename,
-                  reference.geometry
+                  reference.geoJson
                 )
               )
             }
@@ -155,7 +155,7 @@ class MonitorRouteMapPageBuilder(
                   reference.referenceDay,
                   reference.segmentCount,
                   reference.filename,
-                  reference.geometry
+                  reference.geoJson
                 )
                 val stateOption = routeRepository.routeState(route._id, route.relationId.get)
                 val bounds = stateOption match {
