@@ -7888,7 +7888,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">167,168</context>
+          <context context-type="linenumber">169,170</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.osm-segment-count">
@@ -7899,7 +7899,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">192,193</context>
+          <context context-type="linenumber">194,195</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.actions">
@@ -7910,7 +7910,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">207,208</context>
+          <context context-type="linenumber">209,210</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.update">
@@ -8617,6 +8617,13 @@
           <context context-type="linenumber">22,24</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="monitor.route.details.reference.multi-gpx">
+        <source>GPX trace per sub relation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-reference.component.ts</context>
+          <context context-type="linenumber">28,30</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.nr">
         <source>Nr</source>
         <context-group purpose="location">
@@ -8663,7 +8670,7 @@
         <source>Upload</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">214,213</context>
+          <context context-type="linenumber">216,215</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.relation-id-undefined">
