@@ -15,7 +15,6 @@ class MonitorRouteDetailsPageBuilder(
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
         MonitorRouteDetailsPage(
-          route._id.oid,
           group.name,
           group.description,
           route.name,

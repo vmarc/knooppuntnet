@@ -79,8 +79,8 @@ class LocationBuilderTool {
   private def saveGeometries(country: String, datas: Seq[LocationData]): Unit = {
     datas.foreach { data =>
       val filename = s"$root/$country/geometries/${data.id}.json"
-      val geojson = Json.objectMapper.writeValueAsString(data.geometry.geometry)
-      FileUtils.writeStringToFile(new File(filename), geojson, "UTF-8")
+      val geoJson = Json.objectMapper.writeValueAsString(data.geometry.geometry)
+      FileUtils.writeStringToFile(new File(filename), geoJson, "UTF-8")
     }
   }
 

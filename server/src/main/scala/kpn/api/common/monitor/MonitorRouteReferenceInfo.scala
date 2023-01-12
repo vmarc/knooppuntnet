@@ -13,5 +13,5 @@ case class MonitorRouteReferenceInfo(
   referenceDay: Day,
   segmentCount: Long,
   gpxFilename: Option[String],
-  geometry: String
+  geoJson: String
 )

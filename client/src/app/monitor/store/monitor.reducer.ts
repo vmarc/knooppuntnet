@@ -307,7 +307,6 @@ export const monitorReducer = createReducer(
   }),
   on(actionMonitorRouteDetailsPageLoaded, (state, response) => {
     const result = response.result;
-    const routeId = result?.routeId ?? state.routeId;
     const relationId = result?.relationId ?? state.relationId;
     const routeName = result?.routeName ?? state.routeName;
     const routeDescription = result?.routeDescription ?? state.routeDescription;
@@ -315,7 +314,6 @@ export const monitorReducer = createReducer(
     const groupDescription = result?.groupDescription ?? state.groupDescription;
     return {
       ...state,
-      routeId,
       relationId,
       routeName,
       routeDescription,
@@ -327,7 +325,6 @@ export const monitorReducer = createReducer(
   on(actionMonitorRouteDetailsPageDestroy, (state) => {
     return {
       ...state,
-      routeId: undefined,
       relationId: undefined,
       routeName: undefined,
       routeDescription: undefined,
@@ -345,7 +342,6 @@ export const monitorReducer = createReducer(
   }),
   on(actionMonitorRouteMapPageLoaded, (state, { response, queryParams }) => {
     const result = response.result;
-    const routeId = result?.routeId ?? state.routeId;
     const relationId = result?.relationId ?? state.relationId;
     const routeName = result?.routeName ?? state.routeName;
     const routeDescription = result?.routeDescription ?? state.routeDescription;
@@ -353,7 +349,7 @@ export const monitorReducer = createReducer(
     const groupDescription = result?.groupDescription ?? state.groupDescription;
 
     let mapMatchesVisible =
-      !!result?.matchesGeometry && (result?.osmSegments?.length ?? 0) > 0;
+      !!result?.matchesGeoJson && (result?.osmSegments?.length ?? 0) > 0;
     if (mapMatchesVisible && queryParams['matches']) {
       mapMatchesVisible = queryParams['matches'] === 'true';
     }
@@ -371,7 +367,7 @@ export const monitorReducer = createReducer(
     const mapOsmRelationEmpty =
       (result?.osmSegments?.length ?? 0) == 0 && !!result?.relationId;
 
-    const referenceAvailable = (result?.reference?.geometry.length ?? 0) > 0;
+    const referenceAvailable = (result?.reference?.geoJson.length ?? 0) > 0;
     let mapReferenceVisible =
       referenceAvailable &&
       !(mapMatchesVisible || mapDeviationsVisible || mapOsmRelationVisible);
@@ -412,7 +408,6 @@ export const monitorReducer = createReducer(
 
     return {
       ...state,
-      routeId,
       relationId,
       routeName,
       routeDescription,
@@ -453,13 +448,11 @@ export const monitorReducer = createReducer(
   })),
   on(actionMonitorRouteChangesPageLoaded, (state, response) => {
     const result = response.result;
-    const routeId = result?.routeId ?? state.routeId;
     const routeName = result?.routeName ?? state.routeName;
     const groupName = result?.groupName ?? state.groupName;
     const groupDescription = result?.groupDescription ?? state.groupDescription;
     return {
       ...state,
-      routeId,
       routeName,
       groupName,
       groupDescription,
@@ -505,7 +498,7 @@ export const monitorReducer = createReducer(
     let mapDeviationsVisible = false;
     let mapOsmRelationVisible = false;
     if (mapMode === MonitorMapMode.comparison) {
-      mapMatchesVisible = !!state.routeMapPage?.result?.reference.geometry;
+      mapMatchesVisible = !!state.routeMapPage?.result?.reference.geoJson;
       mapDeviationsVisible =
         (state.routeMapPage.result?.deviations?.length ?? 0) > 0;
       mapOsmRelationVisible =

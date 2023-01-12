@@ -188,7 +188,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
 
             <kpn-monitor-route-change-map
               [mapId]="'resolved-map-' + i + 1"
-              [referenceJson]="response.result.reference.geometry"
+              [referenceJson]="response.result.reference.geoJson"
               [routeSegments]="response.result.routeSegments"
               [deviation]="segment"
             >
@@ -214,7 +214,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
             <p>Maximum distance from reference: {{ deviation.distance }}m</p>
             <kpn-monitor-route-change-map
               [mapId]="'new-map-' + i + 1"
-              [referenceJson]="response.result.reference.geometry"
+              [referenceJson]="response.result.reference.geoJson"
               [routeSegments]="response.result.routeSegments"
               [deviation]="deviation"
             >

@@ -1129,7 +1129,7 @@ trait SharedTestObjects extends MockFactory {
     distance: Long = 0,
     segmentCount: Long = 0,
     filename: Option[String] = None,
-    geometry: String = ""
+    geoJson: String = ""
   ): MonitorRouteReference = {
     MonitorRouteReference(
       ObjectId(),
@@ -1143,7 +1143,7 @@ trait SharedTestObjects extends MockFactory {
       distance,
       segmentCount,
       filename,
-      geometry
+      geoJson
     )
   }
 

@@ -30,7 +30,7 @@ class LocationGeometryExplorationTool {
   }
 
   def printLocationsWithWrongCoordinateReferenceSystem(): Unit = {
-    val geojsons = Country.all.flatMap { country =>
+    val geoJsons = Country.all.flatMap { country =>
       val dir = s"/kpn/locations/${country.domain}/geometries"
       new File(dir).listFiles().flatMap { file =>
         val geoJson = FileUtils.readFileToString(file, "UTF-8")
@@ -43,8 +43,8 @@ class LocationGeometryExplorationTool {
         }
       }
     }
-    geojsons.foreach(println)
-    println(s"${geojsons.size} locations with wrong coordinate reference system")
+    geoJsons.foreach(println)
+    println(s"${geoJsons.size} locations with wrong coordinate reference system")
 
   }
 

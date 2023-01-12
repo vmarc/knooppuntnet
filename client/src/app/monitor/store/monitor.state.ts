@@ -31,7 +31,6 @@ export class MonitorRouteSaveState {
 export const initialState: MonitorState = {
   admin: false,
   adminRole: false,
-  routeId: undefined,
   relationId: undefined,
   routeName: undefined,
   routeDescription: undefined,
@@ -66,7 +65,6 @@ export const initialState: MonitorState = {
 export interface MonitorState {
   admin: boolean;
   adminRole: boolean;
-  routeId: string | undefined;
   relationId: number | undefined;
   routeName: string | undefined;
   routeDescription: string | undefined;

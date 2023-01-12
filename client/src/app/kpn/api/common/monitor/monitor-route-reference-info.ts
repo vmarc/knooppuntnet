@@ -13,5 +13,5 @@ export interface MonitorRouteReferenceInfo {
   readonly referenceDay: Day;
   readonly segmentCount: number;
   readonly gpxFilename: string;
-  readonly geometry: string;
+  readonly geoJson: string;
 }

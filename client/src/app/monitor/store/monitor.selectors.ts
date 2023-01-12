@@ -150,11 +150,6 @@ export const selectMonitorRouteChangePage = createSelector(
   (state: MonitorState) => state.routeChangePage
 );
 
-export const selectMonitorRouteId = createSelector(
-  selectMonitorState,
-  (state: MonitorState) => state.routeId
-);
-
 export const selectMonitorRelationId = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.relationId
@@ -207,14 +202,14 @@ export const selectMonitorRouteMapOsmRelationEmpty = createSelector(
 
 export const selectMonitorRouteMapReferenceEnabled = createSelector(
   selectMonitorState,
-  (state: MonitorState) => !!state.routeMapPage?.result?.reference?.geometry
+  (state: MonitorState) => !!state.routeMapPage?.result?.reference?.geoJson
 );
 
 export const selectMonitorRouteMapMatchesEnabled = createSelector(
   selectMonitorState,
   (state: MonitorState) =>
     state.mapMode === 'comparison' &&
-    !!state.routeMapPage?.result?.matchesGeometry
+    !!state.routeMapPage?.result?.matchesGeoJson
 );
 
 export const selectMonitorRouteMapDeviationsEnabled = createSelector(

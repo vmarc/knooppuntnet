@@ -18,5 +18,5 @@ case class MonitorRouteReference(
   distance: Long,
   segmentCount: Long,
   filename: Option[String],
-  geoJson: String // osm | gpx
+  geoJson: String
 ) extends WithObjectId

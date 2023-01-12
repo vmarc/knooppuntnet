@@ -153,18 +153,18 @@ export class MonitorRouteMapService implements OnDestroy {
     this.subscriptions.add(
       this.response$.subscribe((response) => {
         this.referenceLayer.getSource().clear();
-        if (response?.result?.reference?.geometry) {
+        if (response?.result?.reference?.geoJson) {
           const features = new GeoJSON().readFeatures(
-            response.result.reference.geometry,
+            response.result.reference.geoJson,
             { featureProjection: 'EPSG:3857' }
           );
           this.referenceLayer.getSource().addFeatures(features);
         }
 
         this.matchesLayer.getSource().clear();
-        if (response?.result?.matchesGeometry) {
+        if (response?.result?.matchesGeoJson) {
           const features = new GeoJSON().readFeatures(
-            response.result.matchesGeometry,
+            response.result.matchesGeoJson,
             { featureProjection: 'EPSG:3857' }
           );
           this.matchesLayer.getSource().addFeatures(features);

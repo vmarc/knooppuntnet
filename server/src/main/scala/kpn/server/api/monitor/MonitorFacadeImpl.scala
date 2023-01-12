@@ -152,7 +152,7 @@ class MonitorFacadeImpl(
   ): ApiResponse[MonitorRouteMapPage] = {
     val args = s"$groupName:$routeName"
     api.execute(user, "monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(EN, groupName, routeName, relationId))
+      reply(monitorRouteMapPageBuilder.build(groupName, routeName, relationId))
     }
   }
 
