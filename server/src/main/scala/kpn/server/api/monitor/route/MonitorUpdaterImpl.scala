@@ -125,11 +125,11 @@ class MonitorUpdaterImpl(
         val reference = MonitorRouteReference(
           ObjectId(),
           routeId = context.routeId,
-          relationId = if (relationId == 0L) None else Some(relationId),
+          relationId = relationId,
           timestamp = now,
           user = user,
           bounds = bounds,
-          referenceType = "gpx", // "osm" | "gpx"
+          referenceType = "gpx",
           referenceDay = referenceDay,
           distance = distance,
           segmentCount = segmentCount,

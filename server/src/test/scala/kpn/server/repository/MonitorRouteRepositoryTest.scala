@@ -17,11 +17,11 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val routeRepository = new MonitorRouteRepositoryImpl(database)
 
-      val change1 = buildChange("group-1", 101L, 1L, Timestamp(2020, 8, 11), happy = false)
-      val change2 = buildChange("group-1", 101L, 2L, Timestamp(2020, 8, 12), happy = true)
-      val change3 = buildChange("group-1", 102L, 3L, Timestamp(2020, 8, 13), happy = false)
-      val change4 = buildChange("group-2", 103L, 4L, Timestamp(2020, 8, 14), happy = false)
-      val change5 = buildChange("group-2", 103L, 5L, Timestamp(2020, 8, 15), happy = true)
+      val change1 = buildChange("group-1", 101, 1, Timestamp(2020, 8, 11), happy = false)
+      val change2 = buildChange("group-1", 101, 2, Timestamp(2020, 8, 12), happy = true)
+      val change3 = buildChange("group-1", 102, 3, Timestamp(2020, 8, 13), happy = false)
+      val change4 = buildChange("group-2", 103, 4, Timestamp(2020, 8, 14), happy = false)
+      val change5 = buildChange("group-2", 103, 5, Timestamp(2020, 8, 15), happy = true)
 
       routeRepository.saveRouteChange(change1)
       routeRepository.saveRouteChange(change2)
@@ -89,8 +89,8 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val group = newMonitorGroup("group")
       val route = newMonitorRoute(group._id, "route", "description")
-      val reference = newMonitorRouteReference(route._id)
-      val state = newMonitorRouteState(route._id, 1L)
+      val reference = newMonitorRouteReference(route._id, 0)
+      val state = newMonitorRouteState(route._id, 1)
 
       database.monitorGroups.save(group)
       database.monitorRoutes.save(route)
@@ -121,23 +121,23 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         "description",
         relation = Some(
           newMonitorRouteRelation(
-            1L,
+            1,
             "1",
             relations = Seq(
               newMonitorRouteRelation(
-                11L,
+                11,
                 "11",
                 relations = Seq(
-                  newMonitorRouteRelation(111L, "111"),
-                  newMonitorRouteRelation(112L, "112")
+                  newMonitorRouteRelation(111, "111"),
+                  newMonitorRouteRelation(112, "112")
                 )
               ),
               newMonitorRouteRelation(
-                12L,
+                12,
                 "12",
                 relations = Seq(
-                  newMonitorRouteRelation(121L, "121"),
-                  newMonitorRouteRelation(122L, "122")
+                  newMonitorRouteRelation(121, "121"),
+                  newMonitorRouteRelation(122, "122")
                 )
               )
             )
@@ -164,23 +164,23 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         "description",
         relation = Some(
           newMonitorRouteRelation(
-            1L,
+            1,
             "1",
             relations = Seq(
               newMonitorRouteRelation(
-                11L,
+                11,
                 "11",
                 relations = Seq(
-                  newMonitorRouteRelation(111L, "111"),
-                  newMonitorRouteRelation(112L, "112")
+                  newMonitorRouteRelation(111, "111"),
+                  newMonitorRouteRelation(112, "112")
                 )
               ),
               newMonitorRouteRelation(
-                12L,
+                12,
                 "12",
                 relations = Seq(
-                  newMonitorRouteRelation(121L, "121"),
-                  newMonitorRouteRelation(122L, "122")
+                  newMonitorRouteRelation(121, "121"),
+                  newMonitorRouteRelation(122, "122")
                 )
               )
             )
@@ -190,13 +190,13 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val reference1 = newMonitorRouteReference(
         route._id,
-        Some(11L),
-        distance = 100L
+        11,
+        distance = 100
       )
       val reference2 = newMonitorRouteReference(
         route._id,
-        Some(12L),
-        distance = 200L
+        12,
+        distance = 200
       )
 
       database.monitorGroups.save(group)
@@ -223,23 +223,23 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
         "description",
         relation = Some(
           newMonitorRouteRelation(
-            1L,
+            1,
             "1",
             relations = Seq(
               newMonitorRouteRelation(
-                11L,
+                11,
                 "11",
                 relations = Seq(
-                  newMonitorRouteRelation(111L, "111"),
-                  newMonitorRouteRelation(112L, "112")
+                  newMonitorRouteRelation(111, "111"),
+                  newMonitorRouteRelation(112, "112")
                 )
               ),
               newMonitorRouteRelation(
-                12L,
+                12,
                 "12",
                 relations = Seq(
-                  newMonitorRouteRelation(121L, "121"),
-                  newMonitorRouteRelation(122L, "122")
+                  newMonitorRouteRelation(121, "121"),
+                  newMonitorRouteRelation(122, "122")
                 )
               )
             )
@@ -249,21 +249,21 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val state1 = newMonitorRouteState(
         route._id,
-        relationId = 11L,
-        wayCount = 10L,
-        osmDistance = 100L,
+        relationId = 11,
+        wayCount = 10,
+        osmDistance = 100,
         deviations = Seq(
           MonitorRouteDeviation(
-            1L,
-            meters = 20L,
-            distance = 0L,
+            1,
+            meters = 20,
+            distance = 0,
             bounds = Bounds(),
             geoJson = ""
           ),
           MonitorRouteDeviation(
-            2L,
-            meters = 30L,
-            distance = 0L,
+            2,
+            meters = 30,
+            distance = 0,
             bounds = Bounds(),
             geoJson = ""
           )
@@ -271,14 +271,14 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
       val state2 = newMonitorRouteState(
         route._id,
-        relationId = 12L,
-        wayCount = 20L,
-        osmDistance = 200L,
+        relationId = 12,
+        wayCount = 20,
+        osmDistance = 200,
         deviations = Seq(
           MonitorRouteDeviation(
-            1L,
-            meters = 40L,
-            distance = 0L,
+            1,
+            meters = 40,
+            distance = 0,
             bounds = Bounds(),
             geoJson = ""
           ),

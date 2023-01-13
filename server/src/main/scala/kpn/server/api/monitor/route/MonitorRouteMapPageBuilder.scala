@@ -10,6 +10,7 @@ import kpn.core.util.Util
 import kpn.server.api.monitor.MonitorUtil
 import kpn.server.api.monitor.domain.MonitorGroup
 import kpn.server.api.monitor.domain.MonitorRoute
+import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.repository.MonitorGroupRepository
 import kpn.server.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -77,7 +78,9 @@ class MonitorRouteMapPageBuilder(
         }
         else {
           if (relationId != relation.relationId) {
-            throw new IllegalStateException("Requested relationId does not match route relationId")
+            throw new IllegalStateException(
+              s"""Requested relationId "$relationId" does not match route relationId "${relation.relationId}""""
+            )
           }
           buildSimpleRoutePage(group, route, relationId)
         }
@@ -88,85 +91,14 @@ class MonitorRouteMapPageBuilder(
 
     route.relation match {
       case None =>
-        // route structure not known (osm id for route not filled in yet)
         if (route.referenceType == "gpx") {
-          // include reference in page (there will be no state yet)
-
-          val references = monitorRouteRepository.routeReferences(route._id) // TODO improve repository method
-          val referenceInfo = if (references.size == 1) {
-            val reference = references.head
-            Some(
-              MonitorRouteReferenceInfo(
-                reference.timestamp,
-                reference.user,
-                reference.bounds,
-                reference.distance,
-                reference.referenceType,
-                reference.referenceDay,
-                reference.segmentCount,
-                reference.filename,
-                reference.geoJson
-              )
-            )
-          }
-          else {
-            // TODO throw exception?
-            None
-          }
-
-          referenceInfo match {
-            case None => // TODO throw exception?
-              MonitorRouteMapPage(
-                relationId = None,
-                routeName = route.name,
-                routeDescription = route.description,
-                groupName = group.name,
-                groupDescription = group.description,
-                bounds = None,
-                prevSubRelation = None,
-                nextSubRelation = None,
-                osmSegments = Seq.empty,
-                matchesGeoJson = None,
-                deviations = Seq.empty,
-                reference = None,
-                subRelations = Seq.empty
-              )
-
-
-            case Some(reference) =>
-              MonitorRouteMapPage(
-                relationId = None,
-                routeName = route.name,
-                routeDescription = route.description,
-                groupName = group.name,
-                groupDescription = group.description,
-                bounds = Some(reference.bounds),
-                prevSubRelation = None,
-                nextSubRelation = None,
-                osmSegments = Seq.empty,
-                matchesGeoJson = None,
-                deviations = Seq.empty,
-                reference = referenceInfo,
-                subRelations = Seq.empty
-              )
+          monitorRouteRepository.routeRelationReference(route._id, 0) match {
+            case Some(reference) => buildPageWithGpxReferenceOnly(group, route, reference)
+            case None => buildEmptyPage(group, route) // TODO or throw exception?
           }
         }
         else {
-          MonitorRouteMapPage(
-            relationId = None,
-            routeName = route.name,
-            routeDescription = route.description,
-            groupName = group.name,
-            groupDescription = group.description,
-            bounds = None,
-            prevSubRelation = None,
-            nextSubRelation = None,
-            osmSegments = Seq.empty,
-            matchesGeoJson = None,
-            deviations = Seq.empty,
-            reference = None,
-            subRelations = Seq.empty
-          )
+          buildEmptyPage(group, route)
         }
 
       case Some(relation) =>
@@ -180,69 +112,110 @@ class MonitorRouteMapPageBuilder(
     }
   }
 
-  private def buildSimpleRoutePage(group: MonitorGroup, route: MonitorRoute, relationId: Long): MonitorRouteMapPage = {
-
-    monitorRouteRepository.routeRelationReference(route._id, relationId) match {
-      case None =>
-      case Some(reference) =>
-    }
-
-    val references = monitorRouteRepository.routeReferences(route._id) // TODO improve repository method
-    val referenceInfo = if (references.size == 1) {
-      val reference = references.head
-      Some(
-        MonitorRouteReferenceInfo(
-          reference.timestamp,
-          reference.user,
-          reference.bounds,
-          reference.distance,
-          reference.referenceType,
-          reference.referenceDay,
-          reference.segmentCount,
-          reference.filename,
-          reference.geoJson
-        )
-      )
-    }
-    else {
-      None
-    }
-
-    val stateOption = route.relationId.flatMap(relId => monitorRouteRepository.routeState(route._id, relId))
-    val bounds = stateOption match {
-      case None => referenceInfo.map(_.bounds)
-      case Some(state) =>
-        referenceInfo match {
-          case None => Some(state.bounds)
-          case Some(ref) =>
-            if (state.bounds == Bounds()) {
-              Some(ref.bounds)
-            }
-            else {
-              Some(
-                Util.mergeBounds(Seq(state.bounds, ref.bounds))
-              )
-            }
-        }
-    }
-
+  private def buildEmptyPage(group: MonitorGroup, route: MonitorRoute): MonitorRouteMapPage = {
     MonitorRouteMapPage(
-      route.relationId,
-      route.name,
-      route.description,
-      group.name,
-      group.description,
-      bounds,
-      None,
-      None,
-      stateOption.toSeq.flatMap(_.osmSegments),
-      stateOption.flatMap(_.matchesGeometry),
-      stateOption.toSeq.flatMap(_.deviations),
-      referenceInfo,
-      Seq.empty
+      relationId = None,
+      routeName = route.name,
+      routeDescription = route.description,
+      groupName = group.name,
+      groupDescription = group.description,
+      bounds = None,
+      prevSubRelation = None,
+      nextSubRelation = None,
+      osmSegments = Seq.empty,
+      matchesGeoJson = None,
+      deviations = Seq.empty,
+      reference = None,
+      subRelations = Seq.empty
     )
   }
 
+  private def buildPageWithGpxReferenceOnly(
+    group: MonitorGroup,
+    route: MonitorRoute,
+    reference: MonitorRouteReference
+  ): MonitorRouteMapPage = {
+
+    val referenceInfo = MonitorRouteReferenceInfo(
+      reference.timestamp,
+      reference.user,
+      reference.bounds,
+      reference.distance,
+      reference.referenceType,
+      reference.referenceDay,
+      reference.segmentCount,
+      reference.filename,
+      reference.geoJson
+    )
+
+    MonitorRouteMapPage(
+      relationId = None,
+      routeName = route.name,
+      routeDescription = route.description,
+      groupName = group.name,
+      groupDescription = group.description,
+      bounds = Some(reference.bounds),
+      prevSubRelation = None,
+      nextSubRelation = None,
+      osmSegments = Seq.empty,
+      matchesGeoJson = None,
+      deviations = Seq.empty,
+      reference = Some(referenceInfo),
+      subRelations = Seq.empty
+    )
+  }
+
+  private def buildSimpleRoutePage(group: MonitorGroup, route: MonitorRoute, relationId: Long): MonitorRouteMapPage = {
+
+    monitorRouteRepository.routeRelationReference(route._id, relationId) match {
+      case None => buildEmptyPage(group, route) // TODO or throw exception?
+      case Some(reference) =>
+
+        val referenceInfo = Some(
+          MonitorRouteReferenceInfo(
+            reference.timestamp,
+            reference.user,
+            reference.bounds,
+            reference.distance,
+            reference.referenceType,
+            reference.referenceDay,
+            reference.segmentCount,
+            reference.filename,
+            reference.geoJson
+          )
+        )
+
+        val stateOption = monitorRouteRepository.routeState(route._id, relationId)
+        val bounds = stateOption match {
+          case None => Some(reference.bounds)
+          case Some(state) =>
+            if (state.bounds == Bounds()) {
+              Some(reference.bounds)
+            }
+            else {
+              Some(
+                Util.mergeBounds(Seq(state.bounds, reference.bounds))
+              )
+            }
+        }
+
+        MonitorRouteMapPage(
+          route.relationId,
+          route.name,
+          route.description,
+          group.name,
+          group.description,
+          bounds,
+          None,
+          None,
+          stateOption.toSeq.flatMap(_.osmSegments),
+          stateOption.flatMap(_.matchesGeometry),
+          stateOption.toSeq.flatMap(_.deviations),
+          referenceInfo,
+          Seq.empty
+        )
+    }
+  }
 
   private def buildSuperRoutePage(
     group: MonitorGroup,
@@ -253,14 +226,9 @@ class MonitorRouteMapPageBuilder(
     val subRelations = MonitorUtil.subRelationsIn(route)
 
     val (prevSubRelation, nextSubRelation) =
-      if (subRelations.nonEmpty) {
-        Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId) match {
-          case None => (None, None)
-          case Some(triplet) => (triplet.previous, triplet.next)
-        }
-      }
-      else {
-        (None, None)
+      Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId) match {
+        case None => (None, None)
+        case Some(triplet) => (triplet.previous, triplet.next)
       }
 
     monitorRouteRepository.routeRelationReference(route._id, relationId) match {
@@ -300,7 +268,7 @@ class MonitorRouteMapPageBuilder(
         )
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
         val bounds = stateOption match {
-          case None => referenceInfo.bounds
+          case None => reference.bounds
           case Some(state) =>
             if (state.bounds == Bounds()) { // TODO this is not possible?
               reference.bounds

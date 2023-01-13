@@ -58,6 +58,38 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
     }
   }
 
+  test("relationId parameter not matching relationId in MonitorRoute") {
+
+    withDatabase() { database =>
+
+      val groupRepository = new MonitorGroupRepositoryImpl(database)
+      val routeRepository = new MonitorRouteRepositoryImpl(database)
+      val pageBuilder = new MonitorRouteMapPageBuilder(groupRepository, routeRepository)
+
+      val group = newMonitorGroup("group", "group-description")
+      groupRepository.saveGroup(group)
+
+      val route = newMonitorRoute(
+        group._id,
+        name = "route",
+        description = "route-description",
+        relationId = Some(1),
+        referenceType = "osm",
+        referenceDay = Some(Day(2022, 8, 11)),
+        relation = Some(
+          newMonitorRouteRelation(
+            relationId = 1,
+          )
+        )
+      )
+      routeRepository.saveRoute(route)
+
+      intercept[IllegalStateException] {
+        pageBuilder.build("group", "route", Some(99))
+      }.getMessage should equal("""Requested relationId "99" does not match route relationId "1"""")
+    }
+  }
+
   test("route without state or reference") {
 
     withDatabase() { database =>
@@ -127,7 +159,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = None,
+        relationId = 0,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -230,7 +262,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = Some(1),
+        relationId = 1,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -275,54 +307,56 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRouteState(state)
       routeRepository.saveRouteReference(reference)
 
-      pageBuilder.build("group", "route", None, log) shouldMatchTo {
-        Some(
-          MonitorRouteMapPage(
-            relationId = Some(1),
-            routeName = "route",
-            routeDescription = "route-description",
-            groupName = "group",
-            groupDescription = "group-description",
-            bounds = Some(Bounds(1, 1, 1, 1)),
-            nextSubRelation = None,
-            prevSubRelation = None,
-            osmSegments = Seq(
-              MonitorRouteSegment(
-                id = 1,
-                startNodeId = 1001,
-                endNodeId = 1002,
-                meters = 100,
-                bounds = Bounds(1, 1, 1, 1),
-                geoJson = "geo-json-route-segment-11-1"
-              )
-            ),
-            matchesGeoJson = Some("matches-geometry"),
-            deviations = Seq(
-              MonitorRouteDeviation(
-                1,
-                meters = 100,
-                distance = 12,
-                bounds = Bounds(1, 1, 1, 1),
-                geoJson = "geo-json-deviation-1"
-              )
-            ),
-            reference = Some(
-              MonitorRouteReferenceInfo(
-                created = Timestamp(2022, 8, 11, 12, 0, 0),
-                user = "user",
-                bounds = Bounds(1, 1, 1, 1),
-                distance = 1000,
-                referenceType = "osm",
-                referenceDay = Day(2022, 8, 11),
-                segmentCount = 1,
-                gpxFilename = None,
-                geoJson = "geo-json-reference"
-              )
-            ),
-            subRelations = Seq.empty
-          )
+      val expectedPage = Some(
+        MonitorRouteMapPage(
+          relationId = Some(1),
+          routeName = "route",
+          routeDescription = "route-description",
+          groupName = "group",
+          groupDescription = "group-description",
+          bounds = Some(Bounds(1, 1, 1, 1)),
+          nextSubRelation = None,
+          prevSubRelation = None,
+          osmSegments = Seq(
+            MonitorRouteSegment(
+              id = 1,
+              startNodeId = 1001,
+              endNodeId = 1002,
+              meters = 100,
+              bounds = Bounds(1, 1, 1, 1),
+              geoJson = "geo-json-route-segment-11-1"
+            )
+          ),
+          matchesGeoJson = Some("matches-geometry"),
+          deviations = Seq(
+            MonitorRouteDeviation(
+              1,
+              meters = 100,
+              distance = 12,
+              bounds = Bounds(1, 1, 1, 1),
+              geoJson = "geo-json-deviation-1"
+            )
+          ),
+          reference = Some(
+            MonitorRouteReferenceInfo(
+              created = Timestamp(2022, 8, 11, 12, 0, 0),
+              user = "user",
+              bounds = Bounds(1, 1, 1, 1),
+              distance = 1000,
+              referenceType = "osm",
+              referenceDay = Day(2022, 8, 11),
+              segmentCount = 1,
+              gpxFilename = None,
+              geoJson = "geo-json-reference"
+            )
+          ),
+          subRelations = Seq.empty
         )
-      }
+      )
+
+      pageBuilder.build("group", "route", None, log) shouldMatchTo expectedPage
+      pageBuilder.build("group", "route", Some(1), log) shouldMatchTo expectedPage
+
       log.messages should equal(Seq.empty)
     }
   }
@@ -365,7 +399,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference11 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = Some(11),
+        relationId = 11,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -378,7 +412,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       )
       val reference12 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = Some(12),
+        relationId = 12,
         timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
         user = "user",
         bounds = Bounds(2, 2, 2, 2),
@@ -514,7 +548,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference11 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = Some(11),
+        relationId = 11,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -559,7 +593,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference12 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = Some(12),
+        relationId = 12,
         timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
         user = "user",
         bounds = Bounds(2, 2, 2, 2),
@@ -604,120 +638,120 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRouteState(state11)
       routeRepository.saveRouteState(state12)
 
-      pageBuilder.build("group", "route", Some(11), log) shouldMatchTo {
-        Some(
-          MonitorRouteMapPage(
-            relationId = None,
-            routeName = "route",
-            routeDescription = "route-description",
-            groupName = "group",
-            groupDescription = "group-description",
-            bounds = Some(Bounds(1, 1, 1, 1)),
-            prevSubRelation = None,
-            nextSubRelation = Some(
-              MonitorRouteSubRelation(
-                12,
-                "sub-relation-12"
-              )
-            ),
-            osmSegments = Seq(
-              MonitorRouteSegment(
-                id = 1,
-                startNodeId = 1001,
-                endNodeId = 1002,
-                meters = 100,
-                bounds = Bounds(1, 1, 1, 1),
-                geoJson = "geo-json-route-segment-11-1"
-              )
-            ),
-            matchesGeoJson = Some("matches-geometry-11"),
-            deviations = Seq(
-              MonitorRouteDeviation(
-                id = 1,
-                meters = 11,
-                distance = 111,
-                bounds = Bounds(2, 2, 2, 2),
-                geoJson = "geo-json-deviation-11-1"
-
-              )
-            ),
-            reference = Some(
-              MonitorRouteReferenceInfo(
-                created = Timestamp(2022, 8, 11, 12, 0, 0),
-                user = "user",
-                bounds = Bounds(1, 1, 1, 1),
-                distance = 1000,
-                referenceType = "gpx",
-                referenceDay = Day(2022, 8, 11),
-                segmentCount = 1,
-                gpxFilename = Some("filename-11"),
-                geoJson = "geo-json-reference-11"
-              )
-            ),
-            subRelations = Seq(
-              MonitorRouteSubRelation(11, "sub-relation-11"),
-              MonitorRouteSubRelation(12, "sub-relation-12")
+      val expectedPage11 = Some(
+        MonitorRouteMapPage(
+          relationId = None,
+          routeName = "route",
+          routeDescription = "route-description",
+          groupName = "group",
+          groupDescription = "group-description",
+          bounds = Some(Bounds(1, 1, 1, 1)),
+          prevSubRelation = None,
+          nextSubRelation = Some(
+            MonitorRouteSubRelation(
+              12,
+              "sub-relation-12"
             )
+          ),
+          osmSegments = Seq(
+            MonitorRouteSegment(
+              id = 1,
+              startNodeId = 1001,
+              endNodeId = 1002,
+              meters = 100,
+              bounds = Bounds(1, 1, 1, 1),
+              geoJson = "geo-json-route-segment-11-1"
+            )
+          ),
+          matchesGeoJson = Some("matches-geometry-11"),
+          deviations = Seq(
+            MonitorRouteDeviation(
+              id = 1,
+              meters = 11,
+              distance = 111,
+              bounds = Bounds(2, 2, 2, 2),
+              geoJson = "geo-json-deviation-11-1"
+
+            )
+          ),
+          reference = Some(
+            MonitorRouteReferenceInfo(
+              created = Timestamp(2022, 8, 11, 12, 0, 0),
+              user = "user",
+              bounds = Bounds(1, 1, 1, 1),
+              distance = 1000,
+              referenceType = "gpx",
+              referenceDay = Day(2022, 8, 11),
+              segmentCount = 1,
+              gpxFilename = Some("filename-11"),
+              geoJson = "geo-json-reference-11"
+            )
+          ),
+          subRelations = Seq(
+            MonitorRouteSubRelation(11, "sub-relation-11"),
+            MonitorRouteSubRelation(12, "sub-relation-12")
           )
         )
-      }
+      )
 
-      pageBuilder.build("group", "route", Some(12), log) shouldMatchTo {
-        Some(
-          MonitorRouteMapPage(
-            relationId = None,
-            routeName = "route",
-            routeDescription = "route-description",
-            groupName = "group",
-            groupDescription = "group-description",
-            bounds = Some(Bounds(1, 1, 2, 2)),
-            prevSubRelation = Some(
-              MonitorRouteSubRelation(
-                11,
-                "sub-relation-11"
-              )
-            ),
-            nextSubRelation = None,
-            osmSegments = Seq(
-              MonitorRouteSegment(
-                id = 1,
-                startNodeId = 2001,
-                endNodeId = 2002,
-                meters = 200,
-                bounds = Bounds(1, 1, 1, 1),
-                geoJson = "geo-json-route-segment-12-1"
-              )
-            ),
-            matchesGeoJson = Some("matches-geometry-12"),
-            deviations = Seq(
-              MonitorRouteDeviation(
-                id = 1,
-                meters = 11,
-                distance = 111,
-                bounds = Bounds(2, 2, 2, 2),
-                geoJson = "geo-json-deviation-12-1"
-              )
-            ),
-            reference = Some(
-              MonitorRouteReferenceInfo(
-                created = Timestamp(2022, 8, 12, 12, 0, 0),
-                user = "user",
-                bounds = Bounds(2, 2, 2, 2),
-                distance = 1000,
-                referenceType = "gpx",
-                referenceDay = Day(2022, 8, 12),
-                segmentCount = 1,
-                gpxFilename = Some("filename-12"),
-                geoJson = "geo-json-reference-12"
-              )
-            ),
-            subRelations = Seq(
-              MonitorRouteSubRelation(11, "sub-relation-11"),
-              MonitorRouteSubRelation(12, "sub-relation-12")
+      val expectedPage12 = Some(
+        MonitorRouteMapPage(
+          relationId = None,
+          routeName = "route",
+          routeDescription = "route-description",
+          groupName = "group",
+          groupDescription = "group-description",
+          bounds = Some(Bounds(1, 1, 2, 2)),
+          prevSubRelation = Some(
+            MonitorRouteSubRelation(
+              11,
+              "sub-relation-11"
             )
+          ),
+          nextSubRelation = None,
+          osmSegments = Seq(
+            MonitorRouteSegment(
+              id = 1,
+              startNodeId = 2001,
+              endNodeId = 2002,
+              meters = 200,
+              bounds = Bounds(1, 1, 1, 1),
+              geoJson = "geo-json-route-segment-12-1"
+            )
+          ),
+          matchesGeoJson = Some("matches-geometry-12"),
+          deviations = Seq(
+            MonitorRouteDeviation(
+              id = 1,
+              meters = 11,
+              distance = 111,
+              bounds = Bounds(2, 2, 2, 2),
+              geoJson = "geo-json-deviation-12-1"
+            )
+          ),
+          reference = Some(
+            MonitorRouteReferenceInfo(
+              created = Timestamp(2022, 8, 12, 12, 0, 0),
+              user = "user",
+              bounds = Bounds(2, 2, 2, 2),
+              distance = 1000,
+              referenceType = "gpx",
+              referenceDay = Day(2022, 8, 12),
+              segmentCount = 1,
+              gpxFilename = Some("filename-12"),
+              geoJson = "geo-json-reference-12"
+            )
+          ),
+          subRelations = Seq(
+            MonitorRouteSubRelation(11, "sub-relation-11"),
+            MonitorRouteSubRelation(12, "sub-relation-12")
           )
         )
-      }
+      )
+
+      pageBuilder.build("group", "route", None, log) shouldMatchTo expectedPage11
+      pageBuilder.build("group", "route", Some(11), log) shouldMatchTo expectedPage11
+      pageBuilder.build("group", "route", Some(12), log) shouldMatchTo expectedPage12
 
       log.messages should equal(Seq.empty)
     }

@@ -9,7 +9,7 @@ import kpn.api.custom.Timestamp
 case class MonitorRouteReference(
   _id: ObjectId,
   routeId: ObjectId,
-  relationId: Option[Long],
+  relationId: Long, // 0 when gpx reference and osm relationId not known yet
   timestamp: Timestamp,
   user: String,
   bounds: Bounds,

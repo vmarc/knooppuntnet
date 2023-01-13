@@ -142,7 +142,7 @@ class MonitorUpdateSaverImpl(
   private def udpateMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
     if (context.newReferences.nonEmpty) {
       val relations = monitorRouteRelation.relations.map(r => udpateMonitorRouteRelation(context, r))
-      context.newReferences.find(_.relationId.contains(monitorRouteRelation.relationId)) match {
+      context.newReferences.find(_.relationId == monitorRouteRelation.relationId) match {
         case None =>
           monitorRouteRelation.copy(
             relations = relations

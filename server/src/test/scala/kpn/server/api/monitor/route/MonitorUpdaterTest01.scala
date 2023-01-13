@@ -120,7 +120,7 @@ class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedT
         MonitorRouteReference(
           _id = reference._id,
           routeId = route._id,
-          relationId = Some(1),
+          relationId = 1,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),

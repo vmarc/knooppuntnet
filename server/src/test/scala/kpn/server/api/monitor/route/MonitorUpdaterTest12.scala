@@ -34,7 +34,7 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = route.relationId,
+        relationId = 1,
         referenceType = "osm",
         referenceDay = Day(2022, 8, 11),
       )

@@ -103,9 +103,10 @@ object MonitorRouteMigrationTool {
       // tool.renameRouteCollections()
       // tool.addExampleSuperRoute(exampleSuperRoute)
       // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
-      // tool.migrateOne("GRV", "p01")
-      tool.migrate()
+      tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
+      // tool.migrate()
     }
+    println("Done")
   }
 }
 
@@ -230,7 +231,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       val reference = MonitorRouteReference(
         oldReference._id,
         routeId = newRoute._id,
-        relationId = oldReference.relationId,
+        relationId = oldReference.relationId.getOrElse(0),
         timestamp = oldReference.created,
         user = oldReference.user,
         bounds = oldReference.bounds,
