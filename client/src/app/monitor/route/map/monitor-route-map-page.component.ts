@@ -13,16 +13,14 @@ import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
   selector: 'kpn-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header
-      pageName="map"
-    ></kpn-monitor-route-page-header>
+    <kpn-monitor-route-page-header pageName="map" />
     <div *ngIf="response$ | async as response">
       <div *ngIf="canDisplayMap(response.result); then map; else noMap"></div>
       <ng-template #noMap>
         <p i18n="@@monitor.route.map.no-map">No map</p>
       </ng-template>
       <ng-template #map>
-        <kpn-monitor-route-map [page]="response.result"></kpn-monitor-route-map>
+        <kpn-monitor-route-map [page]="response.result"/>
       </ng-template>
     </div>
   `,

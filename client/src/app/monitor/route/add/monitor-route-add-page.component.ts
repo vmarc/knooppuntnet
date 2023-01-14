@@ -28,12 +28,12 @@ import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 
     <h2 i18n="@@monitor.route.add.title">Add route</h2>
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <kpn-monitor-route-properties
       mode="add"
       [groupName]="groupName$ | async"
-    ></kpn-monitor-route-properties>
+    />
   `,
 })
 export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {

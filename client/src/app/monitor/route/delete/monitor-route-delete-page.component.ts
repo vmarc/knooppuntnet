@@ -32,7 +32,7 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 
     <h2 i18n="@@monitor.route.delete.title">Delete</h2>
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <div class="kpn-form">
       <p i18n="@@monitor.route.delete.comment">
@@ -40,7 +40,7 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
       </p>
 
       <p class="kpn-line">
-        <mat-icon svgIcon="warning"></mat-icon>
+        <mat-icon svgIcon="warning"/>
         <span i18n="@@monitor.route.delete.warning"
           >Attention: all history will be lost!</span
         >

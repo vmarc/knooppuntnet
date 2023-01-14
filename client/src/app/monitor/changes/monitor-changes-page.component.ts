@@ -28,8 +28,8 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
 
     <h1 i18n="@@monitor.changes.title">Monitor</h1>
 
-    <kpn-monitor-page-menu pageName="changes"></kpn-monitor-page-menu>
-    <kpn-error></kpn-error>
+    <kpn-monitor-page-menu pageName="changes" />
+    <kpn-error />
 
     <div *ngIf="response$ | async as response">
       <p *ngIf="!response.result" i18n="@@monitor.changes.no-changes">
@@ -40,7 +40,7 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
           i18n="@@monitor.changes.impact"
-          >Impact
+        >Impact
         </mat-slide-toggle>
 
         <kpn-paginator
@@ -50,15 +50,13 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
           (pageIndexChange)="onPageIndexChange($event)"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
-        >
-        </kpn-paginator>
+        />
 
         <kpn-monitor-changes
           [pageSize]="response.result.pageSize"
           [pageIndex]="response.result.pageIndex"
           [changes]="response.result.changes"
-        >
-        </kpn-monitor-changes>
+        />
       </div>
     </div>
   `,

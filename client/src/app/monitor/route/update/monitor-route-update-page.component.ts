@@ -34,7 +34,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 
     <h2 i18n="@@monitor.route.update.title">Update route</h2>
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <div *ngIf="response$ | async as response">
       <kpn-monitor-route-properties
@@ -42,8 +42,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
         [groupName]="groupName$ | async"
         [initialProperties]="response.result.properties"
         [routeGroups]="response.result.groups"
-      >
-      </kpn-monitor-route-properties>
+      />
     </div>
   `,
 })

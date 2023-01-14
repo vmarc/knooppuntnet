@@ -30,19 +30,19 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
           [enabled]="saveRouteEnabled$ | async"
           [status]="saveRouteStatus$ | async"
           label="Save route definition"
-        ></kpn-monitor-route-save-step>
+        />
 
         <kpn-monitor-route-save-step
           [enabled]="uploadGpxEnabled$ | async"
           [status]="uploadGpxStatus$ | async"
           label="Upload GPX file"
-        ></kpn-monitor-route-save-step>
+        />
 
         <kpn-monitor-route-save-step
           [enabled]="analyzeEnabled$ | async"
           [status]="analyzeStatus$ | async"
           label="Route analysis"
-        ></kpn-monitor-route-save-step>
+        />
 
         <div class="done kpn-spacer-below">
           <span

@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 
     <h1 i18n="@@monitor.about.title">Monitor</h1>
 
-    <kpn-monitor-page-menu pageName="about"></kpn-monitor-page-menu>
+    <kpn-monitor-page-menu pageName="about"/>
 
     <div class="kpn-comment">
       <p i18n="@@monitor.about.text">

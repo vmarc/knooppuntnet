@@ -36,7 +36,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="monitor-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
+      <kpn-layer-switcher [mapLayers]="mapLayers"/>
     </div>
   `,
 })

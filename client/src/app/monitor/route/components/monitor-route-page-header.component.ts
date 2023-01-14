@@ -67,8 +67,7 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
         (select)="select($event)"
         name="Previous"
         i18n-name="@@monitor.route.menu.previous"
-      >
-      </kpn-monitor-sub-relation-menu-option>
+      />
 
       <kpn-monitor-sub-relation-menu-option
         *ngIf="pageName === 'map'"
@@ -76,8 +75,7 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
         (select)="select($event)"
         name="Next"
         i18n-name="@@monitor.route.menu.next"
-      >
-      </kpn-monitor-sub-relation-menu-option>
+      />
 
       <kpn-page-menu-option
         *ngIf="pageName === 'map'"
@@ -97,7 +95,7 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
       </div>
     </kpn-page-menu>
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
   `,
   styles: [
     `

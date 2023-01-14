@@ -216,7 +216,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
             i18n-title="@@action.upload"
             class="kpn-action-button kpn-link"
           >
-            <mat-icon svgIcon="upload"></mat-icon>
+            <mat-icon svgIcon="upload"/>
           </button>
         </td>
       </ng-container>

@@ -36,7 +36,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
     <kpn-monitor-group-page-menu
       pageName="changes"
       [groupName]="groupName$ | async"
-    ></kpn-monitor-group-page-menu>
+    />
 
     <div *ngIf="response$ | async as response">
       <p *ngIf="!response.result">No group changes</p>
@@ -44,7 +44,7 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
         <mat-slide-toggle
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
-          >Impact
+        >Impact
         </mat-slide-toggle>
 
         <kpn-paginator
@@ -52,15 +52,13 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
           [pageIndex]="response.result.pageIndex"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
-        >
-        </kpn-paginator>
+        />
 
         <kpn-monitor-changes
           [pageSize]="response.result.pageSize"
           [pageIndex]="response.result.pageIndex"
           [changes]="response.result.changes"
-        >
-        </kpn-monitor-changes>
+        />
       </div>
     </div>
   `,

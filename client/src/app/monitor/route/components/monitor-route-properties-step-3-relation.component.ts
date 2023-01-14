@@ -68,7 +68,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
       <div *ngIf="routeInfo$ | async as routeInfo">
         <kpn-monitor-route-info
           [routeInfo]="routeInfo.result"
-        ></kpn-monitor-route-info>
+        />
       </div>
     </div>
 

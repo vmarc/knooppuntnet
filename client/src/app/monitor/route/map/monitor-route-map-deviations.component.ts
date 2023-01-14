@@ -29,13 +29,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
       </p>
     </ng-template>
     <ng-template #referenceAvailable>
-      <div
-        *ngIf="
-          osmRelationAvailable$ | async;
-          then osmRelationAvailable;
-          else osmRelationNotAvailable
-        "
-      ></div>
+      <div *ngIf="osmRelationAvailable$ | async; then osmRelationAvailable;else osmRelationNotAvailable"></div>
       <ng-template #osmRelationNotAvailable>
         <div
           *ngIf="
@@ -56,12 +50,10 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
         </p>
       </ng-template>
       <ng-template #osmRelationAvailable>
-        <div
-          *ngIf="hasDeviations$ | async; then deviations; else noDeviations"
-        ></div>
+        <div *ngIf="hasDeviations$ | async; then deviations; else noDeviations"></div>
         <ng-template #noDeviations>
           <p class="kpn-spacer-above kpn-line">
-            <kpn-icon-happy></kpn-icon-happy>
+            <kpn-icon-happy />
             <span i18n="@@monitor.route.map-deviations.no-deviations">
               No deviations
             </span>
@@ -80,7 +72,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
             <span
               class="segment-deviation"
               i18n="@@monitor.route.map-deviations.deviation"
-              >Deviation</span
+            >Deviation</span
             >
             <span i18n="@@monitor.route.map-deviations.length">Length</span>
           </div>
@@ -118,12 +110,12 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
                 <span
                   *ngIf="deviation.distance === 2500"
                   class="segment-deviation"
-                  >{{ longDistance }}</span
+                >{{ longDistance }}</span
                 >
                 <span
                   *ngIf="deviation.distance !== 2500"
                   class="segment-deviation"
-                  >{{ deviation.distance | distance }}</span
+                >{{ deviation.distance | distance }}</span
                 >
                 <span>{{ deviation.meters | distance }}</span>
                 <button

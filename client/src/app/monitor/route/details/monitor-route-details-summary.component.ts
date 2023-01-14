@@ -18,8 +18,8 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
         <kpn-osm-link-relation
           [title]="page.relationId.toString()"
           [relationId]="page.relationId"
-        ></kpn-osm-link-relation>
-        <kpn-josm-relation [relationId]="page.relationId"></kpn-josm-relation>
+        />
+        <kpn-josm-relation [relationId]="page.relationId"/>
       </p>
       <p class="kpn-space-separated">
         <span>{{ page.wayCount }}</span>

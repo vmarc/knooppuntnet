@@ -14,7 +14,7 @@ import { Component, Input } from '@angular/core';
         Routes
       </kpn-page-menu-option>
     </kpn-page-menu>
-    <kpn-error></kpn-error>
+    <kpn-error/>
   `,
 })
 export class MonitorGroupPageMenuComponent {

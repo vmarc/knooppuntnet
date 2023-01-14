@@ -35,15 +35,15 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
       <div *ngIf="response.result">
         <table class="kpn-table">
           <tbody>
-            <tr>
-              <td>Changeset</td>
-              <td>
-                <div class="kpn-line">
-                  <span>{{ response.result.key.changeSetId }}</span>
-                  <kpn-osm-link-change-set
-                    [changeSetId]="response.result.key.changeSetId"
-                  ></kpn-osm-link-change-set>
-                  <span>
+          <tr>
+            <td>Changeset</td>
+            <td>
+              <div class="kpn-line">
+                <span>{{ response.result.key.changeSetId }}</span>
+                <kpn-osm-link-change-set
+                  [changeSetId]="response.result.key.changeSetId"
+                />
+                <span>
                     <a
                       class="external"
                       rel="nofollow noreferrer"
@@ -57,7 +57,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
                       achavi
                     </a>
                   </span>
-                  <span>
+                <span>
                     <a
                       class="external"
                       rel="nofollow noreferrer"
@@ -71,101 +71,99 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
                       osmcha
                     </a>
                   </span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td i18n="@@change-set.header.timestamp">Timestamp</td>
-              <td>
-                <kpn-timestamp
-                  [timestamp]="timestamp(response.result.key.timestamp)"
-                ></kpn-timestamp>
-              </td>
-            </tr>
-            <tr>
-              <td i18n="@@change-set.header.replication-number">Minute diff</td>
-              <td>
-                {{ replicationName() }}
-              </td>
-            </tr>
-            <tr *ngIf="response.result.comment">
-              <td>Comment</td>
-              <td>
-                {{ response.result.comment }}
-              </td>
-            </tr>
-            <tr>
-              <td>Reference</td>
-              <td>
-                {{ 'TODO response.result.reference.filename' }}
-              </td>
-            </tr>
-            <tr>
-              <td>Distance</td>
-              <td>
-                <div>
-                  <span class="distance-label">GPX</span>
-                  <span>{{ 'TODO response.result.reference.distance' }}km</span>
-                </div>
-                <div>
-                  <span class="distance-label">OSM</span>
-                  <span>{{ response.result.osmDistance }}km</span>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td i18n="@@change-set.header.analysis">Analysis</td>
-              <td>
-                <div *ngIf="response.result.happy" class="kpn-line">
-                  <kpn-icon-happy></kpn-icon-happy>
-                  <span i18n="@@change-set.header.analysis.happy">
-                    This changeset brought improvements.
-                  </span>
-                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td i18n="@@change-set.header.timestamp">Timestamp</td>
+            <td>
+              <kpn-timestamp [timestamp]="timestamp(response.result.key.timestamp)" />
+            </td>
+          </tr>
+          <tr>
+            <td i18n="@@change-set.header.replication-number">Minute diff</td>
+            <td>
+              {{ replicationName() }}
+            </td>
+          </tr>
+          <tr *ngIf="response.result.comment">
+            <td>Comment</td>
+            <td>
+              {{ response.result.comment }}
+            </td>
+          </tr>
+          <tr>
+            <td>Reference</td>
+            <td>
+              {{ 'TODO response.result.reference.filename' }}
+            </td>
+          </tr>
+          <tr>
+            <td>Distance</td>
+            <td>
+              <div>
+                <span class="distance-label">GPX</span>
+                <span>{{ 'TODO response.result.reference.distance' }}km</span>
+              </div>
+              <div>
+                <span class="distance-label">OSM</span>
+                <span>{{ response.result.osmDistance }}km</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td i18n="@@change-set.header.analysis">Analysis</td>
+            <td>
+              <div *ngIf="response.result.happy" class="kpn-line">
+                <kpn-icon-happy/>
+                <span i18n="@@change-set.header.analysis.happy">
+                  This changeset brought improvements.
+                </span>
+              </div>
 
-                <div *ngIf="response.result.investigate" class="kpn-line">
-                  <kpn-icon-investigate></kpn-icon-investigate>
-                  <span i18n="@@change-set.header.analysis.investigate">
+              <div *ngIf="response.result.investigate" class="kpn-line">
+                <kpn-icon-investigate/>
+                <span i18n="@@change-set.header.analysis.investigate">
                     Maybe this changeset is worth a closer look.
                   </span>
-                </div>
+              </div>
 
-                <div
-                  *ngIf="!(response.result.happy || !response.result.happy)"
-                  class="kpn-line"
-                >
+              <div
+                *ngIf="!(response.result.happy || !response.result.happy)"
+                class="kpn-line"
+              >
                   <span i18n="@@change-set.header.analysis.no-impact">
                     The changes do not seem to have an impact on the analysis
                     result.
                   </span>
-                </div>
+              </div>
 
-                <div
-                  *ngIf="response.result.routeSegmentCount !== 1"
-                  class="kpn-line route-analysis"
-                >
-                  <mat-icon svgIcon="warning"></mat-icon>
-                  <span
-                    >Not OK: {{ response.result.routeSegmentCount }} route
+              <div
+                *ngIf="response.result.routeSegmentCount !== 1"
+                class="kpn-line route-analysis"
+              >
+                <mat-icon svgIcon="warning"/>
+                <span
+                >Not OK: {{ response.result.routeSegmentCount }} route
                     segments</span
-                  >
-                </div>
-                <div
-                  *ngIf="response.result.routeSegmentCount === 1"
-                  class="kpn-line route-analysis"
                 >
-                  <span>OK: 1 route segment</span>
-                </div>
-              </td>
-            </tr>
+              </div>
+              <div
+                *ngIf="response.result.routeSegmentCount === 1"
+                class="kpn-line route-analysis"
+              >
+                <span>OK: 1 route segment</span>
+              </div>
+            </td>
+          </tr>
           </tbody>
         </table>
 
         <p>
           Total ways={{ response.result.wayCount }}, ways added={{
-            response.result.waysAdded
+          response.result.waysAdded
           }}, ways removed={{ response.result.waysRemoved }}, ways updated={{
-            response.result.waysUpdated
+          response.result.waysUpdated
           }}
         </p>
 
@@ -173,7 +171,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
           <h2>
             Resolved deviation segments
             <span class="kpn-thin"
-              >({{ response.result.resolvedDeviations.length }})</span
+            >({{ response.result.resolvedDeviations.length }})</span
             >
           </h2>
           <div
@@ -191,8 +189,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
               [referenceJson]="response.result.reference.geoJson"
               [routeSegments]="response.result.routeSegments"
               [deviation]="segment"
-            >
-            </kpn-monitor-route-change-map>
+            />
           </div>
         </div>
 
@@ -200,7 +197,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
           <h2>
             New deviation segments
             <span class="kpn-thin"
-              >({{ response.result.newDeviations.length }})</span
+            >({{ response.result.newDeviations.length }})</span
             >
           </h2>
           <div
@@ -217,8 +214,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
               [referenceJson]="response.result.reference.geoJson"
               [routeSegments]="response.result.routeSegments"
               [deviation]="deviation"
-            >
-            </kpn-monitor-route-change-map>
+            />
           </div>
         </div>
       </div>

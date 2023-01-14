@@ -40,7 +40,7 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 
         <div *ngIf="routeCount$ | async as routeCount">
           <div *ngIf="routeCount > 0" class="kpn-line">
-            <mat-icon svgIcon="warning"></mat-icon>
+            <mat-icon svgIcon="warning"/>
             <span i18n="@@monitor.group.delete.warning">
               The information of all routes ({{ routeCount }} route(s)) in the
               group will also be deleted!

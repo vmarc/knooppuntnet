@@ -13,9 +13,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
   selector: 'kpn-monitor-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header
-      pageName="details"
-    ></kpn-monitor-route-page-header>
+    <kpn-monitor-route-page-header pageName="details" />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
@@ -24,18 +22,14 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 
       <div *ngIf="response.result as route">
         <kpn-data title="Summary" i18n-title="@@monitor.route.details.summary">
-          <kpn-monitor-route-details-summary
-            [page]="route"
-          ></kpn-monitor-route-details-summary>
+          <kpn-monitor-route-details-summary [page]="route" />
         </kpn-data>
 
         <kpn-data
           title="Reference"
           i18n-title="@@monitor.route.details.reference"
         >
-          <kpn-monitor-route-details-reference
-            [page]="route"
-          ></kpn-monitor-route-details-reference>
+          <kpn-monitor-route-details-reference [page]="route" />
         </kpn-data>
 
         <kpn-data
@@ -43,9 +37,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           title="Analysis"
           i18n-title="@@monitor.route.details.analysis"
         >
-          <kpn-monitor-route-details-analysis
-            [page]="route"
-          ></kpn-monitor-route-details-analysis>
+          <kpn-monitor-route-details-analysis [page]="route" />
         </kpn-data>
 
         <kpn-data
@@ -53,22 +45,20 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           title="Comment"
           i18n-title="@@monitor.route.details.comment"
         >
-          <markdown [data]="route.comment"></markdown>
+          <markdown [data]="route.comment"/>
         </kpn-data>
 
         <kpn-data
           *ngIf="route.relation?.relations?.length > 0"
           title="Structure"
           i18n-title="@@monitor.route.details.structure"
-        >
-        </kpn-data>
+        />
         <div class="structure">
           <kpn-monitor-route-details-structure
             *ngIf="route.relation?.relations?.length > 0"
             [relation]="route.relation"
             [referenceType]="route.referenceType"
-          >
-          </kpn-monitor-route-details-structure>
+          />
         </div>
       </div>
     </div>

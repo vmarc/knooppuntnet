@@ -18,7 +18,7 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
   selector: 'kpn-monitor-group-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
+    <kpn-monitor-group-breadcrumb />
 
     <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
 
@@ -28,12 +28,11 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
       </div>
       <div *ngIf="response.result">
         <form [formGroup]="form" #ngForm="ngForm">
-          <kpn-monitor-group-name [ngForm]="ngForm" [name]="name">
-          </kpn-monitor-group-name>
+          <kpn-monitor-group-name [ngForm]="ngForm" [name]="name" />
           <kpn-monitor-group-description
             [ngForm]="ngForm"
             [description]="description"
-          ></kpn-monitor-group-description>
+          />
 
           <div class="kpn-form-buttons">
             <button

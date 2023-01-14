@@ -68,7 +68,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
             i18n-title="@@action.update"
             class="kpn-action-button kpn-link"
           >
-            <mat-icon svgIcon="pencil"></mat-icon>
+            <mat-icon svgIcon="pencil"/>
           </button>
           <button
             mat-icon-button
@@ -77,7 +77,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
             i18n-title="@@action.delete"
             class="kpn-action-button kpn-warning"
           >
-            <mat-icon svgIcon="garbage"></mat-icon>
+            <mat-icon svgIcon="garbage"/>
           </button>
         </td>
       </ng-container>

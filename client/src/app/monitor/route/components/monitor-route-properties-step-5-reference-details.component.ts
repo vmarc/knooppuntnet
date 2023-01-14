@@ -15,8 +15,7 @@ import { FormControl } from '@angular/forms';
         [date]="osmReferenceDate"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
-      >
-      </kpn-day-input>
+      />
       <div
         *ngIf="
           osmReferenceDate.invalid &&
@@ -86,8 +85,7 @@ import { FormControl } from '@angular/forms';
         [date]="gpxReferenceDate"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
-      >
-      </kpn-day-input>
+      />
       <div
         *ngIf="
           gpxReferenceDate.invalid &&

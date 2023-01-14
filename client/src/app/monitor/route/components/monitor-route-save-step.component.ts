@@ -12,12 +12,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
           *ngIf="status === 'todo'"
           svgIcon="dot"
           class="todo"
-        ></mat-icon>
+        />
         <mat-icon
           *ngIf="status === 'done'"
           svgIcon="tick"
           class="done"
-        ></mat-icon>
+        />
       </div>
       <span>{{ label }}</span>
     </div>

@@ -38,7 +38,7 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         </mat-radio-group>
       </div>
 
-      <kpn-monitor-route-map-layers></kpn-monitor-route-map-layers>
+      <kpn-monitor-route-map-layers/>
 
       <div class="kpn-spacer-above">
         <button
@@ -91,11 +91,9 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         </mat-menu>
       </div>
 
-      <kpn-monitor-route-map-deviations *ngIf="mode === 'comparison'">
-      </kpn-monitor-route-map-deviations>
+      <kpn-monitor-route-map-deviations *ngIf="mode === 'comparison'"/>
 
-      <kpn-monitor-route-map-osm-segments *ngIf="mode === 'osm-segments'">
-      </kpn-monitor-route-map-osm-segments>
+      <kpn-monitor-route-map-osm-segments *ngIf="mode === 'osm-segments'"/>
     </div>
   `,
   styles: [

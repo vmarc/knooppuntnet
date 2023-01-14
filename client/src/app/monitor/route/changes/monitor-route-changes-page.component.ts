@@ -19,9 +19,7 @@ import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-monitor-route-page-header
-      pageName="changes"
-    ></kpn-monitor-route-page-header>
+    <kpn-monitor-route-page-header pageName="changes" />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">Route not found</div>
@@ -29,7 +27,7 @@ import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
         <mat-slide-toggle
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
-          >Impact
+        >Impact
         </mat-slide-toggle>
 
         <kpn-paginator
@@ -37,15 +35,13 @@ import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
           [pageIndex]="response.result.pageIndex"
           [length]="response.result.totalChangeCount"
           [showPageSizeSelection]="true"
-        >
-        </kpn-paginator>
+        />
 
         <kpn-monitor-changes
           [pageSize]="response.result.pageSize"
           [pageIndex]="response.result.pageIndex"
           [changes]="response.result.changes"
-        >
-        </kpn-monitor-changes>
+        />
       </div>
     </div>
   `,

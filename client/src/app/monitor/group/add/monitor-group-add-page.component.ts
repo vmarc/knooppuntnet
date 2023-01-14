@@ -28,12 +28,11 @@ import { actionMonitorGroupAdd } from '../../store/monitor.actions';
     </div>
 
     <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
-      <kpn-monitor-group-name [ngForm]="ngForm" [name]="name">
-      </kpn-monitor-group-name>
+      <kpn-monitor-group-name [ngForm]="ngForm" [name]="name"/>
       <kpn-monitor-group-description
         [ngForm]="ngForm"
         [description]="description"
-      ></kpn-monitor-group-description>
+      />
       <div class="kpn-form-buttons">
         <button
           mat-stroked-button

@@ -11,14 +11,12 @@ import { PageWidthService } from '../../components/shared/page-width.service';
     <div class="kpn-line">
       <a [routerLink]="link()" class="kpn-thick">{{
         changeSet.key.changeSetId
-      }}</a>
+        }}</a>
       <span *ngIf="timestampOnSameLine$ | async" class="kpn-thin">{{
         changeSet.key.timestamp
-      }}</span>
-      <kpn-icon-happy *ngIf="changeSet.happy"></kpn-icon-happy>
-      <kpn-icon-investigate
-        *ngIf="changeSet.investigate"
-      ></kpn-icon-investigate>
+        }}</span>
+      <kpn-icon-happy *ngIf="changeSet.happy" />
+      <kpn-icon-investigate *ngIf="changeSet.investigate" />
     </div>
     <div *ngIf="timestampOnSeparateLine$ | async">
       <span class="kpn-thin">{{ changeSet.key.timestamp }}</span>

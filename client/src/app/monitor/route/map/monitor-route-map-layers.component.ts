@@ -9,10 +9,8 @@ import { actionMonitorRouteMapOsmRelationVisible } from '../../store/monitor.act
 import { actionMonitorRouteMapDeviationsVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapMatchesVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapReferenceVisible } from '../../store/monitor.actions';
-import {
-  selectMonitorRouteMapOsmRelationEnabled,
-  selectMonitorRouteMapPage,
-} from '../../store/monitor.selectors';
+import { selectMonitorRouteMapOsmRelationEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapDeviationsEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapMatchesEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
@@ -54,7 +52,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
           (change)="matchesVisibleChanged($event)"
         >
           <div class="kpn-line">
-            <kpn-legend-line color="green"></kpn-legend-line>
+            <kpn-legend-line color="green"/>
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.gpx-same-as-osm"
@@ -76,7 +74,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
           (change)="deviationsVisibleChanged($event)"
         >
           <div class="kpn-line">
-            <kpn-legend-line color="red"></kpn-legend-line>
+            <kpn-legend-line color="red"/>
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.deviations.gpx"
@@ -98,7 +96,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
           (change)="osmRelationVisibleChanged($event)"
         >
           <div class="kpn-line">
-            <kpn-legend-line color="gold"></kpn-legend-line>
+            <kpn-legend-line color="gold"/>
             <span i18n="@@monitor.route.map-layers.osm-relation">
               OSM relation
             </span>

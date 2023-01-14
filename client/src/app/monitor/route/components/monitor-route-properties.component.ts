@@ -39,7 +39,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
             [ngForm]="ngGroupForm"
             [group]="group"
             [routeGroups]="routeGroups"
-          ></kpn-monitor-route-properties-step-1-group>
+          />
         </form>
       </mat-step>
       <mat-step
@@ -53,7 +53,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
             [ngForm]="ngNameForm"
             [name]="name"
             [description]="description"
-          ></kpn-monitor-route-properties-step-2-name>
+          />
         </form>
       </mat-step>
       <mat-step
@@ -67,7 +67,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
             [form]="relationIdForm"
             [relationIdKnown]="relationIdKnown"
             [relationId]="relationId"
-          ></kpn-monitor-route-properties-step-3-relation>
+          />
         </form>
       </mat-step>
       <mat-step
@@ -79,7 +79,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
           <kpn-monitor-route-properties-step-4-reference-type
             [ngForm]="ngReferenceTypeForm"
             [referenceType]="referenceType"
-          ></kpn-monitor-route-properties-step-4-reference-type>
+          />
         </form>
       </mat-step>
       <mat-step
@@ -98,7 +98,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
             [gpxReferenceDate]="gpxReferenceDate"
             [referenceFilename]="referenceFilename"
             [referenceFile]="referenceFile"
-          ></kpn-monitor-route-properties-step-5-reference-details>
+          />
         </form>
       </mat-step>
       <mat-step
@@ -109,7 +109,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
         <form [formGroup]="commentForm">
           <kpn-monitor-route-properties-step-6-comment
             [comment]="comment"
-          ></kpn-monitor-route-properties-step-6-comment>
+          />
         </form>
       </mat-step>
     </mat-stepper>
