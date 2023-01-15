@@ -16,16 +16,13 @@ import { selectLocationFactsPage } from '../store/location.selectors';
       pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@location-facts.title"
-    >
-    </kpn-location-page-header>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
-        <kpn-location-facts
-          [locationFacts]="response.result.locationFacts"
-        ></kpn-location-facts>
+        <kpn-location-facts [locationFacts]="response.result.locationFacts" />
       </kpn-location-response>
     </div>
   `,

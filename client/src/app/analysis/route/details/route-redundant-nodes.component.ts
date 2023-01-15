@@ -7,10 +7,7 @@ import { RouteInfoAnalysis } from '@api/common/route/route-info-analysis';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p *ngFor="let node of analysis.map.redundantNodes">
-      <kpn-route-node
-        [node]="node"
-        title="marker-icon-yellow-small.png"
-      ></kpn-route-node>
+      <kpn-route-node [node]="node" title="marker-icon-yellow-small.png" />
     </p>
   `,
 })

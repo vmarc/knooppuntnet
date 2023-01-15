@@ -10,11 +10,8 @@ import { actionLocationSelectionPageStrategy } from '../store/location.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-analysis-strategy
-        (strategyChange)="onStrategyChange($event)"
-      ></kpn-analysis-strategy>
-
-      <kpn-location-mode></kpn-location-mode>
+      <kpn-analysis-strategy (strategyChange)="onStrategyChange($event)" />
+      <kpn-location-mode />
     </kpn-sidebar>
   `,
 })

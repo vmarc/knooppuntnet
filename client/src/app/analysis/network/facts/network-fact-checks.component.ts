@@ -28,7 +28,7 @@ import { Check } from '@api/common/check';
             <kpn-link-node
               [nodeId]="check.nodeId"
               [nodeName]="check.nodeName"
-            ></kpn-link-node>
+            />
           </td>
           <td>
             {{ check.expected }}

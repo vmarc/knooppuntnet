@@ -15,7 +15,7 @@ import { NodeInfo } from '@api/common/node-info';
         [nodeInfo]="nodeInfo"
         [reference]="reference"
         [mixedNetworkScopes]="mixedNetworkScopes"
-      ></kpn-node-network-reference>
+      />
     </p>
   `,
 })

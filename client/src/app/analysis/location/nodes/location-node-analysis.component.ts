@@ -11,12 +11,8 @@ import { IntegrityIndicatorData } from '../../../components/shared/indicator/int
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">
-      <kpn-location-node-fact-indicator
-        [node]="node"
-      ></kpn-location-node-fact-indicator>
-      <kpn-integrity-indicator
-        [data]="integrityIndicatorData"
-      ></kpn-integrity-indicator>
+      <kpn-location-node-fact-indicator [node]="node" />
+      <kpn-integrity-indicator [data]="integrityIndicatorData" />
     </div>
   `,
   styles: [

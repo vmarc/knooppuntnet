@@ -16,8 +16,7 @@ import { selectNetworkMapPage } from '../store/network.selectors';
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@network-map.title"
-    >
-    </kpn-network-page-header>
+    />
 
     <div *ngIf="response$ | async as response">
       <p
@@ -32,7 +31,7 @@ import { selectNetworkMapPage } from '../store/network.selectors';
           [networkId]="networkId$ | async"
           [page]="response.result"
           [mapPositionFromUrl]="mapPositionFromUrl$ | async"
-        ></kpn-network-map>
+        />
       </ng-template>
     </div>
   `,

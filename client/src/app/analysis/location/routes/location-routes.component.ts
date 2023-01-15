@@ -19,8 +19,7 @@ import { LocationRoutesPage } from '@api/common/location/location-routes-page';
       [timeInfo]="page.timeInfo"
       [routes]="page.routes"
       [routeCount]="page.routeCount"
-    >
-    </kpn-location-route-table>
+    />
   `,
 })
 export class LocationRoutesComponent {

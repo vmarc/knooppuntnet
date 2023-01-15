@@ -9,10 +9,7 @@ import { RouteInfoAnalysis } from '@api/common/route/route-info-analysis';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <p *ngIf="analysis.map.freeNodes.length === 0">?</p>
     <p *ngFor="let node of analysis.map.freeNodes">
-      <kpn-route-node
-        [node]="node"
-        title="marker-icon-blue-small.png"
-      ></kpn-route-node>
+      <kpn-route-node [node]="node" title="marker-icon-blue-small.png" />
     </p>
   `,
 })

@@ -11,7 +11,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
     <kpn-icon-happy
       *ngIf="interpretedNetwork.veryHappy()"
       class="very-happy"
-    ></kpn-icon-happy>
+    />
   `,
   styles: [
     `

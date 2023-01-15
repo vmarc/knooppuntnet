@@ -11,18 +11,15 @@ import { RouteDiffsData } from './route-diffs-data';
     <div *ngIf="refs.length > 0" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
         <span class="kpn-thick" i18n="@@route-diffs-added.title"
-          >Added routes</span
+        >Added routes</span
         >
         <span>({{ refs.length }})</span>
-        <kpn-icon-happy></kpn-icon-happy>
+        <kpn-icon-happy />
       </div>
       <div class="kpn-level-2-body">
         <div *ngFor="let ref of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-route-ref-header
-              [ref]="ref.ref"
-              [knownElements]="data.knownElements"
-            ></kpn-link-route-ref-header>
+            <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements" />
           </div>
           <div *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
             <div *ngIf="ref.routeChangeInfo.after">
@@ -43,7 +40,7 @@ import { RouteDiffsData } from './route-diffs-data';
                     i18n="@@route-diffs-added.updated-relation"
                   >
                     Relation updated in this changeset v{{
-                      ref.routeChangeInfo.after.version
+                    ref.routeChangeInfo.after.version
                     }}
                   </ng-container>
                 </ng-container>
@@ -55,17 +52,14 @@ import { RouteDiffsData } from './route-diffs-data';
                   <ng-container
                     i18n="@@route-diffs-added.existing-relation"
                     class="kpn-label"
-                    >Existing relation</ng-container
+                  >Existing relation
+                  </ng-container
                   >
-                  <kpn-meta-data
-                    [metaData]="ref.routeChangeInfo.after"
-                  ></kpn-meta-data>
+                  <kpn-meta-data [metaData]="ref.routeChangeInfo.after" />
                 </ng-container>
               </div>
             </div>
-            <kpn-fact-diffs
-              [factDiffs]="ref.routeChangeInfo.diffs.factDiffs"
-            ></kpn-fact-diffs>
+            <kpn-fact-diffs [factDiffs]="ref.routeChangeInfo.diffs.factDiffs" />
           </div>
         </div>
       </div>

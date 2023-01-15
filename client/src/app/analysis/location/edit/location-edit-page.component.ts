@@ -16,10 +16,9 @@ import { selectLocationEditPage } from '../store/location.selectors';
       pageName="edit"
       pageTitle="Load in editor"
       i18n-pageTitle="@@location-edit.title"
-    >
-    </kpn-location-page-header>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div
       *ngIf="response$ | async as response; else analyzing"
@@ -32,7 +31,7 @@ import { selectLocationEditPage } from '../store/location.selectors';
           i18n="@@location-edit.too-many-nodes.1"
         >
           This location contains more than the maximum number of nodes ({{
-            response.result.maxNodes
+          response.result.maxNodes
           }}) that can be loaded in the editor in one go. This limitation is to
           avoid overloading the OpenStreetMap api while loading the node and
           route details from JOSM.
@@ -44,11 +43,7 @@ import { selectLocationEditPage } from '../store/location.selectors';
         >
           Please select a location with less nodes.
         </p>
-        <kpn-location-edit
-          *ngIf="!response.result.tooManyNodes"
-          [page]="response.result"
-        >
-        </kpn-location-edit>
+        <kpn-location-edit *ngIf="!response.result.tooManyNodes" [page]="response.result" />
       </kpn-location-response>
     </div>
     <ng-template #analyzing>

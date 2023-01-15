@@ -17,18 +17,14 @@ import { selectLocationKey } from '../store/location.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container *ngIf="locationKey$ | async as locationKey">
-      <kpn-location-page-breadcrumb
-        [locationKey]="locationKey"
-      ></kpn-location-page-breadcrumb>
+      <kpn-location-page-breadcrumb [locationKey]="locationKey" />
 
       <kpn-page-header [pageTitle]="pageTitle$ | async" subject="location-page">
         <span class="header-network-type-icon">
-          <mat-icon [svgIcon]="locationKey.networkType"></mat-icon>
+          <mat-icon [svgIcon]="locationKey.networkType" />
         </span>
-        <kpn-network-type-name
-          [networkType]="locationKey.networkType"
-        ></kpn-network-type-name
-        >&nbsp;<span i18n="@@location-page.header.in">in</span>
+        <kpn-network-type-name [networkType]="locationKey.networkType" />&nbsp;
+        <span i18n="@@location-page.header.in">in</span>
         {{ locationName(locationKey) }}
       </kpn-page-header>
 

@@ -7,39 +7,33 @@ import { NetworkType } from '@api/custom/network-type';
   selector: 'kpn-network-fact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-network-fact-header [fact]="fact"></kpn-network-fact-header>
+    <kpn-network-fact-header [fact]="fact" />
 
     <div *ngIf="fact.elementIds && fact.elementType === 'node'">
-      <kpn-network-fact-node-ids
-        [elementIds]="fact.elementIds"
-      ></kpn-network-fact-node-ids>
+      <kpn-network-fact-node-ids [elementIds]="fact.elementIds" />
     </div>
 
     <div *ngIf="fact.elementIds && fact.elementType === 'way'">
-      <kpn-network-fact-way-ids
-        [elementIds]="fact.elementIds"
-      ></kpn-network-fact-way-ids>
+      <kpn-network-fact-way-ids [elementIds]="fact.elementIds" />
     </div>
 
     <div *ngIf="fact.elementIds && fact.elementType === 'relation'">
-      <kpn-network-fact-relation-ids
-        [elementIds]="fact.elementIds"
-      ></kpn-network-fact-relation-ids>
+      <kpn-network-fact-relation-ids [elementIds]="fact.elementIds" />
     </div>
 
     <div *ngIf="fact.elements && fact.elementType === 'node'">
-      <kpn-network-fact-nodes [nodes]="fact.elements"></kpn-network-fact-nodes>
+      <kpn-network-fact-nodes [nodes]="fact.elements"/>
     </div>
 
     <div *ngIf="fact.elements && fact.elementType === 'route'">
       <kpn-network-fact-routes
         [networkType]="networkType"
         [routes]="fact.elements"
-      ></kpn-network-fact-routes>
+      />
     </div>
 
     <div *ngIf="fact.checks && fact.checks.length > 0">
-      <kpn-network-fact-checks [checks]="fact.checks"></kpn-network-fact-checks>
+      <kpn-network-fact-checks [checks]="fact.checks"/>
     </div>
   `,
 })

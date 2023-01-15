@@ -14,11 +14,11 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
       <kpn-tag-diffs-text
         *ngIf="small$ | async; else large"
         [tagDiffs]="tagDiffs"
-      ></kpn-tag-diffs-text>
+      />
     </ng-template>
     <ng-template #large>
       <div class="kpn-label" i18n="@@tag-diffs.title">Tag changes</div>
-      <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs"></kpn-tag-diffs-table>
+      <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs"/>
     </ng-template>
   `,
 })

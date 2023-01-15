@@ -19,8 +19,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
           *ngFor="let wayId of wayIds"
           [wayId]="wayId"
           [title]="wayId.toString()"
-        >
-        </kpn-osm-link-way>
+        />
       </div>
     </div>
   `,

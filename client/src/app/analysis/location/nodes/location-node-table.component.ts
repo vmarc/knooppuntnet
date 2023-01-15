@@ -37,7 +37,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
       [length]="nodeCount"
       [showFirstLastButtons]="false"
       [showPageSizeSelection]="true"
-    ></kpn-edit-and-paginator>
+    />
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -60,7 +60,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
             [node]="node"
             [networkType]="networkType$ | async"
             [networkScope]="networkScope"
-          ></kpn-location-node-analysis>
+          />
         </td>
       </ng-container>
 
@@ -73,10 +73,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
           Node
         </th>
         <td mat-cell *matCellDef="let node">
-          <kpn-link-node
-            [nodeId]="node.id"
-            [nodeName]="node.name"
-          ></kpn-link-node>
+          <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
         </td>
       </ng-container>
 
@@ -115,7 +112,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
           Routes
         </th>
         <td mat-cell *matCellDef="let node">
-          <kpn-location-node-routes [node]="node"></kpn-location-node-routes>
+          <kpn-location-node-routes [node]="node" />
         </td>
       </ng-container>
 
@@ -141,9 +138,9 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.lastUpdated"></kpn-day>
-          <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
-          <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
+          <kpn-day [timestamp]="node.lastUpdated" />
+          <kpn-josm-node [nodeId]="node.id" />
+          <kpn-osm-link-node [nodeId]="node.id" />
         </td>
       </ng-container>
 
@@ -160,8 +157,7 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
-    >
-    </kpn-paginator>
+    />
   `,
   styles: [
     `

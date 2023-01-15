@@ -11,26 +11,18 @@ import { RouteDiffsData } from './route-diffs-data';
     <div *ngIf="refs.length > 0" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
         <span class="kpn-thick" i18n="@@route-diffs-updated.title"
-          >Updated routes</span
+        >Updated routes</span
         >
         <span>({{ refs.length }})</span>
       </div>
       <div class="kpn-level-2-body">
         <div *ngFor="let ref of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-route-ref-header
-              [ref]="ref.ref"
-              [knownElements]="data.knownElements"
-            ></kpn-link-route-ref-header>
+            <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements" />
           </div>
           <div *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
-            <kpn-version-change
-              [before]="ref.routeChangeInfo.before"
-              [after]="ref.routeChangeInfo.after"
-            ></kpn-version-change>
-            <kpn-route-change-detail
-              [routeChangeInfo]="ref.routeChangeInfo"
-            ></kpn-route-change-detail>
+            <kpn-version-change [before]="ref.routeChangeInfo.before" [after]="ref.routeChangeInfo.after" />
+            <kpn-route-change-detail [routeChangeInfo]="ref.routeChangeInfo" />
           </div>
         </div>
       </div>

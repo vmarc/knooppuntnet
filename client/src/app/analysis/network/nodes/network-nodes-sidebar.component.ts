@@ -7,9 +7,7 @@ import { NetworkNodesService } from './network-nodes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-filter
-        [filterOptions]="networkNodesService.filterOptions$ | async"
-      ></kpn-filter>
+      <kpn-filter [filterOptions]="networkNodesService.filterOptions$ | async" />
     </kpn-sidebar>
   `,
 })

@@ -39,7 +39,7 @@ import { NetworkNodesService } from './network-nodes.service';
       [length]="nodes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    ></kpn-edit-and-paginator>
+    />
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -68,7 +68,7 @@ import { NetworkNodesService } from './network-nodes.service';
             [networkType]="networkType"
             [networkScope]="networkScope"
             [node]="node"
-          ></kpn-network-node-analysis>
+          />
         </td>
       </ng-container>
 
@@ -85,7 +85,7 @@ import { NetworkNodesService } from './network-nodes.service';
           <kpn-link-node
             [nodeId]="node.detail.id"
             [nodeName]="node.detail.name"
-          ></kpn-link-node>
+          />
         </td>
       </ng-container>
 
@@ -125,7 +125,7 @@ import { NetworkNodesService } from './network-nodes.service';
           Actual
         </th>
         <td mat-cell *matCellDef="let node">
-          <kpn-network-node-routes [node]="node"></kpn-network-node-routes>
+          <kpn-network-node-routes [node]="node"/>
         </td>
       </ng-container>
 
@@ -164,9 +164,9 @@ import { NetworkNodesService } from './network-nodes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.detail.timestamp"></kpn-day>
-          <kpn-josm-node [nodeId]="node.detail.id"></kpn-josm-node>
-          <kpn-osm-link-node [nodeId]="node.detail.id"></kpn-osm-link-node>
+          <kpn-day [timestamp]="node.detail.timestamp"/>
+          <kpn-josm-node [nodeId]="node.detail.id"/>
+          <kpn-osm-link-node [nodeId]="node.detail.id"/>
         </td>
       </ng-container>
 

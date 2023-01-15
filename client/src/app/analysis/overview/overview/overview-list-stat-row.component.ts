@@ -11,18 +11,13 @@ import { Stat } from '../domain/stat';
   template: `
     <tr>
       <td *ngIf="rowspan" [rowSpan]="rowspan">
-        <kpn-country-name [country]="country"></kpn-country-name>
+        <kpn-country-name [country]="country" />
       </td>
       <td>
-        <kpn-network-type-icon
-          [networkType]="networkType"
-        ></kpn-network-type-icon>
+        <kpn-network-type-icon [networkType]="networkType" />
       </td>
       <td class="value">
-        <kpn-overview-value
-          [stat]="stat"
-          [subset]="subset(country, networkType)"
-        ></kpn-overview-value>
+        <kpn-overview-value [stat]="stat" [subset]="subset(country, networkType)" />
       </td>
     </tr>
   `,

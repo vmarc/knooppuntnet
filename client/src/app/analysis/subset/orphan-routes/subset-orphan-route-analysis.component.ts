@@ -10,11 +10,11 @@ import { NetworkType } from '@api/custom/network-type';
     <div class="analysis">
       <kpn-route-investigate-indicator
         [investigate]="route.isBroken"
-      ></kpn-route-investigate-indicator>
+      />
       <kpn-route-accessible-indicator
         [accessible]="route.accessible"
         [networkType]="networkType"
-      ></kpn-route-accessible-indicator>
+      />
     </div>
   `,
   styles: [

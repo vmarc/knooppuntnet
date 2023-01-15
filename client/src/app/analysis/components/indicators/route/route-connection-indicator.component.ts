@@ -14,8 +14,7 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
       i18n-letter="@@route-connection-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class RouteConnectionIndicatorComponent implements OnInit {

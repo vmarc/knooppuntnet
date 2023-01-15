@@ -18,7 +18,7 @@ import { Facts } from '../../fact/facts';
         <kpn-fact-name [fact]="fact.name"></kpn-fact-name>
       </span>
       <span class="kpn-brackets">{{ factCount() }}</span>
-      <kpn-fact-level [factLevel]="factLevel()" class="level"></kpn-fact-level>
+      <kpn-fact-level [factLevel]="factLevel()" class="level"/>
       <a
         rel="nofollow"
         (click)="edit(fact)"
@@ -29,7 +29,7 @@ import { Facts } from '../../fact/facts';
       >
     </div>
     <div class="description">
-      <kpn-fact-description [factInfo]="factInfo(fact)"></kpn-fact-description>
+      <kpn-fact-description [factInfo]="factInfo(fact)"/>
     </div>
   `,
   styles: [

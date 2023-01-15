@@ -7,14 +7,14 @@ import { ChangeSetPage } from '@api/common/changes/change-set-page';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="isHappy()" class="kpn-line">
-      <kpn-icon-happy></kpn-icon-happy>
+      <kpn-icon-happy/>
       <span i18n="@@change-set.header.analysis.happy">
         This changeset brought improvements.
       </span>
     </div>
 
     <div *ngIf="isInvestigate()" class="kpn-line">
-      <kpn-icon-investigate></kpn-icon-investigate>
+      <kpn-icon-investigate/>
       <span i18n="@@change-set.header.analysis.investigate">
         Maybe this changeset is worth a closer look.
       </span>

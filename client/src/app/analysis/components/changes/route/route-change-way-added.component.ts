@@ -11,12 +11,9 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-added.title"
-          >Added way</span
+        >Added way</span
         >
-        <kpn-osm-link-way
-          [wayId]="wayInfo.id"
-          [title]="wayInfo.id.toString()"
-        ></kpn-osm-link-way>
+        <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()" />
       </div>
       <div class="kpn-level-4-body">
         <div *ngIf="isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
@@ -30,11 +27,11 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
         </div>
         <div *ngIf="!isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
           <div class="kpn-thin">
-            <kpn-meta-data [metaData]="wayInfo"></kpn-meta-data>
+            <kpn-meta-data [metaData]="wayInfo"/>
           </div>
         </div>
         <div class="kpn-detail">
-          <kpn-tags-table [tags]="wayTags(wayInfo)"></kpn-tags-table>
+          <kpn-tags-table [tags]="wayTags(wayInfo)"/>
         </div>
       </div>
     </div>

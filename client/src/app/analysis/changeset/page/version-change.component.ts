@@ -19,7 +19,7 @@ import { MetaData } from '@api/common/data/meta-data';
         class="kpn-label"
         >Relation unchanged</span
       >
-      <kpn-meta-data [metaData]="after"></kpn-meta-data>
+      <kpn-meta-data [metaData]="after"/>
     </div>
   `,
 })

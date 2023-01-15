@@ -42,7 +42,7 @@ import { Util } from '../../../../components/shared/util';
       to "{{ diffs.roleDiff.after }}".
     </div>
 
-    <kpn-fact-diffs [factDiffs]="diffs.factDiffs"></kpn-fact-diffs>
+    <kpn-fact-diffs [factDiffs]="diffs.factDiffs"/>
 
     <ng-container *ngFor="let nodeDiff of diffs.nodeDiffs">
       <div *ngIf="nodeDiff.added.length > 0" class="kpn-detail">
@@ -50,16 +50,14 @@ import { Util } from '../../../../components/shared/util';
           action="added"
           [title]="nodeDiff.title"
           [nodeRefs]="nodeDiff.added"
-        >
-        </kpn-route-node-diff>
+        />
       </div>
       <div *ngIf="nodeDiff.removed.length > 0" class="kpn-detail">
         <kpn-route-node-diff
           action="removed"
           [title]="nodeDiff.title"
           [nodeRefs]="nodeDiff.removed"
-        >
-        </kpn-route-node-diff>
+        />
       </div>
     </ng-container>
 
@@ -75,7 +73,7 @@ import { Util } from '../../../../components/shared/util';
       <kpn-tag-diffs
         [tagDiffs]="diffs.tagDiffs"
         class="kpn-detail"
-      ></kpn-tag-diffs>
+      />
     </div>
   `,
 })

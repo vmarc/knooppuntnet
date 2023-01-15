@@ -22,8 +22,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="totalCount"
       [showPageSizeSelection]="true"
-    >
-    </kpn-paginator>
+    />
 
     <div *ngIf="totalCount === 0" i18n="@@changes.no-changes">No changes</div>
 

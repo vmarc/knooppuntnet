@@ -77,12 +77,12 @@ import { LocationFlatNode } from './location-flat-node';
             svgIcon="expand"
             *ngIf="treeControl.isExpanded(expandableNode)"
             class="expand-collapse-icon"
-          ></mat-icon>
+          />
           <mat-icon
             svgIcon="collapse"
             *ngIf="!treeControl.isExpanded(expandableNode)"
             class="expand-collapse-icon"
-          ></mat-icon>
+          />
         </div>
         <a (click)="select(expandableNode)">{{ expandableNode.name }}</a
         ><span class="node-count">{{ expandableNode.nodeCount }}</span>

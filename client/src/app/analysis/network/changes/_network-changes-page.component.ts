@@ -20,8 +20,7 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@network-changes.title"
-    >
-    </kpn-network-page-header>
+    />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p
@@ -37,14 +36,12 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
         >
           The details of network changes history are available to registered
           OpenStreetMap contributors only, after
-          <kpn-link-login></kpn-link-login>
+          <kpn-link-login />
           .
         </div>
         <ng-template #loggedIn>
           <p>
-            <kpn-situation-on
-              [timestamp]="response.situationOn"
-            ></kpn-situation-on>
+            <kpn-situation-on [timestamp]="response.situationOn" />
           </p>
           <kpn-changes
             [impact]="impact$ | async"
@@ -61,9 +58,7 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
                 *ngFor="let networkChangeInfo of response.result.changes"
                 [index]="networkChangeInfo.rowIndex"
               >
-                <kpn-network-change-set
-                  [networkChangeInfo]="networkChangeInfo"
-                ></kpn-network-change-set>
+                <kpn-network-change-set [networkChangeInfo]="networkChangeInfo" />
               </kpn-item>
             </kpn-items>
           </kpn-changes>

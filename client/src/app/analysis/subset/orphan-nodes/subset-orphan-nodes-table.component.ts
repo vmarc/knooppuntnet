@@ -29,7 +29,7 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    ></kpn-edit-and-paginator>
+    />
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -52,10 +52,7 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
           Node
         </th>
         <td mat-cell *matCellDef="let node">
-          <kpn-link-node
-            [nodeId]="node.id"
-            [nodeName]="node.name"
-          ></kpn-link-node>
+          <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
         </td>
       </ng-container>
 
@@ -94,9 +91,9 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.lastUpdated"></kpn-day>
-          <kpn-josm-node [nodeId]="node.id"></kpn-josm-node>
-          <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
+          <kpn-day [timestamp]="node.lastUpdated"/>
+          <kpn-josm-node [nodeId]="node.id"/>
+          <kpn-osm-link-node [nodeId]="node.id"/>
         </td>
       </ng-container>
 

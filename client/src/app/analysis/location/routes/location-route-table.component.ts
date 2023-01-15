@@ -36,7 +36,7 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
       [length]="routeCount"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    ></kpn-edit-and-paginator>
+    />
 
     <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -58,7 +58,7 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
           <kpn-location-route-analysis
             [route]="route"
             [networkType]="networkType$ | async"
-          ></kpn-location-route-analysis>
+          />
         </td>
       </ng-container>
 
@@ -75,7 +75,7 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
             [routeId]="route.id"
             [title]="route.name"
             [networkType]="networkType$ | async"
-          ></kpn-link-route>
+          />
         </td>
       </ng-container>
 
@@ -114,11 +114,9 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
           Last edit
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
-          <kpn-day [timestamp]="route.lastUpdated"></kpn-day>
-          <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
-          <kpn-osm-link-relation
-            [relationId]="route.id"
-          ></kpn-osm-link-relation>
+          <kpn-day [timestamp]="route.lastUpdated" />
+          <kpn-josm-relation [relationId]="route.id" />
+          <kpn-osm-link-relation [relationId]="route.id" />
         </td>
       </ng-container>
 
@@ -135,8 +133,7 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount"
-    >
-    </kpn-paginator>
+    />
   `,
   styles: [
     `

@@ -10,9 +10,7 @@ import { Reference } from '@api/common/common/reference';
       None
     </div>
     <div *ngFor="let reference of references" class="kpn-line">
-      <kpn-network-type-icon
-        [networkType]="reference.networkType"
-      ></kpn-network-type-icon>
+      <kpn-network-type-icon [networkType]="reference.networkType" />
       <a
         id="{{ 'network-ref-' + reference.id }}"
         [routerLink]="'/analysis/network/' + reference.id"

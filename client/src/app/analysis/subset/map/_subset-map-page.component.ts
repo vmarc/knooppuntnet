@@ -16,16 +16,16 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@subset-map.title"
-    ></kpn-subset-page-header-block>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <div *ngIf="response$ | async as response">
       <kpn-subset-map
         [bounds]="response.result.bounds"
         [networks]="response.result.networks"
         (networkClicked)="networkClicked($event, response.result.networks)"
-      ></kpn-subset-map>
+      />
     </div>
   `,
 })

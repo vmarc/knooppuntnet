@@ -15,7 +15,7 @@ import { selectNetworkChangesFilterOptions } from '../store/network.selectors';
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
         (optionSelected)="onOptionSelected($event)"
-      ></kpn-change-filter>
+      />
     </kpn-sidebar>
   `,
 })

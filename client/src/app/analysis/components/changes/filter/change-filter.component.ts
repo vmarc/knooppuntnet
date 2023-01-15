@@ -20,7 +20,7 @@ import { ChangeOption } from '../../../changes/store/changes.actions';
         <kpn-change-filter-period
           [option]="option"
           (optionSelected)="optionSelected.emit($event)"
-        ></kpn-change-filter-period>
+        />
       </div>
     </div>
   `,

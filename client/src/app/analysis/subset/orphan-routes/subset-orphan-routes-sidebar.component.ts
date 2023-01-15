@@ -7,7 +7,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-filter [filterOptions]="filterOptions$ | async"></kpn-filter>
+      <kpn-filter [filterOptions]="filterOptions$ | async"/>
     </kpn-sidebar>
   `,
 })

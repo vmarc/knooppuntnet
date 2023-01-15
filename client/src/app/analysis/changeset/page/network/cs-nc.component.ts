@@ -10,48 +10,30 @@ import { RouteDiffsData } from '../route-diffs/route-diffs-data';
   selector: 'kpn-cs-nc-component',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo"></kpn-cs-nc-type>
+    <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo" />
 
     <div *ngIf="networkChangeInfo.after" class="kpn-detail">
       <kpn-version-change
         [before]="networkChangeInfo.before"
         [after]="networkChangeInfo.after"
-      ></kpn-version-change>
+      />
     </div>
 
-    <kpn-cs-nc-nodes-removed
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-nodes-removed>
-    <kpn-cs-nc-nodes-added
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-nodes-added>
-    <kpn-cs-nc-nodes-updated
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-nodes-updated>
+    <kpn-cs-nc-nodes-removed [networkChangeInfo]="networkChangeInfo" />
+    <kpn-cs-nc-nodes-added [networkChangeInfo]="networkChangeInfo" />
+    <kpn-cs-nc-nodes-updated [networkChangeInfo]="networkChangeInfo" />
 
-    <kpn-cs-nc-ways-removed
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-ways-removed>
-    <kpn-cs-nc-ways-added
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-ways-added>
-    <kpn-cs-nc-ways-updated
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-ways-updated>
+    <kpn-cs-nc-ways-removed [networkChangeInfo]="networkChangeInfo" />
+    <kpn-cs-nc-ways-added [networkChangeInfo]="networkChangeInfo" />
+    <kpn-cs-nc-ways-updated [networkChangeInfo]="networkChangeInfo" />
 
-    <kpn-cs-nc-relations-removed
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-relations-removed>
-    <kpn-cs-nc-relations-added
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-relations-added>
-    <kpn-cs-nc-relations-updated
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-cs-nc-relations-updated>
+    <kpn-cs-nc-relations-removed [networkChangeInfo]="networkChangeInfo" />
+    <kpn-cs-nc-relations-added [networkChangeInfo]="networkChangeInfo" />
+    <kpn-cs-nc-relations-updated [networkChangeInfo]="networkChangeInfo" />
 
-    <kpn-node-diffs [data]="nodeDiffs(networkChangeInfo)"></kpn-node-diffs>
+    <kpn-node-diffs [data]="nodeDiffs(networkChangeInfo)" />
 
-    <kpn-route-diffs [data]="routeDiffs(networkChangeInfo)"></kpn-route-diffs>
+    <kpn-route-diffs [data]="routeDiffs(networkChangeInfo)" />
   `,
 })
 export class CsNcComponent {

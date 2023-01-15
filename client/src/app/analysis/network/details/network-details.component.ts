@@ -9,7 +9,7 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-data title="Summary" i18n-title="@@network-details.summary">
-      <kpn-network-summary [page]="response.result"></kpn-network-summary>
+      <kpn-network-summary [page]="response.result" />
     </kpn-data>
 
     <div class="data2">
@@ -17,7 +17,7 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
         <span i18n="@@network-details.situation-on">Situation on</span>
       </div>
       <div class="body">
-        <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+        <kpn-timestamp [timestamp]="response.situationOn" />
       </div>
     </div>
 
@@ -26,9 +26,7 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
         <span i18n="@@network-details.last-updated">Last updated</span>
       </div>
       <div class="body">
-        <kpn-timestamp
-          [timestamp]="response.result.attributes.lastUpdated"
-        ></kpn-timestamp>
+        <kpn-timestamp [timestamp]="response.result.attributes.lastUpdated" />
       </div>
     </div>
 
@@ -36,13 +34,11 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
       title="Relation last updated"
       i18n-title="@@network-details.relation-last-updated"
     >
-      <kpn-timestamp
-        [timestamp]="response.result.attributes.relationLastUpdated"
-      ></kpn-timestamp>
+      <kpn-timestamp [timestamp]="response.result.attributes.relationLastUpdated" />
     </kpn-data>
 
     <kpn-data title="Tags" i18n-title="@@network-details.tags">
-      <kpn-tags-table [tags]="tags"></kpn-tags-table>
+      <kpn-tags-table [tags]="tags"/>
     </kpn-data>
   `,
   styleUrls: ['../../../components/shared/data/data.component.scss'],

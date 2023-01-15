@@ -14,8 +14,7 @@ import { RoleConnectionIndicatorDialogComponent } from './role-connection-indica
       i18n-letter="@@role-connection-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class RoleConnectionIndicatorComponent implements OnInit {

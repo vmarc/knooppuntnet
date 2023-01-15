@@ -13,7 +13,7 @@ import { Reference } from '@api/common/common/reference';
       <kpn-icon-route-link
         [reference]="reference"
         [mixedNetworkScopes]="mixedNetworkScopes"
-      ></kpn-icon-route-link>
+      />
     </p>
   `,
 })

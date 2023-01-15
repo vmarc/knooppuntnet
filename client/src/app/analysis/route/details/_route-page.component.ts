@@ -35,8 +35,7 @@ import { selectRouteId } from '../store/route.selectors';
       [routeName]="routeName$ | async"
       [changeCount]="changeCount$ | async"
       [networkType]="networkType$ | async"
-    >
-    </kpn-route-page-header>
+    />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@route.route-not-found">
@@ -45,7 +44,7 @@ import { selectRouteId } from '../store/route.selectors';
 
       <div *ngIf="response.result as page">
         <kpn-data title="Summary" i18n-title="@@route.summary">
-          <kpn-route-summary [route]="page.route"></kpn-route-summary>
+          <kpn-route-summary [route]="page.route" />
         </kpn-data>
 
         <div class="data2">
@@ -53,7 +52,7 @@ import { selectRouteId } from '../store/route.selectors';
             <span i18n="@@route.situation-on">Situation on</span>
           </div>
           <div class="body">
-            <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+            <kpn-timestamp [timestamp]="response.situationOn" />
           </div>
         </div>
 
@@ -62,7 +61,7 @@ import { selectRouteId } from '../store/route.selectors';
             <span i18n="@@route.last-updated">Last updated</span>
           </div>
           <div class="body">
-            <kpn-timestamp [timestamp]="page.route.lastUpdated"></kpn-timestamp>
+            <kpn-timestamp [timestamp]="page.route.lastUpdated" />
           </div>
         </div>
 
@@ -70,14 +69,11 @@ import { selectRouteId } from '../store/route.selectors';
           title="Relation last updated"
           i18n-title="@@route.relation-last-updated"
         >
-          <kpn-timestamp
-            [timestamp]="page.route.summary.timestamp"
-          ></kpn-timestamp>
+          <kpn-timestamp [timestamp]="page.route.summary.timestamp" />
         </kpn-data>
 
         <kpn-data title="Network" i18n-title="@@route.network">
-          <kpn-route-network-references [references]="page.networkReferences">
-          </kpn-route-network-references>
+          <kpn-route-network-references [references]="page.networkReferences" />
         </kpn-data>
 
         <div *ngIf="page.route.analysis as analysis">
@@ -86,7 +82,7 @@ import { selectRouteId } from '../store/route.selectors';
             title="Nodes"
             i18n-title="@@route.nodes"
           >
-            <kpn-route-free-nodes [analysis]="analysis"></kpn-route-free-nodes>
+            <kpn-route-free-nodes [analysis]="analysis" />
           </kpn-data>
 
           <kpn-data
@@ -94,9 +90,7 @@ import { selectRouteId } from '../store/route.selectors';
             title="Start node"
             i18n-title="@@route.start-node"
           >
-            <kpn-route-start-nodes
-              [analysis]="analysis"
-            ></kpn-route-start-nodes>
+            <kpn-route-start-nodes [analysis]="analysis" />
           </kpn-data>
 
           <kpn-data
@@ -104,7 +98,7 @@ import { selectRouteId } from '../store/route.selectors';
             title="End node"
             i18n-title="@@route.end-node"
           >
-            <kpn-route-end-nodes [analysis]="analysis"></kpn-route-end-nodes>
+            <kpn-route-end-nodes [analysis]="analysis" />
           </kpn-data>
 
           <div *ngIf="analysis.map.redundantNodes.length > 0">
@@ -112,9 +106,7 @@ import { selectRouteId } from '../store/route.selectors';
               title="Redundant node"
               i18n-title="@@route.redundant-node"
             >
-              <kpn-route-redundant-nodes
-                [analysis]="analysis"
-              ></kpn-route-redundant-nodes>
+              <kpn-route-redundant-nodes [analysis]="analysis" />
             </kpn-data>
           </div>
 
@@ -124,34 +116,33 @@ import { selectRouteId } from '../store/route.selectors';
         </div>
 
         <kpn-data title="Tags" i18n-title="@@route.tags">
-          <kpn-tags-table [tags]="routeTags(page)"></kpn-tags-table>
+          <kpn-tags-table [tags]="routeTags(page)" />
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@route.location">
           <kpn-route-location
             [networkType]="networkType$ | async"
             [locationAnalysis]="page.route.analysis.locationAnalysis"
-          ></kpn-route-location>
+          />
         </kpn-data>
 
         <div *ngIf="page.route.analysis && showRouteDetails$ | async">
           <kpn-data title="Structure" i18n-title="@@route.structure">
             <kpn-route-structure
               [structureStrings]="page.route.analysis.structureStrings"
-            ></kpn-route-structure>
+            />
           </kpn-data>
         </div>
 
         <kpn-data title="Facts" i18n-title="@@route.facts">
-          <kpn-facts [factInfos]="factInfos(page)"></kpn-facts>
+          <kpn-facts [factInfos]="factInfos(page)" />
         </kpn-data>
 
         <div *ngIf="showRouteDetails$ | async">
           <kpn-route-members
             [networkType]="page.route.summary.networkType"
             [members]="page.route.analysis.members"
-          >
-          </kpn-route-members>
+          />
         </div>
       </div>
     </div>

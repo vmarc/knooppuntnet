@@ -18,13 +18,13 @@ import { Component } from '@angular/core';
         icon="overview"
         i18n-title="@@analysis-page.overview"
         title="Overview"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         routerLink="/analysis/changes"
         icon="changes"
         i18n-title="@@analysis-page.changes"
         title="Changes"
-      ></kpn-icon-button>
+      />
     </div>
 
     <div class="buttons">
@@ -33,37 +33,37 @@ import { Component } from '@angular/core';
         icon="cycling"
         i18n-title="@@network-type.cycling"
         title="Cycling"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         routerLink="/analysis/hiking"
         icon="hiking"
         i18n-title="@@network-type.hiking"
         title="Hiking"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         routerLink="/analysis/horse-riding"
         icon="horse-riding"
         i18n-title="@@network-type.horse-riding"
         title="Horse riding"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         routerLink="/analysis/motorboat"
         icon="motorboat"
         i18n-title="@@network-type.motorboat"
         title="Motorboat"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         routerLink="/analysis/canoe"
         icon="canoe"
         i18n-title="@@network-type.canoe"
         title="Canoe"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         routerLink="/analysis/inline-skating"
         icon="inline-skating"
         i18n-title="@@network-type.inline-skating"
         title="Inline skating"
-      ></kpn-icon-button>
+      />
     </div>
   `,
   styles: [

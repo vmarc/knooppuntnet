@@ -15,14 +15,11 @@ import { I18nService } from '../../../i18n/i18n.service';
         [happy]="changeSet.happy"
         [investigate]="changeSet.investigate"
         [comment]="changeSet.comment"
-      >
-      </kpn-change-header>
+      />
 
       <div *ngFor="let locationChanges of changeSet.location.changes">
         <div class="kpn-line">
-          <kpn-network-type-icon
-            [networkType]="locationChanges.networkType"
-          ></kpn-network-type-icon>
+          <kpn-network-type-icon [networkType]="locationChanges.networkType" />
           <div class="location-names">
             <div
               *ngFor="
@@ -39,7 +36,7 @@ import { I18nService } from '../../../i18n/i18n.service';
                     i
                   )
                 "
-                >{{ locationName }}</a
+              >{{ locationName }}</a
               >
             </div>
           </div>
@@ -48,12 +45,11 @@ import { I18nService } from '../../../i18n/i18n.service';
         <kpn-change-set-element-refs
           [elementType]="'node'"
           [changeSetElementRefs]="locationChanges.nodeChanges"
-        ></kpn-change-set-element-refs>
+        />
         <kpn-change-set-element-refs
           [elementType]="'route'"
           [changeSetElementRefs]="locationChanges.routeChanges"
-        >
-        </kpn-change-set-element-refs>
+        />
       </div>
     </div>
   `,

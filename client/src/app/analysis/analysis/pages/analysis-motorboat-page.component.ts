@@ -27,7 +27,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         icon="netherlands"
         i18n-title="@@country.nl"
         title="The Netherlands"
-      ></kpn-icon-button>
+      />
     </kpn-icon-buttons>
   `,
 })

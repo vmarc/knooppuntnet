@@ -14,8 +14,7 @@ import { NetworkIndicatorDialogComponent } from './network-indicator-dialog.comp
       i18n-letter="@@network-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class NetworkIndicatorComponent implements OnInit {

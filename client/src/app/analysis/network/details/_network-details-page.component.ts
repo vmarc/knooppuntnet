@@ -13,15 +13,14 @@ import { selectNetworkDetailsPage } from '../store/network.selectors';
       pageName="details"
       pageTitle="Details"
       i18n-pageTitle="@@network-details.title"
-    >
-    </kpn-network-page-header>
+    />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
-        <kpn-network-details [response]="response"></kpn-network-details>
+        <kpn-network-details [response]="response"/>
       </div>
     </div>
   `,

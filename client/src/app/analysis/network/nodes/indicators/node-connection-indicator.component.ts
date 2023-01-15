@@ -14,8 +14,7 @@ import { NodeConnectionIndicatorDialogComponent } from './node-connection-indica
       i18n-letter="@@node-connection-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class NodeConnectionIndicatorComponent implements OnInit {

@@ -20,19 +20,15 @@ import { MapZoomService } from '../../../components/ol/services/map-zoom.service
         <div *ngIf="zoomLevel >= minZoom()">
           <div class="legend">
             <div>
-              <kpn-network-map-legend-icon
-                color="rgb(0,200,0)"
-              ></kpn-network-map-legend-icon>
+              <kpn-network-map-legend-icon color="rgb(0,200,0)" />
               <span i18n="@@network-map.side-bar.part-of-network"
-                >Part of network</span
+              >Part of network</span
               >
             </div>
             <div>
-              <kpn-network-map-legend-icon
-                color="rgb(150,150,150)"
-              ></kpn-network-map-legend-icon>
+              <kpn-network-map-legend-icon color="rgb(150,150,150)" />
               <span i18n="@@network-map.side-bar.not-part-of-network"
-                >Not part of network</span
+              >Not part of network</span
               >
             </div>
           </div>

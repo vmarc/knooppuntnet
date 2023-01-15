@@ -30,22 +30,11 @@ class ChangeSetKey {
         Changeset not found
       </div>
       <div *ngIf="response.result">
-        <kpn-change-set-header [page]="response.result"></kpn-change-set-header>
-
-        <kpn-change-set-location-changes
-          [changess]="response.result.summary.locationChanges"
-        >
-        </kpn-change-set-location-changes>
-
-        <kpn-change-set-network-changes
-          [page]="response.result"
-        ></kpn-change-set-network-changes>
-        <kpn-change-set-orphan-node-changes
-          [page]="response.result"
-        ></kpn-change-set-orphan-node-changes>
-        <kpn-change-set-orphan-route-changes
-          [page]="response.result"
-        ></kpn-change-set-orphan-route-changes>
+        <kpn-change-set-header [page]="response.result" />
+        <kpn-change-set-location-changes [changess]="response.result.summary.locationChanges" />
+        <kpn-change-set-network-changes [page]="response.result" />
+        <kpn-change-set-orphan-node-changes [page]="response.result" />
+        <kpn-change-set-orphan-route-changes [page]="response.result" />
       </div>
     </div>
   `,

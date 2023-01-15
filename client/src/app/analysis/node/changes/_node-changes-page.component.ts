@@ -33,10 +33,9 @@ import { selectNodeId } from '../store/node.selectors';
       [nodeId]="nodeId$ | async"
       [nodeName]="nodeName$ | async"
       [changeCount]="changeCount$ | async"
-    >
-    </kpn-node-page-header>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p *ngIf="!response.result; else nodeFound" i18n="@@node.node-not-found">
@@ -77,9 +76,7 @@ import { selectNodeId } from '../store/node.selectors';
                   *ngFor="let nodeChangeInfo of page.changes"
                   [index]="nodeChangeInfo.rowIndex"
                 >
-                  <kpn-node-change
-                    [nodeChangeInfo]="nodeChangeInfo"
-                  ></kpn-node-change>
+                  <kpn-node-change [nodeChangeInfo]="nodeChangeInfo" />
                 </kpn-item>
               </kpn-items>
             </kpn-changes>

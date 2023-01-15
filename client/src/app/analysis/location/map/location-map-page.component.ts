@@ -18,10 +18,9 @@ import { selectLocationMapPage } from '../store/location.selectors';
       pageName="map"
       pageTitle="Map"
       i18n-pageTitle="@@location-map.title"
-    >
-    </kpn-location-page-header>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <div *ngIf="response$ | async as response">
       <kpn-location-response [response]="response">
@@ -29,8 +28,7 @@ import { selectLocationMapPage } from '../store/location.selectors';
           [networkType]="networkType$ | async"
           [geoJson]="response.result.geoJson"
           [bounds]="response.result.bounds"
-        >
-        </kpn-location-map>
+        />
       </kpn-location-response>
     </div>
   `,

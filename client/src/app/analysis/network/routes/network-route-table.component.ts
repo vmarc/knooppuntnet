@@ -38,7 +38,7 @@ import { NetworkRoutesService } from './network-routes.service';
       [length]="routes?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    ></kpn-edit-and-paginator>
+    />
 
     <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -67,7 +67,7 @@ import { NetworkRoutesService } from './network-routes.service';
           <kpn-network-route-analysis
             [route]="route"
             [networkType]="networkType"
-          ></kpn-network-route-analysis>
+          />
         </td>
       </ng-container>
 
@@ -85,7 +85,7 @@ import { NetworkRoutesService } from './network-routes.service';
             [routeId]="route.id"
             [title]="route.name"
             [networkType]="route.networkType"
-          ></kpn-link-route>
+          />
         </td>
       </ng-container>
 
@@ -141,11 +141,9 @@ import { NetworkRoutesService } from './network-routes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
-          <kpn-day [timestamp]="route.lastUpdated"></kpn-day>
-          <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
-          <kpn-osm-link-relation
-            [relationId]="route.id"
-          ></kpn-osm-link-relation>
+          <kpn-day [timestamp]="route.lastUpdated" />
+          <kpn-josm-relation [relationId]="route.id" />
+          <kpn-osm-link-relation [relationId]="route.id" />
         </td>
       </ng-container>
 

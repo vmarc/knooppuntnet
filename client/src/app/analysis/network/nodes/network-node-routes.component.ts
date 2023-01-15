@@ -24,7 +24,7 @@ import { NetworkNodeRow } from '@api/common/network/network-node-row';
           [routeId]="ref.id"
           [title]="ref.name"
           [networkType]="ref.networkType"
-        ></kpn-link-route>
+        />
       </span>
     </div>
   `,

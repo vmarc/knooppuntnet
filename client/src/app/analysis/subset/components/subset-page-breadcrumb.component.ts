@@ -13,14 +13,12 @@ import { Subset } from '@api/custom/subset';
       </li>
       <li>
         <a [routerLink]="networkTypeLink()">
-          <kpn-network-type-name
-            [networkType]="subset.networkType"
-          ></kpn-network-type-name>
+          <kpn-network-type-name [networkType]="subset.networkType" />
         </a>
       </li>
       <li>
         <a [routerLink]="countryLink()">
-          <kpn-country-name [country]="subset.country"></kpn-country-name>
+          <kpn-country-name [country]="subset.country"/>
         </a>
       </li>
       <li>

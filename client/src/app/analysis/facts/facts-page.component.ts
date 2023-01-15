@@ -15,11 +15,9 @@ import { Facts } from '../fact/facts';
         [index]="i"
       >
         <p>
-          <kpn-fact-name [fact]="factName"></kpn-fact-name>
+          <kpn-fact-name [fact]="factName" />
         </p>
-        <kpn-fact-description
-          [factInfo]="factInfo(factName)"
-        ></kpn-fact-description>
+        <kpn-fact-description [factInfo]="factInfo(factName)" />
       </kpn-item>
     </kpn-items>
   `,

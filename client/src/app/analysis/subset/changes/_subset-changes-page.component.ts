@@ -18,9 +18,9 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
       pageName="changes"
       pageTitle="Changes"
       i18n-pageTitle="@@subset-changes.title"
-    ></kpn-subset-page-header-block>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p
@@ -29,14 +29,12 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
       >
         This details of the changes history are available to registered
         OpenStreetMap contributors only, after
-        <kpn-link-login></kpn-link-login>
+        <kpn-link-login />
         .
       </p>
       <ng-template #loggedIn>
         <p>
-          <kpn-situation-on
-            [timestamp]="response.situationOn"
-          ></kpn-situation-on>
+          <kpn-situation-on [timestamp]="response.situationOn" />
         </p>
         <kpn-changes
           [impact]="impact$ | async"
@@ -56,11 +54,11 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
               <kpn-change-network-analysis-summary
                 *ngIf="changeSet.network"
                 [changeSet]="changeSet"
-              ></kpn-change-network-analysis-summary>
+              />
               <kpn-change-location-analysis-summary
                 *ngIf="changeSet.location"
                 [changeSet]="changeSet"
-              ></kpn-change-location-analysis-summary>
+              />
             </kpn-item>
           </kpn-items>
         </kpn-changes>

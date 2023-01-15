@@ -21,7 +21,7 @@ import { OverviewService } from '../overview.service';
     <kpn-page-header
       subject="overview-in-numbers-page"
       i18n="@@overview-page.title"
-      >Overview
+    >Overview
     </kpn-page-header>
 
     <kpn-error></kpn-error>
@@ -29,20 +29,16 @@ import { OverviewService } from '../overview.service';
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="response.result">
         <div class="situation-on">
-          <kpn-situation-on
-            [timestamp]="response.situationOn"
-          ></kpn-situation-on>
+          <kpn-situation-on [timestamp]="response.situationOn" />
         </div>
         <ng-content
           *ngIf="tableFormat$ | async; then table; else list"
         ></ng-content>
         <ng-template #table>
-          <kpn-overview-table
-            [statistics]="response.result"
-          ></kpn-overview-table>
+          <kpn-overview-table [statistics]="response.result" />
         </ng-template>
         <ng-template #list>
-          <kpn-overview-list [statistics]="response.result"></kpn-overview-list>
+          <kpn-overview-list [statistics]="response.result"/>
         </ng-template>
       </div>
     </div>

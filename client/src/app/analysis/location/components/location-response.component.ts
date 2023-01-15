@@ -8,15 +8,12 @@ import { ApiResponse } from '@api/custom/api-response';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response">
-      <kpn-situation-on
-        *ngIf="situationOnEnabled"
-        [timestamp]="response.situationOn"
-      ></kpn-situation-on>
+      <kpn-situation-on *ngIf="situationOnEnabled" [timestamp]="response.situationOn" />
       <div *ngIf="!response.result">
         <p i18n="@@location.location-not-found">Location not found</p>
       </div>
       <div *ngIf="response.result">
-        <ng-content></ng-content>
+        <ng-content/>
       </div>
     </div>
   `,

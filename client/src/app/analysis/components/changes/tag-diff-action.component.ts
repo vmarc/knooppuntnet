@@ -6,9 +6,9 @@ import { TagDetailType } from '@api/common/diff/tag-detail-type';
   selector: 'kpn-tag-diff-action',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-icon *ngIf="isAdd()" svgIcon="add"></mat-icon>
-    <mat-icon *ngIf="isUpdate()" svgIcon="update"></mat-icon>
-    <mat-icon *ngIf="isDelete()" svgIcon="remove"></mat-icon>
+    <mat-icon *ngIf="isAdd()" svgIcon="add" />
+    <mat-icon *ngIf="isUpdate()" svgIcon="update" />
+    <mat-icon *ngIf="isDelete()" svgIcon="remove" />
   `,
 })
 export class TagDiffActionComponent {

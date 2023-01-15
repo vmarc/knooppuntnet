@@ -13,8 +13,7 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
       i18n-letter="@@route-investigate-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class RouteInvestigateIndicatorComponent implements OnInit {

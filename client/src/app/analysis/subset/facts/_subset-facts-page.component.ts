@@ -21,17 +21,17 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
       pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@subset-facts.title"
-    ></kpn-subset-page-header-block>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        <kpn-situation-on [timestamp]="response.situationOn" />
       </p>
       <p *ngIf="!hasFacts(response)" class="kpn-line">
         <span i18n="@@subset-facts.no-facts">No facts</span>
-        <kpn-icon-happy></kpn-icon-happy>
+        <kpn-icon-happy />
       </p>
       <div *ngIf="hasFacts(response)" class="kpn-line">
         <kpn-items>
@@ -41,24 +41,20 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
           >
             <div class="kpn-line">
               <a [routerLink]="factCount.fact">
-                <kpn-fact-name [fact]="factCount.fact"></kpn-fact-name>
+                <kpn-fact-name [fact]="factCount.fact" />
               </a>
               <span>({{ factCount.count }})</span>
-              <kpn-fact-level
-                [factLevel]="factLevel(factCount.fact)"
-              ></kpn-fact-level>
+              <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
               <a
                 rel="nofollow"
                 (click)="edit(factCount.fact)"
                 title="Open in editor (like JOSM)"
                 i18n-title="@@edit.link.title"
                 i18n="@@edit.link"
-                >edit</a
+              >edit</a
               >
             </div>
-            <kpn-fact-description
-              [factInfo]="factInfo(factCount)"
-            ></kpn-fact-description>
+            <kpn-fact-description [factInfo]="factInfo(factCount)" />
           </kpn-item>
         </kpn-items>
       </div>

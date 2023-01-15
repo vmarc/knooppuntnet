@@ -11,11 +11,8 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
       [happy]="networkChangeInfo.happy"
       [investigate]="networkChangeInfo.investigate"
       [comment]="networkChangeInfo.comment"
-    >
-    </kpn-change-header>
-    <kpn-network-change
-      [networkChangeInfo]="networkChangeInfo"
-    ></kpn-network-change>
+    />
+    <kpn-network-change [networkChangeInfo]="networkChangeInfo" />
   `,
 })
 export class NetworkChangeSetComponent {

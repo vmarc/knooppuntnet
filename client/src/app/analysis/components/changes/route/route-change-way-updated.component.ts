@@ -12,12 +12,9 @@ import { Util } from '../../../../components/shared/util';
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-update.title"
-          >Updated way</span
+        >Updated way</span
         >
-        <kpn-osm-link-way
-          [wayId]="wayUpdate.id"
-          [title]="wayUpdate.id.toString()"
-        ></kpn-osm-link-way>
+        <kpn-osm-link-way [wayId]="wayUpdate.id" [title]="wayUpdate.id.toString()" />
       </div>
 
       <div class="kpn-level-4-body">
@@ -35,7 +32,7 @@ import { Util } from '../../../../components/shared/util';
             >
               Way version unchanged
             </ng-container>
-            <kpn-meta-data [metaData]="wayUpdate.before"></kpn-meta-data>
+            <kpn-meta-data [metaData]="wayUpdate.before" />
           </div>
         </div>
 
@@ -49,33 +46,27 @@ import { Util } from '../../../../components/shared/util';
 
         <div *ngIf="wayUpdate.removedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes"
-            >Removed node(s)</span
+          >Removed node(s)</span
           >
-          <kpn-node-list
-            [nodeIds]="nodeIds(wayUpdate.removedNodes)"
-          ></kpn-node-list>
+          <kpn-node-list [nodeIds]="nodeIds(wayUpdate.removedNodes)" />
         </div>
 
         <div *ngIf="wayUpdate.addedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.added-nodes"
-            >Added node(s)</span
+          >Added node(s)</span
           >
-          <kpn-node-list
-            [nodeIds]="nodeIds(wayUpdate.addedNodes)"
-          ></kpn-node-list>
+          <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)" />
         </div>
 
         <div *ngIf="wayUpdate.updatedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes"
-            >Updated node(s)</span
+          >Updated node(s)</span
           >
-          <kpn-node-list
-            [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)"
-          ></kpn-node-list>
+          <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)" />
         </div>
 
         <div *ngIf="hasTagDiffs()" class="kpn-detail">
-          <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs"></kpn-tag-diffs>
+          <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs"/>
         </div>
       </div>
     </div>

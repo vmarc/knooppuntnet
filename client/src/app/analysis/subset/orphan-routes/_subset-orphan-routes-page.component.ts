@@ -13,13 +13,13 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
       pageName="orphan-routes"
       pageTitle="Free routes"
       i18n-pageTitle="@@subset-orphan-routes.title"
-    ></kpn-subset-page-header-block>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p>
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        <kpn-situation-on [timestamp]="response.situationOn"/>
       </p>
       <p *ngIf="response.result.routes.length === 0" class="kpn-line">
         <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
@@ -29,7 +29,7 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
           [timeInfo]="response.result.timeInfo"
           [networkType]="response.result.subsetInfo.networkType"
           [orphanRoutes]="response.result.routes"
-        ></kpn-subset-orphan-routes-table>
+        />
       </div>
     </div>
   `,

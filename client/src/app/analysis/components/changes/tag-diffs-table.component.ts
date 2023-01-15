@@ -15,45 +15,41 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
         i18n-title="@@tag-diffs.table"
       >
         <thead>
-          <tr>
-            <th></th>
-            <th i18n="@@tag-diffs.key">Key</th>
-            <th i18n="@@tag-diffs.before">Before</th>
-            <th i18n="@@tag-diffs.after">After</th>
-          </tr>
+        <tr>
+          <th></th>
+          <th i18n="@@tag-diffs.key">Key</th>
+          <th i18n="@@tag-diffs.before">Before</th>
+          <th i18n="@@tag-diffs.after">After</th>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let tagDetail of tagDiffs.mainTags"
-            [ngClass]="{ same: tagDetail.action.name === 'Same' }"
-          >
-            <td>
-              <kpn-tag-diff-action
-                [action]="tagDetail.action"
-              ></kpn-tag-diff-action>
-            </td>
-            <td>{{ tagDetail.key }}</td>
-            <td>{{ tagDetail.valueBefore }}</td>
-            <td>{{ tagDetail.valueAfter }}</td>
-          </tr>
+        <tr
+          *ngFor="let tagDetail of tagDiffs.mainTags"
+          [ngClass]="{ same: tagDetail.action.name === 'Same' }"
+        >
+          <td>
+            <kpn-tag-diff-action [action]="tagDetail.action" />
+          </td>
+          <td>{{ tagDetail.key }}</td>
+          <td>{{ tagDetail.valueBefore }}</td>
+          <td>{{ tagDetail.valueAfter }}</td>
+        </tr>
 
-          <tr *ngIf="hasSeparator()">
-            <td colspan="4"></td>
-          </tr>
+        <tr *ngIf="hasSeparator()">
+          <td colspan="4"></td>
+        </tr>
 
-          <tr
-            *ngFor="let tagDetail of tagDiffs.extraTags"
-            [ngClass]="{ same: tagDetail.action.name === 'Same' }"
-          >
-            <td>
-              <kpn-tag-diff-action
-                [action]="tagDetail.action"
-              ></kpn-tag-diff-action>
-            </td>
-            <td>{{ tagDetail.key }}</td>
-            <td>{{ tagDetail.valueBefore }}</td>
-            <td>{{ tagDetail.valueAfter }}</td>
-          </tr>
+        <tr
+          *ngFor="let tagDetail of tagDiffs.extraTags"
+          [ngClass]="{ same: tagDetail.action.name === 'Same' }"
+        >
+          <td>
+            <kpn-tag-diff-action [action]="tagDetail.action" />
+          </td>
+          <td>{{ tagDetail.key }}</td>
+          <td>{{ tagDetail.valueBefore }}</td>
+          <td>{{ tagDetail.valueAfter }}</td>
+        </tr>
         </tbody>
       </table>
     </div>

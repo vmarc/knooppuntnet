@@ -30,8 +30,7 @@ import { selectRouteId } from '../store/route.selectors';
       [routeName]="routeName$ | async"
       [changeCount]="changeCount$ | async"
       [networkType]="networkType$ | async"
-    >
-    </kpn-route-page-header>
+    />
 
     <div *ngIf="response$ | async as response">
       <div
@@ -45,7 +44,7 @@ import { selectRouteId } from '../store/route.selectors';
         <kpn-route-map
           [routeMapInfo]="response.result.routeMapInfo"
           [mapPositionFromUrl]="mapPositionFromUrl$ | async"
-        ></kpn-route-map>
+        />
       </div>
     </div>
   `,

@@ -12,8 +12,7 @@ import { ChangeType } from '@api/custom/change-type';
       [happy]="nodeChangeInfo.happy"
       [investigate]="nodeChangeInfo.investigate"
       [comment]="nodeChangeInfo.comment"
-    >
-    </kpn-change-header>
+    />
 
     <div *ngIf="isCreate()" class="kpn-detail">
       <b i18n="@@node-change.created">Node created</b>
@@ -26,21 +25,17 @@ import { ChangeType } from '@api/custom/change-type';
       <p i18n="@@node.initial-value">Oldest known state of the node.</p>
     </div>
 
-    <kpn-change-set-tags
-      [changeSetTags]="nodeChangeInfo.changeTags"
-    ></kpn-change-set-tags>
+    <kpn-change-set-tags [changeSetTags]="nodeChangeInfo.changeTags" />
 
     <div class="kpn-detail">
       <span i18n="@@node.version">Version</span>
       {{ nodeChangeInfo.version }}
       <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged"
-        >(Unchanged)</span
+      >(Unchanged)</span
       >
     </div>
 
-    <kpn-node-change-detail
-      [nodeChangeInfo]="nodeChangeInfo"
-    ></kpn-node-change-detail>
+    <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
   `,
 })
 export class NodeChangeComponent {

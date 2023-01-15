@@ -13,17 +13,14 @@ import { Facts } from './facts';
 
     <div *ngFor="let factInfo of filteredFactInfos" class="fact">
       <div>
-        <kpn-fact-level
-          [factLevel]="factLevel(factInfo)"
-          class="level"
-        ></kpn-fact-level>
+        <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level" />
         <kpn-fact-name [fact]="factInfo.fact"></kpn-fact-name>
         <div *ngIf="factInfo.networkRef" class="reference">
           <kpn-brackets>
             <a
               class="text"
               [routerLink]="'/analysis/network/' + factInfo.networkRef.id"
-              >{{ factInfo.networkRef.name }}</a
+            >{{ factInfo.networkRef.name }}</a
             >
           </kpn-brackets>
         </div>
@@ -32,7 +29,7 @@ import { Facts } from './facts';
             <kpn-link-route
               [routeId]="factInfo.routeRef.id"
               [title]="factInfo.routeRef.name"
-            ></kpn-link-route>
+            />
           </kpn-brackets>
         </div>
         <div *ngIf="factInfo.nodeRef" class="reference">
@@ -40,12 +37,12 @@ import { Facts } from './facts';
             <kpn-link-node
               [nodeId]="factInfo.nodeRef.id"
               [nodeName]="factInfo.nodeRef.name"
-            ></kpn-link-node>
+            />
           </kpn-brackets>
         </div>
       </div>
       <div class="description">
-        <kpn-fact-description [factInfo]="factInfo"></kpn-fact-description>
+        <kpn-fact-description [factInfo]="factInfo"/>
       </div>
     </div>
   `,

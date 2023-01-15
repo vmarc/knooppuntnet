@@ -17,8 +17,7 @@ import { Component } from '@angular/core';
             *ngFor="let relationId of factInfo.unexpectedRelationIds"
             [relationId]="relationId"
             [title]="relationId.toString()"
-          >
-          </kpn-osm-link-relation>
+          />
         </span>
       </span>
     </markdown>

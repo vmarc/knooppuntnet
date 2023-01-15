@@ -8,7 +8,7 @@ import { NetworkType } from '@api/custom/network-type';
   template: `
     <kpn-page-header [pageTitle]="routeName" subject="route-page">
       <span class="header-network-type-icon">
-        <mat-icon [svgIcon]="networkType"></mat-icon>
+        <mat-icon [svgIcon]="networkType"/>
       </span>
       <span i18n="@@route.title">Route</span>
       <span *ngIf="routeName">&nbsp;{{ routeName }}</span>

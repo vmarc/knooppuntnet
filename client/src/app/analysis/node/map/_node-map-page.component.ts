@@ -27,10 +27,9 @@ import { selectNodeMapPage } from '../store/node.selectors';
       [nodeId]="nodeId$ | async"
       [nodeName]="nodeName$ | async"
       [changeCount]="changeCount$ | async"
-    >
-    </kpn-node-page-header>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error/>
 
     <div *ngIf="response$ | async as response">
       <div
@@ -44,7 +43,7 @@ import { selectNodeMapPage } from '../store/node.selectors';
         <kpn-node-map
           [nodeMapInfo]="page.nodeMapInfo"
           [mapPositionFromUrl]="mapPositionFromUrl$ | async"
-        ></kpn-node-map>
+        />
       </div>
     </div>
   `,

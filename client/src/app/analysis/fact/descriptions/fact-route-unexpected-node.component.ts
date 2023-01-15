@@ -16,8 +16,7 @@ import { FactInfo } from '../fact-info';
           *ngFor="let nodeId of factInfo.unexpectedNodeIds"
           [nodeId]="nodeId"
           [title]="nodeId.toString()"
-        >
-        </kpn-osm-link-node>
+        />
       </span>
     </p>
   `,

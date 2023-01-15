@@ -13,28 +13,25 @@ import { Component } from '@angular/core';
       icon="map"
       title="Map"
       i18n-title="@@home.map"
-    ></kpn-icon-button>
+    />
     <kpn-icon-button
       routerLink="/analysis"
       icon="analysis"
       title="Analysis"
       i18n-title="@@home.analysis"
-    >
-    </kpn-icon-button>
+    />
     <kpn-icon-button
       routerLink="/monitor"
       icon="monitor"
       title="Monitor"
       i18n-title="@@home.monitor"
-    >
-    </kpn-icon-button>
+    />
     <kpn-icon-button
       routerLink="/demo"
       icon="video"
       title="Demo"
       i18n-title="@@home.demo"
-    >
-    </kpn-icon-button>
+    />
   `,
 })
 export class HomePageComponent {}

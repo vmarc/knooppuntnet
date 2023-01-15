@@ -15,8 +15,7 @@ import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.co
       i18n-letter="@@proposed-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class ProposedIndicatorComponent implements OnInit {

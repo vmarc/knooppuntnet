@@ -16,15 +16,10 @@ import { NodeDiffsData } from './node-diffs-data';
       <div class="kpn-level-2-body">
         <div *ngFor="let nodeRef of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-node-ref-header
-              [ref]="nodeRef"
-              [knownElements]="data.knownElements"
-            ></kpn-link-node-ref-header>
+            <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data.knownElements" />
           </div>
           <div class="kpn-level-3-body">
-            <div
-              *ngFor="let nodeChangeInfo of data.findNodeChangeInfo(nodeRef)"
-            >
+            <div *ngFor="let nodeChangeInfo of data.findNodeChangeInfo(nodeRef)">
               <ng-container
                 *ngIf="
                   nodeChangeInfo.before.version === nodeChangeInfo.after.version
@@ -41,10 +36,10 @@ import { NodeDiffsData } from './node-diffs-data';
               >
                 Node changed to v{{ nodeChangeInfo.after.version }}
               </ng-container>
-              <kpn-meta-data [metaData]="nodeChangeInfo.before"></kpn-meta-data>
+              <kpn-meta-data [metaData]="nodeChangeInfo.before"/>
               <kpn-node-change-detail
                 [nodeChangeInfo]="nodeChangeInfo"
-              ></kpn-node-change-detail>
+              />
             </div>
           </div>
         </div>

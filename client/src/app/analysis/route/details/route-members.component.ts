@@ -38,7 +38,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
           <tbody>
             <tr *ngFor="let member of members">
               <td class="image-cell">
-                <kpn-link-image [linkName]="member.linkName"></kpn-link-image>
+                <kpn-link-image [linkName]="member.linkName"/>
               </td>
               <td>
                 <div class="kpn-comma-list">
@@ -46,8 +46,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
                     *ngFor="let node of member.nodes"
                     [nodeId]="node.id"
                     [nodeName]="node.alternateName"
-                  >
-                  </kpn-link-node>
+                  />
                 </div>
               </td>
               <td>
@@ -55,14 +54,14 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
                   [kind]="member.memberType"
                   [elementId]="member.id.toString()"
                   [title]="member.id.toString()"
-                ></kpn-osm-link>
+                />
               </td>
               <td>
                 <kpn-osm-link
                   kind="node"
                   [elementId]="member.fromNodeId.toString()"
                   [title]="member.from"
-                ></kpn-osm-link>
+                />
               </td>
               <td>
                 <kpn-osm-link
@@ -70,7 +69,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
                   kind="node"
                   [elementId]="member.toNodeId.toString()"
                   [title]="member.to"
-                ></kpn-osm-link>
+                />
               </td>
               <td>
                 {{ member.role }}
@@ -86,7 +85,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
               </td>
               <td>
                 <div *ngIf="!member.accessible">
-                  <mat-icon svgIcon="warning"></mat-icon>
+                  <mat-icon svgIcon="warning"/>
                 </div>
               </td>
               <td *ngIf="networkType === 'cycling'">
@@ -107,7 +106,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
                 <kpn-tags-text
                   *ngIf="member.oneWayTags.tags.length > 0"
                   [tags]="member.oneWayTags"
-                ></kpn-tags-text>
+                />
               </td>
             </tr>
           </tbody>

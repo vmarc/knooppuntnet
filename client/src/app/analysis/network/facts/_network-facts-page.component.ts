@@ -13,19 +13,18 @@ import { selectNetworkFactsPage } from '../store/network.selectors';
       pageName="facts"
       pageTitle="Facts"
       i18n-pageTitle="@@network-facts.title"
-    >
-    </kpn-network-page-header>
+    />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
-        <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+        <kpn-situation-on [timestamp]="response.situationOn"/>
 
         <p *ngIf="response.result.facts.length === 0" class="kpn-line">
           <span i18n="@@network-facts.no-facts">No facts</span>
-          <kpn-icon-happy></kpn-icon-happy>
+          <kpn-icon-happy/>
         </p>
 
         <kpn-items *ngIf="response.result.facts.length > 0">
@@ -36,7 +35,7 @@ import { selectNetworkFactsPage } from '../store/network.selectors';
             <kpn-network-fact
               [fact]="fact"
               [networkType]="response.result.summary.networkType"
-            ></kpn-network-fact>
+            />
           </kpn-item>
         </kpn-items>
       </div>

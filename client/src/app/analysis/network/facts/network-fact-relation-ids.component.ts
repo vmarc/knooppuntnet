@@ -9,9 +9,9 @@ import { Component, Input } from '@angular/core';
       <kpn-osm-link-relation
         [relationId]="elementId"
         [title]="elementId.toString()"
-      ></kpn-osm-link-relation>
+      />
       <span class="kpn-brackets-link">
-        <kpn-josm-relation [relationId]="elementId"></kpn-josm-relation>
+        <kpn-josm-relation [relationId]="elementId"/>
       </span>
     </div>
   `,

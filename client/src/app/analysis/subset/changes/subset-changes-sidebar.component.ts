@@ -13,7 +13,7 @@ import { selectSubsetChangesFilterOptions } from '../store/subset.selectors';
       <kpn-change-filter
         [filterOptions]="filterOptions$ | async"
         (optionSelected)="onOptionSelected($event)"
-      ></kpn-change-filter>
+      />
     </kpn-sidebar>
   `,
 })

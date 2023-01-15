@@ -31,10 +31,9 @@ import { selectNodeChangeCount } from '../store/node.selectors';
       [nodeId]="nodeId$ | async"
       [nodeName]="nodeName$ | async"
       [changeCount]="changeCount$ | async"
-    >
-    </kpn-node-page-header>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
@@ -42,7 +41,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
       </div>
       <div *ngIf="response.result as page">
         <kpn-data title="Summary" i18n-title="@@node.summary">
-          <kpn-node-summary [nodeInfo]="page.nodeInfo"></kpn-node-summary>
+          <kpn-node-summary [nodeInfo]="page.nodeInfo" />
         </kpn-data>
 
         <div class="data2">
@@ -50,18 +49,16 @@ import { selectNodeChangeCount } from '../store/node.selectors';
             <span i18n="@@node.situation-on">Situation on</span>
           </div>
           <div class="body">
-            <kpn-timestamp [timestamp]="response.situationOn"></kpn-timestamp>
+            <kpn-timestamp [timestamp]="response.situationOn" />
           </div>
         </div>
 
         <kpn-data title="Last updated" i18n-title="@@node.last-updated">
-          <kpn-timestamp
-            [timestamp]="page.nodeInfo.lastUpdated"
-          ></kpn-timestamp>
+          <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@node.tags">
-          <kpn-tags-table [tags]="buildTags(page)"></kpn-tags-table>
+          <kpn-tags-table [tags]="buildTags(page)"/>
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@node.location">
@@ -70,11 +67,11 @@ import { selectNodeChangeCount } from '../store/node.selectors';
               <div *ngFor="let networkType of networkTypes" class="kpn-line">
                 <kpn-network-type-icon
                   [networkType]="networkType"
-                ></kpn-network-type-icon>
+                />
                 <kpn-node-location
                   [networkType]="networkType"
                   [locations]="page.nodeInfo.locations"
-                ></kpn-node-location>
+                />
               </div>
             </div>
             <div *ngIf="networkTypes.length === 1">
@@ -82,7 +79,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
                 <kpn-node-location
                   [networkType]="networkTypes[0]"
                   [locations]="page.nodeInfo.locations"
-                ></kpn-node-location>
+                />
               </div>
             </div>
           </div>
@@ -92,14 +89,14 @@ import { selectNodeChangeCount } from '../store/node.selectors';
           <kpn-node-integrity
             [integrity]="page.integrity"
             [mixedNetworkScopes]="page.mixedNetworkScopes"
-          ></kpn-node-integrity>
+          />
         </kpn-data>
 
         <kpn-data title="Routes" i18n-title="@@node.routes">
           <kpn-node-route-references
             [references]="page.routeReferences"
             [mixedNetworkScopes]="page.mixedNetworkScopes"
-          ></kpn-node-route-references>
+          />
         </kpn-data>
 
         <kpn-data title="Networks" i18n-title="@@node.networks">
@@ -107,12 +104,11 @@ import { selectNodeChangeCount } from '../store/node.selectors';
             [nodeInfo]="page.nodeInfo"
             [references]="page.networkReferences"
             [mixedNetworkScopes]="page.mixedNetworkScopes"
-          >
-          </kpn-node-network-references>
+          />
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
-          <kpn-facts [factInfos]="buildFactInfos(page)"></kpn-facts>
+          <kpn-facts [factInfos]="buildFactInfos(page)"/>
         </kpn-data>
       </div>
     </div>

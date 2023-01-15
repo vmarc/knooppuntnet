@@ -16,7 +16,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
 
     <kpn-page-header>
       <span class="header-network-type-icon">
-        <mat-icon svgIcon="cycling"></mat-icon>
+        <mat-icon svgIcon="cycling"/>
       </span>
       <span i18n="@@network-type.cycling">Cycling</span>
     </kpn-page-header>
@@ -27,37 +27,37 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         icon="netherlands"
         i18n-title="@@country.nl"
         title="The Netherlands"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         [routerLink]="beLink | async"
         icon="belgium"
         i18n-title="@@country.be"
         title="Belgium"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         [routerLink]="deLink | async"
         icon="germany"
         i18n-title="@@country.de"
         title="Germany"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         [routerLink]="frLink | async"
         icon="france"
         i18n-title="@@country.fr"
         title="France"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         [routerLink]="atLink | async"
         icon="austria"
         i18n-title="@@country.at"
         title="Austria"
-      ></kpn-icon-button>
+      />
       <kpn-icon-button
         [routerLink]="esLink | async"
         icon="spain"
         i18n-title="@@country.es"
         title="Spain"
-      ></kpn-icon-button>
+      />
     </kpn-icon-buttons>
   `,
 })

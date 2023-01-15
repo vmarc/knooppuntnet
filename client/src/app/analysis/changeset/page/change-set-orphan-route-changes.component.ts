@@ -14,14 +14,12 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
   template: `
     <div *ngFor="let refs of page.orphanRouteChanges" class="kpn-level-1">
       <div class="kpn-level-1-header kpn-line">
-        <kpn-network-type-icon
-          [networkType]="refs.subset.networkType"
-        ></kpn-network-type-icon>
+        <kpn-network-type-icon [networkType]="refs.subset.networkType" />
         <span>{{ refs.subset.country.toUpperCase() }}</span>
         <span i18n="@@change-set.orphan-routes.title">Free routes</span>
       </div>
       <div class="kpn-level-1-body">
-        <kpn-route-diffs [data]="routeDiffs(refs)"></kpn-route-diffs>
+        <kpn-route-diffs [data]="routeDiffs(refs)" />
       </div>
     </div>
   `,

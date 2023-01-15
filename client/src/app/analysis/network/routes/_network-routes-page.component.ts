@@ -13,8 +13,7 @@ import { selectNetworkRoutesPage } from '../store/network.selectors';
       pageName="routes"
       pageTitle="Routes"
       i18n-pageTitle="@@network-routes.title"
-    >
-    </kpn-network-page-header>
+    />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
@@ -22,9 +21,7 @@ import { selectNetworkRoutesPage } from '../store/network.selectors';
       </div>
       <div *ngIf="response.result">
         <p>
-          <kpn-situation-on
-            [timestamp]="response.situationOn"
-          ></kpn-situation-on>
+          <kpn-situation-on [timestamp]="response.situationOn" />
         </p>
         <div
           *ngIf="response.result.routes.length === 0"
@@ -38,8 +35,7 @@ import { selectNetworkRoutesPage } from '../store/network.selectors';
           [surveyDateInfo]="response.result.surveyDateInfo"
           [networkType]="response.result.networkType"
           [routes]="response.result.routes"
-        >
-        </kpn-network-route-table>
+        />
       </div>
     </div>
   `,

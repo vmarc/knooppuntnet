@@ -14,14 +14,12 @@ import { LocationKey } from '@api/custom/location-key';
       </li>
       <li>
         <a [routerLink]="networkTypeLink()">
-          <kpn-network-type-name
-            [networkType]="locationKey.networkType"
-          ></kpn-network-type-name>
+          <kpn-network-type-name [networkType]="locationKey.networkType" />
         </a>
       </li>
       <li>
         <a [routerLink]="countryLink()">
-          <kpn-country-name [country]="locationKey.country"></kpn-country-name>
+          <kpn-country-name [country]="locationKey.country"/>
         </a>
       </li>
       <li>{{ locationName() }}</li>

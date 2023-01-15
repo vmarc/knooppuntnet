@@ -30,7 +30,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
-    ></kpn-edit-and-paginator>
+    />
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -56,7 +56,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
           <kpn-subset-orphan-route-analysis
             [route]="route"
             [networkType]="networkType"
-          ></kpn-subset-orphan-route-analysis>
+          />
         </td>
       </ng-container>
 
@@ -73,7 +73,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
             [routeId]="route.id"
             [title]="route.name"
             [networkType]="networkType"
-          ></kpn-link-route>
+          />
         </td>
       </ng-container>
 
@@ -112,11 +112,9 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
-          <kpn-day [timestamp]="route.lastUpdated"></kpn-day>
-          <kpn-josm-relation [relationId]="route.id"></kpn-josm-relation>
-          <kpn-osm-link-relation
-            [relationId]="route.id"
-          ></kpn-osm-link-relation>
+          <kpn-day [timestamp]="route.lastUpdated" />
+          <kpn-josm-relation [relationId]="route.id" />
+          <kpn-osm-link-relation [relationId]="route.id" />
         </td>
       </ng-container>
 

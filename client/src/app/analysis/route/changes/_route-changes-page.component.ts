@@ -35,8 +35,7 @@ import { selectRouteId } from '../store/route.selectors';
       [routeName]="routeName$ | async"
       [changeCount]="changeCount$ | async"
       [networkType]="networkType$ | async"
-    >
-    </kpn-route-page-header>
+    />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div
@@ -58,9 +57,7 @@ import { selectRouteId } from '../store/route.selectors';
         <ng-template #loggedIn>
           <div *ngIf="response.result as page">
             <p>
-              <kpn-situation-on
-                [timestamp]="response.situationOn"
-              ></kpn-situation-on>
+              <kpn-situation-on [timestamp]="response.situationOn" />
             </p>
             <kpn-changes
               [impact]="impact$ | async"
@@ -77,9 +74,7 @@ import { selectRouteId } from '../store/route.selectors';
                   *ngFor="let routeChangeInfo of page.changes"
                   [index]="routeChangeInfo.rowIndex"
                 >
-                  <kpn-route-change
-                    [routeChangeInfo]="routeChangeInfo"
-                  ></kpn-route-change>
+                  <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
                 </kpn-item>
               </kpn-items>
             </kpn-changes>

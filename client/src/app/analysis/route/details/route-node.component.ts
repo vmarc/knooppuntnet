@@ -11,9 +11,9 @@ import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info'
       <kpn-link-node
         [nodeId]="node.id"
         [nodeName]="node.alternateName"
-      ></kpn-link-node>
+      />
       <kpn-brackets>
-        <kpn-osm-link-node [nodeId]="node.id"></kpn-osm-link-node>
+        <kpn-osm-link-node [nodeId]="node.id"/>
       </kpn-brackets>
     </p>
   `,

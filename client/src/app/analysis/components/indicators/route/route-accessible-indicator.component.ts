@@ -15,8 +15,7 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
       i18n-letter="@@route-accessible-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {

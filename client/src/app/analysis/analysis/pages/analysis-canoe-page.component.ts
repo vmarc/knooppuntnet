@@ -16,7 +16,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
 
     <kpn-page-header>
       <span class="header-network-type-icon">
-        <mat-icon svgIcon="canoe"></mat-icon>
+        <mat-icon svgIcon="canoe"/>
       </span>
       <span i18n="@@network-type.canoe">Canoe</span>
     </kpn-page-header>
@@ -29,7 +29,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         icon="netherlands"
         i18n-title="@@country.nl"
         title="The Netherlands"
-      ></kpn-icon-button>
+      />
       <!-- eslint-enable @angular-eslint/template/i18n -->
     </kpn-icon-buttons>
   `,

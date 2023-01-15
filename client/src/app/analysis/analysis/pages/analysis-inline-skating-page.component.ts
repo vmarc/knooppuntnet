@@ -16,7 +16,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
 
     <kpn-page-header>
       <span class="header-network-type-icon">
-        <mat-icon svgIcon="inline-skating"></mat-icon>
+        <mat-icon svgIcon="inline-skating"/>
       </span>
       <span i18n="@@network-type.inline-skating">Inline skating</span>
     </kpn-page-header>
@@ -27,7 +27,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         icon="netherlands"
         i18n-title="@@country.nl"
         title="The Netherlands"
-      ></kpn-icon-button>
+      />
     </kpn-icon-buttons>
   `,
 })

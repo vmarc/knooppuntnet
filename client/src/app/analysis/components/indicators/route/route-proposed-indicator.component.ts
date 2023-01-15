@@ -13,8 +13,7 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
       i18n-letter="@@route-proposed-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class RouteProposedIndicatorComponent implements OnInit {

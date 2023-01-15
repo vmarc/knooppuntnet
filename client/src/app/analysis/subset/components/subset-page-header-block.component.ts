@@ -14,14 +14,14 @@ import { selectSubsetInfo } from '../store/subset.selectors';
     <kpn-subset-page-breadcrumb
       [subset]="subset$ | async"
       [pageName]="pageName"
-    ></kpn-subset-page-breadcrumb>
+    />
 
     <kpn-page-header
       [pageTitle]="subsetPageTitle$ | async"
       [subject]="'subset-' + pageName + '-page'"
     >
       <span class="header-network-type-icon">
-        <mat-icon [svgIcon]="networkType$ | async"></mat-icon>
+        <mat-icon [svgIcon]="networkType$ | async"/>
       </span>
       <span>
         {{ subsetName$ | async }}
@@ -32,7 +32,7 @@ import { selectSubsetInfo } from '../store/subset.selectors';
       [subset]="subset$ | async"
       [subsetInfo]="subsetInfo$ | async"
       [pageName]="pageName"
-    ></kpn-subset-page-menu>
+    />
   `,
 })
 export class SubsetPageHeaderBlockComponent {

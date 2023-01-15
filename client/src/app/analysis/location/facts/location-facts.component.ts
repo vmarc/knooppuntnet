@@ -16,7 +16,7 @@ import { Facts } from '../../fact/facts';
   template: `
     <div *ngIf="locationFacts.length === 0" class="kpn-line kpn-spacer-above">
       <span i18n="@@location-facts.none">No facts</span>
-      <kpn-icon-happy></kpn-icon-happy>
+      <kpn-icon-happy />
     </div>
 
     <kpn-items *ngIf="locationFacts.length > 0">
@@ -25,25 +25,20 @@ import { Facts } from '../../fact/facts';
         [index]="i"
       >
         <div class="kpn-line">
-          <kpn-fact-name [fact]="locationFact.fact"></kpn-fact-name>
+          <kpn-fact-name [fact]="locationFact.fact" />
           <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
-          <kpn-fact-level
-            [factLevel]="factLevel(locationFact.fact)"
-            class="level"
-          ></kpn-fact-level>
+          <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
           <a
             rel="nofollow"
             (click)="edit(locationFact)"
             title="Open in editor (like JOSM)"
             i18n-title="@@edit.link.title"
             i18n="@@edit.link"
-            >edit</a
+          >edit</a
           >
         </div>
         <div class="description">
-          <kpn-fact-description
-            [factInfo]="factInfo(locationFact)"
-          ></kpn-fact-description>
+          <kpn-fact-description [factInfo]="factInfo(locationFact)" />
         </div>
         <div
           *ngIf="locationFact.elementType === 'route'"
@@ -53,8 +48,7 @@ import { Facts } from '../../fact/facts';
             *ngFor="let ref of locationFact.refs"
             [routeId]="ref.id"
             [title]="ref.name"
-          >
-          </kpn-link-route>
+          />
         </div>
         <div
           *ngIf="locationFact.elementType === 'node'"
@@ -64,8 +58,7 @@ import { Facts } from '../../fact/facts';
             *ngFor="let ref of locationFact.refs"
             [nodeId]="ref.id"
             [nodeName]="ref.name"
-          >
-          </kpn-link-node>
+          />
         </div>
       </kpn-item>
     </kpn-items>

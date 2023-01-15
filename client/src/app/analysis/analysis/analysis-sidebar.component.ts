@@ -10,9 +10,7 @@ import { AnalysisStrategy } from '../../core/preferences/preferences.state';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-analysis-strategy
-        (strategyChange)="onStrategyChange($event)"
-      ></kpn-analysis-strategy>
+      <kpn-analysis-strategy (strategyChange)="onStrategyChange($event)" />
     </kpn-sidebar>
   `,
 })

@@ -12,8 +12,7 @@ import { ChangeType } from '@api/custom/change-type';
       [happy]="routeChangeInfo.happy"
       [investigate]="routeChangeInfo.investigate"
       [comment]="routeChangeInfo.comment"
-    >
-    </kpn-change-header>
+    />
 
     <div *ngIf="isCreate()" class="kpn-detail">
       <b i18n="@@route-change.created">Route created</b>
@@ -28,21 +27,17 @@ import { ChangeType } from '@api/custom/change-type';
       </p>
     </div>
 
-    <kpn-change-set-tags
-      [changeSetTags]="routeChangeInfo.changeSetInfo?.tags"
-    ></kpn-change-set-tags>
+    <kpn-change-set-tags [changeSetTags]="routeChangeInfo.changeSetInfo?.tags" />
 
     <div class="kpn-detail">
       <span i18n="@@route-change.version">Version</span>
       {{ routeChangeInfo.version }}
       <span *ngIf="isVersionUnchanged()" i18n="@@route-change.unchanged"
-        >(Unchanged)</span
+      >(Unchanged)</span
       >
     </div>
 
-    <kpn-route-change-detail
-      [routeChangeInfo]="routeChangeInfo"
-    ></kpn-route-change-detail>
+    <kpn-route-change-detail [routeChangeInfo]="routeChangeInfo" />
   `,
 })
 export class RouteChangeComponent {

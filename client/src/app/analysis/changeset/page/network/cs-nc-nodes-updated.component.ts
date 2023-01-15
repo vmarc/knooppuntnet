@@ -19,8 +19,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
           *ngFor="let nodeId of nodeIds"
           [nodeId]="nodeId"
           [title]="nodeId.toString()"
-        >
-        </kpn-osm-link-node>
+        />
       </div>
     </div>
   `,

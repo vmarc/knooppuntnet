@@ -23,15 +23,13 @@ import { NodeChangeInfo } from '@api/common/node/node-change-info';
         The node has moved less than 1 meter.
       </div>
 
-      <kpn-node-moved-map [nodeMoved]="nodeMoved"></kpn-node-moved-map>
+      <kpn-node-moved-map [nodeMoved]="nodeMoved" />
 
       <div class="note">
         <span i18n="@@node-change.moved.note.1">
           Note: Node position is shown as it was at
         </span>
-        <kpn-timestamp
-          [timestamp]="nodeChangeInfo.changeKey.timestamp"
-        ></kpn-timestamp>
+        <kpn-timestamp [timestamp]="nodeChangeInfo.changeKey.timestamp" />
         <span i18n="@@node-change.moved.note.2">
           , while the map background is shown as it is today.
         </span>

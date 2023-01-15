@@ -12,21 +12,18 @@ import { NodeDiffsData } from './node-diffs-data';
       <div class="kpn-line kpn-level-2-header">
         <span i18n="@@node-diffs-removed.title">Removed network nodes</span>
         <span class="kpn-brackets kpn-thin">{{ refs.length }}</span>
-        <kpn-icon-investigate></kpn-icon-investigate>
+        <kpn-icon-investigate />
       </div>
       <div class="kpn-level-2-body">
         <div *ngFor="let nodeRef of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-node-ref-header
-              [ref]="nodeRef"
-              [knownElements]="data.knownElements"
-            ></kpn-link-node-ref-header>
+            <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data.knownElements" />
           </div>
           <div
             *ngFor="let nodeChangeInfo of data.findNodeChangeInfo(nodeRef)"
             class="kpn-level-3-body"
           >
-            <kpn-meta-data [metaData]="nodeChangeInfo.before"></kpn-meta-data>
+            <kpn-meta-data [metaData]="nodeChangeInfo.before"/>
           </div>
         </div>
       </div>

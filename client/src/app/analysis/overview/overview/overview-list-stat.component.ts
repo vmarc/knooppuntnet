@@ -32,9 +32,7 @@ import { Stat } from '../domain/stat';
             {{ stat.configuration.comment }}
           </p>
         </div>
-        <kpn-overview-list-stat-table
-          [stat]="stat"
-        ></kpn-overview-list-stat-table>
+        <kpn-overview-list-stat-table [stat]="stat" />
       </div>
     </div>
   `,

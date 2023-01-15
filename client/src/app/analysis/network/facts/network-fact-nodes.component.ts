@@ -23,8 +23,7 @@ import { Ref } from '@api/common/common/ref';
         *ngFor="let node of nodes"
         [nodeId]="node.id"
         [nodeName]="node.name"
-      >
-      </kpn-link-node>
+      />
     </div>
   `,
 })

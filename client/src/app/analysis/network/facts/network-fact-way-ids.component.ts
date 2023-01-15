@@ -9,9 +9,9 @@ import { Component, Input } from '@angular/core';
       <kpn-osm-link-way
         [wayId]="elementId"
         [title]="elementId.toString()"
-      ></kpn-osm-link-way>
+      />
       <span class="kpn-brackets-link">
-        <kpn-josm-way [wayId]="elementId"></kpn-josm-way>
+        <kpn-josm-way [wayId]="elementId" />
       </span>
     </div>
   `,

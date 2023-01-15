@@ -14,7 +14,7 @@ import { EditParameters } from '../../components/edit/edit-parameters';
   template: `
     <div *ngIf="page.networks.length === 0" class="kpn-line">
       <span i18n="@@subset-facts.no-facts">No facts</span>
-      <kpn-icon-happy></kpn-icon-happy>
+      <kpn-icon-happy/>
     </div>
     <div *ngIf="page.networks.length > 0">
       <div class="kpn-space-separated kpn-label">
@@ -96,28 +96,28 @@ import { EditParameters } from '../../components/edit/edit-parameters';
                 *ngIf="hasNodeRefs()"
                 [nodeId]="ref.id"
                 [nodeName]="ref.name"
-              ></kpn-link-node>
+              />
               <kpn-link-route
                 *ngIf="hasRouteRefs()"
                 [routeId]="ref.id"
                 [title]="ref.name"
                 [networkType]="page.subsetInfo.networkType"
-              ></kpn-link-route>
+              />
               <kpn-osm-link-node
                 *ngIf="hasOsmNodeRefs()"
                 [nodeId]="ref.id"
                 [title]="ref.name"
-              ></kpn-osm-link-node>
+              />
               <kpn-osm-link-way
                 *ngIf="hasOsmWayRefs()"
                 [wayId]="ref.id"
                 [title]="ref.name"
-              ></kpn-osm-link-way>
+              />
               <kpn-osm-link-relation
                 *ngIf="hasOsmRelationRefs()"
                 [relationId]="ref.id"
                 [title]="ref.name"
-              ></kpn-osm-link-relation>
+              />
             </span>
           </div>
         </kpn-item>

@@ -10,16 +10,10 @@ import { RouteInfoAnalysis } from '@api/common/route/route-info-analysis';
     <p *ngIf="analysis.map.endNodes.length === 0">?</p>
     <!-- eslint-enable @angular-eslint/template/i18n -->
     <p *ngFor="let node of analysis.map.endNodes">
-      <kpn-route-node
-        [node]="node"
-        title="marker-icon-red-small.png"
-      ></kpn-route-node>
+      <kpn-route-node [node]="node" title="marker-icon-red-small.png" />
     </p>
     <p *ngFor="let node of analysis.map.endTentacleNodes">
-      <kpn-route-node
-        [node]="node"
-        title="marker-icon-purple-small.png"
-      ></kpn-route-node>
+      <kpn-route-node [node]="node" title="marker-icon-purple-small.png" />
     </p>
   `,
 })

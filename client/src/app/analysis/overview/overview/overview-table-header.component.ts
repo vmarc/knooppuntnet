@@ -19,7 +19,7 @@ import { Subsets } from '../../../kpn/common/subsets';
     </tr>
     <tr>
       <th class="value-cell" *ngFor="let subset of subsets()">
-        <mat-icon [svgIcon]="subset.networkType"></mat-icon>
+        <mat-icon [svgIcon]="subset.networkType"/>
       </th>
     </tr>
   `,

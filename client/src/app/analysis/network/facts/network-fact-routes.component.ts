@@ -25,8 +25,7 @@ import { NetworkType } from '@api/custom/network-type';
         [routeId]="route.id"
         [title]="route.name"
         [networkType]="networkType"
-      >
-      </kpn-link-route>
+      />
     </div>
   `,
 })

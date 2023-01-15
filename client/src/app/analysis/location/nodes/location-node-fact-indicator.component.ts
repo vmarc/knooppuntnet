@@ -14,8 +14,7 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
       i18n-letter="@@location-node-fact-indicator.letter"
       [color]="color"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class LocationNodeFactIndicatorComponent implements OnInit {

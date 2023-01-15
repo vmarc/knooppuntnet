@@ -8,16 +8,13 @@ import { ChangeSetSubsetElementRefs } from '@api/common/change-set-subset-elemen
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <kpn-network-type-icon
-        [networkType]="networkType()"
-      ></kpn-network-type-icon>
+      <kpn-network-type-icon [networkType]="networkType()" />
       <span i18n="@@change-set.orphan-routes">Free route(s)</span>
     </div>
     <kpn-change-set-element-refs
       [elementType]="'route'"
       [changeSetElementRefs]="subsetElementRefs.elementRefs"
-    >
-    </kpn-change-set-element-refs>
+    />
   `,
 })
 export class ChangesSetOrphanRoutesComponent {

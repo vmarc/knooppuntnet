@@ -8,19 +8,10 @@ import { NetworkType } from '@api/custom/network-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="analysis">
-      <kpn-route-investigate-indicator
-        [investigate]="route.investigate"
-      ></kpn-route-investigate-indicator>
-      <kpn-route-accessible-indicator
-        [accessible]="route.accessible"
-        [networkType]="networkType"
-      ></kpn-route-accessible-indicator>
-      <kpn-route-connection-indicator
-        [route]="route"
-      ></kpn-route-connection-indicator>
-      <kpn-route-proposed-indicator
-        [proposed]="route.proposed"
-      ></kpn-route-proposed-indicator>
+      <kpn-route-investigate-indicator [investigate]="route.investigate" />
+      <kpn-route-accessible-indicator [accessible]="route.accessible" [networkType]="networkType" />
+      <kpn-route-connection-indicator [route]="route" />
+      <kpn-route-proposed-indicator [proposed]="route.proposed" />
     </div>
   `,
   styles: [

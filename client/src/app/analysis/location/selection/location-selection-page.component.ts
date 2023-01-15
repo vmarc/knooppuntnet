@@ -22,7 +22,7 @@ import { LocationSelectionService } from './location-selection.service';
   selector: 'kpn-location-selection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="locationNode$ | async as locationNode">
       <ul class="breadcrumb">
@@ -32,25 +32,21 @@ import { LocationSelectionService } from './location-selection.service';
         </li>
         <li>
           <a [routerLink]="networkTypeLink()">
-            <kpn-network-type-name
-              [networkType]="networkType"
-            ></kpn-network-type-name>
+            <kpn-network-type-name [networkType]="networkType" />
           </a>
         </li>
         <li>
-          <kpn-country-name [country]="country"></kpn-country-name>
+          <kpn-country-name [country]="country" />
         </li>
       </ul>
 
       <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
         <span class="header-network-type-icon">
-          <mat-icon [svgIcon]="networkType"></mat-icon>
+          <mat-icon [svgIcon]="networkType" />
         </span>
-        <kpn-network-type-name
-          [networkType]="networkType"
-        ></kpn-network-type-name>
+        <kpn-network-type-name [networkType]="networkType" />
         <span i18n="@@subset.in" class="in">in</span>
-        <kpn-country-name [country]="country"></kpn-country-name>
+        <kpn-country-name [country]="country" />
       </kpn-page-header>
 
       <div *ngIf="isModeName() | async">
@@ -58,8 +54,7 @@ import { LocationSelectionService } from './location-selection.service';
           [country]="country"
           [locationNode]="locationNode"
           (selection)="selected($event)"
-        >
-        </kpn-location-selector>
+        />
       </div>
 
       <div *ngIf="isModeTree() | async">
@@ -68,8 +63,7 @@ import { LocationSelectionService } from './location-selection.service';
           [country]="country"
           [locationNode]="locationNode"
           (selection)="selected($event)"
-        >
-        </kpn-location-tree>
+        />
       </div>
     </div>
   `,

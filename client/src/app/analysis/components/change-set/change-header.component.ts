@@ -18,21 +18,17 @@ import { ChangeKey } from '@api/common/changes/details/change-key';
         [changeSetId]="changeKey.changeSetId"
         [replicationNumber]="changeKey.replicationNumber"
         class="kpn-thick"
-      >
-      </kpn-link-changeset>
+      />
       <kpn-timestamp
         *ngIf="timestampOnSameLine$ | async"
         [timestamp]="changeKey.timestamp"
         class="kpn-thin"
-      ></kpn-timestamp>
-      <kpn-icon-happy *ngIf="happy"></kpn-icon-happy>
-      <kpn-icon-investigate *ngIf="investigate"></kpn-icon-investigate>
+      />
+      <kpn-icon-happy *ngIf="happy" />
+      <kpn-icon-investigate *ngIf="investigate" />
     </div>
     <div *ngIf="timestampOnSeparateLine$ | async">
-      <kpn-timestamp
-        [timestamp]="changeKey.timestamp"
-        class="kpn-thin"
-      ></kpn-timestamp>
+      <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin" />
     </div>
 
     <div *ngIf="comment" class="comment">

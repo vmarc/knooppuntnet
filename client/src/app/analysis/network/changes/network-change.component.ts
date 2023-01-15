@@ -30,20 +30,17 @@ import { ChangeType } from '@api/custom/change-type';
         *ngIf="!isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.network-nodes.added"
-        >Added node(s)</span
+      >Added node(s)</span
       >
       <span
         *ngIf="isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.network-nodes.list"
-        >Nodes</span
+      >Nodes</span
       >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
-          <kpn-link-node
-            [nodeId]="ref.id"
-            [nodeName]="ref.name"
-          ></kpn-link-node>
+          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
         </span>
       </div>
     </div>
@@ -57,13 +54,13 @@ import { ChangeType } from '@api/custom/change-type';
         *ngIf="!isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.routes.added"
-        >Added route(s)</span
+      >Added route(s)</span
       >
       <span
         *ngIf="isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.routes.list"
-        >Routes</span
+      >Routes</span
       >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.added">
@@ -71,7 +68,7 @@ import { ChangeType } from '@api/custom/change-type';
             [routeId]="ref.id"
             [title]="ref.name"
             [networkType]="networkChangeInfo.networkType"
-          ></kpn-link-route>
+          />
         </span>
       </div>
     </div>
@@ -114,10 +111,7 @@ import { ChangeType } from '@api/custom/change-type';
       </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.updated">
-          <kpn-link-node
-            [nodeId]="ref.id"
-            [nodeName]="ref.name"
-          ></kpn-link-node>
+          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
         </span>
       </div>
     </div>
@@ -133,7 +127,7 @@ import { ChangeType } from '@api/custom/change-type';
             [routeId]="ref.id"
             [title]="ref.name"
             [networkType]="networkChangeInfo.networkType"
-          ></kpn-link-route>
+          />
         </span>
       </div>
     </div>
@@ -170,7 +164,7 @@ import { ChangeType } from '@api/custom/change-type';
           <kpn-link-node
             [nodeId]="ref.id"
             [nodeName]="ref.name"
-          ></kpn-link-node>
+          />
         </span>
       </div>
     </div>
@@ -186,7 +180,7 @@ import { ChangeType } from '@api/custom/change-type';
             [routeId]="ref.id"
             [title]="ref.name"
             [networkType]="networkChangeInfo.networkType"
-          ></kpn-link-route>
+          />
         </span>
       </div>
     </div>

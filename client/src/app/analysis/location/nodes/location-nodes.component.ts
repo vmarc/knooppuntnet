@@ -19,8 +19,7 @@ import { LocationNodesPage } from '@api/common/location/location-nodes-page';
       [timeInfo]="page.timeInfo"
       [nodes]="page.nodes"
       [nodeCount]="page.nodeCount"
-    >
-    </kpn-location-node-table>
+    />
   `,
 })
 export class LocationNodesComponent {

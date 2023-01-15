@@ -26,7 +26,7 @@ import { selectChangesPage } from '../store/changes.selectors';
       Changes
     </kpn-page-header>
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p
@@ -36,15 +36,13 @@ import { selectChangesPage } from '../store/changes.selectors';
       >
         The details of the changes history are available to registered
         OpenStreetMap contributors only, after
-        <kpn-link-login></kpn-link-login>
+        <kpn-link-login />
         .
       </p>
       <ng-template #loggedIn>
         <div *ngIf="response.result as page">
           <p>
-            <kpn-situation-on
-              [timestamp]="response.situationOn"
-            ></kpn-situation-on>
+            <kpn-situation-on [timestamp]="response.situationOn" />
           </p>
           <kpn-changes
             [impact]="impact$ | async"
@@ -64,11 +62,11 @@ import { selectChangesPage } from '../store/changes.selectors';
                 <kpn-change-network-analysis-summary
                   *ngIf="changeSet.network"
                   [changeSet]="changeSet"
-                ></kpn-change-network-analysis-summary>
+                />
                 <kpn-change-location-analysis-summary
                   *ngIf="changeSet.location"
                   [changeSet]="changeSet"
-                ></kpn-change-location-analysis-summary>
+                />
               </kpn-item>
             </kpn-items>
           </kpn-changes>

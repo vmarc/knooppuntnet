@@ -7,15 +7,10 @@ import { FilterOptions } from '../../../kpn/filter/filter-options';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="filter" *ngIf="!filterOptions.isEmpty()">
-      <kpn-filter-title [filterOptions]="filterOptions"></kpn-filter-title>
+      <kpn-filter-title [filterOptions]="filterOptions" />
       <div *ngFor="let group of filterOptions.groups">
-        <kpn-filter-checkbox-group
-          *ngIf="group.name === 'role'"
-        ></kpn-filter-checkbox-group>
-        <kpn-filter-radio-group
-          *ngIf="group.name !== 'role'"
-          [group]="group"
-        ></kpn-filter-radio-group>
+        <kpn-filter-checkbox-group *ngIf="group.name === 'role'" />
+        <kpn-filter-radio-group *ngIf="group.name !== 'role'" [group]="group" />
       </div>
     </div>
   `,

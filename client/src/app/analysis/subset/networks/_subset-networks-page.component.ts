@@ -16,9 +16,9 @@ import { selectSubsetNetworksPage } from '../store/subset.selectors';
       pageName="networks"
       pageTitle="Networks"
       i18n-pageTitle="@@subset-networks.title"
-    ></kpn-subset-page-header-block>
+    />
 
-    <kpn-error></kpn-error>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <div
@@ -45,14 +45,10 @@ import { selectSubsetNetworksPage } from '../store/subset.selectors';
           *ngIf="large$ | async; then table; else list"
         ></ng-container>
         <ng-template #table>
-          <kpn-subset-network-table
-            [networks]="response.result.networks"
-          ></kpn-subset-network-table>
+          <kpn-subset-network-table [networks]="response.result.networks" />
         </ng-template>
         <ng-template #list>
-          <kpn-subset-network-list
-            [networks]="response.result.networks"
-          ></kpn-subset-network-list>
+          <kpn-subset-network-list [networks]="response.result.networks" />
         </ng-template>
       </div>
     </div>

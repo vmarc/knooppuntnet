@@ -19,24 +19,20 @@ import { SubsetFact } from '../store/subset.state';
           pageName="facts"
           pageTitle="Facts"
           i18n-pageTitle="@@subset-facts.title"
-        ></kpn-subset-page-header-block>
+        />
         <h2>
-          <kpn-fact-name [fact]="subsetFact.factName"></kpn-fact-name>
+          <kpn-fact-name [fact]="subsetFact.factName" />
         </h2>
         <div class="fact-description">
-          <kpn-fact-description
-            [factInfo]="factInfo(subsetFact)"
-          ></kpn-fact-description>
+          <kpn-fact-description [factInfo]="factInfo(subsetFact)" />
         </div>
       </div>
 
-      <kpn-error></kpn-error>
+      <kpn-error />
 
       <div *ngIf="response$ | async as response">
         <div *ngIf="response.result">
-          <kpn-subset-fact-details
-            [page]="response.result"
-          ></kpn-subset-fact-details>
+          <kpn-subset-fact-details [page]="response.result" />
         </div>
       </div>
     </div>
