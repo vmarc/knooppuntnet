@@ -17,7 +17,7 @@ import { AppService } from '../../app.service';
     </p>
 
     <div *ngIf="response$ | async as response">
-      <kpn-poi-map [geoJson]="response.result"></kpn-poi-map>
+      <kpn-poi-map [geoJson]="response.result"/>
     </div>
   `,
 })

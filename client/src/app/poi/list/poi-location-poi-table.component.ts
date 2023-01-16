@@ -29,7 +29,7 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       [length]="poiCount"
       [showFirstLastButtons]="false"
       [showPageSizeSelection]="true"
-    ></kpn-paginator>
+    />
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
@@ -126,8 +126,7 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       [pageSize]="pageSize$ | async"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="poiCount"
-    >
-    </kpn-paginator>
+    />
   `,
   styles: [
     `

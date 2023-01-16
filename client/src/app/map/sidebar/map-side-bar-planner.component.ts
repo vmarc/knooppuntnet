@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
         </mat-panel-title>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <kpn-plan></kpn-plan>
+        <kpn-plan/>
       </ng-template>
     </mat-expansion-panel>
   `,

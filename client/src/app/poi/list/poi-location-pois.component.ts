@@ -14,8 +14,7 @@ import { selectLocationPoisPage } from '../store/poi.selectors';
         <kpn-poi-location-poi-table
           [pois]="page.pois"
           [poiCount]="page.poiCount"
-        >
-        </kpn-poi-location-poi-table>
+        />
       </div>
     </div>
   `,

@@ -7,14 +7,10 @@ import { Reference } from '@api/common/common/reference';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <kpn-network-type-icon
-        [networkType]="reference.networkType"
-      ></kpn-network-type-icon>
+      <kpn-network-type-icon [networkType]="reference.networkType" />
       <a [routerLink]="url">{{ reference.name }}</a>
       <span *ngIf="mixedNetworkScopes" class="kpn-brackets kpn-thin">
-        <kpn-network-scope-name
-          [networkScope]="reference.networkScope"
-        ></kpn-network-scope-name>
+        <kpn-network-scope-name [networkScope]="reference.networkScope" />
       </span>
     </div>
   `,

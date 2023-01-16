@@ -22,7 +22,7 @@ import { PlanUtil } from '../planner/plan/plan-util';
     <kpn-dialog>
       <div mat-dialog-title>
         <div class="kpn-line">
-          <mat-icon svgIcon="output"></mat-icon>
+          <mat-icon svgIcon="output"/>
           <span i18n="@@plan.output.title">Output</span>
         </div>
       </div>

@@ -10,13 +10,13 @@ import { Component, Input } from '@angular/core';
         <kpn-indicator-icon
           [letter]="letter"
           [color]="color"
-        ></kpn-indicator-icon>
+        />
         <div class="title-text">
-          <ng-content select="[dialog-title]"></ng-content>
+          <ng-content select="[dialog-title]"/>
         </div>
       </div>
       <div mat-dialog-content>
-        <ng-content select="[dialog-body]"></ng-content>
+        <ng-content select="[dialog-body]"/>
       </div>
     </kpn-dialog>
   `,

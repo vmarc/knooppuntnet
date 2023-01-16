@@ -9,7 +9,7 @@ import { MetaData } from '@api/common/data/meta-data';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <div *ngIf="metaData" class="meta">
       <div>v{{ metaData.version }}:{{ metaData.changeSetId }}</div>
-      <kpn-timestamp [timestamp]="metaData.timestamp"></kpn-timestamp>
+      <kpn-timestamp [timestamp]="metaData.timestamp"/>
     </div>
   `,
   styleUrls: ['./meta-data.component.scss'],

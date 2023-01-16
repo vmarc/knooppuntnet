@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a [routerLink]="link" [ngClass]="{ active: active }" class="link">
-      <ng-content></ng-content>
+      <ng-content/>
       <span *ngIf="!!elementCount" class="element-count">
         ({{ elementCount }})
       </span>

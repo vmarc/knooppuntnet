@@ -24,12 +24,12 @@ import { selectDemoEnabled } from '../store/demo.selectors';
       <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
 
       <ng-template #disabled>
-        <kpn-demo-disabled></kpn-demo-disabled>
+        <kpn-demo-disabled/>
       </ng-template>
 
       <ng-template #enabled>
-        <kpn-video-cover *ngIf="!canPlayReceived"></kpn-video-cover>
-        <kpn-demo-video-play-button></kpn-demo-video-play-button>
+        <kpn-video-cover *ngIf="!canPlayReceived"/>
+        <kpn-demo-video-play-button/>
       </ng-template>
 
       <div [ngClass]="{ hidden: (disabled$ | async) || !canPlayReceived }">
@@ -50,7 +50,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
           </ng-container>
         </video>
 
-        <kpn-demo-video-progress></kpn-demo-video-progress>
+        <kpn-demo-video-progress/>
       </div>
     </div>
   `,

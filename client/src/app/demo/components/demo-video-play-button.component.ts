@@ -15,7 +15,7 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
       (click)="play()"
       class="play-button"
     >
-      <mat-icon svgIcon="play"></mat-icon>
+      <mat-icon svgIcon="play"/>
     </div>
   `,
   styles: [

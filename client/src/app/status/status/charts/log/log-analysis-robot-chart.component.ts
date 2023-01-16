@@ -15,8 +15,7 @@ import { BarChart } from '@api/common/status/bar-chart';
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
         yAxisLabel="requests"
-      >
-      </kpn-action-bar-chart>
+      />
     </div>
   `,
 })

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
     <div class="cover">
       <div class="cover-text">
         <p i18n="@@video-cover.text">knooppuntnet demo video</p>
-        <mat-icon svgIcon="video" class="video-icon"></mat-icon>
+        <mat-icon svgIcon="video" class="video-icon"/>
       </div>
     </div>
   `,

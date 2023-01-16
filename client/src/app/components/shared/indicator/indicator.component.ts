@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       <kpn-indicator-icon
         [letter]="letter"
         [color]="color"
-      ></kpn-indicator-icon>
+      />
     </div>
   `,
   styles: [

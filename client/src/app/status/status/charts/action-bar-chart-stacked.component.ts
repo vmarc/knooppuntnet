@@ -22,8 +22,7 @@ import { BarChart2D } from '@api/common/status/bar-chart2d';
       [roundDomains]="false"
       [showDataLabel]="false"
       (select)="onSelect($event)"
-    >
-    </ngx-charts-bar-vertical-stacked>
+    />
   `,
 })
 export class ActionBarChartStackedComponent {

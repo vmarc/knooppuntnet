@@ -13,8 +13,7 @@ import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.
       i18n-letter="@@integrity-indicator.letter"
       [color]="data.color()"
       (openDialog)="onOpenDialog()"
-    >
-    </kpn-indicator>
+    />
   `,
 })
 export class IntegrityIndicatorComponent {

@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
       kind="relation"
       [elementId]="relationId.toString()"
       [title]="title"
-    ></kpn-osm-link>
+    />
   `,
 })
 export class OsmLinkRelationComponent {

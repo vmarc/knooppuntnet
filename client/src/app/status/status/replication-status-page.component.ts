@@ -30,7 +30,7 @@ import { StatusLinks } from './status-links';
       <kpn-status-page-menu
         [links]="statusLinks"
         [periodType]="page.periodType"
-      ></kpn-status-page-menu>
+      />
 
       <div>
         <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -41,34 +41,34 @@ import { StatusLinks } from './status-links';
         <kpn-delay-chart
           [barChart]="page.delay"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-delay-chart>
+        />
         <kpn-analysis-delay-chart
           [barChart]="page.analysisDelay"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-analysis-delay-chart>
+        />
         <kpn-update-delay-chart
           [barChart]="page.updateDelay"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-update-delay-chart>
+        />
         <kpn-replication-delay-chart
           [barChart]="page.replicationDelay"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-replication-delay-chart>
+        />
       </div>
 
       <div class="chart-group">
         <kpn-replication-bytes-chart
           [barChart]="page.replicationBytes"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-replication-bytes-chart>
+        />
         <kpn-replication-elements-chart
           [barChart]="page.replicationElements"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-replication-elements-chart>
+        />
         <kpn-replication-changesets-chart
           [barChart]="page.replicationChangeSets"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-replication-changesets-chart>
+        />
       </div>
     </div>
   `,

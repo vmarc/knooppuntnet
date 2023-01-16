@@ -30,7 +30,7 @@ import { StatusLinks } from './status-links';
       <kpn-status-page-menu
         [links]="statusLinks"
         [periodType]="page.periodType"
-      ></kpn-status-page-menu>
+      />
 
       <div>
         <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -42,15 +42,15 @@ import { StatusLinks } from './status-links';
         <kpn-disk-space-used-chart
           [barChart]="page.backendDiskSpaceUsed"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-space-used-chart>
+        />
         <kpn-disk-space-available-chart
           [barChart]="page.backendDiskSpaceAvailable"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-space-available-chart>
+        />
         <kpn-disk-space-overpass-chart
           [barChart]="page.backendDiskSpaceOverpass"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-space-overpass-chart>
+        />
       </div>
 
       <div class="chart-group">
@@ -58,19 +58,19 @@ import { StatusLinks } from './status-links';
         <kpn-docs-chart
           [barChart]="page.analysisDocCount"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-docs-chart>
+        />
         <kpn-disk-size-chart
           [barChart]="page.analysisDiskSize"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-size-chart>
+        />
         <kpn-disk-size-external-chart
           [barChart]="page.analysisDiskSizeExternal"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-size-external-chart>
+        />
         <kpn-data-size-chart
           [barChart]="page.analysisDataSize"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-data-size-chart>
+        />
       </div>
 
       <div class="chart-group">
@@ -78,19 +78,19 @@ import { StatusLinks } from './status-links';
         <kpn-docs-chart
           [barChart]="page.changesDocCount"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-docs-chart>
+        />
         <kpn-disk-size-chart
           [barChart]="page.changesDiskSize"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-size-chart>
+        />
         <kpn-disk-size-external-chart
           [barChart]="page.changesDiskSizeExternal"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-disk-size-external-chart>
+        />
         <kpn-data-size-chart
           [barChart]="page.changesDataSize"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-data-size-chart>
+        />
       </div>
     </div>
   `,

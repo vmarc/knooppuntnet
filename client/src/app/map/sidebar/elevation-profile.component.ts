@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <canvas #profile width="200" height="100"></canvas>
-    <mat-divider></mat-divider>
+    <mat-divider/>
   `,
 })
 export class ElevationProfileComponent implements AfterViewInit {

@@ -9,14 +9,14 @@ import { PageService } from '../page.service';
   template: `
     <mat-toolbar [class]="toolbarBackgroundColor$ | async">
       <button mat-icon-button (click)="toggleSidebarOpen()">
-        <mat-icon svgIcon="menu"></mat-icon>
+        <mat-icon svgIcon="menu"/>
       </button>
       <button mat-button routerLink="/" class="toolbar-app-name">
         <h1 i18n="@@toolbar.title">knooppuntnet</h1>
       </button>
-      <kpn-spinner></kpn-spinner>
+      <kpn-spinner/>
       <span class="toolbar-spacer"></span>
-      <router-outlet name="toolbar"></router-outlet>
+      <router-outlet name="toolbar"/>
     </mat-toolbar>
   `,
   styles: [

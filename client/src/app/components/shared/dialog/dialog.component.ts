@@ -5,9 +5,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button mat-icon-button class="close-button" mat-dialog-close>
-      <mat-icon svgIcon="remove"></mat-icon>
+      <mat-icon svgIcon="remove"/>
     </button>
-    <ng-content></ng-content>
+    <ng-content/>
   `,
   styles: [
     `

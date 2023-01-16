@@ -18,7 +18,7 @@ import { PageWidthService } from '../../components/shared/page-width.service';
       [disabled]="!enabled"
       [title]="title"
     >
-      <mat-icon [svgIcon]="icon"></mat-icon>
+      <mat-icon [svgIcon]="icon"/>
       <span class="button-text">{{ text }}</span>
     </button>
 
@@ -29,7 +29,7 @@ import { PageWidthService } from '../../components/shared/page-width.service';
       [disabled]="!enabled"
       [title]="title"
     >
-      <mat-icon [svgIcon]="icon"></mat-icon>
+      <mat-icon [svgIcon]="icon"/>
     </button>
   `,
   styles: [

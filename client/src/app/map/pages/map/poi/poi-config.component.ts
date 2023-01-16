@@ -33,43 +33,37 @@ import { Subscriptions } from '../../../../util/Subscriptions';
             value="0"
             title="Do not show this icon on the map"
             class="col-level-0"
-          >
-          </mat-radio-button>
+          />
           <mat-radio-button
             value="11"
             [disabled]="minLevel > 11"
             title="Show this icon on the map as of zoomlevel 11 and higher"
             class="col-level-11"
-          >
-          </mat-radio-button>
+          />
           <mat-radio-button
             value="12"
             [disabled]="minLevel > 12"
             title="Show this icon on the map as of zoomlevel 12 and higher"
             class="col-level-12"
-          >
-          </mat-radio-button>
+          />
           <mat-radio-button
             value="13"
             [disabled]="minLevel > 13"
             title="Show this icon on the map as of zoomlevel 13 and higher"
             class="col-level-13"
-          >
-          </mat-radio-button>
+          />
           <mat-radio-button
             value="14"
             [disabled]="minLevel > 14"
             title="Show this icon on the map as of zoomlevel 14 and higher"
             class="col-level-14"
-          >
-          </mat-radio-button>
+          />
           <mat-radio-button
             value="15"
             [disabled]="minLevel > 15"
             title="Show this icon on the map as of zoomlevel 15 and higher"
             class="col-level-15"
-          >
-          </mat-radio-button>
+          />
         </mat-radio-group>
       </div>
     </div>

@@ -16,18 +16,18 @@ import { DiskUsage } from '@api/common/status/disk-usage';
           [data]="diskUsage.frontend.data"
           title="frontend"
           total="180G"
-        ></kpn-server-disk-usage-pie-chart>
+        />
         <kpn-server-disk-usage-pie-chart
           [data]="diskUsage.database.data"
           title="database"
           total="180G"
-        ></kpn-server-disk-usage-pie-chart>
+        />
         <kpn-server-disk-usage-pie-chart
           [data]="diskUsage.backend.data"
           title="backend"
           total="800G"
-        ></kpn-server-disk-usage-pie-chart>
-        <kpn-server-disk-usage-legend></kpn-server-disk-usage-legend>
+        />
+        <kpn-server-disk-usage-legend/>
       </div>
     </div>
   `,

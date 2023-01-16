@@ -5,7 +5,7 @@ import { NetworkType } from '@api/custom/network-type';
 @Component({
   selector: 'kpn-network-type-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <mat-icon [svgIcon]="networkType"></mat-icon> `,
+  template: ` <mat-icon [svgIcon]="networkType"/> `,
 })
 export class NetworkTypeIconComponent {
   @Input() networkType: NetworkType;

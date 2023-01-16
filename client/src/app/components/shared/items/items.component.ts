@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="items">
-      <ng-content></ng-content>
+      <ng-content/>
     </div>
   `,
   styles: [

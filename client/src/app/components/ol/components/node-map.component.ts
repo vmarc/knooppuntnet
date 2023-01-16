@@ -31,7 +31,7 @@ import { MapPositionService } from '../services/map-position.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="node-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
+      <kpn-layer-switcher [mapLayers]="layers"/>
     </div>
   `,
 })

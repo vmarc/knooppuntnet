@@ -15,8 +15,7 @@ import { BarChart2D } from '@api/common/status/bar-chart2d';
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
         yAxisLabel="Average delay"
-      >
-      </kpn-action-bar-chart-stacked>
+      />
     </div>
   `,
 })

@@ -13,13 +13,13 @@ import { Ref } from '@api/common/common/ref';
           *ngIf="known"
           [nodeId]="ref.id"
           [nodeName]="ref.name"
-        ></kpn-link-node>
+        />
         <span *ngIf="!known">{{ ref.name }}</span>
       </div>
       <kpn-osm-link-node
         [nodeId]="ref.id"
         [title]="ref.id.toString()"
-      ></kpn-osm-link-node>
+      />
     </div>
   `,
 })

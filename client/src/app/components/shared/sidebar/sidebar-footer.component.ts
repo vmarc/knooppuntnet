@@ -30,11 +30,11 @@ import { VersionService } from '../../../services/version.service';
         <p *ngIf="loggedIn$ | async; else notLoggedIn">
           {{ user$ | async }}
           <br />
-          <kpn-link-logout></kpn-link-logout>
+          <kpn-link-logout/>
         </p>
         <ng-template #notLoggedIn>
           <p>
-            <kpn-link-login></kpn-link-login>
+            <kpn-link-login/>
           </p>
         </ng-template>
       </ng-container>

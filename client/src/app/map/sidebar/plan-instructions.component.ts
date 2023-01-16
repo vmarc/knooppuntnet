@@ -15,8 +15,8 @@ import { PlanInstruction } from '../planner/plan/plan-instruction';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let instruction of instructions">
-      <kpn-plan-instruction [instruction]="instruction"></kpn-plan-instruction>
-      <mat-divider></mat-divider>
+      <kpn-plan-instruction [instruction]="instruction"/>
+      <mat-divider/>
     </div>
   `,
   styles: [``],

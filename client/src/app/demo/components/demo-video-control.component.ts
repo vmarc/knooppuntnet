@@ -16,7 +16,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     <div class="video-control" [ngClass]="{ selected: selected$ | async }">
       <div class="control-text">
         <div class="title">
-          <ng-content></ng-content>
+          <ng-content/>
         </div>
         <div class="duration">
           {{ duration }} <span i18n="@@demo.duration.seconds">seconds</span>
@@ -30,12 +30,12 @@ import { selectDemoEnabled } from '../store/demo.selectors';
           class="play-pause-button"
           [ngClass]="{ buttonSelected: selected$ | async }"
         >
-          <mat-icon [svgIcon]="icon$ | async"></mat-icon>
+          <mat-icon [svgIcon]="icon$ | async"/>
         </a>
       </ng-template>
       <ng-template #disabled>
         <span class="play-pause-button-disabled">
-          <mat-icon [svgIcon]="icon$ | async"></mat-icon>
+          <mat-icon [svgIcon]="icon$ | async"/>
         </span>
       </ng-template>
     </div>

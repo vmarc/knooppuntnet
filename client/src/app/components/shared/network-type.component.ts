@@ -7,12 +7,8 @@ import { NetworkType } from '@api/custom/network-type';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="network-type">
-      <kpn-network-type-icon
-        [networkType]="networkType"
-      ></kpn-network-type-icon>
-      <kpn-network-type-name
-        [networkType]="networkType"
-      ></kpn-network-type-name>
+      <kpn-network-type-icon [networkType]="networkType" />
+      <kpn-network-type-name [networkType]="networkType" />
       <ng-content></ng-content>
     </div>
   `,

@@ -30,7 +30,7 @@ import { StatusLinks } from './status-links';
       <kpn-status-page-menu
         [links]="statusLinks"
         [periodType]="page.periodType"
-      ></kpn-status-page-menu>
+      />
 
       <div>
         <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -42,35 +42,35 @@ import { StatusLinks } from './status-links';
         <kpn-log-tile-chart
           [barChart]="page.tile"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-tile-chart>
+        />
         <kpn-log-tile-robot-chart
           [barChart]="page.tileRobot"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-tile-robot-chart>
+        />
         <kpn-log-api-chart
           [barChart]="page.api"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-api-chart>
+        />
         <kpn-log-api-robot-chart
           [barChart]="page.apiRobot"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-api-robot-chart>
+        />
         <kpn-log-analysis-chart
           [barChart]="page.analysis"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-analysis-chart>
+        />
         <kpn-log-analysis-robot-chart
           [barChart]="page.analysisRobot"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-analysis-robot-chart>
+        />
         <kpn-log-robot-chart
           [barChart]="page.robot"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-robot-chart>
+        />
         <kpn-log-non-robot-chart
           [barChart]="page.nonRobot"
           [xAxisLabel]="xAxisLabel"
-        ></kpn-log-non-robot-chart>
+        />
       </div>
     </div>
   `,

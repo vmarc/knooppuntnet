@@ -12,7 +12,7 @@ import { selectUserUser } from '../../../core/user/user.selectors';
       kind="user"
       [elementId]="user$ | async"
       [title]="user$ | async"
-    ></kpn-osm-link>
+    />
   `,
 })
 export class OsmLinkUserComponent {

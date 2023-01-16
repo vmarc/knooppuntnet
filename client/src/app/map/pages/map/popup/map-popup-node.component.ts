@@ -27,11 +27,9 @@ import { PlannerService } from '../../../planner.service';
       </h2>
       <p>
         <span class="kpn-label" i18n="@@map.node-popup.last-updated"
-          >Last updated</span
+        >Last updated</span
         >
-        <kpn-timestamp
-          [timestamp]="response.result.lastUpdated"
-        ></kpn-timestamp>
+        <kpn-timestamp [timestamp]="response.result.lastUpdated" />
       </p>
 
       <div>
@@ -39,18 +37,18 @@ import { PlannerService } from '../../../planner.service';
           *ngIf="response.result.networkReferences.length === 1"
           class="kpn-label"
           i18n="@@map.node-popup.network"
-          >Network</span
+        >Network</span
         >
         <span
           *ngIf="response.result.networkReferences.length !== 1"
           class="kpn-label"
           i18n="@@map.node-popup.networks"
-          >Networks</span
+        >Networks</span
         >
         <span
           *ngIf="response.result.networkReferences.length === 0"
           i18n="@@map.node-popup.no-networks"
-          >None</span
+        >None</span
         >
         <div
           *ngFor="let ref of response.result.networkReferences"
@@ -65,7 +63,7 @@ import { PlannerService } from '../../../planner.service';
         <span
           *ngIf="response.result.routeReferences.length === 0"
           i18n="@@map.node-popup.routes.none"
-          >None</span
+        >None</span
         >
         <div
           *ngFor="let ref of response.result.routeReferences"
@@ -75,7 +73,7 @@ import { PlannerService } from '../../../planner.service';
             [routeId]="ref.id"
             [title]="ref.name"
             [networkType]="ref.networkType"
-          ></kpn-link-route>
+          />
         </div>
       </div>
 

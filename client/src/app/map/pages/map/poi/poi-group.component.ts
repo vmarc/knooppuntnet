@@ -13,8 +13,7 @@ import { PoiService } from '../../../../services/poi.service';
             (click)="$event.stopPropagation()"
             [checked]="isEnabled()"
             (change)="groupEnabledChanged($event)"
-          >
-          </mat-checkbox>
+          />
           <span class="title">{{ title }}</span>
           <span class="kpn-thin">(10/10)</span>
         </mat-panel-title>
@@ -57,7 +56,7 @@ import { PoiService } from '../../../../services/poi.service';
           <div class="col-level-15">15</div>
           <!-- eslint-enable @angular-eslint/template/i18n -->
         </div>
-        <ng-content></ng-content>
+        <ng-content/>
       </ng-template>
     </mat-expansion-panel>
   `,

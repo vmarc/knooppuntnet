@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
         <kpn-osm-link-node
           [nodeId]="nodeId"
           [title]="nodeId.toString()"
-        ></kpn-osm-link-node>
+        />
       </span>
     </div>
   `,

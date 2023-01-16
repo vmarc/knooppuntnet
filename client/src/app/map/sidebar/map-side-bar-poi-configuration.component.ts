@@ -31,7 +31,7 @@ import { PoiService } from '../../services/poi.service';
           </i>
         </p>
 
-        <kpn-map-poi-config></kpn-map-poi-config>
+        <kpn-map-poi-config/>
         <button mat-stroked-button i18n="@@planner.pois.reset">
           Reset configuration to default
         </button>

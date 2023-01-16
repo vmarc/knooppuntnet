@@ -33,21 +33,21 @@ import { Subscriptions } from './util/Subscriptions';
         fixedTopGap="48"
         [opened]="isSidebarOpen()"
       >
-        <kpn-sidebar-back *ngIf="smallPage"></kpn-sidebar-back>
-        <kpn-page-experimental></kpn-page-experimental>
-        <router-outlet name="sidebar"></router-outlet>
+        <kpn-sidebar-back *ngIf="smallPage"/>
+        <kpn-page-experimental/>
+        <router-outlet name="sidebar"/>
       </mat-sidenav>
 
       <mat-sidenav-content>
         <header>
-          <kpn-toolbar></kpn-toolbar>
+          <kpn-toolbar/>
         </header>
         <div class="page-contents">
           <main>
-            <router-outlet></router-outlet>
+            <router-outlet/>
           </main>
           <footer *ngIf="showFooter$ | async">
-            <kpn-page-footer></kpn-page-footer>
+            <kpn-page-footer/>
           </footer>
         </div>
       </mat-sidenav-content>

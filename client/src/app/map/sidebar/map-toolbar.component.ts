@@ -9,10 +9,8 @@ import { PageWidthService } from '../../components/shared/page-width.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="toolbar">
-      <kpn-plan-actions></kpn-plan-actions>
-      <kpn-network-type-selector
-        *ngIf="showNetworkTypeSelector$ | async"
-      ></kpn-network-type-selector>
+      <kpn-plan-actions />
+      <kpn-network-type-selector *ngIf="showNetworkTypeSelector$ | async" />
     </div>
   `,
   styles: [

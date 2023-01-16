@@ -25,8 +25,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
         i18n-text="@@planner.action.undo"
         title="Undo the previous action"
         i18n-title="@@planner.action.undo.title"
-      >
-      </kpn-plan-action-button>
+      />
 
       <kpn-plan-action-button
         *ngIf="showRedoButton$ | async"
@@ -37,8 +36,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
         i18n-text="@@planner.action.redo"
         title="Redo the action that was previously undone"
         i18n-title="@@planner.action.redo.title"
-      >
-      </kpn-plan-action-button>
+      />
 
       <kpn-plan-action-button
         *ngIf="showResetButton$ | async"
@@ -49,8 +47,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
         i18n-text="@@planner.action.reset"
         title="Wipe out current route plan and restart route planning from scratch"
         i18n-title="@@planner.action.reset.title"
-      >
-      </kpn-plan-action-button>
+      />
 
       <kpn-plan-action-button
         *ngIf="showReverseButton$ | async"
@@ -61,8 +58,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
         i18n-text="@@planner.action.reverse"
         title="Reverse the route direction (startnode becomes endnode, and vice versa)"
         i18n-title="@@planner.action.reverse.title"
-      >
-      </kpn-plan-action-button>
+      />
 
       <kpn-plan-action-button
         (action)="output()"
@@ -72,8 +68,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
         i18n-text="@@planner.action.output"
         title="Output planned route"
         i18n-title="@@planner.action.output.title"
-      >
-      </kpn-plan-action-button>
+      />
     </div>
   `,
   styles: [

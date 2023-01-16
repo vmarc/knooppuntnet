@@ -23,8 +23,7 @@ import { BarChart } from '@api/common/status/bar-chart';
       [roundEdges]="false"
       [showDataLabel]="false"
       (select)="onSelect($event)"
-    >
-    </ngx-charts-bar-vertical>
+    />
   `,
 })
 export class ActionBarChartComponent {

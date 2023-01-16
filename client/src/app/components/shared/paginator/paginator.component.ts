@@ -20,8 +20,7 @@ import { MatPaginator } from '@angular/material/paginator';
       [length]="length"
       [showFirstLastButtons]="showFirstLastButtons"
       [hidePageSize]="!showPageSizeSelection"
-    >
-    </mat-paginator>
+    />
   `,
   styles: [
     `

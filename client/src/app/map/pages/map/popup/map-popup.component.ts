@@ -14,7 +14,7 @@ import { PlannerService } from '../../../planner.service';
         id="popup-closer"
         class="ol-popup-closer"
       ></a>
-      <kpn-map-popup-contents></kpn-map-popup-contents>
+      <kpn-map-popup-contents/>
     </div>
   `,
   styles: [

@@ -15,8 +15,7 @@ import { BarChart } from '@api/common/status/bar-chart';
         [barChart]="barChart"
         [xAxisLabel]="xAxisLabel"
         yAxisLabel="TODO bytes?"
-      >
-      </kpn-action-bar-chart>
+      />
     </div>
     <div class="chart">
       <ngx-charts-line-chart
@@ -31,8 +30,7 @@ import { BarChart } from '@api/common/status/bar-chart';
         [yAxisLabel]="'bytes'"
         [legend]="false"
         [roundDomains]="false"
-      >
-      </ngx-charts-line-chart>
+      />
     </div>
   `,
 })

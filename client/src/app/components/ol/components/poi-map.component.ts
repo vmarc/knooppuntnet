@@ -21,7 +21,7 @@ import { MapMode } from '../services/map-mode';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="poi-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
+      <kpn-layer-switcher [mapLayers]="layers"/>
     </div>
   `,
 })

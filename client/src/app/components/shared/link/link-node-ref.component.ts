@@ -11,12 +11,12 @@ import { Ref } from '@api/common/common/ref';
       *ngIf="known"
       [nodeId]="ref.id"
       [nodeName]="ref.name"
-    ></kpn-link-node>
+    />
     <kpn-osm-link-node
       *ngIf="!known"
       [nodeId]="ref.id"
       [title]="ref.name"
-    ></kpn-osm-link-node>
+    />
   `,
 })
 export class LinkNodeRefComponent implements OnInit {

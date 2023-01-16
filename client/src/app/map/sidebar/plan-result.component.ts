@@ -9,19 +9,19 @@ import { Plan } from '../planner/plan/plan';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="plan$ | async as plan">
-      <kpn-plan-distance [plan]="plan"></kpn-plan-distance>
+      <kpn-plan-distance [plan]="plan"/>
       <kpn-plan-compact
         *ngIf="compact$ | async"
         [plan]="plan"
-      ></kpn-plan-compact>
+      />
       <kpn-plan-detailed
         *ngIf="detailed$ | async"
         [plan]="plan"
-      ></kpn-plan-detailed>
+      />
       <kpn-plan-instructions
         *ngIf="instructions$ | async"
         [plan]="plan"
-      ></kpn-plan-instructions>
+      />
     </div>
   `,
 })

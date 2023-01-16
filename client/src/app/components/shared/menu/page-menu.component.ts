@@ -7,13 +7,13 @@ import { Component } from '@angular/core';
   template: `
     <div class="menu-wrapper">
       <div class="menu">
-        <ng-content></ng-content>
+        <ng-content/>
       </div>
       <div class="menu-extra">
-        <ng-content select=".menu-extra-item" class=""></ng-content>
+        <ng-content select=".menu-extra-item" class=""/>
       </div>
     </div>
-    <mat-divider></mat-divider>
+    <mat-divider/>
   `,
   styles: [
     `

@@ -25,15 +25,15 @@ import { PlannerService } from '../../../planner.service';
       </div>
 
       <div *ngIf="poi">
-        <kpn-poi-analysis [poi]="poi"></kpn-poi-analysis>
+        <kpn-poi-analysis [poi]="poi"/>
       </div>
 
       <div *ngIf="poi.mainTags && poi.mainTags.tags.length > 0" class="item">
-        <kpn-tags-table [tags]="mainTags()"></kpn-tags-table>
+        <kpn-tags-table [tags]="mainTags()"/>
       </div>
 
       <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
-        <kpn-tags-table [tags]="extraTags()"></kpn-tags-table>
+        <kpn-tags-table [tags]="extraTags()"/>
       </div>
 
       <div class="item">
@@ -41,14 +41,12 @@ import { PlannerService } from '../../../planner.service';
           [kind]="poiClick.poiId.elementType"
           [elementId]="poiClick.poiId.elementId.toString()"
           title="osm"
-        >
-        </kpn-osm-link>
+        />
         <kpn-josm-link
           [kind]="poiClick.poiId.elementType"
           [elementId]="poiClick.poiId.elementId"
           title="edit"
-        >
-        </kpn-josm-link>
+        />
       </div>
     </div>
   `,

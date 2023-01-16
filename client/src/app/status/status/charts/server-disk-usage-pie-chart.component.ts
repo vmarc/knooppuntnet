@@ -15,8 +15,7 @@ import { NameValue } from '@api/common/status/name-value';
         [margins]="[0, 0, 0, 0]"
         [view]="view"
         [results]="data"
-      >
-      </ngx-charts-pie-chart>
+      />
       <span>{{ total }}</span>
     </div>
   `,

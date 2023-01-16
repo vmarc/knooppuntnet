@@ -45,12 +45,10 @@ import { PlannerLayerService } from '../../planner/services/planner-layer.servic
   template: `
     <kpn-map-popup></kpn-map-popup>
     <div id="main-map" class="map" (mouseleave)="mouseleave()">
-      <kpn-route-control (action)="zoomInToRoute()"></kpn-route-control>
-      <kpn-geolocation-control
-        (action)="geolocation($event)"
-      ></kpn-geolocation-control>
+      <kpn-route-control (action)="zoomInToRoute()" />
+      <kpn-geolocation-control (action)="geolocation($event)" />
       <kpn-layer-switcher [mapLayers]="layerSwitcherMapLayers$ | async">
-        <kpn-poi-menu></kpn-poi-menu>
+        <kpn-poi-menu />
       </kpn-layer-switcher>
     </div>
   `,

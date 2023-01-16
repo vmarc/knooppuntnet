@@ -22,13 +22,11 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
 
     <div *ngIf="response$ | async as response">
       <div *ngIf="response.result">
-        <kpn-poi-analysis
-          [poi]="response.result.poiAnalysis"
-        ></kpn-poi-analysis>
+        <kpn-poi-analysis [poi]="response.result.poiAnalysis" />
 
-        <mat-divider class="map-divider"></mat-divider>
-        <kpn-poi-detail-map [poiDetail]="response.result"></kpn-poi-detail-map>
-        <mat-divider class="map-divider"></mat-divider>
+        <mat-divider class="map-divider" />
+        <kpn-poi-detail-map [poiDetail]="response.result" />
+        <mat-divider class="map-divider" />
 
         <kpn-data title="Identification" i18n-title="@@poi-detail.id">
           <span class="kpn-line">
@@ -37,34 +35,28 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
             <kpn-osm-link-node
               *ngIf="response.result.poi.elementType === 'node'"
               [nodeId]="response.result.poi.elementId"
-            >
-            </kpn-osm-link-node>
+            />
             <kpn-osm-link-way
               *ngIf="response.result.poi.elementType === 'way'"
               [wayId]="response.result.poi.elementId"
-            >
-            </kpn-osm-link-way>
+            />
             <kpn-osm-link-relation
               *ngIf="response.result.poi.elementType === 'relation'"
               [relationId]="response.result.poi.elementId"
-            >
-            </kpn-osm-link-relation>
+            />
 
             <kpn-josm-node
               *ngIf="response.result.poi.elementType === 'node'"
               [nodeId]="response.result.poi.elementId"
-            >
-            </kpn-josm-node>
+            />
             <kpn-josm-way
               *ngIf="response.result.poi.elementType === 'way'"
               [wayId]="response.result.poi.elementId"
-            >
-            </kpn-josm-way>
+            />
             <kpn-josm-relation
               *ngIf="response.result.poi.elementType === 'relation'"
               [relationId]="response.result.poi.elementId"
-            >
-            </kpn-josm-relation>
+            />
           </span>
         </kpn-data>
 
@@ -75,9 +67,7 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@poi-detail.tags">
-          <kpn-tags-table
-            [tags]="tags(response.result.poi.tags)"
-          ></kpn-tags-table>
+          <kpn-tags-table [tags]="tags(response.result.poi.tags)" />
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@poi-detail.location">
@@ -97,7 +87,7 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
               rel="nofollow noreferrer"
               target="_blank"
               href="{{ response.result.poiState.imageLink }}"
-              >{{ response.result.poiState.imageLink }}</a
+            >{{ response.result.poiState.imageLink }}</a
             >
           </p>
 

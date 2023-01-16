@@ -8,7 +8,7 @@ import { SpinnerService } from './spinner.service';
   selector: 'kpn-spinner',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-spinner *ngIf="showSpinner$ | async" diameter="40"></mat-spinner>
+    <mat-spinner *ngIf="showSpinner$ | async" diameter="40"/>
   `,
 })
 export class SpinnerComponent implements OnInit {

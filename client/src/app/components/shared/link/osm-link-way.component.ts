@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
       kind="way"
       [elementId]="wayId.toString()"
       [title]="title"
-    ></kpn-osm-link>
+    />
   `,
 })
 export class OsmLinkWayComponent {

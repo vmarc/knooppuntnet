@@ -19,7 +19,7 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
         title="position the map on your current location"
         i18n-title="@@geolocation-control.title"
       >
-        <mat-icon svgIcon="location"></mat-icon>
+        <mat-icon svgIcon="location"/>
       </button>
     </div>
   `,

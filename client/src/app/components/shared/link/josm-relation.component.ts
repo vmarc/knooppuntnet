@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
     kind="relation"
     [elementId]="relationId"
     [full]="true"
-  ></kpn-josm-link>`,
+  />`,
 })
 export class JosmRelationComponent {
   @Input() relationId: number;

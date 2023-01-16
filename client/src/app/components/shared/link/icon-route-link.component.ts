@@ -10,7 +10,7 @@ import { Reference } from '@api/common/common/reference';
       [reference]="reference"
       [mixedNetworkScopes]="mixedNetworkScopes"
       [url]="'/analysis/route/' + reference.id"
-    ></kpn-icon-link>
+    />
   `,
 })
 export class IconRouteLinkComponent {

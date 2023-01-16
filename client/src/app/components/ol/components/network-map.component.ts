@@ -24,8 +24,8 @@ import { NetworkMapPositionService } from '../services/network-map-position.serv
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="network-nodes-map" class="kpn-map">
-      <kpn-network-control (action)="zoomInToNetwork()"></kpn-network-control>
-      <kpn-layer-switcher [mapLayers]="layers"></kpn-layer-switcher>
+      <kpn-network-control (action)="zoomInToNetwork()"/>
+      <kpn-layer-switcher [mapLayers]="layers"/>
     </div>
   `,
 })

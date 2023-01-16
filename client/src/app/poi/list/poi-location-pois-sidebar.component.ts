@@ -15,9 +15,7 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
   template: `
     <kpn-sidebar>
       <div class="location-selector">
-        <kpn-country-select
-          (country)="countryChanged($event)"
-        ></kpn-country-select>
+        <kpn-country-select (country)="countryChanged($event)" />
 
         <div *ngIf="locationNode$ | async as locationNode">
           <kpn-location-selector
@@ -25,7 +23,7 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
             [locationNode]="locationNode"
             [all]="true"
             (selection)="locationSelectionChanged($event)"
-          ></kpn-location-selector>
+          />
         </div>
       </div>
 

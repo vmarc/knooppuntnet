@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
       kind="changeset"
       [elementId]="changeSetId.toString()"
       title="osm"
-    ></kpn-osm-link>
+    />
   `,
 })
 export class OsmLinkChangeSetComponent {

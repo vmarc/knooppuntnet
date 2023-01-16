@@ -53,7 +53,7 @@ import { PlannerService } from '../../../planner.service';
           [routeId]="response.result.id"
           title="More details"
           i18n-title="@@map.route-popup.more-details"
-        ></kpn-link-route>
+        />
       </p>
     </div>
   `,

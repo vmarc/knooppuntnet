@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
   selector: 'kpn-plan',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-plan-tip></kpn-plan-tip>
-    <kpn-plan-result-menu></kpn-plan-result-menu>
-    <kpn-plan-result></kpn-plan-result>
+    <kpn-plan-tip/>
+    <kpn-plan-result-menu/>
+    <kpn-plan-result/>
   `,
 })
 export class PlanComponent {}

@@ -13,7 +13,7 @@ import { I18nService } from '../../../i18n/i18n.service';
       title="Go to documentation"
       i18n-title="@@doc-link.go-to-documentation"
     >
-      <mat-icon svgIcon="help"></mat-icon>
+      <mat-icon svgIcon="help"/>
     </a>
   `,
   styles: [

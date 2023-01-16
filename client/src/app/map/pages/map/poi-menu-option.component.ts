@@ -14,7 +14,7 @@ import { PoiService } from '../../../services/poi.service';
       (change)="enabledChanged($event)"
       class="poi-group"
     >
-      <ng-content></ng-content>
+      <ng-content/>
     </mat-checkbox>
   `,
   styles: [
