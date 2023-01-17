@@ -4,7 +4,6 @@ import { Day } from '../../custom/day';
 import { MonitorRouteRelation } from './monitor-route-relation';
 
 export interface MonitorRouteDetailsPage {
-  readonly routeId: string;
   readonly groupName: string;
   readonly groupDescription: string;
   readonly routeName: string;

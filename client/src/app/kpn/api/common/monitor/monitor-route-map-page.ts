@@ -7,7 +7,6 @@ import { MonitorRouteSegment } from './monitor-route-segment';
 import { MonitorRouteSubRelation } from './monitor-route-sub-relation';
 
 export interface MonitorRouteMapPage {
-  readonly routeId: string;
   readonly relationId: number;
   readonly routeName: string;
   readonly routeDescription: string;
