@@ -77,34 +77,41 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
         i18n-name="@@monitor.route.menu.next"
       />
 
-      <kpn-page-menu-option
+      <a
         *ngIf="pageName === 'map'"
+        [ngClass]="{ disabled: (selectDisabled$ | async) }"
         [matMenuTriggerFor]="appMenu"
         i18n="@@monitor.route.menu.select"
-      >
-        Select
-      </kpn-page-menu-option>
+      >Select</a>
 
       <div *ngIf="pageName === 'map'" class="menu-extra-item">
         <a (click)="gotoOpenstreetmap()" class="external">
           {{ osmLinkLabel }}
         </a>
-        <a (click)="editWithId()" class="external id-link">
+        <a (click)="gotoMapillary()" class="external link-spacer">
+          {{ mapillaryLinkLabel }}
+        </a>
+        <a (click)="editWithId()" class="external link-spacer">
           {{ idEditorLinkLabel }}
         </a>
       </div>
     </kpn-page-menu>
 
-    <kpn-error/>
+    <kpn-error />
   `,
   styles: [
     `
-      .id-link {
+      .link-spacer {
         padding-left: 1em;
       }
 
       ::ng-deep .sub-relation-menu {
         min-width: 30em !important;
+      }
+
+      .disabled {
+        pointer-events: none;
+        color: grey;
       }
     `,
   ],
@@ -114,6 +121,7 @@ export class MonitorRoutePageHeaderComponent {
   @Input() pageTitle: string;
 
   readonly osmLinkLabel = 'openstreetmap.org';
+  readonly mapillaryLinkLabel = 'mapillary';
   readonly idEditorLinkLabel = 'iD';
 
   readonly groupName$ = this.store.select(selectMonitorGroupName);
@@ -163,6 +171,12 @@ export class MonitorRoutePageHeaderComponent {
       })
     );
 
+  readonly selectDisabled$: Observable<boolean> = this.subRelations$.pipe(
+    map((subRelations) => {
+      return !subRelations || subRelations.length == 0;
+    })
+  );
+
   constructor(
     private store: Store<AppState>,
     private mapService: MonitorRouteMapService
@@ -175,6 +189,12 @@ export class MonitorRoutePageHeaderComponent {
     window.open(url, '_blank');
   }
 
+  gotoMapillary(): void {
+    const zoom = Math.round(this.mapService.getView().getZoom());
+    const center = toLonLat(this.mapService.getView().getCenter());
+    const url = `https://www.mapillary.com/app/?lat=${center[1]}&lng=${center[0]}&z=${zoom}`;
+    window.open(url, '_blank');
+  }
   editWithId(): void {
     const zoom = Math.round(this.mapService.getView().getZoom());
     const center = toLonLat(this.mapService.getView().getCenter());

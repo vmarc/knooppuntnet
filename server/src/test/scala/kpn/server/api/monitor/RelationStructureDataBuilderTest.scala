@@ -10,7 +10,7 @@ import kpn.api.custom.Tags
 import kpn.core.util.Log
 import kpn.core.util.UnitTest
 
-class MonitorRelationDataBuilderTest extends UnitTest with SharedTestObjects {
+class RelationStructureDataBuilderTest extends UnitTest with SharedTestObjects {
 
   test("happy data build") {
 

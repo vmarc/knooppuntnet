@@ -3,6 +3,7 @@ package kpn.core.tools.monitor
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
 import kpn.database.util.Mongo
@@ -11,8 +12,9 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
-import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil.geometryFactory
 import kpn.server.api.monitor.domain.MonitorGroup
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.api.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.api.monitor.domain.MonitorRouteReference
 import kpn.server.api.monitor.domain.OldMonitorRoute
 import kpn.server.api.monitor.domain.OldMonitorRouteReference
@@ -103,8 +105,9 @@ object MonitorRouteMigrationTool {
       // tool.renameRouteCollections()
       // tool.addExampleSuperRoute(exampleSuperRoute)
       // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
-      tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
-      // tool.migrate()
+      // tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
+      // tool.migrateOne("GRV", "p03")
+      tool.migrate()
     }
     println("Done")
   }
@@ -112,6 +115,7 @@ object MonitorRouteMigrationTool {
 
 class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguration) {
 
+  private val log = Log(classOf[MonitorRouteMigrationTool])
   private val geometryFactory = new GeometryFactory
 
   def renameRouteCollections(): Unit = {
@@ -123,7 +127,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
   def addExampleSuperRoute(exampleSuperRoute: MonitorExampleSuperRoute): Unit = {
 
     configuration.monitorGroupRepository.groupByName("AAA") match {
-      case None => println("group not found")
+      case None => log.error("group not found")
       case Some(group) =>
         configuration.monitorRouteRepository.routeByName(group._id, "example") match {
           case Some(route) => configuration.monitorRouteRepository.deleteRoute(route._id)
@@ -160,10 +164,10 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
 
   def migrateOne(groupName: String, routeName: String): Unit = {
     configuration.monitorGroupRepository.groupByName(groupName) match {
-      case None => println("group not found")
+      case None => log.error("group not found")
       case Some(group) =>
         configuration.monitorRouteRepository.oldRouteByName(group._id, routeName) match {
-          case None => println("route not found")
+          case None => log.error("route not found")
           case Some(route) => migrateGroupRoute(group, route)
         }
     }
@@ -178,10 +182,14 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
   }
 
   private def migrateGroupRoute(group: MonitorGroup, route: OldMonitorRoute): Unit = {
-    println(s"${group.name}:${route.name}")
-    configuration.monitorRouteRepository.oldRouteReferenceRouteWithId(route._id) match {
-      case None => println("Could not read reference")
-      case Some(reference) => migrateRoute(group, route, reference)
+    Log.context(s"${group.name}:${route.name}") {
+      log.infoElapsed {
+        configuration.monitorRouteRepository.oldRouteReferenceRouteWithId(route._id) match {
+          case None => log.error("Could not read reference")
+          case Some(reference) => migrateRoute(group, route, reference)
+        }
+        ("migrated", ())
+      }
     }
   }
 
@@ -246,7 +254,43 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       configuration.monitorRouteRepository.saveRouteReference(reference)
 
       configuration.monitorRouteRelationAnalyzer.analyzeReference(newRoute._id, reference) match {
-        case Some(state) => configuration.monitorRouteRepository.saveRouteState(state)
+        case Some(state) =>
+          configuration.monitorRouteRepository.saveRouteState(state)
+
+          val updatedRoute = newRoute.copy(
+            referenceDistance = reference.distance,
+            deviationDistance = state.deviations.map(_.distance).sum,
+            deviationCount = state.deviations.size,
+            osmWayCount = state.wayCount,
+            osmDistance = state.osmDistance,
+            osmSegmentCount = state.osmSegments.size,
+            osmSegments = state.osmSegments.map { osmSegment =>
+              MonitorRouteOsmSegment(
+                Seq(
+                  MonitorRouteOsmSegmentElement(
+                    relationId = newRoute.relationId.get,
+                    segmentId = osmSegment.id,
+                    meters = osmSegment.meters,
+                    bounds = osmSegment.bounds,
+                    reversed = false
+                  )
+                )
+              )
+            },
+            relation = newRoute.relation.map { monitorRouteRelation =>
+              monitorRouteRelation.copy(
+                deviationDistance = state.deviations.map(_.meters).sum,
+                deviationCount = state.deviations.size,
+                osmWayCount = state.wayCount,
+                osmDistance = state.osmDistance,
+                osmSegmentCount = state.osmSegments.size,
+                happy = state.happy,
+              )
+            },
+            happy = state.happy
+          )
+          configuration.monitorRouteRepository.saveRoute(updatedRoute)
+
         case None =>
       }
     }

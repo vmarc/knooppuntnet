@@ -34,7 +34,7 @@ class MonitorRouteRelationRepository(
 
   def loadTopLevel(timestamp: Option[Timestamp], relationId: Long): Option[Relation] = {
     val rawData = execute(timestamp, QueryRelationTopLevel(relationId))
-    val data = new DataBuilder(rawData).data
+    val data = new RelationTopLevelDataBuilder(rawData, relationId).data
     data.relations.get(relationId)
   }
 

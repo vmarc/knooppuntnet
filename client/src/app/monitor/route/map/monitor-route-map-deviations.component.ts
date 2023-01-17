@@ -99,6 +99,7 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
           <mat-selection-list
             [multiple]="false"
             (selectionChange)="selectionChanged($event)"
+            [hideSingleSelectionIndicator]="true"
           >
             <mat-list-option
               *ngFor="let deviation of deviations$ | async"

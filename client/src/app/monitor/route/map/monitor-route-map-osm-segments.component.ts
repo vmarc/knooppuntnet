@@ -16,6 +16,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     <mat-selection-list
       [multiple]="false"
       (selectionChange)="selectionChanged($event)"
+      [hideSingleSelectionIndicator]="true"
     >
       <mat-list-option
         *ngFor="let segment of segments$ | async"

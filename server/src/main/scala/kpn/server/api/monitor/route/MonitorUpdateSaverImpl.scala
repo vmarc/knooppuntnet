@@ -16,6 +16,7 @@ class MonitorUpdateSaverImpl(
 
     if (context.removeOldReferences) {
       monitorRouteRepository.deleteRouteReferences(context.routeId)
+      monitorRouteRepository.deleteRouteStates(context.routeId)
     }
 
     context.newReferences.foreach { routeRelationReference =>

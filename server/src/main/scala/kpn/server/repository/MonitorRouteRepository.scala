@@ -24,6 +24,8 @@ trait MonitorRouteRepository {
 
   def deleteRouteReferences(routeId: ObjectId): Unit
 
+  def deleteRouteStates(routeId: ObjectId): Unit
+
   def saveRouteState(routeState: MonitorRouteState): Unit
 
   def saveRouteReference(routeReference: MonitorRouteReference): Unit

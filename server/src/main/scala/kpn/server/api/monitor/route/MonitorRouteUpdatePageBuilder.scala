@@ -27,31 +27,26 @@ class MonitorRouteUpdatePageBuilder(
               )
             }
 
-            // TODO MON performance currentRouteReference: only pick up relevant reference info (exclude geometry)
-            monitorRouteRepository.routeReferenceRouteWithId(route._id) match {
-              case None => throw new IllegalArgumentException(s"""Could not find reference for route "$routeName" in group "$groupName"""")
-              case Some(reference) =>
-                Some(
-                  MonitorRouteUpdatePage(
-                    groupName = group.name,
-                    groupDescription = group.description,
-                    routeName = route.name,
-                    routeDescription = route.description,
-                    groups = groups,
-                    properties = MonitorRouteProperties(
-                      groupName = group.name,
-                      name = route.name,
-                      description = route.description,
-                      comment = route.comment,
-                      relationId = route.relationId,
-                      referenceType = route.referenceType,
-                      referenceDay = route.referenceDay,
-                      referenceFileChanged = false,
-                      referenceFilename = reference.filename
-                    )
-                  )
+            Some(
+              MonitorRouteUpdatePage(
+                groupName = group.name,
+                groupDescription = group.description,
+                routeName = route.name,
+                routeDescription = route.description,
+                groups = groups,
+                properties = MonitorRouteProperties(
+                  groupName = group.name,
+                  name = route.name,
+                  description = route.description,
+                  comment = route.comment,
+                  relationId = route.relationId,
+                  referenceType = route.referenceType,
+                  referenceDay = route.referenceDay,
+                  referenceFileChanged = false,
+                  referenceFilename = route.referenceFilename
                 )
-            }
+              )
+            )
         }
     }
   }

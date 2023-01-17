@@ -94,7 +94,12 @@ class MonitorUpdateReferenceImpl(
 
     monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), relationId) match {
       case None =>
+        val newRoute = context.newRoute match {
+          case Some(route) => resetAnalysis(route)
+          case None => resetAnalysis(context.oldRoute.get)
+        }
         context.copy(
+          newRoute = Some(newRoute),
           saveResult = context.saveResult.copy(
             errors = context.saveResult.errors :+ s"Could not load relation $relationId at ${referenceDay.yyyymmdd}"
           )
@@ -159,6 +164,31 @@ class MonitorUpdateReferenceImpl(
       analysis.routeSegments.size,
       None,
       geometry
+    )
+  }
+
+  private def resetAnalysis(route: MonitorRoute): MonitorRoute = {
+    val updatedRelation = route.relation.map { relation =>
+      relation.copy(
+        referenceDistance = 0, // only filled in for referenceType = "multi-gpx"
+        deviationDistance = 0,
+        deviationCount = 0,
+        osmWayCount = 0,
+        osmDistance = 0,
+        osmSegmentCount = 0,
+        happy = false,
+      )
+    }
+
+    route.copy(
+      referenceDistance = 0,
+      deviationCount = 0,
+      osmWayCount = 0,
+      osmDistance = 0,
+      osmSegmentCount = 0,
+      osmSegments = Seq.empty,
+      relation = updatedRelation,
+      happy = false
     )
   }
 }

@@ -48,11 +48,13 @@ class MonitorUpdateStructureImpl(
       case None => context // TODO add message in saveResult: "could not load route structure"
       case Some(relation) =>
         val monitorRouteRelation = MonitorRouteRelation.from(relation, None)
+        val singleRoute = monitorRouteRelation.relations.isEmpty
         val updatedRoute = newRoute.copy(
           relation = Some(monitorRouteRelation)
         )
         context.copy(
-          newRoute = Some(updatedRoute)
+          newRoute = Some(updatedRoute),
+          singleRoute = singleRoute
         )
     }
   }
