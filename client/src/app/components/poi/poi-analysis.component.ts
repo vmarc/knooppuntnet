@@ -106,8 +106,9 @@ import { PoiService } from '../../services/poi.service';
         target="_blank"
         rel="nofollow noreferrer"
         i18n="@@poi.detail.image"
-        >Image</a
       >
+        Image
+      </a>
     </div>
 
     <div *ngIf="poi.mapillary" class="item">
@@ -117,8 +118,9 @@ import { PoiService } from '../../services/poi.service';
         target="_blank"
         rel="nofollow noreferrer"
         i18n="@@poi.detail.mapillary"
-        >Mapillary</a
       >
+        Mapillary
+      </a>
     </div>
 
     <div *ngIf="poi.onroerendErfgoed" class="item">
@@ -128,8 +130,9 @@ import { PoiService } from '../../services/poi.service';
         class="external"
         target="_blank"
         rel="nofollow noreferrer"
-        >Onroerend Erfgoed</a
       >
+        Onroerend Erfgoed
+      </a>
     </div>
 
     <div *ngIf="poi.website || poi.wikidata || poi.wikipedia" class="item">
@@ -140,8 +143,9 @@ import { PoiService } from '../../services/poi.service';
         target="_blank"
         rel="nofollow noreferrer"
         i18n="@@poi.detail.website"
-        >Website</a
       >
+        Website
+      </a>
       <a
         *ngIf="poi.wikidata"
         [href]="poi.wikidata"
@@ -149,8 +153,9 @@ import { PoiService } from '../../services/poi.service';
         target="_blank"
         rel="nofollow noreferrer"
         i18n="@@poi.detail.wikidata"
-        >Wikidata</a
       >
+        Wikidata
+      </a>
       <a
         *ngIf="poi.wikipedia"
         [href]="poi.wikipedia"
@@ -158,8 +163,9 @@ import { PoiService } from '../../services/poi.service';
         target="_blank"
         rel="nofollow noreferrer"
         i18n="@@poi.detail.wikipedia"
-        >Wikipedia</a
       >
+        Wikipedia
+      </a>
     </div>
 
     <div *ngIf="poi.molenDatabase" class="item">
@@ -169,8 +175,9 @@ import { PoiService } from '../../services/poi.service';
         target="_blank"
         rel="nofollow noreferrer"
         i18n="@@poi.detail.molen-database"
-        >Molen database</a
       >
+        Molen database
+      </a>
     </div>
 
     <div *ngIf="poi.hollandscheMolenDatabase" class="item">

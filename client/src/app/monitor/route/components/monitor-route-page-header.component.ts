@@ -88,10 +88,10 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
         <a (click)="gotoOpenstreetmap()" class="external">
           {{ osmLinkLabel }}
         </a>
-        <a (click)="gotoMapillary()" class="external link-spacer">
+        <a (click)="gotoMapillary()" class="external">
           {{ mapillaryLinkLabel }}
         </a>
-        <a (click)="editWithId()" class="external link-spacer">
+        <a (click)="editWithId()" class="external">
           {{ idEditorLinkLabel }}
         </a>
       </div>
@@ -101,8 +101,9 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
   `,
   styles: [
     `
-      .link-spacer {
-        padding-left: 1em;
+      .menu-extra-item {
+        display: flex;
+        gap: 1em;
       }
 
       ::ng-deep .sub-relation-menu {

@@ -10,8 +10,9 @@ import { Component, Input } from '@angular/core';
       rel="nofollow noreferrer"
       target="_blank"
       href="https://www.openstreetmap.org/{{ kind }}/{{ elementId }}"
-      >{{ title }}</a
     >
+      {{ title }}
+    </a>
   `,
 })
 export class OsmLinkComponent {

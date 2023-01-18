@@ -32,9 +32,8 @@ a:visited {
   color: blue;
 }
 
-a.external {
-  background: transparent url('/assets/images/external.png') no-repeat scroll right center;
-  padding-right: 13px;
+a.external:after {
+  content: url('/assets/images/external.png');
 }
 
 a:hover,

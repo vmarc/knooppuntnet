@@ -87,8 +87,9 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
               rel="nofollow noreferrer"
               target="_blank"
               href="{{ response.result.poiState.imageLink }}"
-            >{{ response.result.poiState.imageLink }}</a
             >
+              {{ response.result.poiState.imageLink }}
+            </a>
           </p>
 
           <p *ngIf="response.result.poiState.imageStatus">
