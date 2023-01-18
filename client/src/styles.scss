@@ -33,7 +33,11 @@ a:visited {
 }
 
 a.external:after {
-  content: url('/assets/images/external.png');
+  content: '';
+  background-size: contain;
+  background: transparent url('/assets/images/external.png') no-repeat center center;
+  margin-left: 0.2em; /* spacing*/
+  padding-right: 0.75em; /* sizing */
 }
 
 a:hover,

@@ -100,15 +100,11 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
           </p>
           <p *ngIf="response.result.poiState.imageFirstSeen">
             imageFirstSeen=
-            <kpn-timestamp
-              [timestamp]="response.result.poiState.imageFirstSeen"
-            ></kpn-timestamp>
+            <kpn-timestamp [timestamp]="response.result.poiState.imageFirstSeen" />
           </p>
           <p *ngIf="response.result.poiState.imageLastSeen">
             imageLastSeen=
-            <kpn-timestamp
-              [timestamp]="response.result.poiState.imageLastSeen"
-            ></kpn-timestamp>
+            <kpn-timestamp [timestamp]="response.result.poiState.imageLastSeen" />
           </p>
         </kpn-data>
 
