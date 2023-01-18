@@ -106,7 +106,7 @@ object MonitorRouteMigrationTool {
       // tool.addExampleSuperRoute(exampleSuperRoute)
       // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
       // tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
-      // tool.migrateOne("GRV", "p03")
+      // tool.migrateOne("SGR", "GR-129S-L3")
       tool.migrate()
     }
     println("Done")
@@ -239,7 +239,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       val reference = MonitorRouteReference(
         oldReference._id,
         routeId = newRoute._id,
-        relationId = oldReference.relationId.getOrElse(0),
+        relationId = newRoute.relationId.getOrElse(0),
         timestamp = oldReference.created,
         user = oldReference.user,
         bounds = oldReference.bounds,
@@ -253,11 +253,13 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
 
       configuration.monitorRouteRepository.saveRouteReference(reference)
 
-      configuration.monitorRouteRelationAnalyzer.analyzeReference(newRoute._id, reference) match {
+      val updatedRoute = configuration.monitorRouteRelationAnalyzer.analyzeReference(newRoute._id, reference) match {
+        case None => newRoute.copy(referenceDistance = reference.distance)
         case Some(state) =>
+
           configuration.monitorRouteRepository.saveRouteState(state)
 
-          val updatedRoute = newRoute.copy(
+          newRoute.copy(
             referenceDistance = reference.distance,
             deviationDistance = state.deviations.map(_.distance).sum,
             deviationCount = state.deviations.size,
@@ -289,10 +291,8 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
             },
             happy = state.happy
           )
-          configuration.monitorRouteRepository.saveRoute(updatedRoute)
-
-        case None =>
       }
+      configuration.monitorRouteRepository.saveRoute(updatedRoute)
     }
   }
 
