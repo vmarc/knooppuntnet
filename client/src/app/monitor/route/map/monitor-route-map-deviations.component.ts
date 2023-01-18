@@ -6,9 +6,9 @@ import { map } from 'rxjs/operators';
 import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
+import { selectMonitorRouteMapOsmRelationAvailable } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmRelationEmpty } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
 
@@ -29,27 +29,17 @@ import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
       </p>
     </ng-template>
     <ng-template #referenceAvailable>
-      <div *ngIf="osmRelationAvailable$ | async; then osmRelationAvailable;else osmRelationNotAvailable"></div>
-      <ng-template #osmRelationNotAvailable>
-        <div
-          *ngIf="
-            osmRelationEmpty$ | async;
-            then osmRelationEmpty;
-            else noOsmRelation
-          "
-        ></div>
-      </ng-template>
-      <ng-template #osmRelationEmpty>
-        <p i18n="@@monitor.route.map-deviations.relation-empty">
-          OSM relation empty, so no analysis results.
-        </p>
-      </ng-template>
-      <ng-template #noOsmRelation>
+      <div *ngIf="osmRelationAvailable$ | async; then osmRelationAvailable; else osmRelationMissing"></div>
+      <ng-template #osmRelationMissing>
         <p i18n="@@monitor.route.map-deviations.no-relation">
           OSM relation missing in route definition, so no analysis results.
         </p>
       </ng-template>
       <ng-template #osmRelationAvailable>
+        <p *ngIf="osmRelationEmpty$ | async"
+           i18n="@@monitor.route.map-deviations.relation-empty">
+          OSM relation empty, so no analysis results.
+        </p>
         <div *ngIf="hasDeviations$ | async; then deviations; else noDeviations"></div>
         <ng-template #noDeviations>
           <p class="kpn-spacer-above kpn-line">
@@ -172,7 +162,7 @@ export class MonitorRouteMapDeviationsComponent {
     selectMonitorRouteMapReferenceEnabled
   );
   readonly osmRelationAvailable$ = this.store.select(
-    selectMonitorRouteMapOsmRelationVisible
+    selectMonitorRouteMapOsmRelationAvailable
   );
   readonly osmRelationEmpty$ = this.store.select(
     selectMonitorRouteMapOsmRelationEmpty

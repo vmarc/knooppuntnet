@@ -195,6 +195,11 @@ export const selectMonitorRouteMapOsmRelationVisible = createSelector(
   (state: MonitorState) => state.mapOsmRelationVisible
 );
 
+export const selectMonitorRouteMapOsmRelationAvailable = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.mapOsmRelationAvailable
+);
+
 export const selectMonitorRouteMapOsmRelationEmpty = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.mapOsmRelationEmpty

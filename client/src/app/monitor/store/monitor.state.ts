@@ -41,6 +41,7 @@ export const initialState: MonitorState = {
   mapMatchesVisible: undefined,
   mapDeviationsVisible: undefined,
   mapOsmRelationVisible: undefined,
+  mapOsmRelationAvailable: undefined,
   mapOsmRelationEmpty: undefined,
   mapPosition: undefined,
   changesPageIndex: undefined,
@@ -75,6 +76,7 @@ export interface MonitorState {
   mapMatchesVisible: boolean | undefined;
   mapDeviationsVisible: boolean | undefined;
   mapOsmRelationVisible: boolean | undefined;
+  mapOsmRelationAvailable: boolean | undefined;
   mapOsmRelationEmpty: boolean | undefined;
   mapPosition: MapPosition | undefined;
   changesPageIndex: number | undefined;

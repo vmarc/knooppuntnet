@@ -97,7 +97,7 @@ export const monitorReducer = createReducer(
     adminRole: response?.result?.adminRole === true,
     groupsPage: response,
   })),
-  on(actionMonitorGroupsPageDestroy, (state, response) => ({
+  on(actionMonitorGroupsPageDestroy, (state) => ({
     ...state,
     groupsPage: undefined,
   })),
@@ -110,7 +110,7 @@ export const monitorReducer = createReducer(
       response?.result?.groupDescription ?? state.groupDescription,
     groupPage: response,
   })),
-  on(actionMonitorGroupPageDestroy, (state, response) => ({
+  on(actionMonitorGroupPageDestroy, (state) => ({
     ...state,
     groupName: undefined,
     groupDescription: undefined,
@@ -127,7 +127,7 @@ export const monitorReducer = createReducer(
       response?.result?.groupDescription ?? state.groupDescription,
     groupChangesPage: response,
   })),
-  on(actionMonitorGroupChangesPageDestroy, (state, response) => ({
+  on(actionMonitorGroupChangesPageDestroy, (state) => ({
     ...state,
     groupName: undefined,
     groupDescription: undefined,
@@ -147,7 +147,7 @@ export const monitorReducer = createReducer(
     adminRole: response?.result?.adminRole === true,
     groupPage: response,
   })),
-  on(actionMonitorGroupDeleteDestroy, (state, response) => ({
+  on(actionMonitorGroupDeleteDestroy, (state) => ({
     ...state,
     groupPage: undefined,
   })),
@@ -178,7 +178,7 @@ export const monitorReducer = createReducer(
       routeAddPage: response,
     };
   }),
-  on(actionMonitorRouteAddPageDestroy, (state, response) => {
+  on(actionMonitorRouteAddPageDestroy, (state) => {
     return {
       ...state,
       groupName: undefined,
@@ -201,7 +201,7 @@ export const monitorReducer = createReducer(
       routeUpdatePage: response,
     };
   }),
-  on(actionMonitorRouteUpdatePageDestroy, (state, response) => {
+  on(actionMonitorRouteUpdatePageDestroy, (state) => {
     return {
       ...state,
       groupName: undefined,
@@ -251,7 +251,7 @@ export const monitorReducer = createReducer(
       routeSaveState,
     };
   }),
-  on(actionMonitorRouteSaveDestroy, (state, parameters) => {
+  on(actionMonitorRouteSaveDestroy, (state) => {
     return {
       ...state,
       routeSaveState: undefined,
@@ -364,6 +364,8 @@ export const monitorReducer = createReducer(
       mapOsmRelationVisible = queryParams['osm-relation'] === 'true';
     }
 
+    const mapOsmRelationAvailable = !!result?.relationId;
+
     const mapOsmRelationEmpty =
       (result?.osmSegments?.length ?? 0) == 0 && !!result?.relationId;
 
@@ -417,6 +419,7 @@ export const monitorReducer = createReducer(
       mapMatchesVisible,
       mapDeviationsVisible,
       mapOsmRelationVisible,
+      mapOsmRelationAvailable,
       mapOsmRelationEmpty,
       mapMode,
       routeMapSelectedDeviation,
