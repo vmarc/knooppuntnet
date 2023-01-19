@@ -28,6 +28,7 @@ import { MapService } from '../services/map.service';
   template: `
     <div id="route-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
 })
@@ -35,11 +36,11 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   @Input() routeMapInfo: RouteMapInfo;
   @Input() mapPositionFromUrl: MapPosition;
 
+  map: Map;
   layers: MapLayers;
   private networkVectorTileLayer: MapLayer;
   private networkVectorTileLayerActive = true;
 
-  private map: Map;
   private readonly mapId = 'route-map';
   private readonly subscriptions = new Subscriptions();
 

@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SharedModule } from '../shared/shared.module';
 import { LayerSwitcherComponent } from './components/layer-switcher.component';
 import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from './components/leg-not-found-dialog';
 import { LocationMapComponent } from './components/location-map.component';
+import { MapLinkMenuComponent } from './components/map-link-menu.component';
 import { NetworkControlComponent } from './components/network-control.component';
 import { NetworkMapComponent } from './components/network-map.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
@@ -36,6 +38,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     SharedModule,
     MatDialogModule,
     MatIconModule,
+    MatMenuModule,
   ],
   declarations: [
     NodeMapComponent,
@@ -43,6 +46,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     RouteMapComponent,
     SubsetMapComponent,
     LayerSwitcherComponent,
+    MapLinkMenuComponent,
     RouteChangeMapComponent,
     LocationMapComponent,
     NetworkMapComponent,
@@ -66,6 +70,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     RouteControlComponent,
     PoiMapComponent,
     PoiDetailMapComponent,
+    MapLinkMenuComponent,
   ],
   providers: [
     MapService,

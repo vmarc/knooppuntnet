@@ -26,6 +26,7 @@ import { NetworkMapPositionService } from '../services/network-map-position.serv
     <div id="network-nodes-map" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()"/>
       <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
 })
@@ -34,8 +35,8 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() page: NetworkMapPage;
   @Input() mapPositionFromUrl: NetworkMapPosition;
 
+  map: Map;
   layers: MapLayers;
-  private map: Map;
   private readonly mapId = 'network-nodes-map';
   private readonly subscriptions = new Subscriptions();
 

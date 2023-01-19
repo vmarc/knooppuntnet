@@ -37,6 +37,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   template: `
     <div id="monitor-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="mapLayers"/>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
 })
@@ -45,8 +46,8 @@ export class MonitorRouteMapComponent
 {
   @Input() page: MonitorRouteMapPage;
 
-  mapLayers: MapLayers;
   map: Map;
+  mapLayers: MapLayers;
   private mapPositionFromUrl: MapPosition;
   private updatePositionHandler = () => this.updateMapPosition();
   private currentMapPosition$ = new BehaviorSubject<MapPosition>(null);

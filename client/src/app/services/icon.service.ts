@@ -348,6 +348,20 @@ export class IconService {
         require('!svg-inline-loader!src/assets/images/icons/location.svg')
       )
     );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'layers',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/layers.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'external-link',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/external-link.svg')
+      )
+    );
   }
 
   private registerDirectionsIcons() {

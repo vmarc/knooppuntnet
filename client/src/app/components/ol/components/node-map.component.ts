@@ -32,6 +32,7 @@ import { MapPositionService } from '../services/map-position.service';
   template: `
     <div id="node-map" class="kpn-map">
       <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
 })
@@ -39,8 +40,8 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodeMapInfo: NodeMapInfo;
   @Input() mapPositionFromUrl: MapPosition;
 
+  map: Map;
   layers: MapLayers;
-  private map: Map;
   private readonly mapId = 'node-map';
   private readonly subscriptions = new Subscriptions();
 

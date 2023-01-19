@@ -50,6 +50,7 @@ import { PlannerLayerService } from '../../planner/services/planner-layer.servic
       <kpn-layer-switcher [mapLayers]="layerSwitcherMapLayers$ | async">
         <kpn-poi-menu />
       </kpn-layer-switcher>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
   styles: [
@@ -73,9 +74,9 @@ import { PlannerLayerService } from '../../planner/services/planner-layer.servic
 export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
   layerSwitcherMapLayers$: Observable<MapLayers>;
   interaction = new PlannerInteraction(this.plannerService.engine);
+  map: Map;
   overlay: Overlay;
   private planLoaded = false;
-  private map: Map;
   private readonly subscriptions = new Subscriptions();
   private mapPositionFromUrl: MapPosition;
 

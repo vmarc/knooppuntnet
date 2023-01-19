@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
 import { Store } from '@ngrx/store';
-import { toLonLat } from 'ol/proj';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -12,7 +11,6 @@ import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
-import { MonitorRouteMapService } from '../map/monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-page-header',
@@ -83,29 +81,12 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
         [matMenuTriggerFor]="appMenu"
         i18n="@@monitor.route.menu.select"
       >Select</a>
-
-      <div *ngIf="pageName === 'map'" class="menu-extra-item">
-        <a (click)="gotoOpenstreetmap()" class="external">
-          {{ osmLinkLabel }}
-        </a>
-        <a (click)="gotoMapillary()" class="external">
-          {{ mapillaryLinkLabel }}
-        </a>
-        <a (click)="editWithId()" class="external">
-          {{ idEditorLinkLabel }}
-        </a>
-      </div>
     </kpn-page-menu>
 
     <kpn-error />
   `,
   styles: [
     `
-      .menu-extra-item {
-        display: flex;
-        gap: 1em;
-      }
-
       ::ng-deep .sub-relation-menu {
         min-width: 30em !important;
       }
@@ -120,10 +101,6 @@ import { MonitorRouteMapService } from '../map/monitor-route-map.service';
 export class MonitorRoutePageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
-
-  readonly osmLinkLabel = 'openstreetmap.org';
-  readonly mapillaryLinkLabel = 'mapillary';
-  readonly idEditorLinkLabel = 'iD';
 
   readonly groupName$ = this.store.select(selectMonitorGroupName);
   readonly routeName$ = this.store.select(selectMonitorRouteName);
@@ -178,30 +155,7 @@ export class MonitorRoutePageHeaderComponent {
     })
   );
 
-  constructor(
-    private store: Store<AppState>,
-    private mapService: MonitorRouteMapService
-  ) {}
-
-  gotoOpenstreetmap(): void {
-    const zoom = Math.round(this.mapService.getView().getZoom());
-    const center = toLonLat(this.mapService.getView().getCenter());
-    const url = `https://www.openstreetmap.org/#map=${zoom}/${center[1]}/${center[0]}`;
-    window.open(url, '_blank');
-  }
-
-  gotoMapillary(): void {
-    const zoom = Math.round(this.mapService.getView().getZoom());
-    const center = toLonLat(this.mapService.getView().getCenter());
-    const url = `https://www.mapillary.com/app/?lat=${center[1]}&lng=${center[0]}&z=${zoom}`;
-    window.open(url, '_blank');
-  }
-  editWithId(): void {
-    const zoom = Math.round(this.mapService.getView().getZoom());
-    const center = toLonLat(this.mapService.getView().getCenter());
-    const url = `https://www.openstreetmap.org/edit?editor=id#map=${zoom}/${center[1]}/${center[0]}`;
-    window.open(url, '_blank');
-  }
+  constructor(private store: Store<AppState>) {}
 
   select(subRelation: MonitorRouteSubRelation): void {
     this.store.dispatch(actionMonitorRouteMapSelectSubRelation(subRelation));

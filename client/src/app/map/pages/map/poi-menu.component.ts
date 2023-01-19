@@ -21,36 +21,39 @@ import { PoiService } from '../../../services/poi.service';
       <kpn-poi-menu-option
         groupName="hiking-biking"
         i18n="@@poi.group.hiking-biking"
-        >Hiking/biking</kpn-poi-menu-option
       >
-      <kpn-poi-menu-option groupName="landmarks" i18n="@@poi.group.landmarks"
-        >Landmarks</kpn-poi-menu-option
-      >
+        Hiking/biking
+      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="landmarks" i18n="@@poi.group.landmarks">
+        Landmarks
+      </kpn-poi-menu-option>
       <kpn-poi-menu-option
         groupName="restaurants"
         i18n="@@poi.group.restaurants"
-        >Restaurants</kpn-poi-menu-option
       >
+        Restaurants
+      </kpn-poi-menu-option>
       <kpn-poi-menu-option
         groupName="places-to-stay"
         i18n="@@poi.group.places-to-stay"
-        >Places to stay</kpn-poi-menu-option
       >
-      <kpn-poi-menu-option groupName="tourism" i18n="@@poi.group.tourism"
-        >Tourism</kpn-poi-menu-option
-      >
-      <kpn-poi-menu-option groupName="amenity" i18n="@@poi.group.amenity"
-        >Amenity</kpn-poi-menu-option
-      >
-      <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops"
-        >Shops</kpn-poi-menu-option
-      >
-      <kpn-poi-menu-option groupName="foodshops" i18n="@@poi.group.foodshops"
-        >Foodshops</kpn-poi-menu-option
-      >
-      <kpn-poi-menu-option groupName="sports" i18n="@@poi.group.sports"
-        >Sports</kpn-poi-menu-option
-      >
+        Places to stay
+      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="tourism" i18n="@@poi.group.tourism">
+        Tourism
+      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="amenity" i18n="@@poi.group.amenity">
+        Amenity
+      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops">
+        Shops
+      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="foodshops" i18n="@@poi.group.foodshops">
+        Foodshops
+      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="sports" i18n="@@poi.group.sports">
+        Sports
+      </kpn-poi-menu-option>
     </div>
   `,
   styles: [
