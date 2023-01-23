@@ -122,8 +122,9 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             groupName = "group",
             groupDescription = "group-description",
             bounds = None,
-            nextSubRelation = None,
+            currentSubRelation = None,
             prevSubRelation = None,
+            nextSubRelation = None,
             osmSegments = Seq.empty,
             matchesGeoJson = None,
             deviations = Seq.empty,
@@ -181,8 +182,9 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             groupName = "group",
             groupDescription = "group-description",
             bounds = Some(Bounds(1, 1, 1, 1)),
-            nextSubRelation = None,
+            currentSubRelation = None,
             prevSubRelation = None,
+            nextSubRelation = None,
             osmSegments = Seq.empty,
             matchesGeoJson = None,
             deviations = Seq.empty,
@@ -315,6 +317,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           groupName = "group",
           groupDescription = "group-description",
           bounds = Some(Bounds(1, 1, 1, 1)),
+          currentSubRelation = None,
           nextSubRelation = None,
           prevSubRelation = None,
           osmSegments = Seq(
@@ -435,13 +438,19 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             groupName = "group",
             groupDescription = "group-description",
             bounds = Some(Bounds(1, 1, 1, 1)),
+            currentSubRelation = Some(
+              MonitorRouteSubRelation(
+                11,
+                "sub-relation-11"
+              )
+            ),
+            prevSubRelation = None,
             nextSubRelation = Some(
               MonitorRouteSubRelation(
                 12,
                 "sub-relation-12"
               )
             ),
-            prevSubRelation = None,
             osmSegments = Seq.empty,
             matchesGeoJson = None,
             deviations = Seq.empty,
@@ -475,13 +484,19 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             groupName = "group",
             groupDescription = "group-description",
             bounds = Some(Bounds(2, 2, 2, 2)),
-            nextSubRelation = None,
+            currentSubRelation = Some(
+              MonitorRouteSubRelation(
+                12,
+                "sub-relation-12"
+              )
+            ),
             prevSubRelation = Some(
               MonitorRouteSubRelation(
                 11,
                 "sub-relation-11"
               )
             ),
+            nextSubRelation = None,
             osmSegments = Seq.empty,
             matchesGeoJson = None,
             deviations = Seq.empty,
@@ -646,6 +661,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           groupName = "group",
           groupDescription = "group-description",
           bounds = Some(Bounds(1, 1, 1, 1)),
+          currentSubRelation = Some(
+            MonitorRouteSubRelation(
+              11,
+              "sub-relation-11"
+            )
+          ),
           prevSubRelation = None,
           nextSubRelation = Some(
             MonitorRouteSubRelation(
@@ -702,6 +723,12 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           groupName = "group",
           groupDescription = "group-description",
           bounds = Some(Bounds(1, 1, 2, 2)),
+          currentSubRelation = Some(
+            MonitorRouteSubRelation(
+              12,
+              "sub-relation-12"
+            )
+          ),
           prevSubRelation = Some(
             MonitorRouteSubRelation(
               11,

@@ -29,6 +29,11 @@ import { UserEffects } from './user/user.effects';
       ? []
       : StoreDevtoolsModule.instrument({
           name: 'Knooppuntnet',
+          serialize: {
+            options: {
+              map: true,
+            },
+          },
         }),
   ],
 })

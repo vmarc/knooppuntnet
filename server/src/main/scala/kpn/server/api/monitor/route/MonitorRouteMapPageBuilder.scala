@@ -120,6 +120,7 @@ class MonitorRouteMapPageBuilder(
       groupName = group.name,
       groupDescription = group.description,
       bounds = None,
+      currentSubRelation = None,
       prevSubRelation = None,
       nextSubRelation = None,
       osmSegments = Seq.empty,
@@ -155,6 +156,7 @@ class MonitorRouteMapPageBuilder(
       groupName = group.name,
       groupDescription = group.description,
       bounds = Some(reference.bounds),
+      currentSubRelation = None,
       prevSubRelation = None,
       nextSubRelation = None,
       osmSegments = Seq.empty,
@@ -208,6 +210,7 @@ class MonitorRouteMapPageBuilder(
           bounds,
           None,
           None,
+          None,
           stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
@@ -225,11 +228,7 @@ class MonitorRouteMapPageBuilder(
 
     val subRelations = MonitorUtil.subRelationsIn(route)
 
-    val (prevSubRelation, nextSubRelation) =
-      Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId) match {
-        case None => (None, None)
-        case Some(triplet) => (triplet.previous, triplet.next)
-      }
+    val subRelationPages = Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId)
 
     monitorRouteRepository.routeRelationReference(route._id, relationId) match {
       case None =>
@@ -244,8 +243,9 @@ class MonitorRouteMapPageBuilder(
           group.name,
           group.description,
           bounds,
-          prevSubRelation,
-          nextSubRelation,
+          subRelationPages.map(_.current),
+          subRelationPages.flatMap(_.previous),
+          subRelationPages.flatMap(_.next),
           stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
@@ -285,8 +285,9 @@ class MonitorRouteMapPageBuilder(
           group.name,
           group.description,
           Some(bounds),
-          prevSubRelation,
-          nextSubRelation,
+          subRelationPages.map(_.current),
+          subRelationPages.flatMap(_.previous),
+          subRelationPages.flatMap(_.next),
           stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),

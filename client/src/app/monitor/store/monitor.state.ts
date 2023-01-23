@@ -44,6 +44,7 @@ export const initialState: MonitorState = {
   mapOsmRelationAvailable: undefined,
   mapOsmRelationEmpty: undefined,
   mapPosition: undefined,
+  mapPages: undefined,
   changesPageIndex: undefined,
   changesPage: undefined,
   groupsPage: undefined,
@@ -79,6 +80,7 @@ export interface MonitorState {
   mapOsmRelationAvailable: boolean | undefined;
   mapOsmRelationEmpty: boolean | undefined;
   mapPosition: MapPosition | undefined;
+  mapPages: Map<number, MonitorRouteMapPage> | undefined;
   changesPageIndex: number | undefined;
   changesPage: ApiResponse<MonitorChangesPage> | undefined;
   groupsPage: ApiResponse<MonitorGroupsPage> | undefined;
