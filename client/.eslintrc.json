@@ -42,11 +42,19 @@
         "@angular-eslint/template/i18n": [
           "error",
           {
-            "checkAttributes": false, // initially ignore untranslated attributes, add later
+            "checkAttributes": false,
             "checkId": true
           }
         ]
       }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@ngrx/recommended-requiring-type-checking"
+      ]
     }
   ]
 }
