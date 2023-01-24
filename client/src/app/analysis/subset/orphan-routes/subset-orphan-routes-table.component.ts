@@ -166,7 +166,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanRoutesService: SubsetOrphanRoutesService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

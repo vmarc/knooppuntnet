@@ -38,7 +38,7 @@ export class UserEffects {
     private location: Location,
     private browserStorageService: BrowserStorageService,
     private http: HttpClient,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.initUser();
   }

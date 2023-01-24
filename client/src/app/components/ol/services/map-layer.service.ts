@@ -48,7 +48,7 @@ export class MapLayerService {
   constructor(
     private i18nService: I18nService,
     private mapService: MapService,
-    private store: Store<AppState>,
+    private store: Store,
     private browserStorageService: BrowserStorageService
   ) {}
 

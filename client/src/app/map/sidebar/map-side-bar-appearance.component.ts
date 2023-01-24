@@ -85,7 +85,7 @@ export class MapSidebarAppearanceComponent {
   constructor(
     private mapService: MapService,
     private plannerLayerService: PlannerLayerService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   expandedChanged(expanded: boolean): void {

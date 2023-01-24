@@ -37,7 +37,7 @@ import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
 export class SubsetOrphanNodesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectSubsetOrphanNodesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetOrphanNodesPageInit());

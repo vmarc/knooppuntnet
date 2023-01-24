@@ -126,7 +126,7 @@ export class MonitorRouteMapControlComponent {
     selectMonitorRouteMapSelectedOsmSegmentDisabled
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   modeChanged(event: MatRadioChange): void {
     this.store.dispatch(actionMonitorRouteMapMode({ mapMode: event.value }));

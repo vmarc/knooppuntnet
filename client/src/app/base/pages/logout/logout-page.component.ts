@@ -64,7 +64,7 @@ import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 export class LogoutPageComponent {
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   logout(): void {
     this.store.dispatch(actionUserLogout());

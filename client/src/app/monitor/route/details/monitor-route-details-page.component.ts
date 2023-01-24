@@ -74,7 +74,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);
 
-  constructor(private snackBar: MatSnackBar, private store: Store<AppState>) {}
+  constructor(private snackBar: MatSnackBar, private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteDetailsPageInit());

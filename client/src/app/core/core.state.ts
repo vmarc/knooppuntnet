@@ -67,14 +67,14 @@ export const {
 } = getSelectors(selectRouterState);
 
 export const selectDefined = <K>(
-  store: Store<AppState>,
+  store: Store,
   selector: (state: AppState) => K
 ): Observable<K> => {
   return store.select(selector).pipe(filter((x) => !!x));
 };
 
 export const selectFalse = (
-  store: Store<AppState>,
+  store: Store,
   selector: (state: AppState) => boolean
 ): Observable<boolean> => {
   return store.select(selector).pipe(map((e) => e === false));

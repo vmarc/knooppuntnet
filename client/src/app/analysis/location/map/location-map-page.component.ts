@@ -39,7 +39,7 @@ export class LocationMapPageComponent implements OnInit, OnDestroy {
     .select(selectLocationKey)
     .pipe(map((key) => key.networkType));
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationMapPageInit());

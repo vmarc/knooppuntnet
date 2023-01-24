@@ -57,7 +57,7 @@ export class MonitorRouteMapOsmSegmentsComponent {
 
   constructor(
     private mapService: MonitorRouteMapService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   selectionChanged(event: MatSelectionListChange): void {

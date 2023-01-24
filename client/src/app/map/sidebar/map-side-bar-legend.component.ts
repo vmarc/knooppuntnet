@@ -150,7 +150,7 @@ import { selectPreferencesShowLegend } from '../../core/preferences/preferences.
 export class MapSidebarLegendComponent {
   readonly expanded$ = this.store.select(selectPreferencesShowLegend);
 
-  constructor(public mapService: MapService, private store: Store<AppState>) {}
+  constructor(public mapService: MapService, private store: Store) {}
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(actionPreferencesShowLegend({ value: expanded }));

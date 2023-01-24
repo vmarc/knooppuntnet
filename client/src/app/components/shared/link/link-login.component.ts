@@ -12,7 +12,7 @@ import { actionUserLoginLinkClicked } from '../../../core/user/user.actions';
   `,
 })
 export class LinkLoginComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   login(): void {
     this.store.dispatch(actionUserLoginLinkClicked());

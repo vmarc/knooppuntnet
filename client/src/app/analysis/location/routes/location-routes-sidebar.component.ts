@@ -79,7 +79,7 @@ export class LocationRoutesSidebarComponent {
     selectLocationRoutesPage
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   locationRoutesTypeChanged(change: MatRadioChange): void {
     const locationRoutesType = change.value as LocationRoutesType;

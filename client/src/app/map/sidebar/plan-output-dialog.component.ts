@@ -142,7 +142,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   constructor(
     private pdfService: PdfService,
     private plannerService: PlannerService,
-    private store: Store<AppState>,
+    private store: Store,
     private appService: AppService
   ) {}
 

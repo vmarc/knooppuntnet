@@ -90,7 +90,7 @@ export class LocationSelectionPageComponent implements OnInit, OnDestroy {
     private locationModeService: LocationModeService,
     private locationSelectionService: LocationSelectionService,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   isModeName() {

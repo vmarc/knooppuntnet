@@ -68,7 +68,7 @@ export class PlanResultMenuComponent implements OnInit {
 
   constructor(
     private plannerService: PlannerService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

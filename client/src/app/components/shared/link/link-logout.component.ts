@@ -10,7 +10,7 @@ import { actionUserLogoutLinkClicked } from '../../../core/user/user.actions';
   template: ` <a (click)="logoutClicked()" i18n="@@link.logout">logout</a> `,
 })
 export class LinkLogoutComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   logoutClicked(): void {
     this.store.dispatch(actionUserLogoutLinkClicked());

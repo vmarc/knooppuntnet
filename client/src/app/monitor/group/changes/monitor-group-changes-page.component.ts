@@ -69,7 +69,7 @@ export class MonitorGroupChangesPageComponent implements OnInit, OnDestroy {
   readonly impact$ = this.store.select(selectPreferencesImpact);
   readonly response$ = this.store.select(selectMonitorGroupChangesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupChangesPageInit());

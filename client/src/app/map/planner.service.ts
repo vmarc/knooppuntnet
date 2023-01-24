@@ -57,7 +57,7 @@ export class PlannerService {
   constructor(
     private appService: AppService,
     private mapService: MapService,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.engine = new PlannerEngineImpl(this.context);
   }

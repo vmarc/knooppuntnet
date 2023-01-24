@@ -54,7 +54,7 @@ import { actionUserLogin } from '../../../core/user/user.actions';
   `,
 })
 export class LoginPageComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   login() {
     this.store.dispatch(actionUserLogin());

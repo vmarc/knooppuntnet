@@ -155,7 +155,7 @@ export class MonitorRoutePageHeaderComponent {
     })
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   select(subRelation: MonitorRouteSubRelation): void {
     this.store.dispatch(actionMonitorRouteMapSelectSubRelation(subRelation));

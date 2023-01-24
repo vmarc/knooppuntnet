@@ -24,7 +24,7 @@ export class NetworkChangesSidebarComponent {
     .select(selectNetworkChangesFilterOptions)
     .pipe(filter((filterOptions) => !!filterOptions));
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionNetworkChangesFilterOption({ option }));

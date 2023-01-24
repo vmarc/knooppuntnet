@@ -22,7 +22,7 @@ export class SubsetChangesSidebarComponent {
     .select(selectSubsetChangesFilterOptions)
     .pipe(filter((filterOptions) => !!filterOptions));
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionSubsetChangesFilterOption({ option }));

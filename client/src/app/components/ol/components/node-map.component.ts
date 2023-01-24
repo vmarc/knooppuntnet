@@ -54,7 +54,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
     private mapLayerService: MapLayerService,
     private mapPositionService: MapPositionService,
     private pageService: PageService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngAfterViewInit(): void {

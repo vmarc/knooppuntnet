@@ -148,7 +148,7 @@ export class MonitorRouteMapLayersComponent {
     selectMonitorRouteMapOsmRelationEnabled
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   referenceVisibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(

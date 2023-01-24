@@ -95,7 +95,7 @@ export class NetworkPageHeaderComponent {
   readonly networkId$ = this.store.select(selectNetworkId);
   readonly summary$ = this.store.select(selectNetworkSummary);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   networkPageTitle(networkName: string): string {
     if (networkName) {

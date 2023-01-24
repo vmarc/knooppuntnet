@@ -28,7 +28,7 @@ import { selectNetworkDetailsPage } from '../store/network.selectors';
 export class NetworkDetailsPageComponent implements OnInit {
   readonly response$ = this.store.select(selectNetworkDetailsPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkDetailsPageInit());

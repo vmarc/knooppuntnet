@@ -89,7 +89,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private iconService: IconService,
     private pageService: PageService,
     private pageWidthService: PageWidthService,

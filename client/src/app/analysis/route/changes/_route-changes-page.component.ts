@@ -95,7 +95,7 @@ export class RouteChangesPageComponent implements OnInit {
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
   readonly response$ = selectDefined(this.store, selectRouteChangesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteChangesPageInit());

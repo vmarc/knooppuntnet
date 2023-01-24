@@ -107,7 +107,7 @@ export class LocationPageHeaderComponent {
     })
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   locationName(locationKey: LocationKey): string {
     const nameParts = locationKey.name.split(':');

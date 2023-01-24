@@ -312,7 +312,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     )
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.flattenRelationTree();

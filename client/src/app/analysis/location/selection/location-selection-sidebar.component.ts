@@ -16,7 +16,7 @@ import { actionLocationSelectionPageStrategy } from '../store/location.actions';
   `,
 })
 export class LocationSelectionSidebarComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onStrategyChange(strategy: AnalysisStrategy) {
     this.store.dispatch(actionLocationSelectionPageStrategy({ strategy }));

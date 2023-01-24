@@ -27,7 +27,7 @@ export class ChangesSidebarComponent {
     .select(selectChangesFilterOptions)
     .pipe(filter((filterOptions) => !!filterOptions));
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionChangesFilterOption({ option }));

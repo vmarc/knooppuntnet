@@ -217,7 +217,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkNodesService: NetworkNodesService,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.headerColumns1$ = pageWidthService.current$.pipe(
       map(() => this.headerColumns1())

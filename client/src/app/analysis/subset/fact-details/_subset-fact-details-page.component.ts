@@ -43,7 +43,7 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   readonly subsetFact$ = this.store.select(selectSubsetFact);
   readonly response$ = this.store.select(selectSubsetFactDetailsPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetFactDetailsPageInit());

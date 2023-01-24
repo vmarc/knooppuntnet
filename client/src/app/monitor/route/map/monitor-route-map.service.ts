@@ -57,7 +57,7 @@ export class MonitorRouteMapService implements OnDestroy {
 
   private map: Map = null;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store) {
     this.referenceLayer = this.buildReferencesLayer();
     this.matchesLayer = this.buildMatchesLayer();
     this.deviationsLayer = this.buildDeviationsLayer();

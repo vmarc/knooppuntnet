@@ -73,7 +73,7 @@ export class MonitorRouteDeletePageComponent implements OnInit, OnDestroy {
   readonly routeName$ = this.store.select(selectRouteParam('routeName'));
   readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteDeletePageInit());

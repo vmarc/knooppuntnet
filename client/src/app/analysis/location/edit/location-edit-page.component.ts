@@ -75,7 +75,7 @@ export class LocationEditPageComponent implements OnInit, OnDestroy {
     .select(selectSharedHttpError)
     .pipe(map((error) => error == null));
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationEditPageInit());

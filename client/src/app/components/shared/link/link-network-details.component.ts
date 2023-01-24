@@ -16,7 +16,7 @@ export class LinkNetworkDetailsComponent {
   @Input() networkType: NetworkType;
   @Input() title: string;
 
-  constructor(private store: Store<AppState>, private router: Router) {}
+  constructor(private store: Store, private router: Router) {}
 
   clicked(): void {
     this.store.dispatch(

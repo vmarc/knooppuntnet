@@ -59,7 +59,7 @@ export class RouteMapPageComponent implements OnInit {
     selectRouteMapPositionFromUrl
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteMapPageInit());

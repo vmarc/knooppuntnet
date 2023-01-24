@@ -22,7 +22,7 @@ import { selectLocationPoisPage } from '../store/poi.selectors';
 export class PoiLocationPoisPageComponent implements OnInit {
   readonly response$ = this.store.select(selectLocationPoisPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationPoisPageInit());

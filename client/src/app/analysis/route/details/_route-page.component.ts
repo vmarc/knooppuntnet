@@ -160,7 +160,7 @@ export class RoutePageComponent implements OnInit {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

@@ -66,7 +66,7 @@ export class MonitorChangesPageComponent implements OnInit, OnDestroy {
   readonly pageSize$ = this.store.select(selectPreferencesPageSize);
   readonly response$ = this.store.select(selectMonitorChangesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorChangesPageInit());

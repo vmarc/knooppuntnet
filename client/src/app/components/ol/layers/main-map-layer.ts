@@ -19,7 +19,7 @@ export class MainMapLayer {
   constructor(
     private mapService: MapService,
     private i18nService: I18nService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   build(): MapLayer {

@@ -244,7 +244,7 @@ export class MonitorRouteChangePageComponent implements OnInit, OnDestroy {
   readonly routeName$ = this.store.select(selectMonitorRouteName);
   readonly response$ = this.store.select(selectMonitorRouteChangePage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteChangePageInit());

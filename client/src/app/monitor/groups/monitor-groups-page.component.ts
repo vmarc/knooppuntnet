@@ -77,7 +77,7 @@ export class MonitorGroupsPageComponent implements OnInit, OnDestroy {
     map((response) => response.result?.groups?.length)
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupsPageInit());

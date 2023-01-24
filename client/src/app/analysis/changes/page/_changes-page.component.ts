@@ -82,7 +82,7 @@ export class ChangesPageComponent implements OnInit {
   readonly pageIndex$ = this.store.select(selectChangesPageIndex);
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionChangesPageInit());

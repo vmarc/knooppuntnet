@@ -57,7 +57,7 @@ export class NodeMapPageComponent implements OnInit {
   );
   readonly response$ = selectDefined(this.store, selectNodeMapPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeMapPageInit());

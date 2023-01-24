@@ -80,7 +80,7 @@ export class LocationNodesSidebarComponent {
     selectLocationNodesPage
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   locationNodesTypeChanged(change: MatRadioChange): void {
     const locationNodesType = change.value as LocationNodesType;

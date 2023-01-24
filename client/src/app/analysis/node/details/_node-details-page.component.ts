@@ -122,7 +122,7 @@ export class NodeDetailsPageComponent implements OnInit {
   readonly networkTypes$ = this.store.select(selectNodeNetworkTypes);
   readonly response$ = selectDefined(this.store, selectNodeDetailsPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeDetailsPageInit());

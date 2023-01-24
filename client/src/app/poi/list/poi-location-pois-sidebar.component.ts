@@ -92,7 +92,7 @@ export class LocationPoisSidebarComponent implements OnInit {
 
   country = Country.be;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationPoiSummaryPageInit());

@@ -81,7 +81,7 @@ import { Facts } from '../../fact/facts';
 export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);

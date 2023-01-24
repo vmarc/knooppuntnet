@@ -137,7 +137,7 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
 
   constructor(
     private monitorService: MonitorService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

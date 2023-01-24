@@ -37,7 +37,7 @@ export class MonitorAdminToggleComponent {
   readonly admin$ = this.store.select(selectMonitorAdmin);
   readonly adminRole$ = this.store.select(selectMonitorAdminRole);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   adminChanged(event: MatSlideToggleChange) {
     this.store.dispatch(actionMonitorAdmin({ admin: event.checked }));

@@ -10,7 +10,7 @@ import { actionUserAuthenticated } from '../../../core/user/user.actions';
   template: ` <span i18n="@@authenticate-page.title"> Logging in... </span> `,
 })
 export class AuthenticatePageComponent implements OnInit {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionUserAuthenticated());

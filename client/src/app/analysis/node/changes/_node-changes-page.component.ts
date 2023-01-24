@@ -96,7 +96,7 @@ export class NodeChangesPageComponent implements OnInit {
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
   readonly response$ = selectDefined(this.store, selectNodeChangesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeChangesPageInit());

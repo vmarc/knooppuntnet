@@ -82,7 +82,7 @@ export class SettingsPageComponent {
   );
   readonly extraLayers$ = this.store.pipe(select(selectPreferencesExtraLayers));
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   instructionsChanged(event: MatSlideToggleChange): void {
     this.store.dispatch(

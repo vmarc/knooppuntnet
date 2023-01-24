@@ -73,7 +73,7 @@ export class SubsetChangesPageComponent implements OnInit {
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
   readonly response$ = this.store.select(selectSubsetChangesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetChangesPageInit());

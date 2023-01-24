@@ -65,7 +65,7 @@ export class MapSidebarOptionsComponent {
   readonly showProposed$ = this.store.select(selectPreferencesShowProposed);
   readonly planProposed$ = this.store.select(selectPreferencesPlanProposed);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(actionPreferencesShowOptions({ value: expanded }));

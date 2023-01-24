@@ -28,7 +28,7 @@ import { AppState } from '../core/core.state';
 
 @Injectable()
 export class MonitorService {
-  constructor(private http: HttpClient, private store: Store<AppState>) {}
+  constructor(private http: HttpClient, private store: Store) {}
 
   groups(): Observable<ApiResponse<MonitorGroupsPage>> {
     const url = '/api/monitor/groups';

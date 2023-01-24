@@ -18,7 +18,7 @@ export class PoiService {
   constructor(
     @Inject(LOCALE_ID) public locale: string,
     private http: HttpClient,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   locationPois(

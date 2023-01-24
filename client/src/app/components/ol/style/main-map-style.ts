@@ -18,7 +18,7 @@ export class MainMapStyle {
   constructor(
     private map: Map,
     private mapService: MapService,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.mainMapNodeStyle = new MainMapNodeStyle(mapService);
     this.mainMapRouteStyle = new MainMapRouteStyle(mapService);

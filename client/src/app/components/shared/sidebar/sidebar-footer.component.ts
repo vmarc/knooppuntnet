@@ -64,7 +64,7 @@ export class SidebarFooterComponent {
   constructor(
     private router: Router,
     private versionService: VersionService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   version(): string {

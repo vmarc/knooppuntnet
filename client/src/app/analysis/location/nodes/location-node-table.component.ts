@@ -187,7 +187,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.dataSource = new MatTableDataSource();
     this.displayedColumns$ = pageWidthService.current$.pipe(

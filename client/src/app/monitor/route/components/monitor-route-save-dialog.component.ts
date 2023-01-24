@@ -126,7 +126,7 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<MonitorRouteSaveDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public parameters: MonitorRouteParameters,
     private monitorService: MonitorService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

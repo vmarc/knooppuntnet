@@ -15,7 +15,7 @@ import { AnalysisStrategy } from '../../core/preferences/preferences.state';
   `,
 })
 export class AnalysisSidebarComponent {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onStrategyChange(strategy: AnalysisStrategy) {
     this.store.dispatch(actionPreferencesAnalysisStrategy({ strategy }));

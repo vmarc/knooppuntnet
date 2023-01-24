@@ -58,7 +58,7 @@ export class MonitorRouteMapComponent
     private i18nService: I18nService,
     private pageService: PageService,
     private mapService: MonitorRouteMapService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

@@ -60,7 +60,7 @@ export class PlannerLayerService {
     private plannerService: PlannerService,
     private mapService: MapService,
     private mapZoomService: MapZoomService,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.layerSwitcherMapLayers$ = this._layerSwitcherMapLayers$.asObservable();
 

@@ -227,7 +227,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   constructor(
     private monitorService: MonitorService,
-    private store: Store<AppState>,
+    private store: Store,
     private dialog: MatDialog,
     private router: Router
   ) {}

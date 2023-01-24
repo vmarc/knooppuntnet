@@ -43,7 +43,7 @@ import { Facts } from '../../fact/facts';
 export class NetworkFactHeaderComponent {
   @Input() fact: NetworkFact;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   factLevel(): FactLevel {
     return Facts.factLevels.get(this.fact.name);

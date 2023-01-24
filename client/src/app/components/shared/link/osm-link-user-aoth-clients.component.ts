@@ -22,7 +22,7 @@ import { selectUserUser } from '../../../core/user/user.selectors';
 export class OsmLinkUserAothClientsComponent {
   readonly user$ = this.store.select(selectUserUser);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   link(user: string): string {
     return `https://www.openstreetmap.org/user/${user}/oauth_clients`;

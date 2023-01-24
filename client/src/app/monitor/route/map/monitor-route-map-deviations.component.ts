@@ -173,7 +173,7 @@ export class MonitorRouteMapDeviationsComponent {
 
   readonly longDistance = '> 2.5 km';
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   selectionChanged(event: MatSelectionListChange): void {
     let deviation: MonitorRouteDeviation = null;

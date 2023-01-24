@@ -18,5 +18,5 @@ import { selectUserUser } from '../../../core/user/user.selectors';
 export class OsmLinkUserComponent {
   readonly user$ = this.store.select(selectUserUser);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 }

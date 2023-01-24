@@ -32,7 +32,7 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
 export class SubsetMapPageComponent implements OnInit {
   readonly response$ = this.store.select(selectSubsetMapPage);
 
-  constructor(private store: Store<AppState>, private dialog: MatDialog) {}
+  constructor(private store: Store, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetMapPageInit());

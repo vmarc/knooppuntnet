@@ -57,7 +57,7 @@ export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private monitorService: MonitorService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

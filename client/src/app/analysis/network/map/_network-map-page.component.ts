@@ -43,7 +43,7 @@ export class NetworkMapPageComponent implements OnInit {
     selectNetworkMapPositionFromUrl
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkMapPageInit());

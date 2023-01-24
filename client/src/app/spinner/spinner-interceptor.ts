@@ -19,7 +19,7 @@ import { SpinnerService } from './spinner.service';
 export class SpinnerInterceptor implements HttpInterceptor {
   constructor(
     private spinnerService: SpinnerService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   intercept(

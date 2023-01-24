@@ -28,7 +28,7 @@ import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 export class MonitorRouteMapPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteMapPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteMapPageInit());

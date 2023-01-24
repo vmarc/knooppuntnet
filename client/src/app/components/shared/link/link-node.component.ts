@@ -17,7 +17,7 @@ export class LinkNodeComponent {
   @Input() nodeId: number;
   @Input() nodeName: string;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onClick(): void {
     this.store.dispatch(

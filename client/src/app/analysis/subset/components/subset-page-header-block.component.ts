@@ -61,7 +61,7 @@ export class SubsetPageHeaderBlockComponent {
   );
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private i18nService: I18nService
   ) {}
 }

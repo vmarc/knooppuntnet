@@ -30,7 +30,7 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
 export class LocationRoutesPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectLocationRoutesPage);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationRoutesPageInit());

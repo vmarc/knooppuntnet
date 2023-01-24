@@ -20,7 +20,7 @@ export class LinkRouteComponent {
   @Input() title: string;
   @Input() networkType: NetworkType;
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onClick(): void {
     this.store.dispatch(

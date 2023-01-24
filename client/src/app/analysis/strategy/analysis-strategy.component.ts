@@ -49,7 +49,7 @@ export class AnalysisStrategyComponent {
 
   readonly strategy$ = this.store.select(selectPreferencesAnalysisStrategy);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   onStrategyChange(event: MatRadioChange) {
     this.strategyChange.emit(event.value);

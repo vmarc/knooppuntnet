@@ -44,7 +44,7 @@ export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {
     map((groupName) => `/monitor/groups/${groupName}`)
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteAddPageInit());

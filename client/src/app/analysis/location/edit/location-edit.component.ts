@@ -79,7 +79,7 @@ export class LocationEditComponent implements OnInit {
 
   private readonly configuration = new EditConfiguration();
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.updateExpectation();

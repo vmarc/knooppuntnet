@@ -60,7 +60,7 @@ export class SubsetNetworksPageComponent implements OnInit {
   readonly response$ = this.store.select(selectSubsetNetworksPage);
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private pageWidthService: PageWidthService
   ) {
     this.large$ = pageWidthService.current$.pipe(

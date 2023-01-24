@@ -50,7 +50,7 @@ export class MonitorRouteChangesPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteChangesPage);
   readonly impact$ = this.store.select(selectPreferencesImpact);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteChangesPageInit());

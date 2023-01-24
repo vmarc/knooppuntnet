@@ -88,7 +88,7 @@ export class ChangesEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store<AppState>,
+    private store: Store,
     private router: Router,
     private route: ActivatedRoute,
     private appService: AppService

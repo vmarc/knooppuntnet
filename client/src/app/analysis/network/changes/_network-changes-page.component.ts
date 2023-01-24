@@ -74,7 +74,7 @@ export class NetworkChangesPageComponent implements OnInit {
   readonly pageIndex$ = this.store.select(selectNetworkChangesPageIndex);
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkChangesPageInit());

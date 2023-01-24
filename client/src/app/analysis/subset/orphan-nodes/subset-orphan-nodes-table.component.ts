@@ -127,7 +127,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanNodesService: SubsetOrphanNodesService,
-    private store: Store<AppState>
+    private store: Store
   ) {}
 
   ngOnInit(): void {

@@ -148,7 +148,7 @@ export class NodeEffects {
 
   constructor(
     private actions$: Actions,
-    private store: Store<AppState>,
+    private store: Store,
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute

@@ -8,7 +8,7 @@ import { AnalysisStrategy } from '../../core/preferences/preferences.state';
 
 @Injectable()
 export class AnalysisStrategyService {
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   link(networkType: string, country: string): Observable<string> {
     return this.store

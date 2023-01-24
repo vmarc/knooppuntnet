@@ -47,7 +47,7 @@ import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
 export class ErrorComponent {
   readonly httpError$ = this.store.select(selectSharedHttpError);
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   isRecoverableServerError(httpError: string): boolean {
     return (

@@ -66,7 +66,7 @@ export class MonitorGroupDeletePageComponent implements OnInit, OnDestroy {
     map((response) => response.result.routes.length)
   );
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupDeleteInit());

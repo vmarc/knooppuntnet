@@ -188,7 +188,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkRoutesService: NetworkRoutesService,
-    private store: Store<AppState>
+    private store: Store
   ) {
     this.displayedColumns$ = pageWidthService.current$.pipe(
       map(() => this.displayedColumns())

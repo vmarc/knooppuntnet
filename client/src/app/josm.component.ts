@@ -115,7 +115,7 @@ export class JosmComponent {
   url = `${this.url1}272946${this.url2}`;
 
   constructor(
-    private store: Store<AppState>,
+    private store: Store,
     private deviceService: DeviceDetectorService
   ) {
     this.browser = deviceService.browser;
