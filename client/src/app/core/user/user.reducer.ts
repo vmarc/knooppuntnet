@@ -9,31 +9,44 @@ import { actionUserReceived } from './user.actions';
 import { actionUserLoginReturnUrlRegistered } from './user.actions';
 import { initialUserState } from './user.state';
 
-export const userReducer = createReducer(
+export const userReducer = createReducer<UserState>(
   initialUserState,
-  on(actionUserInit, (state, { user }) => ({
-    ...state,
-    user,
-  })),
+  on(
+    actionUserInit,
+    (state, { user }): UserState => ({
+      ...state,
+      user,
+    })
+  ),
   on(
     actionUserLoginReturnUrlRegistered,
     actionUserLogoutReturnUrlRegistered,
-    (state, { returnUrl }) => ({
+    (state, { returnUrl }): UserState => ({
       ...state,
       returnUrl,
     })
   ),
-  on(actionUserLoginCompleted, actionUserLogoutCompleted, (state) => ({
-    ...state,
-    returnUrl: null,
-  })),
-  on(actionUserReceived, (state, { user, returnUrl }) => ({
-    ...state,
-    user,
-    returnUrl,
-  })),
-  on(actionUserLoggedOut, (state) => ({
-    ...state,
-    user: null,
-  }))
+  on(
+    actionUserLoginCompleted,
+    actionUserLogoutCompleted,
+    (state): UserState => ({
+      ...state,
+      returnUrl: null,
+    })
+  ),
+  on(
+    actionUserReceived,
+    (state, { user, returnUrl }): UserState => ({
+      ...state,
+      user,
+      returnUrl,
+    })
+  ),
+  on(
+    actionUserLoggedOut,
+    (state): UserState => ({
+      ...state,
+      user: null,
+    })
+  )
 );

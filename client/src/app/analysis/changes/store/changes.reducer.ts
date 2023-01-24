@@ -12,9 +12,9 @@ import { actionChangesPageIndex } from './changes.actions';
 import { actionChangesPageInit } from './changes.actions';
 import { initialState } from './changes.state';
 
-export const changesReducer = createReducer(
+export const changesReducer = createReducer<ChangesState>(
   initialState,
-  on(routerNavigationAction, (state, action) => {
+  on(routerNavigationAction, (state, action): ChangesState => {
     const util = new RoutingUtil(action);
 
     if (util.isChangesPage()) {
@@ -40,58 +40,82 @@ export const changesReducer = createReducer(
       };
     }
   }),
-  on(actionChangesImpact, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      impact: action.impact,
+  on(
+    actionChangesImpact,
+    (state, action): ChangesState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        impact: action.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionChangesPageSize,
+    (state, action): ChangesState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageSize: action.pageSize,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionChangesPageIndex,
+    (state, action): ChangesState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: action.pageIndex,
+      },
+    })
+  ),
+  on(
+    actionChangesFilterOption,
+    (state, action): ChangesState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        year: action.option.year,
+        month: action.option.month,
+        day: action.option.day,
+        impact: action.option.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionPreferencesAnalysisStrategy,
+    (state, action): ChangesState => ({
+      ...state,
+      strategy: action.strategy,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionChangesPageInit,
+    (state): ChangesState => ({
+      ...state,
       pageIndex: 0,
-    },
-  })),
-  on(actionChangesPageSize, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageSize: action.pageSize,
-      pageIndex: 0,
-    },
-  })),
-  on(actionChangesPageIndex, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: action.pageIndex,
-    },
-  })),
-  on(actionChangesFilterOption, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      year: action.option.year,
-      month: action.option.month,
-      day: action.option.day,
-      impact: action.option.impact,
-      pageIndex: 0,
-    },
-  })),
-  on(actionPreferencesAnalysisStrategy, (state, action) => ({
-    ...state,
-    strategy: action.strategy,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: 0,
-    },
-  })),
-  on(actionChangesPageInit, (state) => ({
-    ...state,
-    pageIndex: 0,
-  })),
-  on(actionChangesPageIndex, (state, { pageIndex }) => ({
-    ...state,
-    pageIndex,
-  })),
-  on(actionChangesPageLoaded, (state, response) => ({
-    ...state,
-    changesPage: response,
-  }))
+    })
+  ),
+  on(
+    actionChangesPageIndex,
+    (state, { pageIndex }): ChangesState => ({
+      ...state,
+      pageIndex,
+    })
+  ),
+  on(
+    actionChangesPageLoaded,
+    (state, response): ChangesState => ({
+      ...state,
+      changesPage: response,
+    })
+  )
 );

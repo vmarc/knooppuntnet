@@ -14,31 +14,37 @@ import { actionRouteDetailsPageLoaded } from './route.actions';
 import { actionRouteLink } from './route.actions';
 import { initialState } from './route.state';
 
-export const routeReducer = createReducer(
+export const routeReducer = createReducer<RouteState>(
   initialState,
-  on(routerNavigationAction, (state) => ({
-    ...state,
-    detailsPage: null,
-    mapPage: null,
-    mapPositionFromUrl: null,
-    changesPage: null,
-  })),
+  on(
+    routerNavigationAction,
+    (state): RouteState => ({
+      ...state,
+      detailsPage: null,
+      mapPage: null,
+      mapPositionFromUrl: null,
+      changesPage: null,
+    })
+  ),
   on(
     actionRouteDetailsPageLoad,
     actionRouteMapPageLoad,
-    (state, { routeId }) => ({
+    (state, { routeId }): RouteState => ({
       ...state,
       routeId,
     })
   ),
-  on(actionRouteLink, (state, { routeId, routeName, networkType }) => ({
-    ...state,
-    routeId,
-    routeName,
-    networkType,
-    changeCount: 0,
-  })),
-  on(actionRouteDetailsPageLoaded, (state, response) => {
+  on(
+    actionRouteLink,
+    (state, { routeId, routeName, networkType }): RouteState => ({
+      ...state,
+      routeId,
+      routeName,
+      networkType,
+      changeCount: 0,
+    })
+  ),
+  on(actionRouteDetailsPageLoaded, (state, response): RouteState => {
     const routeId =
       response.result?.route.summary.id.toString() ?? state.routeId;
     const routeName = response.result?.route.summary.name ?? state.routeName;
@@ -54,30 +60,36 @@ export const routeReducer = createReducer(
       detailsPage: response,
     };
   }),
-  on(actionRouteMapPageLoaded, (state, { response, mapPositionFromUrl }) => {
-    const routeId =
-      response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
-    const routeName =
-      response.result?.routeMapInfo.routeName ?? state.routeName;
-    const networkType =
-      response.result?.routeMapInfo.networkType ?? state.networkType;
-    const changeCount = response.result?.changeCount ?? state.changeCount;
-    return {
+  on(
+    actionRouteMapPageLoaded,
+    (state, { response, mapPositionFromUrl }): RouteState => {
+      const routeId =
+        response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
+      const routeName =
+        response.result?.routeMapInfo.routeName ?? state.routeName;
+      const networkType =
+        response.result?.routeMapInfo.networkType ?? state.networkType;
+      const changeCount = response.result?.changeCount ?? state.changeCount;
+      return {
+        ...state,
+        routeId,
+        routeName,
+        networkType,
+        changeCount,
+        mapPage: response,
+        mapPositionFromUrl,
+      };
+    }
+  ),
+  on(
+    actionRouteChangesPageLoad,
+    (state, { routeId, changesParameters }): RouteState => ({
       ...state,
       routeId,
-      routeName,
-      networkType,
-      changeCount,
-      mapPage: response,
-      mapPositionFromUrl,
-    };
-  }),
-  on(actionRouteChangesPageLoad, (state, { routeId, changesParameters }) => ({
-    ...state,
-    routeId,
-    changesParameters,
-  })),
-  on(actionRouteChangesPageLoaded, (state, response) => {
+      changesParameters,
+    })
+  ),
+  on(actionRouteChangesPageLoaded, (state, response): RouteState => {
     const routeId =
       response.result?.routeNameInfo.routeId.toString() ?? state.routeId;
     const routeName =
@@ -94,23 +106,29 @@ export const routeReducer = createReducer(
       changesPage: response,
     };
   }),
-  on(actionRouteChangesPageImpact, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      impact: action.impact,
-      pageIndex: 0,
-    },
-  })),
-  on(actionRouteChangesPageSize, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageSize: action.pageSize,
-      pageIndex: 0,
-    },
-  })),
-  on(actionRouteChangesPageIndex, (state, action) => {
+  on(
+    actionRouteChangesPageImpact,
+    (state, action): RouteState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        impact: action.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionRouteChangesPageSize,
+    (state, action): RouteState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageSize: action.pageSize,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(actionRouteChangesPageIndex, (state, action): RouteState => {
     return {
       ...state,
       changesParameters: {
@@ -119,15 +137,18 @@ export const routeReducer = createReducer(
       },
     };
   }),
-  on(actionRouteChangesFilterOption, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      year: action.option.year,
-      month: action.option.month,
-      day: action.option.day,
-      impact: action.option.impact,
-      pageIndex: 0,
-    },
-  }))
+  on(
+    actionRouteChangesFilterOption,
+    (state, action): RouteState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        year: action.option.year,
+        month: action.option.month,
+        day: action.option.day,
+        impact: action.option.impact,
+        pageIndex: 0,
+      },
+    })
+  )
 );

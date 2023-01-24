@@ -58,115 +58,174 @@ import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
 import { MonitorRouteSaveState } from './monitor.state';
 import { initialState } from './monitor.state';
 
-export const monitorReducer = createReducer(
+export const monitorReducer = createReducer<MonitorState>(
   initialState,
-  on(actionMonitorAdmin, (state, { admin }) => ({
-    ...state,
-    admin,
-  })),
-  on(actionMonitorRouteMapPageDestroy, (state) => ({
-    ...state,
-    routeMapPage: undefined,
-    mapMode: undefined,
-    mapReferenceVisible: undefined,
-    mapMatchesVisible: undefined,
-    mapDeviationsVisible: undefined,
-    mapOsmRelationVisible: undefined,
-    mapPosition: undefined,
-    mapPages: undefined,
-    routeMapSelectedDeviation: undefined,
-    routeMapSelectedOsmSegment: undefined,
-  })),
-  on(actionMonitorChangesPageInit, (state) => ({
-    ...state,
-    changesPageIndex: 0,
-  })),
-  on(actionMonitorChangesPageDestroy, (state) => ({
-    ...state,
-    changesPage: undefined,
-    changesPageIndex: undefined,
-  })),
-  on(actionMonitorChangesPageLoaded, (state, response) => ({
-    ...state,
-    changesPage: response,
-  })),
-  on(actionMonitorChangesPageIndex, (state, action) => ({
-    ...state,
-    changesPageIndex: action.pageIndex,
-  })),
-  on(actionMonitorGroupsPageLoaded, (state, response) => ({
-    ...state,
-    adminRole: response?.result?.adminRole === true,
-    groupsPage: response,
-  })),
-  on(actionMonitorGroupsPageDestroy, (state) => ({
-    ...state,
-    groupsPage: undefined,
-  })),
-
-  on(actionMonitorGroupPageLoaded, (state, response) => ({
-    ...state,
-    adminRole: response?.result?.adminRole === true,
-    groupName: response?.result?.groupName ?? state.groupName,
-    groupDescription:
-      response?.result?.groupDescription ?? state.groupDescription,
-    groupPage: response,
-  })),
-  on(actionMonitorGroupPageDestroy, (state) => ({
-    ...state,
-    groupName: undefined,
-    groupDescription: undefined,
-    groupPage: undefined,
-  })),
-  on(actionMonitorGroupChangesPageInit, (state) => ({
-    ...state,
-    groupChangesPageIndex: 0,
-  })),
-  on(actionMonitorGroupChangesPageLoaded, (state, response) => ({
-    ...state,
-    groupName: response?.result?.groupName ?? state.groupName,
-    groupDescription:
-      response?.result?.groupDescription ?? state.groupDescription,
-    groupChangesPage: response,
-  })),
-  on(actionMonitorGroupChangesPageDestroy, (state) => ({
-    ...state,
-    groupName: undefined,
-    groupDescription: undefined,
-    groupChangesPage: undefined,
-  })),
-  on(actionMonitorGroupChangesPageIndex, (state, action) => ({
-    ...state,
-    groupChangesPageIndex: action.pageIndex,
-  })),
-  on(actionMonitorNavigateGroup, (state, { groupName, groupDescription }) => ({
-    ...state,
-    groupName,
-    groupDescription,
-  })),
-  on(actionMonitorGroupDeleteLoaded, (state, response) => ({
-    ...state,
-    adminRole: response?.result?.adminRole === true,
-    groupPage: response,
-  })),
-  on(actionMonitorGroupDeleteDestroy, (state) => ({
-    ...state,
-    groupPage: undefined,
-  })),
-  on(actionMonitorGroupUpdateLoaded, (state, response) => ({
-    ...state,
-    adminRole: response?.result?.adminRole === true,
-    groupPage: response,
-  })),
-  on(actionMonitorGroupUpdateDestroy, (state) => ({
-    ...state,
-    groupPage: undefined,
-  })),
-  on(actionMonitorRouteAddPageLoad, (state, { groupName }) => ({
-    ...state,
-    groupName,
-  })),
-  on(actionMonitorRouteAddPageLoaded, (state, response) => {
+  on(
+    actionMonitorAdmin,
+    (state, { admin }): MonitorState => ({
+      ...state,
+      admin,
+    })
+  ),
+  on(
+    actionMonitorRouteMapPageDestroy,
+    (state): MonitorState => ({
+      ...state,
+      routeMapPage: undefined,
+      mapMode: undefined,
+      mapReferenceVisible: undefined,
+      mapMatchesVisible: undefined,
+      mapDeviationsVisible: undefined,
+      mapOsmRelationVisible: undefined,
+      mapPosition: undefined,
+      mapPages: undefined,
+      routeMapSelectedDeviation: undefined,
+      routeMapSelectedOsmSegment: undefined,
+    })
+  ),
+  on(
+    actionMonitorChangesPageInit,
+    (state): MonitorState => ({
+      ...state,
+      changesPageIndex: 0,
+    })
+  ),
+  on(
+    actionMonitorChangesPageDestroy,
+    (state): MonitorState => ({
+      ...state,
+      changesPage: undefined,
+      changesPageIndex: undefined,
+    })
+  ),
+  on(
+    actionMonitorChangesPageLoaded,
+    (state, response): MonitorState => ({
+      ...state,
+      changesPage: response,
+    })
+  ),
+  on(
+    actionMonitorChangesPageIndex,
+    (state, action): MonitorState => ({
+      ...state,
+      changesPageIndex: action.pageIndex,
+    })
+  ),
+  on(
+    actionMonitorGroupsPageLoaded,
+    (state, response): MonitorState => ({
+      ...state,
+      adminRole: response?.result?.adminRole === true,
+      groupsPage: response,
+    })
+  ),
+  on(
+    actionMonitorGroupsPageDestroy,
+    (state): MonitorState => ({
+      ...state,
+      groupsPage: undefined,
+    })
+  ),
+  on(
+    actionMonitorGroupPageLoaded,
+    (state, response): MonitorState => ({
+      ...state,
+      adminRole: response?.result?.adminRole === true,
+      groupName: response?.result?.groupName ?? state.groupName,
+      groupDescription:
+        response?.result?.groupDescription ?? state.groupDescription,
+      groupPage: response,
+    })
+  ),
+  on(
+    actionMonitorGroupPageDestroy,
+    (state): MonitorState => ({
+      ...state,
+      groupName: undefined,
+      groupDescription: undefined,
+      groupPage: undefined,
+    })
+  ),
+  on(
+    actionMonitorGroupChangesPageInit,
+    (state): MonitorState => ({
+      ...state,
+      groupChangesPageIndex: 0,
+    })
+  ),
+  on(
+    actionMonitorGroupChangesPageLoaded,
+    (state, response): MonitorState => ({
+      ...state,
+      groupName: response?.result?.groupName ?? state.groupName,
+      groupDescription:
+        response?.result?.groupDescription ?? state.groupDescription,
+      groupChangesPage: response,
+    })
+  ),
+  on(
+    actionMonitorGroupChangesPageDestroy,
+    (state): MonitorState => ({
+      ...state,
+      groupName: undefined,
+      groupDescription: undefined,
+      groupChangesPage: undefined,
+    })
+  ),
+  on(
+    actionMonitorGroupChangesPageIndex,
+    (state, action): MonitorState => ({
+      ...state,
+      groupChangesPageIndex: action.pageIndex,
+    })
+  ),
+  on(
+    actionMonitorNavigateGroup,
+    (state, { groupName, groupDescription }): MonitorState => ({
+      ...state,
+      groupName,
+      groupDescription,
+    })
+  ),
+  on(
+    actionMonitorGroupDeleteLoaded,
+    (state, response): MonitorState => ({
+      ...state,
+      adminRole: response?.result?.adminRole === true,
+      groupPage: response,
+    })
+  ),
+  on(
+    actionMonitorGroupDeleteDestroy,
+    (state): MonitorState => ({
+      ...state,
+      groupPage: undefined,
+    })
+  ),
+  on(
+    actionMonitorGroupUpdateLoaded,
+    (state, response): MonitorState => ({
+      ...state,
+      adminRole: response?.result?.adminRole === true,
+      groupPage: response,
+    })
+  ),
+  on(
+    actionMonitorGroupUpdateDestroy,
+    (state): MonitorState => ({
+      ...state,
+      groupPage: undefined,
+    })
+  ),
+  on(
+    actionMonitorRouteAddPageLoad,
+    (state, { groupName }): MonitorState => ({
+      ...state,
+      groupName,
+    })
+  ),
+  on(actionMonitorRouteAddPageLoaded, (state, response): MonitorState => {
     const groupName = response.result
       ? response.result.groupName
       : state.groupName;
@@ -180,7 +239,7 @@ export const monitorReducer = createReducer(
       routeAddPage: response,
     };
   }),
-  on(actionMonitorRouteAddPageDestroy, (state) => {
+  on(actionMonitorRouteAddPageDestroy, (state): MonitorState => {
     return {
       ...state,
       groupName: undefined,
@@ -188,7 +247,7 @@ export const monitorReducer = createReducer(
       routeAddPage: undefined,
     };
   }),
-  on(actionMonitorRouteUpdatePageLoaded, (state, response) => {
+  on(actionMonitorRouteUpdatePageLoaded, (state, response): MonitorState => {
     const result = response.result;
     const groupName = result?.groupName ?? state.groupName;
     const groupDescription = result?.groupDescription ?? state.groupDescription;
@@ -203,7 +262,7 @@ export const monitorReducer = createReducer(
       routeUpdatePage: response,
     };
   }),
-  on(actionMonitorRouteUpdatePageDestroy, (state) => {
+  on(actionMonitorRouteUpdatePageDestroy, (state): MonitorState => {
     return {
       ...state,
       groupName: undefined,
@@ -213,19 +272,19 @@ export const monitorReducer = createReducer(
       routeUpdatePage: undefined,
     };
   }),
-  on(actionMonitorRouteInfoLoaded, (state, response) => {
+  on(actionMonitorRouteInfoLoaded, (state, response): MonitorState => {
     return {
       ...state,
       routeInfoPage: response,
     };
   }),
-  on(actionMonitorRouteAdminRelationIdChanged, (state) => {
+  on(actionMonitorRouteAdminRelationIdChanged, (state): MonitorState => {
     return {
       ...state,
       routeInfoPage: null,
     };
   }),
-  on(actionMonitorRouteSaveInit, (state, parameters) => {
+  on(actionMonitorRouteSaveInit, (state, parameters): MonitorState => {
     let routeSaveState: MonitorRouteSaveState;
     if (parameters.mode === 'add') {
       const gpx = parameters.properties.referenceType === 'gpx';
@@ -253,13 +312,13 @@ export const monitorReducer = createReducer(
       routeSaveState,
     };
   }),
-  on(actionMonitorRouteSaveDestroy, (state) => {
+  on(actionMonitorRouteSaveDestroy, (state): MonitorState => {
     return {
       ...state,
       routeSaveState: undefined,
     };
   }),
-  on(actionMonitorRouteUploadInit, (state) => {
+  on(actionMonitorRouteUploadInit, (state): MonitorState => {
     return {
       ...state,
       routeSaveState: {
@@ -269,7 +328,7 @@ export const monitorReducer = createReducer(
       },
     };
   }),
-  on(actionMonitorRouteUploaded, (state) => {
+  on(actionMonitorRouteUploaded, (state): MonitorState => {
     return {
       ...state,
       routeSaveState: {
@@ -279,7 +338,7 @@ export const monitorReducer = createReducer(
       },
     };
   }),
-  on(actionMonitorRouteAnalyzed, (state) => {
+  on(actionMonitorRouteAnalyzed, (state): MonitorState => {
     return {
       ...state,
       routeSaveState: {
@@ -289,7 +348,7 @@ export const monitorReducer = createReducer(
       },
     };
   }),
-  on(actionMonitorRouteSaved, (state, response) => {
+  on(actionMonitorRouteSaved, (state, response): MonitorState => {
     return {
       ...state,
       routeSaveState: {
@@ -300,14 +359,17 @@ export const monitorReducer = createReducer(
       },
     };
   }),
-  on(actionMonitorRouteDetailsPageLoad, (state, { groupName, routeName }) => {
-    return {
-      ...state,
-      routeName,
-      groupName,
-    };
-  }),
-  on(actionMonitorRouteDetailsPageLoaded, (state, response) => {
+  on(
+    actionMonitorRouteDetailsPageLoad,
+    (state, { groupName, routeName }): MonitorState => {
+      return {
+        ...state,
+        routeName,
+        groupName,
+      };
+    }
+  ),
+  on(actionMonitorRouteDetailsPageLoaded, (state, response): MonitorState => {
     const result = response.result;
     const relationId = result?.relationId ?? state.relationId;
     const routeName = result?.routeName ?? state.routeName;
@@ -324,7 +386,7 @@ export const monitorReducer = createReducer(
       routeDetailsPage: response,
     };
   }),
-  on(actionMonitorRouteDetailsPageDestroy, (state) => {
+  on(actionMonitorRouteDetailsPageDestroy, (state): MonitorState => {
     return {
       ...state,
       relationId: undefined,
@@ -335,134 +397,146 @@ export const monitorReducer = createReducer(
       routeDetailsPage: undefined,
     };
   }),
-  on(actionMonitorRouteMapPageLoad, (state, { groupName, routeName }) => {
-    return {
-      ...state,
-      routeName,
-      groupName,
-    };
-  }),
-  on(actionMonitorRouteMapPageLoaded, (state, { response, queryParams }) => {
-    const mapPage = response.result;
-    const relationId = mapPage?.relationId ?? state.relationId;
-    const routeName = mapPage?.routeName ?? state.routeName;
-    const routeDescription =
-      mapPage?.routeDescription ?? state.routeDescription;
-    const groupName = mapPage?.groupName ?? state.groupName;
-    const groupDescription =
-      mapPage?.groupDescription ?? state.groupDescription;
-
-    let mapMatchesVisible =
-      !!mapPage?.matchesGeoJson && (mapPage?.osmSegments?.length ?? 0) > 0;
-    if (mapMatchesVisible && queryParams['matches']) {
-      mapMatchesVisible = queryParams['matches'] === 'true';
+  on(
+    actionMonitorRouteMapPageLoad,
+    (state, { groupName, routeName }): MonitorState => {
+      return {
+        ...state,
+        routeName,
+        groupName,
+      };
     }
+  ),
+  on(
+    actionMonitorRouteMapPageLoaded,
+    (state, { response, queryParams }): MonitorState => {
+      const mapPage = response.result;
+      const relationId = mapPage?.relationId ?? state.relationId;
+      const routeName = mapPage?.routeName ?? state.routeName;
+      const routeDescription =
+        mapPage?.routeDescription ?? state.routeDescription;
+      const groupName = mapPage?.groupName ?? state.groupName;
+      const groupDescription =
+        mapPage?.groupDescription ?? state.groupDescription;
 
-    let mapDeviationsVisible = (mapPage?.deviations?.length ?? 0) > 0;
-    if (mapDeviationsVisible && queryParams['deviations']) {
-      mapDeviationsVisible = queryParams['deviations'] === 'true';
-    }
-
-    let mapOsmRelationVisible = (mapPage?.osmSegments?.length ?? 0) > 0;
-    if (mapOsmRelationVisible && queryParams['osm-relation']) {
-      mapOsmRelationVisible = queryParams['osm-relation'] === 'true';
-    }
-
-    const mapOsmRelationAvailable = !!mapPage?.relationId;
-
-    const mapOsmRelationEmpty =
-      (mapPage?.osmSegments?.length ?? 0) == 0 && !!mapPage?.relationId;
-
-    const referenceAvailable = (mapPage?.reference?.geoJson.length ?? 0) > 0;
-    let mapReferenceVisible =
-      referenceAvailable &&
-      !(mapMatchesVisible || mapDeviationsVisible || mapOsmRelationVisible);
-    if (referenceAvailable && queryParams['reference']) {
-      mapReferenceVisible = queryParams['reference'] === 'true';
-    }
-
-    let mapMode = MonitorMapMode.comparison;
-    if (queryParams['mode']) {
-      if (queryParams['mode'] === 'osm-segments') {
-        mapMode = MonitorMapMode.osmSegments;
+      let mapMatchesVisible =
+        !!mapPage?.matchesGeoJson && (mapPage?.osmSegments?.length ?? 0) > 0;
+      if (mapMatchesVisible && queryParams['matches']) {
+        mapMatchesVisible = queryParams['matches'] === 'true';
       }
-    }
 
-    let routeMapSelectedDeviation: MonitorRouteDeviation = null;
-    const selectedDeviation = queryParams['selected-deviation'];
-    console.log('selectedDeviation query param = ' + selectedDeviation);
-
-    if (!isNaN(Number(selectedDeviation))) {
-      const id = +selectedDeviation;
-      const selected = response?.result?.deviations?.find((d) => d.id === id);
-      if (selected) {
-        routeMapSelectedDeviation = selected;
+      let mapDeviationsVisible = (mapPage?.deviations?.length ?? 0) > 0;
+      if (mapDeviationsVisible && queryParams['deviations']) {
+        mapDeviationsVisible = queryParams['deviations'] === 'true';
       }
-    }
 
-    let routeMapSelectedOsmSegment: MonitorRouteSegment = null;
-    const selectedOsmSegmentParam = queryParams['selected-osm-segment'];
-    if (!isNaN(Number(selectedOsmSegmentParam))) {
-      const id = +selectedOsmSegmentParam;
-      const selected = response?.result?.osmSegments?.find(
-        (segment) => segment.id === id
-      );
-      if (selected) {
-        routeMapSelectedOsmSegment = selected;
+      let mapOsmRelationVisible = (mapPage?.osmSegments?.length ?? 0) > 0;
+      if (mapOsmRelationVisible && queryParams['osm-relation']) {
+        mapOsmRelationVisible = queryParams['osm-relation'] === 'true';
       }
-    }
 
-    let mapPages = state.mapPages;
-    if (mapPage.currentSubRelation) {
-      if (!mapPages) {
-        mapPages = new Map<number, MonitorRouteMapPage>();
+      const mapOsmRelationAvailable = !!mapPage?.relationId;
+
+      const mapOsmRelationEmpty =
+        (mapPage?.osmSegments?.length ?? 0) == 0 && !!mapPage?.relationId;
+
+      const referenceAvailable = (mapPage?.reference?.geoJson.length ?? 0) > 0;
+      let mapReferenceVisible =
+        referenceAvailable &&
+        !(mapMatchesVisible || mapDeviationsVisible || mapOsmRelationVisible);
+      if (referenceAvailable && queryParams['reference']) {
+        mapReferenceVisible = queryParams['reference'] === 'true';
       }
-      mapPages = mapPages.set(mapPage.currentSubRelation.relationId, mapPage);
-    }
 
-    return {
-      ...state,
-      relationId,
-      routeName,
-      routeDescription,
-      groupName,
-      groupDescription,
-      mapReferenceVisible,
-      mapMatchesVisible,
-      mapDeviationsVisible,
-      mapOsmRelationVisible,
-      mapOsmRelationAvailable,
-      mapOsmRelationEmpty,
-      mapMode,
-      routeMapSelectedDeviation,
-      routeMapSelectedOsmSegment,
-      mapPages,
-      routeMapPage: response,
-    };
-  }),
-  on(actionMonitorRouteMapPositionChanged, (state, { mapPosition }) => {
-    return {
-      ...state,
-      mapPosition,
-    };
-  }),
-  on(actionMonitorRouteMapSelectDeviation, (state, deviation) => {
+      let mapMode = MonitorMapMode.comparison;
+      if (queryParams['mode']) {
+        if (queryParams['mode'] === 'osm-segments') {
+          mapMode = MonitorMapMode.osmSegments;
+        }
+      }
+
+      let routeMapSelectedDeviation: MonitorRouteDeviation = null;
+      const selectedDeviation = queryParams['selected-deviation'];
+      console.log('selectedDeviation query param = ' + selectedDeviation);
+
+      if (!isNaN(Number(selectedDeviation))) {
+        const id = +selectedDeviation;
+        const selected = response?.result?.deviations?.find((d) => d.id === id);
+        if (selected) {
+          routeMapSelectedDeviation = selected;
+        }
+      }
+
+      let routeMapSelectedOsmSegment: MonitorRouteSegment = null;
+      const selectedOsmSegmentParam = queryParams['selected-osm-segment'];
+      if (!isNaN(Number(selectedOsmSegmentParam))) {
+        const id = +selectedOsmSegmentParam;
+        const selected = response?.result?.osmSegments?.find(
+          (segment) => segment.id === id
+        );
+        if (selected) {
+          routeMapSelectedOsmSegment = selected;
+        }
+      }
+
+      let mapPages = state.mapPages;
+      if (mapPage.currentSubRelation) {
+        if (!mapPages) {
+          mapPages = new Map<number, MonitorRouteMapPage>();
+        }
+        mapPages = mapPages.set(mapPage.currentSubRelation.relationId, mapPage);
+      }
+
+      return {
+        ...state,
+        relationId,
+        routeName,
+        routeDescription,
+        groupName,
+        groupDescription,
+        mapReferenceVisible,
+        mapMatchesVisible,
+        mapDeviationsVisible,
+        mapOsmRelationVisible,
+        mapOsmRelationAvailable,
+        mapOsmRelationEmpty,
+        mapMode,
+        routeMapSelectedDeviation,
+        routeMapSelectedOsmSegment,
+        mapPages,
+        routeMapPage: response,
+      };
+    }
+  ),
+  on(
+    actionMonitorRouteMapPositionChanged,
+    (state, { mapPosition }): MonitorState => {
+      return {
+        ...state,
+        mapPosition,
+      };
+    }
+  ),
+  on(actionMonitorRouteMapSelectDeviation, (state, deviation): MonitorState => {
     return {
       ...state,
       routeMapSelectedDeviation: deviation,
     };
   }),
-  on(actionMonitorRouteMapSelectOsmSegment, (state, segment) => {
+  on(actionMonitorRouteMapSelectOsmSegment, (state, segment): MonitorState => {
     return {
       ...state,
       routeMapSelectedOsmSegment: segment,
     };
   }),
-  on(actionMonitorRouteChangesPageInit, (state) => ({
-    ...state,
-    routeChangesPageIndex: 0,
-  })),
-  on(actionMonitorRouteChangesPageLoaded, (state, response) => {
+  on(
+    actionMonitorRouteChangesPageInit,
+    (state): MonitorState => ({
+      ...state,
+      routeChangesPageIndex: 0,
+    })
+  ),
+  on(actionMonitorRouteChangesPageLoaded, (state, response): MonitorState => {
     const result = response.result;
     const routeName = result?.routeName ?? state.routeName;
     const groupName = result?.groupName ?? state.groupName;
@@ -475,7 +549,7 @@ export const monitorReducer = createReducer(
       routeChangesPage: response,
     };
   }),
-  on(actionMonitorRouteChangesPageDestroy, (state, response) => {
+  on(actionMonitorRouteChangesPageDestroy, (state, response): MonitorState => {
     return {
       ...state,
       routeId: undefined,
@@ -485,11 +559,14 @@ export const monitorReducer = createReducer(
       routeChangesPage: undefined,
     };
   }),
-  on(actionMonitorRouteChangesPageIndex, (state, action) => ({
-    ...state,
-    routeChangesPageIndex: action.pageIndex,
-  })),
-  on(actionMonitorRouteChangePageLoaded, (state, response) => {
+  on(
+    actionMonitorRouteChangesPageIndex,
+    (state, action): MonitorState => ({
+      ...state,
+      routeChangesPageIndex: action.pageIndex,
+    })
+  ),
+  on(actionMonitorRouteChangePageLoaded, (state, response): MonitorState => {
     const routeId = 'TODO MON'; // response.result?.key.elementId ?? state.routeId;
     const routeName = 'ROUTE-NAME'; // response.result?.name ?? state.routeName;
     return {
@@ -499,8 +576,7 @@ export const monitorReducer = createReducer(
       routeChangePage: response,
     };
   }),
-
-  on(actionMonitorRouteChangePageDestroy, (state, response) => {
+  on(actionMonitorRouteChangePageDestroy, (state, response): MonitorState => {
     return {
       ...state,
       routeId: undefined,
@@ -508,7 +584,7 @@ export const monitorReducer = createReducer(
       routeChangePage: undefined,
     };
   }),
-  on(actionMonitorRouteMapMode, (state, { mapMode }) => {
+  on(actionMonitorRouteMapMode, (state, { mapMode }): MonitorState => {
     const mapReferenceVisible = false;
     let mapMatchesVisible = false;
     let mapDeviationsVisible = false;
@@ -534,20 +610,32 @@ export const monitorReducer = createReducer(
       routeMapSelectedOsmSegment: null,
     };
   }),
-  on(actionMonitorRouteMapReferenceVisible, (state, { visible }) => ({
-    ...state,
-    mapReferenceVisible: visible,
-  })),
-  on(actionMonitorRouteMapMatchesVisible, (state, { visible }) => ({
-    ...state,
-    mapMatchesVisible: visible,
-  })),
-  on(actionMonitorRouteMapDeviationsVisible, (state, { visible }) => ({
-    ...state,
-    mapDeviationsVisible: visible,
-  })),
-  on(actionMonitorRouteMapOsmRelationVisible, (state, { visible }) => ({
-    ...state,
-    mapOsmRelationVisible: visible,
-  }))
+  on(
+    actionMonitorRouteMapReferenceVisible,
+    (state, { visible }): MonitorState => ({
+      ...state,
+      mapReferenceVisible: visible,
+    })
+  ),
+  on(
+    actionMonitorRouteMapMatchesVisible,
+    (state, { visible }): MonitorState => ({
+      ...state,
+      mapMatchesVisible: visible,
+    })
+  ),
+  on(
+    actionMonitorRouteMapDeviationsVisible,
+    (state, { visible }): MonitorState => ({
+      ...state,
+      mapDeviationsVisible: visible,
+    })
+  ),
+  on(
+    actionMonitorRouteMapOsmRelationVisible,
+    (state, { visible }): MonitorState => ({
+      ...state,
+      mapOsmRelationVisible: visible,
+    })
+  )
 );

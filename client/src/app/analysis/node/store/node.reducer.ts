@@ -14,26 +14,36 @@ import { actionNodeMapPageLoaded } from './node.actions';
 import { actionNodeChangesPageLoaded } from './node.actions';
 import { initialState } from './node.state';
 
-export const nodeReducer = createReducer(
+export const nodeReducer = createReducer<NodeState>(
   initialState,
-  on(routerNavigationAction, (state) => ({
-    ...state,
-    detailsPage: null,
-    mapPage: null,
-    mapPositionFromUrl: null,
-    changesPage: null,
-  })),
-  on(actionNodeDetailsPageLoad, actionNodeMapPageLoad, (state, { nodeId }) => ({
-    ...state,
-    nodeId,
-  })),
-  on(actionNodeLink, (state, { nodeId, nodeName }) => ({
-    ...state,
-    nodeId,
-    nodeName,
-    changeCount: 0,
-  })),
-  on(actionNodeDetailsPageLoaded, (state, response) => {
+  on(
+    routerNavigationAction,
+    (state): NodeState => ({
+      ...state,
+      detailsPage: null,
+      mapPage: null,
+      mapPositionFromUrl: null,
+      changesPage: null,
+    })
+  ),
+  on(
+    actionNodeDetailsPageLoad,
+    actionNodeMapPageLoad,
+    (state, { nodeId }): NodeState => ({
+      ...state,
+      nodeId,
+    })
+  ),
+  on(
+    actionNodeLink,
+    (state, { nodeId, nodeName }): NodeState => ({
+      ...state,
+      nodeId,
+      nodeName,
+      changeCount: 0,
+    })
+  ),
+  on(actionNodeDetailsPageLoaded, (state, response): NodeState => {
     const nodeId = response.result?.nodeInfo.id.toString() ?? state.nodeId;
     const nodeName = response.result?.nodeInfo.name ?? state.nodeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
@@ -45,25 +55,31 @@ export const nodeReducer = createReducer(
       detailsPage: response,
     };
   }),
-  on(actionNodeMapPageLoaded, (state, { response, mapPositionFromUrl }) => {
-    const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
-    const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
-    const changeCount = response.result?.changeCount ?? state.changeCount;
-    return {
+  on(
+    actionNodeMapPageLoaded,
+    (state, { response, mapPositionFromUrl }): NodeState => {
+      const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
+      const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
+      const changeCount = response.result?.changeCount ?? state.changeCount;
+      return {
+        ...state,
+        nodeId,
+        nodeName,
+        changeCount,
+        mapPage: response,
+        mapPositionFromUrl,
+      };
+    }
+  ),
+  on(
+    actionNodeChangesPageLoad,
+    (state, { nodeId, changesParameters }): NodeState => ({
       ...state,
       nodeId,
-      nodeName,
-      changeCount,
-      mapPage: response,
-      mapPositionFromUrl,
-    };
-  }),
-  on(actionNodeChangesPageLoad, (state, { nodeId, changesParameters }) => ({
-    ...state,
-    nodeId,
-    changesParameters,
-  })),
-  on(actionNodeChangesPageLoaded, (state, response) => {
+      changesParameters,
+    })
+  ),
+  on(actionNodeChangesPageLoaded, (state, response): NodeState => {
     const nodeId = response.result?.nodeId.toString() ?? state.nodeId;
     const nodeName = response.result?.nodeName ?? state.nodeName;
     const changeCount = response.result?.changeCount ?? state.changeCount;
@@ -75,38 +91,50 @@ export const nodeReducer = createReducer(
       changesPage: response,
     };
   }),
-  on(actionNodeChangesPageImpact, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      impact: action.impact,
-      pageIndex: 0,
-    },
-  })),
-  on(actionNodeChangesPageSize, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageSize: action.pageSize,
-      pageIndex: 0,
-    },
-  })),
-  on(actionNodeChangesPageIndex, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: action.pageIndex,
-    },
-  })),
-  on(actionNodeChangesFilterOption, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      year: action.option.year,
-      month: action.option.month,
-      day: action.option.day,
-      impact: action.option.impact,
-      pageIndex: 0,
-    },
-  }))
+  on(
+    actionNodeChangesPageImpact,
+    (state, action): NodeState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        impact: action.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionNodeChangesPageSize,
+    (state, action): NodeState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageSize: action.pageSize,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionNodeChangesPageIndex,
+    (state, action): NodeState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: action.pageIndex,
+      },
+    })
+  ),
+  on(
+    actionNodeChangesFilterOption,
+    (state, action): NodeState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        year: action.option.year,
+        month: action.option.month,
+        day: action.option.day,
+        impact: action.option.impact,
+        pageIndex: 0,
+      },
+    })
+  )
 );

@@ -35,9 +35,9 @@ const defaultSummary: NetworkSummary = {
   changeCount: 0,
 };
 
-export const networkReducer = createReducer(
+export const networkReducer = createReducer<NetworkState>(
   initialState,
-  on(routerNavigationAction, (state, action) => {
+  on(routerNavigationAction, (state, action): NetworkState => {
     const util = new RoutingUtil(action);
     let changesPage: ApiResponse<NetworkChangesPage> = null;
     if (util.isNetworkChangesPage()) {
@@ -59,7 +59,7 @@ export const networkReducer = createReducer(
     actionNetworkNodesPageLoad,
     actionNetworkRoutesPageLoad,
     actionNetworkMapPageLoad,
-    (state, { networkId }) => {
+    (state, { networkId }): NetworkState => {
       if (networkId === state.networkId) {
         return state;
       }
@@ -70,101 +70,140 @@ export const networkReducer = createReducer(
       };
     }
   ),
-  on(actionNetworkLink, (state, { networkId, networkName, networkType }) => {
-    const summary: NetworkSummary = {
-      name: networkName,
-      networkType,
-      networkScope: null,
-      factCount: 0,
-      nodeCount: 0,
-      routeCount: 0,
-      changeCount: 0,
-    };
+  on(
+    actionNetworkLink,
+    (state, { networkId, networkName, networkType }): NetworkState => {
+      const summary: NetworkSummary = {
+        name: networkName,
+        networkType,
+        networkScope: null,
+        factCount: 0,
+        nodeCount: 0,
+        routeCount: 0,
+        changeCount: 0,
+      };
 
-    return {
+      return {
+        ...state,
+        networkId,
+        summary,
+      };
+    }
+  ),
+  on(
+    actionNetworkDetailsPageLoaded,
+    (state, response): NetworkState => ({
       ...state,
-      networkId,
-      summary,
-    };
-  }),
-  on(actionNetworkDetailsPageLoaded, (state, response) => ({
-    ...state,
-    summary: response.result?.summary ?? defaultSummary,
-    detailsPage: response,
-  })),
-  on(actionNetworkNodesPageLoaded, (state, response) => ({
-    ...state,
-    summary: response.result?.summary ?? defaultSummary,
-    nodesPage: response,
-  })),
-  on(actionNetworkRoutesPageLoaded, (state, response) => ({
-    ...state,
-    summary: response.result?.summary ?? defaultSummary,
-    routesPage: response,
-  })),
-  on(actionNetworkFactsPageLoaded, (state, response) => ({
-    ...state,
-    summary: response.result?.summary ?? defaultSummary,
-    factsPage: response,
-  })),
-  on(actionNetworkMapPageLoaded, (state, { response, mapPositionFromUrl }) => ({
-    ...state,
-    summary: response.result?.summary ?? defaultSummary,
-    mapPage: response,
-    mapPositionFromUrl,
-  })),
-  on(actionNetworkChangesPageInit, (state) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: 0,
-    },
-  })),
-  on(actionNetworkChangesLoad, (state, { networkId, changesParameters }) => {
-    return {
+      summary: response.result?.summary ?? defaultSummary,
+      detailsPage: response,
+    })
+  ),
+  on(
+    actionNetworkNodesPageLoaded,
+    (state, response): NetworkState => ({
       ...state,
-      networkId,
-      summary: defaultSummary,
-      changesParameters,
-    };
-  }),
-  on(actionNetworkChangesPageLoaded, (state, response) => ({
-    ...state,
-    summary: response.result?.network ?? defaultSummary,
-    changesPage: response,
-  })),
-  on(actionNetworkChangesImpact, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      impact: action.impact,
-      pageIndex: 0,
-    },
-  })),
-  on(actionNetworkChangesPageSize, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageSize: action.pageSize,
-      pageIndex: 0,
-    },
-  })),
-  on(actionNetworkChangesPageIndex, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: action.pageIndex,
-    },
-  })),
-  on(actionNetworkChangesFilterOption, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      year: action.option.year,
-      month: action.option.month,
-      day: action.option.day,
-      impact: action.option.impact,
-      pageIndex: 0,
-    },
-  }))
+      summary: response.result?.summary ?? defaultSummary,
+      nodesPage: response,
+    })
+  ),
+  on(
+    actionNetworkRoutesPageLoaded,
+    (state, response): NetworkState => ({
+      ...state,
+      summary: response.result?.summary ?? defaultSummary,
+      routesPage: response,
+    })
+  ),
+  on(
+    actionNetworkFactsPageLoaded,
+    (state, response): NetworkState => ({
+      ...state,
+      summary: response.result?.summary ?? defaultSummary,
+      factsPage: response,
+    })
+  ),
+  on(
+    actionNetworkMapPageLoaded,
+    (state, { response, mapPositionFromUrl }): NetworkState => ({
+      ...state,
+      summary: response.result?.summary ?? defaultSummary,
+      mapPage: response,
+      mapPositionFromUrl,
+    })
+  ),
+  on(
+    actionNetworkChangesPageInit,
+    (state): NetworkState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionNetworkChangesLoad,
+    (state, { networkId, changesParameters }): NetworkState => {
+      return {
+        ...state,
+        networkId,
+        summary: defaultSummary,
+        changesParameters,
+      };
+    }
+  ),
+  on(
+    actionNetworkChangesPageLoaded,
+    (state, response): NetworkState => ({
+      ...state,
+      summary: response.result?.network ?? defaultSummary,
+      changesPage: response,
+    })
+  ),
+  on(
+    actionNetworkChangesImpact,
+    (state, action): NetworkState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        impact: action.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionNetworkChangesPageSize,
+    (state, action): NetworkState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageSize: action.pageSize,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionNetworkChangesPageIndex,
+    (state, action): NetworkState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: action.pageIndex,
+      },
+    })
+  ),
+  on(
+    actionNetworkChangesFilterOption,
+    (state, action): NetworkState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        year: action.option.year,
+        month: action.option.month,
+        day: action.option.day,
+        impact: action.option.impact,
+        pageIndex: 0,
+      },
+    })
+  )
 );

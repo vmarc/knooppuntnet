@@ -17,29 +17,44 @@ const initialState: DemoState = {
   videoPlayButtonEnabled: false,
 };
 
-export const demoReducer = createReducer(
+export const demoReducer = createReducer<DemoState>(
   initialState,
-  on(actionDemoPause, (state, action) => ({ ...state, ...action })),
-  on(actionDemoStartVideo, (state, { video }) => ({
-    ...state,
-    currentVideo: video,
-  })),
-  on(actionDemoPlayingChanged, (state, { playing }) => ({
-    ...state,
-    playing,
-    videoPlayButtonEnabled: false,
-  })),
-  on(actionDemoEnabledChanged, (state, { enabled }) => ({
-    ...state,
-    enabled,
-  })),
-  on(actionDemoCanPlay, (state, { duration }) => ({
-    ...state,
-    duration,
-    videoPlayButtonEnabled: true,
-  })),
-  on(actionDemoTimeUpdate, (state, { time }) => ({
-    ...state,
-    time,
-  }))
+  on(actionDemoPause, (state, action): DemoState => ({ ...state, ...action })),
+  on(
+    actionDemoStartVideo,
+    (state, { video }): DemoState => ({
+      ...state,
+      currentVideo: video,
+    })
+  ),
+  on(
+    actionDemoPlayingChanged,
+    (state, { playing }): DemoState => ({
+      ...state,
+      playing,
+      videoPlayButtonEnabled: false,
+    })
+  ),
+  on(
+    actionDemoEnabledChanged,
+    (state, { enabled }): DemoState => ({
+      ...state,
+      enabled,
+    })
+  ),
+  on(
+    actionDemoCanPlay,
+    (state, { duration }): DemoState => ({
+      ...state,
+      duration,
+      videoPlayButtonEnabled: true,
+    })
+  ),
+  on(
+    actionDemoTimeUpdate,
+    (state, { time }): DemoState => ({
+      ...state,
+      time,
+    })
+  )
 );

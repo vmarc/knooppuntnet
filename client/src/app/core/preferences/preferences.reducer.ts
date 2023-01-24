@@ -35,9 +35,9 @@ import { actionPreferencesExtraLayers } from './preferences.actions';
 import { AnalysisStrategy } from './preferences.state';
 import { initialState } from './preferences.state';
 
-export const preferencesReducer = createReducer(
+export const preferencesReducer = createReducer<PreferencesState>(
   initialState,
-  on(routerNavigatedAction, (state, action) => {
+  on(routerNavigatedAction, (state, action): PreferencesState => {
     if (action.payload.routerState.url.includes('/analysis/changes')) {
       const queryParams = action.payload.routerState.root.queryParams;
       const pageSize = +queryParams['pageSize'];
@@ -67,27 +67,39 @@ export const preferencesReducer = createReducer(
     actionPreferencesAnalysisStrategy,
     actionChangesAnalysisStrategy,
     actionLocationSelectionPageStrategy,
-    (state, action) => ({
+    (state, action): PreferencesState => ({
       ...state,
       strategy: action.strategy,
     })
   ),
-  on(actionLocationSelectionPageInit, (state) => ({
-    ...state,
-    strategy: AnalysisStrategy.location,
-  })),
-  on(actionPreferencesNetworkType, (state, action) => ({
-    ...state,
-    networkType: action.networkType,
-  })),
-  on(actionPreferencesInstructions, (state, action) => ({
-    ...state,
-    instructions: action.instructions,
-  })),
-  on(actionPreferencesExtraLayers, (state, action) => ({
-    ...state,
-    extraLayers: action.extraLayers,
-  })),
+  on(
+    actionLocationSelectionPageInit,
+    (state): PreferencesState => ({
+      ...state,
+      strategy: AnalysisStrategy.location,
+    })
+  ),
+  on(
+    actionPreferencesNetworkType,
+    (state, action): PreferencesState => ({
+      ...state,
+      networkType: action.networkType,
+    })
+  ),
+  on(
+    actionPreferencesInstructions,
+    (state, action): PreferencesState => ({
+      ...state,
+      instructions: action.instructions,
+    })
+  ),
+  on(
+    actionPreferencesExtraLayers,
+    (state, action): PreferencesState => ({
+      ...state,
+      extraLayers: action.extraLayers,
+    })
+  ),
   on(
     actionPreferencesPageSize,
     actionNetworkChangesPageSize,
@@ -97,40 +109,61 @@ export const preferencesReducer = createReducer(
     actionLocationRoutesPageSize,
     actionNodeChangesPageSize,
     actionRouteChangesPageSize,
-    (state, action) => ({
+    (state, action): PreferencesState => ({
       ...state,
       pageSize: action.pageSize,
     })
   ),
-  on(actionNodeChangesPageLoad, (state, action) => ({
-    ...state,
-    pageSize: action.changesParameters.pageSize,
-  })),
-  on(actionPreferencesImpact, (state, action) => ({
-    ...state,
-    impact: action.impact,
-  })),
-  on(actionPreferencesShowAppearanceOptions, (state, action) => ({
-    ...state,
-    showAppearanceOptions: action.value,
-  })),
-  on(actionPreferencesShowLegend, (state, action) => ({
-    ...state,
-    showLegend: action.value,
-  })),
-  on(actionPreferencesShowOptions, (state, action) => ({
-    ...state,
-    showOptions: action.value,
-  })),
-  on(actionPreferencesShowProposed, (state, action) => ({
-    ...state,
-    showProposed: action.value,
-  })),
-  on(actionPreferencesPlanProposed, (state, action) => ({
-    ...state,
-    planProposed: action.value,
-  })),
-  on(actionRouteDetailsPageLoaded, (state, response) => {
+  on(
+    actionNodeChangesPageLoad,
+    (state, action): PreferencesState => ({
+      ...state,
+      pageSize: action.changesParameters.pageSize,
+    })
+  ),
+  on(
+    actionPreferencesImpact,
+    (state, action): PreferencesState => ({
+      ...state,
+      impact: action.impact,
+    })
+  ),
+  on(
+    actionPreferencesShowAppearanceOptions,
+    (state, action): PreferencesState => ({
+      ...state,
+      showAppearanceOptions: action.value,
+    })
+  ),
+  on(
+    actionPreferencesShowLegend,
+    (state, action): PreferencesState => ({
+      ...state,
+      showLegend: action.value,
+    })
+  ),
+  on(
+    actionPreferencesShowOptions,
+    (state, action): PreferencesState => ({
+      ...state,
+      showOptions: action.value,
+    })
+  ),
+  on(
+    actionPreferencesShowProposed,
+    (state, action): PreferencesState => ({
+      ...state,
+      showProposed: action.value,
+    })
+  ),
+  on(
+    actionPreferencesPlanProposed,
+    (state, action): PreferencesState => ({
+      ...state,
+      planProposed: action.value,
+    })
+  ),
+  on(actionRouteDetailsPageLoaded, (state, response): PreferencesState => {
     const networkType =
       response?.result?.route.summary.networkType ?? state.networkType;
     return {
@@ -138,7 +171,7 @@ export const preferencesReducer = createReducer(
       networkType,
     };
   }),
-  on(actionRouteMapPageLoaded, (state, { response }) => {
+  on(actionRouteMapPageLoaded, (state, { response }): PreferencesState => {
     const networkType =
       response?.result?.routeMapInfo.networkType ?? state.networkType;
     return {
@@ -146,7 +179,7 @@ export const preferencesReducer = createReducer(
       networkType,
     };
   }),
-  on(actionRouteChangesPageLoaded, (state, response) => {
+  on(actionRouteChangesPageLoaded, (state, response): PreferencesState => {
     const networkType =
       response?.result?.routeNameInfo.networkType ?? state.networkType;
     return {
@@ -154,24 +187,39 @@ export const preferencesReducer = createReducer(
       networkType,
     };
   }),
-  on(actionNodeChangesFilterOption, (state, { option }) => ({
-    ...state,
-    impact: option.impact,
-  })),
-  on(actionRouteChangesFilterOption, (state, { option }) => ({
-    ...state,
-    impact: option.impact,
-  })),
-  on(actionNetworkChangesImpact, (state, { impact }) => ({
-    ...state,
-    impact,
-  })),
-  on(actionChangesImpact, (state, { impact }) => ({
-    ...state,
-    impact,
-  })),
-  on(actionSubsetChangesPageImpact, (state, { impact }) => ({
-    ...state,
-    impact,
-  }))
+  on(
+    actionNodeChangesFilterOption,
+    (state, { option }): PreferencesState => ({
+      ...state,
+      impact: option.impact,
+    })
+  ),
+  on(
+    actionRouteChangesFilterOption,
+    (state, { option }): PreferencesState => ({
+      ...state,
+      impact: option.impact,
+    })
+  ),
+  on(
+    actionNetworkChangesImpact,
+    (state, { impact }): PreferencesState => ({
+      ...state,
+      impact,
+    })
+  ),
+  on(
+    actionChangesImpact,
+    (state, { impact }): PreferencesState => ({
+      ...state,
+      impact,
+    })
+  ),
+  on(
+    actionSubsetChangesPageImpact,
+    (state, { impact }): PreferencesState => ({
+      ...state,
+      impact,
+    })
+  )
 );

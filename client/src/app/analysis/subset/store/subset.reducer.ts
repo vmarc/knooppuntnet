@@ -26,7 +26,7 @@ import { actionSubsetMapPageLoaded } from './subset.actions';
 import { actionSubsetChangesPageLoaded } from './subset.actions';
 import { initialState } from './subset.state';
 
-export const subsetReducer = createReducer(
+export const subsetReducer = createReducer<SubsetState>(
   initialState,
   on(
     actionSubsetNetworksPageInit,
@@ -35,7 +35,7 @@ export const subsetReducer = createReducer(
     actionSubsetOrphanRoutesPageInit,
     actionSubsetMapPageInit,
     actionSubsetChangesPageInit,
-    (state) => {
+    (state): SubsetState => {
       return {
         ...state,
         networksPage: null,
@@ -56,88 +56,127 @@ export const subsetReducer = createReducer(
     actionSubsetOrphanNodesPageLoad,
     actionSubsetOrphanRoutesPageLoad,
     actionSubsetMapPageLoad,
-    (state, { subset }) => ({
+    (state, { subset }): SubsetState => ({
       ...state,
       subset,
     })
   ),
-  on(actionSubsetNetworksPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    networksPage: response,
-  })),
-  on(actionSubsetFactsPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    factsPage: response,
-  })),
-  on(actionSubsetFactDetailsPageLoad, (state, { subsetFact }) => ({
-    ...state,
-    subsetFact,
-    subset: subsetFact.subset,
-  })),
-  on(actionSubsetFactDetailsPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    factDetailsPage: response,
-  })),
-  on(actionSubsetOrphanNodesPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    orphanNodesPage: response,
-  })),
-  on(actionSubsetOrphanRoutesPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    orphanRoutesPage: response,
-  })),
-  on(actionSubsetMapPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    mapPage: response,
-  })),
-  on(actionSubsetChangesPageLoad, (state, { subset, changesParameters }) => ({
-    ...state,
-    subset,
-    changesParameters,
-  })),
-  on(actionSubsetChangesPageLoaded, (state, response) => ({
-    ...state,
-    subsetInfo: response.result.subsetInfo,
-    changesPage: response,
-  })),
-  on(actionSubsetChangesFilterOption, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      year: action.option.year,
-      month: action.option.month,
-      day: action.option.day,
-      impact: action.option.impact,
-      pageIndex: 0,
-    },
-  })),
-  on(actionSubsetChangesPageImpact, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      impact: action.impact,
-      pageIndex: 0,
-    },
-  })),
-  on(actionSubsetChangesPageSize, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageSize: action.pageSize,
-      pageIndex: 0,
-    },
-  })),
-  on(actionSubsetChangesPageIndex, (state, action) => ({
-    ...state,
-    changesParameters: {
-      ...state.changesParameters,
-      pageIndex: action.pageIndex,
-    },
-  }))
+  on(
+    actionSubsetNetworksPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      networksPage: response,
+    })
+  ),
+  on(
+    actionSubsetFactsPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      factsPage: response,
+    })
+  ),
+  on(
+    actionSubsetFactDetailsPageLoad,
+    (state, { subsetFact }): SubsetState => ({
+      ...state,
+      subsetFact,
+      subset: subsetFact.subset,
+    })
+  ),
+  on(
+    actionSubsetFactDetailsPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      factDetailsPage: response,
+    })
+  ),
+  on(
+    actionSubsetOrphanNodesPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      orphanNodesPage: response,
+    })
+  ),
+  on(
+    actionSubsetOrphanRoutesPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      orphanRoutesPage: response,
+    })
+  ),
+  on(
+    actionSubsetMapPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      mapPage: response,
+    })
+  ),
+  on(
+    actionSubsetChangesPageLoad,
+    (state, { subset, changesParameters }): SubsetState => ({
+      ...state,
+      subset,
+      changesParameters,
+    })
+  ),
+  on(
+    actionSubsetChangesPageLoaded,
+    (state, response): SubsetState => ({
+      ...state,
+      subsetInfo: response.result.subsetInfo,
+      changesPage: response,
+    })
+  ),
+  on(
+    actionSubsetChangesFilterOption,
+    (state, action): SubsetState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        year: action.option.year,
+        month: action.option.month,
+        day: action.option.day,
+        impact: action.option.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionSubsetChangesPageImpact,
+    (state, action): SubsetState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        impact: action.impact,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionSubsetChangesPageSize,
+    (state, action): SubsetState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageSize: action.pageSize,
+        pageIndex: 0,
+      },
+    })
+  ),
+  on(
+    actionSubsetChangesPageIndex,
+    (state, action): SubsetState => ({
+      ...state,
+      changesParameters: {
+        ...state.changesParameters,
+        pageIndex: action.pageIndex,
+      },
+    })
+  )
 );

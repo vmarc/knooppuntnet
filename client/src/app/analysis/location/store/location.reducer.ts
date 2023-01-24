@@ -29,9 +29,9 @@ import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
 import { initialState } from './location.state';
 
-export const locationReducer = createReducer(
+export const locationReducer = createReducer<LocationState>(
   initialState,
-  on(routerNavigatedAction, (state, action) => {
+  on(routerNavigatedAction, (state, action): LocationState => {
     const params = Util.paramsIn(action.payload.routerState.root);
     const networkType = NetworkTypes.withName(params.get('networkType'));
     const country = Countries.withDomain(params.get('country'));
@@ -46,99 +46,159 @@ export const locationReducer = createReducer(
     }
     return state;
   }),
-  on(actionLocationNodesPageInit, (state) => ({
-    ...state,
-    nodesPageType: LocationNodesType.all,
-    nodesPageIndex: 0,
-  })),
-  on(actionLocationNodesType, (state, { locationNodesType }) => ({
-    ...state,
-    nodesPageType: locationNodesType,
-    nodesPageIndex: 0,
-  })),
-  on(actionLocationNodesPageSize, (state) => ({
-    ...state,
-    nodesPageIndex: 0,
-  })),
-  on(actionLocationNodesPageIndex, (state, { pageIndex }) => ({
-    ...state,
-    nodesPageIndex: pageIndex,
-  })),
-  on(actionLocationNodesPageLoaded, (state, response) => ({
-    ...state,
-    nodesPage: response,
-    locationSummary: response.result?.summary,
-  })),
-  on(actionLocationNodesPageDestroy, (state) => ({
-    ...state,
-    nodesPage: undefined,
-    nodesPageIndex: undefined,
-    nodesPageType: undefined,
-  })),
-  on(actionLocationRoutesPageInit, (state) => ({
-    ...state,
-    routesPageType: LocationRoutesType.all,
-    routesPageIndex: 0,
-  })),
-  on(actionLocationRoutesType, (state, { locationRoutesType }) => ({
-    ...state,
-    routesPageType: locationRoutesType,
-    routesPageIndex: 0,
-  })),
-  on(actionLocationRoutesPageSize, (state) => ({
-    ...state,
-    routesPageIndex: 0,
-  })),
-  on(actionLocationRoutesPageIndex, (state, { pageIndex }) => ({
-    ...state,
-    routesPageIndex: pageIndex,
-  })),
-  on(actionLocationRoutesPageLoaded, (state, response) => ({
-    ...state,
-    routesPage: response,
-    locationSummary: response.result?.summary,
-  })),
-  on(actionLocationRoutesPageDestroy, (state) => ({
-    ...state,
-    routesPage: undefined,
-    routesPageIndex: undefined,
-    routesPageType: undefined,
-  })),
-  on(actionLocationFactsPageLoaded, (state, response) => ({
-    ...state,
-    factsPage: response,
-    locationSummary: response.result?.summary,
-  })),
-  on(actionLocationFactsPageDestroy, (state) => ({
-    ...state,
-    factsPage: undefined,
-  })),
-  on(actionLocationMapPageLoaded, (state, response) => ({
-    ...state,
-    mapPage: response,
-    locationSummary: response.result?.summary,
-  })),
-  on(actionLocationMapPageDestroy, (state) => ({
-    ...state,
-    mapPage: undefined,
-  })),
-  on(actionLocationChangesPageLoaded, (state, response) => ({
-    ...state,
-    changesPage: response,
-    locationSummary: response.result?.summary,
-  })),
-  on(actionLocationChangesPageDestroy, (state) => ({
-    ...state,
-    changesPage: undefined,
-    changesPageIndex: undefined,
-  })),
-  on(actionLocationEditPageLoaded, (state, response) => ({
-    ...state,
-    editPage: response,
-    locationSummary: response.result?.summary,
-  })),
-  on(actionLocationEditPageDestroy, (state) => ({
-    ...state,
-    editPage: undefined,
-  }))
+  on(
+    actionLocationNodesPageInit,
+    (state): LocationState => ({
+      ...state,
+      nodesPageType: LocationNodesType.all,
+      nodesPageIndex: 0,
+    })
+  ),
+  on(
+    actionLocationNodesType,
+    (state, { locationNodesType }): LocationState => ({
+      ...state,
+      nodesPageType: locationNodesType,
+      nodesPageIndex: 0,
+    })
+  ),
+  on(
+    actionLocationNodesPageSize,
+    (state): LocationState => ({
+      ...state,
+      nodesPageIndex: 0,
+    })
+  ),
+  on(
+    actionLocationNodesPageIndex,
+    (state, { pageIndex }): LocationState => ({
+      ...state,
+      nodesPageIndex: pageIndex,
+    })
+  ),
+  on(
+    actionLocationNodesPageLoaded,
+    (state, response): LocationState => ({
+      ...state,
+      nodesPage: response,
+      locationSummary: response.result?.summary,
+    })
+  ),
+  on(
+    actionLocationNodesPageDestroy,
+    (state): LocationState => ({
+      ...state,
+      nodesPage: undefined,
+      nodesPageIndex: undefined,
+      nodesPageType: undefined,
+    })
+  ),
+  on(
+    actionLocationRoutesPageInit,
+    (state): LocationState => ({
+      ...state,
+      routesPageType: LocationRoutesType.all,
+      routesPageIndex: 0,
+    })
+  ),
+  on(
+    actionLocationRoutesType,
+    (state, { locationRoutesType }): LocationState => ({
+      ...state,
+      routesPageType: locationRoutesType,
+      routesPageIndex: 0,
+    })
+  ),
+  on(
+    actionLocationRoutesPageSize,
+    (state): LocationState => ({
+      ...state,
+      routesPageIndex: 0,
+    })
+  ),
+  on(
+    actionLocationRoutesPageIndex,
+    (state, { pageIndex }): LocationState => ({
+      ...state,
+      routesPageIndex: pageIndex,
+    })
+  ),
+  on(
+    actionLocationRoutesPageLoaded,
+    (state, response): LocationState => ({
+      ...state,
+      routesPage: response,
+      locationSummary: response.result?.summary,
+    })
+  ),
+  on(
+    actionLocationRoutesPageDestroy,
+    (state): LocationState => ({
+      ...state,
+      routesPage: undefined,
+      routesPageIndex: undefined,
+      routesPageType: undefined,
+    })
+  ),
+  on(
+    actionLocationFactsPageLoaded,
+    (state, response): LocationState => ({
+      ...state,
+      factsPage: response,
+      locationSummary: response.result?.summary,
+    })
+  ),
+  on(
+    actionLocationFactsPageDestroy,
+    (state): LocationState => ({
+      ...state,
+      factsPage: undefined,
+    })
+  ),
+  on(
+    actionLocationMapPageLoaded,
+    (state, response): LocationState => ({
+      ...state,
+      mapPage: response,
+      locationSummary: response.result?.summary,
+    })
+  ),
+  on(
+    actionLocationMapPageDestroy,
+    (state): LocationState => ({
+      ...state,
+      mapPage: undefined,
+    })
+  ),
+  on(
+    actionLocationChangesPageLoaded,
+    (state, response): LocationState => ({
+      ...state,
+      changesPage: response,
+      locationSummary: response.result?.summary,
+    })
+  ),
+  on(
+    actionLocationChangesPageDestroy,
+    (state): LocationState => ({
+      ...state,
+      changesPage: undefined,
+      changesPageIndex: undefined,
+    })
+  ),
+  on(
+    actionLocationEditPageLoaded,
+    (state, response): LocationState => ({
+      ...state,
+      editPage: response,
+      locationSummary: response.result?.summary,
+    })
+  ),
+  on(
+    actionLocationEditPageDestroy,
+    (state): LocationState => ({
+      ...state,
+      editPage: undefined,
+    })
+  )
 );
