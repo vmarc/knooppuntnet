@@ -93,17 +93,18 @@ import { selectMonitorAdmin } from './monitor.selectors';
 export class MonitorEffects {
   // noinspection JSUnusedGlobalSymbols
   mapFocusEffect = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionMonitorRouteMapFocus),
         tap((bounds) => this.mapService.focus(bounds))
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorGroupsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorGroupsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorGroupsPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParams),
@@ -119,33 +120,33 @@ export class MonitorEffects {
           .groups()
           .pipe(map((response) => actionMonitorGroupsPageLoaded(response)));
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorGroupPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorGroupPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorGroupPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       map(([_, groupName]) => actionMonitorGroupPageLoad({ groupName }))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorGroupPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  monitorGroupPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorGroupPageLoad),
       mergeMap(({ groupName }) =>
         this.monitorService
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupPageLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorGroupChangesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorGroupChangesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionMonitorGroupChangesPageInit,
         actionMonitorGroupChangesPageIndex
@@ -168,12 +169,12 @@ export class MonitorEffects {
             map((response) => actionMonitorGroupChangesPageLoaded(response))
           );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorGroupDeleteInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorGroupDeleteInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorGroupDeleteInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([_, groupName]) =>
@@ -181,12 +182,12 @@ export class MonitorEffects {
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupDeleteLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorGroupUpdateInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorGroupUpdateInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorGroupUpdateInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       mergeMap(([_, groupName]) =>
@@ -194,45 +195,45 @@ export class MonitorEffects {
           .group(groupName)
           .pipe(map((response) => actionMonitorGroupUpdateLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteAddPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteAddPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteAddPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('groupName'))),
       map(([_, groupName]) => actionMonitorRouteAddPageLoad({ groupName }))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteAddPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteAddPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteAddPageLoad),
       mergeMap(({ groupName }) =>
         this.monitorService
           .routeAddPage(groupName)
           .pipe(map((response) => actionMonitorRouteAddPageLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteInfo = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteInfo = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteInfo),
       mergeMap((action) =>
         this.monitorService
           .routeInfo(action.relationId)
           .pipe(map((response) => actionMonitorRouteInfoLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteAdd = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteAdd = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteSaveInit),
       concatLatestFrom(() => this.store.select(selectMonitorGroupName)),
       mergeMap(([parameters, groupName]) => {
@@ -261,12 +262,12 @@ export class MonitorEffects {
             })
           );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteGpxUploadInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteGpxUploadInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteUploadInit),
       concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
       mergeMap(([parameters, groupName]) => {
@@ -280,12 +281,12 @@ export class MonitorEffects {
           )
           .pipe(map(() => actionMonitorRouteUploaded(parameters)));
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteUpdatePage = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteUpdatePage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteUpdatePageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
@@ -296,21 +297,21 @@ export class MonitorEffects {
           .routeUpdatePage(groupName, routeName)
           .pipe(map((response) => actionMonitorRouteUpdatePageLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteGpxUploaded = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteGpxUploaded = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteUploaded),
       concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
       map(([parameters, groupName]) => actionMonitorRouteAnalyzed())
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteDeleteInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteDeleteInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteDeletePageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
@@ -323,13 +324,13 @@ export class MonitorEffects {
             map((response) => actionMonitorRouteDetailsPageLoaded(response))
           )
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
   monitorRouteDelete = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionMonitorRouteDelete),
         concatLatestFrom(() => [
           this.store.select(selectRouteParam('groupName')),
@@ -342,13 +343,14 @@ export class MonitorEffects {
               tap(() => this.router.navigate([`/monitor/groups/${groupName}`]))
             )
         )
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteDetailsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteDetailsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteDetailsPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
@@ -357,12 +359,12 @@ export class MonitorEffects {
       map(([_, groupName, routeName]) =>
         actionMonitorRouteDetailsPageLoad({ groupName, routeName })
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteDetailsPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteDetailsPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteDetailsPageLoad),
       mergeMap(({ groupName, routeName }) =>
         this.monitorService
@@ -371,12 +373,12 @@ export class MonitorEffects {
             map((response) => actionMonitorRouteDetailsPageLoaded(response))
           )
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
@@ -385,11 +387,11 @@ export class MonitorEffects {
       map(([_, groupName, routeName]) =>
         actionMonitorRouteMapPageLoad({ groupName, routeName, relationId: 0 })
       )
-    )
-  );
+    );
+  });
 
-  monitorRouteMapSelectSubRelation = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapSelectSubRelation = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapSelectSubRelation),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
@@ -402,12 +404,12 @@ export class MonitorEffects {
           relationId: monitorRouteSubRelation.relationId,
         })
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapPageLoad),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
@@ -424,30 +426,30 @@ export class MonitorEffects {
           )
         )
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapSelectDeviation = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapSelectDeviation = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapSelectDeviation),
       filter((deviation) => !!deviation),
       map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapSelectOsmSegment = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapSelectOsmSegment = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapSelectOsmSegment),
       filter((deviation) => !!deviation),
       map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmLoadRouteRelation = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapJosmLoadRouteRelation = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapJosmLoadRouteRelation),
       concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
       map(([_, page]) => {
@@ -457,12 +459,12 @@ export class MonitorEffects {
         };
         return actionSharedEdit(editParameters);
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitRoute = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapJosmZoomToFitRoute = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapJosmZoomToFitRoute),
       concatLatestFrom(() => [this.store.select(selectMonitorRouteMapBounds)]),
       map(([_, bounds]) => {
@@ -471,12 +473,12 @@ export class MonitorEffects {
         };
         return actionSharedEdit(editParameters);
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitSelectedDeviation = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapJosmZoomToFitSelectedDeviation = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapJosmZoomToSelectedDeviation),
       concatLatestFrom(() => [
         this.store.select(selectMonitorRouteMapSelectedDeviation),
@@ -488,12 +490,12 @@ export class MonitorEffects {
         };
         return actionSharedEdit(editParameters);
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitSelectedOsmSegment = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteMapJosmZoomToFitSelectedOsmSegment = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteMapJosmZoomToSelectedOsmSegment),
       concatLatestFrom(() => [
         this.store.select(selectMonitorRouteMapSelectedOsmSegment),
@@ -505,12 +507,12 @@ export class MonitorEffects {
         };
         return actionSharedEdit(editParameters);
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteChangesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteChangesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionMonitorRouteChangesPageInit,
         actionMonitorRouteChangesPageIndex
@@ -533,12 +535,12 @@ export class MonitorEffects {
             map((response) => actionMonitorRouteChangesPageLoaded(response))
           );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteChangePageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorRouteChangePageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorRouteChangePageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('monitorRouteId')),
@@ -550,47 +552,50 @@ export class MonitorEffects {
           .routeChange(monitorRouteId, changeSetId, replicationNumber)
           .pipe(map((response) => actionMonitorRouteChangePageLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
   addGroupEffect = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionMonitorGroupAdd),
         concatMap((properties) => this.monitorService.groupAdd(properties)),
         tap(() => this.router.navigate(['/monitor']))
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   deleteGroupEffect = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionMonitorGroupDelete),
         concatMap((action) => this.monitorService.groupDelete(action.groupId)),
         tap(() => this.router.navigate(['/monitor']))
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   updateGroupEffect = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionMonitorGroupUpdate),
         concatMap((action) =>
           this.monitorService.groupUpdate(action.groupId, action.properties)
         ),
         tap(() => this.router.navigate(['/monitor']))
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorChangesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  monitorChangesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionMonitorChangesPageInit, actionMonitorChangesPageIndex),
       concatLatestFrom(() => [
         this.store.select(selectPreferencesPageSize),
@@ -607,13 +612,13 @@ export class MonitorEffects {
           .changes(parameters)
           .pipe(map((response) => actionMonitorChangesPageLoaded(response)));
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
   routeMapQueryParamsEffect = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(
           actionMonitorRouteMapPositionChanged,
           actionMonitorRouteMapReferenceVisible,
@@ -654,7 +659,8 @@ export class MonitorEffects {
             queryParamsHandling: 'merge', // preserve other query params if there are any
           });
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 

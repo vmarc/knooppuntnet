@@ -45,8 +45,8 @@ import { selectLocationKey } from './location.selectors';
 export class LocationEffects {
   // noinspection JSUnusedGlobalSymbols
   locationSelectionPageStrategyChange = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionLocationSelectionPageStrategy),
         concatLatestFrom(() => [
           this.store.select(selectRouteParam('networkType')),
@@ -56,13 +56,14 @@ export class LocationEffects {
           const url = `/analysis/${networkType}/${country}/networks`;
           this.router.navigate([url]);
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
-  locationNodesPage = createEffect(() =>
-    this.actions$.pipe(
+  locationNodesPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionLocationNodesPageInit,
         actionLocationNodesType,
@@ -84,12 +85,12 @@ export class LocationEffects {
         return this.appService.locationNodes(locationKey, parameters);
       }),
       map((response) => actionLocationNodesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationRoutesPage = createEffect(() =>
-    this.actions$.pipe(
+  locationRoutesPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionLocationRoutesPageInit,
         actionLocationRoutesType,
@@ -111,34 +112,34 @@ export class LocationEffects {
         return this.appService.locationRoutes(locationKey, parameters);
       }),
       map((response) => actionLocationRoutesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationFactsPage = createEffect(() =>
-    this.actions$.pipe(
+  locationFactsPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLocationFactsPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
       mergeMap(([_, locationKey]) =>
         this.appService.locationFacts(locationKey)
       ),
       map((response) => actionLocationFactsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationMapPage = createEffect(() =>
-    this.actions$.pipe(
+  locationMapPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLocationMapPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
       mergeMap(([_, locationKey]) => this.appService.locationMap(locationKey)),
       map((response) => actionLocationMapPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationChangesPage = createEffect(() =>
-    this.actions$.pipe(
+  locationChangesPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLocationChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectLocationKey),
@@ -153,18 +154,18 @@ export class LocationEffects {
         return this.appService.locationChanges(locationKey, parameters);
       }),
       map((response) => actionLocationChangesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationEditPage = createEffect(() =>
-    this.actions$.pipe(
+  locationEditPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLocationEditPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
       mergeMap(([_, locationKey]) => this.appService.locationEdit(locationKey)),
       map((response) => actionLocationEditPageLoaded(response))
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,

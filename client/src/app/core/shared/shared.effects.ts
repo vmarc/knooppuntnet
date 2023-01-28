@@ -13,8 +13,8 @@ export class SharedEffects {
 
   // noinspection JSUnusedGlobalSymbols
   editDialog = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionSharedEdit),
         tap((editParameters) => {
           if (editParameters) {
@@ -25,7 +25,8 @@ export class SharedEffects {
             });
           }
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 }

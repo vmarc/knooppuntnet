@@ -49,88 +49,88 @@ import { selectNetworkChangesParameters } from './network.selectors';
 @Injectable()
 export class NetworkEffects {
   // noinspection JSUnusedGlobalSymbols
-  networkDetailsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  networkDetailsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
         actionNetworkDetailsPageLoad({ networkId: +networkId })
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkDetailsPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networkDetailsPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkDetailsPageLoad),
       mergeMap((action) => this.appService.networkDetails(action.networkId)),
       map((response) => actionNetworkDetailsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkFactsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  networkFactsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkFactsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
         actionNetworkFactsPageLoad({ networkId: +networkId })
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkFactsPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networkFactsPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkFactsPageLoad),
       mergeMap((action) => this.appService.networkFacts(action.networkId)),
       map((response) => actionNetworkFactsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkNodesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  networkNodesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
         actionNetworkNodesPageLoad({ networkId: +networkId })
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkNodesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networkNodesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkNodesPageLoad),
       mergeMap((action) => this.appService.networkNodes(action.networkId)),
       map((response) => actionNetworkNodesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkRoutesPage = createEffect(() =>
-    this.actions$.pipe(
+  networkRoutesPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
         actionNetworkRoutesPageLoad({ networkId: +networkId })
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkRoutesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networkRoutesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkRoutesPageLoad),
       mergeMap((action) => this.appService.networkRoutes(action.networkId)),
       map((response) => actionNetworkRoutesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkMapPageInit = createEffect(() =>
-    this.actions$.pipe(
+  networkMapPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkMapPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('networkId')),
@@ -152,12 +152,12 @@ export class NetworkEffects {
           mapPositionFromUrl,
         });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkMapPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networkMapPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkMapPageLoad),
       mergeMap((action) => {
         return this.appService.networkMap(action.networkId).pipe(
@@ -169,12 +169,12 @@ export class NetworkEffects {
           )
         );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkChangesPage = createEffect(() =>
-    this.actions$.pipe(
+  networkChangesPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNetworkChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParams),
@@ -199,12 +199,12 @@ export class NetworkEffects {
           return actionNetworkChangesLoad({ networkId, changesParameters });
         }
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networkChangesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networkChangesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionNetworkChangesLoad,
         actionNetworkChangesImpact,
@@ -225,8 +225,8 @@ export class NetworkEffects {
           map((response) => actionNetworkChangesPageLoaded(response))
         );
       })
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,

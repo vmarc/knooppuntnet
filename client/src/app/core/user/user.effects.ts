@@ -43,8 +43,8 @@ export class UserEffects {
   }
 
   // noinspection JSUnusedGlobalSymbols
-  loginLinkClicked = createEffect(() =>
-    this.actions$.pipe(
+  loginLinkClicked = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionUserLoginLinkClicked),
       concatLatestFrom(() => [this.store.select(selectUrl)]),
       map(([_, url]) => {
@@ -56,25 +56,26 @@ export class UserEffects {
           returnUrl,
         });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
   loginCallbackPageRegistered = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionUserLoginReturnUrlRegistered),
         tap(() => {
           return this.router.navigate(['/login']);
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   login = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionUserLogin),
         concatLatestFrom(() => [this.store.select(selectUserReturnUrl)]),
         mergeMap(([_, returnUrl]) => {
@@ -94,13 +95,14 @@ export class UserEffects {
             'https://www.openstreetmap.org/oauth/authorize?oauth_token=' +
             response;
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
-  authenticated = createEffect(() =>
-    this.actions$.pipe(
+  authenticated = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionUserAuthenticated),
       mergeMap(() => {
         const search = decodeURIComponent(window.location.search);
@@ -116,12 +118,12 @@ export class UserEffects {
             })
           );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  authenticatedUserReceived = createEffect(() =>
-    this.actions$.pipe(
+  authenticatedUserReceived = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionUserReceived),
       concatLatestFrom(() => [this.store.select(selectUserReturnUrl)]),
       mergeMap(([_, returnUrl]) => {
@@ -129,12 +131,12 @@ export class UserEffects {
         return from(promise);
       }),
       map(() => actionUserLoginCompleted())
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  logoutLinkClicked = createEffect(() =>
-    this.actions$.pipe(
+  logoutLinkClicked = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionUserLogoutLinkClicked),
       concatLatestFrom(() => [this.store.select(selectUrl)]),
       map(([_, url]) => {
@@ -146,24 +148,25 @@ export class UserEffects {
           returnUrl,
         });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
   logoutReturnUrlRegistered = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionUserLogoutReturnUrlRegistered),
         tap(() => {
           return this.router.navigate(['/logout']);
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
-  logout = createEffect(() =>
-    this.actions$.pipe(
+  logout = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionUserLogout),
       mergeMap(() => {
         return this.http
@@ -177,12 +180,12 @@ export class UserEffects {
             })
           );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  loggedOut = createEffect(() =>
-    this.actions$.pipe(
+  loggedOut = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionUserLoggedOut),
       concatLatestFrom(() => [this.store.select(selectUserReturnUrl)]),
       mergeMap(([_, returnUrl]) => {
@@ -190,8 +193,8 @@ export class UserEffects {
         return from(promise);
       }),
       map(() => actionUserLogoutCompleted())
-    )
-  );
+    );
+  });
 
   private initUser() {
     const user = this.browserStorageService.get('user');

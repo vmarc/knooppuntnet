@@ -39,26 +39,26 @@ import { selectNodeChangesParameters } from './node.selectors';
 @Injectable()
 export class NodeEffects {
   // noinspection JSUnusedGlobalSymbols
-  nodeDetailsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  nodeDetailsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
       map(([_, nodeId]) => actionNodeDetailsPageLoad({ nodeId }))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  nodeDetailsPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  nodeDetailsPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNodeDetailsPageLoad),
       mergeMap((action) => this.appService.nodeDetails(action.nodeId)),
       map((response) => actionNodeDetailsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  nodeMapPageInit = createEffect(() =>
-    this.actions$.pipe(
+  nodeMapPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNodeMapPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('nodeId')),
@@ -69,12 +69,12 @@ export class NodeEffects {
           MapPosition.fromQueryParam(mapPositionString);
         return actionNodeMapPageLoad({ nodeId, mapPositionFromUrl });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  nodeMapPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  nodeMapPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNodeMapPageLoad),
       mergeMap((action) => {
         return this.appService.nodeMap(action.nodeId).pipe(
@@ -86,12 +86,12 @@ export class NodeEffects {
           )
         );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  nodeChangesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  nodeChangesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionNodeChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParams),
@@ -116,12 +116,12 @@ export class NodeEffects {
           return actionNodeChangesPageLoad({ nodeId, changesParameters });
         }
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  nodeChangesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  nodeChangesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionNodeChangesPageLoad,
         actionNodeChangesPageImpact,
@@ -142,8 +142,8 @@ export class NodeEffects {
           map((response) => actionNodeChangesPageLoaded(response))
         );
       })
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,

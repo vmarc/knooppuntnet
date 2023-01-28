@@ -24,8 +24,8 @@ import { selectLocationPoisPageIndex } from './poi.selectors';
 @Injectable()
 export class PoiEffects {
   // noinspection JSUnusedGlobalSymbols
-  locationPoisPageInit = createEffect(() =>
-    this.actions$.pipe(
+  locationPoisPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionLocationPoisPageInit,
         actionPreferencesPageSize,
@@ -42,12 +42,12 @@ export class PoiEffects {
           .locationPois(location, layers, pageSize, pageIndex)
           .pipe(map((response) => actionLocationPoisPageLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationPoiSummaryPageInit = createEffect(() =>
-    this.actions$.pipe(
+  locationPoiSummaryPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLocationPoiSummaryPageInit),
       concatLatestFrom(() => [this.store.select(selectRouteParam('location'))]),
       mergeMap(([_, location]) =>
@@ -55,12 +55,12 @@ export class PoiEffects {
           .locationPoiSummary(location)
           .pipe(map((response) => actionLocationPoiSummaryPageLoaded(response)))
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  locationPoiSummaryCountryChanged = createEffect(() =>
-    this.actions$.pipe(
+  locationPoiSummaryCountryChanged = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionLocationPoiSummaryCountryChanged),
       mergeMap((action) =>
         this.poiService
@@ -69,8 +69,8 @@ export class PoiEffects {
             map((response) => actionLocationPoiSummaryLocationsLoaded(response))
           )
       )
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,

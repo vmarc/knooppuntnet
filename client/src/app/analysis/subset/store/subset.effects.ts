@@ -52,62 +52,62 @@ import { selectSubset } from './subset.selectors';
 @Injectable()
 export class SubsetEffects {
   // noinspection JSUnusedGlobalSymbols
-  networksPageInit = createEffect(() =>
-    this.actions$.pipe(
+  networksPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetNetworksPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetNetworksPageLoad({ subset });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  networksPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  networksPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetNetworksPageLoad),
       mergeMap((action) => this.appService.subsetNetworks(action.subset)),
       map((response) => actionSubsetNetworksPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  factsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  factsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetFactsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetFactsPageLoad({ subset });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  factsPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  factsPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetFactsPageLoad),
       mergeMap((action) => this.appService.subsetFacts(action.subset)),
       map((response) => actionSubsetFactsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  editFactRefsLoad = createEffect(() =>
-    this.actions$.pipe(
+  editFactRefsLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetFactRefsLoad),
       concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
         this.appService.subsetFactRefs(subset, action.fact)
       ),
       map((response) => actionSubsetFactRefsLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  editDialog = createEffect(() =>
-    this.actions$.pipe(
+  editDialog = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetFactRefsLoaded),
       map((response) => {
         const subsetFactRefs = response.result;
@@ -130,24 +130,24 @@ export class SubsetEffects {
         }
         return actionSharedEdit(editParameters);
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  factDetailsPageInit = createEffect(() =>
-    this.actions$.pipe(
+  factDetailsPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([_, routeParams]) => {
         const subsetFact = new PageParams(routeParams).subsetFact();
         return actionSubsetFactDetailsPageLoad({ subsetFact });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  factDetailsPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  factDetailsPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageLoad),
       mergeMap((action) =>
         this.appService.subsetFactDetails(
@@ -156,75 +156,75 @@ export class SubsetEffects {
         )
       ),
       map((response) => actionSubsetFactDetailsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  orphanNodesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  orphanNodesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetOrphanNodesPageLoad({ subset });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  orphanNodesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  orphanNodesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageLoad),
       mergeMap((action) => this.appService.subsetOrphanNodes(action.subset)),
       map((response) => actionSubsetOrphanNodesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  orphanRoutesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  orphanRoutesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetOrphanRoutesPageLoad({ subset });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  orphanRoutesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  orphanRoutesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageLoad),
       mergeMap((action) => this.appService.subsetOrphanRoutes(action.subset)),
       map((response) => actionSubsetOrphanRoutesPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  mapPageInit = createEffect(() =>
-    this.actions$.pipe(
+  mapPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetMapPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParams)),
       map(([_, routeParams]) => {
         const subset = new PageParams(routeParams).subset();
         return actionSubsetMapPageLoad({ subset });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  mapPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  mapPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetMapPageLoad),
       mergeMap((action) => this.appService.subsetMap(action.subset)),
       map((response) => actionSubsetMapPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  changesPageInit = createEffect(() =>
-    this.actions$.pipe(
+  changesPageInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParams),
@@ -249,12 +249,12 @@ export class SubsetEffects {
           return actionSubsetChangesPageLoad({ subset, changesParameters });
         }
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  subsetChangesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  subsetChangesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionSubsetChangesPageLoad,
         actionSubsetChangesPageIndex,
@@ -275,8 +275,8 @@ export class SubsetEffects {
           map((response) => actionSubsetChangesPageLoaded(response))
         );
       })
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,

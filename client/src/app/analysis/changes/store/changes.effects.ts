@@ -31,8 +31,8 @@ import { selectChangesParameters } from './changes.selectors';
 @Injectable()
 export class ChangesEffects {
   // noinspection JSUnusedGlobalSymbols
-  changesPage = createEffect(() =>
-    this.actions$.pipe(
+  changesPage = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectQueryParams),
@@ -57,12 +57,12 @@ export class ChangesEffects {
           return actionChangesPageLoad({ strategy, changesParameters });
         }
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  changesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  changesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionChangesPageLoad,
         actionChangesImpact,
@@ -82,8 +82,8 @@ export class ChangesEffects {
           map((response) => actionChangesPageLoaded(response))
         );
       })
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,

@@ -25,8 +25,8 @@ import { selectDemoEnabled } from './demo.selectors';
 export class DemoEffects {
   // noinspection JSUnusedGlobalSymbols
   initialStartVideo = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoVideoPlayerAvailable),
         mergeMap(() =>
           this.store.pipe(filter(selectDemoEnabled), select(selectDemoVideo))
@@ -34,57 +34,63 @@ export class DemoEffects {
         tap((video: string) => {
           this.demoService.setSource(`/videos/en/${video}.mp4`);
         })
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   canPlay = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoCanPlay),
         tap(() => this.demoService.play())
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   progressUpdate = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoUpdateProgress),
         tap((action) => this.demoService.setProgress(action.progress))
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   pause = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoPause),
         tap(() => this.demoService.pause())
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   play = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoPlay),
         tap(() => this.demoService.play())
-      ),
+      );
+    },
     { dispatch: false }
   );
 
   // noinspection JSUnusedGlobalSymbols
   end = createEffect(
-    () =>
-      this.actions$.pipe(
+    () => {
+      return this.actions$.pipe(
         ofType(actionDemoEnd),
         tap(() => this.demoService.end())
-      ),
+      );
+    },
     { dispatch: false }
   );
 

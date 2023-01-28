@@ -39,26 +39,26 @@ import { selectRouteId } from './route.selectors';
 @Injectable()
 export class RouteEffects {
   // noinspection JSUnusedGlobalSymbols
-  routeDetailsInit = createEffect(() =>
-    this.actions$.pipe(
+  routeDetailsInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
       map(([_, routeId]) => actionRouteDetailsPageLoad({ routeId }))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  routeDetailsLoad = createEffect(() =>
-    this.actions$.pipe(
+  routeDetailsLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionRouteDetailsPageLoad),
       mergeMap((action) => this.appService.routeDetails(action.routeId)),
       map((response) => actionRouteDetailsPageLoaded(response))
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  routeMapInit = createEffect(() =>
-    this.actions$.pipe(
+  routeMapInit = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionRouteMapPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('routeId')),
@@ -69,12 +69,12 @@ export class RouteEffects {
           MapPosition.fromQueryParam(mapPositionString);
         return actionRouteMapPageLoad({ routeId, mapPositionFromUrl });
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  routeMapLoad = createEffect(() =>
-    this.actions$.pipe(
+  routeMapLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionRouteMapPageLoad),
       mergeMap((action) => {
         return this.appService.routeMap(action.routeId).pipe(
@@ -86,12 +86,12 @@ export class RouteEffects {
           )
         );
       })
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  routeChanges = createEffect(() =>
-    this.actions$.pipe(
+  routeChanges = createEffect(() => {
+    return this.actions$.pipe(
       ofType(actionRouteChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectRouteParams),
@@ -116,12 +116,12 @@ export class RouteEffects {
           return actionRouteChangesPageLoad({ routeId, changesParameters });
         }
       )
-    )
-  );
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
-  routeChangesPageLoad = createEffect(() =>
-    this.actions$.pipe(
+  routeChangesPageLoad = createEffect(() => {
+    return this.actions$.pipe(
       ofType(
         actionRouteChangesPageLoad,
         actionRouteChangesPageImpact,
@@ -142,8 +142,8 @@ export class RouteEffects {
           map((response) => actionRouteChangesPageLoaded(response))
         );
       })
-    )
-  );
+    );
+  });
 
   constructor(
     private actions$: Actions,
