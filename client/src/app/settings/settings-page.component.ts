@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { actionPreferencesInstructions } from '../core/preferences/preferences.actions';
 import { actionPreferencesExtraLayers } from '../core/preferences/preferences.actions';
 import { selectPreferencesInstructions } from '../core/preferences/preferences.selectors';
@@ -76,10 +75,8 @@ import { selectPreferencesExtraLayers } from '../core/preferences/preferences.se
   ],
 })
 export class SettingsPageComponent {
-  readonly instructions$ = this.store.pipe(
-    select(selectPreferencesInstructions)
-  );
-  readonly extraLayers$ = this.store.pipe(select(selectPreferencesExtraLayers));
+  readonly instructions$ = this.store.select(selectPreferencesInstructions);
+  readonly extraLayers$ = this.store.select(selectPreferencesExtraLayers);
 
   constructor(private store: Store) {}
 

@@ -3,7 +3,6 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { NodeMapInfo } from '@api/common/node-map-info';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
@@ -44,8 +43,8 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   private readonly mapId = 'node-map';
   private readonly subscriptions = new Subscriptions();
 
-  private readonly defaultNetworkType$: Observable<string> = this.store.pipe(
-    select(selectPreferencesNetworkType)
+  private readonly defaultNetworkType$: Observable<string> = this.store.select(
+    selectPreferencesNetworkType
   );
 
   constructor(

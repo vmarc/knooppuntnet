@@ -1,7 +1,6 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
 import { PlannerService } from '../planner.service';
@@ -61,12 +60,9 @@ import { PlannerService } from '../planner.service';
 })
 export class PlanResultMenuComponent implements OnInit {
   mode$: BehaviorSubject<string>;
-  readonly instructions$ = this.store.pipe(
-    select(selectPreferencesInstructions)
-  );
+  readonly instructions$ = this.store.select(selectPreferencesInstructions);
 
-  constructor(private plannerService: PlannerService, private store: Store) {
-  }
+  constructor(private plannerService: PlannerService, private store: Store) {}
 
   ngOnInit(): void {
     this.mode$ = this.plannerService.resultMode$;

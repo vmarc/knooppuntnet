@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -16,7 +16,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     <div class="video-control" [ngClass]="{ selected: selected$ | async }">
       <div class="control-text">
         <div class="title">
-          <ng-content/>
+          <ng-content />
         </div>
         <div class="duration">
           {{ duration }} <span i18n="@@demo.duration.seconds">seconds</span>
@@ -30,12 +30,12 @@ import { selectDemoEnabled } from '../store/demo.selectors';
           class="play-pause-button"
           [ngClass]="{ buttonSelected: selected$ | async }"
         >
-          <mat-icon [svgIcon]="icon$ | async"/>
+          <mat-icon [svgIcon]="icon$ | async" />
         </a>
       </ng-template>
       <ng-template #disabled>
         <span class="play-pause-button-disabled">
-          <mat-icon [svgIcon]="icon$ | async"/>
+          <mat-icon [svgIcon]="icon$ | async" />
         </span>
       </ng-template>
     </div>
@@ -105,23 +105,20 @@ export class DemoVideoControlComponent {
   @Input() name: string;
   @Input() duration: string;
 
-  readonly selected$: Observable<boolean> = this.store.pipe(
-    select(selectDemoVideo),
-    map((current) => current === this.name)
-  );
+  readonly selected$: Observable<boolean> = this.store
+    .select(selectDemoVideo)
+    .pipe(map((current) => current === this.name));
 
   readonly playing$: Observable<boolean> = combineLatest([
     this.selected$,
-    this.store.pipe(select(selectDemoPlaying)),
+    this.store.select(selectDemoPlaying),
   ]).pipe(map(([selected, playing]) => selected && playing));
 
   readonly icon$: Observable<string> = this.playing$.pipe(
     map((playing) => (playing ? 'pause' : 'play'))
   );
 
-  readonly enabled$: Observable<boolean> = this.store.pipe(
-    select(selectDemoEnabled)
-  );
+  readonly enabled$: Observable<boolean> = this.store.select(selectDemoEnabled);
 
   constructor(private store: Store) {}
 

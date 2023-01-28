@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { List, Map as ImmutableMap } from 'immutable';
 import { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
@@ -49,8 +48,8 @@ export class PlannerLayerService {
 
   private readonly mapRelatedSubscriptions = new Subscriptions();
 
-  private readonly extraLayers$: Observable<boolean> = this.store.pipe(
-    select(selectPreferencesExtraLayers)
+  private readonly extraLayers$: Observable<boolean> = this.store.select(
+    selectPreferencesExtraLayers
   );
 
   constructor(

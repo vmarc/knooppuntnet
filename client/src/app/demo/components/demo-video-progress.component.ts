@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { actionDemoUpdateProgress } from '../store/demo.actions';
 import { selectDemoProgress } from '../store/demo.selectors';
@@ -45,7 +44,7 @@ export class DemoVideoProgressComponent {
   progress$: Observable<number>;
 
   constructor(private store: Store) {
-    this.progress$ = this.store.pipe(select(selectDemoProgress));
+    this.progress$ = this.store.select(selectDemoProgress);
   }
 
   updateProgress(event) {

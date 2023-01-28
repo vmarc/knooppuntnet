@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { actionDemoPlay } from '../store/demo.actions';
 import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
@@ -15,7 +14,7 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
       (click)="play()"
       class="play-button"
     >
-      <mat-icon svgIcon="play"/>
+      <mat-icon svgIcon="play" />
     </div>
   `,
   styles: [
@@ -55,8 +54,8 @@ export class DemoVideoPlayButtonComponent {
   videoPlayButtonEnabled$: Observable<boolean>;
 
   constructor(private store: Store) {
-    this.videoPlayButtonEnabled$ = this.store.pipe(
-      select(selectDemoVideoPlayButtonEnabled)
+    this.videoPlayButtonEnabled$ = this.store.select(
+      selectDemoVideoPlayButtonEnabled
     );
   }
 

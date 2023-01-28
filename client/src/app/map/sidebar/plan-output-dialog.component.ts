@@ -5,7 +5,6 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { select } from '@ngrx/store';
 import { AppService } from '../../app.service';
 import { Util } from '../../components/shared/util';
 import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
@@ -134,9 +133,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   qrCode: string | ArrayBuffer = '';
 
-  readonly instructions$ = this.store.pipe(
-    select(selectPreferencesInstructions)
-  );
+  readonly instructions$ = this.store.select(selectPreferencesInstructions);
 
   constructor(
     private pdfService: PdfService,
