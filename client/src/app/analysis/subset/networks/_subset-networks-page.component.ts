@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
-import { AppState } from '../../../core/core.state';
 import { actionSubsetNetworksPageInit } from '../store/subset.actions';
 import { selectSubsetNetworksPage } from '../store/subset.selectors';
 

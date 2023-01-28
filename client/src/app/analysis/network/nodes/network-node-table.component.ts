@@ -15,7 +15,6 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { Util } from '../../../components/shared/util';
-import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
@@ -125,7 +124,7 @@ import { NetworkNodesService } from './network-nodes.service';
           Actual
         </th>
         <td mat-cell *matCellDef="let node">
-          <kpn-network-node-routes [node]="node"/>
+          <kpn-network-node-routes [node]="node" />
         </td>
       </ng-container>
 
@@ -164,9 +163,9 @@ import { NetworkNodesService } from './network-nodes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.detail.timestamp"/>
-          <kpn-josm-node [nodeId]="node.detail.id"/>
-          <kpn-osm-link-node [nodeId]="node.detail.id"/>
+          <kpn-day [timestamp]="node.detail.timestamp" />
+          <kpn-josm-node [nodeId]="node.detail.id" />
+          <kpn-osm-link-node [nodeId]="node.detail.id" />
         </td>
       </ng-container>
 

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDefined } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeMapPositionFromUrl } from '../store/node.selectors';
 import { selectNodeId } from '../store/node.selectors';
@@ -29,7 +28,7 @@ import { selectNodeMapPage } from '../store/node.selectors';
       [changeCount]="changeCount$ | async"
     />
 
-    <kpn-error/>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response">
       <div

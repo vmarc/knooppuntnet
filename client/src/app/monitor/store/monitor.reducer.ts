@@ -55,6 +55,7 @@ import { actionMonitorRouteMapMode } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
+import { MonitorState } from './monitor.state';
 import { MonitorRouteSaveState } from './monitor.state';
 import { initialState } from './monitor.state';
 
@@ -549,10 +550,9 @@ export const monitorReducer = createReducer<MonitorState>(
       routeChangesPage: response,
     };
   }),
-  on(actionMonitorRouteChangesPageDestroy, (state, response): MonitorState => {
+  on(actionMonitorRouteChangesPageDestroy, (state): MonitorState => {
     return {
       ...state,
-      routeId: undefined,
       routeName: undefined,
       groupName: undefined,
       groupDescription: undefined,
@@ -571,15 +571,13 @@ export const monitorReducer = createReducer<MonitorState>(
     const routeName = 'ROUTE-NAME'; // response.result?.name ?? state.routeName;
     return {
       ...state,
-      routeId,
       routeName,
       routeChangePage: response,
     };
   }),
-  on(actionMonitorRouteChangePageDestroy, (state, response): MonitorState => {
+  on(actionMonitorRouteChangePageDestroy, (state): MonitorState => {
     return {
       ...state,
-      routeId: undefined,
       routeName: undefined,
       routeChangePage: undefined,
     };

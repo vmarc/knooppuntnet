@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionSubsetMapPageInit } from '../store/subset.actions';
 import { selectSubsetMapPage } from '../store/subset.selectors';
 import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.component';
@@ -18,7 +17,7 @@ import { SubsetMapNetworkDialogComponent } from './subset-map-network-dialog.com
       i18n-pageTitle="@@subset-map.title"
     />
 
-    <kpn-error/>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response">
       <kpn-subset-map

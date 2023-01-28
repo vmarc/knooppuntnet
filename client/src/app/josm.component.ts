@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { EditParameters } from './analysis/components/edit/edit-parameters';
-import { AppState } from './core/core.state';
 import { actionSharedEdit } from './core/shared/shared.actions';
 
 @Component({

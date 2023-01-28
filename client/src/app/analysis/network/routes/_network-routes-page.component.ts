@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionNetworkRoutesPageInit } from '../store/network.actions';
 import { selectNetworkRoutesPage } from '../store/network.selectors';
 

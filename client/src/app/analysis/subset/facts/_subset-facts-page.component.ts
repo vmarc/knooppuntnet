@@ -5,7 +5,6 @@ import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Fact } from '@api/custom/fact';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';

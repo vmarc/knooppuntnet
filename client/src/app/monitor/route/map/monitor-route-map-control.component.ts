@@ -4,7 +4,6 @@ import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from '../../store/monitor.actions';
 import { actionMonitorRouteMapJosmLoadRouteRelation } from '../../store/monitor.actions';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
@@ -26,19 +25,19 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         <mat-radio-group [value]="mode" (change)="modeChanged($event)">
           <mat-radio-button value="comparison">
             <span i18n="@@monitor.route.map.mode.comparison"
-              >GPX / OSM comparison</span
+            >GPX / OSM comparison</span
             >
           </mat-radio-button>
           <mat-radio-button value="osm-segments">
             <span i18n="@@monitor.route.map.mode.osm-segments"
-              >OSM segments</span
+            >OSM segments</span
             >
             <span class="kpn-brackets">{{ osmSegmentCount$ | async }}</span>
           </mat-radio-button>
         </mat-radio-group>
       </div>
 
-      <kpn-monitor-route-map-layers/>
+      <kpn-monitor-route-map-layers />
 
       <div class="kpn-spacer-above">
         <button
@@ -91,9 +90,9 @@ import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.select
         </mat-menu>
       </div>
 
-      <kpn-monitor-route-map-deviations *ngIf="mode === 'comparison'"/>
+      <kpn-monitor-route-map-deviations *ngIf="mode === 'comparison'" />
 
-      <kpn-monitor-route-map-osm-segments *ngIf="mode === 'osm-segments'"/>
+      <kpn-monitor-route-map-osm-segments *ngIf="mode === 'osm-segments'" />
     </div>
   `,
   styles: [

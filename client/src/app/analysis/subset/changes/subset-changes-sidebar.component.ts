@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { ChangeOption } from '../../changes/store/changes.actions';
 import { actionSubsetChangesFilterOption } from '../store/subset.actions';
 import { selectSubsetChangesFilterOptions } from '../store/subset.selectors';

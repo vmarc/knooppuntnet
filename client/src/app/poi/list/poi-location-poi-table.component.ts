@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../components/shared/paginator/paginator.component';
-import { AppState } from '../../core/core.state';
 import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { actionLocationPoisPageIndex } from '../store/poi.actions';
@@ -61,7 +60,7 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
         <td mat-cell *matCellDef="let poi">
           <a [routerLink]="'/poi/' + poi.elementType + '/' + poi.elementId">{{
             poi._id
-          }}</a>
+            }}</a>
         </td>
       </ng-container>
 

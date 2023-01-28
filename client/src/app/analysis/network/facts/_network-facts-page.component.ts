@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionNetworkFactsPageInit } from '../store/network.actions';
 import { selectNetworkFactsPage } from '../store/network.selectors';
 
@@ -20,11 +19,11 @@ import { selectNetworkFactsPage } from '../store/network.selectors';
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
-        <kpn-situation-on [timestamp]="response.situationOn"/>
+        <kpn-situation-on [timestamp]="response.situationOn" />
 
         <p *ngIf="response.result.facts.length === 0" class="kpn-line">
           <span i18n="@@network-facts.no-facts">No facts</span>
-          <kpn-icon-happy/>
+          <kpn-icon-happy />
         </p>
 
         <kpn-items *ngIf="response.result.facts.length > 0">

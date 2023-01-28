@@ -12,7 +12,6 @@ import View from 'ol/View';
 import { fromEvent } from 'rxjs';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { selectPreferencesNetworkType } from '../../../core/preferences/preferences.selectors';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
@@ -31,8 +30,8 @@ import { MapPositionService } from '../services/map-position.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="node-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"/>
-      <kpn-map-link-menu [map]="map"/>
+      <kpn-layer-switcher [mapLayers]="layers" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })

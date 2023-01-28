@@ -11,7 +11,6 @@ import { PoiDetail } from '@app/kpn/api/common/poi-detail';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import VectorTileLayer from 'ol/layer/VectorTile';
-import { AppState } from '../../../core/core.state';
 import { I18nService } from '../../../i18n/i18n.service';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { MapLayerState } from '../domain/map-layer-state';

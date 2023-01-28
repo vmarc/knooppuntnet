@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { selectUserUser } from '../../../core/user/user.selectors';
 import { selectUserLoggedIn } from '../../../core/user/user.selectors';
 import { VersionService } from '../../../services/version.service';
@@ -30,11 +29,11 @@ import { VersionService } from '../../../services/version.service';
         <p *ngIf="loggedIn$ | async; else notLoggedIn">
           {{ user$ | async }}
           <br />
-          <kpn-link-logout/>
+          <kpn-link-logout />
         </p>
         <ng-template #notLoggedIn>
           <p>
-            <kpn-link-login/>
+            <kpn-link-login />
           </p>
         </ng-template>
       </ng-container>

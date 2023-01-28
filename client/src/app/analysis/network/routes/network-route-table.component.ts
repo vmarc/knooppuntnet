@@ -14,7 +14,6 @@ import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { Util } from '../../../components/shared/util';
-import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';

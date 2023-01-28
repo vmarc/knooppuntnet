@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/core.state';
 import { actionMonitorAdmin } from '../store/monitor.actions';
 import { selectMonitorAdminRole } from '../store/monitor.selectors';
 import { selectMonitorAdmin } from '../store/monitor.selectors';

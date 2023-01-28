@@ -3,7 +3,6 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { LocationFact } from '@api/common/location/location-fact';
 import { Fact } from '@api/custom/fact';
-import { AppState } from '@app/core/core.state';
 import { Store } from '@ngrx/store';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { FactInfo } from '../../fact/fact-info';

@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/core.state';
 import { selectPreferencesAnalysisStrategy } from '../../core/preferences/preferences.selectors';
 import { AnalysisStrategy } from '../../core/preferences/preferences.state';
 

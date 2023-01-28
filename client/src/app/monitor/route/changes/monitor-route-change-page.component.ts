@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { Timestamp } from '@api/custom/timestamp';
 import { Store } from '@ngrx/store';
 import { Util } from '../../../components/shared/util';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteChangePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteChangePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
@@ -115,14 +114,14 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
             <td i18n="@@change-set.header.analysis">Analysis</td>
             <td>
               <div *ngIf="response.result.happy" class="kpn-line">
-                <kpn-icon-happy/>
+                <kpn-icon-happy />
                 <span i18n="@@change-set.header.analysis.happy">
                   This changeset brought improvements.
                 </span>
               </div>
 
               <div *ngIf="response.result.investigate" class="kpn-line">
-                <kpn-icon-investigate/>
+                <kpn-icon-investigate />
                 <span i18n="@@change-set.header.analysis.investigate">
                     Maybe this changeset is worth a closer look.
                   </span>
@@ -142,7 +141,7 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
                 *ngIf="response.result.routeSegmentCount !== 1"
                 class="kpn-line route-analysis"
               >
-                <mat-icon svgIcon="warning"/>
+                <mat-icon svgIcon="warning" />
                 <span
                 >Not OK: {{ response.result.routeSegmentCount }} route
                     segments</span

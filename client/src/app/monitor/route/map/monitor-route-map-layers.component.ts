@@ -4,7 +4,6 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectFalse } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapOsmRelationVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapDeviationsVisible } from '../../store/monitor.actions';
 import { actionMonitorRouteMapMatchesVisible } from '../../store/monitor.actions';
@@ -36,12 +35,12 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.reference.gpx"
-              >GPX Reference</span
+            >GPX Reference</span
             >
             <span
               *ngIf="referenceType === 'osm'"
               i18n="@@monitor.route.map-layers.reference.osm"
-              >OSM reference</span
+            >OSM reference</span
             >
           </div>
         </mat-checkbox>
@@ -52,7 +51,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
           (change)="matchesVisibleChanged($event)"
         >
           <div class="kpn-line">
-            <kpn-legend-line color="green"/>
+            <kpn-legend-line color="green" />
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.gpx-same-as-osm"
@@ -74,7 +73,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
           (change)="deviationsVisibleChanged($event)"
         >
           <div class="kpn-line">
-            <kpn-legend-line color="red"/>
+            <kpn-legend-line color="red" />
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.deviations.gpx"
@@ -96,7 +95,7 @@ import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
           (change)="osmRelationVisibleChanged($event)"
         >
           <div class="kpn-line">
-            <kpn-legend-line color="gold"/>
+            <kpn-legend-line color="gold" />
             <span i18n="@@monitor.route.map-layers.osm-relation">
               OSM relation
             </span>

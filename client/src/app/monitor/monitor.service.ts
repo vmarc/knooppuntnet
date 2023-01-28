@@ -24,7 +24,6 @@ import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppState } from '../core/core.state';
 
 @Injectable()
 export class MonitorService {

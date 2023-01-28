@@ -7,6 +7,7 @@ import { actionUserInit } from './user.actions';
 import { actionUserLoggedOut } from './user.actions';
 import { actionUserReceived } from './user.actions';
 import { actionUserLoginReturnUrlRegistered } from './user.actions';
+import { UserState } from './user.state';
 import { initialUserState } from './user.state';
 
 export const userReducer = createReducer<UserState>(

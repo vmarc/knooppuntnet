@@ -9,7 +9,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { Countries } from '../../../kpn/common/countries';
 import { NetworkTypes } from '../../../kpn/common/network-types';
 import { actionLocationSelectionPageDestroy } from '../store/location.actions';

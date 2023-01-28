@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { AppState } from '@app/core/core.state';
 import { Store } from '@ngrx/store';
 import { actionMonitorRouteMapPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteMapPageInit } from '../../store/monitor.actions';
@@ -20,7 +19,7 @@ import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
         <p i18n="@@monitor.route.map.no-map">No map</p>
       </ng-template>
       <ng-template #map>
-        <kpn-monitor-route-map [page]="response.result"/>
+        <kpn-monitor-route-map [page]="response.result" />
       </ng-template>
     </div>
   `,

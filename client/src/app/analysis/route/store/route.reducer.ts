@@ -12,6 +12,7 @@ import { actionRouteChangesPageLoaded } from './route.actions';
 import { actionRouteMapPageLoaded } from './route.actions';
 import { actionRouteDetailsPageLoaded } from './route.actions';
 import { actionRouteLink } from './route.actions';
+import { RouteState } from './route.state';
 import { initialState } from './route.state';
 
 export const routeReducer = createReducer<RouteState>(

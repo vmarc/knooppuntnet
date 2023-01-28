@@ -10,7 +10,6 @@ import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
-import { AppState } from '../../../core/core.state';
 import { actionSharedHttpError } from '../../../core/shared/shared.actions';
 import { EditConfiguration } from './edit-configuration';
 import { EditParameters } from './edit-parameters';

@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDefined } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { actionNetworkMapPageInit } from '../store/network.actions';
 import { selectNetworkMapPositionFromUrl } from '../store/network.selectors';
 import { selectNetworkId } from '../store/network.selectors';

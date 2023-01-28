@@ -6,7 +6,6 @@ import { LocationEditPage } from '@api/common/location/location-edit-page';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { AppState } from '../../../core/core.state';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditConfiguration } from '../../components/edit/edit-configuration';
 import { EditParameters } from '../../components/edit/edit-parameters';

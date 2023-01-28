@@ -6,7 +6,6 @@ import { TimeInfo } from '@api/common/time-info';
 import { Util } from '@app/components/shared/util';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { AppState } from '../../../core/core.state';
 import { actionPreferencesPageSize } from '../../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
@@ -91,9 +90,9 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
-          <kpn-day [timestamp]="node.lastUpdated"/>
-          <kpn-josm-node [nodeId]="node.id"/>
-          <kpn-osm-link-node [nodeId]="node.id"/>
+          <kpn-day [timestamp]="node.lastUpdated" />
+          <kpn-josm-node [nodeId]="node.id" />
+          <kpn-osm-link-node [nodeId]="node.id" />
         </td>
       </ng-container>
 

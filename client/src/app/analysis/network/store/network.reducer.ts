@@ -23,6 +23,7 @@ import { actionNetworkRoutesPageLoaded } from './network.actions';
 import { actionNetworkFactsPageLoaded } from './network.actions';
 import { actionNetworkMapPageLoaded } from './network.actions';
 import { actionNetworkChangesPageLoaded } from './network.actions';
+import { NetworkState } from './network.state';
 import { initialState } from './network.state';
 
 const defaultSummary: NetworkSummary = {

@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { selectQueryParam } from '../../core/core.state';
-import { AppState } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';

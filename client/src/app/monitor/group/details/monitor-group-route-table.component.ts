@@ -7,7 +7,6 @@ import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
-import { AppState } from '../../../core/core.state';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionNetworkDetailsPageInit } from '../store/network.actions';
 import { selectNetworkDetailsPage } from '../store/network.selectors';
 
@@ -20,7 +19,7 @@ import { selectNetworkDetailsPage } from '../store/network.selectors';
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
       <div *ngIf="response.result">
-        <kpn-network-details [response]="response"/>
+        <kpn-network-details [response]="response" />
       </div>
     </div>
   `,

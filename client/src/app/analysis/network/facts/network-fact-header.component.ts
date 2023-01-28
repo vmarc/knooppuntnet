@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { FactInfo } from '../../fact/fact-info';
@@ -18,18 +17,18 @@ import { Facts } from '../../fact/facts';
         <kpn-fact-name [fact]="fact.name"></kpn-fact-name>
       </span>
       <span class="kpn-brackets">{{ factCount() }}</span>
-      <kpn-fact-level [factLevel]="factLevel()" class="level"/>
+      <kpn-fact-level [factLevel]="factLevel()" class="level" />
       <a
         rel="nofollow"
         (click)="edit(fact)"
         title="Open in editor (like JOSM)"
         i18n-title="@@edit.link.title"
         i18n="@@edit.link"
-        >edit</a
+      >edit</a
       >
     </div>
     <div class="description">
-      <kpn-fact-description [factInfo]="factInfo(fact)"/>
+      <kpn-fact-description [factInfo]="factInfo(fact)" />
     </div>
   `,
   styles: [

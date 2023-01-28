@@ -1,11 +1,10 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { PlannerService } from '../planner.service';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
-import { AppState } from '../../core/core.state';
+import { BehaviorSubject } from 'rxjs';
 import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
+import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-plan-result-menu',
@@ -66,10 +65,8 @@ export class PlanResultMenuComponent implements OnInit {
     select(selectPreferencesInstructions)
   );
 
-  constructor(
-    private plannerService: PlannerService,
-    private store: Store
-  ) {}
+  constructor(private plannerService: PlannerService, private store: Store) {
+  }
 
   ngOnInit(): void {
     this.mode$ = this.plannerService.resultMode$;

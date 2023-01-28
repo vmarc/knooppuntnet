@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MapService } from '../../components/ol/services/map.service';
-import { AppState } from '../../core/core.state';
 import { actionPreferencesShowLegend } from '../../core/preferences/preferences.actions';
 import { selectPreferencesShowLegend } from '../../core/preferences/preferences.selectors';
 
@@ -71,19 +70,19 @@ import { selectPreferencesShowLegend } from '../../core/preferences/preferences.
         </div>
         <div *ngIf="mapMode === 'analysis'" class="legend">
           <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)"/>
+            <kpn-legend-icon color="rgb(0, 200, 0)" />
             <span i18n="@@planner.legend.analysis.ok">OK</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(0, 150, 0)"/>
+            <kpn-legend-icon color="rgb(0, 150, 0)" />
             <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(255, 0, 0)"/>
+            <kpn-legend-icon color="rgb(255, 0, 0)" />
             <span i18n="@@planner.legend.survey.review">Review</span>
           </div>
           <div>
-            <kpn-legend-icon color="rgb(187, 0, 0)"/>
+            <kpn-legend-icon color="rgb(187, 0, 0)" />
             <span i18n="@@planner.legend.survey.review-orphan"
             >Review Orphan</span
             >

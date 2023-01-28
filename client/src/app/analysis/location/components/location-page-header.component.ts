@@ -5,7 +5,6 @@ import { LocationKey } from '@api/custom/location-key';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { selectLocationFactCount } from '../store/location.selectors';
 import { selectLocationRouteCount } from '../store/location.selectors';
 import { selectLocationChangeCount } from '../store/location.selectors';

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionChangesPageSize } from '../store/changes.actions';
 import { actionChangesImpact } from '../store/changes.actions';
 import { actionChangesPageIndex } from '../store/changes.actions';

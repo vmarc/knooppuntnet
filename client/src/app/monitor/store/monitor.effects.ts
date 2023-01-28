@@ -15,7 +15,6 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { EditParameters } from '../../analysis/components/edit/edit-parameters';
 import { selectQueryParams } from '../../core/core.state';
-import { AppState } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { selectRouteParams } from '../../core/core.state';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';

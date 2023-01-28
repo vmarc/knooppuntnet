@@ -12,6 +12,7 @@ import { actionNodeLink } from './node.actions';
 import { actionNodeDetailsPageLoaded } from './node.actions';
 import { actionNodeMapPageLoaded } from './node.actions';
 import { actionNodeChangesPageLoaded } from './node.actions';
+import { NodeState } from './node.state';
 import { initialState } from './node.state';
 
 export const nodeReducer = createReducer<NodeState>(

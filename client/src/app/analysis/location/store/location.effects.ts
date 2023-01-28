@@ -14,7 +14,6 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { selectRouteParam } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';

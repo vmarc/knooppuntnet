@@ -20,11 +20,6 @@ export const actionDemoUpdateProgress = createAction(
   props<{ progress: number }>()
 );
 
-export const actionDemoStartVideo = createAction(
-  '[Demo] Start video',
-  props<{ video: string }>()
-);
-
 export const actionDemoPlay = createAction('[Demo] Play');
 
 export const actionDemoPause = createAction('[Demo] Pause');

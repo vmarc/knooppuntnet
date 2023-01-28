@@ -4,7 +4,6 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteAdminRelationIdChanged } from '../../store/monitor.actions';
@@ -25,7 +24,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
           [checked]="relationIdKnown.value === true"
         >
           <span i18n="@@monitor.route.properties.relation.question.yes"
-            >Yes</span
+          >Yes</span
           >
         </mat-radio-button>
         <mat-radio-button
@@ -51,7 +50,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     <div *ngIf="relationIdKnown.value === true">
       <mat-form-field>
         <mat-label i18n="@@monitor.route.properties.relation.label"
-          >Route relation id
+        >Route relation id
         </mat-label>
         <input matInput type="number" [formControl]="relationId" />
       </mat-form-field>
@@ -135,10 +134,8 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
   readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);
   private readonly subscriptions = new Subscriptions();
 
-  constructor(
-    private monitorService: MonitorService,
-    private store: Store
-  ) {}
+  constructor(private monitorService: MonitorService, private store: Store) {
+  }
 
   ngOnInit(): void {
     this.subscriptions.add(

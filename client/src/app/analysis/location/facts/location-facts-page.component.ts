@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionLocationFactsPageDestroy } from '../store/location.actions';
 import { actionLocationFactsPageInit } from '../store/location.actions';
 import { selectLocationFactsPage } from '../store/location.selectors';

@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionLocationChangesPageDestroy } from '../store/location.actions';
 import { actionLocationChangesPageInit } from '../store/location.actions';
 import { selectLocationChangesPage } from '../store/location.selectors';
@@ -18,11 +17,11 @@ import { selectLocationChangesPage } from '../store/location.selectors';
       i18n-pageTitle="@@location-changes.title"
     />
 
-    <kpn-error/>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
-        <kpn-location-changes/>
+        <kpn-location-changes />
       </kpn-location-response>
     </div>
   `,

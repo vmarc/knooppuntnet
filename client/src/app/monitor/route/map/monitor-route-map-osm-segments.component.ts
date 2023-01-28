@@ -3,7 +3,6 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectOsmSegment } from '../../store/monitor.actions';
 import { selectMonitorRouteMapSelectedOsmSegment } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapOsmSegments } from '../../store/monitor.selectors';
@@ -26,7 +25,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
         <div class="segment">
           <span class="segment-id">{{ segment.id }}</span>
           <span class="segment-legend">
-            <kpn-legend-line [color]="segmentColor(segment)"/>
+            <kpn-legend-line [color]="segmentColor(segment)" />
           </span>
           <span>{{ segment.meters | distance }}</span>
         </div>

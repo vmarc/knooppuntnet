@@ -14,7 +14,6 @@ import { mergeMap } from 'rxjs/operators';
 import { AppService } from '../../../app.service';
 import { PageParams } from '../../../base/page-params';
 import { selectQueryParams } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';

@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionLocationMapPageDestroy } from '../store/location.actions';
 import { actionLocationMapPageInit } from '../store/location.actions';
 import { selectLocationKey } from '../store/location.selectors';
@@ -20,7 +19,7 @@ import { selectLocationMapPage } from '../store/location.selectors';
       i18n-pageTitle="@@location-map.title"
     />
 
-    <kpn-error/>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response">
       <kpn-location-response [response]="response">

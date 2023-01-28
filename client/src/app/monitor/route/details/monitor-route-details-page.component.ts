@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteDetailsPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
@@ -45,7 +44,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           title="Comment"
           i18n-title="@@monitor.route.details.comment"
         >
-          <markdown [data]="route.comment"/>
+          <markdown [data]="route.comment" />
         </kpn-data>
 
         <kpn-data

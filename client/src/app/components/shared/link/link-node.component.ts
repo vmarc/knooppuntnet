@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { actionNodeLink } from '../../../analysis/node/store/node.actions';
-import { AppState } from '../../../core/core.state';
 
 @Component({
   selector: 'kpn-link-node',

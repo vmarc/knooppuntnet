@@ -8,7 +8,6 @@ import { map } from 'rxjs/operators';
 import { PageWidth } from '../../../components/shared/page-width';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
-import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';

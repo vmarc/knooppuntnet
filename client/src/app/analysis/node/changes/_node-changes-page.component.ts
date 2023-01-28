@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 import { Store } from '@ngrx/store';
 import { selectDefined } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { actionNodeChangesPageSize } from '../store/node.actions';
 import { actionNodeChangesPageImpact } from '../store/node.actions';
 import { actionNodeChangesPageIndex } from '../store/node.actions';

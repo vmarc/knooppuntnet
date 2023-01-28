@@ -4,7 +4,6 @@ import { Input } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
 import { Store } from '@ngrx/store';
 import { actionRouteLink } from '../../../analysis/route/store/route.actions';
-import { AppState } from '../../../core/core.state';
 
 @Component({
   selector: 'kpn-link-route',

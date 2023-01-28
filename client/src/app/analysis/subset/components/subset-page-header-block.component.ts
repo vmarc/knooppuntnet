@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { I18nService } from '../../../i18n/i18n.service';
 import { selectSubset } from '../store/subset.selectors';
 import { selectSubsetInfo } from '../store/subset.selectors';
@@ -21,7 +20,7 @@ import { selectSubsetInfo } from '../store/subset.selectors';
       [subject]="'subset-' + pageName + '-page'"
     >
       <span class="header-network-type-icon">
-        <mat-icon [svgIcon]="networkType$ | async"/>
+        <mat-icon [svgIcon]="networkType$ | async" />
       </span>
       <span>
         {{ subsetName$ | async }}
@@ -60,8 +59,6 @@ export class SubsetPageHeaderBlockComponent {
     map((subsetName) => subsetName + ' | ' + this.pageTitle)
   );
 
-  constructor(
-    private store: Store,
-    private i18nService: I18nService
-  ) {}
+  constructor(private store: Store, private i18nService: I18nService) {
+  }
 }

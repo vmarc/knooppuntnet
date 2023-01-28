@@ -9,9 +9,7 @@ import { select } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { AppState } from '../../core/core.state';
 import { DemoService } from '../demo.service';
-import { actionDemoStartVideo } from './demo.actions';
 import { actionDemoVideoPlayerAvailable } from './demo.actions';
 import { actionDemoCanPlay } from './demo.actions';
 import { actionDemoUpdateProgress } from './demo.actions';
@@ -25,16 +23,6 @@ import { selectDemoEnabled } from './demo.selectors';
 
 @Injectable()
 export class DemoEffects {
-  // noinspection JSUnusedGlobalSymbols
-  startVideo = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(actionDemoStartVideo),
-        tap((action) => this.router.navigate(['/demo', action.video]))
-      ),
-    { dispatch: false }
-  );
-
   // noinspection JSUnusedGlobalSymbols
   initialStartVideo = createEffect(
     () =>

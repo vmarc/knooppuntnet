@@ -11,16 +11,12 @@ import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { AppState } from '../core/core.state';
 import { actionSharedHttpError } from '../core/shared/shared.actions';
 import { SpinnerService } from './spinner.service';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-  constructor(
-    private spinnerService: SpinnerService,
-    private store: Store
-  ) {}
+  constructor(private spinnerService: SpinnerService, private store: Store) {}
 
   intercept(
     request: HttpRequest<any>,

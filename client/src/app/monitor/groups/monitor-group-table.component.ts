@@ -6,7 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MonitorGroupDetail } from '@api/common/monitor/monitor-group-detail';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../core/core.state';
 import { actionMonitorNavigateGroup } from '../store/monitor.actions';
 import { selectMonitorAdmin } from '../store/monitor.selectors';
 
@@ -22,7 +21,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         <td mat-cell *matCellDef="let group">
           <a [routerLink]="groupLink(group)" (click)="navigateGroup(group)">{{
             group.name
-          }}</a>
+            }}</a>
         </td>
       </ng-container>
 
@@ -68,7 +67,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
             i18n-title="@@action.update"
             class="kpn-action-button kpn-link"
           >
-            <mat-icon svgIcon="pencil"/>
+            <mat-icon svgIcon="pencil" />
           </button>
           <button
             mat-icon-button
@@ -77,7 +76,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
             i18n-title="@@action.delete"
             class="kpn-action-button kpn-warning"
           >
-            <mat-icon svgIcon="garbage"/>
+            <mat-icon svgIcon="garbage" />
           </button>
         </td>
       </ng-container>

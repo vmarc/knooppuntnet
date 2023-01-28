@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Country } from '@api/custom/country';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/core.state';
 import { actionLocationPoiSummaryCountryChanged } from '../store/poi.actions';
 import { actionLocationPoiSummaryPageInit } from '../store/poi.actions';
 import { selectLocationPoiSummaryLocationNode } from '../store/poi.selectors';

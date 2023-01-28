@@ -5,7 +5,6 @@ import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { Store } from '@ngrx/store';
 import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
 import { selectDefined } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
 import { selectNodeNetworkTypes } from '../store/node.selectors';
@@ -58,7 +57,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
         </kpn-data>
 
         <kpn-data title="Tags" i18n-title="@@node.tags">
-          <kpn-tags-table [tags]="buildTags(page)"/>
+          <kpn-tags-table [tags]="buildTags(page)" />
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@node.location">
@@ -108,7 +107,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
         </kpn-data>
 
         <kpn-data title="Facts" i18n-title="@@node.facts">
-          <kpn-facts [factInfos]="buildFactInfos(page)"/>
+          <kpn-facts [factInfos]="buildFactInfos(page)" />
         </kpn-data>
       </div>
     </div>

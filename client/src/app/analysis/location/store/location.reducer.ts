@@ -27,6 +27,7 @@ import { actionLocationFactsPageLoaded } from './location.actions';
 import { actionLocationMapPageLoaded } from './location.actions';
 import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
+import { LocationState } from './location.state';
 import { initialState } from './location.state';
 
 export const locationReducer = createReducer<LocationState>(

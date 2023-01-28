@@ -3,7 +3,6 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteDeviation } from '@app/kpn/api/common/monitor/monitor-route-deviation';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
 import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
 import { selectMonitorRouteMapOsmRelationAvailable } from '../../store/monitor.selectors';

@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteAddPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteAddPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
@@ -28,7 +27,7 @@ import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 
     <h2 i18n="@@monitor.route.add.title">Add route</h2>
 
-    <kpn-error/>
+    <kpn-error />
 
     <kpn-monitor-route-properties
       mode="add"

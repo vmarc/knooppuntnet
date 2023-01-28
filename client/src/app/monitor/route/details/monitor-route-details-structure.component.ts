@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { MonitorRouteRelation } from '@api/common/monitor/monitor-route-relation';
-import { AppState } from '@app/core/core.state';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
@@ -66,7 +65,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
           <a
             [routerLink]="routeMapLink(route)"
             i18n="@@monitor.group.route-table.map-link"
-            >map</a
+          >map</a
           >
         </td>
       </ng-container>
@@ -216,7 +215,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
             i18n-title="@@action.upload"
             class="kpn-action-button kpn-link"
           >
-            <mat-icon svgIcon="upload"/>
+            <mat-icon svgIcon="upload" />
           </button>
         </td>
       </ng-container>

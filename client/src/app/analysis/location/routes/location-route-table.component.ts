@@ -12,7 +12,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PageWidthService } from '../../../components/shared/page-width.service';
 import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
-import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';

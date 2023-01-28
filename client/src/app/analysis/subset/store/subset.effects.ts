@@ -15,7 +15,6 @@ import { AppService } from '../../../app.service';
 import { PageParams } from '../../../base/page-params';
 import { selectRouteParams } from '../../../core/core.state';
 import { selectQueryParams } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { selectPreferencesPageSize } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../../core/preferences/preferences.selectors';
 import { actionSharedEdit } from '../../../core/shared/shared.actions';

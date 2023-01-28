@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectDefined } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorGroupDeleteDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupDeleteInit } from '../../store/monitor.actions';
 import { actionMonitorGroupDelete } from '../../store/monitor.actions';
@@ -40,7 +39,7 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 
         <div *ngIf="routeCount$ | async as routeCount">
           <div *ngIf="routeCount > 0" class="kpn-line">
-            <mat-icon svgIcon="warning"/>
+            <mat-icon svgIcon="warning" />
             <span i18n="@@monitor.group.delete.warning">
               The information of all routes ({{ routeCount }} route(s)) in the
               group will also be deleted!

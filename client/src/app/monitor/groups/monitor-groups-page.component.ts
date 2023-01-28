@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectDefined } from '../../core/core.state';
-import { AppState } from '../../core/core.state';
 import { actionMonitorGroupsPageDestroy } from '../store/monitor.actions';
 import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
 import { selectMonitorGroupsPage } from '../store/monitor.selectors';
@@ -22,18 +21,18 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
 
     <h1 i18n="@@monitor.groups.title">Monitor</h1>
 
-    <kpn-monitor-page-menu pageName="groups"/>
-    <kpn-error/>
+    <kpn-monitor-page-menu pageName="groups" />
+    <kpn-error />
 
     <div *ngIf="response$ | async as response">
       <div class="header">
         <div i18n="@@monitor.groups.routes-in-groups">
           {{ routeCount$ | async }} routes in {{ groupCount$ | async }} groups
         </div>
-        <kpn-monitor-admin-toggle/>
+        <kpn-monitor-admin-toggle />
       </div>
       <div *ngIf="hasGroups$ | async; else noGroups">
-        <kpn-monitor-group-table [groups]="response.result.groups"/>
+        <kpn-monitor-group-table [groups]="response.result.groups" />
       </div>
       <ng-template #noGroups>
         <div i18n="@@monitor.groups.no-groups">No route groups</div>

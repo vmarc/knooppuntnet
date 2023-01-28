@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionLocationNodesType } from '../store/location.actions';
 import { selectLocationNodesPage } from '../store/location.selectors';
 

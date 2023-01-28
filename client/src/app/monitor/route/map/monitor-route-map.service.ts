@@ -11,7 +11,6 @@ import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
 import { Util } from '../../../components/shared/util';
-import { AppState } from '../../../core/core.state';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
 import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';

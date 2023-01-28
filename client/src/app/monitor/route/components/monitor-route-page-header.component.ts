@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteMapSelectSubRelation } from '../../store/monitor.actions';
 import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';

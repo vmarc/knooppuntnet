@@ -7,7 +7,6 @@ import Map from 'ol/Map';
 import { BehaviorSubject } from 'rxjs';
 import { AppService } from '../app.service';
 import { MapService } from '../components/ol/services/map.service';
-import { AppState } from '../core/core.state';
 import { selectPreferencesPlanProposed } from '../core/preferences/preferences.selectors';
 import { PlannerContext } from './planner/context/planner-context';
 import { PlannerCursorImpl } from './planner/context/planner-cursor-impl';

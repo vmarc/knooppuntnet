@@ -10,6 +10,7 @@ import { actionChangesFilterOption } from './changes.actions';
 import { actionChangesPageLoaded } from './changes.actions';
 import { actionChangesPageIndex } from './changes.actions';
 import { actionChangesPageInit } from './changes.actions';
+import { ChangesState } from './changes.state';
 import { initialState } from './changes.state';
 
 export const changesReducer = createReducer<ChangesState>(
@@ -30,7 +31,7 @@ export const changesReducer = createReducer<ChangesState>(
 
       return {
         ...state,
-        strategy,
+        // TODO strategy,
         changesParameters,
       };
     } else {
@@ -90,7 +91,7 @@ export const changesReducer = createReducer<ChangesState>(
     actionPreferencesAnalysisStrategy,
     (state, action): ChangesState => ({
       ...state,
-      strategy: action.strategy,
+      // TODO strategy: action.strategy,
       changesParameters: {
         ...state.changesParameters,
         pageIndex: 0,
@@ -101,14 +102,14 @@ export const changesReducer = createReducer<ChangesState>(
     actionChangesPageInit,
     (state): ChangesState => ({
       ...state,
-      pageIndex: 0,
+      // TODO pageIndex: 0,
     })
   ),
   on(
     actionChangesPageIndex,
     (state, { pageIndex }): ChangesState => ({
       ...state,
-      pageIndex,
+      // TODO pageIndex,
     })
   ),
   on(

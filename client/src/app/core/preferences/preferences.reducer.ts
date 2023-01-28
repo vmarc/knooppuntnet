@@ -32,6 +32,7 @@ import { actionPreferencesPageSize } from './preferences.actions';
 import { actionPreferencesNetworkType } from './preferences.actions';
 import { actionPreferencesInstructions } from './preferences.actions';
 import { actionPreferencesExtraLayers } from './preferences.actions';
+import { PreferencesState } from './preferences.state';
 import { AnalysisStrategy } from './preferences.state';
 import { initialState } from './preferences.state';
 

@@ -4,7 +4,6 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorGroupAdd } from '../../store/monitor.actions';
 
@@ -28,7 +27,7 @@ import { actionMonitorGroupAdd } from '../../store/monitor.actions';
     </div>
 
     <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
-      <kpn-monitor-group-name [ngForm]="ngForm" [name]="name"/>
+      <kpn-monitor-group-name [ngForm]="ngForm" [name]="name" />
       <kpn-monitor-group-description
         [ngForm]="ngForm"
         [description]="description"
@@ -65,10 +64,8 @@ export class MonitorGroupAddPageComponent {
     description: this.description,
   });
 
-  constructor(
-    private monitorService: MonitorService,
-    private store: Store
-  ) {}
+  constructor(private monitorService: MonitorService, private store: Store) {
+  }
 
   add(): void {
     if (this.form.valid) {

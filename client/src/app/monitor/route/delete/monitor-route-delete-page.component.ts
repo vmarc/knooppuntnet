@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectRouteParam } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorRouteDeletePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDeletePageInit } from '../../store/monitor.actions';
 import { actionMonitorRouteDelete } from '../../store/monitor.actions';
@@ -32,7 +31,7 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 
     <h2 i18n="@@monitor.route.delete.title">Delete</h2>
 
-    <kpn-error/>
+    <kpn-error />
 
     <div class="kpn-form">
       <p i18n="@@monitor.route.delete.comment">
@@ -40,16 +39,16 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
       </p>
 
       <p class="kpn-line">
-        <mat-icon svgIcon="warning"/>
+        <mat-icon svgIcon="warning" />
         <span i18n="@@monitor.route.delete.warning"
-          >Attention: all history will be lost!</span
+        >Attention: all history will be lost!</span
         >
       </p>
 
       <div class="kpn-form-buttons">
         <button mat-stroked-button (click)="delete()">
           <span class="delete-button" i18n="@@monitor.route.delete.action"
-            >Delete Route</span
+          >Delete Route</span
           >
         </button>
         <a [routerLink]="groupLink$ | async" i18n="@@action.cancel">Cancel</a>

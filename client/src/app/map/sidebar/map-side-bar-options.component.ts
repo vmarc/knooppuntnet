@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/core.state';
 import { actionPreferencesShowOptions } from '../../core/preferences/preferences.actions';
 import { actionPreferencesPlanProposed } from '../../core/preferences/preferences.actions';
 import { actionPreferencesShowProposed } from '../../core/preferences/preferences.actions';

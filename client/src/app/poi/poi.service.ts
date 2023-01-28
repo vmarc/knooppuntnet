@@ -11,7 +11,6 @@ import { ApiResponse } from '@api/custom/api-response';
 import { Country } from '@api/custom/country';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AppState } from '../core/core.state';
 
 @Injectable()
 export class PoiService {

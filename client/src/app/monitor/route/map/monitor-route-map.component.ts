@@ -14,7 +14,6 @@ import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { PageService } from '@app/components/shared/page.service';
 import { Util } from '@app/components/shared/util';
 import { selectQueryParam } from '@app/core/core.state';
-import { AppState } from '@app/core/core.state';
 import { I18nService } from '@app/i18n/i18n.service';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
@@ -36,8 +35,8 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="monitor-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="mapLayers"/>
-      <kpn-map-link-menu [map]="map"/>
+      <kpn-layer-switcher [mapLayers]="mapLayers" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })

@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { GPX } from 'ol/format';
 import { MapMode } from '../../components/ol/services/map-mode';
 import { MapService } from '../../components/ol/services/map.service';
-import { AppState } from '../../core/core.state';
 import { actionPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.actions';
 import { selectPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.selectors';
 import { PlannerLayerService } from '../planner/services/planner-layer.service';

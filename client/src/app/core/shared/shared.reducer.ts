@@ -2,6 +2,7 @@ import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { actionSharedHttpError } from './shared.actions';
+import { SharedState } from './shared.state';
 import { initialSharedState } from './shared.state';
 
 export const sharedReducer = createReducer<SharedState>(

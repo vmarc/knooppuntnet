@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { ChangeOption } from '../../changes/store/changes.actions';
 import { actionNodeChangesFilterOption } from '../store/node.actions';
 import { selectNodeChangesFilterOptions } from '../store/node.selectors';

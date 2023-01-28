@@ -6,6 +6,7 @@ import { actionLocationPoiSummaryPageLoaded } from './poi.actions';
 import { actionLocationPoisPageInit } from './poi.actions';
 import { actionLocationPoisPageIndex } from './poi.actions';
 import { actionLocationPoisPageLoaded } from './poi.actions';
+import { PoiState } from './poi.state';
 import { initialState } from './poi.state';
 
 export const poiReducer = createReducer<PoiState>(

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { actionSubsetOrphanRoutesPageInit } from '../store/subset.actions';
 import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
 
@@ -15,11 +14,11 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
       i18n-pageTitle="@@subset-orphan-routes.title"
     />
 
-    <kpn-error/>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response" class="kpn-spacer-above">
       <p>
-        <kpn-situation-on [timestamp]="response.situationOn"/>
+        <kpn-situation-on [timestamp]="response.situationOn" />
       </p>
       <p *ngIf="response.result.routes.length === 0" class="kpn-line">
         <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>

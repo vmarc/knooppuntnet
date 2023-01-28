@@ -8,7 +8,6 @@ import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { AppService } from '../../app.service';
 import { Util } from '../../components/shared/util';
-import { AppState } from '../../core/core.state';
 import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
 import { PdfService } from '../../pdf/pdf.service';
 import { GpxWriter } from '../../pdf/plan/gpx-writer';
@@ -22,7 +21,7 @@ import { PlanUtil } from '../planner/plan/plan-util';
     <kpn-dialog>
       <div mat-dialog-title>
         <div class="kpn-line">
-          <mat-icon svgIcon="output"/>
+          <mat-icon svgIcon="output" />
           <span i18n="@@plan.output.title">Output</span>
         </div>
       </div>

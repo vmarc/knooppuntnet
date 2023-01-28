@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
 import { selectSubsetFact } from '../store/subset.selectors';

@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../core/core.state';
 import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
 import { actionPreferencesImpact } from '../../core/preferences/preferences.actions';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';

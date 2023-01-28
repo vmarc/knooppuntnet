@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { actionMonitorGroupPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';

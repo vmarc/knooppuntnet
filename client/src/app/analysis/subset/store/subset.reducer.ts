@@ -24,6 +24,7 @@ import { actionSubsetOrphanNodesPageLoaded } from './subset.actions';
 import { actionSubsetOrphanRoutesPageLoaded } from './subset.actions';
 import { actionSubsetMapPageLoaded } from './subset.actions';
 import { actionSubsetChangesPageLoaded } from './subset.actions';
+import { SubsetState } from './subset.state';
 import { initialState } from './subset.state';
 
 export const subsetReducer = createReducer<SubsetState>(

@@ -14,7 +14,6 @@ import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { selectUrl } from '../core.state';
-import { AppState } from '../core.state';
 import { ReturnUrl } from './return-url';
 import { actionUserLoginCompleted } from './user.actions';
 import { actionUserLogoutCompleted } from './user.actions';

@@ -18,7 +18,6 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { DayUtil } from '../../../components/shared/day-util';
-import { AppState } from '../../../core/core.state';
 import { Subscriptions } from '../../../util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
 import { MonitorRouteParameters } from './monitor-route-parameters';
@@ -121,7 +120,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
     >
       The route name should be unique within its the group. A route with name
       "{{ name.value }}" already exists within group "{{
-        group.value.groupName
+      group.value.groupName
       }}".
     </p>
 

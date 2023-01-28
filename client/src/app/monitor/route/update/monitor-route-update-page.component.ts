@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { selectRouteParam } from '../../../core/core.state';
 import { selectDefined } from '../../../core/core.state';
-import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteUpdatePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
@@ -34,7 +33,7 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 
     <h2 i18n="@@monitor.route.update.title">Update route</h2>
 
-    <kpn-error/>
+    <kpn-error />
 
     <div *ngIf="response$ | async as response">
       <kpn-monitor-route-properties
@@ -55,10 +54,7 @@ export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
     map((groupName) => `/monitor/groups/${groupName}`)
   );
 
-  constructor(
-    private monitorService: MonitorService,
-    private store: Store
-  ) {}
+  constructor(private monitorService: MonitorService, private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteUpdatePageInit());

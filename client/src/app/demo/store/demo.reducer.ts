@@ -1,7 +1,6 @@
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
 import { actionDemoPause } from './demo.actions';
-import { actionDemoStartVideo } from './demo.actions';
 import { actionDemoPlayingChanged } from './demo.actions';
 import { actionDemoEnabledChanged } from './demo.actions';
 import { actionDemoCanPlay } from './demo.actions';
@@ -20,13 +19,6 @@ const initialState: DemoState = {
 export const demoReducer = createReducer<DemoState>(
   initialState,
   on(actionDemoPause, (state, action): DemoState => ({ ...state, ...action })),
-  on(
-    actionDemoStartVideo,
-    (state, { video }): DemoState => ({
-      ...state,
-      currentVideo: video,
-    })
-  ),
   on(
     actionDemoPlayingChanged,
     (state, { playing }): DemoState => ({

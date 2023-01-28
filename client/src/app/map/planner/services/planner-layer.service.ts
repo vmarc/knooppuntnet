@@ -21,7 +21,6 @@ import { MapZoomService } from '../../../components/ol/services/map-zoom.service
 import { MapService } from '../../../components/ol/services/map.service';
 import { PoiTileLayerService } from '../../../components/ol/services/poi-tile-layer.service';
 import { MainMapStyle } from '../../../components/ol/style/main-map-style';
-import { AppState } from '../../../core/core.state';
 import { selectPreferencesShowProposed } from '../../../core/preferences/preferences.selectors';
 import { selectPreferencesExtraLayers } from '../../../core/preferences/preferences.selectors';
 import { NetworkTypes } from '../../../kpn/common/network-types';

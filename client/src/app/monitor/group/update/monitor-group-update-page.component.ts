@@ -7,7 +7,6 @@ import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
-import { AppState } from '../../../core/core.state';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorGroupUpdateDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
@@ -80,10 +79,8 @@ export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
     })
   );
 
-  constructor(
-    private monitorService: MonitorService,
-    private store: Store
-  ) {}
+  constructor(private monitorService: MonitorService, private store: Store) {
+  }
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupUpdateInit());

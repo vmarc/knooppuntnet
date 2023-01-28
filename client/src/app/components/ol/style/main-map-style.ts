@@ -1,12 +1,11 @@
 import { Store } from '@ngrx/store';
 import Map from 'ol/Map';
 import { StyleFunction } from 'ol/style/Style';
-import { AppState } from '../../../core/core.state';
+import Style from 'ol/style/Style';
 import { selectPreferencesShowProposed } from '../../../core/preferences/preferences.selectors';
 import { MapService } from '../services/map.service';
 import { MainMapNodeStyle } from './main-map-node-style';
 import { MainMapRouteStyle } from './main-map-route-style';
-import Style from 'ol/style/Style';
 
 export class MainMapStyle {
   private readonly invisible = new Style({});

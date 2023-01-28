@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppState } from '../../core/core.state';
 import { selectPreferencesAnalysisStrategy } from '../../core/preferences/preferences.selectors';
 import { AnalysisStrategy } from '../../core/preferences/preferences.state';
 
