@@ -53,8 +53,12 @@
         "*.ts"
       ],
       "extends": [
-        "plugin:@ngrx/recommended-requiring-type-checking"
-      ]
+        "plugin:@ngrx/all-requiring-type-checking"
+      ],
+      "rules": {
+        "@ngrx/prefer-inline-action-props": "off",
+        "@ngrx/no-store-subscription": "off"
+      }
     }
   ]
 }

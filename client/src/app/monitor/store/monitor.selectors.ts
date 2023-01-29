@@ -128,6 +128,11 @@ export const selectMonitorRouteMapSelectedOsmSegment = createSelector(
   (state: MonitorState) => state.routeMapSelectedOsmSegment
 );
 
+export const selectMonitorRouteMapSelectedOsmSegmentId = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeMapSelectedOsmSegment?.id
+);
+
 export const selectMonitorRouteMapSelectedOsmSegmentDisabled = createSelector(
   selectMonitorState,
   (state: MonitorState) =>
