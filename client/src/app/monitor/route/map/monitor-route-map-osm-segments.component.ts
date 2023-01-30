@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { Store } from '@ngrx/store';
-import { actionMonitorRouteMapSelectOsmSegment } from '../../store/monitor.actions';
-import { selectMonitorRouteMapSelectedOsmSegmentId } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapOsmSegments } from '../../store/monitor.selectors';
+import { actionMonitorRouteMapSelectOsmSegment } from './store/monitor-route-map.actions';
+import { selectMonitorRouteMapSelectedOsmSegmentId } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.selectors';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({

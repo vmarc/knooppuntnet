@@ -6,14 +6,9 @@ import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page'
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
-import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { MapPosition } from '../../components/ol/domain/map-position';
-import { MonitorMapMode } from '../route/map/monitor-map-mode';
 
 export class MonitorRouteSaveState {
   constructor(
@@ -36,15 +31,6 @@ export const initialState: MonitorState = {
   routeDescription: undefined,
   groupName: undefined,
   groupDescription: undefined,
-  mapMode: undefined,
-  mapReferenceVisible: undefined,
-  mapMatchesVisible: undefined,
-  mapDeviationsVisible: undefined,
-  mapOsmRelationVisible: undefined,
-  mapOsmRelationAvailable: undefined,
-  mapOsmRelationEmpty: undefined,
-  mapPosition: undefined,
-  mapPages: undefined,
   changesPageIndex: undefined,
   changesPage: undefined,
   groupsPage: undefined,
@@ -56,9 +42,6 @@ export const initialState: MonitorState = {
   routeInfoPage: undefined,
   routeSaveState: undefined,
   routeDetailsPage: undefined,
-  routeMapPage: undefined,
-  routeMapSelectedDeviation: undefined,
-  routeMapSelectedOsmSegment: undefined,
   routeChangesPageIndex: undefined,
   routeChangesPage: undefined,
   routeChangePage: undefined,
@@ -72,15 +55,6 @@ export interface MonitorState {
   routeDescription: string | undefined;
   groupName: string | undefined;
   groupDescription: string | undefined;
-  mapMode: MonitorMapMode | undefined;
-  mapReferenceVisible: boolean | undefined;
-  mapMatchesVisible: boolean | undefined;
-  mapDeviationsVisible: boolean | undefined;
-  mapOsmRelationVisible: boolean | undefined;
-  mapOsmRelationAvailable: boolean | undefined;
-  mapOsmRelationEmpty: boolean | undefined;
-  mapPosition: MapPosition | undefined;
-  mapPages: Map<number, MonitorRouteMapPage> | undefined;
   changesPageIndex: number | undefined;
   changesPage: ApiResponse<MonitorChangesPage> | undefined;
   groupsPage: ApiResponse<MonitorGroupsPage> | undefined;
@@ -92,9 +66,6 @@ export interface MonitorState {
   routeInfoPage: ApiResponse<MonitorRouteInfoPage> | undefined;
   routeSaveState: MonitorRouteSaveState | null;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage> | undefined;
-  routeMapPage: ApiResponse<MonitorRouteMapPage> | undefined;
-  routeMapSelectedDeviation: MonitorRouteDeviation | undefined;
-  routeMapSelectedOsmSegment: MonitorRouteSegment | undefined;
   routeChangesPageIndex: number | undefined;
   routeChangesPage: ApiResponse<MonitorRouteChangesPage> | undefined;
   routeChangePage: ApiResponse<MonitorRouteChangePage> | undefined;

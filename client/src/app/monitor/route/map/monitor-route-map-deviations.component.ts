@@ -3,13 +3,13 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteDeviation } from '@app/kpn/api/common/monitor/monitor-route-deviation';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
-import { actionMonitorRouteMapSelectDeviation } from '../../store/monitor.actions';
-import { selectMonitorRouteMapOsmRelationAvailable } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapOsmRelationEmpty } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapSelectedDeviation } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapDeviations } from '../../store/monitor.selectors';
+import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapSelectDeviation } from './store/monitor-route-map.actions';
+import { selectMonitorRouteMapOsmRelationAvailable } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapOsmRelationEmpty } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapSelectedDeviation } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-deviations',

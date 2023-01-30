@@ -4,20 +4,20 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectFalse } from '../../../core/core.state';
-import { actionMonitorRouteMapOsmRelationVisible } from '../../store/monitor.actions';
-import { actionMonitorRouteMapDeviationsVisible } from '../../store/monitor.actions';
-import { actionMonitorRouteMapMatchesVisible } from '../../store/monitor.actions';
-import { actionMonitorRouteMapReferenceVisible } from '../../store/monitor.actions';
-import { selectMonitorRouteMapOsmRelationEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapDeviationsEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapMatchesEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapDeviationsVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapMatchesVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapReferenceVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
+import { actionMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapMatchesVisible } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapReferenceVisible } from './store/monitor-route-map.actions';
+import { selectMonitorRouteMapOsmRelationEnabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapDeviationsEnabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapMatchesEnabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapMatchesVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapReferenceVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-layers',

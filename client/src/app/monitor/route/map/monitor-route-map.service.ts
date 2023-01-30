@@ -12,13 +12,13 @@ import { Style } from 'ol/style';
 import View from 'ol/View';
 import { Util } from '../../../components/shared/util';
 import { Subscriptions } from '../../../util/Subscriptions';
-import { selectMonitorRouteMapReferenceEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapMatchesVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapDeviationsVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapOsmRelationVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapReferenceVisible } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapPage } from '../../store/monitor.selectors';
+import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapMatchesVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapReferenceVisible } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
 
 @Injectable({
   providedIn: 'root',

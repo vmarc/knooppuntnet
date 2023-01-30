@@ -126,27 +126,6 @@ export const actionMonitorRouteDetailsPageDestroy = createAction(
   '[MonitorRouteDetailsPage] Destroy'
 );
 
-export const actionMonitorRouteMapPageInit = createAction(
-  '[MonitorRouteMapPage] Init'
-);
-
-export const actionMonitorRouteMapPageLoad = createAction(
-  '[MonitorRouteMapPage] Load',
-  props<{ groupName: string; routeName: string; relationId: number }>()
-);
-
-export const actionMonitorRouteMapPageDestroy = createAction(
-  '[MonitorRouteMapPage] Destroy'
-);
-
-export const actionMonitorRouteMapPageLoaded = createAction(
-  '[MonitorRouteMapPage] Loaded',
-  props<{
-    response: ApiResponse<MonitorRouteMapPage>;
-    queryParams: Params;
-  }>()
-);
-
 export const actionMonitorRouteChangesPageInit = createAction(
   '[MonitorRouteChangesPage] Init'
 );
@@ -176,72 +155,6 @@ export const actionMonitorRouteChangePageDestroy = createAction(
 export const actionMonitorRouteChangePageLoaded = createAction(
   '[MonitorRouteChangePage] Loaded',
   props<ApiResponse<MonitorRouteChangePage>>()
-);
-
-export const actionMonitorRouteMapMode = createAction(
-  '[Monitor] Map mode',
-  props<{ mapMode: MonitorMapMode }>()
-);
-
-export const actionMonitorRouteMapPositionChanged = createAction(
-  '[Monitor] Map position changed',
-  props<{ mapPosition: MapPosition }>()
-);
-
-export const actionMonitorRouteMapSelectDeviation = createAction(
-  '[Monitor] Map select deviation',
-  props<MonitorRouteDeviation | null>()
-);
-
-export const actionMonitorRouteMapSelectOsmSegment = createAction(
-  '[Monitor] Map select OSM segment',
-  props<MonitorRouteSegment | null>()
-);
-
-export const actionMonitorRouteMapFocus = createAction(
-  '[Monitor] Focus',
-  props<Bounds>()
-);
-
-export const actionMonitorRouteMapReferenceVisible = createAction(
-  '[Monitor] Map reference visible',
-  props<{ visible: boolean }>()
-);
-
-export const actionMonitorRouteMapMatchesVisible = createAction(
-  '[Monitor] Map matches visible',
-  props<{ visible: boolean }>()
-);
-
-export const actionMonitorRouteMapDeviationsVisible = createAction(
-  '[Monitor] Map deviations visible',
-  props<{ visible: boolean }>()
-);
-
-export const actionMonitorRouteMapOsmRelationVisible = createAction(
-  '[Monitor] Map osm relation visible',
-  props<{ visible: boolean }>()
-);
-
-export const actionMonitorRouteMapJosmLoadRouteRelation = createAction(
-  '[Monitor] Map josm load route relation'
-);
-
-export const actionMonitorRouteMapJosmZoomToFitRoute = createAction(
-  '[Monitor] Map josm zoom to fit route'
-);
-
-export const actionMonitorRouteMapJosmZoomToSelectedDeviation = createAction(
-  '[Monitor] Map josm zoom to fit selected deviation'
-);
-
-export const actionMonitorRouteMapJosmZoomToSelectedOsmSegment = createAction(
-  '[Monitor] Map josm zoom to fit selected OSM segment'
-);
-
-export const actionMonitorRouteMapSelectSubRelation = createAction(
-  '[Monitor] Map select sub relation',
-  props<MonitorRouteSubRelation>()
 );
 
 export const actionMonitorGroupAdd = createAction(

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -8,33 +7,19 @@ import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
 import { concatMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { EditParameters } from '../../analysis/components/edit/edit-parameters';
-import { selectQueryParams } from '../../core/core.state';
 import { selectRouteParam } from '../../core/core.state';
 import { selectRouteParams } from '../../core/core.state';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
-import { actionSharedEdit } from '../../core/shared/shared.actions';
 import { MonitorService } from '../monitor.service';
 import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
-import { actionMonitorRouteMapSelectSubRelation } from './monitor.actions';
 import { actionMonitorGroupPageLoad } from './monitor.actions';
 import { actionMonitorRouteAddPageLoad } from './monitor.actions';
-import { actionMonitorRouteMapPageLoad } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
-import { actionMonitorRouteMapPositionChanged } from './monitor.actions';
-import { actionMonitorRouteMapMode } from './monitor.actions';
-import { actionMonitorRouteMapMatchesVisible } from './monitor.actions';
-import { actionMonitorRouteMapDeviationsVisible } from './monitor.actions';
-import { actionMonitorRouteMapOsmRelationVisible } from './monitor.actions';
-import { actionMonitorRouteMapReferenceVisible } from './monitor.actions';
-import { actionMonitorRouteMapSelectOsmSegment } from './monitor.actions';
-import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from './monitor.actions';
 import { actionMonitorRouteAnalyzed } from './monitor.actions';
 import { actionMonitorRouteUploaded } from './monitor.actions';
 import { actionMonitorRouteSaved } from './monitor.actions';
@@ -43,10 +28,6 @@ import { actionMonitorRouteUpdatePageLoaded } from './monitor.actions';
 import { actionMonitorRouteUpdatePageInit } from './monitor.actions';
 import { actionMonitorRouteAddPageLoaded } from './monitor.actions';
 import { actionMonitorRouteAddPageInit } from './monitor.actions';
-import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './monitor.actions';
-import { actionMonitorRouteMapSelectDeviation } from './monitor.actions';
-import { actionMonitorRouteMapJosmLoadRouteRelation } from './monitor.actions';
-import { actionMonitorRouteMapJosmZoomToFitRoute } from './monitor.actions';
 import { actionMonitorRouteDelete } from './monitor.actions';
 import { actionMonitorRouteDeletePageInit } from './monitor.actions';
 import { actionMonitorRouteSaveInit } from './monitor.actions';
@@ -64,7 +45,6 @@ import { actionMonitorGroupPageInit } from './monitor.actions';
 import { actionMonitorGroupDeleteInit } from './monitor.actions';
 import { actionMonitorGroupUpdateInit } from './monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from './monitor.actions';
-import { actionMonitorRouteMapPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangePageInit } from './monitor.actions';
 import { actionMonitorGroupsPageInit } from './monitor.actions';
@@ -75,15 +55,8 @@ import { actionMonitorGroupDeleteLoaded } from './monitor.actions';
 import { actionMonitorGroupAdd } from './monitor.actions';
 import { actionMonitorGroupsPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
-import { actionMonitorRouteMapFocus } from './monitor.actions';
-import { actionMonitorRouteMapPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
-import { selectMonitorState } from './monitor.selectors';
-import { selectMonitorRouteMapSelectedOsmSegment } from './monitor.selectors';
-import { selectMonitorRouteMapSelectedDeviation } from './monitor.selectors';
-import { selectMonitorRouteMapPage } from './monitor.selectors';
-import { selectMonitorRouteMapBounds } from './monitor.selectors';
 import { selectMonitorGroupName } from './monitor.selectors';
 import { selectMonitorChangesPageIndex } from './monitor.selectors';
 import { selectMonitorGroupChangesPageIndex } from './monitor.selectors';
@@ -91,17 +64,6 @@ import { selectMonitorAdmin } from './monitor.selectors';
 
 @Injectable()
 export class MonitorEffects {
-  // noinspection JSUnusedGlobalSymbols
-  mapFocusEffect = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(actionMonitorRouteMapFocus),
-        tap((bounds) => this.mapService.focus(bounds))
-      );
-    },
-    { dispatch: false }
-  );
-
   // noinspection JSUnusedGlobalSymbols
   monitorGroupsPageInit = createEffect(() => {
     return this.actions$.pipe(
@@ -377,140 +339,6 @@ export class MonitorEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapPageInit = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapPageInit),
-      concatLatestFrom(() => [
-        this.store.select(selectRouteParam('groupName')),
-        this.store.select(selectRouteParam('routeName')),
-      ]),
-      map(([_, groupName, routeName]) =>
-        actionMonitorRouteMapPageLoad({ groupName, routeName, relationId: 0 })
-      )
-    );
-  });
-
-  monitorRouteMapSelectSubRelation = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapSelectSubRelation),
-      concatLatestFrom(() => [
-        this.store.select(selectRouteParam('groupName')),
-        this.store.select(selectRouteParam('routeName')),
-      ]),
-      map(([monitorRouteSubRelation, groupName, routeName]) =>
-        actionMonitorRouteMapPageLoad({
-          groupName,
-          routeName,
-          relationId: monitorRouteSubRelation.relationId,
-        })
-      )
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapPageLoad = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapPageLoad),
-      concatLatestFrom(() => [
-        this.store.select(selectRouteParam('groupName')),
-        this.store.select(selectRouteParam('routeName')),
-        this.store.select(selectQueryParams),
-      ]),
-      mergeMap(([{ relationId }, groupName, routeName, queryParams]) =>
-        this.monitorService.routeMap(groupName, routeName, relationId).pipe(
-          map((response) =>
-            actionMonitorRouteMapPageLoaded({
-              response,
-              queryParams,
-            })
-          )
-        )
-      )
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapSelectDeviation = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapSelectDeviation),
-      filter((deviation) => !!deviation),
-      map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapSelectOsmSegment = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapSelectOsmSegment),
-      filter((deviation) => !!deviation),
-      map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmLoadRouteRelation = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmLoadRouteRelation),
-      concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
-      map(([_, page]) => {
-        const editParameters: EditParameters = {
-          relationIds: [page.result.relationId],
-          fullRelation: true,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitRoute = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmZoomToFitRoute),
-      concatLatestFrom(() => [this.store.select(selectMonitorRouteMapBounds)]),
-      map(([_, bounds]) => {
-        const editParameters: EditParameters = {
-          bounds,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitSelectedDeviation = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmZoomToSelectedDeviation),
-      concatLatestFrom(() => [
-        this.store.select(selectMonitorRouteMapSelectedDeviation),
-      ]),
-      filter(([_, segment]) => !!segment),
-      map(([_, segment]) => {
-        const editParameters: EditParameters = {
-          bounds: segment.bounds,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitSelectedOsmSegment = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmZoomToSelectedOsmSegment),
-      concatLatestFrom(() => [
-        this.store.select(selectMonitorRouteMapSelectedOsmSegment),
-      ]),
-      filter(([_, segment]) => !!segment),
-      map(([_, segment]) => {
-        const editParameters: EditParameters = {
-          bounds: segment.bounds,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
   monitorRouteChangesPageInit = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -615,72 +443,10 @@ export class MonitorEffects {
     );
   });
 
-  // noinspection JSUnusedGlobalSymbols
-  routeMapQueryParamsEffect = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(
-          actionMonitorRouteMapPositionChanged,
-          actionMonitorRouteMapReferenceVisible,
-          actionMonitorRouteMapMatchesVisible,
-          actionMonitorRouteMapDeviationsVisible,
-          actionMonitorRouteMapOsmRelationVisible,
-          actionMonitorRouteMapMode
-        ),
-        concatLatestFrom(() => this.store.select(selectMonitorState)),
-        tap(([_, state]) => {
-          let selectedDeviation = 0;
-          if (state.routeMapSelectedDeviation) {
-            selectedDeviation = state.routeMapSelectedDeviation.id;
-          }
-          let selectedOsmSegment = 0;
-          if (state.routeMapSelectedOsmSegment) {
-            selectedOsmSegment = state.routeMapSelectedOsmSegment.id;
-          }
-          let queryParams: Params = {
-            mode: state.mapMode,
-            reference: state.mapReferenceVisible,
-            matches: state.mapMatchesVisible,
-            deviations: state.mapDeviationsVisible,
-            'osm-relation': state.mapOsmRelationVisible,
-            'selected-deviation': selectedDeviation,
-            'selected-osm-segment': selectedOsmSegment,
-          };
-          if (state.mapPosition) {
-            queryParams = {
-              ...queryParams,
-              position: state.mapPosition.toQueryParam(),
-            };
-          }
-          this.router.navigate([], {
-            relativeTo: this.activatedRoute,
-            queryParams,
-            replaceUrl: true, // do not push a new entry to the browser history
-            queryParamsHandling: 'merge', // preserve other query params if there are any
-          });
-        })
-      );
-    },
-    { dispatch: false }
-  );
-
   constructor(
     private actions$: Actions,
     private store: Store,
     private router: Router,
-    private monitorService: MonitorService,
-    private mapService: MonitorRouteMapService,
-    private activatedRoute: ActivatedRoute
+    private monitorService: MonitorService
   ) {}
-
-  updateQueryParam(name: string, value: string) {
-    const queryParams: Params = {};
-    queryParams[name] = value;
-    this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams,
-      replaceUrl: true, // do not push a new entry to the browser history
-      queryParamsHandling: 'merge', // preserve other query params if there are any
-    });
-  }
 }

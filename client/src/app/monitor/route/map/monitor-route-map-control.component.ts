@@ -4,17 +4,17 @@ import { MatRadioChange } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from '../../store/monitor.actions';
-import { actionMonitorRouteMapJosmLoadRouteRelation } from '../../store/monitor.actions';
-import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from '../../store/monitor.actions';
-import { actionMonitorRouteMapJosmZoomToFitRoute } from '../../store/monitor.actions';
-import { actionMonitorRouteMapFocus } from '../../store/monitor.actions';
-import { actionMonitorRouteMapMode } from '../../store/monitor.actions';
-import { selectMonitorRouteMapSelectedOsmSegmentDisabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapSelectedDeviationDisabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapBounds } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapMode } from '../../store/monitor.selectors';
-import { selectMonitorRouteMapOsmSegmentCount } from '../../store/monitor.selectors';
+import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapJosmLoadRouteRelation } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapJosmZoomToFitRoute } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapFocus } from './store/monitor-route-map.actions';
+import { actionMonitorRouteMapMode } from './store/monitor-route-map.actions';
+import { selectMonitorRouteMapSelectedOsmSegmentDisabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapBounds } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
+import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-control',

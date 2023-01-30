@@ -74,6 +74,9 @@ import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-m
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapComponent } from './route/map/monitor-route-map.component';
+import { MonitorRouteMapEffects } from './route/map/store/monitor-route-map.effects';
+import { monitorRouteMapReducer } from './route/map/store/monitor-route-map.reducer';
+import { monitorRouteMapFeatureKey } from './route/map/store/monitor-route-map.state';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
@@ -84,7 +87,8 @@ import { monitorFeatureKey } from './store/monitor.state';
     CommonModule,
     MonitorRoutingModule,
     StoreModule.forFeature(monitorFeatureKey, monitorReducer),
-    EffectsModule.forFeature([MonitorEffects]),
+    StoreModule.forFeature(monitorRouteMapFeatureKey, monitorRouteMapReducer),
+    EffectsModule.forFeature([MonitorEffects, MonitorRouteMapEffects]),
     SharedModule,
     OlModule,
     MatTableModule,

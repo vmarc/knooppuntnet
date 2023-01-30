@@ -25,28 +25,28 @@ import { PlannerService } from '../../../planner.service';
       </div>
 
       <div *ngIf="poi">
-        <kpn-poi-analysis [poi]="poi"/>
-      </div>
+        <kpn-poi-analysis [poi]="poi" />
 
-      <div *ngIf="poi.mainTags && poi.mainTags.tags.length > 0" class="item">
-        <kpn-tags-table [tags]="mainTags()"/>
-      </div>
+        <div *ngIf="poi.mainTags && poi.mainTags.tags.length > 0" class="item">
+          <kpn-tags-table [tags]="mainTags()" />
+        </div>
 
-      <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
-        <kpn-tags-table [tags]="extraTags()"/>
-      </div>
+        <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
+          <kpn-tags-table [tags]="extraTags()" />
+        </div>
 
-      <div class="item">
-        <kpn-osm-link
-          [kind]="poiClick.poiId.elementType"
-          [elementId]="poiClick.poiId.elementId.toString()"
-          title="osm"
-        />
-        <kpn-josm-link
-          [kind]="poiClick.poiId.elementType"
-          [elementId]="poiClick.poiId.elementId"
-          title="edit"
-        />
+        <div class="item">
+          <kpn-osm-link
+            [kind]="poiClick.poiId.elementType"
+            [elementId]="poiClick.poiId.elementId.toString()"
+            title="osm"
+          />
+          <kpn-josm-link
+            [kind]="poiClick.poiId.elementType"
+            [elementId]="poiClick.poiId.elementId"
+            title="edit"
+          />
+        </div>
       </div>
     </div>
   `,
