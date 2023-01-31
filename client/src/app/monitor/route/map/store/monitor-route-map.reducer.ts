@@ -4,7 +4,6 @@ import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
 import { MonitorMapMode } from '../monitor-map-mode';
-import { actionMonitorRouteMapPageLoad } from './monitor-route-map.actions';
 import { actionMonitorRouteMapPageDestroy } from './monitor-route-map.actions';
 import { actionMonitorRouteMapPositionChanged } from './monitor-route-map.actions';
 import { actionMonitorRouteMapSelectOsmSegment } from './monitor-route-map.actions';
@@ -37,27 +36,9 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
     })
   ),
   on(
-    actionMonitorRouteMapPageLoad,
-    (state, { groupName, routeName }): MonitorRouteMapState => {
-      return {
-        ...state,
-        routeName,
-        groupName,
-      };
-    }
-  ),
-  on(
     actionMonitorRouteMapPageLoaded,
     (state, { response, queryParams }): MonitorRouteMapState => {
       const mapPage = response.result;
-      const relationId = mapPage?.relationId ?? state.relationId;
-      const routeName = mapPage?.routeName ?? state.routeName;
-      const routeDescription =
-        mapPage?.routeDescription ?? state.routeDescription;
-      const groupName = mapPage?.groupName ?? state.groupName;
-      const groupDescription =
-        mapPage?.groupDescription ?? state.groupDescription;
-
       let mapMatchesVisible =
         !!mapPage?.matchesGeoJson && (mapPage?.osmSegments?.length ?? 0) > 0;
       if (mapMatchesVisible && queryParams['matches']) {
@@ -128,11 +109,6 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
 
       return {
         ...state,
-        relationId,
-        routeName,
-        routeDescription,
-        groupName,
-        groupDescription,
         mapReferenceVisible,
         mapMatchesVisible,
         mapDeviationsVisible,

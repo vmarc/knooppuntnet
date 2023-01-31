@@ -6,11 +6,6 @@ import { MapPosition } from '../../../../components/ol/domain/map-position';
 import { MonitorMapMode } from '../monitor-map-mode';
 
 export const initialState: MonitorRouteMapState = {
-  relationId: undefined,
-  routeName: undefined,
-  routeDescription: undefined,
-  groupName: undefined,
-  groupDescription: undefined,
   mapMode: undefined,
   mapReferenceVisible: undefined,
   mapMatchesVisible: undefined,
@@ -26,11 +21,6 @@ export const initialState: MonitorRouteMapState = {
 };
 
 export interface MonitorRouteMapState {
-  relationId: number | undefined;
-  routeName: string | undefined;
-  routeDescription: string | undefined;
-  groupName: string | undefined;
-  groupDescription: string | undefined;
   mapMode: MonitorMapMode | undefined;
   mapReferenceVisible: boolean | undefined;
   mapMatchesVisible: boolean | undefined;

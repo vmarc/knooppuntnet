@@ -17,6 +17,7 @@ import { selectRouteParam } from '../../../../core/core.state';
 import { actionSharedEdit } from '../../../../core/shared/shared.actions';
 import { MonitorService } from '../../../monitor.service';
 import { MonitorRouteMapService } from '../monitor-route-map.service';
+import { actionMonitorRouteMapZoomToFitRoute } from './monitor-route-map.actions';
 import { actionMonitorRouteMapSelectSubRelation } from './monitor-route-map.actions';
 import { actionMonitorRouteMapPageLoad } from './monitor-route-map.actions';
 import { actionMonitorRouteMapPositionChanged } from './monitor-route-map.actions';
@@ -67,6 +68,7 @@ export class MonitorRouteMapEffects {
     );
   });
 
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteMapSelectSubRelation = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionMonitorRouteMapSelectSubRelation),
@@ -107,11 +109,30 @@ export class MonitorRouteMapEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapPageLoaded = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionMonitorRouteMapPageLoaded),
+      map((response) =>
+        actionMonitorRouteMapFocus(response.response.result.bounds)
+      )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
   monitorRouteMapSelectDeviation = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionMonitorRouteMapSelectDeviation),
       filter((deviation) => !!deviation),
       map((deviation) => actionMonitorRouteMapFocus(deviation.bounds))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapZoomToFitRoute = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionMonitorRouteMapZoomToFitRoute),
+      concatLatestFrom(() => this.store.select(selectMonitorRouteMapBounds)),
+      map(([_, bounds]) => actionMonitorRouteMapFocus(bounds))
     );
   });
 

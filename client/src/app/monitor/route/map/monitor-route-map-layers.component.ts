@@ -2,14 +2,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { selectFalse } from '../../../core/core.state';
 import { actionMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapMatchesVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapReferenceVisible } from './store/monitor-route-map.actions';
+import { selectMonitorRouteMapReferenceType } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapOsmRelationEnabled } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapDeviationsEnabled } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapMatchesEnabled } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
@@ -114,34 +113,42 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
 })
 export class MonitorRouteMapLayersComponent {
   readonly mode$ = this.store.select(selectMonitorRouteMapMode);
-  readonly referenceType$ = this.store
-    .select(selectMonitorRouteMapPage)
-    .pipe(map((response) => response?.result?.reference?.referenceType));
+
+  readonly referenceType$ = this.store.select(
+    selectMonitorRouteMapReferenceType
+  );
 
   readonly referenceVisible$ = this.store.select(
     selectMonitorRouteMapReferenceVisible
   );
+
   readonly matchesVisible$ = this.store.select(
     selectMonitorRouteMapMatchesVisible
   );
+
   readonly deviationsVisible$ = this.store.select(
     selectMonitorRouteMapDeviationsVisible
   );
+
   readonly osmRelationVisible$ = this.store.select(
     selectMonitorRouteMapOsmRelationVisible
   );
+
   readonly referenceDisabled$ = selectFalse(
     this.store,
     selectMonitorRouteMapReferenceEnabled
   );
+
   readonly matchesDisabled$ = selectFalse(
     this.store,
     selectMonitorRouteMapMatchesEnabled
   );
+
   readonly gpxDeviationsDisabled$ = selectFalse(
     this.store,
     selectMonitorRouteMapDeviationsEnabled
   );
+
   readonly osmRelationDisabled$ = selectFalse(
     this.store,
     selectMonitorRouteMapOsmRelationEnabled

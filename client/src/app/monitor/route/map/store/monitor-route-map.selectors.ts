@@ -1,3 +1,6 @@
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
+import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { MonitorMapMode } from '../monitor-map-mode';
@@ -10,6 +13,12 @@ export const selectMonitorRouteMapState =
 export const selectMonitorRouteMapPage = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) => state.routeMapPage
+);
+
+export const selectMonitorRouteMapReferenceType = createSelector(
+  selectMonitorRouteMapPage,
+  (response: ApiResponse<MonitorRouteMapPage>) =>
+    response?.result?.reference?.referenceType
 );
 
 export const selectMonitorRouteMapMode = createSelector(
@@ -42,6 +51,11 @@ export const selectMonitorRouteMapOsmSegmentCount = createSelector(
     state.routeMapPage?.result?.osmSegments?.length ?? 0
 );
 
+export const selectMonitorRouteMapModeSelectionEnabled = createSelector(
+  selectMonitorRouteMapOsmSegmentCount,
+  (osmSegmentCount: number) => osmSegmentCount > 1
+);
+
 export const selectMonitorRouteMapDeviations = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) => state.routeMapPage?.result?.deviations ?? []
@@ -50,6 +64,11 @@ export const selectMonitorRouteMapDeviations = createSelector(
 export const selectMonitorRouteMapSelectedDeviation = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) => state.routeMapSelectedDeviation
+);
+
+export const selectMonitorRouteMapSelectedDeviationId = createSelector(
+  selectMonitorRouteMapSelectedDeviation,
+  (deviation: MonitorRouteDeviation | undefined) => deviation?.id
 );
 
 export const selectMonitorRouteMapSelectedDeviationDisabled = createSelector(

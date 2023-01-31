@@ -1,5 +1,3 @@
-import { Params } from '@angular/router';
-import { Bounds } from '@api/common/bounds';
 import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
 import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
 import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
@@ -9,19 +7,13 @@ import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page'
 import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
 import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
-import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteSaveResult } from '@api/common/monitor/monitor-route-save-result';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
-import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
 import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { MapPosition } from '../../components/ol/domain/map-position';
 import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
-import { MonitorMapMode } from '../route/map/monitor-map-mode';
 
 export const actionMonitorAdmin = createAction(
   '[Monitor] Admin',

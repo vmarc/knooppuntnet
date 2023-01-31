@@ -1,5 +1,6 @@
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
+import { actionMonitorRouteMapPageLoaded } from '../route/map/store/monitor-route-map.actions';
 import { actionMonitorRouteAddPageLoad } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
 import { actionMonitorRouteSaveDestroy } from './monitor.actions';
@@ -417,6 +418,25 @@ export const monitorReducer = createReducer<MonitorState>(
       ...state,
       routeName: undefined,
       routeChangePage: undefined,
+    };
+  }),
+  on(actionMonitorRouteMapPageLoaded, (state, { response }): MonitorState => {
+    const mapPage = response.result;
+    const relationId = mapPage?.relationId ?? state.relationId;
+    const routeName = mapPage?.routeName ?? state.routeName;
+    const routeDescription =
+      mapPage?.routeDescription ?? state.routeDescription;
+    const groupName = mapPage?.groupName ?? state.groupName;
+    const groupDescription =
+      mapPage?.groupDescription ?? state.groupDescription;
+
+    return {
+      ...state,
+      relationId,
+      routeName,
+      routeDescription,
+      groupName,
+      groupDescription,
     };
   })
 );

@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapSelectDeviation } from './store/monitor-route-map.actions';
+import { selectMonitorRouteMapSelectedDeviationId } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapOsmRelationAvailable } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapOsmRelationEmpty } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapSelectedDeviation } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selectors';
 
@@ -154,21 +154,26 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
 })
 export class MonitorRouteMapDeviationsComponent {
   readonly deviations$ = this.store.select(selectMonitorRouteMapDeviations);
+
   readonly hasDeviations$ = this.deviations$.pipe(
     map((deviations) => deviations.length > 0)
   );
+
   readonly referenceAvailable$ = this.store.select(
     selectMonitorRouteMapReferenceEnabled
   );
+
   readonly osmRelationAvailable$ = this.store.select(
     selectMonitorRouteMapOsmRelationAvailable
   );
+
   readonly osmRelationEmpty$ = this.store.select(
     selectMonitorRouteMapOsmRelationEmpty
   );
-  readonly selectedDeviationId$ = this.store
-    .select(selectMonitorRouteMapSelectedDeviation)
-    .pipe(map((deviation) => deviation?.id));
+
+  readonly selectedDeviationId$ = this.store.select(
+    selectMonitorRouteMapSelectedDeviationId
+  );
 
   readonly longDistance = '> 2.5 km';
 

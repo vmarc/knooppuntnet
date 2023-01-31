@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -16,7 +15,6 @@ import { selectRouteParams } from '../../core/core.state';
 import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
 import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
 import { MonitorService } from '../monitor.service';
-import { MonitorRouteMapService } from '../route/map/monitor-route-map.service';
 import { actionMonitorGroupPageLoad } from './monitor.actions';
 import { actionMonitorRouteAddPageLoad } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
@@ -267,7 +265,7 @@ export class MonitorEffects {
     return this.actions$.pipe(
       ofType(actionMonitorRouteUploaded),
       concatLatestFrom(() => [this.store.select(selectMonitorGroupName)]),
-      map(([parameters, groupName]) => actionMonitorRouteAnalyzed())
+      map(() => actionMonitorRouteAnalyzed())
     );
   });
 
