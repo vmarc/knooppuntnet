@@ -223,19 +223,19 @@ export class MonitorRouteMapEffects {
         concatLatestFrom(() => this.store.select(selectMonitorRouteMapState)),
         tap(([_, state]) => {
           let selectedDeviation = 0;
-          if (state.routeMapSelectedDeviation) {
-            selectedDeviation = state.routeMapSelectedDeviation.id;
+          if (state.selectedDeviation) {
+            selectedDeviation = state.selectedDeviation.id;
           }
           let selectedOsmSegment = 0;
-          if (state.routeMapSelectedOsmSegment) {
-            selectedOsmSegment = state.routeMapSelectedOsmSegment.id;
+          if (state.selectedOsmSegment) {
+            selectedOsmSegment = state.selectedOsmSegment.id;
           }
           let queryParams: Params = {
-            mode: state.mapMode,
-            reference: state.mapReferenceVisible,
-            matches: state.mapMatchesVisible,
-            deviations: state.mapDeviationsVisible,
-            'osm-relation': state.mapOsmRelationVisible,
+            mode: state.mode,
+            reference: state.referenceVisible,
+            matches: state.matchesVisible,
+            deviations: state.deviationsVisible,
+            'osm-relation': state.osmRelationVisible,
             'selected-deviation': selectedDeviation,
             'selected-osm-segment': selectedOsmSegment,
           };

@@ -6,33 +6,33 @@ import { MapPosition } from '../../../../components/ol/domain/map-position';
 import { MonitorMapMode } from '../monitor-map-mode';
 
 export const initialState: MonitorRouteMapState = {
-  mapMode: undefined,
-  mapReferenceVisible: undefined,
-  mapMatchesVisible: undefined,
-  mapDeviationsVisible: undefined,
-  mapOsmRelationVisible: undefined,
-  mapOsmRelationAvailable: undefined,
-  mapOsmRelationEmpty: undefined,
+  mode: undefined,
+  referenceVisible: undefined,
+  matchesVisible: undefined,
+  deviationsVisible: undefined,
+  osmRelationVisible: undefined,
+  osmRelationAvailable: undefined,
+  osmRelationEmpty: undefined,
   mapPosition: undefined,
-  mapPages: undefined,
-  routeMapPage: undefined,
-  routeMapSelectedDeviation: undefined,
-  routeMapSelectedOsmSegment: undefined,
+  pages: undefined,
+  pageResponse: undefined,
+  selectedDeviation: undefined,
+  selectedOsmSegment: undefined,
 };
 
 export interface MonitorRouteMapState {
-  mapMode: MonitorMapMode | undefined;
-  mapReferenceVisible: boolean | undefined;
-  mapMatchesVisible: boolean | undefined;
-  mapDeviationsVisible: boolean | undefined;
-  mapOsmRelationVisible: boolean | undefined;
-  mapOsmRelationAvailable: boolean | undefined;
-  mapOsmRelationEmpty: boolean | undefined;
+  mode: MonitorMapMode | undefined;
+  referenceVisible: boolean | undefined;
+  matchesVisible: boolean | undefined;
+  deviationsVisible: boolean | undefined;
+  osmRelationVisible: boolean | undefined;
+  osmRelationAvailable: boolean | undefined;
+  osmRelationEmpty: boolean | undefined;
   mapPosition: MapPosition | undefined;
-  mapPages: Map<number, MonitorRouteMapPage> | undefined;
-  routeMapPage: ApiResponse<MonitorRouteMapPage> | undefined;
-  routeMapSelectedDeviation: MonitorRouteDeviation | undefined;
-  routeMapSelectedOsmSegment: MonitorRouteSegment | undefined;
+  pages: Map<number, MonitorRouteMapPage> | undefined;
+  pageResponse: ApiResponse<MonitorRouteMapPage> | undefined;
+  selectedDeviation: MonitorRouteDeviation | undefined;
+  selectedOsmSegment: MonitorRouteSegment | undefined;
 }
 
 export const monitorRouteMapFeatureKey = 'monitor-route-map';
