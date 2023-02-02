@@ -5,11 +5,13 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { actionMonitorRouteMapSelectSubRelation } from '../map/store/monitor-route-map.actions';
-import { selectMonitorRouteMapPage } from '../map/store/monitor-route-map.selectors';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
+import { actionMonitorRouteMapSelectSubRelation } from '../map/store/monitor-route-map.actions';
+import { selectMonitorRouteMapNextSubRelation } from '../map/store/monitor-route-map.selectors';
+import { selectMonitorRouteMapPreviousSubRelation } from '../map/store/monitor-route-map.selectors';
+import { selectMonitorRouteMapSubRelations } from '../map/store/monitor-route-map.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-page-header',
@@ -76,7 +78,7 @@ import { selectMonitorRouteName } from '../../store/monitor.selectors';
 
       <a
         *ngIf="pageName === 'map'"
-        [ngClass]="{ disabled: (selectDisabled$ | async) }"
+        [ngClass]="{ disabled: (subrelationsEmpty$ | async) }"
         [matMenuTriggerFor]="appMenu"
         i18n="@@monitor.route.menu.select"
       >Select</a>
@@ -109,8 +111,8 @@ export class MonitorRoutePageHeaderComponent {
   );
 
   readonly routeDetailLink$ = combineLatest([
-    this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorRouteName),
+    this.groupName$,
+    this.routeName$,
   ]).pipe(
     map(
       ([groupName, routeName]) =>
@@ -119,8 +121,8 @@ export class MonitorRoutePageHeaderComponent {
   );
 
   readonly routeMapLink$ = combineLatest([
-    this.store.select(selectMonitorGroupName),
-    this.store.select(selectMonitorRouteName),
+    this.groupName$,
+    this.routeName$,
   ]).pipe(
     map(
       ([groupName, routeName]) =>
@@ -128,31 +130,19 @@ export class MonitorRoutePageHeaderComponent {
     )
   );
 
-  readonly subRelations$: Observable<MonitorRouteSubRelation[]> = this.store
-    .select(selectMonitorRouteMapPage)
-    .pipe(
-      map((page) => {
-        return page?.subRelations;
-      })
-    );
+  readonly subRelations$ = this.store.select(selectMonitorRouteMapSubRelations);
 
-  readonly previous$: Observable<MonitorRouteSubRelation> = this.store
-    .select(selectMonitorRouteMapPage)
-    .pipe(map((page) => page?.prevSubRelation));
-
-  readonly next$: Observable<MonitorRouteSubRelation> = this.store
-    .select(selectMonitorRouteMapPage)
-    .pipe(
-      map((page) => {
-        return page?.nextSubRelation;
-      })
-    );
-
-  readonly selectDisabled$: Observable<boolean> = this.subRelations$.pipe(
+  readonly subrelationsEmpty$: Observable<boolean> = this.subRelations$.pipe(
     map((subRelations) => {
       return !subRelations || subRelations.length == 0;
     })
   );
+
+  readonly previous$ = this.store.select(
+    selectMonitorRouteMapPreviousSubRelation
+  );
+
+  readonly next$ = this.store.select(selectMonitorRouteMapNextSubRelation);
 
   constructor(private store: Store) {}
 

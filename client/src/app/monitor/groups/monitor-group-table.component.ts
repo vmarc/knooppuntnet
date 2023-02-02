@@ -95,6 +95,7 @@ export class MonitorGroupTableComponent implements OnInit {
   readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
 
   readonly displayedColumns$ = this.store.select(selectMonitorAdmin).pipe(
+    // eslint-disable-next-line @ngrx/avoid-mapping-selectors
     map((admin) => {
       if (admin) {
         return ['name', 'description', 'routeCount', 'actions'];

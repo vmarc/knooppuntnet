@@ -123,7 +123,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             groupDescription = "group-description",
             bounds = None,
             currentSubRelation = None,
-            prevSubRelation = None,
+            previousSubRelation = None,
             nextSubRelation = None,
             osmSegments = Seq.empty,
             matchesGeoJson = None,
@@ -183,7 +183,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             groupDescription = "group-description",
             bounds = Some(Bounds(1, 1, 1, 1)),
             currentSubRelation = None,
-            prevSubRelation = None,
+            previousSubRelation = None,
             nextSubRelation = None,
             osmSegments = Seq.empty,
             matchesGeoJson = None,
@@ -319,7 +319,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           bounds = Some(Bounds(1, 1, 1, 1)),
           currentSubRelation = None,
           nextSubRelation = None,
-          prevSubRelation = None,
+          previousSubRelation = None,
           osmSegments = Seq(
             MonitorRouteSegment(
               id = 1,
@@ -444,7 +444,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
                 "sub-relation-11"
               )
             ),
-            prevSubRelation = None,
+            previousSubRelation = None,
             nextSubRelation = Some(
               MonitorRouteSubRelation(
                 12,
@@ -490,7 +490,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
                 "sub-relation-12"
               )
             ),
-            prevSubRelation = Some(
+            previousSubRelation = Some(
               MonitorRouteSubRelation(
                 11,
                 "sub-relation-11"
@@ -667,7 +667,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               "sub-relation-11"
             )
           ),
-          prevSubRelation = None,
+          previousSubRelation = None,
           nextSubRelation = Some(
             MonitorRouteSubRelation(
               12,
@@ -729,7 +729,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               "sub-relation-12"
             )
           ),
-          prevSubRelation = Some(
+          previousSubRelation = Some(
             MonitorRouteSubRelation(
               11,
               "sub-relation-11"

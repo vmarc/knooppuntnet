@@ -14,7 +14,7 @@ export interface MonitorRouteMapPage {
   readonly groupDescription: string;
   readonly bounds: Bounds;
   readonly currentSubRelation: MonitorRouteSubRelation;
-  readonly prevSubRelation: MonitorRouteSubRelation;
+  readonly previousSubRelation: MonitorRouteSubRelation;
   readonly nextSubRelation: MonitorRouteSubRelation;
   readonly osmSegments: MonitorRouteSegment[];
   readonly matchesGeoJson: string;

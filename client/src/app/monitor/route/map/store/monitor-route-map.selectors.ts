@@ -24,6 +24,21 @@ export const selectMonitorRouteMapMode = createSelector(
   (state: MonitorRouteMapState) => state.mode
 );
 
+export const selectMonitorRouteMapSubRelations = createSelector(
+  selectMonitorRouteMapPage,
+  (page: MonitorRouteMapPage) => page?.subRelations
+);
+
+export const selectMonitorRouteMapPreviousSubRelation = createSelector(
+  selectMonitorRouteMapPage,
+  (page: MonitorRouteMapPage) => page?.previousSubRelation
+);
+
+export const selectMonitorRouteMapNextSubRelation = createSelector(
+  selectMonitorRouteMapPage,
+  (page: MonitorRouteMapPage) => page?.nextSubRelation
+);
+
 export const selectMonitorRouteMapBounds = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) => state.page.bounds

@@ -10,7 +10,7 @@ case class MonitorRouteMapPage(
   groupDescription: String,
   bounds: Option[Bounds],
   currentSubRelation: Option[MonitorRouteSubRelation],
-  prevSubRelation: Option[MonitorRouteSubRelation],
+  previousSubRelation: Option[MonitorRouteSubRelation],
   nextSubRelation: Option[MonitorRouteSubRelation],
   osmSegments: Seq[MonitorRouteSegment],
   matchesGeoJson: Option[String],
