@@ -7,6 +7,7 @@ import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
@@ -94,17 +95,31 @@ export class MonitorRouteMapEffects {
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
         this.store.select(selectQueryParams),
+        this.store.select(selectMonitorRouteMapState),
       ]),
-      mergeMap(([{ relationId }, groupName, routeName, queryParams]) =>
-        this.monitorService.routeMap(groupName, routeName, relationId).pipe(
-          map((response) =>
+      mergeMap(([{ relationId }, groupName, routeName, queryParams, state]) => {
+        const page = state.pages?.get(relationId);
+        if (page) {
+          return of(
             actionMonitorRouteMapPageLoaded({
-              response,
+              page,
               queryParams,
             })
-          )
-        )
-      )
+          );
+        } else {
+          return this.monitorService
+            .routeMap(groupName, routeName, relationId)
+            .pipe(
+              map((response) =>
+                // TODO handle case where response.result is absent
+                actionMonitorRouteMapPageLoaded({
+                  page: response.result,
+                  queryParams,
+                })
+              )
+            );
+        }
+      })
     );
   });
 
@@ -112,9 +127,7 @@ export class MonitorRouteMapEffects {
   monitorRouteMapPageLoaded = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionMonitorRouteMapPageLoaded),
-      map((response) =>
-        actionMonitorRouteMapFocus(response.response.result.bounds)
-      )
+      map(({ page }) => actionMonitorRouteMapFocus(page.bounds))
     );
   });
 
@@ -152,7 +165,7 @@ export class MonitorRouteMapEffects {
       concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
       map(([_, page]) => {
         const editParameters: EditParameters = {
-          relationIds: [page.result.relationId],
+          relationIds: [page.relationId],
           fullRelation: true,
         };
         return actionSharedEdit(editParameters);

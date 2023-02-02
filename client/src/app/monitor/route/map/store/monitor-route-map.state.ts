@@ -15,7 +15,7 @@ export const initialState: MonitorRouteMapState = {
   osmRelationEmpty: undefined,
   mapPosition: undefined,
   pages: undefined,
-  pageResponse: undefined,
+  page: undefined,
   selectedDeviation: undefined,
   selectedOsmSegment: undefined,
 };
@@ -30,7 +30,7 @@ export interface MonitorRouteMapState {
   osmRelationEmpty: boolean | undefined;
   mapPosition: MapPosition | undefined;
   pages: Map<number, MonitorRouteMapPage> | undefined;
-  pageResponse: ApiResponse<MonitorRouteMapPage> | undefined;
+  page: MonitorRouteMapPage | undefined;
   selectedDeviation: MonitorRouteDeviation | undefined;
   selectedOsmSegment: MonitorRouteSegment | undefined;
 }

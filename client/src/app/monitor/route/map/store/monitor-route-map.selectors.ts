@@ -1,6 +1,5 @@
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { ApiResponse } from '@api/custom/api-response';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { MonitorMapMode } from '../monitor-map-mode';
@@ -12,13 +11,12 @@ export const selectMonitorRouteMapState =
 
 export const selectMonitorRouteMapPage = createSelector(
   selectMonitorRouteMapState,
-  (state: MonitorRouteMapState) => state.pageResponse
+  (state: MonitorRouteMapState) => state.page
 );
 
 export const selectMonitorRouteMapReferenceType = createSelector(
   selectMonitorRouteMapPage,
-  (response: ApiResponse<MonitorRouteMapPage>) =>
-    response?.result?.reference?.referenceType
+  (page: MonitorRouteMapPage) => page?.reference?.referenceType
 );
 
 export const selectMonitorRouteMapMode = createSelector(
@@ -28,18 +26,14 @@ export const selectMonitorRouteMapMode = createSelector(
 
 export const selectMonitorRouteMapBounds = createSelector(
   selectMonitorRouteMapState,
-  (state: MonitorRouteMapState) => state.pageResponse.result.bounds
+  (state: MonitorRouteMapState) => state.page.bounds
 );
 
 export const selectMonitorRouteMapOsmSegments = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) => {
-    if (
-      state.pageResponse &&
-      state.pageResponse.result &&
-      state.pageResponse.result.osmSegments
-    ) {
-      return state.pageResponse.result.osmSegments;
+    if (state.page && state.page.osmSegments) {
+      return state.page.osmSegments;
     }
     return [];
   }
@@ -47,8 +41,7 @@ export const selectMonitorRouteMapOsmSegments = createSelector(
 
 export const selectMonitorRouteMapOsmSegmentCount = createSelector(
   selectMonitorRouteMapState,
-  (state: MonitorRouteMapState) =>
-    state.pageResponse?.result?.osmSegments?.length ?? 0
+  (state: MonitorRouteMapState) => state.page?.osmSegments?.length ?? 0
 );
 
 export const selectMonitorRouteMapModeSelectionEnabled = createSelector(
@@ -58,7 +51,7 @@ export const selectMonitorRouteMapModeSelectionEnabled = createSelector(
 
 export const selectMonitorRouteMapDeviations = createSelector(
   selectMonitorRouteMapState,
-  (state: MonitorRouteMapState) => state.pageResponse?.result?.deviations ?? []
+  (state: MonitorRouteMapState) => state.page?.deviations ?? []
 );
 
 export const selectMonitorRouteMapSelectedDeviation = createSelector(
@@ -125,25 +118,23 @@ export const selectMonitorRouteMapOsmRelationEmpty = createSelector(
 
 export const selectMonitorRouteMapReferenceEnabled = createSelector(
   selectMonitorRouteMapState,
-  (state: MonitorRouteMapState) =>
-    !!state.pageResponse?.result?.reference?.geoJson
+  (state: MonitorRouteMapState) => !!state.page?.reference?.geoJson
 );
 
 export const selectMonitorRouteMapMatchesEnabled = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) =>
-    state.mode === 'comparison' && !!state.pageResponse?.result?.matchesGeoJson
+    state.mode === 'comparison' && !!state.page?.matchesGeoJson
 );
 
 export const selectMonitorRouteMapDeviationsEnabled = createSelector(
   selectMonitorRouteMapState,
   (state: MonitorRouteMapState) =>
     state.mode === MonitorMapMode.comparison &&
-    (state.pageResponse?.result?.deviations?.length ?? 0) > 0
+    (state.page?.deviations?.length ?? 0) > 0
 );
 
 export const selectMonitorRouteMapOsmRelationEnabled = createSelector(
   selectMonitorRouteMapState,
-  (state: MonitorRouteMapState) =>
-    (state.pageResponse?.result?.osmSegments?.length ?? 0) > 0
+  (state: MonitorRouteMapState) => (state.page?.osmSegments?.length ?? 0) > 0
 );

@@ -132,19 +132,19 @@ export class MonitorRoutePageHeaderComponent {
     .select(selectMonitorRouteMapPage)
     .pipe(
       map((page) => {
-        return page?.result?.subRelations;
+        return page?.subRelations;
       })
     );
 
   readonly previous$: Observable<MonitorRouteSubRelation> = this.store
     .select(selectMonitorRouteMapPage)
-    .pipe(map((page) => page?.result?.prevSubRelation));
+    .pipe(map((page) => page?.prevSubRelation));
 
   readonly next$: Observable<MonitorRouteSubRelation> = this.store
     .select(selectMonitorRouteMapPage)
     .pipe(
       map((page) => {
-        return page?.result?.nextSubRelation;
+        return page?.nextSubRelation;
       })
     );
 

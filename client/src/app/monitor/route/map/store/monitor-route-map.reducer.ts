@@ -23,7 +23,7 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
     actionMonitorRouteMapPageDestroy,
     (state): MonitorRouteMapState => ({
       ...state,
-      pageResponse: undefined,
+      page: undefined,
       mode: undefined,
       referenceVisible: undefined,
       matchesVisible: undefined,
@@ -37,30 +37,29 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
   ),
   on(
     actionMonitorRouteMapPageLoaded,
-    (state, { response: pageResponse, queryParams }): MonitorRouteMapState => {
-      const mapPage = pageResponse.result;
+    (state, { page, queryParams }): MonitorRouteMapState => {
       let matchesVisible =
-        !!mapPage?.matchesGeoJson && (mapPage?.osmSegments?.length ?? 0) > 0;
+        !!page?.matchesGeoJson && (page?.osmSegments?.length ?? 0) > 0;
       if (matchesVisible && queryParams['matches']) {
         matchesVisible = queryParams['matches'] === 'true';
       }
 
-      let deviationsVisible = (mapPage?.deviations?.length ?? 0) > 0;
+      let deviationsVisible = (page?.deviations?.length ?? 0) > 0;
       if (deviationsVisible && queryParams['deviations']) {
         deviationsVisible = queryParams['deviations'] === 'true';
       }
 
-      let osmRelationVisible = (mapPage?.osmSegments?.length ?? 0) > 0;
+      let osmRelationVisible = (page?.osmSegments?.length ?? 0) > 0;
       if (osmRelationVisible && queryParams['osm-relation']) {
         osmRelationVisible = queryParams['osm-relation'] === 'true';
       }
 
-      const osmRelationAvailable = !!mapPage?.relationId;
+      const osmRelationAvailable = !!page?.relationId;
 
       const osmRelationEmpty =
-        (mapPage?.osmSegments?.length ?? 0) == 0 && !!mapPage?.relationId;
+        (page?.osmSegments?.length ?? 0) == 0 && !!page?.relationId;
 
-      const referenceAvailable = (mapPage?.reference?.geoJson.length ?? 0) > 0;
+      const referenceAvailable = (page?.reference?.geoJson.length ?? 0) > 0;
       let referenceVisible =
         referenceAvailable &&
         !(matchesVisible || deviationsVisible || osmRelationVisible);
@@ -83,9 +82,7 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
 
       if (!isNaN(Number(selectedDeviationParameter))) {
         const id = +selectedDeviationParameter;
-        const selected = pageResponse?.result?.deviations?.find(
-          (d) => d.id === id
-        );
+        const selected = page.deviations?.find((d) => d.id === id);
         if (selected) {
           selectedDeviation = selected;
         }
@@ -95,20 +92,18 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
       const selectedOsmSegmentParam = queryParams['selected-osm-segment'];
       if (!isNaN(Number(selectedOsmSegmentParam))) {
         const id = +selectedOsmSegmentParam;
-        const selected = pageResponse?.result?.osmSegments?.find(
-          (segment) => segment.id === id
-        );
+        const selected = page.osmSegments?.find((segment) => segment.id === id);
         if (selected) {
           selectedOsmSegment = selected;
         }
       }
 
       let pages = state.pages;
-      if (mapPage.currentSubRelation) {
+      if (page.currentSubRelation) {
         if (!pages) {
           pages = new Map<number, MonitorRouteMapPage>();
         }
-        pages = pages.set(mapPage.currentSubRelation.relationId, mapPage);
+        pages = pages.set(page.currentSubRelation.relationId, page);
       }
 
       return {
@@ -123,7 +118,7 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
         selectedDeviation,
         selectedOsmSegment,
         pages,
-        pageResponse,
+        page,
       };
     }
   ),
@@ -162,11 +157,9 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
       let deviationsVisible = false;
       let osmRelationVisible = false;
       if (mode === MonitorMapMode.comparison) {
-        matchesVisible = !!state.pageResponse?.result?.reference.geoJson;
-        deviationsVisible =
-          (state.pageResponse.result?.deviations?.length ?? 0) > 0;
-        osmRelationVisible =
-          (state.pageResponse.result?.osmSegments?.length ?? 0) > 0;
+        matchesVisible = !!state.page?.reference.geoJson;
+        deviationsVisible = (state.page?.deviations?.length ?? 0) > 0;
+        osmRelationVisible = (state.page?.osmSegments?.length ?? 0) > 0;
       } else if (mode === MonitorMapMode.osmSegments) {
         osmRelationVisible = true;
       }

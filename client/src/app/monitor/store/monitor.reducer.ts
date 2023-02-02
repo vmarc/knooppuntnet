@@ -420,15 +420,12 @@ export const monitorReducer = createReducer<MonitorState>(
       routeChangePage: undefined,
     };
   }),
-  on(actionMonitorRouteMapPageLoaded, (state, { response }): MonitorState => {
-    const mapPage = response.result;
-    const relationId = mapPage?.relationId ?? state.relationId;
-    const routeName = mapPage?.routeName ?? state.routeName;
-    const routeDescription =
-      mapPage?.routeDescription ?? state.routeDescription;
-    const groupName = mapPage?.groupName ?? state.groupName;
-    const groupDescription =
-      mapPage?.groupDescription ?? state.groupDescription;
+  on(actionMonitorRouteMapPageLoaded, (state, { page }): MonitorState => {
+    const relationId = page?.relationId ?? state.relationId;
+    const routeName = page?.routeName ?? state.routeName;
+    const routeDescription = page?.routeDescription ?? state.routeDescription;
+    const groupName = page?.groupName ?? state.groupName;
+    const groupDescription = page?.groupDescription ?? state.groupDescription;
 
     return {
       ...state,

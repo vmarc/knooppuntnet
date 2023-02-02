@@ -26,7 +26,7 @@ export const actionMonitorRouteMapPageDestroy = createAction(
 export const actionMonitorRouteMapPageLoaded = createAction(
   '[MonitorRouteMap] Page loaded',
   props<{
-    response: ApiResponse<MonitorRouteMapPage>;
+    page: MonitorRouteMapPage;
     queryParams: Params;
   }>()
 );

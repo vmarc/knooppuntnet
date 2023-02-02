@@ -42,7 +42,7 @@ export class MonitorRouteMapService implements OnDestroy {
     this.fixedStyle(color, 4)
   );
 
-  private readonly response$ = this.store.select(selectMonitorRouteMapPage);
+  private readonly page$ = this.store.select(selectMonitorRouteMapPage);
 
   private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly matchesLayer: VectorLayer<VectorSource<Geometry>>;
@@ -150,29 +150,27 @@ export class MonitorRouteMapService implements OnDestroy {
     );
 
     this.subscriptions.add(
-      this.response$.subscribe((response) => {
+      this.page$.subscribe((page) => {
         this.referenceLayer.getSource().clear();
-        if (response?.result?.reference?.geoJson) {
-          const features = new GeoJSON().readFeatures(
-            response.result.reference.geoJson,
-            { featureProjection: 'EPSG:3857' }
-          );
+        if (page?.reference?.geoJson) {
+          const features = new GeoJSON().readFeatures(page.reference.geoJson, {
+            featureProjection: 'EPSG:3857',
+          });
           this.referenceLayer.getSource().addFeatures(features);
         }
 
         this.matchesLayer.getSource().clear();
-        if (response?.result?.matchesGeoJson) {
-          const features = new GeoJSON().readFeatures(
-            response.result.matchesGeoJson,
-            { featureProjection: 'EPSG:3857' }
-          );
+        if (page?.matchesGeoJson) {
+          const features = new GeoJSON().readFeatures(page.matchesGeoJson, {
+            featureProjection: 'EPSG:3857',
+          });
           this.matchesLayer.getSource().addFeatures(features);
         }
 
         this.deviationsLayer.getSource().clear();
-        if (response?.result?.deviations) {
+        if (page?.deviations) {
           const features = [];
-          response.result.deviations.forEach((segment) => {
+          page.deviations.forEach((segment) => {
             new GeoJSON()
               .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
               .forEach((feature) => features.push(feature));
@@ -181,9 +179,9 @@ export class MonitorRouteMapService implements OnDestroy {
         }
 
         this.osmRelationLayer.getSource().clear();
-        if (response?.result?.osmSegments) {
+        if (page?.osmSegments) {
           const features = [];
-          response.result.osmSegments.forEach((segment) => {
+          page.osmSegments.forEach((segment) => {
             new GeoJSON()
               .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
               .forEach((feature) => {
