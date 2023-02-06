@@ -13,6 +13,9 @@ import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { EditParameters } from '../../../../analysis/components/edit/edit-parameters';
+import { Util } from '../../../../components/shared/util';
+import { selectQueryParam } from '../../../../core/core.state';
+import { selectRouteParams } from '../../../../core/core.state';
 import { selectQueryParams } from '../../../../core/core.state';
 import { selectRouteParam } from '../../../../core/core.state';
 import { actionSharedEdit } from '../../../../core/shared/shared.actions';
@@ -62,10 +65,19 @@ export class MonitorRouteMapEffects {
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('groupName')),
         this.store.select(selectRouteParam('routeName')),
+        this.store.select(selectQueryParam('sub-relation-id')),
       ]),
-      map(([_, groupName, routeName]) =>
-        actionMonitorRouteMapPageLoad({ groupName, routeName, relationId: 0 })
-      )
+      map(([_, groupName, routeName, subRelationIdParameter]) => {
+        let relationId = 0;
+        if (subRelationIdParameter) {
+          relationId = Util.toInteger(subRelationIdParameter);
+        }
+        return actionMonitorRouteMapPageLoad({
+          groupName,
+          routeName,
+          relationId,
+        });
+      })
     );
   });
 
@@ -243,6 +255,8 @@ export class MonitorRouteMapEffects {
           if (state.selectedOsmSegment) {
             selectedOsmSegment = state.selectedOsmSegment.id;
           }
+          const subRelationId = state.page?.currentSubRelation?.relationId ?? 0;
+
           let queryParams: Params = {
             mode: state.mode,
             reference: state.referenceVisible,
@@ -251,6 +265,7 @@ export class MonitorRouteMapEffects {
             'osm-relation': state.osmRelationVisible,
             'selected-deviation': selectedDeviation,
             'selected-osm-segment': selectedOsmSegment,
+            'sub-relation-id': subRelationId,
           };
           if (state.mapPosition) {
             queryParams = {

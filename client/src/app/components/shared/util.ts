@@ -190,6 +190,14 @@ export class Util {
     return dataSource.filteredData.slice(start, end);
   }
 
+  static toInteger(value: string): number {
+    const isInteger = /^\d*$/.test(value);
+    if (isInteger) {
+      return +value;
+    }
+    return 0;
+  }
+
   private static format(level: number): string {
     const integer = Math.floor(level);
     return (integer + 1000).toString().substring(1, 4);

@@ -76,9 +76,6 @@ export const monitorRouteMapReducer = createReducer<MonitorRouteMapState>(
 
       let selectedDeviation: MonitorRouteDeviation = null;
       const selectedDeviationParameter = queryParams['selected-deviation'];
-      console.log(
-        'selectedDeviation query param = ' + selectedDeviationParameter
-      );
 
       if (!isNaN(Number(selectedDeviationParameter))) {
         const id = +selectedDeviationParameter;

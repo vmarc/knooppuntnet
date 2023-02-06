@@ -50,7 +50,11 @@ class MonitorRouteMapPageBuilder(
   ): Option[MonitorRouteMapPage] = {
 
     monitorRouteRepository.routeByName(group._id, routeName) match {
-      case Some(route) => Some(build(group, route, relationId))
+      case Some(route) =>
+        Some(
+          build(group, route, relationId)
+        )
+
       case None =>
         log.error(s"""Route "$routeName" does not exist""")
         None
@@ -230,16 +234,24 @@ class MonitorRouteMapPageBuilder(
 
     val subRelationPages = Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId)
 
+
+    val routeDescription = subRelationPages.map(_.current).map {
+      subRelation =>
+        val index = subRelations.zipWithIndex.find { case (subRelation, index) =>
+          subRelation.relationId == relationId
+        }.map(_._2).getOrElse(0)
+        s"(${index + 1}/${subRelations.size}) ${subRelation.name}"
+    }.getOrElse("?")
+
     monitorRouteRepository.routeRelationReference(route._id, relationId) match {
       case None =>
 
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
         val bounds = stateOption.map(_.bounds)
-
         MonitorRouteMapPage(
           route.relationId,
           route.name,
-          route.description,
+          routeDescription,
           group.name,
           group.description,
           bounds,
@@ -281,7 +293,7 @@ class MonitorRouteMapPageBuilder(
         MonitorRouteMapPage(
           route.relationId,
           route.name,
-          route.description,
+          routeDescription,
           group.name,
           group.description,
           Some(bounds),

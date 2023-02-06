@@ -1,7 +1,6 @@
 package kpn.server.api.monitor
 
 import kpn.api.base.ObjectId
-import kpn.api.common.EN
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
@@ -150,7 +149,10 @@ class MonitorFacadeImpl(
     routeName: String,
     relationId: Option[Long]
   ): ApiResponse[MonitorRouteMapPage] = {
-    val args = s"$groupName:$routeName"
+    val args = relationId match {
+      case Some(relationId) => s"$groupName:$routeName:$relationId"
+      case None => s"$groupName:$routeName"
+    }
     api.execute(user, "monitor-route-map", args) {
       reply(monitorRouteMapPageBuilder.build(groupName, routeName, relationId))
     }

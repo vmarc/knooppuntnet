@@ -126,7 +126,7 @@ class MonitorController(
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
-  def routeMap( // TODO MON cleanup - no longer needed?
+  def routeMap(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
   ): ApiResponse[MonitorRouteMapPage] = {
