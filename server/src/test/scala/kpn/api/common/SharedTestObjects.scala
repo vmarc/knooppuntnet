@@ -80,12 +80,12 @@ import kpn.core.doc.RouteDoc
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.api.monitor.domain.MonitorGroup
-import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteChange
-import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteChange
+import kpn.server.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {

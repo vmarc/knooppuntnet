@@ -1,0 +1,110 @@
+{
+  "version": 1,
+  "result": {
+    "relationId": 532494,
+    "routeName": "LAW-2",
+    "routeDescription": "(1/22) Trekvogelpad - 01",
+    "groupName": "NL-LAW",
+    "groupDescription": "Nederland - Lange Afstand Wandelroutes",
+    "currentSubRelation": {
+      "relationId": 8391301,
+      "name": "Trekvogelpad - 01"
+    },
+    "nextSubRelation": {
+      "relationId": 8431398,
+      "name": "Trekvogelpad - 02"
+    },
+    "osmSegments": [],
+    "deviations": [],
+    "subRelations": [
+      {
+        "relationId": 8391301,
+        "name": "Trekvogelpad - 01"
+      },
+      {
+        "relationId": 8431398,
+        "name": "Trekvogelpad - 02"
+      },
+      {
+        "relationId": 8431397,
+        "name": "Trekvogelpad - 03"
+      },
+      {
+        "relationId": 2998109,
+        "name": "Trekvogelpad - 04"
+      },
+      {
+        "relationId": 8431608,
+        "name": "Trekvogelpad - 05"
+      },
+      {
+        "relationId": 8431607,
+        "name": "Trekvogelpad - 06"
+      },
+      {
+        "relationId": 8431606,
+        "name": "Trekvogelpad - 07"
+      },
+      {
+        "relationId": 2998106,
+        "name": "Trekvogelpad - 08"
+      },
+      {
+        "relationId": 2998108,
+        "name": "Trekvogelpad - 09"
+      },
+      {
+        "relationId": 8432104,
+        "name": "Trekvogelpad - 10"
+      },
+      {
+        "relationId": 8432103,
+        "name": "Trekvogelpad - 11"
+      },
+      {
+        "relationId": 3845106,
+        "name": "Trekvogelpad - 12"
+      },
+      {
+        "relationId": 8423249,
+        "name": "Trekvogelpad - 13"
+      },
+      {
+        "relationId": 8426005,
+        "name": "Trekvogelpad - 14"
+      },
+      {
+        "relationId": 8426347,
+        "name": "Trekvogelpad - 15"
+      },
+      {
+        "relationId": 8426467,
+        "name": "Trekvogelpad - 16"
+      },
+      {
+        "relationId": 4810143,
+        "name": "Trekvogelpad - 17"
+      },
+      {
+        "relationId": 8428101,
+        "name": "Trekvogelpad - 18"
+      },
+      {
+        "relationId": 3395454,
+        "name": "Trekvogelpad - 19"
+      },
+      {
+        "relationId": 3559608,
+        "name": "Trekvogelpad - 20"
+      },
+      {
+        "relationId": 8429235,
+        "name": "Trekvogelpad - 21"
+      },
+      {
+        "relationId": 8432102,
+        "name": "Trekvogelpad - 23"
+      }
+    ]
+  }
+}

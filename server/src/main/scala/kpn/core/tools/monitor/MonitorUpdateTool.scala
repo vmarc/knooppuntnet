@@ -7,9 +7,9 @@ import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.api.monitor.domain.MonitorGroup
-import kpn.server.api.monitor.route.MonitorRouteRelationRepository
-import kpn.server.api.monitor.route.MonitorUpdaterConfiguration
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.route.MonitorRouteRelationRepository
+import kpn.server.monitor.route.MonitorUpdaterConfiguration
 
 object MonitorUpdateTool {
   private val log = Log(classOf[MonitorUpdateTool])

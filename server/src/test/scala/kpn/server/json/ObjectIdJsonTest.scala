@@ -2,7 +2,7 @@ package kpn.server.json
 
 import kpn.api.base.ObjectId
 import kpn.core.util.UnitTest
-import kpn.server.api.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorGroup
 
 class ObjectIdJsonTest extends UnitTest {
 

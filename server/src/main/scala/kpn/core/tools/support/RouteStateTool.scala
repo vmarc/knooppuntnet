@@ -4,8 +4,8 @@ import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.repository.MonitorGroupRepositoryImpl
-import kpn.server.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
+import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 
 object RouteStateTool {
   def main(args: Array[String]): Unit = {

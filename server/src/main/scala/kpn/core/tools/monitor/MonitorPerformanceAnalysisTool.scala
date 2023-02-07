@@ -3,8 +3,8 @@ package kpn.core.tools.monitor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.api.monitor.route.MonitorRouteRelationRepository
-import kpn.server.api.monitor.route.MonitorUpdaterConfiguration
+import kpn.server.monitor.route.MonitorRouteRelationRepository
+import kpn.server.monitor.route.MonitorUpdaterConfiguration
 
 object MonitorPerformanceAnalysisTool {
   def main(args: Array[String]): Unit = {

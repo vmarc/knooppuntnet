@@ -11,11 +11,11 @@ import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
 import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
-import kpn.server.api.monitor.domain.MonitorRouteChange
-import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
-import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteState
-import kpn.server.repository.MonitorRouteRepository
+import kpn.server.monitor.domain.MonitorRouteChange
+import kpn.server.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.repository.MonitorRouteRepository
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 

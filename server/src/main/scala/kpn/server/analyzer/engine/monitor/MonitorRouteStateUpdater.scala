@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Relation
-import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteState
-import kpn.server.repository.MonitorRouteRepository
+import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.repository.MonitorRouteRepository
 
 class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
 

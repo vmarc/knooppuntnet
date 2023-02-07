@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.server.analyzer.engine.monitor.domain.SuperSegment
 import kpn.server.analyzer.engine.monitor.domain.SuperSegmentElement
-import kpn.server.api.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.api.monitor.domain.MonitorRouteOsmSegmentElement
+import kpn.server.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 
 import scala.annotation.tailrec
 

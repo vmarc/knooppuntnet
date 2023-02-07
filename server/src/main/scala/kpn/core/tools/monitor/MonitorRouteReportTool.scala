@@ -1,10 +1,10 @@
 package kpn.core.tools.monitor
 
 import kpn.database.util.Mongo
-import kpn.server.repository.MonitorGroupRepository
-import kpn.server.repository.MonitorGroupRepositoryImpl
-import kpn.server.repository.MonitorRouteRepository
-import kpn.server.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.repository.MonitorGroupRepository
+import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
+import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 
 object MonitorRouteReportTool {
   def main(args: Array[String]): Unit = {

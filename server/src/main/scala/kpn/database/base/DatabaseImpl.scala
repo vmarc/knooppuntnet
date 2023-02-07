@@ -22,16 +22,16 @@ import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
-import kpn.server.api.monitor.domain.MonitorGroup
-import kpn.server.api.monitor.domain.MonitorRoute
-import kpn.server.api.monitor.domain.MonitorRouteChange
-import kpn.server.api.monitor.domain.MonitorRouteChangeGeometry
-import kpn.server.api.monitor.domain.MonitorRouteReference
-import kpn.server.api.monitor.domain.MonitorRouteState
-import kpn.server.api.monitor.domain.OldMonitorRoute
-import kpn.server.api.monitor.domain.OldMonitorRouteReference
-import kpn.server.api.monitor.domain.OldMonitorRouteReferenceRelation
-import kpn.server.api.monitor.domain.OldMonitorRouteState
+import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.domain.MonitorRouteChange
+import kpn.server.monitor.domain.MonitorRouteChangeGeometry
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.OldMonitorRoute
+import kpn.server.monitor.domain.OldMonitorRouteReference
+import kpn.server.monitor.domain.OldMonitorRouteReferenceRelation
+import kpn.server.monitor.domain.OldMonitorRouteState
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
