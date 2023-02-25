@@ -19,5 +19,5 @@ case class MonitorRouteDetailsPage(
   happy: Boolean,
   wayCount: Long,
   osmDistance: Long,
-  structureRows: Seq[MonitorRouteRelationStructureRow]
+  structureRows: Option[Seq[MonitorRouteRelationStructureRow]]
 )

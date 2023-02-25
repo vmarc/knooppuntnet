@@ -16,9 +16,7 @@ class MonitorRouteDetailsPageBuilder(
   def build(groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-
         val structureRows = flattenRelationTree(route.relation)
-
         MonitorRouteDetailsPage(
           group.name,
           group.description,
@@ -42,23 +40,30 @@ class MonitorRouteDetailsPageBuilder(
     }
   }
 
-  private def flattenRelationTree(relation: Option[MonitorRouteRelation]): Seq[MonitorRouteRelationStructureRow] = {
+  private def flattenRelationTree(relation: Option[MonitorRouteRelation]): Option[Seq[MonitorRouteRelationStructureRow]] = {
     relation match {
-      case None => Seq.empty
+      case None => None
       case Some(relationLevel1) =>
-        val rowsLevel1 = relationLevel1.relations.flatMap { relationLevel2 =>
-          val rowsLevel2 = relationLevel2.relations.flatMap { relationLevel3 =>
-            val rowsLevel3 = relationLevel3.relations.flatMap { relationLevel4 =>
-              val rowsLevel4 = relationLevel4.relations.map { relationLevel5 =>
+        val rowsLevel2 = relationLevel1.relations.flatMap { relationLevel2 =>
+          val rowsLevel3 = relationLevel2.relations.flatMap { relationLevel3 =>
+            val rowsLevel4 = relationLevel3.relations.flatMap { relationLevel4 =>
+              val rowsLevel5 = relationLevel4.relations.map { relationLevel5 =>
                 toRow(5, relationLevel5)
               }
-              toRow(4, relationLevel4) +: rowsLevel4
+              toRow(4, relationLevel4) +: rowsLevel5
             }
-            toRow(3, relationLevel3) +: rowsLevel3
+            toRow(3, relationLevel3) +: rowsLevel4
           }
-          toRow(2, relationLevel2) +: rowsLevel2
+          toRow(2, relationLevel2) +: rowsLevel3
         }
-        toRow(1, relationLevel1) +: rowsLevel1
+        if (rowsLevel2.nonEmpty) {
+          Some(
+            toRow(1, relationLevel1) +: rowsLevel2
+          )
+        }
+        else {
+          None
+        }
     }
   }
 

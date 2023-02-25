@@ -47,11 +47,13 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         </kpn-data>
 
         <kpn-data
-          *ngIf="page.structureRows?.length > 0"
+          *ngIf="page.structureRows"
           title="Structure"
           i18n-title="@@monitor.route.details.structure"
         />
-        <div class="structure">
+        <div
+          *ngIf="page.structureRows"
+          class="structure">
           <kpn-monitor-route-details-structure
             [groupName]="page.groupName"
             [routeName]="page.routeName"
