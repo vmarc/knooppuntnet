@@ -6,7 +6,6 @@ import { APP_INITIALIZER } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
@@ -46,7 +45,6 @@ import { SpinnerService } from './spinner/spinner.service';
     MatIconModule,
     MatSidenavModule,
     MatButtonModule,
-    MatSnackBarModule,
     HttpClientModule,
     SharedModule,
     AppRoutingModule,

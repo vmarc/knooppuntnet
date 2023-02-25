@@ -64,8 +64,7 @@ export class MonitorGroupAddPageComponent {
     description: this.description,
   });
 
-  constructor(private monitorService: MonitorService, private store: Store) {
-  }
+  constructor(private monitorService: MonitorService, private store: Store) {}
 
   add(): void {
     if (this.form.valid) {

@@ -1,6 +1,8 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.api.common.monitor.MonitorRouteRelationStructureRow
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -14,6 +16,9 @@ class MonitorRouteDetailsPageBuilder(
   def build(groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
+
+        val structureRows = flattenRelationTree(route.relation)
+
         MonitorRouteDetailsPage(
           group.name,
           group.description,
@@ -31,9 +36,50 @@ class MonitorRouteDetailsPageBuilder(
           route.happy,
           route.osmWayCount,
           route.osmDistance,
-          route.relation
+          structureRows
         )
       }
     }
+  }
+
+  private def flattenRelationTree(relation: Option[MonitorRouteRelation]): Seq[MonitorRouteRelationStructureRow] = {
+    relation match {
+      case None => Seq.empty
+      case Some(relationLevel1) =>
+        val rowsLevel1 = relationLevel1.relations.flatMap { relationLevel2 =>
+          val rowsLevel2 = relationLevel2.relations.flatMap { relationLevel3 =>
+            val rowsLevel3 = relationLevel3.relations.flatMap { relationLevel4 =>
+              val rowsLevel4 = relationLevel4.relations.map { relationLevel5 =>
+                toRow(5, relationLevel5)
+              }
+              toRow(4, relationLevel4) +: rowsLevel4
+            }
+            toRow(3, relationLevel3) +: rowsLevel3
+          }
+          toRow(2, relationLevel2) +: rowsLevel2
+        }
+        toRow(1, relationLevel1) +: rowsLevel1
+    }
+  }
+
+  private def toRow(level: Long, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelationStructureRow = {
+    val physical = monitorRouteRelation.osmDistance > 0 || monitorRouteRelation.referenceFilename.isDefined
+    MonitorRouteRelationStructureRow(
+      level = level,
+      physical = physical,
+      name = monitorRouteRelation.name,
+      relationId = monitorRouteRelation.relationId,
+      role = monitorRouteRelation.role,
+      survey = monitorRouteRelation.survey,
+      referenceDay = monitorRouteRelation.referenceDay,
+      referenceFilename = monitorRouteRelation.referenceFilename,
+      referenceDistance = monitorRouteRelation.referenceDistance,
+      deviationDistance = monitorRouteRelation.deviationDistance,
+      deviationCount = monitorRouteRelation.deviationCount,
+      osmWayCount = monitorRouteRelation.osmWayCount,
+      osmDistance = monitorRouteRelation.osmDistance,
+      osmSegmentCount = monitorRouteRelation.osmSegmentCount,
+      happy = monitorRouteRelation.happy
+    )
   }
 }

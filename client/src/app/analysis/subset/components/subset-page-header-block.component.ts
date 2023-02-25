@@ -59,6 +59,5 @@ export class SubsetPageHeaderBlockComponent {
     map((subsetName) => subsetName + ' | ' + this.pageTitle)
   );
 
-  constructor(private store: Store, private i18nService: I18nService) {
-  }
+  constructor(private store: Store, private i18nService: I18nService) {}
 }

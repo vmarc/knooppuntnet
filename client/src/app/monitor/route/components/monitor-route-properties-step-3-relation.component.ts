@@ -134,8 +134,7 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
   readonly routeInfo$ = this.store.select(selectMonitorRouteInfoPage);
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private monitorService: MonitorService, private store: Store) {
-  }
+  constructor(private monitorService: MonitorService, private store: Store) {}
 
   ngOnInit(): void {
     this.subscriptions.add(

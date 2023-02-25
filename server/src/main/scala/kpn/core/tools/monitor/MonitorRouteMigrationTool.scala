@@ -155,7 +155,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
             routeName = properties.name,
             relationId = superRouteRelation.relationId,
             referenceDay = Time.now.toDay,
-            filename = superRouteRelation.referenceFilename,
+            filename = new File(superRouteRelation.referenceFilename).getName,
             xml = xml
           )
         }

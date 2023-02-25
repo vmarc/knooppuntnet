@@ -79,8 +79,7 @@ export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
     })
   );
 
-  constructor(private monitorService: MonitorService, private store: Store) {
-  }
+  constructor(private monitorService: MonitorService, private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupUpdateInit());

@@ -3,12 +3,11 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
-import { MonitorRouteRelation } from '@api/common/monitor/monitor-route-relation';
+import { Params } from '@angular/router';
+import { MonitorRouteRelationStructureRow } from '@api/common/monitor/monitor-route-relation-structure-row';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
-import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 
 @Component({
   selector: 'kpn-monitor-route-details-structure',
@@ -48,8 +47,8 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
 
       <ng-container matColumnDef="happy">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let route">
-          <mat-icon *ngIf="route.relation.happy" svgIcon="happy"></mat-icon>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon *ngIf="row.happy" svgIcon="happy"></mat-icon>
         </td>
       </ng-container>
 
@@ -61,9 +60,11 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         >
           Map
         </th>
-        <td mat-cell *matCellDef="let route">
+        <td mat-cell *matCellDef="let row">
           <a
-            [routerLink]="routeMapLink(route)"
+            *ngIf="row.physical"
+            [routerLink]="mapLink()"
+            [queryParams]="mapQueryParams(row)"
             i18n="@@monitor.group.route-table.map-link"
           >map</a
           >
@@ -80,8 +81,8 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         </th>
         <td mat-cell *matCellDef="let row">
           <kpn-osm-link-relation
-            [relationId]="row.relation.relationId"
-            [title]="row.relation.relationId.toString()"
+            [relationId]="row.relationId"
+            [title]="row.relationId.toString()"
           >
           </kpn-osm-link-relation>
         </td>
@@ -96,7 +97,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
           Role
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.relation.role }}
+          {{ row.role }}
         </td>
       </ng-container>
 
@@ -109,7 +110,11 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
           Distance
         </th>
         <td mat-cell *matCellDef="let row">
-          <div class="distance">{{ row.relation.osmDistance | distance }}</div>
+          <div
+            *ngIf="row.physical"
+            class="distance">
+            {{ row.osmDistance | distance }}
+          </div>
         </td>
       </ng-container>
 
@@ -122,7 +127,7 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
           Survey
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.relation.survey | day }}
+          {{ row.survey | day }}
         </td>
       </ng-container>
 
@@ -135,26 +140,28 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         >
           Reference
         </th>
-        <td mat-cell *matCellDef="let route">
-          {{ route.relation.referenceDay | day }}
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.physical">
+            {{ row.referenceDay | day }}
+          </ng-container>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="reference-filename">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let route">
-          <span>
-            {{ route.relation.referenceFilename }}
-          </span>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.physical">
+            {{ row.referenceFilename }}
+          </ng-container>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="reference-distance">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let route">
-          <span>
-            {{ route.relation.referenceDistance | distance }}
-          </span>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.physical">
+            {{ row.referenceDistance | distance }}
+          </ng-container>
         </td>
       </ng-container>
 
@@ -167,20 +174,22 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         >
           Deviations
         </th>
-        <td mat-cell *matCellDef="let route">
-          <span>
-            {{ route.relation.deviationCount }}
-          </span>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.physical">
+            {{ row.deviationCount }}
+          </ng-container>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="deviation-distance">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let route">
-          <span *ngIf="route.deviationCount > 0">
-            {{ route.deviationDistance | distance }}
-          </span>
-          <span *ngIf="route.relation.deviationCount === 0"> - </span>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.physical">
+            <span *ngIf="row.deviationCount > 0">
+              {{ row.deviationDistance | distance }}
+            </span>
+            <span *ngIf="row.deviationCount === 0"> - </span>
+          </ng-container>
         </td>
       </ng-container>
 
@@ -192,10 +201,10 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         >
           OSM segments
         </th>
-        <td mat-cell *matCellDef="let route">
-          <span>
-            {{ route.relation.osmSegmentCount }}
-          </span>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.physical">
+            {{ row.osmSegmentCount }}
+          </ng-container>
         </td>
       </ng-container>
 
@@ -207,10 +216,10 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
         >
           Actions
         </th>
-        <td mat-cell *matCellDef="let route" class="kpn-action-cell">
+        <td mat-cell *matCellDef="let row" class="kpn-action-cell">
           <button
             mat-icon-button
-            [routerLink]="uploadGpx(route)"
+            [routerLink]="uploadGpx(row)"
             title="Upload"
             i18n-title="@@action.upload"
             class="kpn-action-button kpn-link"
@@ -254,14 +263,17 @@ import { MonitorRouteRelationRow } from './monitor-route-relation-row';
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {
-  @Input() relation: MonitorRouteRelation;
+  @Input() groupName: String;
+  @Input() routeName: String;
+  @Input() structureRows: MonitorRouteRelationStructureRow[];
   @Input() referenceType: String;
 
-  readonly admin$ = this.store.select(selectMonitorAdmin);
+  private readonly admin$ = this.store.select(selectMonitorAdmin);
 
-  readonly dataSource = new MatTableDataSource<MonitorRouteRelationRow>();
+  readonly dataSource =
+    new MatTableDataSource<MonitorRouteRelationStructureRow>();
 
-  readonly mainColumns = [
+  private readonly mainColumns = [
     'nr',
     'name',
     'happy',
@@ -272,13 +284,13 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'survey',
   ];
 
-  readonly referenceColumns = [
+  private readonly referenceColumns = [
     'reference-day',
     'reference-filename',
     'reference-distance',
   ];
 
-  readonly analysisColumns = [
+  private readonly analysisColumns = [
     'deviation-count',
     'deviation-distance',
     'osm-segment-count',
@@ -314,46 +326,21 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.dataSource.data = this.flattenRelationTree();
+    this.dataSource.data = this.structureRows;
   }
 
-  private flattenRelationTree(): MonitorRouteRelationRow[] {
-    const rowsLevel2 = this.relation.relations.flatMap((relationLevel2) => {
-      const rowsLevel3 = relationLevel2.relations.flatMap((relationLevel3) => {
-        const rowsLevel4 = relationLevel3.relations.flatMap(
-          (relationLevel4) => {
-            const rowsLevel5 = relationLevel4.relations.map(
-              (relationLevel5) => {
-                return this.row(5, relationLevel5);
-              }
-            );
-            return [this.row(4, relationLevel4), ...rowsLevel5];
-          }
-        );
-        return [this.row(3, relationLevel3), ...rowsLevel4];
-      });
-      return [this.row(2, relationLevel2), ...rowsLevel3];
-    });
-    return [this.row(1, this.relation), ...rowsLevel2];
+  mapLink(): any {
+    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/map`;
   }
 
-  private row(
-    level: number,
-    relation: MonitorRouteRelation
-  ): MonitorRouteRelationRow {
-    return {
-      level,
-      name: relation.name,
-      relation,
-    };
+  mapQueryParams(row: MonitorRouteRelationStructureRow): Params {
+    if (row.level === 1) {
+      return {};
+    }
+    return { 'sub-relation-id': row.relationId };
   }
 
-  routeMapLink(route: MonitorRouteDetail): string {
-    // return `/monitor/groups/${this.groupName}/routes/${route.name}/map`;
-    return '';
-  }
-
-  uploadGpx(route: MonitorRouteDetail): string {
+  uploadGpx(route: MonitorRouteRelationStructureRow): string {
     // return `/monitor/admin/groups/${this.groupName}/routes/${route.name}`;
     return '';
   }

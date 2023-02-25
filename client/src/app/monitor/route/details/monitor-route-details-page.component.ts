@@ -2,7 +2,6 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Store } from '@ngrx/store';
 import { actionMonitorRouteDetailsPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from '../../store/monitor.actions';
@@ -19,44 +18,45 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         Route not found
       </div>
 
-      <div *ngIf="response.result as route">
+      <div *ngIf="response.result as page">
         <kpn-data title="Summary" i18n-title="@@monitor.route.details.summary">
-          <kpn-monitor-route-details-summary [page]="route" />
+          <kpn-monitor-route-details-summary [page]="page" />
         </kpn-data>
 
         <kpn-data
           title="Reference"
           i18n-title="@@monitor.route.details.reference"
         >
-          <kpn-monitor-route-details-reference [page]="route" />
+          <kpn-monitor-route-details-reference [page]="page" />
         </kpn-data>
 
         <kpn-data
-          *ngIf="route.relationId"
+          *ngIf="page.relationId"
           title="Analysis"
           i18n-title="@@monitor.route.details.analysis"
         >
-          <kpn-monitor-route-details-analysis [page]="route" />
+          <kpn-monitor-route-details-analysis [page]="page" />
         </kpn-data>
 
         <kpn-data
-          *ngIf="route.comment"
+          *ngIf="page.comment"
           title="Comment"
           i18n-title="@@monitor.route.details.comment"
         >
-          <markdown [data]="route.comment" />
+          <markdown [data]="page.comment" />
         </kpn-data>
 
         <kpn-data
-          *ngIf="route.relation?.relations?.length > 0"
+          *ngIf="page.structureRows?.length > 0"
           title="Structure"
           i18n-title="@@monitor.route.details.structure"
         />
         <div class="structure">
           <kpn-monitor-route-details-structure
-            *ngIf="route.relation?.relations?.length > 0"
-            [relation]="route.relation"
-            [referenceType]="route.referenceType"
+            [groupName]="page.groupName"
+            [routeName]="page.routeName"
+            [structureRows]="page.structureRows"
+            [referenceType]="page.referenceType"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteDetailsPage);
 
-  constructor(private snackBar: MatSnackBar, private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorRouteDetailsPageInit());
@@ -83,17 +83,7 @@ export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(actionMonitorRouteDetailsPageDestroy());
   }
 
-  gpxUpload(): void {
-    this.snackBar.open('Sorry, GPX file upload not implemented yet', 'close', {
-      panelClass: ['mat-toolbar', 'mat-primary'],
-    });
-  }
+  gpxUpload(): void {}
 
-  gpxDownload(): void {
-    this.snackBar.open(
-      'Sorry, GPX file download not implemented yet',
-      'close',
-      { panelClass: ['mat-toolbar', 'mat-primary'] }
-    );
-  }
+  gpxDownload(): void {}
 }
