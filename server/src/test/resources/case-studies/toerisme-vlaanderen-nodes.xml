@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:routes="https://toerismevlaanderen.be/routes" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberOfFeatures="9606" timeStamp="2023-02-26T21:17:01.003Z" xsi:schemaLocation="http://www.opengis.net/wfs https://geodata.toerismevlaanderen.be/geoserver/schemas/wfs/1.1.0/wfs.xsd https://toerismevlaanderen.be/routes https://geodata.toerismevlaanderen.be/geoserver/wfs?service=WFS&amp;version=1.1.0&amp;request=DescribeFeatureType&amp;typeName=routes%3Aknoop_wandel">
+  <gml:boundedBy>
+    <gml:Envelope srsDimension="2" srsName="urn:x-ogc:def:crs:EPSG:31370">
+      <gml:lowerCorner>22657.0848 153324.484</gml:lowerCorner>
+      <gml:upperCorner>257759.918 244698.1778</gml:upperCorner>
+    </gml:Envelope>
+  </gml:boundedBy>
+  <gml:featureMembers>
+    <routes:knoop_wandel gml:id="knoop_wandel.569">
+      <gml:boundedBy>
+        <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:lowerCorner>138756.3956 187460.6884</gml:lowerCorner>
+          <gml:upperCorner>138756.3956 187460.6884</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <routes:objectid>569</routes:objectid>
+      <routes:eigenaar>Toerisme Oost-Vlaanderen</routes:eigenaar>
+      <routes:mobility>Wandel</routes:mobility>
+      <routes:geoid>2735158</routes:geoid>
+      <routes:local_id>181448</routes:local_id>
+      <routes:partnerid>2181448</routes:partnerid>
+      <routes:knoopnr>60</routes:knoopnr>
+      <routes:knooptype>1</routes:knooptype>
+      <routes:naam>Brabantse Kouters</routes:naam>
+      <routes:regiourl>http://www.scheldeland.be</routes:regiourl>
+      <routes:shopurl>http://www.tov.be/nl/webshop</routes:shopurl>
+      <routes:meldpunt>http://www.tov.be/nl/routedokter</routes:meldpunt>
+      <routes:updatedate>2021-04-09</routes:updatedate>
+      <routes:geom>
+        <gml:Point srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:pos>138756.3956 187460.6884</gml:pos>
+        </gml:Point>
+      </routes:geom>
+    </routes:knoop_wandel>
+    <routes:knoop_wandel gml:id="knoop_wandel.2227">
+      <gml:boundedBy>
+        <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:lowerCorner>139175.2233 187494.8167</gml:lowerCorner>
+          <gml:upperCorner>139175.2233 187494.8167</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <routes:objectid>2227</routes:objectid>
+      <routes:eigenaar>Toerisme Oost-Vlaanderen</routes:eigenaar>
+      <routes:mobility>Wandel</routes:mobility>
+      <routes:geoid>2735159</routes:geoid>
+      <routes:local_id>181449</routes:local_id>
+      <routes:partnerid>2181449</routes:partnerid>
+      <routes:knoopnr>61</routes:knoopnr>
+      <routes:knooptype>1</routes:knooptype>
+      <routes:naam>Brabantse Kouters</routes:naam>
+      <routes:regiourl>http://www.scheldeland.be</routes:regiourl>
+      <routes:shopurl>http://www.tov.be/nl/webshop</routes:shopurl>
+      <routes:meldpunt>http://www.tov.be/nl/routedokter</routes:meldpunt>
+      <routes:updatedate>2021-04-09</routes:updatedate>
+      <routes:geom>
+        <gml:Point srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:pos>139175.2233 187494.8167</gml:pos>
+        </gml:Point>
+      </routes:geom>
+    </routes:knoop_wandel>
+    <routes:knoop_wandel gml:id="knoop_wandel.8247">
+      <gml:boundedBy>
+        <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:lowerCorner>219788.6817 208707.054</gml:lowerCorner>
+          <gml:upperCorner>219788.6817 208707.054</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <routes:objectid>8247</routes:objectid>
+      <routes:eigenaar>Regionaal Landschap Lage Kempen</routes:eigenaar>
+      <routes:mobility>Wandel</routes:mobility>
+      <routes:geoid>2875710</routes:geoid>
+      <routes:local_id>766</routes:local_id>
+      <routes:partnerid>5000000000766</routes:partnerid>
+      <routes:knoopnr>420</routes:knoopnr>
+      <routes:knooptype>1</routes:knooptype>
+      <routes:naam>Wandelnetwerk Bosland</routes:naam>
+      <routes:regiourl>http://www.bosland.be</routes:regiourl>
+      <routes:shopurl>http://www.RLLK.be</routes:shopurl>
+      <routes:meldpunt>meldingen@RLLK.be</routes:meldpunt>
+      <routes:updatedate>2021-07-26</routes:updatedate>
+      <routes:geom>
+        <gml:Point srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:pos>219788.6817 208707.054</gml:pos>
+        </gml:Point>
+      </routes:geom>
+    </routes:knoop_wandel>
+    <routes:knoop_wandel gml:id="knoop_wandel.4515">
+      <gml:boundedBy>
+        <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:lowerCorner>220369.0104 208525.144</gml:lowerCorner>
+          <gml:upperCorner>220369.0104 208525.144</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <routes:objectid>4515</routes:objectid>
+      <routes:eigenaar>Regionaal Landschap Lage Kempen</routes:eigenaar>
+      <routes:mobility>Wandel</routes:mobility>
+      <routes:geoid>2875711</routes:geoid>
+      <routes:local_id>767</routes:local_id>
+      <routes:partnerid>5000000000767</routes:partnerid>
+      <routes:knoopnr>441</routes:knoopnr>
+      <routes:knooptype>1</routes:knooptype>
+      <routes:naam>Wandelnetwerk Bosland</routes:naam>
+      <routes:regiourl>http://www.bosland.be</routes:regiourl>
+      <routes:shopurl>http://www.RLLK.be</routes:shopurl>
+      <routes:meldpunt>meldingen@RLLK.be</routes:meldpunt>
+      <routes:updatedate>2021-07-26</routes:updatedate>
+      <routes:geom>
+        <gml:Point srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:pos>220369.0104 208525.144</gml:pos>
+        </gml:Point>
+      </routes:geom>
+    </routes:knoop_wandel>
+    <routes:knoop_wandel gml:id="knoop_wandel.417">
+      <gml:boundedBy>
+        <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:lowerCorner>130013.7712 214792.6891</gml:lowerCorner>
+          <gml:upperCorner>130013.7712 214792.6891</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <routes:objectid>417</routes:objectid>
+      <routes:eigenaar>Toerisme Oost-Vlaanderen</routes:eigenaar>
+      <routes:mobility>Wandel</routes:mobility>
+      <routes:geoid>3918832</routes:geoid>
+      <routes:local_id>181837</routes:local_id>
+      <routes:partnerid>2181837</routes:partnerid>
+      <routes:knoopnr>74</routes:knoopnr>
+      <routes:knooptype>1</routes:knooptype>
+      <routes:naam>Moervaartvallei</routes:naam>
+      <routes:regiourl>http://www.toerismewaasland.be</routes:regiourl>
+      <routes:shopurl>http://www.tov.be/nl/webshop</routes:shopurl>
+      <routes:meldpunt>http://www.tov.be/nl/routedokter</routes:meldpunt>
+      <routes:updatedate>2021-04-09</routes:updatedate>
+      <routes:geom>
+        <gml:Point srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:pos>130013.7712 214792.6891</gml:pos>
+        </gml:Point>
+      </routes:geom>
+    </routes:knoop_wandel>
+    <routes:knoop_wandel gml:id="knoop_wandel.8551">
+      <gml:boundedBy>
+        <gml:Envelope srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:lowerCorner>130306.6572 214661.9245</gml:lowerCorner>
+          <gml:upperCorner>130306.6572 214661.9245</gml:upperCorner>
+        </gml:Envelope>
+      </gml:boundedBy>
+      <routes:objectid>8551</routes:objectid>
+      <routes:eigenaar>Toerisme Oost-Vlaanderen</routes:eigenaar>
+      <routes:mobility>Wandel</routes:mobility>
+      <routes:geoid>3918833</routes:geoid>
+      <routes:local_id>181838</routes:local_id>
+      <routes:partnerid>2181838</routes:partnerid>
+      <routes:knoopnr>73</routes:knoopnr>
+      <routes:knooptype>1</routes:knooptype>
+      <routes:naam>Moervaartvallei</routes:naam>
+      <routes:regiourl>http://www.toerismewaasland.be</routes:regiourl>
+      <routes:shopurl>http://www.tov.be/nl/webshop</routes:shopurl>
+      <routes:meldpunt>http://www.tov.be/nl/routedokter</routes:meldpunt>
+      <routes:updatedate>2021-04-09</routes:updatedate>
+      <routes:geom>
+        <gml:Point srsName="urn:x-ogc:def:crs:EPSG:31370" srsDimension="2">
+          <gml:pos>130306.6572 214661.9245</gml:pos>
+        </gml:Point>
+      </routes:geom>
+    </routes:knoop_wandel>
+  </gml:featureMembers>
+</wfs:FeatureCollection>
