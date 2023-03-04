@@ -1,5 +1,7 @@
 package kpn.server.tv
 
+import kpn.api.common.LatLon
+
 case class TvNode(
   _id: String,
   name: String,
@@ -9,4 +11,4 @@ case class TvNode(
   network: String,
   updated: String,
   contact: String
-)
+) extends LatLon
