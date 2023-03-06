@@ -117,6 +117,10 @@ export class I18nService {
       $localize`:@@map.layer.network:Network`,
     ]);
     keysAndValues.push([
+      '@@map.layer.tv',
+      $localize`:@@map.layer.tv:Toerisme Vlaanderen`,
+    ]);
+    keysAndValues.push([
       '@@map.layer.networks',
       $localize`:@@map.layer.networks:Networks`,
     ]);

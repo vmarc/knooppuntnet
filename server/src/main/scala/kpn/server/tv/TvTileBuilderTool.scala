@@ -38,7 +38,7 @@ class TvTileBuilderTool {
     val routes = readRoutes()
 
     // TODO (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-    ((ZoomLevel.bitmapTileMaxZoom + 1) to ZoomLevel.vectorTileMaxZoom).foreach { z =>
+    ((ZoomLevel.bitmapTileMaxZoom) to ZoomLevel.vectorTileMaxZoom).foreach { z =>
 
       val nodeMap = {
         val map = scala.collection.mutable.Map[String, TvTileNodes]()
@@ -118,7 +118,7 @@ class TvTileBuilderTool {
             case Some(tr) => tr.routes
           }
 
-          if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
+          if (tile.z < ZoomLevel.bitmapTileMaxZoom) {
             // TODO build bitmap
           }
           else {
@@ -159,7 +159,7 @@ class TvTileBuilderTool {
 
     routes.zipWithIndex.foreach { case (route, index) =>
       val coordinates = route.coordinates.map { p =>
-          new Coordinate(scaleLon(p.lon), scaleLat(p.lat))
+        new Coordinate(scaleLon(p.lon), scaleLat(p.lat))
       }
       val lineString = geometryFactory.createLineString(coordinates.toArray)
       val userData = Seq(

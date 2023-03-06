@@ -7,23 +7,25 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
-import { combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
-import { first } from 'rxjs/operators';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { MapLayer } from '../../../components/ol/layers/map-layer';
-import { MapLayerChange } from '../../../components/ol/layers/map-layer-change';
-import { MapLayers } from '../../../components/ol/layers/map-layers';
-import { MapLayerService } from '../../../components/ol/services/map-layer.service';
-import { MapMode } from '../../../components/ol/services/map-mode';
-import { MapZoomService } from '../../../components/ol/services/map-zoom.service';
-import { MapService } from '../../../components/ol/services/map.service';
-import { PoiTileLayerService } from '../../../components/ol/services/poi-tile-layer.service';
-import { MainMapStyle } from '../../../components/ol/style/main-map-style';
-import { selectPreferencesShowProposed } from '../../../core/preferences/preferences.selectors';
-import { selectPreferencesExtraLayers } from '../../../core/preferences/preferences.selectors';
-import { NetworkTypes } from '../../../kpn/common/network-types';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { filter, first, map, tap } from 'rxjs/operators';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { MapLayerChange } from '@app/components/ol/layers/map-layer-change';
+import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { TvTileLayer } from '@app/components/ol/layers/tv-tile-layer';
+import { MapLayerService } from '@app/components/ol/services/map-layer.service';
+import { MapMode } from '@app/components/ol/services/map-mode';
+import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
+import { MapService } from '@app/components/ol/services/map.service';
+import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
+import { MainMapStyle } from '@app/components/ol/style/main-map-style';
+import {
+  selectPreferencesExtraLayers,
+  selectPreferencesShowProposed
+} from '@app/core/preferences/preferences.selectors';
+import { NetworkTypes } from '@app/kpn/common/network-types';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { PlannerService } from '../../planner.service';
 
 @Injectable()
@@ -31,15 +33,20 @@ export class PlannerLayerService {
   standardLayers: List<MapLayer>;
   layerSwitcherMapLayers$: Observable<MapLayers>;
   gpxVectorLayer: VectorLayer<VectorSource<Geometry>>;
-  private _layerSwitcherMapLayers$ = new ReplaySubject<MapLayers>();
+  private _layerSwitcherMapLayers$ = new BehaviorSubject<MapLayers>(new MapLayers(List([])));
   private networkLayerChange$: Observable<MapLayerChange>;
+  private tvLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
+  private activeTvLayer: MapLayer = null;
   private osmLayer: MapLayer;
   private backgroundLayer: MapLayer;
   private tile256NameLayer: MapLayer;
   private tile512NameLayer: MapLayer;
   private poiLayer: MapLayer;
   private gpxLayer: MapLayer;
+
+  private tvHikingLayer: MapLayer;
+
   private bitmapLayersSurface: ImmutableMap<NetworkType, MapLayer>;
   private bitmapLayersSurvey: ImmutableMap<NetworkType, MapLayer>;
   private bitmapLayersAnalysis: ImmutableMap<NetworkType, MapLayer>;
@@ -67,13 +74,32 @@ export class PlannerLayerService {
       this.plannerService.context.networkType$,
       this.mapService.mapMode$,
     ]).pipe(
-      map(([zoomLevel, networkType, mapMode]) =>
-        this.networkLayerChange(zoomLevel, networkType, mapMode)
+      map(([zoomLevel, networkType, mapMode]) => {
+        const change = this.networkLayerChange(zoomLevel, networkType, mapMode)
+        let layers = this.standardLayers.push(change.newLayer);
+        if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
+          if (networkType === NetworkType.hiking) {
+            layers.push(this.tvHikingLayer);
+          }
+        }
+        this._layerSwitcherMapLayers$.next(new MapLayers(layers));
+        return change;
+      })
+    );
+
+    this.tvLayerChange$ = combineLatest([
+      this.mapZoomService.zoomLevel$,
+      this.plannerService.context.networkType$,
+    ]).pipe(
+      map(([zoomLevel, networkType]) =>
+        this.tvLayerChange(zoomLevel, networkType)
       ),
       tap((change) => {
-        this._layerSwitcherMapLayers$.next(
-          new MapLayers(this.standardLayers.push(change.newLayer))
-        );
+        if (!!change.newLayer) {
+          this._layerSwitcherMapLayers$.next(
+            new MapLayers(this._layerSwitcherMapLayers$.value.layers.push(change.newLayer))
+          );
+        }
       })
     );
   }
@@ -120,10 +146,29 @@ export class PlannerLayerService {
         )
         .subscribe()
     );
+    this.mapRelatedSubscriptions.add(
+      this.tvLayerChange$
+        .pipe(
+          filter((change) => !!change.oldLayer || !!change.newLayer),
+          filter((change) => change.oldLayer?.name !== change.newLayer?.name),
+          tap((change) => {
+            if (change.oldLayer !== null) {
+              olMap.removeLayer(change.oldLayer.layer);
+            }
+            if (!!change.newLayer) {
+              olMap
+                .getLayers()
+                .insertAt(this.standardLayers.size, change.newLayer.layer);
+            }
+          })
+        )
+        .subscribe()
+    );
   }
 
   mapDestroy(olMap: Map): void {
     this.activeNetworkLayer = null;
+    this.activeTvLayer = null;
     this.mapRelatedSubscriptions.unsubscribe();
   }
 
@@ -137,6 +182,9 @@ export class PlannerLayerService {
     this.gpxVectorLayer = this.gpxLayer.layer as VectorLayer<
       VectorSource<Geometry>
     >;
+
+    this.tvHikingLayer = new TvTileLayer().build(NetworkType.hiking);
+    /* TODO this.tvCyclingLayer = new TvTileLayer().build(NetworkType.cycling); */
 
     this.bitmapLayersSurface = this.buildBitmapLayers(MapMode.surface);
     this.bitmapLayersSurvey = this.buildBitmapLayers(MapMode.survey);
@@ -154,7 +202,10 @@ export class PlannerLayerService {
           this.gpxLayer,
         ]);
       } else {
-        this.standardLayers = List([this.backgroundLayer, this.poiLayer]);
+        this.standardLayers = List([
+          this.backgroundLayer,
+          this.poiLayer,
+        ]);
       }
     });
 
@@ -162,7 +213,8 @@ export class PlannerLayerService {
       .concat(this.bitmapLayersSurface.values())
       .concat(this.bitmapLayersSurvey.values())
       .concat(this.bitmapLayersAnalysis.values())
-      .concat(this.vectorLayers.values());
+      .concat(this.vectorLayers.values())
+      .concat([this.tvHikingLayer]);
   }
 
   updateSize(): void {
@@ -181,6 +233,21 @@ export class PlannerLayerService {
     );
     const oldLayer = this.activeNetworkLayer;
     this.activeNetworkLayer = newLayer;
+    return new MapLayerChange(oldLayer, newLayer);
+  }
+
+  private tvLayerChange(
+    zoomLevel: number,
+    networkType: NetworkType,
+  ): MapLayerChange {
+    let newLayer: MapLayer = null;
+    if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
+      if (networkType === NetworkType.hiking) {
+        newLayer = this.tvHikingLayer;
+      }
+    }
+    const oldLayer = this.activeTvLayer;
+    this.activeTvLayer = newLayer;
     return new MapLayerChange(oldLayer, newLayer);
   }
 
