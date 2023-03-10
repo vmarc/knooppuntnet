@@ -29,6 +29,7 @@ import { MapPositionService } from './services/map-position.service';
 import { MapService } from './services/map.service';
 import { NetworkMapPositionService } from './services/network-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
+import { FrisoMapComponent } from '@app/components/ol/components/friso-map.component';
 
 @NgModule({
   imports: [
@@ -57,6 +58,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     LegHttpErrorDialogComponent,
     PoiMapComponent,
     PoiDetailMapComponent,
+    FrisoMapComponent,
   ],
   exports: [
     NodeMapComponent,
@@ -71,6 +73,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     PoiMapComponent,
     PoiDetailMapComponent,
     MapLinkMenuComponent,
+    FrisoMapComponent,
   ],
   providers: [
     MapService,

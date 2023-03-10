@@ -42,6 +42,11 @@ const routes: Routes = [
       import('./monitor/monitor.module').then((m) => m.MonitorModule),
   },
   {
+    path: 'friso',
+    loadChildren: () =>
+      import('./friso/friso.module').then((m) => m.FrisoModule),
+  },
+  {
     path: '',
     loadChildren: () => import('./base/base.module').then((m) => m.BaseModule),
   },

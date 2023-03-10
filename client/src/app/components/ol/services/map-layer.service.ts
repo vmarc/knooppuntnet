@@ -39,6 +39,7 @@ import { TileDebug256Layer } from '../layers/tile-debug-256-layer';
 import { TileDebug512Layer } from '../layers/tile-debug-512-layer';
 import { MapMode } from './map-mode';
 import { MapService } from './map.service';
+import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
 
 @Injectable()
 export class MapLayerService {
@@ -195,5 +196,9 @@ export class MapLayerService {
 
   poiAreasLayer(geoJson: string): MapLayer {
     return new PoiAreasLayer(this.i18nService).build(geoJson);
+  }
+
+  frisoLayer(name: string, filename: string): MapLayer {
+    return new FrisoLayer(name, `${name}.geojson`).build();
   }
 }
