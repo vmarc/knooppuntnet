@@ -188,6 +188,12 @@
 
         <dependency>
             <groupId>org.geotools</groupId>
+            <artifactId>gt-geojsondatastore</artifactId>
+            <version>26.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.geotools</groupId>
             <artifactId>gt-epsg-hsql</artifactId>
             <version>25.0</version>
         </dependency>

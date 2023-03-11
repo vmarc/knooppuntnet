@@ -1,4 +1,4 @@
-package kpn.server.friso
+package kpn.server.opendata.netherlands
 
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl

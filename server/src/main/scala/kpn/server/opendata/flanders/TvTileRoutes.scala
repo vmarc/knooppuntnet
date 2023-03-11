@@ -1,4 +1,4 @@
-package kpn.server.tv
+package kpn.server.opendata.flanders
 
 import kpn.server.analyzer.engine.tiles.domain.Tile
 

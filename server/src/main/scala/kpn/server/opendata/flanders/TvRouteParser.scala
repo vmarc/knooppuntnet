@@ -1,7 +1,7 @@
-package kpn.server.tv
+package kpn.server.opendata.flanders
 
 import kpn.api.common.LatLonImpl
-import kpn.server.tv.TvUtil.lambertToLatLon
+import kpn.server.opendata.flanders.TvUtil.lambertToLatLon
 
 import scala.xml.Node
 

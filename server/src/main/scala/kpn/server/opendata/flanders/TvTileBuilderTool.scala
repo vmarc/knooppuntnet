@@ -1,4 +1,4 @@
-package kpn.server.tv
+package kpn.server.opendata.flanders
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
@@ -172,7 +172,7 @@ class TvTileBuilderTool {
   }
 
   private def readNodes(): Seq[TvNode] = {
-    val filename = "/kpn/xml/knoop_wandel.xml"
+    val filename = "/kpn/opendata/flanders/knoop_wandel.xml"
     val stream = new FileInputStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
@@ -180,7 +180,7 @@ class TvTileBuilderTool {
   }
 
   private def readRoutes(): Seq[TvRoute] = {
-    val filename = "/kpn/xml/traject_wandel.xml"
+    val filename = "/kpn/opendata/flanders/traject_wandel.xml"
     val stream = new FileInputStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
