@@ -15,7 +15,7 @@ import { MatRadioChange } from '@angular/material/radio';
         <div>
           <mat-radio-button value="rename">
             <span>Rename</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 94 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
             Node is still in the same place, but has a different number.
@@ -24,7 +24,7 @@ import { MatRadioChange } from '@angular/material/radio';
         <div>
           <mat-radio-button value="minor-rename">
             <span>Minor rename</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 33 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
             Same as rename, but used for minor renames. This is when node
@@ -34,7 +34,7 @@ import { MatRadioChange } from '@angular/material/radio';
         <div>
           <mat-radio-button value="removed">
             <span>Removed</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 4104 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
             Node is not present in import dataset, but is in OSM.
@@ -42,8 +42,8 @@ import { MatRadioChange } from '@angular/material/radio';
         </div>
         <div>
           <mat-radio-button value="added">
-            <span>Added</span
-            ><!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span>Added</span>
+            <span class="kpn-brackets">{{ 3226 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
             Node is not present in OSM, but is in the import dataset.
@@ -52,7 +52,7 @@ import { MatRadioChange } from '@angular/material/radio';
         <div>
           <mat-radio-button value="no-change">
             <span>No change</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 4611 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
             Nothing is different between the OSM and import node.
@@ -61,21 +61,21 @@ import { MatRadioChange } from '@angular/material/radio';
         <div>
           <mat-radio-button value="moved-short-distance">
             <span>Moved short distance</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 19190 }}</span>
           </mat-radio-button>
           <div class="mode-comment">Node moved a distance of <100m.</div>
         </div>
         <div>
           <mat-radio-button value="moved-long-distance">
             <span>Moved long distance</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 379 }}</span>
           </mat-radio-button>
           <div class="mode-comment">Node moved a distance of 100-1000m.</div>
         </div>
         <div>
           <mat-radio-button value="other">
             <span>Other</span>
-            <!-- <span class="kpn-brackets">{{ 100 }}</span> -->
+            <span class="kpn-brackets">{{ 0 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
             Could not be determined to be in one of the above categories.
