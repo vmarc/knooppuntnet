@@ -5,16 +5,16 @@ import kpn.core.util.UnitTest
 import scala.xml.InputSource
 import scala.xml.XML
 
-class TvNodeParserTest extends UnitTest {
+class FlandersNodeParserTest extends UnitTest {
 
   test("node parser") {
     val filename = "/case-studies/toerisme-vlaanderen-nodes.xml"
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val nodes = new TvNodeParser().parse(xml)
+    val nodes = new FlandersNodeParser().parse(xml)
 
-    val node1 = TvNode(
+    val node1 = FlandersNode(
       "2735158",
       "60",
       "50.99726300884831",
@@ -25,7 +25,7 @@ class TvNodeParserTest extends UnitTest {
       "http://www.tov.be/nl/routedokter"
     )
 
-    val node2 = TvNode(
+    val node2 = FlandersNode(
       "2735159",
       "61",
       "50.9975777257217",
@@ -36,7 +36,7 @@ class TvNodeParserTest extends UnitTest {
       "http://www.tov.be/nl/routedokter"
     )
 
-    val node3 = TvNode(
+    val node3 = FlandersNode(
       "2875710",
       "420",
       "51.1841283623481",
@@ -47,7 +47,7 @@ class TvNodeParserTest extends UnitTest {
       "meldingen@RLLK.be"
     )
 
-    val node4 = TvNode(
+    val node4 = FlandersNode(
       "2875711",
       "441",
       "51.18242295189887",
@@ -58,7 +58,7 @@ class TvNodeParserTest extends UnitTest {
       "meldingen@RLLK.be"
     )
 
-    val node5 = TvNode(
+    val node5 = FlandersNode(
       "3918832",
       "74",
       "51.24270625282907",
@@ -69,7 +69,7 @@ class TvNodeParserTest extends UnitTest {
       "http://www.tov.be/nl/routedokter"
     )
 
-    val node6 = TvNode(
+    val node6 = FlandersNode(
       "3918833",
       "73",
       "51.24154095634826",

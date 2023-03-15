@@ -6,13 +6,13 @@ import java.io.FileInputStream
 import scala.xml.InputSource
 import scala.xml.XML
 
-object TvTileBuilderTool {
+object FlandersTileBuilderTool {
   def main(args: Array[String]): Unit = {
-    new TvTileBuilderTool().build()
+    new FlandersTileBuilderTool().build()
   }
 }
 
-class TvTileBuilderTool {
+class FlandersTileBuilderTool {
 
   def build(): Unit = {
     val nodes = readNodes().map(_.toOpenDataNode)
@@ -20,19 +20,19 @@ class TvTileBuilderTool {
     new OpenDataTileBuilder().build(nodes, routes, "toerisme-vlaanderen/hiking")
   }
 
-  private def readNodes(): Seq[TvNode] = {
+  private def readNodes(): Seq[FlandersNode] = {
     val filename = "/kpn/opendata/flanders/knoop_wandel.xml"
     val stream = new FileInputStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    new TvNodeParser().parse(xml)
+    new FlandersNodeParser().parse(xml)
   }
 
-  private def readRoutes(): Seq[TvRoute] = {
+  private def readRoutes(): Seq[FlandersRoute] = {
     val filename = "/kpn/opendata/flanders/traject_wandel.xml"
     val stream = new FileInputStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    new TvRouteParser().parse(xml)
+    new FlandersRouteParser().parse(xml)
   }
 }

@@ -3,7 +3,7 @@ package kpn.server.opendata.flanders
 import kpn.api.common.LatLonImpl
 import kpn.server.opendata.common.OpenDataRoute
 
-case class TvRoute(
+case class FlandersRoute(
   _id: String,
   fromNodeId: String,
   toNodeId: String,

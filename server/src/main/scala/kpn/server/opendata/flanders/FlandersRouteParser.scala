@@ -1,19 +1,19 @@
 package kpn.server.opendata.flanders
 
 import kpn.api.common.LatLonImpl
-import kpn.server.opendata.flanders.TvUtil.lambertToLatLon
+import kpn.server.opendata.flanders.FlandersUtil.lambertToLatLon
 
 import scala.xml.Node
 
-class TvRouteParser {
+class FlandersRouteParser {
 
-  def parse(xml: Node): Seq[TvRoute] = {
+  def parse(xml: Node): Seq[FlandersRoute] = {
     val featureMembers = xml \ "featureMembers"
     val routes = featureMembers \ "traject_wandel"
     routes.map(parseRoute)
   }
 
-  private def parseRoute(route: Node): TvRoute = {
+  private def parseRoute(route: Node): FlandersRoute = {
     val _id = (route \ "pid").text
     val fromNodeId = (route \ "begin_geoid").text
     val toNodeId = (route \ "end_geoid").text
@@ -22,7 +22,7 @@ class TvRouteParser {
     val contact = (route \ "meldpunt").text
     val updated = (route \ "updatedate").text.replaceAll("Z", "")
     val coordinates = parseCoordinates(route)
-    TvRoute(
+    FlandersRoute(
       _id,
       fromNodeId,
       toNodeId,

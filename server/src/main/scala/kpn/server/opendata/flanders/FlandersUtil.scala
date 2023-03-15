@@ -8,7 +8,7 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Point
 import org.locationtech.jts.geom.PrecisionModel
 
-object TvUtil {
+object FlandersUtil {
 
   private val sourceCRS = CRS.decode("EPSG:31370")
   private val targetCRS = CRS.decode("EPSG:4326")

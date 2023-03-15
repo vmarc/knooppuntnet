@@ -6,16 +6,16 @@ import kpn.core.util.UnitTest
 import scala.xml.InputSource
 import scala.xml.XML
 
-class TvRouteParserTest extends UnitTest {
+class FlandersRouteParserTest extends UnitTest {
 
   test("route parser") {
     val filename = "/case-studies/toerisme-vlaanderen-routes.xml"
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val routes = new TvRouteParser().parse(xml)
+    val routes = new FlandersRouteParser().parse(xml)
 
-    val route1 = TvRoute(
+    val route1 = FlandersRoute(
       "2735158-2735159",
       "2735158",
       "2735159",
@@ -43,7 +43,7 @@ class TvRouteParserTest extends UnitTest {
       "http://www.tov.be/nl/routedokter"
     )
 
-    val route2 = TvRoute(
+    val route2 = FlandersRoute(
       "2875710-2875711",
       "2875710",
       "2875711",
@@ -65,7 +65,7 @@ class TvRouteParserTest extends UnitTest {
       "meldingen@RLLK.be"
     )
 
-    val route3 = TvRoute(
+    val route3 = FlandersRoute(
       "3918832-3918833",
       "3918832",
       "3918833",
