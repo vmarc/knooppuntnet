@@ -1,6 +1,7 @@
 package kpn.server.opendata.flanders
 
 import kpn.api.common.LatLon
+import kpn.server.opendata.common.OpenDataNode
 
 case class TvNode(
   _id: String,
@@ -11,4 +12,13 @@ case class TvNode(
   network: String,
   updated: String,
   contact: String
-) extends LatLon
+) extends LatLon {
+  def toOpenDataNode: OpenDataNode = {
+    OpenDataNode(
+      _id,
+      name,
+      latitude,
+      longitude
+    )
+  }
+}
