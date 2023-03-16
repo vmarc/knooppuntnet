@@ -3,27 +3,25 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain/zoom-level';
 import { Layers } from './layers';
-import { MapLayer } from "@app/components/ol/layers/map-layer";
-import LayerGroup from "ol/layer/Group";
-import Map from "ol/Map";
-import Style, { StyleFunction } from "ol/style/Style";
-import { Color } from "ol/color";
-import Stroke from "ol/style/Stroke";
-import Circle from "ol/style/Circle";
-import Fill from "ol/style/Fill";
-import Text from "ol/style/Text";
-import { NetworkType } from "@api/custom/network-type";
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import LayerGroup from 'ol/layer/Group';
+import Map from 'ol/Map';
+import Style, { StyleFunction } from 'ol/style/Style';
+import { Color } from 'ol/color';
+import Stroke from 'ol/style/Stroke';
+import Circle from 'ol/style/Circle';
+import Fill from 'ol/style/Fill';
+import Text from 'ol/style/Text';
+import { NetworkType } from '@api/custom/network-type';
 
-export class TvTileLayer {
-
+export class OpendataTileLayer {
   private readonly largeMinZoomLevel = 13;
   private readonly smallStyle = this.buildSmallStyle();
   private readonly largeStyle = this.buildLargeStyle();
   bitmapTileLayer: MapLayer;
   vectorTileLayer: VectorTileLayer;
 
-  build(networkType: NetworkType): MapLayer {
-
+  build(networkType: NetworkType, dir: string, layerName: string): MapLayer {
     /* TODO this.bitmapTileLayer.layer = ... */
 
     const source = new VectorTile({
@@ -31,7 +29,7 @@ export class TvTileLayer {
       minZoom: ZoomLevel.poiTileMinZoom,
       maxZoom: ZoomLevel.poiTileMaxZoom,
       format: new MVT(),
-      url: '/tiles-history/toerisme-vlaanderen/hiking/{z}/{x}/{y}.mvt',
+      url: `/tiles-history/opendata/${dir}/{z}/{x}/{y}.mvt`,
     });
 
     this.vectorTileLayer = new VectorTileLayer({
@@ -44,10 +42,9 @@ export class TvTileLayer {
     });
 
     const layer = new LayerGroup({
-      layers: [ /* TODO this.bitmapTileLayer.layer,*/ this.vectorTileLayer],
+      layers: [/* TODO this.bitmapTileLayer.layer,*/ this.vectorTileLayer],
     });
 
-    const layerName = $localize`:@@map.layer.tv:Toerisme Vlaanderen`;
     layer.set('name', layerName);
     layer.setVisible(false);
     return new MapLayer(`tv-${networkType}-layer`, layer, this.applyMap());
@@ -129,7 +126,7 @@ export class TvTileLayer {
   private buildSmallStyle(): Style {
     const red: Color = [255, 0, 0];
     const white: Color = [255, 255, 255];
-    const lineDash = null;//[5, 5];
+    const lineDash = null; //[5, 5];
     return new Style({
       stroke: new Stroke({
         color: red,

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { MapService } from '../../../components/ol/services/map.service';
+import { MapService } from '@app/components/ol/services/map.service';
 
 @Component({
   selector: 'kpn-map-page',
@@ -11,8 +11,8 @@ import { MapService } from '../../../components/ol/services/map.service';
       <li i18n="@@breadcrumb.map">Map</li>
     </ul>
 
-    <kpn-page-header subject="planner" i18n="@@planner.map"
-      >Map
+    <kpn-page-header subject="planner" i18n="@@planner.map">
+      Map
     </kpn-page-header>
     <kpn-icon-buttons>
       <kpn-icon-button

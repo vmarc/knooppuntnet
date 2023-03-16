@@ -15,7 +15,7 @@ class OpenDataNetherlandsTileBuilderTool {
   def build(): Unit = {
     val nodes = readNodes().map(_.toOpenDataNode)
     val routes = readRoutes().map(_.toOpenDataRoute)
-    new OpenDataTileBuilder().build(nodes, routes, "routedatabank/hiking")
+    new OpenDataTileBuilder().build(nodes, routes, "opendata/netherlands/hiking")
   }
 
   private def readNodes(): Seq[RoutedatabankNode] = {
