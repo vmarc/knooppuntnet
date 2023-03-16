@@ -8,11 +8,7 @@ import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.apache.commons.io.FileUtils
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.Point
 
 import java.io.File
 
@@ -25,9 +21,7 @@ class OpenDataTileBuilder {
 
   def build(nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute], dir: String): Unit = {
 
-    // TODO (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-    ((ZoomLevel.bitmapTileMaxZoom) to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-
+    (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
       val nodeMap = {
         val map = scala.collection.mutable.Map[String, OpenDataTileNodes]()
         nodes.foreach { node =>
@@ -106,56 +100,22 @@ class OpenDataTileBuilder {
             case Some(tr) => tr.routes
           }
 
-          if (tile.z < ZoomLevel.bitmapTileMaxZoom) {
-            // TODO build bitmap
+          if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
+            val tileBytes = new OpenDataBitmapTileBuilder().build(tile, nodes, routes)
+            writeTile(tile, tileBytes, dir, "png")
           }
           else {
-            val tileBytes = buildTile(tile, nodes, routes)
-            val fileName = s"/kpn/tiles/$dir/${tile.z}/${tile.x}/${tile.y}.mvt"
-            val file = new File(fileName)
-            FileUtils.writeByteArrayToFile(file, tileBytes)
+            val tileBytes = new OpenDataVectorTileBuilder().build(tile, nodes, routes)
+            writeTile(tile, tileBytes, dir, "mvt")
           }
         }
       }
     }
   }
 
-  private def buildTile(tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
-
-    val geometryFactory = new GeometryFactory
-
-    val encoder = new VectorTileEncoder()
-
-    def scaleLat(lat: Double): Double = {
-      Tile.EXTENT - ((lat - tile.bounds.yMin) * Tile.EXTENT / (tile.bounds.yMax - tile.bounds.yMin))
-    }
-
-    def scaleLon(lon: Double): Double = {
-      (lon - tile.bounds.xMin) * Tile.EXTENT / (tile.bounds.xMax - tile.bounds.xMin)
-    }
-
-    nodes.foreach { node =>
-      val point: Point = geometryFactory.createPoint(new Coordinate(scaleLon(node.lon), scaleLat(node.lat)))
-
-      val userData = Seq(
-        "id" -> node._id,
-        "name" -> node.name,
-      ).toMap
-
-      encoder.addPointFeature("node", userData, point)
-    }
-
-    routes.zipWithIndex.foreach { case (route, index) =>
-      val coordinates = route.coordinates.map { p =>
-        new Coordinate(scaleLon(p.lon), scaleLat(p.lat))
-      }
-      val lineString = geometryFactory.createLineString(coordinates.toArray)
-      val userData = Seq(
-        "id" -> route._id,
-      ).toMap
-      encoder.addLineStringFeature("route", userData, lineString)
-    }
-
-    encoder.encode
+  private def writeTile(tile: Tile, tileBytes: Array[Byte], dir: String, fileExtension: String): Unit = {
+    val filename = s"/kpn/tiles/$dir/${tile.z}/${tile.x}/${tile.y}.$fileExtension"
+    val file = new File(filename)
+    FileUtils.writeByteArrayToFile(file, tileBytes)
   }
 }

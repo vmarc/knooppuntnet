@@ -5,7 +5,6 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.Point
 import org.springframework.stereotype.Component
 
 import scala.collection.immutable.ListMap
@@ -14,29 +13,18 @@ import scala.collection.immutable.ListMap
 class PoiVectorTileBuilder {
 
   def build(data: PoiTileData): Array[Byte] = {
-
     val geometryFactory = new GeometryFactory
-
     val encoder = new VectorTileEncoder(Tile.POI_CLIP_BUFFER)
-
-    def scaleLat(lat: Double): Double = {
-      Tile.EXTENT - ((lat - data.tile.bounds.yMin) * Tile.EXTENT / (data.tile.bounds.yMax - data.tile.bounds.yMin))
-    }
-
-    def scaleLon(lon: Double): Double = {
-      (lon - data.tile.bounds.xMin) * Tile.EXTENT / (data.tile.bounds.xMax - data.tile.bounds.xMin)
-    }
-
     data.pois.foreach { poi =>
-      val point: Point = geometryFactory.createPoint(new Coordinate(scaleLon(poi.lon), scaleLat(poi.lat)))
+      val x = data.tile.scaleLon(poi.lon)
+      val y = data.tile.scaleLat(poi.lat)
+      val point = geometryFactory.createPoint(new Coordinate(x, y))
       val userData = ListMap(
         "type" -> poi.elementType,
         "id" -> poi.elementId.toString
       )
       encoder.addPointFeature(poi.layer, userData, point)
     }
-
     encoder.encode
   }
-
 }

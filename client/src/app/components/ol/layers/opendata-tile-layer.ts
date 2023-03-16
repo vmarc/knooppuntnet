@@ -1,6 +1,8 @@
 import { MVT } from 'ol/format';
+import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
+import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain/zoom-level';
 import { Layers } from './layers';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
@@ -18,16 +20,27 @@ export class OpendataTileLayer {
   private readonly largeMinZoomLevel = 13;
   private readonly smallStyle = this.buildSmallStyle();
   private readonly largeStyle = this.buildLargeStyle();
-  bitmapTileLayer: MapLayer;
+  bitmapTileLayer: TileLayer<XYZ>;
   vectorTileLayer: VectorTileLayer;
 
-  build(networkType: NetworkType, dir: string, layerName: string): MapLayer {
-    /* TODO this.bitmapTileLayer.layer = ... */
+  build(
+    networkType: NetworkType,
+    layerId: string,
+    dir: string,
+    layerName: string
+  ): MapLayer {
+    this.bitmapTileLayer = new TileLayer<XYZ>({
+      source: new XYZ({
+        minZoom: ZoomLevel.bitmapTileMinZoom,
+        maxZoom: ZoomLevel.bitmapTileMaxZoom,
+        url: `/tiles-history/opendata/${dir}/{z}/{x}/{y}.png`,
+      }),
+    });
 
     const source = new VectorTile({
       tileSize: 512,
-      minZoom: ZoomLevel.poiTileMinZoom,
-      maxZoom: ZoomLevel.poiTileMaxZoom,
+      minZoom: ZoomLevel.vectorTileMinZoom,
+      maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
       url: `/tiles-history/opendata/${dir}/{z}/{x}/{y}.mvt`,
     });
@@ -42,12 +55,12 @@ export class OpendataTileLayer {
     });
 
     const layer = new LayerGroup({
-      layers: [/* TODO this.bitmapTileLayer.layer,*/ this.vectorTileLayer],
+      layers: [this.bitmapTileLayer, this.vectorTileLayer],
     });
 
     layer.set('name', layerName);
     layer.setVisible(false);
-    return new MapLayer(`tv-${networkType}-layer`, layer, this.applyMap());
+    return new MapLayer(layerId, layer, this.applyMap());
   }
 
   private applyMap() {

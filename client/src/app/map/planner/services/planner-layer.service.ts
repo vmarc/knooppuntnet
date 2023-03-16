@@ -48,10 +48,8 @@ export class PlannerLayerService {
   private tile512NameLayer: MapLayer;
   private poiLayer: MapLayer;
   private gpxLayer: MapLayer;
-
-  private flandersHikingLayer: MapLayer;
-  private netherlandsHikingLayer: MapLayer;
-
+  private flandersHikingVectorLayer: MapLayer;
+  private netherlandsHikingVectorLayer: MapLayer;
   private bitmapLayersSurface: ImmutableMap<NetworkType, MapLayer>;
   private bitmapLayersSurvey: ImmutableMap<NetworkType, MapLayer>;
   private bitmapLayersAnalysis: ImmutableMap<NetworkType, MapLayer>;
@@ -84,8 +82,8 @@ export class PlannerLayerService {
         let layers = this.standardLayers.push(change.newLayer);
         if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
           if (networkType === NetworkType.hiking) {
-            layers.push(this.flandersHikingLayer);
-            layers.push(this.netherlandsHikingLayer);
+            layers.push(this.flandersHikingVectorLayer);
+            layers.push(this.netherlandsHikingVectorLayer);
           }
         }
         this._layerSwitcherMapLayers$.next(new MapLayers(layers));
@@ -227,14 +225,16 @@ export class PlannerLayerService {
       VectorSource<Geometry>
     >;
 
-    this.flandersHikingLayer = new OpendataTileLayer().build(
+    this.flandersHikingVectorLayer = new OpendataTileLayer().build(
       NetworkType.hiking,
+      'flanders-hiking-layer',
       'flanders/hiking',
       $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
     );
     /* TODO this.flandersCyclingLayer = new OpendataTileLayer().build(NetworkType.cycling); */
-    this.netherlandsHikingLayer = new OpendataTileLayer().build(
+    this.netherlandsHikingVectorLayer = new OpendataTileLayer().build(
       NetworkType.hiking,
+      'netherlands-hiking-layer',
       'netherlands/hiking',
       $localize`:@@map.layer.opendata.netherlands:Routedatabank Nederland`
     );
@@ -264,8 +264,8 @@ export class PlannerLayerService {
       .concat(this.bitmapLayersSurvey.values())
       .concat(this.bitmapLayersAnalysis.values())
       .concat(this.vectorLayers.values())
-      .concat([this.flandersHikingLayer])
-      .concat([this.netherlandsHikingLayer]);
+      .concat([this.flandersHikingVectorLayer])
+      .concat([this.netherlandsHikingVectorLayer]);
   }
 
   updateSize(): void {
@@ -292,9 +292,9 @@ export class PlannerLayerService {
     networkType: NetworkType
   ): MapLayerChange {
     let newLayer: MapLayer = null;
-    if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
+    if (zoomLevel >= ZoomLevel.bitmapTileMinZoom) {
       if (networkType === NetworkType.hiking) {
-        newLayer = this.flandersHikingLayer;
+        newLayer = this.flandersHikingVectorLayer;
       }
     }
     const oldLayer = this.activeFlandersLayer;
@@ -307,9 +307,9 @@ export class PlannerLayerService {
     networkType: NetworkType
   ): MapLayerChange {
     let newLayer: MapLayer = null;
-    if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
+    if (zoomLevel >= ZoomLevel.bitmapTileMinZoom) {
       if (networkType === NetworkType.hiking) {
-        newLayer = this.netherlandsHikingLayer;
+        newLayer = this.netherlandsHikingVectorLayer;
       }
     }
     const oldLayer = this.activeNetherlandsLayer;

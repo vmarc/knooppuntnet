@@ -82,4 +82,20 @@ class Tile(val z: Int, val x: Int, val y: Int) { // TODO MAP make case class
   }
 
   override def toString: String = s"${this.getClass.getSimpleName}($name)"
+
+  def scaleLat(lat: Double): Double = {
+    Tile.EXTENT - ((lat - bounds.yMin) * Tile.EXTENT / (bounds.yMax - bounds.yMin))
+  }
+
+  def scaleLon(lon: Double): Double = {
+    (lon - bounds.xMin) * Tile.EXTENT / (bounds.xMax - bounds.xMin)
+  }
+
+  def lngToPixel(width: Int, lng: Double): Int = {
+    ((lng - bounds.xMin) * width / (bounds.xMax - bounds.xMin)).round.toInt
+  }
+
+  def latToPixel(height: Int, lat: Double): Int = {
+    (height - ((lat - bounds.yMin) * height / (bounds.yMax - bounds.yMin))).round.toInt
+  }
 }

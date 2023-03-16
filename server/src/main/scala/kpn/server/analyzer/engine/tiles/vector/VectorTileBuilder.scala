@@ -2,11 +2,9 @@ package kpn.server.analyzer.engine.tiles.vector
 
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
-import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.Point
 
 class VectorTileBuilder extends TileBuilder {
 
@@ -16,16 +14,10 @@ class VectorTileBuilder extends TileBuilder {
 
     val encoder = new VectorTileEncoder()
 
-    def scaleLat(lat: Double): Double = {
-      Tile.EXTENT - ((lat - data.tile.bounds.yMin) * Tile.EXTENT / (data.tile.bounds.yMax - data.tile.bounds.yMin))
-    }
-
-    def scaleLon(lon: Double): Double = {
-      (lon - data.tile.bounds.xMin) * Tile.EXTENT / (data.tile.bounds.xMax - data.tile.bounds.xMin)
-    }
-
     data.nodes.foreach { node =>
-      val point: Point = geometryFactory.createPoint(new Coordinate(scaleLon(node.lon), scaleLat(node.lat)))
+      val x = data.tile.scaleLon(node.lon)
+      val y = data.tile.scaleLat(node.lat)
+      val point = geometryFactory.createPoint(new Coordinate(x, y))
 
       val userData = Seq(
         Some("id" -> node.id.toString),
@@ -38,12 +30,12 @@ class VectorTileBuilder extends TileBuilder {
       encoder.addPointFeature(node.layer, userData, point)
     }
 
-    data.routes.zipWithIndex.foreach { case (tileRoute, index) =>
+    data.routes.foreach { tileRoute =>
       tileRoute.segments.foreach { segment =>
         val coordinates = segment.lines.flatMap { line =>
           Seq(
-            new Coordinate(scaleLon(line.p1.x), scaleLat(line.p1.y)),
-            new Coordinate(scaleLon(line.p2.x), scaleLat(line.p2.y))
+            new Coordinate(data.tile.scaleLon(line.p1.x), data.tile.scaleLat(line.p1.y)),
+            new Coordinate(data.tile.scaleLon(line.p2.x), data.tile.scaleLat(line.p2.y))
           )
         }
         val lineString = geometryFactory.createLineString(coordinates.toArray)
