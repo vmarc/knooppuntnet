@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { selectPlannerResultModeInstructions } from '@app/map/planner/store/planner-selectors';
+import { selectPlannerResultModeDetailed } from '@app/map/planner/store/planner-selectors';
+import { selectPlannerResultModeCompact } from '@app/map/planner/store/planner-selectors';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PlannerService } from '../planner.service';
 import { Plan } from '../planner/plan/plan';
 
@@ -26,23 +29,16 @@ import { Plan } from '../planner/plan/plan';
   `,
 })
 export class PlanResultComponent implements OnInit {
-  compact$: Observable<boolean>;
-  detailed$: Observable<boolean>;
-  instructions$: Observable<boolean>;
+  readonly compact$ = this.store.select(selectPlannerResultModeCompact);
+  readonly detailed$ = this.store.select(selectPlannerResultModeDetailed);
+  readonly instructions$ = this.store.select(
+    selectPlannerResultModeInstructions
+  );
   plan$: Observable<Plan>;
 
-  constructor(private plannerService: PlannerService) {}
+  constructor(private plannerService: PlannerService, private store: Store) {}
 
   ngOnInit(): void {
-    this.compact$ = this.plannerService.resultMode$.pipe(
-      map((mode) => mode === 'compact')
-    );
-    this.detailed$ = this.plannerService.resultMode$.pipe(
-      map((mode) => mode === 'detailed')
-    );
-    this.instructions$ = this.plannerService.resultMode$.pipe(
-      map((mode) => mode === 'instructions')
-    );
     this.plan$ = this.plannerService.context.plan$;
   }
 }

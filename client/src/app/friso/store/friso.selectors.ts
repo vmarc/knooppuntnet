@@ -1,6 +1,6 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
-import { frisoFeatureKey, FrisoState } from '@app/friso/store/friso.state';
+import { frisoFeatureKey, FrisoState } from './friso.state';
 
 export const selectFrisoState =
   createFeatureSelector<FrisoState>(frisoFeatureKey);

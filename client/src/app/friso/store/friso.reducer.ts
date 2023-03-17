@@ -2,11 +2,9 @@ import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { initialState } from './friso.state';
 import { FrisoState } from './friso.state';
-import {
-  actionFrisoMode,
-  actionFrisoPageInit,
-  actionFrisoPageLoad,
-} from './friso.actions';
+import { actionFrisoMode } from './friso.actions';
+import { actionFrisoPageInit } from './friso.actions';
+import { actionFrisoPageLoad } from './friso.actions';
 
 export const frisoReducer = createReducer<FrisoState>(
   initialState,

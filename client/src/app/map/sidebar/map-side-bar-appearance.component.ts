@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { actionPlannerMapMode } from '@app/map/planner/store/planner-actions';
+import { selectPlannerMapMode } from '@app/map/planner/store/planner-selectors';
 import { Store } from '@ngrx/store';
-import { GPX } from 'ol/format';
-import { MapMode } from '../../components/ol/services/map-mode';
-import { MapService } from '../../components/ol/services/map.service';
-import { actionPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.actions';
-import { selectPreferencesShowAppearanceOptions } from '../../core/preferences/preferences.selectors';
+import { actionPreferencesShowAppearanceOptions } from '@app/core/preferences/preferences.actions';
+import { selectPreferencesShowAppearanceOptions } from '@app/core/preferences/preferences.selectors';
 import { PlannerLayerService } from '../planner/services/planner-layer.service';
 
 @Component({
@@ -21,7 +20,10 @@ import { PlannerLayerService } from '../planner/services/planner-layer.service';
         Map appearance options
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-radio-group [value]="mapMode()" (change)="modeChanged($event)">
+        <mat-radio-group
+          [value]="mapMode$ | async"
+          (change)="modeChanged($event)"
+        >
           <div>
             <mat-radio-button
               value="surface"
@@ -50,39 +52,18 @@ import { PlannerLayerService } from '../planner/services/planner-layer.service';
             </mat-radio-button>
           </div>
         </mat-radio-group>
-        <!--
-        <div class="kpn-spacer-above">
-          <input id="input-file-id" type="file" (change)="fileChanged($event)" class="file-input" accept=".gpx">
-          <label
-            for="input-file-id"
-            class="mat-focus-indicator mat-stroked-button mat-button-base"
-            i18n="@@planner.add-gpx_trace">
-            Add your GPX trace
-          </label>
-        </div>
-        -->
       </ng-template>
     </mat-expansion-panel>
   `,
-  styles: [
-    `
-      .file-input {
-        display: none;
-      }
-
-      .file-button {
-        background-color: lightgreen;
-      }
-    `,
-  ],
 })
 export class MapSidebarAppearanceComponent {
+  readonly mapMode$ = this.store.select(selectPlannerMapMode);
+
   readonly expanded$ = this.store.select(
     selectPreferencesShowAppearanceOptions
   );
 
   constructor(
-    private mapService: MapService,
     private plannerLayerService: PlannerLayerService,
     private store: Store
   ) {}
@@ -93,25 +74,7 @@ export class MapSidebarAppearanceComponent {
     );
   }
 
-  fileChanged(event) {
-    const file = event.target.files[0];
-    const fileReader = new FileReader();
-    fileReader.onload = (e) => {
-      const gpxFeatures = new GPX().readFeatures(fileReader.result, {
-        featureProjection: 'EPSG:3857',
-      });
-      this.plannerLayerService.gpxVectorLayer
-        .getSource()
-        .addFeatures(gpxFeatures);
-    };
-    fileReader.readAsText(file);
-  }
-
-  mapMode(): MapMode {
-    return this.mapService.mapMode;
-  }
-
   modeChanged(event: MatRadioChange): void {
-    this.mapService.nextMapMode(event.value);
+    this.store.dispatch(actionPlannerMapMode({ mapMode: event.value }));
   }
 }

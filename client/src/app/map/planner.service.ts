@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Map as TranslationMap } from 'immutable';
 import Map from 'ol/Map';
-import { BehaviorSubject } from 'rxjs';
 import { AppService } from '../app.service';
 import { MapService } from '../components/ol/services/map.service';
 import { selectPreferencesPlanProposed } from '../core/preferences/preferences.selectors';
@@ -27,7 +26,6 @@ import { ColourTranslator } from './planner/services/colour-translator';
 })
 export class PlannerService {
   engine: PlannerEngine;
-  resultMode$ = new BehaviorSubject<string>('compact');
   private readonly translations: TranslationMap<string, string> =
     this.buildTranslations();
   private readonly routeLayer = new PlannerRouteLayerImpl();

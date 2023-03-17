@@ -11,6 +11,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { PlannerEffects } from '@app/map/planner/store/planner-effects';
+import { plannerReducer } from '@app/map/planner/store/planner-reducer';
+import { plannerFeatureKey } from '@app/map/planner/store/planner-state';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
 import { OlModule } from '../components/ol/ol.module';
 import { PoiAnalysisModule } from '../components/poi/poi-analysis.module';
@@ -72,6 +77,8 @@ import { PlanComponent } from './sidebar/plan.component';
 @NgModule({
   imports: [
     CommonModule,
+    StoreModule.forFeature(plannerFeatureKey, plannerReducer),
+    EffectsModule.forFeature([PlannerEffects]),
     MatRadioModule,
     MatIconModule,
     MatCheckboxModule,

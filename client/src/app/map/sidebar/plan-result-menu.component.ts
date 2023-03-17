@@ -1,7 +1,7 @@
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { actionPlannerResultMode } from '@app/map/planner/store/planner-actions';
+import { selectPlannerResultMode } from '@app/map/planner/store/planner-selectors';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs';
 import { selectPreferencesInstructions } from '../../core/preferences/preferences.selectors';
 import { PlannerService } from '../planner.service';
 
@@ -58,28 +58,26 @@ import { PlannerService } from '../planner.service';
     `,
   ],
 })
-export class PlanResultMenuComponent implements OnInit {
-  mode$: BehaviorSubject<string>;
+export class PlanResultMenuComponent {
+  mode$ = this.store.select(selectPlannerResultMode);
   readonly instructions$ = this.store.select(selectPreferencesInstructions);
 
   constructor(private plannerService: PlannerService, private store: Store) {}
 
-  ngOnInit(): void {
-    this.mode$ = this.plannerService.resultMode$;
-  }
-
   compact(event) {
-    this.mode$.next('compact');
-    event.stopPropagation();
+    this.handleResultMode(event, 'compact');
   }
 
   detailed(event) {
-    this.mode$.next('detailed');
-    event.stopPropagation();
+    this.handleResultMode(event, 'detailed');
   }
 
   instructions(event) {
-    this.mode$.next('instructions');
+    this.handleResultMode(event, 'instructions');
+  }
+
+  private handleResultMode(event, resultMode: string) {
+    this.store.dispatch(actionPlannerResultMode({ resultMode }));
     event.stopPropagation();
   }
 }
