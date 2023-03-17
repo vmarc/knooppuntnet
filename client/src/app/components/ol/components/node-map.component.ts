@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { NodeMapInfo } from '@api/common/node-map-info';
+import { selectPreferencesNetworkType } from '@app/core/preferences/preferences.selectors';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
@@ -11,8 +13,6 @@ import View from 'ol/View';
 import { fromEvent } from 'rxjs';
 import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { selectPreferencesNetworkType } from '../../../core/preferences/preferences.selectors';
-import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { MapPosition } from '../domain/map-position';
@@ -22,15 +22,15 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
-import { MapPositionService } from '../services/map-position.service';
+import { OldMapPositionService } from '../services/old-map-position.service';
 
 @Component({
   selector: 'kpn-node-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="node-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
 })
@@ -50,7 +50,7 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   constructor(
     private mapClickService: MapClickService,
     private mapLayerService: MapLayerService,
-    private mapPositionService: MapPositionService,
+    private mapPositionService: OldMapPositionService,
     private pageService: PageService,
     private store: Store
   ) {}

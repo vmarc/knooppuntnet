@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import { MapPositionService } from '@app/components/ol/services/map-position.service';
+import { selectPlannerMapPosition } from '@app/map/planner/store/planner-selectors';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
+import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
 import { fromLonLat } from 'ol/proj';
 import View from 'ol/View';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { MapPosition } from '../domain/map-position';
-import { MapPositionService } from './map-position.service';
 
 @Injectable()
 export class MainMapPositionService {
@@ -15,9 +17,10 @@ export class MainMapPositionService {
 
   constructor(
     private storage: BrowserStorageService,
-    private mapPositionService: MapPositionService
+    private mapPositionService: MapPositionService,
+    private store: Store
   ) {
-    mapPositionService.mapPosition$.subscribe((mapPosition) => {
+    this.store.select(selectPlannerMapPosition).subscribe((mapPosition) => {
       if (mapPosition) {
         this.storage.set(this.mapPositionKey, JSON.stringify(mapPosition));
       }

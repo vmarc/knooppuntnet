@@ -5,6 +5,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { FrisoMapComponent } from '@app/components/ol/components/friso-map.component';
+import { MapPositionService } from '@app/components/ol/services/map-position.service';
 import { SharedModule } from '../shared/shared.module';
 import { LayerSwitcherComponent } from './components/layer-switcher.component';
 import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog';
@@ -25,11 +27,10 @@ import { SubsetMapComponent } from './components/subset-map.component';
 import { MainMapPositionService } from './services/main-map-position.service';
 import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
-import { MapPositionService } from './services/map-position.service';
 import { MapService } from './services/map.service';
 import { NetworkMapPositionService } from './services/network-map-position.service';
+import { OldMapPositionService } from './services/old-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
-import { FrisoMapComponent } from '@app/components/ol/components/friso-map.component';
 
 @NgModule({
   imports: [
@@ -80,6 +81,7 @@ import { FrisoMapComponent } from '@app/components/ol/components/friso-map.compo
     MapLayerService,
     MapClickService,
     PoiTileLayerService,
+    OldMapPositionService,
     MapPositionService,
     MainMapPositionService,
     NetworkMapPositionService,

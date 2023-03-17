@@ -19,7 +19,7 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
-import { MapPositionService } from '../services/map-position.service';
+import { OldMapPositionService } from '../services/old-map-position.service';
 import { MapService } from '../services/map.service';
 
 @Component({
@@ -49,7 +49,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     private mapClickService: MapClickService,
     private mapLayerService: MapLayerService,
     private pageService: PageService,
-    private mapPositionService: MapPositionService
+    private mapPositionService: OldMapPositionService
   ) {}
 
   ngAfterViewInit(): void {

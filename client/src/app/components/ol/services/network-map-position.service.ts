@@ -5,7 +5,7 @@ import View from 'ol/View';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
 import { Util } from '../../shared/util';
 import { NetworkMapPosition } from '../domain/network-map-position';
-import { MapPositionService } from './map-position.service';
+import { OldMapPositionService } from './old-map-position.service';
 
 @Injectable()
 export class NetworkMapPositionService {
@@ -16,7 +16,7 @@ export class NetworkMapPositionService {
 
   constructor(
     private storage: BrowserStorageService,
-    private mapPositionService: MapPositionService
+    private mapPositionService: OldMapPositionService
   ) {
     mapPositionService.mapPosition$.subscribe((mapPosition) => {
       if (mapPosition) {
