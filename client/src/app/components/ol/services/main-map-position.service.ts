@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MapPositionService } from '@app/components/ol/services/map-position.service';
-import { selectPlannerMapPosition } from '@app/map/planner/store/planner-selectors';
+import { selectPlannerMapPosition } from '@app/planner/store/planner-selectors';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';

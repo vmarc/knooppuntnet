@@ -1,7 +1,7 @@
-import { PlannerService } from '@app/map/planner.service';
-import { Plan } from '@app/map/planner/plan/plan';
 import { PdfPlanBuilder } from '@app/pdf/plan/pdf-plan-builder';
 import { PdfPlanNode } from '@app/pdf/plan/pdf-plan-node';
+import { Plan } from '@app/planner/domain/plan/plan';
+import { PlannerService } from '@app/planner/services/planner.service';
 import { jsPDF } from 'jspdf';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';

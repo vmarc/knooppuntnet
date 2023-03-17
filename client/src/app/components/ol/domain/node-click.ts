@@ -1,5 +1,5 @@
+import { NetworkNodeFeature } from '@app/planner/domain/features/network-node-feature';
 import { Coordinate } from 'ol/coordinate';
-import { NetworkNodeFeature } from '../../../map/planner/features/network-node-feature';
 
 export class NodeClick {
   constructor(

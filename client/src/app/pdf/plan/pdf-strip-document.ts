@@ -1,5 +1,5 @@
+import { Plan } from '@app/planner/domain/plan/plan';
 import { jsPDF } from 'jspdf';
-import { Plan } from '../../map/planner/plan/plan';
 import { BitmapIconService } from '../bitmap-icon.service';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';

@@ -1,4 +1,4 @@
-import { Plan } from '@app/map/planner/plan/plan';
+import { Plan } from '@app/planner/domain/plan/plan';
 import { jsPDF } from 'jspdf';
 import { PdfColourBox } from './pdf-colour-box';
 import { PdfDocumentModel } from './pdf-document-model';

@@ -1,5 +1,5 @@
-import { Plan } from '@app/map/planner/plan/plan';
 import { PdfPlanNode } from '@app/pdf/plan/pdf-plan-node';
+import { Plan } from '@app/planner/domain/plan/plan';
 import { List } from 'immutable';
 import { PdfPlan } from './pdf-plan';
 

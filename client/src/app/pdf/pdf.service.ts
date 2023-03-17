@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { PdfTextDocument } from '@app/pdf/plan/pdf-text-document';
-import { PlannerService } from '../map/planner.service';
-import { DirectionsAnalyzer } from '../map/planner/directions/directions-analyzer';
-import { Plan } from '../map/planner/plan/plan';
+import { DirectionsAnalyzer } from '@app/planner/domain/directions/directions-analyzer';
+import { Plan } from '@app/planner/domain/plan/plan';
+import { PlannerService } from '../planner/services/planner.service';
 import { BitmapIconService } from './bitmap-icon.service';
 import { PdfDirections } from './plan/pdf-directions';
 import { PdfDocument } from './plan/pdf-document';

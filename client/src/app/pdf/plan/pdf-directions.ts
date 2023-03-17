@@ -1,7 +1,7 @@
+import { PlanInstruction } from '@app/planner/domain/plan/plan-instruction';
+import { PlannerService } from '@app/planner/services/planner.service';
 import { List } from 'immutable';
 import { jsPDF } from 'jspdf';
-import { PlannerService } from '../../map/planner.service';
-import { PlanInstruction } from '../../map/planner/plan/plan-instruction';
 import { BitmapIconService } from '../bitmap-icon.service';
 import { PdfPage } from './pdf-page';
 import { PdfSideBar } from './pdf-side-bar';

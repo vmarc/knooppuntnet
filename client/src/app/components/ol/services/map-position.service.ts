@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { actionPlannerPosition } from '@app/map/planner/store/planner-actions';
+import { actionPlannerPosition } from '@app/planner/store/planner-actions';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import View from 'ol/View';
