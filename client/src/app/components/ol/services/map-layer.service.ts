@@ -7,16 +7,17 @@ import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteMap } from '@api/common/route/route-map';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { NetworkType } from '@api/custom/network-type';
+import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
+import { MapLayerDefinition } from '@app/components/ol/services/map-layer-definition';
+import { I18nService } from '@app/i18n/i18n.service';
 import { PoiDetail } from '@app/kpn/api/common/poi-detail';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import VectorTileLayer from 'ol/layer/VectorTile';
-import { I18nService } from '@app/i18n/i18n.service';
-import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { MapLayerState } from '../domain/map-layer-state';
 import { MapLayerStates } from '../domain/map-layer-states';
 import { BackgroundLayer } from '../layers/background-layer';
-import { GpxLayer } from '../layers/gpx-layer';
 import { LocationBoundaryLayer } from '../layers/location-boundary-layer';
 import { MainMapLayer } from '../layers/main-map-layer';
 import { MapLayer } from '../layers/map-layer';
@@ -39,11 +40,36 @@ import { TileDebug256Layer } from '../layers/tile-debug-256-layer';
 import { TileDebug512Layer } from '../layers/tile-debug-512-layer';
 import { MapMode } from './map-mode';
 import { MapService } from './map.service';
-import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
 
 @Injectable()
 export class MapLayerService {
   private mapLayerStateKey = 'map-layer-state';
+
+  readonly mapLayerDefinitions: MapLayerDefinition[] = [
+    { name: 'osm', translation: '@@map.layer.osm' },
+    { name: 'background', translation: '@@map.layer.background' },
+    { name: 'cycling', translation: '@@network-type.cycling' },
+    { name: 'hiking', translation: '@@network-type.hiking' },
+    { name: 'horse-riding', translation: '@@network-type.horse-riding' },
+    { name: 'motorboat', translation: '@@network-type.motorboat' },
+    { name: 'canoe', translation: '@@network-type.canoe' },
+    { name: 'inline-skating', translation: '@@network-type.inline-skating' },
+    {
+      name: 'netherlands-hiking',
+      translation: '@@map.layer.netherlands-hiking', //$localize`:@@map.layer.opendata.netherlands:Routedatabank Nederland`
+    },
+    { name: 'flanders-hiking', translation: '@@map.layer.flanders-hiking' }, // $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
+    { name: 'debug-512', translation: '@@map.layer.tile-512-names' },
+    { name: 'debug-256', translation: '@@map.layer.tile-256-names' },
+    { name: 'location-boundary', translation: '@@map.layer.boundary' },
+    { name: 'node-marker-layer', translation: '@@map.layer.node' },
+    { name: 'poi-marker-layer', translation: '@@map.layer.poi' },
+    { name: 'route-nodes-layer', translation: '@@map.layer.nodes' },
+    { name: 'poi-areas-layer', translation: '@@map.layer.poi-areas' },
+    { name: 'network-node-markers-layer', translation: '@@map.layer.nodes' },
+    { name: 'network-marker-layer', translation: '@@map.layer.networks' },
+    // { name: '', translation: '' },
+  ];
 
   constructor(
     private i18nService: I18nService,
@@ -51,6 +77,21 @@ export class MapLayerService {
     private store: Store,
     private browserStorageService: BrowserStorageService
   ) {}
+
+  translation(layerName: string): string {
+    const layerDefinition = this.mapLayerDefinitions.find(
+      (definition) => definition.name === layerName
+    );
+    if (!!layerDefinition) {
+      const translation = this.i18nService.translation(
+        layerDefinition.translation
+      );
+      if (!!translation) {
+        return translation;
+      }
+    }
+    return layerName;
+  }
 
   restoreMapLayerStates(mapLayers: MapLayers): void {
     const mapLayerStatesString = this.browserStorageService.get(
@@ -90,39 +131,35 @@ export class MapLayerService {
   }
 
   osmLayer(): MapLayer {
-    return new OsmLayer(this.i18nService).build();
+    return new OsmLayer().build();
   }
 
   backgroundLayer(mapElementId: string): MapLayer {
-    return new BackgroundLayer(this.i18nService).build(mapElementId);
+    return new BackgroundLayer().build(mapElementId);
   }
 
   tile256NameLayer(): MapLayer {
-    return new TileDebug256Layer(this.i18nService).build();
+    return new TileDebug256Layer().build();
   }
 
   tile512NameLayer(): MapLayer {
-    return new TileDebug512Layer(this.i18nService).build();
+    return new TileDebug512Layer().build();
   }
 
   mainMapLayer(): MapLayer {
-    return new MainMapLayer(
-      this.mapService,
-      this.i18nService,
-      this.store
-    ).build();
+    return new MainMapLayer(this.mapService, this.store).build();
   }
 
   locationBoundaryLayer(geoJson: string): MapLayer {
-    return new LocationBoundaryLayer(this.i18nService).build(geoJson);
+    return new LocationBoundaryLayer().build(geoJson);
   }
 
   nodeMarkerLayer(nodeMapInfo: NodeMapInfo): MapLayer {
-    return new NodeMarkerLayer(this.i18nService).build(nodeMapInfo);
+    return new NodeMarkerLayer().build(nodeMapInfo);
   }
 
   poiMarkerLayer(poiDetail: PoiDetail): MapLayer {
-    return new PoiMarkerLayer(this.i18nService).build(poiDetail);
+    return new PoiMarkerLayer().build(poiDetail);
   }
 
   nodeMovedLayer(nodeMoved: NodeMoved): MapLayer {
@@ -136,25 +173,15 @@ export class MapLayerService {
   }
 
   networkVectorTileLayer(networkType: NetworkType): MapLayer {
-    const layer = NetworkVectorTileLayer.build(networkType);
-    const layerName = this.i18nService.translation(
-      '@@map.layer.' + networkType
-    );
-    layer.layer.set('name', layerName);
-    return layer;
+    return NetworkVectorTileLayer.build(networkType);
   }
 
   networkBitmapTileLayer(networkType: NetworkType, mapMode: MapMode): MapLayer {
-    const layer = NetworkBitmapTileLayer.build(networkType, mapMode);
-    const layerName = this.i18nService.translation(
-      '@@map.layer.' + networkType
-    );
-    layer.layer.set('name', layerName);
-    return layer;
+    return NetworkBitmapTileLayer.build(networkType, mapMode);
   }
 
   routeNodeLayer(nodes: RawNode[]): MapLayer {
-    return new RouteNodesLayer(this.i18nService).build(nodes);
+    return new RouteNodesLayer().build(nodes);
   }
 
   routeChangeLayers(geometryDiff: GeometryDiff): List<MapLayer> {
@@ -166,11 +193,11 @@ export class MapLayerService {
   }
 
   networkMarkerLayer(networks: SubsetMapNetwork[]): MapLayer {
-    return new NetworkMarkerLayer(this.i18nService).build(networks);
+    return new NetworkMarkerLayer().build(networks);
   }
 
   networkNodesMarkerLayer(nodes: NetworkMapNode[]): MapLayer {
-    return new NetworkNodesMarkerLayer(this.i18nService).build(nodes);
+    return new NetworkNodesMarkerLayer().build(nodes);
   }
 
   networkNodesTileLayer(
@@ -178,27 +205,18 @@ export class MapLayerService {
     nodeIds: number[],
     routeIds: number[]
   ): MapLayer {
-    const layer = NetworkNodesTileLayer.build(networkType, nodeIds, routeIds);
-    const layerName = this.i18nService.translation(
-      '@@map.layer.' + networkType
-    );
-    layer.layer.set('name', layerName);
-    return layer;
+    return NetworkNodesTileLayer.build(networkType, nodeIds, routeIds);
   }
 
   poiTileLayer(): VectorTileLayer {
     return new PoiTileLayer().build();
   }
 
-  gpxLayer(): MapLayer {
-    return new GpxLayer(this.i18nService).build();
-  }
-
   poiAreasLayer(geoJson: string): MapLayer {
-    return new PoiAreasLayer(this.i18nService).build(geoJson);
+    return new PoiAreasLayer().build(geoJson);
   }
 
-  frisoLayer(name: string, filename: string): MapLayer {
+  frisoLayer(name: string): MapLayer {
     return new FrisoLayer(name, `${name}.geojson`).build();
   }
 }

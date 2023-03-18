@@ -1,23 +1,25 @@
 import { Injectable } from '@angular/core';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 import { actionPlannerPosition } from '@app/planner/store/planner-actions';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import View from 'ol/View';
 import { distinct } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { MapPosition } from '../domain/map-position';
 
 @Injectable()
-export class MapPositionService {
+export class PlannerPositionService {
   private view: View;
   private currentMapPosition$ = new BehaviorSubject<MapPosition>(null);
 
-  constructor(private store: Store) {
+  constructor(private storage: BrowserStorageService, private store: Store) {
     this.currentMapPosition$
       .pipe(distinct(), debounceTime(50))
       .subscribe((mapPosition) => {
         if (mapPosition) {
+          console.log(`dispatch update position: zoom=${mapPosition.zoom}`);
           this.store.dispatch(actionPlannerPosition(mapPosition));
         }
       });

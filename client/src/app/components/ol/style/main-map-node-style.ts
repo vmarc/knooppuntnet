@@ -2,7 +2,6 @@ import { FeatureLike } from 'ol/Feature';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Style from 'ol/style/Style';
-import { MapMode } from '../services/map-mode';
 import { MapService } from '../services/map.service';
 import { yellow } from './main-style-colors';
 import { NodeStyle } from './node-style';
@@ -90,13 +89,13 @@ export class MainMapNodeStyle {
       style = NodeStyle.proposedLargeGray;
     }
 
-    if (this.mapService.mapMode === MapMode.surface) {
+    if (this.mapService.mapMode === 'surface') {
       if (proposed) {
         style = NodeStyle.proposedLargeGreen;
       } else {
         style = NodeStyle.largeGreen;
       }
-    } else if (this.mapService.mapMode === MapMode.survey) {
+    } else if (this.mapService.mapMode === 'survey') {
       style = NodeStyle.largeSurveyUnknown;
       const survey = feature.get('survey');
       if (survey) {
@@ -136,7 +135,7 @@ export class MainMapNodeStyle {
           }
         }
       }
-    } else if (this.mapService.mapMode === MapMode.analysis) {
+    } else if (this.mapService.mapMode === 'analysis') {
       const layer = feature.get('layer');
       if ('error-node' === layer) {
         if (proposed) {
@@ -159,11 +158,11 @@ export class MainMapNodeStyle {
 
   private determineSmallNodeStyle(feature: FeatureLike): Style {
     let style = NodeStyle.smallGray;
-    if (this.mapService.mapMode === MapMode.surface) {
+    if (this.mapService.mapMode === 'surface') {
       style = NodeStyle.smallGreen;
-    } else if (this.mapService.mapMode === MapMode.survey) {
+    } else if (this.mapService.mapMode === 'survey') {
       style = this.surveyDateStyle.smallNodeStyle(feature);
-    } else if (this.mapService.mapMode === MapMode.analysis) {
+    } else if (this.mapService.mapMode === 'analysis') {
       style = this.smallNodeStyleAnalysis(feature);
     }
     return style;

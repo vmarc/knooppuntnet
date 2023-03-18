@@ -1,27 +1,27 @@
-import { ChangeDetectionStrategy } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { MapLayerService } from '@app/components/ol/services/map-layer.service';
+import { List } from 'immutable';
+import BaseLayer from 'ol/layer/Base';
+import { MapLayers } from '../layers/map-layers';
+import { MapLayerService } from '../services/map-layer.service';
 
 @Component({
-  selector: 'kpn-layer-switcher',
+  selector: 'kpn-old-layer-switcher',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-menu #mapMenu="matMenu" class="map-control-menu">
       <ng-template matMenuContent>
-        <div *ngIf="!!this.layerStates" (mouseleave)="closePanel()">
-          <div *ngFor="let layerState of layerStates">
+        <div *ngIf="!!this.mapLayers" (mouseleave)="closePanel()">
+          <div *ngFor="let layer of namedLayers()">
             <mat-checkbox
               (click)="$event.stopPropagation()"
-              [checked]="layerState.visible"
-              (change)="layerVisibleChanged(layerState, $event)"
+              [checked]="isLayerVisible(layer)"
+              (change)="layerVisibleChanged(layer, $event)"
             >
-              {{ layerNameTranslation(layerState)}}
+              {{ layerName(layer) }}
             </mat-checkbox>
           </div>
           <ng-content></ng-content>
@@ -38,15 +38,16 @@ import { MapLayerService } from '@app/components/ol/services/map-layer.service';
   styles: [
     `
       .map-layers-control {
-        top: 90px;
+        top: 50px;
         right: 10px;
       }
     `,
   ],
 })
-export class LayerSwitcherComponent {
-  @Input() layerStates: MapLayerState[];
-  @Output() layerStateChange = new EventEmitter<MapLayerState>();
+export class OldLayerSwitcherComponent {
+  @Input() mapLayers: MapLayers;
+
+  open = false;
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor(private mapLayerService: MapLayerService) {}
@@ -55,22 +56,26 @@ export class LayerSwitcherComponent {
     this.trigger.openMenu();
   }
 
+  namedLayers(): List<BaseLayer> {
+    return this.mapLayers.layers
+      .map((ml) => ml.layer)
+      .filter((layer) => layer.get('name'));
+  }
+
   closePanel(): void {
     this.trigger.closeMenu();
   }
 
-  layerVisibleChanged(
-    layerState: MapLayerState,
-    event: MatCheckboxChange
-  ): void {
-    const change: MapLayerState = {
-      ...layerState,
-      visible: event.checked,
-    };
-    this.layerStateChange.emit(change);
+  isLayerVisible(layer: BaseLayer): boolean {
+    return layer.getVisible();
   }
 
-  layerNameTranslation(layerstate: MapLayerState): string {
-    return this.mapLayerService.translation(layerstate.layerName);
+  layerVisibleChanged(layer: BaseLayer, event: MatCheckboxChange): void {
+    layer.setVisible(event.checked);
+    this.mapLayerService.storeMapLayerStates(this.mapLayers);
+  }
+
+  layerName(layer: BaseLayer): string {
+    return layer.get('name');
   }
 }

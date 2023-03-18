@@ -27,7 +27,7 @@ export class MapService {
   private _highlightedNodeId$ = new BehaviorSubject<string>(null);
   private _highlightedRouteId$ = new BehaviorSubject<string>(null);
   private _networkType$ = new BehaviorSubject<NetworkType | null>(null);
-  private _mapMode$ = new BehaviorSubject<MapMode>(MapMode.surface);
+  private _mapMode$ = new BehaviorSubject<MapMode>('surface');
   private _surveyDateInfo$ = new BehaviorSubject<SurveyDateValues>(null);
   private _popupType$ = new BehaviorSubject<string>('');
   private _poiClicked$ = new ReplaySubject<PoiClick>(1);

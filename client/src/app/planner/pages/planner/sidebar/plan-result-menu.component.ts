@@ -9,10 +9,10 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
   selector: 'kpn-plan-result-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="menu" *ngIf="mode$ | async as mode">
+    <div class="menu" *ngIf="resultMode$ | async as resultMode">
       <span>
         <a
-          [ngClass]="{ selected: mode === 'compact' }"
+          [ngClass]="{ selected: resultMode === 'compact' }"
           (click)="compact($event)"
           i18n="@@planner.compact"
         >
@@ -21,7 +21,7 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
       </span>
       <span>
         <a
-          [ngClass]="{ selected: mode === 'detailed' }"
+          [ngClass]="{ selected: resultMode === 'detailed' }"
           (click)="detailed($event)"
           i18n="@@planner.detailed"
         >
@@ -30,7 +30,7 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
       </span>
       <span *ngIf="instructions$ | async">
         <a
-          [ngClass]="{ selected: mode === 'instructions' }"
+          [ngClass]="{ selected: resultMode === 'instructions' }"
           (click)="instructions($event)"
           i18n="@@planner.instructions"
         >
@@ -59,7 +59,7 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
   ],
 })
 export class PlanResultMenuComponent {
-  mode$ = this.store.select(selectPlannerResultMode);
+  readonly resultMode$ = this.store.select(selectPlannerResultMode);
   readonly instructions$ = this.store.select(selectPreferencesInstructions);
 
   constructor(private plannerService: PlannerService, private store: Store) {}

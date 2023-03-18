@@ -6,9 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FrisoMapComponent } from '@app/components/ol/components/friso-map.component';
-import { MapPositionService } from '@app/components/ol/services/map-position.service';
+import { LayerSwitcherComponent } from '@app/components/ol/components/layer-switcher.component';
 import { SharedModule } from '../shared/shared.module';
-import { LayerSwitcherComponent } from './components/layer-switcher.component';
 import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from './components/leg-not-found-dialog';
 import { LocationMapComponent } from './components/location-map.component';
@@ -18,13 +17,13 @@ import { NetworkMapComponent } from './components/network-map.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
 import { NodeMapComponent } from './components/node-map.component';
 import { NodeMovedMapComponent } from './components/node-moved-map.component';
+import { OldLayerSwitcherComponent } from './components/old-layer-switcher.component';
 import { PoiDetailMapComponent } from './components/poi-detail-map.component';
 import { PoiMapComponent } from './components/poi-map.component';
 import { RouteChangeMapComponent } from './components/route-change-map.component';
 import { RouteControlComponent } from './components/route-control.component';
 import { RouteMapComponent } from './components/route-map.component';
 import { SubsetMapComponent } from './components/subset-map.component';
-import { MainMapPositionService } from './services/main-map-position.service';
 import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
 import { MapService } from './services/map.service';
@@ -48,6 +47,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     RouteMapComponent,
     SubsetMapComponent,
     LayerSwitcherComponent,
+    OldLayerSwitcherComponent,
     MapLinkMenuComponent,
     RouteChangeMapComponent,
     LocationMapComponent,
@@ -68,13 +68,14 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     SubsetMapComponent,
     RouteChangeMapComponent,
     LocationMapComponent,
-    LayerSwitcherComponent,
+    OldLayerSwitcherComponent,
     NetworkMapComponent,
     RouteControlComponent,
     PoiMapComponent,
     PoiDetailMapComponent,
     MapLinkMenuComponent,
     FrisoMapComponent,
+    LayerSwitcherComponent,
   ],
   providers: [
     MapService,
@@ -82,8 +83,6 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     MapClickService,
     PoiTileLayerService,
     OldMapPositionService,
-    MapPositionService,
-    MainMapPositionService,
     NetworkMapPositionService,
   ],
 })

@@ -1,10 +1,9 @@
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { NetworkType } from '@api/custom/network-type';
+import { actionPlannerNetworkType } from '@app/planner/store/planner-actions';
+import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-network-type-selector',
@@ -15,22 +14,22 @@ import { map } from 'rxjs/operators';
       (change)="networkTypeChanged($event)"
     >
       <mat-button-toggle value="cycling">
-        <mat-icon svgIcon="cycling" />
+        <mat-icon svgIcon="cycling"/>
       </mat-button-toggle>
       <mat-button-toggle value="hiking">
-        <mat-icon svgIcon="hiking" />
+        <mat-icon svgIcon="hiking"/>
       </mat-button-toggle>
       <mat-button-toggle value="horse-riding">
-        <mat-icon svgIcon="horse-riding" />
+        <mat-icon svgIcon="horse-riding"/>
       </mat-button-toggle>
       <mat-button-toggle value="motorboat">
-        <mat-icon svgIcon="motorboat" />
+        <mat-icon svgIcon="motorboat"/>
       </mat-button-toggle>
       <mat-button-toggle value="canoe">
-        <mat-icon svgIcon="canoe" />
+        <mat-icon svgIcon="canoe"/>
       </mat-button-toggle>
       <mat-button-toggle value="inline-skating">
-        <mat-icon svgIcon="inline-skating" />
+        <mat-icon svgIcon="inline-skating"/>
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,
@@ -53,20 +52,13 @@ import { map } from 'rxjs/operators';
     `,
   ],
 })
-export class NetworkTypeSelectorComponent implements OnInit {
-  networkType$: Observable<string>;
+export class NetworkTypeSelectorComponent {
+  readonly networkType$ = this.store.select(selectPlannerNetworkType);
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.networkType$ = this.activatedRoute.params.pipe(
-      map((params) => params['networkType'])
-    );
-  }
+  constructor(private store: Store) {}
 
   networkTypeChanged(event: MatButtonToggleChange) {
-    this.router.navigate(['../' + event.value], {
-      relativeTo: this.activatedRoute,
-    });
+    const networkType: NetworkType = event.value;
+    this.store.dispatch(actionPlannerNetworkType({ networkType }));
   }
 }

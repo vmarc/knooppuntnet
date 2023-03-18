@@ -64,7 +64,9 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
 export class GeolocationControlComponent {
   @Output() action = new EventEmitter<Coordinate>();
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+    console.log('GeolocationControlComponent.constructor()');
+  }
 
   onClick(): void {
     if (!navigator.geolocation) {

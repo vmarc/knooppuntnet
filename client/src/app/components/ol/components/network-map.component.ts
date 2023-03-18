@@ -25,7 +25,7 @@ import { NetworkMapPositionService } from '../services/network-map-position.serv
   template: `
     <div id="network-nodes-map" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()"/>
-      <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers"/>
       <kpn-map-link-menu [map]="map"/>
     </div>
   `,

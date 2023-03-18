@@ -26,17 +26,17 @@ import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { MapPosition } from '../../../components/ol/domain/map-position';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapPositionChanged } from './store/monitor-route-map.actions';
-import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="monitor-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="mapLayers" />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-old-layer-switcher [mapLayers]="mapLayers"/>
+      <kpn-map-link-menu [map]="map"/>
     </div>
   `,
 })
@@ -79,13 +79,11 @@ export class MonitorRouteMapComponent
 
   ngAfterViewInit(): void {
     const layers: MapLayer[] = [];
-    const osmLayer = new OsmLayer(this.i18nService).build();
+    const osmLayer = new OsmLayer().build();
     osmLayer.layer.setVisible(false);
     layers.push(osmLayer);
 
-    const backgroundLayer = new BackgroundLayer(this.i18nService).build(
-      'monitor-map'
-    );
+    const backgroundLayer = new BackgroundLayer().build('monitor-map');
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 

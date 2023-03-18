@@ -38,7 +38,7 @@ import { toLonLat } from 'ol/proj';
   styles: [
     `
       .map-links-control {
-        top: 90px;
+        top: 50px;
         right: 10px;
       }
     `,

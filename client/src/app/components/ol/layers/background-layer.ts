@@ -3,14 +3,11 @@ import { Map as MapLibreMap } from 'maplibre-gl';
 import { Layer } from 'ol/layer';
 import { toLonLat } from 'ol/proj';
 import { Source } from 'ol/source';
-import { I18nService } from '../../../i18n/i18n.service';
 import { OsmLibertyStyle } from '../style/osm-liberty-style';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class BackgroundLayer {
-  constructor(private i18nService: I18nService) {}
-
   build(mapElementId: string): MapLayer {
     // see: https://openlayers.org/en/latest/examples/mapbox-layer.html
 
@@ -72,11 +69,9 @@ export class BackgroundLayer {
       render: renderFunction,
     });
 
-    const backgroundLayerName = this.i18nService.translation(
-      '@@map.layer.background'
-    );
-    layer.set('name', backgroundLayerName);
-    return new MapLayer('background-layer', layer, null, () => {
+    layer.set('name', 'backgroundLayerName');
+
+    return new MapLayer('background', layer, null, null, null, () => {
       mbMap.resize();
     });
   }

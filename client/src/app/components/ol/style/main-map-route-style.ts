@@ -2,7 +2,6 @@ import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { MapMode } from '../services/map-mode';
 import { MapService } from '../services/map.service';
 import { surfaceUnknownColor } from './main-style-colors';
 import { proposedSurfaceUnknownColor } from './main-style-colors';
@@ -64,11 +63,11 @@ export class MainMapRouteStyle {
 
   private routeColor(feature: FeatureLike): Color {
     let color = gray;
-    if (this.mapService.mapMode === MapMode.surface) {
+    if (this.mapService.mapMode === 'surface') {
       color = this.routeColorSurface(feature);
-    } else if (this.mapService.mapMode === MapMode.survey) {
+    } else if (this.mapService.mapMode === 'survey') {
       color = this.routeColorSurvey(feature);
-    } else if (this.mapService.mapMode === MapMode.analysis) {
+    } else if (this.mapService.mapMode === 'analysis') {
       color = this.routeColorAnalysis(feature);
     }
     return color;

@@ -117,8 +117,12 @@ export class I18nService {
       $localize`:@@map.layer.network:Network`,
     ]);
     keysAndValues.push([
-      '@@map.layer.tv',
-      $localize`:@@map.layer.tv:Toerisme Vlaanderen`,
+      '@@map.layer.flanders-hiking',
+      $localize`:@@map.layer.flanders-hiking:Toerisme Vlaanderen`,
+    ]);
+    keysAndValues.push([
+      '@@map.layer.netherlands-hiking',
+      $localize`:@@map.layer.netherlands-hiking:Netherlands routedatabank`,
     ]);
     keysAndValues.push([
       '@@map.layer.networks',

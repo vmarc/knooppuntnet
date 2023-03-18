@@ -4,12 +4,9 @@ import VectorSource from 'ol/source/Vector';
 import { Fill } from 'ol/style';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { I18nService } from '../../../i18n/i18n.service';
 import { MapLayer } from './map-layer';
 
 export class LocationBoundaryLayer {
-  constructor(private i18nService: I18nService) {}
-
   build(geoJson: string): MapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
@@ -36,8 +33,6 @@ export class LocationBoundaryLayer {
       },
     });
 
-    const layerName = this.i18nService.translation('@@map.layer.boundary');
-    layer.set('name', layerName);
-    return new MapLayer('location-boundary-layer', layer);
+    return new MapLayer('location-boundary', layer);
   }
 }

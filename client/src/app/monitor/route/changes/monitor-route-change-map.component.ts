@@ -29,7 +29,7 @@ import { Subscriptions } from '../../../util/Subscriptions';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-embedded-map">
-      <kpn-layer-switcher [mapLayers]="mapLayers"></kpn-layer-switcher>
+      <kpn-old-layer-switcher [mapLayers]="mapLayers"></kpn-old-layer-switcher>
     </div>
   `,
 })
@@ -50,13 +50,11 @@ export class MonitorRouteChangeMapComponent
 
   ngAfterViewInit(): void {
     const layers: MapLayer[] = [];
-    const osmLayer = new OsmLayer(this.i18nService).build();
+    const osmLayer = new OsmLayer().build();
     osmLayer.layer.setVisible(false);
     layers.push(osmLayer);
 
-    const backgroundLayer = new BackgroundLayer(this.i18nService).build(
-      this.mapId
-    );
+    const backgroundLayer = new BackgroundLayer().build(this.mapId);
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 
@@ -149,7 +147,7 @@ export class MonitorRouteChangeMapComponent
       style: () => thickStyle,
     });
     layer.set('name', 'OSM Relation');
-    return new MapLayer('osm-relation-layer', layer);
+    return new MapLayer('osm-relation-layer', layer, null, null);
   }
 
   private fixedStyle(color: string, width: number): Style {

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
+import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { MapLayerChange } from '@app/components/ol/layers/map-layer-change';
-import { MapLayers } from '@app/components/ol/layers/map-layers';
 import { OpendataTileLayer } from '@app/components/ol/layers/opendata-tile-layer';
 import { MapLayerService } from '@app/components/ol/services/map-layer.service';
 import { MapMode } from '@app/components/ol/services/map-mode';
@@ -17,47 +17,31 @@ import { NetworkTypes } from '@app/kpn/common/network-types';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
 import { List, Map as ImmutableMap } from 'immutable';
-import { Geometry } from 'ol/geom';
-import VectorLayer from 'ol/layer/Vector';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
-import VectorSource from 'ol/source/Vector';
-import { BehaviorSubject } from 'rxjs';
-import { combineLatest } from 'rxjs';
+import { first } from 'rxjs';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import { first } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
 import { PlannerService } from './planner.service';
 
 @Injectable()
 export class PlannerLayerService {
   standardLayers: List<MapLayer>;
-  layerSwitcherMapLayers$: Observable<MapLayers>;
-  gpxVectorLayer: VectorLayer<VectorSource<Geometry>>;
-  private _layerSwitcherMapLayers$ = new BehaviorSubject<MapLayers>(
-    new MapLayers(List([]))
-  );
-  private networkLayerChange$: Observable<MapLayerChange>;
-  private flandersLayerChange$: Observable<MapLayerChange>;
-  private netherlandsLayerChange$: Observable<MapLayerChange>;
   private activeNetworkLayer: MapLayer = null;
   private activeFlandersLayer: MapLayer = null;
   private activeNetherlandsLayer: MapLayer = null;
-  private osmLayer: MapLayer;
+  /*private*/
+  osmLayer: MapLayer;
   private backgroundLayer: MapLayer;
   private tile256NameLayer: MapLayer;
   private tile512NameLayer: MapLayer;
   private poiLayer: MapLayer;
-  private gpxLayer: MapLayer;
   private flandersHikingVectorLayer: MapLayer;
   private netherlandsHikingVectorLayer: MapLayer;
   private bitmapLayersSurface: ImmutableMap<NetworkType, MapLayer>;
   private bitmapLayersSurvey: ImmutableMap<NetworkType, MapLayer>;
   private bitmapLayersAnalysis: ImmutableMap<NetworkType, MapLayer>;
   private vectorLayers: ImmutableMap<NetworkType, MapLayer>;
-  private allLayers: List<MapLayer>;
+  public allLayers: List<MapLayer>;
 
   private readonly mapRelatedSubscriptions = new Subscriptions();
 
@@ -72,64 +56,7 @@ export class PlannerLayerService {
     private mapService: MapService,
     private mapZoomService: MapZoomService,
     private store: Store
-  ) {
-    this.layerSwitcherMapLayers$ = this._layerSwitcherMapLayers$.asObservable();
-
-    this.networkLayerChange$ = combineLatest([
-      this.mapZoomService.zoomLevel$,
-      this.plannerService.context.networkType$,
-      this.mapService.mapMode$,
-    ]).pipe(
-      map(([zoomLevel, networkType, mapMode]) => {
-        const change = this.networkLayerChange(zoomLevel, networkType, mapMode);
-        let layers = this.standardLayers.push(change.newLayer);
-        if (zoomLevel >= ZoomLevel.vectorTileMinZoom) {
-          if (networkType === NetworkType.hiking) {
-            layers.push(this.flandersHikingVectorLayer);
-            layers.push(this.netherlandsHikingVectorLayer);
-          }
-        }
-        this._layerSwitcherMapLayers$.next(new MapLayers(layers));
-        return change;
-      })
-    );
-
-    this.flandersLayerChange$ = combineLatest([
-      this.mapZoomService.zoomLevel$,
-      this.plannerService.context.networkType$,
-    ]).pipe(
-      map(([zoomLevel, networkType]) =>
-        this.flandersLayerChange(zoomLevel, networkType)
-      ),
-      tap((change) => {
-        if (!!change.newLayer) {
-          this._layerSwitcherMapLayers$.next(
-            new MapLayers(
-              this._layerSwitcherMapLayers$.value.layers.push(change.newLayer)
-            )
-          );
-        }
-      })
-    );
-
-    this.netherlandsLayerChange$ = combineLatest([
-      this.mapZoomService.zoomLevel$,
-      this.plannerService.context.networkType$,
-    ]).pipe(
-      map(([zoomLevel, networkType]) =>
-        this.netherlandsLayerChange(zoomLevel, networkType)
-      ),
-      tap((change) => {
-        if (!!change.newLayer) {
-          this._layerSwitcherMapLayers$.next(
-            new MapLayers(
-              this._layerSwitcherMapLayers$.value.layers.push(change.newLayer)
-            )
-          );
-        }
-      })
-    );
-  }
+  ) {}
 
   mapInit(olMap: Map) {
     this.allLayers.forEach((mapLayer) => {
@@ -155,60 +82,6 @@ export class PlannerLayerService {
           .subscribe(() => vectorTileLayer.getSource().changed())
       );
     });
-
-    this.mapRelatedSubscriptions.add(
-      this.networkLayerChange$
-        .pipe(
-          filter((change) => change.oldLayer?.name !== change.newLayer?.name),
-          tap((change) => {
-            if (change.oldLayer !== null) {
-              olMap.removeLayer(change.oldLayer.layer);
-            }
-            if (!!change.newLayer) {
-              olMap
-                .getLayers()
-                .insertAt(this.standardLayers.size, change.newLayer.layer);
-            }
-          })
-        )
-        .subscribe()
-    );
-    this.mapRelatedSubscriptions.add(
-      this.flandersLayerChange$
-        .pipe(
-          filter((change) => !!change.oldLayer || !!change.newLayer),
-          filter((change) => change.oldLayer?.name !== change.newLayer?.name),
-          tap((change) => {
-            if (change.oldLayer !== null) {
-              olMap.removeLayer(change.oldLayer.layer);
-            }
-            if (!!change.newLayer) {
-              olMap
-                .getLayers()
-                .insertAt(this.standardLayers.size, change.newLayer.layer);
-            }
-          })
-        )
-        .subscribe()
-    );
-    this.mapRelatedSubscriptions.add(
-      this.netherlandsLayerChange$
-        .pipe(
-          filter((change) => !!change.oldLayer || !!change.newLayer),
-          filter((change) => change.oldLayer?.name !== change.newLayer?.name),
-          tap((change) => {
-            if (change.oldLayer !== null) {
-              olMap.removeLayer(change.oldLayer.layer);
-            }
-            if (!!change.newLayer) {
-              olMap
-                .getLayers()
-                .insertAt(this.standardLayers.size, change.newLayer.layer);
-            }
-          })
-        )
-        .subscribe()
-    );
   }
 
   mapDestroy(olMap: Map): void {
@@ -219,46 +92,39 @@ export class PlannerLayerService {
 
   initializeLayers(): void {
     this.osmLayer = this.mapLayerService.osmLayer();
-    this.backgroundLayer = this.mapLayerService.backgroundLayer('main-map');
+    // this.backgroundLayer = this.mapLayerService.backgroundLayer('main-map');
     this.tile256NameLayer = this.mapLayerService.tile256NameLayer();
     this.tile512NameLayer = this.mapLayerService.tile512NameLayer();
     this.poiLayer = this.poiTileLayerService.buildLayer();
-    this.gpxLayer = this.mapLayerService.gpxLayer();
-    this.gpxVectorLayer = this.gpxLayer.layer as VectorLayer<
-      VectorSource<Geometry>
-    >;
 
     this.flandersHikingVectorLayer = new OpendataTileLayer().build(
       NetworkType.hiking,
-      'flanders-hiking-layer',
-      'flanders/hiking',
-      $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
+      'flanders-hiking',
+      'flanders/hiking'
     );
     /* TODO this.flandersCyclingLayer = new OpendataTileLayer().build(NetworkType.cycling); */
     this.netherlandsHikingVectorLayer = new OpendataTileLayer().build(
       NetworkType.hiking,
-      'netherlands-hiking-layer',
-      'netherlands/hiking',
-      $localize`:@@map.layer.opendata.netherlands:Routedatabank Nederland`
+      'netherlands-hiking',
+      'netherlands/hiking'
     );
 
-    this.bitmapLayersSurface = this.buildBitmapLayers(MapMode.surface);
-    this.bitmapLayersSurvey = this.buildBitmapLayers(MapMode.survey);
-    this.bitmapLayersAnalysis = this.buildBitmapLayers(MapMode.analysis);
+    this.bitmapLayersSurface = this.buildBitmapLayers('surface');
+    this.bitmapLayersSurvey = this.buildBitmapLayers('survey');
+    this.bitmapLayersAnalysis = this.buildBitmapLayers('analysis');
     this.vectorLayers = this.buildVectorLayers();
 
     this.extraLayers$.pipe(first()).subscribe((extraLayers) => {
       if (extraLayers) {
         this.standardLayers = List([
           this.osmLayer,
-          this.backgroundLayer,
+          // this.backgroundLayer,
           this.tile256NameLayer,
           this.tile512NameLayer,
           this.poiLayer,
-          this.gpxLayer,
         ]);
       } else {
-        this.standardLayers = List([this.backgroundLayer, this.poiLayer]);
+        this.standardLayers = List([/*this.backgroundLayer,*/ this.poiLayer]);
       }
     });
 
@@ -271,8 +137,48 @@ export class PlannerLayerService {
       .concat([this.netherlandsHikingVectorLayer]);
   }
 
+  updateLayerVisibility(
+    layerStates: MapLayerState[],
+    networkType: NetworkType,
+    mapMode: MapMode,
+    zoom: number
+  ): void {
+    console.log(
+      `updateLayerVisibility(zoom=${zoom}, networkType=${networkType}, mapMode=${mapMode})`
+    );
+    this.allLayers.forEach((mapLayer) => {
+      let visible = true;
+      if (!!mapLayer.networkType && mapLayer.networkType !== networkType) {
+        visible = false;
+      } else if (!!mapLayer.mapMode && mapLayer.mapMode !== mapMode) {
+        visible = false;
+      } else {
+        const mapLayerState = layerStates.find(
+          (layerState) => layerState.layerName === mapLayer.name
+        );
+        if (!mapLayerState) {
+          visible = false;
+        } else {
+          if (
+            !mapLayerState.visible &&
+            (zoom < mapLayer.minZoom || zoom > mapLayer.maxZoom)
+          ) {
+            visible = false;
+          }
+        }
+      }
+      mapLayer.layer.setVisible(visible);
+    });
+
+    const visibleLayers = this.allLayers
+      .filter((mapLayer) => mapLayer.layer.getVisible())
+      .map((mapLayer) => mapLayer.name)
+      .join(',');
+    console.log(`visibleLayers=${visibleLayers}`);
+  }
+
   updateSize(): void {
-    this.backgroundLayer.updateSize();
+    // this.backgroundLayer.updateSize();
   }
 
   private networkLayerChange(
@@ -327,9 +233,9 @@ export class PlannerLayerService {
   ): MapLayer {
     let newLayer: MapLayer;
     if (zoomLevel <= ZoomLevel.bitmapTileMaxZoom) {
-      if (mapMode === MapMode.surface) {
+      if (mapMode === 'surface') {
         newLayer = this.bitmapLayersSurface.get(networkType);
-      } else if (mapMode === MapMode.survey) {
+      } else if (mapMode === 'survey') {
         newLayer = this.bitmapLayersSurvey.get(networkType);
       } else {
         newLayer = this.bitmapLayersAnalysis.get(networkType);

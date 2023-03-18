@@ -26,7 +26,7 @@ import { MapService } from '../services/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="location-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers"/>
     </div>
   `,
 })

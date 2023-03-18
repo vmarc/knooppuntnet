@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { actionPlannerPoisEnabled } from '@app/planner/store/planner-actions';
+import { selectPlannerPoisEnabled } from '@app/planner/store/planner-selectors';
 import { PoiService } from '@app/services/poi.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-poi-menu',
@@ -10,7 +13,7 @@ import { PoiService } from '@app/services/poi.service';
 
     <mat-checkbox
       (click)="$event.stopPropagation()"
-      [checked]="isEnabled()"
+      [checked]="enabled$ | async"
       (change)="enabledChanged($event)"
       class="pois"
       i18n="@@poi.menu.pois"
@@ -70,13 +73,12 @@ import { PoiService } from '@app/services/poi.service';
   ],
 })
 export class PoiMenuComponent {
-  constructor(private service: PoiService) {}
+  readonly enabled$ = this.store.select(selectPlannerPoisEnabled);
 
-  isEnabled(): boolean {
-    return this.service.isEnabled();
-  }
+  constructor(private store: Store, private service: PoiService) {}
 
   enabledChanged(event: MatCheckboxChange): void {
-    this.service.updateEnabled(event.checked);
+    this.store.dispatch(actionPlannerPoisEnabled({ enabled: event.checked }));
+    // this.service.updateEnabled(event.checked);
   }
 }

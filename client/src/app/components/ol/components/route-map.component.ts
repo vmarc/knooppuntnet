@@ -19,15 +19,15 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
-import { OldMapPositionService } from '../services/old-map-position.service';
 import { MapService } from '../services/map.service';
+import { OldMapPositionService } from '../services/old-map-position.service';
 
 @Component({
   selector: 'kpn-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="route-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers"/>
       <kpn-map-link-menu [map]="map"/>
     </div>
   `,

@@ -29,7 +29,7 @@ import { OldMapPositionService } from '../services/old-map-position.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="node-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers"/>
       <kpn-map-link-menu [map]="map"/>
     </div>
   `,

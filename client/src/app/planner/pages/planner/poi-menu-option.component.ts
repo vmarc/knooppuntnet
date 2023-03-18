@@ -1,16 +1,22 @@
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { actionPlannerPoiGroupVisible } from '@app/planner/store/planner-actions';
+import { selectPlannerPoisEnabled } from '@app/planner/store/planner-selectors';
+import { selectPlannerPoiGroupVisible } from '@app/planner/store/planner-selectors';
 import { PoiService } from '@app/services/poi.service';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'kpn-poi-menu-option',
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-checkbox
       (click)="$event.stopPropagation()"
-      [checked]="service.isGroupEnabled(groupName)"
-      [disabled]="!service.isEnabled()"
+      [checked]="visible$ | async"
+      [disabled]="!(poisEnabled$ | async)"
       (change)="enabledChanged($event)"
       class="poi-group"
     >
@@ -30,9 +36,21 @@ import { PoiService } from '@app/services/poi.service';
 export class PoiMenuOptionComponent {
   @Input() groupName: string;
 
-  constructor(public service: PoiService) {}
+  readonly poisEnabled$: Observable<boolean>;
+  readonly visible$: Observable<boolean>;
+
+  constructor(private store: Store, public service: PoiService) {
+    this.poisEnabled$ = this.store.select(selectPlannerPoisEnabled);
+    this.visible$ = this.store.select(
+      selectPlannerPoiGroupVisible(this.groupName)
+    );
+  }
 
   enabledChanged(event: MatCheckboxChange): void {
-    this.service.updateGroupEnabled(this.groupName, event.checked);
+    const groupName = this.groupName;
+    const visible = event.checked;
+    this.store.dispatch(actionPlannerPoiGroupVisible({ groupName, visible }));
+    // TODO planner - remove following line when included in effects?
+    //this.service.updateGroupEnabled(this.groupName, event.checked);
   }
 }

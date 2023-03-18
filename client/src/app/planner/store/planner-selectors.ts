@@ -60,3 +60,16 @@ export const selectPlannerPoiLayerStates = createSelector(
   selectPlannerState,
   (state) => state.poiLayerStates
 );
+
+export const selectPlannerPoisEnabled = createSelector(
+  selectPlannerState,
+  (state) => state.pois === true
+);
+
+export const selectPlannerPoiGroupVisible = (layerName: string) =>
+  createSelector(selectPlannerState, (state) => {
+    const layerStates = state.poiLayerStates.filter(
+      (layerState) => layerState.layerName === layerName
+    );
+    return layerStates.length === 1 && layerStates[0].visible;
+  });

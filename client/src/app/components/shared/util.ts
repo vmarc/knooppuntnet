@@ -36,33 +36,6 @@ export class Util {
     };
   }
 
-  public static routePathWithToolbar(
-    path: string,
-    component: any,
-    sidebarComponent: any,
-    toolbarComponent: any
-  ): Route {
-    return {
-      path,
-      children: [
-        {
-          path: '',
-          component,
-        },
-        {
-          path: '',
-          component: sidebarComponent,
-          outlet: 'sidebar',
-        },
-        {
-          path: '',
-          component: toolbarComponent,
-          outlet: 'toolbar',
-        },
-      ],
-    };
-  }
-
   public static replicationName(replicationNumber: number): string {
     const level1 = this.format(replicationNumber / 1000000);
     const remainder = replicationNumber % 1000000;

@@ -5,17 +5,12 @@ import { AppService } from '../app.service';
 import { InterpretedPoiConfiguration } from '../components/ol/domain/interpreted-poi-configuration';
 import { BrowserStorageService } from './browser-storage.service';
 import { PoiNameService } from './poi-name.service';
-import {
-  PoiGroupPreference,
-  PoiPreference,
-  PoiPreferences,
-} from './poi-preferences';
-import { Observable } from 'rxjs';
+import { PoiGroupPreference } from './poi-preferences';
+import { PoiPreference } from './poi-preferences';
+import { PoiPreferences } from './poi-preferences';
 
 @Injectable()
 export class PoiService {
-  _enabled: BehaviorSubject<boolean>;
-  enabled: Observable<boolean>;
   changed: BehaviorSubject<boolean> = new BehaviorSubject(null);
   poiActive = Map<string, boolean>();
   poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> =
@@ -31,8 +26,6 @@ export class PoiService {
     private browserStorageService: BrowserStorageService
   ) {
     this.loadPoiConfiguration();
-    this._enabled = new BehaviorSubject<boolean>(this.isEnabled());
-    this.enabled = this._enabled.asObservable();
   }
 
   name(poiId: string): string {
@@ -61,7 +54,6 @@ export class PoiService {
       this.savePoiConfig();
       this.updatePoiActive();
     }
-    this._enabled.next(enabled);
   }
 
   isGroupEnabled(groupName: string): boolean {
@@ -155,7 +147,6 @@ export class PoiService {
       );
       this.initPoiConfig();
       this.updatePoiActive();
-      this._enabled.next(this.isEnabled());
     });
   }
 

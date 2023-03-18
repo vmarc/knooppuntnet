@@ -8,14 +8,16 @@ import { MapLayer } from './map-layer';
 export class NetworkBitmapTileLayer {
   public static build(networkType: NetworkType, mapType: MapMode): MapLayer {
     return new MapLayer(
-      `network-bitmap-tiles-${networkType}-${mapType}-layer`,
+      networkType,
       new TileLayer({
         source: new XYZ({
           minZoom: ZoomLevel.bitmapTileMinZoom,
           maxZoom: ZoomLevel.bitmapTileMaxZoom,
           url: `/tiles-history/${networkType}/${mapType}/{z}/{x}/{y}.png`,
         }),
-      })
+      }),
+      networkType,
+      mapType
     );
   }
 }

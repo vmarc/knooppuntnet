@@ -1,20 +1,20 @@
+import { NetworkType } from '@api/custom/network-type';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
+import LayerGroup from 'ol/layer/Group';
 import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
+import Map from 'ol/Map';
 import VectorTile from 'ol/source/VectorTile';
 import XYZ from 'ol/source/XYZ';
-import { ZoomLevel } from '../domain/zoom-level';
-import { Layers } from './layers';
-import { MapLayer } from '@app/components/ol/layers/map-layer';
-import LayerGroup from 'ol/layer/Group';
-import Map from 'ol/Map';
-import Style, { StyleFunction } from 'ol/style/Style';
-import { Color } from 'ol/color';
-import Stroke from 'ol/style/Stroke';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
+import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { NetworkType } from '@api/custom/network-type';
+import { ZoomLevel } from '../domain/zoom-level';
+import { Layers } from './layers';
 
 export class OpendataTileLayer {
   private readonly largeMinZoomLevel = 13;
@@ -23,12 +23,7 @@ export class OpendataTileLayer {
   bitmapTileLayer: TileLayer<XYZ>;
   vectorTileLayer: VectorTileLayer;
 
-  build(
-    networkType: NetworkType,
-    layerId: string,
-    dir: string,
-    layerName: string
-  ): MapLayer {
+  build(networkType: NetworkType, layerId: string, dir: string): MapLayer {
     this.bitmapTileLayer = new TileLayer<XYZ>({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
@@ -58,9 +53,7 @@ export class OpendataTileLayer {
       layers: [this.bitmapTileLayer, this.vectorTileLayer],
     });
 
-    layer.set('name', layerName);
-    layer.setVisible(false);
-    return new MapLayer(layerId, layer, this.applyMap());
+    return new MapLayer(layerId, layer, null, null, this.applyMap());
   }
 
   private applyMap() {

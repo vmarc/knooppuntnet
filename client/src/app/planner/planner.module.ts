@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { PlannerPositionService } from '@app/planner/services/planner-position.service';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -23,7 +24,7 @@ import { GeolocationNotSupportedDialogComponent } from './pages/planner/geolocat
 import { GeolocationPermissionDeniedDialogComponent } from './pages/planner/geolocation/geolocation-permission-denied-dialog.component';
 import { GeolocationTimeoutDialogComponent } from './pages/planner/geolocation/geolocation-timeout-dialog.component';
 import { GeolocationUnavailableDialogComponent } from './pages/planner/geolocation/geolocation-unavailable-dialog.component';
-import { MapMainPageComponent } from './pages/planner/map-main-page.component';
+import { PlannerPageComponent } from './pages/planner/planner-page.component';
 import { PoiMenuOptionComponent } from './pages/planner/poi-menu-option.component';
 import { PoiMenuComponent } from './pages/planner/poi-menu.component';
 import { MapPoiConfigComponent } from './pages/planner/poi/map-poi-config.component';
@@ -99,7 +100,7 @@ import { plannerFeatureKey } from './store/planner-state';
   ],
   declarations: [
     MapPageComponent,
-    MapMainPageComponent,
+    PlannerPageComponent,
     PlannerSidebarComponent,
     PlannerSideBarPlannerComponent,
     PlannerSideBarLegendComponent,
@@ -149,6 +150,6 @@ import { plannerFeatureKey } from './store/planner-state';
     GeolocationControlComponent,
   ],
   exports: [MapPageComponent],
-  providers: [PlannerService, PlannerLayerService],
+  providers: [PlannerService, PlannerLayerService, PlannerPositionService],
 })
 export class PlannerModule {}

@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
+import { NetworkType } from '@api/custom/network-type';
 import { FrisoNode } from '@app/components/ol/components/friso-node';
+import { MapService } from '@app/components/ol/services/map.service';
 import { selectFrisoMode } from '@app/friso/store/friso.selectors';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
@@ -23,15 +25,13 @@ import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
-import { MapService } from '@app/components/ol/services/map.service';
-import { NetworkType } from '@api/custom/network-type';
 
 @Component({
   selector: 'kpn-friso-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="friso-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="switcherLayers"/>
+      <kpn-old-layer-switcher [mapLayers]="switcherLayers"/>
     </div>
   `,
 })
@@ -135,24 +135,14 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
         this.mapLayerService.osmLayer(),
         this.mapLayerService.backgroundLayer(this.mapId),
         this.mapLayerService.mainMapLayer(),
-
-        this.mapLayerService.frisoLayer('rename', 'Renamed_ext.geojson'),
-        this.mapLayerService.frisoLayer(
-          'minor-rename',
-          'Minor rename_ext.geojson'
-        ),
-        this.mapLayerService.frisoLayer('removed', 'Removed_osm.geojson'),
-        this.mapLayerService.frisoLayer('added', 'Added_ext.geojson'),
-        this.mapLayerService.frisoLayer('no-change', 'No change_ext.geojson'),
-        this.mapLayerService.frisoLayer(
-          'moved-short-distance',
-          'Moved short distance_ext.geojson'
-        ),
-        this.mapLayerService.frisoLayer(
-          'moved-long-distance',
-          'Moved long distance_ext.geojson'
-        ),
-        this.mapLayerService.frisoLayer('other', 'other.geojson'),
+        this.mapLayerService.frisoLayer('rename'), //'Renamed_ext.geojson'
+        this.mapLayerService.frisoLayer('minor-rename'), // Minor rename_ext.geojson
+        this.mapLayerService.frisoLayer('removed'), // Removed_osm.geojson
+        this.mapLayerService.frisoLayer('added'), // Added_ext.geojson
+        this.mapLayerService.frisoLayer('no-change'), // No change_ext.geojson
+        this.mapLayerService.frisoLayer('moved-short-distance'), // Moved short distance_ext.geojson
+        this.mapLayerService.frisoLayer('moved-long-distance'), // Moved long distance_ext.geojson
+        this.mapLayerService.frisoLayer('other'), // other.geojson
       ])
     );
   }

@@ -14,14 +14,13 @@ import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
-import { MapMode } from '../services/map-mode';
 
 @Component({
   selector: 'kpn-poi-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="poi-map" class="kpn-map">
-      <kpn-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers"/>
     </div>
   `,
 })
@@ -89,7 +88,7 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.push(
       this.mapLayerService.networkBitmapTileLayer(
         NetworkType.cycling,
-        MapMode.analysis
+        'analysis'
       )
     );
     mapLayers = mapLayers.concat(

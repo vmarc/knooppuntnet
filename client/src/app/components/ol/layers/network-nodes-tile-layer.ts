@@ -49,7 +49,13 @@ export class NetworkNodesTileLayer {
       return true;
     };
 
-    return new MapLayer(`network-nodes-${networkType}-layer`, layer, applyMap);
+    return new MapLayer(
+      `network-nodes-${networkType}-layer`,
+      layer,
+      networkType,
+      null,
+      applyMap
+    );
   }
 
   private static buildBitmapLayer(networkType: NetworkType): TileLayer<XYZ> {
