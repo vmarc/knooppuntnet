@@ -52,8 +52,6 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
       }),
     });
 
-    this.layers.applyMap(this.map);
-
     this.subscriptions.add(
       this.pageService.sidebarOpen.subscribe(() => this.updateSize())
     );

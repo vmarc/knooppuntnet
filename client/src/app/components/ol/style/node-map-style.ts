@@ -1,4 +1,3 @@
-import Map from 'ol/Map';
 import { StyleFunction } from 'ol/style/Style';
 import { green } from './main-style-colors';
 import { NodeStyle } from './node-style';
@@ -10,16 +9,13 @@ export class NodeMapStyle {
   private readonly nameStyle = nameStyle();
   private readonly routeStyle = new RouteStyle();
 
-  constructor(private map: Map) {}
-
   public styleFunction(): StyleFunction {
     return (feature, resolution) => {
       if (feature) {
         const proposed = feature.get('state') === 'proposed';
-        const zoom = this.map.getView().getZoom();
         const layer = feature.get('layer');
         if (layer.includes('node')) {
-          if (zoom >= 13) {
+          if (resolution >= /* zoomLevel 13 */ 19.109) {
             const ref = feature.get('ref');
             const name = feature.get('name');
 
@@ -48,7 +44,7 @@ export class NodeMapStyle {
           return this.smallNodeStyle;
         }
 
-        return this.routeStyle.style(green, zoom, false, proposed);
+        return this.routeStyle.style(green, resolution, false, proposed);
       }
     };
   }

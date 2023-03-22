@@ -67,7 +67,6 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
     });
 
     this.map.getView().fit(Util.toExtent(this.bounds, 0.05));
-    this.layers.applyMap(this.map);
 
     this.mapClickService.installOn(this.map);
 

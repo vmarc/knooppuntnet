@@ -20,7 +20,6 @@ export class NetworkNodesBitmapTileLayer {
       ZoomLevel.bitmapTileMaxZoom,
       layer,
       networkType,
-      null,
       null
     );
   }

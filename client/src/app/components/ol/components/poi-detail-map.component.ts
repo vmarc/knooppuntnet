@@ -59,8 +59,6 @@ export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
       controls: MapControls.build(),
       view: new View(viewOptions),
     });
-
-    this.layers.applyMap(this.map);
   }
 
   ngOnDestroy(): void {

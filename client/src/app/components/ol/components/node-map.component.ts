@@ -97,8 +97,6 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
       view: new View(viewOptions),
     });
 
-    this.layers.applyMap(this.map);
-
     this.mapClickService.installOn(this.map);
 
     this.subscriptions.add(

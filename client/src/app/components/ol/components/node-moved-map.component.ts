@@ -57,7 +57,6 @@ export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
         zoom: 18,
       }),
     });
-    this.layers.applyMap(this.map);
     const center = Util.latLonToCoordinate(this.nodeMoved.after);
     this.map.getView().setCenter(center);
 

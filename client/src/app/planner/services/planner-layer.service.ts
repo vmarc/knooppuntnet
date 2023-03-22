@@ -45,12 +45,6 @@ export class PlannerLayerService {
   ) {}
 
   mapInit(olMap: Map) {
-    this.layers.forEach((mapLayer) => {
-      if (mapLayer.applyMap) {
-        mapLayer.applyMap(olMap);
-      }
-    });
-
     this.store // no need to keep handle on subscription (will be closed after setting view position)
       .select(selectPlannerMapPosition)
       .pipe(first())
@@ -60,7 +54,6 @@ export class PlannerLayerService {
       });
 
     const mainMapStyle = new MainMapStyle(
-      olMap,
       this.mapService,
       this.store
     ).styleFunction();

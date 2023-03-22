@@ -24,9 +24,9 @@ export class MainMapRouteStyle {
     this.surveyDateStyle = new SurveyDateStyle(mapService);
   }
 
-  public routeStyle(zoom: number, feature: FeatureLike): Array<Style> {
+  public routeStyle(resolution: number, feature: FeatureLike): Array<Style> {
     const selectedStyle = this.determineRouteSelectedStyle(feature);
-    const style = this.determineRouteStyle(feature, zoom);
+    const style = this.determineRouteStyle(feature, resolution);
     return selectedStyle ? [selectedStyle, style] : [style];
   }
 
@@ -43,13 +43,18 @@ export class MainMapRouteStyle {
     return style;
   }
 
-  private determineRouteStyle(feature: FeatureLike, zoom: number): Style {
+  private determineRouteStyle(feature: FeatureLike, resolution: number): Style {
     const color = this.routeColor(feature);
     const highligthed =
       this.mapService.highlightedRouteId &&
       feature.get('id').startsWith(this.mapService.highlightedRouteId);
     const proposed = feature.get('state') === 'proposed';
-    return this.routeStyleBuilder.style(color, zoom, highligthed, proposed);
+    return this.routeStyleBuilder.style(
+      color,
+      resolution,
+      highligthed,
+      proposed
+    );
   }
 
   private initRouteSelectedStyle(): Style {

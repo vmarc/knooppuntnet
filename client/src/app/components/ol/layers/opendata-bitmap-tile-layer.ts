@@ -21,7 +21,6 @@ export class OpendataBitmapTileLayer {
       ZoomLevel.bitmapTileMaxZoom,
       layer,
       null,
-      null,
       null
     );
   }

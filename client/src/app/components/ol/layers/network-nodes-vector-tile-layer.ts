@@ -1,7 +1,6 @@
 import { NetworkType } from '@api/custom/network-type';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
-import Map from 'ol/Map';
 import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain/zoom-level';
 import { NetworkNodesMapStyle } from '../style/network-nodes-map-style';
@@ -29,15 +28,11 @@ export class NetworkNodesVectorTileLayer {
       renderMode: 'vector',
     });
 
-    const applyMap = (map: Map) => {
-      const nodeMapStyle = new NetworkNodesMapStyle(
-        map,
-        nodeIds,
-        routeIds
-      ).styleFunction();
-      layer.setStyle(nodeMapStyle);
-      return true;
-    };
+    const nodeMapStyle = new NetworkNodesMapStyle(
+      nodeIds,
+      routeIds
+    ).styleFunction();
+    layer.setStyle(nodeMapStyle);
 
     return new MapLayer(
       `network-nodes-${networkType}-layer`,
@@ -46,8 +41,7 @@ export class NetworkNodesVectorTileLayer {
       ZoomLevel.vectorTileMaxOverZoom,
       layer,
       networkType,
-      null,
-      applyMap
+      null
     );
   }
 }

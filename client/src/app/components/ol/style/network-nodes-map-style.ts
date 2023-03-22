@@ -1,5 +1,4 @@
 import { FeatureLike } from 'ol/Feature';
-import Map from 'ol/Map';
 import { Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
 import { gray } from './main-style-colors';
@@ -16,7 +15,6 @@ export class NetworkNodesMapStyle {
   private readonly routeStyle = new RouteStyle();
 
   constructor(
-    private map: Map,
     private networkNodeIds: number[],
     private networkRouteIds: number[]
   ) {}
@@ -26,17 +24,16 @@ export class NetworkNodesMapStyle {
       if (feature) {
         const layer = feature.get('layer');
         if (layer.includes('node')) {
-          return this.nodeStyle(feature);
+          return this.nodeStyle(feature, resolution);
         }
-        return this.buildRouteStyle(feature);
+        return this.buildRouteStyle(feature, resolution);
       }
     };
   }
 
-  private nodeStyle(feature: FeatureLike): Style | Style[] {
-    const zoom = this.map.getView().getZoom();
+  private nodeStyle(feature: FeatureLike, resolution: number): Style | Style[] {
     const nodeId = +feature.get('id');
-    if (zoom >= 13) {
+    if (resolution >= /* zoomLevel 13 */ 19.109) {
       let ref = feature.get('ref');
       const name = feature.get('name');
       const proposed = feature.get('state') === 'proposed';
@@ -74,12 +71,11 @@ export class NetworkNodesMapStyle {
       : this.smallNodeStyleGray;
   }
 
-  private buildRouteStyle(feature: FeatureLike): Style {
-    const zoom = this.map.getView().getZoom();
+  private buildRouteStyle(feature: FeatureLike, resolution: number): Style {
     const featureId = feature.get('id');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
     const routeColor = this.networkRouteIds.includes(routeId) ? green : gray;
     const proposed = feature.get('state') === 'proposed';
-    return this.routeStyle.style(routeColor, zoom, false, proposed);
+    return this.routeStyle.style(routeColor, resolution, false, proposed);
   }
 }

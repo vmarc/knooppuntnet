@@ -86,7 +86,6 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
       }),
     });
 
-    this.layers.applyMap(this.map);
     const view = this.map.getView();
     view.fit(Util.toExtent(this.bounds, 0.1));
 

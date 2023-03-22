@@ -8,14 +8,14 @@ export class RouteStyle {
 
   style(
     color: Color,
-    zoom: number,
+    resolution: number,
     highlighted: boolean,
     proposed: boolean
   ): Style {
     let width = 1;
-    if (zoom < 9) {
+    if (resolution < /* zoomLevel 9 */ 305.75) {
       width = 1;
-    } else if (zoom < 12) {
+    } else if (resolution < /* zoomLevel 12 */ 38.219) {
       width = 2;
     } else {
       if (highlighted) {

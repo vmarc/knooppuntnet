@@ -1,7 +1,6 @@
 import { NetworkType } from '@api/custom/network-type';
 import { MapMode } from '@app/components/ol/services/map-mode';
 import BaseLayer from 'ol/layer/Base';
-import Map from 'ol/Map';
 
 export class MapLayer {
   static simpleLayer(name: string, layer: BaseLayer): MapLayer {
@@ -11,7 +10,6 @@ export class MapLayer {
       -Infinity,
       Infinity,
       layer,
-      null,
       null,
       null,
       null
@@ -26,7 +24,6 @@ export class MapLayer {
     public layer: BaseLayer,
     public networkType?: NetworkType,
     public mapMode?: MapMode,
-    public applyMap?: (map: Map) => void,
     public resizeFunction?: () => void
   ) {}
 

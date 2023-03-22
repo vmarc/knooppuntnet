@@ -63,7 +63,6 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
         maxZoom: ZoomLevel.maxZoom,
       }),
     });
-    this.layers.applyMap(this.map);
     this.map.getView().fit(Util.toExtent(this.bounds, 0.1));
 
     this.subscriptions.add(

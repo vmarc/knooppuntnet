@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { PoiService } from '@app/services/poi.service';
-import BaseLayer from 'ol/layer/Base';
-import Map from 'ol/Map';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapLayer } from '../layers/map-layer';
@@ -34,38 +32,7 @@ export class PoiTileLayerService {
       ZoomLevel.poiTileMaxZoom,
       layer,
       null,
-      null,
-      this.applyMap(layer)
-    );
-  }
-
-  private applyMap(layer: BaseLayer) {
-    return (map: Map) => {
-      map
-        .getView()
-        .on('change:resolution', () =>
-          this.zoom(layer, map.getView().getZoom())
-        );
-
-      // TODO planner make sure the PlannnerState.pois is taken into account
-      // this.poiService.enabled.subscribe((enabled) => {
-      //   this.updateLayerVisibility(layer, map.getView().getZoom());
-      // });
-      this.updateLayerVisibility(layer, map.getView().getZoom());
-    };
-  }
-
-  private zoom(layer: BaseLayer, zoomLevel: number) {
-    this.poiService.updateZoomLevel(zoomLevel);
-    this.updateLayerVisibility(layer, zoomLevel);
-    return true;
-  }
-
-  private updateLayerVisibility(layer: BaseLayer, zoomLevel: number) {
-    const zoom = Math.round(zoomLevel);
-    layer.setVisible(
-      zoom >
-        ZoomLevel.poiTileMinZoom /* TODO add again: && this.poiService._enabled.getValue()*/
+      null
     );
   }
 

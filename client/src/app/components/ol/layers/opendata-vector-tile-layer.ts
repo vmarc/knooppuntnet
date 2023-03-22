@@ -2,11 +2,8 @@ import { NetworkType } from '@api/custom/network-type';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
-import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
-import Map from 'ol/Map';
 import VectorTile from 'ol/source/VectorTile';
-import XYZ from 'ol/source/XYZ';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
@@ -16,11 +13,9 @@ import { ZoomLevel } from '../domain/zoom-level';
 import { Layers } from './layers';
 
 export class OpendataVectorTileLayer {
-  private readonly largeMinZoomLevel = 13;
+  private readonly largeMinZoomResolution = /* zoomLevel 13 */ 19.109;
   private readonly smallStyle = this.buildSmallStyle();
   private readonly largeStyle = this.buildLargeStyle();
-  bitmapTileLayer: TileLayer<XYZ>;
-  vectorTileLayer: VectorTileLayer;
 
   build(networkType: NetworkType, layerName: string, dir: string): MapLayer {
     const source = new VectorTile({
@@ -31,7 +26,7 @@ export class OpendataVectorTileLayer {
       url: `/tiles-history/opendata/${dir}/{z}/{x}/{y}.mvt`,
     });
 
-    this.vectorTileLayer = new VectorTileLayer({
+    const layer = new VectorTileLayer({
       zIndex: Layers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
@@ -40,30 +35,23 @@ export class OpendataVectorTileLayer {
       renderMode: 'vector',
     });
 
+    layer.setStyle(this.styleFunction());
+
     return new MapLayer(
       layerName,
       `${layerName}-vector`,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
-      this.vectorTileLayer,
+      layer,
       null,
-      null,
-      this.applyMap()
+      null
     );
   }
 
-  private applyMap() {
-    return (map: Map) => {
-      const style = this.styleFunction(map);
-      this.vectorTileLayer.setStyle(style);
-    };
-  }
-
-  private styleFunction(map: Map): StyleFunction {
+  private styleFunction(): StyleFunction {
     return (feature, resolution) => {
-      const zoom = map.getView().getZoom();
       const name = feature.get('name');
-      const large = zoom >= this.largeMinZoomLevel;
+      const large = resolution >= this.largeMinZoomResolution;
       let style = this.smallStyle;
       if (large) {
         style = this.largeStyle;

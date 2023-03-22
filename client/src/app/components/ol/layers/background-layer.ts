@@ -79,7 +79,6 @@ export class BackgroundLayer {
       layer,
       null,
       null,
-      null,
       () => {
         mbMap.resize();
       }

@@ -84,7 +84,6 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       view: new View(viewOptions),
     });
 
-    this.layers.applyMap(this.map);
     this.mapClickService.installOn(this.map);
 
     const view = this.map.getView();

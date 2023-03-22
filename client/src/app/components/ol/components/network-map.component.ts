@@ -73,7 +73,6 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       this.page.bounds,
       this.mapPositionFromUrl
     );
-    this.layers.applyMap(this.map);
     this.mapZoomService.install(view);
     this.mapClickService.installOn(this.map);
 

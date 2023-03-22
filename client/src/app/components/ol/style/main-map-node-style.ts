@@ -9,7 +9,7 @@ import { nameStyle } from './node-style-builder';
 import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapNodeStyle {
-  private readonly largeMinZoomLevel = 13;
+  private readonly largeMinResolution = 19.109;
   private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
   private readonly surveyDateStyle: SurveyDateStyle;
@@ -19,7 +19,7 @@ export class MainMapNodeStyle {
     this.surveyDateStyle = new SurveyDateStyle(mapService);
   }
 
-  nodeStyle(zoom: number, feature: FeatureLike): Array<Style> {
+  nodeStyle(resolution: number, feature: FeatureLike): Array<Style> {
     const featureId = feature.get('id');
     const ref = feature.get('ref');
     const name = feature.get('name');
@@ -34,7 +34,7 @@ export class MainMapNodeStyle {
       title = name;
     }
 
-    const large = zoom >= this.largeMinZoomLevel;
+    const large = resolution >= this.largeMinResolution;
     const styles = [];
     const selectedStyle = this.determineNodeSelectedStyle(featureId, large);
     if (selectedStyle) {
