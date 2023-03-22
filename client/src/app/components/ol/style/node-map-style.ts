@@ -15,7 +15,7 @@ export class NodeMapStyle {
         const proposed = feature.get('state') === 'proposed';
         const layer = feature.get('layer');
         if (layer.includes('node')) {
-          if (resolution >= /* zoomLevel 13 */ 19.109) {
+          if (resolution < /* zoomLevel 13 */ 19.109) {
             const ref = feature.get('ref');
             const name = feature.get('name');
 

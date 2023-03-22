@@ -1,25 +1,26 @@
+import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
 import { FeatureLike } from 'ol/Feature';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Style from 'ol/style/Style';
-import { MapService } from '../services/map.service';
 import { yellow } from './main-style-colors';
 import { NodeStyle } from './node-style';
 import { nameStyle } from './node-style-builder';
 import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapNodeStyle {
-  private readonly largeMinResolution = 19.109;
+  private readonly largeMaxResolution = 19.109; // zoomLevel 13
   private readonly smallNodeSelectedStyle = this.nodeSelectedStyle(8);
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
-  private readonly surveyDateStyle: SurveyDateStyle;
   private readonly nameStyle = nameStyle();
 
-  constructor(private mapService: MapService) {
-    this.surveyDateStyle = new SurveyDateStyle(mapService);
-  }
+  constructor() {}
 
-  nodeStyle(resolution: number, feature: FeatureLike): Array<Style> {
+  nodeStyle(
+    options: MainMapStyleOptions,
+    resolution: number,
+    feature: FeatureLike
+  ): Array<Style> {
     const featureId = feature.get('id');
     const ref = feature.get('ref');
     const name = feature.get('name');
@@ -34,13 +35,17 @@ export class MainMapNodeStyle {
       title = name;
     }
 
-    const large = resolution >= this.largeMinResolution;
+    const large = resolution < this.largeMaxResolution;
     const styles = [];
-    const selectedStyle = this.determineNodeSelectedStyle(featureId, large);
+    const selectedStyle = this.determineNodeSelectedStyle(
+      options,
+      featureId,
+      large
+    );
     if (selectedStyle) {
       styles.push(selectedStyle);
     }
-    const style = this.determineNodeMainStyle(feature, large, title);
+    const style = this.determineNodeMainStyle(options, feature, large, title);
     styles.push(style);
 
     if (large && subTitle) {
@@ -51,12 +56,16 @@ export class MainMapNodeStyle {
     return styles;
   }
 
-  private determineNodeSelectedStyle(featureId: string, large: boolean): Style {
+  private determineNodeSelectedStyle(
+    options: MainMapStyleOptions,
+    featureId: string,
+    large: boolean
+  ): Style {
     let style = null;
     if (
-      this.mapService.selectedNodeId &&
+      options.selectedNodeId &&
       featureId &&
-      featureId === this.mapService.selectedNodeId
+      featureId === options.selectedNodeId
     ) {
       if (large) {
         style = this.largeNodeSelectedStyle;
@@ -68,20 +77,25 @@ export class MainMapNodeStyle {
   }
 
   private determineNodeMainStyle(
+    options: MainMapStyleOptions,
     feature: FeatureLike,
     large: boolean,
     title: string
   ): Style {
     let style: Style;
     if (large && '*' !== title) {
-      style = this.determineLargeNodeStyle(feature, title);
+      style = this.determineLargeNodeStyle(options, feature, title);
     } else {
-      style = this.determineSmallNodeStyle(feature);
+      style = this.determineSmallNodeStyle(options, feature);
     }
     return style;
   }
 
-  private determineLargeNodeStyle(feature: FeatureLike, title: string): Style {
+  private determineLargeNodeStyle(
+    options: MainMapStyleOptions,
+    feature: FeatureLike,
+    title: string
+  ): Style {
     const proposed = feature.get('proposed') === 'true';
 
     let style = NodeStyle.largeGray;
@@ -89,39 +103,35 @@ export class MainMapNodeStyle {
       style = NodeStyle.proposedLargeGray;
     }
 
-    if (this.mapService.mapMode === 'surface') {
+    if (options.mapMode === 'surface') {
       if (proposed) {
         style = NodeStyle.proposedLargeGreen;
       } else {
         style = NodeStyle.largeGreen;
       }
-    } else if (this.mapService.mapMode === 'survey') {
+    } else if (options.mapMode === 'survey') {
       style = NodeStyle.largeSurveyUnknown;
       const survey = feature.get('survey');
       if (survey) {
-        if (survey > this.mapService.surveyDateInfo().lastMonthStart) {
+        if (survey > options.surveyDateValues.lastMonthStart) {
           if (proposed) {
             style = NodeStyle.proposedLargeLightGreen;
           } else {
             style = NodeStyle.largeSurveyLastMonth;
           }
-        } else if (
-          survey > this.mapService.surveyDateInfo().lastHalfYearStart
-        ) {
+        } else if (survey > options.surveyDateValues.lastHalfYearStart) {
           if (proposed) {
             style = NodeStyle.proposedLargeGreen;
           } else {
             style = NodeStyle.largeSurveyLastHalfYearStart;
           }
-        } else if (survey > this.mapService.surveyDateInfo().lastYearStart) {
+        } else if (survey > options.surveyDateValues.lastYearStart) {
           if (proposed) {
             style = NodeStyle.proposedLargeDarkGreen;
           } else {
             style = NodeStyle.largeSurveyLastYearStart;
           }
-        } else if (
-          survey > this.mapService.surveyDateInfo().lastTwoYearsStart
-        ) {
+        } else if (survey > options.surveyDateValues.lastTwoYearsStart) {
           if (proposed) {
             style = NodeStyle.proposedLargeVeryDarkGreen;
           } else {
@@ -135,7 +145,7 @@ export class MainMapNodeStyle {
           }
         }
       }
-    } else if (this.mapService.mapMode === 'analysis') {
+    } else if (options.mapMode === 'analysis') {
       const layer = feature.get('layer');
       if ('error-node' === layer) {
         if (proposed) {
@@ -156,13 +166,16 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineSmallNodeStyle(feature: FeatureLike): Style {
+  private determineSmallNodeStyle(
+    options: MainMapStyleOptions,
+    feature: FeatureLike
+  ): Style {
     let style = NodeStyle.smallGray;
-    if (this.mapService.mapMode === 'surface') {
+    if (options.mapMode === 'surface') {
       style = NodeStyle.smallGreen;
-    } else if (this.mapService.mapMode === 'survey') {
-      style = this.surveyDateStyle.smallNodeStyle(feature);
-    } else if (this.mapService.mapMode === 'analysis') {
+    } else if (options.mapMode === 'survey') {
+      style = SurveyDateStyle.smallNodeStyle(options.surveyDateValues, feature);
+    } else if (options.mapMode === 'analysis') {
       style = this.smallNodeStyleAnalysis(feature);
     }
     return style;

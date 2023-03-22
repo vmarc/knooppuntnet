@@ -2,8 +2,8 @@ import { NetworkType } from '@api/custom/network-type';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
+import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain/zoom-level';
-import { NodeMapStyle } from '../style/node-map-style';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
@@ -11,7 +11,7 @@ export class NetworkVectorTileLayer {
   public static oldBuild(networkType: NetworkType): VectorTileLayer {
     const source = new VectorTile({
       tileSize: 512,
-      minZoom: ZoomLevel.vectorTileMinZoom - 1,
+      minZoom: ZoomLevel.vectorTileMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
       url: '/tiles-history/' + networkType + '/{z}/{x}/{y}.mvt',
@@ -24,10 +24,13 @@ export class NetworkVectorTileLayer {
     });
   }
 
-  public static build(networkType: NetworkType): MapLayer {
+  public static build(
+    networkType: NetworkType,
+    styleFunction: StyleFunction
+  ): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
-      minZoom: ZoomLevel.vectorTileMinZoom - 1,
+      minZoom: ZoomLevel.vectorTileMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
       url: '/tiles-history/' + networkType + '/{z}/{x}/{y}.mvt',
@@ -39,15 +42,13 @@ export class NetworkVectorTileLayer {
       declutter: false,
       source,
       renderMode: 'vector',
+      style: styleFunction,
     });
-
-    const nodeMapStyle = new NodeMapStyle().styleFunction();
-    layer.setStyle(nodeMapStyle);
 
     return new MapLayer(
       networkType,
       `${networkType}-vector`,
-      ZoomLevel.vectorTileMinZoom - 1, // TODO planner - suspicious!!
+      ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       layer,
       networkType,

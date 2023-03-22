@@ -12,10 +12,10 @@ export class RouteStyle {
     highlighted: boolean,
     proposed: boolean
   ): Style {
-    let width = 1;
-    if (resolution < /* zoomLevel 9 */ 305.75) {
+    let width: number;
+    if (resolution > /* zoomLevel 9 */ 305.75) {
       width = 1;
-    } else if (resolution < /* zoomLevel 12 */ 38.219) {
+    } else if (resolution > /* zoomLevel 12 */ 38.219) {
       width = 2;
     } else {
       if (highlighted) {
@@ -24,12 +24,14 @@ export class RouteStyle {
         width = 4;
       }
     }
-    this.defaultRouteStyle.getStroke().setWidth(width);
-    this.defaultRouteStyle.getStroke().setColor(color);
+
+    const stroke = this.defaultRouteStyle.getStroke();
+    stroke.setWidth(width);
+    stroke.setColor(color);
     if (proposed) {
-      this.defaultRouteStyle.getStroke().setLineDash([6, 10]);
+      stroke.setLineDash([6, 10]);
     } else {
-      this.defaultRouteStyle.getStroke().setLineDash(null);
+      stroke.setLineDash(null);
     }
     return this.defaultRouteStyle;
   }

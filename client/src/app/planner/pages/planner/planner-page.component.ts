@@ -17,6 +17,7 @@ import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.
 import { PageService } from '@app/components/shared/page.service';
 import { Util } from '@app/components/shared/util';
 import { PlannerPositionService } from '@app/planner/services/planner-position.service';
+import { actionPlannerLoaded } from '@app/planner/store/planner-actions';
 import { actionPlannerLayerVisible } from '@app/planner/store/planner-actions';
 import { actionPlannerPageInit } from '@app/planner/store/planner-actions';
 import { selectPlannerLayerStates } from '@app/planner/store/planner-selectors';
@@ -160,7 +161,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.buildMap(), 1000);
+    setTimeout(() => this.buildMap(), 0);
   }
 
   ngOnDestroy(): void {
@@ -197,19 +198,9 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private buildMap(): void {
-    this.plannerLayerService.initializeLayers();
-
-    this.overlay = new Overlay({
-      id: 'popup',
-      element: document.getElementById('popup'),
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250,
-      },
-    });
+    this.overlay = this.buildOverlay();
 
     const layers = this.plannerLayerService.layers.map((ml) => ml.layer);
-    layers.forEach((layer) => layer.setVisible(false));
 
     this.map = new Map({
       target: 'main-map',
@@ -221,58 +212,6 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
         maxZoom: ZoomLevel.vectorTileMaxOverZoom,
       }),
     });
-
-    console.log(
-      'zoom  0 resolution = ' + this.map.getView().getResolutionForZoom(0)
-    );
-    console.log(
-      'zoom  1 resolution = ' + this.map.getView().getResolutionForZoom(1)
-    );
-    console.log(
-      'zoom  2 resolution = ' + this.map.getView().getResolutionForZoom(2)
-    );
-    console.log(
-      'zoom  3 resolution = ' + this.map.getView().getResolutionForZoom(3)
-    );
-    console.log(
-      'zoom  4 resolution = ' + this.map.getView().getResolutionForZoom(4)
-    );
-    console.log(
-      'zoom  5 resolution = ' + this.map.getView().getResolutionForZoom(5)
-    );
-    console.log(
-      'zoom  6 resolution = ' + this.map.getView().getResolutionForZoom(6)
-    );
-    console.log(
-      'zoom  7 resolution = ' + this.map.getView().getResolutionForZoom(7)
-    );
-    console.log(
-      'zoom  8 resolution = ' + this.map.getView().getResolutionForZoom(8)
-    );
-    console.log(
-      'zoom  9 resolution = ' + this.map.getView().getResolutionForZoom(9)
-    );
-    console.log(
-      'zoom  10 resolution = ' + this.map.getView().getResolutionForZoom(10)
-    );
-    console.log(
-      'zoom  11 resolution = ' + this.map.getView().getResolutionForZoom(11)
-    );
-    console.log(
-      'zoom  12 resolution = ' + this.map.getView().getResolutionForZoom(12)
-    );
-    console.log(
-      'zoom  13 resolution = ' + this.map.getView().getResolutionForZoom(13)
-    );
-    console.log(
-      'zoom  14 resolution = ' + this.map.getView().getResolutionForZoom(14)
-    );
-    console.log(
-      'zoom  15 resolution = ' + this.map.getView().getResolutionForZoom(15)
-    );
-    console.log(
-      'zoom  16 resolution = ' + this.map.getView().getResolutionForZoom(16)
-    );
 
     this.plannerLayerService.mapInit(this.map);
 
@@ -298,6 +237,8 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     //     this.updateSize()
     //   )
     // );
+
+    this.store.dispatch(actionPlannerLoaded());
   }
 
   private updateSize(): void {
@@ -311,5 +252,16 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   layerStateChange(change: MapLayerState): void {
     this.store.dispatch(actionPlannerLayerVisible(change));
+  }
+
+  private buildOverlay(): Overlay {
+    return new Overlay({
+      id: 'popup',
+      element: document.getElementById('popup'),
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250,
+      },
+    });
   }
 }

@@ -22,6 +22,7 @@ import { from } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { actionPlannerLoaded } from './planner-actions';
 import { actionPlannerMapMode } from './planner-actions';
 import { actionPlannerNetworkType } from './planner-actions';
 import { actionPlannerPoiGroupVisible } from './planner-actions';
@@ -176,7 +177,7 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(
-          // actionPlannerLoad,
+          actionPlannerLoaded,
           actionPlannerLayerVisible,
           actionPlannerNetworkType,
           actionPlannerMapMode,

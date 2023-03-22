@@ -1,24 +1,18 @@
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
+import { AppService } from '@app/app.service';
 import { ReplaySubject } from 'rxjs';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AppService } from '../../../app.service';
 import { NodeClick } from '../domain/node-click';
 import { PoiClick } from '../domain/poi-click';
 import { RouteClick } from '../domain/route-click';
-import { MapMode } from './map-mode';
 import { SurveyDateValues } from './survey-date-values';
 
 @Injectable()
 export class MapService {
-  selectedRouteId: string;
-  selectedNodeId: string;
-
   highlightedNodeId$: Observable<string>;
   highlightedRouteId$: Observable<string>;
   networkType$: Observable<NetworkType>;
-  mapMode$: Observable<MapMode>;
-  surveyDateInfo$: Observable<SurveyDateValues>;
   popupType$: Observable<string>;
   poiClicked$: Observable<PoiClick>;
   nodeClicked$: Observable<NodeClick>;
@@ -27,7 +21,6 @@ export class MapService {
   private _highlightedNodeId$ = new BehaviorSubject<string>(null);
   private _highlightedRouteId$ = new BehaviorSubject<string>(null);
   private _networkType$ = new BehaviorSubject<NetworkType | null>(null);
-  private _mapMode$ = new BehaviorSubject<MapMode>('surface');
   private _surveyDateInfo$ = new BehaviorSubject<SurveyDateValues>(null);
   private _popupType$ = new BehaviorSubject<string>('');
   private _poiClicked$ = new ReplaySubject<PoiClick>(1);
@@ -44,7 +37,6 @@ export class MapService {
     this.highlightedNodeId$ = this._highlightedNodeId$;
     this.highlightedRouteId$ = this._highlightedRouteId$;
     this.networkType$ = this._networkType$.asObservable();
-    this.mapMode$ = this._mapMode$.asObservable();
     this.popupType$ = this._popupType$.asObservable();
     this.poiClicked$ = this._poiClicked$.asObservable();
     this.nodeClicked$ = this._nodeClicked$.asObservable();
@@ -79,16 +71,8 @@ export class MapService {
     return this._networkType$.next(networkType);
   }
 
-  get mapMode(): MapMode {
-    return this._mapMode$.value;
-  }
-
   surveyDateInfo(): SurveyDateValues {
     return this._surveyDateInfo$.value;
-  }
-
-  nextMapMode(mapMode: MapMode): void {
-    this._mapMode$.next(mapMode);
   }
 
   nextPoiClick(poiClick: PoiClick) {

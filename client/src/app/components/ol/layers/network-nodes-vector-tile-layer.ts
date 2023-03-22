@@ -15,7 +15,7 @@ export class NetworkNodesVectorTileLayer {
   ): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
-      minZoom: ZoomLevel.vectorTileMinZoom - 1,
+      minZoom: ZoomLevel.vectorTileMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
       url: '/tiles-history/' + networkType + '/{z}/{x}/{y}.mvt',
@@ -37,7 +37,7 @@ export class NetworkNodesVectorTileLayer {
     return new MapLayer(
       `network-nodes-${networkType}-layer`,
       `network-nodes-${networkType}-layer`,
-      ZoomLevel.vectorTileMinZoom - 1, // TODO planner: suspicious!!
+      ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       layer,
       networkType,

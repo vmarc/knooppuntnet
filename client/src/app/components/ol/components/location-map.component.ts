@@ -6,11 +6,14 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
 import { NetworkType } from '@api/custom/network-type';
+import { MainMapStyle } from '@app/components/ol/style/main-map-style';
+import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
 import { NetworkTypes } from '@app/kpn/common/network-types';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { Observable } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
@@ -97,13 +100,20 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildLayers(): MapLayers {
+    throw new Error('TODO implement options$');
+    const options$: Observable<MainMapStyleOptions> = null;
+    const mainMapStyle = new MainMapStyle(options$);
+
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(
       this.mapLayerService.backgroundLayer(this.mapId)
     );
     NetworkTypes.all.forEach((networkType) => {
       mapLayers = mapLayers.push(
-        this.mapLayerService.mainMapVectorLayer(networkType)
+        this.mapLayerService.mainMapVectorLayer(
+          networkType,
+          mainMapStyle.styleFunction()
+        )
       );
       mapLayers = mapLayers.push(
         this.mapLayerService.mainMapBitmapLayer(networkType)

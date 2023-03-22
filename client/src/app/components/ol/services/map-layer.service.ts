@@ -15,6 +15,7 @@ import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import VectorTileLayer from 'ol/layer/VectorTile';
+import { StyleFunction } from 'ol/style/Style';
 import { MapLayerState } from '../domain/map-layer-state';
 import { MapLayerStates } from '../domain/map-layer-states';
 import { BackgroundLayer } from '../layers/background-layer';
@@ -136,9 +137,13 @@ export class MapLayerService {
     return new TileDebug256Layer().build();
   }
 
-  mainMapVectorLayer(networkType: NetworkType): MapLayer {
+  mainMapVectorLayer(
+    networkType: NetworkType,
+    styleFunction: StyleFunction
+  ): MapLayer {
     return new MainMapLayer(this.mapService, this.store).buildVectorLayer(
-      networkType
+      networkType,
+      styleFunction
     );
   }
 
@@ -171,7 +176,8 @@ export class MapLayerService {
   }
 
   networkVectorTileLayer(networkType: NetworkType): MapLayer {
-    return NetworkVectorTileLayer.build(networkType);
+    throw new Error('add style function');
+    return NetworkVectorTileLayer.build(networkType, null);
   }
 
   networkBitmapTileLayer(networkType: NetworkType, mapMode: MapMode): MapLayer {

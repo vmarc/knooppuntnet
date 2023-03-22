@@ -9,6 +9,8 @@ import { NetworkType } from '@api/custom/network-type';
 import { FrisoNode } from '@app/components/ol/components/friso-node';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { MapService } from '@app/components/ol/services/map.service';
+import { MainMapStyle } from '@app/components/ol/style/main-map-style';
+import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
 import { selectFrisoMode } from '@app/friso/store/friso.selectors';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
@@ -19,6 +21,7 @@ import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
+import { Observable } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
@@ -130,11 +133,18 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
   }
 
   private buildLayers(): MapLayers {
+    throw new Error('TODO implement options$');
+    const options$: Observable<MainMapStyleOptions> = null;
+    const mainMapStyle = new MainMapStyle(options$);
+
     return new MapLayers(
       List([
         new OsmLayer().build(),
         this.mapLayerService.backgroundLayer(this.mapId),
-        this.mapLayerService.mainMapVectorLayer(NetworkType.hiking),
+        this.mapLayerService.mainMapVectorLayer(
+          NetworkType.hiking,
+          mainMapStyle.styleFunction()
+        ),
         this.mapLayerService.mainMapBitmapLayer(NetworkType.hiking),
         this.mapLayerService.frisoLayer('rename'), //'Renamed_ext.geojson'
         this.mapLayerService.frisoLayer('minor-rename'), // Minor rename_ext.geojson

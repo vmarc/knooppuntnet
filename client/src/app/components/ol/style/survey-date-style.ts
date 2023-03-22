@@ -1,7 +1,7 @@
+import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import { Style } from 'ol/style';
-import { MapService } from '../services/map.service';
 import { surveyOlder } from './main-style-colors';
 import { surveyLastTwoYearsStart } from './main-style-colors';
 import { surveyLastYearStart } from './main-style-colors';
@@ -11,19 +11,20 @@ import { surveyUnknown } from './main-style-colors';
 import { NodeStyle } from './node-style';
 
 export class SurveyDateStyle {
-  constructor(private mapService: MapService) {}
-
-  surveyColor(feature: FeatureLike): Color {
+  static surveyColor(
+    surveyDateValues: SurveyDateValues,
+    feature: FeatureLike
+  ): Color {
     let color = surveyUnknown; // survey date unknown
     const survey = feature.get('survey');
     if (survey) {
-      if (survey > this.mapService.surveyDateInfo().lastMonthStart) {
+      if (survey > surveyDateValues.lastMonthStart) {
         color = surveyLastMonth;
-      } else if (survey > this.mapService.surveyDateInfo().lastHalfYearStart) {
+      } else if (survey > surveyDateValues.lastHalfYearStart) {
         color = surveyLastHalfYearStart;
-      } else if (survey > this.mapService.surveyDateInfo().lastYearStart) {
+      } else if (survey > surveyDateValues.lastYearStart) {
         color = surveyLastYearStart;
-      } else if (survey > this.mapService.surveyDateInfo().lastTwoYearsStart) {
+      } else if (survey > surveyDateValues.lastTwoYearsStart) {
         color = surveyLastTwoYearsStart;
       } else {
         color = surveyOlder;
@@ -32,17 +33,20 @@ export class SurveyDateStyle {
     return color;
   }
 
-  smallNodeStyle(feature: FeatureLike): Style {
+  static smallNodeStyle(
+    surveyDateValues: SurveyDateValues,
+    feature: FeatureLike
+  ): Style {
     let style = NodeStyle.smallSurveyUnknown; // survey date unknown
     const survey = feature.get('survey');
     if (survey) {
-      if (survey > this.mapService.surveyDateInfo().lastMonthStart) {
+      if (survey > surveyDateValues.lastMonthStart) {
         style = NodeStyle.smallSurveyLastMonth;
-      } else if (survey > this.mapService.surveyDateInfo().lastHalfYearStart) {
+      } else if (survey > surveyDateValues.lastHalfYearStart) {
         style = NodeStyle.smallSurveyLastHalfYearStart;
-      } else if (survey > this.mapService.surveyDateInfo().lastYearStart) {
+      } else if (survey > surveyDateValues.lastYearStart) {
         style = NodeStyle.smallSurveyLastYearStart;
-      } else if (survey > this.mapService.surveyDateInfo().lastTwoYearsStart) {
+      } else if (survey > surveyDateValues.lastTwoYearsStart) {
         style = NodeStyle.smallSurveyLastTwoYearsStart;
       } else {
         style = NodeStyle.smallSurveyOlder;

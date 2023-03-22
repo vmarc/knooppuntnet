@@ -33,7 +33,7 @@ export class NetworkNodesMapStyle {
 
   private nodeStyle(feature: FeatureLike, resolution: number): Style | Style[] {
     const nodeId = +feature.get('id');
-    if (resolution >= /* zoomLevel 13 */ 19.109) {
+    if (resolution < /* zoomLevel 13 */ 19.109) {
       let ref = feature.get('ref');
       const name = feature.get('name');
       const proposed = feature.get('state') === 'proposed';

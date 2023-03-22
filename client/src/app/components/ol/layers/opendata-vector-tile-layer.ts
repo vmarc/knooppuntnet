@@ -13,7 +13,7 @@ import { ZoomLevel } from '../domain/zoom-level';
 import { Layers } from './layers';
 
 export class OpendataVectorTileLayer {
-  private readonly largeMinZoomResolution = /* zoomLevel 13 */ 19.109;
+  private readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
   private readonly smallStyle = this.buildSmallStyle();
   private readonly largeStyle = this.buildLargeStyle();
 
@@ -51,7 +51,7 @@ export class OpendataVectorTileLayer {
   private styleFunction(): StyleFunction {
     return (feature, resolution) => {
       const name = feature.get('name');
-      const large = resolution >= this.largeMinZoomResolution;
+      const large = resolution < this.largeMaxZoomResolution;
       let style = this.smallStyle;
       if (large) {
         style = this.largeStyle;

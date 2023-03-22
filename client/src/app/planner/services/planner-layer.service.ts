@@ -14,20 +14,53 @@ import { MapMode } from '@app/components/ol/services/map-mode';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 import { MapService } from '@app/components/ol/services/map.service';
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
+import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
+import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
+import { selectPreferencesShowProposed } from '@app/core/preferences/preferences.selectors';
 import { selectPreferencesExtraLayers } from '@app/core/preferences/preferences.selectors';
 import { NetworkTypes } from '@app/kpn/common/network-types';
+import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
 import { selectPlannerMapPosition } from '@app/planner/store/planner-selectors';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
 import Map from 'ol/Map';
+import { combineLatest } from 'rxjs';
 import { first } from 'rxjs';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PlannerService } from './planner.service';
 
 @Injectable()
 export class PlannerLayerService {
   public layers: MapLayer[];
+  private options$: Observable<MainMapStyleOptions> = combineLatest([
+    this.store.select(selectPlannerMapMode),
+    this.store.select(selectPreferencesShowProposed),
+  ]).pipe(
+    map(([mapMode, showProposed]) => {
+      const surveyDateValues: SurveyDateValues = new SurveyDateValues(
+        '',
+        '',
+        '',
+        ''
+      );
+      const selectedRouteId = '';
+      const selectedNodeId = '';
+      const highlightedRouteId = '';
+
+      return new MainMapStyleOptions(
+        mapMode,
+        showProposed,
+        surveyDateValues,
+        selectedRouteId,
+        selectedNodeId,
+        highlightedRouteId
+      );
+    })
+  );
+
+  private networkVectorLayerStyle = new MainMapStyle(this.options$);
 
   private readonly mapRelatedSubscriptions = new Subscriptions();
 
@@ -42,7 +75,9 @@ export class PlannerLayerService {
     private mapService: MapService,
     private mapZoomService: MapZoomService,
     private store: Store
-  ) {}
+  ) {
+    this.buildLayers();
+  }
 
   mapInit(olMap: Map) {
     this.store // no need to keep handle on subscription (will be closed after setting view position)
@@ -53,10 +88,6 @@ export class PlannerLayerService {
         olMap.getView().setCenter([mapPosition.x, mapPosition.y]);
       });
 
-    const mainMapStyle = new MainMapStyle(
-      this.mapService,
-      this.store
-    ).styleFunction();
     // List(this.vectorLayers.values()).forEach((mapLayer) => {
     //   const vectorTileLayer = mapLayer.layer as VectorTileLayer;
     //   vectorTileLayer.setStyle(mainMapStyle);
@@ -73,9 +104,10 @@ export class PlannerLayerService {
 
   mapDestroy(olMap: Map): void {
     this.mapRelatedSubscriptions.unsubscribe();
+    this.networkVectorLayerStyle.destroy();
   }
 
-  initializeLayers(): void {
+  private buildLayers(): void {
     this.layers = [];
 
     this.layers.push(new OsmLayer().build());
@@ -123,8 +155,15 @@ export class PlannerLayerService {
       this.layers.push(NetworkBitmapTileLayer.build(networkType, 'surface'));
       this.layers.push(NetworkBitmapTileLayer.build(networkType, 'survey'));
       this.layers.push(NetworkBitmapTileLayer.build(networkType, 'analysis'));
-      this.layers.push(NetworkVectorTileLayer.build(networkType));
+      this.layers.push(
+        NetworkVectorTileLayer.build(
+          networkType,
+          this.networkVectorLayerStyle.styleFunction()
+        )
+      );
     });
+
+    this.layers.forEach((layer) => layer.layer.setVisible(false));
   }
 
   updateLayerVisibility(
@@ -152,6 +191,13 @@ export class PlannerLayerService {
           visible = false;
         } else {
           visible = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
+          if (
+            visible &&
+            mapLayer.id.includes('vector') &&
+            mapLayer.layer.getVisible()
+          ) {
+            mapLayer.layer.changed();
+          }
         }
       }
       mapLayer.layer.setVisible(visible);

@@ -1,8 +1,8 @@
+import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { MapService } from '../services/map.service';
 import { surfaceUnknownColor } from './main-style-colors';
 import { proposedSurfaceUnknownColor } from './main-style-colors';
 import { proposedUnpavedColor } from './main-style-colors';
@@ -18,36 +18,42 @@ import { SurveyDateStyle } from './survey-date-style';
 export class MainMapRouteStyle {
   private readonly routeStyleBuilder = new RouteStyle();
   private readonly defaultRouteSelectedStyle = this.initRouteSelectedStyle();
-  private readonly surveyDateStyle: SurveyDateStyle;
 
-  constructor(private mapService: MapService) {
-    this.surveyDateStyle = new SurveyDateStyle(mapService);
-  }
-
-  public routeStyle(resolution: number, feature: FeatureLike): Array<Style> {
-    const selectedStyle = this.determineRouteSelectedStyle(feature);
-    const style = this.determineRouteStyle(feature, resolution);
+  public routeStyle(
+    options: MainMapStyleOptions,
+    resolution: number,
+    feature: FeatureLike
+  ): Array<Style> {
+    const selectedStyle = this.determineRouteSelectedStyle(options, feature);
+    const style = this.determineRouteStyle(options, feature, resolution);
     return selectedStyle ? [selectedStyle, style] : [style];
   }
 
-  private determineRouteSelectedStyle(feature: FeatureLike): Style {
+  private determineRouteSelectedStyle(
+    options: MainMapStyleOptions,
+    feature: FeatureLike
+  ): Style {
     const featureId = feature.get('id');
     let style = null;
     if (
-      this.mapService.selectedRouteId &&
+      options.selectedRouteId &&
       featureId &&
-      featureId.startsWith(this.mapService.selectedRouteId)
+      featureId.startsWith(options.selectedRouteId)
     ) {
       style = this.defaultRouteSelectedStyle;
     }
     return style;
   }
 
-  private determineRouteStyle(feature: FeatureLike, resolution: number): Style {
-    const color = this.routeColor(feature);
+  private determineRouteStyle(
+    options: MainMapStyleOptions,
+    feature: FeatureLike,
+    resolution: number
+  ): Style {
+    const color = this.routeColor(options, feature);
     const highligthed =
-      this.mapService.highlightedRouteId &&
-      feature.get('id').startsWith(this.mapService.highlightedRouteId);
+      options.highlightedRouteId &&
+      feature.get('id').startsWith(options.highlightedRouteId);
     const proposed = feature.get('state') === 'proposed';
     return this.routeStyleBuilder.style(
       color,
@@ -66,13 +72,16 @@ export class MainMapRouteStyle {
     });
   }
 
-  private routeColor(feature: FeatureLike): Color {
+  private routeColor(
+    options: MainMapStyleOptions,
+    feature: FeatureLike
+  ): Color {
     let color = gray;
-    if (this.mapService.mapMode === 'surface') {
+    if (options.mapMode === 'surface') {
       color = this.routeColorSurface(feature);
-    } else if (this.mapService.mapMode === 'survey') {
-      color = this.routeColorSurvey(feature);
-    } else if (this.mapService.mapMode === 'analysis') {
+    } else if (options.mapMode === 'survey') {
+      color = this.routeColorSurvey(options, feature);
+    } else if (options.mapMode === 'analysis') {
       color = this.routeColorAnalysis(feature);
     }
     return color;
@@ -102,8 +111,11 @@ export class MainMapRouteStyle {
     return color;
   }
 
-  private routeColorSurvey(feature: FeatureLike): Color {
-    return this.surveyDateStyle.surveyColor(feature);
+  private routeColorSurvey(
+    options: MainMapStyleOptions,
+    feature: FeatureLike
+  ): Color {
+    return SurveyDateStyle.surveyColor(options.surveyDateValues, feature);
   }
 
   private routeColorAnalysis(feature: FeatureLike): Color {
