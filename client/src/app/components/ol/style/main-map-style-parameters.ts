@@ -1,7 +1,7 @@
 import { MapMode } from '@app/components/ol/services/map-mode';
 import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
 
-export class MainMapStyleOptions {
+export class MainMapStyleParameters {
   constructor(
     public mapMode: MapMode,
     public showProposed: boolean,

@@ -56,7 +56,7 @@ export class PlannerContext {
     );
   }
 
-  get networkType(): NetworkType {
+  private get networkType(): NetworkType {
     return this._networkType$.value;
   }
 

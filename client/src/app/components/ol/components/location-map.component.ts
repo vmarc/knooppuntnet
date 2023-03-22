@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
 import { NetworkType } from '@api/custom/network-type';
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
-import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
+import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { NetworkTypes } from '@app/kpn/common/network-types';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
@@ -101,8 +101,8 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     throw new Error('TODO implement options$');
-    const options$: Observable<MainMapStyleOptions> = null;
-    const mainMapStyle = new MainMapStyle(options$);
+    const parameters$: Observable<MainMapStyleParameters> = null;
+    const mainMapStyle = new MainMapStyle(parameters$);
 
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(

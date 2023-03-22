@@ -10,7 +10,7 @@ import { FrisoNode } from '@app/components/ol/components/friso-node';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { MapService } from '@app/components/ol/services/map.service';
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
-import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
+import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { selectFrisoMode } from '@app/friso/store/friso.selectors';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
@@ -134,8 +134,8 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     throw new Error('TODO implement options$');
-    const options$: Observable<MainMapStyleOptions> = null;
-    const mainMapStyle = new MainMapStyle(options$);
+    const parameters$: Observable<MainMapStyleParameters> = null;
+    const mainMapStyle = new MainMapStyle(parameters$);
 
     return new MapLayers(
       List([

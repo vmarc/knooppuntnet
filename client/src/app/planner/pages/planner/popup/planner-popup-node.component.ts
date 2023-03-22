@@ -8,8 +8,11 @@ import { AppService } from '@app/app.service';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 import { MapService } from '@app/components/ol/services/map.service';
 import { Util } from '@app/components/shared/util';
+import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
 import { Subscriptions } from '@app/util/Subscriptions';
+import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
+import { combineLatestWith } from 'rxjs';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
@@ -108,18 +111,17 @@ export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
     private appService: AppService,
     private mapService: MapService,
     private mapZoomService: MapZoomService,
-    private plannerService: PlannerService
+    private plannerService: PlannerService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
     this.response$ = this.mapService.nodeClicked$.pipe(
       filter((nodeClick) => nodeClick !== null),
-      switchMap((nodeClick) =>
+      combineLatestWith(this.store.select(selectPlannerNetworkType)),
+      switchMap(([nodeClick, networkType]) =>
         this.appService
-          .mapNodeDetail(
-            this.mapService.networkType(),
-            +nodeClick.node.node.nodeId
-          )
+          .mapNodeDetail(networkType, +nodeClick.node.node.nodeId)
           .pipe(
             tap((response) => {
               if (response.result) {

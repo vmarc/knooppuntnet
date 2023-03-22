@@ -1,4 +1,4 @@
-import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
+import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { StyleFunction } from 'ol/style/Style';
 import Style from 'ol/style/Style';
@@ -11,12 +11,12 @@ export class MainMapStyle {
   private readonly mainMapNodeStyle: MainMapNodeStyle;
   private readonly mainMapRouteStyle: MainMapRouteStyle;
 
-  private options: MainMapStyleOptions;
+  private parameters: MainMapStyleParameters;
   private subscriptions = new Subscriptions();
 
-  constructor(private options$: Observable<MainMapStyleOptions>) {
+  constructor(private parameters$: Observable<MainMapStyleParameters>) {
     this.subscriptions.add(
-      options$.subscribe((options) => (this.options = options))
+      parameters$.subscribe((parameters) => (this.parameters = parameters))
     );
 
     this.mainMapNodeStyle = new MainMapNodeStyle();
@@ -33,20 +33,20 @@ export class MainMapStyle {
 
       let show = true;
       const proposed = feature.get('state') === 'proposed';
-      if (proposed && !this.options.showProposed) {
+      if (proposed && !this.parameters.showProposed) {
         show = false;
       }
 
       if (show) {
         if (layer.includes('node')) {
           return this.mainMapNodeStyle.nodeStyle(
-            this.options,
+            this.parameters,
             resolution,
             feature
           );
         }
         return this.mainMapRouteStyle.routeStyle(
-          this.options,
+          this.parameters,
           resolution,
           feature
         );

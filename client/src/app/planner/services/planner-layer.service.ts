@@ -16,7 +16,7 @@ import { MapService } from '@app/components/ol/services/map.service';
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
 import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
-import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
+import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { selectPreferencesShowProposed } from '@app/core/preferences/preferences.selectors';
 import { selectPreferencesExtraLayers } from '@app/core/preferences/preferences.selectors';
 import { NetworkTypes } from '@app/kpn/common/network-types';
@@ -34,11 +34,12 @@ import { PlannerService } from './planner.service';
 @Injectable()
 export class PlannerLayerService {
   public layers: MapLayer[];
-  private options$: Observable<MainMapStyleOptions> = combineLatest([
+  private parameters$: Observable<MainMapStyleParameters> = combineLatest([
     this.store.select(selectPlannerMapMode),
     this.store.select(selectPreferencesShowProposed),
+    this.mapService.highlightedRouteId$,
   ]).pipe(
-    map(([mapMode, showProposed]) => {
+    map(([mapMode, showProposed, highlightedRouteId]) => {
       const surveyDateValues: SurveyDateValues = new SurveyDateValues(
         '',
         '',
@@ -47,9 +48,8 @@ export class PlannerLayerService {
       );
       const selectedRouteId = '';
       const selectedNodeId = '';
-      const highlightedRouteId = '';
 
-      return new MainMapStyleOptions(
+      return new MainMapStyleParameters(
         mapMode,
         showProposed,
         surveyDateValues,
@@ -60,7 +60,7 @@ export class PlannerLayerService {
     })
   );
 
-  private networkVectorLayerStyle = new MainMapStyle(this.options$);
+  private networkVectorLayerStyle = new MainMapStyle(this.parameters$);
 
   private readonly mapRelatedSubscriptions = new Subscriptions();
 

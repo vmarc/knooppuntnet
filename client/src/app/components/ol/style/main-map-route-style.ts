@@ -1,4 +1,4 @@
-import { MainMapStyleOptions } from '@app/components/ol/style/main-map-style-options';
+import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
@@ -20,25 +20,25 @@ export class MainMapRouteStyle {
   private readonly defaultRouteSelectedStyle = this.initRouteSelectedStyle();
 
   public routeStyle(
-    options: MainMapStyleOptions,
+    parameters: MainMapStyleParameters,
     resolution: number,
     feature: FeatureLike
   ): Array<Style> {
-    const selectedStyle = this.determineRouteSelectedStyle(options, feature);
-    const style = this.determineRouteStyle(options, feature, resolution);
+    const selectedStyle = this.determineRouteSelectedStyle(parameters, feature);
+    const style = this.determineRouteStyle(parameters, feature, resolution);
     return selectedStyle ? [selectedStyle, style] : [style];
   }
 
   private determineRouteSelectedStyle(
-    options: MainMapStyleOptions,
+    parameters: MainMapStyleParameters,
     feature: FeatureLike
   ): Style {
     const featureId = feature.get('id');
     let style = null;
     if (
-      options.selectedRouteId &&
+      parameters.selectedRouteId &&
       featureId &&
-      featureId.startsWith(options.selectedRouteId)
+      featureId.startsWith(parameters.selectedRouteId)
     ) {
       style = this.defaultRouteSelectedStyle;
     }
@@ -46,14 +46,14 @@ export class MainMapRouteStyle {
   }
 
   private determineRouteStyle(
-    options: MainMapStyleOptions,
+    parameters: MainMapStyleParameters,
     feature: FeatureLike,
     resolution: number
   ): Style {
-    const color = this.routeColor(options, feature);
+    const color = this.routeColor(parameters, feature);
     const highligthed =
-      options.highlightedRouteId &&
-      feature.get('id').startsWith(options.highlightedRouteId);
+      parameters.highlightedRouteId &&
+      feature.get('id').startsWith(parameters.highlightedRouteId);
     const proposed = feature.get('state') === 'proposed';
     return this.routeStyleBuilder.style(
       color,
@@ -73,15 +73,15 @@ export class MainMapRouteStyle {
   }
 
   private routeColor(
-    options: MainMapStyleOptions,
+    parameters: MainMapStyleParameters,
     feature: FeatureLike
   ): Color {
     let color = gray;
-    if (options.mapMode === 'surface') {
+    if (parameters.mapMode === 'surface') {
       color = this.routeColorSurface(feature);
-    } else if (options.mapMode === 'survey') {
-      color = this.routeColorSurvey(options, feature);
-    } else if (options.mapMode === 'analysis') {
+    } else if (parameters.mapMode === 'survey') {
+      color = this.routeColorSurvey(parameters, feature);
+    } else if (parameters.mapMode === 'analysis') {
       color = this.routeColorAnalysis(feature);
     }
     return color;
@@ -112,10 +112,10 @@ export class MainMapRouteStyle {
   }
 
   private routeColorSurvey(
-    options: MainMapStyleOptions,
+    parameters: MainMapStyleParameters,
     feature: FeatureLike
   ): Color {
-    return SurveyDateStyle.surveyColor(options.surveyDateValues, feature);
+    return SurveyDateStyle.surveyColor(parameters.surveyDateValues, feature);
   }
 
   private routeColorAnalysis(feature: FeatureLike): Color {

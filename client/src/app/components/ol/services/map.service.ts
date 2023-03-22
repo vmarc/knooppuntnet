@@ -43,26 +43,6 @@ export class MapService {
     this.routeClicked$ = this._routeClicked$.asObservable();
   }
 
-  get highlightedNodeId(): string {
-    return this._highlightedNodeId$.value;
-  }
-
-  get highlightedRouteId(): string {
-    return this._highlightedRouteId$.value;
-  }
-
-  nextHighlightedNodeId(value: string): void {
-    if (this._highlightedNodeId$.value !== value) {
-      this._highlightedNodeId$.next(value);
-    }
-  }
-
-  nextHighlightedRouteId(value: string): void {
-    if (this._highlightedRouteId$.value !== value) {
-      this._highlightedRouteId$.next(value);
-    }
-  }
-
   networkType(): NetworkType {
     return this._networkType$.value;
   }

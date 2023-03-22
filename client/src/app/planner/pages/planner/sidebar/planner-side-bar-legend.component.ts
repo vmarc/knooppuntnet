@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MapService } from '@app/components/ol/services/map.service';
 import { actionPreferencesShowLegend } from '@app/core/preferences/preferences.actions';
 import { selectPreferencesShowLegend } from '@app/core/preferences/preferences.selectors';
+import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
         Legend
       </mat-expansion-panel-header>
 
-      <div *ngIf="mapService.mapMode$ | async as mapMode">
+      <div *ngIf="mapMode$ | async as mapMode">
         <div *ngIf="mapMode === 'surface'" class="legend">
           <div>
             <kpn-legend-icon color="rgb(0, 200, 0)"/>
@@ -148,8 +148,9 @@ import { Store } from '@ngrx/store';
 })
 export class PlannerSideBarLegendComponent {
   readonly expanded$ = this.store.select(selectPreferencesShowLegend);
+  readonly mapMode$ = this.store.select(selectPlannerMapMode);
 
-  constructor(public mapService: MapService, private store: Store) {}
+  constructor(private store: Store) {}
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(actionPreferencesShowLegend({ value: expanded }));

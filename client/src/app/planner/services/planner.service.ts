@@ -40,7 +40,7 @@ export class PlannerService {
     this.appService
   );
   private readonly overlay = new PlannerOverlayImpl(this.mapService);
-  context: PlannerContext = new PlannerContext(
+  readonly context: PlannerContext = new PlannerContext(
     this.routeLayer,
     this.markerLayer,
     this.cursor,
