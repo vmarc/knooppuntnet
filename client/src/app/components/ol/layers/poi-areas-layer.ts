@@ -27,6 +27,6 @@ export class PoiAreasLayer {
       style: (feature) => lineStyle,
     });
 
-    return new MapLayer('poi-areas-layer', layer);
+    return MapLayer.simpleLayer('poi-areas-layer', layer);
   }
 }

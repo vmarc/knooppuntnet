@@ -17,6 +17,6 @@ export class TileDebug512Layer {
       }),
     });
 
-    return new MapLayer('debug-512', layer);
+    return MapLayer.simpleLayer('debug-512', layer);
   }
 }

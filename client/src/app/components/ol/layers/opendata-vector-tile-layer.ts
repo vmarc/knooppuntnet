@@ -2,7 +2,6 @@ import { NetworkType } from '@api/custom/network-type';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
-import LayerGroup from 'ol/layer/Group';
 import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
@@ -16,22 +15,14 @@ import Text from 'ol/style/Text';
 import { ZoomLevel } from '../domain/zoom-level';
 import { Layers } from './layers';
 
-export class OpendataTileLayer {
+export class OpendataVectorTileLayer {
   private readonly largeMinZoomLevel = 13;
   private readonly smallStyle = this.buildSmallStyle();
   private readonly largeStyle = this.buildLargeStyle();
   bitmapTileLayer: TileLayer<XYZ>;
   vectorTileLayer: VectorTileLayer;
 
-  build(networkType: NetworkType, layerId: string, dir: string): MapLayer {
-    this.bitmapTileLayer = new TileLayer<XYZ>({
-      source: new XYZ({
-        minZoom: ZoomLevel.bitmapTileMinZoom,
-        maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: `/tiles-history/opendata/${dir}/{z}/{x}/{y}.png`,
-      }),
-    });
-
+  build(networkType: NetworkType, layerName: string, dir: string): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -49,39 +40,23 @@ export class OpendataTileLayer {
       renderMode: 'vector',
     });
 
-    const layer = new LayerGroup({
-      layers: [this.bitmapTileLayer, this.vectorTileLayer],
-    });
-
-    return new MapLayer(layerId, layer, null, null, this.applyMap());
+    return new MapLayer(
+      layerName,
+      `${layerName}-vector`,
+      ZoomLevel.vectorTileMinZoom,
+      ZoomLevel.vectorTileMaxOverZoom,
+      this.vectorTileLayer,
+      null,
+      null,
+      this.applyMap()
+    );
   }
 
   private applyMap() {
     return (map: Map) => {
       const style = this.styleFunction(map);
       this.vectorTileLayer.setStyle(style);
-      this.updateLayerVisibility(map.getView().getZoom());
-      // TODO need to unsubscribe
-      map
-        .getView()
-        .on('change:resolution', () => this.zoom(map.getView().getZoom()));
     };
-  }
-
-  private zoom(zoomLevel: number) {
-    this.updateLayerVisibility(zoomLevel);
-    return true;
-  }
-
-  private updateLayerVisibility(zoomLevel: number) {
-    const zoom = Math.round(zoomLevel);
-    if (zoom <= ZoomLevel.bitmapTileMaxZoom) {
-      /* TODO this.bitmapTileLayer.layer.setVisible(true); */
-      this.vectorTileLayer.setVisible(false);
-    } else if (zoom >= ZoomLevel.vectorTileMinZoom) {
-      /* TODO this.bitmapTileLayer.layer.setVisible(false); */
-      this.vectorTileLayer.setVisible(true);
-    }
   }
 
   private styleFunction(map: Map): StyleFunction {

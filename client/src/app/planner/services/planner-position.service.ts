@@ -20,7 +20,7 @@ export class PlannerPositionService {
       .subscribe((mapPosition) => {
         if (mapPosition) {
           console.log(`dispatch update position: zoom=${mapPosition.zoom}`);
-          this.store.dispatch(actionPlannerPosition(mapPosition));
+          this.store.dispatch(actionPlannerPosition({ mapPosition }));
         }
       });
   }

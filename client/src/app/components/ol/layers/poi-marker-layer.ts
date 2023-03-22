@@ -22,6 +22,6 @@ export class PoiMarkerLayer {
 
     source.addFeature(marker);
 
-    return new MapLayer('poi-marker-layer', layer);
+    return MapLayer.simpleLayer('poi-marker-layer', layer);
   }
 }

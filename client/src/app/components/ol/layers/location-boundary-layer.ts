@@ -33,6 +33,6 @@ export class LocationBoundaryLayer {
       },
     });
 
-    return new MapLayer('location-boundary', layer);
+    return MapLayer.simpleLayer('location-boundary', layer);
   }
 }

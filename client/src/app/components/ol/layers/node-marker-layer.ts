@@ -22,6 +22,6 @@ export class NodeMarkerLayer {
 
     source.addFeature(marker);
 
-    return new MapLayer('node-marker-layer', layer);
+    return MapLayer.simpleLayer('node-marker-layer', layer);
   }
 }

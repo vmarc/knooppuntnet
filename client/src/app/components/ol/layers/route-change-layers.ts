@@ -70,6 +70,6 @@ export class RouteChangeLayers {
       source,
     });
     layer.set('name', this.i18nService.translation(name));
-    return new MapLayer('route-change-layer', layer);
+    return MapLayer.simpleLayer('route-change-layer', layer);
   }
 }

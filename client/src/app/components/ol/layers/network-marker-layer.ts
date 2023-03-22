@@ -27,6 +27,6 @@ export class NetworkMarkerLayer {
       source,
     });
     markers.forEach((marker) => source.addFeature(marker));
-    return new MapLayer('network-marker-layer', layer);
+    return MapLayer.simpleLayer('network-marker-layer', layer);
   }
 }

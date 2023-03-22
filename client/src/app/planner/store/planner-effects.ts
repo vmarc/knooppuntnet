@@ -72,13 +72,19 @@ export class PlannerEffects {
           poisParam,
           poiLayers,
         ]) => {
+          console.log(
+            `planner effect plannerPageInit: positionParam=${positionParam}`
+          );
+
           const networkType = !!networkTypeParam
             ? NetworkType[networkTypeParam]
             : NetworkType.hiking;
 
           let position = MapPosition.fromQueryParam(positionParam);
+          console.log(`  position=${position}`);
           if (!position) {
             const mapPositionString = this.storage.get(this.mapPositionKey);
+            console.log(`  mapPositionString=${mapPositionString}`);
             if (!!mapPositionString) {
               position = MapPosition.fromQueryParam(mapPositionString);
               console.log(
@@ -155,7 +161,7 @@ export class PlannerEffects {
       return this.actions$.pipe(
         ofType(actionPlannerPosition),
         concatLatestFrom(() => this.store.select(selectPlannerState)),
-        mergeMap(([mapPosition, state]) => {
+        mergeMap(([{ mapPosition }, state]) => {
           this.storage.set(this.mapPositionKey, mapPosition.toQueryParam());
           const promise = this.navigate(state);
           return from(promise);

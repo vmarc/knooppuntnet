@@ -3,6 +3,7 @@ import { TrackPoint } from '@api/common/common/track-point';
 import { TrackSegment } from '@api/common/common/track-segment';
 import { RouteMap } from '@api/common/route/route-map';
 import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
+import { I18nService } from '@app/i18n/i18n.service';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
@@ -13,7 +14,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { I18nService } from '../../../i18n/i18n.service';
 import { Util } from '../../shared/util';
 import { Marker } from '../domain/marker';
 import { Layers } from './layers';
@@ -46,7 +46,7 @@ export class RouteLayers {
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set('name', title);
       const name = `path-layer-${path.pathId}`;
-      return new MapLayer(name, layer);
+      return MapLayer.simpleLayer(name, layer);
     });
   }
 
@@ -60,7 +60,7 @@ export class RouteLayers {
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set('name', title);
-      return new MapLayer('route-forward-layer', layer);
+      return MapLayer.simpleLayer('route-forward-layer', layer);
     }
     return null;
   }
@@ -75,7 +75,7 @@ export class RouteLayers {
       });
       source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       layer.set('name', title);
-      return new MapLayer('route-backward-layer', layer);
+      return MapLayer.simpleLayer('route-backward-layer', layer);
     }
     return null;
   }
@@ -92,7 +92,7 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set('name', title);
-      return new MapLayer('route-start-tentacle-layer', layer);
+      return MapLayer.simpleLayer('route-start-tentacle-layer', layer);
     }
     return null;
   }
@@ -109,7 +109,7 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
       });
       layer.set('name', title);
-      return new MapLayer('route-end-tentacles-layer', layer);
+      return MapLayer.simpleLayer('route-end-tentacles-layer', layer);
     }
     return null;
   }
@@ -128,7 +128,7 @@ export class RouteLayers {
         );
       });
       layer.set('name', title);
-      return new MapLayer('route-unused-segment-layer', layer);
+      return MapLayer.simpleLayer('route-unused-segment-layer', layer);
     }
     return null;
   }
@@ -181,7 +181,7 @@ export class RouteLayers {
     source.addFeatures(markers);
     const layerName = this.i18nService.translation('@@map.layer.nodes');
     layer.set('name', layerName);
-    return new MapLayer('route-marker-layer', layer);
+    return MapLayer.simpleLayer('route-marker-layer', layer);
   }
 
   private buildMarkers(

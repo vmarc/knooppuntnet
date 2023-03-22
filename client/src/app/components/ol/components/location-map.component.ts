@@ -6,11 +6,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
 import { NetworkType } from '@api/custom/network-type';
+import { NetworkTypes } from '@app/kpn/common/network-types';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { fromEvent } from 'rxjs';
-import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -101,7 +102,14 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.push(
       this.mapLayerService.backgroundLayer(this.mapId)
     );
-    mapLayers = mapLayers.push(this.mapLayerService.mainMapLayer());
+    NetworkTypes.all.forEach((networkType) => {
+      mapLayers = mapLayers.push(
+        this.mapLayerService.mainMapVectorLayer(networkType)
+      );
+      mapLayers = mapLayers.push(
+        this.mapLayerService.mainMapBitmapLayer(networkType)
+      );
+    });
     mapLayers = mapLayers.push(
       this.mapLayerService.locationBoundaryLayer(this.geoJson)
     );

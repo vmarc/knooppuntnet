@@ -17,6 +17,6 @@ export class TileDebug256Layer {
       }),
     });
 
-    return new MapLayer('debug-256', layer);
+    return MapLayer.simpleLayer('debug-256', layer);
   }
 }

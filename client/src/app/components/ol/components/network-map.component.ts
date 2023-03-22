@@ -2,11 +2,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network/network-map-page';
+import { NetworkNodesBitmapTileLayer } from '@app/components/ol/layers/network-nodes-bitmap-tile-layer';
+import { NetworkNodesVectorTileLayer } from '@app/components/ol/layers/network-nodes-vector-tile-layer';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { fromEvent } from 'rxjs';
-import { Subscriptions } from '../../../util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { NetworkMapPosition } from '../domain/network-map-position';
@@ -113,7 +115,10 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       this.mapLayerService.backgroundLayer(this.mapId)
     );
     mapLayers = mapLayers.push(
-      this.mapLayerService.networkNodesTileLayer(
+      NetworkNodesBitmapTileLayer.build(this.page.summary.networkType)
+    );
+    mapLayers = mapLayers.push(
+      NetworkNodesVectorTileLayer.build(
         this.page.summary.networkType,
         this.page.nodeIds,
         this.page.routeIds

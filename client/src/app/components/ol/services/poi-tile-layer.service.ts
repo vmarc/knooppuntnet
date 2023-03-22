@@ -29,6 +29,9 @@ export class PoiTileLayerService {
     this.poiService.changed.subscribe(() => layer.changed());
     return new MapLayer(
       'poi-tile-layer',
+      'poi-tile-layer',
+      ZoomLevel.poiTileMinZoom,
+      ZoomLevel.poiTileMaxZoom,
       layer,
       null,
       null,

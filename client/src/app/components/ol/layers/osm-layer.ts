@@ -9,6 +9,6 @@ export class OsmLayer {
         url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       }),
     });
-    return new MapLayer('osm', layer);
+    return MapLayer.simpleLayer('osm', layer);
   }
 }

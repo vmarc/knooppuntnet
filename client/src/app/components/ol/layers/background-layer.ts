@@ -71,8 +71,18 @@ export class BackgroundLayer {
 
     layer.set('name', 'backgroundLayerName');
 
-    return new MapLayer('background', layer, null, null, null, () => {
-      mbMap.resize();
-    });
+    return new MapLayer(
+      'background',
+      'background',
+      -Infinity,
+      Infinity,
+      layer,
+      null,
+      null,
+      null,
+      () => {
+        mbMap.resize();
+      }
+    );
   }
 }

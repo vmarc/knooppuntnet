@@ -110,8 +110,8 @@ export class MonitorRouteChangeMapComponent
       style: () => layerStyle,
     });
 
-    layer.set('name', 'GPX reference');
-    return new MapLayer('gpx-reference-layer', layer);
+    layer.set('name', 'GPX reference'); // TODO planner: set elsewhere?
+    return MapLayer.simpleLayer('gpx-reference-layer', layer);
   }
 
   private buildNokSegmentLayer(): MapLayer {
@@ -125,8 +125,8 @@ export class MonitorRouteChangeMapComponent
       source: new VectorSource({ features }),
       style: () => layerStyle,
     });
-    layer.set('name', 'Not OK segment');
-    return new MapLayer('not-ok-layer', layer);
+    layer.set('name', 'Not OK segment'); // TODO planner: set elsewhere?
+    return MapLayer.simpleLayer('not-ok-layer', layer);
   }
 
   private buildOsmRelationLayer(): MapLayer {
@@ -146,8 +146,8 @@ export class MonitorRouteChangeMapComponent
       source: new VectorSource({ features }),
       style: () => thickStyle,
     });
-    layer.set('name', 'OSM Relation');
-    return new MapLayer('osm-relation-layer', layer, null, null);
+    layer.set('name', 'OSM Relation'); // TODO planner: set elsewhere?
+    return MapLayer.simpleLayer('osm-relation-layer', layer);
   }
 
   private fixedStyle(color: string, width: number): Style {

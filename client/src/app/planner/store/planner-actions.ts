@@ -31,7 +31,7 @@ export const actionPlannerResultMode = createAction(
 
 export const actionPlannerPosition = createAction(
   '[Planner] Position',
-  props<MapPosition>()
+  props<{ mapPosition: MapPosition }>()
 );
 
 export const actionPlannerLayerVisible = createAction(

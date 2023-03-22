@@ -32,6 +32,6 @@ export class NodeMovedLayer {
       source,
     });
 
-    return new MapLayer('node-moved-layer', layer);
+    return MapLayer.simpleLayer('node-moved-layer', layer);
   }
 }

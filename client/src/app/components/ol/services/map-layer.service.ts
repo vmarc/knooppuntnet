@@ -25,11 +25,10 @@ import { MapLayers } from '../layers/map-layers';
 import { NetworkBitmapTileLayer } from '../layers/network-bitmap-tile-layer';
 import { NetworkMarkerLayer } from '../layers/network-marker-layer';
 import { NetworkNodesMarkerLayer } from '../layers/network-nodes-marker-layer';
-import { NetworkNodesTileLayer } from '../layers/network-nodes-tile-layer';
+import { NetworkNodesVectorTileLayer } from '../layers/network-nodes-vector-tile-layer';
 import { NetworkVectorTileLayer } from '../layers/network-vector-tile-layer';
 import { NodeMarkerLayer } from '../layers/node-marker-layer';
 import { NodeMovedLayer } from '../layers/node-moved-layer';
-import { OsmLayer } from '../layers/osm-layer';
 import { PoiAreasLayer } from '../layers/poi-areas-layer';
 import { PoiMarkerLayer } from '../layers/poi-marker-layer';
 import { PoiTileLayer } from '../layers/poi-tile-layer';
@@ -37,7 +36,6 @@ import { RouteChangeLayers } from '../layers/route-change-layers';
 import { RouteLayers } from '../layers/route-layers';
 import { RouteNodesLayer } from '../layers/route-nodes-layer';
 import { TileDebug256Layer } from '../layers/tile-debug-256-layer';
-import { TileDebug512Layer } from '../layers/tile-debug-512-layer';
 import { MapMode } from './map-mode';
 import { MapService } from './map.service';
 
@@ -130,10 +128,6 @@ export class MapLayerService {
     );
   }
 
-  osmLayer(): MapLayer {
-    return new OsmLayer().build();
-  }
-
   backgroundLayer(mapElementId: string): MapLayer {
     return new BackgroundLayer().build(mapElementId);
   }
@@ -142,12 +136,16 @@ export class MapLayerService {
     return new TileDebug256Layer().build();
   }
 
-  tile512NameLayer(): MapLayer {
-    return new TileDebug512Layer().build();
+  mainMapVectorLayer(networkType: NetworkType): MapLayer {
+    return new MainMapLayer(this.mapService, this.store).buildVectorLayer(
+      networkType
+    );
   }
 
-  mainMapLayer(): MapLayer {
-    return new MainMapLayer(this.mapService, this.store).build();
+  mainMapBitmapLayer(networkType: NetworkType): MapLayer {
+    return new MainMapLayer(this.mapService, this.store).buildBitmapLayer(
+      networkType
+    );
   }
 
   locationBoundaryLayer(geoJson: string): MapLayer {
@@ -205,7 +203,7 @@ export class MapLayerService {
     nodeIds: number[],
     routeIds: number[]
   ): MapLayer {
-    return NetworkNodesTileLayer.build(networkType, nodeIds, routeIds);
+    return NetworkNodesVectorTileLayer.build(networkType, nodeIds, routeIds);
   }
 
   poiTileLayer(): VectorTileLayer {

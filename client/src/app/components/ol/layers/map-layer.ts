@@ -4,8 +4,25 @@ import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
 
 export class MapLayer {
+  static simpleLayer(name: string, layer: BaseLayer): MapLayer {
+    return new MapLayer(
+      name,
+      name,
+      -Infinity,
+      Infinity,
+      layer,
+      null,
+      null,
+      null,
+      null
+    );
+  }
+
   constructor(
     public name: string,
+    public id: string,
+    public minZoom: number,
+    public maxZoom: number,
     public layer: BaseLayer,
     public networkType?: NetworkType,
     public mapMode?: MapMode,
@@ -17,13 +34,5 @@ export class MapLayer {
     if (this.resizeFunction) {
       this.resizeFunction();
     }
-  }
-
-  get minZoom(): number {
-    return this.layer.getMinZoom();
-  }
-
-  get maxZoom(): number {
-    return this.layer.getMaxZoom();
   }
 }

@@ -22,6 +22,6 @@ export class RouteNodesLayer {
       zIndex: Layers.zIndexNetworkNodesLayer,
       source,
     });
-    return new MapLayer('route-nodes-layer', layer);
+    return MapLayer.simpleLayer('route-nodes-layer', layer);
   }
 }

@@ -6,6 +6,7 @@ import { AppService } from '@app/app.service';
 import { LegHttpErrorDialogComponent } from '@app/components/ol/components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components/leg-not-found-dialog';
 import { NoRouteDialogComponent } from '@app/components/ol/components/no-route-dialog.component';
+import { MapGeocoder } from '@app/components/ol/domain/map-geocoder';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { MapControls } from '@app/components/ol/layers/map-controls';
@@ -207,10 +208,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
       },
     });
 
-    const layers = this.plannerLayerService.allLayers
-      .map((ml) => ml.layer)
-      .toArray();
-
+    const layers = this.plannerLayerService.layers.map((ml) => ml.layer);
     layers.forEach((layer) => layer.setVisible(false));
 
     this.map = new Map({
@@ -224,25 +222,69 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
       }),
     });
 
-    // this.plannerLayerService.mapInit(this.map);
+    console.log(
+      'zoom  0 resolution = ' + this.map.getView().getResolutionForZoom(0)
+    );
+    console.log(
+      'zoom  1 resolution = ' + this.map.getView().getResolutionForZoom(1)
+    );
+    console.log(
+      'zoom  2 resolution = ' + this.map.getView().getResolutionForZoom(2)
+    );
+    console.log(
+      'zoom  3 resolution = ' + this.map.getView().getResolutionForZoom(3)
+    );
+    console.log(
+      'zoom  4 resolution = ' + this.map.getView().getResolutionForZoom(4)
+    );
+    console.log(
+      'zoom  5 resolution = ' + this.map.getView().getResolutionForZoom(5)
+    );
+    console.log(
+      'zoom  6 resolution = ' + this.map.getView().getResolutionForZoom(6)
+    );
+    console.log(
+      'zoom  7 resolution = ' + this.map.getView().getResolutionForZoom(7)
+    );
+    console.log(
+      'zoom  8 resolution = ' + this.map.getView().getResolutionForZoom(8)
+    );
+    console.log(
+      'zoom  9 resolution = ' + this.map.getView().getResolutionForZoom(9)
+    );
+    console.log(
+      'zoom  10 resolution = ' + this.map.getView().getResolutionForZoom(10)
+    );
+    console.log(
+      'zoom  11 resolution = ' + this.map.getView().getResolutionForZoom(11)
+    );
+    console.log(
+      'zoom  12 resolution = ' + this.map.getView().getResolutionForZoom(12)
+    );
+    console.log(
+      'zoom  13 resolution = ' + this.map.getView().getResolutionForZoom(13)
+    );
+    console.log(
+      'zoom  14 resolution = ' + this.map.getView().getResolutionForZoom(14)
+    );
+    console.log(
+      'zoom  15 resolution = ' + this.map.getView().getResolutionForZoom(15)
+    );
+    console.log(
+      'zoom  16 resolution = ' + this.map.getView().getResolutionForZoom(16)
+    );
 
-    // TODO replace temporary code
-    // const a: Coordinate = fromLonLat([2.24, 50.16]);
-    // const b: Coordinate = fromLonLat([10.56, 54.09]);
-    // const extent: Extent = [a[0], a[1], b[0], b[1]];
-    // this.map.getView().fit(extent);
-    //
-    // console.log('ZOOM=' + this.map.getView().getZoom());
+    this.plannerLayerService.mapInit(this.map);
 
-    // this.plannerService.init(this.map);
-    // this.interaction.addToMap(this.map);
+    this.plannerService.init(this.map);
+    this.interaction.addToMap(this.map);
 
     const view = this.map.getView();
     this.positionService.install(view);
     // this.poiService.updateZoomLevel(view.getZoom());
     // this.mapZoomService.install(view);
 
-    // MapGeocoder.install(this.map);
+    MapGeocoder.install(this.map);
 
     // if (this.planLoaded) {
     //   this.zoomInToRoute();

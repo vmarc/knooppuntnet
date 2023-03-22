@@ -7,6 +7,7 @@ import { Output } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { NetworkType } from '@api/custom/network-type';
 import { FrisoNode } from '@app/components/ol/components/friso-node';
+import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { MapService } from '@app/components/ol/services/map.service';
 import { selectFrisoMode } from '@app/friso/store/friso.selectors';
 import { Subscriptions } from '@app/util/Subscriptions';
@@ -132,9 +133,10 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     return new MapLayers(
       List([
-        this.mapLayerService.osmLayer(),
+        new OsmLayer().build(),
         this.mapLayerService.backgroundLayer(this.mapId),
-        this.mapLayerService.mainMapLayer(),
+        this.mapLayerService.mainMapVectorLayer(NetworkType.hiking),
+        this.mapLayerService.mainMapBitmapLayer(NetworkType.hiking),
         this.mapLayerService.frisoLayer('rename'), //'Renamed_ext.geojson'
         this.mapLayerService.frisoLayer('minor-rename'), // Minor rename_ext.geojson
         this.mapLayerService.frisoLayer('removed'), // Removed_osm.geojson

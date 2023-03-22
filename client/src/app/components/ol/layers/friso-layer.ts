@@ -2,9 +2,9 @@ import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style } from 'ol/style';
-import { MapLayer } from './map-layer';
 import Icon from 'ol/style/Icon';
 import IconAnchorUnits from 'ol/style/IconAnchorUnits';
+import { MapLayer } from './map-layer';
 
 export class FrisoLayer {
   constructor(private name: string, private filename: string) {}
@@ -30,6 +30,6 @@ export class FrisoLayer {
       style: (feature) => style,
     });
 
-    return new MapLayer(`friso-${this.name}-layer`, layer);
+    return MapLayer.simpleLayer(`friso-${this.name}-layer`, layer);
   }
 }

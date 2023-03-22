@@ -46,9 +46,9 @@ export const plannerReducer = createReducer<PlannerState>(
   ),
   on(
     actionPlannerPosition,
-    (state, position): PlannerState => ({
+    (state, { mapPosition }): PlannerState => ({
       ...state,
-      position,
+      position: mapPosition,
     })
   ),
   on(
