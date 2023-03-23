@@ -2,6 +2,7 @@ import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { NetworkType } from '@api/custom/network-type';
 import { List } from 'immutable';
+import { BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';
@@ -24,7 +25,7 @@ export class PlannerTestSetup {
   readonly highlighter = new PlannerHighlighterMock();
   readonly legRepository = new PlannerLegRepositoryMock();
   readonly planProposed$ = new Subject<boolean>();
-
+  readonly networkType$ = new BehaviorSubject<NetworkType>(NetworkType.hiking);
   readonly context = new PlannerContext(
     this.routeLayer,
     this.markerLayer,
@@ -33,17 +34,14 @@ export class PlannerTestSetup {
     this.highlighter,
     this.legRepository,
     null,
-    this.planProposed$
+    this.planProposed$,
+    this.networkType$
   );
 
   readonly node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 1]);
   readonly node2 = PlanUtil.planNodeWithCoordinate('1002', '02', null, [2, 2]);
   readonly node3 = PlanUtil.planNodeWithCoordinate('1003', '03', null, [3, 3]);
   readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', null, [4, 4]);
-
-  constructor() {
-    this.context.nextNetworkType(NetworkType.hiking);
-  }
 
   createPlanWithStartPointOnly(): Plan {
     const sourceFlag = PlanFlag.start('sourceFlag', this.node1.coordinate);

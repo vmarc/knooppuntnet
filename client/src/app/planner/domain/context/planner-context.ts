@@ -1,5 +1,7 @@
 import { LegEnd } from '@api/common/planner/leg-end';
 import { NetworkType } from '@api/custom/network-type';
+import { Subscriptions } from '@app/util/Subscriptions';
+import { first } from 'rxjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -23,15 +25,16 @@ export class NetworkTypeData {
 
 export class PlannerContext {
   plan$: Observable<Plan>;
-  networkType$: Observable<NetworkType>;
   error$: Observable<Error>;
   planProposed: boolean;
 
   private _plan$: BehaviorSubject<Plan>;
-  private _networkType$: BehaviorSubject<NetworkType>;
   private _error$ = new Subject<Error>();
   private _commandStack$: BehaviorSubject<PlannerCommandStack>;
+  private currentNetworkType: NetworkType;
   private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
+
+  private subscriptions = new Subscriptions();
 
   constructor(
     readonly routeLayer: PlannerRouteLayer,
@@ -41,23 +44,35 @@ export class PlannerContext {
     readonly highlighter: PlannerHighlighter,
     readonly legRepository: PlannerLegRepository,
     readonly overlay: PlannerOverlay,
-    readonly planProposed$: Observable<boolean>
+    readonly planProposed$: Observable<boolean>,
+    readonly networkType$: Observable<NetworkType>
   ) {
     this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
     this.plan$ = this._plan$.asObservable();
-    this._networkType$ = new BehaviorSubject<NetworkType>(null);
-    this.networkType$ = this._networkType$.asObservable();
     this.error$ = this._error$.asObservable();
     this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(
       new PlannerCommandStack()
     );
-    planProposed$.subscribe(
-      (planProposed) => (this.planProposed = planProposed)
+    this.subscriptions.add(
+      planProposed$.subscribe(
+        (planProposed) => (this.planProposed = planProposed)
+      )
+    );
+
+    networkType$
+      .pipe(first())
+      .subscribe((networkType) => (this.currentNetworkType = networkType));
+
+    this.subscriptions.add(
+      networkType$.subscribe((networkType) =>
+        this.networkTypeChanged(networkType)
+      )
     );
   }
 
-  private get networkType(): NetworkType {
-    return this._networkType$.value;
+  destroy(): void {
+    // TODO planner: call destroy!!
+    this.subscriptions.unsubscribe();
   }
 
   get plan(): Plan {
@@ -68,8 +83,8 @@ export class PlannerContext {
     return this._commandStack$.value;
   }
 
-  nextNetworkType(networkType: NetworkType): void {
-    const oldNetworkType = this._networkType$.value;
+  private networkTypeChanged(networkType: NetworkType): void {
+    const oldNetworkType = this.currentNetworkType;
     if (oldNetworkType) {
       const oldPlan = this._plan$.value;
       const oldCommandStack = this._commandStack$.value;
@@ -88,7 +103,7 @@ export class PlannerContext {
       this._plan$.next(Plan.empty);
       this._commandStack$.next(new PlannerCommandStack());
     }
-    this._networkType$.next(networkType);
+    this.currentNetworkType = networkType;
   }
 
   execute(command: PlannerCommand): void {
@@ -130,7 +145,7 @@ export class PlannerContext {
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     this.cursor.setStyleWait();
     return this.legRepository
-      .planLeg(this.networkType, source, sink, this.planProposed)
+      .planLeg(this.currentNetworkType, source, sink, this.planProposed)
       .pipe(
         tap(() => {
           this.cursor.setStyleDefault();

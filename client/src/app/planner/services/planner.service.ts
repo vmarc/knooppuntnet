@@ -3,6 +3,7 @@ import { PlanRoute } from '@api/common/planner/plan-route';
 import { AppService } from '@app/app.service';
 import { MapService } from '@app/components/ol/services/map.service';
 import { selectPreferencesPlanProposed } from '@app/core/preferences/preferences.selectors';
+import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Map as TranslationMap } from 'immutable';
@@ -48,7 +49,8 @@ export class PlannerService {
     this.highlighter,
     this.legRepository,
     this.overlay,
-    this.store.select(selectPreferencesPlanProposed)
+    this.store.select(selectPreferencesPlanProposed),
+    this.store.select(selectPlannerNetworkType)
   );
 
   constructor(

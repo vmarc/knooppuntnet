@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { PlanParams } from '@api/common/planner/plan-params';
 import { AppService } from '@app/app.service';
 import { LegHttpErrorDialogComponent } from '@app/components/ol/components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components/leg-not-found-dialog';
@@ -16,10 +17,15 @@ import { MapService } from '@app/components/ol/services/map.service';
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
 import { PageService } from '@app/components/shared/page.service';
 import { Util } from '@app/components/shared/util';
+import { selectFragment } from '@app/core/core.state';
+import { selectQueryParam } from '@app/core/core.state';
+import { PlannerCommandAddPlan } from '@app/planner/domain/commands/planner-command-add-plan';
+import { PlanBuilder } from '@app/planner/domain/plan/plan-builder';
 import { PlannerPositionService } from '@app/planner/services/planner-position.service';
 import { actionPlannerLoaded } from '@app/planner/store/planner-actions';
 import { actionPlannerLayerVisible } from '@app/planner/store/planner-actions';
 import { actionPlannerPageInit } from '@app/planner/store/planner-actions';
+import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
 import { selectPlannerLayerStates } from '@app/planner/store/planner-selectors';
 import { PoiService } from '@app/services/poi.service';
 import { Subscriptions } from '@app/util/Subscriptions';
@@ -28,6 +34,8 @@ import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
 import View from 'ol/View';
+import { fromEvent } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
 import { PlannerLayerService } from '../../services/planner-layer.service';
 import { PlannerService } from '../../services/planner.service';
@@ -107,53 +115,43 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit(): void {
-    // this.subscriptions.add(
-    //   this.store
-    //     .select(selectRouteParam('networkType'))
-    //     .subscribe((networkTypeName) => {
-    //       const networkType = NetworkTypes.withName(networkTypeName);
-    //       this.mapService.nextNetworkType(networkType);
-    //       this.plannerService.context.nextNetworkType(networkType);
-    //     })
-    // );
-    //
-    // this.subscriptions.add(
-    //   this.mapService.networkType$.subscribe((networkType) => {
-    //     this.pageService.nextToolbarBackgroundColor(
-    //       'toolbar-style-' + networkType
-    //     );
-    //   })
-    // );
-    // this.subscriptions.add(
-    //   combineLatest([
-    //     this.plannerService.context.networkType$,
-    //     this.store.select(selectQueryParam('plan')),
-    //     this.store.select(selectFragment),
-    //   ]).subscribe(([networkType, planQueryParam, fragment]) => {
-    //     let planString: string = null;
-    //     if (fragment) {
-    //       // support old QR-codes
-    //       planString = fragment;
-    //     } else {
-    //       planString = planQueryParam;
-    //     }
-    //     if (planString) {
-    //       const planParams: PlanParams = {
-    //         networkType,
-    //         planString,
-    //       };
-    //       this.appService.plan(planParams).subscribe((response) => {
-    //         const plan = PlanBuilder.build(response.result, planString);
-    //         const command = new PlannerCommandAddPlan(plan);
-    //         this.plannerService.context.execute(command);
-    //         this.planLoaded = true;
-    //         if (this.map) {
-    //           this.zoomInToRoute();
-    //         }
-    //       });
-    //     }
-    //   })
-    // );
+    this.subscriptions.add(
+      this.store.select(selectPlannerNetworkType).subscribe((networkType) => {
+        this.pageService.nextToolbarBackgroundColor(
+          'toolbar-style-' + networkType
+        );
+      })
+    );
+    this.subscriptions.add(
+      combineLatest([
+        this.store.select(selectPlannerNetworkType),
+        this.store.select(selectQueryParam('plan')),
+        this.store.select(selectFragment),
+      ]).subscribe(([networkType, planQueryParam, fragment]) => {
+        let planString: string = null;
+        if (fragment) {
+          // support old QR-codes
+          planString = fragment;
+        } else {
+          planString = planQueryParam;
+        }
+        if (planString) {
+          const planParams: PlanParams = {
+            networkType,
+            planString,
+          };
+          this.appService.plan(planParams).subscribe((response) => {
+            const plan = PlanBuilder.build(response.result, planString);
+            const command = new PlannerCommandAddPlan(plan);
+            this.plannerService.context.execute(command);
+            this.planLoaded = true;
+            if (this.map) {
+              this.zoomInToRoute();
+            }
+          });
+        }
+      })
+    );
   }
 
   mouseleave() {
@@ -220,7 +218,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const view = this.map.getView();
     this.positionService.install(view);
-    // this.poiService.updateZoomLevel(view.getZoom());
+    this.poiService.updateZoomLevel(view.getZoom());
     // this.mapZoomService.install(view);
 
     MapGeocoder.install(this.map);
@@ -228,15 +226,15 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     // if (this.planLoaded) {
     //   this.zoomInToRoute();
     // }
-    //
-    // this.subscriptions.add(
-    //   this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    // );
-    // this.subscriptions.add(
-    //   fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-    //     this.updateSize()
-    //   )
-    // );
+
+    this.subscriptions.add(
+      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
+    );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
+    );
 
     this.store.dispatch(actionPlannerLoaded());
   }
