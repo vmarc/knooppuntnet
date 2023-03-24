@@ -170,14 +170,20 @@ export class PlannerLayerService {
     layerStates: MapLayerState[],
     networkType: NetworkType,
     mapMode: MapMode,
-    zoom: number
+    zoom: number,
+    pois: boolean
   ): void {
     console.log(
       `updateLayerVisibility(zoom=${zoom}, networkType=${networkType}, mapMode=${mapMode})`
     );
     this.layers.forEach((mapLayer) => {
-      let visible = true;
-      if (!!mapLayer.networkType && mapLayer.networkType !== networkType) {
+      let visible: boolean;
+      if (mapLayer.name === PoiTileLayerService.poiLayerName) {
+        visible = pois;
+      } else if (
+        !!mapLayer.networkType &&
+        mapLayer.networkType !== networkType
+      ) {
         visible = false;
       } else if (!!mapLayer.mapMode && mapLayer.mapMode !== mapMode) {
         visible = false;

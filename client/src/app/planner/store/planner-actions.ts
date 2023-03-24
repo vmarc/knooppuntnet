@@ -5,7 +5,7 @@ import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { PlannerState } from './planner-state';
 
-export const actionPlannerPageInit = createAction('[Planner] Init');
+export const actionPlannerInit = createAction('[Planner] Init');
 
 export const actionPlannerLoad = createAction(
   '[Planner] Load',

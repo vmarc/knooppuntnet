@@ -50,7 +50,5 @@ export class PoiMenuOptionComponent {
     const groupName = this.groupName;
     const visible = event.checked;
     this.store.dispatch(actionPlannerPoiGroupVisible({ groupName, visible }));
-    // TODO planner - remove following line when included in effects?
-    //this.service.updateGroupEnabled(this.groupName, event.checked);
   }
 }

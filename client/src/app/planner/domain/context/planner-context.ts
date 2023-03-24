@@ -71,7 +71,6 @@ export class PlannerContext {
   }
 
   destroy(): void {
-    // TODO planner: call destroy!!
     this.subscriptions.unsubscribe();
   }
 

@@ -9,6 +9,7 @@ import { MapLayerService } from './map-layer.service';
 @Injectable()
 export class PoiTileLayerService {
   poiStyleMap: PoiStyleMap;
+  static poiLayerName = 'poi-tile-layer';
 
   constructor(
     private mapLayerService: MapLayerService,
@@ -26,8 +27,8 @@ export class PoiTileLayerService {
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changed.subscribe(() => layer.changed());
     return new MapLayer(
-      'poi-tile-layer',
-      'poi-tile-layer',
+      PoiTileLayerService.poiLayerName,
+      PoiTileLayerService.poiLayerName,
       ZoomLevel.poiTileMinZoom,
       ZoomLevel.poiTileMaxZoom,
       layer,

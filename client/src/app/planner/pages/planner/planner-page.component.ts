@@ -24,7 +24,7 @@ import { PlanBuilder } from '@app/planner/domain/plan/plan-builder';
 import { PlannerPositionService } from '@app/planner/services/planner-position.service';
 import { actionPlannerLoaded } from '@app/planner/store/planner-actions';
 import { actionPlannerLayerVisible } from '@app/planner/store/planner-actions';
-import { actionPlannerPageInit } from '@app/planner/store/planner-actions';
+import { actionPlannerInit } from '@app/planner/store/planner-actions';
 import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
 import { selectPlannerLayerStates } from '@app/planner/store/planner-selectors';
 import { PoiService } from '@app/services/poi.service';
@@ -98,7 +98,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private appService: AppService,
     private store: Store
   ) {
-    this.store.dispatch(actionPlannerPageInit());
+    this.store.dispatch(actionPlannerInit());
     this.plannerService.context.error$.subscribe((error) => {
       if (error instanceof HttpErrorResponse) {
         this.dialog.open(LegHttpErrorDialogComponent, {
@@ -166,6 +166,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.subscriptions.unsubscribe();
     this.plannerLayerService.mapDestroy(this.map);
     this.pageService.nextToolbarBackgroundColor(null);
+    this.plannerService.context.destroy();
     if (this.map) {
       this.map.setTarget(null);
     }
@@ -219,7 +220,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     const view = this.map.getView();
     this.positionService.install(view);
     this.poiService.updateZoomLevel(view.getZoom());
-    // this.mapZoomService.install(view);
+    this.mapZoomService.install(view);
 
     MapGeocoder.install(this.map);
 
