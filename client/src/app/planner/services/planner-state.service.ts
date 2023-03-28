@@ -8,12 +8,13 @@ import { PlannerState } from '@app/planner/store/planner-state';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
+import { NetworkTypes } from '@app/kpn/common/network-types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlannerStateService {
-  readonly mapPositionKey = 'map-position';
+  readonly plannerPositionKey = 'planner-position';
 
   private readonly defaultPoiLayerStates: MapLayerState[] = [
     { layerName: 'hiking-biking', visible: true },
@@ -27,7 +28,7 @@ export class PlannerStateService {
     { layerName: 'sports', visible: false },
   ];
 
-  constructor(private storage: BrowserStorageService) {}
+  constructor(private browserStorageService: BrowserStorageService) {}
 
   toQueryParams(state: PlannerState): Params {
     const position = state.position.toQueryParam();
@@ -53,8 +54,8 @@ export class PlannerStateService {
     };
   }
 
-  toPlannerState(queryParams: Params): PlannerState {
-    const networkType = this.parseNetworkType(queryParams);
+  toPlannerState(routeParams: Params, queryParams: Params): PlannerState {
+    const networkType = this.parseNetworkType(routeParams);
     const position = this.parsePosition(queryParams);
     const mapMode = this.parseMapMode(queryParams);
     const resultMode = this.parseResultMode(queryParams);
@@ -75,9 +76,15 @@ export class PlannerStateService {
 
   private parseNetworkType(queryParams: Params): NetworkType {
     const networkTypeParam = queryParams['networkType'];
-    return !!networkTypeParam
-      ? NetworkType[networkTypeParam]
-      : NetworkType.hiking;
+    if (!!networkTypeParam) {
+      const exists = NetworkTypes.all.some(
+        (networkType) => networkType === networkTypeParam
+      );
+      if (exists) {
+        return NetworkType[networkTypeParam];
+      }
+    }
+    return NetworkType.hiking;
   }
 
   private parsePosition(queryParams: Params): MapPosition {
@@ -85,7 +92,9 @@ export class PlannerStateService {
     let position = MapPosition.fromQueryParam(positionParam);
     console.log(`  position=${position}`);
     if (!position) {
-      const mapPositionString = this.storage.get(this.mapPositionKey);
+      const mapPositionString = this.browserStorageService.get(
+        this.plannerPositionKey
+      );
       console.log(`  mapPositionString=${mapPositionString}`);
       if (!!mapPositionString) {
         position = MapPosition.fromQueryParam(mapPositionString);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { selectRouteParams } from '@app/core/core.state';
+import { selectQueryParams, selectRouteParams } from '@app/core/core.state';
 import { PlannerLayerService } from '@app/planner/services/planner-layer.service';
 import { PlannerStateService } from '@app/planner/services/planner-state.service';
 import { selectPlannerState } from '@app/planner/store/planner-selectors';
@@ -29,9 +29,15 @@ export class PlannerEffects {
   plannerPageInit = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionPlannerInit),
-      concatLatestFrom(() => this.store.select(selectRouteParams)),
-      mergeMap(([_, queryParams]) => {
-        const state = this.plannerStateService.toPlannerState(queryParams);
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParams),
+        this.store.select(selectQueryParams),
+      ]),
+      mergeMap(([_, routeParams, queryParams]) => {
+        const state = this.plannerStateService.toPlannerState(
+          routeParams,
+          queryParams
+        );
         return this.navigate(state).pipe(map(() => actionPlannerLoad(state)));
       })
     );
@@ -45,7 +51,7 @@ export class PlannerEffects {
         concatLatestFrom(() => this.store.select(selectPlannerState)),
         mergeMap(([{ mapPosition }, state]) => {
           this.storage.set(
-            this.plannerStateService.mapPositionKey,
+            this.plannerStateService.plannerPositionKey,
             mapPosition.toQueryParam()
           );
           return this.navigate(state);
