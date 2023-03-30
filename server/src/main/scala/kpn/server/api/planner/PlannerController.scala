@@ -17,47 +17,52 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+import javax.servlet.http.HttpServletRequest
+
 @RestController
 class PlannerController(plannerFacade: PlannerFacade) {
 
   @GetMapping(value = Array("/api/node-detail/{nodeId}/{networkType}"))
   def mapNodeDetail(
+    request: HttpServletRequest,
     @PathVariable networkType: String,
     @PathVariable nodeId: Long
   ): ApiResponse[MapNodeDetail] = {
     val networkTypeValue = NetworkType.withName(networkType).get
-    plannerFacade.mapNodeDetail(CurrentUser.name, networkTypeValue, nodeId)
+    plannerFacade.mapNodeDetail(request, CurrentUser.name, networkTypeValue, nodeId)
   }
 
   @GetMapping(value = Array("/api/route-detail/{routeId}"))
   def mapRouteDetail(
+    request: HttpServletRequest,
     @PathVariable routeId: Long
   ): ApiResponse[MapRouteDetail] = {
-    plannerFacade.mapRouteDetail(CurrentUser.name, routeId)
+    plannerFacade.mapRouteDetail(request, CurrentUser.name, routeId)
   }
 
   @GetMapping(value = Array("/api/poi-configuration"))
-  def poiConfiguration(
-  ): ApiResponse[ClientPoiConfiguration] = {
-    plannerFacade.poiConfiguration(CurrentUser.name)
+  def poiConfiguration(request: HttpServletRequest): ApiResponse[ClientPoiConfiguration] = {
+    plannerFacade.poiConfiguration(request, CurrentUser.name)
   }
 
   @GetMapping(value = Array("/api/poi/{elementType}/{elementId}"))
   def poi(
+    request: HttpServletRequest,
     @PathVariable elementType: String,
     @PathVariable elementId: Long
   ): ApiResponse[PoiPage] = {
-    plannerFacade.poi(CurrentUser.name, PoiRef(elementType, elementId))
+    plannerFacade.poi(request, CurrentUser.name, PoiRef(elementType, elementId))
   }
 
   @PostMapping(path = Array("/api/leg"), consumes = Array("application/json"))
-  def leg(@RequestBody params: LegBuildParams): ApiResponse[PlanLegDetail] = {
-    plannerFacade.leg(CurrentUser.name, params)
+  def leg(request: HttpServletRequest, @RequestBody params: LegBuildParams): ApiResponse[PlanLegDetail] = {
+    plannerFacade.leg(request, CurrentUser.name, params)
   }
 
   @PostMapping(path = Array("/api/plan"), consumes = Array("application/json"))
-  def plan(@RequestBody params: PlanParams): ApiResponse[Seq[PlanLegDetail]] = {
+  def plan(request: HttpServletRequest, @RequestBody params: PlanParams): ApiResponse[Seq[PlanLegDetail]] = {
     plannerFacade.plan(
+      request,
       CurrentUser.name,
       NetworkType.withName(params.networkType).get,
       params.planString,

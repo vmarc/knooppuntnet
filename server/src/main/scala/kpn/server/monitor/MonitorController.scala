@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.multipart.MultipartFile
 
+import javax.servlet.http.HttpServletRequest
 import scala.xml.XML
 
 @RestController
@@ -40,150 +41,168 @@ class MonitorController(
 
   @PostMapping(value = Array("changes"))
   def changes(
+    request: HttpServletRequest,
     @RequestBody parameters: MonitorChangesParameters
   ): ApiResponse[MonitorChangesPage] = {
-    facade.changes(CurrentUser.name, parameters)
+    facade.changes(request, CurrentUser.name, parameters)
   }
 
   @GetMapping(value = Array("groups"))
-  def groups(): ApiResponse[MonitorGroupsPage] = {
-    facade.groups(CurrentUser.name)
+  def groups(request: HttpServletRequest): ApiResponse[MonitorGroupsPage] = {
+    facade.groups(request, CurrentUser.name)
   }
 
   @GetMapping(value = Array("group-names"))
-  def groupNames(): ApiResponse[Seq[String]] = {
-    facade.groupNames(CurrentUser.name)
+  def groupNames(request: HttpServletRequest): ApiResponse[Seq[String]] = {
+    facade.groupNames(request, CurrentUser.name)
   }
 
   @GetMapping(value = Array("groups/{groupName}"))
   def group(
+    request: HttpServletRequest,
     @PathVariable groupName: String
   ): ApiResponse[MonitorGroupPage] = {
-    facade.group(CurrentUser.name, groupName)
+    facade.group(request, CurrentUser.name, groupName)
   }
 
   @PostMapping(value = Array("groups"))
   def groupAdd(
+    request: HttpServletRequest,
     @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.groupAdd(CurrentUser.name, properties)
+    facade.groupAdd(request, CurrentUser.name, properties)
   }
 
   @PutMapping(value = Array("groups/{groupId}"))
   def groupUpdate(
+    request: HttpServletRequest,
     @PathVariable groupId: String,
     @RequestBody properties: MonitorGroupProperties
   ): Unit = {
-    facade.groupUpdate(CurrentUser.name, ObjectId(groupId), properties)
+    facade.groupUpdate(request, CurrentUser.name, ObjectId(groupId), properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupId}"))
   def groupDelete(
+    request: HttpServletRequest,
     @PathVariable groupId: String
   ): Unit = {
-    facade.groupDelete(CurrentUser.name, ObjectId(groupId))
+    facade.groupDelete(request, CurrentUser.name, ObjectId(groupId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/changes"))
   def groupChanges(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @RequestBody parameters: MonitorChangesParameters
   ): ApiResponse[MonitorGroupChangesPage] = {
-    facade.groupChanges(CurrentUser.name, groupName, parameters)
+    facade.groupChanges(request, CurrentUser.name, groupName, parameters)
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def route(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String
   ): ApiResponse[MonitorRouteDetailsPage] = {
-    facade.route(CurrentUser.name, groupName, routeName)
+    facade.route(request, CurrentUser.name, groupName, routeName)
   }
 
   @PostMapping(value = Array("groups/{groupName}"))
   def routeAdd(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @RequestBody properties: MonitorRouteProperties
   ): ApiResponse[MonitorRouteSaveResult] = {
-    facade.routeAdd(CurrentUser.name, groupName, properties)
+    facade.routeAdd(request, CurrentUser.name, groupName, properties)
   }
 
   @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def routeUpdate(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestBody properties: MonitorRouteProperties
   ): ApiResponse[MonitorRouteSaveResult] = {
-    facade.routeUpdate(CurrentUser.name, groupName, routeName, properties)
+    facade.routeUpdate(request, CurrentUser.name, groupName, routeName, properties)
   }
 
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def routeDelete(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String
   ): Unit = {
-    facade.routeDelete(CurrentUser.name, groupName, routeName)
+    facade.routeDelete(request, CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map"))
   def routeMap(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String,
   ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(CurrentUser.name, groupName, routeName, None)
+    facade.routeMap(request, CurrentUser.name, groupName, routeName, None)
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map/{relationId}"))
   def routeRelationMap(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @PathVariable relationId: Long,
   ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(CurrentUser.name, groupName, routeName, Some(relationId))
+    facade.routeMap(request, CurrentUser.name, groupName, routeName, Some(relationId))
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))
   def routeChanges(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @RequestBody parameters: MonitorChangesParameters
   ): ApiResponse[MonitorRouteChangesPage] = {
-    facade.routeChanges(CurrentUser.name, groupName + ":" + routeName, parameters)
+    facade.routeChanges(request, CurrentUser.name, groupName + ":" + routeName, parameters)
   }
 
   @GetMapping(value = Array("routes/{monitorRouteId}/changes/{changeSetId}/{replicationNumber}"))
   def routeChange(
+    request: HttpServletRequest,
     @PathVariable monitorRouteId: Long,
     @PathVariable changeSetId: Long,
     @PathVariable replicationNumber: Long
   ): ApiResponse[MonitorRouteChangePage] = {
-    facade.routeChange(CurrentUser.name, monitorRouteId, changeSetId, replicationNumber)
+    facade.routeChange(request, CurrentUser.name, monitorRouteId, changeSetId, replicationNumber)
   }
 
   @GetMapping(value = Array("route-add/{groupName}"))
   def routeAddPage(
+    request: HttpServletRequest,
     @PathVariable groupName: String
   ): ApiResponse[MonitorRouteAddPage] = {
-    facade.groupRouteAdd(CurrentUser.name, groupName)
+    facade.groupRouteAdd(request, CurrentUser.name, groupName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/update-info"))
   def routeUpdatePage(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String,
   ): ApiResponse[MonitorRouteUpdatePage] = {
-    facade.routeUpdatePage(CurrentUser.name, groupName, routeName)
+    facade.routeUpdatePage(request, CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("route-info/{routeId}"))
   def routeInfo(
+    request: HttpServletRequest,
     @PathVariable routeId: Long
   ): ApiResponse[MonitorRouteInfoPage] = {
-    facade.routeInfo(CurrentUser.name, routeId)
+    facade.routeInfo(request, CurrentUser.name, routeId)
   }
 
   @PostMapping(value = Array(s"groups/{groupName}/routes/{routeName}/upload/{relationId}"))
   def routeReferenceGpxFileUpload(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @PathVariable relationId: Long,
@@ -193,6 +212,7 @@ class MonitorController(
     val xml = XML.load(file.getInputStream)
 
     facade.upload(
+      request,
       CurrentUser.name,
       groupName,
       routeName,
@@ -205,9 +225,10 @@ class MonitorController(
 
   @GetMapping(value = Array("groups/{groupName}/route-names"))
   def routeNames(
+    request: HttpServletRequest,
     @PathVariable groupName: String,
   ): ApiResponse[Seq[String]] = {
-    facade.routeNames(CurrentUser.name, groupName)
+    facade.routeNames(request, CurrentUser.name, groupName)
   }
 
 }

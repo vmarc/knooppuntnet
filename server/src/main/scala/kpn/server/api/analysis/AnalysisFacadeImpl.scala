@@ -78,6 +78,8 @@ import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
 
+import javax.servlet.http.HttpServletRequest
+
 @Component
 class AnalysisFacadeImpl(
   api: Api,
@@ -115,197 +117,197 @@ class AnalysisFacadeImpl(
   locationChangesPageBuilder: LocationChangesPageBuilder
 ) extends AnalysisFacade {
 
-  override def nodeDetails(user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage] = {
-    api.execute(user, "node-details", s"$nodeId") {
+  override def nodeDetails(request: HttpServletRequest, user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage] = {
+    api.execute(request, user, "node-details", s"$nodeId") {
       reply(nodeDetailsPageBuilder.build(user, language, nodeId))
     }
   }
 
-  override def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage] = {
-    api.execute(user, "node-map", s"$nodeId") {
+  override def nodeMap(request: HttpServletRequest, user: Option[String], nodeId: Long): ApiResponse[NodeMapPage] = {
+    api.execute(request, user, "node-map", s"$nodeId") {
       reply(nodeMapPageBuilder.build(user, nodeId))
     }
   }
 
-  override def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage] = {
-    api.execute(user, "node-changes", s"node=$nodeId, ${parameters.toDisplayString}") {
+  override def nodeChanges(request: HttpServletRequest, user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage] = {
+    api.execute(request, user, "node-changes", s"node=$nodeId, ${parameters.toDisplayString}") {
       reply(nodeChangesPageBuilder.build(user, nodeId, parameters))
     }
   }
 
-  override def routeDetails(user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage] = {
-    api.execute(user, "route-details", s"$routeId") {
+  override def routeDetails(request: HttpServletRequest, user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage] = {
+    api.execute(request, user, "route-details", s"$routeId") {
       reply(routeDetailsPageBuilder.build(user, language, routeId))
     }
   }
 
-  override def routeMap(user: Option[String], routeId: Long): ApiResponse[RouteMapPage] = {
-    api.execute(user, "route-map", s"$routeId") {
+  override def routeMap(request: HttpServletRequest, user: Option[String], routeId: Long): ApiResponse[RouteMapPage] = {
+    api.execute(request, user, "route-map", s"$routeId") {
       reply(routeMapPageBuilder.build(user, routeId))
     }
   }
 
-  override def routeChanges(user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage] = {
-    api.execute(user, "route-changes", s"route=$routeId, ${parameters.toDisplayString}") {
+  override def routeChanges(request: HttpServletRequest, user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage] = {
+    api.execute(request, user, "route-changes", s"route=$routeId, ${parameters.toDisplayString}") {
       reply(routeChangesPageBuilder.build(user, routeId, parameters))
     }
   }
 
-  override def networkDetails(user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage] = {
-    api.execute(user, "network-details", s"$networkId") {
+  override def networkDetails(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage] = {
+    api.execute(request, user, "network-details", s"$networkId") {
       reply(networkDetailsPageBuilder.build(networkId))
     }
   }
 
-  override def networkMap(user: Option[String], networkId: Long): ApiResponse[NetworkMapPage] = {
-    api.execute(user, "network-map", s"$networkId") {
+  override def networkMap(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkMapPage] = {
+    api.execute(request, user, "network-map", s"$networkId") {
       reply(networkMapPageBuilder.build(networkId))
     }
   }
 
-  override def networkFacts(user: Option[String], networkId: Long): ApiResponse[NetworkFactsPage] = {
-    api.execute(user, "network-facts", s"$networkId") {
+  override def networkFacts(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkFactsPage] = {
+    api.execute(request, user, "network-facts", s"$networkId") {
       reply(networkFactsPageBuilder.build(networkId))
     }
   }
 
-  override def networkNodes(user: Option[String], networkId: Long): ApiResponse[NetworkNodesPage] = {
-    api.execute(user, "network-nodes", s"$networkId") {
+  override def networkNodes(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkNodesPage] = {
+    api.execute(request: HttpServletRequest, user, "network-nodes", s"$networkId") {
       reply(networkNodesPageBuilder.build(networkId))
     }
   }
 
-  override def networkRoutes(user: Option[String], networkId: Long): ApiResponse[NetworkRoutesPage] = {
-    api.execute(user, "network-routes", s"$networkId") {
+  override def networkRoutes(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkRoutesPage] = {
+    api.execute(request, user, "network-routes", s"$networkId") {
       reply(networkRoutesPageBuilder.build(networkId))
     }
   }
 
-  override def networkChanges(user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage] = {
-    api.execute(user, "network-changes", s"networkId=$networkId, ${parameters.toDisplayString}") {
+  override def networkChanges(request: HttpServletRequest, user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage] = {
+    api.execute(request, user, "network-changes", s"networkId=$networkId, ${parameters.toDisplayString}") {
       reply(networkChangesPageBuilder.build(user, networkId, parameters))
     }
   }
 
-  override def subsetNetworks(user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage] = {
-    api.execute(user, "subset-networks", s"${subset.string}") {
+  override def subsetNetworks(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage] = {
+    api.execute(request, user, "subset-networks", s"${subset.string}") {
       reply(Some(subsetNetworksPageBuilder.build(subset)))
     }
   }
 
-  override def subsetFacts(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage] = {
-    api.execute(user, "subset-facts", s"${subset.string}") {
+  override def subsetFacts(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage] = {
+    api.execute(request, user, "subset-facts", s"${subset.string}") {
       reply(Some(subsetFactsPageBuilder.build(subset)))
     }
   }
 
-  override def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage] = {
-    api.execute(user, "subset-fact-details", s"${subset.string}, ${fact.name}") {
+  override def subsetFactDetails(request: HttpServletRequest, user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage] = {
+    api.execute(request, user, "subset-fact-details", s"${subset.string}, ${fact.name}") {
       reply(Some(subsetFactDetailsPageBuilder.build(subset, fact)))
     }
   }
 
-  override def subsetFactRefs(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactRefs] = {
-    api.execute(user, "subset-fact-refs", s"${subset.string}, ${fact.name}") {
+  override def subsetFactRefs(request: HttpServletRequest, user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactRefs] = {
+    api.execute(request, user, "subset-fact-refs", s"${subset.string}, ${fact.name}") {
       reply(Some(subsetFactRefsBuilder.build(subset, fact)))
     }
   }
 
-  override def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
-    api.execute(user, "subset-changes", s"subset=${subset.name}, ${parameters.toDisplayString}") {
+  override def subsetChanges(request: HttpServletRequest, user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage] = {
+    api.execute(request, user, "subset-changes", s"subset=${subset.name}, ${parameters.toDisplayString}") {
       reply(subsetChangesPageBuilder.build(user, subset, parameters))
     }
   }
 
-  override def subsetOrphanRoutes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage] = {
-    api.execute(user, "subset-orphan-routes", subset.string) {
+  override def subsetOrphanRoutes(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage] = {
+    api.execute(request, user, "subset-orphan-routes", subset.string) {
       reply(Some(subsetOrphanRoutesPageBuilder.build(subset)))
     }
   }
 
-  override def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage] = {
-    api.execute(user, "subset-orphan-nodes", subset.string) {
+  override def subsetOrphanNodes(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage] = {
+    api.execute(request, user, "subset-orphan-nodes", subset.string) {
       reply(Some(subsetOrphanNodesPageBuilder.build(subset)))
     }
   }
 
-  override def subsetMap(user: Option[String], subset: Subset): ApiResponse[SubsetMapPage] = {
-    api.execute(user, "subset-map", subset.string) {
+  override def subsetMap(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetMapPage] = {
+    api.execute(request, user, "subset-map", subset.string) {
       reply(Some(subsetMapPageBuilder.build(subset)))
     }
   }
 
-  override def overview(user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]] = {
-    api.execute(user, "overview", "") {
+  override def overview(request: HttpServletRequest, user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]] = {
+    api.execute(request, user, "overview", "") {
       reply(overviewPageBuilder.build(language))
     }
   }
 
-  override def changeSet(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage] = {
+  override def changeSet(request: HttpServletRequest, user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage] = {
     val args = s"changeSetId=$changeSetId, replicationId=${replicationId.map(_.name)}"
-    api.execute(user, "change-set", args) {
+    api.execute(request, user, "change-set", args) {
       reply(changeSetPageBuilder.build(user, language, changeSetId, replicationId))
     }
   }
 
-  override def replication(user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long] = {
+  override def replication(request: HttpServletRequest, user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long] = {
     val args = s"changeSetId=$changeSetId}"
-    api.execute(user, "change-set", args) {
+    api.execute(request, user, "change-set", args) {
       reply(changeSetPageBuilder.build(Some("app"), language, changeSetId, None).map(_.summary.key.replicationNumber))
     }
   }
 
-  override def changes(user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage] = {
-    api.execute(user, "changes", parameters.toDisplayString) {
+  override def changes(request: HttpServletRequest, user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage] = {
+    api.execute(request, user, "changes", parameters.toDisplayString) {
       reply(Some(changesPageBuilder.build(user, language, strategy, parameters)))
     }
   }
 
-  override def locations(user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
-    api.execute(user, "location", networkType.name) {
+  override def locations(request: HttpServletRequest, user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
+    api.execute(request, user, "location", networkType.name) {
       reply(locationsPageBuilder.build(language, networkType, country))
     }
   }
 
-  override def locationNodes(user: Option[String], language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
+  override def locationNodes(request: HttpServletRequest, user: Option[String], language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val locationKey = s"${key.networkType.name}, ${key.country.domain}, ${key.name}, "
     val locationParameters = s"${parameters.locationNodesType.name}, ${parameters.pageSize}, ${parameters.pageIndex}"
-    api.execute(user, "location-nodes", locationKey + locationParameters) {
+    api.execute(request, user, "location-nodes", locationKey + locationParameters) {
       reply(locationNodesPageBuilder.build(language, key, parameters))
     }
   }
 
-  override def locationRoutes(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
+  override def locationRoutes(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    api.execute(user, "location-routes", args) {
+    api.execute(request, user, "location-routes", args) {
       reply(locationRoutesPageBuilder.build(language, locationKey, parameters))
     }
   }
 
-  override def locationFacts(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
+  override def locationFacts(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    api.execute(user, "location-facts", args) {
+    api.execute(request, user, "location-facts", args) {
       reply(locationFactsPageBuilder.build(language, locationKey))
     }
   }
 
-  override def locationMap(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage] = {
+  override def locationMap(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    api.execute(user, "location-map", args) {
+    api.execute(request, user, "location-map", args) {
       reply(locationMapPageBuilder.build(language, locationKey))
     }
   }
 
-  override def locationChanges(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage] = {
+  override def locationChanges(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    api.execute(user, "location-changes", args) {
+    api.execute(request, user, "location-changes", args) {
       reply(locationChangesPageBuilder.build(language, locationKey, parameters))
     }
   }
 
-  override def locationEdit(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage] = {
+  override def locationEdit(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage] = {
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
-    api.execute(user, "location-edit", args) {
+    api.execute(request, user, "location-edit", args) {
       reply(locationEditPageBuilder.build(language, locationKey))
     }
   }

@@ -242,12 +242,6 @@
         </dependency>
 
         <dependency>
-            <groupId>nl.basjes.parse.httpdlog</groupId>
-            <artifactId>httpdlog-parser</artifactId>
-            <version>5.8</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.sksamuel.scrimage</groupId>
             <artifactId>scrimage-core</artifactId>
             <version>4.0.32</version>
@@ -334,6 +328,12 @@
             <groupId>ch.poole</groupId>
             <artifactId>OpeningHoursParser</artifactId>
             <version>0.27.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>nl.basjes.parse.useragent</groupId>
+            <artifactId>yauaa</artifactId>
+            <version>7.17.1</version>
         </dependency>
 
     </dependencies>

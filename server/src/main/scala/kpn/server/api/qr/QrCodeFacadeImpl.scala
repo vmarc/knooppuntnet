@@ -13,12 +13,13 @@ import java.awt.Graphics2D
 import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
+import javax.servlet.http.HttpServletRequest
 
 @Component
 class QrCodeFacadeImpl(api: Api) extends QrCodeFacade {
 
-  override def qrCode(user: Option[String], message: String): Array[Byte] = {
-    api.execute(user, "qr-code", message) {
+  override def qrCode(request: HttpServletRequest, user: Option[String], message: String): Array[Byte] = {
+    api.execute(request, user, "qr-code", message) {
       val image = new BufferedImage(255, 255, BufferedImage.TYPE_INT_RGB)
       drawQrCode(image, message)
       toPngByteArray(image)

@@ -5,8 +5,6 @@ import com.nimbusds.jose.JWSHeader
 import com.nimbusds.jose.crypto.MACSigner
 import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
-import javax.servlet.http.Cookie
-import javax.servlet.http.HttpServletResponse
 import kpn.server.api.Api
 import org.apache.commons.codec.binary.Base64.decodeBase64
 import org.springframework.http.HttpStatus
@@ -18,12 +16,20 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
+import javax.servlet.http.Cookie
+import javax.servlet.http.HttpServletRequest
+import javax.servlet.http.HttpServletResponse
+
 @RestController
 class AuthenticationController(api: Api, authenticationFacade: AuthenticationFacade, crypto: Crypto, cryptoKey: String) {
 
   @GetMapping(value = Array("/api/login"))
-  @ResponseBody def login(@RequestParam callbackUrl: String, response: HttpServletResponse): ResponseEntity[_] = {
-    api.execute("login") {
+  @ResponseBody def login(
+    @RequestParam callbackUrl: String,
+    request: HttpServletRequest,
+    response: HttpServletResponse
+  ): ResponseEntity[_] = {
+    api.execute(request, "login") {
       val token = authenticationFacade.login(callbackUrl)
       val encryptedSecret = crypto.encrypt(token.getSecret)
       response.addCookie(createCookie(encryptedSecret, 60))
@@ -58,8 +64,11 @@ class AuthenticationController(api: Api, authenticationFacade: AuthenticationFac
   }
 
   @GetMapping(value = Array("/api/logout"))
-  @ResponseBody def logout(response: HttpServletResponse): ResponseEntity[_] = {
-    api.execute("logout") {
+  @ResponseBody def logout(
+    request: HttpServletRequest,
+    response: HttpServletResponse
+  ): ResponseEntity[_] = {
+    api.execute(request, "logout") {
       response.addCookie(createCookie("", 0))
       new ResponseEntity[String]("", HttpStatus.OK)
     }
@@ -73,5 +82,4 @@ class AuthenticationController(api: Api, authenticationFacade: AuthenticationFac
     cookie.setPath("/")
     cookie
   }
-
 }

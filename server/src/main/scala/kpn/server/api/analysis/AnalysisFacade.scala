@@ -44,68 +44,70 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 
+import javax.servlet.http.HttpServletRequest
+
 trait AnalysisFacade {
 
-  def nodeDetails(user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage]
+  def nodeDetails(request: HttpServletRequest, user: Option[String], language: Language, nodeId: Long): ApiResponse[NodeDetailsPage]
 
-  def nodeMap(user: Option[String], nodeId: Long): ApiResponse[NodeMapPage]
+  def nodeMap(request: HttpServletRequest, user: Option[String], nodeId: Long): ApiResponse[NodeMapPage]
 
-  def nodeChanges(user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage]
+  def nodeChanges(request: HttpServletRequest, user: Option[String], nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage]
 
-  def routeDetails(user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage]
+  def routeDetails(request: HttpServletRequest, user: Option[String], language: Language, routeId: Long): ApiResponse[RouteDetailsPage]
 
-  def routeMap(user: Option[String], routeId: Long): ApiResponse[RouteMapPage]
+  def routeMap(request: HttpServletRequest, user: Option[String], routeId: Long): ApiResponse[RouteMapPage]
 
-  def routeChanges(user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage]
+  def routeChanges(request: HttpServletRequest, user: Option[String], routeId: Long, parameters: ChangesParameters): ApiResponse[RouteChangesPage]
 
-  def subsetNetworks(user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage]
+  def subsetNetworks(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetNetworksPage]
 
-  def subsetFacts(user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage]
+  def subsetFacts(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetFactsPage]
 
-  def subsetOrphanNodes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage]
+  def subsetOrphanNodes(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetOrphanNodesPage]
 
-  def subsetOrphanRoutes(user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage]
+  def subsetOrphanRoutes(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetOrphanRoutesPage]
 
-  def subsetMap(user: Option[String], subset: Subset): ApiResponse[SubsetMapPage]
+  def subsetMap(request: HttpServletRequest, user: Option[String], subset: Subset): ApiResponse[SubsetMapPage]
 
-  def subsetChanges(user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
+  def subsetChanges(request: HttpServletRequest, user: Option[String], subset: Subset, parameters: ChangesParameters): ApiResponse[SubsetChangesPage]
 
-  def networkDetails(user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage]
+  def networkDetails(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkDetailsPage]
 
-  def networkMap(user: Option[String], networkId: Long): ApiResponse[NetworkMapPage]
+  def networkMap(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkMapPage]
 
-  def networkFacts(user: Option[String], networkId: Long): ApiResponse[NetworkFactsPage]
+  def networkFacts(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkFactsPage]
 
-  def networkNodes(user: Option[String], networkId: Long): ApiResponse[NetworkNodesPage]
+  def networkNodes(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkNodesPage]
 
-  def networkRoutes(user: Option[String], networkId: Long): ApiResponse[NetworkRoutesPage]
+  def networkRoutes(request: HttpServletRequest, user: Option[String], networkId: Long): ApiResponse[NetworkRoutesPage]
 
-  def networkChanges(user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage]
+  def networkChanges(request: HttpServletRequest, user: Option[String], networkId: Long, parameters: ChangesParameters): ApiResponse[NetworkChangesPage]
 
-  def overview(user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]]
+  def overview(request: HttpServletRequest, user: Option[String], language: Language): ApiResponse[Seq[StatisticValues]]
 
-  def subsetFactDetails(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
+  def subsetFactDetails(request: HttpServletRequest, user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage]
 
-  def subsetFactRefs(user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactRefs]
+  def subsetFactRefs(request: HttpServletRequest, user: Option[String], subset: Subset, fact: Fact): ApiResponse[SubsetFactRefs]
 
-  def changeSet(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
+  def changeSet(request: HttpServletRequest, user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): ApiResponse[ChangeSetPage]
 
-  def replication(user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long]
+  def replication(request: HttpServletRequest, user: Option[String], language: Language, changeSetId: Long): ApiResponse[Long]
 
-  def changes(user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage]
+  def changes(request: HttpServletRequest, user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage]
 
-  def locations(user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
+  def locations(request: HttpServletRequest, user: Option[String], language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 
-  def locationNodes(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
+  def locationNodes(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
 
-  def locationRoutes(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage]
+  def locationRoutes(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage]
 
-  def locationFacts(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage]
+  def locationFacts(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage]
 
-  def locationMap(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage]
+  def locationMap(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage]
 
-  def locationChanges(user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage]
+  def locationChanges(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey, parameters: LocationChangesParameters): ApiResponse[LocationChangesPage]
 
-  def locationEdit(user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage]
+  def locationEdit(request: HttpServletRequest, user: Option[String], language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage]
 
 }

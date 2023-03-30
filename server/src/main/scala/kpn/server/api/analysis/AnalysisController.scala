@@ -58,40 +58,47 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
+import javax.servlet.http.HttpServletRequest
+
 @RestController
 class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/overview"))
   def overview(
+    request: HttpServletRequest,
     @RequestParam language: String
   ): ApiResponse[Seq[StatisticValues]] = {
-    analysisFacade.overview(CurrentUser.name, toLanguage(language))
+
+    analysisFacade.overview(request, CurrentUser.name, toLanguage(language))
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetNetworksPage] = {
     Subset.of(country, networkType) match {
-      case Some(subset) => analysisFacade.subsetNetworks(CurrentUser.name, subset)
+      case Some(subset) => analysisFacade.subsetNetworks(request, CurrentUser.name, subset)
       case None => notFound()
     }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/facts"))
   def subsetFacts(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetFactsPage] = {
     Subset.of(country, networkType) match {
-      case Some(subset) => analysisFacade.subsetFacts(CurrentUser.name, subset)
+      case Some(subset) => analysisFacade.subsetFacts(request, CurrentUser.name, subset)
       case None => notFound()
     }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}/refs"))
   def subsetFactRefs(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
     @PathVariable fact: String
@@ -99,7 +106,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     Subset.of(country, networkType) match {
       case Some(subset) =>
         Fact.withName(fact) match {
-          case Some(f) => analysisFacade.subsetFactRefs(CurrentUser.name, subset, f)
+          case Some(f) => analysisFacade.subsetFactRefs(request, CurrentUser.name, subset, f)
           case None => notFound()
         }
       case None => notFound()
@@ -108,6 +115,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{fact}"))
   def subsetFactDetails(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
     @PathVariable fact: String
@@ -115,7 +123,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     Subset.of(country, networkType) match {
       case Some(subset) =>
         Fact.withName(fact) match {
-          case Some(f) => analysisFacade.subsetFactDetails(CurrentUser.name, subset, f)
+          case Some(f) => analysisFacade.subsetFactDetails(request, CurrentUser.name, subset, f)
           case None => notFound()
         }
       case None => notFound()
@@ -124,39 +132,43 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-nodes"))
   def subsetOrphanNodes(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetOrphanNodesPage] = {
     Subset.of(country, networkType) match {
-      case Some(subset) => analysisFacade.subsetOrphanNodes(CurrentUser.name, subset)
+      case Some(subset) => analysisFacade.subsetOrphanNodes(request, CurrentUser.name, subset)
       case None => notFound()
     }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/orphan-routes"))
   def subsetOrphanRoutes(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetOrphanRoutesPage] = {
     Subset.of(country, networkType) match {
-      case Some(subset) => analysisFacade.subsetOrphanRoutes(CurrentUser.name, subset)
+      case Some(subset) => analysisFacade.subsetOrphanRoutes(request, CurrentUser.name, subset)
       case None => notFound()
     }
   }
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/map"))
   def subsetMap(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType
   ): ApiResponse[SubsetMapPage] = {
     Subset.of(country, networkType) match {
-      case Some(subset) => analysisFacade.subsetMap(CurrentUser.name, subset)
+      case Some(subset) => analysisFacade.subsetMap(request, CurrentUser.name, subset)
       case None => notFound()
     }
   }
 
   @PostMapping(value = Array("/api/{country:be|de|fr|nl|at|es}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/changes"))
   def subsetChanges(
+    request: HttpServletRequest,
     @PathVariable country: Country,
     @PathVariable networkType: NetworkType,
     @RequestBody parameters: ChangesParameters
@@ -165,6 +177,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
       case None => notFound()
       case Some(subset) =>
         analysisFacade.subsetChanges(
+          request,
           CurrentUser.name,
           subset,
           parameters
@@ -174,100 +187,114 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/network/{networkId}"))
   def networkDetails(
+    request: HttpServletRequest,
     @PathVariable networkId: Long
   ): ApiResponse[NetworkDetailsPage] = {
-    analysisFacade.networkDetails(CurrentUser.name, networkId)
+    analysisFacade.networkDetails(request, CurrentUser.name, networkId)
   }
 
   @GetMapping(value = Array("/api/network/{networkId}/map"))
   def networkMap(
+    request: HttpServletRequest,
     @PathVariable networkId: Long
   ): ApiResponse[NetworkMapPage] = {
-    analysisFacade.networkMap(CurrentUser.name, networkId)
+    analysisFacade.networkMap(request, CurrentUser.name, networkId)
   }
 
   @GetMapping(value = Array("/api/network/{networkId}/facts"))
   def networkFacts(
+    request: HttpServletRequest,
     @PathVariable networkId: Long
   ): ApiResponse[NetworkFactsPage] = {
-    analysisFacade.networkFacts(CurrentUser.name, networkId)
+    analysisFacade.networkFacts(request, CurrentUser.name, networkId)
   }
 
   @GetMapping(value = Array("/api/network/{networkId}/nodes"))
   def networkNodes(
+    request: HttpServletRequest,
     @PathVariable networkId: Long
   ): ApiResponse[NetworkNodesPage] = {
-    analysisFacade.networkNodes(CurrentUser.name, networkId)
+    analysisFacade.networkNodes(request, CurrentUser.name, networkId)
   }
 
   @GetMapping(value = Array("/api/network/{networkId}/routes"))
   def networkRoutes(
+    request: HttpServletRequest,
     @PathVariable networkId: Long
   ): ApiResponse[NetworkRoutesPage] = {
-    analysisFacade.networkRoutes(CurrentUser.name, networkId)
+    analysisFacade.networkRoutes(request, CurrentUser.name, networkId)
   }
 
   @PostMapping(value = Array("/api/network/{networkId}/changes"))
   def networkChanges(
+    request: HttpServletRequest,
     @PathVariable networkId: Long,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[NetworkChangesPage] = {
-    analysisFacade.networkChanges(CurrentUser.name, networkId, parameters)
+    analysisFacade.networkChanges(request, CurrentUser.name, networkId, parameters)
   }
 
   @GetMapping(value = Array("/api/node/{nodeId}"))
   def node(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable nodeId: Long
   ): ApiResponse[NodeDetailsPage] = {
-    analysisFacade.nodeDetails(CurrentUser.name, toLanguage(language), nodeId)
+    analysisFacade.nodeDetails(request, CurrentUser.name, toLanguage(language), nodeId)
   }
 
   @GetMapping(value = Array("/api/node/{nodeId}/map"))
   def nodeMap(
+    request: HttpServletRequest,
     @PathVariable nodeId: Long
   ): ApiResponse[NodeMapPage] = {
-    analysisFacade.nodeMap(CurrentUser.name, nodeId)
+    analysisFacade.nodeMap(request, CurrentUser.name, nodeId)
   }
 
   @PostMapping(value = Array("/api/node/{nodeId}/changes"))
   def nodeChanges(
+    request: HttpServletRequest,
     @PathVariable nodeId: Long,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[NodeChangesPage] = {
-    analysisFacade.nodeChanges(CurrentUser.name, nodeId, parameters)
+    analysisFacade.nodeChanges(request, CurrentUser.name, nodeId, parameters)
   }
 
   @GetMapping(value = Array("/api/route/{routeId}"))
   def route(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable routeId: Long
   ): ApiResponse[RouteDetailsPage] = {
-    analysisFacade.routeDetails(CurrentUser.name, toLanguage(language), routeId)
+    analysisFacade.routeDetails(request, CurrentUser.name, toLanguage(language), routeId)
   }
 
   @GetMapping(value = Array("/api/route/{routeId}/map"))
   def routeMap(
+    request: HttpServletRequest,
     @PathVariable routeId: Long
   ): ApiResponse[RouteMapPage] = {
-    analysisFacade.routeMap(CurrentUser.name, routeId)
+    analysisFacade.routeMap(request, CurrentUser.name, routeId)
   }
 
   @PostMapping(value = Array("/api/route/{routeId}/changes"))
   def routeChanges(
+    request: HttpServletRequest,
     @PathVariable routeId: Long,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[RouteChangesPage] = {
-    analysisFacade.routeChanges(CurrentUser.name, routeId, parameters)
+    analysisFacade.routeChanges(request, CurrentUser.name, routeId, parameters)
   }
 
   @PostMapping(value = Array("/api/changes"))
   def changes(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @RequestParam strategy: String,
     @RequestBody parameters: ChangesParameters
   ): ApiResponse[ChangesPage] = {
     analysisFacade.changes(
+      request,
       CurrentUser.name,
       toLanguage(language),
       toAnalysisStrategy(strategy),
@@ -277,20 +304,22 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/changeset/{changeSetId}/{replicationNumber}"))
   def changeSet(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable changeSetId: Long,
     @PathVariable replicationNumber: Int
   ): ApiResponse[ChangeSetPage] = {
     val replicationId = ReplicationId(replicationNumber)
-    analysisFacade.changeSet(CurrentUser.name, toLanguage(language), changeSetId, Some(replicationId))
+    analysisFacade.changeSet(request, CurrentUser.name, toLanguage(language), changeSetId, Some(replicationId))
   }
 
   @GetMapping(value = Array("/api/replication/{changeSetId}"))
   def replication(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable changeSetId: Long
   ): ApiResponse[Long] = {
-    analysisFacade.replication(CurrentUser.name, toLanguage(language), changeSetId)
+    analysisFacade.replication(request, CurrentUser.name, toLanguage(language), changeSetId)
   }
 
   @GetMapping(value = Array("/api/survey-date-info"))
@@ -300,15 +329,17 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/locations/{language}/{networkType}/{country}"))
   def locations(
+    request: HttpServletRequest,
     @PathVariable language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country
   ): ApiResponse[LocationsPage] = {
-    analysisFacade.locations(CurrentUser.name, toLanguage(language), networkType, country)
+    analysisFacade.locations(request, CurrentUser.name, toLanguage(language), networkType, country)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/nodes"))
   def locationNodes(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -316,11 +347,12 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: LocationNodesParameters
   ): ApiResponse[LocationNodesPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationNodes(CurrentUser.name, toLanguage(language), locationKey, parameters)
+    analysisFacade.locationNodes(request, CurrentUser.name, toLanguage(language), locationKey, parameters)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/routes"))
   def locationRoutes(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -328,33 +360,36 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: LocationRoutesParameters
   ): ApiResponse[LocationRoutesPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationRoutes(CurrentUser.name, toLanguage(language), locationKey, parameters)
+    analysisFacade.locationRoutes(request, CurrentUser.name, toLanguage(language), locationKey, parameters)
   }
 
   @GetMapping(value = Array("/api/{networkType}/{country}/{location}/facts"))
   def locationFacts(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationFactsPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationFacts(CurrentUser.name, toLanguage(language), locationKey)
+    analysisFacade.locationFacts(request, CurrentUser.name, toLanguage(language), locationKey)
   }
 
   @GetMapping(value = Array("/api/{networkType}/{country}/{location}/map"))
   def locationMap(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationMapPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationMap(CurrentUser.name, toLanguage(language), locationKey)
+    analysisFacade.locationMap(request, CurrentUser.name, toLanguage(language), locationKey)
   }
 
   @PostMapping(value = Array("/api/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/{country:be|de|fr|nl|at|es}/{location}/changes"))
   def locationChanges(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
@@ -362,18 +397,19 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @RequestBody parameters: LocationChangesParameters
   ): ApiResponse[LocationChangesPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationChanges(CurrentUser.name, toLanguage(language), locationKey, parameters)
+    analysisFacade.locationChanges(request, CurrentUser.name, toLanguage(language), locationKey, parameters)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/edit"))
   def locationEdit(
+    request: HttpServletRequest,
     @RequestParam language: String,
     @PathVariable networkType: NetworkType,
     @PathVariable country: Country,
     @PathVariable location: String
   ): ApiResponse[LocationEditPage] = {
     val locationKey = LocationKey(networkType, country, location)
-    analysisFacade.locationEdit(CurrentUser.name, toLanguage(language), locationKey)
+    analysisFacade.locationEdit(request, CurrentUser.name, toLanguage(language), locationKey)
   }
 
   private def toLanguage(language: String): Language = {

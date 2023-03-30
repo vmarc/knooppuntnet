@@ -21,7 +21,6 @@ import kpn.api.custom.Day
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.group.MonitorGroupNamesBuilder
 import kpn.server.monitor.group.MonitorGroupPageBuilder
 import kpn.server.monitor.group.MonitorGroupsPageBuilder
@@ -29,18 +28,16 @@ import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.route.MonitorRouteChangePageBuilder
-import kpn.server.monitor.route.MonitorRouteChangePageBuilder
 import kpn.server.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.monitor.route.MonitorRouteDetailsPageBuilder
-import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
 import kpn.server.monitor.route.MonitorUpdater
-import kpn.server.monitor.route.MonitorUpdater
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 
+import javax.servlet.http.HttpServletRequest
 import scala.xml.Elem
 
 @Component
@@ -62,92 +59,102 @@ class MonitorFacadeImpl(
 ) extends MonitorFacade {
 
   override def changes(
+    request: HttpServletRequest,
     user: Option[String],
     parameters: MonitorChangesParameters
   ): ApiResponse[MonitorChangesPage] = {
-    api.execute(user, "monitor-changes", "") {
+    api.execute(request, user, "monitor-changes", "") {
       reply(monitorRouteChangesPageBuilder.changes(parameters))
     }
   }
 
   override def groups(
+    request: HttpServletRequest,
     user: Option[String]
   ): ApiResponse[MonitorGroupsPage] = {
-    api.execute(user, "monitor-groups", "") {
+    api.execute(request, user, "monitor-groups", "") {
       reply(monitorGroupsPageBuilder.build(user))
     }
   }
 
   override def groupNames(
+    request: HttpServletRequest,
     user: Option[String]
   ): ApiResponse[Seq[String]] = {
-    api.execute(user, "monitor-group-names", "") {
+    api.execute(request, user, "monitor-group-names", "") {
       reply(Some(monitorGroupNamesBuilder.build()))
     }
   }
 
   override def group(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String
   ): ApiResponse[MonitorGroupPage] = {
-    api.execute(user, "monitor-group", "") {
+    api.execute(request, user, "monitor-group", "") {
       reply(monitorGroupPageBuilder.build(user, groupName))
     }
   }
 
   override def groupAdd(
+    request: HttpServletRequest,
     user: Option[String],
     properties: MonitorGroupProperties
   ): Unit = {
-    api.execute(user, "monitor-add-group", properties.name) {
+    api.execute(request, user, "monitor-add-group", properties.name) {
       assertAdminUser(user)
       monitorGroupRepository.saveGroup(MonitorGroup.from(properties))
     }
   }
 
   override def groupUpdate(
+    request: HttpServletRequest,
     user: Option[String],
     id: ObjectId,
     properties: MonitorGroupProperties
   ): Unit = {
-    api.execute(user, "monitor-update-group", properties.name) {
+    api.execute(request, user, "monitor-update-group", properties.name) {
       assertAdminUser(user)
       monitorGroupRepository.saveGroup(MonitorGroup.from(id, properties))
     }
   }
 
   override def groupDelete(
+    request: HttpServletRequest,
     user: Option[String],
     groupId: ObjectId
   ): Unit = {
-    api.execute(user, "monitor-delete-group", groupId.oid) {
+    api.execute(request, user, "monitor-delete-group", groupId.oid) {
       assertAdminUser(user)
       monitorGroupRepository.deleteGroup(groupId)
     }
   }
 
   override def groupChanges(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     parameters: MonitorChangesParameters
   ): ApiResponse[MonitorGroupChangesPage] = {
-    api.execute(user, "monitor-group-changes", "") {
+    api.execute(request, user, "monitor-group-changes", "") {
       reply(monitorRouteChangesPageBuilder.groupChanges(groupName, parameters))
     }
   }
 
   override def route(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     routeName: String
   ): ApiResponse[MonitorRouteDetailsPage] = {
     val args = s"groupName=$groupName, routeName=$routeName"
-    api.execute(user, "monitor-route", args) {
+    api.execute(request, user, "monitor-route", args) {
       reply(monitorRouteDetailsPageBuilder.build(groupName, routeName))
     }
   }
 
   override def routeMap(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     routeName: String,
@@ -157,39 +164,42 @@ class MonitorFacadeImpl(
       case Some(relationId) => s"$groupName:$routeName:$relationId"
       case None => s"$groupName:$routeName"
     }
-    api.execute(user, "monitor-route-map", args) {
+    api.execute(request, user, "monitor-route-map", args) {
       reply(monitorRouteMapPageBuilder.build(groupName, routeName, relationId))
     }
   }
 
   override def routeChanges(
+    request: HttpServletRequest,
     user: Option[String],
     monitorRouteId: String,
     parameters: MonitorChangesParameters
   ): ApiResponse[MonitorRouteChangesPage] = {
     val args = s"monitorRouteId=$monitorRouteId"
-    api.execute(user, "monitor-route-changes", args) {
+    api.execute(request, user, "monitor-route-changes", args) {
       reply(monitorRouteChangesPageBuilder.routeChanges(monitorRouteId, parameters))
     }
   }
 
   override def routeChange(
+    request: HttpServletRequest,
     user: Option[String],
     routeId: Long,
     changeSetId: Long,
     replicationId: Long
   ): ApiResponse[MonitorRouteChangePage] = {
     val args = s"routeId=$routeId, changeSetId$changeSetId"
-    api.execute(user, "monitor-route-change", args) {
+    api.execute(request, user, "monitor-route-change", args) {
       reply(monitorRouteChangePageBuilder.build(routeId, changeSetId, replicationId))
     }
   }
 
   override def routeInfo(
+    request: HttpServletRequest,
     user: Option[String],
     routeId: Long
   ): ApiResponse[MonitorRouteInfoPage] = {
-    api.execute(user, "monitor-route-info", routeId.toString) {
+    api.execute(request, user, "monitor-route-info", routeId.toString) {
       assertAdminUser(user)
       reply(
         Some(
@@ -200,10 +210,11 @@ class MonitorFacadeImpl(
   }
 
   override def groupRouteAdd(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String
   ): ApiResponse[MonitorRouteAddPage] = {
-    api.execute(user, "monitor-group-route-add", groupName) {
+    api.execute(request, user, "monitor-group-route-add", groupName) {
       assertAdminUser(user)
       reply(
         monitorGroupRepository.groupByName(groupName).map { monitorGroup =>
@@ -218,22 +229,24 @@ class MonitorFacadeImpl(
   }
 
   override def routeUpdatePage(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     routeName: String
   ): ApiResponse[MonitorRouteUpdatePage] = {
-    api.execute(user, "monitor-route-update-page", s"$groupName:$routeName") {
+    api.execute(request, user, "monitor-route-update-page", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(monitorRouteUpdatePageBuilder.build(groupName, routeName))
     }
   }
 
   override def routeAdd(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     properties: MonitorRouteProperties
   ): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute(user, "monitor-route-add", properties.name) {
+    api.execute(request, user, "monitor-route-add", properties.name) {
       assertAdminUser(user)
       reply(
         Some(
@@ -244,12 +257,13 @@ class MonitorFacadeImpl(
   }
 
   override def routeUpdate(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     routeName: String,
     properties: MonitorRouteProperties
   ): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute(user, "monitor-route-update", s"$groupName:$routeName") {
+    api.execute(request, user, "monitor-route-update", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(
         Some(
@@ -260,11 +274,12 @@ class MonitorFacadeImpl(
   }
 
   override def routeDelete(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     routeName: String
   ): Unit = {
-    api.execute(user, "monitor-route-delete", s"$groupName:$routeName") {
+    api.execute(request, user, "monitor-route-delete", s"$groupName:$routeName") {
       assertAdminUser(user)
       monitorGroupRepository.groupByName(groupName).foreach { group =>
         monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
@@ -275,6 +290,7 @@ class MonitorFacadeImpl(
   }
 
   override def upload(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String,
     routeName: String,
@@ -283,7 +299,7 @@ class MonitorFacadeImpl(
     filename: String,
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute(user, "monitor-route-reference", s"$groupName:$routeName") {
+    api.execute(request, user, "monitor-route-reference", s"$groupName:$routeName") {
       assertAdminUser(user)
       reply(
         Some(
@@ -294,10 +310,11 @@ class MonitorFacadeImpl(
   }
 
   override def routeNames(
+    request: HttpServletRequest,
     user: Option[String],
     groupName: String
   ): ApiResponse[Seq[String]] = {
-    api.execute(user, "monitor-group-route-names", groupName) {
+    api.execute(request, user, "monitor-group-route-names", groupName) {
       reply(
         monitorGroupRepository.groupByName(groupName).map { group =>
           monitorRouteRepository.routeNames(group._id)
