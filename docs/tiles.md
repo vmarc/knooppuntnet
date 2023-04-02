@@ -104,7 +104,8 @@ Only first time:
         use this manually determined BBOX instead:
 
         left -9.3 bottom 36.0 right 24.5 top 55.15
-        BBOX=-9.3,36.0,24.5,55.15
+        BBOX=-9.3,36.0,24.5,55.15 // includes Poland
+        BBOX=-9.3,36.0,17.2,55.15
         https://www.latlong.net/c/?lat=36.0&long=-9.3
         https://www.latlong.net/c/?lat=55.15&long=24.5
 
@@ -115,7 +116,10 @@ Only first time:
 
 Currently used bounding box:
 
-    http://bboxfinder.com/#36,-9.3,55.15,24.5
+
+    http://bboxfinder.com/#36,-9.3,55.15,24.5 // includes Poland
+    http://bboxfinder.com/#36,-9.3,55.15,17.2
+
 
 Prepare:
 
