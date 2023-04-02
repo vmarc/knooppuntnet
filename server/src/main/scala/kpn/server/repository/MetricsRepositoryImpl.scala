@@ -2,19 +2,23 @@ package kpn.server.repository
 
 import kpn.api.common.status.NameValue
 import kpn.api.common.status.PeriodParameters
-import kpn.database.base.MetricsDatabase
 import kpn.core.metrics.AnalysisAction
-import kpn.core.metrics.ApiAction
-import kpn.core.metrics.LogAction
-import kpn.core.metrics.ReplicationAction
-import kpn.core.metrics.SystemStatus
-import kpn.core.metrics.UpdateAction
 import kpn.core.metrics.AnalysisActionDoc
+import kpn.core.metrics.ApiAction
 import kpn.core.metrics.ApiActionDoc
+import kpn.core.metrics.LogAction
 import kpn.core.metrics.LogActionDoc
+import kpn.core.metrics.ReplicationAction
 import kpn.core.metrics.ReplicationActionDoc
+import kpn.core.metrics.SystemStatus
 import kpn.core.metrics.SystemStatusDoc
+import kpn.core.metrics.UpdateAction
 import kpn.core.metrics.UpdateActionDoc
+import kpn.database.base.MetricsDatabase
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.gte
+import org.mongodb.scala.model.Filters.lt
 import org.springframework.stereotype.Component
 
 import scala.util.Random
@@ -65,5 +69,19 @@ class MetricsRepositoryImpl(
   override def lastKnownValue(action: String): Long = {
     // BackendMetricsView.queryLastKnown(backendActionsDatabase, action)
     0L
+  }
+
+  override def apiActionsDay(year: Int, month: Int, day: Int): Seq[ApiAction] = {
+    val from = f"api-$year-$month%02d-$day%02d"
+    val until = f"api-$year-$month%02d-${day + 1}%02d"
+    val pipeline = Seq(
+      filter(
+        and(
+          gte("_id", from),
+          lt("_id", until),
+        )
+      )
+    )
+    metricsDatabase.api.aggregate[ApiActionDoc](pipeline).map(_.api)
   }
 }

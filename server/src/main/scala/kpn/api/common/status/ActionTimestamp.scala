@@ -1,12 +1,12 @@
 package kpn.api.common.status
 
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.temporal.IsoFields
-
 import kpn.api.custom.Timestamp
-import kpn.core.metrics.MinuteDiffInfo
 import kpn.core.common.Time
+import kpn.core.metrics.MinuteDiffInfo
+
+import java.time.ZonedDateTime
+import java.time.ZoneId
+import java.time.temporal.IsoFields
 
 object ActionTimestamp {
 
@@ -79,4 +79,7 @@ case class ActionTimestamp(
     f"$year-$month%02d-$day%02d-$hour%02d-$minute%02d-$second%02d"
   }
 
+  def toHuman: String = {
+    f"$year-$month%02d-$day%02d $hour%02d:$minute%02d:$second%02d"
+  }
 }

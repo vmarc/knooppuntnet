@@ -27,4 +27,5 @@ trait MetricsRepository {
 
   def lastKnownValue(action: String): Long
 
+  def apiActionsDay(year: Int, month: Int, day: Int): Seq[ApiAction]
 }
