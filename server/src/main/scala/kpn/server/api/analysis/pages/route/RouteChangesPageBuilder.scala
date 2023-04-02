@@ -5,6 +5,6 @@ import kpn.api.common.route.RouteChangesPage
 
 trait RouteChangesPageBuilder {
 
-  def build(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage]
+  def build(routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage]
 
 }

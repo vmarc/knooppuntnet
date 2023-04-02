@@ -6,5 +6,5 @@ import kpn.api.common.Language
 import kpn.api.common.changes.filter.ChangesParameters
 
 trait ChangesPageBuilder {
-  def build(user: Option[String], language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ChangesPage
+  def build(language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ChangesPage
 }

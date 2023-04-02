@@ -7,6 +7,7 @@ import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
+import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.NetworkInfoRepository
 import org.springframework.stereotype.Component
@@ -20,39 +21,37 @@ class NetworkChangesPageBuilder(
 
   private val log = Log(classOf[NetworkDetailsPageBuilder])
 
-  def build(user: Option[String], networkId: Long, parameters: ChangesParameters): Option[NetworkChangesPage] = {
+  def build(networkId: Long, parameters: ChangesParameters): Option[NetworkChangesPage] = {
     if (networkId == 1) {
       Some(NetworkChangesPageExample.page)
     }
     else {
-      buildPage(user, networkId, parameters)
+      buildPage(networkId, parameters)
     }
   }
 
   private def buildPage(
-    user: Option[String],
     networkId: Long,
     parameters: ChangesParameters
   ): Option[NetworkChangesPage] = {
     database.networkInfos.findById(networkId, log).map { networkInfoDoc =>
-      buildNetworkChangesPage(user, parameters, networkInfoDoc)
+      buildNetworkChangesPage(parameters, networkInfoDoc)
     }
   }
 
   private def buildNetworkChangesPage(
-    user: Option[String],
     parameters: ChangesParameters,
     networkInfoDoc: NetworkInfoDoc
   ): NetworkChangesPage = {
 
-    val filterOptions = if (user.isDefined) {
+    val filterOptions = if (RequestContext.isLoggedIn) {
       networkInfoRepository.networkChangesFilter(networkInfoDoc._id, parameters.year, parameters.month, parameters.day)
     }
     else {
       Seq.empty
     }
 
-    val changes = if (user.isDefined) {
+    val changes = if (RequestContext.isLoggedIn) {
       networkInfoRepository.networkChanges(networkInfoDoc._id, parameters)
     }
     else {

@@ -20,8 +20,6 @@ import kpn.server.api.planner.leg.LegBuilder
 import kpn.server.repository.AnalysisRepository
 import org.springframework.stereotype.Component
 
-import javax.servlet.http.HttpServletRequest
-
 @Component
 class PlannerFacadeImpl(
   api: Api,
@@ -32,58 +30,47 @@ class PlannerFacadeImpl(
   mapRouteDetailBuilder: MapRouteDetailBuilder
 ) extends PlannerFacade {
 
-  override def mapNodeDetail(
-    request: HttpServletRequest,
-    user: Option[String],
-    networkType: NetworkType,
-    nodeId: Long
-  ): ApiResponse[MapNodeDetail] = {
+  override def mapNodeDetail(networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail] = {
     val args = s"${networkType.name}, $nodeId"
-    execute(request, user, "map-node-detail", args) {
-      mapNodeDetailBuilder.build(user, networkType, nodeId)
+    execute("map-node-detail", args) {
+      mapNodeDetailBuilder.build(networkType, nodeId)
     }
   }
 
-  override def mapRouteDetail(
-    request: HttpServletRequest,
-    user: Option[String],
-    routeId: Long
-  ): ApiResponse[MapRouteDetail] = {
-    execute(request, user, "map-route-detail", routeId.toString) {
-      mapRouteDetailBuilder.build(user, routeId)
+  override def mapRouteDetail(routeId: Long): ApiResponse[MapRouteDetail] = {
+    execute("map-route-detail", routeId.toString) {
+      mapRouteDetailBuilder.build(routeId)
     }
   }
 
-  override def poiConfiguration(request: HttpServletRequest, user: Option[String]): ApiResponse[ClientPoiConfiguration] = {
-    api.execute(request, user, "poiConfiguration", "") {
+  override def poiConfiguration(): ApiResponse[ClientPoiConfiguration] = {
+    api.execute("poiConfiguration", "") {
       ApiResponse(None, 1, Some(PoiConfiguration.instance.toClient))
     }
   }
 
-  override def poi(request: HttpServletRequest, user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage] = {
-    api.execute(request, user, "poi", s"${poiRef.elementType}, ${poiRef.elementId}") {
+  override def poi(poiRef: PoiRef): ApiResponse[PoiPage] = {
+    api.execute("poi", s"${poiRef.elementType}, ${poiRef.elementId}") {
       val poiPage = poiPageBuilder.build(poiRef)
       ApiResponse(None, 1, poiPage) // analysis timestamp not needed here
     }
   }
 
-  override def leg(request: HttpServletRequest, user: Option[String], params: LegBuildParams): ApiResponse[PlanLegDetail] = {
+  override def leg(params: LegBuildParams): ApiResponse[PlanLegDetail] = {
     val args = s"${legEndString(params.source)} to ${legEndString(params.sink)}, proposed=${params.proposed}"
-    api.execute(request, user, "leg", args) {
+    api.execute("leg", args) {
       val leg = legBuilder.leg(params)
       ApiResponse(None, 1, leg)
     }
   }
 
   override def plan(
-    request: HttpServletRequest,
-    user: Option[String],
     networkType: NetworkType,
     planString: String,
     proposed: Boolean
   ): ApiResponse[Seq[PlanLegDetail]] = {
     val args = s"${networkType.name}: $planString"
-    api.execute(request, user, "plan", args) {
+    api.execute("plan", args) {
       val legs = legBuilder.plan(networkType, planString, proposed = proposed)
       ApiResponse(None, 1, legs)
     }
@@ -101,8 +88,8 @@ class PlannerFacadeImpl(
   }
 
   // TODO share with AnalysisFacadeImpl ?
-  private def execute[T](request: HttpServletRequest, user: Option[String], action: String, args: String)(result: Option[T]): ApiResponse[T] = {
-    api.execute(request, user, action, args) {
+  private def execute[T](action: String, args: String)(result: Option[T]): ApiResponse[T] = {
+    api.execute(action, args) {
       reply(result)
     }
   }

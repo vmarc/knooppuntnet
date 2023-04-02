@@ -9,6 +9,7 @@ import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.custom.Subset
 import kpn.server.api.analysis.pages.ChangeSetSummaryInfosBuilder
 import kpn.server.api.analysis.pages.ChangeSetSummarySubsetFilter
+import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.SubsetRepository
 import org.springframework.stereotype.Component
@@ -21,14 +22,13 @@ class SubsetChangesPageBuilder(
 ) {
 
   def build(
-    user: Option[String],
     subset: Subset,
     parameters: ChangesParameters
   ): Option[SubsetChangesPage] = {
     val subsetInfo = subsetRepository.subsetInfo(subset)
     val filterOptions = changeSetRepository.changesFilter(Some(subset), parameters.year, parameters.month, parameters.day)
     val changeCount = ChangesFilterOption.changesCount(filterOptions, parameters)
-    val changeSetSummaries: Seq[ChangeSetSummary] = if (user.isDefined) {
+    val changeSetSummaries: Seq[ChangeSetSummary] = if (RequestContext.isLoggedIn) {
       changeSetRepository.subsetChanges(subset, parameters)
     }
     else {

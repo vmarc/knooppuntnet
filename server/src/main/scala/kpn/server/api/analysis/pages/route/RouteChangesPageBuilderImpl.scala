@@ -5,6 +5,7 @@ import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.route.RouteChangesPage
 import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
+import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
@@ -17,23 +18,23 @@ class RouteChangesPageBuilderImpl(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) extends RouteChangesPageBuilder {
 
-  override def build(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
+  override def build(routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
     if (routeId == 1) {
       Some(RouteChangesPageExample.page)
     }
     else {
-      buildPage(user, routeId, parameters)
+      buildPage(routeId, parameters)
     }
   }
 
-  private def buildPage(user: Option[String], routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
+  private def buildPage(routeId: Long, parameters: ChangesParameters): Option[RouteChangesPage] = {
 
     routeRepository.nameInfo(routeId).map { routeNameInfo =>
       val filterOptions = changeSetRepository.routeChangesFilter(routeId, parameters.year, parameters.month, parameters.day)
       val totalCount = ChangesFilterOption.changesCount(filterOptions, parameters)
       val changeCount = if (filterOptions.isEmpty) 0 else filterOptions.head.totalCount
 
-      val routeChanges: Seq[RouteChange] = if (user.isDefined) {
+      val routeChanges: Seq[RouteChange] = if (RequestContext.isLoggedIn) {
         changeSetRepository.routeChanges(routeId, parameters)
       }
       else {

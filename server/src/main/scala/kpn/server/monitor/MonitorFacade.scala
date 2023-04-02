@@ -19,133 +19,47 @@ import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Day
 
-import javax.servlet.http.HttpServletRequest
 import scala.xml.Elem
 
 trait MonitorFacade {
 
-  def changes(
-    request: HttpServletRequest,
-    user: Option[String],
-    parameters: MonitorChangesParameters
-  ): ApiResponse[MonitorChangesPage]
+  def changes(parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage]
 
-  def groups(
-    request: HttpServletRequest,
-    user: Option[String]
-  ): ApiResponse[MonitorGroupsPage]
+  def groups(): ApiResponse[MonitorGroupsPage]
 
-  def groupNames(
-    request: HttpServletRequest,
-    user: Option[String]
-  ): ApiResponse[Seq[String]]
+  def groupNames(): ApiResponse[Seq[String]]
 
-  def group(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String
-  ): ApiResponse[MonitorGroupPage]
+  def group(groupName: String): ApiResponse[MonitorGroupPage]
 
-  def groupAdd(
-    request: HttpServletRequest,
-    user: Option[String],
-    properties: MonitorGroupProperties
-  ): Unit
+  def groupAdd(properties: MonitorGroupProperties): Unit
 
-  def groupUpdate(
-    request: HttpServletRequest,
-    user: Option[String],
-    id: ObjectId,
-    properties: MonitorGroupProperties
-  ): Unit
+  def groupUpdate(id: ObjectId, properties: MonitorGroupProperties): Unit
 
-  def groupDelete(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupId: ObjectId
-  ): Unit
+  def groupDelete(groupId: ObjectId): Unit
 
-  def groupChanges(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    parameters: MonitorChangesParameters
-  ): ApiResponse[MonitorGroupChangesPage]
+  def groupChanges(groupName: String, parameters: MonitorChangesParameters): ApiResponse[MonitorGroupChangesPage]
 
-  def route(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): ApiResponse[MonitorRouteDetailsPage]
+  def route(groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage]
 
-  def routeMap(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    routeName: String,
-    relationId: Option[Long]
-  ): ApiResponse[MonitorRouteMapPage]
+  def routeMap(groupName: String, routeName: String, relationId: Option[Long]): ApiResponse[MonitorRouteMapPage]
 
-  def routeChanges(
-    request: HttpServletRequest,
-    user: Option[String],
-    monitorRouteId: String,
-    parameters: MonitorChangesParameters
-  ): ApiResponse[MonitorRouteChangesPage]
+  def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
 
-  def routeChange(
-    request: HttpServletRequest,
-    user: Option[String],
-    routeId: Long,
-    changeSetId: Long,
-    replicationId: Long
-  ): ApiResponse[MonitorRouteChangePage]
+  def routeChange(routeId: Long, changeSetId: Long, replicationId: Long): ApiResponse[MonitorRouteChangePage]
 
-  def routeInfo(
-    request: HttpServletRequest,
-    user: Option[String],
-    routeId: Long
-  ): ApiResponse[MonitorRouteInfoPage]
+  def routeInfo(routeId: Long): ApiResponse[MonitorRouteInfoPage]
 
-  def groupRouteAdd(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String
-  ): ApiResponse[MonitorRouteAddPage]
+  def groupRouteAdd(groupName: String): ApiResponse[MonitorRouteAddPage]
 
-  def routeUpdatePage(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): ApiResponse[MonitorRouteUpdatePage]
+  def routeUpdatePage(groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage]
 
-  def routeAdd(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    properties: MonitorRouteProperties
-  ): ApiResponse[MonitorRouteSaveResult]
+  def routeAdd(groupName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteSaveResult]
 
-  def routeUpdate(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    routeName: String,
-    properties: MonitorRouteProperties
-  ): ApiResponse[MonitorRouteSaveResult]
+  def routeUpdate(groupName: String, routeName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteSaveResult]
 
-  def routeDelete(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): Unit
+  def routeDelete(groupName: String, routeName: String): Unit
 
   def upload(
-    request: HttpServletRequest,
-    user: Option[String],
     groupName: String,
     routeName: String,
     relationId: Long,
@@ -154,10 +68,6 @@ trait MonitorFacade {
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult]
 
-  def routeNames(
-    request: HttpServletRequest,
-    user: Option[String],
-    groupName: String
-  ): ApiResponse[Seq[String]]
+  def routeNames(groupName: String): ApiResponse[Seq[String]]
 
 }

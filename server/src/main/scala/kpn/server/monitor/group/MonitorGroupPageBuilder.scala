@@ -2,6 +2,7 @@ package kpn.server.monitor.group
 
 import kpn.api.common.monitor.MonitorGroupPage
 import kpn.api.common.monitor.MonitorRouteDetail
+import kpn.server.config.RequestContext
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRepository
 import org.springframework.stereotype.Component
@@ -12,8 +13,8 @@ class MonitorGroupPageBuilder(
   monitorGroupRepository: MonitorGroupRepository
 ) {
 
-  def build(user: Option[String], groupName: String): Option[MonitorGroupPage] = {
-    val admin = monitorRepository.isAdminUser(user)
+  def build(groupName: String): Option[MonitorGroupPage] = {
+    val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).map { group =>
       val routes = monitorGroupRepository.groupRoutes(group._id).sortBy(_.name)
       MonitorGroupPage(

@@ -5,6 +5,6 @@ import kpn.api.common.route.RouteDetailsPage
 
 trait RouteDetailsPageBuilder {
 
-  def build(user: Option[String], language: Language, routeId: Long): Option[RouteDetailsPage]
+  def build(language: Language, routeId: Long): Option[RouteDetailsPage]
 
 }

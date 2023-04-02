@@ -15,7 +15,7 @@ class NodeDetailsPageBuilderImpl(
   locationService: LocationService
 ) extends NodeDetailsPageBuilder {
 
-  override def build(user: Option[String], language: Language, nodeId: Long): Option[NodeDetailsPage] = {
+  override def build(language: Language, nodeId: Long): Option[NodeDetailsPage] = {
     if (nodeId == 1L) {
       Some(NodeDetailsPageExample.page)
     }

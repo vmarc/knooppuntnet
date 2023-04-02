@@ -6,7 +6,6 @@ import kpn.api.common.changes.ChangeSetPage
 
 trait ChangeSetPageBuilder {
   def build(
-    user: Option[String],
     language: Language,
     changeSetId: Long,
     replicationId: Option[ReplicationId]

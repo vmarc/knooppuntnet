@@ -21,6 +21,7 @@ import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder
 import kpn.server.analyzer.engine.changes.builder.NodeChangeInfoBuilder
 import kpn.server.analyzer.engine.changes.builder.RouteChangeInfoBuilder
+import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
@@ -36,13 +37,13 @@ class ChangeSetPageBuilderImpl(
   locationService: LocationService
 ) extends ChangeSetPageBuilder {
 
-  def build(user: Option[String], language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
+  def build(language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
 
     if (changeSetId == 1L) {
       Some(ChangeSetPageExample.page)
     }
     else {
-      if (user.isDefined) {
+      if (RequestContext.isLoggedIn) {
         changeSetRepository.changeSet(changeSetId, replicationId) match {
           case Seq(changeSetData) =>
 

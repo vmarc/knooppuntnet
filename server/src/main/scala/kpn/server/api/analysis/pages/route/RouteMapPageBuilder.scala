@@ -4,6 +4,6 @@ import kpn.api.common.route.RouteMapPage
 
 trait RouteMapPageBuilder {
 
-  def build(user: Option[String], routeId: Long): Option[RouteMapPage]
+  def build(routeId: Long): Option[RouteMapPage]
 
 }

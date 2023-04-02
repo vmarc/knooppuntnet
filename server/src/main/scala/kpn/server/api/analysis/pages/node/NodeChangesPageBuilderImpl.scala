@@ -5,6 +5,7 @@ import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.custom.Tags
+import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
@@ -15,18 +16,18 @@ class NodeChangesPageBuilderImpl(
   changeSetRepository: ChangeSetRepository
 ) extends NodeChangesPageBuilder {
 
-  override def build(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
+  override def build(nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
     if (nodeId == 1) {
       Some(NodeChangesPageExample.page)
     }
     else {
-      buildPage(user, nodeId, parameters)
+      buildPage(nodeId, parameters)
     }
   }
 
-  private def buildPage(user: Option[String], nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
+  private def buildPage(nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
     nodeRepository.nodeWithId(nodeId).map { nodeDoc =>
-      if (user.isDefined) {
+      if (RequestContext.isLoggedIn) {
         val nodeChanges = changeSetRepository.nodeChanges(nodeId, parameters)
         val filterOptions = changeSetRepository.nodeChangesFilter(nodeId, parameters.year, parameters.month, parameters.day)
         val totalCount = if (filterOptions.isEmpty) 0 else filterOptions.head.totalCount

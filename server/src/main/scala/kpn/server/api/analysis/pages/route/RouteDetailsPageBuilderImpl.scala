@@ -16,7 +16,7 @@ class RouteDetailsPageBuilderImpl(
   locationService: LocationService
 ) extends RouteDetailsPageBuilder {
 
-  override def build(user: Option[String], language: Language, routeId: Long): Option[RouteDetailsPage] = {
+  override def build(language: Language, routeId: Long): Option[RouteDetailsPage] = {
     if (routeId == 1) {
       Some(RouteDetailsPageExample.page)
     }

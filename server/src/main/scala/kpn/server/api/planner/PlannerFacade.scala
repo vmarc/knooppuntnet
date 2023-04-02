@@ -10,20 +10,18 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.poi.PoiRef
 
-import javax.servlet.http.HttpServletRequest
-
 trait PlannerFacade {
 
-  def mapNodeDetail(request: HttpServletRequest, user: Option[String], networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail]
+  def mapNodeDetail(networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail]
 
-  def mapRouteDetail(request: HttpServletRequest, user: Option[String], routeId: Long): ApiResponse[MapRouteDetail]
+  def mapRouteDetail(routeId: Long): ApiResponse[MapRouteDetail]
 
-  def poiConfiguration(request: HttpServletRequest, user: Option[String]): ApiResponse[ClientPoiConfiguration]
+  def poiConfiguration(): ApiResponse[ClientPoiConfiguration]
 
-  def poi(request: HttpServletRequest, user: Option[String], poiRef: PoiRef): ApiResponse[PoiPage]
+  def poi(poiRef: PoiRef): ApiResponse[PoiPage]
 
-  def leg(request: HttpServletRequest, user: Option[String], params: LegBuildParams): ApiResponse[PlanLegDetail]
+  def leg(params: LegBuildParams): ApiResponse[PlanLegDetail]
 
-  def plan(request: HttpServletRequest, user: Option[String], networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[Seq[PlanLegDetail]]
+  def plan(networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[Seq[PlanLegDetail]]
 
 }

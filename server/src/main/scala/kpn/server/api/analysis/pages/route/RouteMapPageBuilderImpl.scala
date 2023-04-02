@@ -11,7 +11,7 @@ class RouteMapPageBuilderImpl(
   changeSetRepository: ChangeSetRepository
 ) extends RouteMapPageBuilder {
 
-  override def build(user: Option[String], routeId: Long): Option[RouteMapPage] = {
+  override def build(routeId: Long): Option[RouteMapPage] = {
     if (routeId == 1) {
       Some(RouteMapPageExample.page)
     }

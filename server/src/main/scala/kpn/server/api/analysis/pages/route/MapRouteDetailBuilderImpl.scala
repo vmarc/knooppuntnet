@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class MapRouteDetailBuilderImpl(
   routeRepository: RouteRepository
 ) extends MapRouteDetailBuilder {
-  def build(user: Option[String], routeId: Long): Option[MapRouteDetail] = {
+  def build(routeId: Long): Option[MapRouteDetail] = {
     routeRepository.findById(routeId).map { route =>
       val networkReferences = buildNetworkReferences(routeId)
       MapRouteDetail(

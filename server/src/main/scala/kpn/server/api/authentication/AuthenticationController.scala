@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 import javax.servlet.http.Cookie
-import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @RestController
@@ -26,10 +25,9 @@ class AuthenticationController(api: Api, authenticationFacade: AuthenticationFac
   @GetMapping(value = Array("/api/login"))
   @ResponseBody def login(
     @RequestParam callbackUrl: String,
-    request: HttpServletRequest,
     response: HttpServletResponse
   ): ResponseEntity[_] = {
-    api.execute(request, "login") {
+    api.execute("login") {
       val token = authenticationFacade.login(callbackUrl)
       val encryptedSecret = crypto.encrypt(token.getSecret)
       response.addCookie(createCookie(encryptedSecret, 60))
@@ -64,11 +62,8 @@ class AuthenticationController(api: Api, authenticationFacade: AuthenticationFac
   }
 
   @GetMapping(value = Array("/api/logout"))
-  @ResponseBody def logout(
-    request: HttpServletRequest,
-    response: HttpServletResponse
-  ): ResponseEntity[_] = {
-    api.execute(request, "logout") {
+  @ResponseBody def logout(response: HttpServletResponse): ResponseEntity[_] = {
+    api.execute("logout") {
       response.addCookie(createCookie("", 0))
       new ResponseEntity[String]("", HttpStatus.OK)
     }

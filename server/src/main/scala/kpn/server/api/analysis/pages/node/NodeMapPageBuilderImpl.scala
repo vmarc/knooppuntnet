@@ -12,7 +12,7 @@ class NodeMapPageBuilderImpl(
   changeSetRepository: ChangeSetRepository
 ) extends NodeMapPageBuilder {
 
-  def build(user: Option[String], nodeId: Long): Option[NodeMapPage] = {
+  def build(nodeId: Long): Option[NodeMapPage] = {
     if (nodeId == 1L) {
       Some(NodeMapPageExample.page)
     }

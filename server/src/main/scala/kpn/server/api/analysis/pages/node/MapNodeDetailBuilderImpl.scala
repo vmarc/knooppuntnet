@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class MapNodeDetailBuilderImpl(nodeRepository: NodeRepository) extends MapNodeDetailBuilder {
 
-  override def build(user: Option[String], networkType: NetworkType, nodeId: Long): Option[MapNodeDetail] = {
+  override def build(networkType: NetworkType, nodeId: Long): Option[MapNodeDetail] = {
     nodeRepository.nodeWithId(nodeId).map { nodeDoc =>
       val networkReferences = buildNetworkReferences(networkType, nodeDoc._id)
       val routeReferences = buildRouteReferences(networkType, nodeDoc._id)
