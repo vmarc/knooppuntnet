@@ -24,13 +24,14 @@ import { MapLayers } from '../layers/map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Component({
   selector: 'kpn-location-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="location-map" class="kpn-map">
-      <kpn-old-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers" />
     </div>
   `,
 })
@@ -105,9 +106,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
     const mainMapStyle = new MainMapStyle(parameters$);
 
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(
-      this.mapLayerService.backgroundLayer(this.mapId)
-    );
+    mapLayers = mapLayers.push(new BackgroundLayer().build());
     NetworkTypes.all.forEach((networkType) => {
       mapLayers = mapLayers.push(
         this.mapLayerService.mainMapVectorLayer(

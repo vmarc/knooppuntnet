@@ -35,8 +35,8 @@ import { actionMonitorRouteMapPositionChanged } from './store/monitor-route-map.
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="monitor-map" class="kpn-map">
-      <kpn-old-layer-switcher [mapLayers]="mapLayers"/>
-      <kpn-map-link-menu [map]="map"/>
+      <kpn-old-layer-switcher [mapLayers]="mapLayers" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -83,7 +83,7 @@ export class MonitorRouteMapComponent
     osmLayer.layer.setVisible(false);
     layers.push(osmLayer);
 
-    const backgroundLayer = new BackgroundLayer().build('monitor-map');
+    const backgroundLayer = new BackgroundLayer().build();
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 

@@ -18,7 +18,6 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
 import { MapLayerState } from '../domain/map-layer-state';
 import { MapLayerStates } from '../domain/map-layer-states';
-import { BackgroundLayer } from '../layers/background-layer';
 import { LocationBoundaryLayer } from '../layers/location-boundary-layer';
 import { MainMapLayer } from '../layers/main-map-layer';
 import { MapLayer } from '../layers/map-layer';
@@ -127,10 +126,6 @@ export class MapLayerService {
       this.mapLayerStateKey,
       JSON.stringify(mapLayerStates)
     );
-  }
-
-  backgroundLayer(mapElementId: string): MapLayer {
-    return new BackgroundLayer().build(mapElementId);
   }
 
   tile256NameLayer(): MapLayer {

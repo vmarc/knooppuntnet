@@ -4,7 +4,7 @@ import { PoiClick } from '@app/components/ol/domain/poi-click';
 import { PoiId } from '@app/components/ol/domain/poi-id';
 import { RouteClick } from '@app/components/ol/domain/route-click';
 import { Util } from '@app/components/shared/util';
-import * as Sentry from '@sentry/angular';
+import * as Sentry from '@sentry/angular-ivy';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { PlannerCommandAddStartPoint } from '../commands/planner-command-add-start-point';

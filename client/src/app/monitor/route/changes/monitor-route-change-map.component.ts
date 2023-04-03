@@ -54,7 +54,7 @@ export class MonitorRouteChangeMapComponent
     osmLayer.layer.setVisible(false);
     layers.push(osmLayer);
 
-    const backgroundLayer = new BackgroundLayer().build(this.mapId);
+    const backgroundLayer = new BackgroundLayer().build();
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 

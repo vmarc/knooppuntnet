@@ -23,13 +23,14 @@ import { MapControls } from '../layers/map-controls';
 import { MapLayers } from '../layers/map-layers';
 import { NetworkMarkerLayer } from '../layers/network-marker-layer';
 import { MapLayerService } from '../services/map-layer.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Component({
   selector: 'kpn-subset-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="subset-map" class="kpn-map">
-      <kpn-old-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers" />
     </div>
   `,
 })
@@ -99,7 +100,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     return new MapLayers(
       List([
-        this.mapLayerService.backgroundLayer(this.mapId),
+        new BackgroundLayer().build(),
         this.mapLayerService.networkMarkerLayer(this.networks),
       ])
     );

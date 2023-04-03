@@ -21,14 +21,15 @@ import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
 import { OldMapPositionService } from '../services/old-map-position.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Component({
   selector: 'kpn-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="route-map" class="kpn-map">
-      <kpn-old-layer-switcher [mapLayers]="layers"/>
-      <kpn-map-link-menu [map]="map"/>
+      <kpn-old-layer-switcher [mapLayers]="layers" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -146,9 +147,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       this.routeMapInfo.networkType
     );
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(
-      this.mapLayerService.backgroundLayer(this.mapId)
-    );
+    mapLayers = mapLayers.push(new BackgroundLayer().build());
     mapLayers = mapLayers.push(this.networkVectorTileLayer);
     mapLayers = mapLayers.concat(
       this.mapLayerService.routeLayers(this.routeMapInfo.map)

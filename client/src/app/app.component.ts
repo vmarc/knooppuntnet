@@ -1,11 +1,7 @@
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { Component } from '@angular/core';
-import { RouteConfigLoadEnd } from '@angular/router';
-import { RouteConfigLoadStart } from '@angular/router';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { setTag } from '@sentry/angular';
+import { setTag } from '@sentry/angular-ivy';
 import { map } from 'rxjs/operators';
 import { PageWidth } from './components/shared/page-width';
 import { PageWidthService } from './components/shared/page-width.service';

@@ -14,13 +14,14 @@ import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Component({
   selector: 'kpn-node-moved-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-embedded-map">
-      <kpn-old-layer-switcher [mapLayers]="layers"/>
+      <kpn-old-layer-switcher [mapLayers]="layers" />
     </div>
   `,
 })
@@ -78,9 +79,7 @@ export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(
-      this.mapLayerService.backgroundLayer(this.mapId)
-    );
+    mapLayers = mapLayers.push(new BackgroundLayer().build());
     mapLayers = mapLayers.push(
       this.mapLayerService.nodeMovedLayer(this.nodeMoved)
     );

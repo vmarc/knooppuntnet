@@ -29,13 +29,14 @@ import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Component({
   selector: 'kpn-friso-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="friso-map" class="kpn-map">
-      <kpn-old-layer-switcher [mapLayers]="switcherLayers"/>
+      <kpn-old-layer-switcher [mapLayers]="switcherLayers" />
     </div>
   `,
 })
@@ -140,7 +141,7 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
     return new MapLayers(
       List([
         new OsmLayer().build(),
-        this.mapLayerService.backgroundLayer(this.mapId),
+        new BackgroundLayer().build(),
         this.mapLayerService.mainMapVectorLayer(
           NetworkType.hiking,
           mainMapStyle.styleFunction()

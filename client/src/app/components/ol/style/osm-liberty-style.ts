@@ -10,7 +10,7 @@
 */
 
 export class OsmLibertyStyle {
-  static readonly osmLibertyStyle: maplibregl.Style = {
+  static readonly osmLibertyStyle /*: maplibregl.Style*/ = {
     version: 8,
     name: 'OSM Liberty',
     metadata: {

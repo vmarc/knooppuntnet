@@ -30,6 +30,7 @@ import { first } from 'rxjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerService } from './planner.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Injectable()
 export class PlannerLayerService {
@@ -111,7 +112,7 @@ export class PlannerLayerService {
     this.layers = [];
 
     this.layers.push(new OsmLayer().build());
-    // this.backgroundLayer = this.mapLayerService.backgroundLayer('main-map');
+    this.layers.push(new BackgroundLayer().build());
     this.layers.push(new TileDebug256Layer().build());
     this.layers.push(new TileDebug512Layer().build());
     this.layers.push(this.poiTileLayerService.buildLayer());

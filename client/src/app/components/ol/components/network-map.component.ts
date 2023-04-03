@@ -20,15 +20,16 @@ import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapZoomService } from '../services/map-zoom.service';
 import { NetworkMapPositionService } from '../services/network-map-position.service';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Component({
   selector: 'kpn-network-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="network-nodes-map" class="kpn-map">
-      <kpn-network-control (action)="zoomInToNetwork()"/>
-      <kpn-old-layer-switcher [mapLayers]="layers"/>
-      <kpn-map-link-menu [map]="map"/>
+      <kpn-network-control (action)="zoomInToNetwork()" />
+      <kpn-old-layer-switcher [mapLayers]="layers" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -110,9 +111,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(
-      this.mapLayerService.backgroundLayer(this.mapId)
-    );
+    mapLayers = mapLayers.push(new BackgroundLayer().build());
     mapLayers = mapLayers.push(
       NetworkNodesBitmapTileLayer.build(this.page.summary.networkType)
     );

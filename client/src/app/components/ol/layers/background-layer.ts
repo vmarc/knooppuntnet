@@ -1,87 +1,25 @@
-import { LngLatLike } from 'maplibre-gl';
-import { Map as MapLibreMap } from 'maplibre-gl';
-import { Layer } from 'ol/layer';
-import { toLonLat } from 'ol/proj';
-import { Source } from 'ol/source';
+// import { Map as MapLibreMap } from 'maplibre-gl';
 import { OsmLibertyStyle } from '../style/osm-liberty-style';
-import { Layers } from './layers';
 import { MapLayer } from './map-layer';
+import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
+import { Source } from 'ol/source';
 
 export class BackgroundLayer {
-  build(mapElementId: string): MapLayer {
-    // see: https://openlayers.org/en/latest/examples/mapbox-layer.html
-
-    const mbMap = new MapLibreMap({
-      style: OsmLibertyStyle.osmLibertyStyle,
-      attributionControl: false,
-      boxZoom: false,
-      container: mapElementId,
-      doubleClickZoom: false,
-      dragPan: false,
-      dragRotate: false,
-      interactive: false,
-      keyboard: false,
-      pitchWithRotate: false,
-      scrollZoom: false,
-      touchZoomRotate: false,
-    });
-
+  build(): MapLayer {
     const osmAttribution =
       '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
     const openMapTilesAttribution =
       '&#169; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a>';
 
-    const source = new Source({
-      attributions: [openMapTilesAttribution, osmAttribution],
+    const layer = new MapLibreLayer({
+      opacity: 0.7,
+      source: new Source({
+        attributions: [openMapTilesAttribution, osmAttribution],
+      }),
+      maplibreOptions: {
+        style: OsmLibertyStyle.osmLibertyStyle,
+      },
     });
-
-    const renderFunction = (frameState) => {
-      const canvas = mbMap.getCanvas();
-      const viewState = frameState.viewState;
-
-      const visible = layer.getVisible();
-      canvas.style.display = visible ? 'block' : 'none';
-
-      canvas.style.opacity = layer.getOpacity().toString();
-
-      // adjust view parameters in mapbox
-      const rotation = viewState.rotation;
-      if (rotation) {
-        mbMap.rotateTo((-rotation * 180) / Math.PI, {
-          animate: false,
-        });
-      }
-
-      const c = toLonLat(viewState.center);
-      const cc: LngLatLike = { lng: c[0], lat: c[1] };
-
-      mbMap.jumpTo({
-        center: cc,
-        zoom: viewState.zoom - 1,
-      });
-
-      return canvas;
-    };
-
-    const layer = new Layer({
-      zIndex: Layers.zIndexOsmLayer,
-      source,
-      render: renderFunction,
-    });
-
-    layer.set('name', 'backgroundLayerName');
-
-    return new MapLayer(
-      'background',
-      'background',
-      -Infinity,
-      Infinity,
-      layer,
-      null,
-      null,
-      () => {
-        mbMap.resize();
-      }
-    );
+    return new MapLayer('background', 'background', -Infinity, Infinity, layer);
   }
 }

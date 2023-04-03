@@ -1,8 +1,11 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from '@app/app.module';
-import * as Sentry from '@sentry/angular';
-import { Breadcrumb, BreadcrumbHint, Event, EventHint } from '@sentry/angular';
+import * as Sentry from '@sentry/angular-ivy';
+import { Breadcrumb } from '@sentry/angular-ivy';
+import { BreadcrumbHint } from '@sentry/angular-ivy';
+import { Event } from '@sentry/angular-ivy';
+import { EventHint } from '@sentry/angular-ivy';
 import { environment } from './environments/environment';
 
 if (environment.production) {
