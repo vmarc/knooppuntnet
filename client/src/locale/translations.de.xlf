@@ -54,7 +54,7 @@
           <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -78,7 +78,7 @@
           <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
@@ -102,7 +102,7 @@
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
@@ -126,7 +126,7 @@
           <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
@@ -150,7 +150,7 @@
           <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
@@ -174,7 +174,7 @@
           <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -291,7 +291,7 @@
         <target>Netzwerke</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unchanged" datatype="html">
@@ -299,7 +299,7 @@
         <target>Unverändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.added" datatype="html">
@@ -307,7 +307,7 @@
         <target>Hinzugefügt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.deleted" datatype="html">
@@ -315,7 +315,7 @@
         <target>Gelöscht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.osm" datatype="html">
@@ -323,7 +323,7 @@
         <target>OpenStreetMap</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.other-routes" datatype="html">
@@ -331,7 +331,7 @@
         <target>Andere Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.cycling" datatype="html">
@@ -339,7 +339,7 @@
         <target>Radfahren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.node" datatype="html">
@@ -347,7 +347,7 @@
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.hiking" datatype="html">
@@ -355,7 +355,7 @@
         <target>Wandern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="linenumber">176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.horse-riding" datatype="html">
@@ -363,7 +363,7 @@
         <target>Reiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">176</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.motorboat" datatype="html">
@@ -371,7 +371,7 @@
         <target>Motorboot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">180</context>
+          <context context-type="linenumber">184</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.canoe" datatype="html">
@@ -379,7 +379,7 @@
         <target>Kanu</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">188</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.inline-skating" datatype="html">
@@ -387,7 +387,7 @@
         <target>Inline-Skaten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes-and-routes" datatype="html">
@@ -395,7 +395,7 @@
         <target>Knoten und Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">196</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.boundary" datatype="html">
@@ -403,7 +403,7 @@
         <target>Grenze</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">200</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
@@ -2179,7 +2179,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Map</source>
         <target>Karte</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -2187,15 +2187,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Map</source>
         <target>Karte</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
+          <context context-type="linenumber">14,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.title" datatype="html">
         <source>Route planner</source>
         <target>Routenplaner</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-planner.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-planner.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -2203,7 +2203,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Legend</source>
         <target>Legende</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">17,18</context>
         </context-group>
       </trans-unit>
@@ -2211,8 +2211,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Map appearance options</source>
         <target>Optionen für das Erscheinungsbild der Karte</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.surface" datatype="html">
@@ -2220,16 +2220,16 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Straßenbelag</target>
         <note priority="1" from="description">other possibilities would be &quot;Straßenzustand&quot;. With &quot;Oberfläche&quot; it is not immediately clear what is meant.</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.quality" datatype="html">
         <source>Node and route quality status</source>
         <target>Status der Knoten- und Routenqualität</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">51,52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
@@ -2237,8 +2237,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Datum der letzten Überprüfung</target>
         <note priority="1" from="description">Slightly different meaning but possibly easier to understand would be: &quot;Datum der letzten Überprüfung&quot;</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
@@ -2246,7 +2246,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Symbole</target>
         <note priority="1" from="description">Difficult to translate, usually an equivalent could be &quot;Sehenswürdigkeiten&quot; but this relates to mainly touristic sights, not shops and so on. &quot;Punkt von Interesse&quot; is completely unusual in german. A possibility would be to use something like &quot;zusätzliche Symbole&quot; - &quot;additional symbols/marks&quot; instead of poi.</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -2254,7 +2254,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>(Enabled/Disabled)</source>
         <target>(Aktiviert/Deaktiviert)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -2262,7 +2262,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Show points of interest on the map</source>
         <target>Punkte von Interesse auf der Karte anzeigen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">23,25</context>
         </context-group>
       </trans-unit>
@@ -2270,7 +2270,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Zoom in to see the icons on the map.</source>
         <target>Vergrößern Sie die Ansicht, um die Symbole auf der Karte anzuzeigen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
@@ -2278,7 +2278,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Reset configuration to default</source>
         <target>Konfiguration auf Standard zurücksetzen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">35,37</context>
         </context-group>
       </trans-unit>
@@ -2286,63 +2286,63 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Node</source>
         <target>Knoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.network" datatype="html">
         <source>Network</source>
         <target>Netzwerk</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.networks" datatype="html">
         <source>Networks</source>
         <target>Netzwerke</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.no-networks" datatype="html">
         <source>None</source>
         <target>Keine</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.routes" datatype="html">
         <source>Routes</source>
         <target>Routen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.routes.none" datatype="html">
         <source>None</source>
         <target>Keine</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.more-details" datatype="html">
         <source>More details</source>
         <target>Weitere Details</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">85,86</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.route-popup.title" datatype="html">
         <source>Route</source>
         <target>Route</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -2350,7 +2350,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Network</source>
         <target>Netzwerk</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -2358,7 +2358,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Networks</source>
         <target>Netzwerke</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -2366,7 +2366,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>None</source>
         <target>Keine</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
@@ -2374,7 +2374,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>More details</source>
         <target>Weitere Details</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
@@ -2382,7 +2382,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Show all</source>
         <target>Alle anzeigen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group.component.ts</context>
           <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
@@ -2390,7 +2390,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Hide all</source>
         <target>Alle verstecken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group.component.ts</context>
           <context context-type="linenumber">36,38</context>
         </context-group>
       </trans-unit>
@@ -2398,7 +2398,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Default</source>
         <target>Standard</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group.component.ts</context>
           <context context-type="linenumber">43,45</context>
         </context-group>
       </trans-unit>
@@ -2791,7 +2791,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>No details available</source>
         <target>Keine Details verfügbar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-poi.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-poi.component.ts</context>
           <context context-type="linenumber">24,25</context>
         </context-group>
       </trans-unit>
@@ -2912,7 +2912,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Compact</source>
         <target>Kompakt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">19,20</context>
         </context-group>
       </trans-unit>
@@ -2920,7 +2920,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Detailed</source>
         <target>Detailliert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">28,29</context>
         </context-group>
       </trans-unit>
@@ -2928,7 +2928,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Instructions</source>
         <target>Anweisungen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
@@ -2936,8 +2936,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Distance</source>
         <target>Entfernung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-distance.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.head" datatype="html">
@@ -2945,7 +2945,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Gehen Sie nach</target>
         <note priority="1" from="description">Correct if followed by the compass direction (north south ...)</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
@@ -2953,7 +2953,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>north</source>
         <target>Norden</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
@@ -2961,7 +2961,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>north-east</source>
         <target>Nordosten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
@@ -2969,7 +2969,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>east</source>
         <target>Osten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
@@ -2977,7 +2977,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>south-east</source>
         <target>Südosten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
@@ -2985,7 +2985,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>south</source>
         <target>Süden</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
@@ -2993,7 +2993,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>south-west</source>
         <target>Südwesten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
@@ -3001,7 +3001,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>west</source>
         <target>Westen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
@@ -3009,7 +3009,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>north-west</source>
         <target>Nordwesten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
@@ -3017,7 +3017,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Continue</source>
         <target>Weiter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
@@ -3025,7 +3025,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Slight left</source>
         <target>Leicht nach links</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
@@ -3033,7 +3033,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Slight right</source>
         <target>Leicht rechts</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
@@ -3041,7 +3041,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Turn left</source>
         <target>Biegen Sie links ab</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
@@ -3049,7 +3049,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Turn right</source>
         <target>Biegen Sie rechts ab</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
@@ -3057,7 +3057,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Sharp left</source>
         <target>Scharf nach links</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
@@ -3065,7 +3065,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Sharp right</source>
         <target>Scharf rechts</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
@@ -4717,11 +4717,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Amenity</source>
         <target>Einrichtung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">49,50</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-amenity.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-amenity.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4729,11 +4729,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Foodshops</source>
         <target>Lebensmittelgeschäfte</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">51,53</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">55,56</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-foodshops.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-foodshops.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4741,11 +4741,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Places to stay</source>
         <target>Übernachtungsmöglichkeiten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">39,41</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-places-to-stay.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4753,11 +4753,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Restaurants</source>
         <target>Restaurants</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">33,35</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">37,38</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-restaurants.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-restaurants.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4765,11 +4765,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Shops</source>
         <target>Geschäfte</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">48,50</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-shops.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-shops.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -4777,11 +4777,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Sports</source>
         <target>Sport</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">58,59</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-sports.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-sports.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -4789,11 +4789,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Tourism</source>
         <target>Tourismus</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">42,44</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">46,47</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-tourism.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-tourism.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4801,11 +4801,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Hiking/biking</source>
         <target>Wandern/Radfahren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">24,26</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">28,29</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-hiking-biking.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4814,11 +4814,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Sehenswürdigkeiten</target>
         <note priority="1" from="description">or indeed &quot;Landmarken&quot;, which is in the dictionaries and which I properly understand but would never use. &quot;Sehenswürdigkeiten&quot; means (touristic, interesting, beautiful) sights. &quot;Orientierungspunkt&quot; is quite proper for the use of landmark (and seamark) as described in https://wiki.openstreetmap.org/wiki/Seamarks/Landmarks#Landmarks</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">27,29</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">31,32</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -6165,10 +6165,6 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
@@ -6211,6 +6207,10 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/update/monitor-route-update-page.component.ts</context>
           <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
@@ -7143,7 +7143,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>alle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="linenumber">207</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.yes" datatype="html">
@@ -7151,7 +7151,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>ja</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">204</context>
+          <context context-type="linenumber">208</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.no" datatype="html">
@@ -7159,7 +7159,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>nein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">205</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.unknown" datatype="html">
@@ -7167,7 +7167,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>unbekannt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInNetworkRelation" datatype="html">
@@ -7175,7 +7175,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>In Netzwerkrelation definiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">216</context>
+          <context context-type="linenumber">220</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.referencedInRoute" datatype="html">
@@ -7183,7 +7183,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>In der Route angegeben</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">224</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheck" datatype="html">
@@ -7191,7 +7191,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Integritätsprüfung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">224</context>
+          <context context-type="linenumber">228</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheckFailed" datatype="html">
@@ -7199,7 +7199,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Integritätsprüfung fehlgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">228</context>
+          <context context-type="linenumber">232</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.connection" datatype="html">
@@ -7207,7 +7207,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Verbindung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">232</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastUpdated" datatype="html">
@@ -7215,7 +7215,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">244</context>
+          <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
@@ -7223,7 +7223,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Letztes Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">248</context>
+          <context context-type="linenumber">252</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
@@ -7231,7 +7231,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>letzte Woche</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">252</context>
+          <context context-type="linenumber">256</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
@@ -7239,7 +7239,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>letzten Monat</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">256</context>
+          <context context-type="linenumber">260</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
@@ -7247,7 +7247,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>letztes Jahr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">260</context>
+          <context context-type="linenumber">264</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
@@ -7255,7 +7255,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>letztes halbes Jahr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">264</context>
+          <context context-type="linenumber">268</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
@@ -7263,7 +7263,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>letzte zwei Jahre</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">268</context>
+          <context context-type="linenumber">272</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
@@ -7271,7 +7271,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>älter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">270</context>
+          <context context-type="linenumber">274</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
@@ -7279,7 +7279,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Rolle &quot;connection&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">273</context>
+          <context context-type="linenumber">277</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip-zoom-in" datatype="html">
@@ -7327,7 +7327,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Untersuchen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">236</context>
+          <context context-type="linenumber">240</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.accessible" datatype="html">
@@ -7335,23 +7335,23 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zugänglich</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">240</context>
+          <context context-type="linenumber">244</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">
         <source>Points of interest</source>
         <target>Points of interest</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.unpaved" datatype="html">
         <source>Unpaved</source>
         <target>Ungepflastert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-distance.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-control.letter" datatype="html">
@@ -7390,7 +7390,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Undo</source>
         <target>Rückgängig machen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">25,24</context>
         </context-group>
       </trans-unit>
@@ -7398,7 +7398,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Undo the previous action</source>
         <target>Die vorherige Aktion rückgängig machen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -7406,7 +7406,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Redo</source>
         <target>Wiederholen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">36,35</context>
         </context-group>
       </trans-unit>
@@ -7414,7 +7414,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Redo the action that was previously undone</source>
         <target>Wiederholen der zuvor rückgängig gemachte Aktion</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -7422,7 +7422,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Reset</source>
         <target>Zurücksetzen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">47,46</context>
         </context-group>
       </trans-unit>
@@ -7430,7 +7430,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Wipe out current route plan and restart route planning from scratch</source>
         <target>Löschen des aktuellen Routenplans und Routenplanung von Grund auf neu starten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
@@ -7438,7 +7438,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Reverse</source>
         <target>Umkehren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">58,57</context>
         </context-group>
       </trans-unit>
@@ -7446,7 +7446,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
         <target>Die Routenrichtung umkehren (Startknoten wird Endknoten und umgekehrt)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
@@ -7454,7 +7454,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Output</source>
         <target>Ausgabe</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">68,67</context>
         </context-group>
       </trans-unit>
@@ -7462,7 +7462,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Output planned route</source>
         <target>Geplante Route ausgeben</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
@@ -7470,7 +7470,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Output</source>
         <target>Ausgabe</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -7478,7 +7478,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Compact</source>
         <target>Kompakt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
@@ -7486,7 +7486,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Node strip</source>
         <target>Knotenstreifen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
@@ -7494,7 +7494,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Navigation instructions</source>
         <target>Wegbeschreibung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">78,79</context>
         </context-group>
       </trans-unit>
@@ -7502,7 +7502,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>GPX file</source>
         <target>GPX-Datei</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
@@ -7510,7 +7510,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Zoom in or use magnifying glass to find the startnode of your route.</source>
         <target>Vergrößern oder verwenden Sie die Lupe, um den Startknoten Ihrer Route zu finden.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
@@ -7518,7 +7518,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Use zoom, pan or use magnifying glass to find and click the startnode of your route.</source>
         <target>Verwenden Sie Zoom, Verschieben oder die Lupe, um den Startknoten Ihrer Route zu finden und darauf zu klicken.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
@@ -7526,7 +7526,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Zoom in and click the endnode of your route.</source>
         <target>Zoomen Sie hinein und klicken Sie auf den Endknoten Ihrer Route.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">36,37</context>
         </context-group>
       </trans-unit>
@@ -7534,7 +7534,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Click the endnode of your route.</source>
         <target>Klicken Sie auf den Endknoten Ihrer Route.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
@@ -7542,7 +7542,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Extend or adapt your route. Output when satisfied.</source>
         <target>Erweitern oder passen Sie Ihre Route an und geben Sie sie aus, wenn sie zufrieden sind.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">46,47</context>
         </context-group>
       </trans-unit>
@@ -7550,39 +7550,39 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Unavailable</source>
         <target>Nicht verfügbar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
-          <context context-type="linenumber">8,10</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
         <source>We cannot determine your location. Verify your settings to allow this application to access you location.</source>
         <target>Wir können Ihren Standort nicht bestimmen. Überprüfen Sie Ihre Einstellungen, damit diese Anwendung auf Ihren Standort zugreifen kann.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
-          <context context-type="linenumber">11,14</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">12,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.title" datatype="html">
         <source>Timeout</source>
         <target>Zeitüberschreitung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
-          <context context-type="linenumber">8,10</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
         <source>We cannot determine your location.</source>
         <target>Wir können Ihren Standort nicht bestimmen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
-          <context context-type="linenumber">11,13</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">12,14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
         <source>Permission denied</source>
         <target>Berechtigung verweigert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">8,10</context>
         </context-group>
       </trans-unit>
@@ -7590,7 +7590,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>We cannot determine your location. Knooppuntnet does not have the permission to access your location.</source>
         <target>Wir können Ihren Standort nicht bestimmen. Knooppuntnet hat keine Berechtigung, auf Ihren Standort zuzugreifen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">14,17</context>
         </context-group>
       </trans-unit>
@@ -7598,7 +7598,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Not supported</source>
         <target>Nicht unterstützt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">8,10</context>
         </context-group>
       </trans-unit>
@@ -7606,7 +7606,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>We cannot determine your location. Your device does not seem to support this.</source>
         <target>Wir können Ihren Standort nicht bestimmen. Ihr Gerät scheint dies nicht zu unterstützen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">11,14</context>
         </context-group>
       </trans-unit>
@@ -7614,7 +7614,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>position the map on your current location</source>
         <target>Positionieren Sie die Karte an Ihrem aktuellen Standort</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-control.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-control.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
@@ -7622,7 +7622,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Produce a route pdf file with compact node overview</source>
         <target>Erstellen Sie eine Routen-PDF-Datei mit einer kompakten Knotenübersicht</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
@@ -7630,7 +7630,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
         <target>Erstellen Sie eine Routen-PDF-Datei mit Knoten in einem Streifen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -7638,7 +7638,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Produce a route pdf with navigation instructions</source>
         <target>Erstellen Sie ein Routen-PDF mit der Wegbeschreibung.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -7646,7 +7646,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Produce a route file that can be used in a gps-device</source>
         <target>Erstellt eine Routendatei, die in einem GPS-Gerät verwendet werden kann</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
@@ -7654,7 +7654,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Copy link to clipboard</source>
         <target>Link in Zwischenablage kopieren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">99,100</context>
         </context-group>
       </trans-unit>
@@ -7662,7 +7662,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
         <target>Kopieren Sie einen Link zu dieser Route in die Zwischenablage (z. B. um sie für später aufzubewahren oder in eine E-Mail einzufügen).</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
@@ -7718,7 +7718,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Follow colour</source>
         <target>Folgen Sie der Farbe</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
@@ -7726,7 +7726,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>black</source>
         <target>schwarz</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
@@ -7734,7 +7734,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>blue</source>
         <target>blau</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
@@ -7742,7 +7742,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>brown</source>
         <target>braun</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
@@ -7750,7 +7750,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>gray</source>
         <target>grau</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
@@ -7758,7 +7758,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>green</source>
         <target>grün</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
@@ -7766,7 +7766,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>grey</source>
         <target>grau</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
@@ -7774,7 +7774,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>orange</source>
         <target>orange</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
@@ -7783,7 +7783,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>purpur</target>
         <note priority="1" from="description">or use &quot;pink&quot; depending on the colour you use. &quot;lila&quot; and &quot;violett&quot; are quite synonymic.</note>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
@@ -7791,7 +7791,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>red</source>
         <target>rot</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
@@ -7799,7 +7799,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>violet</source>
         <target>violett</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
@@ -7807,7 +7807,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>white</source>
         <target>weiß</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
@@ -7815,7 +7815,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>yellow</source>
         <target>gelb</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
@@ -7823,7 +7823,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Route name</source>
         <target>Routenname</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -7831,7 +7831,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>type route name</source>
         <target>Geben Sie den Routennamen ein</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
@@ -7840,14 +7840,14 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Ihre GPX-Spur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.or" datatype="html">
         <source>or</source>
         <target>oder</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
@@ -7856,7 +7856,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>DE:Knooppuntnet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">276</context>
+          <context context-type="linenumber">280</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.planner" datatype="html">
@@ -7864,7 +7864,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_planner#What_do_you_see.3F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">283</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.login-page" datatype="html">
@@ -7872,7 +7872,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Login</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">287</context>
+          <context context-type="linenumber">291</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.logout-page" datatype="html">
@@ -7880,7 +7880,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Logout</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">295</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.node-page" datatype="html">
@@ -7888,7 +7888,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">295</context>
+          <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.route-page" datatype="html">
@@ -7896,7 +7896,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">299</context>
+          <context context-type="linenumber">303</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.network-page" datatype="html">
@@ -7904,7 +7904,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Network</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">303</context>
+          <context context-type="linenumber">307</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.changes-page" datatype="html">
@@ -7912,7 +7912,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">307</context>
+          <context context-type="linenumber">311</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.location-page" datatype="html">
@@ -7920,7 +7920,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Location</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">311</context>
+          <context context-type="linenumber">315</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
@@ -7928,7 +7928,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Overview_in_numbers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">315</context>
+          <context context-type="linenumber">319</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-networks-page" datatype="html">
@@ -7936,7 +7936,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_networks</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">319</context>
+          <context context-type="linenumber">323</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-facts-page" datatype="html">
@@ -7944,7 +7944,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">323</context>
+          <context context-type="linenumber">327</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
@@ -7952,7 +7952,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_orphan_nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">327</context>
+          <context context-type="linenumber">331</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
@@ -7960,7 +7960,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_orphan_routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">331</context>
+          <context context-type="linenumber">335</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-map-page" datatype="html">
@@ -7968,7 +7968,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">335</context>
+          <context context-type="linenumber">339</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-changes-page" datatype="html">
@@ -7976,14 +7976,14 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">339</context>
+          <context context-type="linenumber">343</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.read-more" datatype="html">
         <source>read more</source>
         <target>lesen Sie mehr</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
@@ -8196,7 +8196,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Hintergrund</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-256-names" datatype="html">
@@ -8204,7 +8204,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Tilenames (256)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-512-names" datatype="html">
@@ -8212,7 +8212,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Tilenames (512)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.poi-areas" datatype="html">
@@ -8220,14 +8220,14 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Poi areas</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">200</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.paved" datatype="html">
         <source>Paved</source>
         <target>Befestigt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -8235,7 +8235,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Unpaved</source>
         <target>Unbefestigt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -8243,7 +8243,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Last month</source>
         <target>Letzter Monat</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -8251,7 +8251,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Last half year</source>
         <target>Letztes halbes Jahr</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
@@ -8259,7 +8259,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Last year</source>
         <target>Letztes Jahr</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -8267,7 +8267,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Last two years</source>
         <target>Letzte zwei Jahre</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
@@ -8275,7 +8275,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>More than two years ago</source>
         <target>Vor mehr als zwei Jahren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -8283,7 +8283,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Unknown</source>
         <target>Unbekannt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
@@ -8291,7 +8291,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>OK</source>
         <target>OK</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -8299,7 +8299,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Review</source>
         <target>Review</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
@@ -8307,7 +8307,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Start node icon</source>
         <target>Startmarkierung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
@@ -8315,7 +8315,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Start node</source>
         <target>Startknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
@@ -8323,7 +8323,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>End node icon</source>
         <target>Endmarkierung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
@@ -8331,7 +8331,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>End node</source>
         <target>Endknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
@@ -8339,7 +8339,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Via node icon</source>
         <target>Zwischenmarkierung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
@@ -8347,7 +8347,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Via node</source>
         <target>Zwischenknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
@@ -8565,15 +8565,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knooppuntnet_planner#Edit_route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">283</context>
+          <context context-type="linenumber">287</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.last-updated" datatype="html">
         <source>Last updated</source>
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.analysis" datatype="html">
@@ -8604,7 +8604,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>OK Orphan</source>
         <target>OK Orphan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
@@ -8612,7 +8612,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Review Orphan</source>
         <target>Review Orphan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
@@ -9057,14 +9057,14 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Vorgeschlagen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.proposed" datatype="html">
         <source>Proposed</source>
         <target>Vorgeschlagen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -9072,7 +9072,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Options</source>
         <target>Optionen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-options.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-options.component.ts</context>
           <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
@@ -9080,7 +9080,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Show proposed routes</source>
         <target>Zeige vorgeschlagene Routen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-options.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-options.component.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -9088,7 +9088,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Allow planning proposed routes</source>
         <target>Planung über vorgeschlagene Routen zulassen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-options.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-options.component.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -9184,7 +9184,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Produce a route pdf file in &apos;text&apos; format</source>
         <target>Erstelle ein PDF-Dokument im &apos;Text&apos;-Format</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
@@ -9192,7 +9192,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Text</source>
         <target>Text</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">47,48</context>
         </context-group>
       </trans-unit>
@@ -9711,7 +9711,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Calculating...</source>
         <target>Berechne...</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-detailed.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-detailed.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -10903,7 +10903,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Surface unknown</source>
         <target>Unbekannte Oberfläche</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
@@ -11343,16 +11343,20 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">28,30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="map.layer.tv" datatype="html">
+      <trans-unit id="map.layer.flanders-hiking" datatype="html">
         <source>Toerisme Vlaanderen</source>
         <target>Toerisme Vlaanderen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/ol/layers/tv-tile-layer.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
           <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.netherlands-hiking" datatype="html">
+        <source>Netherlands routedatabank</source>
+        <target>Netherlands routedatabank</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
     </body>

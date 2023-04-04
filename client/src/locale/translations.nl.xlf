@@ -54,7 +54,7 @@
           <context context-type="linenumber">27</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -78,7 +78,7 @@
           <context context-type="linenumber">31</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
@@ -102,7 +102,7 @@
           <context context-type="linenumber">35</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
@@ -126,7 +126,7 @@
           <context context-type="linenumber">39</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
@@ -150,7 +150,7 @@
           <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
@@ -174,7 +174,7 @@
           <context context-type="linenumber">47</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -291,7 +291,7 @@
         <target>Netwerken</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">129</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unchanged" datatype="html">
@@ -299,7 +299,7 @@
         <target>Onveranderd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.added" datatype="html">
@@ -307,7 +307,7 @@
         <target>Toegevoegd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">134</context>
+          <context context-type="linenumber">138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.deleted" datatype="html">
@@ -315,7 +315,7 @@
         <target>Verwijderd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">142</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.osm" datatype="html">
@@ -323,7 +323,7 @@
         <target>OpenStreetMap</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.other-routes" datatype="html">
@@ -331,7 +331,7 @@
         <target>Andere routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.cycling" datatype="html">
@@ -339,7 +339,7 @@
         <target>Fietsen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">168</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.node" datatype="html">
@@ -347,7 +347,7 @@
         <target>Knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.hiking" datatype="html">
@@ -355,7 +355,7 @@
         <target>Wandelen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="linenumber">176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.horse-riding" datatype="html">
@@ -363,7 +363,7 @@
         <target>Ruiter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">176</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.motorboat" datatype="html">
@@ -371,7 +371,7 @@
         <target>Motorboot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">180</context>
+          <context context-type="linenumber">184</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.canoe" datatype="html">
@@ -379,7 +379,7 @@
         <target>Kano</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">188</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.inline-skating" datatype="html">
@@ -387,7 +387,7 @@
         <target>Inline Skating</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes-and-routes" datatype="html">
@@ -395,7 +395,7 @@
         <target>Knooppunten en routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">196</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.boundary" datatype="html">
@@ -403,7 +403,7 @@
         <target>Locatiegrenzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">200</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
@@ -1484,7 +1484,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
         <source>Route name changed from &quot;<x equiv-text="{{ diffs.nameDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{         diffs.nameDiff.after       }}" id="INTERPOLATION_1"/>&quot;.</source>
-        <target></target>
+        <target>Routenaam gewijzigd van &quot;&lt;x equiv-text=&quot;{{diffs.nameDiff.before}}&quot; id=&quot;INTERPOLATION&quot;/&gt;&quot; naar &quot;&lt;x id=&quot;INTERPOLATION_1&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">14,18</context>
@@ -2160,7 +2160,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
       </trans-unit>
       <trans-unit id="logout.login-comment" datatype="html">
         <source>You can <x ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot;&gt;" id="START_LINK"/>login<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> to view extra information that is available to <x ctype="x-kpn_osm_website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN_OSM_WEBSITE"/><x ctype="x-kpn_osm_website" equiv-text="u" id="CLOSE_TAG_KPN_OSM_WEBSITE"/> users only.</source>
-        <target></target>
+        <target>Ga naar &lt;&lt;x ctype=&quot;x-a&quot; equiv-text=&apos;&amp;lt;a routerLink=&quot;/login&quot;&amp;gt;&apos; id=&quot;START_LINK&quot;/&gt;aanmelden&lt;x ctype=&quot;x-a&quot; equiv-text=&quot;&amp;lt;/a&amp;gt;&quot; id=&quot;CLOSE_LINK&quot;/&gt; om toegang te krijgen tot extra informatie die enkel beschikbaar is voor &lt;x ctype=&quot;x-kpn_osm_website&quot; equiv-text=&quot;&amp;lt;kpn-osm-website&amp;gt;&quot; id=&quot;START_TAG_KPN_OSM_WEBSITE&quot;/&gt;&lt;x ctype=&quot;x-kpn_osm_website&quot; equiv-text=&quot;u&quot; id=&quot;CLOSE_TAG_KPN_OSM_WEBSITE&quot;/&gt; gebruikers.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/base/pages/logout/logout-page.component.ts</context>
           <context context-type="linenumber">54,58</context>
@@ -2178,7 +2178,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Map</source>
         <target>Kaart</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -2186,15 +2186,15 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Map</source>
         <target>Kaart</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
+          <context context-type="linenumber">14,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.title" datatype="html">
         <source>Route planner</source>
         <target>Routeplanner</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-planner.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-planner.component.ts</context>
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
@@ -2202,7 +2202,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Legend</source>
         <target>Legenda</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">17,18</context>
         </context-group>
       </trans-unit>
@@ -2210,39 +2210,39 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Map appearance options</source>
         <target>Kaartweergave</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.surface" datatype="html">
         <source>Surface</source>
         <target>Oppervlakte</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.quality" datatype="html">
         <source>Node and route quality status</source>
         <target>Knooppunt- en routekwaliteit</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">51,52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.survey" datatype="html">
         <source>Date last survey</source>
         <target>Datum laatste controle</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-appearance.component.ts</context>
-          <context context-type="linenumber">40,41</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-appearance.component.ts</context>
+          <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.pois.title" datatype="html">
         <source>Points of interest</source>
         <target>Interessepunten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
@@ -2250,7 +2250,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>(Enabled/Disabled)</source>
         <target>(Aan/Uit)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
@@ -2258,7 +2258,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Show points of interest on the map</source>
         <target>Toon interessepunten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">23,25</context>
         </context-group>
       </trans-unit>
@@ -2266,7 +2266,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Zoom in to see the icons on the map.</source>
         <target>Zoom in om de icoontjes op de kaart te zien</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
@@ -2274,7 +2274,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Reset configuration to default</source>
         <target>Herstel basisconfiguratie</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-poi-configuration.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
           <context context-type="linenumber">35,37</context>
         </context-group>
       </trans-unit>
@@ -2282,63 +2282,63 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Node</source>
         <target>Knooppunt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.network" datatype="html">
         <source>Network</source>
         <target>Netwerk</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.networks" datatype="html">
         <source>Networks</source>
         <target>Netwerken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.no-networks" datatype="html">
         <source>None</source>
         <target>Geen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.routes" datatype="html">
         <source>Routes</source>
         <target>Routes</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.routes.none" datatype="html">
         <source>None</source>
         <target>Geen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.more-details" datatype="html">
         <source>More details</source>
         <target>Meer details</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">85,86</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.route-popup.title" datatype="html">
         <source>Route</source>
         <target>Route</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -2346,7 +2346,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Network</source>
         <target>Netwerk</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
@@ -2354,7 +2354,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Networks</source>
         <target>Netwerken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -2362,7 +2362,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>None</source>
         <target>Geen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
@@ -2370,7 +2370,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>More details</source>
         <target>Meer details</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-route.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
@@ -2378,7 +2378,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Show all</source>
         <target>Toon alle</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group.component.ts</context>
           <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
@@ -2386,7 +2386,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Hide all</source>
         <target>Verberg alle</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group.component.ts</context>
           <context context-type="linenumber">36,38</context>
         </context-group>
       </trans-unit>
@@ -2394,7 +2394,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Default</source>
         <target>Standaard</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group.component.ts</context>
           <context context-type="linenumber">43,45</context>
         </context-group>
       </trans-unit>
@@ -2786,7 +2786,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>No details available</source>
         <target>Geen details beschikbaar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-poi.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-poi.component.ts</context>
           <context context-type="linenumber">24,25</context>
         </context-group>
       </trans-unit>
@@ -2906,7 +2906,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Compact</source>
         <target>Compact</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">19,20</context>
         </context-group>
       </trans-unit>
@@ -2914,7 +2914,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Detailed</source>
         <target>Detail</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">28,29</context>
         </context-group>
       </trans-unit>
@@ -2922,7 +2922,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Instructions</source>
         <target>Instructies</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-result-menu.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-result-menu.component.ts</context>
           <context context-type="linenumber">37,38</context>
         </context-group>
       </trans-unit>
@@ -2930,15 +2930,15 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Distance</source>
         <target>Afstand</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-distance.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.head" datatype="html">
         <source>Head</source>
         <target>Ga richting</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
@@ -2946,7 +2946,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>north</source>
         <target>noord</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
@@ -2954,7 +2954,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>north-east</source>
         <target>noord-oost</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
@@ -2962,7 +2962,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>east</source>
         <target>oost</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">112</context>
         </context-group>
       </trans-unit>
@@ -2970,7 +2970,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>south-east</source>
         <target>zuid-oost</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
@@ -2978,7 +2978,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>south</source>
         <target>zuid</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
@@ -2986,7 +2986,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>south-west</source>
         <target>zuid-west</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
@@ -2994,7 +2994,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>west</source>
         <target>west</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
@@ -3002,7 +3002,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>north-west</source>
         <target>noord-west</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
@@ -3010,7 +3010,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Continue</source>
         <target>Rechtdoor</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">133</context>
         </context-group>
       </trans-unit>
@@ -3018,7 +3018,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Slight left</source>
         <target>Houd links aan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">137</context>
         </context-group>
       </trans-unit>
@@ -3026,7 +3026,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Slight right</source>
         <target>Houd rechts aan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">141</context>
         </context-group>
       </trans-unit>
@@ -3034,7 +3034,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Turn left</source>
         <target>Ga linksaf</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
@@ -3042,7 +3042,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Turn right</source>
         <target>Ga rechtsaf</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">149</context>
         </context-group>
       </trans-unit>
@@ -3050,7 +3050,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Sharp left</source>
         <target>Scherp linksaf</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">153</context>
         </context-group>
       </trans-unit>
@@ -3058,7 +3058,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Sharp right</source>
         <target>Scherp rechtsaf</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">157</context>
         </context-group>
       </trans-unit>
@@ -4705,11 +4705,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Amenity</source>
         <target>Voorziening</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">49,50</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-amenity.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-amenity.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4717,11 +4717,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Foodshops</source>
         <target>Voeding</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">51,53</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">55,56</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-foodshops.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-foodshops.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4729,11 +4729,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Places to stay</source>
         <target>Verblijf</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">39,41</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">43,44</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-places-to-stay.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-places-to-stay.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4741,11 +4741,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Restaurants</source>
         <target>Restaurants</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">33,35</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">37,38</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-restaurants.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-restaurants.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4753,11 +4753,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Shops</source>
         <target>Winkels</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">48,50</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-shops.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-shops.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -4765,11 +4765,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Sports</source>
         <target>Sport</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">58,59</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-sports.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-sports.component.ts</context>
           <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
@@ -4777,11 +4777,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Tourism</source>
         <target>Toerisme</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">42,44</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">46,47</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-tourism.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-tourism.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4789,11 +4789,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Hiking/biking</source>
         <target>Wandelen/fietsen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">24,26</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">28,29</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-hiking-biking.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-hiking-biking.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -4801,11 +4801,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Landmarks</source>
         <target>Oriëntatiepunten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">27,29</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">31,32</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi/poi-group-landmarks.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi/poi-group-landmarks.component.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
@@ -6152,10 +6152,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/_map-page.component.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
           <context context-type="linenumber">9</context>
         </context-group>
@@ -6198,6 +6194,10 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/update/monitor-route-update-page.component.ts</context>
           <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
+          <context context-type="linenumber">10</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/settings/settings-page.component.ts</context>
@@ -7131,7 +7131,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>alle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="linenumber">207</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.yes" datatype="html">
@@ -7139,7 +7139,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>ja</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">204</context>
+          <context context-type="linenumber">208</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.no" datatype="html">
@@ -7147,7 +7147,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>nee</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">205</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.unknown" datatype="html">
@@ -7155,7 +7155,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>onbekend</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInNetworkRelation" datatype="html">
@@ -7163,7 +7163,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Opgenomen in netwerkrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">216</context>
+          <context context-type="linenumber">220</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.referencedInRoute" datatype="html">
@@ -7171,7 +7171,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Verwijzing in route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">224</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheck" datatype="html">
@@ -7179,7 +7179,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Integriteitscontrole</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">224</context>
+          <context context-type="linenumber">228</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheckFailed" datatype="html">
@@ -7187,7 +7187,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Integriteitscontrole faalt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">228</context>
+          <context context-type="linenumber">232</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.connection" datatype="html">
@@ -7195,7 +7195,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Verbinding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">232</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastUpdated" datatype="html">
@@ -7203,7 +7203,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Recentste aanpassing</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">244</context>
+          <context context-type="linenumber">248</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
@@ -7211,7 +7211,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Recentste controle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">248</context>
+          <context context-type="linenumber">252</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
@@ -7219,7 +7219,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>voorbije week</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">252</context>
+          <context context-type="linenumber">256</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
@@ -7227,7 +7227,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>voorbije maand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">256</context>
+          <context context-type="linenumber">260</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
@@ -7235,7 +7235,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>voorbije jaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">260</context>
+          <context context-type="linenumber">264</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
@@ -7243,7 +7243,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>voorbije half jaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">264</context>
+          <context context-type="linenumber">268</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
@@ -7251,7 +7251,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>voorbije twee jaar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">268</context>
+          <context context-type="linenumber">272</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
@@ -7259,7 +7259,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>ouder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">270</context>
+          <context context-type="linenumber">274</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
@@ -7267,7 +7267,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Rol &quot;connection&quot;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">273</context>
+          <context context-type="linenumber">277</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip-zoom-in" datatype="html">
@@ -7315,7 +7315,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Onderzoek</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">236</context>
+          <context context-type="linenumber">240</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.accessible" datatype="html">
@@ -7323,23 +7323,23 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Toegankelijk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">240</context>
+          <context context-type="linenumber">244</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">
         <source>Points of interest</source>
         <target>Interessepunten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/poi-menu.component.ts</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/poi-menu.component.ts</context>
+          <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.unpaved" datatype="html">
         <source>Unpaved</source>
         <target>Onverhard</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-distance.component.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-distance.component.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-control.letter" datatype="html">
@@ -7378,7 +7378,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Undo</source>
         <target>Ongedaan maken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">25,24</context>
         </context-group>
       </trans-unit>
@@ -7386,7 +7386,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Undo the previous action</source>
         <target>Maak de vorige actie ongedaan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
@@ -7394,7 +7394,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Redo</source>
         <target>Opnieuw doen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">36,35</context>
         </context-group>
       </trans-unit>
@@ -7402,7 +7402,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Redo the action that was previously undone</source>
         <target>Herhaal de actie die voorheen ongedaan gemaakt was</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -7410,7 +7410,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Reset</source>
         <target>Herstart</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">47,46</context>
         </context-group>
       </trans-unit>
@@ -7418,7 +7418,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Wipe out current route plan and restart route planning from scratch</source>
         <target>Wis de geplande route en start routeplanning opnieuw</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
@@ -7426,7 +7426,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Reverse</source>
         <target>Omkeren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">58,57</context>
         </context-group>
       </trans-unit>
@@ -7434,7 +7434,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Reverse the route direction (startnode becomes endnode, and vice versa)</source>
         <target>Keer de richting van de geplande route om (startpunt wordt eindpunt en omgekeerd)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
@@ -7442,7 +7442,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Output</source>
         <target>Uitvoer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">68,67</context>
         </context-group>
       </trans-unit>
@@ -7450,7 +7450,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Output planned route</source>
         <target>Uitvoer van de geplande route</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-actions.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-actions.component.ts</context>
           <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
@@ -7458,7 +7458,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Output</source>
         <target>Uitvoer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -7466,7 +7466,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Compact</source>
         <target>Compact</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
@@ -7474,7 +7474,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Node strip</source>
         <target>Knooppuntenstrip</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
@@ -7482,7 +7482,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Navigation instructions</source>
         <target>Navigatie-instructies</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">78,79</context>
         </context-group>
       </trans-unit>
@@ -7490,7 +7490,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>GPX file</source>
         <target>GPX bestand</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">88,89</context>
         </context-group>
       </trans-unit>
@@ -7498,7 +7498,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Zoom in or use magnifying glass to find the startnode of your route.</source>
         <target>Zoom in of gebruik het vergrootglas om het startknooppunt van uw route te vinden.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
@@ -7506,7 +7506,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Use zoom, pan or use magnifying glass to find and click the startnode of your route.</source>
         <target>Zoom, verschuif of gebruik het vergrootglas om het startknooppunt van uw route te kiezen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
@@ -7514,7 +7514,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Zoom in and click the endnode of your route.</source>
         <target>Zoom in en klik het eindknooppunt van uw route.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">36,37</context>
         </context-group>
       </trans-unit>
@@ -7522,7 +7522,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Click the endnode of your route.</source>
         <target>Klik op het eindknooppunt van uw route.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
@@ -7530,7 +7530,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Extend or adapt your route. Output when satisfied.</source>
         <target>Ga verder met het uitbreiden of aanpassen van je route. Klik op de uitvoer knop als het klaar is.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">46,47</context>
         </context-group>
       </trans-unit>
@@ -7538,39 +7538,39 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Unavailable</source>
         <target>Niet beschikbaar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
-          <context context-type="linenumber">8,10</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.unavailable.message" datatype="html">
         <source>We cannot determine your location. Verify your settings to allow this application to access you location.</source>
         <target>Je locatie kan niet bepaald worden. Ga naar instellingen om deze app toegang te geven tot je locatie.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-unavailable-dialog.component.ts</context>
-          <context context-type="linenumber">11,14</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-unavailable-dialog.component.ts</context>
+          <context context-type="linenumber">12,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.title" datatype="html">
         <source>Timeout</source>
         <target>Timeout</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
-          <context context-type="linenumber">8,10</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.timeout.message" datatype="html">
         <source>We cannot determine your location.</source>
         <target>Je locatie kan niet bepaald worden.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-timeout-dialog.component.ts</context>
-          <context context-type="linenumber">11,13</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-timeout-dialog.component.ts</context>
+          <context context-type="linenumber">12,14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="geolocation-dialog.permission-denied.title" datatype="html">
         <source>Permission denied</source>
         <target>Niet toegestaan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">8,10</context>
         </context-group>
       </trans-unit>
@@ -7578,7 +7578,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>We cannot determine your location. Knooppuntnet does not have the permission to access your location.</source>
         <target>Je locatie kan niet bepaald worden. Knooppuntnet heeft geen toegang tot je locatie. </target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-permission-denied-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-permission-denied-dialog.component.ts</context>
           <context context-type="linenumber">14,17</context>
         </context-group>
       </trans-unit>
@@ -7586,7 +7586,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Not supported</source>
         <target>Wordt niet ondersteund.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">8,10</context>
         </context-group>
       </trans-unit>
@@ -7594,7 +7594,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>We cannot determine your location. Your device does not seem to support this.</source>
         <target>Je locatie kan niet bepaald worden. Je toestel lijkt dit niet te ondersteunen.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-not-supported-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
           <context context-type="linenumber">11,14</context>
         </context-group>
       </trans-unit>
@@ -7602,7 +7602,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>position the map on your current location</source>
         <target>schuif de kaart naar je huidige locatie</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/geolocation/geolocation-control.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-control.component.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
@@ -7610,7 +7610,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Produce a route pdf file with compact node overview</source>
         <target>Maak voor de route een pdf-bestand met compact knooppuntenoverzicht</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
@@ -7618,7 +7618,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
         <target>Maak een pdf-bestand met een knooppunten-strip</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -7626,7 +7626,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Produce a route pdf with navigation instructions</source>
         <target>Maak een pdf-bestand met navigatie-aanwijzingen voor de route</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -7634,7 +7634,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Produce a route file that can be used in a gps-device</source>
         <target>Maak voor de route een bestand dat in een gps-apparaat kan worden geladen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
@@ -7642,7 +7642,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Copy link to clipboard</source>
         <target>Kopieer link naar klembord</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">99,100</context>
         </context-group>
       </trans-unit>
@@ -7650,7 +7650,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Copy a link to this route to the clipboard (for example to keep for later or paste in email)</source>
         <target>Kopieer een link naar deze route naar het klembord, bijvoorbeeld voor gebruik in een mailbericht.</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
@@ -7706,7 +7706,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Follow colour</source>
         <target>Volg kleur</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
@@ -7714,7 +7714,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>black</source>
         <target>zwart</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
@@ -7722,7 +7722,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>blue</source>
         <target>blauw</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">161</context>
         </context-group>
       </trans-unit>
@@ -7730,7 +7730,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>brown</source>
         <target>bruin</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
@@ -7738,7 +7738,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>gray</source>
         <target>grijs</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
@@ -7746,7 +7746,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>green</source>
         <target>groen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
@@ -7754,7 +7754,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>grey</source>
         <target>grijs</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">165</context>
         </context-group>
       </trans-unit>
@@ -7762,7 +7762,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>orange</source>
         <target>oranje</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">166</context>
         </context-group>
       </trans-unit>
@@ -7770,7 +7770,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>purple</source>
         <target>paars</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">167</context>
         </context-group>
       </trans-unit>
@@ -7778,7 +7778,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>red</source>
         <target>rood</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
@@ -7786,7 +7786,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>violet</source>
         <target>paars</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
@@ -7794,7 +7794,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>white</source>
         <target>wit</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">170</context>
         </context-group>
       </trans-unit>
@@ -7802,7 +7802,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>yellow</source>
         <target>geel</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">171</context>
         </context-group>
       </trans-unit>
@@ -7810,7 +7810,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Route name</source>
         <target>Routenaam</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -7818,7 +7818,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>type route name</source>
         <target>geef routenaam</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
@@ -7827,14 +7827,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Eigen GPX-spoor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">155</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.or" datatype="html">
         <source>or</source>
         <target>of</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/planner.service.ts</context>
+          <context context-type="sourcefile">src/app/planner/services/planner.service.ts</context>
           <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
@@ -7843,7 +7843,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>NL:Knooppuntnet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">276</context>
+          <context context-type="linenumber">280</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.planner" datatype="html">
@@ -7851,7 +7851,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_planner#What_do_you_see.3F</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">283</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.login-page" datatype="html">
@@ -7859,7 +7859,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Login</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">287</context>
+          <context context-type="linenumber">291</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.logout-page" datatype="html">
@@ -7867,7 +7867,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Logout</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">295</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.node-page" datatype="html">
@@ -7875,7 +7875,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Node</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">295</context>
+          <context context-type="linenumber">299</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.route-page" datatype="html">
@@ -7883,7 +7883,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">299</context>
+          <context context-type="linenumber">303</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.network-page" datatype="html">
@@ -7891,7 +7891,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Network</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">303</context>
+          <context context-type="linenumber">307</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.changes-page" datatype="html">
@@ -7899,7 +7899,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">307</context>
+          <context context-type="linenumber">311</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.location-page" datatype="html">
@@ -7907,7 +7907,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Location</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">311</context>
+          <context context-type="linenumber">315</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
@@ -7915,7 +7915,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Overview_in_numbers</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">315</context>
+          <context context-type="linenumber">319</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-networks-page" datatype="html">
@@ -7923,7 +7923,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_networks</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">319</context>
+          <context context-type="linenumber">323</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-facts-page" datatype="html">
@@ -7931,7 +7931,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_facts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">323</context>
+          <context context-type="linenumber">327</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
@@ -7939,7 +7939,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_orphan_nodes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">327</context>
+          <context context-type="linenumber">331</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
@@ -7947,7 +7947,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_orphan_routes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">331</context>
+          <context context-type="linenumber">335</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-map-page" datatype="html">
@@ -7955,7 +7955,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">335</context>
+          <context context-type="linenumber">339</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-changes-page" datatype="html">
@@ -7963,14 +7963,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_analysis#Subset_Changes</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">339</context>
+          <context context-type="linenumber">343</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.read-more" datatype="html">
         <source>read more</source>
         <target>lees meer</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-tip.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-tip.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
@@ -8183,7 +8183,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Achtergrond</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-256-names" datatype="html">
@@ -8191,7 +8191,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Tegelnamen (256)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">159</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-512-names" datatype="html">
@@ -8199,7 +8199,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Tegelnamen (512)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.poi-areas" datatype="html">
@@ -8207,14 +8207,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>POI grenzen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">200</context>
+          <context context-type="linenumber">204</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.paved" datatype="html">
         <source>Paved</source>
         <target>Verhard</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
@@ -8222,7 +8222,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Unpaved</source>
         <target>Onverhard</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
@@ -8230,7 +8230,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Last month</source>
         <target>Voorbije maand</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
@@ -8238,7 +8238,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Last half year</source>
         <target>Voorbije half jaar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
@@ -8246,7 +8246,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Last year</source>
         <target>Voorbije jaar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
@@ -8254,7 +8254,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Last two years</source>
         <target>Voorbije twee jaar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
@@ -8262,7 +8262,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>More than two years ago</source>
         <target>Meer dan twee jaar geleden</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
@@ -8270,7 +8270,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Unknown</source>
         <target>Onbekend</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
@@ -8278,7 +8278,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>OK</source>
         <target>OK</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
@@ -8286,7 +8286,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Review</source>
         <target>Na te kijken</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
@@ -8294,7 +8294,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Start node icon</source>
         <target>Startpunt icoon</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
@@ -8302,7 +8302,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Start node</source>
         <target>Startpunt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
@@ -8310,7 +8310,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>End node icon</source>
         <target>Eindpunt icoon</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">109</context>
         </context-group>
       </trans-unit>
@@ -8318,7 +8318,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>End node</source>
         <target>Eindpunt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">113</context>
         </context-group>
       </trans-unit>
@@ -8326,7 +8326,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Via node icon</source>
         <target>Via-punt icoon</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">120</context>
         </context-group>
       </trans-unit>
@@ -8334,7 +8334,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Via node</source>
         <target>Via-punt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">124</context>
         </context-group>
       </trans-unit>
@@ -8551,15 +8551,15 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppuntnet_planner#Edit_route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">283</context>
+          <context context-type="linenumber">287</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.last-updated" datatype="html">
         <source>Last updated</source>
         <target>Aangepast</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/pages/map/popup/map-popup-node.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.analysis" datatype="html">
@@ -8590,7 +8590,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>OK Orphan</source>
         <target>OK (wezen)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
@@ -8598,7 +8598,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Review Orphan</source>
         <target>Na te kijken (wezen)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
@@ -9043,14 +9043,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Toekomstig</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">216</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.proposed" datatype="html">
         <source>Proposed</source>
         <target>Toekomstige route en knooppunt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
@@ -9058,7 +9058,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Options</source>
         <target>Opties</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-options.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-options.component.ts</context>
           <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
@@ -9066,7 +9066,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Show proposed routes</source>
         <target>Toekomstige routes zichtbaar</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-options.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-options.component.ts</context>
           <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
@@ -9074,7 +9074,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Allow planning proposed routes</source>
         <target>Toekomstige routes toelaten in plan</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-options.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-options.component.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -9170,7 +9170,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Produce a route pdf file in &apos;text&apos; format</source>
         <target>Maak een route-pdf in tekstvorm</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
@@ -9178,7 +9178,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Text</source>
         <target>Tekst</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-output-dialog.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">47,48</context>
         </context-group>
       </trans-unit>
@@ -9695,7 +9695,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Calculating...</source>
         <target>Verwerking...</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/plan-detailed.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-detailed.component.ts</context>
           <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
@@ -10887,7 +10887,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <source>Surface unknown</source>
         <target>Oppervlak onbekend</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/map/sidebar/map-side-bar-legend.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/planner-side-bar-legend.component.ts</context>
           <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
@@ -11327,16 +11327,20 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">28,30</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="map.layer.tv" datatype="html">
+      <trans-unit id="map.layer.flanders-hiking" datatype="html">
         <source>Toerisme Vlaanderen</source>
         <target>Toerisme Vlaanderen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/ol/layers/tv-tile-layer.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
           <context context-type="linenumber">121</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.netherlands-hiking" datatype="html">
+        <source>Netherlands routedatabank</source>
+        <target>Nederland routedatabank</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/i18n/i18n.service.ts</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
     </body>
