@@ -202,18 +202,5 @@ export class PlannerLayerService {
       }
       mapLayer.layer.setVisible(visible);
     });
-
-    const visibleLayers = this.layers
-      .filter((mapLayer) => mapLayer.layer.getVisible())
-      .map(
-        (mapLayer) =>
-          `${mapLayer.name}/${mapLayer.id}(minZoom=${mapLayer.minZoom}, maxZoom=${mapLayer.maxZoom})`
-      )
-      .join(',');
-    console.log(`visibleLayers=${visibleLayers}`);
-  }
-
-  updateSize(): void {
-    // this.backgroundLayer.updateSize();
   }
 }

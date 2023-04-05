@@ -46,12 +46,15 @@ import { PlannerService } from '../../services/planner.service';
   template: `
     <kpn-planner-popup></kpn-planner-popup>
     <div id="main-map" class="map" (mouseleave)="mouseleave()">
-      <kpn-route-control (action)="zoomInToRoute()"/>
-      <kpn-geolocation-control (action)="geolocation($event)"/>
-      <kpn-layer-switcher [layerStates]="layerStates$ | async" (layerStateChange)="layerStateChange($event)">
-        <kpn-poi-menu/>
+      <kpn-route-control (action)="zoomInToRoute()" />
+      <kpn-geolocation-control (action)="geolocation($event)" />
+      <kpn-layer-switcher
+        [layerStates]="layerStates$ | async"
+        (layerStateChange)="layerStateChange($event)"
+      >
+        <kpn-poi-menu />
       </kpn-layer-switcher>
-      <kpn-map-link-menu [map]="map"/>
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
   styles: [
@@ -244,7 +247,6 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.map) {
       setTimeout(() => {
         this.map.updateSize();
-        this.plannerLayerService.updateSize();
       }, 0);
     }
   }

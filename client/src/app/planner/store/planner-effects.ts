@@ -10,17 +10,15 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
-import {
-  actionPlannerInit,
-  actionPlannerLayerVisible,
-  actionPlannerLoad,
-  actionPlannerLoaded,
-  actionPlannerMapMode,
-  actionPlannerNetworkType,
-  actionPlannerPoiGroupVisible,
-  actionPlannerPoisEnabled,
-  actionPlannerPosition,
-} from './planner-actions';
+import { actionPlannerInit } from './planner-actions';
+import { actionPlannerLayerVisible } from './planner-actions';
+import { actionPlannerLoad } from './planner-actions';
+import { actionPlannerLoaded } from './planner-actions';
+import { actionPlannerMapMode } from './planner-actions';
+import { actionPlannerNetworkType } from './planner-actions';
+import { actionPlannerPoiGroupVisible } from './planner-actions';
+import { actionPlannerPoisEnabled } from './planner-actions';
+import { actionPlannerPosition } from './planner-actions';
 import { PlannerState } from './planner-state';
 
 @Injectable()

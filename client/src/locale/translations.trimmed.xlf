@@ -5457,6 +5457,13 @@
           <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="layer-switcher.title">
+        <source>select the layers displayed in the map</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/ol/components/layer-switcher.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="leg-http-error-dialog.title">
         <source>Network error</source>
         <context-group purpose="location">
@@ -5483,6 +5490,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/ol/components/leg-not-found-dialog.ts</context>
           <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="map-link-menu-title">
+        <source>open website at this location</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/ol/components/map-link-menu.component.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-control.title">

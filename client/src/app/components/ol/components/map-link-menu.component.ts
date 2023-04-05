@@ -26,12 +26,14 @@ import { toLonLat } from 'ol/proj';
       </ng-template>
     </mat-menu>
 
-    <div class="map-control map-links-control" (mouseenter)="openPopupMenu()">
+    <div class="map-control map-links-control" (click)="openPopupMenu()">
       <button
         class="map-control-button"
         [matMenuTriggerFor]="mapMenu"
+        title="open website at this location"
+        i18n-title="@@map-link-menu-title"
       >
-        <mat-icon svgIcon="external-link"/>
+        <mat-icon svgIcon="external-link" />
       </button>
     </div>
   `,
