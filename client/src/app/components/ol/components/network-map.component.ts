@@ -21,6 +21,8 @@ import { MapLayerService } from '../services/map-layer.service';
 import { MapZoomService } from '../services/map-zoom.service';
 import { NetworkMapPositionService } from '../services/network-map-position.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
+import { NetworkNodesMarkerLayer } from '@app/components/ol/layers/network-nodes-marker-layer';
 
 @Component({
   selector: 'kpn-network-map',
@@ -123,9 +125,9 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       )
     );
     mapLayers = mapLayers.push(
-      this.mapLayerService.networkNodesMarkerLayer(this.page.nodes)
+      new NetworkNodesMarkerLayer().build(this.page.nodes)
     );
-    mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
+    mapLayers = mapLayers.push(new TileDebug256Layer().build());
     return new MapLayers(mapLayers);
   }
 }

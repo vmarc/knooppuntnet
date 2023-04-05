@@ -15,6 +15,8 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
+import { PoiAreasLayer } from '@app/components/ol/layers/poi-areas-layer';
 
 @Component({
   selector: 'kpn-poi-map',
@@ -88,10 +90,8 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
         'analysis'
       )
     );
-    mapLayers = mapLayers.concat(
-      this.mapLayerService.poiAreasLayer(this.geoJson)
-    );
-    mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
+    mapLayers = mapLayers.concat(new PoiAreasLayer().build(this.geoJson));
+    mapLayers = mapLayers.push(new TileDebug256Layer().build());
     return new MapLayers(mapLayers);
   }
 }

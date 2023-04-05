@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
 import { AppService } from '@app/app.service';
 import { ReplaySubject } from 'rxjs';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NodeClick } from '../domain/node-click';
 import { PoiClick } from '../domain/poi-click';
 import { RouteClick } from '../domain/route-click';
@@ -17,6 +18,7 @@ export class MapService {
   poiClicked$: Observable<PoiClick>;
   nodeClicked$: Observable<NodeClick>;
   routeClicked$: Observable<RouteClick>;
+  surveyDateInfo$: Observable<SurveyDateValues>;
 
   private _highlightedNodeId$ = new BehaviorSubject<string>(null);
   private _highlightedRouteId$ = new BehaviorSubject<string>(null);
@@ -41,6 +43,7 @@ export class MapService {
     this.poiClicked$ = this._poiClicked$.asObservable();
     this.nodeClicked$ = this._nodeClicked$.asObservable();
     this.routeClicked$ = this._routeClicked$.asObservable();
+    this.surveyDateInfo$ = this._surveyDateInfo$.asObservable();
   }
 
   networkType(): NetworkType {

@@ -5,6 +5,7 @@ import { ZoomLevel } from '../domain/zoom-level';
 import { MapLayer } from '../layers/map-layer';
 import { PoiStyleMap } from '../style/poi-style-map';
 import { MapLayerService } from './map-layer.service';
+import { PoiTileLayer } from '@app/components/ol/layers/poi-tile-layer';
 
 @Injectable()
 export class PoiTileLayerService {
@@ -23,7 +24,7 @@ export class PoiTileLayerService {
   }
 
   public buildLayer(): MapLayer {
-    const layer = this.mapLayerService.poiTileLayer();
+    const layer = new PoiTileLayer().build();
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changed.subscribe(() => layer.changed());
     return new MapLayer(

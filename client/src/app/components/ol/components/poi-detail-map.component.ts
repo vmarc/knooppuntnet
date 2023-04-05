@@ -13,6 +13,7 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { PoiMarkerLayer } from '@app/components/ol/layers/poi-marker-layer';
 
 @Component({
   selector: 'kpn-poi-detail-map',
@@ -71,9 +72,7 @@ export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(new BackgroundLayer().build());
-    mapLayers = mapLayers.push(
-      this.mapLayerService.poiMarkerLayer(this.poiDetail)
-    );
+    mapLayers = mapLayers.push(new PoiMarkerLayer().build(this.poiDetail));
     return new MapLayers(mapLayers);
   }
 }

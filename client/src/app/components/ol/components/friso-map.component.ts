@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { OnDestroy } from '@angular/core';
 import { Output } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { NetworkType } from '@api/custom/network-type';
@@ -21,8 +21,8 @@ import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
-import { Observable } from 'rxjs';
 import { fromEvent } from 'rxjs';
+import { Observable } from 'rxjs';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -30,6 +30,9 @@ import { MapControls } from '../layers/map-controls';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { MainMapLayer } from '@app/components/ol/layers/main-map-layer';
 
 @Component({
   selector: 'kpn-friso-map',
@@ -142,21 +145,25 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
       List([
         new OsmLayer().build(),
         new BackgroundLayer().build(),
-        this.mapLayerService.mainMapVectorLayer(
+        new MainMapLayer().buildVectorLayer(
           NetworkType.hiking,
           mainMapStyle.styleFunction()
         ),
-        this.mapLayerService.mainMapBitmapLayer(NetworkType.hiking),
-        this.mapLayerService.frisoLayer('rename'), //'Renamed_ext.geojson'
-        this.mapLayerService.frisoLayer('minor-rename'), // Minor rename_ext.geojson
-        this.mapLayerService.frisoLayer('removed'), // Removed_osm.geojson
-        this.mapLayerService.frisoLayer('added'), // Added_ext.geojson
-        this.mapLayerService.frisoLayer('no-change'), // No change_ext.geojson
-        this.mapLayerService.frisoLayer('moved-short-distance'), // Moved short distance_ext.geojson
-        this.mapLayerService.frisoLayer('moved-long-distance'), // Moved long distance_ext.geojson
-        this.mapLayerService.frisoLayer('other'), // other.geojson
+        new MainMapLayer().buildBitmapLayer(NetworkType.hiking),
+        this.frisoLayer('rename'), //'Renamed_ext.geojson'
+        this.frisoLayer('minor-rename'), // Minor rename_ext.geojson
+        this.frisoLayer('removed'), // Removed_osm.geojson
+        this.frisoLayer('added'), // Added_ext.geojson
+        this.frisoLayer('no-change'), // No change_ext.geojson
+        this.frisoLayer('moved-short-distance'), // Moved short distance_ext.geojson
+        this.frisoLayer('moved-long-distance'), // Moved long distance_ext.geojson
+        this.frisoLayer('other'), // other.geojson
       ])
     );
+  }
+
+  private frisoLayer(name: string): MapLayer {
+    return new FrisoLayer(name, `$name.geojson`).build();
   }
 
   private buildInteraction(): Interaction {

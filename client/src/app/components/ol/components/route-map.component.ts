@@ -22,6 +22,7 @@ import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
 import { OldMapPositionService } from '../services/old-map-position.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
 
 @Component({
   selector: 'kpn-route-map',
@@ -152,7 +153,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.concat(
       this.mapLayerService.routeLayers(this.routeMapInfo.map)
     );
-    mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
+    mapLayers = mapLayers.push(new TileDebug256Layer().build());
     return new MapLayers(mapLayers);
   }
 }

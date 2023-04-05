@@ -15,6 +15,7 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { NodeMovedLayer } from '@app/components/ol/layers/node-moved-layer';
 
 @Component({
   selector: 'kpn-node-moved-map',
@@ -80,9 +81,8 @@ export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(new BackgroundLayer().build());
-    mapLayers = mapLayers.push(
-      this.mapLayerService.nodeMovedLayer(this.nodeMoved)
-    );
+    mapLayers = mapLayers.push(NodeMovedLayer.build(this.nodeMoved));
+
     return new MapLayers(mapLayers);
   }
 }

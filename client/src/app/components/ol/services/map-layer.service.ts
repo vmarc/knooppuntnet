@@ -1,41 +1,20 @@
 import { Injectable } from '@angular/core';
-import { RawNode } from '@api/common/data/raw/raw-node';
-import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { NetworkMapNode } from '@api/common/network/network-map-node';
-import { NodeMapInfo } from '@api/common/node-map-info';
 import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteMap } from '@api/common/route/route-map';
-import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { NetworkType } from '@api/custom/network-type';
-import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
 import { MapLayerDefinition } from '@app/components/ol/services/map-layer-definition';
 import { I18nService } from '@app/i18n/i18n.service';
-import { PoiDetail } from '@app/kpn/api/common/poi-detail';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import { StyleFunction } from 'ol/style/Style';
 import { MapLayerState } from '../domain/map-layer-state';
 import { MapLayerStates } from '../domain/map-layer-states';
-import { LocationBoundaryLayer } from '../layers/location-boundary-layer';
-import { MainMapLayer } from '../layers/main-map-layer';
 import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { NetworkBitmapTileLayer } from '../layers/network-bitmap-tile-layer';
-import { NetworkMarkerLayer } from '../layers/network-marker-layer';
-import { NetworkNodesMarkerLayer } from '../layers/network-nodes-marker-layer';
-import { NetworkNodesVectorTileLayer } from '../layers/network-nodes-vector-tile-layer';
 import { NetworkVectorTileLayer } from '../layers/network-vector-tile-layer';
-import { NodeMarkerLayer } from '../layers/node-marker-layer';
-import { NodeMovedLayer } from '../layers/node-moved-layer';
-import { PoiAreasLayer } from '../layers/poi-areas-layer';
-import { PoiMarkerLayer } from '../layers/poi-marker-layer';
-import { PoiTileLayer } from '../layers/poi-tile-layer';
 import { RouteChangeLayers } from '../layers/route-change-layers';
 import { RouteLayers } from '../layers/route-layers';
-import { RouteNodesLayer } from '../layers/route-nodes-layer';
-import { TileDebug256Layer } from '../layers/tile-debug-256-layer';
 import { MapMode } from './map-mode';
 import { MapService } from './map.service';
 
@@ -128,42 +107,6 @@ export class MapLayerService {
     );
   }
 
-  tile256NameLayer(): MapLayer {
-    return new TileDebug256Layer().build();
-  }
-
-  mainMapVectorLayer(
-    networkType: NetworkType,
-    styleFunction: StyleFunction
-  ): MapLayer {
-    return new MainMapLayer(this.mapService, this.store).buildVectorLayer(
-      networkType,
-      styleFunction
-    );
-  }
-
-  mainMapBitmapLayer(networkType: NetworkType): MapLayer {
-    return new MainMapLayer(this.mapService, this.store).buildBitmapLayer(
-      networkType
-    );
-  }
-
-  locationBoundaryLayer(geoJson: string): MapLayer {
-    return new LocationBoundaryLayer().build(geoJson);
-  }
-
-  nodeMarkerLayer(nodeMapInfo: NodeMapInfo): MapLayer {
-    return new NodeMarkerLayer().build(nodeMapInfo);
-  }
-
-  poiMarkerLayer(poiDetail: PoiDetail): MapLayer {
-    return new PoiMarkerLayer().build(poiDetail);
-  }
-
-  nodeMovedLayer(nodeMoved: NodeMoved): MapLayer {
-    return NodeMovedLayer.build(nodeMoved);
-  }
-
   networkLayers(networkTypes: NetworkType[]): MapLayer[] {
     return networkTypes.map((networkType) =>
       this.networkVectorTileLayer(networkType)
@@ -179,43 +122,11 @@ export class MapLayerService {
     return NetworkBitmapTileLayer.build(networkType, mapMode);
   }
 
-  routeNodeLayer(nodes: RawNode[]): MapLayer {
-    return new RouteNodesLayer().build(nodes);
-  }
-
   routeChangeLayers(geometryDiff: GeometryDiff): List<MapLayer> {
     return new RouteChangeLayers(this.i18nService).build(geometryDiff);
   }
 
   routeLayers(routeMap: RouteMap): List<MapLayer> {
     return new RouteLayers(this.i18nService, routeMap).build();
-  }
-
-  networkMarkerLayer(networks: SubsetMapNetwork[]): MapLayer {
-    return new NetworkMarkerLayer().build(networks);
-  }
-
-  networkNodesMarkerLayer(nodes: NetworkMapNode[]): MapLayer {
-    return new NetworkNodesMarkerLayer().build(nodes);
-  }
-
-  networkNodesTileLayer(
-    networkType: NetworkType,
-    nodeIds: number[],
-    routeIds: number[]
-  ): MapLayer {
-    return NetworkNodesVectorTileLayer.build(networkType, nodeIds, routeIds);
-  }
-
-  poiTileLayer(): VectorTileLayer {
-    return new PoiTileLayer().build();
-  }
-
-  poiAreasLayer(geoJson: string): MapLayer {
-    return new PoiAreasLayer().build(geoJson);
-  }
-
-  frisoLayer(name: string): MapLayer {
-    return new FrisoLayer(name, `${name}.geojson`).build();
   }
 }

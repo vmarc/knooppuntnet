@@ -14,7 +14,6 @@ import { MapMode } from '@app/components/ol/services/map-mode';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 import { MapService } from '@app/components/ol/services/map.service';
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
-import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
 import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { selectPreferencesShowProposed } from '@app/core/preferences/preferences.selectors';
@@ -39,17 +38,11 @@ export class PlannerLayerService {
     this.store.select(selectPlannerMapMode),
     this.store.select(selectPreferencesShowProposed),
     this.mapService.highlightedRouteId$,
+    this.mapService.surveyDateInfo$,
   ]).pipe(
-    map(([mapMode, showProposed, highlightedRouteId]) => {
-      const surveyDateValues: SurveyDateValues = new SurveyDateValues(
-        '',
-        '',
-        '',
-        ''
-      );
+    map(([mapMode, showProposed, highlightedRouteId, surveyDateValues]) => {
       const selectedRouteId = '';
       const selectedNodeId = '';
-
       return new MainMapStyleParameters(
         mapMode,
         showProposed,

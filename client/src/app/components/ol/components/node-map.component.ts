@@ -24,6 +24,8 @@ import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { OldMapPositionService } from '../services/old-map-position.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
+import { NodeMarkerLayer } from '@app/components/ol/layers/node-marker-layer';
 
 @Component({
   selector: 'kpn-node-map',
@@ -148,10 +150,8 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(new BackgroundLayer().build());
     mapLayers = mapLayers.concat(networkLayers);
-    mapLayers = mapLayers.push(
-      this.mapLayerService.nodeMarkerLayer(this.nodeMapInfo)
-    );
-    mapLayers = mapLayers.push(this.mapLayerService.tile256NameLayer());
+    mapLayers = mapLayers.push(new NodeMarkerLayer().build(this.nodeMapInfo));
+    mapLayers = mapLayers.push(new TileDebug256Layer().build());
     return new MapLayers(mapLayers);
   }
 }

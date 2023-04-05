@@ -19,6 +19,7 @@ import { MapLayer } from '../layers/map-layer';
 import { MapLayers } from '../layers/map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { RouteNodesLayer } from '@app/components/ol/layers/route-nodes-layer';
 
 @Component({
   selector: 'kpn-route-change-map',
@@ -85,7 +86,7 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(new BackgroundLayer().build());
-    mapLayers = mapLayers.push(this.mapLayerService.routeNodeLayer(this.nodes));
+    mapLayers = mapLayers.push(new RouteNodesLayer().build(this.nodes));
     mapLayers = mapLayers.concat(
       this.mapLayerService.routeChangeLayers(this.geometryDiff)
     );

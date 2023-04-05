@@ -25,6 +25,8 @@ import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { LocationBoundaryLayer } from '@app/components/ol/layers/location-boundary-layer';
+import { MainMapLayer } from '@app/components/ol/layers/main-map-layer';
 
 @Component({
   selector: 'kpn-location-map',
@@ -109,18 +111,16 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.push(new BackgroundLayer().build());
     NetworkTypes.all.forEach((networkType) => {
       mapLayers = mapLayers.push(
-        this.mapLayerService.mainMapVectorLayer(
+        new MainMapLayer().buildVectorLayer(
           networkType,
           mainMapStyle.styleFunction()
         )
       );
       mapLayers = mapLayers.push(
-        this.mapLayerService.mainMapBitmapLayer(networkType)
+        new MainMapLayer().buildBitmapLayer(networkType)
       );
     });
-    mapLayers = mapLayers.push(
-      this.mapLayerService.locationBoundaryLayer(this.geoJson)
-    );
+    mapLayers = mapLayers.push(new LocationBoundaryLayer().build(this.geoJson));
     return new MapLayers(mapLayers);
   }
 }
