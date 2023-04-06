@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppService } from '../../app.service';
+import { AppService } from '@app/app.service';
 import { StatusLinks } from './status-links';
 
 @Component({

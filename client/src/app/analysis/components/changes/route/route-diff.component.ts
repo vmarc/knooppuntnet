@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { RouteDiff } from '@api/common/diff/route/route-diff';
-import { Util } from '../../../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 
 @Component({
   selector: 'kpn-route-diff',
@@ -42,7 +42,7 @@ import { Util } from '../../../../components/shared/util';
       to "{{ diffs.roleDiff.after }}".
     </div>
 
-    <kpn-fact-diffs [factDiffs]="diffs.factDiffs"/>
+    <kpn-fact-diffs [factDiffs]="diffs.factDiffs" />
 
     <ng-container *ngFor="let nodeDiff of diffs.nodeDiffs">
       <div *ngIf="nodeDiff.added.length > 0" class="kpn-detail">
@@ -70,10 +70,7 @@ import { Util } from '../../../../components/shared/util';
     </div>
 
     <div *ngIf="hasTagDiffs()">
-      <kpn-tag-diffs
-        [tagDiffs]="diffs.tagDiffs"
-        class="kpn-detail"
-      />
+      <kpn-tag-diffs [tagDiffs]="diffs.tagDiffs" class="kpn-detail" />
     </div>
   `,
 })

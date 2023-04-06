@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '../../../components/shared/page-width.service';
+import { PageWidthService } from '@app/components/shared/page-width.service';
 import { ChangeKey } from '@api/common/changes/details/change-key';
 
 @Component({

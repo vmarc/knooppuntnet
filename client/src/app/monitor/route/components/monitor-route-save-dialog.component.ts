@@ -9,8 +9,8 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { selectSharedHttpError } from '@app/core/shared/shared.selectors';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { actionMonitorRouteSaveDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteSaveInit } from '../../store/monitor.actions';
 import { selectMonitorRouteSaveState } from '../../store/monitor.selectors';
@@ -47,10 +47,10 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
           <span
             *ngIf="(analyzeStatus$ | async) === 'busy'"
             i18n="@@monitor.route.save-dialog.busy"
-          >This may take a while, please wait...</span
+            >This may take a while, please wait...</span
           >
           <span *ngIf="done$ | async" i18n="@@monitor.route.save-dialog.saved"
-          >Route saved!</span
+            >Route saved!</span
           >
         </div>
 

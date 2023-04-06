@@ -25,7 +25,7 @@ import { distinct } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { MapPosition } from '../../../components/ol/domain/map-position';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapPositionChanged } from './store/monitor-route-map.actions';

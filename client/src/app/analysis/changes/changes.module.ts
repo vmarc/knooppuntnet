@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { SharedModule } from '../../components/shared/shared.module';
+import { SharedModule } from '@app/components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { ChangesService } from '../components/changes/filter/changes.service';
 import { ChangesRoutingModule } from './changes-routing.module';

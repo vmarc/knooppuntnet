@@ -4,7 +4,7 @@ import { LocationChanges } from '@api/common/location-changes';
 import { LocationTreeItem } from '@api/common/location-tree-item';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageService } from '../../../components/shared/page.service';
+import { PageService } from '@app/components/shared/page.service';
 import { LocationFlatNode } from '../../location/selection/location-flat-node';
 
 @Component({

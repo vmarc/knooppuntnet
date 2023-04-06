@@ -10,7 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
-import { SharedModule } from '../../components/shared/shared.module';
+import { SharedModule } from '@app/components/shared/shared.module';
 import { FactAddedComponent } from './descriptions/fact-added.component';
 import { FactDeletedComponent } from './descriptions/fact-deleted.component';
 import { FactIntegrityCheckFailedComponent } from './descriptions/fact-integrity-check-failed.component';

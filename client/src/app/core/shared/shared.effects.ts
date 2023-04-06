@@ -4,7 +4,7 @@ import { ofType } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { tap } from 'rxjs/operators';
-import { EditDialogComponent } from '../../analysis/components/edit/edit-dialog.component';
+import { EditDialogComponent } from '@app/analysis/components/edit/edit-dialog.component';
 import { actionSharedEdit } from './shared.actions';
 
 @Injectable()

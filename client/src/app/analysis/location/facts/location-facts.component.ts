@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { LocationFact } from '@api/common/location/location-fact';
 import { Fact } from '@api/custom/fact';
 import { Store } from '@ngrx/store';
-import { actionSharedEdit } from '../../../core/shared/shared.actions';
+import { actionSharedEdit } from '@app/core/shared/shared.actions';
 import { FactInfo } from '../../fact/fact-info';
 import { FactLevel } from '../../fact/fact-level';
 import { Facts } from '../../fact/facts';
@@ -26,14 +26,17 @@ import { Facts } from '../../fact/facts';
         <div class="kpn-line">
           <kpn-fact-name [fact]="locationFact.fact" />
           <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
-          <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
+          <kpn-fact-level
+            [factLevel]="factLevel(locationFact.fact)"
+            class="level"
+          />
           <a
             rel="nofollow"
             (click)="edit(locationFact)"
             title="Open in editor (like JOSM)"
             i18n-title="@@edit.link.title"
             i18n="@@edit.link"
-          >edit</a
+            >edit</a
           >
         </div>
         <div class="description">

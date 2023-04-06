@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { AnalysisStrategy } from '../../../../core/preferences/preferences.state';
+import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
 import { actionChangesAnalysisStrategy } from '../../../changes/store/changes.actions';
 import { actionChangesFilterOption } from '../../../changes/store/changes.actions';
 import { ChangeOption } from '../../../changes/store/changes.actions';

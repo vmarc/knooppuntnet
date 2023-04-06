@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { Coordinate } from 'ol/coordinate';
 import View from 'ol/View';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { Util } from '../../shared/util';
 import { NetworkMapPosition } from '../domain/network-map-position';
 import { OldMapPositionService } from './old-map-position.service';

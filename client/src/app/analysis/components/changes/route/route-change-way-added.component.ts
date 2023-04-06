@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { InterpretedTags } from '../../../../components/shared/tags/interpreted-tags';
+import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
 import { WayInfo } from '@api/common/diff/way-info';
 import { RouteChangeInfo } from '@api/common/route/route-change-info';
 
@@ -11,9 +11,12 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-added.title"
-        >Added way</span
+          >Added way</span
         >
-        <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()" />
+        <kpn-osm-link-way
+          [wayId]="wayInfo.id"
+          [title]="wayInfo.id.toString()"
+        />
       </div>
       <div class="kpn-level-4-body">
         <div *ngIf="isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
@@ -27,11 +30,11 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
         </div>
         <div *ngIf="!isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
           <div class="kpn-thin">
-            <kpn-meta-data [metaData]="wayInfo"/>
+            <kpn-meta-data [metaData]="wayInfo" />
           </div>
         </div>
         <div class="kpn-detail">
-          <kpn-tags-table [tags]="wayTags(wayInfo)"/>
+          <kpn-tags-table [tags]="wayTags(wayInfo)" />
         </div>
       </div>
     </div>

@@ -16,7 +16,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
-import { SpinnerModule } from '../../spinner/spinner.module';
+import { SpinnerModule } from '@app/spinner/spinner.module';
 import { CountryNameComponent } from './country-name.component';
 import { DataComponent } from './data/data.component';
 import { DayComponent } from './day/day.component';

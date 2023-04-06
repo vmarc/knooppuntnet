@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Subsets } from '../../../kpn/common/subsets';
+import { Subsets } from '@app/kpn/common/subsets';
 import { Stat } from '../domain/stat';
 
 @Component({
@@ -14,13 +14,10 @@ import { Stat } from '../domain/stat';
       {{ total() }}
     </td>
     <td class="value-cell" *ngFor="let subset of subsets()">
-      <kpn-overview-value [stat]="stat" [subset]="subset"/>
+      <kpn-overview-value [stat]="stat" [subset]="subset" />
     </td>
     <td class="comment-cell">
-      <markdown
-        *ngIf="stat.configuration.markdown"
-        [data]="comment()"
-      />
+      <markdown *ngIf="stat.configuration.markdown" [data]="comment()" />
       <p *ngIf="!stat.configuration.markdown">
         {{ stat.configuration.comment }}
       </p>

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ApiResponse } from '@api/custom/api-response';
 import { Observable } from 'rxjs';
-import { AppService } from '../../app.service';
+import { AppService } from '@app/app.service';
 
 @Component({
   selector: 'kpn-poi-areas-page',
@@ -17,7 +17,7 @@ import { AppService } from '../../app.service';
     </p>
 
     <div *ngIf="response$ | async as response">
-      <kpn-poi-map [geoJson]="response.result"/>
+      <kpn-poi-map [geoJson]="response.result" />
     </div>
   `,
 })

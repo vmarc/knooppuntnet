@@ -37,8 +37,8 @@ import View from 'ol/View';
 import { fromEvent } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
-import { PlannerLayerService } from '../../services/planner-layer.service';
-import { PlannerService } from '../../services/planner.service';
+import { PlannerLayerService } from '@app/services/planner-layer.service';
+import { PlannerService } from '@app/services/planner.service';
 
 @Component({
   selector: 'kpn-planner-page',

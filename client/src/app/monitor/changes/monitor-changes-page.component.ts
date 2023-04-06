@@ -4,10 +4,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { actionPreferencesPageSize } from '../../core/preferences/preferences.actions';
-import { actionPreferencesImpact } from '../../core/preferences/preferences.actions';
-import { selectPreferencesPageSize } from '../../core/preferences/preferences.selectors';
-import { selectPreferencesImpact } from '../../core/preferences/preferences.selectors';
+import { actionPreferencesPageSize } from '@app/core/preferences/preferences.actions';
+import { actionPreferencesImpact } from '@app/core/preferences/preferences.actions';
+import { selectPreferencesPageSize } from '@app/core/preferences/preferences.selectors';
+import { selectPreferencesImpact } from '@app/core/preferences/preferences.selectors';
 import { actionMonitorChangesPageDestroy } from '../store/monitor.actions';
 import { actionMonitorChangesPageIndex } from '../store/monitor.actions';
 import { actionMonitorChangesPageInit } from '../store/monitor.actions';
@@ -39,7 +39,7 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
           [checked]="impact$ | async"
           (change)="impactChanged($event)"
           i18n="@@monitor.changes.impact"
-        >Impact
+          >Impact
         </mat-slide-toggle>
 
         <kpn-paginator

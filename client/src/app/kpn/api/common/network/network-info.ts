@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { Fact } from '../../custom/fact';
+import { Fact } from '@api/custom/fact';
 import { NetworkAttributes } from './network-attributes';
 import { NetworkInfoDetail } from './network-info-detail';
-import { Tags } from '../../custom/tags';
+import { Tags } from '@api/custom/tags';
 
 export interface NetworkInfo {
   readonly _id: number;

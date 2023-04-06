@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Subsets } from '../../../kpn/common/subsets';
+import { Subsets } from '@app/kpn/common/subsets';
 
 @Component({
   selector: 'kpn-overview-table-header',
@@ -19,7 +19,7 @@ import { Subsets } from '../../../kpn/common/subsets';
     </tr>
     <tr>
       <th class="value-cell" *ngFor="let subset of subsets()">
-        <mat-icon [svgIcon]="subset.networkType"/>
+        <mat-icon [svgIcon]="subset.networkType" />
       </th>
     </tr>
   `,

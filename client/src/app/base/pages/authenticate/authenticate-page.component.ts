@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { actionUserAuthenticated } from '../../../core/user/user.actions';
+import { actionUserAuthenticated } from '@app/core/user/user.actions';
 
 @Component({
   selector: 'kpn-authenticate-page',

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NetworkScopes } from '../../../kpn/common/network-scopes';
-import { NetworkTypes } from '../../../kpn/common/network-types';
+import { NetworkScopes } from '@app/kpn/common/network-scopes';
+import { NetworkTypes } from '@app/kpn/common/network-types';
 import { IntegrityIndicatorData } from './integrity-indicator-data';
 
 @Component({

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { PoiService } from '../../services/poi.service';
+import { PoiService } from '@app/services/poi.service';
 import { SharedModule } from '../shared/shared.module';
 import { PoiAnalysisComponent } from './poi-analysis.component';
 

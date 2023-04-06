@@ -1,6 +1,6 @@
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { EditParameters } from '../../analysis/components/edit/edit-parameters';
+import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
 
 export const actionSharedHttpError = createAction(
   '[Shared] Http error',

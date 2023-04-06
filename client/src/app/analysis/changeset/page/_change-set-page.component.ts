@@ -6,8 +6,8 @@ import { ApiResponse } from '@api/custom/api-response';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map, mergeMap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { Util } from '../../../components/shared/util';
+import { AppService } from '@app/app.service';
+import { Util } from '@app/components/shared/util';
 
 class ChangeSetKey {
   constructor(
@@ -31,7 +31,9 @@ class ChangeSetKey {
       </div>
       <div *ngIf="response.result">
         <kpn-change-set-header [page]="response.result" />
-        <kpn-change-set-location-changes [changess]="response.result.summary.locationChanges" />
+        <kpn-change-set-location-changes
+          [changess]="response.result.summary.locationChanges"
+        />
         <kpn-change-set-network-changes [page]="response.result" />
         <kpn-change-set-orphan-node-changes [page]="response.result" />
         <kpn-change-set-orphan-route-changes [page]="response.result" />

@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { Country } from '../../custom/country';
+import { Country } from '@api/custom/country';
 import { Integrity } from './integrity';
 import { LatLonImpl } from '../lat-lon-impl';
-import { NetworkScope } from '../../custom/network-scope';
-import { NetworkType } from '../../custom/network-type';
-import { Timestamp } from '../../custom/timestamp';
+import { NetworkScope } from '@api/custom/network-scope';
+import { NetworkType } from '@api/custom/network-type';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface NetworkAttributes {
   readonly id: number;

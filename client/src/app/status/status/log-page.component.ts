@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppService } from '../../app.service';
+import { AppService } from '@app/app.service';
 import { StatusLinks } from './status-links';
 
 @Component({
@@ -39,18 +39,12 @@ import { StatusLinks } from './status-links';
 
       <div class="chart-group">
         <h2>Analysis</h2>
-        <kpn-log-tile-chart
-          [barChart]="page.tile"
-          [xAxisLabel]="xAxisLabel"
-        />
+        <kpn-log-tile-chart [barChart]="page.tile" [xAxisLabel]="xAxisLabel" />
         <kpn-log-tile-robot-chart
           [barChart]="page.tileRobot"
           [xAxisLabel]="xAxisLabel"
         />
-        <kpn-log-api-chart
-          [barChart]="page.api"
-          [xAxisLabel]="xAxisLabel"
-        />
+        <kpn-log-api-chart [barChart]="page.api" [xAxisLabel]="xAxisLabel" />
         <kpn-log-api-robot-chart
           [barChart]="page.apiRobot"
           [xAxisLabel]="xAxisLabel"

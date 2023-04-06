@@ -6,9 +6,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Country } from '@api/custom/country';
-import { I18nService } from '../../i18n/i18n.service';
-import { Countries } from '../../kpn/common/countries';
-import { Subscriptions } from '../../util/Subscriptions';
+import { I18nService } from '@app/i18n/i18n.service';
+import { Countries } from '@app/kpn/common/countries';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { CountryName } from './country-name';
 
 @Component({

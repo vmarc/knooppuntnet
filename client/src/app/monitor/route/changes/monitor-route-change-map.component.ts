@@ -14,15 +14,15 @@ import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
 import { fromEvent } from 'rxjs';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { BackgroundLayer } from '../../../components/ol/layers/background-layer';
-import { MapControls } from '../../../components/ol/layers/map-controls';
-import { MapLayer } from '../../../components/ol/layers/map-layer';
-import { MapLayers } from '../../../components/ol/layers/map-layers';
-import { OsmLayer } from '../../../components/ol/layers/osm-layer';
-import { Util } from '../../../components/shared/util';
-import { I18nService } from '../../../i18n/i18n.service';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { MapControls } from '@app/components/ol/layers/map-controls';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { OsmLayer } from '@app/components/ol/layers/osm-layer';
+import { Util } from '@app/components/shared/util';
+import { I18nService } from '@app/i18n/i18n.service';
+import { Subscriptions } from '@app/util/Subscriptions';
 
 @Component({
   selector: 'kpn-monitor-route-change-map',

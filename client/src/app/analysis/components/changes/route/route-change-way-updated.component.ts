@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { RawNode } from '@api/common/data/raw/raw-node';
 import { NodeUpdate } from '@api/common/diff/node-update';
 import { WayUpdate } from '@api/common/diff/way-update';
-import { Util } from '../../../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 
 @Component({
   selector: 'kpn-route-change-way-updated',
@@ -12,9 +12,12 @@ import { Util } from '../../../../components/shared/util';
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-update.title"
-        >Updated way</span
+          >Updated way</span
         >
-        <kpn-osm-link-way [wayId]="wayUpdate.id" [title]="wayUpdate.id.toString()" />
+        <kpn-osm-link-way
+          [wayId]="wayUpdate.id"
+          [title]="wayUpdate.id.toString()"
+        />
       </div>
 
       <div class="kpn-level-4-body">
@@ -46,27 +49,27 @@ import { Util } from '../../../../components/shared/util';
 
         <div *ngIf="wayUpdate.removedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes"
-          >Removed node(s)</span
+            >Removed node(s)</span
           >
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.removedNodes)" />
         </div>
 
         <div *ngIf="wayUpdate.addedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.added-nodes"
-          >Added node(s)</span
+            >Added node(s)</span
           >
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)" />
         </div>
 
         <div *ngIf="wayUpdate.updatedNodes.length > 0" class="kpn-detail">
           <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes"
-          >Updated node(s)</span
+            >Updated node(s)</span
           >
           <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)" />
         </div>
 
         <div *ngIf="hasTagDiffs()" class="kpn-detail">
-          <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs"/>
+          <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs" />
         </div>
       </div>
     </div>

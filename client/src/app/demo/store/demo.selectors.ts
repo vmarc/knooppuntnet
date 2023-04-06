@@ -1,7 +1,7 @@
 import { Params } from '@angular/router';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
-import { selectRouteParams } from '../../core/core.state';
+import { selectRouteParams } from '@app/core/core.state';
 import { demoFeatureKey } from './demo.state';
 import { DemoState } from './demo.state';
 

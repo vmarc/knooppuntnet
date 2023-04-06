@@ -2,11 +2,11 @@ import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
-import { BooleanFilter } from '../../../kpn/filter/boolean-filter';
-import { FilterOptions } from '../../../kpn/filter/filter-options';
-import { Filters } from '../../../kpn/filter/filters';
-import { TimestampFilter } from '../../../kpn/filter/timestamp-filter';
-import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
+import { BooleanFilter } from '@app/kpn/filter/boolean-filter';
+import { FilterOptions } from '@app/kpn/filter/filter-options';
+import { Filters } from '@app/kpn/filter/filters';
+import { TimestampFilter } from '@app/kpn/filter/timestamp-filter';
+import { TimestampFilterKind } from '@app/kpn/filter/timestamp-filter-kind';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRouteFilter {

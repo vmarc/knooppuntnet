@@ -4,7 +4,7 @@ import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { RouteMapPage } from '@api/common/route/route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { NetworkType } from '@api/custom/network-type';
-import { MapPosition } from '../../../components/ol/domain/map-position';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 
 export const initialState: RouteState = {
   routeId: '',

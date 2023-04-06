@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '@app/services/planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-node',
@@ -30,9 +30,9 @@ import { PlannerService } from '../../../services/planner.service';
       </h2>
       <p>
         <span class="kpn-label" i18n="@@map.node-popup.last-updated"
-        >Last updated</span
+          >Last updated</span
         >
-        <kpn-timestamp [timestamp]="response.result.lastUpdated"/>
+        <kpn-timestamp [timestamp]="response.result.lastUpdated" />
       </p>
 
       <div>
@@ -40,18 +40,18 @@ import { PlannerService } from '../../../services/planner.service';
           *ngIf="response.result.networkReferences.length === 1"
           class="kpn-label"
           i18n="@@map.node-popup.network"
-        >Network</span
+          >Network</span
         >
         <span
           *ngIf="response.result.networkReferences.length !== 1"
           class="kpn-label"
           i18n="@@map.node-popup.networks"
-        >Networks</span
+          >Networks</span
         >
         <span
           *ngIf="response.result.networkReferences.length === 0"
           i18n="@@map.node-popup.no-networks"
-        >None</span
+          >None</span
         >
         <div
           *ngFor="let ref of response.result.networkReferences"
@@ -66,7 +66,7 @@ import { PlannerService } from '../../../services/planner.service';
         <span
           *ngIf="response.result.routeReferences.length === 0"
           i18n="@@map.node-popup.routes.none"
-        >None</span
+          >None</span
         >
         <div
           *ngFor="let ref of response.result.routeReferences"

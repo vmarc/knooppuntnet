@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnalysisSidebarComponent } from '../../components/shared/sidebar/analysis-sidebar.component';
-import { Util } from '../../components/shared/util';
+import { AnalysisSidebarComponent } from '@app/components/shared/sidebar/analysis-sidebar.component';
+import { Util } from '@app/components/shared/util';
 import { NodeChangesPageComponent } from './changes/_node-changes-page.component';
 import { NodeChangesSidebarComponent } from './changes/node-changes-sidebar.component';
 import { NodeDetailsPageComponent } from './details/_node-details-page.component';

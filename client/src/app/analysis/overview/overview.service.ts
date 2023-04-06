@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidth } from '../../components/shared/page-width';
-import { PageWidthService } from '../../components/shared/page-width.service';
-import { BrowserStorageService } from '../../services/browser-storage.service';
+import { PageWidth } from '@app/components/shared/page-width';
+import { PageWidthService } from '@app/components/shared/page-width.service';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
 
 @Injectable({
   providedIn: 'root',

@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { NetworkScope } from '@api/custom/network-scope';
 import { NetworkType } from '@api/custom/network-type';
-import { IntegrityIndicatorData } from '../../../components/shared/indicator/integrity-indicator-data';
+import { IntegrityIndicatorData } from '@app/components/shared/indicator/integrity-indicator-data';
 
 @Component({
   selector: 'kpn-network-node-analysis',

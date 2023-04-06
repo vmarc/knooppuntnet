@@ -4,7 +4,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteAdminRelationIdChanged } from '../../store/monitor.actions';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
@@ -24,7 +24,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
           [checked]="relationIdKnown.value === true"
         >
           <span i18n="@@monitor.route.properties.relation.question.yes"
-          >Yes</span
+            >Yes</span
           >
         </mat-radio-button>
         <mat-radio-button
@@ -50,7 +50,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
     <div *ngIf="relationIdKnown.value === true">
       <mat-form-field>
         <mat-label i18n="@@monitor.route.properties.relation.label"
-        >Route relation id
+          >Route relation id
         </mat-label>
         <input matInput type="number" [formControl]="relationId" />
       </mat-form-field>
@@ -65,9 +65,7 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
         </button>
       </div>
       <div *ngIf="routeInfo$ | async as routeInfo">
-        <kpn-monitor-route-info
-          [routeInfo]="routeInfo.result"
-        />
+        <kpn-monitor-route-info [routeInfo]="routeInfo.result" />
       </div>
     </div>
 

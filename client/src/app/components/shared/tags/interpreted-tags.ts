@@ -1,8 +1,8 @@
 import { Tag } from '@api/custom/tag';
 import { Tags } from '@api/custom/tags';
 import { List } from 'immutable';
-import { NetworkScopes } from '../../../kpn/common/network-scopes';
-import { NetworkTypes } from '../../../kpn/common/network-types';
+import { NetworkScopes } from '@app/kpn/common/network-scopes';
+import { NetworkTypes } from '@app/kpn/common/network-types';
 
 export class InterpretedTags {
   static nodeTags(tags: Tags): InterpretedTags {

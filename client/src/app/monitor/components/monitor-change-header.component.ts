@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-change-summary';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '../../components/shared/page-width.service';
+import { PageWidthService } from '@app/components/shared/page-width.service';
 
 @Component({
   selector: 'kpn-monitor-change-header',
@@ -11,10 +11,10 @@ import { PageWidthService } from '../../components/shared/page-width.service';
     <div class="kpn-line">
       <a [routerLink]="link()" class="kpn-thick">{{
         changeSet.key.changeSetId
-        }}</a>
+      }}</a>
       <span *ngIf="timestampOnSameLine$ | async" class="kpn-thin">{{
         changeSet.key.timestamp
-        }}</span>
+      }}</span>
       <kpn-icon-happy *ngIf="changeSet.happy" />
       <kpn-icon-investigate *ngIf="changeSet.investigate" />
     </div>

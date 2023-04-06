@@ -8,7 +8,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { I18nService } from '../../../i18n/i18n.service';
+import { I18nService } from '@app/i18n/i18n.service';
 import { Util } from '../../shared/util';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';

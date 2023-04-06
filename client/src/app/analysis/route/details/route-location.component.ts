@@ -5,8 +5,8 @@ import { Location } from '@api/common/location/location';
 import { LocationCandidate } from '@api/common/location/location-candidate';
 import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
 import { NetworkType } from '@api/custom/network-type';
-import { Util } from '../../../components/shared/util';
-import { I18nService } from '../../../i18n/i18n.service';
+import { Util } from '@app/components/shared/util';
+import { I18nService } from '@app/i18n/i18n.service';
 
 @Component({
   selector: 'kpn-route-location',

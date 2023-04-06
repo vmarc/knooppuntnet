@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AppService } from '../../../app.service';
+import { AppService } from '@app/app.service';
 import { TimeoutComponent } from './timeout.component';
 
 @Component({

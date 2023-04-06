@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NetworkScope } from '@api/custom/network-scope';
-import { I18nService } from '../../i18n/i18n.service';
+import { I18nService } from '@app/i18n/i18n.service';
 
 @Component({
   selector: 'kpn-network-scope-name',

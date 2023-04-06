@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { LocationRoutesType } from '../../custom/location-routes-type';
+import { LocationRoutesType } from '@api/custom/location-routes-type';
 
 export interface LocationRoutesParameters {
   readonly locationRoutesType: LocationRoutesType;

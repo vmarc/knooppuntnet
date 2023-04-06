@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { I18nService } from '../../../i18n/i18n.service';
+import { I18nService } from '@app/i18n/i18n.service';
 
 @Component({
   selector: 'kpn-doc-link',
@@ -13,7 +13,7 @@ import { I18nService } from '../../../i18n/i18n.service';
       title="Go to documentation"
       i18n-title="@@doc-link.go-to-documentation"
     >
-      <mat-icon svgIcon="help"/>
+      <mat-icon svgIcon="help" />
     </a>
   `,
   styles: [

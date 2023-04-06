@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Util } from '../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
 import { SubsetFactDetailsPageComponent } from './fact-details/_subset-fact-details-page.component';

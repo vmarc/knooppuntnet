@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
-import { SharedModule } from '../../components/shared/shared.module';
+import { SharedModule } from '@app/components/shared/shared.module';
 import { AnalysisStrategyModule } from '../strategy/strategy.module';
 import { AnalysisRoutingModule } from './analysis-routing.module';
 import { AnalysisSidebarComponent } from './analysis-sidebar.component';

@@ -2,8 +2,8 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { MapZoomService } from '../../../components/ol/services/map-zoom.service';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 
 @Component({
   selector: 'kpn-network-map-sidebar',
@@ -22,13 +22,13 @@ import { MapZoomService } from '../../../components/ol/services/map-zoom.service
             <div>
               <kpn-network-map-legend-icon color="rgb(0,200,0)" />
               <span i18n="@@network-map.side-bar.part-of-network"
-              >Part of network</span
+                >Part of network</span
               >
             </div>
             <div>
               <kpn-network-map-legend-icon color="rgb(150,150,150)" />
               <span i18n="@@network-map.side-bar.not-part-of-network"
-              >Not part of network</span
+                >Not part of network</span
               >
             </div>
           </div>

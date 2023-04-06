@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { RawNode } from '../data/raw/raw-node';
-import { Subset } from '../../custom/subset';
+import { Subset } from '@api/custom/subset';
 
 export interface NodeData {
   readonly subsets: Subset[];

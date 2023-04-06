@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
-import { actionPreferencesInstructions } from '../core/preferences/preferences.actions';
-import { actionPreferencesExtraLayers } from '../core/preferences/preferences.actions';
-import { selectPreferencesInstructions } from '../core/preferences/preferences.selectors';
-import { selectPreferencesExtraLayers } from '../core/preferences/preferences.selectors';
+import { actionPreferencesInstructions } from '@app/core/preferences/preferences.actions';
+import { actionPreferencesExtraLayers } from '@app/core/preferences/preferences.actions';
+import { selectPreferencesInstructions } from '@app/core/preferences/preferences.selectors';
+import { selectPreferencesExtraLayers } from '@app/core/preferences/preferences.selectors';
 
 @Component({
   selector: 'kpn-settings-page',

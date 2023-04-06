@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { I18nService } from '../../../i18n/i18n.service';
+import { I18nService } from '@app/i18n/i18n.service';
 import { selectSubset } from '../store/subset.selectors';
 import { selectSubsetInfo } from '../store/subset.selectors';
 

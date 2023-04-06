@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { selectDefined } from '../../core/core.state';
+import { selectDefined } from '@app/core/core.state';
 import { actionMonitorGroupsPageDestroy } from '../store/monitor.actions';
 import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
 import { selectMonitorGroupsPage } from '../store/monitor.selectors';

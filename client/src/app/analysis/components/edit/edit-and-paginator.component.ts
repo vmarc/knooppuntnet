@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { PaginatorComponent } from '../../../components/shared/paginator/paginator.component';
+import { PaginatorComponent } from '@app/components/shared/paginator/paginator.component';
 
 @Component({
   selector: 'kpn-edit-and-paginator',

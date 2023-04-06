@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { actionUserLogout } from '../../../core/user/user.actions';
-import { selectUserLoggedIn } from '../../../core/user/user.selectors';
+import { actionUserLogout } from '@app/core/user/user.actions';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
 
 @Component({
   selector: 'kpn-logout-page',

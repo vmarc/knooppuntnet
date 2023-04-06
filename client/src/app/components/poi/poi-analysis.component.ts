@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { PoiAnalysis } from '@api/common/poi-analysis';
 import { Tags } from '@api/custom/tags';
-import { PoiService } from '../../services/poi.service';
+import { PoiService } from '@app/services/poi.service';
 
 @Component({
   selector: 'kpn-poi-analysis',

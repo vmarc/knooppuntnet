@@ -2,10 +2,10 @@ import { OrphanNodeInfo } from '@api/common/orphan-node-info';
 import { TimeInfo } from '@api/common/time-info';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
-import { FilterOptions } from '../../../kpn/filter/filter-options';
-import { Filters } from '../../../kpn/filter/filters';
-import { TimestampFilter } from '../../../kpn/filter/timestamp-filter';
-import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
+import { FilterOptions } from '@app/kpn/filter/filter-options';
+import { Filters } from '@app/kpn/filter/filters';
+import { TimestampFilter } from '@app/kpn/filter/timestamp-filter';
+import { TimestampFilterKind } from '@app/kpn/filter/timestamp-filter-kind';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 
 export class SubsetOrphanNodeFilter {

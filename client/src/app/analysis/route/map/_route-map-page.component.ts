@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectDefined } from '../../../core/core.state';
+import { selectDefined } from '@app/core/core.state';
 import { actionRouteMapPageInit } from '../store/route.actions';
 import { selectRouteMapPositionFromUrl } from '../store/route.selectors';
 import { selectRouteNetworkType } from '../store/route.selectors';

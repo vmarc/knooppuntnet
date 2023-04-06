@@ -1,9 +1,9 @@
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
-import { RoutingUtil } from '../../../base/routing-util';
-import { actionPreferencesAnalysisStrategy } from '../../../core/preferences/preferences.actions';
-import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
+import { RoutingUtil } from '@app/base/routing-util';
+import { actionPreferencesAnalysisStrategy } from '@app/core/preferences/preferences.actions';
+import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
 import { actionChangesPageSize } from './changes.actions';
 import { actionChangesImpact } from './changes.actions';
 import { actionChangesFilterOption } from './changes.actions';

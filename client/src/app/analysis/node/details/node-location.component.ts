@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
-import { Util } from '../../../components/shared/util';
-import { I18nService } from '../../../i18n/i18n.service';
+import { Util } from '@app/components/shared/util';
+import { I18nService } from '@app/i18n/i18n.service';
 
 @Component({
   selector: 'kpn-node-location',

@@ -11,7 +11,7 @@ import { PdfService } from '@app/pdf/pdf.service';
 import { GpxWriter } from '@app/pdf/plan/gpx-writer';
 import { Store } from '@ngrx/store';
 import { PlanUtil } from '../../../domain/plan/plan-util';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '@app/services/planner.service';
 
 @Component({
   selector: 'kpn-plan-output-dialog',
@@ -20,7 +20,7 @@ import { PlannerService } from '../../../services/planner.service';
     <kpn-dialog>
       <div mat-dialog-title>
         <div class="kpn-line">
-          <mat-icon svgIcon="output"/>
+          <mat-icon svgIcon="output" />
           <span i18n="@@plan.output.title">Output</span>
         </div>
       </div>
@@ -99,7 +99,7 @@ import { PlannerService } from '../../../services/planner.service';
           Copy link to clipboard
         </button>
 
-        <img [src]="qrCode" alt="qr-code"/>
+        <img [src]="qrCode" alt="qr-code" />
       </div>
     </kpn-dialog>
   `,

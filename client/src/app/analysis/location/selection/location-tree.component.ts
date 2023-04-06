@@ -11,7 +11,7 @@ import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { MatTreeFlattener } from '@angular/material/tree';
 import { Country } from '@api/custom/country';
 import { NetworkType } from '@api/custom/network-type';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationFlatNode } from './location-flat-node';
 

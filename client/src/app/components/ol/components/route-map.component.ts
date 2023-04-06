@@ -9,7 +9,7 @@ import Map from 'ol/Map';
 import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
 import { fromEvent } from 'rxjs';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { MapPosition } from '../domain/map-position';

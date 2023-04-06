@@ -3,7 +3,7 @@ import { ChangesParameters } from '@api/common/changes/filter/changes-parameters
 import { ApiResponse } from '@api/custom/api-response';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
+import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
 
 export interface ChangeOption {
   year: number;

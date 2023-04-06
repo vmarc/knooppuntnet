@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
 
 @Injectable()
 export class LocationModeService {

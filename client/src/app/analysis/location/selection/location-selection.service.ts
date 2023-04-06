@@ -5,7 +5,7 @@ import { NetworkType } from '@api/custom/network-type';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
+import { AppService } from '@app/app.service';
 
 @Injectable()
 export class LocationSelectionService {

@@ -16,9 +16,7 @@ import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-cha
         [index]="rowIndex(i)"
       >
         <div class="change-set">
-          <kpn-monitor-change-header
-            [changeSet]="change"
-          />
+          <kpn-monitor-change-header [changeSet]="change" />
 
           <div>
             <p *ngIf="change.groupDescription">
@@ -64,11 +62,11 @@ import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-cha
               <span
                 >Resolved deviations: {{ change.resolvedNokSegmentCount }}</span
               >
-              <kpn-icon-happy/>
+              <kpn-icon-happy />
             </p>
             <p *ngIf="change.newNokSegmentCount > 0" class="kpn-line">
               <span>New deviations: {{ change.newNokSegmentCount }}</span>
-              <kpn-icon-investigate/>
+              <kpn-icon-investigate />
             </p>
           </div>
         </div>

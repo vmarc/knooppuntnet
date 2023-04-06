@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '../../../components/shared/page-width.service';
+import { PageWidthService } from '@app/components/shared/page-width.service';
 import { actionSubsetNetworksPageInit } from '../store/subset.actions';
 import { selectSubsetNetworksPage } from '../store/subset.selectors';
 

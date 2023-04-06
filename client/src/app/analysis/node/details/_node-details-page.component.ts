@@ -3,8 +3,8 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { Store } from '@ngrx/store';
-import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
-import { selectDefined } from '../../../core/core.state';
+import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
+import { selectDefined } from '@app/core/core.state';
 import { FactInfo } from '../../fact/fact-info';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
 import { selectNodeNetworkTypes } from '../store/node.selectors';
@@ -64,9 +64,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
           <div *ngIf="networkTypes$ | async as networkTypes">
             <div *ngIf="networkTypes.length > 1">
               <div *ngFor="let networkType of networkTypes" class="kpn-line">
-                <kpn-network-type-icon
-                  [networkType]="networkType"
-                />
+                <kpn-network-type-icon [networkType]="networkType" />
                 <kpn-node-location
                   [networkType]="networkType"
                   [locations]="page.nodeInfo.locations"
@@ -112,7 +110,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
       </div>
     </div>
   `,
-  styleUrls: ['../../../components/shared/data/data.component.scss'],
+  styleUrls: ['@app/components/shared/data/data.component.scss'],
 })
 export class NodeDetailsPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { BrowserStorageService } from '../../services/browser-storage.service';
+import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { PageWidthService } from './page-width.service';
 
 @Injectable({

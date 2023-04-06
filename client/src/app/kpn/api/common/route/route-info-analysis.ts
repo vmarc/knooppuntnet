@@ -2,7 +2,7 @@
 
 import { RouteLocationAnalysis } from '../route-location-analysis';
 import { RouteMap } from './route-map';
-import { RouteMemberInfo } from '../../custom/route-member-info';
+import { RouteMemberInfo } from '@api/custom/route-member-info';
 
 export interface RouteInfoAnalysis {
   readonly unexpectedNodeIds: number[];

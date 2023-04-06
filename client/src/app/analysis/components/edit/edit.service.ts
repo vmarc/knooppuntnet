@@ -9,8 +9,8 @@ import { concat } from 'rxjs';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { AppService } from '../../../app.service';
-import { actionSharedHttpError } from '../../../core/shared/shared.actions';
+import { AppService } from '@app/app.service';
+import { actionSharedHttpError } from '@app/core/shared/shared.actions';
 import { EditConfiguration } from './edit-configuration';
 import { EditParameters } from './edit-parameters';
 

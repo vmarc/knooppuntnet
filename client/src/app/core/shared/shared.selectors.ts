@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { selectSharedState } from '../core.state';
+import { selectSharedState } from '@app/core.state';
 import { SharedState } from './shared.state';
 
 export const selectSharedHttpError = createSelector(

@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '../../../components/shared/page-width.service';
+import { PageWidthService } from '@app/components/shared/page-width.service';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
@@ -62,7 +62,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           <a
             [routerLink]="routeMapLink(route)"
             i18n="@@monitor.group.route-table.map-link"
-          >map</a
+            >map</a
           >
         </td>
       </ng-container>

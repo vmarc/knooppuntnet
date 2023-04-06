@@ -3,7 +3,7 @@
 import { Bounds } from '../bounds';
 import { ChangeKey } from '../changes/details/change-key';
 import { ChangeSetInfo } from '../changes/change-set-info';
-import { ChangeType } from '../../custom/change-type';
+import { ChangeType } from '@api/custom/change-type';
 import { GeometryDiff } from './geometry-diff';
 import { MetaData } from '../data/meta-data';
 import { RawNode } from '../data/raw/raw-node';

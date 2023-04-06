@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { NetworkScope } from '../../custom/network-scope';
-import { NetworkType } from '../../custom/network-type';
+import { NetworkScope } from '@api/custom/network-scope';
+import { NetworkType } from '@api/custom/network-type';
 import { Ref } from '../common/ref';
 
 export interface NodeIntegrityDetail {

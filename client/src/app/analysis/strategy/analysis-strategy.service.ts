@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { selectPreferencesAnalysisStrategy } from '../../core/preferences/preferences.selectors';
-import { AnalysisStrategy } from '../../core/preferences/preferences.state';
+import { selectPreferencesAnalysisStrategy } from '@app/core/preferences/preferences.selectors';
+import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
 
 @Injectable()
 export class AnalysisStrategyService {

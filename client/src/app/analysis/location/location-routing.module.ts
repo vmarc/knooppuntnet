@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
-import { Util } from '../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 import { LocationChangesPageComponent } from './changes/location-changes-page.component';
 import { LocationEditPageComponent } from './edit/location-edit-page.component';
 import { LocationFactsPageComponent } from './facts/location-facts-page.component';

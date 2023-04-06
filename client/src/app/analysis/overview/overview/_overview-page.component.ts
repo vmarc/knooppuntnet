@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { ApiResponse } from '@api/custom/api-response';
 import { Observable } from 'rxjs';
-import { AppService } from '../../../app.service';
+import { AppService } from '@app/app.service';
 import { OverviewService } from '../overview.service';
 
 @Component({
@@ -21,7 +21,7 @@ import { OverviewService } from '../overview.service';
     <kpn-page-header
       subject="overview-in-numbers-page"
       i18n="@@overview-page.title"
-    >Overview
+      >Overview
     </kpn-page-header>
 
     <kpn-error></kpn-error>
@@ -38,7 +38,7 @@ import { OverviewService } from '../overview.service';
           <kpn-overview-table [statistics]="response.result" />
         </ng-template>
         <ng-template #list>
-          <kpn-overview-list [statistics]="response.result"/>
+          <kpn-overview-list [statistics]="response.result" />
         </ng-template>
       </div>
     </div>

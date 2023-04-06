@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppService } from '../../app.service';
+import { AppService } from '@app/app.service';
 import { StatusLinks } from './status-links';
 
 @Component({
@@ -38,10 +38,7 @@ import { StatusLinks } from './status-links';
       </div>
 
       <div class="chart-group">
-        <kpn-delay-chart
-          [barChart]="page.delay"
-          [xAxisLabel]="xAxisLabel"
-        />
+        <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="xAxisLabel" />
         <kpn-analysis-delay-chart
           [barChart]="page.analysisDelay"
           [xAxisLabel]="xAxisLabel"

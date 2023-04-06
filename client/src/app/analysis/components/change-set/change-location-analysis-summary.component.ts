@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
 import { NetworkType } from '@api/custom/network-type';
-import { Util } from '../../../components/shared/util';
-import { I18nService } from '../../../i18n/i18n.service';
+import { Util } from '@app/components/shared/util';
+import { I18nService } from '@app/i18n/i18n.service';
 
 @Component({
   selector: 'kpn-change-location-analysis-summary',
@@ -36,7 +36,7 @@ import { I18nService } from '../../../i18n/i18n.service';
                     i
                   )
                 "
-              >{{ locationName }}</a
+                >{{ locationName }}</a
               >
             </div>
           </div>

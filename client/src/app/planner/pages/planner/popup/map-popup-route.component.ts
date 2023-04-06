@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '@app/services/planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-route',
@@ -27,18 +27,18 @@ import { PlannerService } from '../../../services/planner.service';
           *ngIf="response.result.networkReferences.length === 1"
           class="kpn-label"
           i18n="@@map.route-popup.network"
-        >Network</span
+          >Network</span
         >
         <span
           *ngIf="response.result.networkReferences.length !== 1"
           class="kpn-label"
           i18n="@@map.route-popup.networks"
-        >Networks</span
+          >Networks</span
         >
         <span
           *ngIf="response.result.networkReferences.length === 0"
           i18n="@@map.route-popup.no-networks"
-        >None</span
+          >None</span
         >
         <div
           *ngFor="let ref of response.result.networkReferences"

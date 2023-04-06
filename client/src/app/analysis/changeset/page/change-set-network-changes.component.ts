@@ -6,7 +6,7 @@ import { AfterViewInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeSetPage } from '@api/common/changes/change-set-page';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { Subscriptions } from '@app/util/Subscriptions';
 
 @Component({
   selector: 'kpn-change-set-network-changes',
@@ -19,7 +19,9 @@ import { Subscriptions } from '../../../util/Subscriptions';
       <a [id]="networkChangeInfo.networkId"></a>
       <div class="kpn-level-1-header">
         <div class="kpn-line">
-          <kpn-network-type-icon [networkType]="networkChangeInfo.networkType" />
+          <kpn-network-type-icon
+            [networkType]="networkChangeInfo.networkType"
+          />
           <span i18n="@@change-set.network-changes.network">Network</span>
           <kpn-link-network-details
             [networkId]="networkChangeInfo.networkId"
@@ -30,7 +32,10 @@ import { Subscriptions } from '../../../util/Subscriptions';
       </div>
 
       <div class="kpn-level-1-body">
-        <kpn-cs-nc-component [page]="page" [networkChangeInfo]="networkChangeInfo" />
+        <kpn-cs-nc-component
+          [page]="page"
+          [networkChangeInfo]="networkChangeInfo"
+        />
       </div>
     </div>
   `,

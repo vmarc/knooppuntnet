@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '../../../components/shared/page-width.service';
+import { PageWidthService } from '@app/components/shared/page-width.service';
 import { TagDiffs } from '@api/common/diff/tag-diffs';
 
 @Component({
@@ -18,7 +18,7 @@ import { TagDiffs } from '@api/common/diff/tag-diffs';
     </ng-template>
     <ng-template #large>
       <div class="kpn-label" i18n="@@tag-diffs.title">Tag changes</div>
-      <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs"/>
+      <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs" />
     </ng-template>
   `,
 })

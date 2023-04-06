@@ -13,7 +13,7 @@ import { PoiService } from '@app/services/poi.service';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, tap } from 'rxjs/operators';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '@app/services/planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',
@@ -25,14 +25,17 @@ import { PlannerService } from '../../../services/planner.service';
       </div>
 
       <div *ngIf="poi">
-        <kpn-poi-analysis [poi]="poi"/>
+        <kpn-poi-analysis [poi]="poi" />
 
         <div *ngIf="poi.mainTags && poi.mainTags.tags.length > 0" class="item">
-          <kpn-tags-table [tags]="mainTags()"/>
+          <kpn-tags-table [tags]="mainTags()" />
         </div>
 
-        <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
-          <kpn-tags-table [tags]="extraTags()"/>
+        <div
+          *ngIf="poi.extraTags && poi.extraTags.tags.length > 0"
+          class="item"
+        >
+          <kpn-tags-table [tags]="extraTags()" />
         </div>
 
         <div class="item">

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Util } from '../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 import { ChangesSidebarComponent } from '../components/changes/filter/changes-sidebar.component';
 import { ChangesPageComponent } from './page/_changes-page.component';
 

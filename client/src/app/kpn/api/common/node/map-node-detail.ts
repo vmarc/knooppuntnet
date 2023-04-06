@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { Reference } from '../common/reference';
-import { Timestamp } from '../../custom/timestamp';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface MapNodeDetail {
   readonly id: number;

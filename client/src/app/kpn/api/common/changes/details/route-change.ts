@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
 import { ChangeKey } from './change-key';
-import { ChangeType } from '../../../custom/change-type';
-import { Fact } from '../../../custom/fact';
+import { ChangeType } from '@api/custom/change-type';
+import { Fact } from '@api/custom/fact';
 import { RawWay } from '../../data/raw/raw-way';
 import { Ref } from '../../common/ref';
 import { RouteData } from '../../diff/route-data';

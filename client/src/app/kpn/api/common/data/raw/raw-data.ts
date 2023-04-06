@@ -3,7 +3,7 @@
 import { RawNode } from './raw-node';
 import { RawRelation } from './raw-relation';
 import { RawWay } from './raw-way';
-import { Timestamp } from '../../../custom/timestamp';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface RawData {
   readonly timestamp: Timestamp;

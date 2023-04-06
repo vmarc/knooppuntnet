@@ -11,7 +11,7 @@ import { LocationNode } from '@api/common/location/location-node';
 import { Country } from '@api/custom/country';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Util } from '../../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 import { LocationOption } from './location-option';
 
 @Component({

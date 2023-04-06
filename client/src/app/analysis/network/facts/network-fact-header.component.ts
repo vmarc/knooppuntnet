@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
 import { Store } from '@ngrx/store';
-import { actionSharedEdit } from '../../../core/shared/shared.actions';
+import { actionSharedEdit } from '@app/core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';
 import { FactInfo } from '../../fact/fact-info';
 import { FactLevel } from '../../fact/fact-level';
@@ -24,7 +24,7 @@ import { Facts } from '../../fact/facts';
         title="Open in editor (like JOSM)"
         i18n-title="@@edit.link.title"
         i18n="@@edit.link"
-      >edit</a
+        >edit</a
       >
     </div>
     <div class="description">

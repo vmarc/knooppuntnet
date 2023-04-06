@@ -6,8 +6,8 @@ import { ApiResponse } from '@api/custom/api-response';
 import { Tags } from '@api/custom/tags';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { AppService } from '../../app.service';
-import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
+import { AppService } from '@app/app.service';
+import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
 
 @Component({
   selector: 'kpn-poi-detail-page',
@@ -100,11 +100,15 @@ import { InterpretedTags } from '../../components/shared/tags/interpreted-tags';
           </p>
           <p *ngIf="response.result.poiState.imageFirstSeen">
             imageFirstSeen=
-            <kpn-timestamp [timestamp]="response.result.poiState.imageFirstSeen" />
+            <kpn-timestamp
+              [timestamp]="response.result.poiState.imageFirstSeen"
+            />
           </p>
           <p *ngIf="response.result.poiState.imageLastSeen">
             imageLastSeen=
-            <kpn-timestamp [timestamp]="response.result.poiState.imageLastSeen" />
+            <kpn-timestamp
+              [timestamp]="response.result.poiState.imageLastSeen"
+            />
           </p>
         </kpn-data>
 

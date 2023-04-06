@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subset } from '@api/custom/subset';
 import { List } from 'immutable';
-import { Subsets } from '../../../kpn/common/subsets';
+import { Subsets } from '@app/kpn/common/subsets';
 import { StatisticConfiguration } from '../domain/statistic-configuration';
 
 @Injectable({

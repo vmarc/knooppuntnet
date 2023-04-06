@@ -1,17 +1,17 @@
 // this file is generated, please do not modify
 
 import { ChangeKey } from './change-key';
-import { ChangeType } from '../../../custom/change-type';
-import { Fact } from '../../../custom/fact';
+import { ChangeType } from '@api/custom/change-type';
+import { Fact } from '@api/custom/fact';
 import { FactDiffs } from '../../diff/common/fact-diffs';
 import { LatLonImpl } from '../../lat-lon-impl';
 import { MetaData } from '../../data/meta-data';
 import { NodeMoved } from '../../diff/node/node-moved';
 import { Ref } from '../../common/ref';
 import { RefBooleanChange } from './ref-boolean-change';
-import { Subset } from '../../../custom/subset';
+import { Subset } from '@api/custom/subset';
 import { TagDiffs } from '../../diff/tag-diffs';
-import { Tags } from '../../../custom/tags';
+import { Tags } from '@api/custom/tags';
 
 export interface NodeChange {
   readonly _id: string;

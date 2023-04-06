@@ -17,8 +17,8 @@ import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { DayUtil } from '../../../components/shared/day-util';
-import { Subscriptions } from '../../../util/Subscriptions';
+import { DayUtil } from '@app/components/shared/day-util';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { MonitorService } from '../../monitor.service';
 import { MonitorRouteParameters } from './monitor-route-parameters';
 import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.component';
@@ -106,9 +106,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
         [stepControl]="commentForm"
       >
         <form [formGroup]="commentForm">
-          <kpn-monitor-route-properties-step-6-comment
-            [comment]="comment"
-          />
+          <kpn-monitor-route-properties-step-6-comment [comment]="comment" />
         </form>
       </mat-step>
     </mat-stepper>
@@ -120,7 +118,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
     >
       The route name should be unique within its the group. A route with name
       "{{ name.value }}" already exists within group "{{
-      group.value.groupName
+        group.value.groupName
       }}".
     </p>
 

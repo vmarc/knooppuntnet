@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
-import { selectFalse } from '../../../core/core.state';
+import { selectFalse } from '@app/core/core.state';
 import { actionMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapMatchesVisible } from './store/monitor-route-map.actions';
@@ -34,12 +34,12 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
             <span
               *ngIf="referenceType === 'gpx'"
               i18n="@@monitor.route.map-layers.reference.gpx"
-            >GPX Reference</span
+              >GPX Reference</span
             >
             <span
               *ngIf="referenceType === 'osm'"
               i18n="@@monitor.route.map-layers.reference.osm"
-            >OSM reference</span
+              >OSM reference</span
             >
           </div>
         </mat-checkbox>

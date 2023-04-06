@@ -7,7 +7,7 @@ import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-r
 import { ApiResponse } from '@api/custom/api-response';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { MapPosition } from '../../../../components/ol/domain/map-position';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 import { MonitorMapMode } from '../monitor-map-mode';
 
 export const actionMonitorRouteMapPageInit = createAction(

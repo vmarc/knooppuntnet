@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { selectUserUser } from '../../../core/user/user.selectors';
-import { selectUserLoggedIn } from '../../../core/user/user.selectors';
-import { VersionService } from '../../../services/version.service';
+import { selectUserUser } from '@app/core/user/user.selectors';
+import { selectUserLoggedIn } from '@app/core/user/user.selectors';
+import { VersionService } from '@app/services/version.service';
 
 @Component({
   selector: 'kpn-sidebar-footer',

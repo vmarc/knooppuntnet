@@ -2,7 +2,7 @@ import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { selectSharedHttpError } from '../../../core/shared/shared.selectors';
+import { selectSharedHttpError } from '@app/core/shared/shared.selectors';
 import { actionLocationEditPageDestroy } from '../store/location.actions';
 import { actionLocationEditPageInit } from '../store/location.actions';
 import { selectLocationEditPage } from '../store/location.selectors';
@@ -30,7 +30,7 @@ import { selectLocationEditPage } from '../store/location.selectors';
           i18n="@@location-edit.too-many-nodes.1"
         >
           This location contains more than the maximum number of nodes ({{
-          response.result.maxNodes
+            response.result.maxNodes
           }}) that can be loaded in the editor in one go. This limitation is to
           avoid overloading the OpenStreetMap api while loading the node and
           route details from JOSM.
@@ -42,7 +42,10 @@ import { selectLocationEditPage } from '../store/location.selectors';
         >
           Please select a location with less nodes.
         </p>
-        <kpn-location-edit *ngIf="!response.result.tooManyNodes" [page]="response.result" />
+        <kpn-location-edit
+          *ngIf="!response.result.tooManyNodes"
+          [page]="response.result"
+        />
       </kpn-location-response>
     </div>
     <ng-template #analyzing>

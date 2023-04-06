@@ -5,7 +5,7 @@ import { Status } from '@api/common/status/status';
 import { ApiResponse } from '@api/custom/api-response';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AppService } from '../../app.service';
+import { AppService } from '@app/app.service';
 import { StatusLinks } from './status-links';
 
 @Component({

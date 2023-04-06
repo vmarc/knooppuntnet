@@ -9,7 +9,7 @@ import { ApiResponse } from '@api/custom/api-response';
 import { NetworkType } from '@api/custom/network-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { NetworkMapPosition } from '../../../components/ol/domain/network-map-position';
+import { NetworkMapPosition } from '@app/components/ol/domain/network-map-position';
 import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionNetworkLink = createAction(

@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { PdfPage } from './pdf-page';
-import { Util } from '../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 
 export class PdfFooter {
   constructor(private doc: jsPDF) {}

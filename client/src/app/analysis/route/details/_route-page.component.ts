@@ -5,9 +5,9 @@ import { RouteInfoAnalysis } from '@api/common/route/route-info-analysis';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidth } from '../../../components/shared/page-width';
-import { PageWidthService } from '../../../components/shared/page-width.service';
-import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
+import { PageWidth } from '@app/components/shared/page-width';
+import { PageWidthService } from '@app/components/shared/page-width.service';
+import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
 import { FactInfo } from '../../fact/fact-info';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
@@ -146,7 +146,7 @@ import { selectRouteId } from '../store/route.selectors';
       </div>
     </div>
   `,
-  styleUrls: ['../../../components/shared/data/data.component.scss'],
+  styleUrls: ['@app/components/shared/data/data.component.scss'],
 })
 export class RoutePageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);

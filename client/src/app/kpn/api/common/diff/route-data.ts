@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { Country } from '../../custom/country';
-import { Fact } from '../../custom/fact';
-import { NetworkScope } from '../../custom/network-scope';
-import { NetworkType } from '../../custom/network-type';
+import { Country } from '@api/custom/country';
+import { Fact } from '@api/custom/fact';
+import { NetworkScope } from '@api/custom/network-scope';
+import { NetworkType } from '@api/custom/network-type';
 import { RawNode } from '../data/raw/raw-node';
 import { RawRelation } from '../data/raw/raw-relation';
 import { RawWay } from '../data/raw/raw-way';

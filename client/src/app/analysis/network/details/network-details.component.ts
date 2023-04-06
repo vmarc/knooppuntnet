@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { NetworkDetailsPage } from '@api/common/network/network-details-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { InterpretedTags } from '../../../components/shared/tags/interpreted-tags';
+import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
 
 @Component({
   selector: 'kpn-network-details',
@@ -34,14 +34,16 @@ import { InterpretedTags } from '../../../components/shared/tags/interpreted-tag
       title="Relation last updated"
       i18n-title="@@network-details.relation-last-updated"
     >
-      <kpn-timestamp [timestamp]="response.result.attributes.relationLastUpdated" />
+      <kpn-timestamp
+        [timestamp]="response.result.attributes.relationLastUpdated"
+      />
     </kpn-data>
 
     <kpn-data title="Tags" i18n-title="@@network-details.tags">
-      <kpn-tags-table [tags]="tags"/>
+      <kpn-tags-table [tags]="tags" />
     </kpn-data>
   `,
-  styleUrls: ['../../../components/shared/data/data.component.scss'],
+  styleUrls: ['@app/components/shared/data/data.component.scss'],
 })
 export class NetworkDetailsComponent implements OnInit {
   @Input() response: ApiResponse<NetworkDetailsPage>;

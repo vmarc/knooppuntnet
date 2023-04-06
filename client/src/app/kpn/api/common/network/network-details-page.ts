@@ -3,7 +3,7 @@
 import { NetworkAttributes } from './network-attributes';
 import { NetworkFacts } from '../network-facts';
 import { NetworkSummary } from './network-summary';
-import { Tags } from '../../custom/tags';
+import { Tags } from '@api/custom/tags';
 
 export interface NetworkDetailsPage {
   readonly summary: NetworkSummary;

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
 import { Store } from '@ngrx/store';
-import { actionSharedEdit } from '../../../core/shared/shared.actions';
+import { actionSharedEdit } from '@app/core/shared/shared.actions';
 import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
@@ -19,29 +19,29 @@ import { EditParameters } from '../../components/edit/edit-parameters';
       <div class="kpn-space-separated kpn-label">
         <span>{{ refCount }}</span>
         <span *ngIf="hasNodeRefs()" i18n="@@subset-facts.node-refs"
-        >{refCount, plural, one {node} other {nodes}}</span
+          >{refCount, plural, one {node} other {nodes}}</span
         >
         <span *ngIf="hasRouteRefs()" i18n="@@subset-facts.route-refs"
-        >{refCount, plural, one {route} other {routes}}</span
+          >{refCount, plural, one {route} other {routes}}</span
         >
         <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs"
-        >{refCount, plural, one {node} other {nodes}}</span
+          >{refCount, plural, one {node} other {nodes}}</span
         >
         <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs"
-        >{refCount, plural, one {way} other {ways}}</span
+          >{refCount, plural, one {way} other {ways}}</span
         >
         <span
           *ngIf="hasOsmRelationRefs()"
           i18n="@@subset-facts.osm-relation-refs"
-        >{refCount, plural, one {relation} other {relations}}</span
+          >{refCount, plural, one {relation} other {relations}}</span
         >
         <span i18n="@@subset-facts.in-networks"
-        >{page.networks.length, plural, one {in 1 network} other {in
+          >{page.networks.length, plural, one {in 1 network} other {in
           {{ page.networks.length }} networks}}</span
         >
         <span *ngIf="factCount !== refCount" i18n="@@subset-facts.fact-count"
-        >{factCount, plural, one {(1 fact)} other {({{
-          factCount
+          >{factCount, plural, one {(1 fact)} other {({{
+            factCount
           }}
           facts)}}</span
         >
@@ -56,7 +56,7 @@ import { EditParameters } from '../../components/edit/edit-parameters';
             <span
               *ngIf="networkFactRefs.networkId === 0"
               i18n="@@subset-facts.orphan-routes"
-            >Free routes</span
+              >Free routes</span
             >
             <a
               *ngIf="networkFactRefs.networkId !== 0"
@@ -70,14 +70,14 @@ import { EditParameters } from '../../components/edit/edit-parameters';
               *ngIf="hasNodeRefs()"
               i18n="@@subset-facts.nodes"
               class="kpn-label"
-            >{networkFactRefs.factRefs.length, plural, one {1 node} other
+              >{networkFactRefs.factRefs.length, plural, one {1 node} other
               {{{networkFactRefs.factRefs.length}} nodes}}</span
             >
             <span
               *ngIf="hasRouteRefs()"
               i18n="@@subset-facts.routes"
               class="kpn-label"
-            >{networkFactRefs.factRefs.length, plural, one {1 route} other
+              >{networkFactRefs.factRefs.length, plural, one {1 route} other
               {{{networkFactRefs.factRefs.length}} routes}}</span
             >
             <a
@@ -86,7 +86,7 @@ import { EditParameters } from '../../components/edit/edit-parameters';
               title="Open in editor (like JOSM)"
               i18n-title="@@edit.link.title"
               i18n="@@edit.link"
-            >edit</a
+              >edit</a
             >
           </div>
           <div class="kpn-comma-list fact-detail">

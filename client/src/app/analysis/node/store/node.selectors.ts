@@ -3,7 +3,7 @@ import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
-import { NetworkTypes } from '../../../kpn/common/network-types';
+import { NetworkTypes } from '@app/kpn/common/network-types';
 import { nodeFeatureKey } from './node.state';
 import { NodeState } from './node.state';
 

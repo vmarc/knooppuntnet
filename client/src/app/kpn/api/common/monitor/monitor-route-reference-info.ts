@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
 import { Bounds } from '../bounds';
-import { Day } from '../../custom/day';
-import { Timestamp } from '../../custom/timestamp';
+import { Day } from '@api/custom/day';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface MonitorRouteReferenceInfo {
   readonly created: Timestamp;

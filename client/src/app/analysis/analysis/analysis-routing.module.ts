@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AnalysisSidebarComponent } from './analysis-sidebar.component';
-import { Util } from '../../components/shared/util';
+import { Util } from '@app/components/shared/util';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
 import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';
 import { AnalysisHikingPageComponent } from './pages/analysis-hiking-page.component';

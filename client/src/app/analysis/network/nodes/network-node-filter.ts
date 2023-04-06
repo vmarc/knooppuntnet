@@ -3,13 +3,13 @@ import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
-import { BooleanFilter } from '../../../kpn/filter/boolean-filter';
-import { FilterOptions } from '../../../kpn/filter/filter-options';
-import { Filters } from '../../../kpn/filter/filters';
-import { SurveyDateFilter } from '../../../kpn/filter/survey-date-filter';
-import { SurveyDateFilterKind } from '../../../kpn/filter/survey-date-filter-kind';
-import { TimestampFilter } from '../../../kpn/filter/timestamp-filter';
-import { TimestampFilterKind } from '../../../kpn/filter/timestamp-filter-kind';
+import { BooleanFilter } from '@app/kpn/filter/boolean-filter';
+import { FilterOptions } from '@app/kpn/filter/filter-options';
+import { Filters } from '@app/kpn/filter/filters';
+import { SurveyDateFilter } from '@app/kpn/filter/survey-date-filter';
+import { SurveyDateFilterKind } from '@app/kpn/filter/survey-date-filter-kind';
+import { TimestampFilter } from '@app/kpn/filter/timestamp-filter';
+import { TimestampFilterKind } from '@app/kpn/filter/timestamp-filter-kind';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 
 export class NetworkNodeFilter {

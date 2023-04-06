@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { WayInfo } from '@api/common/diff/way-info';
-import { InterpretedTags } from '../../../../components/shared/tags/interpreted-tags';
+import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
 
 @Component({
   selector: 'kpn-route-change-way-removed',
@@ -10,9 +10,12 @@ import { InterpretedTags } from '../../../../components/shared/tags/interpreted-
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-removed.title"
-        >Removed way</span
+          >Removed way</span
         >
-        <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()" />
+        <kpn-osm-link-way
+          [wayId]="wayInfo.id"
+          [title]="wayInfo.id.toString()"
+        />
       </div>
       <div class="kpn-level-4-body">
         <div class="kpn-detail">
