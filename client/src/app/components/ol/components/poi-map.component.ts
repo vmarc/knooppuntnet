@@ -2,12 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { NetworkType } from '@api/custom/network-type';
-import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
-import Map from 'ol/Map';
 import View from 'ol/View';
-import { fromEvent } from 'rxjs';
-import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
@@ -17,6 +13,8 @@ import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
 import { PoiAreasLayer } from '@app/components/ol/layers/poi-areas-layer';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @Component({
   selector: 'kpn-poi-map',
@@ -30,20 +28,19 @@ import { PoiAreasLayer } from '@app/components/ol/layers/poi-areas-layer';
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
   @Input() geoJson: string;
 
-  layers: MapLayers;
-  private map: Map;
+  protected layers: MapLayers;
+  private map: OpenLayersMap;
   private readonly mapId = 'poi-map';
-  private readonly subscriptions = new Subscriptions();
 
   constructor(
-    private mapLayerService: MapLayerService,
-    private pageService: PageService
+    private newMapService: NewMapService,
+    private mapLayerService: MapLayerService
   ) {}
 
   ngAfterViewInit(): void {
     this.layers = this.buildLayers();
     const center = Util.toCoordinate('49.153', '2.4609');
-    this.map = new Map({
+    this.map = this.newMapService.build({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
@@ -54,31 +51,10 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
         zoom: 8,
       }),
     });
-
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
-    );
-  }
-
-  private updateSize(): void {
-    if (this.map) {
-      setTimeout(() => {
-        this.map.updateSize();
-        this.layers.updateSize();
-      }, 0);
-    }
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    if (this.map) {
-      this.map.setTarget(null);
-    }
+    this.map.destroy();
   }
 
   private buildLayers(): MapLayers {

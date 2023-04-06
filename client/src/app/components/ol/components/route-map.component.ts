@@ -5,12 +5,8 @@ import { RouteMapInfo } from '@api/common/route/route-map-info';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
-import Map from 'ol/Map';
 import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
-import { fromEvent } from 'rxjs';
-import { Subscriptions } from '@app/util/Subscriptions';
-import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { MapPosition } from '../domain/map-position';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -23,6 +19,8 @@ import { MapService } from '../services/map.service';
 import { OldMapPositionService } from '../services/old-map-position.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @Component({
   selector: 'kpn-route-map',
@@ -30,7 +28,7 @@ import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-laye
   template: `
     <div id="route-map" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-map-link-menu [openLayersMap]="map" />
     </div>
   `,
 })
@@ -38,19 +36,18 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   @Input() routeMapInfo: RouteMapInfo;
   @Input() mapPositionFromUrl: MapPosition;
 
-  map: Map;
-  layers: MapLayers;
+  protected map: OpenLayersMap;
+  protected layers: MapLayers;
   private networkVectorTileLayer: MapLayer;
   private networkVectorTileLayerActive = true;
 
   private readonly mapId = 'route-map';
-  private readonly subscriptions = new Subscriptions();
 
   constructor(
+    private newMapService: NewMapService,
     private mapService: MapService,
     private mapClickService: MapClickService,
     private mapLayerService: MapLayerService,
-    private pageService: PageService,
     private mapPositionService: OldMapPositionService
   ) {}
 
@@ -79,16 +76,16 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       };
     }
 
-    this.map = new Map({
+    this.map = this.newMapService.build({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
       view: new View(viewOptions),
     });
 
-    this.mapClickService.installOn(this.map);
+    this.mapClickService.installOn(this.map.map);
 
-    const view = this.map.getView();
+    const view = this.map.map.getView();
 
     if (!this.mapPositionFromUrl) {
       view.fit(this.buildExtent());
@@ -97,43 +94,23 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     view.on('change:resolution', () => {
       if (view.getZoom() < ZoomLevel.vectorTileMinZoom) {
         if (this.networkVectorTileLayerActive) {
-          this.map.removeLayer(this.networkVectorTileLayer.layer);
+          this.map.map.removeLayer(this.networkVectorTileLayer.layer);
           this.networkVectorTileLayerActive = false;
         }
       } else {
         if (this.networkVectorTileLayerActive === false) {
-          this.map.getLayers().insertAt(1, this.networkVectorTileLayer.layer);
+          this.map.map
+            .getLayers()
+            .insertAt(1, this.networkVectorTileLayer.layer);
           this.networkVectorTileLayerActive = true;
         }
       }
     });
-
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
-    );
-
-    this.mapPositionService.install(this.map.getView());
-  }
-
-  private updateSize(): void {
-    if (this.map) {
-      setTimeout(() => {
-        this.map.updateSize();
-        this.layers.updateSize();
-      }, 0);
-    }
+    this.mapPositionService.install(this.map.map.getView());
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    if (this.map) {
-      this.map.setTarget(null);
-    }
+    this.map.destroy();
   }
 
   private buildExtent(): Extent {

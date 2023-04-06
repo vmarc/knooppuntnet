@@ -28,6 +28,7 @@ import { MapService } from './services/map.service';
 import { NetworkMapPositionService } from './services/network-map-position.service';
 import { OldMapPositionService } from './services/old-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     LayerSwitcherComponent,
   ],
   providers: [
+    NewMapService,
     MapService,
     MapLayerService,
     MapClickService,

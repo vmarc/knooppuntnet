@@ -174,6 +174,7 @@ export class LocationEffects {
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   layersVisibility = createEffect(
     () => {
       return this.actions$.pipe(

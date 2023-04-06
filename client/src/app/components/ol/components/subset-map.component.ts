@@ -7,16 +7,12 @@ import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
-import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
 import { MapBrowserEvent } from 'ol';
 import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
-import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
-import { fromEvent } from 'rxjs';
-import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
@@ -24,6 +20,8 @@ import { MapLayers } from '../layers/map-layers';
 import { NetworkMarkerLayer } from '../layers/network-marker-layer';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @Component({
   selector: 'kpn-subset-map',
@@ -31,6 +29,7 @@ import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
   template: `
     <div id="subset-map" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="layers" />
+      <kpn-map-link-menu [openLayersMap]="map" />
     </div>
   `,
 })
@@ -39,15 +38,14 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   @Input() networks: SubsetMapNetwork[];
   @Output() networkClicked = new EventEmitter<number>();
 
-  layers: MapLayers;
-  private map: Map;
+  protected layers: MapLayers;
+  protected map: OpenLayersMap;
 
   private readonly mapId = 'subset-map';
-  private readonly subscriptions = new Subscriptions();
 
   constructor(
-    private mapLayerService: MapLayerService,
-    private pageService: PageService
+    private newMapService: NewMapService,
+    private mapLayerService: MapLayerService
   ) {}
 
   ngAfterViewInit(): void {
@@ -56,7 +54,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
       () => this.mapLayerService.restoreMapLayerStates(this.layers),
       0
     );
-    this.map = new Map({
+    this.map = this.newMapService.build({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
@@ -66,35 +64,14 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
       }),
     });
 
-    const view = this.map.getView();
+    const view = this.map.map.getView();
     view.fit(Util.toExtent(this.bounds, 0.1));
 
-    this.map.addInteraction(this.buildInteraction());
-
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
-    );
-  }
-
-  private updateSize(): void {
-    if (this.map) {
-      setTimeout(() => {
-        this.map.updateSize();
-        this.layers.updateSize();
-      }, 0);
-    }
+    this.map.map.addInteraction(this.buildInteraction());
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    if (this.map) {
-      this.map.setTarget(null);
-    }
+    this.map.destroy();
   }
 
   private buildLayers(): MapLayers {

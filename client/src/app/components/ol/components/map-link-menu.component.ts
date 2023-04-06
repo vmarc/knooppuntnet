@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import Map from 'ol/Map';
 import { toLonLat } from 'ol/proj';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
 
 @Component({
   selector: 'kpn-map-link-menu',
@@ -48,6 +49,7 @@ import { toLonLat } from 'ol/proj';
 })
 export class MapLinkMenuComponent {
   @Input() map: Map;
+  @Input() openLayersMap: OpenLayersMap;
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
@@ -60,8 +62,10 @@ export class MapLinkMenuComponent {
   }
 
   goto(target: string): void {
-    const zoom = Math.round(this.map.getView().getZoom());
-    const center = toLonLat(this.map.getView().getCenter());
+    const actualMap = this.openLayersMap ? this.openLayersMap.map : this.map;
+
+    const zoom = Math.round(actualMap.getView().getZoom());
+    const center = toLonLat(actualMap.getView().getCenter());
     let url = '';
     if (target === 'openstreetmap') {
       url = `https://www.openstreetmap.org/#map=${zoom}/${center[1]}/${center[0]}`;

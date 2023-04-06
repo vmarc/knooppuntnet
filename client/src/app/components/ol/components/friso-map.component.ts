@@ -18,12 +18,9 @@ import { List } from 'immutable';
 import { MapBrowserEvent } from 'ol';
 import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
-import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
-import { fromEvent } from 'rxjs';
 import { Observable } from 'rxjs';
-import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
@@ -34,6 +31,8 @@ import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { NetworkBitmapTileLayer } from '@app/components/ol/layers/network-bitmap-tile-layer';
 import { NetworkVectorTileLayer } from '@app/components/ol/layers/network-vector-tile-layer';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @Component({
   selector: 'kpn-friso-map',
@@ -41,6 +40,7 @@ import { NetworkVectorTileLayer } from '@app/components/ol/layers/network-vector
   template: `
     <div id="friso-map" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="switcherLayers" />
+      <kpn-map-link-menu [openLayersMap]="map" />
     </div>
   `,
 })
@@ -53,17 +53,17 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
   };
   @Output() nodeClicked = new EventEmitter<FrisoNode>();
 
-  switcherLayers: MapLayers;
-  layers: MapLayers;
-  private map: Map;
+  protected switcherLayers: MapLayers;
+  protected layers: MapLayers;
+  protected map: OpenLayersMap;
 
   private readonly mapId = 'friso-map';
   private readonly subscriptions = new Subscriptions();
 
   constructor(
+    private newMapService: NewMapService,
     private mapService: MapService,
     private mapLayerService: MapLayerService,
-    private pageService: PageService,
     private store: Store
   ) {}
 
@@ -84,7 +84,7 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
       () => this.mapLayerService.restoreMapLayerStates(this.layers),
       0
     );
-    this.map = new Map({
+    this.map = this.newMapService.build({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
@@ -94,19 +94,10 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
       }),
     });
 
-    const view = this.map.getView();
+    const view = this.map.map.getView();
     view.fit(Util.toExtent(this.bounds, 0.1));
 
-    this.map.addInteraction(this.buildInteraction());
-
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
-    );
+    this.map.map.addInteraction(this.buildInteraction());
 
     this.subscriptions.add(
       this.store.select(selectFrisoMode).subscribe((mode) => {
@@ -121,20 +112,9 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  private updateSize(): void {
-    if (this.map) {
-      setTimeout(() => {
-        this.map.updateSize();
-        this.layers.updateSize();
-      }, 0);
-    }
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    if (this.map) {
-      this.map.setTarget(null);
-    }
+    this.map.destroy();
   }
 
   private buildLayers(): MapLayers {

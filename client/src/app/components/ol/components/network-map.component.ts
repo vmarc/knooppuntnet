@@ -4,12 +4,8 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { NetworkNodesBitmapTileLayer } from '@app/components/ol/layers/network-nodes-bitmap-tile-layer';
 import { NetworkNodesVectorTileLayer } from '@app/components/ol/layers/network-nodes-vector-tile-layer';
-import { Subscriptions } from '@app/util/Subscriptions';
 import { List } from 'immutable';
-import Map from 'ol/Map';
 import View from 'ol/View';
-import { fromEvent } from 'rxjs';
-import { PageService } from '../../shared/page.service';
 import { Util } from '../../shared/util';
 import { NetworkMapPosition } from '../domain/network-map-position';
 import { ZoomLevel } from '../domain/zoom-level';
@@ -23,6 +19,8 @@ import { NetworkMapPositionService } from '../services/network-map-position.serv
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
 import { NetworkNodesMarkerLayer } from '@app/components/ol/layers/network-nodes-marker-layer';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @Component({
   selector: 'kpn-network-map',
@@ -31,7 +29,7 @@ import { NetworkNodesMarkerLayer } from '@app/components/ol/layers/network-nodes
     <div id="network-nodes-map" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()" />
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-map-link-menu [openLayersMap]="map" />
     </div>
   `,
 })
@@ -40,16 +38,15 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() page: NetworkMapPage;
   @Input() mapPositionFromUrl: NetworkMapPosition;
 
-  map: Map;
-  layers: MapLayers;
+  protected map: OpenLayersMap;
+  protected layers: MapLayers;
   private readonly mapId = 'network-nodes-map';
-  private readonly subscriptions = new Subscriptions();
 
   constructor(
+    private newMapService: NewMapService,
     private mapLayerService: MapLayerService,
     private mapClickService: MapClickService,
     private mapZoomService: MapZoomService,
-    private pageService: PageService,
     private networkMapPositionService: NetworkMapPositionService
   ) {}
 
@@ -59,7 +56,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       () => this.mapLayerService.restoreMapLayerStates(this.layers),
       0
     );
-    this.map = new Map({
+    this.map = this.newMapService.build({
       target: this.mapId,
       layers: this.layers.toArray(),
       controls: MapControls.build(),
@@ -69,7 +66,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       }),
     });
 
-    const view = this.map.getView();
+    const view = this.map.map.getView();
     this.networkMapPositionService.install(
       view,
       this.networkId,
@@ -77,38 +74,16 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       this.mapPositionFromUrl
     );
     this.mapZoomService.install(view);
-    this.mapClickService.installOn(this.map);
-
-    this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
-    );
-  }
-
-  private updateSize(): void {
-    if (this.map) {
-      setTimeout(() => {
-        this.map.updateSize();
-        this.layers.updateSize();
-      }, 0);
-    }
+    this.mapClickService.installOn(this.map.map);
   }
 
   ngOnDestroy(): void {
-    this.map.dispose();
-    this.subscriptions.unsubscribe();
-    if (this.map) {
-      this.map.setTarget(null);
-    }
+    this.map.destroy();
   }
 
   zoomInToNetwork(): void {
     const extent = Util.toExtent(this.page.bounds, 0.1);
-    this.map.getView().fit(extent);
+    this.map.map.getView().fit(extent);
   }
 
   private buildLayers(): MapLayers {

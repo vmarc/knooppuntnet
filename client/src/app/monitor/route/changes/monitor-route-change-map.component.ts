@@ -8,12 +8,10 @@ import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { List } from 'immutable';
 import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
-import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
-import { fromEvent } from 'rxjs';
 import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { MapControls } from '@app/components/ol/layers/map-controls';
@@ -21,8 +19,8 @@ import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { MapLayers } from '@app/components/ol/layers/map-layers';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { Util } from '@app/components/shared/util';
-import { I18nService } from '@app/i18n/i18n.service';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-change-map',
@@ -41,12 +39,10 @@ export class MonitorRouteChangeMapComponent
   @Input() routeSegments: MonitorRouteSegment[];
   @Input() deviation: MonitorRouteDeviation;
 
-  mapLayers: MapLayers;
-  map: Map;
+  protected mapLayers: MapLayers;
+  protected map: OpenLayersMap;
 
-  private readonly subscriptions = new Subscriptions();
-
-  constructor(private i18nService: I18nService) {}
+  constructor(private newMapService: NewMapService) {}
 
   ngAfterViewInit(): void {
     const layers: MapLayer[] = [];
@@ -64,7 +60,7 @@ export class MonitorRouteChangeMapComponent
 
     this.mapLayers = new MapLayers(List(layers));
 
-    this.map = new Map({
+    this.map = this.newMapService.build({
       target: this.mapId,
       layers: this.mapLayers.toArray(),
       controls: MapControls.build(),
@@ -74,29 +70,11 @@ export class MonitorRouteChangeMapComponent
       }),
     });
 
-    this.map.getView().fit(Util.toExtent(this.deviation.bounds, 0.05));
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
-    );
-  }
-
-  private updateSize(): void {
-    if (this.map) {
-      setTimeout(() => {
-        this.map.updateSize();
-        this.mapLayers.updateSize();
-      }, 0);
-    }
+    this.map.map.getView().fit(Util.toExtent(this.deviation.bounds, 0.05));
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    if (this.map) {
-      this.map.dispose();
-      this.map.setTarget(null);
-    }
+    this.map.destroy();
   }
 
   private buildReferenceLayer(): MapLayer {
