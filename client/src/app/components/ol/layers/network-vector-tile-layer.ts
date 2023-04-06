@@ -8,7 +8,10 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkVectorTileLayer {
-  public static oldBuild(networkType: NetworkType): VectorTileLayer {
+  public static oldBuild(
+    networkType: NetworkType,
+    styleFunction: StyleFunction
+  ): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -17,11 +20,22 @@ export class NetworkVectorTileLayer {
       url: '/tiles-history/' + networkType + '/{z}/{x}/{y}.mvt',
     });
 
-    return new VectorTileLayer({
+    const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
       source,
       renderMode: 'vector',
     });
+
+    layer.setStyle(styleFunction);
+    return new MapLayer(
+      networkType,
+      `${networkType}-vector`,
+      ZoomLevel.vectorTileMinZoom,
+      ZoomLevel.vectorTileMaxOverZoom,
+      layer,
+      networkType,
+      null
+    );
   }
 
   public static build(

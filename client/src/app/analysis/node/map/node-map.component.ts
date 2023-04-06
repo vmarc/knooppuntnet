@@ -19,6 +19,7 @@ import { OldMapPositionService } from '@app/components/ol/services/old-map-posit
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { actionNodeMapLayerVisible } from '@app/analysis/node/store/node.actions';
+import { fromEvent } from 'rxjs';
 
 @Component({
   selector: 'kpn-node-map',
@@ -92,6 +93,11 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
 
     this.subscriptions.add(
       this.pageService.sidebarOpen.subscribe(() => this.updateSize())
+    );
+    this.subscriptions.add(
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
+        this.updateSize()
+      )
     );
 
     this.mapPositionService.install(this.map.getView());

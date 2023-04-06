@@ -10,7 +10,6 @@ import { LayerSwitcherComponent } from '@app/components/ol/components/layer-swit
 import { SharedModule } from '../shared/shared.module';
 import { LegHttpErrorDialogComponent } from './components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from './components/leg-not-found-dialog';
-import { LocationMapComponent } from './components/location-map.component';
 import { MapLinkMenuComponent } from './components/map-link-menu.component';
 import { NetworkControlComponent } from './components/network-control.component';
 import { NetworkMapComponent } from './components/network-map.component';
@@ -48,7 +47,6 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     OldLayerSwitcherComponent,
     MapLinkMenuComponent,
     RouteChangeMapComponent,
-    LocationMapComponent,
     NetworkMapComponent,
     RouteControlComponent,
     NetworkControlComponent,
@@ -64,7 +62,6 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     RouteMapComponent,
     SubsetMapComponent,
     RouteChangeMapComponent,
-    LocationMapComponent,
     OldLayerSwitcherComponent,
     NetworkMapComponent,
     RouteControlComponent,

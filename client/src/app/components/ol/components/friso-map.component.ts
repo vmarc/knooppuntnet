@@ -32,7 +32,8 @@ import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
-import { MainMapLayer } from '@app/components/ol/layers/main-map-layer';
+import { NetworkBitmapTileLayer } from '@app/components/ol/layers/network-bitmap-tile-layer';
+import { NetworkVectorTileLayer } from '@app/components/ol/layers/network-vector-tile-layer';
 
 @Component({
   selector: 'kpn-friso-map',
@@ -145,11 +146,11 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
       List([
         OsmLayer.build(),
         BackgroundLayer.build(),
-        new MainMapLayer().buildVectorLayer(
+        NetworkVectorTileLayer.oldBuild(
           NetworkType.hiking,
           mainMapStyle.styleFunction()
         ),
-        new MainMapLayer().buildBitmapLayer(NetworkType.hiking),
+        NetworkBitmapTileLayer.build(NetworkType.hiking, 'analysis'),
         this.frisoLayer('rename'), //'Renamed_ext.geojson'
         this.frisoLayer('minor-rename'), // Minor rename_ext.geojson
         this.frisoLayer('removed'), // Removed_osm.geojson

@@ -3,11 +3,12 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { actionLocationMapPageDestroy } from '../store/location.actions';
 import { actionLocationMapPageInit } from '../store/location.actions';
-import { selectLocationKey } from '../store/location.selectors';
 import { selectLocationMapPage } from '../store/location.selectors';
+import { selectLocationMapLayerStates } from '../store/location.selectors';
+import { selectLocationNetworkType } from '../store/location.selectors';
+import { LocationMapLayerService } from '@app/analysis/location/map/location-map-layer.service';
 
 @Component({
   selector: 'kpn-location-map-page',
@@ -27,18 +28,27 @@ import { selectLocationMapPage } from '../store/location.selectors';
           [networkType]="networkType$ | async"
           [geoJson]="response.result.geoJson"
           [bounds]="response.result.bounds"
+          [layerStates]="layerStates$ | async"
+          [layers]="layers$ | async"
         />
       </kpn-location-response>
     </div>
   `,
 })
 export class LocationMapPageComponent implements OnInit, OnDestroy {
-  readonly response$ = this.store.select(selectLocationMapPage);
-  readonly networkType$ = this.store
-    .select(selectLocationKey)
-    .pipe(map((key) => key.networkType));
+  protected readonly response$ = this.store.select(selectLocationMapPage);
+  protected readonly layerStates$ = this.store.select(
+    selectLocationMapLayerStates
+  );
+  protected readonly layers$ = this.locationMapLayerService.layers$;
+  protected readonly networkType$ = this.store.select(
+    selectLocationNetworkType
+  );
 
-  constructor(private store: Store) {}
+  constructor(
+    private locationMapLayerService: LocationMapLayerService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationMapPageInit());

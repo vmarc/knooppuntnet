@@ -18,8 +18,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '../../components/ol/ol.module';
-import { SharedModule } from '../../components/shared/shared.module';
+import { OlModule } from '@app/components/ol/ol.module';
+import { SharedModule } from '@app/components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { FactModule } from '../fact/fact.module';
 import { AnalysisStrategyModule } from '../strategy/strategy.module';
@@ -59,6 +59,8 @@ import { LocationTreeComponent } from './selection/location-tree.component';
 import { LocationEffects } from './store/location.effects';
 import { locationReducer } from './store/location.reducer';
 import { locationFeatureKey } from './store/location.state';
+import { LocationMapLayerService } from '@app/analysis/location/map/location-map-layer.service';
+import { LocationMapComponent } from '@app/analysis/location/map/location-map.component';
 
 @NgModule({
   imports: [
@@ -96,6 +98,7 @@ import { locationFeatureKey } from './store/location.state';
     LocationRoutesPageComponent,
     LocationRouteAnalysisComponent,
     LocationMapPageComponent,
+    LocationMapComponent,
     LocationChangesPageComponent,
     LocationNodeTableComponent,
     LocationNodeAnalysisComponent,
@@ -119,7 +122,12 @@ import { locationFeatureKey } from './store/location.state';
     LocationNodeFactIndicatorDialogComponent,
     LocationSidebarComponent,
   ],
-  providers: [LocationService, LocationModeService, LocationSelectionService],
+  providers: [
+    LocationService,
+    LocationModeService,
+    LocationSelectionService,
+    LocationMapLayerService,
+  ],
   exports: [LocationSelectorComponent],
 })
 export class LocationModule {}

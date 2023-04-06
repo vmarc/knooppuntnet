@@ -110,9 +110,6 @@ export class LocationSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.options = this.toOptions('', this.locationNode);
-
-    console.log('options=' + JSON.stringify(this.options, null, 2));
-
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(''),
       map((value) => (typeof value === 'string' ? value : value.locationName)),

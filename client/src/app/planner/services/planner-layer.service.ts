@@ -17,7 +17,6 @@ import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
 import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { selectPreferencesShowProposed } from '@app/core/preferences/preferences.selectors';
-import { selectPreferencesExtraLayers } from '@app/core/preferences/preferences.selectors';
 import { NetworkTypes } from '@app/kpn/common/network-types';
 import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
 import { selectPlannerMapPosition } from '@app/planner/store/planner-selectors';
@@ -57,10 +56,6 @@ export class PlannerLayerService {
   private networkVectorLayerStyle = new MainMapStyle(this.parameters$);
 
   private readonly mapRelatedSubscriptions = new Subscriptions();
-
-  private readonly extraLayers$: Observable<boolean> = this.store.select(
-    selectPreferencesExtraLayers
-  );
 
   constructor(
     private mapLayerService: MapLayerService,
@@ -167,9 +162,6 @@ export class PlannerLayerService {
     zoom: number,
     pois: boolean
   ): void {
-    console.log(
-      `updateLayerVisibility(zoom=${zoom}, networkType=${networkType}, mapMode=${mapMode})`
-    );
     this.layers.forEach((mapLayer) => {
       let visible: boolean;
       if (mapLayer.name === PoiTileLayerService.poiLayerName) {

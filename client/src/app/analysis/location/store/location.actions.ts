@@ -9,7 +9,9 @@ import { LocationNodesType } from '@api/custom/location-nodes-type';
 import { LocationRoutesType } from '@api/custom/location-routes-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { AnalysisStrategy } from '../../../core/preferences/preferences.state';
+import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
+import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 
 export const actionLocationSelectionPageInit = createAction(
   '[LocationSelectionPage] Init'
@@ -101,7 +103,20 @@ export const actionLocationMapPageDestroy = createAction(
 
 export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',
-  props<ApiResponse<LocationMapPage>>()
+  props<{
+    response: ApiResponse<LocationMapPage>;
+    mapLayerStates: MapLayerState[];
+  }>()
+);
+
+export const actionLocationMapPosition = createAction(
+  '[LocationMapPage] Position',
+  props<{ mapPosition: MapPosition }>()
+);
+
+export const actionLocationMapLayerVisible = createAction(
+  '[LocationMapPage] Layer visible',
+  props<{ layerName: string; visible: boolean }>()
 );
 
 export const actionLocationChangesPageInit = createAction(

@@ -7,7 +7,9 @@ import { Style } from 'ol/style';
 import { MapLayer } from './map-layer';
 
 export class LocationBoundaryLayer {
-  build(geoJson: string): MapLayer {
+  static id = 'location-boundary';
+
+  static build(geoJson: string): MapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -33,6 +35,6 @@ export class LocationBoundaryLayer {
       },
     });
 
-    return MapLayer.simpleLayer('location-boundary', layer);
+    return MapLayer.simpleLayer(this.id, layer);
   }
 }
