@@ -38,9 +38,9 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   selector: 'kpn-friso-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="friso-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="switcherLayers" />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -56,8 +56,8 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
   protected switcherLayers: MapLayers;
   protected layers: MapLayers;
   protected map: OpenLayersMap;
+  protected readonly mapId = 'friso-map';
 
-  private readonly mapId = 'friso-map';
   private readonly subscriptions = new Subscriptions();
 
   constructor(

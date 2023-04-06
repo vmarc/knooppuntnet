@@ -44,7 +44,7 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-planner-popup></kpn-planner-popup>
-    <div id="main-map" class="map" (mouseleave)="mouseleave()">
+    <div [id]="mapId" class="map" (mouseleave)="mouseleave()">
       <kpn-route-control (action)="zoomInToRoute()" />
       <kpn-geolocation-control (action)="geolocation($event)" />
       <kpn-layer-switcher
@@ -53,7 +53,7 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
       >
         <kpn-poi-menu />
       </kpn-layer-switcher>
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
   styles: [
@@ -81,6 +81,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.plannerService.engine
   );
   protected map: OpenLayersMap;
+  protected readonly mapId = 'planner-map';
   private overlay: Overlay;
   private planLoaded = false;
   private readonly subscriptions = new Subscriptions();
@@ -202,7 +203,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     const layers = this.plannerLayerService.layers.map((ml) => ml.layer);
 
     this.map = this.newMapService.build({
-      target: 'main-map',
+      target: this.mapId,
       layers: layers,
       overlays: [this.overlay],
       controls: MapControls.build(),

@@ -33,9 +33,9 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   selector: 'kpn-monitor-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="monitor-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="mapLayers" />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -45,6 +45,7 @@ export class MonitorRouteMapComponent
   @Input() page: MonitorRouteMapPage;
 
   protected map: OpenLayersMap;
+  protected readonly mapId = 'monitor-map';
   protected mapLayers: MapLayers;
   private mapPositionFromUrl: MapPosition;
   private updatePositionHandler = () => this.updateMapPosition();
@@ -89,7 +90,7 @@ export class MonitorRouteMapComponent
     this.mapLayers = new MapLayers(List(layers));
 
     this.map = this.newMapService.build({
-      target: 'monitor-map',
+      target: this.mapId,
       layers: this.mapLayers.toArray(),
       controls: MapControls.build(),
       view: new View({

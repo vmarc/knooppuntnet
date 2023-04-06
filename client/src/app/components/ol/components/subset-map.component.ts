@@ -27,9 +27,9 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   selector: 'kpn-subset-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="subset-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -40,8 +40,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
 
   protected layers: MapLayers;
   protected map: OpenLayersMap;
-
-  private readonly mapId = 'subset-map';
+  protected readonly mapId = 'subset-map';
 
   constructor(
     private newMapService: NewMapService,

@@ -26,9 +26,9 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   selector: 'kpn-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="route-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -37,11 +37,10 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
   @Input() mapPositionFromUrl: MapPosition;
 
   protected map: OpenLayersMap;
+  protected readonly mapId = 'route-map';
   protected layers: MapLayers;
   private networkVectorTileLayer: MapLayer;
   private networkVectorTileLayerActive = true;
-
-  private readonly mapId = 'route-map';
 
   constructor(
     private newMapService: NewMapService,

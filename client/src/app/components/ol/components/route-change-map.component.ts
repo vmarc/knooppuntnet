@@ -28,7 +28,7 @@ import { OsmLayer } from '@app/components/ol/layers/osm-layer';
   template: `
     <div [id]="mapId" class="kpn-embedded-map">
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -38,8 +38,8 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   @Input() bounds: Bounds;
   private readonly subscriptions = new Subscriptions();
 
-  protected mapId = UniqueId.get();
   protected map: OpenLayersMap;
+  protected readonly mapId = UniqueId.get();
   protected layers: MapLayers;
 
   constructor(

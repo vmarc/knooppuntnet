@@ -11,7 +11,6 @@ import { MapPosition } from '@app/components/ol/domain/map-position';
 import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { MapControls } from '@app/components/ol/layers/map-controls';
 import { MapClickService } from '@app/components/ol/services/map-click.service';
-import { MapLayerService } from '@app/components/ol/services/map-layer.service';
 import { OldMapPositionService } from '@app/components/ol/services/old-map-position.service';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
@@ -23,12 +22,12 @@ import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
   selector: 'kpn-node-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="node-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-layer-switcher
         [layerStates]="layerStates"
         (layerStateChange)="layerStateChange($event)"
       />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -39,13 +38,11 @@ export class NodeMapComponent implements AfterViewInit, OnDestroy {
   @Input() layers: MapLayer[];
 
   protected map: OpenLayersMap;
-
-  private readonly mapId = 'node-map';
+  protected readonly mapId = 'node-map';
 
   constructor(
     private newMapService: NewMapService,
     private mapClickService: MapClickService,
-    private mapLayerService: MapLayerService,
     private mapPositionService: OldMapPositionService,
     private store: Store
   ) {}

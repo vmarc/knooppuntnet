@@ -26,10 +26,10 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   selector: 'kpn-network-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="network-nodes-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()" />
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -40,7 +40,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   protected map: OpenLayersMap;
   protected layers: MapLayers;
-  private readonly mapId = 'network-nodes-map';
+  protected readonly mapId = 'network-nodes-map';
 
   constructor(
     private newMapService: NewMapService,

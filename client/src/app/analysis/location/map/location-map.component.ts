@@ -25,12 +25,12 @@ import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
   selector: 'kpn-location-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="location-map" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-layer-switcher
         [layerStates]="layerStates"
         (layerStateChange)="layerStateChange($event)"
       />
-      <kpn-map-link-menu [openLayersMap]="map" />
+      <kpn-map-link-menu [map]="map" />
     </div>
   `,
 })
@@ -42,7 +42,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   @Input() layers: MapLayer[];
 
   protected map: OpenLayersMap;
-  private readonly mapId = 'location-map';
+  protected readonly mapId = 'location-map';
   private view: View;
   private readonly updatePositionHandler = () => this.updateMapPosition();
 
