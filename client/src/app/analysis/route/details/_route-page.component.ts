@@ -146,7 +146,7 @@ import { selectRouteId } from '../store/route.selectors';
       </div>
     </div>
   `,
-  styleUrls: ['@app/components/shared/data/data.component.scss'],
+  styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class RoutePageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);

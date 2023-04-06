@@ -11,7 +11,7 @@ import { PdfService } from '@app/pdf/pdf.service';
 import { GpxWriter } from '@app/pdf/plan/gpx-writer';
 import { Store } from '@ngrx/store';
 import { PlanUtil } from '../../../domain/plan/plan-util';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 
 @Component({
   selector: 'kpn-plan-output-dialog',

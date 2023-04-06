@@ -66,7 +66,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
             [routerLink]="mapLink()"
             [queryParams]="mapQueryParams(row)"
             i18n="@@monitor.group.route-table.map-link"
-          >map</a
+            >map</a
           >
         </td>
       </ng-container>
@@ -110,9 +110,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           Distance
         </th>
         <td mat-cell *matCellDef="let row">
-          <div
-            *ngIf="row.physical"
-            class="distance">
+          <div *ngIf="row.physical" class="distance">
             {{ row.osmDistance | distance }}
           </div>
         </td>

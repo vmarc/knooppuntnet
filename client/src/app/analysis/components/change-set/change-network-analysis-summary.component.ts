@@ -29,7 +29,9 @@ import { ChangeSetNetworkAction } from './components/change-set-network.componen
       <div
         *ngFor="let orphanRouteChanges of changeSet.network.orphanRouteChanges"
       >
-        <kpn-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges" />
+        <kpn-change-set-orphan-routes
+          [subsetElementRefs]="orphanRouteChanges"
+        />
       </div>
     </div>
   `,

@@ -28,18 +28,28 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
       </p>
     </ng-template>
     <ng-template #referenceAvailable>
-      <div *ngIf="osmRelationAvailable$ | async; then osmRelationAvailable; else osmRelationMissing"></div>
+      <div
+        *ngIf="
+          osmRelationAvailable$ | async;
+          then osmRelationAvailable;
+          else osmRelationMissing
+        "
+      ></div>
       <ng-template #osmRelationMissing>
         <p i18n="@@monitor.route.map-deviations.no-relation">
           OSM relation missing in route definition, so no analysis results.
         </p>
       </ng-template>
       <ng-template #osmRelationAvailable>
-        <p *ngIf="osmRelationEmpty$ | async"
-           i18n="@@monitor.route.map-deviations.relation-empty">
+        <p
+          *ngIf="osmRelationEmpty$ | async"
+          i18n="@@monitor.route.map-deviations.relation-empty"
+        >
           OSM relation empty, so no analysis results.
         </p>
-        <div *ngIf="hasDeviations$ | async; then deviations; else noDeviations"></div>
+        <div
+          *ngIf="hasDeviations$ | async; then deviations; else noDeviations"
+        ></div>
         <ng-template #noDeviations>
           <p class="kpn-spacer-above kpn-line">
             <kpn-icon-happy />
@@ -61,7 +71,7 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
             <span
               class="segment-deviation"
               i18n="@@monitor.route.map-deviations.deviation"
-            >Deviation</span
+              >Deviation</span
             >
             <span i18n="@@monitor.route.map-deviations.length">Length</span>
           </div>
@@ -100,12 +110,12 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
                 <span
                   *ngIf="deviation.distance === 2500"
                   class="segment-deviation"
-                >{{ longDistance }}</span
+                  >{{ longDistance }}</span
                 >
                 <span
                   *ngIf="deviation.distance !== 2500"
                   class="segment-deviation"
-                >{{ deviation.distance | distance }}</span
+                  >{{ deviation.distance | distance }}</span
                 >
                 <span>{{ deviation.meters | distance }}</span>
                 <button

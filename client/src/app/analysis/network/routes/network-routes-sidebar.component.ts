@@ -7,7 +7,9 @@ import { NetworkRoutesService } from './network-routes.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-filter [filterOptions]="networkRoutesService.filterOptions$ | async" />
+      <kpn-filter
+        [filterOptions]="networkRoutesService.filterOptions$ | async"
+      />
     </kpn-sidebar>
   `,
 })

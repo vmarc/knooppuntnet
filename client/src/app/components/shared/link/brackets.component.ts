@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <span class="bracket">(</span>
-    <ng-content/>
+    <ng-content />
     <span class="bracket">)</span>
   `,
   styles: [

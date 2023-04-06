@@ -9,7 +9,10 @@ import { NetworkType } from '@api/custom/network-type';
   template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route.broken" />
-      <kpn-route-accessible-indicator [accessible]="!route.inaccessible" [networkType]="networkType" />
+      <kpn-route-accessible-indicator
+        [accessible]="!route.inaccessible"
+        [networkType]="networkType"
+      />
     </div>
   `,
   styles: [

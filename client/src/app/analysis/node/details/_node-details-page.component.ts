@@ -110,7 +110,7 @@ import { selectNodeChangeCount } from '../store/node.selectors';
       </div>
     </div>
   `,
-  styleUrls: ['@app/components/shared/data/data.component.scss'],
+  styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class NodeDetailsPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);

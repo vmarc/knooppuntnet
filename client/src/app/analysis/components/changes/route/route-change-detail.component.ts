@@ -6,7 +6,7 @@ import { RouteChangeInfo } from '@api/common/route/route-change-info';
   selector: 'kpn-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-route-diff [diffs]="routeChangeInfo.diffs"/>
+    <kpn-route-diff [diffs]="routeChangeInfo.diffs" />
 
     <div
       *ngIf="!routeChangeInfo.geometryDiff"

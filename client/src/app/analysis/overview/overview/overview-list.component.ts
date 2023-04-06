@@ -9,7 +9,7 @@ import { OverviewConfigurationService } from './overview-configuration.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let stat of stats">
-      <kpn-overview-list-stat [stat]="stat"/>
+      <kpn-overview-list-stat [stat]="stat" />
     </div>
   `,
 })

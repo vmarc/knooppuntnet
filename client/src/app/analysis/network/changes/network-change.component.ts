@@ -30,13 +30,13 @@ import { ChangeType } from '@api/custom/change-type';
         *ngIf="!isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.network-nodes.added"
-      >Added node(s)</span
+        >Added node(s)</span
       >
       <span
         *ngIf="isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.network-nodes.list"
-      >Nodes</span
+        >Nodes</span
       >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
@@ -54,13 +54,13 @@ import { ChangeType } from '@api/custom/change-type';
         *ngIf="!isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.routes.added"
-      >Added route(s)</span
+        >Added route(s)</span
       >
       <span
         *ngIf="isInitialValue()"
         class="kpn-label"
         i18n="@@network-changes.routes.list"
-      >Routes</span
+        >Routes</span
       >
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.added">
@@ -161,10 +161,7 @@ import { ChangeType } from '@api/custom/change-type';
       </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.networkNodes.removed">
-          <kpn-link-node
-            [nodeId]="ref.id"
-            [nodeName]="ref.name"
-          />
+          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
         </span>
       </div>
     </div>

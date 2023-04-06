@@ -6,12 +6,9 @@ import { Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let elementId of elementIds">
-      <kpn-osm-link-node
-        [nodeId]="elementId"
-        [title]="elementId.toString()"
-      />
+      <kpn-osm-link-node [nodeId]="elementId" [title]="elementId.toString()" />
       <span class="kpn-brackets-link">
-        <kpn-josm-node [nodeId]="elementId"/>
+        <kpn-josm-node [nodeId]="elementId" />
       </span>
     </div>
   `,

@@ -11,7 +11,7 @@ import { Component, Input } from '@angular/core';
         [title]="elementId.toString()"
       />
       <span class="kpn-brackets-link">
-        <kpn-josm-relation [relationId]="elementId"/>
+        <kpn-josm-relation [relationId]="elementId" />
       </span>
     </div>
   `,

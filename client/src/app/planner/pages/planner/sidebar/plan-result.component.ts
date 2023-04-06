@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Plan } from '../../../domain/plan/plan';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 import { selectPlannerResultModeInstructions } from '../../../store/planner-selectors';
 import { selectPlannerResultModeDetailed } from '../../../store/planner-selectors';
 import { selectPlannerResultModeCompact } from '../../../store/planner-selectors';

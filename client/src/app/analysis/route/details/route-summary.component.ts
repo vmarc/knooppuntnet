@@ -23,12 +23,12 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
       <p *ngIf="isRouteBroken()" class="kpn-line">
         <mat-icon svgIcon="warning"></mat-icon>
         <span i18n="@@route.broken"
-        >Something seems wrong with this route.</span
+          >Something seems wrong with this route.</span
         >
       </p>
 
       <p *ngIf="isRouteIncomplete()" class="kpn-line">
-        <mat-icon svgIcon="warning"/>
+        <mat-icon svgIcon="warning" />
         <markdown i18n="@@route.incomplete">
           Route definition is incomplete (has tag *"fixme=incomplete"*).
         </markdown>
@@ -39,7 +39,7 @@ import { RouteDetailsPageData } from '@api/common/route/route-details-page-data'
       </p>
 
       <p *ngIf="isProposed()" class="kpn-line">
-        <mat-icon svgIcon="warning" style="min-width: 24px"/>
+        <mat-icon svgIcon="warning" style="min-width: 24px" />
         <markdown i18n="@@route.proposed">
           Proposed: this route has a tag _"state=proposed"_. The route is
           assumed to still be in a planning phase and likely not signposted in

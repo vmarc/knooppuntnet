@@ -9,17 +9,10 @@ import { Ref } from '@api/common/common/ref';
   template: `
     <div class="kpn-line">
       <div class="kpn-thick">
-        <kpn-link-node
-          *ngIf="known"
-          [nodeId]="ref.id"
-          [nodeName]="ref.name"
-        />
+        <kpn-link-node *ngIf="known" [nodeId]="ref.id" [nodeName]="ref.name" />
         <span *ngIf="!known">{{ ref.name }}</span>
       </div>
-      <kpn-osm-link-node
-        [nodeId]="ref.id"
-        [title]="ref.id.toString()"
-      />
+      <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.id.toString()" />
     </div>
   `,
 })

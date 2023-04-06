@@ -1,7 +1,7 @@
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 
 @Component({
   selector: 'kpn-planner-popup',

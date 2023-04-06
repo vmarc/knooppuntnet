@@ -1,5 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
+import {
+  RouteConfigLoadEnd,
+  RouteConfigLoadStart,
+  Router,
+} from '@angular/router';
 import { Store } from '@ngrx/store';
 import { setTag } from '@sentry/angular-ivy';
 import { map } from 'rxjs/operators';

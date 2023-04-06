@@ -8,10 +8,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-icon-happy *ngIf="interpretedNetwork.happy()"></kpn-icon-happy>
-    <kpn-icon-happy
-      *ngIf="interpretedNetwork.veryHappy()"
-      class="very-happy"
-    />
+    <kpn-icon-happy *ngIf="interpretedNetwork.veryHappy()" class="very-happy" />
   `,
   styles: [
     `

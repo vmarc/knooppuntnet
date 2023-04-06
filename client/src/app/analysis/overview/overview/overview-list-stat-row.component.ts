@@ -17,7 +17,10 @@ import { Stat } from '../domain/stat';
         <kpn-network-type-icon [networkType]="networkType" />
       </td>
       <td class="value">
-        <kpn-overview-value [stat]="stat" [subset]="subset(country, networkType)" />
+        <kpn-overview-value
+          [stat]="stat"
+          [subset]="subset(country, networkType)"
+        />
       </td>
     </tr>
   `,

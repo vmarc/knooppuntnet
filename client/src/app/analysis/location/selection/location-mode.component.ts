@@ -37,7 +37,7 @@ import { LocationModeService } from './location-mode.service';
       </mat-radio-group>
     </div>
   `,
-  styleUrls: ['@app/components/shared/sidebar/sidebar.scss'],
+  styleUrls: ['../../../components/shared/sidebar/sidebar.scss'],
 })
 export class LocationModeComponent {
   constructor(private locationModeService: LocationModeService) {}

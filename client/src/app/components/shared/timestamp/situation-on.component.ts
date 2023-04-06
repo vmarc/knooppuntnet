@@ -9,7 +9,7 @@ import { Timestamp } from '@api/custom/timestamp';
     <ng-container class="kpn-label" i18n="@@situation-on">
       Situation on
     </ng-container>
-    <kpn-timestamp [timestamp]="timestamp"/>
+    <kpn-timestamp [timestamp]="timestamp" />
   `,
 })
 export class SituationOnComponent {

@@ -20,7 +20,7 @@ import { Facts } from './facts';
             <a
               class="text"
               [routerLink]="'/analysis/network/' + factInfo.networkRef.id"
-            >{{ factInfo.networkRef.name }}</a
+              >{{ factInfo.networkRef.name }}</a
             >
           </kpn-brackets>
         </div>
@@ -42,7 +42,7 @@ import { Facts } from './facts';
         </div>
       </div>
       <div class="description">
-        <kpn-fact-description [factInfo]="factInfo"/>
+        <kpn-fact-description [factInfo]="factInfo" />
       </div>
     </div>
   `,

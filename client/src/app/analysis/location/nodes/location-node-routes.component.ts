@@ -17,7 +17,7 @@ import { LocationNodeInfo } from '@api/common/location/location-node-info';
 
     <div *ngIf="hasRouteReferences()" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
-        <kpn-link-route [routeId]="ref.id" [title]="ref.name"/>
+        <kpn-link-route [routeId]="ref.id" [title]="ref.name" />
       </span>
     </div>
   `,

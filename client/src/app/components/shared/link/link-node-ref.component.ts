@@ -7,16 +7,8 @@ import { Ref } from '@api/common/common/ref';
   selector: 'kpn-link-node-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-link-node
-      *ngIf="known"
-      [nodeId]="ref.id"
-      [nodeName]="ref.name"
-    />
-    <kpn-osm-link-node
-      *ngIf="!known"
-      [nodeId]="ref.id"
-      [title]="ref.name"
-    />
+    <kpn-link-node *ngIf="known" [nodeId]="ref.id" [nodeName]="ref.name" />
+    <kpn-osm-link-node *ngIf="!known" [nodeId]="ref.id" [title]="ref.name" />
   `,
 })
 export class LinkNodeRefComponent implements OnInit {

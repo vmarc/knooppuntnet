@@ -9,7 +9,7 @@ import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanPhase } from '../../../domain/plan/plan-phase';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 
 @Component({
   selector: 'kpn-plan-tip',

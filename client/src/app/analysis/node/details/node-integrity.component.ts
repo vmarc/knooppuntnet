@@ -27,9 +27,9 @@ import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
             </span>
             <span *ngIf="!happy(detail)" i18n="@@node.integrity.not-ok">
               The actual number of routes in this node ({{
-              detail.routeRefs.length
+                detail.routeRefs.length
               }}) does not match the expected number of routes ({{
-              detail.expectedRouteCount
+                detail.expectedRouteCount
               }}).
             </span>
             <kpn-icon-happy *ngIf="happy(detail)" />

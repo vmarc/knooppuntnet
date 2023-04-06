@@ -17,14 +17,12 @@ import { FrisoNodeDialogComponent } from '@app/friso/friso/friso-node-dialog.com
 
     <kpn-page-header pageTitle="Routedatabank">
       <span class="header-network-type-icon">
-        <mat-icon svgIcon="hiking"/>
+        <mat-icon svgIcon="hiking" />
       </span>
-      <span>
-        Netherlands: OSM versus routedatabank comparison
-      </span>
+      <span> Netherlands: OSM versus routedatabank comparison </span>
     </kpn-page-header>
 
-    <kpn-friso-map (nodeClicked)="nodeClicked($event)"/>
+    <kpn-friso-map (nodeClicked)="nodeClicked($event)" />
   `,
 })
 export class FrisoPageComponent {

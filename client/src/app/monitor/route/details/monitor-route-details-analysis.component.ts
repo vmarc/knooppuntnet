@@ -9,7 +9,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-detai
   template: `
     <p *ngIf="page.happy" class="kpn-line">
       <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
-      <kpn-icon-happy/>
+      <kpn-icon-happy />
     </p>
     <div *ngIf="!page.happy">
       <p>

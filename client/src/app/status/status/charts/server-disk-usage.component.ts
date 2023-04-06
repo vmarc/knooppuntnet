@@ -27,7 +27,7 @@ import { DiskUsage } from '@api/common/status/disk-usage';
           title="backend"
           total="800G"
         />
-        <kpn-server-disk-usage-legend/>
+        <kpn-server-disk-usage-legend />
       </div>
     </div>
   `,

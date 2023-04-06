@@ -18,7 +18,7 @@ import { Subset } from '@api/custom/subset';
       </li>
       <li>
         <a [routerLink]="countryLink()">
-          <kpn-country-name [country]="subset.country"/>
+          <kpn-country-name [country]="subset.country" />
         </a>
       </li>
       <li>

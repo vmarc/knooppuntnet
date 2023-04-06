@@ -19,7 +19,7 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
         <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
       </div>
       <div class="kpn-level-1-body">
-        <kpn-node-diffs [data]="nodeDiffs(refs)"/>
+        <kpn-node-diffs [data]="nodeDiffs(refs)" />
       </div>
     </div>
   `,

@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="toolbar">
-      <kpn-plan-actions/>
-      <kpn-network-type-selector *ngIf="showNetworkTypeSelector$ | async"/>
+      <kpn-plan-actions />
+      <kpn-network-type-selector *ngIf="showNetworkTypeSelector$ | async" />
     </div>
   `,
   styles: [

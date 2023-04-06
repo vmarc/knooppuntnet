@@ -6,7 +6,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'kpn-monitor-route-properties-step-2-name',
   template: `
-    <kpn-monitor-route-name [ngForm]="ngForm" [name]="name"/>
+    <kpn-monitor-route-name [ngForm]="ngForm" [name]="name" />
     <kpn-monitor-route-description
       [ngForm]="ngForm"
       [description]="description"

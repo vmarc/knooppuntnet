@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
-import { selectPageState } from '@app/core.state';
 import { PageState } from './page.state';
+import { selectPageState } from '@app/core/core.state';
 
 export const selectPageShowFooter = createSelector(
   selectPageState,

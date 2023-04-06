@@ -7,16 +7,13 @@ import { Component, Input } from '@angular/core';
   template: `
     <kpn-dialog>
       <div mat-dialog-title class="title">
-        <kpn-indicator-icon
-          [letter]="letter"
-          [color]="color"
-        />
+        <kpn-indicator-icon [letter]="letter" [color]="color" />
         <div class="title-text">
-          <ng-content select="[dialog-title]"/>
+          <ng-content select="[dialog-title]" />
         </div>
       </div>
       <div mat-dialog-content>
-        <ng-content select="[dialog-body]"/>
+        <ng-content select="[dialog-body]" />
       </div>
     </kpn-dialog>
   `,

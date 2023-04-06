@@ -14,8 +14,8 @@ import { DayUtil } from '../day-util';
       <mat-label>{{ label }}</mat-label>
       <input matInput [matDatepicker]="picker" [formControl]="date" />
       <mat-hint>{{ dateFormatString() }}</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"/>
-      <mat-datepicker #picker/>
+      <mat-datepicker-toggle matSuffix [for]="picker" />
+      <mat-datepicker #picker />
     </mat-form-field>
   `,
 })

@@ -15,18 +15,15 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
         [title]="network.name"
       />
       <span class="percentage">{{ interpretedNetwork.percentageOk() }}</span>
-      <kpn-subset-network-happy
-        [network]="network"
-        class="happy"
-      />
+      <kpn-subset-network-happy [network]="network" class="happy" />
     </div>
     <div i18n="@@subset-network.summary">
       {{ network.km | integer }} km, {{ network.nodeCount | integer }} nodes,
       {{ network.routeCount | integer }} routes
     </div>
     <div class="kpn-line">
-      <kpn-osm-link-relation [relationId]="network.id"/>
-      <kpn-josm-relation [relationId]="network.id"/>
+      <kpn-osm-link-relation [relationId]="network.id" />
+      <kpn-josm-relation [relationId]="network.id" />
     </div>
   `,
   styles: [

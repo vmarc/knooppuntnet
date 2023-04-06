@@ -56,7 +56,7 @@ import { PoiService } from '@app/services/poi.service';
           <div class="col-level-15">15</div>
           <!-- eslint-enable @angular-eslint/template/i18n -->
         </div>
-        <ng-content/>
+        <ng-content />
       </ng-template>
     </mat-expansion-panel>
   `,

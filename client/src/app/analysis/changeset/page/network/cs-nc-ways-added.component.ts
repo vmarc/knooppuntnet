@@ -11,7 +11,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
       <div class="kpn-level-2-header kpn-line">
         <span i18n="@@change-set.network-changes.added-ways">Added ways</span>
         <span class="kpn-brackets kpn-thin">{{ wayIds.length }}</span>
-        <kpn-icon-investigate/>
+        <kpn-icon-investigate />
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-way

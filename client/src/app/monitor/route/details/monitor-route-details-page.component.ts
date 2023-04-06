@@ -51,9 +51,7 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
           title="Structure"
           i18n-title="@@monitor.route.details.structure"
         />
-        <div
-          *ngIf="page.structureRows"
-          class="structure">
+        <div *ngIf="page.structureRows" class="structure">
           <kpn-monitor-route-details-structure
             [groupName]="page.groupName"
             [routeName]="page.routeName"

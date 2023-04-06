@@ -31,7 +31,7 @@ import { MapLayerService } from '../services/map-layer.service';
 
     <div class="map-control map-layers-control" (mouseenter)="openPopupMenu()">
       <button class="map-control-button" [matMenuTriggerFor]="mapMenu">
-        <mat-icon svgIcon="layers"/>
+        <mat-icon svgIcon="layers" />
       </button>
     </div>
   `,

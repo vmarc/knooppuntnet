@@ -57,7 +57,9 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
                 *ngFor="let networkChangeInfo of response.result.changes"
                 [index]="networkChangeInfo.rowIndex"
               >
-                <kpn-network-change-set [networkChangeInfo]="networkChangeInfo" />
+                <kpn-network-change-set
+                  [networkChangeInfo]="networkChangeInfo"
+                />
               </kpn-item>
             </kpn-items>
           </kpn-changes>

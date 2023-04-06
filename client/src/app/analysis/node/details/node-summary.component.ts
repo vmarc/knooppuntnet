@@ -27,10 +27,12 @@ import { NodeInfo } from '@api/common/node-info';
             <div class="kpn-line">
               <kpn-network-type [networkType]="nodeName.networkType">
                 <span i18n="@@node.node" class="network-type"
-                >network node</span
+                  >network node</span
                 >
                 <span class="kpn-brackets">
-                  <kpn-network-scope-name [networkScope]="nodeName.networkScope" />
+                  <kpn-network-scope-name
+                    [networkScope]="nodeName.networkScope"
+                  />
                 </span>
               </kpn-network-type>
             </div>
@@ -47,7 +49,7 @@ import { NodeInfo } from '@api/common/node-info';
       </div>
 
       <p *ngIf="nodeInfo.country">
-        <kpn-country-name [country]="nodeInfo.country"/>
+        <kpn-country-name [country]="nodeInfo.country" />
       </p>
 
       <p *ngIf="nodeInfo.active && nodeInfo.orphan" i18n="@@node.orphan">
@@ -55,7 +57,7 @@ import { NodeInfo } from '@api/common/node-info';
       </p>
 
       <p *ngIf="isProposed()" class="kpn-line">
-        <mat-icon svgIcon="warning" style="min-width: 24px"/>
+        <mat-icon svgIcon="warning" style="min-width: 24px" />
         <markdown i18n="@@node.proposed">
           Proposed: the network node is assumed to still be in a planning phase
           and likely not signposted in the field.

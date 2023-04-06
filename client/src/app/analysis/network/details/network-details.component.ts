@@ -43,7 +43,7 @@ import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
       <kpn-tags-table [tags]="tags" />
     </kpn-data>
   `,
-  styleUrls: ['@app/components/shared/data/data.component.scss'],
+  styleUrls: ['../../../components/shared/data/data.component.scss'],
 })
 export class NetworkDetailsComponent implements OnInit {
   @Input() response: ApiResponse<NetworkDetailsPage>;

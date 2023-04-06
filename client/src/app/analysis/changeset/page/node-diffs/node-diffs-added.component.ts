@@ -30,16 +30,14 @@ import { NodeDiffsData } from './node-diffs-data';
               <div *ngIf="nodeChangeInfo.after">
                 <div *ngIf="isCreated(nodeChangeInfo.after)">
                   <ng-container i18n="@@node-diffs-added.change-set-created"
-                  >Created in this changeset.
-                  </ng-container
-                  >
+                    >Created in this changeset.
+                  </ng-container>
                 </div>
                 <!-- eslint-disable @angular-eslint/template/i18n -->
                 <div *ngIf="isUpdated(nodeChangeInfo.after)">
                   <ng-container i18n="@@node-diffs-added.change-set-updated"
-                  >Updated in this changeset.
-                  </ng-container
-                  >
+                    >Updated in this changeset.
+                  </ng-container>
                   v{{ nodeChangeInfo.after.version }}.
                 </div>
                 <!-- eslint-enable @angular-eslint/template/i18n -->
@@ -47,7 +45,7 @@ import { NodeDiffsData } from './node-diffs-data';
                   <span
                     i18n="@@node-diffs-added.change-set-existing"
                     class="kpn-label"
-                  >Existing node</span
+                    >Existing node</span
                   >
                   <kpn-meta-data [metaData]="nodeChangeInfo.after" />
                 </div>

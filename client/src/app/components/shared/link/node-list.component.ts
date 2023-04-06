@@ -7,10 +7,7 @@ import { Component, Input } from '@angular/core';
   template: `
     <div class="kpn-comma-list">
       <span *ngFor="let nodeId of nodeIds">
-        <kpn-osm-link-node
-          [nodeId]="nodeId"
-          [title]="nodeId.toString()"
-        />
+        <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
       </span>
     </div>
   `,

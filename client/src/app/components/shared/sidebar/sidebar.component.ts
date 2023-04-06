@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-body sidebar-logo">
-      <ng-content/>
+      <ng-content />
     </div>
     <div class="sidebar-footer">
-      <kpn-sidebar-footer/>
+      <kpn-sidebar-footer />
     </div>
   `,
   styles: [

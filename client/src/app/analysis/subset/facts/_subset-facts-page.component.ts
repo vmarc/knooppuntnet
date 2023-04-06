@@ -50,7 +50,7 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
                 title="Open in editor (like JOSM)"
                 i18n-title="@@edit.link.title"
                 i18n="@@edit.link"
-              >edit</a
+                >edit</a
               >
             </div>
             <kpn-fact-description [factInfo]="factInfo(factCount)" />

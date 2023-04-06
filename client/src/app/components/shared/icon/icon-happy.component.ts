@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'kpn-icon-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <mat-icon svgIcon="happy"/> `,
+  template: ` <mat-icon svgIcon="happy" /> `,
   styles: [
     `
       :host {

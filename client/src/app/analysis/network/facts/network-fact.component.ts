@@ -22,7 +22,7 @@ import { NetworkType } from '@api/custom/network-type';
     </div>
 
     <div *ngIf="fact.elements && fact.elementType === 'node'">
-      <kpn-network-fact-nodes [nodes]="fact.elements"/>
+      <kpn-network-fact-nodes [nodes]="fact.elements" />
     </div>
 
     <div *ngIf="fact.elements && fact.elementType === 'route'">
@@ -33,7 +33,7 @@ import { NetworkType } from '@api/custom/network-type';
     </div>
 
     <div *ngIf="fact.checks && fact.checks.length > 0">
-      <kpn-network-fact-checks [checks]="fact.checks"/>
+      <kpn-network-fact-checks [checks]="fact.checks" />
     </div>
   `,
 })

@@ -8,7 +8,7 @@ import { NetworkAttributes } from '@api/common/network/network-attributes';
   template: `
     <kpn-items>
       <kpn-item *ngFor="let network of networks; let i = index" [index]="i">
-        <kpn-subset-network [network]="network"/>
+        <kpn-subset-network [network]="network" />
       </kpn-item>
     </kpn-items>
   `,

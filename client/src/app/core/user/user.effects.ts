@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
-import { selectUrl } from '@app/core.state';
+import { selectUrl } from '@app/core/core.state';
 import { ReturnUrl } from './return-url';
 import { actionUserLoginCompleted } from './user.actions';
 import { actionUserLogoutCompleted } from './user.actions';

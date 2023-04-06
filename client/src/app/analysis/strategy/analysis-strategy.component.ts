@@ -41,7 +41,7 @@ import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
       </mat-radio-group>
     </div>
   `,
-  styleUrls: ['@app/components/shared/sidebar/sidebar.scss'],
+  styleUrls: ['../../components/shared/sidebar/sidebar.scss'],
 })
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();

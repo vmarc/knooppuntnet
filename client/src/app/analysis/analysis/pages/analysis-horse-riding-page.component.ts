@@ -16,7 +16,7 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
 
     <kpn-page-header>
       <span class="header-network-type-icon">
-        <mat-icon svgIcon="horse-riding"/>
+        <mat-icon svgIcon="horse-riding" />
       </span>
       <span i18n="@@network-type.horse-riding">Horse riding</span>
     </kpn-page-header>

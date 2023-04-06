@@ -31,7 +31,7 @@ import { ChangeType } from '@api/custom/change-type';
       <span i18n="@@node.version">Version</span>
       {{ nodeChangeInfo.version }}
       <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged"
-      >(Unchanged)</span
+        >(Unchanged)</span
       >
     </div>
 

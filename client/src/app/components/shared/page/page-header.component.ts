@@ -18,7 +18,7 @@ import { PageService } from '../page.service';
       <h1 #title>
         <ng-content></ng-content>
       </h1>
-      <kpn-doc-link *ngIf="subject" [subject]="subject"/>
+      <kpn-doc-link *ngIf="subject" [subject]="subject" />
     </div>
   `,
   styles: [

@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
         {{ index + 1 }}
       </div>
       <div class="item-right">
-        <ng-content/>
+        <ng-content />
       </div>
     </div>
   `,

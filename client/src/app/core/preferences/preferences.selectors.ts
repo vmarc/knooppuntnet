@@ -1,5 +1,5 @@
 import { createSelector } from '@ngrx/store';
-import { selectPreferencesState } from '@app/core.state';
+import { selectPreferencesState } from '@app/core/core.state';
 import { PreferencesState } from './preferences.state';
 
 export const selectPreferencesAnalysisStrategy = createSelector(

@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
           another window.
         </p>
       </div>
-      <kpn-sidebar-footer/>
+      <kpn-sidebar-footer />
     </div>
   `,
   styles: [

@@ -5,11 +5,7 @@ import { Component, Input } from '@angular/core';
   selector: 'kpn-osm-link-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-osm-link
-      kind="way"
-      [elementId]="wayId.toString()"
-      [title]="title"
-    />
+    <kpn-osm-link kind="way" [elementId]="wayId.toString()" [title]="title" />
   `,
 })
 export class OsmLinkWayComponent {

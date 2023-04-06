@@ -38,7 +38,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
           <tbody>
             <tr *ngFor="let member of members">
               <td class="image-cell">
-                <kpn-link-image [linkName]="member.linkName"/>
+                <kpn-link-image [linkName]="member.linkName" />
               </td>
               <td>
                 <div class="kpn-comma-list">
@@ -85,7 +85,7 @@ import { RouteMemberInfo } from '@api/custom/route-member-info';
               </td>
               <td>
                 <div *ngIf="!member.accessible">
-                  <mat-icon svgIcon="warning"/>
+                  <mat-icon svgIcon="warning" />
                 </div>
               </td>
               <td *ngIf="networkType === 'cycling'">

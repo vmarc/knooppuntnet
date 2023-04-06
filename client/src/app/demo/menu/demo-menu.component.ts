@@ -16,11 +16,11 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     </ng-template>
 
     <ng-template #disabled>
-      <kpn-demo-disabled/>
+      <kpn-demo-disabled />
     </ng-template>
 
     <div class="video-icon">
-      <mat-icon svgIcon="video"/>
+      <mat-icon svgIcon="video" />
     </div>
   `,
   styles: [

@@ -21,7 +21,7 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         <td mat-cell *matCellDef="let group">
           <a [routerLink]="groupLink(group)" (click)="navigateGroup(group)">{{
             group.name
-            }}</a>
+          }}</a>
         </td>
       </ng-container>
 

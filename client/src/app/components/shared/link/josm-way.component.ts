@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'kpn-josm-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<kpn-josm-link kind="way" [elementId]="wayId"/>`,
+  template: `<kpn-josm-link kind="way" [elementId]="wayId" />`,
 })
 export class JosmWayComponent {
   @Input() wayId: number;

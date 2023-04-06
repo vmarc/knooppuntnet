@@ -17,7 +17,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-node',

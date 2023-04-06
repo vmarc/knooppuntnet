@@ -8,7 +8,7 @@ import { PlannerCommandReset } from '../../../domain/commands/planner-command-re
 import { PlannerCommandReverse } from '../../../domain/commands/planner-command-reverse';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanReverser } from '../../../domain/plan/plan-reverser';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 
 @Component({

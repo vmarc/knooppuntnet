@@ -8,7 +8,7 @@ import { PageService } from '../page.service';
   template: `
     <mat-nav-list>
       <mat-list-item (click)="back()">
-        <mat-icon svgIcon="back" matListItemIcon/>
+        <mat-icon svgIcon="back" matListItemIcon />
         <span i18n="@@sidebar.back" matListItemTitle>back</span>
       </mat-list-item>
     </mat-nav-list>

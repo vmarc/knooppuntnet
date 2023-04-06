@@ -15,17 +15,17 @@ import { ChangeOption } from '../../../changes/store/changes.actions';
         <kpn-month *ngIf="option.level === 'month'" [month]="option.month" />
         <ng-container *ngIf="option.level !== 'month'">{{
           option.name
-          }}</ng-container>
+        }}</ng-container>
         <ng-container *ngIf="option.current">&nbsp;&larr;</ng-container>
       </div>
       <div class="count-links">
         <a (click)="impactedCountClicked()" class="link">{{
           option.impactedCount
-          }}</a>
+        }}</a>
         /
         <a (click)="totalCountClicked()" class="link">{{
           option.totalCount
-          }}</a>
+        }}</a>
       </div>
     </div>
   `,

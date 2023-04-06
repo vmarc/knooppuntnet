@@ -6,10 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="indicator" (click)="onOpenDialog()">
-      <kpn-indicator-icon
-        [letter]="letter"
-        [color]="color"
-      />
+      <kpn-indicator-icon [letter]="letter" [color]="color" />
     </div>
   `,
   styles: [

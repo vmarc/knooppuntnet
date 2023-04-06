@@ -29,10 +29,7 @@ import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 
     <kpn-error />
 
-    <kpn-monitor-route-properties
-      mode="add"
-      [groupName]="groupName$ | async"
-    />
+    <kpn-monitor-route-properties mode="add" [groupName]="groupName$ | async" />
   `,
 })
 export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {

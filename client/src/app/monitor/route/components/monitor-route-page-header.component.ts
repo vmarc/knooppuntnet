@@ -81,7 +81,8 @@ import { selectMonitorRouteMapSubRelations } from '../map/store/monitor-route-ma
         [ngClass]="{ disabled: (subrelationsEmpty$ | async) }"
         [matMenuTriggerFor]="appMenu"
         i18n="@@monitor.route.menu.select"
-      >Select</a>
+        >Select</a
+      >
     </kpn-page-menu>
 
     <kpn-error />

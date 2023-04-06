@@ -10,10 +10,10 @@ import { OverviewConfigurationService } from './overview-configuration.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <table title="overview" class="kpn-table">
-      <kpn-overview-table-header/>
+      <kpn-overview-table-header />
       <tbody>
         <ng-container *ngFor="let stat of stats">
-          <kpn-overview-table-row [stat]="stat"/>
+          <kpn-overview-table-row [stat]="stat" />
         </ng-container>
       </tbody>
     </table>

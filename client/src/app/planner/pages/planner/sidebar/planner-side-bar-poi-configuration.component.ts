@@ -12,7 +12,7 @@ import { PoiService } from '@app/services/poi.service';
         <span i18n="@@planner.pois.title">Points of interest</span>
         &nbsp;&nbsp;
         <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled"
-        >(Enabled/Disabled)</span
+          >(Enabled/Disabled)</span
         >
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
@@ -31,7 +31,7 @@ import { PoiService } from '@app/services/poi.service';
           </i>
         </p>
 
-        <kpn-map-poi-config/>
+        <kpn-map-poi-config />
         <button mat-stroked-button i18n="@@planner.pois.reset">
           Reset configuration to default
         </button>

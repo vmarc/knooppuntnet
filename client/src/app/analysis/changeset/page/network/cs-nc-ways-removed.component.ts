@@ -13,7 +13,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
           >Removed ways</span
         >
         <span class="kpn-brackets kpn-thin">{{ wayIds.length }}</span>
-        <kpn-icon-happy/>
+        <kpn-icon-happy />
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-way

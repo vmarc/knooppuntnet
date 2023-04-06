@@ -8,12 +8,9 @@ import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info'
   template: `
     <p class="kpn-line">
       <img [src]="'/assets/images/' + title" class="image" />
-      <kpn-link-node
-        [nodeId]="node.id"
-        [nodeName]="node.alternateName"
-      />
+      <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
       <kpn-brackets>
-        <kpn-osm-link-node [nodeId]="node.id"/>
+        <kpn-osm-link-node [nodeId]="node.id" />
       </kpn-brackets>
     </p>
   `,

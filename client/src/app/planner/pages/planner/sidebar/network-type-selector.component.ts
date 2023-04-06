@@ -14,22 +14,22 @@ import { Store } from '@ngrx/store';
       (change)="networkTypeChanged($event)"
     >
       <mat-button-toggle value="cycling">
-        <mat-icon svgIcon="cycling"/>
+        <mat-icon svgIcon="cycling" />
       </mat-button-toggle>
       <mat-button-toggle value="hiking">
-        <mat-icon svgIcon="hiking"/>
+        <mat-icon svgIcon="hiking" />
       </mat-button-toggle>
       <mat-button-toggle value="horse-riding">
-        <mat-icon svgIcon="horse-riding"/>
+        <mat-icon svgIcon="horse-riding" />
       </mat-button-toggle>
       <mat-button-toggle value="motorboat">
-        <mat-icon svgIcon="motorboat"/>
+        <mat-icon svgIcon="motorboat" />
       </mat-button-toggle>
       <mat-button-toggle value="canoe">
-        <mat-icon svgIcon="canoe"/>
+        <mat-icon svgIcon="canoe" />
       </mat-button-toggle>
       <mat-button-toggle value="inline-skating">
-        <mat-icon svgIcon="inline-skating"/>
+        <mat-icon svgIcon="inline-skating" />
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,

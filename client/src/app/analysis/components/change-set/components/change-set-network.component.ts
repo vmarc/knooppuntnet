@@ -17,7 +17,9 @@ export class ChangeSetNetworkAction {
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <kpn-network-type-icon [networkType]="changeSetNetworkAction.network.networkType" />
+      <kpn-network-type-icon
+        [networkType]="changeSetNetworkAction.network.networkType"
+      />
       <span>{{ changeSetNetworkAction.action }}</span>
       <a
         [routerLink]="link()"
@@ -26,8 +28,14 @@ export class ChangeSetNetworkAction {
         {{ changeSetNetworkAction.network.networkName }}
       </a>
     </div>
-    <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()" />
-    <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()" />
+    <kpn-change-set-element-refs
+      elementType="node"
+      [changeSetElementRefs]="nodeChanges()"
+    />
+    <kpn-change-set-element-refs
+      elementType="route"
+      [changeSetElementRefs]="routeChanges()"
+    />
   `,
 })
 export class ChangesSetNetworkComponent {

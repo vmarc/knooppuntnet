@@ -9,7 +9,10 @@ import { ChangeSetElement } from './change-set-element-ref.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <kpn-change-set-element-ref *ngFor="let element of elements" [element]="element" />
+      <kpn-change-set-element-ref
+        *ngFor="let element of elements"
+        [element]="element"
+      />
     </div>
   `,
 })

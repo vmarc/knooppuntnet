@@ -13,7 +13,7 @@ import { NetworkChangeInfo } from '@api/common/changes/details/network-change-in
           >Added non-network nodes</span
         >
         <span class="kpn-brackets kpn-thin">{{ nodeIds.length }}</span>
-        <kpn-icon-investigate/>
+        <kpn-icon-investigate />
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
         <kpn-osm-link-node

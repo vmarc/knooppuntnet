@@ -20,7 +20,7 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
         <span class="kpn-km">{{ page.attributes.km | integer }}</span>
       </span>
       <span
-      >{{ page.summary.nodeCount | integer }}
+        >{{ page.summary.nodeCount | integer }}
         <ng-container i18n="@@network-details.nodes">nodes</ng-container>
       </span>
       <span>
@@ -42,14 +42,14 @@ import { NetworkDetailsPage } from '@api/common/network/network-details-page';
       *ngIf="page.active && page.attributes.brokenRouteCount > 0"
       class="kpn-line"
     >
-      <mat-icon svgIcon="warning"/>
+      <mat-icon svgIcon="warning" />
       <span i18n="@@network-details.contains-broken-routes"
-      >This network contains broken (non-continuous) routes.</span
+        >This network contains broken (non-continuous) routes.</span
       >
     </p>
 
     <p *ngIf="page.active && isProposed()" class="kpn-line">
-      <mat-icon svgIcon="warning" style="min-width: 24px"/>
+      <mat-icon svgIcon="warning" style="min-width: 24px" />
       <markdown i18n="@@network.proposed">
         Proposed: this network has tag _"state=proposed"_. The network is
         assumed to still be in a planning phase and likely not signposted in the

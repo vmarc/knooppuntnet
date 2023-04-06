@@ -20,7 +20,7 @@ import { Observable } from 'rxjs';
       (change)="enabledChanged($event)"
       class="poi-group"
     >
-      <ng-content/>
+      <ng-content />
     </mat-checkbox>
   `,
   styles: [

@@ -15,13 +15,23 @@ import { FactInfo } from './fact-info';
       <kpn-fact-lost-canoe-node-tag *ngSwitchCase="'LostCanoeNodeTag'" />
       <kpn-fact-lost-hiking-node-tag *ngSwitchCase="'LostHikingNodeTag'" />
       <kpn-fact-lost-horse-node-tag *ngSwitchCase="'LostHorseNodeTag'" />
-      <kpn-fact-lost-inline-skate-node-tag *ngSwitchCase="'LostInlineSkateNodeTag'" />
-      <kpn-fact-lost-motorboat-node-tag *ngSwitchCase="'LostMotorboatNodeTag'" />
+      <kpn-fact-lost-inline-skate-node-tag
+        *ngSwitchCase="'LostInlineSkateNodeTag'"
+      />
+      <kpn-fact-lost-motorboat-node-tag
+        *ngSwitchCase="'LostMotorboatNodeTag'"
+      />
       <kpn-fact-lost-route-tags *ngSwitchCase="'LostRouteTags'" />
       <kpn-fact-name-missing *ngSwitchCase="'NameMissing'" />
-      <kpn-fact-network-extra-member-node *ngSwitchCase="'NetworkExtraMemberNode'" />
-      <kpn-fact-network-extra-member-relation *ngSwitchCase="'NetworkExtraMemberRelation'" />
-      <kpn-fact-network-extra-member-way *ngSwitchCase="'NetworkExtraMemberWay'" />
+      <kpn-fact-network-extra-member-node
+        *ngSwitchCase="'NetworkExtraMemberNode'"
+      />
+      <kpn-fact-network-extra-member-relation
+        *ngSwitchCase="'NetworkExtraMemberRelation'"
+      />
+      <kpn-fact-network-extra-member-way
+        *ngSwitchCase="'NetworkExtraMemberWay'"
+      />
       <kpn-fact-node-member-missing *ngSwitchCase="'NodeMemberMissing'" />
       <kpn-fact-orphan-node *ngSwitchCase="'OrphanNode'" />
       <kpn-fact-orphan-route *ngSwitchCase="'OrphanRoute'" />
@@ -31,8 +41,12 @@ import { FactInfo } from './fact-info';
       <kpn-fact-route-incomplete *ngSwitchCase="'RouteIncomplete'" />
       <kpn-fact-route-incomplete-ok *ngSwitchCase="'RouteIncompleteOk'" />
       <kpn-fact-route-name-missing *ngSwitchCase="'RouteNameMissing'" />
-      <kpn-fact-route-node-missing-in-ways *ngSwitchCase="'RouteNodeMissingInWays'" />
-      <kpn-fact-route-node-name-mismatch *ngSwitchCase="'RouteNodeNameMismatch'" />
+      <kpn-fact-route-node-missing-in-ways
+        *ngSwitchCase="'RouteNodeMissingInWays'"
+      />
+      <kpn-fact-route-node-name-mismatch
+        *ngSwitchCase="'RouteNodeNameMismatch'"
+      />
       <kpn-fact-route-not-backward *ngSwitchCase="'RouteNotBackward'" />
       <kpn-fact-route-not-continious *ngSwitchCase="'RouteNotContinious'" />
       <kpn-fact-route-not-forward *ngSwitchCase="'RouteNotForward'" />
@@ -44,13 +58,23 @@ import { FactInfo } from './fact-info';
       <kpn-fact-route-tag-invalid *ngSwitchCase="'RouteTagInvalid'" />
       <kpn-fact-route-tag-missing *ngSwitchCase="'RouteTagMissing'" />
       <kpn-fact-route-inaccessible *ngSwitchCase="'RouteInaccessible'" />
-      <kpn-fact-route-unexpected-node *ngSwitchCase="'RouteUnexpectedNode'" [factInfo]="factInfo" />
-      <kpn-fact-route-unexpected-relation *ngSwitchCase="'RouteUnexpectedRelation'" [factInfo]="factInfo" />
+      <kpn-fact-route-unexpected-node
+        *ngSwitchCase="'RouteUnexpectedNode'"
+        [factInfo]="factInfo"
+      />
+      <kpn-fact-route-unexpected-relation
+        *ngSwitchCase="'RouteUnexpectedRelation'"
+        [factInfo]="factInfo"
+      />
       <kpn-fact-route-unused-segments *ngSwitchCase="'RouteUnusedSegments'" />
       <kpn-fact-route-without-nodes *ngSwitchCase="'RouteWithoutNodes'" />
       <kpn-fact-route-without-ways *ngSwitchCase="'RouteWithoutWays'" />
-      <kpn-fact-node-invalid-survey-date *ngSwitchCase="'NodeInvalidSurveyDate'" />
-      <kpn-fact-route-invalid-survey-date *ngSwitchCase="'RouteInvalidSurveyDate'" />
+      <kpn-fact-node-invalid-survey-date
+        *ngSwitchCase="'NodeInvalidSurveyDate'"
+      />
+      <kpn-fact-route-invalid-survey-date
+        *ngSwitchCase="'RouteInvalidSurveyDate'"
+      />
       <p *ngSwitchDefault i18n="@@fact.description-missing">
         {{ factInfo.fact }} description missing!!
       </p>

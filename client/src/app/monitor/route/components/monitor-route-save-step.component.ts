@@ -8,16 +8,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     <div *ngIf="enabled" class="kpn-line kpn-spacer-below">
       <div class="icon">
         <mat-spinner *ngIf="status === 'busy'" diameter="20"></mat-spinner>
-        <mat-icon
-          *ngIf="status === 'todo'"
-          svgIcon="dot"
-          class="todo"
-        />
-        <mat-icon
-          *ngIf="status === 'done'"
-          svgIcon="tick"
-          class="done"
-        />
+        <mat-icon *ngIf="status === 'todo'" svgIcon="dot" class="todo" />
+        <mat-icon *ngIf="status === 'done'" svgIcon="tick" class="done" />
       </div>
       <span>{{ label }}</span>
     </div>

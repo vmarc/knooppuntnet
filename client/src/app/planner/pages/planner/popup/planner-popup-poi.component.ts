@@ -13,7 +13,7 @@ import { PoiService } from '@app/services/poi.service';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, tap } from 'rxjs/operators';
-import { PlannerService } from '@app/services/planner.service';
+import { PlannerService } from '../../../services/planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',
