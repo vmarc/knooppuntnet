@@ -5,8 +5,9 @@ import { NodeMapPage } from '@api/common/node/node-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { MapPosition } from '../../../components/ol/domain/map-position';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 import { ChangeOption } from '../../changes/store/changes.actions';
+import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 
 export const actionNodeId = createAction(
   '[Node] Id',
@@ -42,7 +43,13 @@ export const actionNodeMapPageLoaded = createAction(
   props<{
     response: ApiResponse<NodeMapPage>;
     mapPositionFromUrl: MapPosition;
+    mapLayerStates: MapLayerState[];
   }>()
+);
+
+export const actionNodeMapLayerVisible = createAction(
+  '[NodeMapPage] Layer visible',
+  props<{ layerName: string; visible: boolean }>()
 );
 
 export const actionNodeChangesPageInit = createAction('[NodeChangesPage] Init');

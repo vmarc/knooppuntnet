@@ -108,7 +108,7 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
     const mainMapStyle = new MainMapStyle(parameters$);
 
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(new BackgroundLayer().build());
+    mapLayers = mapLayers.push(BackgroundLayer.build());
     NetworkTypes.all.forEach((networkType) => {
       mapLayers = mapLayers.push(
         new MainMapLayer().buildVectorLayer(

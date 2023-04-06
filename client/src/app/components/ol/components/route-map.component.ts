@@ -148,7 +148,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       this.routeMapInfo.networkType
     );
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(new BackgroundLayer().build());
+    mapLayers = mapLayers.push(BackgroundLayer.build());
     mapLayers = mapLayers.push(this.networkVectorTileLayer);
     mapLayers = mapLayers.concat(
       this.mapLayerService.routeLayers(this.routeMapInfo.map)

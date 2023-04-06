@@ -5,7 +5,9 @@ import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
 import { Source } from 'ol/source';
 
 export class BackgroundLayer {
-  build(): MapLayer {
+  static id = 'background';
+
+  static build(): MapLayer {
     const osmAttribution =
       '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
     const openMapTilesAttribution =
@@ -20,6 +22,6 @@ export class BackgroundLayer {
         style: OsmLibertyStyle.osmLibertyStyle,
       },
     });
-    return new MapLayer('background', 'background', -Infinity, Infinity, layer);
+    return new MapLayer(this.id, this.id, -Infinity, Infinity, layer);
   }
 }

@@ -15,7 +15,6 @@ import { MapLinkMenuComponent } from './components/map-link-menu.component';
 import { NetworkControlComponent } from './components/network-control.component';
 import { NetworkMapComponent } from './components/network-map.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
-import { NodeMapComponent } from './components/node-map.component';
 import { NodeMovedMapComponent } from './components/node-moved-map.component';
 import { OldLayerSwitcherComponent } from './components/old-layer-switcher.component';
 import { PoiDetailMapComponent } from './components/poi-detail-map.component';
@@ -42,7 +41,6 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     MatMenuModule,
   ],
   declarations: [
-    NodeMapComponent,
     NodeMovedMapComponent,
     RouteMapComponent,
     SubsetMapComponent,
@@ -62,7 +60,6 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     FrisoMapComponent,
   ],
   exports: [
-    NodeMapComponent,
     NodeMovedMapComponent,
     RouteMapComponent,
     SubsetMapComponent,

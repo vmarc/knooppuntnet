@@ -50,11 +50,11 @@ export class MonitorRouteChangeMapComponent
 
   ngAfterViewInit(): void {
     const layers: MapLayer[] = [];
-    const osmLayer = new OsmLayer().build();
+    const osmLayer = OsmLayer.build();
     osmLayer.layer.setVisible(false);
     layers.push(osmLayer);
 
-    const backgroundLayer = new BackgroundLayer().build();
+    const backgroundLayer = BackgroundLayer.build();
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 

@@ -104,8 +104,8 @@ export class PlannerLayerService {
   private buildLayers(): void {
     this.layers = [];
 
-    this.layers.push(new OsmLayer().build());
-    this.layers.push(new BackgroundLayer().build());
+    this.layers.push(BackgroundLayer.build());
+    this.layers.push(OsmLayer.build());
     this.layers.push(new TileDebug256Layer().build());
     this.layers.push(new TileDebug512Layer().build());
     this.layers.push(this.poiTileLayerService.buildLayer());

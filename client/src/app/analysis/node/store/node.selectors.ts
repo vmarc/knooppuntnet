@@ -24,6 +24,11 @@ export const selectNodeMapPositionFromUrl = createSelector(
   (state: NodeState) => state.mapPositionFromUrl
 );
 
+export const selectNodeMapLayerStates = createSelector(
+  selectNodeState,
+  (state: NodeState) => state.mapLayerStates
+);
+
 export const selectNodeChangesPage = createSelector(
   selectNodeState,
   (state: NodeState) => state.changesPage

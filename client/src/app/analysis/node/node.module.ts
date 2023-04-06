@@ -5,8 +5,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '../../components/ol/ol.module';
-import { SharedModule } from '../../components/shared/shared.module';
+import { OlModule } from '@app/components/ol/ol.module';
+import { SharedModule } from '@app/components/shared/shared.module';
 import { AnalysisComponentsModule } from '../components/analysis-components.module';
 import { FactModule } from '../fact/fact.module';
 import { NodeChangesPageComponent } from './changes/_node-changes-page.component';
@@ -26,6 +26,8 @@ import { NodeRoutingModule } from './node-routing.module';
 import { NodeEffects } from './store/node.effects';
 import { nodeReducer } from './store/node.reducer';
 import { nodeFeatureKey } from './store/node.state';
+import { NodeMapLayerService } from '@app/analysis/node/map/node-map-layer.service';
+import { NodeMapComponent } from '@app/analysis/node/map/node-map.component';
 
 @NgModule({
   imports: [
@@ -50,11 +52,13 @@ import { nodeFeatureKey } from './store/node.state';
     NodeRouteReferencesComponent,
     NodeChangesPageComponent,
     NodeMapPageComponent,
+    NodeMapComponent,
     NodePageHeaderComponent,
     NodeChangesSidebarComponent,
     NodeLocationComponent,
     NodeIntegrityComponent,
     NodeDetailsSidebarComponent,
   ],
+  providers: [NodeMapLayerService],
 })
 export class NodeModule {}

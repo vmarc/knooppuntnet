@@ -143,8 +143,8 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
 
     return new MapLayers(
       List([
-        new OsmLayer().build(),
-        new BackgroundLayer().build(),
+        OsmLayer.build(),
+        BackgroundLayer.build(),
         new MainMapLayer().buildVectorLayer(
           NetworkType.hiking,
           mainMapStyle.styleFunction()

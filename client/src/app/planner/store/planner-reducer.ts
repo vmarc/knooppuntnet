@@ -112,12 +112,5 @@ function determineLayerStates(networkType: NetworkType): MapLayerState[] {
       visible: false,
     });
   }
-
-  const statesString = layerStates
-    .filter((layerState) => layerState.visible)
-    .map((layerState) => layerState.layerName)
-    .join(',');
-  console.log(`determineLayerStates: visible=${statesString}`);
-
   return layerStates;
 }

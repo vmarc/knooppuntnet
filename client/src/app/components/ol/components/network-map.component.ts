@@ -113,7 +113,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(new BackgroundLayer().build());
+    mapLayers = mapLayers.push(BackgroundLayer.build());
     mapLayers = mapLayers.push(
       NetworkNodesBitmapTileLayer.build(this.page.summary.networkType)
     );

@@ -12,6 +12,7 @@ import { actionNodeLink } from './node.actions';
 import { actionNodeDetailsPageLoaded } from './node.actions';
 import { actionNodeMapPageLoaded } from './node.actions';
 import { actionNodeChangesPageLoaded } from './node.actions';
+import { actionNodeMapLayerVisible } from './node.actions';
 import { NodeState } from './node.state';
 import { initialState } from './node.state';
 
@@ -58,7 +59,7 @@ export const nodeReducer = createReducer<NodeState>(
   }),
   on(
     actionNodeMapPageLoaded,
-    (state, { response, mapPositionFromUrl }): NodeState => {
+    (state, { response, mapPositionFromUrl, mapLayerStates }): NodeState => {
       const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
       const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
       const changeCount = response.result?.changeCount ?? state.changeCount;
@@ -69,9 +70,45 @@ export const nodeReducer = createReducer<NodeState>(
         changeCount,
         mapPage: response,
         mapPositionFromUrl,
+        mapLayerStates,
       };
     }
   ),
+  on(actionNodeMapLayerVisible, (state, { layerName, visible }): NodeState => {
+    const mapLayerStates = state.mapLayerStates.map((layerState) => {
+      if (
+        layerState.layerName == 'background' &&
+        layerName == 'osm' &&
+        visible
+      ) {
+        return {
+          ...layerState,
+          visible: false,
+        };
+      }
+      if (
+        layerState.layerName == 'osm' &&
+        layerName == 'background' &&
+        visible
+      ) {
+        return {
+          ...layerState,
+          visible: false,
+        };
+      }
+      if (layerState.layerName === layerName) {
+        return {
+          ...layerState,
+          visible,
+        };
+      }
+      return layerState;
+    });
+    return {
+      ...state,
+      mapLayerStates,
+    };
+  }),
   on(
     actionNodeChangesPageLoad,
     (state, { nodeId, changesParameters }): NodeState => ({

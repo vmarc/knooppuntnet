@@ -17,14 +17,17 @@ import { RouteChangeLayers } from '../layers/route-change-layers';
 import { RouteLayers } from '../layers/route-layers';
 import { MapMode } from './map-mode';
 import { MapService } from './map.service';
+import { NodeMapStyle } from '@app/components/ol/style/node-map-style';
+import { OsmLayer } from '@app/components/ol/layers/osm-layer';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 
 @Injectable()
 export class MapLayerService {
   private mapLayerStateKey = 'map-layer-state';
 
   readonly mapLayerDefinitions: MapLayerDefinition[] = [
-    { name: 'osm', translation: '@@map.layer.osm' },
-    { name: 'background', translation: '@@map.layer.background' },
+    { name: BackgroundLayer.id, translation: '@@map.layer.background' },
+    { name: OsmLayer.id, translation: '@@map.layer.osm' },
     { name: 'cycling', translation: '@@network-type.cycling' },
     { name: 'hiking', translation: '@@network-type.hiking' },
     { name: 'horse-riding', translation: '@@network-type.horse-riding' },
@@ -114,8 +117,10 @@ export class MapLayerService {
   }
 
   networkVectorTileLayer(networkType: NetworkType): MapLayer {
-    throw new Error('add style function');
-    return NetworkVectorTileLayer.build(networkType, null);
+    return NetworkVectorTileLayer.build(
+      networkType,
+      new NodeMapStyle().styleFunction()
+    );
   }
 
   networkBitmapTileLayer(networkType: NetworkType, mapMode: MapMode): MapLayer {

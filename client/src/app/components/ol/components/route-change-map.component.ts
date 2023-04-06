@@ -85,7 +85,7 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
 
   private buildLayers(): MapLayers {
     let mapLayers: List<MapLayer> = List();
-    mapLayers = mapLayers.push(new BackgroundLayer().build());
+    mapLayers = mapLayers.push(BackgroundLayer.build());
     mapLayers = mapLayers.push(new RouteNodesLayer().build(this.nodes));
     mapLayers = mapLayers.concat(
       this.mapLayerService.routeChangeLayers(this.geometryDiff)
