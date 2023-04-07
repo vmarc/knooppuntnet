@@ -35,5 +35,7 @@ export class NodeMovedMapService extends OpenlayersMapService {
     );
     const center = Util.latLonToCoordinate(nodeMoved.after);
     this.map.getView().setCenter(center);
+
+    this.finalizeSetup();
   }
 }

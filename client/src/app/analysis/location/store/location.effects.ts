@@ -34,17 +34,15 @@ import { actionLocationMapPageLoaded } from './location.actions';
 import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
 import { actionLocationNodesPageLoaded } from './location.actions';
-import { actionLocationMapPosition } from './location.actions';
-import { actionLocationMapLayerVisible } from './location.actions';
+import { actionLocationMapViewInit } from './location.actions';
 import { selectLocationChangesPageIndex } from './location.selectors';
 import { selectLocationRoutesType } from './location.selectors';
 import { selectLocationRoutesPageIndex } from './location.selectors';
 import { selectLocationNodesPageIndex } from './location.selectors';
 import { selectLocationNodesType } from './location.selectors';
 import { selectLocationKey } from './location.selectors';
-import { selectLocationMapLayerStates } from './location.selectors';
-import { selectLocationMapPosition } from './location.selectors';
-import { LocationMapLayerService } from '@app/analysis/location/map/location-map-layer.service';
+import { selectLocationMapPage } from './location.selectors';
+import { LocationMapService } from '@app/analysis/location/map/location-map.service';
 import { MapService } from '@app/components/ol/services/map.service';
 
 @Injectable()
@@ -144,13 +142,7 @@ export class LocationEffects {
       mergeMap(([_, locationKey, surveyDateValues]) => {
         return this.appService.locationMap(locationKey).pipe(
           map((response) => {
-            const geoJson = response.result.geoJson;
-            const mapLayerStates = this.locationMapLayerService.buildLayers(
-              locationKey.networkType,
-              surveyDateValues,
-              geoJson
-            );
-            return actionLocationMapPageLoaded({ response, mapLayerStates });
+            return actionLocationMapPageLoaded({ response });
           })
         );
       })
@@ -158,40 +150,30 @@ export class LocationEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  actionLocationMapPosition = createEffect(
+  locationMapViewInit = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(actionLocationMapPosition),
-        concatLatestFrom(() => this.store.select(selectLocationMapLayerStates)),
-        tap(([{ mapPosition }, layerStates]) => {
-          this.locationMapLayerService.updateLayerVisibility(
-            layerStates,
-            mapPosition
+        ofType(actionLocationMapViewInit),
+        concatLatestFrom(() => [
+          this.store.select(selectLocationKey),
+          this.store.select(selectLocationMapPage),
+          this.mapService.surveyDateInfo$,
+        ]),
+        tap(([_, locationKey, response, surveyDateValues]) => {
+          const geoJson = response.result.geoJson;
+          const bounds = response.result.bounds;
+          this.locationMapLayerService.init(
+            locationKey.networkType,
+            surveyDateValues,
+            geoJson,
+            bounds
           );
         })
       );
     },
-    { dispatch: false }
-  );
-
-  // noinspection JSUnusedGlobalSymbols
-  layersVisibility = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(actionLocationMapLayerVisible),
-        concatLatestFrom(() => [
-          this.store.select(selectLocationMapLayerStates),
-          this.store.select(selectLocationMapPosition),
-        ]),
-        tap(([_, layerStates, mapPosition]) =>
-          this.locationMapLayerService.updateLayerVisibility(
-            layerStates,
-            mapPosition
-          )
-        )
-      );
-    },
-    { dispatch: false }
+    {
+      dispatch: false,
+    }
   );
 
   // noinspection JSUnusedGlobalSymbols
@@ -230,7 +212,7 @@ export class LocationEffects {
     private router: Router,
     private route: ActivatedRoute,
     private appService: AppService,
-    private locationMapLayerService: LocationMapLayerService,
+    private locationMapLayerService: LocationMapService,
     private mapService: MapService
   ) {}
 }

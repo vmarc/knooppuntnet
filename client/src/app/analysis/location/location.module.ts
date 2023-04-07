@@ -59,7 +59,7 @@ import { LocationTreeComponent } from './selection/location-tree.component';
 import { LocationEffects } from './store/location.effects';
 import { locationReducer } from './store/location.reducer';
 import { locationFeatureKey } from './store/location.state';
-import { LocationMapLayerService } from '@app/analysis/location/map/location-map-layer.service';
+import { LocationMapService } from '@app/analysis/location/map/location-map.service';
 import { LocationMapComponent } from '@app/analysis/location/map/location-map.component';
 
 @NgModule({
@@ -126,7 +126,7 @@ import { LocationMapComponent } from '@app/analysis/location/map/location-map.co
     LocationService,
     LocationModeService,
     LocationSelectionService,
-    LocationMapLayerService,
+    LocationMapService,
   ],
   exports: [LocationSelectorComponent],
 })

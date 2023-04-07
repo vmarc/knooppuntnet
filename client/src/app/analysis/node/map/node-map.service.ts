@@ -72,6 +72,8 @@ export class NodeMapService extends OpenlayersMapService {
 
     this.mapClickService.installOn(this.map);
     this.mapPositionService.install(this.map.getView());
+
+    this.finalizeSetup();
   }
 
   private registerLayers(

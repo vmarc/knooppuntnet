@@ -10,7 +10,6 @@ import { LocationRoutesType } from '@api/custom/location-routes-type';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapPosition } from '@app/components/ol/domain/map-position';
 
 export const actionLocationSelectionPageInit = createAction(
@@ -97,6 +96,10 @@ export const actionLocationFactsPageLoaded = createAction(
 
 export const actionLocationMapPageInit = createAction('[LocationMapPage] Init');
 
+export const actionLocationMapViewInit = createAction(
+  '[LocationMapPage] ViewInit'
+);
+
 export const actionLocationMapPageDestroy = createAction(
   '[LocationMapPage] Destroy'
 );
@@ -105,18 +108,12 @@ export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',
   props<{
     response: ApiResponse<LocationMapPage>;
-    mapLayerStates: MapLayerState[];
   }>()
 );
 
 export const actionLocationMapPosition = createAction(
   '[LocationMapPage] Position',
   props<{ mapPosition: MapPosition }>()
-);
-
-export const actionLocationMapLayerVisible = createAction(
-  '[LocationMapPage] Layer visible',
-  props<{ layerName: string; visible: boolean }>()
 );
 
 export const actionLocationChangesPageInit = createAction(

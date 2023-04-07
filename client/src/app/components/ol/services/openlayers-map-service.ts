@@ -12,6 +12,7 @@ import { UniqueId } from '@app/kpn/common/unique-id';
 import { PageService } from '@app/components/shared/page.service';
 import { Subscriptions } from '@app/util/Subscriptions';
 import Map from 'ol/Map';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
   'MAP_SERVICE_TOKEN'
@@ -24,8 +25,12 @@ export abstract class OpenlayersMapService {
   private mapLayers: MapLayer[] = [];
   public layerStates$ = this._layerStates$.asObservable();
 
+  private _mapPosition$ = new BehaviorSubject<MapPosition | null>(null);
+  public mapPosition$ = this._mapPosition$.asObservable();
+
   private readonly pageService = inject(PageService);
   private readonly subscriptions = new Subscriptions();
+  private readonly updatePositionHandler = () => this.updateMapPosition();
 
   constructor() {
     this.subscriptions.add(
@@ -38,8 +43,16 @@ export abstract class OpenlayersMapService {
     );
   }
 
-  initMap(map: Map): void {
+  protected initMap(map: Map): void {
     this._map = map;
+  }
+
+  protected finalizeSetup(): void {
+    const view = this.map.getView();
+    view.on('change:resolution', () => this.updatePositionHandler);
+    view.on('change:center', this.updatePositionHandler);
+    this.updatePositionHandler();
+    this.updateLayerVisibility();
   }
 
   get map(): Map {
@@ -53,11 +66,14 @@ export abstract class OpenlayersMapService {
   protected register(registry: MapLayerRegistry): void {
     this.mapLayers = registry.layers;
     this._layerStates$.next(registry.layerStates);
-    this.updateLayerVisibility(this._layerStates$.value);
   }
 
   destroy(): void {
     this.subscriptions.unsubscribe();
+    if (this.map) {
+      this.map.getView().un('change:resolution', this.updatePositionHandler);
+      this.map.getView().un('change:center', this.updatePositionHandler);
+    }
     this._map.dispose();
     this._map.setTarget(null);
   }
@@ -98,15 +114,18 @@ export abstract class OpenlayersMapService {
 
     this._layerStates$.next(mapLayerStates);
 
-    this.updateLayerVisibility(mapLayerStates);
+    this.updateLayerVisibility();
   }
 
-  updateLayerVisibility(layerStates: MapLayerState[]): void {
+  updateLayerVisibility(): void {
+    const layerStates = this._layerStates$.value;
     this.mapLayers.forEach((mapLayer) => {
       const mapLayerState = layerStates.find(
         (layerState) => layerState.layerName === mapLayer.name
       );
-      const visible = mapLayerState && mapLayerState.visible;
+      const zoom = this._mapPosition$.value.zoom;
+      const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
+      const visible = zoomInRange && mapLayerState && mapLayerState.visible;
       if (
         visible &&
         mapLayer.id.includes('vector') &&
@@ -123,6 +142,16 @@ export abstract class OpenlayersMapService {
       setTimeout(() => {
         this._map.updateSize();
       }, 0);
+    }
+  }
+
+  private updateMapPosition(): void {
+    const center = this.map.getView().getCenter();
+    if (center) {
+      const zoom = this.map.getView().getZoom();
+      const z = Math.round(zoom);
+      const mapPosition = new MapPosition(z, center[0], center[1], 0);
+      this._mapPosition$.next(mapPosition);
     }
   }
 }

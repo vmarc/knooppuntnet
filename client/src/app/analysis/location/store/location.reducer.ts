@@ -27,8 +27,6 @@ import { actionLocationFactsPageLoaded } from './location.actions';
 import { actionLocationMapPageLoaded } from './location.actions';
 import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
-import { actionLocationMapPosition } from './location.actions';
-import { actionLocationMapLayerVisible } from './location.actions';
 import { LocationState } from './location.state';
 import { initialState } from './location.state';
 
@@ -160,57 +158,11 @@ export const locationReducer = createReducer<LocationState>(
   ),
   on(
     actionLocationMapPageLoaded,
-    (state, { response: response, mapLayerStates }): LocationState => ({
+    (state, { response: response }): LocationState => ({
       ...state,
       mapPage: response,
-      mapLayerStates,
       locationSummary: response.result?.summary,
     })
-  ),
-  on(
-    actionLocationMapPosition,
-    (state, { mapPosition }): LocationState => ({
-      ...state,
-      mapPosition,
-    })
-  ),
-  on(
-    actionLocationMapLayerVisible,
-    (state, { layerName, visible }): LocationState => {
-      const mapLayerStates = state.mapLayerStates.map((layerState) => {
-        if (
-          layerState.layerName == 'background' &&
-          layerName == 'osm' &&
-          visible
-        ) {
-          return {
-            ...layerState,
-            visible: false,
-          };
-        }
-        if (
-          layerState.layerName == 'osm' &&
-          layerName == 'background' &&
-          visible
-        ) {
-          return {
-            ...layerState,
-            visible: false,
-          };
-        }
-        if (layerState.layerName === layerName) {
-          return {
-            ...layerState,
-            visible,
-          };
-        }
-        return layerState;
-      });
-      return {
-        ...state,
-        mapLayerStates,
-      };
-    }
   ),
   on(
     actionLocationMapPageDestroy,

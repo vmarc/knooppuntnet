@@ -21,15 +21,7 @@ export class RouteChangeMapService extends OpenlayersMapService {
   }
 
   init(geometryDiff: GeometryDiff, nodes: RawNode[], bounds: Bounds): void {
-    const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
-    registry.register(RouteNodesLayer.build(nodes), true);
-
-    this.mapLayerService
-      .routeChangeLayers(geometryDiff)
-      .forEach((mapLayer) => registry.register(mapLayer, true));
-    this.register(registry);
+    this.registerLayers(geometryDiff, nodes);
 
     this.initMap(
       new Map({
@@ -43,5 +35,18 @@ export class RouteChangeMapService extends OpenlayersMapService {
       })
     );
     this.map.getView().fit(Util.toExtent(bounds, 0.1));
+
+    this.finalizeSetup();
+  }
+
+  private registerLayers(geometryDiff: GeometryDiff, nodes: RawNode[]): void {
+    const registry = new MapLayerRegistry();
+    registry.register(BackgroundLayer.build(), true);
+    registry.register(OsmLayer.build(), false);
+    registry.register(RouteNodesLayer.build(nodes), true);
+    this.mapLayerService
+      .routeChangeLayers(geometryDiff)
+      .forEach((mapLayer) => registry.register(mapLayer, true));
+    this.register(registry);
   }
 }
