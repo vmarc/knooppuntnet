@@ -3,20 +3,24 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { NodeMovedMapService } from '@app/analysis/components/changes/node/node-moved-map.service';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
 
 @Component({
   selector: 'kpn-node-moved-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-layer-switcher
-        [layerStates]="service.layerStates$ | async"
-        (layerStateChange)="service.layerStateChange($event)"
-      />
-      <kpn-map-link-menu [map]="service.map"></kpn-map-link-menu>
+      <kpn-layer-switcher />
+      <kpn-map-link-menu />
     </div>
   `,
-  providers: [NodeMovedMapService],
+  providers: [
+    NodeMovedMapService,
+    {
+      provide: MAP_SERVICE_TOKEN,
+      useExisting: NodeMovedMapService,
+    },
+  ],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodeMoved: NodeMoved;

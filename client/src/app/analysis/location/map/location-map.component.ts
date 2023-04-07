@@ -26,11 +26,11 @@ import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-map">
-      <kpn-layer-switcher
+      <kpn-temp-layer-switcher
         [layerStates]="layerStates"
         (layerStateChange)="layerStateChange($event)"
       />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-old-map-link-menu [map]="map" />
     </div>
   `,
 })

@@ -1,14 +1,12 @@
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { toLonLat } from 'ol/proj';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
 
 @Component({
-  selector: 'kpn-map-link-menu',
+  selector: 'kpn-old-map-link-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
@@ -48,13 +46,10 @@ import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-se
     `,
   ],
 })
-export class MapLinkMenuComponent {
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+export class OldMapLinkMenuComponent {
+  @Input() map: OpenLayersMap;
 
-  constructor(
-    @Inject(MAP_SERVICE_TOKEN)
-    private openlayersMapService: OpenlayersMapService
-  ) {}
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   openPopupMenu(): void {
     this.trigger.openMenu();
@@ -65,10 +60,8 @@ export class MapLinkMenuComponent {
   }
 
   goto(target: string): void {
-    const zoom = Math.round(this.openlayersMapService.map.getView().getZoom());
-    const center = toLonLat(
-      this.openlayersMapService.map.getView().getCenter()
-    );
+    const zoom = Math.round(this.map.map.getView().getZoom());
+    const center = toLonLat(this.map.map.getView().getCenter());
     let url = '';
     if (target === 'openstreetmap') {
       url = `https://www.openstreetmap.org/#map=${zoom}/${center[1]}/${center[0]}`;

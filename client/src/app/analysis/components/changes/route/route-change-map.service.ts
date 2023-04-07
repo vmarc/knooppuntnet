@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NewMapService } from '@app/components/ol/services/new-map.service';
 import { MapControls } from '@app/components/ol/layers/map-controls';
 import View from 'ol/View';
 import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
@@ -13,14 +12,12 @@ import { RawNode } from '@api/common/data/raw/raw-node';
 import { Bounds } from '@api/common/bounds';
 import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
 import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import Map from 'ol/Map';
 
 @Injectable()
 export class RouteChangeMapService extends OpenlayersMapService {
-  constructor(
-    newMapService: NewMapService,
-    private mapLayerService: MapLayerService
-  ) {
-    super(newMapService);
+  constructor(private mapLayerService: MapLayerService) {
+    super();
   }
 
   init(geometryDiff: GeometryDiff, nodes: RawNode[], bounds: Bounds): void {
@@ -34,15 +31,17 @@ export class RouteChangeMapService extends OpenlayersMapService {
       .forEach((mapLayer) => registry.register(mapLayer, true));
     this.register(registry);
 
-    this._map = this.newMapService.build({
-      target: this.mapId,
-      layers: this.layers,
-      controls: MapControls.build(),
-      view: new View({
-        minZoom: ZoomLevel.vectorTileMinZoom,
-        maxZoom: ZoomLevel.maxZoom,
-      }),
-    });
-    this.map.map.getView().fit(Util.toExtent(bounds, 0.1));
+    this.initMap(
+      new Map({
+        target: this.mapId,
+        layers: this.layers,
+        controls: MapControls.build(),
+        view: new View({
+          minZoom: ZoomLevel.vectorTileMinZoom,
+          maxZoom: ZoomLevel.maxZoom,
+        }),
+      })
+    );
+    this.map.getView().fit(Util.toExtent(bounds, 0.1));
   }
 }

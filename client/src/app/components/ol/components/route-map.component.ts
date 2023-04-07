@@ -28,7 +28,7 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
   template: `
     <div [id]="mapId" class="kpn-map">
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-old-map-link-menu [map]="map" />
     </div>
   `,
 })

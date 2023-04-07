@@ -29,7 +29,7 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
     <div [id]="mapId" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()" />
       <kpn-old-layer-switcher [mapLayers]="layers" />
-      <kpn-map-link-menu [map]="map" />
+      <kpn-old-map-link-menu [map]="map" />
     </div>
   `,
 })

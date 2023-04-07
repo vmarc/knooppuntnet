@@ -1,24 +1,21 @@
 import { ChangeDetectionStrategy } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapLayerService } from '@app/components/ol/services/map-layer.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
 
 @Component({
-  selector: 'kpn-layer-switcher',
+  selector: 'kpn-temp-layer-switcher',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-menu #mapMenu="matMenu" class="map-control-menu">
       <ng-template matMenuContent>
-        <div
-          *ngIf="layerStates$ | async as layerStates"
-          (click)="$event.stopPropagation()"
-        >
+        <div *ngIf="!!this.layerStates" (click)="$event.stopPropagation()">
           <div *ngFor="let layerState of layerStates">
             <mat-checkbox
               (click)="$event.stopPropagation()"
@@ -53,15 +50,12 @@ import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map
     `,
   ],
 })
-export class LayerSwitcherComponent {
+export class TempLayerSwitcherComponent {
+  @Input() layerStates: MapLayerState[];
+  @Output() layerStateChange = new EventEmitter<MapLayerState>();
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-  protected readonly layerStates$ = this.openlayersMapService.layerStates$;
 
-  constructor(
-    @Inject(MAP_SERVICE_TOKEN)
-    private openlayersMapService: OpenlayersMapService,
-    private mapLayerService: MapLayerService
-  ) {}
+  constructor(private mapLayerService: MapLayerService) {}
 
   openPopupMenu(): void {
     this.trigger.openMenu();
@@ -75,7 +69,7 @@ export class LayerSwitcherComponent {
       ...layerState,
       visible: event.checked,
     };
-    this.openlayersMapService.layerStateChange(change);
+    this.layerStateChange.emit(change);
   }
 
   layerNameTranslation(layerstate: MapLayerState): string {

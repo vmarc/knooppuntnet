@@ -24,6 +24,8 @@ import { NetworkMapPositionService } from './services/network-map-position.servi
 import { OldMapPositionService } from './services/old-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
 import { NewMapService } from '@app/components/ol/services/new-map.service';
+import { OldMapLinkMenuComponent } from '@app/components/ol/components/old-map-link-menu.component';
+import { TempLayerSwitcherComponent } from '@app/components/ol/components/temp-layer-switcher.component';
 
 @NgModule({
   imports: [
@@ -47,6 +49,8 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
     LegHttpErrorDialogComponent,
     PoiMapComponent,
     PoiDetailMapComponent,
+    OldMapLinkMenuComponent,
+    TempLayerSwitcherComponent,
   ],
   exports: [
     RouteMapComponent,
@@ -57,6 +61,8 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
     PoiDetailMapComponent,
     MapLinkMenuComponent,
     LayerSwitcherComponent,
+    OldMapLinkMenuComponent,
+    TempLayerSwitcherComponent,
   ],
   providers: [
     NewMapService,

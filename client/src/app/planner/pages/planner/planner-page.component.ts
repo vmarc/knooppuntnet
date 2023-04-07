@@ -47,13 +47,13 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
     <div [id]="mapId" class="map" (mouseleave)="mouseleave()">
       <kpn-route-control (action)="zoomInToRoute()" />
       <kpn-geolocation-control (action)="geolocation($event)" />
-      <kpn-layer-switcher
+      <kpn-temp-layer-switcher
         [layerStates]="layerStates$ | async"
         (layerStateChange)="layerStateChange($event)"
       >
         <kpn-poi-menu />
-      </kpn-layer-switcher>
-      <kpn-map-link-menu [map]="map" />
+      </kpn-temp-layer-switcher>
+      <kpn-old-map-link-menu [map]="map" />
     </div>
   `,
   styles: [

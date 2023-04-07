@@ -7,20 +7,24 @@ import { Bounds } from '@api/common/bounds';
 import { RawNode } from '@api/common/data/raw/raw-node';
 import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteChangeMapService } from '@app/analysis/components/changes/route/route-change-map.service';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
 
 @Component({
   selector: 'kpn-route-change-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-layer-switcher
-        [layerStates]="service.layerStates$ | async"
-        (layerStateChange)="service.layerStateChange($event)"
-      />
-      <kpn-map-link-menu [map]="service.map" />
+      <kpn-layer-switcher />
+      <kpn-map-link-menu />
     </div>
   `,
-  providers: [RouteChangeMapService],
+  providers: [
+    RouteChangeMapService,
+    {
+      provide: MAP_SERVICE_TOKEN,
+      useExisting: RouteChangeMapService,
+    },
+  ],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   @Input() geometryDiff: GeometryDiff;

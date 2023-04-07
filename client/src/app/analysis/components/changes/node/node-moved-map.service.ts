@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NewMapService } from '@app/components/ol/services/new-map.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { MapControls } from '@app/components/ol/layers/map-controls';
@@ -10,13 +9,10 @@ import { NodeMovedLayer } from '@app/components/ol/layers/node-moved-layer';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
 import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import Map from 'ol/Map';
 
 @Injectable()
 export class NodeMovedMapService extends OpenlayersMapService {
-  constructor(newMapService: NewMapService) {
-    super(newMapService);
-  }
-
   init(nodeMoved: NodeMoved): void {
     const mapLayers = new MapLayerRegistry();
     mapLayers.register(BackgroundLayer.build(), true);
@@ -25,17 +21,19 @@ export class NodeMovedMapService extends OpenlayersMapService {
 
     this.register(mapLayers);
 
-    this._map = this.newMapService.build({
-      target: this.mapId,
-      layers: this.layers,
-      controls: MapControls.build(),
-      view: new View({
-        minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.maxZoom,
-        zoom: 18,
-      }),
-    });
+    this.initMap(
+      new Map({
+        target: this.mapId,
+        layers: this.layers,
+        controls: MapControls.build(),
+        view: new View({
+          minZoom: ZoomLevel.minZoom,
+          maxZoom: ZoomLevel.maxZoom,
+          zoom: 18,
+        }),
+      })
+    );
     const center = Util.latLonToCoordinate(nodeMoved.after);
-    this._map.map.getView().setCenter(center);
+    this.map.getView().setCenter(center);
   }
 }
