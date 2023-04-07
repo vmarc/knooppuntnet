@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { FrisoNode } from '@app/components/ol/components/friso-node';
+import { FrisoNode } from '@app/friso/friso/friso-node';
 import { FrisoNodeDialogComponent } from '@app/friso/friso/friso-node-dialog.component';
 
 @Component({

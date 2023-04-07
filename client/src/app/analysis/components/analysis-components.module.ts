@@ -60,6 +60,8 @@ import { RouteInvestigateIndicatorDialogComponent } from './indicators/route/rou
 import { RouteInvestigateIndicatorComponent } from './indicators/route/route-investigate-indicator.component';
 import { RouteProposedIndicatorDialogComponent } from './indicators/route/route-proposed-indicator-dialog.component';
 import { RouteProposedIndicatorComponent } from './indicators/route/route-proposed-indicator.component';
+import { NodeMovedMapComponent } from '@app/analysis/components/changes/node/node-moved-map.component';
+import { RouteChangeMapComponent } from '@app/analysis/components/changes/route/route-change-map.component';
 
 @NgModule({
   imports: [
@@ -108,6 +110,7 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     ChangeFilterPeriodComponent,
     ChangesSidebarComponent,
     RouteChangeDetailComponent,
+    RouteChangeMapComponent,
     RouteChangeWayAddedComponent,
     RouteChangeWayRemovedComponent,
     RouteChangeWayUpdatedComponent,
@@ -127,6 +130,7 @@ import { RouteProposedIndicatorComponent } from './indicators/route/route-propos
     EditDialogComponent,
     EditLinkComponent,
     EditAndPaginatorComponent,
+    NodeMovedMapComponent,
   ],
   exports: [
     ChangeHeaderComponent,

@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FrisoNode } from '@app/components/ol/components/friso-node';
+import { FrisoNode } from './friso-node';
 
 @Component({
   selector: 'kpn-friso-node-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-dialog>
       <div mat-dialog-title class="title">
         <div class="title-text">Routedatabank node</div>

@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { FrisoEffects } from '@app/friso/store/friso.effects';
 import { frisoReducer } from '@app/friso/store/friso.reducer';
 import { frisoFeatureKey } from '@app/friso/store/friso.state';
+import { FrisoMapComponent } from '@app/friso/friso/friso-map.component';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { frisoFeatureKey } from '@app/friso/store/friso.state';
     FrisoPageComponent,
     FrisoSidebarComponent,
     FrisoNodeDialogComponent,
+    FrisoMapComponent,
   ],
 })
 export class FrisoModule {}

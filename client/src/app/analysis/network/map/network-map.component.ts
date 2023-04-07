@@ -6,16 +6,16 @@ import { NetworkNodesBitmapTileLayer } from '@app/components/ol/layers/network-n
 import { NetworkNodesVectorTileLayer } from '@app/components/ol/layers/network-nodes-vector-tile-layer';
 import { List } from 'immutable';
 import View from 'ol/View';
-import { Util } from '../../shared/util';
-import { NetworkMapPosition } from '../domain/network-map-position';
-import { ZoomLevel } from '../domain/zoom-level';
-import { MapControls } from '../layers/map-controls';
-import { MapLayer } from '../layers/map-layer';
-import { MapLayers } from '../layers/map-layers';
-import { MapClickService } from '../services/map-click.service';
-import { MapLayerService } from '../services/map-layer.service';
-import { MapZoomService } from '../services/map-zoom.service';
-import { NetworkMapPositionService } from '../services/network-map-position.service';
+import { Util } from '@app/components/shared/util';
+import { NetworkMapPosition } from '@app/components/ol/domain/network-map-position';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { MapControls } from '@app/components/ol/layers/map-controls';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { OldMapLayers } from '@app/components/ol/layers/old-map-layers';
+import { MapClickService } from '@app/components/ol/services/map-click.service';
+import { MapLayerService } from '@app/components/ol/services/map-layer.service';
+import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
+import { NetworkMapPositionService } from '@app/components/ol/services/network-map-position.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
 import { NetworkNodesMarkerLayer } from '@app/components/ol/layers/network-nodes-marker-layer';
@@ -39,7 +39,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() mapPositionFromUrl: NetworkMapPosition;
 
   protected map: OpenLayersMap;
-  protected layers: MapLayers;
+  protected layers: OldMapLayers;
   protected readonly mapId = 'network-nodes-map';
 
   constructor(
@@ -86,7 +86,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     this.map.map.getView().fit(extent);
   }
 
-  private buildLayers(): MapLayers {
+  private buildLayers(): OldMapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(BackgroundLayer.build());
     mapLayers = mapLayers.push(
@@ -103,6 +103,6 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
       new NetworkNodesMarkerLayer().build(this.page.nodes)
     );
     mapLayers = mapLayers.push(new TileDebug256Layer().build());
-    return new MapLayers(mapLayers);
+    return new OldMapLayers(mapLayers);
   }
 }

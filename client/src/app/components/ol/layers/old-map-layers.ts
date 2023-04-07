@@ -2,7 +2,7 @@ import { List } from 'immutable';
 import BaseLayer from 'ol/layer/Base';
 import { MapLayer } from './map-layer';
 
-export class MapLayers {
+export class OldMapLayers {
   constructor(public layers: List<MapLayer>) {}
 
   updateSize(): void {

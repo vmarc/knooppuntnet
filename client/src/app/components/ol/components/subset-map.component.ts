@@ -16,7 +16,7 @@ import View from 'ol/View';
 import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
-import { MapLayers } from '../layers/map-layers';
+import { OldMapLayers } from '../layers/old-map-layers';
 import { NetworkMarkerLayer } from '../layers/network-marker-layer';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
@@ -38,7 +38,7 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   @Input() networks: SubsetMapNetwork[];
   @Output() networkClicked = new EventEmitter<number>();
 
-  protected layers: MapLayers;
+  protected layers: OldMapLayers;
   protected map: OpenLayersMap;
   protected readonly mapId = 'subset-map';
 
@@ -73,8 +73,8 @@ export class SubsetMapComponent implements AfterViewInit, OnDestroy {
     this.map.destroy();
   }
 
-  private buildLayers(): MapLayers {
-    return new MapLayers(
+  private buildLayers(): OldMapLayers {
+    return new OldMapLayers(
       List([
         BackgroundLayer.build(),
         new NetworkMarkerLayer().build(this.networks),

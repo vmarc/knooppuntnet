@@ -9,7 +9,7 @@ import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { MapControls } from '@app/components/ol/layers/map-controls';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
-import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { OldMapLayers } from '@app/components/ol/layers/old-map-layers';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { Util } from '@app/components/shared/util';
 import { selectQueryParam } from '@app/core/core.state';
@@ -46,7 +46,7 @@ export class MonitorRouteMapComponent
 
   protected map: OpenLayersMap;
   protected readonly mapId = 'monitor-map';
-  protected mapLayers: MapLayers;
+  protected mapLayers: OldMapLayers;
   private mapPositionFromUrl: MapPosition;
   private updatePositionHandler = () => this.updateMapPosition();
   private currentMapPosition$ = new BehaviorSubject<MapPosition>(null);
@@ -87,7 +87,7 @@ export class MonitorRouteMapComponent
     backgroundLayer.layer.setVisible(true);
     layers.push(backgroundLayer);
 
-    this.mapLayers = new MapLayers(List(layers));
+    this.mapLayers = new OldMapLayers(List(layers));
 
     this.map = this.newMapService.build({
       target: this.mapId,

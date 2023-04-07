@@ -5,7 +5,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { List } from 'immutable';
 import BaseLayer from 'ol/layer/Base';
-import { MapLayers } from '../layers/map-layers';
+import { OldMapLayers } from '../layers/old-map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 
 @Component({
@@ -45,7 +45,7 @@ import { MapLayerService } from '../services/map-layer.service';
   ],
 })
 export class OldLayerSwitcherComponent {
-  @Input() mapLayers: MapLayers;
+  @Input() mapLayers: OldMapLayers;
 
   open = false;
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;

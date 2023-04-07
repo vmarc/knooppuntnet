@@ -10,7 +10,7 @@ import { List } from 'immutable';
 import { MapLayerState } from '../domain/map-layer-state';
 import { MapLayerStates } from '../domain/map-layer-states';
 import { MapLayer } from '../layers/map-layer';
-import { MapLayers } from '../layers/map-layers';
+import { OldMapLayers } from '../layers/old-map-layers';
 import { NetworkBitmapTileLayer } from '../layers/network-bitmap-tile-layer';
 import { NetworkVectorTileLayer } from '../layers/network-vector-tile-layer';
 import { RouteChangeLayers } from '../layers/route-change-layers';
@@ -73,7 +73,7 @@ export class MapLayerService {
     return layerName;
   }
 
-  restoreMapLayerStates(mapLayers: MapLayers): void {
+  restoreMapLayerStates(mapLayers: OldMapLayers): void {
     const mapLayerStatesString = this.browserStorageService.get(
       this.mapLayerStateKey
     );
@@ -91,7 +91,7 @@ export class MapLayerService {
     }
   }
 
-  storeMapLayerStates(mapLayers: MapLayers): void {
+  storeMapLayerStates(mapLayers: OldMapLayers): void {
     const layerStates: MapLayerState[] = mapLayers.layers
       .toArray()
       .map((mapLayer) => {

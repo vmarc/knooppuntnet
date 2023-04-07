@@ -12,7 +12,7 @@ import { MapPosition } from '../domain/map-position';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
-import { MapLayers } from '../layers/map-layers';
+import { OldMapLayers } from '../layers/old-map-layers';
 import { MapClickService } from '../services/map-click.service';
 import { MapLayerService } from '../services/map-layer.service';
 import { MapService } from '../services/map.service';
@@ -38,7 +38,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
 
   protected map: OpenLayersMap;
   protected readonly mapId = 'route-map';
-  protected layers: MapLayers;
+  protected layers: OldMapLayers;
   private networkVectorTileLayer: MapLayer;
   private networkVectorTileLayerActive = true;
 
@@ -119,7 +119,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     return [min[0], min[1], max[0], max[1]];
   }
 
-  private buildLayers(): MapLayers {
+  private buildLayers(): OldMapLayers {
     this.networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(
       this.routeMapInfo.networkType
     );
@@ -130,6 +130,6 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
       this.mapLayerService.routeLayers(this.routeMapInfo.map)
     );
     mapLayers = mapLayers.push(new TileDebug256Layer().build());
-    return new MapLayers(mapLayers);
+    return new OldMapLayers(mapLayers);
   }
 }

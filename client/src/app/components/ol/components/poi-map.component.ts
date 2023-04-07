@@ -8,7 +8,7 @@ import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
-import { MapLayers } from '../layers/map-layers';
+import { OldMapLayers } from '../layers/old-map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
@@ -28,7 +28,7 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
   @Input() geoJson: string;
 
-  protected layers: MapLayers;
+  protected layers: OldMapLayers;
   private map: OpenLayersMap;
   private readonly mapId = 'poi-map';
 
@@ -57,7 +57,7 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
     this.map.destroy();
   }
 
-  private buildLayers(): MapLayers {
+  private buildLayers(): OldMapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(BackgroundLayer.build());
     mapLayers = mapLayers.push(
@@ -68,6 +68,6 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
     );
     mapLayers = mapLayers.concat(new PoiAreasLayer().build(this.geoJson));
     mapLayers = mapLayers.push(new TileDebug256Layer().build());
-    return new MapLayers(mapLayers);
+    return new OldMapLayers(mapLayers);
   }
 }

@@ -56,6 +56,8 @@ import { NetworkRoutesSidebarComponent } from './routes/network-routes-sidebar.c
 import { NetworkEffects } from './store/network.effects';
 import { networkReducer } from './store/network.reducer';
 import { networkFeatureKey } from './store/network.state';
+import { NetworkMapComponent } from '@app/analysis/network/map/network-map.component';
+import { NetworkControlComponent } from '@app/analysis/network/map/network-control.component';
 
 @NgModule({
   imports: [
@@ -82,6 +84,8 @@ import { networkFeatureKey } from './store/network.state';
     NetworkSummaryComponent,
     NetworkFactsPageComponent,
     NetworkMapPageComponent,
+    NetworkMapComponent,
+    NetworkControlComponent,
     NetworkNodesPageComponent,
     NetworkNodesSidebarComponent,
     NetworkNodeTableComponent,

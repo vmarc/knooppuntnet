@@ -69,7 +69,6 @@ export class RouteChangeLayers {
       zIndex: Layers.zIndexNetworkLayer,
       source,
     });
-    layer.set('name', this.i18nService.translation(name));
-    return MapLayer.simpleLayer('route-change-layer', layer);
+    return MapLayer.simpleLayer(this.i18nService.translation(name), layer);
   }
 }

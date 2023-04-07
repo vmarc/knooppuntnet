@@ -7,7 +7,9 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteNodesLayer {
-  build(nodes: RawNode[]): MapLayer {
+  static id = 'route-nodes-layer';
+
+  static build(nodes: RawNode[]): MapLayer {
     if (nodes.length === 0) {
       return null;
     }
@@ -22,6 +24,6 @@ export class RouteNodesLayer {
       zIndex: Layers.zIndexNetworkNodesLayer,
       source,
     });
-    return MapLayer.simpleLayer('route-nodes-layer', layer);
+    return MapLayer.simpleLayer(this.id, layer);
   }
 }

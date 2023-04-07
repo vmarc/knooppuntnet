@@ -6,7 +6,7 @@ import { OnDestroy } from '@angular/core';
 import { Output } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { NetworkType } from '@api/custom/network-type';
-import { FrisoNode } from '@app/components/ol/components/friso-node';
+import { FrisoNode } from '@app/friso/friso/friso-node';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { MapService } from '@app/components/ol/services/map.service';
 import { MainMapStyle } from '@app/components/ol/style/main-map-style';
@@ -21,11 +21,11 @@ import Interaction from 'ol/interaction/Interaction';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
 import { Observable } from 'rxjs';
-import { Util } from '../../shared/util';
-import { ZoomLevel } from '../domain/zoom-level';
-import { MapControls } from '../layers/map-controls';
-import { MapLayers } from '../layers/map-layers';
-import { MapLayerService } from '../services/map-layer.service';
+import { Util } from '@app/components/shared/util';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
+import { MapControls } from '@app/components/ol/layers/map-controls';
+import { OldMapLayers } from '@app/components/ol/layers/old-map-layers';
+import { MapLayerService } from '@app/components/ol/services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
@@ -53,8 +53,8 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
   };
   @Output() nodeClicked = new EventEmitter<FrisoNode>();
 
-  protected switcherLayers: MapLayers;
-  protected layers: MapLayers;
+  protected switcherLayers: OldMapLayers;
+  protected layers: OldMapLayers;
   protected map: OpenLayersMap;
   protected readonly mapId = 'friso-map';
 
@@ -71,7 +71,7 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
     this.mapService.nextNetworkType(NetworkType.hiking);
     this.layers = this.buildLayers();
 
-    this.switcherLayers = new MapLayers(
+    this.switcherLayers = new OldMapLayers(
       this.layers.layers.filter(
         (mapLayer) =>
           mapLayer.name === 'osm-layer' ||
@@ -117,12 +117,12 @@ export class FrisoMapComponent implements AfterViewInit, OnDestroy {
     this.map.destroy();
   }
 
-  private buildLayers(): MapLayers {
+  private buildLayers(): OldMapLayers {
     throw new Error('TODO implement options$');
     const parameters$: Observable<MainMapStyleParameters> = null;
     const mainMapStyle = new MainMapStyle(parameters$);
 
-    return new MapLayers(
+    return new OldMapLayers(
       List([
         OsmLayer.build(),
         BackgroundLayer.build(),

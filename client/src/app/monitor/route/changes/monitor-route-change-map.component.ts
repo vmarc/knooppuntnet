@@ -16,7 +16,7 @@ import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { MapControls } from '@app/components/ol/layers/map-controls';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
-import { MapLayers } from '@app/components/ol/layers/map-layers';
+import { OldMapLayers } from '@app/components/ol/layers/old-map-layers';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { Util } from '@app/components/shared/util';
 import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
@@ -39,7 +39,7 @@ export class MonitorRouteChangeMapComponent
   @Input() routeSegments: MonitorRouteSegment[];
   @Input() deviation: MonitorRouteDeviation;
 
-  protected mapLayers: MapLayers;
+  protected mapLayers: OldMapLayers;
   protected map: OpenLayersMap;
 
   constructor(private newMapService: NewMapService) {}
@@ -58,7 +58,7 @@ export class MonitorRouteChangeMapComponent
     layers.push(this.buildNokSegmentLayer());
     layers.push(this.buildOsmRelationLayer());
 
-    this.mapLayers = new MapLayers(List(layers));
+    this.mapLayers = new OldMapLayers(List(layers));
 
     this.map = this.newMapService.build({
       target: this.mapId,

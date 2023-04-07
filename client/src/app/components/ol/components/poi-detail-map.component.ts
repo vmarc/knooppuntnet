@@ -10,7 +10,7 @@ import { Util } from '../../shared/util';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapControls } from '../layers/map-controls';
 import { MapLayer } from '../layers/map-layer';
-import { MapLayers } from '../layers/map-layers';
+import { OldMapLayers } from '../layers/old-map-layers';
 import { MapLayerService } from '../services/map-layer.service';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
 import { PoiMarkerLayer } from '@app/components/ol/layers/poi-marker-layer';
@@ -31,7 +31,7 @@ import { PoiMarkerLayer } from '@app/components/ol/layers/poi-marker-layer';
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
   @Input() poiDetail: PoiDetail;
 
-  layers: MapLayers;
+  layers: OldMapLayers;
   private map: Map;
   private readonly mapId = 'poi-detail-map';
 
@@ -69,10 +69,10 @@ export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  private buildLayers(): MapLayers {
+  private buildLayers(): OldMapLayers {
     let mapLayers: List<MapLayer> = List();
     mapLayers = mapLayers.push(BackgroundLayer.build());
     mapLayers = mapLayers.push(new PoiMarkerLayer().build(this.poiDetail));
-    return new MapLayers(mapLayers);
+    return new OldMapLayers(mapLayers);
   }
 }
