@@ -129,7 +129,7 @@ export class RouteMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.concat(
       this.mapLayerService.routeLayers(this.routeMapInfo.map)
     );
-    mapLayers = mapLayers.push(new TileDebug256Layer().build());
+    mapLayers = mapLayers.push(TileDebug256Layer.build());
     return new OldMapLayers(mapLayers);
   }
 }

@@ -35,11 +35,12 @@ import { actionNodeChangesPageInit } from './node.actions';
 import { actionNodeDetailsPageInit } from './node.actions';
 import { actionNodeMapPageLoaded } from './node.actions';
 import { actionNodeDetailsPageLoaded } from './node.actions';
-import { actionNodeMapLayerVisible } from './node.actions';
+import { actionNodeMapViewInit } from './node.actions';
 import { selectNodeId } from './node.selectors';
 import { selectNodeChangesParameters } from './node.selectors';
-import { selectNodeMapLayerStates } from './node.selectors';
-import { NodeMapLayerService } from '@app/analysis/node/map/node-map-layer.service';
+import { selectNodeMapPage } from './node.selectors';
+import { selectNodeMapPositionFromUrl } from './node.selectors';
+import { NodeMapService } from '@app/analysis/node/map/node-map.service';
 import { NetworkTypes } from '@app/kpn/common/network-types';
 
 @Injectable()
@@ -83,18 +84,12 @@ export class NodeEffects {
   nodeMapPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNodeMapPageLoad),
-      concatLatestFrom(() => this.store.select(selectPreferencesNetworkType)),
-      mergeMap(([action, defaultNetworkType]) => {
-        return this.appService.nodeMap(action.nodeId).pipe(
+      mergeMap(({ nodeId, mapPositionFromUrl }) => {
+        return this.appService.nodeMap(nodeId).pipe(
           map((response) => {
-            const mapLayerStates = this.nodeMapLayerService.buildLayers(
-              response.result.nodeMapInfo,
-              NetworkTypes.withName(defaultNetworkType)
-            );
             return actionNodeMapPageLoaded({
               response,
-              mapPositionFromUrl: action.mapPositionFromUrl,
-              mapLayerStates,
+              mapPositionFromUrl: mapPositionFromUrl,
             });
           })
         );
@@ -103,17 +98,27 @@ export class NodeEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  layersVisibility = createEffect(
+  nodeMapViewInit = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(actionNodeMapLayerVisible),
-        concatLatestFrom(() => this.store.select(selectNodeMapLayerStates)),
-        tap(([_, layerStates]) =>
-          this.nodeMapLayerService.updateLayerVisibility(layerStates)
-        )
+        ofType(actionNodeMapViewInit),
+        concatLatestFrom(() => [
+          this.store.select(selectPreferencesNetworkType),
+          this.store.select(selectNodeMapPage),
+          this.store.select(selectNodeMapPositionFromUrl),
+        ]),
+        tap(([action, defaultNetworkType, response, mapPositionFromUrl]) => {
+          this.nodeMapService.init(
+            response.result.nodeMapInfo,
+            NetworkTypes.withName(defaultNetworkType),
+            mapPositionFromUrl
+          );
+        })
       );
     },
-    { dispatch: false }
+    {
+      dispatch: false,
+    }
   );
 
   // noinspection JSUnusedGlobalSymbols
@@ -173,7 +178,7 @@ export class NodeEffects {
   });
 
   constructor(
-    private nodeMapLayerService: NodeMapLayerService,
+    private nodeMapService: NodeMapService,
     private actions$: Actions,
     private store: Store,
     private appService: AppService,

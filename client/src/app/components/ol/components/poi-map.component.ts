@@ -67,7 +67,7 @@ export class PoiMapComponent implements AfterViewInit, OnDestroy {
       )
     );
     mapLayers = mapLayers.concat(new PoiAreasLayer().build(this.geoJson));
-    mapLayers = mapLayers.push(new TileDebug256Layer().build());
+    mapLayers = mapLayers.push(TileDebug256Layer.build());
     return new OldMapLayers(mapLayers);
   }
 }

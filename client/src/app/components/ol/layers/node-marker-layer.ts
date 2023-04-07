@@ -7,7 +7,7 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NodeMarkerLayer {
-  build(nodeMapInfo: NodeMapInfo): MapLayer {
+  static build(nodeMapInfo: NodeMapInfo): MapLayer {
     const coordinate = Util.toCoordinate(
       nodeMapInfo.latitude,
       nodeMapInfo.longitude

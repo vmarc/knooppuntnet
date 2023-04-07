@@ -102,7 +102,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
     mapLayers = mapLayers.push(
       new NetworkNodesMarkerLayer().build(this.page.nodes)
     );
-    mapLayers = mapLayers.push(new TileDebug256Layer().build());
+    mapLayers = mapLayers.push(TileDebug256Layer.build());
     return new OldMapLayers(mapLayers);
   }
 }

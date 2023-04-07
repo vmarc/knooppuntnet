@@ -4,7 +4,7 @@ import { createXYZ } from 'ol/tilegrid';
 import { MapLayer } from './map-layer';
 
 export class TileDebug256Layer {
-  public build(): MapLayer {
+  static build(): MapLayer {
     const tileGrid = createXYZ({
       tileSize: 256, // <--
       maxZoom: 20,

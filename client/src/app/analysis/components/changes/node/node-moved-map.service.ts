@@ -14,12 +14,12 @@ import Map from 'ol/Map';
 @Injectable()
 export class NodeMovedMapService extends OpenlayersMapService {
   init(nodeMoved: NodeMoved): void {
-    const mapLayers = new MapLayerRegistry();
-    mapLayers.register(BackgroundLayer.build(), true);
-    mapLayers.register(OsmLayer.build(), false);
-    mapLayers.register(NodeMovedLayer.build(nodeMoved), true);
+    const registry = new MapLayerRegistry();
+    registry.register(BackgroundLayer.build(), true);
+    registry.register(OsmLayer.build(), false);
+    registry.register(NodeMovedLayer.build(nodeMoved), true);
 
-    this.register(mapLayers);
+    this.register(registry);
 
     this.initMap(
       new Map({

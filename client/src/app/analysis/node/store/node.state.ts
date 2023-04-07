@@ -4,7 +4,6 @@ import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { NodeMapPage } from '@api/common/node/node-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/components/ol/domain/map-position';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 
 export const initialState: NodeState = {
   nodeId: '',
@@ -13,7 +12,6 @@ export const initialState: NodeState = {
   detailsPage: null,
   mapPage: null,
   mapPositionFromUrl: null,
-  mapLayerStates: [],
   changesPage: null,
   changesParameters: null,
 };
@@ -25,7 +23,6 @@ export interface NodeState {
   detailsPage: ApiResponse<NodeDetailsPage>;
   mapPage: ApiResponse<NodeMapPage>;
   mapPositionFromUrl: MapPosition;
-  mapLayerStates: MapLayerState[];
   changesPage: ApiResponse<NodeChangesPage>;
   changesParameters: ChangesParameters;
 }

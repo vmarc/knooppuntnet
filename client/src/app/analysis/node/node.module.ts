@@ -26,7 +26,7 @@ import { NodeRoutingModule } from './node-routing.module';
 import { NodeEffects } from './store/node.effects';
 import { nodeReducer } from './store/node.reducer';
 import { nodeFeatureKey } from './store/node.state';
-import { NodeMapLayerService } from '@app/analysis/node/map/node-map-layer.service';
+import { NodeMapService } from '@app/analysis/node/map/node-map.service';
 import { NodeMapComponent } from '@app/analysis/node/map/node-map.component';
 
 @NgModule({
@@ -59,6 +59,6 @@ import { NodeMapComponent } from '@app/analysis/node/map/node-map.component';
     NodeIntegrityComponent,
     NodeDetailsSidebarComponent,
   ],
-  providers: [NodeMapLayerService],
+  providers: [NodeMapService],
 })
 export class NodeModule {}

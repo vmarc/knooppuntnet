@@ -3,13 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDefined } from '@app/core/core.state';
 import { actionNodeMapPageInit } from '../store/node.actions';
-import { selectNodeMapPositionFromUrl } from '../store/node.selectors';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
 import { selectNodeChangeCount } from '../store/node.selectors';
 import { selectNodeMapPage } from '../store/node.selectors';
-import { selectNodeMapLayerStates } from '../store/node.selectors';
-import { NodeMapLayerService } from '@app/analysis/node/map/node-map-layer.service';
 
 @Component({
   selector: 'kpn-node-map-page',
@@ -41,12 +38,7 @@ import { NodeMapLayerService } from '@app/analysis/node/map/node-map-layer.servi
         Node not found
       </div>
       <div *ngIf="response.result as page">
-        <kpn-node-map
-          [nodeMapInfo]="page.nodeMapInfo"
-          [mapPositionFromUrl]="mapPositionFromUrl$ | async"
-          [layerStates]="layerStates$ | async"
-          [layers]="layers$ | async"
-        />
+        <kpn-node-map />
       </div>
     </div>
   `,
@@ -55,17 +47,9 @@ export class NodeMapPageComponent implements OnInit {
   protected readonly nodeId$ = this.store.select(selectNodeId);
   protected readonly nodeName$ = this.store.select(selectNodeName);
   protected readonly changeCount$ = this.store.select(selectNodeChangeCount);
-  protected readonly mapPositionFromUrl$ = this.store.select(
-    selectNodeMapPositionFromUrl
-  );
   protected readonly response$ = selectDefined(this.store, selectNodeMapPage);
-  protected readonly layerStates$ = this.store.select(selectNodeMapLayerStates);
-  protected readonly layers$ = this.nodeMapLayerService.layers$;
 
-  constructor(
-    private nodeMapLayerService: NodeMapLayerService,
-    private store: Store
-  ) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeMapPageInit());
