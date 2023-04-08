@@ -41,12 +41,12 @@ export class RouteChangeMapService extends OpenlayersMapService {
 
   private registerLayers(geometryDiff: GeometryDiff, nodes: RawNode[]): void {
     const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
-    registry.register(RouteNodesLayer.build(nodes), true);
+    registry.register([], BackgroundLayer.build(), true);
+    registry.register([], OsmLayer.build(), false);
+    registry.register([], RouteNodesLayer.build(nodes), true);
     this.mapLayerService
       .routeChangeLayers(geometryDiff)
-      .forEach((mapLayer) => registry.register(mapLayer, true));
+      .forEach((mapLayer) => registry.register([], mapLayer, true));
     this.register(registry);
   }
 }

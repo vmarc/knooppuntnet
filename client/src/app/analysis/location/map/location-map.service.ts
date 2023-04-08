@@ -73,10 +73,10 @@ export class LocationMapService extends OpenlayersMapService {
     ];
 
     const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
-    registry.registerAll(networkLayers, true);
-    registry.register(LocationBoundaryLayer.build(geoJson), true);
+    registry.register([], BackgroundLayer.build(), true);
+    registry.register([], OsmLayer.build(), false);
+    registry.registerAll([], networkLayers, true);
+    registry.register([], LocationBoundaryLayer.build(geoJson), true);
     this.register(registry);
   }
 }

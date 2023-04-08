@@ -11,11 +11,6 @@ export const selectPlannerNetworkType = createSelector(
   (state) => state.networkType
 );
 
-export const selectPlannerMapPosition = createSelector(
-  selectPlannerState,
-  (state) => state.position
-);
-
 export const selectPlannerMapMode = createSelector(
   selectPlannerState,
   (state) => state.mapMode
@@ -39,11 +34,6 @@ export const selectPlannerResultModeDetailed = createSelector(
 export const selectPlannerResultModeInstructions = createSelector(
   selectPlannerResultMode,
   (resultMode) => resultMode === 'instructions'
-);
-
-export const selectPlannerPosition = createSelector(
-  selectPlannerState,
-  (state) => state.position
 );
 
 export const selectPlannerLayerStates = createSelector(

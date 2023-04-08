@@ -74,7 +74,7 @@ export class PlannerStateService {
     };
   }
 
-  private parseNetworkType(queryParams: Params): NetworkType {
+  public parseNetworkType(queryParams: Params): NetworkType {
     const networkTypeParam = queryParams['networkType'];
     if (!!networkTypeParam) {
       const exists = NetworkTypes.all.some(
@@ -87,7 +87,7 @@ export class PlannerStateService {
     return NetworkType.hiking;
   }
 
-  private parsePosition(queryParams: Params): MapPosition {
+  public parsePosition(queryParams: Params): MapPosition {
     const positionParam = queryParams['position'];
     let position = MapPosition.fromQueryParam(positionParam);
     console.log(`  position=${position}`);
@@ -121,7 +121,7 @@ export class PlannerStateService {
     return position;
   }
 
-  private parseMapMode(queryParams: Params): MapMode {
+  public parseMapMode(queryParams: Params): MapMode {
     const mapModeParam = queryParams['mode'];
     let mapMode: MapMode = 'surface';
     if (mapModeParam === 'survey') {
@@ -132,7 +132,7 @@ export class PlannerStateService {
     return mapMode;
   }
 
-  private parseResultMode(queryParams: Params): string {
+  public parseResultMode(queryParams: Params): string {
     const resultModeParam = queryParams['result'];
     let resultMode = 'compact';
     if (resultModeParam === 'details') {
@@ -141,12 +141,12 @@ export class PlannerStateService {
     return resultMode;
   }
 
-  private parsePoisFlag(queryParams: Params): boolean {
+  public parsePoisFlag(queryParams: Params): boolean {
     const poisParam = queryParams['pois'];
     return !!poisParam ? poisParam === 'true' : false;
   }
 
-  private parsePoiLayers(queryParams: Params): MapLayerState[] {
+  public parsePoiLayers(queryParams: Params): MapLayerState[] {
     const poiLayersParam = queryParams['poi-layers'];
     let poiLayerStates: MapLayerState[];
     if (!!poiLayersParam) {

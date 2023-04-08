@@ -3,22 +3,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { selectQueryParams, selectRouteParams } from '@app/core/core.state';
 import { PlannerStateService } from '@app/planner/services/planner-state.service';
 import { selectPlannerState } from '@app/planner/store/planner-selectors';
+import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
+import { selectPlannerPois } from '@app/planner/store/planner-selectors';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
 import { PoiService } from '@app/services/poi.service';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from, Observable } from 'rxjs';
-import { map, mergeMap, tap } from 'rxjs/operators';
-import { actionPlannerInit } from './planner-actions';
-import { actionPlannerLayerVisible } from './planner-actions';
-import { actionPlannerLoad } from './planner-actions';
+import { mergeMap, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { actionPlannerMapViewInit } from './planner-actions';
-import { actionPlannerMapMode } from './planner-actions';
 import { actionPlannerNetworkType } from './planner-actions';
 import { actionPlannerPoiGroupVisible } from './planner-actions';
 import { actionPlannerPoisEnabled } from './planner-actions';
 import { actionPlannerPosition } from './planner-actions';
+import { actionPlannerLayerStates } from './planner-actions';
+import { actionPlannerInit } from './planner-actions';
+import { actionPlannerLoad } from './planner-actions';
+import { actionPlannerMapFinalized } from './planner-actions';
 import { PlannerState } from './planner-state';
+import { initialState } from './planner-state';
 import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 
 @Injectable()
@@ -31,41 +35,36 @@ export class PlannerEffects {
         this.store.select(selectRouteParams),
         this.store.select(selectQueryParams),
       ]),
-      mergeMap(([_, routeParams, queryParams]) => {
-        const state = this.plannerStateService.toPlannerState(
-          routeParams,
-          queryParams
-        );
-        return this.navigate(state).pipe(map(() => actionPlannerLoad(state)));
+      map(([_, routeParams, queryParams]) => {
+        const networkType =
+          this.plannerStateService.parseNetworkType(routeParams);
+        const mapMode = this.plannerStateService.parseMapMode(queryParams);
+        const resultMode =
+          this.plannerStateService.parseResultMode(queryParams);
+        const state = { ...initialState, networkType, mapMode, resultMode };
+        return actionPlannerLoad({ networkType, mapMode, resultMode });
       })
     );
   });
-
-  // noinspection JSUnusedGlobalSymbols
-  plannerPosition = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(actionPlannerPosition),
-        concatLatestFrom(() => this.store.select(selectPlannerState)),
-        mergeMap(([{ mapPosition }, state]) => {
-          this.storage.set(
-            this.plannerStateService.plannerPositionKey,
-            mapPosition.toQueryParam()
-          );
-          return this.navigate(state);
-        })
-      );
-    },
-    { dispatch: false }
-  );
 
   // noinspection JSUnusedGlobalSymbols
   plannerMapViewInit = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(actionPlannerMapViewInit),
-        concatLatestFrom(() => this.store.select(selectPlannerState)),
-        tap(([_, plannerState]) => this.plannerMapService.init(plannerState))
+        concatLatestFrom(() => [
+          this.store.select(selectPlannerState),
+          this.store.select(selectRouteParams),
+          this.store.select(selectQueryParams),
+        ]),
+        tap(([_, state, routeParams, queryParams]) => {
+          this.plannerMapService.init(
+            state.networkType,
+            state.mapMode,
+            state.resultMode,
+            queryParams
+          );
+        })
       );
     },
     { dispatch: false }
@@ -76,28 +75,13 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionPlannerNetworkType),
-        tap(({ networkType }) =>
-          this.plannerMapService.handleNetworkChange(networkType)
+        concatLatestFrom(() => [
+          this.store.select(selectPlannerMapMode),
+          this.store.select(selectPlannerPois),
+        ]),
+        tap(([{ networkType }, mapMode, pois]) =>
+          this.plannerMapService.handleNetworkChange(networkType, mapMode, pois)
         )
-      );
-    },
-    { dispatch: false }
-  );
-
-  // noinspection JSUnusedGlobalSymbols
-  layersVisibility = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(
-          actionPlannerMapViewInit,
-          actionPlannerLayerVisible,
-          actionPlannerNetworkType,
-          actionPlannerMapMode,
-          actionPlannerPosition,
-          actionPlannerPoisEnabled
-        ),
-        concatLatestFrom(() => this.store.select(selectPlannerState)),
-        tap(([_, state]) => this.updateLayerVisibility(state))
       );
     },
     { dispatch: false }
@@ -108,19 +92,24 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(
-          actionPlannerLayerVisible,
+          actionPlannerMapFinalized,
           actionPlannerPoisEnabled,
           actionPlannerPoiGroupVisible,
           actionPlannerNetworkType,
-          actionPlannerPosition
+          actionPlannerPosition,
+          actionPlannerLayerStates
         ),
-        concatLatestFrom(() => this.store.select(selectPlannerState)),
-        mergeMap(([_, state]) => this.navigate(state))
+        concatLatestFrom(() => [this.store.select(selectPlannerState)]),
+        mergeMap(([action, state]) => {
+          console.log('navigate action=' + action.type);
+          return this.navigate(state);
+        })
       );
     },
     { dispatch: false }
   );
 
+  // noinspection JSUnusedGlobalSymbols
   plannerPoisEnabled = createEffect(
     () => {
       return this.actions$.pipe(

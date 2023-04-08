@@ -16,11 +16,9 @@ import { selectFragment } from '@app/core/core.state';
 import { selectQueryParam } from '@app/core/core.state';
 import { PlannerCommandAddPlan } from '@app/planner/domain/commands/planner-command-add-plan';
 import { PlanBuilder } from '@app/planner/domain/plan/plan-builder';
-import { PlannerPositionService } from '@app/planner/services/planner-position.service';
 import { actionPlannerMapViewInit } from '@app/planner/store/planner-actions';
 import { actionPlannerInit } from '@app/planner/store/planner-actions';
 import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
-import { selectPlannerLayerStates } from '@app/planner/store/planner-selectors';
 import { PoiService } from '@app/services/poi.service';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
@@ -70,8 +68,6 @@ import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-se
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  readonly layerStates$ = this.store.select(selectPlannerLayerStates);
-
   private planLoaded = false;
   private readonly subscriptions = new Subscriptions();
 
@@ -84,7 +80,6 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private poiService: PoiService,
     private poiTileLayerService: PoiTileLayerService,
     private plannerService: PlannerService,
-    private positionService: PlannerPositionService,
     private mapZoomService: MapZoomService,
     private dialog: MatDialog,
     private appService: AppService,

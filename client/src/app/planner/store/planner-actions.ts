@@ -3,16 +3,21 @@ import { MapPosition } from '@app/components/ol/domain/map-position';
 import { MapMode } from '@app/components/ol/services/map-mode';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { PlannerState } from './planner-state';
+import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 
 export const actionPlannerInit = createAction('[Planner] Init');
 
 export const actionPlannerLoad = createAction(
   '[Planner] Load',
-  props<PlannerState>()
+  props<{ networkType: NetworkType; mapMode: MapMode; resultMode: string }>()
 );
 
 export const actionPlannerMapViewInit = createAction('[Planner] MapViewInit');
+
+export const actionPlannerMapFinalized = createAction(
+  '[Planner] Map finalized',
+  props<{ position: MapPosition; layerStates: MapLayerState[] }>()
+);
 
 export const actionPlannerNetworkType = createAction(
   '[Planner] NetworkType',
@@ -34,9 +39,9 @@ export const actionPlannerPosition = createAction(
   props<{ mapPosition: MapPosition }>()
 );
 
-export const actionPlannerLayerVisible = createAction(
-  '[Planner] Layer visible',
-  props<{ layerName: string; visible: boolean }>()
+export const actionPlannerLayerStates = createAction(
+  '[Planner] LayerStates',
+  props<{ layerStates: MapLayerState[] }>()
 );
 
 export const actionPlannerPoisEnabled = createAction(

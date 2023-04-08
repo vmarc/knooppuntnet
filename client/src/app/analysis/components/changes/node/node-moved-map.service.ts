@@ -34,9 +34,9 @@ export class NodeMovedMapService extends OpenlayersMapService {
 
   private registerLayers(nodeMoved: NodeMoved): void {
     const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
-    registry.register(NodeMovedLayer.build(nodeMoved), true);
+    registry.register([], BackgroundLayer.build(), true);
+    registry.register([], OsmLayer.build(), false);
+    registry.register([], NodeMovedLayer.build(nodeMoved), true);
     this.register(registry);
   }
 }

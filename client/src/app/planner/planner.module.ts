@@ -11,7 +11,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
-import { PlannerPositionService } from '@app/planner/services/planner-position.service';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -150,6 +149,6 @@ import { PlannerMapService } from '@app/planner/pages/planner/planner-map.servic
     GeolocationControlComponent,
   ],
   exports: [MapPageComponent],
-  providers: [PlannerService, PlannerPositionService, PlannerMapService],
+  providers: [PlannerService, PlannerMapService],
 })
 export class PlannerModule {}

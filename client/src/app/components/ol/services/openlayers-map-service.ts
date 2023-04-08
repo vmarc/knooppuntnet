@@ -2,6 +2,7 @@ import { InjectionToken } from '@angular/core';
 import { inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
+import { distinct } from 'rxjs';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
 import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
@@ -13,6 +14,7 @@ import { PageService } from '@app/components/shared/page.service';
 import { Subscriptions } from '@app/util/Subscriptions';
 import Map from 'ol/Map';
 import { MapPosition } from '@app/components/ol/domain/map-position';
+import { debounceTime } from 'rxjs/operators';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
   'MAP_SERVICE_TOKEN'
@@ -26,7 +28,7 @@ export abstract class OpenlayersMapService {
   public layerStates$ = this._layerStates$.asObservable();
 
   private _mapPosition$ = new BehaviorSubject<MapPosition | null>(null);
-  public mapPosition$ = this._mapPosition$.asObservable();
+  public mapPosition$ = this._mapPosition$.pipe(distinct(), debounceTime(50));
 
   private readonly pageService = inject(PageService);
   private readonly subscriptions = new Subscriptions();

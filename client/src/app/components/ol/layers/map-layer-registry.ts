@@ -5,7 +5,16 @@ export class MapLayerRegistry {
   layers: MapLayer[] = [];
   layerStates: MapLayerState[] = [];
 
-  register(mapLayer: MapLayer, visible: boolean, enabled?: boolean): void {
+  register(
+    urlLayerNames: string[],
+    mapLayer: MapLayer,
+    defaultVisible: boolean,
+    enabled?: boolean
+  ): void {
+    let visible = defaultVisible;
+    if (urlLayerNames.length > 0) {
+      visible = urlLayerNames.includes(mapLayer.name);
+    }
     let layerEnabled = enabled;
     if (enabled === undefined || enabled === null) {
       layerEnabled = true;
@@ -19,10 +28,15 @@ export class MapLayerRegistry {
   }
 
   registerAll(
+    urlLayerNames: string[],
     mapLayers: MapLayer[],
-    visible: boolean,
+    defaultVisible: boolean,
     enabled?: boolean
   ): void {
+    let visible = defaultVisible;
+    if (urlLayerNames.length > 0) {
+      visible = urlLayerNames.includes(mapLayers[0].name);
+    }
     let layerEnabled = enabled;
     if (enabled === undefined || enabled === null) {
       layerEnabled = true;

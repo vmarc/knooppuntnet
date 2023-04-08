@@ -13,7 +13,6 @@ import { PlannerService } from '@app/planner/services/planner.service';
 import { PlannerInteraction } from '@app/planner/domain/interaction/planner-interaction';
 import { PoiService } from '@app/services/poi.service';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
-import { PlannerPositionService } from '@app/planner/services/planner-position.service';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
 import { TileDebug512Layer } from '@app/components/ol/layers/tile-debug-512-layer';
 import { OpendataBitmapTileLayer } from '@app/components/ol/layers/opendata-bitmap-tile-layer';
@@ -25,6 +24,7 @@ import { NetworkVectorTileLayer } from '@app/components/ol/layers/network-vector
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
+import { skip } from 'rxjs';
 import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
 import { selectPreferencesShowProposed } from '@app/core/preferences/preferences.selectors';
@@ -34,8 +34,13 @@ import { Store } from '@ngrx/store';
 import { MapService } from '@app/components/ol/services/map.service';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapMode } from '@app/components/ol/services/map-mode';
-import { PlannerState } from '@app/planner/store/planner-state';
 import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { Params } from '@angular/router';
+import { PlannerStateService } from '@app/planner/services/planner-state.service';
+import { actionPlannerPosition } from '@app/planner/store/planner-actions';
+import { actionPlannerLayerStates } from '@app/planner/store/planner-actions';
+import { actionPlannerMapFinalized } from '@app/planner/store/planner-actions';
+import { Subscriptions } from '@app/util/Subscriptions';
 
 @Injectable()
 export class PlannerMapService extends OpenlayersMapService {
@@ -66,11 +71,13 @@ export class PlannerMapService extends OpenlayersMapService {
 
   private networkVectorLayerStyle = new MainMapStyle(this.parameters$);
 
+  private subcriptions = new Subscriptions();
+
   constructor(
     private plannerService: PlannerService,
+    private plannerStateService: PlannerStateService,
     private poiService: PoiService,
     private mapZoomService: MapZoomService,
-    private positionService: PlannerPositionService,
     private poiTileLayerService: PoiTileLayerService,
     private mapService: MapService,
     private store: Store
@@ -78,9 +85,19 @@ export class PlannerMapService extends OpenlayersMapService {
     super();
   }
 
-  init(plannerState: PlannerState): void {
+  init(
+    networkType: NetworkType,
+    mapMode: MapMode,
+    resultMode: string,
+    queryParams: Params
+  ): void {
+    this.subcriptions.unsubscribe();
+
+    const initialPosition = this.plannerStateService.parsePosition(queryParams);
+
     this.overlay = this.buildOverlay();
-    this.registerLayers(plannerState);
+
+    this.registerLayers(networkType, queryParams);
     this.initMap(
       new Map({
         target: this.mapId,
@@ -94,16 +111,13 @@ export class PlannerMapService extends OpenlayersMapService {
       })
     );
 
-    this.map.getView().setZoom(plannerState.position.zoom);
-    this.map
-      .getView()
-      .setCenter([plannerState.position.x, plannerState.position.y]);
+    this.map.getView().setZoom(initialPosition.zoom);
+    this.map.getView().setCenter([initialPosition.x, initialPosition.y]);
 
     this.plannerService.init(this.map);
     this.interaction.addToMap(this.map);
 
     const view = this.map.getView();
-    this.positionService.install(view); // TODO eliminate
     this.poiService.updateZoomLevel(view.getZoom()); // TODO can do better?
     this.mapZoomService.install(view); // TODO eliminate
 
@@ -113,14 +127,41 @@ export class PlannerMapService extends OpenlayersMapService {
     //   this.zoomInToRoute();
     // }
     this.finalizeSetup();
+
+    this.store.dispatch(
+      actionPlannerMapFinalized({
+        position: this.mapPosition,
+        layerStates: this.layerStates,
+      })
+    );
+
+    this.subcriptions.add(
+      this.mapPosition$
+        .pipe(skip(1))
+        .subscribe((mapPosition) =>
+          this.store.dispatch(actionPlannerPosition({ mapPosition }))
+        )
+    );
+    this.subcriptions.add(
+      this.layerStates$
+        .pipe(skip(1))
+        .subscribe((layerStates) =>
+          this.store.dispatch(actionPlannerLayerStates({ layerStates }))
+        )
+    );
   }
 
   override destroy() {
     // this.networkVectorLayerStyle.destroy(); can we really do this? consider the lifecycle of this service...
+    this.subcriptions.unsubscribe();
     super.destroy();
   }
 
-  handleNetworkChange(networkType: NetworkType) {
+  handleNetworkChange(
+    networkType: NetworkType,
+    mapMode: MapMode,
+    pois: boolean
+  ) {
     let changed = false;
     const newLayerStates = this.layerStates.map((layerState) => {
       let enabled = layerState.enabled;
@@ -139,6 +180,7 @@ export class PlannerMapService extends OpenlayersMapService {
     });
     if (changed) {
       this.updateLayerStates(newLayerStates);
+      this.plannerUpdateLayerVisibility(networkType, mapMode, pois);
     }
   }
 
@@ -195,37 +237,47 @@ export class PlannerMapService extends OpenlayersMapService {
     });
   }
 
-  private registerLayers(plannerState: PlannerState): void {
+  private registerLayers(networkType: NetworkType, queryParams: Params): void {
+    let urlLayerNames: string[] = [];
+    const layersParam = queryParams['layers'];
+    if (layersParam) {
+      urlLayerNames = layersParam.split(',');
+    }
+
     const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
+    registry.register(urlLayerNames, BackgroundLayer.build(), true);
+    registry.register(urlLayerNames, OsmLayer.build(), false);
 
     registry.registerAll(
+      urlLayerNames,
       this.flandersOpenDataHikingLayers(),
-      false, // TODO derive from params
-      plannerState.networkType === NetworkType.hiking
+      false,
+      networkType === NetworkType.hiking
     );
 
     /* TODO planner this.allLayers.push(new OpendataBitmapTileLayer().build(NetworkType.cycling)); */
     /* TODO planner this.allLayers.push(new OpendataVectorTileLayer().build(NetworkType.cycling)); */
 
     registry.registerAll(
+      urlLayerNames,
       this.netherlandsHikingOpenDataLayers(),
-      false, // TODO derive from params
-      plannerState.networkType === NetworkType.hiking
+      false,
+      networkType === NetworkType.hiking
     );
 
-    NetworkTypes.all.forEach((networkType) => {
+    NetworkTypes.all.forEach((layerNetworkType) => {
       registry.registerAll(
-        this.networkLayers(networkType),
-        plannerState.networkType === networkType, // TODO derive from params
-        plannerState.networkType === networkType
+        urlLayerNames,
+        this.networkLayers(layerNetworkType),
+        layerNetworkType === networkType,
+        layerNetworkType === networkType
       );
     });
 
-    registry.register(TileDebug256Layer.build(), false);
-    registry.register(TileDebug512Layer.build(), false);
+    registry.register(urlLayerNames, TileDebug256Layer.build(), false);
+    registry.register(urlLayerNames, TileDebug512Layer.build(), false);
     registry.register(
+      urlLayerNames,
       this.poiTileLayerService.buildLayer(),
       false, // TODO derive from url params
       false

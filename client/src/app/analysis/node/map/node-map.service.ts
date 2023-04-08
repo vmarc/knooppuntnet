@@ -81,8 +81,8 @@ export class NodeMapService extends OpenlayersMapService {
     defaultNetworkType: NetworkType
   ): void {
     const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
+    registry.register([], BackgroundLayer.build(), true);
+    registry.register([], OsmLayer.build(), false);
 
     nodeMapInfo.networkTypes.forEach((networkType) => {
       const visible =
@@ -90,6 +90,7 @@ export class NodeMapService extends OpenlayersMapService {
           ? networkType == defaultNetworkType
           : true;
       registry.register(
+        [],
         NetworkVectorTileLayer.build(
           networkType,
           new NodeMapStyle().styleFunction()
@@ -98,8 +99,8 @@ export class NodeMapService extends OpenlayersMapService {
       );
     });
 
-    registry.register(NodeMarkerLayer.build(nodeMapInfo), true);
-    registry.register(TileDebug256Layer.build(), false);
+    registry.register([], NodeMarkerLayer.build(nodeMapInfo), true);
+    registry.register([], TileDebug256Layer.build(), false);
 
     this.register(registry);
   }
