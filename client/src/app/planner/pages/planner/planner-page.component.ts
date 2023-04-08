@@ -6,10 +6,6 @@ import { AppService } from '@app/app.service';
 import { LegHttpErrorDialogComponent } from '@app/components/ol/components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components/leg-not-found-dialog';
 import { NoRouteDialogComponent } from '@app/components/ol/components/no-route-dialog.component';
-import { MapGeocoder } from '@app/components/ol/domain/map-geocoder';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { MapControls } from '@app/components/ol/layers/map-controls';
 import { MapLayerService } from '@app/components/ol/services/map-layer.service';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 import { MapService } from '@app/components/ol/services/map.service';
@@ -21,8 +17,7 @@ import { selectQueryParam } from '@app/core/core.state';
 import { PlannerCommandAddPlan } from '@app/planner/domain/commands/planner-command-add-plan';
 import { PlanBuilder } from '@app/planner/domain/plan/plan-builder';
 import { PlannerPositionService } from '@app/planner/services/planner-position.service';
-import { actionPlannerLoaded } from '@app/planner/store/planner-actions';
-import { actionPlannerLayerVisible } from '@app/planner/store/planner-actions';
+import { actionPlannerMapViewInit } from '@app/planner/store/planner-actions';
 import { actionPlannerInit } from '@app/planner/store/planner-actions';
 import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
 import { selectPlannerLayerStates } from '@app/planner/store/planner-selectors';
@@ -30,30 +25,24 @@ import { PoiService } from '@app/services/poi.service';
 import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
-import Overlay from 'ol/Overlay';
-import View from 'ol/View';
 import { combineLatest } from 'rxjs';
-import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
-import { PlannerLayerService } from '../../services/planner-layer.service';
 import { PlannerService } from '../../services/planner.service';
-import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
 import { NewMapService } from '@app/components/ol/services/new-map.service';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
 
 @Component({
   selector: 'kpn-planner-page',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-planner-popup></kpn-planner-popup>
-    <div [id]="mapId" class="map" (mouseleave)="mouseleave()">
+    <div [id]="service.mapId" class="map" (mouseleave)="mouseleave()">
       <kpn-route-control (action)="zoomInToRoute()" />
       <kpn-geolocation-control (action)="geolocation($event)" />
-      <kpn-temp-layer-switcher
-        [layerStates]="layerStates$ | async"
-        (layerStateChange)="layerStateChange($event)"
-      >
+      <kpn-layer-switcher>
         <kpn-poi-menu />
-      </kpn-temp-layer-switcher>
-      <kpn-old-map-link-menu [map]="map" />
+      </kpn-layer-switcher>
+      <kpn-map-link-menu />
     </div>
   `,
   styles: [
@@ -73,20 +62,21 @@ import { NewMapService } from '@app/components/ol/services/new-map.service';
       }
     `,
   ],
+  providers: [
+    {
+      provide: MAP_SERVICE_TOKEN,
+      useExisting: PlannerMapService,
+    },
+  ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly layerStates$ = this.store.select(selectPlannerLayerStates);
 
-  private readonly interaction = new PlannerInteraction(
-    this.plannerService.engine
-  );
-  protected map: OpenLayersMap;
-  protected readonly mapId = 'planner-map';
-  private overlay: Overlay;
   private planLoaded = false;
   private readonly subscriptions = new Subscriptions();
 
   constructor(
+    protected service: PlannerMapService,
     private newMapService: NewMapService,
     private pageService: PageService,
     private mapService: MapService,
@@ -96,7 +86,6 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private plannerService: PlannerService,
     private positionService: PlannerPositionService,
     private mapZoomService: MapZoomService,
-    private plannerLayerService: PlannerLayerService,
     private dialog: MatDialog,
     private appService: AppService,
     private store: Store
@@ -148,7 +137,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
             const command = new PlannerCommandAddPlan(plan);
             this.plannerService.context.execute(command);
             this.planLoaded = true;
-            if (this.map) {
+            if (this.service.map) {
               this.zoomInToRoute();
             }
           });
@@ -162,15 +151,14 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.buildMap(), 0);
+    this.store.dispatch(actionPlannerMapViewInit());
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.plannerLayerService.mapDestroy(this.map.map);
     this.pageService.nextToolbarBackgroundColor(null);
     this.plannerService.context.destroy();
-    this.map.destroy();
+    this.service.destroy();
   }
 
   zoomInToRoute(): void {
@@ -183,67 +171,17 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
       const bounds = this.plannerService.context.plan.bounds();
       if (bounds !== null) {
         const extent = Util.toExtent(bounds, 0.1);
-        this.map.map.getView().fit(extent);
+        this.service.map.getView().fit(extent);
       }
     }
   }
 
   geolocation(coordinate: Coordinate): void {
-    this.map.map.getView().setCenter(coordinate);
+    this.service.map.getView().setCenter(coordinate);
     let zoomLevel = 15;
     if ('cycling' === this.mapService.networkType()) {
       zoomLevel = 13;
     }
-    this.map.map.getView().setZoom(zoomLevel);
-  }
-
-  private buildMap(): void {
-    this.overlay = this.buildOverlay();
-
-    const layers = this.plannerLayerService.layers.map((ml) => ml.layer);
-
-    this.map = this.newMapService.build({
-      target: this.mapId,
-      layers: layers,
-      overlays: [this.overlay],
-      controls: MapControls.build(),
-      view: new View({
-        minZoom: ZoomLevel.minZoom,
-        maxZoom: ZoomLevel.vectorTileMaxOverZoom,
-      }),
-    });
-
-    this.plannerLayerService.mapInit(this.map.map);
-
-    this.plannerService.init(this.map.map);
-    this.interaction.addToMap(this.map.map);
-
-    const view = this.map.map.getView();
-    this.positionService.install(view);
-    this.poiService.updateZoomLevel(view.getZoom());
-    this.mapZoomService.install(view);
-
-    MapGeocoder.install(this.map.map);
-
-    // if (this.planLoaded) {
-    //   this.zoomInToRoute();
-    // }
-
-    this.store.dispatch(actionPlannerLoaded());
-  }
-
-  layerStateChange(change: MapLayerState): void {
-    this.store.dispatch(actionPlannerLayerVisible(change));
-  }
-
-  private buildOverlay(): Overlay {
-    return new Overlay({
-      id: 'popup',
-      element: document.getElementById('popup'),
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250,
-      },
-    });
+    this.service.map.getView().setZoom(zoomLevel);
   }
 }

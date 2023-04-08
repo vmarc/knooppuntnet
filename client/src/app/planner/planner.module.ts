@@ -69,11 +69,11 @@ import { PlannerSidebarComponent } from './pages/planner/sidebar/planner-sidebar
 import { PlannerToolbarComponent } from './pages/planner/sidebar/planner-toolbar.component';
 import { MapPageComponent } from './pages/selector/_map-page.component';
 import { PlannerRoutingModule } from './planner-routing.module';
-import { PlannerLayerService } from './services/planner-layer.service';
 import { PlannerService } from './services/planner.service';
 import { PlannerEffects } from './store/planner-effects';
 import { plannerReducer } from './store/planner-reducer';
 import { plannerFeatureKey } from './store/planner-state';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 
 @NgModule({
   imports: [
@@ -150,6 +150,6 @@ import { plannerFeatureKey } from './store/planner-state';
     GeolocationControlComponent,
   ],
   exports: [MapPageComponent],
-  providers: [PlannerService, PlannerLayerService, PlannerPositionService],
+  providers: [PlannerService, PlannerPositionService, PlannerMapService],
 })
 export class PlannerModule {}

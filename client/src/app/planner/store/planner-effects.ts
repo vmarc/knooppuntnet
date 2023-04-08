@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectQueryParams, selectRouteParams } from '@app/core/core.state';
-import { PlannerLayerService } from '@app/planner/services/planner-layer.service';
 import { PlannerStateService } from '@app/planner/services/planner-state.service';
 import { selectPlannerState } from '@app/planner/store/planner-selectors';
 import { BrowserStorageService } from '@app/services/browser-storage.service';
@@ -13,13 +12,14 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 import { actionPlannerInit } from './planner-actions';
 import { actionPlannerLayerVisible } from './planner-actions';
 import { actionPlannerLoad } from './planner-actions';
-import { actionPlannerLoaded } from './planner-actions';
+import { actionPlannerMapViewInit } from './planner-actions';
 import { actionPlannerMapMode } from './planner-actions';
 import { actionPlannerNetworkType } from './planner-actions';
 import { actionPlannerPoiGroupVisible } from './planner-actions';
 import { actionPlannerPoisEnabled } from './planner-actions';
 import { actionPlannerPosition } from './planner-actions';
 import { PlannerState } from './planner-state';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 
 @Injectable()
 export class PlannerEffects {
@@ -60,11 +60,36 @@ export class PlannerEffects {
   );
 
   // noinspection JSUnusedGlobalSymbols
+  plannerMapViewInit = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionPlannerMapViewInit),
+        concatLatestFrom(() => this.store.select(selectPlannerState)),
+        tap(([_, plannerState]) => this.plannerMapService.init(plannerState))
+      );
+    },
+    { dispatch: false }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  networkChange = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionPlannerNetworkType),
+        tap(({ networkType }) =>
+          this.plannerMapService.handleNetworkChange(networkType)
+        )
+      );
+    },
+    { dispatch: false }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
   layersVisibility = createEffect(
     () => {
       return this.actions$.pipe(
         ofType(
-          actionPlannerLoaded,
+          actionPlannerMapViewInit,
           actionPlannerLayerVisible,
           actionPlannerNetworkType,
           actionPlannerMapMode,
@@ -125,9 +150,9 @@ export class PlannerEffects {
     private router: Router,
     private route: ActivatedRoute,
     private storage: BrowserStorageService,
-    private plannerLayerService: PlannerLayerService,
     private plannerStateService: PlannerStateService,
-    private poiService: PoiService
+    private poiService: PoiService,
+    private plannerMapService: PlannerMapService
   ) {}
 
   private navigate(state: PlannerState): Observable<boolean> {
@@ -139,11 +164,9 @@ export class PlannerEffects {
   }
 
   private updateLayerVisibility(state: PlannerState): void {
-    this.plannerLayerService.updateLayerVisibility(
-      state.layerStates,
+    this.plannerMapService.plannerUpdateLayerVisibility(
       state.networkType,
       state.mapMode,
-      state.position.zoom,
       state.pois
     );
   }

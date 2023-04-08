@@ -22,7 +22,7 @@ export abstract class OpenlayersMapService {
   public mapId: string = UniqueId.get();
   private _map: Map;
   private _layerStates$ = new BehaviorSubject<MapLayerState[]>([]);
-  private mapLayers: MapLayer[] = [];
+  protected mapLayers: MapLayer[] = [];
   public layerStates$ = this._layerStates$.asObservable();
 
   private _mapPosition$ = new BehaviorSubject<MapPosition | null>(null);
@@ -57,6 +57,18 @@ export abstract class OpenlayersMapService {
 
   get map(): Map {
     return this._map;
+  }
+
+  get layerStates(): MapLayerState[] {
+    return this._layerStates$.value;
+  }
+
+  updateLayerStates(layerStates: MapLayerState[]) {
+    this._layerStates$.next(layerStates);
+  }
+
+  get mapPosition(): MapPosition {
+    return this._mapPosition$.value;
   }
 
   protected get layers(): BaseLayer[] {
@@ -118,14 +130,18 @@ export abstract class OpenlayersMapService {
   }
 
   updateLayerVisibility(): void {
+    const zoom = this._mapPosition$.value.zoom;
     const layerStates = this._layerStates$.value;
     this.mapLayers.forEach((mapLayer) => {
       const mapLayerState = layerStates.find(
         (layerState) => layerState.layerName === mapLayer.name
       );
-      const zoom = this._mapPosition$.value.zoom;
       const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
-      const visible = zoomInRange && mapLayerState && mapLayerState.visible;
+      const visible =
+        zoomInRange &&
+        mapLayerState &&
+        mapLayerState.enabled &&
+        mapLayerState.visible;
       if (
         visible &&
         mapLayer.id.includes('vector') &&

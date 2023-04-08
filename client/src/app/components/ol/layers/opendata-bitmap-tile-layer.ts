@@ -20,7 +20,7 @@ export class OpendataBitmapTileLayer {
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,
       layer,
-      null,
+      networkType,
       null
     );
   }

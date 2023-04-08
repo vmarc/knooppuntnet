@@ -19,7 +19,10 @@ import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map
           *ngIf="layerStates$ | async as layerStates"
           (click)="$event.stopPropagation()"
         >
-          <div *ngFor="let layerState of layerStates">
+          <div
+            *ngFor="let layerState of layerStates"
+            [hidden]="!layerState.enabled"
+          >
             <mat-checkbox
               (click)="$event.stopPropagation()"
               [checked]="layerState.visible"
@@ -27,6 +30,7 @@ import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map
             >
               {{ layerNameTranslation(layerState) }}
             </mat-checkbox>
+            <mat-divider *ngIf="layerState.layerName === 'osm'"></mat-divider>
           </div>
           <ng-content></ng-content>
         </div>

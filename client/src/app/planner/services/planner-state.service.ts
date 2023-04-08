@@ -17,15 +17,15 @@ export class PlannerStateService {
   readonly plannerPositionKey = 'planner-position';
 
   private readonly defaultPoiLayerStates: MapLayerState[] = [
-    { layerName: 'hiking-biking', visible: true },
-    { layerName: 'landmarks', visible: true },
-    { layerName: 'restaurants', visible: true },
-    { layerName: 'places-to-stay', visible: true },
-    { layerName: 'tourism', visible: true },
-    { layerName: 'amenity', visible: false },
-    { layerName: 'shops', visible: false },
-    { layerName: 'foodshops', visible: false },
-    { layerName: 'sports', visible: false },
+    { layerName: 'hiking-biking', enabled: true, visible: true },
+    { layerName: 'landmarks', enabled: true, visible: true },
+    { layerName: 'restaurants', enabled: true, visible: true },
+    { layerName: 'places-to-stay', enabled: true, visible: true },
+    { layerName: 'tourism', enabled: true, visible: true },
+    { layerName: 'amenity', enabled: true, visible: false },
+    { layerName: 'shops', enabled: true, visible: false },
+    { layerName: 'foodshops', enabled: true, visible: false },
+    { layerName: 'sports', enabled: true, visible: false },
   ];
 
   constructor(private browserStorageService: BrowserStorageService) {}

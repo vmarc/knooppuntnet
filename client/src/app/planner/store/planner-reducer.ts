@@ -98,17 +98,19 @@ export const plannerReducer = createReducer<PlannerState>(
 
 function determineLayerStates(networkType: NetworkType): MapLayerState[] {
   let layerStates: MapLayerState[] = [
-    { layerName: 'osm', visible: true }, // TODO planner this should not be the default anymore
-    { layerName: 'background', visible: false }, // TODO planner make this the default
-    { layerName: networkType, visible: true },
+    { layerName: 'osm', enabled: true, visible: true }, // TODO planner this should not be the default anymore
+    { layerName: 'background', enabled: true, visible: false }, // TODO planner make this the default
+    { layerName: networkType, enabled: true, visible: true },
   ];
   if (networkType === NetworkType.hiking) {
     layerStates.push({
       layerName: 'netherlands-hiking',
+      enabled: true,
       visible: false,
     });
     layerStates.push({
       layerName: 'flanders-hiking',
+      enabled: true,
       visible: false,
     });
   }

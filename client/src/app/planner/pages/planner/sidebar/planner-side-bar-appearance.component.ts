@@ -4,7 +4,6 @@ import { MatRadioChange } from '@angular/material/radio';
 import { actionPreferencesShowAppearanceOptions } from '@app/core/preferences/preferences.actions';
 import { selectPreferencesShowAppearanceOptions } from '@app/core/preferences/preferences.selectors';
 import { Store } from '@ngrx/store';
-import { PlannerLayerService } from '../../../services/planner-layer.service';
 import { actionPlannerMapMode } from '../../../store/planner-actions';
 import { selectPlannerMapMode } from '../../../store/planner-selectors';
 
@@ -63,10 +62,7 @@ export class PlannerSideBarAppearanceComponent {
     selectPreferencesShowAppearanceOptions
   );
 
-  constructor(
-    private plannerLayerService: PlannerLayerService,
-    private store: Store
-  ) {}
+  constructor(private store: Store) {}
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(

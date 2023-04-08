@@ -12,7 +12,7 @@ export const actionPlannerLoad = createAction(
   props<PlannerState>()
 );
 
-export const actionPlannerLoaded = createAction('[Planner] Loaded');
+export const actionPlannerMapViewInit = createAction('[Planner] MapViewInit');
 
 export const actionPlannerNetworkType = createAction(
   '[Planner] NetworkType',

@@ -5,13 +5,33 @@ export class MapLayerRegistry {
   layers: MapLayer[] = [];
   layerStates: MapLayerState[] = [];
 
-  register(mapLayer: MapLayer, visible: boolean): void {
+  register(mapLayer: MapLayer, visible: boolean, enabled?: boolean): void {
+    let layerEnabled = enabled;
+    if (enabled === undefined || enabled === null) {
+      layerEnabled = true;
+    }
     this.layers.push(mapLayer);
-    this.layerStates.push({ layerName: mapLayer.name, visible });
+    this.layerStates.push({
+      layerName: mapLayer.name,
+      visible,
+      enabled: layerEnabled,
+    });
   }
 
-  registerAll(mapLayers: MapLayer[], visible: boolean): void {
+  registerAll(
+    mapLayers: MapLayer[],
+    visible: boolean,
+    enabled?: boolean
+  ): void {
+    let layerEnabled = enabled;
+    if (enabled === undefined || enabled === null) {
+      layerEnabled = true;
+    }
     this.layers.push(...mapLayers);
-    this.layerStates.push({ layerName: mapLayers[0].name, visible });
+    this.layerStates.push({
+      layerName: mapLayers[0].name,
+      visible,
+      enabled: layerEnabled,
+    });
   }
 }

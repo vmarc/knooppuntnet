@@ -43,7 +43,7 @@ export class OpendataVectorTileLayer {
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       layer,
-      null,
+      networkType,
       null
     );
   }

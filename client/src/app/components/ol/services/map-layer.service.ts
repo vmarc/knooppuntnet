@@ -97,6 +97,7 @@ export class MapLayerService {
       .map((mapLayer) => {
         const mapLayerState: MapLayerState = {
           layerName: mapLayer.name,
+          enabled: true,
           visible: mapLayer.layer.getVisible(),
         };
         return mapLayerState;

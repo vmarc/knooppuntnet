@@ -14,13 +14,7 @@ import Map from 'ol/Map';
 @Injectable()
 export class NodeMovedMapService extends OpenlayersMapService {
   init(nodeMoved: NodeMoved): void {
-    const registry = new MapLayerRegistry();
-    registry.register(BackgroundLayer.build(), true);
-    registry.register(OsmLayer.build(), false);
-    registry.register(NodeMovedLayer.build(nodeMoved), true);
-
-    this.register(registry);
-
+    this.registerLayers(nodeMoved);
     this.initMap(
       new Map({
         target: this.mapId,
@@ -35,7 +29,14 @@ export class NodeMovedMapService extends OpenlayersMapService {
     );
     const center = Util.latLonToCoordinate(nodeMoved.after);
     this.map.getView().setCenter(center);
-
     this.finalizeSetup();
+  }
+
+  private registerLayers(nodeMoved: NodeMoved): void {
+    const registry = new MapLayerRegistry();
+    registry.register(BackgroundLayer.build(), true);
+    registry.register(OsmLayer.build(), false);
+    registry.register(NodeMovedLayer.build(nodeMoved), true);
+    this.register(registry);
   }
 }
