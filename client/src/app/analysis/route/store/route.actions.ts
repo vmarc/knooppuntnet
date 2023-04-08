@@ -43,6 +43,8 @@ export const actionRouteMapPageLoaded = createAction(
   }>()
 );
 
+export const actionRouteMapViewInit = createAction('[RouteMapPage] View init');
+
 export const actionRouteChangesPageInit = createAction(
   '[RouteChangesPage] Init'
 );

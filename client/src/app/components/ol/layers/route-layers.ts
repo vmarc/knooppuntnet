@@ -40,12 +40,10 @@ export class RouteLayers {
       const translatedTitle = this.i18nService.translation(
         '@@map.layer.free-path'
       );
-      const title = `${translatedTitle} ${path.pathId}`;
+      const name = `${translatedTitle} ${path.pathId}`;
       const source = new VectorSource();
       const layer = new VectorLayer({ source });
-      source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
-      layer.set('name', title);
-      const name = `path-layer-${path.pathId}`;
+      source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
       return MapLayer.simpleLayer(name, layer);
     });
   }
@@ -53,14 +51,13 @@ export class RouteLayers {
   private buildForwardLayer(): MapLayer {
     const path = this.routeMap.forwardPath;
     if (path && path.segments.length > 0) {
-      const title = this.i18nService.translation('@@map.layer.forward-route');
+      const name = this.i18nService.translation('@@map.layer.forward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
-      source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
-      layer.set('name', title);
-      return MapLayer.simpleLayer('route-forward-layer', layer);
+      source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+      return MapLayer.simpleLayer(name, layer);
     }
     return null;
   }
@@ -68,14 +65,13 @@ export class RouteLayers {
   private buildBackwardLayer(): MapLayer {
     const path = this.routeMap.backwardPath;
     if (path) {
-      const title = this.i18nService.translation('@@map.layer.backward-route');
+      const name = this.i18nService.translation('@@map.layer.backward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
-      source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
-      layer.set('name', title);
-      return MapLayer.simpleLayer('route-backward-layer', layer);
+      source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+      return MapLayer.simpleLayer(name, layer);
     }
     return null;
   }
@@ -83,16 +79,15 @@ export class RouteLayers {
   private buildStartTentaclesLayer(): MapLayer {
     const paths = this.routeMap.startTentaclePaths;
     if (paths && paths.length > 0) {
-      const title = this.i18nService.translation('@@map.layer.start-tentacle');
+      const name = this.i18nService.translation('@@map.layer.start-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
       paths.forEach((path) => {
-        source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
+        source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
       });
-      layer.set('name', title);
-      return MapLayer.simpleLayer('route-start-tentacle-layer', layer);
+      return MapLayer.simpleLayer(name, layer);
     }
     return null;
   }
@@ -100,16 +95,15 @@ export class RouteLayers {
   private buildEndTentaclesLayer(): MapLayer {
     const paths = this.routeMap.endTentaclePaths;
     if (paths && paths.length > 0) {
-      const title = this.i18nService.translation('@@map.layer.end-tentacle');
+      const name = this.i18nService.translation('@@map.layer.end-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
       paths.forEach((path) => {
-        source.addFeature(this.pathToFeature(title, [0, 0, 255, 0.3], path));
+        source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
       });
-      layer.set('name', title);
-      return MapLayer.simpleLayer('route-end-tentacles-layer', layer);
+      return MapLayer.simpleLayer(name, layer);
     }
     return null;
   }
@@ -117,18 +111,17 @@ export class RouteLayers {
   private buildUnusedSegmentsLayer(): MapLayer {
     const segments = this.routeMap.unusedSegments;
     if (segments && segments.length > 0) {
-      const title = this.i18nService.translation('@@map.layer.unused');
+      const name = this.i18nService.translation('@@map.layer.unused');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
       segments.forEach((segment) => {
         source.addFeature(
-          this.segmentToFeature(title, [255, 0, 0, 0.3], segment)
+          this.segmentToFeature(name, [255, 0, 0, 0.3], segment)
         );
       });
-      layer.set('name', title);
-      return MapLayer.simpleLayer('route-unused-segment-layer', layer);
+      return MapLayer.simpleLayer(name, layer);
     }
     return null;
   }
@@ -180,8 +173,7 @@ export class RouteLayers {
 
     source.addFeatures(markers);
     const layerName = this.i18nService.translation('@@map.layer.nodes');
-    layer.set('name', layerName);
-    return MapLayer.simpleLayer('route-marker-layer', layer);
+    return MapLayer.simpleLayer(layerName, layer);
   }
 
   private buildMarkers(

@@ -29,6 +29,7 @@ import { RouteRoutingModule } from './route-routing.module';
 import { RouteEffects } from './store/route.effects';
 import { routeReducer } from './store/route.reducer';
 import { routeFeatureKey } from './store/route.state';
+import { RouteMapService } from '@app/analysis/route/map/route-map.service';
 
 @NgModule({
   imports: [
@@ -62,5 +63,6 @@ import { routeFeatureKey } from './store/route.state';
     RouteLocationComponent,
     LinkImageComponent,
   ],
+  providers: [RouteMapService],
 })
 export class RouteModule {}

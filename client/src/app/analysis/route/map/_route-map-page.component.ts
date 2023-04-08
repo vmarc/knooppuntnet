@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectDefined } from '@app/core/core.state';
 import { actionRouteMapPageInit } from '../store/route.actions';
-import { selectRouteMapPositionFromUrl } from '../store/route.selectors';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteMapPage } from '../store/route.selectors';
 import { selectRouteChangeCount } from '../store/route.selectors';
@@ -40,10 +39,7 @@ import { selectRouteId } from '../store/route.selectors';
         Route not found
       </div>
       <div *ngIf="response.result">
-        <kpn-route-map
-          [routeMapInfo]="response.result.routeMapInfo"
-          [mapPositionFromUrl]="mapPositionFromUrl$ | async"
-        />
+        <kpn-route-map />
       </div>
     </div>
   `,
@@ -54,9 +50,6 @@ export class RouteMapPageComponent implements OnInit {
   readonly changeCount$ = this.store.select(selectRouteChangeCount);
   readonly response$ = selectDefined(this.store, selectRouteMapPage);
   readonly networkType$ = this.store.select(selectRouteNetworkType);
-  readonly mapPositionFromUrl$ = this.store.select(
-    selectRouteMapPositionFromUrl
-  );
 
   constructor(private store: Store) {}
 

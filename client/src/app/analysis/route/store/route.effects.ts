@@ -33,8 +33,12 @@ import { actionRouteMapPageInit } from './route.actions';
 import { actionRouteDetailsPageInit } from './route.actions';
 import { actionRouteDetailsPageLoaded } from './route.actions';
 import { actionRouteMapPageLoaded } from './route.actions';
+import { actionRouteMapViewInit } from './route.actions';
 import { selectRouteChangesParameters } from './route.selectors';
 import { selectRouteId } from './route.selectors';
+import { selectRouteMapPage } from './route.selectors';
+import { selectRouteMapPositionFromUrl } from './route.selectors';
+import { RouteMapService } from '@app/analysis/route/map/route-map.service';
 
 @Injectable()
 export class RouteEffects {
@@ -88,6 +92,28 @@ export class RouteEffects {
       })
     );
   });
+
+  // noinspection JSUnusedGlobalSymbols
+  routeMapViewInit = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionRouteMapViewInit),
+        concatLatestFrom(() => [
+          this.store.select(selectRouteMapPage),
+          this.store.select(selectRouteMapPositionFromUrl),
+        ]),
+        map(([_, response, mapPositionFromUrl]) => {
+          this.routeMapService.init(
+            response.result.routeMapInfo,
+            mapPositionFromUrl
+          );
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
   routeChanges = createEffect(() => {
@@ -150,7 +176,8 @@ export class RouteEffects {
     private store: Store,
     private appService: AppService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private routeMapService: RouteMapService
   ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {
