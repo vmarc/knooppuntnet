@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base/page-params';
 import { selectRouteParams } from '@app/core/core.state';
@@ -46,8 +47,14 @@ import { actionSubsetOrphanRoutesPageLoaded } from './subset.actions';
 import { actionSubsetOrphanNodesPageLoaded } from './subset.actions';
 import { actionSubsetFactsPageLoaded } from './subset.actions';
 import { actionSubsetNetworksPageLoaded } from './subset.actions';
+import { actionSubsetMapPageNetworkClicked } from './subset.actions';
+import { actionSubsetMapViewInit } from './subset.actions';
 import { selectSubsetChangesParameters } from './subset.selectors';
 import { selectSubset } from './subset.selectors';
+import { selectSubsetMapPage } from './subset.selectors';
+import { SubsetMapNetworkDialogComponent } from '@app/analysis/subset/map/subset-map-network-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SubsetMapService } from '@app/analysis/subset/map/subset-map.service';
 
 @Injectable()
 export class SubsetEffects {
@@ -223,6 +230,50 @@ export class SubsetEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
+  mapViewInit = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionSubsetMapViewInit),
+        concatLatestFrom(() => [this.store.select(selectSubsetMapPage)]),
+        tap(([_, response]) =>
+          this.subsetMapService.init(
+            response.result.networks,
+            response.result.bounds
+          )
+        )
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  subsetMapPageNetworkClicked = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionSubsetMapPageNetworkClicked),
+        concatLatestFrom(() => [this.store.select(selectSubsetMapPage)]),
+        tap(([{ networkId }, response]) => {
+          const network = response.result.networks.find(
+            (n) => n.id === networkId
+          );
+          if (network) {
+            this.dialog.open(SubsetMapNetworkDialogComponent, {
+              data: network,
+              autoFocus: false,
+              maxWidth: 600,
+            });
+          }
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
   changesPageInit = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSubsetChangesPageInit),
@@ -283,7 +334,9 @@ export class SubsetEffects {
     private store: Store,
     private appService: AppService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private subsetMapService: SubsetMapService,
+    private dialog: MatDialog
   ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {

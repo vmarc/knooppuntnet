@@ -30,6 +30,7 @@ import { RouteEffects } from './store/route.effects';
 import { routeReducer } from './store/route.reducer';
 import { routeFeatureKey } from './store/route.state';
 import { RouteMapService } from '@app/analysis/route/map/route-map.service';
+import { RouteMapComponent } from '@app/analysis/route/map/route-map.component';
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { RouteMapService } from '@app/analysis/route/map/route-map.service';
     RouteChangeComponent,
     RouteChangesPageComponent,
     RouteMapPageComponent,
+    RouteMapComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RouteNodeComponent,

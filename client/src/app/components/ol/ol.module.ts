@@ -15,8 +15,6 @@ import { OldLayerSwitcherComponent } from './components/old-layer-switcher.compo
 import { PoiDetailMapComponent } from './components/poi-detail-map.component';
 import { PoiMapComponent } from './components/poi-map.component';
 import { RouteControlComponent } from './components/route-control.component';
-import { RouteMapComponent } from '../../analysis/route/map/route-map.component';
-import { SubsetMapComponent } from './components/subset-map.component';
 import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
 import { MapService } from './services/map.service';
@@ -39,8 +37,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MatDividerModule,
   ],
   declarations: [
-    RouteMapComponent,
-    SubsetMapComponent,
     LayerSwitcherComponent,
     OldLayerSwitcherComponent,
     MapLinkMenuComponent,
@@ -53,8 +49,6 @@ import { MatDividerModule } from '@angular/material/divider';
     OldMapLinkMenuComponent,
   ],
   exports: [
-    RouteMapComponent,
-    SubsetMapComponent,
     OldLayerSwitcherComponent,
     RouteControlComponent,
     PoiMapComponent,

@@ -44,6 +44,8 @@ import { subsetReducer } from './store/subset.reducer';
 import { subsetFeatureKey } from './store/subset.state';
 import { SubsetRoutingModule } from './subset-routing.module';
 import { SubsetSidebarComponent } from './subset-sidebar.component';
+import { SubsetMapService } from '@app/analysis/subset/map/subset-map.service';
+import { SubsetMapComponent } from '@app/analysis/subset/map/subset-map.component';
 
 @NgModule({
   imports: [
@@ -87,9 +89,14 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     SubsetOrphanRoutesSidebarComponent,
     SubsetChangesSidebarComponent,
     SubsetMapPageComponent,
+    SubsetMapComponent,
     SubsetMapNetworkDialogComponent,
     SubsetSidebarComponent,
   ],
-  providers: [SubsetOrphanNodesService, SubsetOrphanRoutesService],
+  providers: [
+    SubsetOrphanNodesService,
+    SubsetOrphanRoutesService,
+    SubsetMapService,
+  ],
 })
 export class SubsetModule {}

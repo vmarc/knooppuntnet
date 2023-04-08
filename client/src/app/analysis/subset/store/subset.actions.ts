@@ -105,6 +105,15 @@ export const actionSubsetMapPageLoaded = createAction(
   props<ApiResponse<SubsetMapPage>>()
 );
 
+export const actionSubsetMapViewInit = createAction(
+  '[SubsetMapPage] View init'
+);
+
+export const actionSubsetMapPageNetworkClicked = createAction(
+  '[SubsetMapPage] Network clicked',
+  props<{ networkId: number }>()
+);
+
 export const actionSubsetChangesPageInit = createAction(
   '[SubsetChangesPage] Init'
 );
