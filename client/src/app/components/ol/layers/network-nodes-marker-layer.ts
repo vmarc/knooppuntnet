@@ -7,7 +7,7 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkNodesMarkerLayer {
-  build(nodes: NetworkMapNode[]): MapLayer {
+  static build(nodes: NetworkMapNode[]): MapLayer {
     const markers = nodes.map((node) => {
       const color = node.roleConnection ? 'green' : 'blue';
       const coordinate = Util.toCoordinate(node.latitude, node.longitude);

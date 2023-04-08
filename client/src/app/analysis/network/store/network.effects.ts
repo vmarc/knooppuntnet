@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base/page-params';
 import { MapPosition } from '@app/components/ol/domain/map-position';
@@ -43,8 +44,12 @@ import { actionNetworkMapPageLoaded } from './network.actions';
 import { actionNetworkChangesPageLoaded } from './network.actions';
 import { actionNetworkDetailsPageLoaded } from './network.actions';
 import { actionNetworkNodesPageLoaded } from './network.actions';
+import { actionNetworkMapViewInit } from './network.actions';
 import { selectNetworkId } from './network.selectors';
 import { selectNetworkChangesParameters } from './network.selectors';
+import { selectNetworkMapPositionFromUrl } from './network.selectors';
+import { selectNetworkMapPage } from './network.selectors';
+import { NetworkMapService } from '@app/analysis/network/map/network-map.service';
 
 @Injectable()
 export class NetworkEffects {
@@ -173,6 +178,30 @@ export class NetworkEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
+  actionNetworkMapViewInit = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionNetworkMapViewInit),
+        concatLatestFrom(() => [
+          this.store.select(selectNetworkId),
+          this.store.select(selectNetworkMapPage),
+          this.store.select(selectNetworkMapPositionFromUrl),
+        ]),
+        tap(([_, networkId, response, mapPositionFromUrl]) => {
+          this.networkMapService.init(
+            networkId,
+            response.result,
+            mapPositionFromUrl
+          );
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
   networkChangesPage = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNetworkChangesPageInit),
@@ -233,7 +262,8 @@ export class NetworkEffects {
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
-    private appService: AppService
+    private appService: AppService,
+    private networkMapService: NetworkMapService
   ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {

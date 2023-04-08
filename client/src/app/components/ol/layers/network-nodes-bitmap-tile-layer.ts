@@ -18,9 +18,7 @@ export class NetworkNodesBitmapTileLayer {
       `network-nodes-${networkType}-layer`,
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,
-      layer,
-      networkType,
-      null
+      layer
     );
   }
 }

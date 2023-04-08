@@ -80,6 +80,10 @@ export const actionNetworkMapPageLoad = createAction(
   props<{ networkId: number; mapPositionFromUrl: NetworkMapPosition }>()
 );
 
+export const actionNetworkMapViewInit = createAction(
+  '[NetworkMapPage] ViewInit'
+);
+
 export const actionNetworkMapPageLoaded = createAction(
   '[NetworkMapPage] Loaded',
   props<{

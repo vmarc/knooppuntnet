@@ -34,6 +34,29 @@ export class MapLayerService {
     { name: 'motorboat', translation: '@@network-type.motorboat' },
     { name: 'canoe', translation: '@@network-type.canoe' },
     { name: 'inline-skating', translation: '@@network-type.inline-skating' },
+
+    {
+      name: 'network-nodes-cycling-layer',
+      translation: '@@network-type.cycling',
+    },
+    {
+      name: 'network-nodes-hiking-layer',
+      translation: '@@network-type.hiking',
+    },
+    {
+      name: 'network-nodes-horse-riding-layer',
+      translation: '@@network-type.horse-riding',
+    },
+    {
+      name: 'network-nodes-motorboat-layer',
+      translation: '@@network-type.motorboat',
+    },
+    { name: 'network-nodes-canoe-layer', translation: '@@network-type.canoe' },
+    {
+      name: 'network-nodes-inline-skating-layer',
+      translation: '@@network-type.inline-skating',
+    },
+
     {
       name: 'netherlands-hiking',
       translation: '@@map.layer.netherlands-hiking', //$localize`:@@map.layer.opendata.netherlands:Routedatabank Nederland`

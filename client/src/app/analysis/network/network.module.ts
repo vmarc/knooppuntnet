@@ -58,6 +58,7 @@ import { networkReducer } from './store/network.reducer';
 import { networkFeatureKey } from './store/network.state';
 import { NetworkMapComponent } from '@app/analysis/network/map/network-map.component';
 import { NetworkControlComponent } from '@app/analysis/network/map/network-control.component';
+import { NetworkMapService } from '@app/analysis/network/map/network-map.service';
 
 @NgModule({
   imports: [
@@ -120,5 +121,6 @@ import { NetworkControlComponent } from '@app/analysis/network/map/network-contr
     ProposedIndicatorDialogComponent,
     ProposedIndicatorComponent,
   ],
+  providers: [NetworkMapService],
 })
 export class NetworkModule {}

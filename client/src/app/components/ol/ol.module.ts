@@ -25,7 +25,6 @@ import { OldMapPositionService } from './services/old-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
 import { NewMapService } from '@app/components/ol/services/new-map.service';
 import { OldMapLinkMenuComponent } from '@app/components/ol/components/old-map-link-menu.component';
-import { TempLayerSwitcherComponent } from '@app/components/ol/components/temp-layer-switcher.component';
 import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
@@ -52,7 +51,6 @@ import { MatDividerModule } from '@angular/material/divider';
     PoiMapComponent,
     PoiDetailMapComponent,
     OldMapLinkMenuComponent,
-    TempLayerSwitcherComponent,
   ],
   exports: [
     RouteMapComponent,
@@ -64,7 +62,6 @@ import { MatDividerModule } from '@angular/material/divider';
     MapLinkMenuComponent,
     LayerSwitcherComponent,
     OldMapLinkMenuComponent,
-    TempLayerSwitcherComponent,
   ],
   providers: [
     NewMapService,
