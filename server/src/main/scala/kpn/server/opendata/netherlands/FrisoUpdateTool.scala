@@ -61,12 +61,13 @@ object FrisoUpdateTool {
       updateFile("Added_ext.geojson", "added.geojson")
       updateFile("No change_ext.geojson", "no-change.geojson")
       updateFile("Moved short distance_ext.geojson", "moved-short-distance.geojson")
+      updateFile("Moved long distance_ext.geojson", "moved-long-distance.geojson")
       updateFile("invalid_nodes_ext.geojson", "other.geojson")
     }
   }
 
   private def updateFile(source: String, target: String): Unit = {
-    val sourceFileName = "/home/marc/wrk/soft/osm-knooppunten-0.3.0/results/" + source
+    val sourceFileName = "/home/vmarc/wrk/soft/osm-knooppunten-0.3.0/results/" + source
     val sourceFile = new File(sourceFileName)
     val orignalJson = FileUtils.readFileToString(sourceFile, Charset.forName("UTF-8"))
     val prefix = """{"type": "FeatureCollection","features":"""

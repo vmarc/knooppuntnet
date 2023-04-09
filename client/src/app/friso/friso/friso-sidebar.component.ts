@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectFrisoMode } from '@app/friso/store/friso.selectors';
-import { actionFrisoMode } from '@app/friso/store/friso.actions';
-import { actionFrisoPageInit } from '@app/friso/store/friso.actions';
 import { MatRadioChange } from '@angular/material/radio';
+import { actionFrisoMode } from '@app/friso/store/friso.actions';
+import { selectFrisoMode } from '@app/friso/store/friso.selectors';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-friso-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <kpn-sidebar>
+    <!-- For now, English only-->
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="mode-selector">
       <mat-radio-group [value]="mode$ | async" (change)="modeChanged($event)">
         <div>
@@ -100,14 +101,10 @@ import { MatRadioChange } from '@angular/material/radio';
     `,
   ],
 })
-export class FrisoSidebarComponent implements OnInit {
-  mode$ = this.store.select(selectFrisoMode);
+export class FrisoSidebarComponent {
+  protected readonly mode$ = this.store.select(selectFrisoMode);
 
   constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.store.dispatch(actionFrisoPageInit());
-  }
 
   modeChanged(change: MatRadioChange): void {
     this.store.dispatch(actionFrisoMode({ mode: change.value }));

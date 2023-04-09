@@ -1,19 +1,19 @@
 import { InjectionToken } from '@angular/core';
 import { inject } from '@angular/core';
+import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
+import { MapPosition } from '@app/components/ol/domain/map-position';
+import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
+import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
+import { OsmLayer } from '@app/components/ol/layers/osm-layer';
+import { PageService } from '@app/components/shared/page.service';
+import { UniqueId } from '@app/kpn/common/unique-id';
+import { Subscriptions } from '@app/util/Subscriptions';
+import BaseLayer from 'ol/layer/Base';
+import Map from 'ol/Map';
 import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { distinct } from 'rxjs';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { MapLayer } from '@app/components/ol/layers/map-layer';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import BaseLayer from 'ol/layer/Base';
-import { UniqueId } from '@app/kpn/common/unique-id';
-import { PageService } from '@app/components/shared/page.service';
-import { Subscriptions } from '@app/util/Subscriptions';
-import Map from 'ol/Map';
-import { MapPosition } from '@app/components/ol/domain/map-position';
 import { debounceTime } from 'rxjs/operators';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
@@ -138,12 +138,12 @@ export abstract class OpenlayersMapService {
       const mapLayerState = layerStates.find(
         (layerState) => layerState.layerName === mapLayer.name
       );
+      let mapLayerStateVisible = true;
+      if (mapLayerState) {
+        mapLayerStateVisible = mapLayerState.enabled && mapLayerState.visible;
+      }
       const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
-      const visible =
-        zoomInRange &&
-        mapLayerState &&
-        mapLayerState.enabled &&
-        mapLayerState.visible;
+      const visible = zoomInRange && mapLayerStateVisible;
       if (
         visible &&
         mapLayer.id.includes('vector') &&

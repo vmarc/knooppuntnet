@@ -7,12 +7,10 @@ import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import { MapLayer } from './map-layer';
 
 export class FrisoLayer {
-  constructor(private name: string, private filename: string) {}
-
-  build(): MapLayer {
+  static build(name: string, filename: string): MapLayer {
     const vectorSource = new VectorSource({
       format: new GeoJSON(),
-      url: `/tiles-history/routedatabank/${this.filename}`,
+      url: `/tiles-history/routedatabank/${filename}`,
     });
 
     const src = `assets/images/marker-icon-red.png`;
@@ -30,6 +28,12 @@ export class FrisoLayer {
       style: (feature) => style,
     });
 
-    return MapLayer.simpleLayer(`friso-${this.name}-layer`, layer);
+    return new MapLayer(
+      `friso-${name}-layer`,
+      name,
+      -Infinity,
+      Infinity,
+      layer
+    );
   }
 }
