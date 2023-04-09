@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { ApiResponse } from '@api/custom/api-response';
-import { Observable } from 'rxjs';
-import { AppService } from '@app/app.service';
+import { selectPoiAreasPage } from '@app/poi/store/poi.selectors';
+import { Store } from '@ngrx/store';
+import { actionPoiAreasPageInit } from '@app/poi/store/poi.actions';
 
 @Component({
   selector: 'kpn-poi-areas-page',
@@ -17,16 +17,16 @@ import { AppService } from '@app/app.service';
     </p>
 
     <div *ngIf="response$ | async as response">
-      <kpn-poi-map [geoJson]="response.result" />
+      <kpn-poi-map />
     </div>
   `,
 })
 export class PoiAreasPageComponent implements OnInit {
-  response$: Observable<ApiResponse<string>>;
+  protected readonly response$ = this.store.select(selectPoiAreasPage);
 
-  constructor(private appService: AppService) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.response$ = this.appService.poiAreas();
+    this.store.dispatch(actionPoiAreasPageInit());
   }
 }

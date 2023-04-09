@@ -31,3 +31,8 @@ export const selectLocationPoiSummaryLocationNode = createSelector(
   selectLocationPoiSummaryLocations,
   (response: ApiResponse<PoiLocationsPage>) => response?.result.locationNode
 );
+
+export const selectPoiAreasPage = createSelector(
+  selectPoiState,
+  (state: PoiState) => state.poiAreasPage
+);

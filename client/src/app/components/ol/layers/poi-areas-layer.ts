@@ -6,7 +6,7 @@ import { Style } from 'ol/style';
 import { MapLayer } from './map-layer';
 
 export class PoiAreasLayer {
-  build(geoJson: string): MapLayer {
+  static build(geoJson: string): MapLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
     });

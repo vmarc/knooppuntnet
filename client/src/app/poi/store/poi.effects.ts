@@ -7,6 +7,7 @@ import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { selectQueryParam } from '@app/core/core.state';
 import { selectRouteParam } from '@app/core/core.state';
 import { actionPreferencesPageSize } from '@app/core/preferences/preferences.actions';
@@ -19,7 +20,13 @@ import { actionLocationPoiSummaryPageInit } from './poi.actions';
 import { actionLocationPoisPageIndex } from './poi.actions';
 import { actionLocationPoisPageLoaded } from './poi.actions';
 import { actionLocationPoisPageInit } from './poi.actions';
+import { actionPoiAreasPageInit } from './poi.actions';
+import { actionPoiAreasPageLoaded } from './poi.actions';
+import { actionPoiAreasPageMapViewInit } from './poi.actions';
 import { selectLocationPoisPageIndex } from './poi.selectors';
+import { selectPoiAreasPage } from './poi.selectors';
+import { AppService } from '@app/app.service';
+import { PoiMapService } from '@app/poi/areas/poi-map.service';
 
 @Injectable()
 export class PoiEffects {
@@ -72,10 +79,38 @@ export class PoiEffects {
     );
   });
 
+  // noinspection JSUnusedGlobalSymbols
+  poiAreasPageInit = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionPoiAreasPageInit),
+      mergeMap(() =>
+        this.appService
+          .poiAreas()
+          .pipe(map((response) => actionPoiAreasPageLoaded(response)))
+      )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  poiAreasPageMapViewInit = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionPoiAreasPageMapViewInit),
+        concatLatestFrom(() => [this.store.select(selectPoiAreasPage)]),
+        tap(([_, response]) => this.poiMapService.init(response.result))
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
+
   constructor(
     private actions$: Actions,
     private store: Store,
     private router: Router,
-    private poiService: PoiService
+    private poiService: PoiService,
+    private appService: AppService,
+    private poiMapService: PoiMapService
   ) {}
 }

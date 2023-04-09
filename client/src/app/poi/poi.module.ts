@@ -24,6 +24,8 @@ import { PoiService } from './poi.service';
 import { PoiEffects } from './store/poi.effects';
 import { poiReducer } from './store/poi.reducer';
 import { poiFeatureKey } from './store/poi.state';
+import { PoiMapComponent } from '@app/poi/areas/poi-map.component';
+import { PoiMapService } from '@app/poi/areas/poi-map.service';
 
 @NgModule({
   imports: [
@@ -45,12 +47,13 @@ import { poiFeatureKey } from './store/poi.state';
   ],
   declarations: [
     PoiAreasPageComponent,
+    PoiMapComponent,
     PoiDetailPageComponent,
     PoiLocationPoisPageComponent,
     PoiLocationPoiTableComponent,
     LocationPoisSidebarComponent,
     CountrySelectComponent,
   ],
-  providers: [PoiService],
+  providers: [PoiService, PoiMapService],
 })
 export class PoiModule {}

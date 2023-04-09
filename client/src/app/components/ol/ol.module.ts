@@ -13,7 +13,6 @@ import { MapLinkMenuComponent } from './components/map-link-menu.component';
 import { NoRouteDialogComponent } from './components/no-route-dialog.component';
 import { OldLayerSwitcherComponent } from './components/old-layer-switcher.component';
 import { PoiDetailMapComponent } from './components/poi-detail-map.component';
-import { PoiMapComponent } from './components/poi-map.component';
 import { RouteControlComponent } from './components/route-control.component';
 import { MapClickService } from './services/map-click.service';
 import { MapLayerService } from './services/map-layer.service';
@@ -44,14 +43,12 @@ import { MatDividerModule } from '@angular/material/divider';
     NoRouteDialogComponent,
     LegNotFoundDialogComponent,
     LegHttpErrorDialogComponent,
-    PoiMapComponent,
     PoiDetailMapComponent,
     OldMapLinkMenuComponent,
   ],
   exports: [
     OldLayerSwitcherComponent,
     RouteControlComponent,
-    PoiMapComponent,
     PoiDetailMapComponent,
     MapLinkMenuComponent,
     LayerSwitcherComponent,

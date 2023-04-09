@@ -38,3 +38,14 @@ export const actionLocationPoiSummaryLocationsLoaded = createAction(
   '[LocationPoiSummaryPage] Locations loaded',
   props<ApiResponse<PoiLocationsPage>>()
 );
+
+export const actionPoiAreasPageInit = createAction('[PoiAreasPage] Init');
+
+export const actionPoiAreasPageLoaded = createAction(
+  '[PoiAreasPage] Loaded',
+  props<ApiResponse<string>>()
+);
+
+export const actionPoiAreasPageMapViewInit = createAction(
+  '[PoiAreasPage] View init'
+);
