@@ -82,7 +82,7 @@ export class FrisoMapService extends OpenlayersMapService {
     const mainMapStyle = new MainMapStyle(parameters$);
 
     const networkLayers = [
-      NetworkVectorTileLayer.oldBuild(
+      NetworkVectorTileLayer.build(
         NetworkType.hiking,
         mainMapStyle.styleFunction()
       ),

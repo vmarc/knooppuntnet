@@ -138,21 +138,27 @@ export abstract class OpenlayersMapService {
       const mapLayerState = layerStates.find(
         (layerState) => layerState.layerName === mapLayer.name
       );
-      let mapLayerStateVisible = true;
       if (mapLayerState) {
-        mapLayerStateVisible = mapLayerState.enabled && mapLayerState.visible;
+        const zoomInRange =
+          zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
+        const visible =
+          zoomInRange && mapLayerState.enabled && mapLayerState.visible;
+        if (
+          visible &&
+          mapLayer.id.includes('vector') &&
+          mapLayer.layer.getVisible()
+        ) {
+          mapLayer.layer.changed();
+        }
+        mapLayer.layer.setVisible(visible);
       }
-      const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
-      const visible = zoomInRange && mapLayerStateVisible;
-      if (
-        visible &&
-        mapLayer.id.includes('vector') &&
-        mapLayer.layer.getVisible()
-      ) {
-        mapLayer.layer.changed();
-      }
-      mapLayer.layer.setVisible(visible);
     });
+
+    // const visibleLayers = this.mapLayers
+    //   .filter((mapLayer) => mapLayer.layer.getVisible() === true)
+    //   .map((mapLayer) => mapLayer.id)
+    //   .join(',');
+    // console.log(`updateLayerVisibility: ${visibleLayers}`);
   }
 
   private updateSize(): void {
@@ -169,7 +175,14 @@ export abstract class OpenlayersMapService {
       const zoom = this.map.getView().getZoom();
       const z = Math.round(zoom);
       const mapPosition = new MapPosition(z, center[0], center[1], 0);
+      let oldZoom = -1;
+      if (this._mapPosition$.value) {
+        oldZoom = this._mapPosition$.value.zoom;
+      }
       this._mapPosition$.next(mapPosition);
+      if (oldZoom > 0 && oldZoom != z) {
+        this.updateLayerVisibility();
+      }
     }
   }
 }

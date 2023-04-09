@@ -1,6 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { NodeChangeInfo } from '@api/common/node/node-change-info';
 import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
