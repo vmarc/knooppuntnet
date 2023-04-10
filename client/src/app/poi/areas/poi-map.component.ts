@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
-import { MapLayerService } from '../../components/ol/services/map-layer.service';
-import { NewMapService } from '@app/components/ol/services/new-map.service';
-import { PoiMapService } from '@app/poi/areas/poi-map.service';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
-import { Store } from '@ngrx/store';
+import { PoiMapService } from '@app/poi/areas/poi-map.service';
 import { actionPoiAreasPageMapViewInit } from '@app/poi/store/poi.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-poi-map',
@@ -24,12 +22,7 @@ import { actionPoiAreasPageMapViewInit } from '@app/poi/store/poi.actions';
   ],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    protected service: PoiMapService,
-    private store: Store,
-    private newMapService: NewMapService,
-    private mapLayerService: MapLayerService
-  ) {}
+  constructor(protected service: PoiMapService, private store: Store) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionPoiAreasPageMapViewInit());

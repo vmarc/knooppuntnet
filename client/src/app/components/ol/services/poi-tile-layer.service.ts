@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
+import { PoiTileLayer } from '@app/components/ol/layers/poi-tile-layer';
 import { PoiService } from '@app/services/poi.service';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain/zoom-level';
 import { MapLayer } from '../layers/map-layer';
 import { PoiStyleMap } from '../style/poi-style-map';
-import { MapLayerService } from './map-layer.service';
-import { PoiTileLayer } from '@app/components/ol/layers/poi-tile-layer';
 
 @Injectable()
 export class PoiTileLayerService {
   poiStyleMap: PoiStyleMap;
   static poiLayerName = 'poi-tile-layer';
 
-  constructor(
-    private mapLayerService: MapLayerService,
-    private poiService: PoiService
-  ) {
+  constructor(private poiService: PoiService) {
     poiService.poiConfiguration.subscribe((configuration) => {
       if (configuration !== null) {
         this.poiStyleMap = new PoiStyleMap(configuration);

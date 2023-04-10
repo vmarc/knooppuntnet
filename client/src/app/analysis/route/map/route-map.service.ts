@@ -1,29 +1,32 @@
 import { Injectable } from '@angular/core';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import { RouteMapInfo } from '@api/common/route/route-map-info';
+import { MapPosition } from '@app/components/ol/domain/map-position';
+import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
+import { MapControls } from '@app/components/ol/layers/map-controls';
 import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { MapLayerService } from '@app/components/ol/services/map-layer.service';
-import { RouteMapInfo } from '@api/common/route/route-map-info';
+import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
+import { MapClickService } from '@app/components/ol/services/map-click.service';
+import { OldMapPositionService } from '@app/components/ol/services/old-map-position.service';
+import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import { Util } from '@app/components/shared/util';
+import { Coordinate } from 'ol/coordinate';
+import { Extent } from 'ol/extent';
+import Map from 'ol/Map';
 import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
-import Map from 'ol/Map';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { Coordinate } from 'ol/coordinate';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { MapClickService } from '@app/components/ol/services/map-click.service';
-import { Extent } from 'ol/extent';
-import { Util } from '@app/components/shared/util';
-import { OldMapPositionService } from '@app/components/ol/services/old-map-position.service';
+import { NetworkVectorTileLayer } from '../../../components/ol/layers/network-vector-tile-layer';
+import { RouteLayers } from '../../../components/ol/layers/route-layers';
+import { NodeMapStyle } from '../../../components/ol/style/node-map-style';
+import { I18nService } from '../../../i18n/i18n.service';
 
 @Injectable()
 export class RouteMapService extends OpenlayersMapService {
   constructor(
-    private mapLayerService: MapLayerService,
     private mapClickService: MapClickService,
-    private mapPositionService: OldMapPositionService
+    private mapPositionService: OldMapPositionService,
+    private i18nService: I18nService
   ) {
     super();
   }
@@ -69,10 +72,14 @@ export class RouteMapService extends OpenlayersMapService {
   }
 
   private registerLayers(routeMapInfo: RouteMapInfo): void {
-    const networkVectorTileLayer = this.mapLayerService.networkVectorTileLayer(
-      routeMapInfo.networkType
+    const networkVectorTileLayer = NetworkVectorTileLayer.build(
+      routeMapInfo.networkType,
+      new NodeMapStyle().styleFunction()
     );
-    const routeLayers = this.mapLayerService.routeLayers(routeMapInfo.map);
+    const routeLayers = new RouteLayers(
+      this.i18nService,
+      routeMapInfo.map
+    ).build();
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);

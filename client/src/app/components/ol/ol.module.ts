@@ -16,7 +16,7 @@ import { NoRouteDialogComponent } from './components/no-route-dialog.component';
 import { PoiDetailMapComponent } from './components/poi-detail-map.component';
 import { RouteControlComponent } from './components/route-control.component';
 import { MapClickService } from './services/map-click.service';
-import { MapLayerService } from './services/map-layer.service';
+import { MapLayerTranslationService } from './services/map-layer-translation.service';
 import { MapService } from './services/map.service';
 import { NetworkMapPositionService } from './services/network-map-position.service';
 import { OldMapPositionService } from './services/old-map-position.service';
@@ -51,7 +51,7 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
   providers: [
     NewMapService,
     MapService,
-    MapLayerService,
+    MapLayerTranslationService,
     MapClickService,
     PoiTileLayerService,
     OldMapPositionService,

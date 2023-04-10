@@ -5,9 +5,9 @@ import { Inject } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { MapLayerService } from '@app/components/ol/services/map-layer.service';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
 import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import { MapLayerTranslationService } from '../services/map-layer-translation.service';
 
 @Component({
   selector: 'kpn-layer-switcher',
@@ -66,7 +66,7 @@ export class LayerSwitcherComponent {
   constructor(
     @Inject(MAP_SERVICE_TOKEN)
     private openlayersMapService: OpenlayersMapService,
-    private mapLayerService: MapLayerService
+    private mapLayerTranslationService: MapLayerTranslationService
   ) {}
 
   openPopupMenu(): void {
@@ -85,6 +85,6 @@ export class LayerSwitcherComponent {
   }
 
   layerNameTranslation(layerstate: MapLayerState): string {
-    return this.mapLayerService.translation(layerstate.layerName);
+    return this.mapLayerTranslationService.translation(layerstate.layerName);
   }
 }

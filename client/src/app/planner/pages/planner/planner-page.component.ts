@@ -6,9 +6,10 @@ import { AppService } from '@app/app.service';
 import { LegHttpErrorDialogComponent } from '@app/components/ol/components/leg-http-error.dialog';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components/leg-not-found-dialog';
 import { NoRouteDialogComponent } from '@app/components/ol/components/no-route-dialog.component';
-import { MapLayerService } from '@app/components/ol/services/map-layer.service';
 import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 import { MapService } from '@app/components/ol/services/map.service';
+import { NewMapService } from '@app/components/ol/services/new-map.service';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
 import { PoiTileLayerService } from '@app/components/ol/services/poi-tile-layer.service';
 import { PageService } from '@app/components/shared/page.service';
 import { Util } from '@app/components/shared/util';
@@ -16,6 +17,7 @@ import { selectFragment } from '@app/core/core.state';
 import { selectQueryParam } from '@app/core/core.state';
 import { PlannerCommandAddPlan } from '@app/planner/domain/commands/planner-command-add-plan';
 import { PlanBuilder } from '@app/planner/domain/plan/plan-builder';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 import { actionPlannerMapViewInit } from '@app/planner/store/planner-actions';
 import { actionPlannerInit } from '@app/planner/store/planner-actions';
 import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
@@ -25,9 +27,6 @@ import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import { combineLatest } from 'rxjs';
 import { PlannerService } from '../../services/planner.service';
-import { NewMapService } from '@app/components/ol/services/new-map.service';
-import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
 
 @Component({
   selector: 'kpn-planner-page',
@@ -76,7 +75,6 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private newMapService: NewMapService,
     private pageService: PageService,
     private mapService: MapService,
-    private mapLayerService: MapLayerService,
     private poiService: PoiService,
     private poiTileLayerService: PoiTileLayerService,
     private plannerService: PlannerService,
