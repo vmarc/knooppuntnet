@@ -7,7 +7,7 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class PoiMarkerLayer {
-  build(poiDetail: PoiDetail): MapLayer {
+  static build(poiDetail: PoiDetail): MapLayer {
     const coordinate = Util.toCoordinate(
       poiDetail.poi.latitude,
       poiDetail.poi.longitude
