@@ -76,6 +76,7 @@ import { MonitorRouteMapOsmSegmentsComponent } from './route/map/monitor-route-m
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapComponent } from './route/map/monitor-route-map.component';
+import { MonitorRouteMapService } from './route/map/monitor-route-map.service';
 import { MonitorRouteMapEffects } from './route/map/store/monitor-route-map.effects';
 import { monitorRouteMapReducer } from './route/map/store/monitor-route-map.reducer';
 import { monitorRouteMapFeatureKey } from './route/map/store/monitor-route-map.state';
@@ -168,6 +169,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     MonitorRouteSubRelationMenuOptionComponent,
   ],
   exports: [],
-  providers: [MonitorService],
+  providers: [MonitorService, MonitorRouteMapService],
 })
 export class MonitorModule {}

@@ -1,7 +1,10 @@
-import { OnDestroy } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
+import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { Util } from '@app/components/shared/util';
+import { Subscriptions } from '@app/util/Subscriptions';
 import { Store } from '@ngrx/store';
+import { Coordinate } from 'ol/coordinate';
 import { GeoJSON } from 'ol/format';
 import { Geometry } from 'ol/geom';
 import VectorLayer from 'ol/layer/Vector';
@@ -10,8 +13,14 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
-import { Util } from '@app/components/shared/util';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { MapPosition } from '../../../components/ol/domain/map-position';
+import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
+import { BackgroundLayer } from '../../../components/ol/layers/background-layer';
+import { MapControls } from '../../../components/ol/layers/map-controls';
+import { MapLayerRegistry } from '../../../components/ol/layers/map-layer-registry';
+import { OsmLayer } from '../../../components/ol/layers/osm-layer';
+import { OldMapPositionService } from '../../../components/ol/services/old-map-position.service';
+import { OpenlayersMapService } from '../../../components/ol/services/openlayers-map-service';
 import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapMatchesVisible } from './store/monitor-route-map.selectors';
@@ -23,7 +32,7 @@ import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
 @Injectable({
   providedIn: 'root',
 })
-export class MonitorRouteMapService implements OnDestroy {
+export class MonitorRouteMapService extends OpenlayersMapService {
   private readonly colors = [
     'red',
     'yellow',
@@ -49,28 +58,32 @@ export class MonitorRouteMapService implements OnDestroy {
   private readonly deviationsLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
-  private readonly subscriptions = new Subscriptions();
+  private readonly extraSubscriptions = new Subscriptions();
 
   private mode = '';
   private referenceAvailable = false;
 
-  private map: Map = null;
+  private extraMap: Map = null;
 
-  constructor(private store: Store) {
+  constructor(
+    private store: Store,
+    private mapPositionService: OldMapPositionService
+  ) {
+    super();
     this.referenceLayer = this.buildReferencesLayer();
     this.matchesLayer = this.buildMatchesLayer();
     this.deviationsLayer = this.buildDeviationsLayer();
     this.osmRelationLayer = this.buildOsmRelationLayer();
     this.initialize();
 
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.store.select(selectMonitorRouteMapMode).subscribe((mode) => {
         this.mode = mode;
         this.osmRelationLayer.changed();
       })
     );
 
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.store
         .select(selectMonitorRouteMapReferenceEnabled)
         .subscribe((enabled) => {
@@ -79,12 +92,39 @@ export class MonitorRouteMapService implements OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+  init(page: MonitorRouteMapPage, mapPositionFromUrl: MapPosition): void {
+    this.registerLayers();
+    this.initMap(
+      new Map({
+        target: this.mapId,
+        layers: this.layers,
+        controls: MapControls.build(),
+        view: new View({
+          minZoom: 0,
+          maxZoom: ZoomLevel.vectorTileMaxOverZoom,
+        }),
+      })
+    );
+
+    this.map.addLayer(this.referenceLayer);
+    this.map.addLayer(this.matchesLayer);
+    this.map.addLayer(this.deviationsLayer);
+    this.map.addLayer(this.osmRelationLayer);
+
+    if (mapPositionFromUrl) {
+      this.map.getView().setZoom(mapPositionFromUrl.zoom);
+      this.map.getView().setRotation(mapPositionFromUrl.rotation);
+      const center: Coordinate = [mapPositionFromUrl.x, mapPositionFromUrl.y];
+      this.map.getView().setCenter(center);
+    } else {
+      this.map.getView().fit(Util.toExtent(page.bounds, 0.05));
+    }
+    this.mapPositionService.install(this.map.getView());
+    this.finalizeSetup();
   }
 
-  setMap(map: Map): void {
-    this.map = map;
+  ngOnDestroy(): void {
+    this.extraSubscriptions.unsubscribe();
   }
 
   focus(bounds: Bounds): void {
@@ -93,31 +133,25 @@ export class MonitorRouteMapService implements OnDestroy {
     }
   }
 
-  layers(): VectorLayer<VectorSource<Geometry>>[] {
-    return [
-      this.referenceLayer,
-      this.matchesLayer,
-      this.deviationsLayer,
-      this.osmRelationLayer,
-    ];
-  }
-
   colorForSegmentId(id: number): string {
     const index = id % 10;
     return this.colors[index];
   }
 
-  styleForSegmentId(id: number): Style {
+  private styleForSegmentId(id: number): Style {
     const index = id % 10;
     return this.osmSegmentStyles[index];
   }
 
-  getView(): View {
-    return this.map.getView();
+  private registerLayers(): void {
+    const registry = new MapLayerRegistry();
+    registry.register([], BackgroundLayer.build(), true);
+    registry.register([], OsmLayer.build(), false);
+    this.register(registry);
   }
 
   private initialize(): void {
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.store
         .select(selectMonitorRouteMapReferenceVisible)
         .subscribe((visible) => {
@@ -125,7 +159,7 @@ export class MonitorRouteMapService implements OnDestroy {
         })
     );
 
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.store
         .select(selectMonitorRouteMapMatchesVisible)
         .subscribe((visible) => {
@@ -133,7 +167,7 @@ export class MonitorRouteMapService implements OnDestroy {
         })
     );
 
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.store
         .select(selectMonitorRouteMapDeviationsVisible)
         .subscribe((visible) => {
@@ -141,7 +175,7 @@ export class MonitorRouteMapService implements OnDestroy {
         })
     );
 
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.store
         .select(selectMonitorRouteMapOsmRelationVisible)
         .subscribe((visible) => {
@@ -149,7 +183,7 @@ export class MonitorRouteMapService implements OnDestroy {
         })
     );
 
-    this.subscriptions.add(
+    this.extraSubscriptions.add(
       this.page$.subscribe((page) => {
         this.referenceLayer.getSource().clear();
         if (page?.reference?.geoJson) {

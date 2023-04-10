@@ -22,7 +22,6 @@ import { SharedModule } from './components/shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { I18nService } from './i18n/i18n.service';
 import { JosmComponent } from './josm.component';
-import { MonitorRouteMapService } from './monitor/route/map/monitor-route-map.service';
 import { IconService } from './services/icon.service';
 import { LogUpdateService } from './services/log-update.service';
 import { PoiNameService } from './services/poi-name.service';
@@ -83,7 +82,6 @@ import { SpinnerService } from './spinner/spinner.service';
     PoiService,
     PoiNameService,
     LogUpdateService,
-    MonitorRouteMapService,
   ],
   bootstrap: [AppComponent],
 })

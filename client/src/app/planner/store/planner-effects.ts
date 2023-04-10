@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectQueryParams, selectRouteParams } from '@app/core/core.state';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 import { PlannerStateService } from '@app/planner/services/planner-state.service';
 import { selectPlannerState } from '@app/planner/store/planner-selectors';
 import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
@@ -23,7 +24,6 @@ import { actionPlannerLoad } from './planner-actions';
 import { actionPlannerMapFinalized } from './planner-actions';
 import { PlannerState } from './planner-state';
 import { initialState } from './planner-state';
-import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 
 @Injectable()
 export class PlannerEffects {
@@ -150,13 +150,5 @@ export class PlannerEffects {
       queryParams,
     });
     return from(promise);
-  }
-
-  private updateLayerVisibility(state: PlannerState): void {
-    this.plannerMapService.plannerUpdateLayerVisibility(
-      state.networkType,
-      state.mapMode,
-      state.pois
-    );
   }
 }

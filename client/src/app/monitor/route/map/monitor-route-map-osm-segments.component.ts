@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { Store } from '@ngrx/store';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 import { actionMonitorRouteMapSelectOsmSegment } from './store/monitor-route-map.actions';
 import { selectMonitorRouteMapSelectedOsmSegmentId } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.selectors';
-import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-osm-segments',
@@ -48,13 +48,15 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   ],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
-  readonly segments$ = this.store.select(selectMonitorRouteMapOsmSegments);
-  readonly selectedSegmentId$ = this.store.select(
+  protected readonly segments$ = this.store.select(
+    selectMonitorRouteMapOsmSegments
+  );
+  protected readonly selectedSegmentId$ = this.store.select(
     selectMonitorRouteMapSelectedOsmSegmentId
   );
 
   constructor(
-    private mapService: MonitorRouteMapService,
+    private monitorRouteMapService: MonitorRouteMapService,
     private store: Store
   ) {}
 
@@ -67,6 +69,6 @@ export class MonitorRouteMapOsmSegmentsComponent {
   }
 
   segmentColor(segment: MonitorRouteSegment): string {
-    return this.mapService.colorForSegmentId(segment.id);
+    return this.monitorRouteMapService.colorForSegmentId(segment.id);
   }
 }

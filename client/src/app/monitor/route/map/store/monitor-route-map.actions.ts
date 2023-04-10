@@ -4,14 +4,17 @@ import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviati
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
-import { ApiResponse } from '@api/custom/api-response';
+import { MapPosition } from '@app/components/ol/domain/map-position';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { MapPosition } from '@app/components/ol/domain/map-position';
 import { MonitorMapMode } from '../monitor-map-mode';
 
 export const actionMonitorRouteMapPageInit = createAction(
   '[MonitorRouteMap] Page init'
+);
+
+export const actionMonitorRouteMapPageViewInit = createAction(
+  '[MonitorRouteMap] Page view init'
 );
 
 export const actionMonitorRouteMapPageLoad = createAction(

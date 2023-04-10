@@ -30,7 +30,9 @@ import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map
             >
               {{ layerNameTranslation(layerState) }}
             </mat-checkbox>
-            <mat-divider *ngIf="layerState.layerName === 'osm'"></mat-divider>
+            <mat-divider
+              *ngIf="layerState.layerName === 'osm' && layerStates.length > 2"
+            ></mat-divider>
           </div>
           <ng-content></ng-content>
         </div>

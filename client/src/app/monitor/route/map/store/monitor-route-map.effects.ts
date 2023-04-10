@@ -2,6 +2,12 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
+import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
+import { Util } from '@app/components/shared/util';
+import { selectQueryParam } from '@app/core/core.state';
+import { selectQueryParams } from '@app/core/core.state';
+import { selectRouteParam } from '@app/core/core.state';
+import { actionSharedEdit } from '@app/core/shared/shared.actions';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -12,14 +18,10 @@ import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
-import { Util } from '@app/components/shared/util';
-import { selectQueryParam } from '@app/core/core.state';
-import { selectQueryParams } from '@app/core/core.state';
-import { selectRouteParam } from '@app/core/core.state';
-import { actionSharedEdit } from '@app/core/shared/shared.actions';
+import { MapPosition } from '../../../../components/ol/domain/map-position';
 import { MonitorService } from '../../../monitor.service';
 import { MonitorRouteMapService } from '../monitor-route-map.service';
+import { actionMonitorRouteMapPageViewInit } from './monitor-route-map.actions';
 import { actionMonitorRouteMapZoomToFitRoute } from './monitor-route-map.actions';
 import { actionMonitorRouteMapSelectSubRelation } from './monitor-route-map.actions';
 import { actionMonitorRouteMapPageLoad } from './monitor-route-map.actions';
@@ -51,7 +53,7 @@ export class MonitorRouteMapEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionMonitorRouteMapFocus),
-        tap((bounds) => this.mapService.focus(bounds))
+        tap((bounds) => this.monitorRouteMapService.focus(bounds))
       );
     },
     { dispatch: false }
@@ -79,6 +81,26 @@ export class MonitorRouteMapEffects {
       })
     );
   });
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteMapPageViewInit = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionMonitorRouteMapPageViewInit),
+        concatLatestFrom(() => [
+          this.store.select(selectMonitorRouteMapPage),
+          this.store.select(selectQueryParam('position')),
+        ]),
+        tap(([_, page, mapPosition]) => {
+          const mapPositionFromUrl = MapPosition.fromQueryParam(mapPosition);
+          this.monitorRouteMapService.init(page, mapPositionFromUrl);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
   monitorRouteMapSelectSubRelation = createEffect(() => {
@@ -131,14 +153,6 @@ export class MonitorRouteMapEffects {
             );
         }
       })
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapPageLoaded = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapPageLoaded),
-      map(({ page }) => actionMonitorRouteMapFocus(page.bounds))
     );
   });
 
@@ -289,7 +303,7 @@ export class MonitorRouteMapEffects {
     private store: Store,
     private router: Router,
     private monitorService: MonitorService,
-    private mapService: MonitorRouteMapService,
+    private monitorRouteMapService: MonitorRouteMapService,
     private activatedRoute: ActivatedRoute
   ) {}
 }

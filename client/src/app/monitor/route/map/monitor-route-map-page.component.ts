@@ -19,13 +19,13 @@ import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
         <p i18n="@@monitor.route.map.no-map">No map</p>
       </ng-template>
       <ng-template #map>
-        <kpn-monitor-route-map [page]="page" />
+        <kpn-monitor-route-map />
       </ng-template>
     </div>
   `,
 })
 export class MonitorRouteMapPageComponent implements OnInit, OnDestroy {
-  readonly page$ = this.store.select(selectMonitorRouteMapPage);
+  protected readonly page$ = this.store.select(selectMonitorRouteMapPage);
 
   constructor(private store: Store) {}
 
