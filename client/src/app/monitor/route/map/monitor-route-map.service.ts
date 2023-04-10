@@ -19,7 +19,6 @@ import { BackgroundLayer } from '../../../components/ol/layers/background-layer'
 import { MapControls } from '../../../components/ol/layers/map-controls';
 import { MapLayerRegistry } from '../../../components/ol/layers/map-layer-registry';
 import { OsmLayer } from '../../../components/ol/layers/osm-layer';
-import { OldMapPositionService } from '../../../components/ol/services/old-map-position.service';
 import { OpenlayersMapService } from '../../../components/ol/services/openlayers-map-service';
 import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
 import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
@@ -63,12 +62,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   private mode = '';
   private referenceAvailable = false;
 
-  private extraMap: Map = null;
-
-  constructor(
-    private store: Store,
-    private mapPositionService: OldMapPositionService
-  ) {
+  constructor(private store: Store) {
     super();
     this.referenceLayer = this.buildReferencesLayer();
     this.matchesLayer = this.buildMatchesLayer();
@@ -119,8 +113,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     } else {
       this.map.getView().fit(Util.toExtent(page.bounds, 0.05));
     }
-    this.mapPositionService.install(this.map.getView());
-    this.finalizeSetup();
+    this.finalizeSetup(true);
   }
 
   ngOnDestroy(): void {

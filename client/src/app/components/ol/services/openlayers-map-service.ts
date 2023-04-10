@@ -1,5 +1,9 @@
+import { Injectable } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { Params } from '@angular/router';
 import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 import { MapPosition } from '@app/components/ol/domain/map-position';
 import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
@@ -9,8 +13,10 @@ import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { PageService } from '@app/components/shared/page.service';
 import { UniqueId } from '@app/kpn/common/unique-id';
 import { Subscriptions } from '@app/util/Subscriptions';
+import { Coordinate } from 'ol/coordinate';
 import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
+import { toLonLat } from 'ol/proj';
 import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { distinct } from 'rxjs';
@@ -20,6 +26,7 @@ export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
   'MAP_SERVICE_TOKEN'
 );
 
+@Injectable()
 export abstract class OpenlayersMapService {
   public mapId: string = UniqueId.get();
   private _map: Map;
@@ -33,6 +40,11 @@ export abstract class OpenlayersMapService {
   private readonly pageService = inject(PageService);
   private readonly subscriptions = new Subscriptions();
   private readonly updatePositionHandler = () => this.updateMapPosition();
+
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+
+  private shouldUpdateUrl: boolean = false;
 
   constructor() {
     this.subscriptions.add(
@@ -49,12 +61,20 @@ export abstract class OpenlayersMapService {
     this._map = map;
   }
 
-  protected finalizeSetup(): void {
+  protected finalizeSetup(updateUrl?: boolean): void {
+    this.shouldUpdateUrl = updateUrl === true;
     const view = this.map.getView();
     view.on('change:resolution', () => this.updatePositionHandler);
     view.on('change:center', this.updatePositionHandler);
     this.updatePositionHandler();
     this.updateLayerVisibility();
+    if (this.shouldUpdateUrl) {
+      this.subscriptions.add(
+        this.mapPosition$.subscribe((mapPosition) => {
+          this.updateUrl(mapPosition);
+        })
+      );
+    }
   }
 
   get map(): Map {
@@ -184,5 +204,25 @@ export abstract class OpenlayersMapService {
         this.updateLayerVisibility();
       }
     }
+  }
+
+  private updateUrl(mapPosition: MapPosition): void {
+    const center: Coordinate = [mapPosition.x, mapPosition.y];
+    const zoom = mapPosition.zoom;
+
+    const c = toLonLat(center);
+    const lng = c[0].toFixed(8);
+    const lat = c[1].toFixed(8);
+    const z = Math.round(zoom);
+
+    const position = `${lat},${lng},${z}`;
+    const queryParams: Params = { position };
+
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams,
+      replaceUrl: true, // do not push a new entry to the browser history
+      queryParamsHandling: 'merge', // preserve other query params if there are any
+    });
   }
 }

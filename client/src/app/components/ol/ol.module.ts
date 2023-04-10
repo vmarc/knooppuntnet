@@ -18,8 +18,6 @@ import { RouteControlComponent } from './components/route-control.component';
 import { MapClickService } from './services/map-click.service';
 import { MapLayerTranslationService } from './services/map-layer-translation.service';
 import { MapService } from './services/map.service';
-import { NetworkMapPositionService } from './services/network-map-position.service';
-import { OldMapPositionService } from './services/old-map-position.service';
 import { PoiTileLayerService } from './services/poi-tile-layer.service';
 
 @NgModule({
@@ -54,8 +52,6 @@ import { PoiTileLayerService } from './services/poi-tile-layer.service';
     MapLayerTranslationService,
     MapClickService,
     PoiTileLayerService,
-    OldMapPositionService,
-    NetworkMapPositionService,
   ],
 })
 export class OlModule {}

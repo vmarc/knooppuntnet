@@ -8,7 +8,6 @@ import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
 import { OsmLayer } from '@app/components/ol/layers/osm-layer';
 import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
 import { MapClickService } from '@app/components/ol/services/map-click.service';
-import { OldMapPositionService } from '@app/components/ol/services/old-map-position.service';
 import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
 import { Util } from '@app/components/shared/util';
 import { Coordinate } from 'ol/coordinate';
@@ -25,7 +24,6 @@ import { I18nService } from '../../../i18n/i18n.service';
 export class RouteMapService extends OpenlayersMapService {
   constructor(
     private mapClickService: MapClickService,
-    private mapPositionService: OldMapPositionService,
     private i18nService: I18nService
   ) {
     super();
@@ -66,9 +64,7 @@ export class RouteMapService extends OpenlayersMapService {
       view.fit(this.buildExtent(routeMapInfo));
     }
 
-    this.mapPositionService.install(this.map.getView());
-
-    this.finalizeSetup();
+    this.finalizeSetup(true);
   }
 
   private registerLayers(routeMapInfo: RouteMapInfo): void {
