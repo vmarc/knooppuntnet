@@ -3,8 +3,8 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Timestamp } from '@api/custom/timestamp';
-import { Store } from '@ngrx/store';
 import { Util } from '@app/components/shared/util';
+import { Store } from '@ngrx/store';
 import { actionMonitorRouteChangePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteChangePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
@@ -186,7 +186,6 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
             <p>Maximum distance from reference: {{ segment.distance }}m</p>
 
             <kpn-monitor-route-change-map
-              [mapId]="'resolved-map-' + i + 1"
               [referenceJson]="response.result.reference.geoJson"
               [routeSegments]="response.result.routeSegments"
               [deviation]="segment"
@@ -211,7 +210,6 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
             <p>Deviation length: {{ deviation.meters }}m</p>
             <p>Maximum distance from reference: {{ deviation.distance }}m</p>
             <kpn-monitor-route-change-map
-              [mapId]="'new-map-' + i + 1"
               [referenceJson]="response.result.reference.geoJson"
               [routeSegments]="response.result.routeSegments"
               [deviation]="deviation"
