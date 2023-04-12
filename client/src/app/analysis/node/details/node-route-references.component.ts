@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Reference } from '@api/common/common/reference';
+import { Reference } from '@api/common/common';
 
 @Component({
   selector: 'kpn-node-route-references',

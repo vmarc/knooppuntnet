@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { LocationNodesPage } from '@api/common/location/location-nodes-page';
+import { LocationNodesPage } from '@api/common/location';
 
 @Component({
   selector: 'kpn-location-nodes',

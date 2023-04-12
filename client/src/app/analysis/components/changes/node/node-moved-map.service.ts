@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import View from 'ol/View';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { Util } from '@app/components/shared/util';
-import { NodeMovedLayer } from '@app/components/ol/layers/node-moved-layer';
-import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import { NodeMoved } from '@api/common/diff/node';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { NodeMovedLayer } from '@app/components/ol/layers';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { Util } from '@app/components/shared';
 import Map from 'ol/Map';
+import View from 'ol/View';
 
 @Injectable()
 export class NodeMovedMapService extends OpenlayersMapService {

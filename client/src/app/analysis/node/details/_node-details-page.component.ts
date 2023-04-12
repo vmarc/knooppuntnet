@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { NodeDetailsPage } from '@api/common/node/node-details-page';
+import { NodeDetailsPage } from '@api/common/node';
+import { FactInfo } from '@app/analysis/fact';
+import { InterpretedTags } from '@app/components/shared/tags';
+import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
-import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
-import { selectDefined } from '@app/core/core.state';
-import { FactInfo } from '../../fact/fact-info';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
 import { selectNodeNetworkTypes } from '../store/node.selectors';
 import { selectNodeDetailsPage } from '../store/node.selectors';

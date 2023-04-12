@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { LocationChanges } from '@api/common/location-changes';
-import { LocationTreeItem } from '@api/common/location-tree-item';
+import { LocationChanges } from '@api/common';
+import { LocationTreeItem } from '@api/common';
+import { PageService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageService } from '@app/components/shared/page.service';
-import { LocationFlatNode } from '../../location/selection/location-flat-node';
+import { LocationFlatNode } from '../../location/selection';
 
 @Component({
   selector: 'kpn-change-set-location-changes',

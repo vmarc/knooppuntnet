@@ -1,4 +1,4 @@
-import { Bounds } from '@api/common/bounds';
+import { Bounds } from '@api/common';
 
 export interface EditParameters {
   readonly bounds?: Bounds;

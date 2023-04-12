@@ -1,8 +1,8 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { selectSharedHttpError } from '@app/core/shared';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { selectSharedHttpError } from '@app/core/shared/shared.selectors';
 import { actionLocationEditPageDestroy } from '../store/location.actions';
 import { actionLocationEditPageInit } from '../store/location.actions';
 import { selectLocationEditPage } from '../store/location.selectors';

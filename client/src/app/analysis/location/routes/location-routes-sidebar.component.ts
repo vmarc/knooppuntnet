@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { LocationRoutesType } from '@api/custom/location-routes-type';
+import { LocationRoutesType } from '@api/custom';
 import { Store } from '@ngrx/store';
 import { actionLocationRoutesType } from '../store/location.actions';
 import { selectLocationRoutesPage } from '../store/location.selectors';

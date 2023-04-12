@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
-import { ChangeSetElementRefs } from '@api/common/change-set-element-refs';
+import { ChangeSetElementRef } from '@api/common';
+import { ChangeSetElementRefs } from '@api/common';
 import { ChangeSetElement } from './change-set-element-ref.component';
 
 @Component({

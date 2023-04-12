@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Fact } from '@api/custom/fact';
+import { Fact } from '@api/custom';
 
 @Component({
   selector: 'kpn-fact-name',

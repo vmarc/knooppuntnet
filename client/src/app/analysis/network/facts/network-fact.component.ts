@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkFact } from '@api/common/network-fact';
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkFact } from '@api/common';
+import { NetworkType } from '@api/custom';
 
 @Component({
   selector: 'kpn-network-fact',

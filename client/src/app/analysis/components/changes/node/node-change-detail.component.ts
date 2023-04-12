@@ -2,10 +2,10 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { NodeChangeInfo } from '@api/common/node/node-change-info';
-import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
-import { Util } from '@app/components/shared/util';
+import { NodeMoved } from '@api/common/diff/node';
+import { NodeChangeInfo } from '@api/common/node';
+import { Util } from '@app/components/shared';
+import { InterpretedTags } from '@app/components/shared/tags';
 
 @Component({
   selector: 'kpn-node-change-detail',

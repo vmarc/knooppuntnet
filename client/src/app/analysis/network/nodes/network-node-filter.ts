@@ -1,15 +1,15 @@
-import { NetworkNodeRow } from '@api/common/network/network-node-row';
-import { SurveyDateInfo } from '@api/common/survey-date-info';
-import { TimeInfo } from '@api/common/time-info';
+import { SurveyDateInfo } from '@api/common';
+import { TimeInfo } from '@api/common';
+import { NetworkNodeRow } from '@api/common/network';
+import { BooleanFilter } from '@app/kpn/filter';
+import { FilterOptions } from '@app/kpn/filter';
+import { Filters } from '@app/kpn/filter';
+import { SurveyDateFilter } from '@app/kpn/filter';
+import { SurveyDateFilterKind } from '@app/kpn/filter';
+import { TimestampFilter } from '@app/kpn/filter';
+import { TimestampFilterKind } from '@app/kpn/filter';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
-import { BooleanFilter } from '@app/kpn/filter/boolean-filter';
-import { FilterOptions } from '@app/kpn/filter/filter-options';
-import { Filters } from '@app/kpn/filter/filters';
-import { SurveyDateFilter } from '@app/kpn/filter/survey-date-filter';
-import { SurveyDateFilterKind } from '@app/kpn/filter/survey-date-filter-kind';
-import { TimestampFilter } from '@app/kpn/filter/timestamp-filter';
-import { TimestampFilterKind } from '@app/kpn/filter/timestamp-filter-kind';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 
 export class NetworkNodeFilter {

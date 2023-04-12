@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 
 export class RouteAccessibleData {
   constructor(

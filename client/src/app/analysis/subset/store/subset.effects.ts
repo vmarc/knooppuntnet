@@ -1,8 +1,17 @@
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { EditParameters } from '@app/analysis/components/edit';
+import { AppService } from '@app/app.service';
+import { PageParams } from '@app/base';
+import { selectRouteParams } from '@app/core';
+import { selectQueryParams } from '@app/core';
+import { selectPreferencesPageSize } from '@app/core/preferences';
+import { selectPreferencesImpact } from '@app/core/preferences';
+import { actionSharedEdit } from '@app/core/shared';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -12,14 +21,8 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
-import { PageParams } from '@app/base/page-params';
-import { selectRouteParams } from '@app/core/core.state';
-import { selectQueryParams } from '@app/core/core.state';
-import { selectPreferencesPageSize } from '@app/core/preferences/preferences.selectors';
-import { selectPreferencesImpact } from '@app/core/preferences/preferences.selectors';
-import { actionSharedEdit } from '@app/core/shared/shared.actions';
-import { EditParameters } from '../../components/edit/edit-parameters';
+import { SubsetMapNetworkDialogComponent } from '../map/subset-map-network-dialog.component';
+import { SubsetMapService } from '../map/subset-map.service';
 import { actionSubsetFactRefsLoaded } from './subset.actions';
 import { actionSubsetFactRefsLoad } from './subset.actions';
 import { actionSubsetOrphanNodesPageInit } from './subset.actions';
@@ -52,9 +55,6 @@ import { actionSubsetMapViewInit } from './subset.actions';
 import { selectSubsetChangesParameters } from './subset.selectors';
 import { selectSubset } from './subset.selectors';
 import { selectSubsetMapPage } from './subset.selectors';
-import { SubsetMapNetworkDialogComponent } from '@app/analysis/subset/map/subset-map-network-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { SubsetMapService } from '@app/analysis/subset/map/subset-map.service';
 
 @Injectable()
 export class SubsetEffects {

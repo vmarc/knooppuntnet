@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NodeChangeInfo } from '@api/common/node/node-change-info';
-import { ChangeType } from '@api/custom/change-type';
+import { NodeChangeInfo } from '@api/common/node';
+import { ChangeType } from '@api/custom';
 
 @Component({
   selector: 'kpn-node-change',

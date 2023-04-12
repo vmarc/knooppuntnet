@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Subsets } from '@app/kpn/common/subsets';
+import { Subsets } from '@app/kpn/common';
 import { Stat } from '../domain/stat';
 
 @Component({

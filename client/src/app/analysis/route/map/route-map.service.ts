@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { RouteMapInfo } from '@api/common/route/route-map-info';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
-import { MapClickService } from '@app/components/ol/services/map-click.service';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { Util } from '@app/components/shared/util';
+import { RouteMapInfo } from '@api/common/route';
+import { MapPosition } from '@app/components/ol/domain';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { TileDebug256Layer } from '@app/components/ol/layers';
+import { NetworkVectorTileLayer } from '@app/components/ol/layers';
+import { RouteLayers } from '@app/components/ol/layers';
+import { MapClickService } from '@app/components/ol/services';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { NodeMapStyle } from '@app/components/ol/style';
+import { Util } from '@app/components/shared';
+import { I18nService } from '@app/i18n';
 import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
 import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
-import { NetworkVectorTileLayer } from '../../../components/ol/layers/network-vector-tile-layer';
-import { RouteLayers } from '../../../components/ol/layers/route-layers';
-import { NodeMapStyle } from '../../../components/ol/style/node-map-style';
-import { I18nService } from '../../../i18n/i18n.service';
 
 @Injectable()
 export class RouteMapService extends OpenlayersMapService {

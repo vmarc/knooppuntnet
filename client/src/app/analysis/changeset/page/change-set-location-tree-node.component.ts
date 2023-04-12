@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { LocationChangesTreeNode } from '@api/common/location-changes-tree-node';
+import { LocationChangesTreeNode } from '@api/common';
 
 @Component({
   selector: 'kpn-change-set-location-tree-node',

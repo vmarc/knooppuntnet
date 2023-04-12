@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
-import { ChangeSetSubsetElementRefs } from '@api/common/change-set-subset-element-refs';
-import { ChangeSetPage } from '@api/common/changes/change-set-page';
-import { Ref } from '@api/common/common/ref';
-import { RefDiffs } from '@api/common/diff/ref-diffs';
+import { ChangeSetElementRef } from '@api/common';
+import { ChangeSetSubsetElementRefs } from '@api/common';
+import { ChangeSetPage } from '@api/common/changes';
+import { Ref } from '@api/common/common';
+import { RefDiffs } from '@api/common/diff';
 import { List } from 'immutable';
 import { NodeDiffsData } from './node-diffs/node-diffs-data';
 

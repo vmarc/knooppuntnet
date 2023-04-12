@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { LocationFact } from '@api/common/location/location-fact';
-import { Fact } from '@api/custom/fact';
+import { LocationFact } from '@api/common/location';
+import { Fact } from '@api/custom';
+import { FactInfo } from '@app/analysis/fact';
+import { FactLevel } from '@app/analysis/fact';
+import { Facts } from '@app/analysis/fact';
+import { actionSharedEdit } from '@app/core/shared';
 import { Store } from '@ngrx/store';
-import { actionSharedEdit } from '@app/core/shared/shared.actions';
-import { FactInfo } from '../../fact/fact-info';
-import { FactLevel } from '../../fact/fact-level';
-import { Facts } from '../../fact/facts';
 
 @Component({
   selector: 'kpn-location-facts',

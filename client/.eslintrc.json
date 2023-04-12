@@ -59,6 +59,17 @@
         "@ngrx/prefer-inline-action-props": "off",
         "@ngrx/no-store-subscription": "off"
       }
+    },
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "plugin:@softarc/sheriff/default"
+      ],
+      "rules": {
+        "@softarc/sheriff/dependency-rule": "off"
+      }
     }
   ]
 }

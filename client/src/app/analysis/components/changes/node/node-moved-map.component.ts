@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { NodeMovedMapService } from '@app/analysis/components/changes/node/node-moved-map.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { NodeMoved } from '@api/common/diff/node';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
+import { NodeMovedMapService } from './node-moved-map.service';
 
 @Component({
   selector: 'kpn-node-moved-map',

@@ -1,16 +1,10 @@
-import { ChangesPage } from '@api/common/changes-page';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { ApiResponse } from '@api/custom/api-response';
+import { ChangesPage } from '@api/common';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { ApiResponse } from '@api/custom';
+import { AnalysisStrategy } from '@app/core/preferences';
+import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
-
-export interface ChangeOption {
-  year: number;
-  month: number;
-  day: number;
-  impact: boolean;
-}
 
 export const actionChangesPageInit = createAction('[ChangesPage] Init');
 

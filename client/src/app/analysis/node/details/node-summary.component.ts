@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NodeInfo } from '@api/common/node-info';
+import { NodeInfo } from '@api/common';
 
 @Component({
   selector: 'kpn-node-summary',

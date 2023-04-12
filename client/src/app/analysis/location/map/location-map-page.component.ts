@@ -7,7 +7,7 @@ import { actionLocationMapPageDestroy } from '../store/location.actions';
 import { actionLocationMapPageInit } from '../store/location.actions';
 import { selectLocationMapPage } from '../store/location.selectors';
 import { selectLocationNetworkType } from '../store/location.selectors';
-import { LocationMapService } from '@app/analysis/location/map/location-map.service';
+import { LocationMapService } from './location-map.service';
 
 @Component({
   selector: 'kpn-location-map-page',

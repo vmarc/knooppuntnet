@@ -1,10 +1,10 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { LocationNodeInfo } from '@api/common/location/location-node-info';
-import { NetworkScope } from '@api/custom/network-scope';
-import { NetworkType } from '@api/custom/network-type';
-import { IntegrityIndicatorData } from '@app/components/shared/indicator/integrity-indicator-data';
+import { LocationNodeInfo } from '@api/common/location';
+import { NetworkScope } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { IntegrityIndicatorData } from '@app/components/shared/indicator';
 
 @Component({
   selector: 'kpn-location-node-analysis',

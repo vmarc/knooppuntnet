@@ -1,16 +1,16 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { NetworkChangesPage } from '@api/common/network/network-changes-page';
-import { NetworkDetailsPage } from '@api/common/network/network-details-page';
-import { NetworkFactsPage } from '@api/common/network/network-facts-page';
-import { NetworkMapPage } from '@api/common/network/network-map-page';
-import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
-import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { NetworkType } from '@api/custom/network-type';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { NetworkChangesPage } from '@api/common/network';
+import { NetworkDetailsPage } from '@api/common/network';
+import { NetworkFactsPage } from '@api/common/network';
+import { NetworkMapPage } from '@api/common/network';
+import { NetworkNodesPage } from '@api/common/network';
+import { NetworkRoutesPage } from '@api/common/network';
+import { ApiResponse } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { NetworkMapPosition } from '@app/components/ol/domain';
+import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { NetworkMapPosition } from '@app/components/ol/domain/network-map-position';
-import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionNetworkLink = createAction(
   '[Network] Link',

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
+import { RouteDetailsPageData } from '@api/common/route';
 
 @Component({
   selector: 'kpn-route-summary',

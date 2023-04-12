@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ChangeSetNetwork } from '@api/common/change-set-network';
-import { ChangeKey } from '@api/common/changes/details/change-key';
+import { ChangeSetNetwork } from '@api/common';
+import { ChangeKey } from '@api/common/changes/details';
 
 export class ChangeSetNetworkAction {
   constructor(

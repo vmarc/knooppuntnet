@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { LocationNode } from '@api/common/location/location-node';
-import { Country } from '@api/custom/country';
-import { NetworkType } from '@api/custom/network-type';
+import { LocationNode } from '@api/common/location';
+import { Country } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { AppService } from '@app/app.service';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
 
 @Injectable()
 export class LocationSelectionService {

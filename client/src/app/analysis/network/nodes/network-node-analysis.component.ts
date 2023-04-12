@@ -1,10 +1,10 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkNodeRow } from '@api/common/network/network-node-row';
-import { NetworkScope } from '@api/custom/network-scope';
-import { NetworkType } from '@api/custom/network-type';
-import { IntegrityIndicatorData } from '@app/components/shared/indicator/integrity-indicator-data';
+import { NetworkNodeRow } from '@api/common/network';
+import { NetworkScope } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { IntegrityIndicatorData } from '@app/components/shared/indicator';
 
 @Component({
   selector: 'kpn-network-node-analysis',

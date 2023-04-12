@@ -5,8 +5,8 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeSetPage } from '@api/common/changes/change-set-page';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { ChangeSetPage } from '@api/common/changes';
+import { Subscriptions } from '@app/util';
 
 @Component({
   selector: 'kpn-change-set-network-changes',

@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import { NetworkMapPage } from '@api/common/network/network-map-page';
-import { NetworkMapPosition } from '@app/components/ol/domain/network-map-position';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { NetworkNodesBitmapTileLayer } from '@app/components/ol/layers/network-nodes-bitmap-tile-layer';
-import { NetworkNodesMarkerLayer } from '@app/components/ol/layers/network-nodes-marker-layer';
-import { NetworkNodesVectorTileLayer } from '@app/components/ol/layers/network-nodes-vector-tile-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { TileDebug256Layer } from '@app/components/ol/layers/tile-debug-256-layer';
-import { MapClickService } from '@app/components/ol/services/map-click.service';
-import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
+import { NetworkMapPage } from '@api/common/network';
+import { NetworkMapPosition } from '@app/components/ol/domain';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { NetworkNodesBitmapTileLayer } from '@app/components/ol/layers';
+import { NetworkNodesMarkerLayer } from '@app/components/ol/layers';
+import { NetworkNodesVectorTileLayer } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { TileDebug256Layer } from '@app/components/ol/layers';
+import { MapClickService } from '@app/components/ol/services';
+import { MapZoomService } from '@app/components/ol/services';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { Util } from '@app/components/shared';
+import { BrowserStorageService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { Util } from '../../../components/shared/util';
-import { BrowserStorageService } from '../../../services/browser-storage.service';
 
 @Injectable()
 export class NetworkMapService extends OpenlayersMapService {

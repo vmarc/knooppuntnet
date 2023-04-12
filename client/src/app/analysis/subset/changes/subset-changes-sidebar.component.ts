@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { ChangeOption } from '../../changes/store/changes.actions';
 import { actionSubsetChangesFilterOption } from '../store/subset.actions';
 import { selectSubsetChangesFilterOptions } from '../store/subset.selectors';
 

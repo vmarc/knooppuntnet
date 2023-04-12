@@ -7,11 +7,11 @@ import { Output } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { UntypedFormControl } from '@angular/forms';
 import { UntypedFormGroup } from '@angular/forms';
-import { LocationNode } from '@api/common/location/location-node';
-import { Country } from '@api/custom/country';
+import { LocationNode } from '@api/common/location';
+import { Country } from '@api/custom';
+import { Util } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Util } from '@app/components/shared/util';
 import { LocationOption } from './location-option';
 
 @Component({

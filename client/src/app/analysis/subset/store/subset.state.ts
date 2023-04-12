@@ -1,14 +1,14 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
-import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
-import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
-import { SubsetInfo } from '@api/common/subset/subset-info';
-import { SubsetMapPage } from '@api/common/subset/subset-map-page';
-import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
-import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-page';
-import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Subset } from '@api/custom/subset';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { SubsetChangesPage } from '@api/common/subset';
+import { SubsetFactDetailsPage } from '@api/common/subset';
+import { SubsetFactsPage } from '@api/common/subset';
+import { SubsetInfo } from '@api/common/subset';
+import { SubsetMapPage } from '@api/common/subset';
+import { SubsetNetworksPage } from '@api/common/subset';
+import { SubsetOrphanNodesPage } from '@api/common/subset';
+import { SubsetOrphanRoutesPage } from '@api/common/subset';
+import { ApiResponse } from '@api/custom';
+import { Subset } from '@api/custom';
 
 export class SubsetFact {
   constructor(readonly subset: Subset, readonly factName: string) {}

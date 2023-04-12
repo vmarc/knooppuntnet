@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AnalysisComponentsModule } from '@app/analysis/components';
+import { FactModule } from '@app/analysis/fact';
+import { OlModule } from '@app/components/ol';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '@app/components/ol/ol.module';
-import { SharedModule } from '@app/components/shared/shared.module';
-import { AnalysisComponentsModule } from '../components/analysis-components.module';
-import { FactModule } from '../fact/fact.module';
 import { NodeChangesPageComponent } from './changes/_node-changes-page.component';
 import { NodeChangeComponent } from './changes/node-change.component';
 import { NodeChangesSidebarComponent } from './changes/node-changes-sidebar.component';
@@ -22,12 +22,12 @@ import { NodeNetworkReferencesComponent } from './details/node-network-reference
 import { NodeRouteReferencesComponent } from './details/node-route-references.component';
 import { NodeSummaryComponent } from './details/node-summary.component';
 import { NodeMapPageComponent } from './map/_node-map-page.component';
+import { NodeMapComponent } from './map/node-map.component';
+import { NodeMapService } from './map/node-map.service';
 import { NodeRoutingModule } from './node-routing.module';
 import { NodeEffects } from './store/node.effects';
 import { nodeReducer } from './store/node.reducer';
 import { nodeFeatureKey } from './store/node.state';
-import { NodeMapService } from '@app/analysis/node/map/node-map.service';
-import { NodeMapComponent } from '@app/analysis/node/map/node-map.component';
 
 @NgModule({
   imports: [

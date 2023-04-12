@@ -2,13 +2,13 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { LocationEditPage } from '@api/common/location/location-edit-page';
+import { LocationEditPage } from '@api/common/location';
+import { EditConfiguration } from '@app/analysis/components/edit';
+import { EditParameters } from '@app/analysis/components/edit';
+import { actionSharedEdit } from '@app/core/shared';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
-import { actionSharedEdit } from '@app/core/shared/shared.actions';
-import { EditConfiguration } from '../../components/edit/edit-configuration';
-import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
   selector: 'kpn-location-edit',

@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Ref } from '@api/common/common/ref';
+import { Ref } from '@api/common/common';
 import { NodeDiffsData } from './node-diffs-data';
 
 @Component({

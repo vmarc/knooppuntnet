@@ -1,5 +1,5 @@
-import { Ref } from '@api/common/common/ref';
-import { RouteChangeInfo } from '@api/common/route/route-change-info';
+import { Ref } from '@api/common/common';
+import { RouteChangeInfo } from '@api/common/route';
 
 export class RefRouteChangeInfo {
   constructor(public ref: Ref, public routeChangeInfo: RouteChangeInfo) {}

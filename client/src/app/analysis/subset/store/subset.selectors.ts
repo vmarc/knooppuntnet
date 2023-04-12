@@ -1,5 +1,5 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { SubsetInfo } from '@api/common/subset/subset-info';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { SubsetInfo } from '@api/common/subset';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { subsetFeatureKey } from './subset.state';

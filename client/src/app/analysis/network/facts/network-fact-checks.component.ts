@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Check } from '@api/common/check';
+import { Check } from '@api/common';
 
 @Component({
   selector: 'kpn-network-fact-checks',

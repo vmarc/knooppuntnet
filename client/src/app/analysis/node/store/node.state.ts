@@ -1,9 +1,9 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { NodeChangesPage } from '@api/common/node/node-changes-page';
-import { NodeDetailsPage } from '@api/common/node/node-details-page';
-import { NodeMapPage } from '@api/common/node/node-map-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { MapPosition } from '@app/components/ol/domain/map-position';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { NodeChangesPage } from '@api/common/node';
+import { NodeDetailsPage } from '@api/common/node';
+import { NodeMapPage } from '@api/common/node';
+import { ApiResponse } from '@api/custom';
+import { MapPosition } from '@app/components/ol/domain';
 
 export const initialState: NodeState = {
   nodeId: '',

@@ -1,18 +1,18 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { SubsetChangesPage } from '@api/common/subset/subset-changes-page';
-import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
-import { SubsetFactRefs } from '@api/common/subset/subset-fact-refs';
-import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
-import { SubsetMapPage } from '@api/common/subset/subset-map-page';
-import { SubsetNetworksPage } from '@api/common/subset/subset-networks-page';
-import { SubsetOrphanNodesPage } from '@api/common/subset/subset-orphan-nodes-page';
-import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Fact } from '@api/custom/fact';
-import { Subset } from '@api/custom/subset';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { SubsetChangesPage } from '@api/common/subset';
+import { SubsetFactDetailsPage } from '@api/common/subset';
+import { SubsetFactRefs } from '@api/common/subset';
+import { SubsetFactsPage } from '@api/common/subset';
+import { SubsetMapPage } from '@api/common/subset';
+import { SubsetNetworksPage } from '@api/common/subset';
+import { SubsetOrphanNodesPage } from '@api/common/subset';
+import { SubsetOrphanRoutesPage } from '@api/common/subset';
+import { ApiResponse } from '@api/custom';
+import { Fact } from '@api/custom';
+import { Subset } from '@api/custom';
+import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { ChangeOption } from '../../changes/store/changes.actions';
 import { SubsetFact } from './subset.state';
 
 export const actionSubsetNetworksPageInit = createAction(

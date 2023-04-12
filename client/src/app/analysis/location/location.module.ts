@@ -15,14 +15,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTreeModule } from '@angular/material/tree';
+import { AnalysisComponentsModule } from '@app/analysis/components';
+import { FactModule } from '@app/analysis/fact';
+import { AnalysisStrategyModule } from '@app/analysis/strategy';
+import { OlModule } from '@app/components/ol';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '@app/components/ol/ol.module';
-import { SharedModule } from '@app/components/shared/shared.module';
-import { AnalysisComponentsModule } from '../components/analysis-components.module';
-import { FactModule } from '../fact/fact.module';
-import { AnalysisStrategyModule } from '../strategy/strategy.module';
 import { LocationChangesPageComponent } from './changes/location-changes-page.component';
 import { LocationChangesComponent } from './changes/location-changes.component';
 import { LocationPageBreadcrumbComponent } from './components/location-page-breadcrumb.component';
@@ -36,6 +36,8 @@ import { LocationRoutingModule } from './location-routing.module';
 import { LocationSidebarComponent } from './location-sidebar.component';
 import { LocationService } from './location.service';
 import { LocationMapPageComponent } from './map/location-map-page.component';
+import { LocationMapComponent } from './map/location-map.component';
+import { LocationMapService } from './map/location-map.service';
 import { LocationNodeAnalysisComponent } from './nodes/location-node-analysis.component';
 import { LocationNodeFactIndicatorDialogComponent } from './nodes/location-node-fact-indicator-dialog.component';
 import { LocationNodeFactIndicatorComponent } from './nodes/location-node-fact-indicator.component';
@@ -59,8 +61,6 @@ import { LocationTreeComponent } from './selection/location-tree.component';
 import { LocationEffects } from './store/location.effects';
 import { locationReducer } from './store/location.reducer';
 import { locationFeatureKey } from './store/location.state';
-import { LocationMapService } from '@app/analysis/location/map/location-map.service';
-import { LocationMapComponent } from '@app/analysis/location/map/location-map.component';
 
 @NgModule({
   imports: [

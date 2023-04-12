@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Tag } from '@api/custom/tag';
-import { Tags } from '@api/custom/tags';
+import { Tag } from '@api/custom';
+import { Tags } from '@api/custom';
 
 @Component({
   selector: 'kpn-change-set-tags',

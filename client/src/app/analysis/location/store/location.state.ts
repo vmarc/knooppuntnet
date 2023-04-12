@@ -1,14 +1,14 @@
-import { LocationChangesPage } from '@api/common/location/location-changes-page';
-import { LocationEditPage } from '@api/common/location/location-edit-page';
-import { LocationFactsPage } from '@api/common/location/location-facts-page';
-import { LocationMapPage } from '@api/common/location/location-map-page';
-import { LocationNodesPage } from '@api/common/location/location-nodes-page';
-import { LocationRoutesPage } from '@api/common/location/location-routes-page';
-import { LocationSummary } from '@api/common/location/location-summary';
-import { ApiResponse } from '@api/custom/api-response';
-import { LocationKey } from '@api/custom/location-key';
-import { LocationNodesType } from '@api/custom/location-nodes-type';
-import { LocationRoutesType } from '@api/custom/location-routes-type';
+import { LocationChangesPage } from '@api/common/location';
+import { LocationEditPage } from '@api/common/location';
+import { LocationFactsPage } from '@api/common/location';
+import { LocationMapPage } from '@api/common/location';
+import { LocationNodesPage } from '@api/common/location';
+import { LocationRoutesPage } from '@api/common/location';
+import { LocationSummary } from '@api/common/location';
+import { ApiResponse } from '@api/custom';
+import { LocationKey } from '@api/custom';
+import { LocationNodesType } from '@api/custom';
+import { LocationRoutesType } from '@api/custom';
 
 export const initialState: LocationState = {
   locationKey: null,

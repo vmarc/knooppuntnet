@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { Location } from '@api/common/location/location';
-import { LocationCandidate } from '@api/common/location/location-candidate';
-import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
-import { NetworkType } from '@api/custom/network-type';
-import { Util } from '@app/components/shared/util';
-import { I18nService } from '@app/i18n/i18n.service';
+import { RouteLocationAnalysis } from '@api/common';
+import { Location } from '@api/common/location';
+import { LocationCandidate } from '@api/common/location';
+import { NetworkType } from '@api/custom';
+import { Util } from '@app/components/shared';
+import { I18nService } from '@app/i18n';
 
 @Component({
   selector: 'kpn-route-location',

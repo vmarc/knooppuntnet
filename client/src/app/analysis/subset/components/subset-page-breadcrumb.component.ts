@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Subset } from '@api/custom/subset';
+import { Subset } from '@api/custom';
 
 @Component({
   selector: 'kpn-subset-page-breadcrumb',

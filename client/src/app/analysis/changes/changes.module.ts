@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { SharedModule } from '@app/components/shared/shared.module';
-import { AnalysisComponentsModule } from '../components/analysis-components.module';
-import { ChangesService } from '../components/changes/filter/changes.service';
-import { ChangesRoutingModule } from './changes-routing.module';
+import { ChangesRoutingModule } from '.';
+import { AnalysisComponentsModule } from '../components';
+import { ChangesService } from '../components/changes/filter';
 import { ChangesPageComponent } from './page/_changes-page.component';
 import { ChangesEffects } from './store/changes.effects';
 import { changesReducer } from './store/changes.reducer';

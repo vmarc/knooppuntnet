@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { ChangeOption } from '../../changes/store/changes.actions';
 import { actionNetworkChangesFilterOption } from '../store/network.actions';
 import { selectNetworkChangesFilterOptions } from '../store/network.selectors';
 

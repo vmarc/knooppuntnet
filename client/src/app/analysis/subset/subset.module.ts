@@ -7,14 +7,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { AnalysisComponentsModule } from '@app/analysis/components';
+import { FactModule } from '@app/analysis/fact';
+import { AnalysisStrategyModule } from '@app/analysis/strategy';
+import { OlModule } from '@app/components/ol';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '@app/components/ol/ol.module';
-import { SharedModule } from '@app/components/shared/shared.module';
-import { AnalysisComponentsModule } from '../components/analysis-components.module';
-import { FactModule } from '../fact/fact.module';
-import { AnalysisStrategyModule } from '../strategy/strategy.module';
 import { SubsetChangesPageComponent } from './changes/_subset-changes-page.component';
 import { SubsetChangesSidebarComponent } from './changes/subset-changes-sidebar.component';
 import { SubsetPageBreadcrumbComponent } from './components/subset-page-breadcrumb.component';
@@ -25,6 +25,8 @@ import { SubsetFactDetailsComponent } from './fact-details/subset-fact-details.c
 import { SubsetFactsPageComponent } from './facts/_subset-facts-page.component';
 import { SubsetMapPageComponent } from './map/_subset-map-page.component';
 import { SubsetMapNetworkDialogComponent } from './map/subset-map-network-dialog.component';
+import { SubsetMapComponent } from './map/subset-map.component';
+import { SubsetMapService } from './map/subset-map.service';
 import { SubsetNetworksPageComponent } from './networks/_subset-networks-page.component';
 import { SubsetNetworkHappyComponent } from './networks/subset-network-happy.component';
 import { SubsetNetworkListComponent } from './networks/subset-network-list.component';
@@ -44,8 +46,6 @@ import { subsetReducer } from './store/subset.reducer';
 import { subsetFeatureKey } from './store/subset.state';
 import { SubsetRoutingModule } from './subset-routing.module';
 import { SubsetSidebarComponent } from './subset-sidebar.component';
-import { SubsetMapService } from '@app/analysis/subset/map/subset-map.service';
-import { SubsetMapComponent } from '@app/analysis/subset/map/subset-map.component';
 
 @NgModule({
   imports: [

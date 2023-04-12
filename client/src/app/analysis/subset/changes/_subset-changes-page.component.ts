@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { selectUserLoggedIn } from '@app/core/user/user.selectors';
+import { selectUserLoggedIn } from '@app/core/user';
 import { Store } from '@ngrx/store';
 import { actionSubsetChangesPageSize } from '../store/subset.actions';
 import { actionSubsetChangesPageImpact } from '../store/subset.actions';

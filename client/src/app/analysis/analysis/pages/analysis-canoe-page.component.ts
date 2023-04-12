@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisStrategyService } from '../../strategy/analysis-strategy.service';
+import { AnalysisStrategyService } from '../../strategy';
 
 @Component({
   selector: 'kpn-analysis-canoe-page',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { FilterOptions } from '@app/kpn/filter';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-import { FilterOptions } from '@app/kpn/filter/filter-options';
 
 @Injectable({
   providedIn: 'root',

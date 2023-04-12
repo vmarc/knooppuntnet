@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { NetworkMapPage } from '@api/common/network/network-map-page';
-import { Util } from '@app/components/shared/util';
-import { NetworkMapPosition } from '@app/components/ol/domain/network-map-position';
-import { actionNetworkMapViewInit } from '@app/analysis/network/store/network.actions';
+import { NetworkMapPage } from '@api/common/network';
+import { NetworkMapPosition } from '@app/components/ol/domain';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
+import { Util } from '@app/components/shared';
 import { Store } from '@ngrx/store';
-import { NetworkMapService } from '@app/analysis/network/map/network-map.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { actionNetworkMapViewInit } from '../store/network.actions';
+import { NetworkMapService } from './network-map.service';
 
 @Component({
   selector: 'kpn-network-map',

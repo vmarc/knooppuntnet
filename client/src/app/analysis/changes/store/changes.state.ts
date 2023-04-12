@@ -1,6 +1,6 @@
-import { ChangesPage } from '@api/common/changes-page';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { ApiResponse } from '@api/custom/api-response';
+import { ChangesPage } from '@api/common';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { ApiResponse } from '@api/custom';
 
 export const initialState: ChangesState = {
   changesParameters: null,

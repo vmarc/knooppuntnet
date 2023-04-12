@@ -3,13 +3,13 @@ import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { Bounds } from '@api/common/bounds';
-import { NetworkType } from '@api/custom/network-type';
-import { MapService } from '@app/components/ol/services/map.service';
+import { Bounds } from '@api/common';
+import { NetworkType } from '@api/custom';
+import { MapService } from '@app/components/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
-import { actionLocationMapViewInit } from '@app/analysis/location/store/location.actions';
-import { LocationMapService } from '@app/analysis/location/map/location-map.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { actionLocationMapViewInit } from '../store/location.actions';
+import { LocationMapService } from './location-map.service';
 
 @Component({
   selector: 'kpn-location-map',

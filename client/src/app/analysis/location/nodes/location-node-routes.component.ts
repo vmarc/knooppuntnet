@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { LocationNodeInfo } from '@api/common/location/location-node-info';
+import { LocationNodeInfo } from '@api/common/location';
 
 @Component({
   selector: 'kpn-location-node-routes',

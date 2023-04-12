@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { MetaData } from '@api/common/data/meta-data';
+import { MetaData } from '@api/common/data';
 
 @Component({
   selector: 'kpn-version-change',

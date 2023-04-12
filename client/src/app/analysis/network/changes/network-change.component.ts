@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
-import { ChangeType } from '@api/custom/change-type';
+import { NetworkChangeInfo } from '@api/common/changes/details';
+import { ChangeType } from '@api/custom';
 
 @Component({
   selector: 'kpn-network-change',

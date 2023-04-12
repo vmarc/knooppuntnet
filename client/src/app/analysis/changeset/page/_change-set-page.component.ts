@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ChangeSetPage } from '@api/common/changes/change-set-page';
-import { ApiResponse } from '@api/custom/api-response';
+import { ChangeSetPage } from '@api/common/changes';
+import { ApiResponse } from '@api/custom';
+import { AppService } from '@app/app.service';
+import { Util } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map, mergeMap } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
-import { Util } from '@app/components/shared/util';
 
 class ChangeSetKey {
   constructor(

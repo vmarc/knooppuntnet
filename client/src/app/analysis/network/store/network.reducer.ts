@@ -1,10 +1,10 @@
-import { NetworkChangesPage } from '@api/common/network/network-changes-page';
-import { NetworkSummary } from '@api/common/network/network-summary';
-import { ApiResponse } from '@api/custom/api-response';
+import { NetworkChangesPage } from '@api/common/network';
+import { NetworkSummary } from '@api/common/network';
+import { ApiResponse } from '@api/custom';
+import { RoutingUtil } from '@app/base';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
-import { RoutingUtil } from '@app/base/routing-util';
 import { actionNetworkMapPageLoad } from './network.actions';
 import { actionNetworkRoutesPageLoad } from './network.actions';
 import { actionNetworkNodesPageLoad } from './network.actions';

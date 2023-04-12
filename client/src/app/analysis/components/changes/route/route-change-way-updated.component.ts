@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { RawNode } from '@api/common/data/raw/raw-node';
-import { NodeUpdate } from '@api/common/diff/node-update';
-import { WayUpdate } from '@api/common/diff/way-update';
-import { Util } from '@app/components/shared/util';
+import { RawNode } from '@api/common/data/raw';
+import { NodeUpdate } from '@api/common/diff';
+import { WayUpdate } from '@api/common/diff';
+import { Util } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-route-change-way-updated',

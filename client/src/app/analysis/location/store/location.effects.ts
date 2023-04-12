@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
-import { LocationChangesParameters } from '@api/common/location/location-changes-parameters';
-import { LocationNodesParameters } from '@api/common/location/location-nodes-parameters';
-import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
+import { LocationChangesParameters } from '@api/common/location';
+import { LocationNodesParameters } from '@api/common/location';
+import { LocationRoutesParameters } from '@api/common/location';
+import { AppService } from '@app/app.service';
+import { MapService } from '@app/components/ol/services';
+import { selectRouteParam } from '@app/core';
+import { selectPreferencesPageSize } from '@app/core/preferences';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -12,9 +16,7 @@ import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
-import { selectRouteParam } from '@app/core/core.state';
-import { selectPreferencesPageSize } from '@app/core/preferences/preferences.selectors';
+import { LocationMapService } from '../map/location-map.service';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationSelectionPageStrategy } from './location.actions';
@@ -42,8 +44,6 @@ import { selectLocationNodesPageIndex } from './location.selectors';
 import { selectLocationNodesType } from './location.selectors';
 import { selectLocationKey } from './location.selectors';
 import { selectLocationMapPage } from './location.selectors';
-import { LocationMapService } from '@app/analysis/location/map/location-map.service';
-import { MapService } from '@app/components/ol/services/map.service';
 
 @Injectable()
 export class LocationEffects {

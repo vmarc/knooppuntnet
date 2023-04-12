@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkAttributes } from '@api/common/network/network-attributes';
+import { NetworkAttributes } from '@api/common/network';
 
 @Component({
   selector: 'kpn-subset-network-list',

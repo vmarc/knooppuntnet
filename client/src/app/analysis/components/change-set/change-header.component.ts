@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { ChangeKey } from '@api/common/changes/details';
+import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '@app/components/shared/page-width.service';
-import { ChangeKey } from '@api/common/changes/details/change-key';
 
 @Component({
   selector: 'kpn-change-header',

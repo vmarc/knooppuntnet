@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { NetworkDetailsPage } from '@api/common/network/network-details-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
+import { NetworkDetailsPage } from '@api/common/network';
+import { ApiResponse } from '@api/custom';
+import { InterpretedTags } from '@app/components/shared/tags';
 
 @Component({
   selector: 'kpn-network-details',

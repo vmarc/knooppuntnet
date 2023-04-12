@@ -7,15 +7,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { ProposedIndicatorDialogComponent } from '@app/analysis/network/nodes/indicators/proposed-indicator-dialog.component';
-import { ProposedIndicatorComponent } from '@app/analysis/network/nodes/indicators/proposed-indicator.component';
+import { AnalysisComponentsModule } from '@app/analysis/components';
+import { FactModule } from '@app/analysis/fact';
+import { OlModule } from '@app/components/ol';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { OlModule } from '@app/components/ol/ol.module';
-import { SharedModule } from '@app/components/shared/shared.module';
-import { AnalysisComponentsModule } from '../components/analysis-components.module';
-import { FactModule } from '../fact/fact.module';
 import { NetworkChangesPageComponent } from './changes/_network-changes-page.component';
 import { NetworkChangeSetComponent } from './changes/network-change-set.component';
 import { NetworkChangeComponent } from './changes/network-change.component';
@@ -34,8 +32,11 @@ import { NetworkFactRoutesComponent } from './facts/network-fact-routes.componen
 import { NetworkFactWayIdsComponent } from './facts/network-fact-way-ids.component';
 import { NetworkFactComponent } from './facts/network-fact.component';
 import { NetworkMapPageComponent } from './map/_network-map-page.component';
+import { NetworkControlComponent } from './map/network-control.component';
 import { NetworkMapLegendIconComponent } from './map/network-map-legend-icon.component';
 import { NetworkMapSidebarComponent } from './map/network-map-sidebar.component';
+import { NetworkMapComponent } from './map/network-map.component';
+import { NetworkMapService } from './map/network-map.service';
 import { NetworkRoutingModule } from './network-routing.module';
 import { NetworkNodesPageComponent } from './nodes/_network-nodes-page.component';
 import { NetworkIndicatorDialogComponent } from './nodes/indicators/network-indicator-dialog.component';
@@ -43,6 +44,8 @@ import { NetworkIndicatorComponent } from './nodes/indicators/network-indicator.
 import { NodeConnectionIndicatorDialogComponent } from './nodes/indicators/node-connection-indicator-dialog.component';
 import { NodeConnectionIndicatorComponent } from './nodes/indicators/node-connection-indicator.component';
 import { NodeRouteIndicatorDialogComponent } from './nodes/indicators/node-route-indicator-dialog.component';
+import { ProposedIndicatorDialogComponent } from './nodes/indicators/proposed-indicator-dialog.component';
+import { ProposedIndicatorComponent } from './nodes/indicators/proposed-indicator.component';
 import { RoleConnectionIndicatorDialogComponent } from './nodes/indicators/role-connection-indicator-dialog.component';
 import { RoleConnectionIndicatorComponent } from './nodes/indicators/role-connection-indicator.component';
 import { NetworkNodeAnalysisComponent } from './nodes/network-node-analysis.component';
@@ -56,9 +59,6 @@ import { NetworkRoutesSidebarComponent } from './routes/network-routes-sidebar.c
 import { NetworkEffects } from './store/network.effects';
 import { networkReducer } from './store/network.reducer';
 import { networkFeatureKey } from './store/network.state';
-import { NetworkMapComponent } from '@app/analysis/network/map/network-map.component';
-import { NetworkControlComponent } from '@app/analysis/network/map/network-control.component';
-import { NetworkMapService } from '@app/analysis/network/map/network-map.service';
 
 @NgModule({
   imports: [

@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AnalysisStrategy } from '@app/core/preferences';
+import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
 import { actionChangesAnalysisStrategy } from '../../../changes/store/changes.actions';
 import { actionChangesFilterOption } from '../../../changes/store/changes.actions';
-import { ChangeOption } from '../../../changes/store/changes.actions';
 import { selectChangesFilterOptions } from '../../../changes/store/changes.selectors';
 
 @Component({

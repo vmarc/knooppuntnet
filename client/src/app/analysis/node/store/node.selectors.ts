@@ -1,9 +1,9 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { NodeDetailsPage } from '@api/common/node/node-details-page';
-import { ApiResponse } from '@api/custom/api-response';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { NodeDetailsPage } from '@api/common/node';
+import { ApiResponse } from '@api/custom';
+import { NetworkTypes } from '@app/kpn/common';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
-import { NetworkTypes } from '@app/kpn/common/network-types';
 import { nodeFeatureKey } from './node.state';
 import { NodeState } from './node.state';
 

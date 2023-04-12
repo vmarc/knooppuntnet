@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
+import { ChangeSetElementRef } from '@api/common';
 
 export class ChangeSetElement {
   constructor(

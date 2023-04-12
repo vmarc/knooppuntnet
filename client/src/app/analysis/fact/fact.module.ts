@@ -9,8 +9,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '@app/components/shared';
 import { MarkdownModule } from 'ngx-markdown';
-import { SharedModule } from '@app/components/shared/shared.module';
 import { FactAddedComponent } from './descriptions/fact-added.component';
 import { FactDeletedComponent } from './descriptions/fact-deleted.component';
 import { FactIntegrityCheckFailedComponent } from './descriptions/fact-integrity-check-failed.component';
@@ -33,6 +33,7 @@ import { FactOrphanRouteComponent } from './descriptions/fact-orphan-route.compo
 import { FactRouteAnalysisFailedComponent } from './descriptions/fact-route-analysis-failed.component';
 import { FactRouteBrokenComponent } from './descriptions/fact-route-broken.component';
 import { FactRouteFixmetodoComponent } from './descriptions/fact-route-fixmetodo.component';
+import { FactRouteInaccessibleComponent } from './descriptions/fact-route-inaccessible.component';
 import { FactRouteIncompleteOkComponent } from './descriptions/fact-route-incomplete-ok.component';
 import { FactRouteIncompleteComponent } from './descriptions/fact-route-incomplete.component';
 import { FactRouteInvalidSurveyDateComponent } from './descriptions/fact-route-invalid-survey-date.component';
@@ -49,7 +50,6 @@ import { FactRouteRedundantNodesComponent } from './descriptions/fact-route-redu
 import { FactRouteSuspiciousWaysComponent } from './descriptions/fact-route-suspicious-ways.component';
 import { FactRouteTagInvalidComponent } from './descriptions/fact-route-tag-invalid.component';
 import { FactRouteTagMissingComponent } from './descriptions/fact-route-tag-missing.component';
-import { FactRouteInaccessibleComponent } from './descriptions/fact-route-inaccessible.component';
 import { FactRouteUnexpectedNodeComponent } from './descriptions/fact-route-unexpected-node.component';
 import { FactRouteUnexpectedRelationComponent } from './descriptions/fact-route-unexpected-relation.component';
 import { FactRouteUnusedSegmentsComponent } from './descriptions/fact-route-unused-segments.component';

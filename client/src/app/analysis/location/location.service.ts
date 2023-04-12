@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
+import { LocationSummary } from '@api/common/location';
+import { LocationKey } from '@api/custom';
+import { NetworkType } from '@api/custom';
 import { Map } from 'immutable';
 import { ReplaySubject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-import { LocationSummary } from '@api/common/location/location-summary';
-import { LocationKey } from '@api/custom/location-key';
-import { NetworkType } from '@api/custom/network-type';
 import { LocationParams } from './components/location-params';
 
 @Injectable()

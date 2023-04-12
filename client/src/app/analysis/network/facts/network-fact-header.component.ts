@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkFact } from '@api/common/network-fact';
+import { NetworkFact } from '@api/common';
+import { EditParameters } from '@app/analysis/components/edit';
+import { FactInfo } from '@app/analysis/fact';
+import { FactLevel } from '@app/analysis/fact';
+import { Facts } from '@app/analysis/fact';
+import { actionSharedEdit } from '@app/core/shared';
 import { Store } from '@ngrx/store';
-import { actionSharedEdit } from '@app/core/shared/shared.actions';
-import { EditParameters } from '../../components/edit/edit-parameters';
-import { FactInfo } from '../../fact/fact-info';
-import { FactLevel } from '../../fact/fact-level';
-import { Facts } from '../../fact/facts';
 
 @Component({
   selector: 'kpn-network-fact-header',

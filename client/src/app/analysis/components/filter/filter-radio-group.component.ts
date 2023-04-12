@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { I18nService } from '@app/i18n/i18n.service';
-import { FilterOption } from '@app/kpn/filter/filter-option';
-import { FilterOptionGroup } from '@app/kpn/filter/filter-option-group';
+import { I18nService } from '@app/i18n';
+import { FilterOption } from '@app/kpn/filter';
+import { FilterOptionGroup } from '@app/kpn/filter';
 
 @Component({
   selector: 'kpn-filter-radio-group',

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Subset } from '@api/custom/subset';
+import { Subset } from '@api/custom';
 import { Stat } from '../domain/stat';
 
 @Component({

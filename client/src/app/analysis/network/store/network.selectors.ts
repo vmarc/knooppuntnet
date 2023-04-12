@@ -1,4 +1,4 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { ChangesParameters } from '@api/common/changes/filter';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { networkFeatureKey } from './network.state';

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkNodeRow } from '@api/common/network/network-node-row';
+import { NetworkNodeRow } from '@api/common/network';
 import { NodeConnectionIndicatorDialogComponent } from './node-connection-indicator-dialog.component';
 
 @Component({

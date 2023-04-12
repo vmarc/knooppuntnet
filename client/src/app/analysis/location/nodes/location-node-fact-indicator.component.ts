@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LocationNodeInfo } from '@api/common/location/location-node-info';
+import { LocationNodeInfo } from '@api/common/location';
 import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-indicator-dialog.component';
 
 @Component({

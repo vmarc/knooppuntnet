@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
+import { TagDiffs } from '@api/common/diff';
+import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '@app/components/shared/page-width.service';
-import { TagDiffs } from '@api/common/diff/tag-diffs';
 
 @Component({
   selector: 'kpn-tag-diffs',

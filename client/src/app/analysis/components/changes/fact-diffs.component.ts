@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { FactDiffs } from '@api/common/diff/common/fact-diffs';
+import { FactDiffs } from '@api/common/diff/common';
 
 @Component({
   selector: 'kpn-fact-diffs',

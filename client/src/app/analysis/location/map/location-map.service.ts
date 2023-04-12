@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Bounds } from '@api/common';
+import { NetworkType } from '@api/custom';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { NetworkVectorTileLayer } from '@app/components/ol/layers';
+import { NetworkBitmapTileLayer } from '@app/components/ol/layers';
+import { LocationBoundaryLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { SurveyDateValues } from '@app/components/ol/services';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { MapClickService } from '@app/components/ol/services';
+import { MainMapStyleParameters } from '@app/components/ol/style';
+import { MainMapStyle } from '@app/components/ol/style';
+import { Util } from '@app/components/shared';
+import Map from 'ol/Map';
+import View from 'ol/View';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { NetworkVectorTileLayer } from '@app/components/ol/layers/network-vector-tile-layer';
-import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
-import { MainMapStyle } from '@app/components/ol/style/main-map-style';
-import { NetworkBitmapTileLayer } from '@app/components/ol/layers/network-bitmap-tile-layer';
-import { LocationBoundaryLayer } from '@app/components/ol/layers/location-boundary-layer';
-import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
-import { NetworkType } from '@api/custom/network-type';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import View from 'ol/View';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { Util } from '@app/components/shared/util';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import Map from 'ol/Map';
-import { MapClickService } from '@app/components/ol/services/map-click.service';
-import { Bounds } from '@api/common/bounds';
 
 @Injectable()
 export class LocationMapService extends OpenlayersMapService {

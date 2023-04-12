@@ -1,10 +1,10 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
-import { RouteMapService } from '@app/analysis/route/map/route-map.service';
-import { actionRouteMapViewInit } from '@app/analysis/route/store/route.actions';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { actionRouteMapViewInit } from '../store/route.actions';
+import { RouteMapService } from './route-map.service';
 
 @Component({
   selector: 'kpn-route-map',

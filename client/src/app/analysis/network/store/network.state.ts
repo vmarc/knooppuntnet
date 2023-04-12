@@ -1,13 +1,13 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { NetworkChangesPage } from '@api/common/network/network-changes-page';
-import { NetworkDetailsPage } from '@api/common/network/network-details-page';
-import { NetworkFactsPage } from '@api/common/network/network-facts-page';
-import { NetworkMapPage } from '@api/common/network/network-map-page';
-import { NetworkNodesPage } from '@api/common/network/network-nodes-page';
-import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
-import { NetworkSummary } from '@api/common/network/network-summary';
-import { ApiResponse } from '@api/custom/api-response';
-import { NetworkMapPosition } from '@app/components/ol/domain/network-map-position';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { NetworkChangesPage } from '@api/common/network';
+import { NetworkDetailsPage } from '@api/common/network';
+import { NetworkFactsPage } from '@api/common/network';
+import { NetworkMapPage } from '@api/common/network';
+import { NetworkNodesPage } from '@api/common/network';
+import { NetworkRoutesPage } from '@api/common/network';
+import { NetworkSummary } from '@api/common/network';
+import { ApiResponse } from '@api/custom';
+import { NetworkMapPosition } from '@app/components/ol/domain';
 
 export const initialState: NetworkState = {
   networkId: null,

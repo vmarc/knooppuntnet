@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
+import { NetworkChangeInfo } from '@api/common/changes/details';
 
 @Component({
   selector: 'kpn-cs-nc-nodes-updated',

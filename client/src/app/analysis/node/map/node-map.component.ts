@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
-import { NodeMapService } from '@app/analysis/node/map/node-map.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
-import { actionNodeMapViewInit } from '@app/analysis/node/store/node.actions';
+import { actionNodeMapViewInit } from '../store/node.actions';
+import { NodeMapService } from './node-map.service';
 
 @Component({
   selector: 'kpn-node-map',

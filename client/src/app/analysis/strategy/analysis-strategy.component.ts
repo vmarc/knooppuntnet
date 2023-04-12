@@ -3,9 +3,9 @@ import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { selectPreferencesAnalysisStrategy } from '@app/core/preferences';
+import { AnalysisStrategy } from '@app/core/preferences';
 import { Store } from '@ngrx/store';
-import { selectPreferencesAnalysisStrategy } from '@app/core/preferences/preferences.selectors';
-import { AnalysisStrategy } from '@app/core/preferences/preferences.state';
 
 @Component({
   selector: 'kpn-analysis-strategy',

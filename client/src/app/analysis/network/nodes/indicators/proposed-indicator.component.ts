@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkNodeRow } from '@api/common/network/network-node-row';
+import { NetworkNodeRow } from '@api/common/network';
 import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.component';
 
 @Component({

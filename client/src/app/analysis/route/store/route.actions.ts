@@ -1,13 +1,13 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { RouteChangesPage } from '@api/common/route/route-changes-page';
-import { RouteDetailsPage } from '@api/common/route/route-details-page';
-import { RouteMapPage } from '@api/common/route/route-map-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { NetworkType } from '@api/custom/network-type';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { RouteChangesPage } from '@api/common/route';
+import { RouteDetailsPage } from '@api/common/route';
+import { RouteMapPage } from '@api/common/route';
+import { ApiResponse } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { MapPosition } from '@app/components/ol/domain';
+import { ChangeOption } from '@app/kpn/common';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionRouteLink = createAction(
   '[Route] Link',

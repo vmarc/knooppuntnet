@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { NetworkMarkerLayer } from '@app/components/ol/layers/network-marker-layer';
-import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import View from 'ol/View';
-import Map from 'ol/Map';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { Util } from '@app/components/shared/util';
-import { Bounds } from '@api/common/bounds';
-import Interaction from 'ol/interaction/Interaction';
-import { MapBrowserEvent } from 'ol';
-import MapBrowserEventType from 'ol/MapBrowserEventType';
-import { FeatureLike } from 'ol/Feature';
-import { actionSubsetMapPageNetworkClicked } from '@app/analysis/subset/store/subset.actions';
+import { Bounds } from '@api/common';
+import { SubsetMapNetwork } from '@api/common/subset';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { NetworkMarkerLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { Util } from '@app/components/shared';
 import { Store } from '@ngrx/store';
+import { MapBrowserEvent } from 'ol';
+import { FeatureLike } from 'ol/Feature';
+import Interaction from 'ol/interaction/Interaction';
+import Map from 'ol/Map';
+import MapBrowserEventType from 'ol/MapBrowserEventType';
+import View from 'ol/View';
+import { actionSubsetMapPageNetworkClicked } from '../store/subset.actions';
 
 @Injectable()
 export class SubsetMapService extends OpenlayersMapService {

@@ -1,9 +1,9 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { MapZoomService } from '@app/components/ol/services';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
 
 @Component({
   selector: 'kpn-network-map-sidebar',

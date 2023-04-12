@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { RouteChangeInfo } from '@api/common/route/route-change-info';
-import { ChangeType } from '@api/custom/change-type';
+import { RouteChangeInfo } from '@api/common/route';
+import { ChangeType } from '@api/custom';
 
 @Component({
   selector: 'kpn-route-change',

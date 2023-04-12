@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { TagDetailType } from '@api/common/diff/tag-detail-type';
+import { TagDetailType } from '@api/common/diff';
 
 @Component({
   selector: 'kpn-tag-diff-action',

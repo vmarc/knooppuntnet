@@ -1,4 +1,4 @@
-import { NetworkAttributes } from '@api/common/network/network-attributes';
+import { NetworkAttributes } from '@api/common/network';
 
 export class InterpretedNetworkAttributes {
   constructor(private network: NetworkAttributes) {}

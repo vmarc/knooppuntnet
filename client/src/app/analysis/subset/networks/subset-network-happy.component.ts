@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { NetworkAttributes } from '@api/common/network/network-attributes';
+import { NetworkAttributes } from '@api/common/network';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 
 @Component({

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
+import { RouteNetworkNodeInfo } from '@api/common/route';
 
 @Component({
   selector: 'kpn-route-node',

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { ChangeSetNetwork } from '@api/common/change-set-network';
-import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
-import { ChangeSetNetworkAction } from './components/change-set-network.component';
+import { ChangeSetNetwork } from '@api/common';
+import { ChangeSetSummaryInfo } from '@api/common';
+import { ChangeSetNetworkAction } from './components';
 
 @Component({
   selector: 'kpn-change-network-analysis-summary',

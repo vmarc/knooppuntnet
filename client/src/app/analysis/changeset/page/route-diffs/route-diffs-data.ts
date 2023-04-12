@@ -1,8 +1,8 @@
+import { KnownElements } from '@api/common/common';
+import { Ref } from '@api/common/common';
+import { RefDiffs } from '@api/common/diff';
+import { RouteChangeInfo } from '@api/common/route';
 import { List } from 'immutable';
-import { KnownElements } from '@api/common/common/known-elements';
-import { Ref } from '@api/common/common/ref';
-import { RefDiffs } from '@api/common/diff/ref-diffs';
-import { RouteChangeInfo } from '@api/common/route/route-change-info';
 
 export class RouteDiffsData {
   constructor(

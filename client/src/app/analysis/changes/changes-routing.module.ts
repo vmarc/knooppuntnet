@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Util } from '@app/components/shared/util';
-import { ChangesSidebarComponent } from '../components/changes/filter/changes-sidebar.component';
-import { ChangesPageComponent } from './page/_changes-page.component';
+import { Util } from '@app/components/shared';
+import { ChangesSidebarComponent } from '../components/changes/filter';
+import { ChangesPageComponent } from './page';
 
 const routes: Routes = [
   Util.routePath('', ChangesPageComponent, ChangesSidebarComponent),

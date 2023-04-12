@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { SubsetInfo } from '@api/common/subset/subset-info';
-import { Subset } from '@api/custom/subset';
+import { SubsetInfo } from '@api/common/subset';
+import { Subset } from '@api/custom';
 
 @Component({
   selector: 'kpn-subset-page-menu',

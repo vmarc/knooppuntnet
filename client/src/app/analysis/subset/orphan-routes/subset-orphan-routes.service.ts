@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { FilterOptions } from '@app/kpn/filter';
 import { ReplaySubject } from 'rxjs';
-import { FilterOptions } from '@app/kpn/filter/filter-options';
 
 @Injectable()
 export class SubsetOrphanRoutesService {

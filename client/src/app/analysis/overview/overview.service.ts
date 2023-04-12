@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { PageWidth } from '@app/components/shared';
+import { PageWidthService } from '@app/components/shared';
+import { BrowserStorageService } from '@app/services';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { PageWidth } from '@app/components/shared/page-width';
-import { PageWidthService } from '@app/components/shared/page-width.service';
-import { BrowserStorageService } from '@app/services/browser-storage.service';
 
 @Injectable({
   providedIn: 'root',

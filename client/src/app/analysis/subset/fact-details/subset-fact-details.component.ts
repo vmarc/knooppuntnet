@@ -2,10 +2,10 @@ import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
+import { SubsetFactDetailsPage } from '@api/common/subset';
+import { EditParameters } from '@app/analysis/components/edit';
+import { actionSharedEdit } from '@app/core/shared';
 import { Store } from '@ngrx/store';
-import { actionSharedEdit } from '@app/core/shared/shared.actions';
-import { EditParameters } from '../../components/edit/edit-parameters';
 
 @Component({
   selector: 'kpn-subset-fact-details',

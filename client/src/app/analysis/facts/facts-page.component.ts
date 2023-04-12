@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FactInfo } from '../fact/fact-info';
-import { Facts } from '../fact/facts';
+import { FactInfo } from '../fact';
+import { Facts } from '../fact';
 
 @Component({
   selector: 'kpn-facts-page',

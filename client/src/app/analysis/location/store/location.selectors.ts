@@ -1,5 +1,5 @@
-import { LocationSummary } from '@api/common/location/location-summary';
-import { LocationKey } from '@api/custom/location-key';
+import { LocationSummary } from '@api/common/location';
+import { LocationKey } from '@api/custom';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { locationFeatureKey } from './location.state';

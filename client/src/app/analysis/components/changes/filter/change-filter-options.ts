@@ -1,8 +1,8 @@
-import { ChangesFilter } from '@api/common/changes/filter/changes-filter';
-import { ChangesFilterPeriod } from '@api/common/changes/filter/changes-filter-period';
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { ChangesFilter } from '@api/common/changes/filter';
+import { ChangesFilterPeriod } from '@api/common/changes/filter';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { Util } from '@app/components/shared';
 import { List } from 'immutable';
-import { Util } from '@app/components/shared/util';
 import { ChangeFilterOption } from './change-filter-option';
 
 export class ChangeFilterOptions {

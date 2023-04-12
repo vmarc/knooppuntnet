@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { StatisticValues } from '@api/common/statistics/statistic-values';
-import { ApiResponse } from '@api/custom/api-response';
-import { Observable } from 'rxjs';
+import { StatisticValues } from '@api/common/statistics';
+import { ApiResponse } from '@api/custom';
 import { AppService } from '@app/app.service';
+import { Observable } from 'rxjs';
 import { OverviewService } from '../overview.service';
 
 @Component({

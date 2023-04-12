@@ -2,8 +2,8 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
-import { ChangeOption } from '../../../changes/store/changes.actions';
+import { ChangesFilterOption } from '@api/common/changes/filter';
+import { ChangeOption } from '@app/kpn/common';
 
 @Component({
   selector: 'kpn-change-filter',

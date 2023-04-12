@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
+import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
-import { selectDefined } from '@app/core/core.state';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';

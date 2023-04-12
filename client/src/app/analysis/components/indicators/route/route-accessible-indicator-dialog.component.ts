@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 import { RouteAccessibleData } from './route-accessible-data';
 
 @Component({

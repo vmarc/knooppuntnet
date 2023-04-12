@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
-import { StatisticValues } from '@api/common/statistics/statistic-values';
+import { StatisticValues } from '@api/common/statistics';
 import { Stat } from '../domain/stat';
 import { OverviewConfigurationService } from './overview-configuration.service';
 

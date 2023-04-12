@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { ApiResponse } from '@api/custom/api-response';
+import { ApiResponse } from '@api/custom';
 
 @Component({
   selector: 'kpn-location-response',

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
-import { NetworkType } from '@api/custom/network-type';
-import { Util } from '@app/components/shared/util';
-import { I18nService } from '@app/i18n/i18n.service';
+import { ChangeSetSummaryInfo } from '@api/common';
+import { NetworkType } from '@api/custom';
+import { Util } from '@app/components/shared';
+import { I18nService } from '@app/i18n';
 
 @Component({
   selector: 'kpn-change-location-analysis-summary',

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AnalysisSidebarComponent } from '@app/components/shared/sidebar/analysis-sidebar.component';
-import { Util } from '@app/components/shared/util';
+import { Util } from '@app/components/shared';
+import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { NetworkChangesPageComponent } from './changes/_network-changes-page.component';
 import { NetworkChangesSidebarComponent } from './changes/network-changes-sidebar.component';
 import { NetworkDetailsPageComponent } from './details/_network-details-page.component';

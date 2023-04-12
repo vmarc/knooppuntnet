@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { ChangeSetPage } from '@api/common/changes/change-set-page';
+import { ChangeSetPage } from '@api/common/changes';
 
 @Component({
   selector: 'kpn-change-set-analysis',

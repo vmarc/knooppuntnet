@@ -1,12 +1,12 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
-import { NodeChangesPage } from '@api/common/node/node-changes-page';
-import { NodeDetailsPage } from '@api/common/node/node-details-page';
-import { NodeMapPage } from '@api/common/node/node-map-page';
-import { ApiResponse } from '@api/custom/api-response';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { NodeChangesPage } from '@api/common/node';
+import { NodeDetailsPage } from '@api/common/node';
+import { NodeMapPage } from '@api/common/node';
+import { ApiResponse } from '@api/custom';
+import { MapPosition } from '@app/components/ol/domain';
+import { ChangeOption } from '@app/kpn/common';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { ChangeOption } from '../../changes/store/changes.actions';
 
 export const actionNodeLink = createAction(
   '[Node] Link',

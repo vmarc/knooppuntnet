@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { Subscriptions } from '@app/util';
 import { EditParameters } from './edit-parameters';
 import { EditService } from './edit.service';
 

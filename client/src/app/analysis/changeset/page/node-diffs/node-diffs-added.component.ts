@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { Ref } from '@api/common/common/ref';
-import { MetaData } from '@api/common/data/meta-data';
+import { Ref } from '@api/common/common';
+import { MetaData } from '@api/common/data';
 import { NodeDiffsData } from './node-diffs-data';
 
 @Component({

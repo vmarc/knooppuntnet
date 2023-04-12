@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
-import { NetworkNodeRow } from '@api/common/network/network-node-row';
+import { NetworkNodeRow } from '@api/common/network';
 
 @Component({
   selector: 'kpn-network-node-routes',

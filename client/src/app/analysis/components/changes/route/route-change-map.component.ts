@@ -3,11 +3,11 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Bounds } from '@api/common/bounds';
-import { RawNode } from '@api/common/data/raw/raw-node';
-import { GeometryDiff } from '@api/common/route/geometry-diff';
-import { RouteChangeMapService } from '@app/analysis/components/changes/route/route-change-map.service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { Bounds } from '@api/common';
+import { RawNode } from '@api/common/data/raw';
+import { GeometryDiff } from '@api/common/route';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
+import { RouteChangeMapService } from './route-change-map.service';
 
 @Component({
   selector: 'kpn-route-change-map',
