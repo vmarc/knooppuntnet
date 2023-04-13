@@ -4,15 +4,9 @@ import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { MapLayer } from '@app/components/ol/layers/map-layer';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { PageService } from '@app/components/shared/page.service';
-import { UniqueId } from '@app/kpn/common/unique-id';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { PageService } from '@app/components/shared';
+import { UniqueId } from '@app/kpn/common';
+import { Subscriptions } from '@app/util';
 import { Coordinate } from 'ol/coordinate';
 import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
@@ -21,6 +15,12 @@ import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { distinct } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { MapLayerState } from '../domain';
+import { MapPosition } from '../domain';
+import { MapLayer } from '../layers';
+import { MapLayerRegistry } from '../layers';
+import { OsmLayer } from '../layers';
+import { BackgroundLayer } from '../layers/';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
   'MAP_SERVICE_TOKEN'

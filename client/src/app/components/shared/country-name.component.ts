@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { I18nService } from '@app/i18n/i18n.service';
-import { Country } from '@api/custom/country';
+import { Country } from '@api/custom';
+import { I18nService } from '@app/i18n';
 import { Util } from './util';
 
 @Component({

@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { toLonLat } from 'ol/proj';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
+import { OpenlayersMapService } from '../services';
+import { MAP_SERVICE_TOKEN } from '../services';
 
 @Component({
   selector: 'kpn-map-link-menu',

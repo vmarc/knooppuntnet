@@ -1,5 +1,4 @@
-import { NetworkType } from '@api/custom/network-type';
-import { MapLayer } from '@app/components/ol/layers/map-layer';
+import { NetworkType } from '@api/custom';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -9,8 +8,9 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { ZoomLevel } from '../domain/zoom-level';
+import { ZoomLevel } from '../domain';
 import { Layers } from './layers';
+import { MapLayer } from './map-layer';
 
 export class OpendataVectorTileLayer {
   private readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;

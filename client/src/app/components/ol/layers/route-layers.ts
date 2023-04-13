@@ -1,9 +1,9 @@
-import { TrackPath } from '@api/common/common/track-path';
-import { TrackPoint } from '@api/common/common/track-point';
-import { TrackSegment } from '@api/common/common/track-segment';
-import { RouteMap } from '@api/common/route/route-map';
-import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
-import { I18nService } from '@app/i18n/i18n.service';
+import { TrackPath } from '@api/common/common';
+import { TrackPoint } from '@api/common/common';
+import { TrackSegment } from '@api/common/common';
+import { RouteMap } from '@api/common/route';
+import { RouteNetworkNodeInfo } from '@api/common/route';
+import { I18nService } from '@app/i18n';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
@@ -14,8 +14,8 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { Util } from '../../shared/util';
-import { Marker } from '../domain/marker';
+import { Util } from '../../shared';
+import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

@@ -1,4 +1,4 @@
-import { NetworkNodeFeature } from '@app/planner/domain/features/network-node-feature';
+import { NetworkNodeFeature } from '@app/planner/domain/features';
 import { Coordinate } from 'ol/coordinate';
 
 export class NodeClick {

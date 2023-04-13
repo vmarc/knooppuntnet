@@ -1,8 +1,8 @@
-import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
+import { MainMapStyleParameters } from './main-map-style-parameters';
 import { surfaceUnknownColor } from './main-style-colors';
 import { proposedSurfaceUnknownColor } from './main-style-colors';
 import { proposedUnpavedColor } from './main-style-colors';

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { MapLayerDefinition } from '@app/components/ol/services/map-layer-definition';
-import { I18nService } from '@app/i18n/i18n.service';
+import { I18nService } from '@app/i18n';
+import { BackgroundLayer } from '../layers';
+import { OsmLayer } from '../layers';
+import { MapLayerDefinition } from './map-layer-definition';
 
 @Injectable()
 export class MapLayerTranslationService {

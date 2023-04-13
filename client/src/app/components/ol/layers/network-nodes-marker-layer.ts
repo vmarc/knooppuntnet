@@ -1,8 +1,8 @@
-import { NetworkMapNode } from '@api/common/network/network-map-node';
+import { NetworkMapNode } from '@api/common/network';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Util } from '../../shared/util';
-import { Marker } from '../domain/marker';
+import { Util } from '../../shared';
+import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

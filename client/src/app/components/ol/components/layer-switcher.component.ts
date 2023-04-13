@@ -4,10 +4,10 @@ import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { MapLayerTranslationService } from '../services/map-layer-translation.service';
+import { MapLayerState } from '../domain';
+import { MAP_SERVICE_TOKEN } from '../services';
+import { OpenlayersMapService } from '../services';
+import { MapLayerTranslationService } from '../services';
 
 @Component({
   selector: 'kpn-layer-switcher',

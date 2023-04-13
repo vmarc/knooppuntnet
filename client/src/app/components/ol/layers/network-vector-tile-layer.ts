@@ -1,9 +1,9 @@
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
-import { ZoomLevel } from '../domain/zoom-level';
+import { ZoomLevel } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

@@ -1,4 +1,4 @@
-import { RouteFeature } from '@app/planner/domain/features/route-feature';
+import { RouteFeature } from '@app/planner/domain/features';
 import { Coordinate } from 'ol/coordinate';
 
 export class RouteClick {

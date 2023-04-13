@@ -1,5 +1,5 @@
-import { MapLayer } from '@app/components/ol/layers/map-layer';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
+import { MapLayer } from '.';
+import { MapLayerState } from '../domain';
 
 export class MapLayerRegistry {
   layers: MapLayer[] = [];

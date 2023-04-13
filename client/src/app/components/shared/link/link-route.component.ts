@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
-import { NetworkType } from '@api/custom/network-type';
-import { Store } from '@ngrx/store';
+import { NetworkType } from '@api/custom';
 import { actionRouteLink } from '@app/analysis/route/store/route.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-link-route',

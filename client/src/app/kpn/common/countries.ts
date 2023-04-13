@@ -1,4 +1,4 @@
-import { Country } from '@api/custom/country';
+import { Country } from '@api/custom';
 
 export class Countries {
   static all: Array<Country> = [

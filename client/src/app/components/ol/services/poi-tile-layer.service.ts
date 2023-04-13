@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { PoiTileLayer } from '@app/components/ol/layers/poi-tile-layer';
-import { PoiService } from '@app/services/poi.service';
+import { PoiService } from '@app/services';
 import { StyleFunction } from 'ol/style/Style';
-import { ZoomLevel } from '../domain/zoom-level';
-import { MapLayer } from '../layers/map-layer';
-import { PoiStyleMap } from '../style/poi-style-map';
+import { ZoomLevel } from '../domain';
+import { PoiTileLayer } from '../layers';
+import { MapLayer } from '../layers';
+import { PoiStyleMap } from '../style';
 
 @Injectable()
 export class PoiTileLayerService {

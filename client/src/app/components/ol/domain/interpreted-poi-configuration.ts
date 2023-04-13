@@ -1,6 +1,6 @@
-import { ClientPoiConfiguration } from '@api/common/tiles/client-poi-configuration';
-import { ClientPoiDefinition } from '@api/common/tiles/client-poi-definition';
-import { ClientPoiGroupDefinition } from '@api/common/tiles/client-poi-group-definition';
+import { ClientPoiConfiguration } from '@api/common/tiles';
+import { ClientPoiDefinition } from '@api/common/tiles';
+import { ClientPoiGroupDefinition } from '@api/common/tiles';
 import { Map } from 'immutable';
 
 export class InterpretedPoiConfiguration {

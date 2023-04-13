@@ -1,8 +1,8 @@
 import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Day } from '@api/custom/day';
-import { DayUtil } from '../day-util';
+import { Day } from '@api/custom';
+import { DayUtil } from '..';
 
 @Pipe({
   name: 'day',

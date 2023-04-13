@@ -1,10 +1,10 @@
-import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { Subscriptions } from '@app/util';
 import { StyleFunction } from 'ol/style/Style';
 import Style from 'ol/style/Style';
 import { Observable } from 'rxjs';
 import { MainMapNodeStyle } from './main-map-node-style';
 import { MainMapRouteStyle } from './main-map-route-style';
+import { MainMapStyleParameters } from './main-map-style-parameters';
 
 export class MainMapStyle {
   private readonly invisible = new Style({});

@@ -1,8 +1,8 @@
-import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
 import { FeatureLike } from 'ol/Feature';
 import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Style from 'ol/style/Style';
+import { MainMapStyleParameters } from './main-map-style-parameters';
 import { yellow } from './main-style-colors';
 import { NodeStyle } from './node-style';
 import { nameStyle } from './node-style-builder';

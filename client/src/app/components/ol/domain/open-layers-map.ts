@@ -1,8 +1,8 @@
+import { Subscriptions } from '@app/util';
 import Map from 'ol/Map';
-import { Subscriptions } from '@app/util/Subscriptions';
-import { fromEvent } from 'rxjs';
-import { PageService } from '@app/components/shared/page.service';
 import { MapOptions } from 'ol/PluggableMap';
+import { fromEvent } from 'rxjs';
+import { PageService } from '../../shared';
 
 export class OpenLayersMap {
   public readonly map: Map;

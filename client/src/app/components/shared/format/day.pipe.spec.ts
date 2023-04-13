@@ -1,4 +1,4 @@
-import { Day } from '@api/custom/day';
+import { Day } from '@api/custom';
 import { DayPipe } from './day.pipe';
 
 describe('DayPipe', () => {

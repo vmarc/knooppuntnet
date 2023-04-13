@@ -1,8 +1,8 @@
-import { NodeMapInfo } from '@api/common/node-map-info';
+import { NodeMapInfo } from '@api/common';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Util } from '../../shared/util';
-import { Marker } from '../domain/marker';
+import { Util } from '../../shared';
+import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

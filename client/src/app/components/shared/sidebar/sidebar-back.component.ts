@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageService } from '../page.service';
+import { PageService } from '..';
 
 @Component({
   selector: 'kpn-sidebar-back',

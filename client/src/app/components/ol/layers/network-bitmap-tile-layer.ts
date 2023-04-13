@@ -1,9 +1,9 @@
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { ZoomLevel } from '../domain/zoom-level';
-import { MapMode } from '../services/map-mode';
-import { MapLayer } from './map-layer';
+import { MapLayer } from '.';
+import { ZoomLevel } from '../domain';
+import { MapMode } from '../services';
 
 export class NetworkBitmapTileLayer {
   public static build(networkType: NetworkType, mapMode: MapMode): MapLayer {

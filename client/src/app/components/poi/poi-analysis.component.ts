@@ -1,9 +1,9 @@
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PoiAnalysis } from '@api/common/poi-analysis';
-import { Tags } from '@api/custom/tags';
-import { PoiService } from '@app/services/poi.service';
+import { PoiAnalysis } from '@api/common';
+import { Tags } from '@api/custom';
+import { PoiService } from '@app/services';
 
 @Component({
   selector: 'kpn-poi-analysis',

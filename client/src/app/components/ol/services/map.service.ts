@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 import { AppService } from '@app/app.service';
 import { ReplaySubject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-import { NodeClick } from '../domain/node-click';
-import { PoiClick } from '../domain/poi-click';
-import { RouteClick } from '../domain/route-click';
+import { NodeClick } from '../domain';
+import { PoiClick } from '../domain';
+import { RouteClick } from '../domain';
 import { SurveyDateValues } from './survey-date-values';
 
 @Injectable()

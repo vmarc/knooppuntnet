@@ -1,5 +1,5 @@
-import { Tag } from '@api/custom/tag';
-import { Tags } from '@api/custom/tags';
+import { Tag } from '@api/custom';
+import { Tags } from '@api/custom';
 import { InterpretedTags } from './interpreted-tags';
 
 describe('TagFilter', () => {

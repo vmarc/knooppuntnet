@@ -1,7 +1,7 @@
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { I18nService } from '@app/i18n/i18n.service';
+import { I18nService } from '@app/i18n';
 
 @Component({
   selector: 'kpn-page-footer',

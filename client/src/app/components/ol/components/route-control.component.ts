@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'kpn-route-control',

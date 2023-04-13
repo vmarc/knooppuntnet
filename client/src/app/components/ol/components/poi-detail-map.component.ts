@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { AfterViewInit, Component, Input } from '@angular/core';
-import { PoiDetail } from '@app/kpn/api/common/poi-detail';
-import { MAP_SERVICE_TOKEN } from '../services/openlayers-map-service';
+import { AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { PoiDetail } from '@api/common';
+import { MAP_SERVICE_TOKEN } from '../services';
 import { PoiDetailMapService } from './poi-detail-map.service';
 
 @Component({

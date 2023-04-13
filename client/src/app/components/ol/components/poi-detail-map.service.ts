@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { PoiDetail } from '@api/common/poi-detail';
+import { PoiDetail } from '@api/common';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { ViewOptions } from 'ol/View';
-import { Util } from '../../shared/util';
-import { ZoomLevel } from '../domain/zoom-level';
-import { BackgroundLayer } from '../layers/background-layer';
-import { MapControls } from '../layers/map-controls';
-import { MapLayerRegistry } from '../layers/map-layer-registry';
-import { OsmLayer } from '../layers/osm-layer';
-import { PoiMarkerLayer } from '../layers/poi-marker-layer';
-import { OpenlayersMapService } from '../services/openlayers-map-service';
+import { Util } from '../../shared';
+import { ZoomLevel } from '../domain';
+import { BackgroundLayer } from '../layers';
+import { MapControls } from '../layers';
+import { MapLayerRegistry } from '../layers';
+import { OsmLayer } from '../layers';
+import { PoiMarkerLayer } from '../layers';
+import { OpenlayersMapService } from '../services';
 
 @Injectable()
 export class PoiDetailMapService extends OpenlayersMapService {

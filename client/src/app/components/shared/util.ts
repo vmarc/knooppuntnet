@@ -1,10 +1,10 @@
 import { MatTableDataSource } from '@angular/material/table';
 import { Route } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { Bounds } from '@api/common/bounds';
-import { TagDiffs } from '@api/common/diff/tag-diffs';
-import { LatLonImpl } from '@api/common/lat-lon-impl';
-import { Tags } from '@api/custom/tags';
+import { Bounds } from '@api/common';
+import { LatLonImpl } from '@api/common';
+import { TagDiffs } from '@api/common/diff';
+import { Tags } from '@api/custom';
 import { List } from 'immutable';
 import { Map } from 'immutable';
 import { Coordinate } from 'ol/coordinate';

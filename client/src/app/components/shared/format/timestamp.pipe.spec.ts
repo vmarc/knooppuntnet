@@ -1,4 +1,4 @@
-import { Timestamp } from '@api/custom/timestamp';
+import { Timestamp } from '@api/custom';
 import { TimestampPipe } from './timestamp-pipe';
 
 describe('timstamp pipe', () => {

@@ -1,7 +1,7 @@
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
-import { ZoomLevel } from '../domain/zoom-level';
+import { ZoomLevel } from '../domain';
 import { Layers } from './layers';
 
 export class PoiTileLayer {

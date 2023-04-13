@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { selectUserUser } from '@app/core/user';
 import { Store } from '@ngrx/store';
-import { selectUserUser } from '@app/core/user/user.selectors';
 
 @Component({
   selector: 'kpn-osm-link-user',

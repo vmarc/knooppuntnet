@@ -1,8 +1,8 @@
 // import { Map as MapLibreMap } from 'maplibre-gl';
-import { OsmLibertyStyle } from '../style/osm-liberty-style';
-import { MapLayer } from './map-layer';
 import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
 import { Source } from 'ol/source';
+import { OsmLibertyStyle } from '../style';
+import { MapLayer } from './map-layer';
 
 export class BackgroundLayer {
   static id = 'background';

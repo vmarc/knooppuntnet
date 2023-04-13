@@ -1,5 +1,6 @@
-import { GeometryDiff } from '@api/common/route/geometry-diff';
-import { PointSegment } from '@api/common/route/point-segment';
+import { GeometryDiff } from '@api/common/route';
+import { PointSegment } from '@api/common/route';
+import { I18nService } from '@app/i18n';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
@@ -8,8 +9,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { I18nService } from '@app/i18n/i18n.service';
-import { Util } from '../../shared/util';
+import { Util } from '../../shared';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

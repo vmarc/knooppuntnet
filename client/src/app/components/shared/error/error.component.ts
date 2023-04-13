@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { selectSharedHttpError } from '@app/core/shared';
 import { Store } from '@ngrx/store';
-import { selectSharedHttpError } from '@app/core/shared/shared.selectors';
 
 @Component({
   selector: 'kpn-error',

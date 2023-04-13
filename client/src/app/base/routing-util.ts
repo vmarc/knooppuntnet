@@ -1,7 +1,7 @@
-import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { ChangesParameters } from '@api/common/changes/filter';
+import { Subsets } from '@app/kpn/common';
 import { SerializedRouterStateSnapshot } from '@ngrx/router-store';
 import { RouterNavigationPayload } from '@ngrx/router-store';
-import { Subsets } from '../kpn/common/subsets';
 
 export class RoutingUtil {
   constructor(

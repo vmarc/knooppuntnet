@@ -1,5 +1,5 @@
-import { MapMode } from '@app/components/ol/services/map-mode';
-import { SurveyDateValues } from '@app/components/ol/services/survey-date-values';
+import { MapMode } from '../services';
+import { SurveyDateValues } from '../services';
 
 export class MainMapStyleParameters {
   constructor(

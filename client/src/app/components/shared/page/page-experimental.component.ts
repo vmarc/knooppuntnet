@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { VersionService } from '@app/services/version.service';
+import { VersionService } from '@app/services';
 
 @Component({
   selector: 'kpn-page-experimental',

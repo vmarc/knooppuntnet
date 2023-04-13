@@ -1,7 +1,7 @@
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { ZoomLevel } from '../domain/zoom-level';
+import { ZoomLevel } from '../domain';
 import { MapLayer } from './map-layer';
 
 export class NetworkNodesBitmapTileLayer {

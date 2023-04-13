@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { actionUserLogoutLinkClicked } from '@app/core/user';
 import { Store } from '@ngrx/store';
-import { actionUserLogoutLinkClicked } from '@app/core/user/user.actions';
 
 @Component({
   selector: 'kpn-link-logout',

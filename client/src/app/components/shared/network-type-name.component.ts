@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { NetworkType } from '@api/custom/network-type';
-import { I18nService } from '@app/i18n/i18n.service';
+import { NetworkType } from '@api/custom';
+import { I18nService } from '@app/i18n';
 
 @Component({
   selector: 'kpn-network-type-name',

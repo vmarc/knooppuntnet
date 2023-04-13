@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PageService } from '../page.service';
+import { PageService } from '..';
 
 @Component({
   selector: 'kpn-toolbar',

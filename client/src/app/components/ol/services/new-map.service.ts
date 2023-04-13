@@ -1,7 +1,7 @@
-import { OpenLayersMap } from '@app/components/ol/domain/open-layers-map';
 import { Injectable } from '@angular/core';
-import { PageService } from '@app/components/shared/page.service';
+import { PageService } from '@app/components/shared';
 import { MapOptions } from 'ol/PluggableMap';
+import { OpenLayersMap } from '../domain';
 
 @Injectable()
 export class NewMapService {

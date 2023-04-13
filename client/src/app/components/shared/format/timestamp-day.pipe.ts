@@ -1,8 +1,8 @@
 import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
-import { Timestamp } from '@api/custom/timestamp';
-import { TimestampUtil } from '../timestamp-util';
+import { Timestamp } from '@api/custom';
+import { TimestampUtil } from '..';
 
 @Pipe({
   name: 'yyyymmdd',
