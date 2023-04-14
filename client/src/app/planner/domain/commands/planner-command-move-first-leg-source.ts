@@ -1,9 +1,9 @@
-import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanNode } from '@api/common/planner';
 import { PlannerContext } from '../context/planner-context';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
-import { PlannerCommand } from './planner-command';
 import { PlanLeg } from '../plan/plan-leg';
+import { PlannerCommand } from './planner-command';
 
 export class PlannerCommandMoveFirstLegSource implements PlannerCommand {
   constructor(

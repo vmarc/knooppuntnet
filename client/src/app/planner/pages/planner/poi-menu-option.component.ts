@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { actionPlannerPoiGroupVisible } from '@app/planner/store/planner-actions';
-import { selectPlannerPoisEnabled } from '@app/planner/store/planner-selectors';
-import { selectPlannerPoiGroupVisible } from '@app/planner/store/planner-selectors';
-import { PoiService } from '@app/services/poi.service';
+import { PoiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { actionPlannerPoiGroupVisible } from '../../store/planner-actions';
+import { selectPlannerPoisEnabled } from '../../store/planner-selectors';
+import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
 
 @Component({
   selector: 'kpn-poi-menu-option',
@@ -16,7 +16,7 @@ import { Observable } from 'rxjs';
     <mat-checkbox
       (click)="$event.stopPropagation()"
       [checked]="visible$ | async"
-      [disabled]="!(poisEnabled$ | async)"
+      [disabled]="(poisEnabled$ | async) === false"
       (change)="enabledChanged($event)"
       class="poi-group"
     >

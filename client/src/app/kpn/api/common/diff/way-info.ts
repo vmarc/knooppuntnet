@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Tags } from '@api/custom/tags';
-import { Timestamp } from '@api/custom/timestamp';
+import { Tags } from '@api/custom';
+import { Timestamp } from '@api/custom';
 
 export interface WayInfo {
   readonly id: number;

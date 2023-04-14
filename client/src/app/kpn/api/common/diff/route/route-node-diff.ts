@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Ref } from '../../common/ref';
+import { Ref } from '@api/common/common';
 
 export interface RouteNodeDiff {
   readonly title: string;

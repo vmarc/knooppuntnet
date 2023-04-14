@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
-import { PlanRoute } from '@api/common/planner/plan-route';
-import { AppService } from '@app/app.service';
-import { MapService } from '@app/components/ol/services/map.service';
-import { selectPreferencesPlanProposed } from '@app/core/preferences/preferences.selectors';
-import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
+import { PlanRoute } from '@api/common/planner';
+import { MapService } from '@app/components/ol/services';
+import { selectPreferencesPlanProposed } from '@app/core/preferences';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Map as TranslationMap } from 'immutable';
 import Map from 'ol/Map';
-import { PlannerContext } from '../domain/context/planner-context';
-import { PlannerCursorImpl } from '../domain/context/planner-cursor-impl';
-import { PlannerElasticBandImpl } from '../domain/context/planner-elastic-band-impl';
-import { PlannerHighlightLayer } from '../domain/context/planner-highlight-layer';
-import { PlannerHighlighterImpl } from '../domain/context/planner-highlighter-impl';
-import { PlannerLegRepositoryImpl } from '../domain/context/planner-leg-repository-impl';
-import { PlannerMarkerLayerImpl } from '../domain/context/planner-marker-layer-impl';
-import { PlannerOverlayImpl } from '../domain/context/planner-overlay-impl';
-import { PlannerRouteLayerImpl } from '../domain/context/planner-route-layer-impl';
-import { PlannerEngine } from '../domain/interaction/planner-engine';
-import { PlannerEngineImpl } from '../domain/interaction/planner-engine-impl';
-import { PlanUtil } from '../domain/plan/plan-util';
-import { ColourTranslator } from './colour-translator';
+import { AppService } from '../index';
+import { PlannerContext } from './domain/context/planner-context';
+import { PlannerCursorImpl } from './domain/context/planner-cursor-impl';
+import { PlannerElasticBandImpl } from './domain/context/planner-elastic-band-impl';
+import { PlannerHighlightLayer } from './domain/context/planner-highlight-layer';
+import { PlannerHighlighterImpl } from './domain/context/planner-highlighter-impl';
+import { PlannerLegRepositoryImpl } from './domain/context/planner-leg-repository-impl';
+import { PlannerMarkerLayerImpl } from './domain/context/planner-marker-layer-impl';
+import { PlannerOverlayImpl } from './domain/context/planner-overlay-impl';
+import { PlannerRouteLayerImpl } from './domain/context/planner-route-layer-impl';
+import { PlannerEngine } from './domain/interaction/planner-engine';
+import { PlannerEngineImpl } from './domain/interaction/planner-engine-impl';
+import { PlanUtil } from './domain/plan/plan-util';
+import { ColourTranslator } from './services/colour-translator';
+import { selectPlannerNetworkType } from './store/planner-selectors';
 
 @Injectable({
   providedIn: 'root',

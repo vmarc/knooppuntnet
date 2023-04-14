@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageWidth } from '@app/components/shared/page-width';
-import { PageWidthService } from '@app/components/shared/page-width.service';
+import { PageWidth } from '@app/components/shared';
+import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerCommandReset } from '../../../domain/commands/planner-command-reset';
 import { PlannerCommandReverse } from '../../../domain/commands/planner-command-reverse';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanReverser } from '../../../domain/plan/plan-reverser';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '../../../planner.service';
 import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 
 @Component({

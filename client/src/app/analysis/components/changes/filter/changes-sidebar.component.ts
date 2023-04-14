@@ -4,9 +4,9 @@ import { AnalysisStrategy } from '@app/core/preferences';
 import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { actionChangesAnalysisStrategy } from '../../../changes/store/changes.actions';
-import { actionChangesFilterOption } from '../../../changes/store/changes.actions';
-import { selectChangesFilterOptions } from '../../../changes/store/changes.selectors';
+import { actionChangesAnalysisStrategy } from '../../../changes';
+import { actionChangesFilterOption } from '../../../changes';
+import { selectChangesFilterOptions } from '../../../changes';
 
 @Component({
   selector: 'kpn-changes-sidebar',

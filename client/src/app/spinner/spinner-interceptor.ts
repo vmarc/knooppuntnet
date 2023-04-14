@@ -6,12 +6,12 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { actionSharedHttpError } from '@app/core/shared';
 import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { actionSharedHttpError } from '@app/core/shared/shared.actions';
 import { SpinnerService } from './spinner.service';
 
 @Injectable()

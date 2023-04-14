@@ -1,16 +1,16 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MapRouteDetail } from '@api/common/route/map-route-detail';
-import { ApiResponse } from '@api/custom/api-response';
+import { MapRouteDetail } from '@api/common/route';
+import { ApiResponse } from '@api/custom';
 import { AppService } from '@app/app.service';
-import { MapService } from '@app/components/ol/services/map.service';
+import { MapService } from '@app/components/ol/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '../../../planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-route',

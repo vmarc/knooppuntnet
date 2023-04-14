@@ -1,4 +1,4 @@
-import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanNode } from '@api/common/planner';
 import { Coordinate } from 'ol/coordinate';
 import { RouteFeature } from '../features/route-feature';
 import { PlannerHighlighter } from './planner-highlighter';

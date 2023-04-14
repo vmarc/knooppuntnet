@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { Country } from '../custom/country';
-import { NetworkScope } from '../custom/network-scope';
-import { NetworkType } from '../custom/network-type';
-import { Tags } from '../custom/tags';
-import { Timestamp } from '../custom/timestamp';
+import { Country } from '@api/custom';
+import { NetworkScope } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { Tags } from '@api/custom';
+import { Timestamp } from '@api/custom';
 
 export interface RouteSummary {
   readonly id: number;

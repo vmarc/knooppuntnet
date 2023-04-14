@@ -1,5 +1,5 @@
-import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
-import { ApiResponse } from '@api/custom/api-response';
+import { PoiLocationsPage } from '@api/common/poi';
+import { ApiResponse } from '@api/custom';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { PoiState } from './poi.state';

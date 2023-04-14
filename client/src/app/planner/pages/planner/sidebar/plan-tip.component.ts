@@ -1,15 +1,15 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
-import { I18nService } from '@app/i18n/i18n.service';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { MapZoomService } from '@app/components/ol/services';
+import { I18nService } from '@app/i18n';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanPhase } from '../../../domain/plan/plan-phase';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '../../../planner.service';
 
 @Component({
   selector: 'kpn-plan-tip',

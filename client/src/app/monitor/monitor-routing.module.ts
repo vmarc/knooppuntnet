@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SidebarComponent } from '../components/shared/sidebar/sidebar.component';
-import { Util } from '../components/shared/util';
+import { Util } from '@app/components/shared';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAboutPageComponent } from './about/monitor-about-page.component';
 import { MonitorChangesPageComponent } from './changes/monitor-changes-page.component';
 import { MonitorGroupAddPageComponent } from './group/add/monitor-group-add-page.component';

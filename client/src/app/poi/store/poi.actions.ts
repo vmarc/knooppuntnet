@@ -1,8 +1,8 @@
-import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
-import { LocationPoisPage } from '@api/common/poi/location-pois-page';
-import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Country } from '@api/custom/country';
+import { LocationPoiSummaryPage } from '@api/common/poi';
+import { LocationPoisPage } from '@api/common/poi';
+import { PoiLocationsPage } from '@api/common/poi';
+import { ApiResponse } from '@api/custom';
+import { Country } from '@api/custom';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 

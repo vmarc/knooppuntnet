@@ -1,7 +1,7 @@
 // this class is generated, please do not modify
 
 import { List } from 'immutable';
-import { Ref } from '../common/ref';
+import { Ref } from '../common';
 
 export class LocationPage {
   constructor(readonly routeRefs: List<Ref>) {}

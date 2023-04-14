@@ -1,8 +1,8 @@
-import { PlanInstruction } from '@app/planner/domain/plan/plan-instruction';
-import { PlannerService } from '@app/planner/services/planner.service';
 import { List } from 'immutable';
 import { jsPDF } from 'jspdf';
-import { BitmapIconService } from '../bitmap-icon.service';
+import { PlanInstruction } from '../../domain/plan/plan-instruction';
+import { PlannerService } from '../../planner.service';
+import { BitmapIconService } from '../services/bitmap-icon.service';
 import { PdfPage } from './pdf-page';
 import { PdfSideBar } from './pdf-side-bar';
 
@@ -24,7 +24,7 @@ export class PdfDirections {
 
   print(): void {
     this.printPages();
-    this.doc.save('knooppuntnet.pdf');
+    this.doc.save('knooppuntnet.planner.pdf');
   }
 
   private printPages(): void {

@@ -1,7 +1,7 @@
+import { NgModule } from '@angular/core';
 import { Routes } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { Util } from '../components/shared/util';
-import { NgModule } from '@angular/core';
+import { Util } from '@app/components/shared';
 import { SettingsPageComponent } from './settings-page.component';
 import { SettingsSidebarComponent } from './settings-sidebar.component';
 

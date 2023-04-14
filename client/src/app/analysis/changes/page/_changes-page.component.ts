@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { selectUserLoggedIn } from '@app/core/user';
 import { Store } from '@ngrx/store';
-import { actionChangesPageSize } from '../store';
-import { actionChangesImpact } from '../store';
-import { actionChangesPageIndex } from '../store';
-import { actionChangesPageInit } from '../store';
-import { selectChangesImpact } from '../store';
-import { selectChangesPageSize } from '../store';
-import { selectChangesPageIndex } from '../store';
-import { selectChangesPage } from '../store';
+import { actionChangesPageSize } from '../store/changes.actions';
+import { actionChangesImpact } from '../store/changes.actions';
+import { actionChangesPageIndex } from '../store/changes.actions';
+import { actionChangesPageInit } from '../store/changes.actions';
+import { selectChangesImpact } from '../store/changes.selectors';
+import { selectChangesPageSize } from '../store/changes.selectors';
+import { selectChangesPageIndex } from '../store/changes.selectors';
+import { selectChangesPage } from '../store/changes.selectors';
 
 @Component({
   selector: 'kpn-changes-page',

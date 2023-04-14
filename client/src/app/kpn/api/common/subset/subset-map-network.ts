@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { LatLonImpl } from '../lat-lon-impl';
+import { LatLonImpl } from '@api/common';
 
 export interface SubsetMapNetwork {
   readonly id: number;

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { selectPoiAreasPage } from '@app/poi/store/poi.selectors';
 import { Store } from '@ngrx/store';
-import { actionPoiAreasPageInit } from '@app/poi/store/poi.actions';
+import { actionPoiAreasPageInit } from '../store/poi.actions';
+import { selectPoiAreasPage } from '../store/poi.selectors';
 
 @Component({
   selector: 'kpn-poi-areas-page',

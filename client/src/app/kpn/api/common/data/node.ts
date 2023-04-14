@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { RawNode } from './raw/raw-node';
+import { RawNode } from '@api/common/data/raw';
 
 export interface Node {
   readonly raw: RawNode;

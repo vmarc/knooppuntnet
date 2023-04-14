@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom/day';
-import { Fact } from '@api/custom/fact';
-import { Timestamp } from '@api/custom/timestamp';
+import { Day } from '@api/custom';
+import { Fact } from '@api/custom';
+import { Timestamp } from '@api/custom';
 
 export interface NetworkNodeDetail {
   readonly id: number;

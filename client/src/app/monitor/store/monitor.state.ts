@@ -1,14 +1,14 @@
-import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
-import { MonitorGroupChangesPage } from '@api/common/monitor/monitor-group-changes-page';
-import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
-import { MonitorGroupsPage } from '@api/common/monitor/monitor-groups-page';
-import { MonitorRouteAddPage } from '@api/common/monitor/monitor-route-add-page';
-import { MonitorRouteChangePage } from '@api/common/monitor/monitor-route-change-page';
-import { MonitorRouteChangesPage } from '@api/common/monitor/monitor-route-changes-page';
-import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
-import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
-import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
-import { ApiResponse } from '@api/custom/api-response';
+import { MonitorChangesPage } from '@api/common/monitor';
+import { MonitorGroupChangesPage } from '@api/common/monitor';
+import { MonitorGroupPage } from '@api/common/monitor';
+import { MonitorGroupsPage } from '@api/common/monitor';
+import { MonitorRouteAddPage } from '@api/common/monitor';
+import { MonitorRouteChangePage } from '@api/common/monitor';
+import { MonitorRouteChangesPage } from '@api/common/monitor';
+import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { MonitorRouteInfoPage } from '@api/common/monitor';
+import { MonitorRouteUpdatePage } from '@api/common/monitor';
+import { ApiResponse } from '@api/custom';
 
 export class MonitorRouteSaveState {
   constructor(

@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
+import { MetaData } from '@api/common/data';
+import { IdDiffs } from '@api/common/diff';
+import { RefDiffs } from '@api/common/diff';
+import { ChangeType } from '@api/custom';
+import { Country } from '@api/custom';
+import { NetworkType } from '@api/custom';
 import { ChangeKey } from './change-key';
-import { ChangeType } from '@api/custom/change-type';
-import { Country } from '@api/custom/country';
-import { IdDiffs } from '../../diff/id-diffs';
-import { MetaData } from '../../data/meta-data';
-import { NetworkType } from '@api/custom/network-type';
-import { RefDiffs } from '../../diff/ref-diffs';
 
 export interface NetworkChangeInfo {
   readonly rowIndex: number;

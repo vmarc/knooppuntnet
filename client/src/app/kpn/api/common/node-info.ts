@@ -1,13 +1,13 @@
 // this file is generated, please do not modify
 
-import { Country } from '../custom/country';
-import { Day } from '../custom/day';
-import { Fact } from '../custom/fact';
-import { NodeIntegrity } from './node/node-integrity';
+import { Country } from '@api/custom';
+import { Day } from '@api/custom';
+import { Fact } from '@api/custom';
+import { Tags } from '@api/custom';
+import { Timestamp } from '@api/custom';
+import { Reference } from './common';
+import { NodeIntegrity } from './node';
 import { NodeName } from './node-name';
-import { Reference } from './common/reference';
-import { Tags } from '../custom/tags';
-import { Timestamp } from '../custom/timestamp';
 
 export interface NodeInfo {
   readonly id: number;

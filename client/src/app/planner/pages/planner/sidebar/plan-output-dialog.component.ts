@@ -5,13 +5,13 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AppService } from '@app/app.service';
-import { Util } from '@app/components/shared/util';
-import { selectPreferencesInstructions } from '@app/core/preferences/preferences.selectors';
-import { PdfService } from '@app/pdf/pdf.service';
-import { GpxWriter } from '@app/pdf/plan/gpx-writer';
+import { Util } from '@app/components/shared';
+import { selectPreferencesInstructions } from '@app/core/preferences';
 import { Store } from '@ngrx/store';
+import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';
-import { PlannerService } from '../../../services/planner.service';
+import { PdfService } from '../../../pdf/pdf.service';
+import { PlannerService } from '../../../planner.service';
 
 @Component({
   selector: 'kpn-plan-output-dialog',
@@ -51,7 +51,7 @@ import { PlannerService } from '../../../services/planner.service';
           mat-stroked-button
           (click)="printDocument()"
           title="Produce a route pdf file with compact node overview"
-          i18n-title="@@plan.output.compact-pdf.tooltip"
+          i18n-title="@@plan.output.compact-planner.pdf.tooltip"
           i18n="@@plan.output.compact-pdf"
         >
           Compact
@@ -61,7 +61,7 @@ import { PlannerService } from '../../../services/planner.service';
           mat-stroked-button
           (click)="printStripDocument()"
           title="Produce a route pdf file with nodes in 'strip' format"
-          i18n-title="@@plan.output.node-strip-pdf.tooltip"
+          i18n-title="@@plan.output.node-strip-planner.pdf.tooltip"
           i18n="@@plan.output.node-strip-pdf"
         >
           Node strip
@@ -72,7 +72,7 @@ import { PlannerService } from '../../../services/planner.service';
           mat-stroked-button
           (click)="printInstructions()"
           title="Produce a route pdf with navigation instructions"
-          i18n-title="@@plan.output.navigation-instructions-pdf.tooltip"
+          i18n-title="@@plan.output.navigation-instructions-planner.pdf.tooltip"
           i18n="@@plan.output.navigation-instructions-pdf"
         >
           Navigation instructions
@@ -182,14 +182,17 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   printInstructions(): void {
-    this.pdfService.printInstructions(
-      this.plannerService.context.plan,
-      this.routeName()
+    const instructions = new DirectionsAnalyzer().analyze(
+      this.plannerService.context.plan
     );
+    this.pdfService.printInstructions(instructions, this.routeName());
   }
 
   gpx(): void {
-    new GpxWriter().write(this.plannerService.context.plan, this.routeName());
+    this.pdfService.writeGpx(
+      this.plannerService.context.plan,
+      this.routeName()
+    );
   }
 
   nameChanged(event): void {

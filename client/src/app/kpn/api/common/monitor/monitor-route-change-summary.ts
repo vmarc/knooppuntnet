@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { ChangeKey } from '../changes/details/change-key';
+import { ChangeKey } from '@api/common/changes/details';
 
 export interface MonitorRouteChangeSummary {
   readonly key: ChangeKey;

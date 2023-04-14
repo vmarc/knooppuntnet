@@ -2,14 +2,13 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MapNodeDetail } from '@api/common/node/map-node-detail';
-import { ApiResponse } from '@api/custom/api-response';
+import { MapNodeDetail } from '@api/common/node';
+import { ApiResponse } from '@api/custom';
 import { AppService } from '@app/app.service';
-import { MapZoomService } from '@app/components/ol/services/map-zoom.service';
-import { MapService } from '@app/components/ol/services/map.service';
-import { Util } from '@app/components/shared/util';
-import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { MapZoomService } from '@app/components/ol/services';
+import { MapService } from '@app/components/ol/services';
+import { Util } from '@app/components/shared';
+import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import { combineLatestWith } from 'rxjs';
@@ -17,7 +16,8 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '../../../planner.service';
+import { selectPlannerNetworkType } from '../../../store/planner-selectors';
 
 @Component({
   selector: 'kpn-planner-popup-node',

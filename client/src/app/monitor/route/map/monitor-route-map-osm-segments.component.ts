@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
+import { MonitorRouteSegment } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 import { actionMonitorRouteMapSelectOsmSegment } from './store/monitor-route-map.actions';

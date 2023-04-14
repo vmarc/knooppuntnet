@@ -1,5 +1,5 @@
-import { Plan } from '@app/planner/domain/plan/plan';
 import { jsPDF } from 'jspdf';
+import { Plan } from '../../domain/plan/plan';
 import { PdfColourBox } from './pdf-colour-box';
 import { PdfDocumentModel } from './pdf-document-model';
 import { PdfFooter } from './pdf-footer';
@@ -25,7 +25,7 @@ export class PdfDocument {
   print(): void {
     this.drawGrid();
     this.drawQrCode();
-    const filename = this.name.replace(/ /g, '_') + '.pdf';
+    const filename = this.name.replace(/ /g, '_') + '.planner.pdf';
     this.doc.save(filename);
   }
 

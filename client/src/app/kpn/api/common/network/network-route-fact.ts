@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Fact } from '@api/custom/fact';
-import { Ref } from '../common/ref';
+import { Ref } from '@api/common/common';
+import { Fact } from '@api/custom';
 
 export interface NetworkRouteFact {
   readonly fact: Fact;

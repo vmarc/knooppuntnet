@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom/day';
-import { Fact } from '@api/custom/fact';
-import { NodeIntegrityCheck } from '../node-integrity-check';
-import { Ref } from '../common/ref';
-import { Tags } from '@api/custom/tags';
-import { Timestamp } from '@api/custom/timestamp';
+import { NodeIntegrityCheck } from '@api/common';
+import { Ref } from '@api/common/common';
+import { Day } from '@api/custom';
+import { Fact } from '@api/custom';
+import { Tags } from '@api/custom';
+import { Timestamp } from '@api/custom';
 
 export interface NetworkInfoNode {
   readonly id: number;

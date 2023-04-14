@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Reference } from '../common/reference';
+import { Reference } from '@api/common/common';
 import { RouteDetailsPageData } from './route-details-page-data';
 
 export interface RouteDetailsPage {

@@ -3,7 +3,7 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MonitorGroupDetail } from '@api/common/monitor/monitor-group-detail';
+import { MonitorGroupDetail } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { actionMonitorNavigateGroup } from '../store/monitor.actions';

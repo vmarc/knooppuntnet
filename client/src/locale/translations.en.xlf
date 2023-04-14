@@ -7478,7 +7478,7 @@
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf" datatype="html">
+      <trans-unit id="plan.output.compact-planner.pdf" datatype="html">
         <source>Compact</source>
         <target>Compact</target>
         <context-group purpose="location">
@@ -7486,7 +7486,7 @@
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf" datatype="html">
+      <trans-unit id="plan.output.node-strip-planner.pdf" datatype="html">
         <source>Node strip</source>
         <target>Node strip</target>
         <context-group purpose="location">
@@ -7494,7 +7494,7 @@
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf" datatype="html">
         <source>Navigation instructions</source>
         <target>Navigation instructions</target>
         <context-group purpose="location">
@@ -7622,25 +7622,25 @@
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with compact node overview</source>
-        <target>Produce a route pdf file with compact node overview</target>
+      <trans-unit id="plan.output.compact-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with compact node overview</source>
+        <target>Produce a route planner.pdf file with compact node overview</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Produce a route pdf file with nodes in &apos;strip&apos; format</target>
+      <trans-unit id="plan.output.node-strip-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with nodes in &apos;strip&apos; format</source>
+        <target>Produce a route planner.pdf file with nodes in &apos;strip&apos; format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf with navigation instructions</source>
-        <target>Produce a route pdf with navigation instructions</target>
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf with navigation instructions</source>
+        <target>Produce a route planner.pdf with navigation instructions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
@@ -9183,14 +9183,14 @@
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.text.tooltip" datatype="html">
-        <source>Produce a route pdf file in &apos;text&apos; format</source>
-        <target>Produce a route pdf file in &apos;text&apos; format</target>
+        <source>Produce a route planner.pdf file in &apos;text&apos; format</source>
+        <target>Produce a route planner.pdf file in &apos;text&apos; format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.text-pdf" datatype="html">
+      <trans-unit id="plan.output.text-planner.pdf" datatype="html">
         <source>Text</source>
         <target>Text</target>
         <context-group purpose="location">

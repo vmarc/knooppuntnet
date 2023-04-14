@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { MapService } from '@app/components/ol/services/map.service';
-import { PoiService } from '@app/services/poi.service';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { MapService } from '@app/components/ol/services';
+import { PoiService } from '@app/services';
+import { Subscriptions } from '@app/util';
 
 @Component({
   selector: 'kpn-poi-config',

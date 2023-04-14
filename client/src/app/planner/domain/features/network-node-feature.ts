@@ -1,4 +1,4 @@
-import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanNode } from '@api/common/planner';
 import { Coordinate } from 'ol/coordinate';
 import { PlanUtil } from '../plan/plan-util';
 import { MapFeature } from './map-feature';

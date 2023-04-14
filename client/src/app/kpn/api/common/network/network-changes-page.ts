@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { ChangesFilterOption } from '../changes/filter/changes-filter-option';
-import { NetworkChangeInfo } from '../changes/details/network-change-info';
+import { NetworkChangeInfo } from '@api/common/changes/details';
+import { ChangesFilterOption } from '@api/common/changes/filter';
 import { NetworkSummary } from './network-summary';
 
 export interface NetworkChangesPage {

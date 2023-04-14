@@ -2,7 +2,7 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
+import { MonitorRouteGroup } from '@api/common/monitor';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-1-group',

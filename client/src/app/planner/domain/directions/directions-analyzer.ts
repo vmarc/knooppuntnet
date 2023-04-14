@@ -1,4 +1,4 @@
-import { PlanFragment } from '@api/common/planner/plan-fragment';
+import { PlanFragment } from '@api/common/planner';
 import { List } from 'immutable';
 import { Plan } from '../plan/plan';
 import { PlanInstruction } from '../plan/plan-instruction';

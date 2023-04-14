@@ -1,3 +1,12 @@
+import { pageReducer } from '@app/core/page';
+import { PageState } from '@app/core/page';
+import { preferencesReducer } from '@app/core/preferences';
+import { PreferencesState } from '@app/core/preferences';
+import { RouterStateUrl } from '@app/core/router';
+import { sharedReducer } from '@app/core/shared';
+import { SharedState } from '@app/core/shared';
+import { userReducer } from '@app/core/user';
+import { UserState } from '@app/core/user';
 import { RouterReducerState } from '@ngrx/router-store';
 import { routerReducer } from '@ngrx/router-store';
 import { getSelectors } from '@ngrx/router-store';
@@ -10,15 +19,6 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
-import { pageReducer } from './page/page.reducer';
-import { PageState } from './page/page.state';
-import { preferencesReducer } from './preferences/preferences.reducer';
-import { PreferencesState } from './preferences/preferences.state';
-import { RouterStateUrl } from './router/router.state';
-import { sharedReducer } from './shared/shared.reducer';
-import { SharedState } from './shared/shared.state';
-import { userReducer } from './user/user.reducer';
-import { UserState } from './user/user.state';
 
 export interface AppState {
   preferences: PreferencesState;

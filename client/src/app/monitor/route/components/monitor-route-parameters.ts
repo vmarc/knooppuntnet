@@ -1,4 +1,4 @@
-import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
+import { MonitorRouteProperties } from '@api/common/monitor';
 
 export interface MonitorRouteParameters {
   mode: string;

@@ -1,7 +1,7 @@
 /*
   Builds a Plan from a single PlanDetail.
  */
-import { PlanLegDetail } from '@api/common/planner/plan-leg-detail';
+import { PlanLegDetail } from '@api/common/planner';
 import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from './plan';

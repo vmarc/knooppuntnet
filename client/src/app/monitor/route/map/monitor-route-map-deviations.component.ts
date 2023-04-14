@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSelectionListChange } from '@angular/material/list';
-import { MonitorRouteDeviation } from '@app/kpn/api/common/monitor/monitor-route-deviation';
+import { MonitorRouteDeviation } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';

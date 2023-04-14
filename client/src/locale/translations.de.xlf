@@ -7474,7 +7474,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf" datatype="html">
+      <trans-unit id="plan.output.compact-planner.pdf" datatype="html">
         <source>Compact</source>
         <target>Kompakt</target>
         <context-group purpose="location">
@@ -7482,7 +7482,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf" datatype="html">
+      <trans-unit id="plan.output.node-strip-planner.pdf" datatype="html">
         <source>Node strip</source>
         <target>Knotenstreifen</target>
         <context-group purpose="location">
@@ -7490,7 +7490,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf" datatype="html">
         <source>Navigation instructions</source>
         <target>Wegbeschreibung</target>
         <context-group purpose="location">
@@ -7618,24 +7618,24 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with compact node overview</source>
+      <trans-unit id="plan.output.compact-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with compact node overview</source>
         <target>Erstellen Sie eine Routen-PDF-Datei mit einer kompakten Knotenübersicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
+      <trans-unit id="plan.output.node-strip-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with nodes in &apos;strip&apos; format</source>
         <target>Erstellen Sie eine Routen-PDF-Datei mit Knoten in einem Streifen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf with navigation instructions</source>
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf with navigation instructions</source>
         <target>Erstellen Sie ein Routen-PDF mit der Wegbeschreibung.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
@@ -9181,14 +9181,14 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.text.tooltip" datatype="html">
-        <source>Produce a route pdf file in &apos;text&apos; format</source>
+        <source>Produce a route planner.pdf file in &apos;text&apos; format</source>
         <target>Erstelle ein PDF-Dokument im &apos;Text&apos;-Format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.text-pdf" datatype="html">
+      <trans-unit id="plan.output.text-planner.pdf" datatype="html">
         <source>Text</source>
         <target>Text</target>
         <context-group purpose="location">

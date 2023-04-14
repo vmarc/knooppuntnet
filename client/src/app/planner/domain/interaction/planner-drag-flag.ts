@@ -1,4 +1,4 @@
-import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanNode } from '@api/common/planner';
 import { Coordinate } from 'ol/coordinate';
 import { PlanFlag } from '../plan/plan-flag';
 

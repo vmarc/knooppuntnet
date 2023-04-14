@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { actionPreferencesShowLegend } from '@app/core/preferences/preferences.actions';
-import { selectPreferencesShowLegend } from '@app/core/preferences/preferences.selectors';
-import { selectPlannerMapMode } from '@app/planner/store/planner-selectors';
+import { actionPreferencesShowLegend } from '@app/core/preferences';
+import { selectPreferencesShowLegend } from '@app/core/preferences';
 import { Store } from '@ngrx/store';
+import { selectPlannerMapMode } from '../../../store/planner-selectors';
 
 @Component({
   selector: 'kpn-planner-sidebar-legend',

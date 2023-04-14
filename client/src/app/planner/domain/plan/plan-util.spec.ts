@@ -1,4 +1,4 @@
-import { PlanRoute } from '@api/common/planner/plan-route';
+import { PlanRoute } from '@api/common/planner';
 import { List } from 'immutable';
 import { Plan } from './plan';
 import { PlanFlag } from './plan-flag';

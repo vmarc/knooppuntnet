@@ -1,14 +1,14 @@
+import { LegEnd } from '@api/common/planner';
+import { List } from 'immutable';
+import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { PlannerContext } from '../context/planner-context';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from './plan';
 import { PlanFlag } from './plan-flag';
-import { PlanUtil } from './plan-util';
-import { PlanLeg } from './plan-leg';
-import { List } from 'immutable';
-import { LegEnd } from '@api/common/planner/leg-end';
 import { PlanFlagType } from './plan-flag-type';
-import { Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { PlanLeg } from './plan-leg';
+import { PlanUtil } from './plan-util';
 
 export class PlanReverser {
   constructor(private readonly context: PlannerContext) {}

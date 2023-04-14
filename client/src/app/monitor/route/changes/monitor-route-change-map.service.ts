@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
+import { MonitorRouteDeviation } from '@api/common/monitor';
+import { MonitorRouteSegment } from '@api/common/monitor';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { MapLayer } from '@app/components/ol/layers';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { Util } from '@app/components/shared';
 import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
@@ -8,14 +16,6 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
-import { ZoomLevel } from '../../../components/ol/domain/zoom-level';
-import { BackgroundLayer } from '../../../components/ol/layers/background-layer';
-import { MapControls } from '../../../components/ol/layers/map-controls';
-import { MapLayer } from '../../../components/ol/layers/map-layer';
-import { MapLayerRegistry } from '../../../components/ol/layers/map-layer-registry';
-import { OsmLayer } from '../../../components/ol/layers/osm-layer';
-import { OpenlayersMapService } from '../../../components/ol/services/openlayers-map-service';
-import { Util } from '../../../components/shared/util';
 
 @Injectable()
 export class MonitorRouteChangeMapService extends OpenlayersMapService {

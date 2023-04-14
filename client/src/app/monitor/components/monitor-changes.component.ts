@@ -1,7 +1,7 @@
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-change-summary';
+import { MonitorRouteChangeSummary } from '@api/common/monitor';
 
 @Component({
   selector: 'kpn-monitor-changes',

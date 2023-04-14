@@ -1,9 +1,9 @@
-import { PlanNode } from '@api/common/planner/plan-node';
-import { NodeClick } from '@app/components/ol/domain/node-click';
-import { PoiClick } from '@app/components/ol/domain/poi-click';
-import { PoiId } from '@app/components/ol/domain/poi-id';
-import { RouteClick } from '@app/components/ol/domain/route-click';
-import { Util } from '@app/components/shared/util';
+import { PlanNode } from '@api/common/planner';
+import { NodeClick } from '@app/components/ol/domain';
+import { PoiClick } from '@app/components/ol/domain';
+import { PoiId } from '@app/components/ol/domain';
+import { RouteClick } from '@app/components/ol/domain';
+import { Util } from '@app/components/shared';
 import * as Sentry from '@sentry/angular-ivy';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';

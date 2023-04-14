@@ -1,6 +1,6 @@
 import { NetworkType } from '@api/custom';
 import BaseLayer from 'ol/layer/Base';
-import { MapMode } from '../services/map-mode';
+import { MapMode } from '../services';
 
 export class MapLayer {
   static simpleLayer(name: string, layer: BaseLayer): MapLayer {

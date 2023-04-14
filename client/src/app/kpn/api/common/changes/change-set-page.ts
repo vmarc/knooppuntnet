@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
+import { ChangeSetSubsetElementRefs } from '@api/common';
+import { ChangeSetSummary } from '@api/common';
+import { NetworkChangeInfo } from '@api/common/changes/details';
+import { KnownElements } from '@api/common/common';
+import { NodeChangeInfo } from '@api/common/node';
+import { RouteChangeInfo } from '@api/common/route';
 import { ChangeSetInfo } from './change-set-info';
-import { ChangeSetSubsetElementRefs } from '../change-set-subset-element-refs';
-import { ChangeSetSummary } from '../change-set-summary';
-import { KnownElements } from '../common/known-elements';
-import { NetworkChangeInfo } from './details/network-change-info';
-import { NodeChangeInfo } from '../node/node-change-info';
-import { RouteChangeInfo } from '../route/route-change-info';
 
 export interface ChangeSetPage {
   readonly summary: ChangeSetSummary;

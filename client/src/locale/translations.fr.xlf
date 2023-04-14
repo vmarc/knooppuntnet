@@ -830,9 +830,9 @@
       value that is frequently found, but not actually documented as a valid
       value in the OSM wiki pages. Other potential values are *&quot;horse&quot;*,
       *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
-        <target>Valeur invalide dans la balise requise _&quot;route&quot;_ dans la relation d&apos;itinéraire. 
+        <target>Valeur invalide dans la balise requise _&quot;route&quot;_ dans la relation d&apos;itinéraire.
 
-Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_. 
+Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_.
 
 Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM.</target>
         <context-group purpose="location">
@@ -914,7 +914,7 @@ Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suiv
       </trans-unit>
       <trans-unit id="fact.description.route-incomplete-ok" datatype="html">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *&quot;fixme&quot;* with value *&quot;incomplete&quot;* in the route relation. But after analysis, the route seems to be ok.</source>
-        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire. 
+        <target>L&apos;itinéraire est marqué comme ayant une définition incomplète. Une définition d&apos;itinéraire est explicitement marquée comme incomplète en ajoutant une clé _&quot;fixme&quot;_ avec la valeur _&quot;incomplète&quot;_ dans la relation d&apos;itinéraire.
 
 Mais après analyse, l&apos;itinéraire semble correct.</target>
         <context-group purpose="location">
@@ -7464,7 +7464,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf" datatype="html">
+      <trans-unit id="plan.output.compact-planner.pdf" datatype="html">
         <source>Compact</source>
         <target>Compact</target>
         <context-group purpose="location">
@@ -7472,7 +7472,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf" datatype="html">
+      <trans-unit id="plan.output.node-strip-planner.pdf" datatype="html">
         <source>Node strip</source>
         <target>Bande de nœuds</target>
         <context-group purpose="location">
@@ -7480,7 +7480,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf" datatype="html">
         <source>Navigation instructions</source>
         <target>Instructions de navigation</target>
         <context-group purpose="location">
@@ -7608,25 +7608,25 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with compact node overview</source>
-        <target>Produire un fichier pdf d&apos;itinéraire avec une vue d&apos;ensemble des nœuds compacte</target>
+      <trans-unit id="plan.output.compact-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with compact node overview</source>
+        <target>Produire un fichier planner.pdf d&apos;itinéraire avec une vue d&apos;ensemble des nœuds compacte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Produire un fichier pdf d&apos;itinéraire avec des nœuds au format &apos;bande&apos;</target>
+      <trans-unit id="plan.output.node-strip-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with nodes in &apos;strip&apos; format</source>
+        <target>Produire un fichier planner.pdf d&apos;itinéraire avec des nœuds au format &apos;bande&apos;</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf with navigation instructions</source>
-        <target>Produisez un itinéraire pdf avec des instructions de navigation</target>
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf with navigation instructions</source>
+        <target>Produisez un itinéraire planner.pdf avec des instructions de navigation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
@@ -9171,14 +9171,14 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.text.tooltip" datatype="html">
-        <source>Produce a route pdf file in &apos;text&apos; format</source>
-        <target>Produce a route pdf file in &apos;text&apos; format</target>
+        <source>Produce a route planner.pdf file in &apos;text&apos; format</source>
+        <target>Produce a route planner.pdf file in &apos;text&apos; format</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.text-pdf" datatype="html">
+      <trans-unit id="plan.output.text-planner.pdf" datatype="html">
         <source>Text</source>
         <target>Text</target>
         <context-group purpose="location">

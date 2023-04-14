@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '../bounds';
+import { Bounds } from '@api/common';
+import { TimeInfo } from '@api/common';
 import { LocationSummary } from './location-summary';
-import { TimeInfo } from '../time-info';
 
 export interface LocationEditPage {
   readonly timeInfo: TimeInfo;

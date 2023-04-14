@@ -4,7 +4,7 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { DayUtil } from '../day-util';
+import { DayUtil } from '..';
 
 @Component({
   selector: 'kpn-day-input',

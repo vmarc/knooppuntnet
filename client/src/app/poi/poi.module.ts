@@ -6,26 +6,26 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
+import { AnalysisComponentsModule } from '@app/analysis/components';
+import { LocationModule } from '@app/analysis/location';
+import { OlModule } from '@app/components/ol';
+import { PoiAnalysisModule } from '@app/components/poi';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { AnalysisComponentsModule } from '@app/analysis/components/analysis-components.module';
-import { LocationModule } from '@app/analysis/location/location.module';
-import { OlModule } from '../components/ol/ol.module';
-import { PoiAnalysisModule } from '../components/poi/poi-analysis.module';
-import { SharedModule } from '../components/shared/shared.module';
 import { PoiAreasPageComponent } from './areas/poi-areas-page.component';
+import { PoiMapComponent } from './areas/poi-map.component';
+import { PoiMapService } from './areas/poi-map.service';
 import { PoiDetailPageComponent } from './detail/poi-detail-page.component';
 import { CountrySelectComponent } from './list/country-select.component';
 import { PoiLocationPoiTableComponent } from './list/poi-location-poi-table.component';
+import { PoiLocationPoisPageComponent } from './list/poi-location-pois-page.component';
 import { LocationPoisSidebarComponent } from './list/poi-location-pois-sidebar.component';
-import { PoiLocationPoisPageComponent } from './list/poi-location-pois.component';
 import { PoiRoutingModule } from './poi-routing.module';
 import { PoiService } from './poi.service';
 import { PoiEffects } from './store/poi.effects';
 import { poiReducer } from './store/poi.reducer';
 import { poiFeatureKey } from './store/poi.state';
-import { PoiMapComponent } from '@app/poi/areas/poi-map.component';
-import { PoiMapService } from '@app/poi/areas/poi-map.service';
 
 @NgModule({
   imports: [

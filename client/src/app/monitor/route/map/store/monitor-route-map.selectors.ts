@@ -1,5 +1,5 @@
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
-import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { MonitorRouteDeviation } from '@api/common/monitor';
+import { MonitorRouteMapPage } from '@api/common/monitor';
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { MonitorMapMode } from '../monitor-map-mode';

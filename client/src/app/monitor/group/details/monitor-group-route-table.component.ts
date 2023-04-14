@@ -3,10 +3,10 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
+import { MonitorRouteDetail } from '@api/common/monitor';
+import { PageWidthService } from '@app/components/shared';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '@app/components/shared/page-width.service';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({

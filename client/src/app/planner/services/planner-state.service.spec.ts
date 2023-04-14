@@ -1,9 +1,9 @@
-import { PlannerStateService } from '@app/planner/services/planner-state.service';
-import { BrowserStorageService } from '@app/services/browser-storage.service';
-import { PlannerState } from '@app/planner/store/planner-state';
-import { NetworkType } from '@api/custom/network-type';
-import { MapPosition } from '@app/components/ol/domain/map-position';
 import { Params } from '@angular/router';
+import { NetworkType } from '@api/custom';
+import { MapPosition } from '@app/components/ol/domain';
+import { BrowserStorageService } from '@app/services';
+import { PlannerState } from '../store/planner-state';
+import { PlannerStateService } from './planner-state.service';
 
 describe('PlannerStateService', () => {
   const defaultState: PlannerState = {

@@ -1,7 +1,7 @@
-import { Bounds } from '@api/common/bounds';
-import { LatLonImpl } from '@api/common/lat-lon-impl';
-import { PlanNode } from '@api/common/planner/plan-node';
-import { Util } from '@app/components/shared/util';
+import { Bounds } from '@api/common';
+import { LatLonImpl } from '@api/common';
+import { PlanNode } from '@api/common/planner';
+import { Util } from '@app/components/shared';
 import { List } from 'immutable';
 import { PlanFlag } from './plan-flag';
 import { PlanLeg } from './plan-leg';

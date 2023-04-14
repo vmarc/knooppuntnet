@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { NetworkAttributes } from './network-attributes';
+import { Tags } from '@api/custom';
 import { NetworkFacts } from '../network-facts';
+import { NetworkAttributes } from './network-attributes';
 import { NetworkSummary } from './network-summary';
-import { Tags } from '@api/custom/tags';
 
 export interface NetworkDetailsPage {
   readonly summary: NetworkSummary;

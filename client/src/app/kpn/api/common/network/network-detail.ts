@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom/day';
+import { LatLonImpl } from '@api/common';
+import { Day } from '@api/custom';
+import { Tags } from '@api/custom';
+import { Timestamp } from '@api/custom';
 import { Integrity } from './integrity';
-import { LatLonImpl } from '../lat-lon-impl';
-import { Tags } from '@api/custom/tags';
-import { Timestamp } from '@api/custom/timestamp';
 
 export interface NetworkDetail {
   readonly km: number;

@@ -1,4 +1,4 @@
-import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanNode } from '@api/common/planner';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerCommandAddLeg } from '../../commands/planner-command-add-leg';

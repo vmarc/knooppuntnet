@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
+import { EditParameters } from '@app/analysis/components/edit';
+import { actionSharedEdit } from '@app/core/shared';
 import { Store } from '@ngrx/store';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { EditParameters } from './analysis/components/edit/edit-parameters';
-import { actionSharedEdit } from './core/shared/shared.actions';
 
 @Component({
   selector: 'kpn-josm',

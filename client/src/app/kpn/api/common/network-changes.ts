@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { ChangeSetNetwork } from './change-set-network';
+import { ChangeSetNetwork } from '.';
 
 export interface NetworkChanges {
   readonly creates: ChangeSetNetwork[];

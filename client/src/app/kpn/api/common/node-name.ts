@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { NetworkScope } from '../custom/network-scope';
-import { NetworkType } from '../custom/network-type';
+import { NetworkScope } from '@api/custom';
+import { NetworkType } from '@api/custom';
 
 export interface NodeName {
   readonly networkType: NetworkType;

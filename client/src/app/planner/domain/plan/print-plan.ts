@@ -1,4 +1,4 @@
-import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanNode } from '@api/common/planner';
 import { List } from 'immutable';
 import { Plan } from './plan';
 import { PlanLeg } from './plan-leg';

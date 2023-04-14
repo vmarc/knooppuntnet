@@ -1,7 +1,7 @@
-import { NodeClick } from '@app/components/ol/domain/node-click';
-import { PoiClick } from '@app/components/ol/domain/poi-click';
-import { RouteClick } from '@app/components/ol/domain/route-click';
-import { MapService } from '@app/components/ol/services/map.service';
+import { NodeClick } from '@app/components/ol/domain';
+import { PoiClick } from '@app/components/ol/domain';
+import { RouteClick } from '@app/components/ol/domain';
+import { MapService } from '@app/components/ol/services';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';

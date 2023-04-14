@@ -10,26 +10,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { PageWidthService } from '@app/components/shared';
+import { PageService } from '@app/components/shared';
+import { SharedModule } from '@app/components/shared';
+import { CoreModule } from '@app/core';
+import { I18nService } from '@app/i18n';
+import { IconService } from '@app/services';
+import { LogUpdateService } from '@app/services';
+import { PoiNameService } from '@app/services';
+import { PoiService } from '@app/services';
+import { VersionService } from '@app/services';
+import { SpinnerInterceptor } from '@app/spinner';
+import { SpinnerModule } from '@app/spinner';
+import { SpinnerService } from '@app/spinner';
 import * as Sentry from '@sentry/angular-ivy';
 import { MarkdownModule } from 'ngx-markdown';
+// eslint-disable-next-line @softarc/sheriff/deep-import
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
-import { PageWidthService } from './components/shared/page-width.service';
-import { PageService } from './components/shared/page.service';
-import { SharedModule } from './components/shared/shared.module';
-import { CoreModule } from './core/core.module';
-import { I18nService } from './i18n/i18n.service';
 import { JosmComponent } from './josm.component';
-import { IconService } from './services/icon.service';
-import { LogUpdateService } from './services/log-update.service';
-import { PoiNameService } from './services/poi-name.service';
-import { PoiService } from './services/poi.service';
-import { VersionService } from './services/version.service';
-import { SpinnerInterceptor } from './spinner/spinner-interceptor';
-import { SpinnerModule } from './spinner/spinner.module';
-import { SpinnerService } from './spinner/spinner.service';
 
 @NgModule({
   declarations: [

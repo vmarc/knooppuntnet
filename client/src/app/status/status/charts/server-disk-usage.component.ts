@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { DiskUsage } from '@api/common/status/disk-usage';
+import { DiskUsage } from '@api/common/status';
 
 @Component({
   selector: 'kpn-server-disk-usage',

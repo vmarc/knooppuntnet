@@ -1,6 +1,6 @@
-import { PlanNode } from '@api/common/planner/plan-node';
-import { PlanRoute } from '@api/common/planner/plan-route';
-import { NetworkType } from '@api/custom/network-type';
+import { PlanNode } from '@api/common/planner';
+import { PlanRoute } from '@api/common/planner';
+import { NetworkType } from '@api/custom';
 import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';

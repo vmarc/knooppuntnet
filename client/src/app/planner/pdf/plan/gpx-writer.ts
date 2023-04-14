@@ -1,9 +1,9 @@
-import { LatLonImpl } from '@api/common/lat-lon-impl';
-import { PlanNode } from '@api/common/planner/plan-node';
-import { Plan } from '@app/planner/domain/plan/plan';
-import { PlanUtil } from '@app/planner/domain/plan/plan-util';
+import { LatLonImpl } from '@api/common';
+import { PlanNode } from '@api/common/planner';
 import { saveAs } from 'file-saver-es';
 import { List } from 'immutable';
+import { Plan } from '../../domain/plan/plan';
+import { PlanUtil } from '../../domain/plan/plan-util';
 
 export class GpxWriter {
   write(plan: Plan, name: string): void {

@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
+import { SurveyDateInfo } from '@api/common';
+import { TimeInfo } from '@api/common';
+import { NetworkType } from '@api/custom';
 import { NetworkRouteRow } from './network-route-row';
 import { NetworkSummary } from './network-summary';
-import { NetworkType } from '@api/custom/network-type';
-import { SurveyDateInfo } from '../survey-date-info';
-import { TimeInfo } from '../time-info';
 
 export interface NetworkRoutesPage {
   readonly timeInfo: TimeInfo;

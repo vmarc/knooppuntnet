@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { TagDiffs } from '@api/common/diff';
 import { NodeIntegrityCheckDiff } from './node-integrity-check-diff';
 import { NodeRouteReferenceDiffs } from './node-route-reference-diffs';
-import { TagDiffs } from '../tag-diffs';
 
 export interface NetworkNodeDiff {
   readonly connection: boolean;

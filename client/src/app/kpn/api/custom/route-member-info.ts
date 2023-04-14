@@ -1,4 +1,4 @@
-import { RouteNetworkNodeInfo } from '../common/route/route-network-node-info';
+import { RouteNetworkNodeInfo } from '../common/route';
 import { Tags } from './tags';
 import { Timestamp } from './timestamp';
 

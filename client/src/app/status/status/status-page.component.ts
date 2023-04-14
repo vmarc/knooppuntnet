@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Status } from '@api/common/status/status';
-import { ApiResponse } from '@api/custom/api-response';
+import { Status } from '@api/common/status';
+import { ApiResponse } from '@api/custom';
+import { AppService } from '@app/app.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
 import { StatusLinks } from './status-links';
 
 @Component({

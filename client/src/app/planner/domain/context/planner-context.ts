@@ -1,6 +1,6 @@
-import { LegEnd } from '@api/common/planner/leg-end';
-import { NetworkType } from '@api/custom/network-type';
-import { Subscriptions } from '@app/util/Subscriptions';
+import { LegEnd } from '@api/common/planner';
+import { NetworkType } from '@api/custom';
+import { Subscriptions } from '@app/util';
 import { first } from 'rxjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Subject } from 'rxjs';

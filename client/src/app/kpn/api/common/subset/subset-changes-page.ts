@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { ChangeSetSummaryInfo } from '../change-set-summary-info';
-import { ChangesFilterOption } from '../changes/filter/changes-filter-option';
+import { ChangeSetSummaryInfo } from '@api/common';
+import { ChangesFilterOption } from '@api/common/changes/filter';
 import { SubsetInfo } from './subset-info';
 
 export interface SubsetChangesPage {

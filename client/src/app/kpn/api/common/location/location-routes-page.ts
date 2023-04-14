@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { TimeInfo } from '@api/common';
 import { LocationRouteInfo } from './location-route-info';
 import { LocationSummary } from './location-summary';
-import { TimeInfo } from '../time-info';
 
 export interface LocationRoutesPage {
   readonly timeInfo: TimeInfo;

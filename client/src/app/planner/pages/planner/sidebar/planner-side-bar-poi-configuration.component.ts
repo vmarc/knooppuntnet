@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { PoiService } from '@app/services/poi.service';
+import { PoiService } from '@app/services';
 
 @Component({
   selector: 'kpn-planner-sidebar-poi-configuration',

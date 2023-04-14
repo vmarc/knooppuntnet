@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { AnalysisSidebarComponent } from './analysis-sidebar.component';
-import { AnalysisCanoePageComponent } from './pages';
-import { AnalysisCyclingPageComponent } from './pages';
-import { AnalysisHikingPageComponent } from './pages';
-import { AnalysisHorseRidingPageComponent } from './pages';
-import { AnalysisInlineSkatingPageComponent } from './pages';
-import { AnalysisMotorboatPageComponent } from './pages';
-import { AnalysisPageComponent } from './pages';
-import { LocationUrlMatcher } from './pages';
+import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
+import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';
+import { AnalysisHikingPageComponent } from './pages/analysis-hiking-page.component';
+import { AnalysisHorseRidingPageComponent } from './pages/analysis-horse-riding-page.component';
+import { AnalysisInlineSkatingPageComponent } from './pages/analysis-inline-skating-page.component';
+import { AnalysisMotorboatPageComponent } from './pages/analysis-motorboat-page.component';
+import { AnalysisPageComponent } from './pages/analysis-page.component';
+import { LocationUrlMatcher } from './pages/location-url-matcher';
 
 const routes: Routes = [
   Util.routePath('', AnalysisPageComponent, AnalysisSidebarComponent),

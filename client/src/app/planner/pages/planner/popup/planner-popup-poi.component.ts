@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { PoiAnalysis } from '@api/common/poi-analysis';
-import { PoiPage } from '@api/common/poi-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Tags } from '@api/custom/tags';
+import { PoiAnalysis } from '@api/common';
+import { PoiPage } from '@api/common';
+import { ApiResponse } from '@api/custom';
+import { Tags } from '@api/custom';
 import { AppService } from '@app/app.service';
-import { PoiClick } from '@app/components/ol/domain/poi-click';
-import { MapService } from '@app/components/ol/services/map.service';
-import { InterpretedTags } from '@app/components/shared/tags/interpreted-tags';
-import { PoiService } from '@app/services/poi.service';
+import { PoiClick } from '@app/components/ol/domain';
+import { MapService } from '@app/components/ol/services';
+import { InterpretedTags } from '@app/components/shared/tags';
+import { PoiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, tap } from 'rxjs/operators';
-import { PlannerService } from '../../../services/planner.service';
+import { PlannerService } from '../../../planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',

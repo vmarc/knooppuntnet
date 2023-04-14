@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PlannerService } from '@app/planner/services/planner.service';
-import { BitmapIconService } from './bitmap-icon.service';
+import { PlannerService } from '@app/planner';
 import { PdfService } from './pdf.service';
+import { BitmapIconService } from './services/bitmap-icon.service';
 
 @NgModule({
   imports: [MatIconModule],

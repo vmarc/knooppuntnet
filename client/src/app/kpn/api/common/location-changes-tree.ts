@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { NetworkType } from '@api/custom';
 import { LocationChangesTreeNode } from './location-changes-tree-node';
-import { NetworkType } from '../custom/network-type';
 
 export interface LocationChangesTree {
   readonly networkType: NetworkType;

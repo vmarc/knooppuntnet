@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
+import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';

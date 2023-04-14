@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 
 export interface NodeOrphanRouteReference {
   readonly networkType: NetworkType;

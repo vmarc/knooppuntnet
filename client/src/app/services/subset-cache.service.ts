@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SubsetInfo } from '@api/common/subset/subset-info';
+import { SubsetInfo } from '@api/common/subset';
 import { Map } from 'immutable';
 
 @Injectable({

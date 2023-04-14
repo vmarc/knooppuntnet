@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { ChangesFilterOption } from '../changes/filter/changes-filter-option';
+import { ChangesFilterOption } from '@api/common/changes/filter';
 import { RouteChangeInfo } from './route-change-info';
 import { RouteNameInfo } from './route-name-info';
 

@@ -1,6 +1,6 @@
-import { LegBuildParams } from '@api/common/planner/leg-build-params';
-import { LegEnd } from '@api/common/planner/leg-end';
-import { NetworkType } from '@api/custom/network-type';
+import { LegBuildParams } from '@api/common/planner';
+import { LegEnd } from '@api/common/planner';
+import { NetworkType } from '@api/custom';
 import { AppService } from '@app/app.service';
 import { List } from 'immutable';
 import { Observable } from 'rxjs';

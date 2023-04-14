@@ -1,10 +1,10 @@
-import { PdfPlanBuilder } from '@app/pdf/plan/pdf-plan-builder';
-import { PdfPlanNode } from '@app/pdf/plan/pdf-plan-node';
-import { Plan } from '@app/planner/domain/plan/plan';
-import { PlannerService } from '@app/planner/services/planner.service';
 import { jsPDF } from 'jspdf';
+import { Plan } from '../../domain/plan/plan';
+import { PlannerService } from '../../planner.service';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';
+import { PdfPlanBuilder } from './pdf-plan-builder';
+import { PdfPlanNode } from './pdf-plan-node';
 import { PdfSideBar } from './pdf-side-bar';
 import { PdfTextDocumentModel } from './pdf-text-document-model';
 
@@ -24,7 +24,7 @@ export class PdfTextDocument {
 
   print(): void {
     this.drawPlan();
-    this.doc.save('knooppuntnet-text.pdf');
+    this.doc.save('knooppuntnet-text.planner.pdf');
   }
 
   private drawPlan() {

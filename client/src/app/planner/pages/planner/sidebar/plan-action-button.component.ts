@@ -4,8 +4,8 @@ import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { PageWidth } from '@app/components/shared/page-width';
-import { PageWidthService } from '@app/components/shared/page-width.service';
+import { PageWidth } from '@app/components/shared';
+import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

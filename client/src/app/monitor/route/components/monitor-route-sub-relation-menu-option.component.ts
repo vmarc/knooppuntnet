@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
+import { MonitorRouteSubRelation } from '@api/common/monitor';
 
 @Component({
   selector: 'kpn-monitor-sub-relation-menu-option',

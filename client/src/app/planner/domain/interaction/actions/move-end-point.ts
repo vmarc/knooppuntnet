@@ -1,5 +1,5 @@
-import { LegEnd } from '@api/common/planner/leg-end';
-import { PlanNode } from '@api/common/planner/plan-node';
+import { LegEnd } from '@api/common/planner';
+import { PlanNode } from '@api/common/planner';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerCommandReplaceLeg } from '../../commands/planner-command-replace-leg';

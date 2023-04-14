@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { NetworkNodeDiff } from './network';
 import { NetworkNodeData } from './network-node-data';
-import { NetworkNodeDiff } from './network/network-node-diff';
 
 export interface NetworkNodeUpdate {
   readonly before: NetworkNodeData;

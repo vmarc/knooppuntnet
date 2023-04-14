@@ -1,6 +1,6 @@
-import { TrackPathKey } from '@api/common/common/track-path-key';
-import { LegEnd } from '@api/common/planner/leg-end';
-import { LegEndRoute } from '@api/common/planner/leg-end-route';
+import { TrackPathKey } from '@api/common/common';
+import { LegEnd } from '@api/common/planner';
+import { LegEndRoute } from '@api/common/planner';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';

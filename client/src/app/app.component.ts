@@ -1,20 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  RouteConfigLoadEnd,
-  RouteConfigLoadStart,
-  Router,
-} from '@angular/router';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, } from '@angular/router';
+import { PageWidth } from '@app/components/shared';
+import { PageWidthService } from '@app/components/shared';
+import { PageService } from '@app/components/shared';
+import { selectPageShowFooter } from '@app/core/page';
+import { IconService } from '@app/services';
+import { VersionService } from '@app/services';
+import { SpinnerService } from '@app/spinner';
+import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { setTag } from '@sentry/angular-ivy';
 import { map } from 'rxjs/operators';
-import { PageWidth } from './components/shared/page-width';
-import { PageWidthService } from './components/shared/page-width.service';
-import { PageService } from './components/shared/page.service';
-import { selectPageShowFooter } from './core/page/page.selectors';
-import { IconService } from './services/icon.service';
-import { VersionService } from './services/version.service';
-import { SpinnerService } from './spinner/spinner.service';
-import { Subscriptions } from './util/Subscriptions';
 
 /*
  Note: the [@.disabled]="true" in mat-sidenav-container is to disable the

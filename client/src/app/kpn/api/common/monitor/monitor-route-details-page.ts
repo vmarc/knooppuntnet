@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom/day';
+import { Day } from '@api/custom';
 import { MonitorRouteRelationStructureRow } from './monitor-route-relation-structure-row';
 
 export interface MonitorRouteDetailsPage {

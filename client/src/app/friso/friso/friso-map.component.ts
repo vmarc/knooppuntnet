@@ -2,10 +2,10 @@ import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
-import { FrisoMapService } from '@app/friso/friso/friso-map.service';
-import { actionFrisoMapViewInit } from '@app/friso/store/friso.actions';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
+import { actionFrisoMapViewInit } from '../store/friso.actions';
+import { FrisoMapService } from './friso-map.service';
 
 @Component({
   selector: 'kpn-friso-map',

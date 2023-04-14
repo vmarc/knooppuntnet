@@ -1,6 +1,6 @@
-import { Plan } from '@app/planner/domain/plan/plan';
 import { jsPDF } from 'jspdf';
-import { BitmapIconService } from '../bitmap-icon.service';
+import { Plan } from '../../domain/plan/plan';
+import { BitmapIconService } from '../services/bitmap-icon.service';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';
 import { PdfPlanBuilder } from './pdf-plan-builder';
@@ -24,7 +24,7 @@ export class PdfStripDocument {
 
   print(): void {
     this.drawPlan();
-    this.doc.save('knooppuntnet-strip.pdf');
+    this.doc.save('knooppuntnet-strip.planner.pdf');
   }
 
   private drawPlan() {

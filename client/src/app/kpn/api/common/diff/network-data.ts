@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { MetaData } from '../data/meta-data';
+import { MetaData } from '@api/common/data';
 
 export interface NetworkData {
   readonly metaData: MetaData;

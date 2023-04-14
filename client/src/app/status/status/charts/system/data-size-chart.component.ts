@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { BarChart } from '@api/common/status/bar-chart';
+import { BarChart } from '@api/common/status';
 
 @Component({
   selector: 'kpn-data-size-chart',

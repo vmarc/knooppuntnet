@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Day } from '../custom/day';
+import { Day } from '@api/custom';
 
 export interface SurveyDateInfo {
   readonly now: Day;

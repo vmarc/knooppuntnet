@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { ChangeKey } from './changes/details/change-key';
+import { ChangeKey } from '@api/common/changes/details';
+import { Subset } from '@api/custom';
 import { ChangeSetSummaryLocationInfo } from './change-set-summary-location-info';
 import { ChangeSetSummaryNetworkInfo } from './change-set-summary-network-info';
-import { Subset } from '../custom/subset';
 
 export interface ChangeSetSummaryInfo {
   readonly rowIndex: number;

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
-import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-change-summary';
+import { MonitorRouteChangeSummary } from '@api/common/monitor';
+import { PageWidthService } from '@app/components/shared';
 import { map } from 'rxjs/operators';
-import { PageWidthService } from '@app/components/shared/page-width.service';
 
 @Component({
   selector: 'kpn-monitor-change-header',

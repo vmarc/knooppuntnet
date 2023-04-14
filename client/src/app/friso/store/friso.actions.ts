@@ -1,6 +1,6 @@
-import { FrisoNode } from '@app/friso/friso/friso-node';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
+import { FrisoNode } from '../friso/friso-node';
 
 export const actionFrisoMapInitialized = createAction(
   '[FrisoPage] Load',

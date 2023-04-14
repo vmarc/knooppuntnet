@@ -832,7 +832,7 @@
       *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
         <target>De verplichte *&quot;route&quot;* tag heeft een ongeldige waarde.
 
-Een fietsnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;bicycle&quot;* hebben. 
+Een fietsnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;bicycle&quot;* hebben.
 
 Een wandelnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;foot&quot;*, *&quot;hiking&quot;* of *&quot;walking&quot;* hebben. De waarde *&quot;walking&quot;* wordt vaak gevonden en door de analyse aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki-pagina&apos;s.
 
@@ -7462,7 +7462,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf" datatype="html">
+      <trans-unit id="plan.output.compact-planner.pdf" datatype="html">
         <source>Compact</source>
         <target>Compact</target>
         <context-group purpose="location">
@@ -7470,7 +7470,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf" datatype="html">
+      <trans-unit id="plan.output.node-strip-planner.pdf" datatype="html">
         <source>Node strip</source>
         <target>Knooppuntenstrip</target>
         <context-group purpose="location">
@@ -7478,7 +7478,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf" datatype="html">
         <source>Navigation instructions</source>
         <target>Navigatie-instructies</target>
         <context-group purpose="location">
@@ -7606,25 +7606,25 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with compact node overview</source>
-        <target>Maak voor de route een pdf-bestand met compact knooppuntenoverzicht</target>
+      <trans-unit id="plan.output.compact-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with compact node overview</source>
+        <target>Maak voor de route een planner.pdf-bestand met compact knooppuntenoverzicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
-        <target>Maak een pdf-bestand met een knooppunten-strip</target>
+      <trans-unit id="plan.output.node-strip-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with nodes in &apos;strip&apos; format</source>
+        <target>Maak een planner.pdf-bestand met een knooppunten-strip</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf with navigation instructions</source>
-        <target>Maak een pdf-bestand met navigatie-aanwijzingen voor de route</target>
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf with navigation instructions</source>
+        <target>Maak een planner.pdf-bestand met navigatie-aanwijzingen voor de route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
@@ -9167,14 +9167,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.text.tooltip" datatype="html">
-        <source>Produce a route pdf file in &apos;text&apos; format</source>
-        <target>Maak een route-pdf in tekstvorm</target>
+        <source>Produce a route planner.pdf file in &apos;text&apos; format</source>
+        <target>Maak een route-planner.pdf in tekstvorm</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.text-pdf" datatype="html">
+      <trans-unit id="plan.output.text-planner.pdf" datatype="html">
         <source>Text</source>
         <target>Tekst</target>
         <context-group purpose="location">

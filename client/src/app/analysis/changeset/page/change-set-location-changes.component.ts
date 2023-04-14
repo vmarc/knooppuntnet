@@ -5,7 +5,6 @@ import { LocationTreeItem } from '@api/common';
 import { PageService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LocationFlatNode } from '../../location/selection';
 
 @Component({
   selector: 'kpn-change-set-location-changes',
@@ -161,15 +160,6 @@ export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
   //   // // this.treeControl.expand(this.treeControl.dataNodes[0]);
   //   // this.treeControl.expandAll();
   // }
-
-  select(expandableNode: LocationFlatNode): void {
-    const locationName =
-      expandableNode.path.length > 0
-        ? expandableNode.path + ':' + expandableNode.name
-        : expandableNode.name;
-
-    //this.selection.emit(locationName);
-  }
 
   contentsClass(node: LocationTreeItem): string {
     return ` contents contents-level-${node.level}`;

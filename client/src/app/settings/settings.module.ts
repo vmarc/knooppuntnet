@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../components/shared/shared.module';
-import { SettingsRoutingModule } from './settings-routing.module';
-import { SettingsPageComponent } from './settings-page.component';
-import { SettingsSidebarComponent } from './settings-sidebar.component';
+import { NgModule } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { SharedModule } from '@app/components/shared';
+import { SettingsPageComponent } from './settings-page.component';
+import { SettingsRoutingModule } from './settings-routing.module';
+import { SettingsSidebarComponent } from './settings-sidebar.component';
 
 @NgModule({
   declarations: [SettingsPageComponent, SettingsSidebarComponent],

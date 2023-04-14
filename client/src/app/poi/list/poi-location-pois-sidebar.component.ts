@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Country } from '@api/custom/country';
+import { Country } from '@api/custom';
 import { Store } from '@ngrx/store';
 import { actionLocationPoiSummaryCountryChanged } from '../store/poi.actions';
 import { actionLocationPoiSummaryPageInit } from '../store/poi.actions';

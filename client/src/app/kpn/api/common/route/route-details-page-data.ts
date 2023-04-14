@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom/day';
-import { Fact } from '@api/custom/fact';
-import { RouteInfoAnalysis } from './route-info-analysis';
+import { Day } from '@api/custom';
+import { Fact } from '@api/custom';
+import { Tags } from '@api/custom';
+import { Timestamp } from '@api/custom';
 import { RouteSummary } from '../route-summary';
-import { Tags } from '@api/custom/tags';
-import { Timestamp } from '@api/custom/timestamp';
+import { RouteInfoAnalysis } from './route-info-analysis';
 
 export interface RouteDetailsPageData {
   readonly id: number;

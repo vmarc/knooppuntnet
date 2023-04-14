@@ -11,18 +11,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
+import { OlModule } from '@app/components/ol';
+import { PoiAnalysisModule } from '@app/components/poi';
+import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
-import { OlModule } from '../components/ol/ol.module';
-import { PoiAnalysisModule } from '../components/poi/poi-analysis.module';
-import { SharedModule } from '../components/shared/shared.module';
-import { PdfModule } from '../pdf/pdf.module';
+import { PdfModule } from 'src/app/planner/pdf';
 import { GeolocationControlComponent } from './pages/planner/geolocation/geolocation-control.component';
 import { GeolocationNotSupportedDialogComponent } from './pages/planner/geolocation/geolocation-not-supported-dialog.component';
 import { GeolocationPermissionDeniedDialogComponent } from './pages/planner/geolocation/geolocation-permission-denied-dialog.component';
 import { GeolocationTimeoutDialogComponent } from './pages/planner/geolocation/geolocation-timeout-dialog.component';
 import { GeolocationUnavailableDialogComponent } from './pages/planner/geolocation/geolocation-unavailable-dialog.component';
+import { PlannerMapService } from './pages/planner/planner-map.service';
 import { PlannerPageComponent } from './pages/planner/planner-page.component';
 import { PoiMenuOptionComponent } from './pages/planner/poi-menu-option.component';
 import { PoiMenuComponent } from './pages/planner/poi-menu.component';
@@ -68,11 +69,10 @@ import { PlannerSidebarComponent } from './pages/planner/sidebar/planner-sidebar
 import { PlannerToolbarComponent } from './pages/planner/sidebar/planner-toolbar.component';
 import { MapPageComponent } from './pages/selector/_map-page.component';
 import { PlannerRoutingModule } from './planner-routing.module';
-import { PlannerService } from './services/planner.service';
+import { PlannerService } from './planner.service';
 import { PlannerEffects } from './store/planner-effects';
 import { plannerReducer } from './store/planner-reducer';
 import { plannerFeatureKey } from './store/planner-state';
-import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
 
 @NgModule({
   imports: [

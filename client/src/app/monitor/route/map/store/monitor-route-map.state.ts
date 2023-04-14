@@ -1,8 +1,7 @@
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
-import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
-import { ApiResponse } from '@api/custom/api-response';
-import { MapPosition } from '@app/components/ol/domain/map-position';
+import { MonitorRouteDeviation } from '@api/common/monitor';
+import { MonitorRouteMapPage } from '@api/common/monitor';
+import { MonitorRouteSegment } from '@api/common/monitor';
+import { MapPosition } from '@app/components/ol/domain';
 import { MonitorMapMode } from '../monitor-map-mode';
 
 export const initialState: MonitorRouteMapState = {

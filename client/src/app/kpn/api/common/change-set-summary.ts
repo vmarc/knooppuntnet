@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
-import { ChangeKey } from './changes/details/change-key';
+import { ChangeKey } from '@api/common/changes/details';
+import { Subset } from '@api/custom';
+import { Timestamp } from '@api/custom';
+import { LocationChanges } from '.';
+import { NetworkChanges } from '.';
 import { ChangeSetSubsetAnalysis } from './change-set-subset-analysis';
 import { ChangeSetSubsetElementRefs } from './change-set-subset-element-refs';
-import { LocationChanges } from './location-changes';
-import { NetworkChanges } from './network-changes';
-import { Subset } from '../custom/subset';
-import { Timestamp } from '../custom/timestamp';
 
 export interface ChangeSetSummary {
   readonly _id: string;

@@ -8341,55 +8341,55 @@
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.text.tooltip" datatype="html">
-        <source>Produce a route pdf file in &apos;text&apos; format</source>
+        <source>Produce a route planner.pdf file in &apos;text&apos; format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.text-pdf" datatype="html">
+      <trans-unit id="plan.output.text-planner.pdf" datatype="html">
         <source> Text </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">47,48</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with compact node overview</source>
+      <trans-unit id="plan.output.compact-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with compact node overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.compact-pdf" datatype="html">
+      <trans-unit id="plan.output.compact-planner.pdf" datatype="html">
         <source> Compact </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf file with nodes in &apos;strip&apos; format</source>
+      <trans-unit id="plan.output.node-strip-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf file with nodes in &apos;strip&apos; format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.node-strip-pdf" datatype="html">
+      <trans-unit id="plan.output.node-strip-planner.pdf" datatype="html">
         <source> Node strip </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf.tooltip" datatype="html">
-        <source>Produce a route pdf with navigation instructions</source>
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf.tooltip" datatype="html">
+        <source>Produce a route planner.pdf with navigation instructions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="plan.output.navigation-instructions-pdf" datatype="html">
+      <trans-unit id="plan.output.navigation-instructions-planner.pdf" datatype="html">
         <source> Navigation instructions </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>

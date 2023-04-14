@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Location } from './location/location';
-import { Tags } from '../custom/tags';
+import { Tags } from '@api/custom';
+import { Location } from './location';
 
 export interface Poi {
   readonly _id: string;

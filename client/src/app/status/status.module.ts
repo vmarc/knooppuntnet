@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { SharedModule } from '@app/components/shared';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { SharedModule } from '../components/shared/shared.module';
 import { StatusRoutingModule } from './status-routing.module';
 import { ActionBarChartStackedComponent } from './status/charts/action-bar-chart-stacked.component';
 import { ActionBarChartComponent } from './status/charts/action-bar-chart.component';

@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { RouteMemberInfo } from '@api/custom';
 import { RouteLocationAnalysis } from '../route-location-analysis';
 import { RouteMap } from './route-map';
-import { RouteMemberInfo } from '@api/custom/route-member-info';
 
 export interface RouteInfoAnalysis {
   readonly unexpectedNodeIds: number[];

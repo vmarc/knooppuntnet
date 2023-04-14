@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { PdfTextDocument } from '@app/pdf/plan/pdf-text-document';
-import { DirectionsAnalyzer } from '@app/planner/domain/directions/directions-analyzer';
-import { Plan } from '@app/planner/domain/plan/plan';
-import { PlannerService } from '../planner/services/planner.service';
-import { BitmapIconService } from './bitmap-icon.service';
+import { List } from 'immutable';
+import { Plan } from '../domain/plan/plan';
+import { PlanInstruction } from '../domain/plan/plan-instruction';
+import { PlannerService } from '../planner.service';
+import { GpxWriter } from './plan/gpx-writer';
 import { PdfDirections } from './plan/pdf-directions';
 import { PdfDocument } from './plan/pdf-document';
 import { PdfStripDocument } from './plan/pdf-strip-document';
+import { PdfTextDocument } from './plan/pdf-text-document';
+import { BitmapIconService } from './services/bitmap-icon.service';
 
 @Injectable()
 export class PdfService {
@@ -27,13 +29,16 @@ export class PdfService {
     new PdfTextDocument(plan, name, this.plannerService).print();
   }
 
-  printInstructions(plan: Plan, name: string): void {
-    const instructions = new DirectionsAnalyzer().analyze(plan);
+  printInstructions(instructions: List<PlanInstruction>, name: string): void {
     new PdfDirections(
       instructions,
       this.iconService,
       this.plannerService,
       name
     ).print();
+  }
+
+  writeGpx(plan: Plan, name: string): void {
+    new GpxWriter().write(plan, name);
   }
 }

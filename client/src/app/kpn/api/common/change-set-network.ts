@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { Country } from '@api/custom';
+import { NetworkType } from '@api/custom';
 import { ChangeSetElementRefs } from './change-set-element-refs';
-import { Country } from '../custom/country';
-import { NetworkType } from '../custom/network-type';
 
 export interface ChangeSetNetwork {
   readonly country: Country;

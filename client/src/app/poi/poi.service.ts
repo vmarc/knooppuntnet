@@ -3,12 +3,12 @@ import { HttpClient } from '@angular/common/http';
 import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { LocationPoiParameters } from '@api/common/poi/location-poi-parameters';
-import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
-import { LocationPoisPage } from '@api/common/poi/location-pois-page';
-import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
-import { ApiResponse } from '@api/custom/api-response';
-import { Country } from '@api/custom/country';
+import { LocationPoiParameters } from '@api/common/poi';
+import { LocationPoiSummaryPage } from '@api/common/poi';
+import { LocationPoisPage } from '@api/common/poi';
+import { PoiLocationsPage } from '@api/common/poi';
+import { ApiResponse } from '@api/custom';
+import { Country } from '@api/custom';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 

@@ -3,9 +3,9 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
-import { MAP_SERVICE_TOKEN } from '../../../components/ol/services/openlayers-map-service';
+import { MonitorRouteDeviation } from '@api/common/monitor';
+import { MonitorRouteSegment } from '@api/common/monitor';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { MonitorRouteChangeMapService } from './monitor-route-change-map.service';
 
 @Component({

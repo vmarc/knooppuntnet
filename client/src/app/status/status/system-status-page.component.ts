@@ -3,13 +3,13 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { PeriodParameters } from '@api/common/status/period-parameters';
-import { SystemStatusPage } from '@api/common/status/system-status-page';
+import { PeriodParameters } from '@api/common/status';
+import { SystemStatusPage } from '@api/common/status';
+import { AppService } from '@app/app.service';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
 import { StatusLinks } from './status-links';
 
 @Component({

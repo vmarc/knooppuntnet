@@ -2,7 +2,7 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
+import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapPageInit } from './store/monitor-route-map.actions';

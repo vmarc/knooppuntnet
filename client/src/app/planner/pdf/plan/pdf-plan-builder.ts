@@ -1,7 +1,7 @@
-import { PdfPlanNode } from '@app/pdf/plan/pdf-plan-node';
-import { Plan } from '@app/planner/domain/plan/plan';
 import { List } from 'immutable';
+import { Plan } from '../../domain/plan/plan';
 import { PdfPlan } from './pdf-plan';
+import { PdfPlanNode } from './pdf-plan-node';
 
 export class PdfPlanBuilder {
   static fromPlan(plan: Plan): PdfPlan {

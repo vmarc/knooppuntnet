@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { NetworkType } from '@api/custom/network-type';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { MapMode } from '@app/components/ol/services/map-mode';
-import { PlannerState } from '@app/planner/store/planner-state';
-import { BrowserStorageService } from '@app/services/browser-storage.service';
+import { NetworkType } from '@api/custom';
+import { MapLayerState } from '@app/components/ol/domain';
+import { MapPosition } from '@app/components/ol/domain';
+import { MapMode } from '@app/components/ol/services';
+import { NetworkTypes } from '@app/kpn/common';
+import { BrowserStorageService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
-import { NetworkTypes } from '@app/kpn/common/network-types';
+import { PlannerState } from '../store/planner-state';
 
 @Injectable({
   providedIn: 'root',

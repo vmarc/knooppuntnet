@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '../bounds';
+import { Bounds } from '@api/common';
 import { LocationSummary } from './location-summary';
 
 export interface LocationMapPage {

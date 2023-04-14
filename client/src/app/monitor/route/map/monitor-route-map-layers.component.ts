@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { selectFalse } from '@app/core';
 import { Store } from '@ngrx/store';
-import { selectFalse } from '@app/core/core.state';
 import { actionMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapMatchesVisible } from './store/monitor-route-map.actions';

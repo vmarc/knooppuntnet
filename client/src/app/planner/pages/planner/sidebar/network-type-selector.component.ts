@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
-import { NetworkType } from '@api/custom/network-type';
-import { actionPlannerNetworkType } from '@app/planner/store/planner-actions';
-import { selectPlannerNetworkType } from '@app/planner/store/planner-selectors';
+import { NetworkType } from '@api/custom';
 import { Store } from '@ngrx/store';
+import { actionPlannerNetworkType } from '../../../store/planner-actions';
+import { selectPlannerNetworkType } from '../../../store/planner-selectors';
 
 @Component({
   selector: 'kpn-network-type-selector',

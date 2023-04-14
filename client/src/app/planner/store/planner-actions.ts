@@ -1,9 +1,9 @@
-import { NetworkType } from '@api/custom/network-type';
-import { MapPosition } from '@app/components/ol/domain/map-position';
-import { MapMode } from '@app/components/ol/services/map-mode';
+import { NetworkType } from '@api/custom';
+import { MapPosition } from '@app/components/ol/domain';
+import { MapLayerState } from '@app/components/ol/domain';
+import { MapMode } from '@app/components/ol/services';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { MapLayerState } from '@app/components/ol/domain/map-layer-state';
 
 export const actionPlannerInit = createAction('[Planner] Init');
 

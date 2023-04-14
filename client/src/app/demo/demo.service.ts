@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
+import { PageWidth } from '@app/components/shared';
+import { PageWidthService } from '@app/components/shared';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { PageWidth } from '../components/shared/page-width';
-import { PageWidthService } from '../components/shared/page-width.service';
 import { actionDemoEnabledChanged } from './store/demo.actions';
 
 @Injectable()

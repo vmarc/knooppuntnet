@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/custom/network-type';
+import { NetworkType } from '@api/custom';
 import { RouteMap } from './route-map';
 
 export interface RouteMapInfo {

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NodeIntegrityCheck } from '../../node-integrity-check';
+import { NodeIntegrityCheck } from '@api/common';
 
 export interface NodeIntegrityCheckDiff {
   readonly before: NodeIntegrityCheck;

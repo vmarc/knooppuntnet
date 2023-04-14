@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { actionFrisoMode } from '@app/friso/store/friso.actions';
-import { selectFrisoMode } from '@app/friso/store/friso.selectors';
 import { Store } from '@ngrx/store';
+import { actionFrisoMode } from '../store/friso.actions';
+import { selectFrisoMode } from '../store/friso.selectors';
 
 @Component({
   selector: 'kpn-friso-sidebar',

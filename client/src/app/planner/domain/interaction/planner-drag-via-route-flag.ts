@@ -1,5 +1,5 @@
+import { PlanNode } from '@api/common/planner';
 import { Coordinate } from 'ol/coordinate';
-import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanFlag } from '../plan/plan-flag';
 
 export class PlannerDragViaRouteFlag {

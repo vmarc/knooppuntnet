@@ -1,10 +1,10 @@
 import { Params } from '@angular/router';
-import { Bounds } from '@api/common/bounds';
-import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
-import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
-import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
-import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
-import { MapPosition } from '@app/components/ol/domain/map-position';
+import { Bounds } from '@api/common';
+import { MonitorRouteDeviation } from '@api/common/monitor';
+import { MonitorRouteMapPage } from '@api/common/monitor';
+import { MonitorRouteSegment } from '@api/common/monitor';
+import { MonitorRouteSubRelation } from '@api/common/monitor';
+import { MapPosition } from '@app/components/ol/domain';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { MonitorMapMode } from '../monitor-map-mode';

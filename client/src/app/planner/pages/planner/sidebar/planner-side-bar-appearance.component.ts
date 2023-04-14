@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { actionPreferencesShowAppearanceOptions } from '@app/core/preferences/preferences.actions';
-import { selectPreferencesShowAppearanceOptions } from '@app/core/preferences/preferences.selectors';
+import { actionPreferencesShowAppearanceOptions } from '@app/core/preferences';
+import { selectPreferencesShowAppearanceOptions } from '@app/core/preferences';
 import { Store } from '@ngrx/store';
 import { actionPlannerMapMode } from '../../../store/planner-actions';
 import { selectPlannerMapMode } from '../../../store/planner-selectors';

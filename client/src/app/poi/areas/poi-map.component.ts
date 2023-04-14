@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services/openlayers-map-service';
-import { PoiMapService } from '@app/poi/areas/poi-map.service';
-import { actionPoiAreasPageMapViewInit } from '@app/poi/store/poi.actions';
+import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
+import { actionPoiAreasPageMapViewInit } from '../store/poi.actions';
+import { PoiMapService } from './poi-map.service';
 
 @Component({
   selector: 'kpn-poi-map',

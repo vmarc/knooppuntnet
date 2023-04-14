@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { ChangeSetElementRefs } from './change-set-element-refs';
+import { ChangeSetElementRefs } from '.';
 
 export interface LocationChangesTreeNode {
   readonly locationName: string;

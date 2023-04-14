@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { FactDiffs } from '../common/fact-diffs';
+import { TagDiffs } from '@api/common/diff';
+import { FactDiffs } from '@api/common/diff/common';
 import { RouteNameDiff } from './route-name-diff';
 import { RouteNodeDiff } from './route-node-diff';
 import { RouteRoleDiff } from './route-role-diff';
-import { TagDiffs } from '../tag-diffs';
 
 export interface RouteDiff {
   readonly nameDiff: RouteNameDiff;

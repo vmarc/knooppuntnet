@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Check } from './check';
-import { Ref } from './common/ref';
+import { Check } from '.';
+import { Ref } from './common';
 
 export interface NetworkFact {
   readonly name: string;

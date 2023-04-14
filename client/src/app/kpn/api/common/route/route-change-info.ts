@@ -1,15 +1,15 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '../bounds';
-import { ChangeKey } from '../changes/details/change-key';
-import { ChangeSetInfo } from '../changes/change-set-info';
-import { ChangeType } from '@api/custom/change-type';
+import { Bounds } from '@api/common';
+import { ChangeSetInfo } from '@api/common/changes';
+import { ChangeKey } from '@api/common/changes/details';
+import { MetaData } from '@api/common/data';
+import { RawNode } from '@api/common/data/raw';
+import { WayInfo } from '@api/common/diff';
+import { WayUpdate } from '@api/common/diff';
+import { RouteDiff } from '@api/common/diff/route';
+import { ChangeType } from '@api/custom';
 import { GeometryDiff } from './geometry-diff';
-import { MetaData } from '../data/meta-data';
-import { RawNode } from '../data/raw/raw-node';
-import { RouteDiff } from '../diff/route/route-diff';
-import { WayInfo } from '../diff/way-info';
-import { WayUpdate } from '../diff/way-update';
 
 export interface RouteChangeInfo {
   readonly rowIndex: number;

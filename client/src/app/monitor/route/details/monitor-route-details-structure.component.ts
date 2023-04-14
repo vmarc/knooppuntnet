@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Params } from '@angular/router';
-import { MonitorRouteRelationStructureRow } from '@api/common/monitor/monitor-route-relation-structure-row';
+import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';

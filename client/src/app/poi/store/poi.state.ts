@@ -1,7 +1,7 @@
-import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
-import { LocationPoisPage } from '@api/common/poi/location-pois-page';
-import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
-import { ApiResponse } from '@api/custom/api-response';
+import { LocationPoiSummaryPage } from '@api/common/poi';
+import { LocationPoisPage } from '@api/common/poi';
+import { PoiLocationsPage } from '@api/common/poi';
+import { ApiResponse } from '@api/custom';
 
 export const initialState: PoiState = {
   locationPoisPageIndex: null,

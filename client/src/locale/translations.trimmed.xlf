@@ -8300,55 +8300,55 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="plan.output.text.tooltip">
-        <source>Produce a route pdf file in 'text' format</source>
+        <source>Produce a route planner.pdf file in 'text' format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.text-pdf">
+      <trans-unit datatype="html" id="plan.output.text-planner.pdf">
         <source>Text</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">47,48</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.compact-pdf.tooltip">
-        <source>Produce a route pdf file with compact node overview</source>
+      <trans-unit datatype="html" id="plan.output.compact-planner.pdf.tooltip">
+        <source>Produce a route planner.pdf file with compact node overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.compact-pdf">
+      <trans-unit datatype="html" id="plan.output.compact-planner.pdf">
         <source>Compact</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">57,58</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.node-strip-pdf.tooltip">
-        <source>Produce a route pdf file with nodes in 'strip' format</source>
+      <trans-unit datatype="html" id="plan.output.node-strip-planner.pdf.tooltip">
+        <source>Produce a route planner.pdf file with nodes in 'strip' format</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.node-strip-pdf">
+      <trans-unit datatype="html" id="plan.output.node-strip-planner.pdf">
         <source>Node strip</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">67,68</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.navigation-instructions-pdf.tooltip">
-        <source>Produce a route pdf with navigation instructions</source>
+      <trans-unit datatype="html" id="plan.output.navigation-instructions-planner.pdf.tooltip">
+        <source>Produce a route planner.pdf with navigation instructions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>
           <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.navigation-instructions-pdf">
+      <trans-unit datatype="html" id="plan.output.navigation-instructions-planner.pdf">
         <source>Navigation instructions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/sidebar/plan-output-dialog.component.ts</context>

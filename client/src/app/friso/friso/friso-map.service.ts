@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Bounds } from '@api/common/bounds';
-import { NetworkType } from '@api/custom/network-type';
-import { ZoomLevel } from '@app/components/ol/domain/zoom-level';
-import { BackgroundLayer } from '@app/components/ol/layers/background-layer';
-import { FrisoLayer } from '@app/components/ol/layers/friso-layer';
-import { MapControls } from '@app/components/ol/layers/map-controls';
-import { MapLayerRegistry } from '@app/components/ol/layers/map-layer-registry';
-import { NetworkBitmapTileLayer } from '@app/components/ol/layers/network-bitmap-tile-layer';
-import { NetworkVectorTileLayer } from '@app/components/ol/layers/network-vector-tile-layer';
-import { OsmLayer } from '@app/components/ol/layers/osm-layer';
-import { OpenlayersMapService } from '@app/components/ol/services/openlayers-map-service';
-import { MainMapStyle } from '@app/components/ol/style/main-map-style';
-import { MainMapStyleParameters } from '@app/components/ol/style/main-map-style-parameters';
-import { Util } from '@app/components/shared/util';
-import { FrisoNode } from '@app/friso/friso/friso-node';
-import { actionFrisoNodeClicked } from '@app/friso/store/friso.actions';
+import { Bounds } from '@api/common';
+import { NetworkType } from '@api/custom';
+import { ZoomLevel } from '@app/components/ol/domain';
+import { BackgroundLayer } from '@app/components/ol/layers';
+import { FrisoLayer } from '@app/components/ol/layers';
+import { MapControls } from '@app/components/ol/layers';
+import { MapLayerRegistry } from '@app/components/ol/layers';
+import { NetworkBitmapTileLayer } from '@app/components/ol/layers';
+import { NetworkVectorTileLayer } from '@app/components/ol/layers';
+import { OsmLayer } from '@app/components/ol/layers';
+import { OpenlayersMapService } from '@app/components/ol/services';
+import { MainMapStyle } from '@app/components/ol/style';
+import { MainMapStyleParameters } from '@app/components/ol/style';
+import { Util } from '@app/components/shared';
 import { Store } from '@ngrx/store';
 import { MapBrowserEvent } from 'ol';
 import { FeatureLike } from 'ol/Feature';
@@ -24,6 +22,8 @@ import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
+import { actionFrisoNodeClicked } from '../store/friso.actions';
+import { FrisoNode } from './friso-node';
 
 @Injectable()
 export class FrisoMapService extends OpenlayersMapService {

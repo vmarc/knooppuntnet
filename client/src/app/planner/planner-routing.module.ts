@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BaseSidebarComponent } from '../base/base-sidebar.component';
-import { Util } from '../components/shared/util';
+import { BaseSidebarComponent } from '@app/base';
+import { Util } from '@app/components/shared';
 import { PlannerPageComponent } from './pages/planner/planner-page.component';
 import { PlannerSidebarComponent } from './pages/planner/sidebar/planner-sidebar.component';
 import { PlannerToolbarComponent } from './pages/planner/sidebar/planner-toolbar.component';

@@ -1,6 +1,6 @@
-import { TrackPathKey } from '@api/common/common/track-path-key';
-import { LegEnd } from '@api/common/planner/leg-end';
-import { PlanNode } from '@api/common/planner/plan-node';
+import { TrackPathKey } from '@api/common/common';
+import { LegEnd } from '@api/common/planner';
+import { PlanNode } from '@api/common/planner';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
 import { Printer } from './printer';
