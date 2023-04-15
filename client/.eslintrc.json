@@ -68,7 +68,7 @@
         "plugin:@softarc/sheriff/default"
       ],
       "rules": {
-        "@softarc/sheriff/dependency-rule": "off"
+        "@softarc/sheriff/dependency-rule": "warn"
       }
     }
   ]
