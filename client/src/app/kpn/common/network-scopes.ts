@@ -1,4 +1,4 @@
-import { NetworkScope } from '@api/custom/network-scope';
+import { NetworkScope } from '@api/custom';
 
 export class NetworkScopes {
   static all: NetworkScope[] = [

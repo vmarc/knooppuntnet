@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FactInfo } from '@app/analysis/fact';
+import { SubsetFact } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
 import { selectSubsetFact } from '../store/subset.selectors';
 import { selectSubsetFactDetailsPage } from '../store/subset.selectors';
-import { SubsetFact } from '../store/subset.state';
 
 @Component({
   selector: 'kpn-subset-fact-details-page',

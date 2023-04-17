@@ -17,7 +17,6 @@ import { SharedModule } from '@app/components/shared';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
-import { PdfModule } from 'src/app/planner/pdf';
 import { GeolocationControlComponent } from './pages/planner/geolocation/geolocation-control.component';
 import { GeolocationNotSupportedDialogComponent } from './pages/planner/geolocation/geolocation-not-supported-dialog.component';
 import { GeolocationPermissionDeniedDialogComponent } from './pages/planner/geolocation/geolocation-permission-denied-dialog.component';
@@ -93,7 +92,6 @@ import { plannerFeatureKey } from './store/planner-state';
     MatAutocompleteModule,
     SharedModule,
     OlModule,
-    PdfModule,
     ClipboardModule,
     PoiAnalysisModule,
   ],

@@ -6,7 +6,5 @@ export * from './filter-options';
 export * from './timestamp-filter';
 export * from './survey-date-filter';
 export * from './filter-option-group';
-export * from './timstamp-filter.spec';
 export * from './timestamp-filter-kind';
 export * from './survey-date-filter-kind';
-export * from './survey-date-filter.spec';

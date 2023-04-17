@@ -1,6 +1,6 @@
-import { Country } from '@api/custom/country';
-import { NetworkType } from '@api/custom/network-type';
-import { Subset } from '@api/custom/subset';
+import { Country } from '@api/custom';
+import { NetworkType } from '@api/custom';
+import { Subset } from '@api/custom';
 
 export class Subsets {
   static all: Subset[] = [

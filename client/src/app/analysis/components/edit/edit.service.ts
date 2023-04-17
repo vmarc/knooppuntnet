@@ -1,5 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AppService } from '@app/app.service';
+import { actionSharedHttpError } from '@app/core/shared';
 import { Store } from '@ngrx/store';
 import { Range } from 'immutable';
 import { Subscription } from 'rxjs';
@@ -9,8 +11,6 @@ import { concat } from 'rxjs';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { AppService } from '@app/app.service';
-import { actionSharedHttpError } from '@app/core/shared/shared.actions';
 import { EditConfiguration } from './edit-configuration';
 import { EditParameters } from './edit-parameters';
 

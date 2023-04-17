@@ -1,8 +1,8 @@
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { Subset } from '@api/custom';
-import { SubsetFact } from '@app/analysis/subset/store/subset.state';
 import { AnalysisStrategy } from '@app/core/preferences';
+import { SubsetFact } from '@app/kpn/common';
 import { Countries } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
 

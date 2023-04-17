@@ -9,6 +9,5 @@ export * from './map-position';
 export * from './map-layer-state';
 export * from './open-layers-map';
 export * from './map-layer-states';
-export * from './map-position.spec';
 export * from './network-map-position';
 export * from './interpreted-poi-configuration';

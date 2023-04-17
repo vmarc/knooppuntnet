@@ -2,7 +2,6 @@ export * from './ids';
 export * from './location';
 export * from './location-fact';
 export * from './location-node';
-export * from './location-page';
 export * from './locations-page';
 export * from './location-summary';
 export * from './location-map-page';

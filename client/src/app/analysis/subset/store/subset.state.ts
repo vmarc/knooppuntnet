@@ -9,10 +9,7 @@ import { SubsetOrphanNodesPage } from '@api/common/subset';
 import { SubsetOrphanRoutesPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { Subset } from '@api/custom';
-
-export class SubsetFact {
-  constructor(readonly subset: Subset, readonly factName: string) {}
-}
+import { SubsetFact } from '@app/kpn/common';
 
 export const initialState: SubsetState = {
   subset: null,

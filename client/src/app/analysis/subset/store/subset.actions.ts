@@ -10,10 +10,10 @@ import { SubsetOrphanRoutesPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { Fact } from '@api/custom';
 import { Subset } from '@api/custom';
+import { SubsetFact } from '@app/kpn/common';
 import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
-import { SubsetFact } from './subset.state';
 
 export const actionSubsetNetworksPageInit = createAction(
   '[SubsetNetworksPage] Init'
