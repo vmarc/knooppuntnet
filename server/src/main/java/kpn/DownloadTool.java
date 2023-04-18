@@ -21,6 +21,10 @@ public class DownloadTool {
         download(webClient, "traject_wandel", "/tmp/traject_wandel.xml");
         download(webClient, "verkeersintensiteit_wandel", "/tmp/verkeersintensiteit_wandel.xml");
         download(webClient, "wegdek_wandel", "/tmp/wegdek_wandel.xml");
+        download(webClient, "knoop_fiets", "/tmp/knoop_fiets.xml");
+        download(webClient, "traject_fiets", "/tmp/traject_fiets.xml");
+        download(webClient, "verkeersintensiteit_fiets", "/tmp/verkeersintensiteit_fiets.xml");
+        download(webClient, "wegdek_fiets", "/tmp/wegdek_fiets.xml");
     }
 
     private void download(WebClient webClient, String what, String destinationFilename) {

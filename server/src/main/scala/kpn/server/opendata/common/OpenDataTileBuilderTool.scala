@@ -11,6 +11,7 @@ import kpn.server.opendata.netherlands.RoutedatabankRoute
 import kpn.server.opendata.netherlands.RoutedatabankRouteReader
 
 import java.io.FileInputStream
+import scala.xml.Elem
 import scala.xml.InputSource
 import scala.xml.XML
 
@@ -26,34 +27,54 @@ class OpenDataTileBuilderTool {
 
   def build(): Unit = {
     buildFlanders()
-    buildNetherlands()
+    // buildNetherlands()
     log.info("Done")
   }
 
   private def buildFlanders(): Unit = {
+    buildFlandersHiking()
+    buildFlandersCycling()
+  }
+
+  private def buildFlandersHiking(): Unit = {
     Log.context("Flanders") {
-      val nodes = readFlandersNodes().map(_.toOpenDataNode)
-      val routes = readFlandersRoutes().map(_.toOpenDataRoute)
+      val nodes = readFlandersHikingNodes().map(_.toOpenDataNode)
+      val routes = readFlandersHikingRoutes().map(_.toOpenDataRoute)
       new OpenDataTileBuilder().build(nodes, routes, "opendata/flanders/hiking")
     }
   }
 
-  private def readFlandersNodes(): Seq[FlandersNode] = {
-    log.info("Read nodes")
+
+  private def readFlandersHikingNodes(): Seq[FlandersNode] = {
+    log.info("Read hiking nodes")
     val filename = "/kpn/opendata/flanders/knoop_wandel.xml"
-    val stream = new FileInputStream(filename)
-    val inputSource = new InputSource(stream)
-    val xml = XML.load(inputSource)
-    new FlandersNodeParser().parse(xml)
+    new FlandersNodeParser().parse(toXml(filename), "knoop_wandel")
   }
 
-  private def readFlandersRoutes(): Seq[FlandersRoute] = {
-    log.info("Read routes")
+  private def readFlandersHikingRoutes(): Seq[FlandersRoute] = {
+    log.info("Read hiking routes")
     val filename = "/kpn/opendata/flanders/traject_wandel.xml"
-    val stream = new FileInputStream(filename)
-    val inputSource = new InputSource(stream)
-    val xml = XML.load(inputSource)
-    new FlandersRouteParser().parse(xml)
+    new FlandersRouteParser().parse(toXml(filename), "traject_wandel")
+  }
+
+  private def buildFlandersCycling(): Unit = {
+    Log.context("Flanders") {
+      val nodes = readFlandersCyclingNodes().map(_.toOpenDataNode)
+      val routes = readFlandersCyclingRoutes().map(_.toOpenDataRoute)
+      new OpenDataTileBuilder().build(nodes, routes, "opendata/flanders/cycling")
+    }
+  }
+
+  private def readFlandersCyclingNodes(): Seq[FlandersNode] = {
+    log.info("Read cycling nodes")
+    val filename = "/kpn/opendata/flanders/knoop_fiets.xml"
+    new FlandersNodeParser().parse(toXml(filename), "knoop_fiets")
+  }
+
+  private def readFlandersCyclingRoutes(): Seq[FlandersRoute] = {
+    log.info("Read cycling routes")
+    val filename = "/kpn/opendata/flanders/traject_fiets.xml"
+    new FlandersRouteParser().parse(toXml(filename), "traject_fiets")
   }
 
   private def buildNetherlands(): Unit = {
@@ -76,5 +97,11 @@ class OpenDataTileBuilderTool {
     val filename = "/kpn/opendata/netherlands/Wandelnetwerken (wgs84).json"
     val inputStream = new FileInputStream(filename)
     new RoutedatabankRouteReader().read(inputStream)
+  }
+
+  private def toXml(filename: String): Elem = {
+    val stream = new FileInputStream(filename)
+    val inputSource = new InputSource(stream)
+    XML.load(inputSource)
   }
 }

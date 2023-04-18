@@ -166,3 +166,7 @@ Make productive:
     find /kpn/tiles/osm -type f | wc -l
     nohup rsync -av  --human-readable --progress --delete /kpn/tiles-install/osm/ /kpn/tiles/osm >> /kpn/logs/tiles-rsync.log 2>&1 &
     find /kpn/tiles/osm -type f | wc -l
+
+Opendata sync:
+
+    rsync -av  --human-readable --progress --delete /kpn/tiles/opendata marcv@kpn-analysis:/kpn/tiles

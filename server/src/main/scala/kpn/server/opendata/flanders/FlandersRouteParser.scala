@@ -7,9 +7,9 @@ import scala.xml.Node
 
 class FlandersRouteParser {
 
-  def parse(xml: Node): Seq[FlandersRoute] = {
+  def parse(xml: Node, tag: String): Seq[FlandersRoute] = {
     val featureMembers = xml \ "featureMembers"
-    val routes = featureMembers \ "traject_wandel"
+    val routes = featureMembers \ tag
     routes.map(parseRoute)
   }
 
