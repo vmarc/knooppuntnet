@@ -7,16 +7,21 @@ import { LocationRoutesParameters } from '@api/common/location';
 import { AppService } from '@app/app.service';
 import { MapService } from '@app/components/ol/services';
 import { selectRouteParam } from '@app/core';
+import { AnalysisStrategy } from '@app/core/preferences';
+import { actionPreferencesAnalysisStrategy } from '@app/core/preferences';
+import { actionPreferencesPageSize } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
+import { from } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { LocationMapService } from '../map/location-map.service';
+import { actionLocationSelectionPageInit } from './location.actions';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';
 import { actionLocationSelectionPageStrategy } from './location.actions';
@@ -48,22 +53,34 @@ import { selectLocationMapPage } from './location.selectors';
 @Injectable()
 export class LocationEffects {
   // noinspection JSUnusedGlobalSymbols
-  locationSelectionPageStrategyChange = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(actionLocationSelectionPageStrategy),
-        concatLatestFrom(() => [
-          this.store.select(selectRouteParam('networkType')),
-          this.store.select(selectRouteParam('country')),
-        ]),
-        tap(([_, networkType, country]) => {
-          const url = `/analysis/${networkType}/${country}/networks`;
-          this.router.navigate([url]);
-        })
-      );
-    },
-    { dispatch: false }
-  );
+  analysisStrategy = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionLocationSelectionPageInit),
+      map(() => {
+        return actionPreferencesAnalysisStrategy({
+          strategy: AnalysisStrategy.location,
+        });
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  locationSelectionPageStrategyChange = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionLocationSelectionPageStrategy),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('networkType')),
+        this.store.select(selectRouteParam('country')),
+      ]),
+      mergeMap(([{ strategy }, networkType, country]) => {
+        const url = `/analysis/${networkType}/${country}/networks`;
+        const promise = this.router.navigate([url]);
+        return from(promise).pipe(
+          map(() => actionPreferencesAnalysisStrategy({ strategy }))
+        );
+      })
+    );
+  });
 
   // noinspection JSUnusedGlobalSymbols
   locationNodesPage = createEffect(() => {
@@ -89,6 +106,16 @@ export class LocationEffects {
         return this.appService.locationNodes(locationKey, parameters);
       }),
       map((response) => actionLocationNodesPageLoaded(response))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionLocationNodesPageSize, actionLocationRoutesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
     );
   });
 

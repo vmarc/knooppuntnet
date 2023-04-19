@@ -10,6 +10,8 @@ import { selectQueryParam } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { selectRouteParams } from '@app/core';
 import { selectRouteParam } from '@app/core';
+import { actionPreferencesPageSize } from '@app/core/preferences';
+import { actionPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
 import { selectPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesNetworkType } from '@app/core/preferences';
@@ -148,6 +150,35 @@ export class NodeEffects {
           return actionNodeChangesPageLoad({ nodeId, changesParameters });
         }
       )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  nodeChangesImpact = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionNodeChangesFilterOption),
+      map(({ option }) => actionPreferencesImpact({ impact: option.impact }))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionNodeChangesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  nodeChangesPageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionNodeChangesPageLoad),
+      map(({ nodeId, changesParameters }) => {
+        const pageSize = changesParameters.pageSize;
+        return actionPreferencesPageSize({ pageSize });
+      })
     );
   });
 

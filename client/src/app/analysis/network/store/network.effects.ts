@@ -11,6 +11,8 @@ import { selectQueryParam } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { selectRouteParams } from '@app/core';
 import { selectRouteParam } from '@app/core';
+import { actionPreferencesPageSize } from '@app/core/preferences';
+import { actionPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
 import { selectPreferencesImpact } from '@app/core/preferences';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -228,6 +230,24 @@ export class NetworkEffects {
           return actionNetworkChangesLoad({ networkId, changesParameters });
         }
       )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  networkChangesImpact = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionNetworkChangesImpact),
+      map(({ impact }) => actionPreferencesImpact({ impact }))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionNetworkChangesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
     );
   });
 

@@ -10,6 +10,9 @@ import { selectQueryParam } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { selectRouteParams } from '@app/core';
 import { selectRouteParam } from '@app/core';
+import { actionPreferencesPageSize } from '@app/core/preferences';
+import { actionPreferencesNetworkType } from '@app/core/preferences';
+import { actionPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
 import { selectPreferencesImpact } from '@app/core/preferences';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -35,6 +38,7 @@ import { actionRouteDetailsPageInit } from './route.actions';
 import { actionRouteDetailsPageLoaded } from './route.actions';
 import { actionRouteMapPageLoaded } from './route.actions';
 import { actionRouteMapViewInit } from './route.actions';
+import { selectRouteNetworkType } from './route.selectors';
 import { selectRouteChangesParameters } from './route.selectors';
 import { selectRouteId } from './route.selectors';
 import { selectRouteMapPage } from './route.selectors';
@@ -57,6 +61,19 @@ export class RouteEffects {
       ofType(actionRouteDetailsPageLoad),
       mergeMap((action) => this.appService.routeDetails(action.routeId)),
       map((response) => actionRouteDetailsPageLoaded(response))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  detailsPageLoadedNetworkType = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionRouteDetailsPageLoaded),
+      concatLatestFrom(() => this.store.select(selectRouteNetworkType)),
+      map(([response, currentNetworkType]) => {
+        const networkType =
+          response?.result?.route.summary.networkType ?? currentNetworkType;
+        return actionPreferencesNetworkType({ networkType });
+      })
     );
   });
 
@@ -89,6 +106,19 @@ export class RouteEffects {
             })
           )
         );
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  mapPageLoadedNetworkType = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionRouteMapPageLoaded),
+      concatLatestFrom(() => this.store.select(selectRouteNetworkType)),
+      map(([{ response }, currentNetworkType]) => {
+        const networkType =
+          response?.result?.routeMapInfo.networkType ?? currentNetworkType;
+        return actionPreferencesNetworkType({ networkType });
       })
     );
   });
@@ -146,6 +176,24 @@ export class RouteEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
+  routeChangesImpact = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionRouteChangesFilterOption),
+      map(({ option }) => actionPreferencesImpact({ impact: option.impact }))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionRouteChangesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
   routeChangesPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -167,6 +215,19 @@ export class RouteEffects {
           }),
           map((response) => actionRouteChangesPageLoaded(response))
         );
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  changesPageLoadedNetworkType = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionRouteChangesPageLoaded),
+      concatLatestFrom(() => this.store.select(selectRouteNetworkType)),
+      map(([response, currentNetworkType]) => {
+        const networkType =
+          response?.result?.routeNameInfo.networkType ?? currentNetworkType;
+        return actionPreferencesNetworkType({ networkType });
       })
     );
   });

@@ -9,6 +9,8 @@ import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { selectRouteParams } from '@app/core';
 import { selectQueryParams } from '@app/core';
+import { actionPreferencesPageSize } from '@app/core/preferences';
+import { actionPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
 import { selectPreferencesImpact } from '@app/core/preferences';
 import { actionSharedEdit } from '@app/core/shared';
@@ -300,6 +302,24 @@ export class SubsetEffects {
           return actionSubsetChangesPageLoad({ subset, changesParameters });
         }
       )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  subsetChangesImpact = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionSubsetChangesPageImpact),
+      map(({ impact }) => actionPreferencesImpact({ impact }))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionSubsetChangesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
     );
   });
 

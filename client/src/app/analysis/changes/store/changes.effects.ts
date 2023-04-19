@@ -6,6 +6,9 @@ import { ChangesParameters } from '@api/common/changes/filter';
 import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { selectQueryParams } from '@app/core';
+import { actionPreferencesAnalysisStrategy } from '@app/core/preferences';
+import { actionPreferencesPageSize } from '@app/core/preferences';
+import { actionPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesImpact } from '@app/core/preferences';
 import { selectPreferencesAnalysisStrategy } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
@@ -57,6 +60,34 @@ export class ChangesEffects {
           return actionChangesPageLoad({ strategy, changesParameters });
         }
       )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  changesImpact = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionChangesImpact),
+      map(({ impact }) => actionPreferencesImpact({ impact }))
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionChangesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  analysisStrategy = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionChangesAnalysisStrategy),
+      map(({ strategy }) => {
+        return actionPreferencesAnalysisStrategy({ strategy });
+      })
     );
   });
 
