@@ -11,12 +11,15 @@ import { AnalysisStrategy } from '@app/core/preferences';
 import { actionPreferencesAnalysisStrategy } from '@app/core/preferences';
 import { actionPreferencesPageSize } from '@app/core/preferences';
 import { selectPreferencesPageSize } from '@app/core/preferences';
+import { selectSharedSurveyDateInfo } from '@app/core/shared';
+import { actionSharedSurveyDateInfoInit } from '@app/core/shared';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
@@ -159,14 +162,19 @@ export class LocationEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
+  locationMapPageInit = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionLocationMapPageInit),
+      map(() => actionSharedSurveyDateInfoInit())
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
   locationMapPage = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionLocationMapPageInit),
-      concatLatestFrom(() => [
-        this.store.select(selectLocationKey),
-        this.mapService.surveyDateInfo$,
-      ]),
-      mergeMap(([_, locationKey, surveyDateValues]) => {
+      concatLatestFrom(() => this.store.select(selectLocationKey)),
+      mergeMap(([_, locationKey]) => {
         return this.appService.locationMap(locationKey).pipe(
           map((response) => {
             return actionLocationMapPageLoaded({ response });
@@ -184,7 +192,9 @@ export class LocationEffects {
         concatLatestFrom(() => [
           this.store.select(selectLocationKey),
           this.store.select(selectLocationMapPage),
-          this.mapService.surveyDateInfo$,
+          this.store
+            .select(selectSharedSurveyDateInfo)
+            .pipe(filter((x) => x !== null)), // make sure surveyDateInfo is loaded
         ]),
         tap(([_, locationKey, response, surveyDateValues]) => {
           const geoJson = response.result.geoJson;

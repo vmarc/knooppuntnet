@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectQueryParams, selectRouteParams } from '@app/core';
+import { actionSharedSurveyDateInfoInit } from '@app/core/shared';
 import { BrowserStorageService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
@@ -27,6 +28,14 @@ import { initialState } from './planner-state';
 
 @Injectable()
 export class PlannerEffects {
+  // noinspection JSUnusedGlobalSymbols
+  plannerPageInitSurveyDayInfo = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionPlannerInit),
+      map(() => actionSharedSurveyDateInfoInit())
+    );
+  });
+
   // noinspection JSUnusedGlobalSymbols
   plannerPageInit = createEffect(() => {
     return this.actions$.pipe(

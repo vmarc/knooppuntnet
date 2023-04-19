@@ -1,5 +1,5 @@
 import { SurveyDateInfo } from '@api/common';
-import { DayPipe } from '../../shared/format';
+import { DayPipe } from '@app/components/shared/format';
 
 export class SurveyDateValues {
   constructor(

@@ -23,9 +23,11 @@ import { MapMode } from '@app/components/ol/services';
 import { MainMapStyleParameters } from '@app/components/ol/style';
 import { MainMapStyle } from '@app/components/ol/style';
 import { selectPreferencesShowProposed } from '@app/core/preferences';
+import { selectSharedSurveyDateInfo } from '@app/core/shared';
 import { NetworkTypes } from '@app/kpn/common';
 import { PoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
+
 import { Store } from '@ngrx/store';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
@@ -33,6 +35,7 @@ import View from 'ol/View';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { skip } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
 import { PlannerService } from '../../planner.service';
@@ -53,7 +56,9 @@ export class PlannerMapService extends OpenlayersMapService {
     this.store.select(selectPlannerMapMode),
     this.store.select(selectPreferencesShowProposed),
     this.mapService.highlightedRouteId$,
-    this.mapService.surveyDateInfo$,
+    this.store
+      .select(selectSharedSurveyDateInfo)
+      .pipe(filter((x) => x !== null)),
   ]).pipe(
     map(([mapMode, showProposed, highlightedRouteId, surveyDateValues]) => {
       const selectedRouteId = '';

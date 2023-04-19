@@ -6,3 +6,8 @@ export const selectSharedHttpError = createSelector(
   selectSharedState,
   (state: SharedState) => state.httpError
 );
+
+export const selectSharedSurveyDateInfo = createSelector(
+  selectSharedState,
+  (state: SharedState) => state.surveyDateInfo
+);

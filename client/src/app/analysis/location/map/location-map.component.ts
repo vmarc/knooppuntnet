@@ -5,7 +5,6 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { Bounds } from '@api/common';
 import { NetworkType } from '@api/custom';
-import { MapService } from '@app/components/ol/services';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
 import { actionLocationMapViewInit } from '../store/location.actions';
@@ -32,15 +31,10 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   @Input() bounds: Bounds;
   @Input() geoJson: string;
 
-  constructor(
-    protected service: LocationMapService,
-    private mapService: MapService,
-    private store: Store
-  ) {}
+  constructor(protected service: LocationMapService, private store: Store) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionLocationMapViewInit());
-    this.mapService.nextNetworkType(this.networkType); // TODO can do better?
   }
 
   ngOnDestroy(): void {
