@@ -13,7 +13,7 @@ class FlandersRouteParserTest extends UnitTest {
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val routes = new FlandersRouteParser().parse(xml)
+    val routes = new FlandersRouteParser().parse(xml, "traject_wandel")
 
     val route1 = FlandersRoute(
       "2735158-2735159",

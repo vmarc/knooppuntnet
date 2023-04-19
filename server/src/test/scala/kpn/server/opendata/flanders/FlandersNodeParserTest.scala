@@ -12,7 +12,7 @@ class FlandersNodeParserTest extends UnitTest {
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val nodes = new FlandersNodeParser().parse(xml)
+    val nodes = new FlandersNodeParser().parse(xml, "knoop_wandel")
 
     val node1 = FlandersNode(
       "2735158",
