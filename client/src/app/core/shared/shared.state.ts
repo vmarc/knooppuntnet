@@ -1,4 +1,4 @@
-import { SurveyDateValues } from '@app/components/ol/services';
+import { SurveyDateValues } from './survey-date-values';
 
 export const initialSharedState: SharedState = {
   httpError: null,

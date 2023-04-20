@@ -5,14 +5,13 @@ import { LocationChangesParameters } from '@api/common/location';
 import { LocationNodesParameters } from '@api/common/location';
 import { LocationRoutesParameters } from '@api/common/location';
 import { AppService } from '@app/app.service';
-import { MapService } from '@app/components/ol/services';
 import { selectRouteParam } from '@app/core';
-import { AnalysisStrategy } from '@app/core/preferences';
-import { actionPreferencesAnalysisStrategy } from '@app/core/preferences';
-import { actionPreferencesPageSize } from '@app/core/preferences';
-import { selectPreferencesPageSize } from '@app/core/preferences';
-import { selectSharedSurveyDateInfo } from '@app/core/shared';
-import { actionSharedSurveyDateInfoInit } from '@app/core/shared';
+import { selectSharedSurveyDateInfo } from '@app/core';
+import { actionSharedSurveyDateInfoInit } from '@app/core';
+import { AnalysisStrategy } from '@app/core';
+import { actionPreferencesAnalysisStrategy } from '@app/core';
+import { actionPreferencesPageSize } from '@app/core';
+import { selectPreferencesPageSize } from '@app/core';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -249,7 +248,6 @@ export class LocationEffects {
     private router: Router,
     private route: ActivatedRoute,
     private appService: AppService,
-    private locationMapLayerService: LocationMapService,
-    private mapService: MapService
+    private locationMapLayerService: LocationMapService
   ) {}
 }

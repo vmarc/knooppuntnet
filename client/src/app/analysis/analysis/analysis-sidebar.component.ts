@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { actionPreferencesAnalysisStrategy } from '@app/core/preferences';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { actionPreferencesAnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

@@ -1,6 +1,8 @@
-import { selectSharedState } from '@app/core';
+import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { SharedState } from './shared.state';
+
+export const selectSharedState = createFeatureSelector<SharedState>('shared');
 
 export const selectSharedHttpError = createSelector(
   selectSharedState,

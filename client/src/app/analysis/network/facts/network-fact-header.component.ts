@@ -5,7 +5,7 @@ import { EditParameters } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
-import { actionSharedEdit } from '@app/core/shared';
+import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

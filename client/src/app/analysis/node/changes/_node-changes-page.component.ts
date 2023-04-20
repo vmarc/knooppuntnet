@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { selectDefined } from '@app/core';
-import { selectUserLoggedIn } from '@app/core/user';
+import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { actionNodeChangesPageSize } from '../store/node.actions';
 import { actionNodeChangesPageImpact } from '../store/node.actions';

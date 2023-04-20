@@ -35,7 +35,6 @@ import { TagDiffsComponent } from './changes';
 import { FactDiffsComponent } from './changes';
 import { ChangeFilterPeriodComponent } from './changes/filter';
 import { ChangeFilterComponent } from './changes/filter';
-import { ChangesSidebarComponent } from './changes/filter';
 import { MonthComponent } from './changes/filter';
 import { NodeMovedMapComponent } from './changes/node';
 import { NodeChangeDetailComponent } from './changes/node';
@@ -108,7 +107,6 @@ import { RouteProposedIndicatorComponent } from './indicators/route';
     ChangesComponent,
     ChangeFilterComponent,
     ChangeFilterPeriodComponent,
-    ChangesSidebarComponent,
     RouteChangeDetailComponent,
     RouteChangeMapComponent,
     RouteChangeWayAddedComponent,

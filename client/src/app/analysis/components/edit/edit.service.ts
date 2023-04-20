@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppService } from '@app/app.service';
-import { actionSharedHttpError } from '@app/core/shared';
+import { actionSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Range } from 'immutable';
 import { Subscription } from 'rxjs';

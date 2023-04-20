@@ -5,7 +5,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { LocationEditPage } from '@api/common/location';
 import { EditConfiguration } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
-import { actionSharedEdit } from '@app/core/shared';
+import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';

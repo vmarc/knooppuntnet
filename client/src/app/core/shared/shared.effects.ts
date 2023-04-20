@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '@app/analysis/components/edit';
+import { AppService } from '@app/app.service';
 import { concatLatestFrom } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -10,7 +11,6 @@ import { of } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { AppService } from '../../app.service';
 import { actionSharedSurveyDateInfoLoaded } from './shared.actions';
 import { actionSharedSurveyDateInfoAlreadyLoaded } from './shared.actions';
 import { actionSharedSurveyDateInfoInit } from './shared.actions';

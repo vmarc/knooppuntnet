@@ -1,6 +1,6 @@
 import { RoutingUtil } from '@app/base';
-import { actionPreferencesAnalysisStrategy } from '@app/core/preferences';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { actionPreferencesAnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/core';
 import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';

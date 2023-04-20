@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { AnalysisStrategy } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
-import { actionChangesAnalysisStrategy } from '../../../changes';
-import { actionChangesFilterOption } from '../../../changes';
-import { selectChangesFilterOptions } from '../../../changes';
+import { actionChangesAnalysisStrategy } from '../store/changes.actions';
+import { actionChangesFilterOption } from '../store/changes.actions';
+import { selectChangesFilterOptions } from '../store/changes.selectors';
 
 @Component({
   selector: 'kpn-changes-sidebar',

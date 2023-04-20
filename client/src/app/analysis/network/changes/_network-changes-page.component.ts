@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { selectUserLoggedIn } from '@app/core/user';
+import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { actionNetworkChangesImpact } from '../store/network.actions';
 import { actionNetworkChangesPageSize } from '../store/network.actions';

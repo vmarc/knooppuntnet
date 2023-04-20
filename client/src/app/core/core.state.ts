@@ -1,12 +1,3 @@
-import { pageReducer } from '@app/core/page';
-import { PageState } from '@app/core/page';
-import { preferencesReducer } from '@app/core/preferences';
-import { PreferencesState } from '@app/core/preferences';
-import { RouterStateUrl } from '@app/core/router';
-import { sharedReducer } from '@app/core/shared';
-import { SharedState } from '@app/core/shared';
-import { userReducer } from '@app/core/user';
-import { UserState } from '@app/core/user';
 import { RouterReducerState } from '@ngrx/router-store';
 import { routerReducer } from '@ngrx/router-store';
 import { getSelectors } from '@ngrx/router-store';
@@ -19,6 +10,15 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
+import { pageReducer } from './page/page.reducer';
+import { PageState } from './page/page.state';
+import { preferencesReducer } from './preferences/preferences.reducer';
+import { PreferencesState } from './preferences/preferences.state';
+import { RouterStateUrl } from './router';
+import { sharedReducer } from './shared/shared.reducer';
+import { SharedState } from './shared/shared.state';
+import { userReducer } from './user/user.reducer';
+import { UserState } from './user/user.state';
 
 export interface AppState {
   preferences: PreferencesState;
@@ -43,17 +43,8 @@ export const localStorageSyncReducer = (
 
 export const metaReducers: MetaReducer<AppState>[] = [localStorageSyncReducer];
 
-export const selectPreferencesState =
-  createFeatureSelector<PreferencesState>('preferences');
-
-export const selectSharedState = createFeatureSelector<SharedState>('shared');
-
-export const selectUserState = createFeatureSelector<UserState>('user');
-
 export const selectRouterState =
   createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
-
-export const selectPageState = createFeatureSelector<PageState>('page');
 
 export const {
   // selectCurrentRoute,   // select the current route

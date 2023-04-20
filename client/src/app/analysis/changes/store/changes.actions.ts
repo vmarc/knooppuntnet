@@ -1,7 +1,7 @@
 import { ChangesPage } from '@api/common';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { ApiResponse } from '@api/custom';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { AnalysisStrategy } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';

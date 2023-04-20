@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { SubsetFactDetailsPage } from '@api/common/subset';
 import { EditParameters } from '@app/analysis/components/edit';
-import { actionSharedEdit } from '@app/core/shared';
+import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

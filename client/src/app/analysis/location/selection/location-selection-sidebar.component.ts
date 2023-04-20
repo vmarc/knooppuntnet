@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { AnalysisStrategy } from '@app/core';
 import { Store } from '@ngrx/store';
 import { actionLocationSelectionPageStrategy } from '../store/location.actions';
 

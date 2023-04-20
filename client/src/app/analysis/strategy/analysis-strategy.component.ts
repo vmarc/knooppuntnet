@@ -3,8 +3,8 @@ import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
-import { selectPreferencesAnalysisStrategy } from '@app/core/preferences';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { selectPreferencesAnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

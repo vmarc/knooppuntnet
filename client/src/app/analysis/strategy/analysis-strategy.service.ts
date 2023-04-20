@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { selectPreferencesAnalysisStrategy } from '@app/core/preferences';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { selectPreferencesAnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
