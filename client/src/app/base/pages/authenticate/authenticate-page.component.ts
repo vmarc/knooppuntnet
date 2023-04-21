@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { actionUserAuthenticated } from '@app/core/user';
+import { actionUserAuthenticated } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

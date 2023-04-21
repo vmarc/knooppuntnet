@@ -1,7 +1,7 @@
+import { SurveyDateValues } from '@app/core';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import { Style } from 'ol/style';
-import { SurveyDateValues } from '../services';
 import { surveyOlder } from './main-style-colors';
 import { surveyLastTwoYearsStart } from './main-style-colors';
 import { surveyLastYearStart } from './main-style-colors';

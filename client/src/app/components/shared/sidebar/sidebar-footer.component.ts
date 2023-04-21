@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { selectUserUser } from '@app/core/user';
-import { selectUserLoggedIn } from '@app/core/user';
+import { selectUserUser } from '@app/core';
+import { selectUserLoggedIn } from '@app/core';
 import { VersionService } from '@app/services';
 import { Store } from '@ngrx/store';
 

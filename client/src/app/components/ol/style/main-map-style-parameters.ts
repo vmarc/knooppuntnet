@@ -1,5 +1,5 @@
+import { SurveyDateValues } from '@app/core';
 import { MapMode } from '../services';
-import { SurveyDateValues } from '../services';
 
 export class MainMapStyleParameters {
   constructor(

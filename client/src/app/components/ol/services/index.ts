@@ -1,5 +1,4 @@
 export * from './map-mode';
-export * from './map.service';
 export * from './new-map.service';
 export * from './map-zoom.service';
 export * from './map-click.service';

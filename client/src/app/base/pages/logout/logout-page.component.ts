@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { actionUserLogout } from '@app/core/user';
-import { selectUserLoggedIn } from '@app/core/user';
+import { actionUserLogout } from '@app/core';
+import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

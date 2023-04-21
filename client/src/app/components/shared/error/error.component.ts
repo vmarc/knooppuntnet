@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { selectSharedHttpError } from '@app/core/shared';
+import { selectSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

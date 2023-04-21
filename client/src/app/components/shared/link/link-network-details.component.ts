@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NetworkType } from '@api/custom';
-import { actionNetworkLink } from '@app/analysis/network/store/network.actions';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -18,13 +17,14 @@ export class LinkNetworkDetailsComponent {
   constructor(private store: Store, private router: Router) {}
 
   clicked(): void {
-    this.store.dispatch(
-      actionNetworkLink({
-        networkId: this.networkId,
-        networkName: this.title,
-        networkType: this.networkType,
-      })
-    );
+    // TODO replace with route based mechanism
+    // this.store.dispatch(
+    //   actionNetworkLink({
+    //     networkId: this.networkId,
+    //     networkName: this.title,
+    //     networkType: this.networkType,
+    //   })
+    // );
     this.router.navigate(['/analysis/network/' + this.networkId]);
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { selectUserUser } from '@app/core/user';
+import { selectUserUser } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

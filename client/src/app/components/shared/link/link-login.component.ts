@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { actionUserLoginLinkClicked } from '@app/core/user';
+import { actionUserLoginLinkClicked } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({
