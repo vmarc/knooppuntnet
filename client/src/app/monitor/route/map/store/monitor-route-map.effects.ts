@@ -8,7 +8,7 @@ import { Util } from '@app/components/shared';
 import { selectQueryParam } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { selectRouteParam } from '@app/core';
-import { actionSharedEdit } from '@app/core/shared';
+import { actionSharedEdit } from '@app/core';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
