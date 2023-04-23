@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectQueryParams, selectRouteParams } from '@app/core';
-import { actionSharedSurveyDateInfoInit } from '@app/core/shared';
+import { actionSharedSurveyDateInfoInit } from '@app/core';
 import { BrowserStorageService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { EditParameters } from '@app/analysis/components/edit';
-import { actionSharedEdit } from '@app/core/shared';
+import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 import { DeviceDetectorService } from 'ngx-device-detector';
 

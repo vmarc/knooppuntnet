@@ -7,7 +7,6 @@ import { LegHttpErrorDialogComponent } from '@app/components/ol/components';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components';
 import { NoRouteDialogComponent } from '@app/components/ol/components';
 import { MapZoomService } from '@app/components/ol/services';
-import { MapService } from '@app/components/ol/services';
 import { NewMapService } from '@app/components/ol/services';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { PoiTileLayerService } from '@app/components/ol/services';
@@ -22,7 +21,9 @@ import { Coordinate } from 'ol/coordinate';
 import { combineLatest } from 'rxjs';
 import { PlannerCommandAddPlan } from '../../domain/commands/planner-command-add-plan';
 import { PlanBuilder } from '../../domain/plan/plan-builder';
+import { PlanUtil } from '../../domain/plan/plan-util';
 import { PlannerService } from '../../planner.service';
+import { MapService } from '../../services/map.service';
 import { actionPlannerMapViewInit } from '../../store/planner-actions';
 import { actionPlannerInit } from '../../store/planner-actions';
 import { selectPlannerNetworkType } from '../../store/planner-selectors';
@@ -161,7 +162,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
         maxWidth: 600,
       });
     } else {
-      const bounds = this.plannerService.context.plan.bounds();
+      const bounds = PlanUtil.planBounds(this.plannerService.context.plan);
       if (bounds !== null) {
         const extent = Util.toExtent(bounds, 0.1);
         this.service.map.getView().fit(extent);

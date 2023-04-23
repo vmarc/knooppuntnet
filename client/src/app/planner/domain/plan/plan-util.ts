@@ -1,3 +1,4 @@
+import { Bounds } from '@api/common';
 import { LatLonImpl } from '@api/common';
 import { TrackPathKey } from '@api/common/common';
 import { LegEnd } from '@api/common/planner';
@@ -180,6 +181,32 @@ export class PlanUtil {
       segment.fragments.forEach((fragment) => latLons.push(fragment.latLon))
     );
     return List(latLons);
+  }
+
+  static planBounds(plan: Plan): Bounds {
+    if (plan.sourceNode === null) {
+      return null;
+    }
+    const latLons: List<LatLonImpl> = List([plan.sourceNode.latLon]).concat(
+      plan.legs.flatMap((leg) =>
+        List([leg.sourceNode.latLon]).concat(
+          leg.routes.flatMap((route) => PlanUtil.planRouteLatLons(route))
+        )
+      )
+    );
+
+    const lats = latLons.map((latLon) => +latLon.latitude);
+    const lons = latLons.map((latLon) => +latLon.longitude);
+    const minLat = lats.min();
+    const minLon = lons.min();
+    const maxLat = lats.max();
+    const maxLon = lons.max();
+    return {
+      minLat,
+      minLon,
+      maxLat,
+      maxLon,
+    };
   }
 
   static planRouteCoordinates(planRoute: PlanRoute): List<Coordinate> {

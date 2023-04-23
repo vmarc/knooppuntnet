@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AppService } from '@app/';
 import { InterpretedPoiConfiguration } from '@app/components/ol/domain';
 import { Map } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
+import { AppService } from '..';
 import { BrowserStorageService } from './browser-storage.service';
 import { PoiNameService } from './poi-name.service';
 import { PoiGroupPreference } from './poi-preferences';

@@ -6,7 +6,7 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { actionSharedHttpError } from '@app/core/shared';
+import { actionSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs';
 import { of } from 'rxjs';

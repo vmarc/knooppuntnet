@@ -3,9 +3,9 @@ import { NetworkType } from '@api/custom';
 import { ReplaySubject } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-import { NodeClick } from '../domain';
-import { PoiClick } from '../domain';
-import { RouteClick } from '../domain';
+import { NodeClick } from '../domain/interaction/actions/node-click';
+import { PoiClick } from '../domain/interaction/actions/poi-click';
+import { RouteClick } from '../domain/interaction/actions/route-click';
 
 @Injectable()
 export class MapService {

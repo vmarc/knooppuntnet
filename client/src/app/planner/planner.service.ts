@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
-import { MapService } from '@app/components/ol/services';
-import { selectPreferencesPlanProposed } from '@app/core/preferences';
+import { selectPreferencesPlanProposed } from '@app/core';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Map as TranslationMap } from 'immutable';
 import Map from 'ol/Map';
-import { AppService } from '../index';
+import { AppService } from '../app.service';
 import { PlannerContext } from './domain/context/planner-context';
 import { PlannerCursorImpl } from './domain/context/planner-cursor-impl';
 import { PlannerElasticBandImpl } from './domain/context/planner-elastic-band-impl';
@@ -20,6 +19,7 @@ import { PlannerEngine } from './domain/interaction/planner-engine';
 import { PlannerEngineImpl } from './domain/interaction/planner-engine-impl';
 import { PlanUtil } from './domain/plan/plan-util';
 import { ColourTranslator } from './services/colour-translator';
+import { MapService } from './services/map.service';
 import { selectPlannerNetworkType } from './store/planner-selectors';
 
 @Injectable({

@@ -3,7 +3,7 @@ import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, } from '@angular/rout
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
-import { selectPageShowFooter } from '@app/core/page';
+import { selectPageShowFooter } from '@app/core';
 import { IconService } from '@app/services';
 import { VersionService } from '@app/services';
 import { SpinnerService } from '@app/spinner';

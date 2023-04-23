@@ -4,13 +4,13 @@ import { Component } from '@angular/core';
 import { MapRouteDetail } from '@api/common/route';
 import { ApiResponse } from '@api/custom';
 import { AppService } from '@app/app.service';
-import { MapService } from '@app/components/ol/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { PlannerService } from '../../../planner.service';
+import { MapService } from '../../../services/map.service';
 
 @Component({
   selector: 'kpn-planner-popup-route',

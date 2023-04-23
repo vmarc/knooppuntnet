@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { actionPreferencesShowLegend } from '@app/core/preferences';
-import { selectPreferencesShowLegend } from '@app/core/preferences';
+import { actionPreferencesShowLegend } from '@app/core';
+import { selectPreferencesShowLegend } from '@app/core';
 import { Store } from '@ngrx/store';
 import { selectPlannerMapMode } from '../../../store/planner-selectors';
 

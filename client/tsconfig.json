@@ -147,20 +147,8 @@
       "@app/core": [
         "src/app/core/index.ts"
       ],
-      "@app/core/page": [
-        "src/app/core/page/index.ts"
-      ],
-      "@app/core/preferences": [
-        "src/app/core/preferences/index.ts"
-      ],
       "@app/core/router": [
         "src/app/core/router/index.ts"
-      ],
-      "@app/core/shared": [
-        "src/app/core/shared/index.ts"
-      ],
-      "@app/core/user": [
-        "src/app/core/user/index.ts"
       ],
       "@app/demo": [
         "src/app/demo/index.ts"

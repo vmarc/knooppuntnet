@@ -1,11 +1,8 @@
-import { Bounds } from '@api/common';
-import { LatLonImpl } from '@api/common';
 import { PlanNode } from '@api/common/planner';
 import { Util } from '@app/components/shared';
 import { List } from 'immutable';
 import { PlanFlag } from './plan-flag';
 import { PlanLeg } from './plan-leg';
-import { PlanUtil } from './plan-util';
 
 export class Plan {
   static readonly empty = new Plan(null, null, List());
@@ -52,32 +49,6 @@ export class Plan {
     const km = Math.round(meters / 100) / 10;
     const kmString = parseFloat(km.toFixed(1));
     return kmString + ' km';
-  }
-
-  bounds(): Bounds {
-    if (this.sourceNode === null) {
-      return null;
-    }
-    const latLons: List<LatLonImpl> = List([this.sourceNode.latLon]).concat(
-      this.legs.flatMap((leg) =>
-        List([leg.sourceNode.latLon]).concat(
-          leg.routes.flatMap((route) => PlanUtil.planRouteLatLons(route))
-        )
-      )
-    );
-
-    const lats = latLons.map((latLon) => +latLon.latitude);
-    const lons = latLons.map((latLon) => +latLon.longitude);
-    const minLat = lats.min();
-    const minLon = lons.min();
-    const maxLat = lats.max();
-    const maxLon = lons.max();
-    return {
-      minLat,
-      minLon,
-      maxLat,
-      maxLon,
-    };
   }
 
   unpavedPercentage(): string {

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { actionPreferencesInstructions } from '@app/core/preferences';
-import { actionPreferencesExtraLayers } from '@app/core/preferences';
-import { selectPreferencesInstructions } from '@app/core/preferences';
-import { selectPreferencesExtraLayers } from '@app/core/preferences';
+import { actionPreferencesInstructions } from '@app/core';
+import { actionPreferencesExtraLayers } from '@app/core';
+import { selectPreferencesInstructions } from '@app/core';
+import { selectPreferencesExtraLayers } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

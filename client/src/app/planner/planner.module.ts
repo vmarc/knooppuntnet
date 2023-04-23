@@ -69,6 +69,7 @@ import { PlannerToolbarComponent } from './pages/planner/sidebar/planner-toolbar
 import { MapPageComponent } from './pages/selector/_map-page.component';
 import { PlannerRoutingModule } from './planner-routing.module';
 import { PlannerService } from './planner.service';
+import { MapService } from './services/map.service';
 import { PlannerEffects } from './store/planner-effects';
 import { plannerReducer } from './store/planner-reducer';
 import { plannerFeatureKey } from './store/planner-state';
@@ -147,6 +148,6 @@ import { plannerFeatureKey } from './store/planner-state';
     GeolocationControlComponent,
   ],
   exports: [MapPageComponent],
-  providers: [PlannerService, PlannerMapService],
+  providers: [PlannerService, PlannerMapService, MapService],
 })
 export class PlannerModule {}

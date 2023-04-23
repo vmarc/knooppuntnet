@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { actionPreferencesShowOptions } from '@app/core/preferences';
-import { actionPreferencesPlanProposed } from '@app/core/preferences';
-import { actionPreferencesShowProposed } from '@app/core/preferences';
-import { selectPreferencesShowOptions } from '@app/core/preferences';
-import { selectPreferencesPlanProposed } from '@app/core/preferences';
-import { selectPreferencesShowProposed } from '@app/core/preferences';
+import { actionPreferencesShowOptions } from '@app/core';
+import { actionPreferencesPlanProposed } from '@app/core';
+import { actionPreferencesShowProposed } from '@app/core';
+import { selectPreferencesShowOptions } from '@app/core';
+import { selectPreferencesPlanProposed } from '@app/core';
+import { selectPreferencesShowProposed } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({

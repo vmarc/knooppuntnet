@@ -6,7 +6,6 @@ import { MapNodeDetail } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
 import { AppService } from '@app/app.service';
 import { MapZoomService } from '@app/components/ol/services';
-import { MapService } from '@app/components/ol/services';
 import { Util } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
@@ -17,6 +16,7 @@ import { switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { PlannerService } from '../../../planner.service';
+import { MapService } from '../../../services/map.service';
 import { selectPlannerNetworkType } from '../../../store/planner-selectors';
 
 @Component({

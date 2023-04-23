@@ -1,10 +1,10 @@
-import { NodeClick } from '@app/components/ol/domain';
-import { PoiClick } from '@app/components/ol/domain';
-import { RouteClick } from '@app/components/ol/domain';
-import { MapService } from '@app/components/ol/services';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
+import { MapService } from '../../services/map.service';
+import { NodeClick } from '../interaction/actions/node-click';
+import { PoiClick } from '../interaction/actions/poi-click';
+import { RouteClick } from '../interaction/actions/route-click';
 import { PlannerOverlay } from './planner-overlay';
 
 export class PlannerOverlayImpl implements PlannerOverlay {

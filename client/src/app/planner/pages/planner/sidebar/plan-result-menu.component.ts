@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { selectPreferencesInstructions } from '@app/core/preferences';
+import { selectPreferencesInstructions } from '@app/core';
 import { Store } from '@ngrx/store';
 import { PlannerService } from '../../../planner.service';
 import { actionPlannerResultMode } from '../../../store/planner-actions';

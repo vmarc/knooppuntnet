@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AppService } from '@app/app.service';
 import { Util } from '@app/components/shared';
-import { selectPreferencesInstructions } from '@app/core/preferences';
+import { selectPreferencesInstructions } from '@app/core';
 import { Store } from '@ngrx/store';
 import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';

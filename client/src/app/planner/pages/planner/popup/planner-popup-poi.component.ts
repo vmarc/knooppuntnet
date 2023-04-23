@@ -6,14 +6,14 @@ import { PoiPage } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
 import { AppService } from '@app/app.service';
-import { PoiClick } from '@app/components/ol/domain';
-import { MapService } from '@app/components/ol/services';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { PoiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, tap } from 'rxjs/operators';
+import { PoiClick } from '../../../domain/interaction/actions/poi-click';
 import { PlannerService } from '../../../planner.service';
+import { MapService } from '../../../services/map.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',

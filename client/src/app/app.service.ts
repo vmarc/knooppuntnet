@@ -56,7 +56,7 @@ import { Country } from '@api/custom';
 import { LocationKey } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Subset } from '@api/custom';
-import { AnalysisStrategy } from '@app/core/preferences';
+import { AnalysisStrategy } from '@app/core';
 import { MarkdownService } from 'ngx-markdown';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MapService } from '@app/components/ol/services';
+import { MapService } from '../../../services/map.service';
 
 @Component({
   selector: 'kpn-planner-popup-contents',

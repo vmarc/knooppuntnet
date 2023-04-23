@@ -1,7 +1,7 @@
-import { NodeClick } from '@app/components/ol/domain';
-import { PoiClick } from '@app/components/ol/domain';
-import { RouteClick } from '@app/components/ol/domain';
 import { Coordinate } from 'ol/coordinate';
+import { NodeClick } from '../interaction/actions/node-click';
+import { PoiClick } from '../interaction/actions/poi-click';
+import { RouteClick } from '../interaction/actions/route-click';
 
 export interface PlannerOverlay {
   poiClicked(poiClick: PoiClick): void;

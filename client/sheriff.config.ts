@@ -3,19 +3,6 @@ import { SheriffConfig } from '@softarc/sheriff-core';
 export const sheriffConfig: SheriffConfig = {
   version: 1,
   tagging: {
-    // 'src/app': {
-    //   shared: {
-    //     'feature-<feature>': ['shared', 'type:feature'],
-    //     'ui-<ui>': ['shared', 'type:ui'],
-    //     data: ['shared', 'type:data'],
-    //     'util-<ui>': ['shared', 'type:util'],
-    //   },
-    //   'domains/<domain>': {
-    //     'feature-<feature>': ['domain:<domain>', 'type:feature'],
-    //     'ui-<ui>': ['domain:<domain>', 'type:ui'],
-    //     data: ['domain:<domain>', 'type:data'],
-    //     'util-<ui>': ['domain:<domain>', 'type:util'],
-    //   },
     'src/app/settings': ['settings'],
     'src/app/analysis/changes': ['analysis/changes'],
     'src/app/analysis/route': ['analysis/route'],
@@ -55,11 +42,6 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/status': ['status'],
     'src/app/base': ['base'],
     'src/app/spinner': ['spinner'],
-    'src/app/core/router': ['core/router'],
-    'src/app/core/preferences': ['core/preferences'],
-    'src/app/core/shared': ['core/shared'],
-    'src/app/core/page': ['core/page'],
-    'src/app/core/user': ['core/user'],
     'src/app/core': ['core'],
     'src/app/poi': ['poi'],
     'src/app/demo': ['demo'],
@@ -162,12 +144,7 @@ export const sheriffConfig: SheriffConfig = {
     status: ['*'],
     base: ['*'],
     spinner: ['*'],
-    'core/router': ['*'],
     core: ['*'],
-    'core/preferences': ['*'],
-    'core/shared': ['*'],
-    'core/page': ['*'],
-    'core/user': ['*'],
     poi: ['*'],
     demo: ['*'],
     services: ['*'],
@@ -196,11 +173,5 @@ export const sheriffConfig: SheriffConfig = {
     monitor: ['*'],
     'kpn/common': ['*'],
     'kpn/filter': ['*'],
-    // 'domain:*': [sameTag, 'shared'],
-    // 'shared': ['shared'],
-    // 'type:feature': ['type:ui', 'type:data', 'type:util'],
-    // 'type:ui': ['type:data', 'type:util'],
-    // 'type:data': ['type:util'],
-    // 'type:util': noDependencies
   },
 };
