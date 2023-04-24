@@ -1,0 +1,1749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2023-04-16T09:16:51Z"/>
+
+  <node id="250114955" lat="47.8353061" lon="-3.3998001" version="4" timestamp="2009-01-25T17:38:34Z" changeset="835897" uid="29467" user="Cyrille Nofficial">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="250114969" lat="47.8357676" lon="-3.3991801" version="8" timestamp="2010-07-26T11:15:50Z" changeset="5320123" uid="29467" user="Cyrille Nofficial"/>
+  <node id="250114971" lat="47.8354708" lon="-3.3995836" version="3" timestamp="2009-01-25T17:38:34Z" changeset="835897" uid="29467" user="Cyrille Nofficial">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="250115594" lat="47.8361702" lon="-3.4018521" version="7" timestamp="2018-11-04T15:33:33Z" changeset="64169321" uid="1836105" user="Maxime Lorant"/>
+  <node id="250115739" lat="47.8361991" lon="-3.4002916" version="5" timestamp="2010-07-26T11:15:30Z" changeset="5320123" uid="29467" user="Cyrille Nofficial"/>
+  <node id="250115745" lat="47.8360166" lon="-3.3996817" version="5" timestamp="2010-07-26T11:15:30Z" changeset="5320123" uid="29467" user="Cyrille Nofficial"/>
+  <node id="250115753" lat="47.8358523" lon="-3.3993200" version="6" timestamp="2010-07-26T11:15:47Z" changeset="5320123" uid="29467" user="Cyrille Nofficial"/>
+  <node id="250115796" lat="47.8356578" lon="-3.4071747" version="1" timestamp="2008-03-02T17:01:47Z" changeset="257214" uid="29467" user="Cyrille Nofficial">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="250115809" lat="47.8361334" lon="-3.4025979" version="4" timestamp="2018-11-04T15:33:33Z" changeset="64169321" uid="1836105" user="Maxime Lorant"/>
+  <node id="250115817" lat="47.8360506" lon="-3.4037078" version="4" timestamp="2018-11-04T15:33:33Z" changeset="64169321" uid="1836105" user="Maxime Lorant"/>
+  <node id="251350665" lat="47.8358931" lon="-3.4057316" version="6" timestamp="2018-11-04T15:33:33Z" changeset="64169321" uid="1836105" user="Maxime Lorant"/>
+  <node id="251350669" lat="47.8361278" lon="-3.3999502" version="5" timestamp="2010-07-26T11:15:31Z" changeset="5320123" uid="29467" user="Cyrille Nofficial"/>
+  <node id="251350774" lat="47.8348770" lon="-3.4105596" version="3" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="251350805" lat="47.8354192" lon="-3.4110967" version="2" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="251350808" lat="47.8355621" lon="-3.4116190" version="1" timestamp="2008-03-09T16:09:07Z" changeset="297058" uid="29467" user="Cyrille Nofficial">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="251350809" lat="47.8356898" lon="-3.4118352" version="2" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="251350810" lat="47.8354602" lon="-3.4112414" version="1" timestamp="2008-03-09T16:09:08Z" changeset="297058" uid="29467" user="Cyrille Nofficial">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="251350811" lat="47.8354902" lon="-3.4114152" version="1" timestamp="2008-03-09T16:09:08Z" changeset="297058" uid="29467" user="Cyrille Nofficial">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="251350813" lat="47.8362905" lon="-3.4116880" version="3" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="251350814" lat="47.8358022" lon="-3.4119146" version="2" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="251350815" lat="47.8359659" lon="-3.4119090" version="3" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="259497053" lat="47.8355483" lon="-3.4077877" version="2" timestamp="2013-12-27T12:31:48Z" changeset="19660215" uid="29467" user="Cyrille Nofficial">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="259497054" lat="47.8352933" lon="-3.4088631" version="3" timestamp="2013-12-27T12:31:48Z" changeset="19660215" uid="29467" user="Cyrille Nofficial"/>
+  <node id="293141776" lat="47.8762401" lon="-3.5190436" version="5" timestamp="2016-05-14T20:00:26Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293141779" lat="47.8781020" lon="-3.5106702" version="4" timestamp="2016-05-14T20:00:26Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293141780" lat="47.8789216" lon="-3.5070699" version="4" timestamp="2016-05-14T20:00:26Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293141788" lat="47.8813283" lon="-3.4847168" version="3" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293665112" lat="47.8823605" lon="-3.5028361" version="2" timestamp="2010-03-07T15:59:56Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="293665114" lat="47.8827634" lon="-3.5005186" version="2" timestamp="2010-03-07T15:59:56Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="293672756" lat="47.8598273" lon="-3.4618925" version="2" timestamp="2009-01-26T22:47:47Z" changeset="841344" uid="65028" user="celtic29"/>
+  <node id="293672757" lat="47.8599572" lon="-3.4614427" version="4" timestamp="2014-05-05T16:57:07Z" changeset="22150301" uid="213292" user="djo_man"/>
+  <node id="293672770" lat="47.8655722" lon="-3.4751888" version="1" timestamp="2008-09-04T15:23:43Z" changeset="532665" uid="65028" user="celtic29"/>
+  <node id="293679062" lat="47.8815157" lon="-3.4847952" version="3" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293679064" lat="47.8826663" lon="-3.4851673" version="2" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293679067" lat="47.8863053" lon="-3.4875945" version="3" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293679068" lat="47.8866555" lon="-3.4878356" version="3" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293679327" lat="47.8822353" lon="-3.4850359" version="2" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="293679658" lat="47.8856458" lon="-3.4869950" version="1" timestamp="2008-09-04T15:54:02Z" changeset="532665" uid="65028" user="celtic29"/>
+  <node id="296079631" lat="47.8596615" lon="-3.4615183" version="2" timestamp="2011-01-10T14:55:03Z" changeset="6927065" uid="135299" user="Tetramonium"/>
+  <node id="296079687" lat="47.8594806" lon="-3.4615002" version="4" timestamp="2011-01-10T16:03:08Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="296080016" lat="47.8582693" lon="-3.4715627" version="2" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="296080017" lat="47.8582231" lon="-3.4701725" version="2" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="296080019" lat="47.8585503" lon="-3.4684167" version="2" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="296080020" lat="47.8590714" lon="-3.4668363" version="3" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="296080022" lat="47.8592441" lon="-3.4652673" version="2" timestamp="2013-05-09T16:22:51Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="296080025" lat="47.8599445" lon="-3.4638257" version="2" timestamp="2013-05-09T16:22:51Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="296080026" lat="47.8600186" lon="-3.4627538" version="1" timestamp="2008-09-12T12:29:15Z" changeset="611427" uid="65028" user="celtic29"/>
+  <node id="296080027" lat="47.8599265" lon="-3.4622388" version="1" timestamp="2008-09-12T12:29:15Z" changeset="611427" uid="65028" user="celtic29"/>
+  <node id="296080374" lat="47.8594134" lon="-3.4646586" version="2" timestamp="2013-05-09T16:22:51Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="296080381" lat="47.8583574" lon="-3.4691621" version="2" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="296080428" lat="47.8597570" lon="-3.4641524" version="2" timestamp="2013-05-09T16:22:51Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="296105375" lat="47.8727929" lon="-3.5433386" version="4" timestamp="2011-01-14T00:15:06Z" changeset="6963261" uid="135299" user="Tetramonium"/>
+  <node id="296105376" lat="47.8727317" lon="-3.5437992" version="4" timestamp="2011-01-14T00:15:10Z" changeset="6963261" uid="135299" user="Tetramonium"/>
+  <node id="296105377" lat="47.8726699" lon="-3.5443046" version="3" timestamp="2010-12-16T12:14:03Z" changeset="6676088" uid="135299" user="Tetramonium"/>
+  <node id="296105378" lat="47.8725970" lon="-3.5447864" version="3" timestamp="2009-11-28T19:44:14Z" changeset="3239573" uid="65028" user="celtic29"/>
+  <node id="296105380" lat="47.8726068" lon="-3.5449402" version="3" timestamp="2009-11-28T19:44:13Z" changeset="3239573" uid="65028" user="celtic29"/>
+  <node id="296936804" lat="47.8875199" lon="-3.4879015" version="5" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="296936808" lat="47.8877684" lon="-3.4881740" version="4" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936812" lat="47.8879392" lon="-3.4886074" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936816" lat="47.8880577" lon="-3.4891008" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936819" lat="47.8882688" lon="-3.4896891" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936822" lat="47.8885487" lon="-3.4902537" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936825" lat="47.8886430" lon="-3.4907844" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936828" lat="47.8886557" lon="-3.4911599" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936831" lat="47.8885197" lon="-3.4916450" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936833" lat="47.8883544" lon="-3.4920676" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936836" lat="47.8882298" lon="-3.4923823" version="3" timestamp="2010-03-07T16:00:23Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="296936837" lat="47.8880138" lon="-3.4928633" version="3" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="302311847" lat="47.8358792" lon="-3.4119250" version="2" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="302311932" lat="47.8388211" lon="-3.4121224" version="3" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="302311934" lat="47.8390967" lon="-3.4120342" version="2" timestamp="2009-01-31T14:18:53Z" changeset="859699" uid="29467" user="Cyrille Nofficial"/>
+  <node id="302311937" lat="47.8396680" lon="-3.4115677" version="2" timestamp="2009-01-31T14:18:53Z" changeset="859699" uid="29467" user="Cyrille Nofficial"/>
+  <node id="302311992" lat="47.8424776" lon="-3.4107529" version="3" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio"/>
+  <node id="302312054" lat="47.8434154" lon="-3.4103470" version="4" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio"/>
+  <node id="306396292" lat="47.8728058" lon="-3.5432182" version="3" timestamp="2010-12-16T20:15:30Z" changeset="6681112" uid="135299" user="Tetramonium"/>
+  <node id="306396297" lat="47.8733781" lon="-3.5434765" version="3" timestamp="2010-12-16T12:13:53Z" changeset="6676088" uid="135299" user="Tetramonium"/>
+  <node id="306396298" lat="47.8734480" lon="-3.5432725" version="3" timestamp="2010-12-16T12:13:08Z" changeset="6676088" uid="135299" user="Tetramonium"/>
+  <node id="306396299" lat="47.8735978" lon="-3.5433436" version="3" timestamp="2010-12-16T12:13:42Z" changeset="6676088" uid="135299" user="Tetramonium"/>
+  <node id="306396301" lat="47.8738866" lon="-3.5434275" version="3" timestamp="2010-12-16T20:15:48Z" changeset="6681112" uid="135299" user="Tetramonium"/>
+  <node id="306396303" lat="47.8742630" lon="-3.5434431" version="3" timestamp="2009-08-17T16:16:03Z" changeset="2179224" uid="135299" user="Tetramonium"/>
+  <node id="306418432" lat="47.8600093" lon="-3.4626824" version="2" timestamp="2011-01-10T14:55:04Z" changeset="6927065" uid="135299" user="Tetramonium"/>
+  <node id="306418459" lat="47.8592170" lon="-3.4613699" version="3" timestamp="2011-01-10T16:02:53Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="306418461" lat="47.8590165" lon="-3.4612916" version="3" timestamp="2011-01-10T16:03:12Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="306418463" lat="47.8588544" lon="-3.4612557" version="2" timestamp="2011-01-10T14:55:09Z" changeset="6927065" uid="135299" user="Tetramonium"/>
+  <node id="306418464" lat="47.8586704" lon="-3.4611765" version="4" timestamp="2011-05-05T16:05:51Z" changeset="8058447" uid="135299" user="Tetramonium"/>
+  <node id="306418466" lat="47.8584791" lon="-3.4608797" version="3" timestamp="2011-01-10T16:03:08Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="306418468" lat="47.8583157" lon="-3.4606457" version="2" timestamp="2011-01-10T14:55:09Z" changeset="6927065" uid="135299" user="Tetramonium"/>
+  <node id="306418470" lat="47.8581686" lon="-3.4604734" version="1" timestamp="2008-10-22T15:10:58Z" changeset="516231" uid="65028" user="celtic29"/>
+  <node id="306418471" lat="47.8580206" lon="-3.4601661" version="2" timestamp="2011-01-10T16:03:12Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="306418473" lat="47.8579775" lon="-3.4599505" version="3" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh"/>
+  <node id="306418493" lat="47.8593859" lon="-3.4614718" version="3" timestamp="2011-01-10T16:02:53Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="308915801" lat="47.8757743" lon="-3.5203508" version="4" timestamp="2010-03-07T15:55:13Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="308915802" lat="47.8751405" lon="-3.5228299" version="3" timestamp="2010-03-07T15:55:12Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="308915803" lat="47.8758339" lon="-3.5235832" version="3" timestamp="2010-03-07T15:55:12Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="308915804" lat="47.8770723" lon="-3.5249236" version="3" timestamp="2010-03-07T15:55:12Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="309628074" lat="47.8727220" lon="-3.5438829" version="3" timestamp="2010-12-16T12:13:09Z" changeset="6676088" uid="135299" user="Tetramonium"/>
+  <node id="310282827" lat="47.8748474" lon="-3.5225470" version="4" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom"/>
+  <node id="310282871" lat="47.8765273" lon="-3.5271258" version="3" timestamp="2011-08-31T08:56:21Z" changeset="9174327" uid="372917" user="Libre à Quimperlé"/>
+  <node id="310282877" lat="47.8770342" lon="-3.5260524" version="2" timestamp="2010-03-07T15:55:12Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="310282884" lat="47.8774014" lon="-3.5252606" version="3" timestamp="2020-04-21T19:20:30Z" changeset="83898204" uid="9273850" user="Zizozu"/>
+  <node id="317186079" lat="47.8359854" lon="-3.4045900" version="3" timestamp="2018-11-04T15:33:33Z" changeset="64169321" uid="1836105" user="Maxime Lorant"/>
+  <node id="320585470" lat="47.8409902" lon="-3.4112564" version="2" timestamp="2009-01-31T14:18:51Z" changeset="859699" uid="29467" user="Cyrille Nofficial"/>
+  <node id="336458398" lat="47.8357906" lon="-3.4064244" version="2" timestamp="2009-11-16T23:49:14Z" changeset="3137595" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="336458405" lat="47.8358339" lon="-3.4061572" version="4" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="337589839" lat="47.8869057" lon="-3.4879190" version="3" timestamp="2016-05-14T20:00:27Z" changeset="39319157" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336176" lat="47.8582745" lon="-3.4432258" version="3" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336178" lat="47.8581093" lon="-3.4432637" version="3" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336179" lat="47.8536654" lon="-3.4427200" version="3" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336181" lat="47.8521411" lon="-3.4432738" version="2" timestamp="2009-11-17T13:15:36Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336182" lat="47.8509057" lon="-3.4438872" version="4" timestamp="2016-09-24T20:37:19Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336189" lat="47.8508453" lon="-3.4428461" version="3" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336190" lat="47.8481388" lon="-3.4382716" version="3" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336191" lat="47.8446846" lon="-3.4373818" version="3" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336192" lat="47.8428533" lon="-3.4364625" version="4" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336196" lat="47.8431079" lon="-3.4359087" version="3" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336197" lat="47.8433345" lon="-3.4356786" version="2" timestamp="2009-11-17T13:15:37Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336198" lat="47.8436074" lon="-3.4355962" version="2" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336199" lat="47.8438644" lon="-3.4354758" version="2" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336200" lat="47.8440260" lon="-3.4353556" version="3" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336201" lat="47.8443213" lon="-3.4346361" version="3" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336202" lat="47.8444459" lon="-3.4340064" version="3" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336203" lat="47.8444356" lon="-3.4333557" version="3" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336204" lat="47.8439750" lon="-3.4302614" version="2" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336205" lat="47.8440897" lon="-3.4271274" version="2" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336206" lat="47.8439574" lon="-3.4249169" version="2" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336207" lat="47.8441097" lon="-3.4242953" version="3" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336208" lat="47.8448697" lon="-3.4229345" version="3" timestamp="2009-11-17T13:15:38Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336209" lat="47.8454649" lon="-3.4219673" version="3" timestamp="2009-11-17T13:15:39Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336210" lat="47.8458249" lon="-3.4214984" version="3" timestamp="2009-11-17T13:15:39Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336211" lat="47.8460368" lon="-3.4198718" version="3" timestamp="2009-11-17T13:15:39Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336212" lat="47.8459300" lon="-3.4191422" version="3" timestamp="2009-11-17T13:15:39Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336213" lat="47.8454913" lon="-3.4171291" version="2" timestamp="2009-11-17T13:15:39Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336218" lat="47.8448259" lon="-3.4151522" version="3" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336220" lat="47.8446910" lon="-3.4134273" version="3" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336221" lat="47.8444276" lon="-3.4122224" version="3" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336296" lat="47.8457501" lon="-3.4184666" version="3" timestamp="2009-11-17T13:15:40Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="339336306" lat="47.8440199" lon="-3.4245242" version="2" timestamp="2009-11-17T13:15:41Z" changeset="3140932" uid="183561" user="EtienneChoveBot">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024018" lat="47.8878686" lon="-3.4931395" version="3" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024020" lat="47.8876991" lon="-3.4933513" version="3" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024022" lat="47.8875123" lon="-3.4935697" version="3" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024025" lat="47.8873071" lon="-3.4937044" version="3" timestamp="2010-03-07T16:00:03Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024032" lat="47.8870613" lon="-3.4937785" version="3" timestamp="2010-03-07T16:00:03Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024037" lat="47.8867406" lon="-3.4937262" version="3" timestamp="2010-03-07T16:00:03Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024043" lat="47.8864542" lon="-3.4936299" version="3" timestamp="2010-03-07T16:00:21Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024045" lat="47.8861598" lon="-3.4935805" version="3" timestamp="2010-03-07T16:00:21Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024047" lat="47.8859265" lon="-3.4935182" version="3" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024049" lat="47.8858053" lon="-3.4935216" version="3" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340024052" lat="47.8854631" lon="-3.4934246" version="4" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027149" lat="47.8818590" lon="-3.4990387" version="3" timestamp="2010-03-07T16:00:00Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027152" lat="47.8829502" lon="-3.4972407" version="3" timestamp="2010-03-07T16:00:00Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027154" lat="47.8835397" lon="-3.4958022" version="3" timestamp="2010-03-07T16:00:00Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027155" lat="47.8844018" lon="-3.4947027" version="3" timestamp="2010-03-07T16:00:01Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027156" lat="47.8845901" lon="-3.4944688" version="3" timestamp="2010-03-07T16:00:01Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027157" lat="47.8848867" lon="-3.4938793" version="4" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340027171" lat="47.8853454" lon="-3.4933912" version="4" timestamp="2010-03-07T16:00:22Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028631" lat="47.8789597" lon="-3.5063955" version="4" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028632" lat="47.8791341" lon="-3.5059487" version="4" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028633" lat="47.8792666" lon="-3.5054802" version="3" timestamp="2010-03-07T15:59:47Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028635" lat="47.8793517" lon="-3.5054043" version="3" timestamp="2010-03-07T15:59:47Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028636" lat="47.8794373" lon="-3.5054137" version="3" timestamp="2010-03-07T15:59:47Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028637" lat="47.8795017" lon="-3.5054636" version="3" timestamp="2010-03-07T15:59:47Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028638" lat="47.8801201" lon="-3.5063811" version="3" timestamp="2010-03-07T15:59:48Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028639" lat="47.8804431" lon="-3.5065661" version="3" timestamp="2010-03-07T15:59:48Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028641" lat="47.8806292" lon="-3.5066548" version="4" timestamp="2012-02-21T09:21:37Z" changeset="10748377" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028643" lat="47.8808301" lon="-3.5066891" version="5" timestamp="2012-02-21T09:21:37Z" changeset="10748377" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="340028646" lat="47.8809900" lon="-3.5066920" version="6" timestamp="2015-07-26T16:49:15Z" changeset="32892846" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="343140465" lat="47.8354614" lon="-3.4081684" version="3" timestamp="2013-12-27T12:31:48Z" changeset="19660215" uid="29467" user="Cyrille Nofficial">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="350444758" lat="47.8827837" lon="-3.5058418" version="4" timestamp="2015-07-26T16:49:15Z" changeset="32892846" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444763" lat="47.8826195" lon="-3.5060099" version="3" timestamp="2012-02-21T09:21:37Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444768" lat="47.8824399" lon="-3.5061265" version="3" timestamp="2012-02-21T09:21:37Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444772" lat="47.8821817" lon="-3.5062786" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444777" lat="47.8819438" lon="-3.5063223" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444784" lat="47.8817344" lon="-3.5063914" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444789" lat="47.8814606" lon="-3.5064090" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444796" lat="47.8813016" lon="-3.5064615" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444803" lat="47.8812355" lon="-3.5065427" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444813" lat="47.8811842" lon="-3.5066255" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350444823" lat="47.8811548" lon="-3.5066445" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="350445142" lat="47.8811036" lon="-3.5066746" version="3" timestamp="2012-02-21T09:21:38Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="369702101" lat="47.8851647" lon="-3.4934259" version="2" timestamp="2010-03-07T16:00:21Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="369702102" lat="47.8850438" lon="-3.4936139" version="2" timestamp="2010-03-07T16:00:21Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="369702103" lat="47.8849730" lon="-3.4937541" version="2" timestamp="2010-03-07T16:00:01Z" changeset="4062363" uid="156021" user="FrancisLB"/>
+  <node id="469835665" lat="47.8729159" lon="-3.5432795" version="2" timestamp="2010-12-16T12:12:55Z" changeset="6676088" uid="135299" user="Tetramonium"/>
+  <node id="508561615" lat="47.8766458" lon="-3.5169083" version="3" timestamp="2016-05-14T20:00:28Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="527916110" lat="47.8441219" lon="-3.4371119" version="2" timestamp="2016-09-24T20:37:20Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="527916146" lat="47.8450970" lon="-3.4225502" version="1" timestamp="2009-10-10T13:07:16Z" changeset="2802974" uid="29467" user="Cyrille Nofficial"/>
+  <node id="527916148" lat="47.8384799" lon="-3.4120630" version="1" timestamp="2009-10-10T13:07:16Z" changeset="2802974" uid="29467" user="Cyrille Nofficial"/>
+  <node id="539180624" lat="47.8793572" lon="-3.5309423" version="4" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180626" lat="47.8793549" lon="-3.5311334" version="5" timestamp="2020-03-03T20:58:46Z" changeset="81744855" uid="9273850" user="Zizozu">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180628" lat="47.8792768" lon="-3.5313955" version="3" timestamp="2010-03-07T15:56:18Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180630" lat="47.8792219" lon="-3.5315415" version="3" timestamp="2010-03-07T15:56:18Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180632" lat="47.8789491" lon="-3.5324306" version="4" timestamp="2013-05-20T17:59:29Z" changeset="16213210" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180637" lat="47.8788698" lon="-3.5325815" version="4" timestamp="2013-05-20T17:59:29Z" changeset="16213210" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180639" lat="47.8783274" lon="-3.5331197" version="4" timestamp="2013-05-20T17:59:29Z" changeset="16213210" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180642" lat="47.8776800" lon="-3.5337135" version="4" timestamp="2013-05-20T17:59:29Z" changeset="16213210" uid="372917" user="Libre à Quimperlé">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180644" lat="47.8770498" lon="-3.5342629" version="3" timestamp="2010-03-07T15:55:11Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180646" lat="47.8769026" lon="-3.5343623" version="3" timestamp="2010-03-07T15:55:10Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180648" lat="47.8767026" lon="-3.5344218" version="3" timestamp="2010-03-07T15:55:10Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180651" lat="47.8763868" lon="-3.5344942" version="3" timestamp="2010-03-07T15:55:10Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180653" lat="47.8763412" lon="-3.5344920" version="3" timestamp="2010-03-07T15:55:09Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="539180655" lat="47.8763240" lon="-3.5344561" version="3" timestamp="2010-03-07T15:55:09Z" changeset="4062363" uid="156021" user="FrancisLB">
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </node>
+  <node id="573578724" lat="47.8766380" lon="-3.5169591" version="3" timestamp="2016-05-14T20:00:28Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="581848276" lat="47.8780024" lon="-3.4811085" version="1" timestamp="2009-12-05T11:00:42Z" changeset="3294254" uid="65028" user="celtic29"/>
+  <node id="581848278" lat="47.8772312" lon="-3.4801608" version="1" timestamp="2009-12-05T11:00:42Z" changeset="3294254" uid="65028" user="celtic29"/>
+  <node id="581848279" lat="47.8763200" lon="-3.4786673" version="1" timestamp="2009-12-05T11:00:42Z" changeset="3294254" uid="65028" user="celtic29"/>
+  <node id="581848286" lat="47.8815797" lon="-3.4830378" version="3" timestamp="2016-05-16T16:12:40Z" changeset="39356404" uid="1845264" user="jo2929"/>
+  <node id="581848300" lat="47.8795442" lon="-3.4823836" version="2" timestamp="2016-09-24T20:37:21Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="581848301" lat="47.8792705" lon="-3.4822302" version="2" timestamp="2016-09-24T20:37:21Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="581848302" lat="47.8787782" lon="-3.4816757" version="1" timestamp="2009-12-05T11:00:43Z" changeset="3294254" uid="65028" user="celtic29"/>
+  <node id="833780013" lat="47.8362097" lon="-3.4006269" version="1" timestamp="2010-07-26T11:15:27Z" changeset="5320123" uid="29467" user="Cyrille Nofficial"/>
+  <node id="843569848" lat="47.8508942" lon="-3.4431941" version="2" timestamp="2016-09-24T20:37:21Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="1041747218" lat="47.8744305" lon="-3.5433861" version="1" timestamp="2010-12-16T20:15:22Z" changeset="6681112" uid="135299" user="Tetramonium"/>
+  <node id="1096405889" lat="47.8600402" lon="-3.4631588" version="2" timestamp="2013-05-09T16:22:50Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1096405897" lat="47.8599001" lon="-3.4620410" version="1" timestamp="2011-01-10T14:54:58Z" changeset="6927065" uid="135299" user="Tetramonium"/>
+  <node id="1096405904" lat="47.8599001" lon="-3.4617182" version="1" timestamp="2011-01-10T14:54:59Z" changeset="6927065" uid="135299" user="Tetramonium"/>
+  <node id="1096503826" lat="47.8586029" lon="-3.4611250" version="1" timestamp="2011-01-10T16:02:43Z" changeset="6927695" uid="135299" user="Tetramonium"/>
+  <node id="1261250078" lat="47.8583174" lon="-3.4558760" version="1" timestamp="2011-04-26T19:53:38Z" changeset="7978967" uid="320096" user="1piedsurTerre"/>
+  <node id="1261250150" lat="47.8581155" lon="-3.4581761" version="3" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh"/>
+  <node id="1261250241" lat="47.8583156" lon="-3.4555434" version="2" timestamp="2019-12-27T18:22:22Z" changeset="78937711" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1261250292" lat="47.8582856" lon="-3.4566467" version="2" timestamp="2019-12-27T17:40:06Z" changeset="78936426" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1261250368" lat="47.8582022" lon="-3.4573995" version="1" timestamp="2011-04-26T19:53:44Z" changeset="7978967" uid="320096" user="1piedsurTerre"/>
+  <node id="1379889488" lat="47.8753810" lon="-3.5377209" version="1" timestamp="2011-07-31T12:04:36Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889489" lat="47.8755357" lon="-3.5419480" version="1" timestamp="2011-07-31T12:04:36Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889490" lat="47.8754385" lon="-3.5374473" version="1" timestamp="2011-07-31T12:04:36Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889492" lat="47.8758447" lon="-3.5411271" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889494" lat="47.8758379" lon="-3.5407196" version="1" timestamp="2011-07-31T12:04:36Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889495" lat="47.8753594" lon="-3.5372971" version="1" timestamp="2011-07-31T12:04:36Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889507" lat="47.8753342" lon="-3.5373936" version="1" timestamp="2011-07-31T12:04:36Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889509" lat="47.8759279" lon="-3.5402314" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889510" lat="47.8758451" lon="-3.5398505" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889511" lat="47.8758451" lon="-3.5395769" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889512" lat="47.8753198" lon="-3.5372649" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889513" lat="47.8753594" lon="-3.5368625" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889514" lat="47.8757336" lon="-3.5392283" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889515" lat="47.8757372" lon="-3.5390995" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889516" lat="47.8753270" lon="-3.5367338" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889518" lat="47.8756400" lon="-3.5359291" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889520" lat="47.8756832" lon="-3.5355858" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889521" lat="47.8757588" lon="-3.5353551" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889523" lat="47.8761326" lon="-3.5347185" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889525" lat="47.8758631" lon="-3.5406123" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889527" lat="47.8749511" lon="-3.5429115" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889543" lat="47.8758775" lon="-3.5406552" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889545" lat="47.8753954" lon="-3.5372971" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889548" lat="47.8755393" lon="-3.5382305" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889549" lat="47.8756976" lon="-3.5389869" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889550" lat="47.8756976" lon="-3.5388742" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1379889551" lat="47.8755825" lon="-3.5386489" version="1" timestamp="2011-07-31T12:04:37Z" changeset="8880257" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513194" lat="47.8774018" lon="-3.5279194" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513195" lat="47.8771590" lon="-3.5288970" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513201" lat="47.8792444" lon="-3.5307795" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513203" lat="47.8785950" lon="-3.5305823" version="1" timestamp="2011-07-31T17:05:43Z" changeset="8882843" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513204" lat="47.8777884" lon="-3.5304009" version="1" timestamp="2011-07-31T17:05:43Z" changeset="8882843" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513205" lat="47.8781596" lon="-3.5303061" version="1" timestamp="2011-07-31T17:05:43Z" changeset="8882843" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1380513206" lat="47.8791721" lon="-3.5309183" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1390992426" lat="47.8748074" lon="-3.5431578" version="2" timestamp="2019-11-17T19:17:58Z" changeset="77197569" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1419000999" lat="47.8742278" lon="-3.5434470" version="4" timestamp="2020-04-08T23:18:31Z" changeset="83274494" uid="9273850" user="Zizozu"/>
+  <node id="1419001005" lat="47.8771725" lon="-3.5250223" version="2" timestamp="2020-04-21T19:20:30Z" changeset="83898204" uid="9273850" user="Zizozu"/>
+  <node id="1419001008" lat="47.8771975" lon="-3.5256515" version="2" timestamp="2020-04-21T19:20:30Z" changeset="83898204" uid="9273850" user="Zizozu"/>
+  <node id="1419007264" lat="47.8752857" lon="-3.5214078" version="3" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom"/>
+  <node id="1641555237" lat="47.8756317" lon="-3.5207098" version="3" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom"/>
+  <node id="1641563458" lat="47.8817829" lon="-3.5003755" version="1" timestamp="2012-02-21T09:21:33Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563460" lat="47.8822174" lon="-3.5038534" version="1" timestamp="2012-02-21T09:21:33Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563461" lat="47.8822444" lon="-3.5036599" version="1" timestamp="2012-02-21T09:21:33Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563462" lat="47.8822471" lon="-3.5019833" version="1" timestamp="2012-02-21T09:21:33Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563463" lat="47.8823120" lon="-3.5048529" version="1" timestamp="2012-02-21T09:21:33Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563465" lat="47.8823985" lon="-3.5017858" version="1" timestamp="2012-02-21T09:21:34Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563469" lat="47.8824985" lon="-3.5054011" version="1" timestamp="2012-02-21T09:21:34Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563470" lat="47.8826120" lon="-3.5011651" version="1" timestamp="2012-02-21T09:21:34Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="1641563471" lat="47.8826823" lon="-3.5003872" version="1" timestamp="2012-02-21T09:21:34Z" changeset="10748377" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2046618907" lat="47.8758306" lon="-3.5201975" version="1" timestamp="2012-12-02T17:48:56Z" changeset="14128350" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2046670244" lat="47.8763313" lon="-3.5186965" version="2" timestamp="2016-05-14T20:00:26Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="2297252032" lat="47.8586671" lon="-3.4717709" version="1" timestamp="2013-05-09T16:22:46Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252035" lat="47.8587927" lon="-3.4718486" version="1" timestamp="2013-05-09T16:22:46Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252036" lat="47.8588101" lon="-3.4720399" version="1" timestamp="2013-05-09T16:22:46Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252037" lat="47.8590855" lon="-3.4720419" version="1" timestamp="2013-05-09T16:22:46Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252038" lat="47.8594704" lon="-3.4722909" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252040" lat="47.8599369" lon="-3.4724782" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252043" lat="47.8602617" lon="-3.4725120" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252045" lat="47.8605798" lon="-3.4726017" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252046" lat="47.8609194" lon="-3.4731476" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252047" lat="47.8609327" lon="-3.4729762" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252048" lat="47.8612816" lon="-3.4736257" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252049" lat="47.8618202" lon="-3.4739066" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252050" lat="47.8624859" lon="-3.4741616" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252051" lat="47.8624885" lon="-3.4740998" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252052" lat="47.8625540" lon="-3.4742692" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252053" lat="47.8626356" lon="-3.4742054" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252054" lat="47.8629029" lon="-3.4742951" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252055" lat="47.8630165" lon="-3.4742771" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252056" lat="47.8633215" lon="-3.4744087" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252057" lat="47.8634840" lon="-3.4739692" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252058" lat="47.8636277" lon="-3.4738960" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252059" lat="47.8637978" lon="-3.4736537" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252060" lat="47.8641040" lon="-3.4736311" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252061" lat="47.8643346" lon="-3.4740932" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252062" lat="47.8646295" lon="-3.4744820" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252063" lat="47.8648449" lon="-3.4745394" version="2" timestamp="2016-09-24T20:37:18Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="2297252064" lat="47.8657824" lon="-3.4753906" version="2" timestamp="2016-09-24T20:37:18Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="2297252065" lat="47.8658356" lon="-3.4753221" version="2" timestamp="2016-09-24T20:37:18Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="2297252066" lat="47.8661775" lon="-3.4752665" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252067" lat="47.8664176" lon="-3.4750016" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252068" lat="47.8666935" lon="-3.4748072" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252069" lat="47.8667690" lon="-3.4747743" version="2" timestamp="2019-12-15T16:32:16Z" changeset="78433987" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252070" lat="47.8674533" lon="-3.4750326" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252071" lat="47.8679202" lon="-3.4752157" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252072" lat="47.8682112" lon="-3.4751819" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252073" lat="47.8683416" lon="-3.4753003" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252074" lat="47.8684361" lon="-3.4757088" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252075" lat="47.8687310" lon="-3.4762385" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252076" lat="47.8696098" lon="-3.4769597" version="1" timestamp="2013-05-09T16:22:47Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252077" lat="47.8698687" lon="-3.4770076" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252078" lat="47.8703450" lon="-3.4767428" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252079" lat="47.8707268" lon="-3.4763286" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252080" lat="47.8710688" lon="-3.4761877" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252081" lat="47.8711048" lon="-3.4764216" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252082" lat="47.8713410" lon="-3.4764244" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252083" lat="47.8716812" lon="-3.4766611" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252084" lat="47.8718002" lon="-3.4760300" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252085" lat="47.8718380" lon="-3.4759624" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252086" lat="47.8718720" lon="-3.4764272" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252087" lat="47.8722595" lon="-3.4761511" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252088" lat="47.8727603" lon="-3.4761934" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252089" lat="47.8732479" lon="-3.4760215" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252090" lat="47.8734595" lon="-3.4765146" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252091" lat="47.8738696" lon="-3.4771541" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252092" lat="47.8738828" lon="-3.4770414" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252093" lat="47.8739395" lon="-3.4774189" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252094" lat="47.8739433" lon="-3.4773063" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252095" lat="47.8742079" lon="-3.4779627" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252096" lat="47.8743099" lon="-3.4779852" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252097" lat="47.8743458" lon="-3.4778387" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252098" lat="47.8755421" lon="-3.4771767" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252099" lat="47.8756271" lon="-3.4783374" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252100" lat="47.8756328" lon="-3.4775852" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252101" lat="47.8756403" lon="-3.4772020" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252102" lat="47.8756649" lon="-3.4777345" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252103" lat="47.8756744" lon="-3.4784670" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297252104" lat="47.8762469" lon="-3.4785318" version="1" timestamp="2013-05-09T16:22:48Z" changeset="16050532" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258423" lat="47.8583848" lon="-3.4550026" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258427" lat="47.8584396" lon="-3.4538412" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258431" lat="47.8585452" lon="-3.4535842" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258434" lat="47.8586268" lon="-3.4471673" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258444" lat="47.8587698" lon="-3.4471195" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258458" lat="47.8589623" lon="-3.4472510" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258460" lat="47.8589690" lon="-3.4471912" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258467" lat="47.8590919" lon="-3.4471494" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258469" lat="47.8592029" lon="-3.4472550" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258472" lat="47.8593619" lon="-3.4475239" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258481" lat="47.8595090" lon="-3.4478825" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258483" lat="47.8595250" lon="-3.4486196" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258486" lat="47.8595491" lon="-3.4493468" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258489" lat="47.8595584" lon="-3.4482969" version="1" timestamp="2013-05-09T16:31:05Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2297258497" lat="47.8596226" lon="-3.4500680" version="1" timestamp="2013-05-09T16:31:06Z" changeset="16050646" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2313349962" lat="47.8754237" lon="-3.5421886" version="1" timestamp="2013-05-20T17:59:27Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2313349968" lat="47.8772193" lon="-3.5285953" version="1" timestamp="2013-05-20T17:59:27Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2313349971" lat="47.8773805" lon="-3.5295383" version="2" timestamp="2020-12-15T20:21:56Z" changeset="95898897" uid="9273850" user="Zizozu"/>
+  <node id="2313349973" lat="47.8774145" lon="-3.5281711" version="1" timestamp="2013-05-20T17:59:27Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2313349975" lat="47.8776275" lon="-3.5299602" version="1" timestamp="2013-05-20T17:59:27Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2313349976" lat="47.8792065" lon="-3.5308243" version="1" timestamp="2013-05-20T17:59:27Z" changeset="16213210" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2459531764" lat="47.8745919" lon="-3.5432896" version="1" timestamp="2013-09-15T16:52:41Z" changeset="17853726" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2459595953" lat="47.8757849" lon="-3.5203220" version="1" timestamp="2013-09-15T17:18:57Z" changeset="17854271" uid="372917" user="Libre à Quimperlé"/>
+  <node id="2596687706" lat="47.8356121" lon="-3.4074307" version="1" timestamp="2013-12-27T12:31:15Z" changeset="19660215" uid="29467" user="Cyrille Nofficial"/>
+  <node id="2596687707" lat="47.8356923" lon="-3.4069796" version="1" timestamp="2013-12-27T12:31:15Z" changeset="19660215" uid="29467" user="Cyrille Nofficial"/>
+  <node id="2838014568" lat="47.8589529" lon="-3.4612775" version="1" timestamp="2014-05-05T16:56:59Z" changeset="22150301" uid="213292" user="djo_man"/>
+  <node id="2963225246" lat="47.8355938" lon="-3.3994164" version="1" timestamp="2014-07-14T19:42:10Z" changeset="24147790" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3552351485" lat="47.8359418" lon="-3.3995170" version="1" timestamp="2015-05-27T21:58:39Z" changeset="31517389" uid="2934465" user="Lucien P de Gurbert"/>
+  <node id="3552351488" lat="47.8359392" lon="-3.3995112" version="1" timestamp="2015-05-27T21:58:39Z" changeset="31517389" uid="2934465" user="Lucien P de Gurbert"/>
+  <node id="3667405683" lat="47.8766755" lon="-3.5167352" version="2" timestamp="2016-05-14T20:00:28Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="3667405684" lat="47.8768039" lon="-3.5167037" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405685" lat="47.8769543" lon="-3.5160589" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405686" lat="47.8770016" lon="-3.5155229" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405687" lat="47.8771048" lon="-3.5150000" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405688" lat="47.8771193" lon="-3.5152732" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405689" lat="47.8772257" lon="-3.5146968" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405690" lat="47.8772817" lon="-3.5142068" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405691" lat="47.8774838" lon="-3.5131677" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405692" lat="47.8775858" lon="-3.5129067" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667405693" lat="47.8777166" lon="-3.5119569" version="2" timestamp="2016-05-14T20:00:28Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="3667405694" lat="47.8777999" lon="-3.5122759" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667419469" lat="47.8822351" lon="-3.5040401" version="1" timestamp="2015-07-26T16:49:14Z" changeset="32892846" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667419470" lat="47.8822581" lon="-3.5042836" version="1" timestamp="2015-07-26T16:49:14Z" changeset="32892846" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3667419472" lat="47.8824358" lon="-3.5052167" version="1" timestamp="2015-07-26T16:49:14Z" changeset="32892846" uid="372917" user="Libre à Quimperlé"/>
+  <node id="3915125469" lat="47.8580110" lon="-3.4591582" version="2" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh"/>
+  <node id="4185930187" lat="47.8760583" lon="-3.5196154" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185930188" lat="47.8762904" lon="-3.5188563" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935889" lat="47.8764190" lon="-3.5182635" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935890" lat="47.8764986" lon="-3.5178119" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935895" lat="47.8779189" lon="-3.5113237" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935896" lat="47.8785585" lon="-3.5088668" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935897" lat="47.8787141" lon="-3.5082633" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935898" lat="47.8788175" lon="-3.5077657" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935899" lat="47.8788787" lon="-3.5074090" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935900" lat="47.8789515" lon="-3.5066459" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935915" lat="47.8818649" lon="-3.4849455" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935916" lat="47.8833561" lon="-3.4857233" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935917" lat="47.8841098" lon="-3.4861873" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935918" lat="47.8848761" lon="-3.4866406" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935919" lat="47.8858168" lon="-3.4871167" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4185935920" lat="47.8860318" lon="-3.4872884" version="1" timestamp="2016-05-14T20:00:20Z" changeset="39319157" uid="1845264" user="jo2929"/>
+  <node id="4416835274" lat="47.8429789" lon="-3.4361742" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835275" lat="47.8434909" lon="-3.4367928" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835276" lat="47.8438186" lon="-3.4369564" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835277" lat="47.8444072" lon="-3.4372488" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835278" lat="47.8447482" lon="-3.4374089" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835279" lat="47.8448258" lon="-3.4374419" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835281" lat="47.8450337" lon="-3.4374915" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835282" lat="47.8454648" lon="-3.4375894" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835283" lat="47.8464417" lon="-3.4378412" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835284" lat="47.8473116" lon="-3.4380565" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835285" lat="47.8477445" lon="-3.4381651" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835286" lat="47.8479609" lon="-3.4382174" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835287" lat="47.8480631" lon="-3.4382469" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835288" lat="47.8481693" lon="-3.4382845" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835789" lat="47.8482044" lon="-3.4383140" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835790" lat="47.8482597" lon="-3.4383763" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835791" lat="47.8483344" lon="-3.4384943" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835792" lat="47.8485108" lon="-3.4388155" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835793" lat="47.8488501" lon="-3.4393976" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835794" lat="47.8495125" lon="-3.4405684" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835797" lat="47.8502201" lon="-3.4417318" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835800" lat="47.8506373" lon="-3.4424412" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835801" lat="47.8506783" lon="-3.4425159" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835802" lat="47.8507070" lon="-3.4425659" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835807" lat="47.8508769" lon="-3.4429710" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835828" lat="47.8528552" lon="-3.4429750" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835836" lat="47.8532206" lon="-3.4428449" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835838" lat="47.8534528" lon="-3.4427658" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835840" lat="47.8535355" lon="-3.4427376" version="1" timestamp="2016-09-24T20:36:41Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835854" lat="47.8581843" lon="-3.4432519" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835856" lat="47.8582343" lon="-3.4432398" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835857" lat="47.8582424" lon="-3.4708277" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835860" lat="47.8582766" lon="-3.4696207" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835862" lat="47.8582901" lon="-3.4716216" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835863" lat="47.8583602" lon="-3.4431775" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835865" lat="47.8583909" lon="-3.4716645" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835867" lat="47.8584342" lon="-3.4431269" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835869" lat="47.8584709" lon="-3.4686873" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835870" lat="47.8585238" lon="-3.4471143" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835871" lat="47.8585289" lon="-3.4684898" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835872" lat="47.8585508" lon="-3.4468836" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835873" lat="47.8585562" lon="-3.4465483" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835874" lat="47.8585688" lon="-3.4462506" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835875" lat="47.8585760" lon="-3.4459717" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835876" lat="47.8586084" lon="-3.4454916" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835877" lat="47.8586426" lon="-3.4452716" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835878" lat="47.8586732" lon="-3.4434772" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835879" lat="47.8586750" lon="-3.4450731" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835880" lat="47.8587235" lon="-3.4447647" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835881" lat="47.8588099" lon="-3.4437079" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835882" lat="47.8588261" lon="-3.4440968" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835883" lat="47.8588405" lon="-3.4438098" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835884" lat="47.8588405" lon="-3.4439895" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835885" lat="47.8588453" lon="-3.4676761" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835886" lat="47.8588513" lon="-3.4439117" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835888" lat="47.8589793" lon="-3.4672684" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835889" lat="47.8590315" lon="-3.4670364" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835890" lat="47.8591629" lon="-3.4659809" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835892" lat="47.8592160" lon="-3.4654753" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835893" lat="47.8592835" lon="-3.4650716" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835894" lat="47.8595768" lon="-3.4496182" version="1" timestamp="2016-09-24T20:36:42Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416835942" lat="47.8652219" lon="-3.4748765" version="1" timestamp="2016-09-24T20:36:43Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836290" lat="47.8790488" lon="-3.5062393" version="1" timestamp="2016-09-24T20:36:45Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836302" lat="47.8794208" lon="-3.4823236" version="1" timestamp="2016-09-24T20:36:46Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836345" lat="47.8802182" lon="-3.5064373" version="1" timestamp="2016-09-24T20:36:46Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836370" lat="47.8806575" lon="-3.4827769" version="1" timestamp="2016-09-24T20:36:46Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836392" lat="47.8813879" lon="-3.4830039" version="2" timestamp="2021-08-31T11:55:29Z" changeset="110510801" uid="9273850" user="Zizozu"/>
+  <node id="4416836423" lat="47.8818843" lon="-3.4989684" version="1" timestamp="2016-09-24T20:36:47Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836424" lat="47.8819419" lon="-3.4988544" version="1" timestamp="2016-09-24T20:36:47Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836425" lat="47.8820444" lon="-3.4986814" version="1" timestamp="2016-09-24T20:36:47Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4416836433" lat="47.8823124" lon="-3.4982670" version="1" timestamp="2016-09-24T20:36:47Z" changeset="42411855" uid="1845264" user="jo2929"/>
+  <node id="4428233987" lat="47.8599418" lon="-3.4615647" version="1" timestamp="2016-10-02T21:20:09Z" changeset="42592108" uid="1845264" user="jo2929"/>
+  <node id="6036956860" lat="47.8360709" lon="-3.4034626" version="1" timestamp="2018-11-04T15:33:27Z" changeset="64169321" uid="1836105" user="Maxime Lorant">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6036956861" lat="47.8361236" lon="-3.4027342" version="1" timestamp="2018-11-04T15:33:27Z" changeset="64169321" uid="1836105" user="Maxime Lorant">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="6985612835" lat="47.8748223" lon="-3.5431385" version="2" timestamp="2020-03-17T12:42:26Z" changeset="82302699" uid="9273850" user="Zizozu"/>
+  <node id="7089492185" lat="47.8593011" lon="-3.4614206" version="1" timestamp="2019-12-27T18:12:28Z" changeset="78937389" uid="372917" user="Libre à Quimperlé"/>
+  <node id="7089495198" lat="47.8581650" lon="-3.4577190" version="1" timestamp="2019-12-27T18:17:21Z" changeset="78937553" uid="372917" user="Libre à Quimperlé"/>
+  <node id="7130471577" lat="47.8579902" lon="-3.4598053" version="1" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh"/>
+  <node id="7130471578" lat="47.8579931" lon="-3.4594878" version="1" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh"/>
+  <node id="7261881137" lat="47.8793451" lon="-3.5311820" version="1" timestamp="2020-03-03T20:58:46Z" changeset="81744855" uid="9273850" user="Zizozu"/>
+  <node id="7383499418" lat="47.8726888" lon="-3.5451112" version="3" timestamp="2020-07-31T13:15:28Z" changeset="88784403" uid="9273850" user="Zizozu"/>
+  <node id="7431230816" lat="47.8774338" lon="-3.5280389" version="1" timestamp="2020-04-21T19:20:30Z" changeset="83898204" uid="9273850" user="Zizozu"/>
+  <node id="7431230831" lat="47.8725936" lon="-3.5448656" version="1" timestamp="2020-04-21T19:20:30Z" changeset="83898204" uid="9273850" user="Zizozu"/>
+  <node id="7431230832" lat="47.8726554" lon="-3.5450375" version="1" timestamp="2020-04-21T19:20:30Z" changeset="83898204" uid="9273850" user="Zizozu"/>
+  <node id="7529945295" lat="47.8740806" lon="-3.5434507" version="1" timestamp="2020-05-17T19:53:50Z" changeset="85346891" uid="9273850" user="Zizozu"/>
+  <node id="8232292389" lat="47.8774323" lon="-3.5281020" version="1" timestamp="2020-12-15T20:21:56Z" changeset="95898897" uid="9273850" user="Zizozu"/>
+  <node id="8232292390" lat="47.8774259" lon="-3.5279792" version="1" timestamp="2020-12-15T20:21:56Z" changeset="95898897" uid="9273850" user="Zizozu"/>
+  <node id="8232292391" lat="47.8771596" lon="-3.5287993" version="1" timestamp="2020-12-15T20:21:56Z" changeset="95898897" uid="9273850" user="Zizozu"/>
+  <node id="8232292392" lat="47.8771813" lon="-3.5287110" version="1" timestamp="2020-12-15T20:21:56Z" changeset="95898897" uid="9273850" user="Zizozu"/>
+  <node id="8426869621" lat="47.8754071" lon="-3.5211291" version="1" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="8426869622" lat="47.8755294" lon="-3.5209157" version="1" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom"/>
+  <node id="8426869623" lat="47.8750584" lon="-3.5220120" version="1" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom"/>
+  <node id="8426869624" lat="47.8751765" lon="-3.5217236" version="1" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom"/>
+  <node id="8426869625" lat="47.8749192" lon="-3.5226162" version="1" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom">
+    <tag k="crossing" v="marked"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="8426869626" lat="47.8748759" lon="-3.5225745" version="1" timestamp="2021-02-15T20:42:10Z" changeset="99331811" uid="392288" user="Kalepom">
+    <tag k="direction" v="backward"/>
+    <tag k="highway" v="stop"/>
+  </node>
+  <node id="8665022867" lat="47.8748776" lon="-3.5430410" version="1" timestamp="2021-04-25T16:18:34Z" changeset="103581793" uid="12144707" user="Kervilin"/>
+  <node id="8919841098" lat="47.8593357" lon="-3.4505600" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon"/>
+  <node id="8919841099" lat="47.8594869" lon="-3.4509784" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon"/>
+  <node id="8919841100" lat="47.8592494" lon="-3.4513325" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon"/>
+  <node id="8919841101" lat="47.8591882" lon="-3.4518206" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon"/>
+  <node id="8919841102" lat="47.8591522" lon="-3.4526092" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon"/>
+  <node id="8919841103" lat="47.8589110" lon="-3.4530330" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon"/>
+  <node id="8999432392" lat="47.8726093" lon="-3.5447051" version="1" timestamp="2021-08-11T18:53:22Z" changeset="109533029" uid="9273850" user="Zizozu"/>
+  <node id="9050816733" lat="47.8787667" lon="-3.4816672" version="1" timestamp="2021-08-31T11:55:29Z" changeset="110510801" uid="9273850" user="Zizozu"/>
+  <node id="9276261173" lat="47.8600114" lon="-3.4635026" version="1" timestamp="2021-11-22T21:32:16Z" changeset="114115209" uid="9273850" user="Zizozu"/>
+  <node id="9464512921" lat="47.8438181" lon="-3.4103438" version="1" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio"/>
+  <node id="9464512923" lat="47.8425515" lon="-3.4107209" version="1" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio"/>
+  <node id="9464512925" lat="47.8445759" lon="-3.4128146" version="1" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio"/>
+  <node id="9464512926" lat="47.8441786" lon="-3.4114249" version="1" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio"/>
+  <node id="9608133009" lat="47.8349695" lon="-3.4101825" version="1" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="9608133030" lat="47.8357756" lon="-3.4118958" version="1" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="9608133088" lat="47.8363146" lon="-3.4116921" version="1" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="9608133130" lat="47.8354236" lon="-3.4111121" version="1" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="9608133135" lat="47.8354291" lon="-3.4111317" version="1" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <node id="9608133136" lat="47.8349701" lon="-3.4106518" version="1" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud"/>
+  <way id="23152399" version="9" timestamp="2021-05-04T10:19:20Z" changeset="104115149" uid="7140643" user="KlubAnDouarSantel">
+    <nd ref="250115594"/>
+    <nd ref="833780013"/>
+    <nd ref="250115739"/>
+    <nd ref="251350669"/>
+    <nd ref="250115745"/>
+    <nd ref="3552351485"/>
+    <nd ref="3552351488"/>
+    <nd ref="250115753"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Rue Terrien"/>
+    <tag k="name:br" v="Straed Terien"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="source:name:br" v="proper translation"/>
+  </way>
+  <way id="23152465" version="8" timestamp="2018-11-04T15:33:34Z" changeset="64169321" uid="1836105" user="Maxime Lorant">
+    <nd ref="251350665"/>
+    <nd ref="317186079"/>
+    <nd ref="250115817"/>
+    <nd ref="6036956860"/>
+    <nd ref="6036956861"/>
+    <nd ref="250115809"/>
+    <nd ref="250115594"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Rue du Docteur Rialland"/>
+  </way>
+  <way id="23152524" version="7" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud">
+    <nd ref="251350665"/>
+    <nd ref="336458405"/>
+    <nd ref="336458398"/>
+    <nd ref="2596687707"/>
+    <nd ref="250115796"/>
+    <nd ref="2596687706"/>
+    <nd ref="259497053"/>
+    <nd ref="343140465"/>
+    <nd ref="259497054"/>
+    <nd ref="9608133009"/>
+    <nd ref="251350774"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Rue du Docteur Rialland"/>
+  </way>
+  <way id="23233033" version="8" timestamp="2022-03-26T06:34:03Z" changeset="118935307" uid="7053591" user="Régis Vrignaud">
+    <nd ref="251350774"/>
+    <nd ref="9608133136"/>
+    <nd ref="251350805"/>
+    <nd ref="9608133130"/>
+    <nd ref="9608133135"/>
+    <nd ref="251350810"/>
+    <nd ref="251350811"/>
+    <nd ref="251350808"/>
+    <nd ref="251350809"/>
+    <nd ref="9608133030"/>
+    <nd ref="251350814"/>
+    <nd ref="302311847"/>
+    <nd ref="251350815"/>
+    <nd ref="251350813"/>
+    <nd ref="9608133088"/>
+    <nd ref="527916148"/>
+    <nd ref="302311932"/>
+    <nd ref="302311934"/>
+    <nd ref="302311937"/>
+    <nd ref="320585470"/>
+    <nd ref="302311992"/>
+    <nd ref="9464512923"/>
+    <nd ref="302312054"/>
+    <nd ref="9464512921"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="source" v="yahoo"/>
+  </way>
+  <way id="24034325" version="2" timestamp="2010-01-11T14:03:39Z" changeset="3596042" uid="98682" user="Stéphane Péchard">
+    <nd ref="250115753"/>
+    <nd ref="250114969"/>
+    <tag k="highway" v="residential"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="24034326" version="11" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="250114969"/>
+    <nd ref="2963225246"/>
+    <nd ref="250114971"/>
+    <nd ref="250114955"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Rue du Général de Langle de Cary"/>
+    <tag k="name:br" v="Straed ar Jeneral Langle de Cary"/>
+    <tag k="ref" v="D 26"/>
+    <tag k="source" v="gps"/>
+    <tag k="source:name:br" v="proper translation"/>
+  </way>
+  <way id="27011841" version="11" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="293672757"/>
+    <nd ref="296079631"/>
+    <nd ref="296079687"/>
+    <nd ref="306418493"/>
+    <nd ref="7089492185"/>
+    <nd ref="306418459"/>
+    <nd ref="306418461"/>
+    <nd ref="2838014568"/>
+    <nd ref="306418463"/>
+    <nd ref="306418464"/>
+    <nd ref="1096503826"/>
+    <nd ref="306418466"/>
+    <nd ref="306418468"/>
+    <nd ref="306418470"/>
+    <nd ref="306418471"/>
+    <nd ref="306418473"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue des Écoles"/>
+    <tag k="name:br" v="Straed ar Skolioù"/>
+    <tag k="source:name:br" v="proper translation"/>
+  </way>
+  <way id="27014061" version="13" timestamp="2020-01-05T14:51:36Z" changeset="79214591" uid="7140643" user="KlubAnDouarSantel">
+    <nd ref="296105375"/>
+    <nd ref="296105376"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="heritage" v="3"/>
+    <tag k="heritage:operator" v="mhs"/>
+    <tag k="highway" v="residential"/>
+    <tag k="layer" v="1"/>
+    <tag k="mhs:inscription_date" v="1928-10-19"/>
+    <tag k="name" v="Le Pont Fleuri"/>
+    <tag k="name:br" v="Pont Penn Pont Ele"/>
+    <tag k="old_name" v="Pont Lovignon"/>
+    <tag k="ref:mhs" v="PA00090394"/>
+    <tag k="source" v="http://www.culture.gouv.fr/public/mistral/merimee_fr?ACTION=CHERCHER&amp;FIELD_1=REF&amp;VALUE_1=PA00090394"/>
+    <tag k="source:heritage" v="Ministère de la Culture - 06/2019"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="wikidata" v="Q3396626"/>
+    <tag k="wikipedia" v="fr:Pont Fleuri"/>
+  </way>
+  <way id="27014064" version="13" timestamp="2021-08-11T18:53:22Z" changeset="109533029" uid="9273850" user="Zizozu">
+    <nd ref="296105376"/>
+    <nd ref="309628074"/>
+    <nd ref="296105377"/>
+    <nd ref="8999432392"/>
+    <nd ref="296105378"/>
+    <nd ref="7431230831"/>
+    <nd ref="296105380"/>
+    <nd ref="7431230832"/>
+    <nd ref="7383499418"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rue Ellé"/>
+    <tag k="name:br" v="Straed an Ele"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+  </way>
+  <way id="27063981" version="9" timestamp="2021-05-04T09:55:34Z" changeset="104113188" uid="372917" user="Libre à Quimperlé">
+    <nd ref="296936804"/>
+    <nd ref="296936808"/>
+    <nd ref="296936812"/>
+    <nd ref="296936816"/>
+    <nd ref="296936819"/>
+    <nd ref="296936822"/>
+    <nd ref="296936825"/>
+    <nd ref="296936828"/>
+    <nd ref="296936831"/>
+    <nd ref="296936833"/>
+    <nd ref="296936836"/>
+    <nd ref="296936837"/>
+    <nd ref="340024018"/>
+    <nd ref="340024020"/>
+    <nd ref="340024022"/>
+    <nd ref="340024025"/>
+    <nd ref="340024032"/>
+    <nd ref="340024037"/>
+    <nd ref="340024043"/>
+    <nd ref="340024045"/>
+    <nd ref="340024047"/>
+    <nd ref="340024049"/>
+    <nd ref="340024052"/>
+    <nd ref="340027171"/>
+    <nd ref="369702101"/>
+    <nd ref="369702102"/>
+    <nd ref="369702103"/>
+    <nd ref="340027157"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="motorcar" v="no"/>
+  </way>
+  <way id="27912130" version="8" timestamp="2020-01-06T08:14:13Z" changeset="79237440" uid="7140643" user="KlubAnDouarSantel">
+    <nd ref="306396292"/>
+    <nd ref="469835665"/>
+    <nd ref="306396297"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Place Lovignon"/>
+    <tag k="name:br" v="Plasenn Lovignon"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="28252623" version="7" timestamp="2021-08-31T11:55:29Z" changeset="110510801" uid="9273850" user="Zizozu">
+    <nd ref="310282827"/>
+    <nd ref="8426869626"/>
+    <nd ref="8426869625"/>
+    <nd ref="308915802"/>
+    <nd ref="308915803"/>
+    <nd ref="308915804"/>
+    <nd ref="1419001005"/>
+    <nd ref="310282884"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Chemin de Kerdaniel"/>
+    <tag k="name:br" v="Hentig Kerdaniel"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="30686155" version="5" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="4416835867"/>
+    <nd ref="4416835863"/>
+    <nd ref="339336176"/>
+    <nd ref="4416835856"/>
+    <nd ref="4416835854"/>
+    <nd ref="339336178"/>
+    <nd ref="339336179"/>
+    <nd ref="4416835840"/>
+    <nd ref="4416835838"/>
+    <nd ref="4416835836"/>
+    <nd ref="4416835828"/>
+    <nd ref="339336181"/>
+    <nd ref="339336182"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="30686156" version="5" timestamp="2016-09-24T20:37:09Z" changeset="42411855" uid="1845264" user="jo2929">
+    <nd ref="4416835800"/>
+    <nd ref="4416835797"/>
+    <nd ref="4416835794"/>
+    <nd ref="4416835793"/>
+    <nd ref="4416835792"/>
+    <nd ref="4416835791"/>
+    <nd ref="4416835790"/>
+    <nd ref="4416835789"/>
+    <nd ref="4416835288"/>
+    <nd ref="339336190"/>
+    <nd ref="4416835287"/>
+    <nd ref="4416835286"/>
+    <nd ref="4416835285"/>
+    <nd ref="4416835284"/>
+    <nd ref="4416835283"/>
+    <nd ref="4416835282"/>
+    <nd ref="4416835281"/>
+    <nd ref="4416835279"/>
+    <tag k="highway" v="track"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="30686158" version="6" timestamp="2022-01-31T22:09:52Z" changeset="116842278" uid="1137406" user="simlio">
+    <nd ref="339336192"/>
+    <nd ref="4416835274"/>
+    <nd ref="339336196"/>
+    <nd ref="339336197"/>
+    <nd ref="339336198"/>
+    <nd ref="339336199"/>
+    <nd ref="339336200"/>
+    <nd ref="339336201"/>
+    <nd ref="339336202"/>
+    <nd ref="339336203"/>
+    <nd ref="339336204"/>
+    <nd ref="339336205"/>
+    <nd ref="339336206"/>
+    <nd ref="339336306"/>
+    <nd ref="339336207"/>
+    <nd ref="339336208"/>
+    <nd ref="527916146"/>
+    <nd ref="339336209"/>
+    <nd ref="339336210"/>
+    <nd ref="339336211"/>
+    <nd ref="339336212"/>
+    <nd ref="339336296"/>
+    <nd ref="339336213"/>
+    <nd ref="339336218"/>
+    <nd ref="339336220"/>
+    <nd ref="9464512925"/>
+    <nd ref="339336221"/>
+    <nd ref="9464512926"/>
+    <nd ref="9464512921"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="30745450" version="3" timestamp="2016-09-24T20:37:07Z" changeset="42411855" uid="1845264" user="jo2929">
+    <nd ref="340028631"/>
+    <nd ref="4416836290"/>
+    <nd ref="340028632"/>
+    <nd ref="340028633"/>
+    <nd ref="340028635"/>
+    <nd ref="340028636"/>
+    <nd ref="340028637"/>
+    <nd ref="340028638"/>
+    <nd ref="4416836345"/>
+    <nd ref="340028639"/>
+    <nd ref="340028641"/>
+    <nd ref="340028643"/>
+    <nd ref="340028646"/>
+    <tag k="highway" v="service"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="31426902" version="3" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="340028646"/>
+    <nd ref="350445142"/>
+    <nd ref="350444823"/>
+    <nd ref="350444813"/>
+    <nd ref="350444803"/>
+    <nd ref="350444796"/>
+    <nd ref="350444789"/>
+    <nd ref="350444784"/>
+    <nd ref="350444777"/>
+    <nd ref="350444772"/>
+    <nd ref="350444768"/>
+    <nd ref="350444763"/>
+    <nd ref="350444758"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+  </way>
+  <way id="31426905" version="4" timestamp="2012-02-21T09:21:36Z" changeset="10748377" uid="372917" user="Libre à Quimperlé">
+    <nd ref="1641563458"/>
+    <nd ref="1641563471"/>
+    <nd ref="293665114"/>
+    <nd ref="1641563470"/>
+    <nd ref="1641563465"/>
+    <nd ref="1641563462"/>
+    <nd ref="293665112"/>
+    <nd ref="1641563461"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+  </way>
+  <way id="41526648" version="7" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="3667405693"/>
+    <nd ref="4185935895"/>
+    <nd ref="293141779"/>
+    <nd ref="4185935896"/>
+    <nd ref="4185935897"/>
+    <nd ref="4185935898"/>
+    <nd ref="4185935899"/>
+    <nd ref="293141780"/>
+    <nd ref="4185935900"/>
+    <nd ref="340028631"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="80"/>
+    <tag k="ref" v="D 22"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="45655812" version="4" timestamp="2021-08-31T11:55:29Z" changeset="110510801" uid="9273850" user="Zizozu">
+    <nd ref="581848286"/>
+    <nd ref="4416836392"/>
+    <nd ref="4416836370"/>
+    <nd ref="581848300"/>
+    <nd ref="4416836302"/>
+    <nd ref="581848301"/>
+    <nd ref="581848302"/>
+    <nd ref="9050816733"/>
+    <nd ref="581848276"/>
+    <nd ref="581848278"/>
+    <nd ref="581848279"/>
+    <nd ref="2297252104"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="110446971" version="5" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh">
+    <nd ref="1261250241"/>
+    <nd ref="1261250078"/>
+    <nd ref="1261250292"/>
+    <nd ref="1261250368"/>
+    <nd ref="7089495198"/>
+    <nd ref="1261250150"/>
+    <tag k="highway" v="track"/>
+  </way>
+  <way id="123870771" version="8" timestamp="2022-05-16T06:48:50Z" changeset="121035524" uid="7140643" user="KlubAnDouarSantel">
+    <nd ref="1390992426"/>
+    <nd ref="6985612835"/>
+    <nd ref="8665022867"/>
+    <nd ref="1379889527"/>
+    <nd ref="2313349962"/>
+    <nd ref="1379889489"/>
+    <nd ref="1379889492"/>
+    <nd ref="1379889494"/>
+    <nd ref="1379889543"/>
+    <nd ref="1379889525"/>
+    <nd ref="1379889509"/>
+    <nd ref="1379889510"/>
+    <nd ref="1379889511"/>
+    <nd ref="1379889514"/>
+    <nd ref="1379889515"/>
+    <nd ref="1379889549"/>
+    <nd ref="1379889550"/>
+    <nd ref="1379889551"/>
+    <nd ref="1379889548"/>
+    <nd ref="1379889488"/>
+    <nd ref="1379889490"/>
+    <nd ref="1379889545"/>
+    <nd ref="1379889495"/>
+    <nd ref="1379889507"/>
+    <nd ref="1379889512"/>
+    <nd ref="1379889513"/>
+    <nd ref="1379889516"/>
+    <nd ref="1379889518"/>
+    <nd ref="1379889520"/>
+    <nd ref="1379889521"/>
+    <nd ref="1379889523"/>
+    <nd ref="539180655"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="name" v="Balade Glenmor"/>
+    <tag k="name:br" v="Baleadenn Glenmor"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="128382812" version="2" timestamp="2013-05-20T17:59:28Z" changeset="16213210" uid="372917" user="Libre à Quimperlé">
+    <nd ref="539180624"/>
+    <nd ref="1380513201"/>
+    <nd ref="2313349976"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="unpaved"/>
+  </way>
+  <way id="151332462" version="2" timestamp="2013-10-24T09:36:07Z" changeset="18516620" uid="163973" user="badpap">
+    <nd ref="1641563461"/>
+    <nd ref="1641563460"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="layer" v="1"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="surface" v="wood"/>
+    <tag k="trail_visibility" v="good"/>
+  </way>
+  <way id="167956992" version="5" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="296080016"/>
+    <nd ref="4416835857"/>
+    <nd ref="296080017"/>
+    <nd ref="4416835860"/>
+    <nd ref="296080381"/>
+    <nd ref="4416835869"/>
+    <nd ref="4416835871"/>
+    <nd ref="296080019"/>
+    <nd ref="4416835885"/>
+    <nd ref="4416835888"/>
+    <nd ref="4416835889"/>
+    <nd ref="296080020"/>
+    <nd ref="4416835890"/>
+    <nd ref="4416835892"/>
+    <nd ref="296080022"/>
+    <nd ref="4416835893"/>
+    <nd ref="296080374"/>
+    <tag k="highway" v="tertiary"/>
+  </way>
+  <way id="220630792" version="3" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="2297252063"/>
+    <nd ref="2297252062"/>
+    <nd ref="2297252061"/>
+    <nd ref="2297252060"/>
+    <nd ref="2297252059"/>
+    <nd ref="2297252058"/>
+    <nd ref="2297252057"/>
+    <nd ref="2297252056"/>
+    <nd ref="2297252055"/>
+    <nd ref="2297252054"/>
+    <nd ref="2297252053"/>
+    <nd ref="2297252052"/>
+    <nd ref="2297252050"/>
+    <nd ref="2297252051"/>
+    <nd ref="2297252049"/>
+    <nd ref="2297252048"/>
+    <nd ref="2297252046"/>
+    <nd ref="2297252047"/>
+    <nd ref="2297252045"/>
+    <nd ref="2297252043"/>
+    <nd ref="2297252040"/>
+    <nd ref="2297252038"/>
+    <nd ref="2297252037"/>
+    <nd ref="2297252036"/>
+    <nd ref="2297252035"/>
+    <nd ref="2297252032"/>
+    <nd ref="4416835865"/>
+    <nd ref="4416835862"/>
+    <nd ref="296080016"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="220630793" version="2" timestamp="2019-12-15T16:32:16Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252102"/>
+    <nd ref="2297252100"/>
+    <nd ref="2297252101"/>
+    <nd ref="2297252098"/>
+    <nd ref="2297252097"/>
+    <nd ref="2297252096"/>
+    <nd ref="2297252095"/>
+    <nd ref="2297252093"/>
+    <nd ref="2297252094"/>
+    <nd ref="2297252091"/>
+    <nd ref="2297252092"/>
+    <nd ref="2297252090"/>
+    <nd ref="2297252089"/>
+    <nd ref="2297252088"/>
+    <nd ref="2297252087"/>
+    <nd ref="2297252085"/>
+    <nd ref="2297252084"/>
+    <nd ref="2297252086"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="220630794" version="1" timestamp="2013-05-09T16:22:49Z" changeset="16050532" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252104"/>
+    <nd ref="2297252103"/>
+    <nd ref="2297252099"/>
+    <nd ref="2297252102"/>
+    <tag k="highway" v="track"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="222361651" version="3" timestamp="2020-12-15T20:21:56Z" changeset="95898897" uid="9273850" user="Zizozu">
+    <nd ref="1380513206"/>
+    <nd ref="1380513203"/>
+    <nd ref="1380513205"/>
+    <nd ref="1380513204"/>
+    <nd ref="2313349975"/>
+    <nd ref="2313349971"/>
+    <nd ref="1380513195"/>
+    <nd ref="8232292391"/>
+    <nd ref="8232292392"/>
+    <nd ref="2313349968"/>
+    <nd ref="2313349973"/>
+    <nd ref="8232292389"/>
+    <nd ref="7431230816"/>
+    <nd ref="8232292390"/>
+    <nd ref="1380513194"/>
+    <nd ref="310282871"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="unpaved"/>
+  </way>
+  <way id="222361653" version="2" timestamp="2013-10-24T09:36:17Z" changeset="18516620" uid="163973" user="badpap">
+    <nd ref="2313349976"/>
+    <nd ref="1380513206"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="layer" v="1"/>
+    <tag k="segregated" v="no"/>
+    <tag k="surface" v="wood"/>
+  </way>
+  <way id="279579062" version="4" timestamp="2021-11-22T21:32:16Z" changeset="114115209" uid="9273850" user="Zizozu">
+    <nd ref="296080374"/>
+    <nd ref="296080428"/>
+    <nd ref="296080025"/>
+    <nd ref="9276261173"/>
+    <nd ref="1096405889"/>
+    <nd ref="296080026"/>
+    <nd ref="306418432"/>
+    <nd ref="296080027"/>
+    <nd ref="1096405897"/>
+    <nd ref="293672756"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Rue de Rosbigot"/>
+    <tag k="source:name" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2015"/>
+  </way>
+  <way id="362429933" version="1" timestamp="2015-07-26T16:40:23Z" changeset="32892683" uid="372917" user="Libre à Quimperlé">
+    <nd ref="3667405683"/>
+    <nd ref="3667405684"/>
+    <nd ref="3667405685"/>
+    <nd ref="3667405686"/>
+    <nd ref="3667405688"/>
+    <nd ref="3667405687"/>
+    <nd ref="3667405689"/>
+    <nd ref="3667405690"/>
+    <nd ref="3667405691"/>
+    <nd ref="3667405692"/>
+    <nd ref="3667405694"/>
+    <nd ref="3667405693"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="388300412" version="3" timestamp="2020-11-01T14:36:38Z" changeset="93369901" uid="7140643" user="KlubAnDouarSantel">
+    <nd ref="1261250150"/>
+    <nd ref="3915125469"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Lotissement Park an Illiz"/>
+    <tag k="name:br" v="Lodennaoueg Park an Iliz"/>
+    <tag k="source:name:br" v="proper translation"/>
+  </way>
+  <way id="444195885" version="1" timestamp="2016-09-24T20:36:53Z" changeset="42411855" uid="1845264" user="jo2929">
+    <nd ref="4416835870"/>
+    <nd ref="4416835872"/>
+    <nd ref="4416835873"/>
+    <nd ref="4416835874"/>
+    <nd ref="4416835875"/>
+    <nd ref="4416835876"/>
+    <nd ref="4416835877"/>
+    <nd ref="4416835879"/>
+    <nd ref="4416835880"/>
+    <nd ref="4416835882"/>
+    <nd ref="4416835884"/>
+    <nd ref="4416835886"/>
+    <nd ref="4416835883"/>
+    <nd ref="4416835881"/>
+    <nd ref="4416835878"/>
+    <nd ref="4416835867"/>
+    <tag k="highway" v="track"/>
+    <tag k="surface" v="ground"/>
+  </way>
+  <way id="444195907" version="1" timestamp="2016-09-24T20:36:55Z" changeset="42411855" uid="1845264" user="jo2929">
+    <nd ref="339336182"/>
+    <nd ref="843569848"/>
+    <nd ref="4416835807"/>
+    <nd ref="339336189"/>
+    <nd ref="4416835802"/>
+    <nd ref="4416835801"/>
+    <nd ref="4416835800"/>
+    <tag k="highway" v="residential"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="444195909" version="1" timestamp="2016-09-24T20:36:55Z" changeset="42411855" uid="1845264" user="jo2929">
+    <nd ref="4416835279"/>
+    <nd ref="4416835278"/>
+    <nd ref="339336191"/>
+    <nd ref="4416835277"/>
+    <nd ref="527916110"/>
+    <nd ref="4416835276"/>
+    <nd ref="4416835275"/>
+    <nd ref="339336192"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+  </way>
+  <way id="755667091" version="1" timestamp="2019-12-15T16:32:15Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252083"/>
+    <nd ref="2297252082"/>
+    <nd ref="2297252081"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="755667092" version="1" timestamp="2019-12-15T16:32:15Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252086"/>
+    <nd ref="2297252083"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="755667093" version="1" timestamp="2019-12-15T16:32:15Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252080"/>
+    <nd ref="2297252079"/>
+    <nd ref="2297252078"/>
+    <nd ref="2297252077"/>
+    <nd ref="2297252076"/>
+    <nd ref="2297252075"/>
+    <nd ref="2297252074"/>
+    <nd ref="2297252073"/>
+    <nd ref="2297252072"/>
+    <nd ref="2297252071"/>
+    <nd ref="2297252070"/>
+    <nd ref="2297252069"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="755667094" version="1" timestamp="2019-12-15T16:32:16Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252081"/>
+    <nd ref="2297252080"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="755667095" version="1" timestamp="2019-12-15T16:32:16Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252068"/>
+    <nd ref="2297252067"/>
+    <nd ref="2297252066"/>
+    <nd ref="2297252065"/>
+    <nd ref="2297252064"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="755667096" version="1" timestamp="2019-12-15T16:32:16Z" changeset="78433987" uid="372917" user="Libre à Quimperlé">
+    <nd ref="2297252069"/>
+    <nd ref="2297252068"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="761175993" version="6" timestamp="2022-08-10T09:33:02Z" changeset="124721338" uid="9001369" user="JCJA">
+    <nd ref="306396297"/>
+    <nd ref="306396298"/>
+    <nd ref="306396299"/>
+    <nd ref="306396301"/>
+    <nd ref="7529945295"/>
+    <nd ref="1419000999"/>
+    <nd ref="306396303"/>
+    <nd ref="1041747218"/>
+    <nd ref="2459531764"/>
+    <nd ref="1390992426"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Ruelle des Gorrets"/>
+    <tag k="name:br" v="Straedig ar Gored"/>
+    <tag k="sidewalk" v="no"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="763062067" version="1" timestamp="2020-01-14T09:27:30Z" changeset="79556418" uid="4057819" user="Papa-Yankee-Bzh">
+    <nd ref="3915125469"/>
+    <nd ref="7130471578"/>
+    <nd ref="7130471577"/>
+    <nd ref="306418473"/>
+    <tag k="highway" v="footway"/>
+    <tag k="name" v="Lotissement Park An Illiz"/>
+  </way>
+  <way id="964330042" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="2297258497"/>
+    <nd ref="4416835894"/>
+    <nd ref="2297258486"/>
+    <nd ref="2297258483"/>
+    <nd ref="2297258489"/>
+    <nd ref="2297258481"/>
+    <nd ref="2297258472"/>
+    <nd ref="2297258469"/>
+    <nd ref="2297258467"/>
+    <nd ref="2297258460"/>
+    <nd ref="2297258458"/>
+    <nd ref="2297258444"/>
+    <nd ref="2297258434"/>
+    <nd ref="4416835870"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="surface" v="paved"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="964330043" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="2297258431"/>
+    <nd ref="2297258427"/>
+    <nd ref="2297258423"/>
+    <nd ref="1261250241"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="surface" v="paved"/>
+    <tag k="trail_visibility" v="good"/>
+    <tag k="wheelchair" v="no"/>
+  </way>
+  <way id="964330044" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="2297258431"/>
+    <nd ref="8919841103"/>
+    <nd ref="8919841102"/>
+    <nd ref="8919841101"/>
+    <nd ref="8919841100"/>
+    <nd ref="8919841099"/>
+    <nd ref="8919841098"/>
+    <nd ref="2297258497"/>
+    <tag k="highway" v="path"/>
+  </way>
+  <way id="964330047" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="293672756"/>
+    <nd ref="1096405904"/>
+    <nd ref="4428233987"/>
+    <nd ref="293672757"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Rue du Croeziou"/>
+    <tag k="name:br" v="Straed ar C'hroezioù"/>
+    <tag k="ref" v="C 1"/>
+    <tag k="source:name:br" v="proper translation"/>
+  </way>
+  <way id="964330050" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="2297252063"/>
+    <nd ref="4416835942"/>
+    <nd ref="293672770"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Liminec"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011"/>
+  </way>
+  <way id="964330051" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="293672770"/>
+    <nd ref="2297252064"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Liminec"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2011"/>
+  </way>
+  <way id="964330052" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="293141788"/>
+    <nd ref="581848286"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="80"/>
+    <tag k="ref" v="D 22"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="964330054" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="508561615"/>
+    <nd ref="3667405683"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="80"/>
+    <tag k="ref" v="D 22"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="964330056" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="293141788"/>
+    <nd ref="293679062"/>
+    <nd ref="4185935915"/>
+    <nd ref="293679327"/>
+    <nd ref="293679064"/>
+    <nd ref="4185935916"/>
+    <nd ref="4185935917"/>
+    <nd ref="4185935918"/>
+    <nd ref="293679658"/>
+    <nd ref="4185935919"/>
+    <nd ref="4185935920"/>
+    <nd ref="293679067"/>
+    <nd ref="293679068"/>
+    <nd ref="337589839"/>
+    <nd ref="296936804"/>
+    <tag k="highway" v="unclassified"/>
+  </way>
+  <way id="964330057" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="340027149"/>
+    <nd ref="4416836423"/>
+    <nd ref="4416836424"/>
+    <nd ref="4416836425"/>
+    <nd ref="4416836433"/>
+    <nd ref="340027152"/>
+    <nd ref="340027154"/>
+    <nd ref="340027155"/>
+    <nd ref="340027156"/>
+    <nd ref="340027157"/>
+    <tag k="highway" v="track"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="tracktype" v="grade2"/>
+  </way>
+  <way id="964330058" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="1641563458"/>
+    <nd ref="340027149"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="964330059" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="1641563460"/>
+    <nd ref="3667419469"/>
+    <nd ref="3667419470"/>
+    <nd ref="1641563463"/>
+    <nd ref="3667419472"/>
+    <nd ref="1641563469"/>
+    <nd ref="350444758"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="sac_scale" v="hiking"/>
+    <tag k="surface" v="ground"/>
+    <tag k="trail_visibility" v="good"/>
+  </way>
+  <way id="964330062" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="310282827"/>
+    <nd ref="8426869623"/>
+    <nd ref="8426869624"/>
+    <nd ref="1419007264"/>
+    <nd ref="8426869621"/>
+    <nd ref="8426869622"/>
+    <nd ref="1641555237"/>
+    <nd ref="308915801"/>
+    <nd ref="2459595953"/>
+    <nd ref="2046618907"/>
+    <nd ref="4185930187"/>
+    <nd ref="293141776"/>
+    <nd ref="4185930188"/>
+    <nd ref="2046670244"/>
+    <nd ref="4185935889"/>
+    <nd ref="4185935890"/>
+    <nd ref="573578724"/>
+    <nd ref="508561615"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Rue d'Arzano"/>
+    <tag k="name:br" v="Straed an Arzhanaou"/>
+    <tag k="ref" v="D 22"/>
+    <tag k="source:name:br" v="proper translation"/>
+    <tag k="surface" v="paved"/>
+  </way>
+  <way id="964330064" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="310282871"/>
+    <nd ref="310282877"/>
+    <nd ref="1419001008"/>
+    <nd ref="310282884"/>
+    <tag k="highway" v="track"/>
+    <tag k="name" v="Rue de Roscado"/>
+    <tag k="name:br" v="Straed Roskadoù"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="surface" v="ground"/>
+    <tag k="tracktype" v="grade3"/>
+  </way>
+  <way id="964330065" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="539180624"/>
+    <nd ref="539180626"/>
+    <nd ref="7261881137"/>
+    <nd ref="539180628"/>
+    <nd ref="539180630"/>
+    <nd ref="539180632"/>
+    <nd ref="539180637"/>
+    <nd ref="539180639"/>
+    <nd ref="539180642"/>
+    <nd ref="539180644"/>
+    <nd ref="539180646"/>
+    <nd ref="539180648"/>
+    <nd ref="539180651"/>
+    <nd ref="539180653"/>
+    <nd ref="539180655"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Chemin de la Motte"/>
+    <tag k="name:br" v="Hentig ar Votenn"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2009"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="964330067" version="1" timestamp="2021-07-14T14:50:23Z" changeset="107987188" uid="1668080" user="gsimon">
+    <nd ref="306396292"/>
+    <nd ref="296105375"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue Ellé"/>
+    <tag k="name:br" v="Straed an Ele"/>
+    <tag k="source" v="cadastre-dgi-fr source : Direction Générale des Impôts - Cadastre. Mise à jour : 2012"/>
+    <tag k="source:name:br" v="ofis publik ar brezhoneg"/>
+  </way>
+  <relation id="12955973" version="2" timestamp="2023-03-28T16:42:15Z" changeset="134228288" uid="220314" user="StC">
+    <member type="way" ref="27014064" role=""/>
+    <member type="way" ref="27014061" role=""/>
+    <member type="way" ref="964330067" role=""/>
+    <member type="way" ref="27912130" role=""/>
+    <member type="way" ref="761175993" role=""/>
+    <member type="way" ref="123870771" role=""/>
+    <member type="way" ref="964330065" role=""/>
+    <member type="way" ref="128382812" role=""/>
+    <member type="way" ref="222361653" role=""/>
+    <member type="way" ref="222361651" role=""/>
+    <member type="way" ref="964330064" role=""/>
+    <member type="way" ref="28252623" role=""/>
+    <member type="way" ref="964330062" role=""/>
+    <member type="way" ref="964330054" role=""/>
+    <member type="way" ref="362429933" role=""/>
+    <member type="way" ref="41526648" role=""/>
+    <member type="way" ref="30745450" role=""/>
+    <member type="way" ref="31426902" role=""/>
+    <member type="way" ref="964330059" role=""/>
+    <member type="way" ref="151332462" role=""/>
+    <member type="way" ref="31426905" role=""/>
+    <member type="way" ref="964330058" role=""/>
+    <member type="way" ref="964330057" role=""/>
+    <member type="way" ref="27063981" role=""/>
+    <member type="way" ref="964330056" role=""/>
+    <member type="way" ref="964330052" role=""/>
+    <member type="way" ref="45655812" role=""/>
+    <member type="way" ref="220630794" role=""/>
+    <member type="way" ref="220630793" role=""/>
+    <member type="way" ref="755667092" role=""/>
+    <member type="way" ref="755667091" role=""/>
+    <member type="way" ref="755667094" role=""/>
+    <member type="way" ref="755667093" role=""/>
+    <member type="way" ref="755667096" role=""/>
+    <member type="way" ref="755667095" role=""/>
+    <member type="way" ref="964330051" role=""/>
+    <member type="way" ref="964330050" role=""/>
+    <member type="way" ref="220630792" role=""/>
+    <member type="way" ref="167956992" role=""/>
+    <member type="way" ref="279579062" role=""/>
+    <member type="way" ref="964330047" role=""/>
+    <member type="way" ref="27011841" role=""/>
+    <member type="way" ref="763062067" role=""/>
+    <member type="way" ref="388300412" role=""/>
+    <member type="way" ref="110446971" role=""/>
+    <member type="way" ref="964330043" role=""/>
+    <member type="way" ref="964330044" role=""/>
+    <member type="way" ref="964330042" role=""/>
+    <member type="way" ref="444195885" role=""/>
+    <member type="way" ref="30686155" role=""/>
+    <member type="way" ref="444195907" role=""/>
+    <member type="way" ref="30686156" role=""/>
+    <member type="way" ref="444195909" role=""/>
+    <member type="way" ref="30686158" role=""/>
+    <member type="way" ref="23233033" role=""/>
+    <member type="way" ref="23152524" role=""/>
+    <member type="way" ref="23152465" role=""/>
+    <member type="way" ref="23152399" role=""/>
+    <member type="way" ref="24034325" role=""/>
+    <member type="way" ref="24034326" role=""/>
+    <tag k="name" v="Voie de la Pointe Saint-Mathieu 09, Quimperlé - Pont-Scorff"/>
+    <tag k="network" v="iwn"/>
+    <tag k="route" v="hiking"/>
+    <tag k="source" v="https://www.compostelle-bretagne.fr/"/>
+    <tag k="type" v="route"/>
+  </relation>
+
+</osm>
