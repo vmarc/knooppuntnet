@@ -12,7 +12,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
       <kpn-link-network-details
         [networkId]="network.id"
         [networkType]="network.networkType"
-        [title]="network.name"
+        [networkName]="network.name"
       />
       <span class="percentage">{{ interpretedNetwork.percentageOk() }}</span>
       <kpn-subset-network-happy [network]="network" class="happy" />

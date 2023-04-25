@@ -11,10 +11,9 @@ import { actionNetworkNodesPageLoad } from './network.actions';
 import { actionNetworkFactsPageLoad } from './network.actions';
 import { actionNetworkDetailsPageLoad } from './network.actions';
 import { actionNetworkChangesPageInit } from './network.actions';
-import { actionNetworkChangesLoad } from './network.actions';
+import { actionNetworkChangesPageLoad } from './network.actions';
 import { actionNetworkChangesPageSize } from './network.actions';
 import { actionNetworkChangesImpact } from './network.actions';
-import { actionNetworkLink } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
 import { actionNetworkChangesPageIndex } from './network.actions';
 import { actionNetworkDetailsPageLoaded } from './network.actions';
@@ -56,24 +55,11 @@ export const networkReducer = createReducer<NetworkState>(
   }),
   on(
     actionNetworkDetailsPageLoad,
-    actionNetworkFactsPageLoad,
-    actionNetworkNodesPageLoad,
-    actionNetworkRoutesPageLoad,
-    actionNetworkMapPageLoad,
-    (state, { networkId }): NetworkState => {
+    (state, { networkId, networkType, networkName }): NetworkState => {
       if (networkId === state.networkId) {
         return state;
       }
-      return {
-        ...state,
-        networkId,
-        summary: defaultSummary,
-      };
-    }
-  ),
-  on(
-    actionNetworkLink,
-    (state, { networkId, networkName, networkType }): NetworkState => {
+
       const summary: NetworkSummary = {
         name: networkName,
         networkType,
@@ -88,6 +74,22 @@ export const networkReducer = createReducer<NetworkState>(
         ...state,
         networkId,
         summary,
+      };
+    }
+  ),
+  on(
+    actionNetworkFactsPageLoad,
+    actionNetworkNodesPageLoad,
+    actionNetworkRoutesPageLoad,
+    actionNetworkMapPageLoad,
+    (state, { networkId }): NetworkState => {
+      if (networkId === state.networkId) {
+        return state;
+      }
+      return {
+        ...state,
+        networkId,
+        summary: defaultSummary,
       };
     }
   ),
@@ -143,12 +145,21 @@ export const networkReducer = createReducer<NetworkState>(
     })
   ),
   on(
-    actionNetworkChangesLoad,
+    actionNetworkChangesPageLoad,
     (state, { networkId, changesParameters }): NetworkState => {
+      const summary: NetworkSummary = {
+        name: state.summary?.name,
+        networkType: state.summary?.networkType,
+        networkScope: null,
+        factCount: 0,
+        nodeCount: 0,
+        routeCount: 0,
+        changeCount: 0,
+      };
       return {
         ...state,
         networkId,
-        summary: defaultSummary,
+        summary,
         changesParameters,
       };
     }

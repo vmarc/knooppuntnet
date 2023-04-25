@@ -12,18 +12,17 @@ import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
-export const actionNetworkLink = createAction(
-  '[Network] Link',
-  props<{ networkId: number; networkName: string; networkType: NetworkType }>()
-);
-
 export const actionNetworkDetailsPageInit = createAction(
   '[NetworkDetailsPage] Init'
 );
 
 export const actionNetworkDetailsPageLoad = createAction(
   '[NetworkDetailsPage] Load',
-  props<{ networkId: number }>()
+  props<{
+    networkId: number;
+    networkType: NetworkType | undefined;
+    networkName: string | undefined;
+  }>()
 );
 
 export const actionNetworkDetailsPageLoaded = createAction(
@@ -96,7 +95,7 @@ export const actionNetworkChangesPageInit = createAction(
   '[NetworkChangesPage] Init'
 );
 
-export const actionNetworkChangesLoad = createAction(
+export const actionNetworkChangesPageLoad = createAction(
   '[NetworkChangesPage] Load',
   props<{ networkId: number; changesParameters: ChangesParameters }>()
 );

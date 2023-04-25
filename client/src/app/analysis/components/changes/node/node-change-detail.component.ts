@@ -33,7 +33,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       >
       <kpn-link-network-details
         [networkId]="change.ref.id"
-        [title]="change.ref.name"
+        [networkName]="change.ref.name"
       />
     </div>
 
@@ -55,7 +55,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       >
       <kpn-link-network-details
         [networkId]="change.ref.id"
-        [title]="change.ref.name"
+        [networkName]="change.ref.name"
       />
     </div>
 
@@ -77,7 +77,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       >
       <kpn-link-network-details
         [networkId]="change.ref.id"
-        [title]="change.ref.name"
+        [networkName]="change.ref.name"
       />
     </div>
 
@@ -92,7 +92,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       <span i18n="@@node-change.added-to-network" class="kpn-label"
         >Added to network</span
       >
-      <kpn-link-network-details [networkId]="ref.id" [title]="ref.name" />
+      <kpn-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
     </div>
 
     <div *ngFor="let ref of nodeChangeInfo.removedFromRoute" class="kpn-detail">
@@ -109,7 +109,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       <span i18n="@@node-change.removed-from-network" class="kpn-label"
         >Removed from network</span
       >
-      <kpn-link-network-details [networkId]="ref.id" [title]="ref.name" />
+      <kpn-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
     </div>
 
     <kpn-fact-diffs [factDiffs]="nodeChangeInfo.factDiffs" />

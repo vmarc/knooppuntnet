@@ -1,8 +1,10 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
+import { NetworkType } from '@api/custom';
 import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { MapPosition } from '@app/components/ol/domain';
@@ -30,7 +32,7 @@ import { actionNetworkRoutesPageLoad } from './network.actions';
 import { actionNetworkNodesPageLoad } from './network.actions';
 import { actionNetworkFactsPageLoad } from './network.actions';
 import { actionNetworkDetailsPageLoad } from './network.actions';
-import { actionNetworkChangesLoad } from './network.actions';
+import { actionNetworkChangesPageLoad } from './network.actions';
 import { actionNetworkChangesImpact } from './network.actions';
 import { actionNetworkChangesPageSize } from './network.actions';
 import { actionNetworkChangesFilterOption } from './network.actions';
@@ -60,9 +62,21 @@ export class NetworkEffects {
     return this.actions$.pipe(
       ofType(actionNetworkDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
-      map(([_, networkId]) =>
-        actionNetworkDetailsPageLoad({ networkId: +networkId })
-      )
+      map(([_, networkIdParam]) => {
+        const networkId = +networkIdParam;
+        let networkType: NetworkType = undefined;
+        let networkName: string = undefined;
+        const state = this.location.getState();
+        if (state) {
+          networkType = state['networkType'];
+          networkName = state['networkName'];
+        }
+        return actionNetworkDetailsPageLoad({
+          networkId,
+          networkType,
+          networkName,
+        });
+      })
     );
   });
 
@@ -81,7 +95,9 @@ export class NetworkEffects {
       ofType(actionNetworkFactsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
-        actionNetworkFactsPageLoad({ networkId: +networkId })
+        actionNetworkFactsPageLoad({
+          networkId: +networkId,
+        })
       )
     );
   });
@@ -101,7 +117,9 @@ export class NetworkEffects {
       ofType(actionNetworkNodesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
-        actionNetworkNodesPageLoad({ networkId: +networkId })
+        actionNetworkNodesPageLoad({
+          networkId: +networkId,
+        })
       )
     );
   });
@@ -121,7 +139,9 @@ export class NetworkEffects {
       ofType(actionNetworkRoutesPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('networkId'))),
       map(([_, networkId]) =>
-        actionNetworkRoutesPageLoad({ networkId: +networkId })
+        actionNetworkRoutesPageLoad({
+          networkId: +networkId,
+        })
       )
     );
   });
@@ -227,7 +247,7 @@ export class NetworkEffects {
             preferencesImpact,
             preferencesPageSize
           );
-          return actionNetworkChangesLoad({ networkId, changesParameters });
+          return actionNetworkChangesPageLoad({ networkId, changesParameters });
         }
       )
     );
@@ -255,7 +275,7 @@ export class NetworkEffects {
   networkChangesPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(
-        actionNetworkChangesLoad,
+        actionNetworkChangesPageLoad,
         actionNetworkChangesImpact,
         actionNetworkChangesPageSize,
         actionNetworkChangesPageIndex,
@@ -282,6 +302,7 @@ export class NetworkEffects {
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
+    private location: Location,
     private appService: AppService,
     private networkMapService: NetworkMapService
   ) {}

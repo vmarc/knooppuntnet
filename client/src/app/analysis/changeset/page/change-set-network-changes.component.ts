@@ -26,7 +26,7 @@ import { Subscriptions } from '@app/util';
           <kpn-link-network-details
             [networkId]="networkChangeInfo.networkId"
             [networkType]="networkChangeInfo.networkType"
-            [title]="networkChangeInfo.networkName"
+            [networkName]="networkChangeInfo.networkName"
           />
         </div>
       </div>
