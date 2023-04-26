@@ -23,7 +23,7 @@ import { NetworkType } from '@api/custom';
       <kpn-link-route
         *ngFor="let route of routes"
         [routeId]="route.id"
-        [title]="route.name"
+        [routeName]="route.name"
         [networkType]="networkType"
       />
     </div>

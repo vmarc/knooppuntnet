@@ -1,8 +1,10 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
+import { NetworkType } from '@api/custom';
 import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { MapPosition } from '@app/components/ol/domain';
@@ -51,7 +53,16 @@ export class RouteEffects {
     return this.actions$.pipe(
       ofType(actionRouteDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('routeId'))),
-      map(([_, routeId]) => actionRouteDetailsPageLoad({ routeId }))
+      map(([_, routeId]) => {
+        let routeName: string = undefined;
+        let networkType: NetworkType = undefined;
+        const state = this.location.getState();
+        if (state) {
+          routeName = state['routeName'];
+          networkType = state['networkType'];
+        }
+        return actionRouteDetailsPageLoad({ routeId, routeName, networkType });
+      })
     );
   });
 
@@ -238,7 +249,8 @@ export class RouteEffects {
     private appService: AppService,
     private router: Router,
     private route: ActivatedRoute,
-    private routeMapService: RouteMapService
+    private routeMapService: RouteMapService,
+    private location: Location
   ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {

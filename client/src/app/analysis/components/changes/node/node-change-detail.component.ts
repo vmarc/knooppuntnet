@@ -85,7 +85,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       <span i18n="@@node-change.added-to-route" class="kpn-label"
         >Added to route</span
       >
-      <kpn-link-route [routeId]="ref.id" [title]="ref.name" />
+      <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
     </div>
 
     <div *ngFor="let ref of nodeChangeInfo.addedToNetwork" class="kpn-detail">
@@ -99,7 +99,7 @@ import { InterpretedTags } from '@app/components/shared/tags';
       <span i18n="@@node-change.removed-from-route" class="kpn-label"
         >Removed from route</span
       >
-      <kpn-link-route [routeId]="ref.id" [title]="ref.name" />
+      <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
     </div>
 
     <div

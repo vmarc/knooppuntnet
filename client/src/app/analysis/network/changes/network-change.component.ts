@@ -66,7 +66,7 @@ import { ChangeType } from '@api/custom';
         <span *ngFor="let ref of networkChangeInfo.routes.added">
           <kpn-link-route
             [routeId]="ref.id"
-            [title]="ref.name"
+            [routeName]="ref.name"
             [networkType]="networkChangeInfo.networkType"
           />
         </span>
@@ -125,7 +125,7 @@ import { ChangeType } from '@api/custom';
         <span *ngFor="let ref of networkChangeInfo.routes.updated">
           <kpn-link-route
             [routeId]="ref.id"
-            [title]="ref.name"
+            [routeName]="ref.name"
             [networkType]="networkChangeInfo.networkType"
           />
         </span>
@@ -175,7 +175,7 @@ import { ChangeType } from '@api/custom';
         <span *ngFor="let ref of networkChangeInfo.routes.removed">
           <kpn-link-route
             [routeId]="ref.id"
-            [title]="ref.name"
+            [routeName]="ref.name"
             [networkType]="networkChangeInfo.networkType"
           />
         </span>

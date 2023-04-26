@@ -99,7 +99,7 @@ import { Store } from '@ngrx/store';
               <kpn-link-route
                 *ngIf="hasRouteRefs()"
                 [routeId]="ref.id"
-                [title]="ref.name"
+                [routeName]="ref.name"
                 [networkType]="page.subsetInfo.networkType"
               />
               <kpn-osm-link-node

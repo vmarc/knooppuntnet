@@ -22,7 +22,7 @@ import { NetworkNodeRow } from '@api/common/network';
       <span *ngFor="let ref of node.routeReferences">
         <kpn-link-route
           [routeId]="ref.id"
-          [title]="ref.name"
+          [routeName]="ref.name"
           [networkType]="ref.networkType"
         />
       </span>

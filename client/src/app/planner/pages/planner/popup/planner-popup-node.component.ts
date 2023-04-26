@@ -74,7 +74,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
         >
           <kpn-link-route
             [routeId]="ref.id"
-            [title]="ref.name"
+            [routeName]="ref.name"
             [networkType]="ref.networkType"
           />
         </div>

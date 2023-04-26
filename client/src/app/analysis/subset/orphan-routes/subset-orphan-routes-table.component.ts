@@ -70,7 +70,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
         <td mat-cell *matCellDef="let route">
           <kpn-link-route
             [routeId]="route.id"
-            [title]="route.name"
+            [routeName]="route.name"
             [networkType]="networkType"
           />
         </td>

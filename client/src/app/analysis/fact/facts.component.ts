@@ -28,7 +28,7 @@ import { Facts } from './facts';
           <kpn-brackets>
             <kpn-link-route
               [routeId]="factInfo.routeRef.id"
-              [title]="factInfo.routeRef.name"
+              [routeName]="factInfo.routeRef.name"
             />
           </kpn-brackets>
         </div>

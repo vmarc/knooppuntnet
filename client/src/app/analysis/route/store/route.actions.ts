@@ -2,17 +2,12 @@ import { ChangesParameters } from '@api/common/changes/filter';
 import { RouteChangesPage } from '@api/common/route';
 import { RouteDetailsPage } from '@api/common/route';
 import { RouteMapPage } from '@api/common/route';
-import { ApiResponse } from '@api/custom';
 import { NetworkType } from '@api/custom';
+import { ApiResponse } from '@api/custom';
 import { MapPosition } from '@app/components/ol/domain';
 import { ChangeOption } from '@app/kpn/common';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-
-export const actionRouteLink = createAction(
-  '[Route] Link',
-  props<{ routeId: string; routeName: string; networkType: NetworkType }>()
-);
 
 export const actionRouteDetailsPageInit = createAction(
   '[RouteDetailsPage] Init'
@@ -20,7 +15,7 @@ export const actionRouteDetailsPageInit = createAction(
 
 export const actionRouteDetailsPageLoad = createAction(
   '[RouteDetailsPage] Load',
-  props<{ routeId: string }>()
+  props<{ routeId: string; routeName: string; networkType: NetworkType }>()
 );
 
 export const actionRouteDetailsPageLoaded = createAction(

@@ -12,7 +12,7 @@ import { Ref } from '@api/common/common';
         <kpn-link-route
           *ngIf="known"
           [routeId]="ref.id"
-          [title]="ref.name"
+          [routeName]="ref.name"
         ></kpn-link-route>
         <span *ngIf="!known">{{ ref.name }}</span>
       </div>

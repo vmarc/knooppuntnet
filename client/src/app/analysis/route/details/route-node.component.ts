@@ -7,7 +7,7 @@ import { RouteNetworkNodeInfo } from '@api/common/route';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="kpn-line">
-      <img [src]="'/assets/images/' + title" class="image" />
+      <img [src]="'/assets/images/' + title" class="image" title="" alt="" />
       <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
       <kpn-brackets>
         <kpn-osm-link-node [nodeId]="node.id" />

@@ -20,7 +20,7 @@ import { LocationChangesTreeNode } from '@api/common';
           <div>Removed routes ({{ tree.routeChanges.removed.length }})</div>
           <div *ngFor="let ref of tree.routeChanges.removed" class="refs">
             <div class="kpn-line">
-              <kpn-link-route [routeId]="ref.id" [title]="ref.name" />
+              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
               <kpn-icon-happy *ngIf="ref.happy" />
               <kpn-icon-investigate *ngIf="ref.investigate" />
             </div>
@@ -31,7 +31,7 @@ import { LocationChangesTreeNode } from '@api/common';
           <div>Added routes ({{ tree.routeChanges.added.length }})</div>
           <div *ngFor="let ref of tree.routeChanges.added" class="refs">
             <div class="kpn-line">
-              <kpn-link-route [routeId]="ref.id" [title]="ref.name" />
+              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
               <kpn-icon-happy *ngIf="ref.happy" />
               <kpn-icon-investigate *ngIf="ref.investigate" />
             </div>
@@ -42,7 +42,7 @@ import { LocationChangesTreeNode } from '@api/common';
           <div>Updated routes ({{ tree.routeChanges.updated.length }})</div>
           <div *ngFor="let ref of tree.routeChanges.updated" class="refs">
             <div class="kpn-line">
-              <kpn-link-route [routeId]="ref.id" [title]="ref.name" />
+              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
               <kpn-icon-happy *ngIf="ref.happy" />
               <kpn-icon-investigate *ngIf="ref.investigate" />
             </div>

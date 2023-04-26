@@ -49,7 +49,7 @@ import { Store } from '@ngrx/store';
           <kpn-link-route
             *ngFor="let ref of locationFact.refs"
             [routeId]="ref.id"
-            [title]="ref.name"
+            [routeName]="ref.name"
           />
         </div>
         <div

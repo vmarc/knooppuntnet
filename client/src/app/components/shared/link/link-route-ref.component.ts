@@ -7,7 +7,7 @@ import { Ref } from '@api/common/common';
   selector: 'kpn-link-route-ref',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-link-route *ngIf="known" [routeId]="ref.id" [title]="ref.name" />
+    <kpn-link-route *ngIf="known" [routeId]="ref.id" [routeName]="ref.name" />
     <kpn-osm-link-relation
       *ngIf="!known"
       [relationId]="ref.id"

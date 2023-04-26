@@ -9,7 +9,7 @@ import { Reference } from '@api/common/common';
     <kpn-icon-link
       [reference]="reference"
       [mixedNetworkScopes]="mixedNetworkScopes"
-      [url]="'/analysis/network/' + reference.id"
+      elementType="network"
     />
   `,
 })

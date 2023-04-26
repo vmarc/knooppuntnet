@@ -72,7 +72,7 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
         <td mat-cell *matCellDef="let route">
           <kpn-link-route
             [routeId]="route.id"
-            [title]="route.name"
+            [routeName]="route.name"
             [networkType]="networkType$ | async"
           />
         </td>

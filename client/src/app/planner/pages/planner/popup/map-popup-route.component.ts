@@ -51,6 +51,8 @@ import { MapService } from '../../../services/map.service';
       <p class="more-details">
         <kpn-link-route
           [routeId]="response.result.id"
+          [routeName]="response.result.name"
+          [networkType]="networkType$ | async"
           title="More details"
           i18n-title="@@map.route-popup.more-details"
         />
@@ -70,7 +72,8 @@ import { MapService } from '../../../services/map.service';
   ],
 })
 export class MapPopupRouteComponent implements OnInit {
-  response$: Observable<ApiResponse<MapRouteDetail>>;
+  protected response$: Observable<ApiResponse<MapRouteDetail>>;
+  protected networkType$ = this.mapService.networkType$;
 
   constructor(
     private appService: AppService,
