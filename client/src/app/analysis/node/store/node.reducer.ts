@@ -8,7 +8,6 @@ import { actionNodeChangesPageImpact } from './node.actions';
 import { actionNodeChangesPageSize } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';
 import { actionNodeChangesFilterOption } from './node.actions';
-import { actionNodeLink } from './node.actions';
 import { actionNodeDetailsPageLoaded } from './node.actions';
 import { actionNodeMapPageLoaded } from './node.actions';
 import { actionNodeChangesPageLoaded } from './node.actions';
@@ -27,21 +26,18 @@ export const nodeReducer = createReducer<NodeState>(
       changesPage: null,
     })
   ),
+  on(actionNodeDetailsPageLoad, (state, { nodeId, nodeName }): NodeState => {
+    return {
+      ...state,
+      nodeId,
+      nodeName: nodeName ? nodeName : state.nodeName,
+    };
+  }),
   on(
-    actionNodeDetailsPageLoad,
     actionNodeMapPageLoad,
     (state, { nodeId }): NodeState => ({
       ...state,
       nodeId,
-    })
-  ),
-  on(
-    actionNodeLink,
-    (state, { nodeId, nodeName }): NodeState => ({
-      ...state,
-      nodeId,
-      nodeName,
-      changeCount: 0,
     })
   ),
   on(actionNodeDetailsPageLoaded, (state, response): NodeState => {

@@ -8,16 +8,11 @@ import { ChangeOption } from '@app/kpn/common';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
-export const actionNodeLink = createAction(
-  '[Node] Link',
-  props<{ nodeId: string; nodeName: string }>()
-);
-
 export const actionNodeDetailsPageInit = createAction('[NodeDetailsPage] Init');
 
 export const actionNodeDetailsPageLoad = createAction(
   '[NodeDetailsPage] Load',
-  props<{ nodeId: string }>()
+  props<{ nodeId: string; nodeName: string | undefined }>()
 );
 
 export const actionNodeDetailsPageLoaded = createAction(

@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -52,7 +53,14 @@ export class NodeEffects {
     return this.actions$.pipe(
       ofType(actionNodeDetailsPageInit),
       concatLatestFrom(() => this.store.select(selectRouteParam('nodeId'))),
-      map(([_, nodeId]) => actionNodeDetailsPageLoad({ nodeId }))
+      map(([_, nodeId]) => {
+        let nodeName: string = undefined;
+        const state = this.location.getState();
+        if (state) {
+          nodeName = state['nodeName'];
+        }
+        return actionNodeDetailsPageLoad({ nodeId, nodeName });
+      })
     );
   });
 
@@ -214,7 +222,8 @@ export class NodeEffects {
     private store: Store,
     private appService: AppService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private location: Location
   ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {
