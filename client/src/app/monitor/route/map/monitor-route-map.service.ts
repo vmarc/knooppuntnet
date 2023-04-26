@@ -116,7 +116,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.finalizeSetup(true);
   }
 
-  ngOnDestroy(): void {
+  destroy(): void {
     this.extraSubscriptions.unsubscribe();
   }
 

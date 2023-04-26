@@ -63,7 +63,7 @@ import { selectMonitorRouteMapSubRelations } from '../map/store/monitor-route-ma
       <kpn-monitor-sub-relation-menu-option
         *ngIf="pageName === 'map'"
         [routeSubRelation]="previous$ | async"
-        (select)="select($event)"
+        (selectSubRelation)="select($event)"
         name="Previous"
         i18n-name="@@monitor.route.menu.previous"
       />
@@ -71,7 +71,7 @@ import { selectMonitorRouteMapSubRelations } from '../map/store/monitor-route-ma
       <kpn-monitor-sub-relation-menu-option
         *ngIf="pageName === 'map'"
         [routeSubRelation]="next$ | async"
-        (select)="select($event)"
+        (selectSubRelation)="select($event)"
         name="Next"
         i18n-name="@@monitor.route.menu.next"
       />

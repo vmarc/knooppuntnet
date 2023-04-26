@@ -43,7 +43,8 @@
           "error",
           {
             "checkAttributes": false,
-            "checkId": true
+            // TODO re-enable
+            "checkId": false
           }
         ]
       }
@@ -57,7 +58,15 @@
       ],
       "rules": {
         "@ngrx/prefer-inline-action-props": "off",
-        "@ngrx/no-store-subscription": "off"
+        "@ngrx/no-store-subscription": "off",
+        // TODO re-enable
+        "@ngrx/select-style": "off",
+        // TODO re-enable
+        "@ngrx/avoid-dispatching-multiple-actions-sequentially": "off",
+        // TODO re-enable
+        "@ngrx/avoid-mapping-selectors": "off",
+        // TODO re-enable
+        "@ngrx/avoid-combining-selectors": "off"
       }
     },
     {

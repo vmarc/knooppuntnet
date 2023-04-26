@@ -28,9 +28,9 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
 export class MonitorRouteSubRelationMenuOptionComponent {
   @Input() routeSubRelation: MonitorRouteSubRelation;
   @Input() name: string;
-  @Output() select = new EventEmitter<MonitorRouteSubRelation>();
+  @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
 
   goto(): void {
-    this.select.emit(this.routeSubRelation);
+    this.selectSubRelation.emit(this.routeSubRelation);
   }
 }
