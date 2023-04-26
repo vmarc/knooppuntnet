@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { EditParameters } from '@app/analysis/components/edit';
-import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { selectRouteParams } from '@app/core';
 import { selectQueryParams } from '@app/core';
@@ -14,6 +13,7 @@ import { actionPreferencesPageSize } from '@app/core';
 import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -76,7 +76,7 @@ export class SubsetEffects {
   networksPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSubsetNetworksPageLoad),
-      mergeMap((action) => this.appService.subsetNetworks(action.subset)),
+      mergeMap((action) => this.apiService.subsetNetworks(action.subset)),
       map((response) => actionSubsetNetworksPageLoaded(response))
     );
   });
@@ -97,7 +97,7 @@ export class SubsetEffects {
   factsPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSubsetFactsPageLoad),
-      mergeMap((action) => this.appService.subsetFacts(action.subset)),
+      mergeMap((action) => this.apiService.subsetFacts(action.subset)),
       map((response) => actionSubsetFactsPageLoaded(response))
     );
   });
@@ -108,7 +108,7 @@ export class SubsetEffects {
       ofType(actionSubsetFactRefsLoad),
       concatLatestFrom(() => this.store.select(selectSubset)),
       mergeMap(([action, subset]) =>
-        this.appService.subsetFactRefs(subset, action.fact)
+        this.apiService.subsetFactRefs(subset, action.fact)
       ),
       map((response) => actionSubsetFactRefsLoaded(response))
     );
@@ -159,7 +159,7 @@ export class SubsetEffects {
     return this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageLoad),
       mergeMap((action) =>
-        this.appService.subsetFactDetails(
+        this.apiService.subsetFactDetails(
           action.subsetFact.subset,
           action.subsetFact.factName
         )
@@ -184,7 +184,7 @@ export class SubsetEffects {
   orphanNodesPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSubsetOrphanNodesPageLoad),
-      mergeMap((action) => this.appService.subsetOrphanNodes(action.subset)),
+      mergeMap((action) => this.apiService.subsetOrphanNodes(action.subset)),
       map((response) => actionSubsetOrphanNodesPageLoaded(response))
     );
   });
@@ -205,7 +205,7 @@ export class SubsetEffects {
   orphanRoutesPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSubsetOrphanRoutesPageLoad),
-      mergeMap((action) => this.appService.subsetOrphanRoutes(action.subset)),
+      mergeMap((action) => this.apiService.subsetOrphanRoutes(action.subset)),
       map((response) => actionSubsetOrphanRoutesPageLoaded(response))
     );
   });
@@ -226,7 +226,7 @@ export class SubsetEffects {
   mapPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionSubsetMapPageLoad),
-      mergeMap((action) => this.appService.subsetMap(action.subset)),
+      mergeMap((action) => this.apiService.subsetMap(action.subset)),
       map((response) => actionSubsetMapPageLoaded(response))
     );
   });
@@ -341,7 +341,7 @@ export class SubsetEffects {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() =>
-            this.appService.subsetChanges(subset, changesParameters)
+            this.apiService.subsetChanges(subset, changesParameters)
           ),
           map((response) => actionSubsetChangesPageLoaded(response))
         );
@@ -352,7 +352,7 @@ export class SubsetEffects {
   constructor(
     private actions$: Actions,
     private store: Store,
-    private appService: AppService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private subsetMapService: SubsetMapService,

@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
-import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { MapPosition } from '@app/components/ol/domain';
 import { selectQueryParam } from '@app/core';
@@ -17,6 +16,7 @@ import { selectPreferencesPageSize } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
 import { selectPreferencesNetworkType } from '@app/core';
 import { NetworkTypes } from '@app/kpn/common';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -68,7 +68,7 @@ export class NodeEffects {
   nodeDetailsPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNodeDetailsPageLoad),
-      mergeMap((action) => this.appService.nodeDetails(action.nodeId)),
+      mergeMap((action) => this.apiService.nodeDetails(action.nodeId)),
       map((response) => actionNodeDetailsPageLoaded(response))
     );
   });
@@ -95,7 +95,7 @@ export class NodeEffects {
     return this.actions$.pipe(
       ofType(actionNodeMapPageLoad),
       mergeMap(({ nodeId, mapPositionFromUrl }) => {
-        return this.appService.nodeMap(nodeId).pipe(
+        return this.apiService.nodeMap(nodeId).pipe(
           map((response) => {
             return actionNodeMapPageLoaded({
               response,
@@ -208,7 +208,7 @@ export class NodeEffects {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() =>
-            this.appService.nodeChanges(nodeId, changesParameters)
+            this.apiService.nodeChanges(nodeId, changesParameters)
           ),
           map((response) => actionNodeChangesPageLoaded(response))
         );
@@ -220,7 +220,7 @@ export class NodeEffects {
     private nodeMapService: NodeMapService,
     private actions$: Actions,
     private store: Store,
-    private appService: AppService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private location: Location

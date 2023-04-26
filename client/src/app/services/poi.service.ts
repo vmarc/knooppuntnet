@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { InterpretedPoiConfiguration } from '@app/components/ol/domain';
 import { Map } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
-import { AppService } from '..';
+import { ApiService } from './api.service';
 import { BrowserStorageService } from './browser-storage.service';
 import { PoiNameService } from './poi-name.service';
 import { PoiGroupPreference } from './poi-preferences';
@@ -21,7 +21,7 @@ export class PoiService {
     this.poiNameService.buildPoiNames();
 
   constructor(
-    private appService: AppService,
+    private apiService: ApiService,
     private poiNameService: PoiNameService,
     private browserStorageService: BrowserStorageService
   ) {
@@ -141,7 +141,7 @@ export class PoiService {
   }
 
   private loadPoiConfiguration() {
-    this.appService.poiConfiguration().subscribe((response) => {
+    this.apiService.poiConfiguration().subscribe((response) => {
       this.poiConfiguration.next(
         new InterpretedPoiConfiguration(response.result)
       );

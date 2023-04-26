@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { NetworkType } from '@api/custom';
-import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { MapPosition } from '@app/components/ol/domain';
 import { NetworkMapPosition } from '@app/components/ol/domain';
@@ -17,6 +16,7 @@ import { actionPreferencesPageSize } from '@app/core';
 import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -84,7 +84,7 @@ export class NetworkEffects {
   networkDetailsPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNetworkDetailsPageLoad),
-      mergeMap((action) => this.appService.networkDetails(action.networkId)),
+      mergeMap((action) => this.apiService.networkDetails(action.networkId)),
       map((response) => actionNetworkDetailsPageLoaded(response))
     );
   });
@@ -106,7 +106,7 @@ export class NetworkEffects {
   networkFactsPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNetworkFactsPageLoad),
-      mergeMap((action) => this.appService.networkFacts(action.networkId)),
+      mergeMap((action) => this.apiService.networkFacts(action.networkId)),
       map((response) => actionNetworkFactsPageLoaded(response))
     );
   });
@@ -128,7 +128,7 @@ export class NetworkEffects {
   networkNodesPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNetworkNodesPageLoad),
-      mergeMap((action) => this.appService.networkNodes(action.networkId)),
+      mergeMap((action) => this.apiService.networkNodes(action.networkId)),
       map((response) => actionNetworkNodesPageLoaded(response))
     );
   });
@@ -150,7 +150,7 @@ export class NetworkEffects {
   networkRoutesPageLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionNetworkRoutesPageLoad),
-      mergeMap((action) => this.appService.networkRoutes(action.networkId)),
+      mergeMap((action) => this.apiService.networkRoutes(action.networkId)),
       map((response) => actionNetworkRoutesPageLoaded(response))
     );
   });
@@ -187,7 +187,7 @@ export class NetworkEffects {
     return this.actions$.pipe(
       ofType(actionNetworkMapPageLoad),
       mergeMap((action) => {
-        return this.appService.networkMap(action.networkId).pipe(
+        return this.apiService.networkMap(action.networkId).pipe(
           map((response) =>
             actionNetworkMapPageLoaded({
               response,
@@ -289,7 +289,7 @@ export class NetworkEffects {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() =>
-            this.appService.networkChanges(+networkId, changesParameters)
+            this.apiService.networkChanges(+networkId, changesParameters)
           ),
           map((response) => actionNetworkChangesPageLoaded(response))
         );
@@ -303,7 +303,7 @@ export class NetworkEffects {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private appService: AppService,
+    private apiService: ApiService,
     private networkMapService: NetworkMapService
   ) {}
 

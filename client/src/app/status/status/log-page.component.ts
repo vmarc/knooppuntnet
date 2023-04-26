@@ -5,7 +5,7 @@ import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { LogPage } from '@api/common/status';
 import { PeriodParameters } from '@api/common/status';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
@@ -91,7 +91,7 @@ export class LogPageComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly appService: AppService
+    private readonly apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -111,7 +111,7 @@ export class LogPageComponent implements OnInit {
         }
       }),
       mergeMap((parameters) =>
-        this.appService.logStatus(parameters).pipe(
+        this.apiService.logStatus(parameters).pipe(
           map((r) => r.result),
           tap(
             (page) =>

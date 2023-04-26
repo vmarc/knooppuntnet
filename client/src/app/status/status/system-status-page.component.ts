@@ -5,7 +5,7 @@ import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PeriodParameters } from '@api/common/status';
 import { SystemStatusPage } from '@api/common/status';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
@@ -117,7 +117,7 @@ export class SystemStatusPageComponent implements OnInit {
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
-    private readonly appService: AppService
+    private readonly apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -137,7 +137,7 @@ export class SystemStatusPageComponent implements OnInit {
         }
       }),
       mergeMap((parameters) =>
-        this.appService.systemStatus(parameters).pipe(
+        this.apiService.systemStatus(parameters).pipe(
           map((r) => r.result),
           tap(
             (page) =>

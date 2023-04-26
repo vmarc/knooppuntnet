@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { NetworkType } from '@api/custom';
-import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { MapPosition } from '@app/components/ol/domain';
 import { selectQueryParam } from '@app/core';
@@ -17,6 +16,7 @@ import { actionPreferencesNetworkType } from '@app/core';
 import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -70,7 +70,7 @@ export class RouteEffects {
   routeDetailsLoad = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionRouteDetailsPageLoad),
-      mergeMap((action) => this.appService.routeDetails(action.routeId)),
+      mergeMap((action) => this.apiService.routeDetails(action.routeId)),
       map((response) => actionRouteDetailsPageLoaded(response))
     );
   });
@@ -109,7 +109,7 @@ export class RouteEffects {
     return this.actions$.pipe(
       ofType(actionRouteMapPageLoad),
       mergeMap((action) => {
-        return this.appService.routeMap(action.routeId).pipe(
+        return this.apiService.routeMap(action.routeId).pipe(
           map((response) =>
             actionRouteMapPageLoaded({
               response,
@@ -222,7 +222,7 @@ export class RouteEffects {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
           mergeMap(() => {
-            return this.appService.routeChanges(routeId, changesParameters);
+            return this.apiService.routeChanges(routeId, changesParameters);
           }),
           map((response) => actionRouteChangesPageLoaded(response))
         );
@@ -246,7 +246,7 @@ export class RouteEffects {
   constructor(
     private actions$: Actions,
     private store: Store,
-    private appService: AppService,
+    private apiService: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private routeMapService: RouteMapService,

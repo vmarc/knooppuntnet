@@ -2,7 +2,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PlanParams } from '@api/common/planner';
-import { AppService } from '@app/app.service';
 import { LegHttpErrorDialogComponent } from '@app/components/ol/components';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components';
 import { NoRouteDialogComponent } from '@app/components/ol/components';
@@ -14,6 +13,7 @@ import { PageService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { selectFragment } from '@app/core';
 import { selectQueryParam } from '@app/core';
+import { ApiService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
@@ -81,7 +81,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
     private plannerService: PlannerService,
     private mapZoomService: MapZoomService,
     private dialog: MatDialog,
-    private appService: AppService,
+    private apiService: ApiService,
     private store: Store
   ) {
     this.store.dispatch(actionPlannerInit());
@@ -126,7 +126,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
             networkType,
             planString,
           };
-          this.appService.plan(planParams).subscribe((response) => {
+          this.apiService.plan(planParams).subscribe((response) => {
             const plan = PlanBuilder.build(response.result, planString);
             const command = new PlannerCommandAddPlan(plan);
             this.plannerService.context.execute(command);

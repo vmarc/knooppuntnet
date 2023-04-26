@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppService } from '@app/app.service';
 import { actionSharedHttpError } from '@app/core';
+import { ApiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { Range } from 'immutable';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ export class EditService {
 
   private readonly configuration = new EditConfiguration();
 
-  constructor(private appService: AppService, private store: Store) {}
+  constructor(private apiService: ApiService, private store: Store) {}
 
   edit(parameters: EditParameters): void {
     this.store.dispatch(actionSharedHttpError({ httpError: null }));
@@ -99,7 +99,7 @@ export class EditService {
       const zoomUrl =
         this.configuration.josmUrl +
         `zoom?left=${parameters.bounds.minLon}&right=${parameters.bounds.maxLon}&top=${parameters.bounds.maxLat}&bottom=${parameters.bounds.minLat}`;
-      return this.appService
+      return this.apiService
         .edit(zoomUrl)
         .pipe(tap(() => this.updateProgress()));
     }
@@ -125,7 +125,7 @@ export class EditService {
     return nodeBatches.map((nodeIds) => {
       const nodeIdString = nodeIds.join(',');
       const url = `${this.configuration.apiUrl}/nodes?nodes=${nodeIdString}`;
-      return this.appService.edit(url).pipe(
+      return this.apiService.edit(url).pipe(
         tap(() => this.updateProgress()),
         delay(this.configuration.requestDelay)
       );
@@ -139,7 +139,7 @@ export class EditService {
 
     return parameters.wayIds.map((wayId) => {
       const url = `${this.configuration.apiUrl}/way/${wayId}/full`;
-      return this.appService.edit(url).pipe(
+      return this.apiService.edit(url).pipe(
         tap(() => this.updateProgress()),
         delay(this.configuration.requestDelay)
       );
@@ -165,7 +165,7 @@ export class EditService {
     return relationBatches.map((relationIds) => {
       const relationIdString = relationIds.join(',');
       const url = `${this.configuration.apiUrl}/relations?relations=${relationIdString}`;
-      return this.appService.edit(url).pipe(
+      return this.apiService.edit(url).pipe(
         tap(() => this.updateProgress()),
         delay(this.configuration.requestDelay)
       );
@@ -180,7 +180,7 @@ export class EditService {
     }
     return parameters.relationIds.map((relationId) => {
       const url = `${this.configuration.apiUrl}/relation/${relationId}/full`;
-      return this.appService.edit(url).pipe(
+      return this.apiService.edit(url).pipe(
         tap(() => this.updateProgress()),
         delay(this.configuration.requestDelay)
       );

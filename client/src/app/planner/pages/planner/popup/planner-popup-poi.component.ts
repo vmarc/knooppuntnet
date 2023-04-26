@@ -5,8 +5,8 @@ import { PoiAnalysis } from '@api/common';
 import { PoiPage } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
-import { AppService } from '@app/app.service';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { ApiService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
@@ -77,7 +77,7 @@ export class PlannerPopupPoiComponent implements OnInit {
 
   constructor(
     private mapService: MapService,
-    private appService: AppService,
+    private apiService: ApiService,
     private poiService: PoiService,
     private plannerService: PlannerService
   ) {}
@@ -90,7 +90,7 @@ export class PlannerPopupPoiComponent implements OnInit {
         this.poiClick = poiClick;
       }),
       mergeMap((poiClick) =>
-        this.appService.poi(
+        this.apiService.poi(
           poiClick.poiId.elementType,
           poiClick.poiId.elementId
         )

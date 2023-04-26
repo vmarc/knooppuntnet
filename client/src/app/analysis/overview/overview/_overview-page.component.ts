@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics';
 import { ApiResponse } from '@api/custom';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { OverviewService } from '../overview.service';
 
@@ -56,11 +56,11 @@ export class OverviewPageComponent implements OnInit {
   response$: Observable<ApiResponse<StatisticValues[]>>;
 
   constructor(
-    private appService: AppService,
+    private apiService: ApiService,
     private overviewService: OverviewService
   ) {}
 
   ngOnInit(): void {
-    this.response$ = this.appService.overview();
+    this.response$ = this.apiService.overview();
   }
 }

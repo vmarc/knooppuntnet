@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapRouteDetail } from '@api/common/route';
 import { ApiResponse } from '@api/custom';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -76,7 +76,7 @@ export class MapPopupRouteComponent implements OnInit {
   protected networkType$ = this.mapService.networkType$;
 
   constructor(
-    private appService: AppService,
+    private apiService: ApiService,
     private mapService: MapService,
     private plannerService: PlannerService
   ) {}
@@ -85,7 +85,7 @@ export class MapPopupRouteComponent implements OnInit {
     this.response$ = this.mapService.routeClicked$.pipe(
       filter((routeClick) => routeClick !== null),
       switchMap((routeClick) =>
-        this.appService.mapRouteDetail(routeClick.route.routeId).pipe(
+        this.apiService.mapRouteDetail(routeClick.route.routeId).pipe(
           tap((response) => {
             if (response.result) {
               this.openPopup(routeClick.coordinate);

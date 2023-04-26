@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { TimeoutComponent } from './timeout.component';
 
 @Component({
@@ -23,7 +23,7 @@ export class JosmLinkComponent {
   @Input() elementId: number;
   @Input() full = false;
 
-  constructor(private appService: AppService, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private dialog: MatDialog) {}
 
   edit(): void {
     const url =
@@ -31,7 +31,7 @@ export class JosmLinkComponent {
     const fullUrl = `${url}/${this.kind}/${this.elementId}${
       this.full ? '/full' : ''
     }`;
-    this.appService.edit(fullUrl).subscribe({
+    this.apiService.edit(fullUrl).subscribe({
       next: (result) => {},
       error: (err) => {
         this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });

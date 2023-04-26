@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PoiDetail } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
-import { AppService } from '@app/app.service';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
@@ -136,7 +136,7 @@ export class PoiDetailPageComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private appService: AppService
+    private apiService: ApiService
   ) {}
 
   ngOnInit(): void {
@@ -144,7 +144,7 @@ export class PoiDetailPageComponent implements OnInit {
       mergeMap((params) => {
         const elementType = params['elementType'];
         const elementId = +params['elementId'];
-        return this.appService.poiDetail(elementType, elementId);
+        return this.apiService.poiDetail(elementType, elementId);
       })
     );
   }

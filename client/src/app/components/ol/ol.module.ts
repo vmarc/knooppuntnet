@@ -6,7 +6,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MapService } from '../../planner/services/map.service';
 import { SharedModule } from '../shared';
 import { LayerSwitcherComponent } from './components';
 import { LegHttpErrorDialogComponent } from './components';
@@ -48,7 +47,6 @@ import { PoiTileLayerService } from './services';
   ],
   providers: [
     NewMapService,
-    MapService,
     MapLayerTranslationService,
     MapClickService,
     PoiTileLayerService,

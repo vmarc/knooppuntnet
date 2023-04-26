@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Status } from '@api/common/status';
 import { ApiResponse } from '@api/custom';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { StatusLinks } from './status-links';
@@ -42,10 +42,10 @@ export class StatusPageComponent implements OnInit {
   systemLinks: StatusLinks;
   logLinks: StatusLinks;
 
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.response$ = this.appService.status().pipe(
+    this.response$ = this.apiService.status().pipe(
       tap((response) => {
         if (response.result) {
           const timestamp = response.result.timestamp;

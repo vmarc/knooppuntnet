@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { selectPreferencesPlanProposed } from '@app/core';
+import { ApiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import { Map as TranslationMap } from 'immutable';
 import Map from 'ol/Map';
-import { AppService } from '../app.service';
 import { PlannerContext } from './domain/context/planner-context';
 import { PlannerCursorImpl } from './domain/context/planner-cursor-impl';
 import { PlannerElasticBandImpl } from './domain/context/planner-elastic-band-impl';
@@ -38,7 +38,7 @@ export class PlannerService {
     this.highlightLayer
   );
   private readonly legRepository = new PlannerLegRepositoryImpl(
-    this.appService
+    this.apiService
   );
   private readonly overlay = new PlannerOverlayImpl(this.mapService);
   readonly context: PlannerContext = new PlannerContext(
@@ -54,7 +54,7 @@ export class PlannerService {
   );
 
   constructor(
-    private appService: AppService,
+    private apiService: ApiService,
     private mapService: MapService,
     private store: Store
   ) {

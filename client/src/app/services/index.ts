@@ -6,3 +6,4 @@ export * from './poi-name.service';
 export * from './log-update.service';
 export * from './subset-cache.service';
 export * from './browser-storage.service';
+export * from './api.service';

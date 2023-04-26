@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppService } from '@app/app.service';
 import { selectQueryParam } from '@app/core';
 import { selectRouteParam } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -84,7 +84,7 @@ export class PoiEffects {
     return this.actions$.pipe(
       ofType(actionPoiAreasPageInit),
       mergeMap(() =>
-        this.appService
+        this.apiService
           .poiAreas()
           .pipe(map((response) => actionPoiAreasPageLoaded(response)))
       )
@@ -110,7 +110,7 @@ export class PoiEffects {
     private store: Store,
     private router: Router,
     private poiService: PoiService,
-    private appService: AppService,
+    private apiService: ApiService,
     private poiMapService: PoiMapService
   ) {}
 }

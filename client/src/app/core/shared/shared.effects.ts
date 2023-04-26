@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditDialogComponent } from '@app/analysis/components/edit';
-import { AppService } from '@app/app.service';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -24,7 +24,7 @@ export class SharedEffects {
     private actions$: Actions,
     private dialog: MatDialog,
     private store: Store,
-    private appService: AppService
+    private apiService: ApiService
   ) {}
 
   // noinspection JSUnusedGlobalSymbols
@@ -55,7 +55,7 @@ export class SharedEffects {
         if (!!currentSurveyDateInfo) {
           return of(actionSharedSurveyDateInfoAlreadyLoaded());
         }
-        return this.appService.surveyDateInfo().pipe(
+        return this.apiService.surveyDateInfo().pipe(
           map((response) => {
             const surveyDateInfo = SurveyDateValues.from(response.result);
             return actionSharedSurveyDateInfoLoaded({ surveyDateInfo });

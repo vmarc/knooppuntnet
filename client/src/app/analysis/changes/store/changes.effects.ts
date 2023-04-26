@@ -3,7 +3,6 @@ import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
-import { AppService } from '@app/app.service';
 import { PageParams } from '@app/base';
 import { selectQueryParams } from '@app/core';
 import { actionPreferencesAnalysisStrategy } from '@app/core';
@@ -13,6 +12,7 @@ import { selectPreferencesImpact } from '@app/core';
 import { selectPreferencesAnalysisStrategy } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
+import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -109,7 +109,7 @@ export class ChangesEffects {
       mergeMap(([_, strategy, changesParameters]) => {
         const promise = this.navigate(strategy, changesParameters);
         return from(promise).pipe(
-          mergeMap(() => this.appService.changes(strategy, changesParameters)),
+          mergeMap(() => this.apiService.changes(strategy, changesParameters)),
           map((response) => actionChangesPageLoaded(response))
         );
       })
@@ -121,7 +121,7 @@ export class ChangesEffects {
     private store: Store,
     private router: Router,
     private route: ActivatedRoute,
-    private appService: AppService
+    private apiService: ApiService
   ) {}
 
   private navigate(

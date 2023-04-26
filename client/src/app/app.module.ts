@@ -20,6 +20,7 @@ import { LogUpdateService } from '@app/services';
 import { PoiNameService } from '@app/services';
 import { PoiService } from '@app/services';
 import { VersionService } from '@app/services';
+import { ApiService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerModule } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
@@ -29,7 +30,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppService } from './app.service';
 import { JosmComponent } from './josm.component';
 
 @NgModule({
@@ -73,7 +73,7 @@ import { JosmComponent } from './josm.component';
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     VersionService,
-    AppService,
+    ApiService,
     I18nService,
     SpinnerService,
     PageService,

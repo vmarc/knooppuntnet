@@ -62,7 +62,7 @@ import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
 @Injectable()
-export class AppService {
+export class ApiService {
   constructor(
     @Inject(LOCALE_ID) public locale: string,
     private http: HttpClient,

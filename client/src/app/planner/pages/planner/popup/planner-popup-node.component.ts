@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapNodeDetail } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
-import { AppService } from '@app/app.service';
 import { MapZoomService } from '@app/components/ol/services';
 import { Util } from '@app/components/shared';
+import { ApiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
@@ -108,7 +108,7 @@ export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   constructor(
-    private appService: AppService,
+    private apiService: ApiService,
     private mapService: MapService,
     private mapZoomService: MapZoomService,
     private plannerService: PlannerService,
@@ -120,7 +120,7 @@ export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
       filter((nodeClick) => nodeClick !== null),
       combineLatestWith(this.store.select(selectPlannerNetworkType)),
       switchMap(([nodeClick, networkType]) =>
-        this.appService
+        this.apiService
           .mapNodeDetail(networkType, +nodeClick.node.node.nodeId)
           .pipe(
             tap((response) => {
