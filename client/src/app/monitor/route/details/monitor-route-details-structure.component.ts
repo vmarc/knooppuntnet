@@ -261,10 +261,10 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {
-  @Input() groupName: String;
-  @Input() routeName: String;
+  @Input() groupName: string;
+  @Input() routeName: string;
   @Input() structureRows: MonitorRouteRelationStructureRow[];
-  @Input() referenceType: String;
+  @Input() referenceType: string;
 
   private readonly admin$ = this.store.select(selectMonitorAdmin);
 

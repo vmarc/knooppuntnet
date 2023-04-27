@@ -44,7 +44,7 @@ export abstract class OpenlayersMapService {
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
 
-  private shouldUpdateUrl: boolean = false;
+  private shouldUpdateUrl = false;
 
   constructor() {
     this.subscriptions.add(

@@ -12,7 +12,7 @@ export class KpnDateAdapter extends NativeDateAdapter {
   }
 
   public parse(value: any, parseFormat?: any): Date | null {
-    let result = null;
+    const result = null;
     if (value) {
       let regex = this.enRegex;
       if (this.matDateLocale === 'nl') {
@@ -39,7 +39,7 @@ export class KpnDateAdapter extends NativeDateAdapter {
     return result;
   }
 
-  format(date: Date, displayFormat: Object): string {
+  format(date: Date, displayFormat: object): string {
     return DayUtil.toString(this.matDateLocale, DayUtil.toDay(date));
   }
 }
