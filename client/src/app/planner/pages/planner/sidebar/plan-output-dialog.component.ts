@@ -51,7 +51,7 @@ import { PlannerService } from '../../../planner.service';
           mat-stroked-button
           (click)="printDocument()"
           title="Produce a route pdf file with compact node overview"
-          i18n-title="@@plan.output.compact-planner.pdf.tooltip"
+          i18n-title="@@plan.output.compact-pdf.tooltip"
           i18n="@@plan.output.compact-pdf"
         >
           Compact
@@ -61,7 +61,7 @@ import { PlannerService } from '../../../planner.service';
           mat-stroked-button
           (click)="printStripDocument()"
           title="Produce a route pdf file with nodes in 'strip' format"
-          i18n-title="@@plan.output.node-strip-planner.pdf.tooltip"
+          i18n-title="@@plan.output.node-strip-pdf.tooltip"
           i18n="@@plan.output.node-strip-pdf"
         >
           Node strip
@@ -72,7 +72,7 @@ import { PlannerService } from '../../../planner.service';
           mat-stroked-button
           (click)="printInstructions()"
           title="Produce a route pdf with navigation instructions"
-          i18n-title="@@plan.output.navigation-instructions-planner.pdf.tooltip"
+          i18n-title="@@plan.output.navigation-instructions-pdf.tooltip"
           i18n="@@plan.output.navigation-instructions-pdf"
         >
           Navigation instructions
