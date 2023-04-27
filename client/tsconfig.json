@@ -1,17 +1,9 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "paths": {
-      "@app/*": [
-        "src/app/index.ts"
-      ],
-      "@app/analysis/changeset": [
-        "src/app/analysis/changeset/index.ts"
-      ],
-      "@app/analysis/components": [
-        "src/app/analysis/components/index.ts"
-      ],
+      "@app/*": ["src/app/index.ts"],
+      "@app/analysis/changeset": ["src/app/analysis/changeset/index.ts"],
+      "@app/analysis/components": ["src/app/analysis/components/index.ts"],
       "@app/analysis/components/changes": [
         "src/app/analysis/components/changes/index.ts"
       ],
@@ -39,66 +31,32 @@
       "@app/analysis/components/indicators/route": [
         "src/app/analysis/components/indicators/route/index.ts"
       ],
-      "@app/analysis/fact": [
-        "src/app/analysis/fact/index.ts"
-      ],
-      "@app/analysis/facts": [
-        "src/app/analysis/facts/index.ts"
-      ],
-      "@app/analysis/location": [
-        "src/app/analysis/location/index.ts"
-      ],
-      "@app/analysis/network": [
-        "src/app/analysis/network/index.ts"
-      ],
-      "@app/analysis/node": [
-        "src/app/analysis/node/index.ts"
-      ],
-      "@app/analysis/overview": [
-        "src/app/analysis/overview/index.ts"
-      ],
-      "@app/analysis/route": [
-        "src/app/analysis/route/index.ts"
-      ],
-      "@app/analysis/strategy": [
-        "src/app/analysis/strategy/index.ts"
-      ],
-      "@app/analysis/subset": [
-        "src/app/analysis/subset/index.ts"
-      ],
-      "@app/base": [
-        "src/app/base/index.ts"
-      ],
-      "@app/components/ol": [
-        "src/app/components/ol/index.ts"
-      ],
+      "@app/analysis/fact": ["src/app/analysis/fact/index.ts"],
+      "@app/analysis/facts": ["src/app/analysis/facts/index.ts"],
+      "@app/analysis/location": ["src/app/analysis/location/index.ts"],
+      "@app/analysis/network": ["src/app/analysis/network/index.ts"],
+      "@app/analysis/node": ["src/app/analysis/node/index.ts"],
+      "@app/analysis/overview": ["src/app/analysis/overview/index.ts"],
+      "@app/analysis/route": ["src/app/analysis/route/index.ts"],
+      "@app/analysis/strategy": ["src/app/analysis/strategy/index.ts"],
+      "@app/analysis/subset": ["src/app/analysis/subset/index.ts"],
+      "@app/base": ["src/app/base/index.ts"],
+      "@app/components/ol": ["src/app/components/ol/index.ts"],
       "@app/components/ol/components": [
         "src/app/components/ol/components/index.ts"
       ],
-      "@app/components/ol/domain": [
-        "src/app/components/ol/domain/index.ts"
-      ],
-      "@app/components/ol/layers": [
-        "src/app/components/ol/layers/index.ts"
-      ],
+      "@app/components/ol/domain": ["src/app/components/ol/domain/index.ts"],
+      "@app/components/ol/layers": ["src/app/components/ol/layers/index.ts"],
       "@app/components/ol/services": [
         "src/app/components/ol/services/index.ts"
       ],
-      "@app/components/ol/style": [
-        "src/app/components/ol/style/index.ts"
-      ],
-      "@app/components/poi": [
-        "src/app/components/poi/index.ts"
-      ],
-      "@app/components/shared": [
-        "src/app/components/shared/index.ts"
-      ],
+      "@app/components/ol/style": ["src/app/components/ol/style/index.ts"],
+      "@app/components/poi": ["src/app/components/poi/index.ts"],
+      "@app/components/shared": ["src/app/components/shared/index.ts"],
       "@app/components/shared/data": [
         "src/app/components/shared/data/index.ts"
       ],
-      "@app/components/shared/day": [
-        "src/app/components/shared/day/index.ts"
-      ],
+      "@app/components/shared/day": ["src/app/components/shared/day/index.ts"],
       "@app/components/shared/dialog": [
         "src/app/components/shared/dialog/index.ts"
       ],
@@ -144,145 +102,62 @@
       "@app/components/shared/toolbar": [
         "src/app/components/shared/toolbar/index.ts"
       ],
-      "@app/core": [
-        "src/app/core/index.ts"
-      ],
-      "@app/demo": [
-        "src/app/demo/index.ts"
-      ],
-      "@app/friso": [
-        "src/app/friso/index.ts"
-      ],
-      "@app/i18n": [
-        "src/app/i18n/index.ts"
-      ],
-      "@app/kpn/common": [
-        "src/app/kpn/common/index.ts"
-      ],
-      "@app/kpn/filter": [
-        "src/app/kpn/filter/index.ts"
-      ],
-      "@app/monitor": [
-        "src/app/monitor/index.ts"
-      ],
-      "@app/planner": [
-        "src/app/planner/index.ts"
-      ],
-      "@app/poi": [
-        "src/app/poi/index.ts"
-      ],
-      "@app/services": [
-        "src/app/services/index.ts"
-      ],
-      "@app/settings": [
-        "src/app/settings/index.ts"
-      ],
-      "@app/spinner": [
-        "src/app/spinner/index.ts"
-      ],
-      "@app/status": [
-        "src/app/status/index.ts"
-      ],
-      "@app/util": [
-        "src/app/util/index.ts"
-      ],
-      "@api/common": [
-        "src/app/kpn/api/common/index.ts"
-      ],
-      "@api/common/changes": [
-        "src/app/kpn/api/common/changes/index.ts"
-      ],
+      "@app/core": ["src/app/core/index.ts"],
+      "@app/demo": ["src/app/demo/index.ts"],
+      "@app/friso": ["src/app/friso/index.ts"],
+      "@app/i18n": ["src/app/i18n/index.ts"],
+      "@app/kpn/common": ["src/app/kpn/common/index.ts"],
+      "@app/kpn/filter": ["src/app/kpn/filter/index.ts"],
+      "@app/monitor": ["src/app/monitor/index.ts"],
+      "@app/planner": ["src/app/planner/index.ts"],
+      "@app/poi": ["src/app/poi/index.ts"],
+      "@app/services": ["src/app/services/index.ts"],
+      "@app/settings": ["src/app/settings/index.ts"],
+      "@app/spinner": ["src/app/spinner/index.ts"],
+      "@app/status": ["src/app/status/index.ts"],
+      "@app/util": ["src/app/util/index.ts"],
+      "@api/common": ["src/app/kpn/api/common/index.ts"],
+      "@api/common/changes": ["src/app/kpn/api/common/changes/index.ts"],
       "@api/common/changes/details": [
         "src/app/kpn/api/common/changes/details/index.ts"
       ],
       "@api/common/changes/filter": [
         "src/app/kpn/api/common/changes/filter/index.ts"
       ],
-      "@api/common/common": [
-        "src/app/kpn/api/common/common/index.ts"
-      ],
-      "@api/common/data": [
-        "src/app/kpn/api/common/data/index.ts"
-      ],
-      "@api/common/data/raw": [
-        "src/app/kpn/api/common/data/raw/index.ts"
-      ],
-      "@api/common/diff": [
-        "src/app/kpn/api/common/diff/index.ts"
-      ],
+      "@api/common/common": ["src/app/kpn/api/common/common/index.ts"],
+      "@api/common/data": ["src/app/kpn/api/common/data/index.ts"],
+      "@api/common/data/raw": ["src/app/kpn/api/common/data/raw/index.ts"],
+      "@api/common/diff": ["src/app/kpn/api/common/diff/index.ts"],
       "@api/common/diff/common": [
         "src/app/kpn/api/common/diff/common/index.ts"
       ],
       "@api/common/diff/network": [
         "src/app/kpn/api/common/diff/network/index.ts"
       ],
-      "@api/common/diff/node": [
-        "src/app/kpn/api/common/diff/node/index.ts"
-      ],
-      "@api/common/diff/route": [
-        "src/app/kpn/api/common/diff/route/index.ts"
-      ],
-      "@api/common/location": [
-        "src/app/kpn/api/common/location/index.ts"
-      ],
-      "@api/common/monitor": [
-        "src/app/kpn/api/common/monitor/index.ts"
-      ],
-      "@api/common/network": [
-        "src/app/kpn/api/common/network/index.ts"
-      ],
-      "@api/common/node": [
-        "src/app/kpn/api/common/node/index.ts"
-      ],
-      "@api/common/planner": [
-        "src/app/kpn/api/common/planner/index.ts"
-      ],
-      "@api/common/poi": [
-        "src/app/kpn/api/common/poi/index.ts"
-      ],
-      "@api/common/route": [
-        "src/app/kpn/api/common/route/index.ts"
-      ],
-      "@api/common/statistics": [
-        "src/app/kpn/api/common/statistics/index.ts"
-      ],
-      "@api/common/status": [
-        "src/app/kpn/api/common/status/index.ts"
-      ],
-      "@api/common/subset": [
-        "src/app/kpn/api/common/subset/index.ts"
-      ],
-      "@api/common/tiles": [
-        "src/app/kpn/api/common/tiles/index.ts"
-      ],
-      "@api/custom": [
-        "src/app/kpn/api/custom/index.ts"
-      ]
+      "@api/common/diff/node": ["src/app/kpn/api/common/diff/node/index.ts"],
+      "@api/common/diff/route": ["src/app/kpn/api/common/diff/route/index.ts"],
+      "@api/common/location": ["src/app/kpn/api/common/location/index.ts"],
+      "@api/common/monitor": ["src/app/kpn/api/common/monitor/index.ts"],
+      "@api/common/network": ["src/app/kpn/api/common/network/index.ts"],
+      "@api/common/node": ["src/app/kpn/api/common/node/index.ts"],
+      "@api/common/planner": ["src/app/kpn/api/common/planner/index.ts"],
+      "@api/common/poi": ["src/app/kpn/api/common/poi/index.ts"],
+      "@api/common/route": ["src/app/kpn/api/common/route/index.ts"],
+      "@api/common/statistics": ["src/app/kpn/api/common/statistics/index.ts"],
+      "@api/common/status": ["src/app/kpn/api/common/status/index.ts"],
+      "@api/common/subset": ["src/app/kpn/api/common/subset/index.ts"],
+      "@api/common/tiles": ["src/app/kpn/api/common/tiles/index.ts"],
+      "@api/custom": ["src/app/kpn/api/custom/index.ts"]
     },
     "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
     "noImplicitAny": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "module": "es2020",
-    "target": "ES2022",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "dom",
-      "esnext"
-    ],
-    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types"],
     "useDefineForClassFields": false
-    //"strict": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "strictTemplates": true
-  }
+  },
+  "extends": "./tsconfig.base.json"
 }

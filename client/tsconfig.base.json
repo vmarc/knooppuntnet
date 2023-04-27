@@ -1,0 +1,19 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "es2020",
+    "lib": ["dom", "esnext"],
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "util": ["libs/util/src/index.ts"]
+    }
+  }
+}

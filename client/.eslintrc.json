@@ -1,5 +1,4 @@
 {
-  "root": true,
   "ignorePatterns": [
     "projects/**/*"
   ],
@@ -43,7 +42,6 @@
           "error",
           {
             "checkAttributes": false,
-            // TODO re-enable
             "checkId": false
           }
         ]
@@ -59,13 +57,9 @@
       "rules": {
         "@ngrx/prefer-inline-action-props": "off",
         "@ngrx/no-store-subscription": "off",
-        // TODO re-enable
         "@ngrx/select-style": "off",
-        // TODO re-enable
         "@ngrx/avoid-dispatching-multiple-actions-sequentially": "off",
-        // TODO re-enable
         "@ngrx/avoid-mapping-selectors": "off",
-        // TODO re-enable
         "@ngrx/avoid-combining-selectors": "off"
       }
     },
@@ -77,8 +71,11 @@
         "plugin:@softarc/sheriff/default"
       ],
       "rules": {
-        "@softarc/sheriff/dependency-rule": "warn"
+        "@softarc/sheriff/dependency-rule": "off"
       }
     }
+  ],
+  "extends": [
+    "./.eslintrc.base.json"
   ]
 }
