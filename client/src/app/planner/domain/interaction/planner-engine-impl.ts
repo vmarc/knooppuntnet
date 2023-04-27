@@ -1,6 +1,6 @@
 import { PlanNode } from '@api/common/planner';
+import { OlUtil } from '@app/components/ol';
 import { PoiId } from '@app/components/ol/domain';
-import { Util } from '@app/components/shared';
 import * as Sentry from '@sentry/angular-ivy';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
@@ -449,7 +449,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       featureId: networkNode?.node?.featureId,
       nodeId: networkNode?.node?.nodeId,
       nodeName: networkNode?.node?.nodeName,
-      coordinate: Util.coordinateToString(networkNode?.node?.coordinate),
+      coordinate: OlUtil.coordinateToString(networkNode?.node?.coordinate),
       plan: this.planSummary(),
     });
 
@@ -476,7 +476,7 @@ export class PlannerEngineImpl implements PlannerEngine {
           this.breadcrumb('single click via flag', {
             flagType: flag.flagType,
             flagFeatureId: flag.id,
-            coordinate: Util.coordinateToString(coordinate),
+            coordinate: OlUtil.coordinateToString(coordinate),
             plan: this.planSummary(),
           });
           const previousLeg = legs.get(legIndex);
@@ -501,7 +501,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       this.breadcrumb('single click route flag', {
         flagType: flag.flagType,
         flagFeatureId: flag.id,
-        coordinate: Util.coordinateToString(coordinate),
+        coordinate: OlUtil.coordinateToString(coordinate),
         plan: this.planSummary(),
       });
 
@@ -556,7 +556,7 @@ export class PlannerEngineImpl implements PlannerEngine {
       poiId: poiFeature.poiId,
       poiType: poiFeature.poiType,
       layer: poiFeature.layer,
-      coordinate: Util.coordinateToString(poiFeature.coordinate),
+      coordinate: OlUtil.coordinateToString(poiFeature.coordinate),
       plan: this.planSummary(),
     });
     this.context.overlay.poiClicked(
@@ -605,7 +605,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     this.breadcrumb('flag drag started', {
       flagType: flag.flagType,
       flagFeatureId: flag.id,
-      coordinate: Util.coordinateToString(coordinate),
+      coordinate: OlUtil.coordinateToString(coordinate),
       plan: this.planSummary(),
     });
 

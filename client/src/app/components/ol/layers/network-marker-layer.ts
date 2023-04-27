@@ -1,8 +1,8 @@
 import { SubsetMapNetwork } from '@api/common/subset';
+import { OlUtil } from '@app/components/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { MapLayer } from '.';
-import { Util } from '../../shared';
 import { Marker } from '../domain';
 
 export class NetworkMarkerLayer {
@@ -12,7 +12,7 @@ export class NetworkMarkerLayer {
 
   build(networks: SubsetMapNetwork[]): MapLayer {
     const markers = networks.map((network) => {
-      const coordinate = Util.toCoordinate(
+      const coordinate = OlUtil.toCoordinate(
         network.center.latitude,
         network.center.longitude
       );

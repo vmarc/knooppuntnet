@@ -2,15 +2,13 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Route } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common';
-import { LatLonImpl } from '@api/common';
 import { TagDiffs } from '@api/common/diff';
 import { Tags } from '@api/custom';
 import { List } from 'immutable';
 import { Map } from 'immutable';
-import { Coordinate } from 'ol/coordinate';
 import { boundingExtent } from 'ol/extent';
 import { Extent } from 'ol/extent';
-import { fromLonLat, toLonLat } from 'ol/proj';
+import { fromLonLat } from 'ol/proj';
 
 type IPropertyGetter<T> = () => T;
 
@@ -54,32 +52,6 @@ export class Util {
       }
       throw ex;
     }
-  }
-
-  public static latLonFromCoordinate(coordinate: Coordinate): LatLonImpl {
-    const lonLat = toLonLat(coordinate);
-    return {
-      latitude: '' + lonLat[1],
-      longitude: '' + lonLat[0],
-    };
-  }
-
-  public static coordinateToString(coordinate: Coordinate): string {
-    if (coordinate) {
-      const lonLat = toLonLat(coordinate);
-      return '[' + lonLat[1] + ', ' + lonLat[0] + ']';
-    }
-    return '[]';
-  }
-
-  public static latLonToCoordinate(latLon: LatLonImpl): Coordinate {
-    return this.toCoordinate(latLon.latitude, latLon.longitude);
-  }
-
-  public static toCoordinate(latitude: string, longitude: string): Coordinate {
-    const latNumber = parseFloat(latitude);
-    const lonNumber = parseFloat(longitude);
-    return fromLonLat([lonNumber, latNumber]);
   }
 
   public static sum(list: List<number>): number {

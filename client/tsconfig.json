@@ -147,9 +147,6 @@
       "@app/core": [
         "src/app/core/index.ts"
       ],
-      "@app/core/router": [
-        "src/app/core/router/index.ts"
-      ],
       "@app/demo": [
         "src/app/demo/index.ts"
       ],

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { PoiDetail } from '@api/common';
+import { OlUtil } from '@app/components/ol';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { ViewOptions } from 'ol/View';
-import { Util } from '../../shared';
 import { ZoomLevel } from '../domain';
 import { BackgroundLayer } from '../layers';
 import { MapControls } from '../layers';
@@ -22,7 +22,7 @@ export class PoiDetailMapService extends OpenlayersMapService {
       maxZoom: ZoomLevel.maxZoom,
     };
 
-    const center = Util.toCoordinate(
+    const center = OlUtil.toCoordinate(
       poiDetail.poi.latitude,
       poiDetail.poi.longitude
     );

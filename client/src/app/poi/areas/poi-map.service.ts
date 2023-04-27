@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom';
+import { OlUtil } from '@app/components/ol';
 import { ZoomLevel } from '@app/components/ol/domain';
 import { NetworkBitmapTileLayer } from '@app/components/ol/layers';
 import { MapLayerRegistry } from '@app/components/ol/layers';
@@ -8,7 +9,6 @@ import { PoiAreasLayer } from '@app/components/ol/layers';
 import { BackgroundLayer } from '@app/components/ol/layers';
 import { MapControls } from '@app/components/ol/layers';
 import { OpenlayersMapService } from '@app/components/ol/services';
-import { Util } from '@app/components/shared';
 import Map from 'ol/Map';
 import View from 'ol/View';
 
@@ -16,7 +16,7 @@ import View from 'ol/View';
 export class PoiMapService extends OpenlayersMapService {
   init(geoJson: string): void {
     this.registerLayers(geoJson);
-    const center = Util.toCoordinate('49.153', '2.4609');
+    const center = OlUtil.toCoordinate('49.153', '2.4609');
     this.initMap(
       new Map({
         target: this.mapId,

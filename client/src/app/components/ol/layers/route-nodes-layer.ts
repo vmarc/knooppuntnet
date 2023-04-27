@@ -1,7 +1,7 @@
 import { RawNode } from '@api/common/data/raw';
+import { OlUtil } from '@app/components/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Util } from '../../shared';
 import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
@@ -16,7 +16,7 @@ export class RouteNodesLayer {
 
     const source = new VectorSource();
     nodes.forEach((node) => {
-      const after = Util.latLonToCoordinate(node);
+      const after = OlUtil.latLonToCoordinate(node);
       const nodeMarker = Marker.create('blue', after);
       source.addFeature(nodeMarker);
     });

@@ -14,7 +14,7 @@ import { pageReducer } from './page/page.reducer';
 import { PageState } from './page/page.state';
 import { preferencesReducer } from './preferences/preferences.reducer';
 import { PreferencesState } from './preferences/preferences.state';
-import { RouterStateUrl } from './router';
+import { RouterStateUrl } from './router/router.state';
 import { sharedReducer } from './shared/shared.reducer';
 import { SharedState } from './shared/shared.state';
 import { userReducer } from './user/user.reducer';

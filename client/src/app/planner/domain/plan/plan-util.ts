@@ -6,7 +6,7 @@ import { PlanFragment } from '@api/common/planner';
 import { PlanNode } from '@api/common/planner';
 import { PlanRoute } from '@api/common/planner';
 import { PlanSegment } from '@api/common/planner';
-import { Util } from '@app/components/shared';
+import { OlUtil } from '@app/components/ol';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { PlanLegData } from '../context/plan-leg-data';
@@ -138,7 +138,7 @@ export class PlanUtil {
     nodeLongName: string,
     latLon: LatLonImpl
   ): PlanNode {
-    const coordinate = Util.latLonToCoordinate(latLon);
+    const coordinate = OlUtil.latLonToCoordinate(latLon);
     return {
       featureId: FeatureId.next(),
       nodeId,
@@ -155,7 +155,7 @@ export class PlanUtil {
     nodeLongName: string,
     coordinate: Coordinate
   ): PlanNode {
-    const latLon = Util.latLonFromCoordinate(coordinate);
+    const latLon = OlUtil.latLonFromCoordinate(coordinate);
     return {
       featureId: FeatureId.next(),
       nodeId,

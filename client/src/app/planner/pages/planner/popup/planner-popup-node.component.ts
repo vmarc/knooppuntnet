@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapNodeDetail } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
+import { OlUtil } from '@app/components/ol';
 import { MapZoomService } from '@app/components/ol/services';
-import { Util } from '@app/components/shared';
 import { ApiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
@@ -125,7 +125,7 @@ export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
           .pipe(
             tap((response) => {
               if (response.result) {
-                const coordinate = Util.toCoordinate(
+                const coordinate = OlUtil.toCoordinate(
                   response.result.latitude,
                   response.result.longitude
                 );

@@ -3,6 +3,7 @@ import { TrackPoint } from '@api/common/common';
 import { TrackSegment } from '@api/common/common';
 import { RouteMap } from '@api/common/route';
 import { RouteNetworkNodeInfo } from '@api/common/route';
+import { OlUtil } from '@app/components/ol';
 import { I18nService } from '@app/i18n';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
@@ -14,7 +15,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { Util } from '../../shared';
 import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
@@ -183,7 +183,7 @@ export class RouteLayers {
   ): Feature<Point>[] {
     const translatedNodeType = this.i18nService.translation(nodeType);
     return nodes.map((node) => {
-      const coordinate = Util.toCoordinate(node.lat, node.lon);
+      const coordinate = OlUtil.toCoordinate(node.lat, node.lon);
       const marker = Marker.create(color, coordinate);
       marker.set('name', translatedNodeType);
       return marker;
@@ -224,7 +224,7 @@ export class RouteLayers {
     trackPoints: List<TrackPoint>
   ): Feature<Geometry> {
     const coordinates = trackPoints.map((trackPoint) =>
-      Util.toCoordinate(trackPoint.lat, trackPoint.lon)
+      OlUtil.toCoordinate(trackPoint.lat, trackPoint.lon)
     );
     const polygon = new LineString(coordinates.toArray());
     const feature = new Feature(polygon);

@@ -1,5 +1,6 @@
 import { GeometryDiff } from '@api/common/route';
 import { PointSegment } from '@api/common/route';
+import { OlUtil } from '@app/components/ol';
 import { I18nService } from '@app/i18n';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
@@ -9,7 +10,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { Util } from '../../shared';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
@@ -58,8 +58,8 @@ export class RouteChangeLayers {
 
     const source = new VectorSource();
     segments.forEach((segment) => {
-      const p1 = Util.latLonToCoordinate(segment.p1);
-      const p2 = Util.latLonToCoordinate(segment.p2);
+      const p1 = OlUtil.latLonToCoordinate(segment.p1);
+      const p2 = OlUtil.latLonToCoordinate(segment.p2);
       const feature = new Feature(new LineString([p1, p2]));
       feature.setStyle(style);
       source.addFeature(feature);

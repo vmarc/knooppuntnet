@@ -1,7 +1,7 @@
 import { NetworkMapNode } from '@api/common/network';
+import { OlUtil } from '@app/components/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Util } from '../../shared';
 import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
@@ -10,7 +10,7 @@ export class NetworkNodesMarkerLayer {
   static build(nodes: NetworkMapNode[]): MapLayer {
     const markers = nodes.map((node) => {
       const color = node.roleConnection ? 'green' : 'blue';
-      const coordinate = Util.toCoordinate(node.latitude, node.longitude);
+      const coordinate = OlUtil.toCoordinate(node.latitude, node.longitude);
       const marker = Marker.create(color, coordinate);
       marker.set('id', node.id.toString());
       marker.set('name', node.name);

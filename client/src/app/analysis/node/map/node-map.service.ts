@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NodeMapInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
+import { OlUtil } from '@app/components/ol';
 import { MapPosition } from '@app/components/ol/domain';
 import { ZoomLevel } from '@app/components/ol/domain';
 import { BackgroundLayer } from '@app/components/ol/layers';
@@ -13,7 +14,6 @@ import { TileDebug256Layer } from '@app/components/ol/layers';
 import { MapClickService } from '@app/components/ol/services';
 import { OpenlayersMapService } from '@app/components/ol/services';
 import { NodeMapStyle } from '@app/components/ol/style';
-import { Util } from '@app/components/shared';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import { ViewOptions } from 'ol/View';
@@ -46,7 +46,7 @@ export class NodeMapService extends OpenlayersMapService {
         zoom,
       };
     } else {
-      const center = Util.toCoordinate(
+      const center = OlUtil.toCoordinate(
         nodeMapInfo.latitude,
         nodeMapInfo.longitude
       );

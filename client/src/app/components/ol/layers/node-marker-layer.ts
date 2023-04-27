@@ -1,14 +1,14 @@
 import { NodeMapInfo } from '@api/common';
+import { OlUtil } from '@app/components/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Util } from '../../shared';
 import { Marker } from '../domain';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NodeMarkerLayer {
   static build(nodeMapInfo: NodeMapInfo): MapLayer {
-    const coordinate = Util.toCoordinate(
+    const coordinate = OlUtil.toCoordinate(
       nodeMapInfo.latitude,
       nodeMapInfo.longitude
     );

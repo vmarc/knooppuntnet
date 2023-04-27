@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RouteMapInfo } from '@api/common/route';
+import { OlUtil } from '@app/components/ol';
 import { MapPosition } from '@app/components/ol/domain';
 import { ZoomLevel } from '@app/components/ol/domain';
 import { BackgroundLayer } from '@app/components/ol/layers';
@@ -12,7 +13,6 @@ import { RouteLayers } from '@app/components/ol/layers';
 import { MapClickService } from '@app/components/ol/services';
 import { OpenlayersMapService } from '@app/components/ol/services';
 import { NodeMapStyle } from '@app/components/ol/style';
-import { Util } from '@app/components/shared';
 import { I18nService } from '@app/i18n';
 import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
@@ -88,8 +88,8 @@ export class RouteMapService extends OpenlayersMapService {
 
   private buildExtent(routeMapInfo: RouteMapInfo): Extent {
     const bounds = routeMapInfo.map.bounds;
-    const min = Util.toCoordinate(bounds.latMin, bounds.lonMin);
-    const max = Util.toCoordinate(bounds.latMax, bounds.lonMax);
+    const min = OlUtil.toCoordinate(bounds.latMin, bounds.lonMin);
+    const max = OlUtil.toCoordinate(bounds.latMax, bounds.lonMax);
     return [min[0], min[1], max[0], max[1]];
   }
 }
