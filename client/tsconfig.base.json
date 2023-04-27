@@ -9,11 +9,274 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "es2020",
-    "lib": ["dom", "esnext"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
-      "util": ["libs/util/src/index.ts"]
+      "api": [
+        "libs/api/src/index.ts"
+      ],
+      "util": [
+        "libs/util/src/index.ts"
+      ],
+      "@app/*": [
+        "src/app/index.ts"
+      ],
+      "@app/analysis/changeset": [
+        "src/app/analysis/changeset/index.ts"
+      ],
+      "@app/analysis/components": [
+        "src/app/analysis/components/index.ts"
+      ],
+      "@app/analysis/components/changes": [
+        "src/app/analysis/components/changes/index.ts"
+      ],
+      "@app/analysis/components/changes/filter": [
+        "src/app/analysis/components/changes/filter/index.ts"
+      ],
+      "@app/analysis/components/changes/node": [
+        "src/app/analysis/components/changes/node/index.ts"
+      ],
+      "@app/analysis/components/changes/route": [
+        "src/app/analysis/components/changes/route/index.ts"
+      ],
+      "@app/analysis/components/change-set": [
+        "src/app/analysis/components/change-set/index.ts"
+      ],
+      "@app/analysis/components/change-set/components": [
+        "src/app/analysis/components/change-set/components/index.ts"
+      ],
+      "@app/analysis/components/edit": [
+        "src/app/analysis/components/edit/index.ts"
+      ],
+      "@app/analysis/components/filter": [
+        "src/app/analysis/components/filter/index.ts"
+      ],
+      "@app/analysis/components/indicators/route": [
+        "src/app/analysis/components/indicators/route/index.ts"
+      ],
+      "@app/analysis/fact": [
+        "src/app/analysis/fact/index.ts"
+      ],
+      "@app/analysis/facts": [
+        "src/app/analysis/facts/index.ts"
+      ],
+      "@app/analysis/location": [
+        "src/app/analysis/location/index.ts"
+      ],
+      "@app/analysis/network": [
+        "src/app/analysis/network/index.ts"
+      ],
+      "@app/analysis/node": [
+        "src/app/analysis/node/index.ts"
+      ],
+      "@app/analysis/overview": [
+        "src/app/analysis/overview/index.ts"
+      ],
+      "@app/analysis/route": [
+        "src/app/analysis/route/index.ts"
+      ],
+      "@app/analysis/strategy": [
+        "src/app/analysis/strategy/index.ts"
+      ],
+      "@app/analysis/subset": [
+        "src/app/analysis/subset/index.ts"
+      ],
+      "@app/base": [
+        "src/app/base/index.ts"
+      ],
+      "@app/components/ol": [
+        "src/app/components/ol/index.ts"
+      ],
+      "@app/components/ol/components": [
+        "src/app/components/ol/components/index.ts"
+      ],
+      "@app/components/ol/domain": [
+        "src/app/components/ol/domain/index.ts"
+      ],
+      "@app/components/ol/layers": [
+        "src/app/components/ol/layers/index.ts"
+      ],
+      "@app/components/ol/services": [
+        "src/app/components/ol/services/index.ts"
+      ],
+      "@app/components/ol/style": [
+        "src/app/components/ol/style/index.ts"
+      ],
+      "@app/components/poi": [
+        "src/app/components/poi/index.ts"
+      ],
+      "@app/components/shared": [
+        "src/app/components/shared/index.ts"
+      ],
+      "@app/components/shared/data": [
+        "src/app/components/shared/data/index.ts"
+      ],
+      "@app/components/shared/day": [
+        "src/app/components/shared/day/index.ts"
+      ],
+      "@app/components/shared/dialog": [
+        "src/app/components/shared/dialog/index.ts"
+      ],
+      "@app/components/shared/error": [
+        "src/app/components/shared/error/index.ts"
+      ],
+      "@app/components/shared/format": [
+        "src/app/components/shared/format/index.ts"
+      ],
+      "@app/components/shared/icon": [
+        "src/app/components/shared/icon/index.ts"
+      ],
+      "@app/components/shared/indicator": [
+        "src/app/components/shared/indicator/index.ts"
+      ],
+      "@app/components/shared/items": [
+        "src/app/components/shared/items/index.ts"
+      ],
+      "@app/components/shared/json": [
+        "src/app/components/shared/json/index.ts"
+      ],
+      "@app/components/shared/link": [
+        "src/app/components/shared/link/index.ts"
+      ],
+      "@app/components/shared/menu": [
+        "src/app/components/shared/menu/index.ts"
+      ],
+      "@app/components/shared/page": [
+        "src/app/components/shared/page/index.ts"
+      ],
+      "@app/components/shared/paginator": [
+        "src/app/components/shared/paginator/index.ts"
+      ],
+      "@app/components/shared/sidebar": [
+        "src/app/components/shared/sidebar/index.ts"
+      ],
+      "@app/components/shared/tags": [
+        "src/app/components/shared/tags/index.ts"
+      ],
+      "@app/components/shared/timestamp": [
+        "src/app/components/shared/timestamp/index.ts"
+      ],
+      "@app/components/shared/toolbar": [
+        "src/app/components/shared/toolbar/index.ts"
+      ],
+      "@app/core": [
+        "src/app/core/index.ts"
+      ],
+      "@app/demo": [
+        "src/app/demo/index.ts"
+      ],
+      "@app/friso": [
+        "src/app/friso/index.ts"
+      ],
+      "@app/i18n": [
+        "src/app/i18n/index.ts"
+      ],
+      "@app/kpn/common": [
+        "src/app/kpn/common/index.ts"
+      ],
+      "@app/kpn/filter": [
+        "src/app/kpn/filter/index.ts"
+      ],
+      "@app/monitor": [
+        "src/app/monitor/index.ts"
+      ],
+      "@app/planner": [
+        "src/app/planner/index.ts"
+      ],
+      "@app/poi": [
+        "src/app/poi/index.ts"
+      ],
+      "@app/services": [
+        "src/app/services/index.ts"
+      ],
+      "@app/settings": [
+        "src/app/settings/index.ts"
+      ],
+      "@app/spinner": [
+        "src/app/spinner/index.ts"
+      ],
+      "@app/status": [
+        "src/app/status/index.ts"
+      ],
+      "@app/util": [
+        "libs/util/src/index.ts"
+      ],
+      "@api/common": [
+        "libs/api/src/lib/common/index.ts"
+      ],
+      "@api/common/changes": [
+        "libs/api/src/lib/common/changes/index.ts"
+      ],
+      "@api/common/changes/details": [
+        "libs/api/src/lib/common/changes/details/index.ts"
+      ],
+      "@api/common/changes/filter": [
+        "libs/api/src/lib/common/changes/filter/index.ts"
+      ],
+      "@api/common/common": [
+        "libs/api/src/lib/common/common/index.ts"
+      ],
+      "@api/common/data": [
+        "libs/api/src/lib/common/data/index.ts"
+      ],
+      "@api/common/data/raw": [
+        "libs/api/src/lib/common/data/raw/index.ts"
+      ],
+      "@api/common/diff": [
+        "libs/api/src/lib/common/diff/index.ts"
+      ],
+      "@api/common/diff/common": [
+        "libs/api/src/lib/common/diff/common/index.ts"
+      ],
+      "@api/common/diff/network": [
+        "libs/api/src/lib/common/diff/network/index.ts"
+      ],
+      "@api/common/diff/node": [
+        "libs/api/src/lib/common/diff/node/index.ts"
+      ],
+      "@api/common/diff/route": [
+        "libs/api/src/lib/common/diff/route/index.ts"
+      ],
+      "@api/common/location": [
+        "libs/api/src/lib/common/location/index.ts"
+      ],
+      "@api/common/monitor": [
+        "libs/api/src/lib/common/monitor/index.ts"
+      ],
+      "@api/common/network": [
+        "libs/api/src/lib/common/network/index.ts"
+      ],
+      "@api/common/node": [
+        "libs/api/src/lib/common/node/index.ts"
+      ],
+      "@api/common/planner": [
+        "libs/api/src/lib/common/planner/index.ts"
+      ],
+      "@api/common/poi": [
+        "libs/api/src/lib/common/poi/index.ts"
+      ],
+      "@api/common/route": [
+        "libs/api/src/lib/common/route/index.ts"
+      ],
+      "@api/common/statistics": [
+        "libs/api/src/lib/common/statistics/index.ts"
+      ],
+      "@api/common/status": [
+        "libs/api/src/lib/common/status/index.ts"
+      ],
+      "@api/common/subset": [
+        "libs/api/src/lib/common/subset/index.ts"
+      ],
+      "@api/common/tiles": [
+        "libs/api/src/lib/common/tiles/index.ts"
+      ],
+      "@api/custom": [
+        "libs/api/src/lib/custom/index.ts"
+      ]
     }
   }
 }

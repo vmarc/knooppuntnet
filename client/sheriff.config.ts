@@ -47,7 +47,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/poi': ['poi'],
     'src/app/demo': ['demo'],
     'src/app/services': ['services'],
-    'src/app/util': ['util'],
+    'libs/util/src': ['util'],
 
     'src/app/components/shared/tags': ['components/shared/tags'],
     'src/app/components/shared/json': ['components/shared/json'],
@@ -84,7 +84,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/kpn/common': ['kpn/common'],
     'src/app/kpn/filter': ['kpn/filter'],
 
-    'src/app/kpn/api': {
+    'libs/api/src/lib': {
       'common/common': ['api'],
       'common/tiles': ['api'],
       'common/changes/details': ['api'],
