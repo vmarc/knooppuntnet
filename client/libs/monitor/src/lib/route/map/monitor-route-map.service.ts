@@ -116,8 +116,9 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.finalizeSetup(true);
   }
 
-  destroy(): void {
+  override destroy(): void {
     this.extraSubscriptions.unsubscribe();
+    super.destroy();
   }
 
   focus(bounds: Bounds): void {
