@@ -1,6 +1,10 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { RouteInfoAnalysis } from '@api/common/route';
+import { RouteNodeComponent } from './route-node.component';
 
 @Component({
   selector: 'kpn-route-start-nodes',
@@ -15,6 +19,8 @@ import { RouteInfoAnalysis } from '@api/common/route';
       <kpn-route-node [node]="node" title="marker-icon-orange-small.png" />
     </p>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, RouteNodeComponent],
 })
 export class RouteStartNodesComponent {
   @Input() analysis: RouteInfoAnalysis;

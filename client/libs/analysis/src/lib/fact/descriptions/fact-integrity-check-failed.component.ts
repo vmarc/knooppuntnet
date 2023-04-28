@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
       The actual number of routes does not match the expected number of routes.
     </p>
   `,
+  standalone: true,
 })
 export class FactIntegrityCheckFailedComponent {}

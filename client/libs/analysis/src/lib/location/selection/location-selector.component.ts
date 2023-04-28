@@ -1,3 +1,4 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -5,13 +6,20 @@ import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Output } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { UntypedFormControl } from '@angular/forms';
 import { UntypedFormGroup } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { LocationNode } from '@api/common/location';
 import { Country } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { startWith } from 'rxjs/operators';
 import { LocationOption } from './location-option';
 
 @Component({
@@ -87,6 +95,18 @@ import { LocationOption } from './location-option';
         color: gray;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    NgFor,
+    MatOptionModule,
+    NgIf,
+    MatButtonModule,
+    AsyncPipe,
   ],
 })
 export class LocationSelectorComponent implements OnInit {

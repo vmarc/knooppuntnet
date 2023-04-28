@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Subsets } from '@app/kpn/common';
+import { MatIconModule } from '@angular/material/icon';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'kpn-overview-table-header',
@@ -30,6 +32,8 @@ import { Subsets } from '@app/kpn/common';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgFor, MatIconModule],
 })
 export class OverviewTableHeaderComponent {
   subsets() {

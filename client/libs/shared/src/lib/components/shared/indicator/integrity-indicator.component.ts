@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IndicatorComponent } from './indicator.component';
 import { IntegrityIndicatorData } from './integrity-indicator-data';
 import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.component';
 
@@ -15,6 +17,8 @@ import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class IntegrityIndicatorComponent {
   @Input() data: IntegrityIndicatorData;

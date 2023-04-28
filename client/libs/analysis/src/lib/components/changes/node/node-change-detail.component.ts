@@ -1,11 +1,21 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node';
 import { NodeChangeInfo } from '@api/common/node';
+import { FactNameComponent } from '@app/analysis/fact';
 import { Util } from '@app/components/shared';
+import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
+import { FactDiffsComponent } from '../fact-diffs.component';
+import { TagDiffsComponent } from '../tag-diffs.component';
+import { NodeChangeMovedComponent } from './node-change-moved.component';
+import { NodeMovedMapComponent } from './node-moved-map.component';
 
 @Component({
   selector: 'kpn-node-change-detail',
@@ -128,6 +138,19 @@ import { InterpretedTags } from '@app/components/shared/tags';
       <kpn-node-moved-map [nodeMoved]="nodeMoved" />
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgFor,
+    FactNameComponent,
+    NgIf,
+    LinkNetworkDetailsComponent,
+    LinkRouteComponent,
+    FactDiffsComponent,
+    TagDiffsComponent,
+    NodeChangeMovedComponent,
+    TagsTableComponent,
+    NodeMovedMapComponent,
+  ],
 })
 export class NodeChangeDetailComponent implements OnInit {
   @Input() nodeChangeInfo: NodeChangeInfo;

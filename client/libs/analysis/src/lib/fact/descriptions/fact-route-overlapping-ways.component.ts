@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       overlapping ways.
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteOverlappingWaysComponent {}

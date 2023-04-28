@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { BaseSidebarComponent } from './base-sidebar.component';
 import { AuthenticatePageComponent } from './pages/authenticate/authenticate-page.component';
 import { HomePageComponent } from './pages/home/home-page.component';

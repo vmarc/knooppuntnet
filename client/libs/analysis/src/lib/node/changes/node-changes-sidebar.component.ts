@@ -1,5 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
@@ -17,6 +20,8 @@ import { selectNodeChangesFilterOptions } from '../store/node.selectors';
       />
     </kpn-sidebar>
   `,
+  standalone: true,
+  imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class NodeChangesSidebarComponent {
   filterOptions$ = this.store

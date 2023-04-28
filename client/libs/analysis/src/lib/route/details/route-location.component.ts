@@ -1,6 +1,9 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RouteLocationAnalysis } from '@api/common';
 import { Location } from '@api/common/location';
 import { LocationCandidate } from '@api/common/location';
@@ -44,6 +47,8 @@ import { I18nService } from '@app/i18n';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink],
 })
 export class RouteLocationComponent {
   @Input() networkType: NetworkType;

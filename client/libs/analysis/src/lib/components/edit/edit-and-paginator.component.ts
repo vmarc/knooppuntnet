@@ -5,6 +5,7 @@ import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { PaginatorComponent } from '@app/components/shared/paginator';
+import { EditLinkComponent } from './edit-link.component';
 
 @Component({
   selector: 'kpn-edit-and-paginator',
@@ -37,6 +38,8 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
       }
     `,
   ],
+  standalone: true,
+  imports: [EditLinkComponent, PaginatorComponent],
 })
 export class EditAndPaginatorComponent {
   @Input() editLinkTitle: string;

@@ -1,6 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Store } from '@ngrx/store';
 import { actionMonitorAdmin } from '../store/monitor.actions';
 import { selectMonitorAdminRole } from '../store/monitor.selectors';
@@ -31,6 +33,8 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatSlideToggleModule, AsyncPipe],
 })
 export class MonitorAdminToggleComponent {
   readonly admin$ = this.store.select(selectMonitorAdmin);

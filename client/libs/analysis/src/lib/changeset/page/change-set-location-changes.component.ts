@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { LocationChanges } from '@api/common';
 import { LocationTreeItem } from '@api/common';
 import { PageService } from '@app/components/shared';
@@ -129,6 +130,7 @@ import { map } from 'rxjs/operators';
       }
     `,
   ],
+  standalone: true,
 })
 export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
   @Input() changess: LocationChanges[];

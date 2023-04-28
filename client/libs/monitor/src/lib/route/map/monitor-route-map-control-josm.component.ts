@@ -1,5 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { Store } from '@ngrx/store';
 import { actionMonitorRouteMapZoomToFitRoute } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from './store/monitor-route-map.actions';
@@ -71,6 +74,8 @@ import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-
       }
     `,
   ],
+  standalone: true,
+  imports: [MatButtonModule, MatMenuModule, AsyncPipe],
 })
 export class MonitorRouteMapControlJosmComponent {
   readonly josmZoomToSelectedDeviationDisabled$ = this.store.select(

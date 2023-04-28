@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'kpn-dialog',
@@ -18,5 +21,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule, MatIconModule],
 })
 export class DialogComponent {}

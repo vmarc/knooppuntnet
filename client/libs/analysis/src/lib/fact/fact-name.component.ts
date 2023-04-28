@@ -1,12 +1,14 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Fact } from '@api/custom';
 
 @Component({
   selector: 'kpn-fact-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ factName }}`,
+  standalone: true,
 })
 export class FactNameComponent implements OnInit {
   @Input() fact: Fact;

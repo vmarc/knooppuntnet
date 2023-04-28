@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Input } from '@angular/core';
+import { Output } from '@angular/core';
+import { IndicatorIconComponent } from './indicator-icon.component';
 
 @Component({
   selector: 'kpn-indicator',
@@ -18,6 +22,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [IndicatorIconComponent],
 })
 export class IndicatorComponent {
   @Input() letter: string;

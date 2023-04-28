@@ -1,7 +1,15 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ChangesComponent } from '@app/analysis/components/changes';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { LinkLoginComponent } from '@app/components/shared/link';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkChangesImpact } from '../store/network.actions';
 import { actionNetworkChangesPageSize } from '../store/network.actions';
 import { actionNetworkChangesPageIndex } from '../store/network.actions';
@@ -10,6 +18,7 @@ import { selectNetworkChangesPageSize } from '../store/network.selectors';
 import { selectNetworkChangesImpact } from '../store/network.selectors';
 import { selectNetworkChangesPageIndex } from '../store/network.selectors';
 import { selectNetworkChangesPage } from '../store/network.selectors';
+import { NetworkChangeSetComponent } from './network-change-set.component';
 
 @Component({
   selector: 'kpn-network-changes-page',
@@ -67,6 +76,19 @@ import { selectNetworkChangesPage } from '../store/network.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NetworkPageHeaderComponent,
+    NgIf,
+    LinkLoginComponent,
+    SituationOnComponent,
+    ChangesComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    NetworkChangeSetComponent,
+    AsyncPipe,
+  ],
 })
 export class NetworkChangesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectNetworkChangesPage);

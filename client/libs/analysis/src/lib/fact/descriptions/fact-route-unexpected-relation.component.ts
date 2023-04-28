@@ -1,6 +1,9 @@
+import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-fact-route-unexpected-relation',
@@ -22,6 +25,8 @@ import { Component } from '@angular/core';
       </span>
     </markdown>
   `,
+  standalone: true,
+  imports: [MarkdownModule, NgFor, OsmLinkRelationComponent],
 })
 export class FactRouteUnexpectedRelationComponent {
   @Input() factInfo;

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '@app/components/shared/dialog';
 
 @Component({
   selector: 'kpn-geolocation-timeout-dialog',
@@ -14,5 +16,7 @@ import { Component } from '@angular/core';
       </div>
     </kpn-dialog>
   `,
+  standalone: true,
+  imports: [DialogComponent, MatDialogModule],
 })
 export class GeolocationTimeoutDialogComponent {}

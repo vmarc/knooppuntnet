@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { Store } from '@ngrx/store';
 import { MonitorMapMode } from './monitor-map-mode';
 import { actionMonitorRouteMapMode } from './store/monitor-route-map.actions';
@@ -26,6 +29,8 @@ import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.
       </mat-radio-group>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, MatRadioModule, AsyncPipe],
 })
 export class MonitorRouteMapControlModeComponent {
   @Input() mode: MonitorMapMode;

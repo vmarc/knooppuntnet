@@ -12,5 +12,6 @@ import { Component } from '@angular/core';
       is an free route).
     </p>
   `,
+  standalone: true,
 })
 export class FactOrphanNodeComponent {}

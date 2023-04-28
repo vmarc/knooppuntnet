@@ -1,7 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from '@api/common/network';
@@ -10,6 +16,12 @@ import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { PageWidthService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
+import { DayComponent } from '@app/components/shared/day';
+import { DayPipe } from '@app/components/shared/format';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -20,6 +32,7 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
+import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
 import { NetworkRoutesService } from './network-routes.service';
@@ -165,6 +178,20 @@ import { NetworkRoutesService } from './network-routes.service';
         width: 100%;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    EditAndPaginatorComponent,
+    MatTableModule,
+    MatSortModule,
+    NetworkRouteAnalysisComponent,
+    LinkRouteComponent,
+    DayComponent,
+    JosmRelationComponent,
+    OsmLinkRelationComponent,
+    AsyncPipe,
+    IntegerFormatPipe,
+    DayPipe,
   ],
 })
 export class NetworkRouteTableComponent implements OnInit, OnDestroy {

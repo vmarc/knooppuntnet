@@ -1,7 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MonitorRouteChangeSummary } from '@api/common/monitor';
 import { PageWidthService } from '@app/components/shared';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -34,6 +40,14 @@ import { map } from 'rxjs/operators';
         font-style: italic;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgIf,
+    IconHappyComponent,
+    IconInvestigateComponent,
+    AsyncPipe,
   ],
 })
 export class MonitorChangeHeaderComponent {

@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
   template: `
     <a rel="nofollow noreferrer" (click)="login()" i18n="@@login">login</a>
   `,
+  standalone: true,
 })
 export class LinkLoginComponent {
   constructor(private store: Store) {}

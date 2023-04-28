@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { PageFooterComponent } from '@app/components/shared/page';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { PlannerSideBarAppearanceComponent } from './planner-side-bar-appearance.component';
+import { PlannerSideBarLegendComponent } from './planner-side-bar-legend.component';
+import { PlannerSideBarOptionsComponent } from './planner-side-bar-options.component';
+import { PlannerSideBarPlannerComponent } from './planner-side-bar-planner.component';
 
 @Component({
   selector: 'kpn-planner-sidebar',
@@ -15,5 +21,14 @@ import { Component } from '@angular/core';
     <kpn-sidebar-footer [loginEnabled]="false" />
     <kpn-page-footer [settings]="false" />
   `,
+  standalone: true,
+  imports: [
+    PlannerSideBarPlannerComponent,
+    PlannerSideBarAppearanceComponent,
+    PlannerSideBarLegendComponent,
+    PlannerSideBarOptionsComponent,
+    SidebarFooterComponent,
+    PageFooterComponent,
+  ],
 })
 export class PlannerSidebarComponent {}

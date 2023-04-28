@@ -5,7 +5,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '@app/components/shared';
-import { SpinnerModule } from '@app/spinner';
 import { BaseRoutingModule } from './base-routing.module';
 import { BaseSidebarComponent } from './base-sidebar.component';
 import { AuthenticatePageComponent } from './pages/authenticate/authenticate-page.component';
@@ -23,9 +22,6 @@ import { NotFoundPageComponent } from './pages/not-found/not-found-page.componen
     MatButtonModule,
     SharedModule,
     BaseRoutingModule,
-    SpinnerModule,
-  ],
-  declarations: [
     BaseSidebarComponent,
     AuthenticatePageComponent,
     HomePageComponent,

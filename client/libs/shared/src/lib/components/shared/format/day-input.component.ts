@@ -3,7 +3,11 @@ import { Inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { DayUtil } from '..';
 
 @Component({
@@ -18,6 +22,13 @@ import { DayUtil } from '..';
       <mat-datepicker #picker />
     </mat-form-field>
   `,
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+  ],
 })
 export class DayInputComponent {
   @Input() date: FormControl<Date | null>;

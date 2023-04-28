@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationNodeInfo } from '@api/common/location';
+import { IndicatorComponent } from '@app/components/shared/indicator';
 import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-indicator-dialog.component';
 
 @Component({
@@ -16,6 +18,8 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class LocationNodeFactIndicatorComponent implements OnInit {
   @Input() node: LocationNodeInfo;

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'kpn-timeout',
@@ -13,5 +14,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       </p>
     </kpn-dialog>
   `,
+  standalone: true,
+  imports: [DialogComponent],
 })
 export class TimeoutComponent {}

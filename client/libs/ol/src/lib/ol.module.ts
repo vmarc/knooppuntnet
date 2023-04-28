@@ -29,8 +29,6 @@ import { PoiTileLayerService } from './services';
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
-  ],
-  declarations: [
     LayerSwitcherComponent,
     MapLinkMenuComponent,
     RouteControlComponent,

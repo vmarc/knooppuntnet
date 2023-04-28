@@ -1,12 +1,17 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Country } from '@api/custom';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Store } from '@ngrx/store';
+import { LocationSelectorComponent } from '../../../../analysis/src/lib/location/selection/location-selector.component';
 import { actionLocationPoiSummaryCountryChanged } from '../store/poi.actions';
 import { actionLocationPoiSummaryPageInit } from '../store/poi.actions';
 import { selectLocationPoiSummaryLocationNode } from '../store/poi.selectors';
 import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
+import { CountrySelectComponent } from './country-select.component';
 
 @Component({
   selector: 'kpn-location-pois-sidebar',
@@ -81,6 +86,16 @@ import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
         justify-content: right;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    SidebarComponent,
+    CountrySelectComponent,
+    NgIf,
+    LocationSelectorComponent,
+    NgFor,
+    MatCheckboxModule,
+    AsyncPipe,
   ],
 })
 export class LocationPoisSidebarComponent implements OnInit {

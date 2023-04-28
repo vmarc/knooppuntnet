@@ -1,6 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MetaDataComponent } from '@app/components/shared';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { LinkRouteRefHeaderComponent } from '@app/components/shared/link';
 import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';
 
@@ -29,6 +35,14 @@ import { RouteDiffsData } from './route-diffs-data';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    IconInvestigateComponent,
+    NgFor,
+    LinkRouteRefHeaderComponent,
+    MetaDataComponent,
+  ],
 })
 export class RouteDiffsRemovedComponent implements OnInit {
   @Input() data: RouteDiffsData;

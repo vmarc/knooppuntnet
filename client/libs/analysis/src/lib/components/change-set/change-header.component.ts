@@ -1,7 +1,14 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangeKey } from '@api/common/changes/details';
 import { PageWidthService } from '@app/components/shared';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { LinkChangesetComponent } from '@app/components/shared/link';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -43,6 +50,15 @@ import { map } from 'rxjs/operators';
         font-style: italic;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    LinkChangesetComponent,
+    TimestampComponent,
+    IconHappyComponent,
+    IconInvestigateComponent,
+    AsyncPipe,
   ],
 })
 export class ChangeHeaderComponent {

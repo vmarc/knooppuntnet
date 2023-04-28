@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { KnownElements } from '@api/common/common';
 import { Ref } from '@api/common/common';
+import { LinkRouteComponent } from './link-route.component';
+import { OsmLinkRelationComponent } from './osm-link-relation.component';
 
 @Component({
   selector: 'kpn-link-route-ref',
@@ -14,6 +19,8 @@ import { Ref } from '@api/common/common';
       [title]="ref.name"
     />
   `,
+  standalone: true,
+  imports: [NgIf, LinkRouteComponent, OsmLinkRelationComponent],
 })
 export class LinkRouteRefComponent implements OnInit {
   @Input() ref: Ref;

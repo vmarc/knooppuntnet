@@ -1,6 +1,14 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route';
+import { CountryNameComponent } from '@app/components/shared';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-route-summary',
@@ -55,6 +63,16 @@ import { RouteDetailsPageData } from '@api/common/route';
       </p>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    CountryNameComponent,
+    OsmLinkRelationComponent,
+    JosmRelationComponent,
+    MatIconModule,
+    MarkdownModule,
+    IntegerFormatPipe,
+  ],
 })
 export class RouteSummaryComponent {
   @Input() route: RouteDetailsPageData;

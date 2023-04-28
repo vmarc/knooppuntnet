@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { PageHeaderComponent } from '@app/components/shared/page';
+import { FrisoMapComponent } from './friso-map.component';
 
 @Component({
   selector: 'kpn-friso-page',
@@ -21,5 +25,7 @@ import { Component } from '@angular/core';
 
     <kpn-friso-map />
   `,
+  standalone: true,
+  imports: [RouterLink, PageHeaderComponent, MatIconModule, FrisoMapComponent],
 })
 export class FrisoPageComponent {}

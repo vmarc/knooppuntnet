@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IconButtonComponent } from '@app/components/shared/icon';
+import { PageHeaderComponent } from '@app/components/shared/page';
 
 @Component({
   selector: 'kpn-home-page',
@@ -33,5 +36,7 @@ import { Component } from '@angular/core';
       i18n-title="@@home.demo"
     />
   `,
+  standalone: true,
+  imports: [PageHeaderComponent, IconButtonComponent, RouterLink],
 })
 export class HomePageComponent {}

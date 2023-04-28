@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'kpn-plan-instruction-command',
@@ -21,6 +22,8 @@ import { Input } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatIconModule],
 })
 export class PlanInstructionCommandComponent {
   @Input() command: string;

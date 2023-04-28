@@ -4,12 +4,16 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Country } from '@api/custom';
 import { I18nService } from '@app/i18n';
 import { Countries } from '@app/kpn/common';
 import { Subscriptions } from '@app/util';
 import { CountryName } from './country-name';
+import { MatOptionModule } from '@angular/material/core';
+import { NgFor } from '@angular/common';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'kpn-country-select',
@@ -27,6 +31,14 @@ import { CountryName } from './country-name';
       </mat-select>
     </mat-form-field>
   `,
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    NgFor,
+    MatOptionModule,
+  ],
 })
 export class CountrySelectComponent implements OnInit, OnDestroy {
   @Output() country = new EventEmitter<Country | null>();

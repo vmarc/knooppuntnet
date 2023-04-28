@@ -1,7 +1,16 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkFact } from '@api/common';
 import { NetworkType } from '@api/custom';
+import { NetworkFactChecksComponent } from './network-fact-checks.component';
+import { NetworkFactHeaderComponent } from './network-fact-header.component';
+import { NetworkFactNodeIdsComponent } from './network-fact-node-ids.component';
+import { NetworkFactNodesComponent } from './network-fact-nodes.component';
+import { NetworkFactRelationIdsComponent } from './network-fact-relation-ids.component';
+import { NetworkFactRoutesComponent } from './network-fact-routes.component';
+import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
 
 @Component({
   selector: 'kpn-network-fact',
@@ -36,6 +45,17 @@ import { NetworkType } from '@api/custom';
       <kpn-network-fact-checks [checks]="fact.checks" />
     </div>
   `,
+  standalone: true,
+  imports: [
+    NetworkFactHeaderComponent,
+    NgIf,
+    NetworkFactNodeIdsComponent,
+    NetworkFactWayIdsComponent,
+    NetworkFactRelationIdsComponent,
+    NetworkFactNodesComponent,
+    NetworkFactRoutesComponent,
+    NetworkFactChecksComponent,
+  ],
 })
 export class NetworkFactComponent {
   @Input() networkType: NetworkType;

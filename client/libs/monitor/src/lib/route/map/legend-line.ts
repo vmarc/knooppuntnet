@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       <line x1="0" y1="1" x2="25" y2="1" [style]="style()" />
     </svg>
   `,
+  standalone: true,
 })
 export class LegendLineComponent {
   @Input() color: string;

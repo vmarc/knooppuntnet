@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangeSetSubsetElementRefs } from '@api/common';
+import { NetworkTypeIconComponent } from '@app/components/shared';
+import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 
 @Component({
   selector: 'kpn-change-set-orphan-nodes',
@@ -16,6 +19,8 @@ import { ChangeSetSubsetElementRefs } from '@api/common';
       [changeSetElementRefs]="subsetElementRefs.elementRefs"
     />
   `,
+  standalone: true,
+  imports: [NetworkTypeIconComponent, ChangesSetElementRefsComponent],
 })
 export class ChangesSetOrphanNodesComponent {
   @Input() subsetElementRefs: ChangeSetSubsetElementRefs;

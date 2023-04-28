@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { DistancePipe } from '@app/components/shared/format';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-monitor-route-details-summary',
@@ -28,6 +32,13 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor';
       <p>{{ page.osmDistance | distance }}</p>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    OsmLinkRelationComponent,
+    JosmRelationComponent,
+    DistancePipe,
+  ],
 })
 export class MonitorRouteDetailsSummaryComponent {
   @Input() page: MonitorRouteDetailsPage;

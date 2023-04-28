@@ -1,6 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { MonitorRouteMapControlJosmComponent } from './monitor-route-map-control-josm.component';
+import { MonitorRouteMapControlModeComponent } from './monitor-route-map-control-mode.component';
+import { MonitorRouteMapDeviationsComponent } from './monitor-route-map-deviations.component';
+import { MonitorRouteMapLayersComponent } from './monitor-route-map-layers.component';
+import { MonitorRouteMapOsmSegmentsComponent } from './monitor-route-map-osm-segments.component';
 import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
 
 @Component({
@@ -21,6 +28,16 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
         padding: 1em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    MonitorRouteMapControlModeComponent,
+    MonitorRouteMapLayersComponent,
+    MonitorRouteMapControlJosmComponent,
+    MonitorRouteMapDeviationsComponent,
+    MonitorRouteMapOsmSegmentsComponent,
+    AsyncPipe,
   ],
 })
 export class MonitorRouteMapControlComponent {

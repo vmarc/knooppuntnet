@@ -1,9 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { actionPreferencesShowLegend } from '@app/core';
 import { selectPreferencesShowLegend } from '@app/core';
 import { Store } from '@ngrx/store';
 import { selectPlannerMapMode } from '../../../store/planner-selectors';
+import { LegendIconComponent } from './legend-icon.component';
 
 @Component({
   selector: 'kpn-planner-sidebar-legend',
@@ -148,6 +152,8 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatExpansionModule, NgIf, LegendIconComponent, AsyncPipe],
 })
 export class PlannerSideBarLegendComponent {
   readonly expanded$ = this.store.select(selectPreferencesShowLegend);

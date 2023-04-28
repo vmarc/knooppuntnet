@@ -1,7 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PoiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -32,6 +34,8 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatCheckboxModule, AsyncPipe],
 })
 export class PoiMenuOptionComponent {
   @Input() groupName: string;

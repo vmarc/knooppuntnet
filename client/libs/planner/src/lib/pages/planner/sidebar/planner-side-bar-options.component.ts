@@ -1,6 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { actionPreferencesShowOptions } from '@app/core';
 import { actionPreferencesPlanProposed } from '@app/core';
 import { actionPreferencesShowProposed } from '@app/core';
@@ -58,6 +61,8 @@ import { Store } from '@ngrx/store';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatExpansionModule, MatCheckboxModule, AsyncPipe],
 })
 export class PlannerSideBarOptionsComponent {
   readonly expanded$ = this.store.select(selectPreferencesShowOptions);

@@ -1,11 +1,16 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorGroupAdd } from '../../store/monitor.actions';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
+import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
+import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 
 @Component({
   selector: 'kpn-monitor-group-add-page',
@@ -44,6 +49,15 @@ import { actionMonitorGroupAdd } from '../../store/monitor.actions';
       </div>
     </form>
   `,
+  standalone: true,
+  imports: [
+    MonitorGroupBreadcrumbComponent,
+    ReactiveFormsModule,
+    MonitorGroupNameComponent,
+    MonitorGroupDescriptionComponent,
+    MatButtonModule,
+    RouterLink,
+  ],
 })
 export class MonitorGroupAddPageComponent {
   readonly name = new FormControl<string>('', {

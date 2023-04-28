@@ -1,9 +1,15 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
 import { Util } from '@app/components/shared';
+import { NetworkTypeIconComponent } from '@app/components/shared';
 import { I18nService } from '@app/i18n';
+import { ChangeHeaderComponent } from './change-header.component';
+import { ChangesSetElementRefsComponent } from './components/change-set-element-refs.component';
 
 @Component({
   selector: 'kpn-change-location-analysis-summary',
@@ -72,6 +78,14 @@ import { I18nService } from '@app/i18n';
         content: ' \\2192 \\0020 ';
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    ChangeHeaderComponent,
+    NgFor,
+    NetworkTypeIconComponent,
+    RouterLink,
+    ChangesSetElementRefsComponent,
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {

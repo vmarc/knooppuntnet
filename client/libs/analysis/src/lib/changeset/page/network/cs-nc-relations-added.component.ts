@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-cs-nc-relations-added',
@@ -24,6 +29,8 @@ import { NetworkChangeInfo } from '@api/common/changes/details';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, IconInvestigateComponent, NgFor, OsmLinkRelationComponent],
 })
 export class CsNcRelationsAddedComponent implements OnInit {
   @Input() networkChangeInfo: NetworkChangeInfo;

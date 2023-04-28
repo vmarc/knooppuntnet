@@ -5,5 +5,6 @@ import { Component } from '@angular/core';
   selector: 'kpn-not-found-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <h1 i18n="@@not-found.title">Not found</h1> `,
+  standalone: true,
 })
 export class NotFoundPageComponent {}

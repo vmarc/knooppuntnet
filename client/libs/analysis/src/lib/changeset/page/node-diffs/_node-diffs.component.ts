@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { NodeDiffsAddedComponent } from './node-diffs-added.component';
 import { NodeDiffsData } from './node-diffs-data';
+import { NodeDiffsRemovedComponent } from './node-diffs-removed.component';
+import { NodeDiffsUpdatedComponent } from './node-diffs-updated.component';
 
 @Component({
   selector: 'kpn-node-diffs',
@@ -10,6 +14,12 @@ import { NodeDiffsData } from './node-diffs-data';
     <kpn-node-diffs-added [data]="data" />
     <kpn-node-diffs-updated [data]="data" />
   `,
+  standalone: true,
+  imports: [
+    NodeDiffsRemovedComponent,
+    NodeDiffsAddedComponent,
+    NodeDiffsUpdatedComponent,
+  ],
 })
 export class NodeDiffsComponent {
   @Input() data: NodeDiffsData;

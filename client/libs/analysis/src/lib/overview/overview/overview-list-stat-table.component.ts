@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Stat } from '../domain/stat';
+import { OverviewListStatRowComponent } from './overview-list-stat-row.component';
 
 @Component({
   selector: 'kpn-overview-list-stat-table',
@@ -126,6 +128,8 @@ import { Stat } from '../domain/stat';
       }
     `,
   ],
+  standalone: true,
+  imports: [OverviewListStatRowComponent],
 })
 export class OverviewListStatTableComponent {
   @Input() stat: Stat;

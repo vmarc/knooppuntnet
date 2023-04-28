@@ -1,3 +1,6 @@
+import { AsyncPipe } from '@angular/common';
+import { NgClass } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -15,6 +18,10 @@ import { actionDemoCanPlay } from '../store/demo.actions';
 import { actionDemoTimeUpdate } from '../store/demo.actions';
 import { actionDemoPlayingChanged } from '../store/demo.actions';
 import { selectDemoEnabled } from '../store/demo.selectors';
+import { DemoDisabledComponent } from './demo-disabled.component';
+import { DemoVideoPlayButtonComponent } from './demo-video-play-button.component';
+import { DemoVideoProgressComponent } from './demo-video-progress.component';
+import { VideoCoverComponent } from './video-cover.component';
 
 @Component({
   selector: 'kpn-video',
@@ -70,6 +77,16 @@ import { selectDemoEnabled } from '../store/demo.selectors';
         display: none;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    DemoDisabledComponent,
+    VideoCoverComponent,
+    DemoVideoPlayButtonComponent,
+    NgClass,
+    DemoVideoProgressComponent,
+    AsyncPipe,
   ],
 })
 export class DemoVideoComponent implements AfterViewInit, OnDestroy {

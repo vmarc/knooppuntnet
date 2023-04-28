@@ -1,5 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { PageMenuOptionComponent } from '@app/components/shared/menu';
+import { PageMenuComponent } from '@app/components/shared/menu';
+import { PageHeaderComponent } from '@app/components/shared/page';
 
 @Component({
   selector: 'kpn-node-page-header',
@@ -38,6 +43,13 @@ import { Component, Input } from '@angular/core';
       </kpn-page-menu-option>
     </kpn-page-menu>
   `,
+  standalone: true,
+  imports: [
+    PageHeaderComponent,
+    NgIf,
+    PageMenuComponent,
+    PageMenuOptionComponent,
+  ],
 })
 export class NodePageHeaderComponent {
   @Input() nodeId: string;

@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 
 @Component({
   selector: 'kpn-monitor-about',
@@ -22,5 +24,7 @@ import { Component } from '@angular/core';
       </p>
     </div>
   `,
+  standalone: true,
+  imports: [RouterLink, MonitorPageMenuComponent],
 })
 export class MonitorAboutPageComponent {}

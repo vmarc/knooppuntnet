@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog/dialog.component';
+import { IndicatorIconComponent } from './indicator-icon.component';
 
 @Component({
   selector: 'kpn-indicator-dialog',
@@ -32,6 +36,8 @@ import { Component, Input } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [DialogComponent, MatDialogModule, IndicatorIconComponent],
 })
 export class IndicatorDialogComponent {
   @Input() letter: string;

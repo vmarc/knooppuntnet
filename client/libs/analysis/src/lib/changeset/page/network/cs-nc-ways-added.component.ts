@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { OsmLinkWayComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-cs-nc-ways-added',
@@ -22,6 +27,8 @@ import { NetworkChangeInfo } from '@api/common/changes/details';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, IconInvestigateComponent, NgFor, OsmLinkWayComponent],
 })
 export class CsNcWaysAddedComponent implements OnInit {
   @Input() networkChangeInfo: NetworkChangeInfo;

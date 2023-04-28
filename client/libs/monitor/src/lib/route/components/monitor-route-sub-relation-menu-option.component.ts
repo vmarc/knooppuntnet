@@ -1,7 +1,9 @@
+import { NgClass } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
 
 @Component({
@@ -24,6 +26,8 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgClass],
 })
 export class MonitorRouteSubRelationMenuOptionComponent {
   @Input() routeSubRelation: MonitorRouteSubRelation;

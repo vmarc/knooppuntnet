@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OsmLinkComponent } from './osm-link.component';
 
 @Component({
   selector: 'kpn-osm-link-relation',
@@ -11,6 +13,8 @@ import { Component, Input } from '@angular/core';
       [title]="title"
     />
   `,
+  standalone: true,
+  imports: [OsmLinkComponent],
 })
 export class OsmLinkRelationComponent {
   @Input() relationId: number;

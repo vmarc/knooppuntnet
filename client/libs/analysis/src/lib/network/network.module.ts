@@ -78,8 +78,6 @@ import { networkFeatureKey } from './store/network.state';
     MatSlideToggleModule,
     FactModule,
     OlModule,
-  ],
-  declarations: [
     NetworkChangesPageComponent,
     NetworkDetailsPageComponent,
     NetworkSummaryComponent,

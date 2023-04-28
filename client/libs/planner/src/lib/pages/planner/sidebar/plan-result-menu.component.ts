@@ -1,3 +1,6 @@
+import { NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { selectPreferencesInstructions } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -57,6 +60,8 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgClass, AsyncPipe],
 })
 export class PlanResultMenuComponent {
   readonly resultMode$ = this.store.select(selectPlannerResultMode);

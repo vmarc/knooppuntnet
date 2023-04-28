@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
@@ -9,6 +13,7 @@ import { PlannerCommandReverse } from '../../../domain/commands/planner-command-
 import { Plan } from '../../../domain/plan/plan';
 import { PlanReverser } from '../../../domain/plan/plan-reverser';
 import { PlannerService } from '../../../planner.service';
+import { PlanActionButtonComponent } from './plan-action-button.component';
 import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 
 @Component({
@@ -80,6 +85,8 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, PlanActionButtonComponent, AsyncPipe],
 })
 export class PlanActionsComponent implements OnInit {
   plan$: Observable<Plan>;

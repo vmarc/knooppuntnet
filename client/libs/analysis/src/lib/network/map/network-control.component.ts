@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kpn-network-control',
@@ -50,6 +51,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
 })
 export class NetworkControlComponent {
   @Output() action = new EventEmitter<void>();

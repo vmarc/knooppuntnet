@@ -83,8 +83,6 @@ import { RouteProposedIndicatorComponent } from './indicators/route';
     AnalysisStrategyModule,
     MatButtonModule,
     MatProgressBarModule,
-  ],
-  declarations: [
     ChangeHeaderComponent,
     ChangeSetTagsComponent,
     ChangeNetworkAnalysisSummaryComponent,

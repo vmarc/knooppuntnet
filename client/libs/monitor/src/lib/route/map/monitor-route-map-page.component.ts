@@ -1,9 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
+import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
+import { MonitorRouteMapComponent } from './monitor-route-map.component';
 import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapPageInit } from './store/monitor-route-map.actions';
 import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
@@ -23,6 +27,13 @@ import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [
+    MonitorRoutePageHeaderComponent,
+    NgIf,
+    MonitorRouteMapComponent,
+    AsyncPipe,
+  ],
 })
 export class MonitorRouteMapPageComponent implements OnInit, OnDestroy {
   protected readonly page$ = this.store.select(selectMonitorRouteMapPage);

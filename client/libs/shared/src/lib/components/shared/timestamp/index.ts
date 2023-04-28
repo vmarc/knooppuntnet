@@ -1,2 +1,2 @@
-export * from "./timestamp.component";
-export * from "./situation-on.component";
+export * from './timestamp.component';
+export * from './situation-on.component';

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Timestamp } from '@api/custom';
+import { TimestampComponent } from './timestamp.component';
 
 @Component({
   selector: 'kpn-situation-on',
@@ -11,6 +13,8 @@ import { Timestamp } from '@api/custom';
     </ng-container>
     <kpn-timestamp [timestamp]="timestamp" />
   `,
+  standalone: true,
+  imports: [TimestampComponent],
 })
 export class SituationOnComponent {
   @Input() timestamp: Timestamp;

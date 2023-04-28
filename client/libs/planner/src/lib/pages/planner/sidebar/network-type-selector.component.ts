@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
 import { NetworkType } from '@api/custom';
 import { Store } from '@ngrx/store';
 import { actionPlannerNetworkType } from '../../../store/planner-actions';
@@ -51,6 +55,8 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatButtonToggleModule, MatIconModule, AsyncPipe],
 })
 export class NetworkTypeSelectorComponent {
   readonly networkType$ = this.store.select(selectPlannerNetworkType);

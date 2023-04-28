@@ -2,6 +2,8 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
 import { MonitorRouteMapService } from './monitor-route-map.service';
@@ -23,6 +25,8 @@ import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.acti
       useExisting: MonitorRouteMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   constructor(

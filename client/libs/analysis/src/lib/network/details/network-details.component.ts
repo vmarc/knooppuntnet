@@ -2,7 +2,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { NetworkDetailsPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
+import { DataComponent } from '@app/components/shared/data';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
+import { TimestampComponent } from '@app/components/shared/timestamp';
+import { NetworkSummaryComponent } from './network-summary.component';
 
 @Component({
   selector: 'kpn-network-details',
@@ -45,6 +49,13 @@ import { InterpretedTags } from '@app/components/shared/tags';
   `,
   styleUrls: [
     '../../../../../shared/src/lib/components/shared/data/data.component.scss',
+  ],
+  standalone: true,
+  imports: [
+    DataComponent,
+    NetworkSummaryComponent,
+    TimestampComponent,
+    TagsTableComponent,
   ],
 })
 export class NetworkDetailsComponent implements OnInit {

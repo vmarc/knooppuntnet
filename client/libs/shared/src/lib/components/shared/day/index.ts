@@ -1,2 +1,2 @@
-export * from "./day.component";
-export * from "./kpn-date-adapter";
+export * from './day.component';
+export * from './kpn-date-adapter';

@@ -1,17 +1,31 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
-import { FactInfo } from '../../fact/fact-info';
+import { FactInfo } from '@app/analysis/fact';
+import { FactsComponent } from '@app/analysis/fact';
+import { NetworkTypeIconComponent } from '@app/components/shared';
+import { DataComponent } from '@app/components/shared/data';
+import { ErrorComponent } from '@app/components/shared/error';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
+import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
 import { selectNodeNetworkTypes } from '../store/node.selectors';
 import { selectNodeDetailsPage } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeChangeCount } from '../store/node.selectors';
+import { NodeIntegrityComponent } from './node-integrity.component';
+import { NodeLocationComponent } from './node-location.component';
+import { NodeNetworkReferencesComponent } from './node-network-references.component';
+import { NodeRouteReferencesComponent } from './node-route-references.component';
+import { NodeSummaryComponent } from './node-summary.component';
 
 @Component({
   selector: 'kpn-node-details-page',
@@ -112,6 +126,25 @@ import { selectNodeChangeCount } from '../store/node.selectors';
   `,
   styleUrls: [
     '../../../../../shared/src/lib/components/shared/data/data.component.scss',
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    NodePageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    DataComponent,
+    NodeSummaryComponent,
+    TimestampComponent,
+    TagsTableComponent,
+    NgFor,
+    NetworkTypeIconComponent,
+    NodeLocationComponent,
+    NodeIntegrityComponent,
+    NodeRouteReferencesComponent,
+    NodeNetworkReferencesComponent,
+    FactsComponent,
+    AsyncPipe,
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {

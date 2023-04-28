@@ -1,8 +1,17 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ChangesComponent } from '@app/analysis/components/changes';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { LinkLoginComponent } from '@app/components/shared/link';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectDefined } from '@app/core';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteChangesPageSize } from '../store/route.actions';
 import { actionRouteChangesPageImpact } from '../store/route.actions';
 import { actionRouteChangesPageIndex } from '../store/route.actions';
@@ -15,6 +24,7 @@ import { selectRouteChangesPageIndex } from '../store/route.selectors';
 import { selectRouteChangeCount } from '../store/route.selectors';
 import { selectRouteName } from '../store/route.selectors';
 import { selectRouteId } from '../store/route.selectors';
+import { RouteChangeComponent } from './route-change.component';
 
 @Component({
   selector: 'kpn-route-changes-page',
@@ -82,6 +92,20 @@ import { selectRouteId } from '../store/route.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    RoutePageHeaderComponent,
+    NgIf,
+    LinkLoginComponent,
+    SituationOnComponent,
+    ChangesComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    RouteChangeComponent,
+    AsyncPipe,
+  ],
 })
 export class RouteChangesPageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);

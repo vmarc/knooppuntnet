@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="kpn-spacer-above">work-in-progress - not implemented yet</div>
   `,
+  standalone: true,
 })
 export class LocationChangesComponent {}

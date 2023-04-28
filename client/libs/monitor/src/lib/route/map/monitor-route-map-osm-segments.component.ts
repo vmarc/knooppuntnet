@@ -1,7 +1,10 @@
+import { AsyncPipe, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
+import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor';
+import { DistancePipe } from '@app/components/shared/format';
 import { Store } from '@ngrx/store';
+import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 import { actionMonitorRouteMapSelectOsmSegment } from './store/monitor-route-map.actions';
 import { selectMonitorRouteMapSelectedOsmSegmentId } from './store/monitor-route-map.selectors';
@@ -46,6 +49,8 @@ import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.sele
       }
     `,
   ],
+  standalone: true,
+  imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
   protected readonly segments$ = this.store.select(

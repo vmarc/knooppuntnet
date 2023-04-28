@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       nodes.
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteRedundantNodesComponent {}

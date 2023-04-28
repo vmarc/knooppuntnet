@@ -1,6 +1,14 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route';
+import { RouteChangeMapComponent } from './route-change-map.component';
+import { RouteChangeWayAddedComponent } from './route-change-way-added.component';
+import { RouteChangeWayRemovedComponent } from './route-change-way-removed.component';
+import { RouteChangeWayUpdatedComponent } from './route-change-way-updated.component';
+import { RouteDiffComponent } from './route-diff.component';
 
 @Component({
   selector: 'kpn-route-change-detail',
@@ -40,6 +48,16 @@ import { RouteChangeInfo } from '@api/common/route';
       [wayUpdate]="wayUpdate"
     />
   `,
+  standalone: true,
+  imports: [
+    RouteDiffComponent,
+    NgIf,
+    RouteChangeMapComponent,
+    NgFor,
+    RouteChangeWayRemovedComponent,
+    RouteChangeWayAddedComponent,
+    RouteChangeWayUpdatedComponent,
+  ],
 })
 export class RouteChangeDetailComponent {
   @Input() routeChangeInfo: RouteChangeInfo;

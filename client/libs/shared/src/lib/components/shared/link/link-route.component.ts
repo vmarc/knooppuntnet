@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { NetworkType } from '@api/custom';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'kpn-link-route',
@@ -16,6 +17,8 @@ import { NetworkType } from '@api/custom';
       >{{ linkTitle }}</a
     >
   `,
+  standalone: true,
+  imports: [RouterLink],
 })
 export class LinkRouteComponent implements OnInit {
   @Input() routeId: number;

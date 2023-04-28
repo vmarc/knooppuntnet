@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkRouteRow } from '@api/common/network';
+import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteConnectionIndicatorDialogComponent } from './route-connection-indicator-dialog.component';
 
 @Component({
@@ -16,6 +18,8 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class RouteConnectionIndicatorComponent implements OnInit {
   @Input() route: NetworkRouteRow;

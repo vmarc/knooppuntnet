@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { PoiAnalysis } from '@api/common';
 import { Tags } from '@api/custom';
 import { PoiService } from '@app/services';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-poi-analysis',
@@ -205,6 +206,8 @@ import { PoiService } from '@app/services';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf],
 })
 export class PoiAnalysisComponent {
   @Input() poi: PoiAnalysis;

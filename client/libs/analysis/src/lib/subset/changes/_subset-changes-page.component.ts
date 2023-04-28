@@ -1,6 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
+import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
+import { ChangesComponent } from '@app/analysis/components/changes';
+import { ErrorComponent } from '@app/components/shared/error';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { LinkLoginComponent } from '@app/components/shared/link';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetChangesPageSize } from '../store/subset.actions';
 import { actionSubsetChangesPageImpact } from '../store/subset.actions';
 import { actionSubsetChangesPageIndex } from '../store/subset.actions';
@@ -64,6 +75,21 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [
+    SubsetPageHeaderBlockComponent,
+    ErrorComponent,
+    NgIf,
+    LinkLoginComponent,
+    SituationOnComponent,
+    ChangesComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    ChangeNetworkAnalysisSummaryComponent,
+    ChangeLocationAnalysisSummaryComponent,
+    AsyncPipe,
+  ],
 })
 export class SubsetChangesPageComponent implements OnInit {
   readonly impact$ = this.store.select(selectSubsetChangesPageImpact);

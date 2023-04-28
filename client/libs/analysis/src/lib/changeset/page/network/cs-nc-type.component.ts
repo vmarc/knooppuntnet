@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
 import { ChangeType } from '@api/custom';
 
@@ -14,6 +16,8 @@ import { ChangeType } from '@api/custom';
       <b i18n="@@change-set.network-diffs.network-deleted">Network deleted</b>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf],
 })
 export class CsNcTypeComponent {
   @Input() networkChangeInfo: NetworkChangeInfo;

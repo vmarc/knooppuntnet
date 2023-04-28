@@ -1,9 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 import { PoiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { actionPlannerPoisEnabled } from '../../store/planner-actions';
 import { selectPlannerPoisEnabled } from '../../store/planner-selectors';
+import { PoiMenuOptionComponent } from './poi-menu-option.component';
 
 @Component({
   selector: 'kpn-poi-menu',
@@ -70,6 +74,13 @@ import { selectPlannerPoisEnabled } from '../../store/planner-selectors';
         padding-right: 20px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatDividerModule,
+    MatCheckboxModule,
+    PoiMenuOptionComponent,
+    AsyncPipe,
   ],
 })
 export class PoiMenuComponent {

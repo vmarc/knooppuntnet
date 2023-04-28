@@ -1,6 +1,9 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { I18nService } from '@app/i18n';
 import { FilterOption } from '@app/kpn/filter';
 import { FilterOptionGroup } from '@app/kpn/filter';
@@ -29,6 +32,8 @@ import { FilterOptionGroup } from '@app/kpn/filter';
     </div>
   `,
   styleUrls: ['./filter.scss'],
+  standalone: true,
+  imports: [MatRadioModule, NgFor],
 })
 export class FilterRadioGroupComponent {
   @Input() group: FilterOptionGroup;

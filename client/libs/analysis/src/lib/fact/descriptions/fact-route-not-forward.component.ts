@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
       There is no path in the forward direction (from start node to end node).
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteNotForwardComponent {}

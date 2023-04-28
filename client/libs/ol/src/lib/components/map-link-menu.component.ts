@@ -2,7 +2,9 @@ import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { toLonLat } from 'ol/proj';
 import { OpenlayersMapService } from '../services';
 import { MAP_SERVICE_TOKEN } from '../services';
@@ -47,6 +49,8 @@ import { MAP_SERVICE_TOKEN } from '../services';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatMenuModule, MatIconModule],
 })
 export class MapLinkMenuComponent {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;

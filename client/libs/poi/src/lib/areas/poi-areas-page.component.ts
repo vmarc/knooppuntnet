@@ -1,8 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { actionPoiAreasPageInit } from '../store/poi.actions';
 import { selectPoiAreasPage } from '../store/poi.selectors';
+import { PoiMapComponent } from './poi-map.component';
 
 @Component({
   selector: 'kpn-poi-areas-page',
@@ -20,6 +25,8 @@ import { selectPoiAreasPage } from '../store/poi.selectors';
       <kpn-poi-map />
     </div>
   `,
+  standalone: true,
+  imports: [PageHeaderComponent, NgIf, PoiMapComponent, AsyncPipe],
 })
 export class PoiAreasPageComponent implements OnInit {
   protected readonly response$ = this.store.select(selectPoiAreasPage);

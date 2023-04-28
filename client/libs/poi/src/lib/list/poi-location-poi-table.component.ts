@@ -1,10 +1,15 @@
+import { AsyncPipe } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
 import { LocationPoiInfo } from '@api/common/poi';
 import { PageWidthService } from '@app/components/shared';
 import { PaginatorComponent } from '@app/components/shared/paginator';
@@ -134,6 +139,8 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [PaginatorComponent, MatTableModule, NgFor, RouterLink, AsyncPipe],
 })
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   @Input() pois: LocationPoiInfo[];

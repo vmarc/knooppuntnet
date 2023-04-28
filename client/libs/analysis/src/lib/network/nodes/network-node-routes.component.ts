@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { NetworkNodeRow } from '@api/common/network';
+import { LinkRouteComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-node-routes',
@@ -39,6 +42,8 @@ import { NetworkNodeRow } from '@api/common/network';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor, LinkRouteComponent],
 })
 export class NetworkNodeRoutesComponent {
   @Input() node: NetworkNodeRow;

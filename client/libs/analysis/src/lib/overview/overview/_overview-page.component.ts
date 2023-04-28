@@ -1,10 +1,19 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { StatisticValues } from '@api/common/statistics';
 import { ApiResponse } from '@api/custom';
+import { ErrorComponent } from '@app/components/shared/error';
+import { PageHeaderComponent } from '@app/components/shared/page';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { OverviewService } from '../overview.service';
+import { OverviewListComponent } from './overview-list.component';
+import { OverviewTableComponent } from './overview-table.component';
 
 @Component({
   selector: 'kpn-overview-page',
@@ -49,6 +58,17 @@ import { OverviewService } from '../overview.service';
         padding-bottom: 15px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    PageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    SituationOnComponent,
+    OverviewTableComponent,
+    OverviewListComponent,
+    AsyncPipe,
   ],
 })
 export class OverviewPageComponent implements OnInit {

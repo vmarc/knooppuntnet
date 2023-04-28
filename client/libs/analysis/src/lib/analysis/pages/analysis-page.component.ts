@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IconButtonComponent } from '@app/components/shared/icon';
+import { PageHeaderComponent } from '@app/components/shared/page';
 
 @Component({
   selector: 'kpn-analysis-page',
@@ -74,5 +77,7 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [RouterLink, PageHeaderComponent, IconButtonComponent],
 })
 export class AnalysisPageComponent {}

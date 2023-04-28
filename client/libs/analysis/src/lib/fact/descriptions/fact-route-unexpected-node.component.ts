@@ -1,6 +1,8 @@
+import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { FactInfo } from '../fact-info';
 
 @Component({
@@ -20,6 +22,8 @@ import { FactInfo } from '../fact-info';
       </span>
     </p>
   `,
+  standalone: true,
+  imports: [NgFor, OsmLinkNodeComponent],
 })
 export class FactRouteUnexpectedNodeComponent {
   @Input() factInfo: FactInfo;

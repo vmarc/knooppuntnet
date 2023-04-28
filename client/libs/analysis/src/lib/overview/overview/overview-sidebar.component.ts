@@ -1,6 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { OverviewService } from '../overview.service';
 
 @Component({
@@ -64,6 +67,8 @@ import { OverviewService } from '../overview.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class OverviewSidebarComponent {
   readonly optionList = this.overviewService.list;

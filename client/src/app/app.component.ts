@@ -1,8 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, } from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { RouteConfigLoadEnd } from '@angular/router';
+import { RouteConfigLoadStart } from '@angular/router';
+import { Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
+import { PageFooterComponent } from '@app/components/shared/page';
+import { PageExperimentalComponent } from '@app/components/shared/page';
+import { SidebarBackComponent } from '@app/components/shared/sidebar';
+import { ToolbarComponent } from '@app/components/shared/toolbar';
 import { selectPageShowFooter } from '@app/core';
 import { IconService } from '@app/services';
 import { VersionService } from '@app/services';
@@ -76,6 +88,17 @@ import { map } from 'rxjs/operators';
         max-width: 360px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    NgIf,
+    SidebarBackComponent,
+    PageExperimentalComponent,
+    RouterOutlet,
+    ToolbarComponent,
+    PageFooterComponent,
+    AsyncPipe,
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {

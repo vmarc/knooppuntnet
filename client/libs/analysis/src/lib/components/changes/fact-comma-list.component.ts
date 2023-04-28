@@ -1,6 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Fact } from '@api/custom';
+import { FactNameComponent } from '@app/analysis/fact';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
 
 @Component({
   selector: 'kpn-fact-comma-list',
@@ -17,6 +23,14 @@ import { Fact } from '@api/custom';
       <kpn-icon-investigate *ngIf="icon === 'investigate'" />
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    FactNameComponent,
+    IconHappyComponent,
+    IconInvestigateComponent,
+  ],
 })
 export class FactCommaListComponent {
   @Input() title: string;

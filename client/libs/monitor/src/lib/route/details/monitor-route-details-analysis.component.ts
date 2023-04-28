@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { DistancePipe } from '@app/components/shared/format';
+import { IconHappyComponent } from '@app/components/shared/icon';
 
 @Component({
   selector: 'kpn-monitor-route-details-analysis',
@@ -29,6 +32,8 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor';
       </p>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, IconHappyComponent, DistancePipe],
 })
 export class MonitorRouteDetailsAnalysisComponent {
   @Input() page: MonitorRouteDetailsPage;

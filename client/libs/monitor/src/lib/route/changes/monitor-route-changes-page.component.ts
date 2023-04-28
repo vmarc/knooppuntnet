@@ -1,15 +1,21 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { PaginatorComponent } from '@app/components/shared/paginator';
 import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
 import { Store } from '@ngrx/store';
+import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { actionMonitorRouteChangesPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteChangesPageIndex } from '../../store/monitor.actions';
 import { actionMonitorRouteChangesPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
+import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 
 @Component({
   selector: 'kpn-monitor-route-changes-page',
@@ -44,6 +50,15 @@ import { selectMonitorRouteChangesPage } from '../../store/monitor.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    MonitorRoutePageHeaderComponent,
+    NgIf,
+    MatSlideToggleModule,
+    PaginatorComponent,
+    MonitorChangesComponent,
+    AsyncPipe,
+  ],
 })
 export class MonitorRouteChangesPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteChangesPage);

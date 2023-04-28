@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Reference } from '@api/common/common';
+import { IconLinkComponent } from './icon-link.component';
 
 @Component({
   selector: 'kpn-icon-network-link',
@@ -12,6 +14,8 @@ import { Reference } from '@api/common/common';
       elementType="network"
     />
   `,
+  standalone: true,
+  imports: [IconLinkComponent],
 })
 export class IconNetworkLinkComponent {
   @Input() reference: Reference;

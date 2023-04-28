@@ -11,5 +11,6 @@ import { Component } from '@angular/core';
       both.
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteNotContiniousComponent {}

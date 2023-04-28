@@ -15,5 +15,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       display to view the videos.
     </p>
   `,
+  standalone: true,
 })
 export class DemoDisabledComponent {}

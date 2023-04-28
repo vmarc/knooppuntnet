@@ -1,14 +1,25 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { TimeInfo } from '@api/common';
 import { LocationRouteInfo } from '@api/common/location';
 import { EditParameters } from '@app/analysis/components/edit';
+import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { PageWidthService } from '@app/components/shared';
+import { DayComponent } from '@app/components/shared/day';
+import { DayPipe } from '@app/components/shared/format';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { actionSharedEdit } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -19,6 +30,7 @@ import { actionLocationRoutesPageSize } from '../store/location.actions';
 import { actionLocationRoutesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
 import { selectLocationRoutesPageIndex } from '../store/location.selectors';
+import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
 @Component({
   selector: 'kpn-location-route-table',
@@ -146,6 +158,21 @@ import { selectLocationRoutesPageIndex } from '../store/location.selectors';
         width: 100%;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    EditAndPaginatorComponent,
+    MatTableModule,
+    MatSortModule,
+    LocationRouteAnalysisComponent,
+    LinkRouteComponent,
+    DayComponent,
+    JosmRelationComponent,
+    OsmLinkRelationComponent,
+    PaginatorComponent,
+    AsyncPipe,
+    IntegerFormatPipe,
+    DayPipe,
   ],
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {

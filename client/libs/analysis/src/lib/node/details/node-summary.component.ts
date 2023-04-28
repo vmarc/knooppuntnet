@@ -1,6 +1,16 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { NodeInfo } from '@api/common';
+import { CountryNameComponent } from '@app/components/shared';
+import { NetworkScopeNameComponent } from '@app/components/shared';
+import { NetworkTypeComponent } from '@app/components/shared';
+import { JosmNodeComponent } from '@app/components/shared/link';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-node-summary',
@@ -75,6 +85,18 @@ import { NodeInfo } from '@api/common';
         padding-left: 0.4em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    OsmLinkNodeComponent,
+    JosmNodeComponent,
+    NgIf,
+    NgFor,
+    NetworkTypeComponent,
+    NetworkScopeNameComponent,
+    CountryNameComponent,
+    MatIconModule,
+    MarkdownModule,
   ],
 })
 export class NodeSummaryComponent {

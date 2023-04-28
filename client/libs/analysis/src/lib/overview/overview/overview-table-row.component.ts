@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Subsets } from '@app/kpn/common';
+import { MarkdownModule } from 'ngx-markdown';
 import { Stat } from '../domain/stat';
+import { OverviewValueComponent } from './overview-value.component';
 
 @Component({
   selector: 'kpn-overview-table-row',
@@ -47,6 +52,8 @@ import { Stat } from '../domain/stat';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgFor, OverviewValueComponent, NgIf, MarkdownModule],
 })
 export class OverviewTableRowComponent {
   @Input() stat: Stat;

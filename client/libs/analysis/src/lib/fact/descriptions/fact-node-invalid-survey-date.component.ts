@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-fact-node-invalid-survey-date',
@@ -11,5 +12,7 @@ import { Component } from '@angular/core';
       *"source:date"* tag if *"source=survey"*.
     </markdown>
   `,
+  standalone: true,
+  imports: [MarkdownModule],
 })
 export class FactNodeInvalidSurveyDateComponent {}

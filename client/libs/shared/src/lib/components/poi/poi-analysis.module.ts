@@ -5,8 +5,7 @@ import { SharedModule } from '../shared';
 import { PoiAnalysisComponent } from './poi-analysis.component';
 
 @NgModule({
-  imports: [CommonModule, SharedModule],
-  declarations: [PoiAnalysisComponent],
+  imports: [CommonModule, SharedModule, PoiAnalysisComponent],
   exports: [PoiAnalysisComponent],
   providers: [PoiService],
 })

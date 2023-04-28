@@ -22,8 +22,9 @@ import { changesFeatureKey } from './store/changes.state';
     StoreModule.forFeature(changesFeatureKey, changesReducer),
     EffectsModule.forFeature([ChangesEffects]),
     AnalysisStrategyModule,
+    ChangesPageComponent,
+    ChangesSidebarComponent,
   ],
-  declarations: [ChangesPageComponent, ChangesSidebarComponent],
   providers: [ChangesService],
 })
 export class ChangesModule {}

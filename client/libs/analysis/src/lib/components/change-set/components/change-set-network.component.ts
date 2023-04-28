@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ChangeSetNetwork } from '@api/common';
 import { ChangeKey } from '@api/common/changes/details';
+import { NetworkTypeIconComponent } from '@app/components/shared';
+import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 
 export class ChangeSetNetworkAction {
   constructor(
@@ -37,6 +41,12 @@ export class ChangeSetNetworkAction {
       [changeSetElementRefs]="routeChanges()"
     />
   `,
+  standalone: true,
+  imports: [
+    NetworkTypeIconComponent,
+    RouterLink,
+    ChangesSetElementRefsComponent,
+  ],
 })
 export class ChangesSetNetworkComponent {
   @Input() changeSetNetworkAction: ChangeSetNetworkAction;

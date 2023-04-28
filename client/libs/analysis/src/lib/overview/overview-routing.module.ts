@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { OverviewPageComponent } from './overview/_overview-page.component';
 import { OverviewSidebarComponent } from './overview/overview-sidebar.component';

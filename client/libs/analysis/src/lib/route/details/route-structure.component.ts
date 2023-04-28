@@ -1,5 +1,7 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -16,6 +18,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
       </tbody>
     </table>
   `,
+  standalone: true,
+  imports: [NgFor],
 })
 export class RouteStructureComponent {
   @Input() structureStrings: string[];

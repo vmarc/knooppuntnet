@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NetworkType } from '@api/custom';
+import { IndicatorDialogComponent } from '@app/components/shared/indicator';
 import { RouteAccessibleData } from './route-accessible-data';
 
 @Component({
@@ -110,6 +113,8 @@ import { RouteAccessibleData } from './route-accessible-data';
       </div>
     </kpn-indicator-dialog>
   `,
+  standalone: true,
+  imports: [IndicatorDialogComponent, NgIf],
 })
 export class RouteAccessibleIndicatorDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: RouteAccessibleData) {}

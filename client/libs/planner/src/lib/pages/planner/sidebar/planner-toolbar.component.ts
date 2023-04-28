@@ -1,8 +1,12 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NetworkTypeSelectorComponent } from './network-type-selector.component';
+import { PlanActionsComponent } from './plan-actions.component';
 
 @Component({
   selector: 'kpn-planner-toolbar',
@@ -20,6 +24,13 @@ import { map } from 'rxjs/operators';
         align-items: center;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    PlanActionsComponent,
+    NgIf,
+    NetworkTypeSelectorComponent,
+    AsyncPipe,
   ],
 })
 export class PlannerToolbarComponent {

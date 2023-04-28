@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 
 @Component({
   selector: 'kpn-node-details-sidebar',
@@ -40,5 +41,7 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarFooterComponent],
 })
 export class NodeDetailsSidebarComponent {}

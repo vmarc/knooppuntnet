@@ -1,17 +1,24 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { RouterLink } from '@angular/router';
+import { PaginatorComponent } from '@app/components/shared/paginator';
 import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
 import { Store } from '@ngrx/store';
+import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { actionMonitorGroupChangesPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupChangesPageIndex } from '../../store/monitor.actions';
 import { actionMonitorGroupChangesPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupChangesPage } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
+import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 
 @Component({
   selector: 'kpn-monitor-group-changes',
@@ -61,6 +68,16 @@ import { selectMonitorGroupName } from '../../store/monitor.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    MonitorGroupPageMenuComponent,
+    NgIf,
+    MatSlideToggleModule,
+    PaginatorComponent,
+    MonitorChangesComponent,
+    AsyncPipe,
+  ],
 })
 export class MonitorGroupChangesPageComponent implements OnInit, OnDestroy {
   readonly groupName$ = this.store.select(selectMonitorGroupName);

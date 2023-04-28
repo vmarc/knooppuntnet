@@ -1,8 +1,14 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { NodeIntegrity } from '@api/common/node';
 import { NodeIntegrityDetail } from '@api/common/node';
+import { NetworkScopeNameComponent } from '@app/components/shared';
+import { NetworkTypeIconComponent } from '@app/components/shared';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
 
 @Component({
   selector: 'kpn-node-integrity',
@@ -67,6 +73,15 @@ import { NodeIntegrityDetail } from '@api/common/node';
         top: 3px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    NetworkTypeIconComponent,
+    IconHappyComponent,
+    IconInvestigateComponent,
+    NetworkScopeNameComponent,
   ],
 })
 export class NodeIntegrityComponent {

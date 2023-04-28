@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { Plan } from '../../../domain/plan/plan';
 import { PlannerService } from '../../../planner.service';
@@ -39,6 +42,8 @@ import { PlannerService } from '../../../planner.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor],
 })
 export class PlanCompactComponent {
   @Input() plan: Plan;

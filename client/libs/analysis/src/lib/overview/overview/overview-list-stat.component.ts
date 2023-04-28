@@ -1,6 +1,11 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MarkdownModule } from 'ngx-markdown';
 import { Stat } from '../domain/stat';
+import { OverviewListStatTableComponent } from './overview-list-stat-table.component';
 
 @Component({
   selector: 'kpn-overview-list-stat',
@@ -87,6 +92,13 @@ import { Stat } from '../domain/stat';
         max-width: 40em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatIconModule,
+    MarkdownModule,
+    OverviewListStatTableComponent,
   ],
 })
 export class OverviewListStatComponent {

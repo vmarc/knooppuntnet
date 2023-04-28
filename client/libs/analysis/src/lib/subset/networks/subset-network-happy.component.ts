@@ -1,6 +1,8 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
+import { IconHappyComponent } from '@app/components/shared/icon';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 
 @Component({
@@ -17,6 +19,8 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, IconHappyComponent],
 })
 export class SubsetNetworkHappyComponent implements OnInit {
   @Input() network: NetworkAttributes;

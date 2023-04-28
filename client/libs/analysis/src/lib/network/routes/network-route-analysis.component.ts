@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkRouteRow } from '@api/common/network';
 import { NetworkType } from '@api/custom';
+import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
+import { RouteConnectionIndicatorComponent } from '@app/analysis/components/indicators/route';
+import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
+import { RouteProposedIndicatorComponent } from '@app/analysis/components/indicators/route';
 
 @Component({
   selector: 'kpn-network-route-analysis',
@@ -23,6 +28,13 @@ import { NetworkType } from '@api/custom';
         display: flex;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouteInvestigateIndicatorComponent,
+    RouteAccessibleIndicatorComponent,
+    RouteConnectionIndicatorComponent,
+    RouteProposedIndicatorComponent,
   ],
 })
 export class NetworkRouteAnalysisComponent {

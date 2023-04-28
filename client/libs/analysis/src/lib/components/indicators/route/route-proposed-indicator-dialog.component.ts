@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IndicatorDialogComponent } from '@app/components/shared/indicator';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-route-proposed-indicator-dialog',
@@ -44,6 +47,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       </markdown>
     </kpn-indicator-dialog>
   `,
+  standalone: true,
+  imports: [IndicatorDialogComponent, NgIf, MarkdownModule],
 })
 export class RouteProposedIndicatorDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public color: string) {}

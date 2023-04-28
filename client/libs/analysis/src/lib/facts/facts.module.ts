@@ -6,8 +6,13 @@ import { FactsPageComponent } from './facts-page.component';
 import { FactsRoutingModule } from './facts-routing.module';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, FactModule, FactsRoutingModule],
-  declarations: [FactsPageComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    FactModule,
+    FactsRoutingModule,
+    FactsPageComponent,
+  ],
   exports: [FactsPageComponent],
 })
 export class FactsModule {}

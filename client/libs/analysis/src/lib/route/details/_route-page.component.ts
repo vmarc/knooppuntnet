@@ -1,20 +1,38 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { RouteInfoAnalysis } from '@api/common/route';
-import { FactInfo } from '../../fact/fact-info';
+import { FactInfo } from '@app/analysis/fact';
+import { FactsComponent } from '@app/analysis/fact';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
+import { DataComponent } from '@app/components/shared/data';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteDetailsPage } from '../store/route.selectors';
 import { selectRouteChangeCount } from '../store/route.selectors';
 import { selectRouteName } from '../store/route.selectors';
 import { selectRouteId } from '../store/route.selectors';
+import { RouteEndNodesComponent } from './route-end-nodes.component';
+import { RouteFreeNodesComponent } from './route-free-nodes.component';
+import { RouteLocationComponent } from './route-location.component';
+import { RouteMembersComponent } from './route-members.component';
+import { RouteNetworkReferencesComponent } from './route-network-references.component';
+import { RouteRedundantNodesComponent } from './route-redundant-nodes.component';
+import { RouteStartNodesComponent } from './route-start-nodes.component';
+import { RouteStructureComponent } from './route-structure.component';
+import { RouteSummaryComponent } from './route-summary.component';
 
 @Component({
   selector: 'kpn-route-page',
@@ -148,6 +166,26 @@ import { selectRouteId } from '../store/route.selectors';
   `,
   styleUrls: [
     '../../../../../shared/src/lib/components/shared/data/data.component.scss',
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    RoutePageHeaderComponent,
+    NgIf,
+    DataComponent,
+    RouteSummaryComponent,
+    TimestampComponent,
+    RouteNetworkReferencesComponent,
+    RouteFreeNodesComponent,
+    RouteStartNodesComponent,
+    RouteEndNodesComponent,
+    RouteRedundantNodesComponent,
+    TagsTableComponent,
+    RouteLocationComponent,
+    RouteStructureComponent,
+    FactsComponent,
+    RouteMembersComponent,
+    AsyncPipe,
   ],
 })
 export class RoutePageComponent implements OnInit {

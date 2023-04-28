@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { I18nService } from '@app/i18n';
 
 @Component({
@@ -23,6 +25,8 @@ import { I18nService } from '@app/i18n';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatIconModule],
 })
 export class DocLinkComponent {
   @Input() subject: string;

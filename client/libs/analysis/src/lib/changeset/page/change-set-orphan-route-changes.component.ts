@@ -1,11 +1,15 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangeSetElementRef } from '@api/common';
 import { ChangeSetSubsetElementRefs } from '@api/common';
 import { ChangeSetPage } from '@api/common/changes';
 import { Ref } from '@api/common/common';
 import { RefDiffs } from '@api/common/diff';
+import { NetworkTypeIconComponent } from '@app/components/shared';
 import { List } from 'immutable';
+import { RouteDiffsComponent } from './route-diffs/_route-diffs.component';
 import { RouteDiffsData } from './route-diffs/route-diffs-data';
 
 @Component({
@@ -23,6 +27,8 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [NgFor, NetworkTypeIconComponent, RouteDiffsComponent],
 })
 export class ChangeSetOrphanRouteChangesComponent {
   @Input() page: ChangeSetPage;

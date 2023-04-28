@@ -1,7 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkNodeRow } from '@api/common/network';
@@ -11,6 +16,11 @@ import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { PageWidthService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
+import { DayComponent } from '@app/components/shared/day';
+import { DayPipe } from '@app/components/shared/format';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { JosmNodeComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/components/shared/link';
 import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -21,8 +31,10 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { NetworkNodeAnalysisComponent } from './network-node-analysis.component';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
+import { NetworkNodeRoutesComponent } from './network-node-routes.component';
 import { NetworkNodesService } from './network-nodes.service';
 
 @Component({
@@ -191,6 +203,19 @@ import { NetworkNodesService } from './network-nodes.service';
         width: 12rem;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    EditAndPaginatorComponent,
+    MatTableModule,
+    NetworkNodeAnalysisComponent,
+    LinkNodeComponent,
+    NetworkNodeRoutesComponent,
+    DayComponent,
+    JosmNodeComponent,
+    OsmLinkNodeComponent,
+    AsyncPipe,
+    DayPipe,
   ],
 })
 export class NetworkNodeTableComponent implements OnInit, OnDestroy {

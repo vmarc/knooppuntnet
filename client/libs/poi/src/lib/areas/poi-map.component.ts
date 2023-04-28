@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
 import { actionPoiAreasPageMapViewInit } from '../store/poi.actions';
@@ -20,6 +21,8 @@ import { PoiMapService } from './poi-map.service';
       useExisting: PoiMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
   constructor(protected service: PoiMapService, private store: Store) {}

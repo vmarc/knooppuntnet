@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LocationEditPage } from '@api/common/location';
 import { EditConfiguration } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
@@ -62,6 +66,8 @@ import { BehaviorSubject } from 'rxjs';
       </button>
     </p>
   `,
+  standalone: true,
+  imports: [MatCheckboxModule, NgIf, MatButtonModule, AsyncPipe],
 })
 export class LocationEditComponent implements OnInit {
   @Input() page: LocationEditPage;

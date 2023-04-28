@@ -1,3 +1,5 @@
+import { NgClass } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { VersionService } from '@app/services';
@@ -37,6 +39,8 @@ import { VersionService } from '@app/services';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgClass, NgIf],
 })
 export class PageExperimentalComponent {
   moreDetailOpen = false;

@@ -1,5 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { PoiService } from '@app/services';
 
 @Component({
@@ -68,6 +72,8 @@ import { PoiService } from '@app/services';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
 })
 export class PoiGroupComponent {
   @Input() name: string;

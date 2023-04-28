@@ -1,13 +1,13 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnChanges } from '@angular/core';
+import { SimpleChanges } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { DocLinkComponent } from '../link/doc-link.component';
 import { PageService } from '../page.service';
 
 @Component({
@@ -34,6 +34,8 @@ import { PageService } from '../page.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
   @Input() subject: string;

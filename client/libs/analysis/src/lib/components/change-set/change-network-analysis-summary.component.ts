@@ -1,8 +1,13 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ChangeSetNetwork } from '@api/common';
 import { ChangeSetSummaryInfo } from '@api/common';
+import { ChangesSetOrphanRoutesComponent } from '@app/analysis/components/change-set/components';
+import { ChangeHeaderComponent } from './change-header.component';
 import { ChangeSetNetworkAction } from './components';
+import { ChangesSetNetworkComponent } from './components/change-set-network.component';
+import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-nodes.component';
 
 @Component({
   selector: 'kpn-change-network-analysis-summary',
@@ -42,6 +47,14 @@ import { ChangeSetNetworkAction } from './components';
         margin-bottom: 5px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    ChangeHeaderComponent,
+    NgFor,
+    ChangesSetNetworkComponent,
+    ChangesSetOrphanNodesComponent,
+    ChangesSetOrphanRoutesComponent,
   ],
 })
 export class ChangeNetworkAnalysisSummaryComponent implements OnInit {

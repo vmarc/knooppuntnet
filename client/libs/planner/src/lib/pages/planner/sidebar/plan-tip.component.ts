@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
 import { ZoomLevel } from '@app/components/ol/domain';
 import { MapZoomService } from '@app/components/ol/services';
 import { I18nService } from '@app/i18n';
@@ -77,6 +80,8 @@ import { PlannerService } from '../../../planner.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, AsyncPipe],
 })
 export class PlanTipComponent implements OnInit {
   planPhase$: Observable<PlanPhase>;

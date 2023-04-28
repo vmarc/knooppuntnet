@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       logic does find ways in both directions.
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteNotOneWayComponent {}

@@ -51,6 +51,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
 })
 export class RouteControlComponent {
   @Output() action = new EventEmitter<void>();

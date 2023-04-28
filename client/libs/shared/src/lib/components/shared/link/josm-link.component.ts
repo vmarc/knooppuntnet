@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '@app/services';
 import { TimeoutComponent } from './timeout.component';
@@ -17,6 +18,7 @@ import { TimeoutComponent } from './timeout.component';
       >edit</a
     >
   `,
+  standalone: true,
 })
 export class JosmLinkComponent {
   @Input() kind: string;

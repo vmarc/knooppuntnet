@@ -1,6 +1,11 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
+import { NetworkTypeIconComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-route-network-references',
@@ -19,6 +24,8 @@ import { Reference } from '@api/common/common';
       </a>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, NetworkTypeIconComponent, RouterLink],
 })
 export class RouteNetworkReferencesComponent {
   @Input() references: Reference[];

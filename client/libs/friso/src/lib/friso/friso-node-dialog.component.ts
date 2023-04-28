@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from '@app/components/shared/dialog';
 import { FrisoNode } from './friso-node';
 
 @Component({
@@ -18,6 +20,8 @@ import { FrisoNode } from './friso-node';
       </div>
     </kpn-dialog>
   `,
+  standalone: true,
+  imports: [DialogComponent, MatDialogModule],
 })
 export class FrisoNodeDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public node: FrisoNode) {}

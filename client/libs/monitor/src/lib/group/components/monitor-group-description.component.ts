@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'kpn-monitor-group-description',
@@ -9,8 +13,8 @@ import { FormControl } from '@angular/forms';
     <div>
       <mat-form-field class="description">
         <mat-label i18n="@@monitor.group.description.label"
-          >Description</mat-label
-        >
+          >Description
+        </mat-label>
         <input matInput [formControl]="description" required />
       </mat-form-field>
 
@@ -46,6 +50,8 @@ import { FormControl } from '@angular/forms';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf],
 })
 export class MonitorGroupDescriptionComponent {
   @Input() ngForm: FormGroupDirective;

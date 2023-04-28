@@ -1,11 +1,21 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { PageWidthService } from '@app/components/shared';
+import { ErrorComponent } from '@app/components/shared/error';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
+import { MarkdownModule } from 'ngx-markdown';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetNetworksPageInit } from '../store/subset.actions';
 import { selectSubsetNetworksPage } from '../store/subset.selectors';
+import { SubsetNetworkListComponent } from './subset-network-list.component';
+import { SubsetNetworkTableComponent } from './subset-network-table.component';
 
 @Component({
   selector: 'kpn-subset-networks-page',
@@ -52,6 +62,18 @@ import { selectSubsetNetworksPage } from '../store/subset.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    SubsetPageHeaderBlockComponent,
+    ErrorComponent,
+    NgIf,
+    SituationOnComponent,
+    MarkdownModule,
+    SubsetNetworkTableComponent,
+    SubsetNetworkListComponent,
+    AsyncPipe,
+    IntegerFormatPipe,
+  ],
 })
 export class SubsetNetworksPageComponent implements OnInit {
   large$: Observable<boolean>;

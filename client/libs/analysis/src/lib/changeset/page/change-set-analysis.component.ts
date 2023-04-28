@@ -1,6 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangeSetPage } from '@api/common/changes';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { IconHappyComponent } from '@app/components/shared/icon';
 
 @Component({
   selector: 'kpn-change-set-analysis',
@@ -26,6 +30,8 @@ import { ChangeSetPage } from '@api/common/changes';
       </span>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, IconHappyComponent, IconInvestigateComponent],
 })
 export class ChangeSetAnalysisComponent {
   @Input() page: ChangeSetPage;

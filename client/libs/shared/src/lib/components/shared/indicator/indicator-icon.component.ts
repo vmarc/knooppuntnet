@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-indicator-icon',
@@ -44,6 +45,7 @@ import { Component, Input } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
 })
 export class IndicatorIconComponent {
   @Input() letter: string;

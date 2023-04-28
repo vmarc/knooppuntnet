@@ -1,8 +1,17 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { BracketsComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
+import { FactDescriptionComponent } from './fact-description.component';
 import { FactInfo } from './fact-info';
 import { FactLevel } from './fact-level';
+import { FactLevelComponent } from './fact-level.component';
+import { FactNameComponent } from './fact-name.component';
 import { Facts } from './facts';
 
 @Component({
@@ -70,6 +79,18 @@ import { Facts } from './facts';
         padding-left: 20px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    FactLevelComponent,
+    FactNameComponent,
+    BracketsComponent,
+    RouterLink,
+    LinkRouteComponent,
+    LinkNodeComponent,
+    FactDescriptionComponent,
   ],
 })
 export class FactsComponent {

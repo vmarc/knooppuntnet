@@ -1,6 +1,9 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Check } from '@api/common';
+import { LinkNodeComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-fact-checks',
@@ -47,6 +50,8 @@ import { Check } from '@api/common';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgFor, LinkNodeComponent],
 })
 export class NetworkFactChecksComponent {
   @Input() checks: Check[];

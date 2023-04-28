@@ -1,13 +1,22 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { Util } from '@app/components/shared';
+import { DialogComponent } from '@app/components/shared/dialog';
 import { selectPreferencesInstructions } from '@app/core';
 import { ApiService } from '@app/services';
 import { Store } from '@ngrx/store';
+import { ClipboardModule } from 'ngx-clipboard';
 import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
@@ -124,6 +133,18 @@ import { PlannerService } from '../../../planner.service';
         border: 1px solid lightgray;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    DialogComponent,
+    MatDialogModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    NgIf,
+    ClipboardModule,
+    AsyncPipe,
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {

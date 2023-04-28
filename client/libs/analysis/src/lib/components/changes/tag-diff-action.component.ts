@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { TagDetailType } from '@api/common/diff';
 
 @Component({
@@ -10,6 +13,8 @@ import { TagDetailType } from '@api/common/diff';
     <mat-icon *ngIf="isUpdate()" svgIcon="update" />
     <mat-icon *ngIf="isDelete()" svgIcon="remove" />
   `,
+  standalone: true,
+  imports: [NgIf, MatIconModule],
 })
 export class TagDiffActionComponent {
   @Input() action: TagDetailType;

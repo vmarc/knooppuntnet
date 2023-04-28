@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-month',
@@ -18,6 +20,8 @@ import { Component, Input } from '@angular/core';
     <span *ngIf="month === 11" i18n="@@filter.month.november">November</span>
     <span *ngIf="month === 12" i18n="@@filter.month.december"> December</span>
   `,
+  standalone: true,
+  imports: [NgIf],
 })
 export class MonthComponent {
   @Input() month: number;

@@ -1,6 +1,14 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { forwardRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { LocationChangesTreeNode } from '@api/common';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-change-set-location-tree-node',
@@ -108,6 +116,16 @@ import { LocationChangesTreeNode } from '@api/common';
         margin-left: 2em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgFor,
+    NgIf,
+    IconHappyComponent,
+    IconInvestigateComponent,
+    LinkRouteComponent,
+    LinkNodeComponent,
+    forwardRef(() => ChangeSetLocationTreeNodeComponent),
   ],
 })
 export class ChangeSetLocationTreeNodeComponent {

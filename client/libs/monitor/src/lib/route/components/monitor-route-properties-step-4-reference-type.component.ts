@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-4-reference-type',
@@ -58,6 +63,14 @@ import { FormControl } from '@angular/forms';
         padding-top: 0.5em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatRadioModule,
+    ReactiveFormsModule,
+    NgIf,
+    MatButtonModule,
+    MatStepperModule,
   ],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {

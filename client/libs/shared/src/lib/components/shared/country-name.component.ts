@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Country } from '@api/custom';
 import { I18nService } from '@app/i18n';
 import { Util } from './util';
@@ -14,6 +16,8 @@ import { Util } from './util';
       Spain)
     </ng-container>
   `,
+  standalone: true,
+  imports: [NgIf],
 })
 export class CountryNameComponent {
   @Input() country: Country;

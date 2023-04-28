@@ -1,6 +1,9 @@
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { TagDiffs } from '@api/common/diff';
+import { TagDiffActionComponent } from './tag-diff-action.component';
 
 @Component({
   selector: 'kpn-tag-diffs-table',
@@ -66,6 +69,8 @@ import { TagDiffs } from '@api/common/diff';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor, NgClass, TagDiffActionComponent],
 })
 export class TagDiffsTableComponent {
   @Input() tagDiffs: TagDiffs;

@@ -1,6 +1,11 @@
+import { NgClass, NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
+import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
 @Component({
   selector: 'kpn-subset-network-table',
@@ -89,6 +94,14 @@ import { NetworkAttributes } from '@api/common/network';
         text-align: right;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgFor,
+    LinkNetworkDetailsComponent,
+    SubsetNetworkHappyComponent,
+    NgClass,
+    IntegerFormatPipe,
   ],
 })
 export class SubsetNetworkTableComponent {

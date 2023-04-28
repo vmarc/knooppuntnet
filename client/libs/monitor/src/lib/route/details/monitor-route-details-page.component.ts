@@ -1,11 +1,20 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { DataComponent } from '@app/components/shared/data';
 import { Store } from '@ngrx/store';
+import { MarkdownModule } from 'ngx-markdown';
 import { actionMonitorRouteDetailsPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
+import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
+import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
+import { MonitorRouteDetailsReferenceComponent } from './monitor-route-details-reference.component';
+import { MonitorRouteDetailsStructureComponent } from './monitor-route-details-structure.component';
+import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-summary.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-page',
@@ -68,6 +77,18 @@ import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
         padding-top: 1em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MonitorRoutePageHeaderComponent,
+    NgIf,
+    DataComponent,
+    MonitorRouteDetailsSummaryComponent,
+    MonitorRouteDetailsReferenceComponent,
+    MonitorRouteDetailsAnalysisComponent,
+    MarkdownModule,
+    MonitorRouteDetailsStructureComponent,
+    AsyncPipe,
   ],
 })
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {

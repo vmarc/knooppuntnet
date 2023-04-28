@@ -1,8 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NetworkScopes } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
+import { MarkdownModule } from 'ngx-markdown';
+import { IndicatorDialogComponent } from './indicator-dialog.component';
 import { IntegrityIndicatorData } from './integrity-indicator-data';
 
 @Component({
@@ -61,6 +65,8 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
       </markdown>
     </kpn-indicator-dialog>
   `,
+  standalone: true,
+  imports: [IndicatorDialogComponent, NgIf, MarkdownModule],
 })
 export class IntegrityIndicatorDialogComponent {
   constructor(

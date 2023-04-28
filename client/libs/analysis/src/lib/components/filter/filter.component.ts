@@ -1,6 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { FilterOptions } from '@app/kpn/filter';
+import { FilterCheckboxGroupComponent } from './filter-checkbox-group.component';
+import { FilterRadioGroupComponent } from './filter-radio-group.component';
+import { FilterTitleComponent } from './filter-title.component';
 
 @Component({
   selector: 'kpn-filter',
@@ -15,6 +21,14 @@ import { FilterOptions } from '@app/kpn/filter';
     </div>
   `,
   styleUrls: ['./filter.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    FilterTitleComponent,
+    NgFor,
+    FilterCheckboxGroupComponent,
+    FilterRadioGroupComponent,
+  ],
 })
 export class FilterComponent {
   @Input() filterOptions: FilterOptions;

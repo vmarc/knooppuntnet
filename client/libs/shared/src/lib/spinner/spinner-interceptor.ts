@@ -1,10 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
-} from '@angular/common/http';
+import { HttpEvent } from '@angular/common/http';
+import { HttpHandler } from '@angular/common/http';
+import { HttpInterceptor } from '@angular/common/http';
+import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { actionSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';

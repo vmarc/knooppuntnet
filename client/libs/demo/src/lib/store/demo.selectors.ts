@@ -24,7 +24,7 @@ export const selectDemoPlaying = createSelector(
 
 export const selectDemoVideo = createSelector(
   selectRouteParams,
-  (params: Params) => params?.video
+  (params: Params) => params?.['video']
 );
 
 export const selectDemoVideoPlayButtonEnabled = createSelector(

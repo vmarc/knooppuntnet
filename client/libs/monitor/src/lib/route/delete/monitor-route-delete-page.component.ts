@@ -1,7 +1,12 @@
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '@app/components/shared/error';
 import { selectRouteParam } from '@app/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -61,6 +66,14 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
         color: red;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    ErrorComponent,
+    MatIconModule,
+    MatButtonModule,
+    AsyncPipe,
   ],
 })
 export class MonitorRouteDeletePageComponent implements OnInit, OnDestroy {

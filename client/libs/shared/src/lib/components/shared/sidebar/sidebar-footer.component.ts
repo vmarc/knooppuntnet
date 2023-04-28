@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { LinkLoginComponent } from '@app/components/shared/link';
+import { LinkLogoutComponent } from '@app/components/shared/link';
 import { selectUserUser } from '@app/core';
 import { selectUserLoggedIn } from '@app/core';
 import { VersionService } from '@app/services';
@@ -54,6 +58,8 @@ import { Store } from '@ngrx/store';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, LinkLogoutComponent, LinkLoginComponent, AsyncPipe],
 })
 export class SidebarFooterComponent {
   @Input() loginEnabled = true;

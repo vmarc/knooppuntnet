@@ -1,11 +1,17 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ErrorComponent } from '@app/components/shared/error';
 import { Store } from '@ngrx/store';
+import { LocationPageHeaderComponent } from '../components/location-page-header.component';
+import { LocationResponseComponent } from '../components/location-response.component';
 import { actionLocationChangesPageDestroy } from '../store/location.actions';
 import { actionLocationChangesPageInit } from '../store/location.actions';
 import { selectLocationChangesPage } from '../store/location.selectors';
+import { LocationChangesComponent } from './location-changes.component';
 
 @Component({
   selector: 'kpn-location-changes-page',
@@ -25,6 +31,15 @@ import { selectLocationChangesPage } from '../store/location.selectors';
       </kpn-location-response>
     </div>
   `,
+  standalone: true,
+  imports: [
+    LocationPageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    LocationResponseComponent,
+    LocationChangesComponent,
+    AsyncPipe,
+  ],
 })
 export class LocationChangesPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectLocationChangesPage);

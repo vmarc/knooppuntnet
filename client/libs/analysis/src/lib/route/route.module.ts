@@ -44,8 +44,6 @@ import { routeFeatureKey } from './store/route.state';
     AnalysisComponentsModule,
     RouteRoutingModule,
     OlModule,
-  ],
-  declarations: [
     RouteChangeComponent,
     RouteChangesPageComponent,
     RouteMapPageComponent,

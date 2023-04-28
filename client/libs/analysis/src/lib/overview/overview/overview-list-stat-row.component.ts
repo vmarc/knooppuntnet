@@ -1,9 +1,14 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Subset } from '@api/custom';
+import { CountryNameComponent } from '@app/components/shared';
+import { NetworkTypeIconComponent } from '@app/components/shared';
 import { Stat } from '../domain/stat';
+import { OverviewValueComponent } from './overview-value.component';
 
 @Component({
   selector: 'kpn-overview-list-stat-row',
@@ -36,6 +41,13 @@ import { Stat } from '../domain/stat';
         width: 3.5em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    CountryNameComponent,
+    NetworkTypeIconComponent,
+    OverviewValueComponent,
   ],
 })
 export class OverviewListStatRowComponent {

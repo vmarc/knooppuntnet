@@ -1,9 +1,12 @@
+import { NgClass, NgIf } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangesFilterOption } from '@api/common/changes/filter';
 import { ChangeOption } from '@app/kpn/common';
+import { MonthComponent } from './month.component';
 
 @Component({
   selector: 'kpn-change-filter-period',
@@ -30,6 +33,8 @@ import { ChangeOption } from '@app/kpn/common';
     </div>
   `,
   styleUrls: ['../../filter/filter.scss'],
+  standalone: true,
+  imports: [NgClass, NgIf, MonthComponent],
 })
 export class ChangeFilterPeriodComponent {
   @Input() option: ChangesFilterOption;

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { BarChart } from '@api/common/status';
+import { BarChartModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'kpn-action-bar-chart',
@@ -25,6 +26,8 @@ import { BarChart } from '@api/common/status';
       (select)="onSelect($event)"
     />
   `,
+  standalone: true,
+  imports: [BarChartModule],
 })
 export class ActionBarChartComponent {
   @Input() barChart: BarChart;

@@ -1,5 +1,14 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { PoiGroupSportsComponent } from './poi-group-sports.component';
+import { PoiGroupFoodshopsComponent } from './poi-group-foodshops.component';
+import { PoiGroupShopsComponent } from './poi-group-shops.component';
+import { PoiGroupAmenityComponent } from './poi-group-amenity.component';
+import { PoiGroupTourismComponent } from './poi-group-tourism.component';
+import { PoiGroupPlacesToStayComponent } from './poi-group-places-to-stay.component';
+import { PoiGroupRestaurantsComponent } from './poi-group-restaurants.component';
+import { PoiGroupLandmarksComponent } from './poi-group-landmarks.component';
+import { PoiGroupHikingBikingComponent } from './poi-group-hiking-biking.component';
 
 @Component({
   selector: 'kpn-map-poi-config',
@@ -85,6 +94,18 @@ import { Component } from '@angular/core';
         vertical-align: top;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    PoiGroupHikingBikingComponent,
+    PoiGroupLandmarksComponent,
+    PoiGroupRestaurantsComponent,
+    PoiGroupPlacesToStayComponent,
+    PoiGroupTourismComponent,
+    PoiGroupAmenityComponent,
+    PoiGroupShopsComponent,
+    PoiGroupFoodshopsComponent,
+    PoiGroupSportsComponent,
   ],
 })
 export class MapPoiConfigComponent {}

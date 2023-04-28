@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { NameValue } from '@api/common/status';
+import { PieChartModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'kpn-server-disk-usage-pie-chart',
@@ -33,6 +34,8 @@ import { NameValue } from '@api/common/status';
       }
     `,
   ],
+  standalone: true,
+  imports: [PieChartModule],
 })
 export class ServerDiskUsagePieChartComponent {
   @Input() title: string;

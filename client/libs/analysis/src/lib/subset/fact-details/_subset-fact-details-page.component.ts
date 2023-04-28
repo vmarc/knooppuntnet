@@ -1,12 +1,19 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { FactInfo } from '@app/analysis/fact';
+import { FactDescriptionComponent } from '@app/analysis/fact';
+import { FactNameComponent } from '@app/analysis/fact';
+import { ErrorComponent } from '@app/components/shared/error';
 import { SubsetFact } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
+import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
 import { selectSubsetFact } from '../store/subset.selectors';
 import { selectSubsetFactDetailsPage } from '../store/subset.selectors';
+import { SubsetFactDetailsComponent } from './subset-fact-details.component';
 
 @Component({
   selector: 'kpn-subset-fact-details-page',
@@ -37,6 +44,16 @@ import { selectSubsetFactDetailsPage } from '../store/subset.selectors';
     </div>
   `,
   styleUrls: ['./_subset-fact-details-page.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    SubsetPageHeaderBlockComponent,
+    FactNameComponent,
+    FactDescriptionComponent,
+    ErrorComponent,
+    SubsetFactDetailsComponent,
+    AsyncPipe,
+  ],
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
   readonly subsetFact$ = this.store.select(selectSubsetFact);

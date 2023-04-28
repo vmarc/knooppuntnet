@@ -1,7 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '@app/components/shared/error';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { actionMonitorRouteAddPageDestroy } from '../../store/monitor.actions';
@@ -9,6 +12,7 @@ import { actionMonitorRouteAddPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteAddPage } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
+import { MonitorRoutePropertiesComponent } from '../components/monitor-route-properties.component';
 
 @Component({
   selector: 'kpn-monitor-route-add-page',
@@ -31,6 +35,13 @@ import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 
     <kpn-monitor-route-properties mode="add" [groupName]="groupName$ | async" />
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    ErrorComponent,
+    MonitorRoutePropertiesComponent,
+    AsyncPipe,
+  ],
 })
 export class MonitorRouteAddPageComponent implements OnInit, OnDestroy {
   readonly response$ = this.store.select(selectMonitorRouteAddPage);

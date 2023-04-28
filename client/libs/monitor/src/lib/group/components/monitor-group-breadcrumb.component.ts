@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'kpn-monitor-group-breadcrumb',
@@ -11,5 +12,7 @@ import { Component } from '@angular/core';
       <li i18n="@@breadcrumb.monitor.group">Group</li>
     </ul>
   `,
+  standalone: true,
+  imports: [RouterLink],
 })
 export class MonitorGroupBreadcrumbComponent {}

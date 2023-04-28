@@ -5,7 +5,8 @@ import { Renderer2 } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { fromEvent } from 'rxjs';
 
@@ -22,6 +23,7 @@ import { fromEvent } from 'rxjs';
       />
     </div>
   `,
+  standalone: true,
 })
 export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Input() linkName: string;

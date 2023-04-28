@@ -1,10 +1,18 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
-import { Params } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { Params, RouterLink } from '@angular/router';
 import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
+import { DayPipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/components/shared/format';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
@@ -258,6 +266,18 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         margin-left: 6em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatTableModule,
+    NgIf,
+    MatIconModule,
+    RouterLink,
+    OsmLinkRelationComponent,
+    MatButtonModule,
+    AsyncPipe,
+    DayPipe,
+    DistancePipe,
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {

@@ -1,8 +1,15 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Subscriptions } from '@app/util';
 import { EditParameters } from './edit-parameters';
 import { EditService } from './edit.service';
@@ -69,6 +76,14 @@ import { EditService } from './edit.service';
     `,
   ],
   providers: [EditService],
+  standalone: true,
+  imports: [
+    MatDialogModule,
+    NgIf,
+    MatProgressBarModule,
+    MatButtonModule,
+    AsyncPipe,
+  ],
 })
 export class EditDialogComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();

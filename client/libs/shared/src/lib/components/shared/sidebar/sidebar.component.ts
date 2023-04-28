@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { SidebarFooterComponent } from './sidebar-footer.component';
 
 @Component({
   selector: 'kpn-sidebar',
@@ -29,5 +30,7 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarFooterComponent],
 })
 export class SidebarComponent {}

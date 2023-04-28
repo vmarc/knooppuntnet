@@ -1,6 +1,9 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IndicatorDialogComponent } from '@app/components/shared/indicator';
 
 @Component({
   selector: 'kpn-node-route-indicator-dialog',
@@ -27,6 +30,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       </div>
     </kpn-indicator-dialog>
   `,
+  standalone: true,
+  imports: [IndicatorDialogComponent, NgIf],
 })
 export class NodeRouteIndicatorDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public color: string) {}

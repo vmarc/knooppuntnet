@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       least 1 way).
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteWithoutWaysComponent {}

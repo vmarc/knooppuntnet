@@ -95,8 +95,6 @@ import { plannerFeatureKey } from './store/planner-state';
     OlModule,
     ClipboardModule,
     PoiAnalysisModule,
-  ],
-  declarations: [
     MapPageComponent,
     PlannerPageComponent,
     PlannerSidebarComponent,

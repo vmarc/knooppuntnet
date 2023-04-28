@@ -1,8 +1,14 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
+import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
 @Component({
   selector: 'kpn-subset-network',
@@ -43,6 +49,14 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
         white-space: nowrap;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    LinkNetworkDetailsComponent,
+    SubsetNetworkHappyComponent,
+    OsmLinkRelationComponent,
+    JosmRelationComponent,
+    IntegerFormatPipe,
   ],
 })
 export class SubsetNetworkComponent implements OnInit {

@@ -2,6 +2,8 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { I18nService } from '@app/i18n';
+import { RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-page-footer',
@@ -47,6 +49,8 @@ import { I18nService } from '@app/i18n';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, RouterLink],
 })
 export class PageFooterComponent {
   @Input() settings = false;

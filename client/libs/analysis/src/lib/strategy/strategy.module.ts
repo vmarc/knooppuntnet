@@ -7,8 +7,13 @@ import { AnalysisStrategyComponent } from './analysis-strategy.component';
 import { AnalysisStrategyService } from './analysis-strategy.service';
 
 @NgModule({
-  imports: [CommonModule, SharedModule, MatRadioModule, MatIconModule],
-  declarations: [AnalysisStrategyComponent],
+  imports: [
+    CommonModule,
+    SharedModule,
+    MatRadioModule,
+    MatIconModule,
+    AnalysisStrategyComponent,
+  ],
   exports: [AnalysisStrategyComponent],
   providers: [AnalysisStrategyService],
 })

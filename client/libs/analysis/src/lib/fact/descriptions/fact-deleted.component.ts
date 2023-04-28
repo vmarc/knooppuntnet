@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
       Deleted from the OpenStreetMap database.
     </p>
   `,
+  standalone: true,
 })
 export class FactDeletedComponent {}

@@ -1,6 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { NetworkType } from '@api/custom';
+import { PageMenuOptionComponent } from '@app/components/shared/menu';
+import { PageMenuComponent } from '@app/components/shared/menu';
+import { PageHeaderComponent } from '@app/components/shared/page';
 
 @Component({
   selector: 'kpn-route-page-header',
@@ -42,6 +48,14 @@ import { NetworkType } from '@api/custom';
       </kpn-page-menu-option>
     </kpn-page-menu>
   `,
+  standalone: true,
+  imports: [
+    PageHeaderComponent,
+    MatIconModule,
+    NgIf,
+    PageMenuComponent,
+    PageMenuOptionComponent,
+  ],
 })
 export class RoutePageHeaderComponent {
   @Input() routeId: string;

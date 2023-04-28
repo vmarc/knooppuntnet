@@ -1,7 +1,12 @@
+import { NgClass } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { DayInputComponent } from '@app/components/shared/format';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-5-reference-details',
@@ -117,6 +122,14 @@ import { FormControl } from '@angular/forms';
         display: none;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgClass,
+    DayInputComponent,
+    NgIf,
+    MatButtonModule,
+    MatStepperModule,
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {

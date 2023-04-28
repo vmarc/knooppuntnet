@@ -1,11 +1,17 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ErrorComponent } from '@app/components/shared/error';
 import { selectSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { LocationPageHeaderComponent } from '../components/location-page-header.component';
+import { LocationResponseComponent } from '../components/location-response.component';
 import { actionLocationEditPageDestroy } from '../store/location.actions';
 import { actionLocationEditPageInit } from '../store/location.actions';
 import { selectLocationEditPage } from '../store/location.selectors';
+import { LocationEditComponent } from './location-edit.component';
 
 @Component({
   selector: 'kpn-location-edit-page',
@@ -69,6 +75,15 @@ import { selectLocationEditPage } from '../store/location.selectors';
         font-style: italic;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    LocationPageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    LocationResponseComponent,
+    LocationEditComponent,
+    AsyncPipe,
   ],
 })
 export class LocationEditPageComponent implements OnInit, OnDestroy {

@@ -1,10 +1,16 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { I18nService } from '@app/i18n';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { selectSubset } from '../store/subset.selectors';
 import { selectSubsetInfo } from '../store/subset.selectors';
+import { SubsetPageBreadcrumbComponent } from './subset-page-breadcrumb.component';
+import { SubsetPageMenuComponent } from './subset-page-menu.component';
 
 @Component({
   selector: 'kpn-subset-page-header-block',
@@ -33,6 +39,14 @@ import { selectSubsetInfo } from '../store/subset.selectors';
       [pageName]="pageName"
     />
   `,
+  standalone: true,
+  imports: [
+    SubsetPageBreadcrumbComponent,
+    PageHeaderComponent,
+    MatIconModule,
+    SubsetPageMenuComponent,
+    AsyncPipe,
+  ],
 })
 export class SubsetPageHeaderBlockComponent {
   @Input() pageName: string;

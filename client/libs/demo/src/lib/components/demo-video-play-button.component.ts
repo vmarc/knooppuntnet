@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { actionDemoPlay } from '../store/demo.actions';
@@ -49,6 +52,8 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, MatIconModule, AsyncPipe],
 })
 export class DemoVideoPlayButtonComponent {
   videoPlayButtonEnabled$: Observable<boolean>;

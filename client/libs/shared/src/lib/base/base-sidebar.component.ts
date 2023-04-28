@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 
 @Component({
   selector: 'kpn-base-sidebar',
@@ -37,6 +40,8 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarComponent, NgIf, RouterLink],
 })
 export class BaseSidebarComponent {
   extraFunctionsEnabled = false;

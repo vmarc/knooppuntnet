@@ -7,12 +7,13 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsSidebarComponent } from './settings-sidebar.component';
 
 @NgModule({
-  declarations: [SettingsPageComponent, SettingsSidebarComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
     SharedModule,
     MatSlideToggleModule,
+    SettingsPageComponent,
+    SettingsSidebarComponent,
   ],
 })
 export class SettingsModule {}

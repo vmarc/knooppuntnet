@@ -1,7 +1,15 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MonitorRouteChangeSummary } from '@api/common/monitor';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { MonitorChangeHeaderComponent } from './monitor-change-header.component';
 
 @Component({
   selector: 'kpn-monitor-changes',
@@ -80,6 +88,17 @@ import { MonitorRouteChangeSummary } from '@api/common/monitor';
         margin-bottom: 5px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    MonitorChangeHeaderComponent,
+    NgIf,
+    RouterLink,
+    IconHappyComponent,
+    IconInvestigateComponent,
   ],
 })
 export class MonitorChangesComponent {

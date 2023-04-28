@@ -1,7 +1,14 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom';
+import { NetworkTypeNameComponent } from '@app/components/shared';
+import { PageMenuOptionComponent } from '@app/components/shared/menu';
+import { PageMenuComponent } from '@app/components/shared/menu';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,6 +17,7 @@ import { selectLocationRouteCount } from '../store/location.selectors';
 import { selectLocationChangeCount } from '../store/location.selectors';
 import { selectLocationNodeCount } from '../store/location.selectors';
 import { selectLocationKey } from '../store/location.selectors';
+import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.component';
 
 @Component({
   selector: 'kpn-location-page-header',
@@ -82,6 +90,17 @@ import { selectLocationKey } from '../store/location.selectors';
       </kpn-page-menu>
     </ng-container>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    LocationPageBreadcrumbComponent,
+    PageHeaderComponent,
+    MatIconModule,
+    NetworkTypeNameComponent,
+    PageMenuComponent,
+    PageMenuOptionComponent,
+    AsyncPipe,
+  ],
 })
 export class LocationPageHeaderComponent {
   @Input() pageName: string;

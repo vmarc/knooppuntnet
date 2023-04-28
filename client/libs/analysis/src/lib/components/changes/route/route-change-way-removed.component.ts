@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { WayInfo } from '@api/common/diff';
+import { MetaDataComponent } from '@app/components/shared';
+import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
 
 @Component({
   selector: 'kpn-route-change-way-removed',
@@ -29,6 +33,8 @@ import { InterpretedTags } from '@app/components/shared/tags';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [OsmLinkWayComponent, MetaDataComponent, TagsTableComponent],
 })
 export class RouteChangeWayRemovedComponent {
   @Input() wayInfo: WayInfo;

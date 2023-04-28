@@ -2,6 +2,8 @@ import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
 import { actionFrisoMapViewInit } from '../store/friso.actions';
@@ -22,6 +24,8 @@ import { FrisoMapService } from './friso-map.service';
       useExisting: FrisoMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class FrisoMapComponent implements AfterViewInit, OnDestroy {
   constructor(protected service: FrisoMapService, private store: Store) {}

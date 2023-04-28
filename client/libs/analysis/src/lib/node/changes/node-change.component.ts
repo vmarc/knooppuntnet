@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NodeChangeInfo } from '@api/common/node';
 import { ChangeType } from '@api/custom';
+import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
+import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
+import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node';
 
 @Component({
   selector: 'kpn-node-change',
@@ -37,6 +42,13 @@ import { ChangeType } from '@api/custom';
 
     <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
   `,
+  standalone: true,
+  imports: [
+    ChangeHeaderComponent,
+    NgIf,
+    ChangeSetTagsComponent,
+    NodeChangeDetailComponent,
+  ],
 })
 export class NodeChangeComponent {
   @Input() nodeChangeInfo: NodeChangeInfo;

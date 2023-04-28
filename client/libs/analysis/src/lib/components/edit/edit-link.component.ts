@@ -19,6 +19,7 @@ import { EditService } from './edit.service';
     >
   `,
   providers: [EditService],
+  standalone: true,
 })
 export class EditLinkComponent implements OnInit {
   @Input() title;

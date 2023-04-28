@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '@app/components/shared/error';
 import { selectRouteParam } from '@app/core';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -11,6 +15,7 @@ import { actionMonitorRouteUpdatePageDestroy } from '../../store/monitor.actions
 import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
+import { MonitorRoutePropertiesComponent } from '../components/monitor-route-properties.component';
 
 @Component({
   selector: 'kpn-monitor-route-update-page',
@@ -44,6 +49,14 @@ import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
       />
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    ErrorComponent,
+    NgIf,
+    MonitorRoutePropertiesComponent,
+    AsyncPipe,
+  ],
 })
 export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
   readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);

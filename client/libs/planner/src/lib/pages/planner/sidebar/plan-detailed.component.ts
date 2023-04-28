@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { Plan } from '../../../domain/plan/plan';
 import { PlannerService } from '../../../planner.service';
@@ -88,6 +92,8 @@ import { PlannerService } from '../../../planner.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor],
 })
 export class PlanDetailedComponent {
   @Input() plan: Plan;

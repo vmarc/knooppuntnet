@@ -1,5 +1,8 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { FactCount } from '@api/common';
 import { SubsetFactsPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
@@ -7,7 +10,16 @@ import { Fact } from '@api/custom';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
+import { FactDescriptionComponent } from '@app/analysis/fact';
+import { FactLevelComponent } from '@app/analysis/fact';
+import { FactNameComponent } from '@app/analysis/fact';
+import { ErrorComponent } from '@app/components/shared/error';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
+import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetFactRefsLoad } from '../store/subset.actions';
 import { actionSubsetFactsPageInit } from '../store/subset.actions';
 import { selectSubsetFactsPage } from '../store/subset.selectors';
@@ -59,6 +71,22 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    SubsetPageHeaderBlockComponent,
+    ErrorComponent,
+    NgIf,
+    SituationOnComponent,
+    IconHappyComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    RouterLink,
+    FactNameComponent,
+    FactLevelComponent,
+    FactDescriptionComponent,
+    AsyncPipe,
+  ],
 })
 export class SubsetFactsPageComponent implements OnInit {
   readonly response$ = this.store.select(selectSubsetFactsPage);

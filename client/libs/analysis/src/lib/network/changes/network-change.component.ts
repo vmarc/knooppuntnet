@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
 import { ChangeType } from '@api/custom';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-change',
@@ -203,6 +208,8 @@ import { ChangeType } from '@api/custom';
       </span>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, LinkNodeComponent, LinkRouteComponent],
 })
 export class NetworkChangeComponent {
   @Input() networkChangeInfo: NetworkChangeInfo;

@@ -1,9 +1,20 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset';
 import { EditParameters } from '@app/analysis/components/edit';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
@@ -124,6 +135,20 @@ import { Store } from '@ngrx/store';
     </div>
   `,
   styleUrls: ['./_subset-fact-details-page.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    IconHappyComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    RouterLink,
+    LinkNodeComponent,
+    LinkRouteComponent,
+    OsmLinkNodeComponent,
+    OsmLinkWayComponent,
+    OsmLinkRelationComponent,
+  ],
 })
 export class SubsetFactDetailsComponent implements OnInit {
   @Input() page: SubsetFactDetailsPage;

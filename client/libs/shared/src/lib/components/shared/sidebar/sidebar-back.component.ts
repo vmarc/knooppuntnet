@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { PageService } from '..';
 
 @Component({
@@ -26,6 +28,8 @@ import { PageService } from '..';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatListModule, MatIconModule],
 })
 export class SidebarBackComponent {
   constructor(private pageService: PageService) {}

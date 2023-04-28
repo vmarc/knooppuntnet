@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { DistancePipe } from '@app/components/shared/format';
+import { DayPipe } from '@app/components/shared/format';
 
 @Component({
   selector: 'kpn-monitor-route-details-reference',
@@ -35,6 +38,8 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor';
     </div>
     <p>{{ page.referenceDistance | distance }}</p>
   `,
+  standalone: true,
+  imports: [NgIf, DayPipe, DistancePipe],
 })
 export class MonitorRouteDetailsReferenceComponent {
   @Input() page: MonitorRouteDetailsPage;

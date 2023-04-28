@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-osm-link',
@@ -16,6 +17,7 @@ import { Component, Input } from '@angular/core';
       {{ title }}
     </a>
   `,
+  standalone: true,
 })
 export class OsmLinkComponent {
   @Input() kind: string;

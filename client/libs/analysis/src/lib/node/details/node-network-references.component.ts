@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NodeInfo } from '@api/common';
 import { Reference } from '@api/common/common';
+import { NodeNetworkReferenceComponent } from './node-network-reference.component';
 
 @Component({
   selector: 'kpn-node-network-references',
@@ -18,6 +22,8 @@ import { Reference } from '@api/common/common';
       />
     </p>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, NodeNetworkReferenceComponent],
 })
 export class NodeNetworkReferencesComponent {
   @Input() nodeInfo: NodeInfo;

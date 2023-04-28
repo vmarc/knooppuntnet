@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-fact-network-extra-member-way',
@@ -10,5 +11,7 @@ import { Component } from '@angular/core';
       relations or network nodes as members in the node network relation).
     </markdown>
   `,
+  standalone: true,
+  imports: [MarkdownModule],
 })
 export class FactNetworkExtraMemberWayComponent {}

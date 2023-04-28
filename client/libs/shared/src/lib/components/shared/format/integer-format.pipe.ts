@@ -3,7 +3,10 @@ import { Inject } from '@angular/core';
 import { PipeTransform } from '@angular/core';
 import { Pipe } from '@angular/core';
 
-@Pipe({ name: 'integer' })
+@Pipe({
+  name: 'integer',
+  standalone: true,
+})
 export class IntegerFormatPipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) public locale: string) {}
 

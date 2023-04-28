@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Subset } from '@api/custom';
 import { Stat } from '../domain/stat';
 
@@ -17,6 +20,8 @@ import { Stat } from '../domain/stat';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, RouterLink],
 })
 export class OverviewValueComponent {
   @Input() stat: Stat;

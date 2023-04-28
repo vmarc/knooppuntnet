@@ -1,12 +1,17 @@
+import { NgFor } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeSetPage } from '@api/common/changes';
+import { NetworkTypeIconComponent } from '@app/components/shared';
+import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
 import { Subscriptions } from '@app/util';
+import { CsNcComponent } from './network/cs-nc.component';
 
 @Component({
   selector: 'kpn-change-set-network-changes',
@@ -39,6 +44,13 @@ import { Subscriptions } from '@app/util';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgFor,
+    NetworkTypeIconComponent,
+    LinkNetworkDetailsComponent,
+    CsNcComponent,
+  ],
 })
 export class ChangeSetNetworkChangesComponent
   implements OnDestroy, AfterViewInit

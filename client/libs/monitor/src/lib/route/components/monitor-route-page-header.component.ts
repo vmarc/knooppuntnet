@@ -1,6 +1,16 @@
+import { AsyncPipe } from '@angular/common';
+import { NgClass } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterLink } from '@angular/router';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
+import { ErrorComponent } from '@app/components/shared/error';
+import { PageMenuOptionComponent } from '@app/components/shared/menu';
+import { PageMenuComponent } from '@app/components/shared/menu';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
@@ -12,6 +22,7 @@ import { actionMonitorRouteMapSelectSubRelation } from '../map/store/monitor-rou
 import { selectMonitorRouteMapNextSubRelation } from '../map/store/monitor-route-map.selectors';
 import { selectMonitorRouteMapPreviousSubRelation } from '../map/store/monitor-route-map.selectors';
 import { selectMonitorRouteMapSubRelations } from '../map/store/monitor-route-map.selectors';
+import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
 @Component({
   selector: 'kpn-monitor-route-page-header',
@@ -98,6 +109,19 @@ import { selectMonitorRouteMapSubRelations } from '../map/store/monitor-route-ma
         color: grey;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    MatMenuModule,
+    NgFor,
+    PageMenuComponent,
+    PageMenuOptionComponent,
+    NgIf,
+    MonitorRouteSubRelationMenuOptionComponent,
+    NgClass,
+    ErrorComponent,
+    AsyncPipe,
   ],
 })
 export class MonitorRoutePageHeaderComponent {

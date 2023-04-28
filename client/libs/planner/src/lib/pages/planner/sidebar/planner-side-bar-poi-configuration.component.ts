@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { PoiService } from '@app/services';
+import { MapPoiConfigComponent } from '../poi/map-poi-config.component';
 
 @Component({
   selector: 'kpn-planner-sidebar-poi-configuration',
@@ -38,6 +42,13 @@ import { PoiService } from '@app/services';
       </ng-template>
     </mat-expansion-panel>
   `,
+  standalone: true,
+  imports: [
+    MatExpansionModule,
+    MatCheckboxModule,
+    MapPoiConfigComponent,
+    MatButtonModule,
+  ],
 })
 export class PlannerSideBarPoiConfigurationComponent {
   constructor(private poiService: PoiService) {}

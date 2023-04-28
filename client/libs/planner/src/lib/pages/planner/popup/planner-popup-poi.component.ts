@@ -1,3 +1,5 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -5,7 +7,11 @@ import { PoiAnalysis } from '@api/common';
 import { PoiPage } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
+import { PoiAnalysisComponent } from '@app/components/poi';
+import { JosmLinkComponent } from '@app/components/shared/link';
+import { OsmLinkComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
 import { ApiService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
@@ -65,6 +71,15 @@ import { MapService } from '../../../services/map.service';
         align-items: center;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    PoiAnalysisComponent,
+    TagsTableComponent,
+    OsmLinkComponent,
+    JosmLinkComponent,
+    AsyncPipe,
   ],
 })
 export class PlannerPopupPoiComponent implements OnInit {

@@ -3,6 +3,7 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'kpn-elevation-profile',
@@ -11,6 +12,8 @@ import { Component } from '@angular/core';
     <canvas #profile width="200" height="100"></canvas>
     <mat-divider />
   `,
+  standalone: true,
+  imports: [MatDividerModule],
 })
 export class ElevationProfileComponent implements AfterViewInit {
   @ViewChild('profile', { static: true }) canvas: ElementRef;

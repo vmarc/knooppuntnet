@@ -6,6 +6,7 @@ import { DayUtil } from '..';
 
 @Pipe({
   name: 'day',
+  standalone: true,
 })
 export class DayPipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) public locale: string) {}

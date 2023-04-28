@@ -1,4 +1,3 @@
-// import { Map as MapLibreMap } from 'maplibre-gl';
 import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
 import { Source } from 'ol/source';
 import { OsmLibertyStyle } from '../style';

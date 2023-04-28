@@ -1,6 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { Inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
+import { RouterLink } from '@angular/router';
 import { SubsetMapNetwork } from '@api/common/subset';
 
 @Component({
@@ -55,6 +62,8 @@ import { SubsetMapNetwork } from '@api/common/subset';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatDialogModule, RouterLink, MatButtonModule],
 })
 export class SubsetMapNetworkDialogComponent {
   constructor(

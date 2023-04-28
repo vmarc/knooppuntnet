@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       connection between the end nodes.
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteUnusedSegmentsComponent {}

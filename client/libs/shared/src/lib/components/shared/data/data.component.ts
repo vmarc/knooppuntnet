@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'kpn-data',
@@ -15,6 +16,7 @@ import { Component, Input } from '@angular/core';
     </div>
   `,
   styleUrls: ['./data.component.scss'],
+  standalone: true,
 })
 export class DataComponent {
   @Input() title: string;

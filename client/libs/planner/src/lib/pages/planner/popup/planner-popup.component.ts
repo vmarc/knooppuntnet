@@ -2,6 +2,7 @@ import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { PlannerService } from '../../../planner.service';
+import { PlannerPopupContentsComponent } from './planner-popup-contents.component';
 
 @Component({
   selector: 'kpn-planner-popup',
@@ -72,6 +73,8 @@ import { PlannerService } from '../../../planner.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [PlannerPopupContentsComponent],
 })
 export class PlannerPopupComponent implements AfterViewInit {
   offset = false;

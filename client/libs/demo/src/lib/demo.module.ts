@@ -28,8 +28,6 @@ import { demoFeatureKey } from './store/demo.state';
     SharedModule,
     MatIconModule,
     MatSliderModule,
-  ],
-  declarations: [
     DemoMenuComponent,
     DemoVideoComponent,
     DemoDisabledComponent,

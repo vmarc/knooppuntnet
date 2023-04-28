@@ -1,5 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { OsmLinkUserAothClientsComponent } from '@app/components/shared/link';
+import { OsmLinkUserComponent } from '@app/components/shared/link';
+import { OsmWebsiteComponent } from '@app/components/shared/link';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { actionUserLogout } from '@app/core';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -59,6 +67,17 @@ import { Store } from '@ngrx/store';
       </div>
     </ng-template>
   `,
+  standalone: true,
+  imports: [
+    PageHeaderComponent,
+    NgIf,
+    OsmLinkUserComponent,
+    OsmLinkUserAothClientsComponent,
+    MatButtonModule,
+    RouterLink,
+    OsmWebsiteComponent,
+    AsyncPipe,
+  ],
 })
 export class LogoutPageComponent {
   readonly loggedIn$ = this.store.select(selectUserLoggedIn);

@@ -1,5 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RouterLink } from '@angular/router';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { actionPreferencesInstructions } from '@app/core';
 import { actionPreferencesExtraLayers } from '@app/core';
 import { selectPreferencesInstructions } from '@app/core';
@@ -73,6 +77,8 @@ import { Store } from '@ngrx/store';
       }
     `,
   ],
+  standalone: true,
+  imports: [RouterLink, PageHeaderComponent, MatSlideToggleModule, AsyncPipe],
 })
 export class SettingsPageComponent {
   readonly instructions$ = this.store.select(selectPreferencesInstructions);

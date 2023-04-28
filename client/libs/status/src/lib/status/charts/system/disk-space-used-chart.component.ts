@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { BarChart } from '@api/common/status';
+import { LineChartModule } from '@swimlane/ngx-charts';
+import { ActionBarChartComponent } from '../action-bar-chart.component';
 
 @Component({
   selector: 'kpn-disk-space-used-chart',
@@ -33,6 +35,8 @@ import { BarChart } from '@api/common/status';
       />
     </div>
   `,
+  standalone: true,
+  imports: [ActionBarChartComponent, LineChartModule],
 })
 export class DiskSpaceUsedChartComponent {
   @Input() barChart: BarChart;

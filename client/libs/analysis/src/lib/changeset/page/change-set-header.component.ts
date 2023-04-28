@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChangeSetPage } from '@api/common/changes';
 import { Util } from '@app/components/shared';
+import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
+import { TimestampComponent } from '@app/components/shared/timestamp';
+import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
 
 @Component({
   selector: 'kpn-change-set-header',
@@ -75,6 +80,13 @@ import { Util } from '@app/components/shared';
       </tbody>
     </table>
   `,
+  standalone: true,
+  imports: [
+    OsmLinkChangeSetComponent,
+    TimestampComponent,
+    NgIf,
+    ChangeSetAnalysisComponent,
+  ],
 })
 export class ChangeSetHeaderComponent {
   @Input() page: ChangeSetPage;

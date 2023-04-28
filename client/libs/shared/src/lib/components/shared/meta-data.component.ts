@@ -1,6 +1,9 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MetaData } from '@api/common/data';
+import { TimestampComponent } from './timestamp/timestamp.component';
 
 @Component({
   selector: 'kpn-meta-data',
@@ -13,6 +16,8 @@ import { MetaData } from '@api/common/data';
     </div>
   `,
   styleUrls: ['./meta-data.component.scss'],
+  standalone: true,
+  imports: [NgIf, TimestampComponent],
 })
 export class MetaDataComponent {
   @Input() metaData: MetaData;

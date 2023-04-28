@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { JosmLinkComponent } from './josm-link.component';
 
 @Component({
   selector: 'kpn-josm-relation',
@@ -9,6 +11,8 @@ import { Component, Input } from '@angular/core';
     [elementId]="relationId"
     [full]="true"
   />`,
+  standalone: true,
+  imports: [JosmLinkComponent],
 })
 export class JosmRelationComponent {
   @Input() relationId: number;

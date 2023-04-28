@@ -28,8 +28,6 @@ import { frisoFeatureKey } from './store/friso.state';
     MatIconModule,
     OlModule,
     MatDialogModule,
-  ],
-  declarations: [
     FrisoPageComponent,
     FrisoSidebarComponent,
     FrisoNodeDialogComponent,

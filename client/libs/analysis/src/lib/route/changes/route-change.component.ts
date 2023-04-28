@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route';
 import { ChangeType } from '@api/custom';
+import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
+import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
+import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route';
 
 @Component({
   selector: 'kpn-route-change',
@@ -41,6 +46,13 @@ import { ChangeType } from '@api/custom';
 
     <kpn-route-change-detail [routeChangeInfo]="routeChangeInfo" />
   `,
+  standalone: true,
+  imports: [
+    ChangeHeaderComponent,
+    NgIf,
+    ChangeSetTagsComponent,
+    RouteChangeDetailComponent,
+  ],
 })
 export class RouteChangeComponent {
   @Input() routeChangeInfo: RouteChangeInfo;

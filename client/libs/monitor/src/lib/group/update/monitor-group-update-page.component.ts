@@ -1,10 +1,14 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { tap } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
@@ -12,6 +16,9 @@ import { actionMonitorGroupUpdateDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdate } from '../../store/monitor.actions';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
+import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
+import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
+import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
 
 @Component({
   selector: 'kpn-monitor-group-update-page',
@@ -47,6 +54,17 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    MonitorGroupBreadcrumbComponent,
+    NgIf,
+    ReactiveFormsModule,
+    MonitorGroupNameComponent,
+    MonitorGroupDescriptionComponent,
+    MatButtonModule,
+    RouterLink,
+    AsyncPipe,
+  ],
 })
 export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
   private initialName = '';

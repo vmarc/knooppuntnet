@@ -1,9 +1,15 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { RawNode } from '@api/common/data/raw';
 import { NodeUpdate } from '@api/common/diff';
 import { WayUpdate } from '@api/common/diff';
 import { Util } from '@app/components/shared';
+import { MetaDataComponent } from '@app/components/shared';
+import { NodeListComponent } from '@app/components/shared/link';
+import { OsmLinkWayComponent } from '@app/components/shared/link';
+import { TagDiffsComponent } from '../tag-diffs.component';
 
 @Component({
   selector: 'kpn-route-change-way-updated',
@@ -74,6 +80,14 @@ import { Util } from '@app/components/shared';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    OsmLinkWayComponent,
+    NgIf,
+    MetaDataComponent,
+    NodeListComponent,
+    TagDiffsComponent,
+  ],
 })
 export class RouteChangeWayUpdatedComponent {
   @Input() wayUpdate: WayUpdate;

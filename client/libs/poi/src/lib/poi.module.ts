@@ -44,8 +44,6 @@ import { poiFeatureKey } from './store/poi.state';
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
-  ],
-  declarations: [
     PoiAreasPageComponent,
     PoiMapComponent,
     PoiDetailPageComponent,

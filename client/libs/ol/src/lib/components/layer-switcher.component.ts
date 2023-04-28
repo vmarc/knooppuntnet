@@ -1,9 +1,13 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MapLayerState } from '../domain';
 import { MAP_SERVICE_TOKEN } from '../services';
 import { OpenlayersMapService } from '../services';
@@ -57,6 +61,16 @@ import { MapLayerTranslationService } from '../services';
         right: 10px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatMenuModule,
+    NgIf,
+    NgFor,
+    MatCheckboxModule,
+    MatDividerModule,
+    MatIconModule,
+    AsyncPipe,
   ],
 })
 export class LayerSwitcherComponent {

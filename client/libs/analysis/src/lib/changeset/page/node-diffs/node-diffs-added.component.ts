@@ -1,8 +1,14 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { MetaData } from '@api/common/data';
+import { MetaDataComponent } from '@app/components/shared';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { LinkNodeRefHeaderComponent } from '@app/components/shared/link';
 import { NodeDiffsData } from './node-diffs-data';
 
 @Component({
@@ -56,6 +62,14 @@ import { NodeDiffsData } from './node-diffs-data';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    IconHappyComponent,
+    NgFor,
+    LinkNodeRefHeaderComponent,
+    MetaDataComponent,
+  ],
 })
 export class NodeDiffsAddedComponent implements OnInit {
   @Input() data: NodeDiffsData;

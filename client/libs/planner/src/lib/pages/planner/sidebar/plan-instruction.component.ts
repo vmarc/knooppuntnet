@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { PlanInstruction } from '../../../domain/plan/plan-instruction';
 import { PlannerService } from '../../../planner.service';
+import { PlanInstructionCommandComponent } from './plan-instruction-command.component';
 
 @Component({
   selector: 'kpn-plan-instruction',
@@ -102,6 +105,8 @@ import { PlannerService } from '../../../planner.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, PlanInstructionCommandComponent],
 })
 export class PlanInstructionComponent {
   @Input() instruction: PlanInstruction;

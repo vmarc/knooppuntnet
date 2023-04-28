@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       that arrive/depart in this node.
     </p>
   `,
+  standalone: true,
 })
 export class FactIntegrityCheckComponent {}

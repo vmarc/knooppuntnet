@@ -1,6 +1,9 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MetaData } from '@api/common/data';
+import { MetaDataComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-version-change',
@@ -22,6 +25,8 @@ import { MetaData } from '@api/common/data';
       <kpn-meta-data [metaData]="after" />
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, MetaDataComponent],
 })
 export class VersionChangeComponent {
   @Input() before: MetaData;

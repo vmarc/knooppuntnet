@@ -89,8 +89,6 @@ import { locationFeatureKey } from './store/location.state';
     MarkdownModule,
     AnalysisStrategyModule,
     MatDialogModule,
-  ],
-  declarations: [
     LocationPageHeaderComponent,
     LocationPageBreadcrumbComponent,
     LocationNodesPageComponent,

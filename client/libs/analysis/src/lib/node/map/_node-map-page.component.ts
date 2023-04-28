@@ -1,12 +1,19 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '@app/components/shared/error';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
+import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
 import { selectNodeChangeCount } from '../store/node.selectors';
 import { selectNodeMapPage } from '../store/node.selectors';
+import { NodeMapComponent } from './node-map.component';
 
 @Component({
   selector: 'kpn-node-map-page',
@@ -42,6 +49,15 @@ import { selectNodeMapPage } from '../store/node.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    NodePageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    NodeMapComponent,
+    AsyncPipe,
+  ],
 })
 export class NodeMapPageComponent implements OnInit {
   protected readonly nodeId$ = this.store.select(selectNodeId);

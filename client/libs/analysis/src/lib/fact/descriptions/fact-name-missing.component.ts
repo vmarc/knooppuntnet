@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
       The network relation does not contain the mandatory tag with key "name".
     </p>
   `,
+  standalone: true,
 })
 export class FactNameMissingComponent {}

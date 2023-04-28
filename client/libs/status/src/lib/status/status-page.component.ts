@@ -1,12 +1,17 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { Status } from '@api/common/status';
 import { ApiResponse } from '@api/custom';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ServerDiskUsageComponent } from './charts/server-disk-usage.component';
 import { StatusLinks } from './status-links';
+import { StatusLinksComponent } from './status-links.component';
 
 @Component({
   selector: 'kpn-status-page',
@@ -34,6 +39,14 @@ import { StatusLinks } from './status-links';
       <kpn-server-disk-usage [diskUsage]="response.result.diskUsage" />
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    TimestampComponent,
+    StatusLinksComponent,
+    ServerDiskUsageComponent,
+    AsyncPipe,
+  ],
 })
 export class StatusPageComponent implements OnInit {
   response$: Observable<ApiResponse<Status>>;

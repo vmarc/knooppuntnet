@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { actionUserLogin } from '@app/core';
 import { Store } from '@ngrx/store';
 
@@ -51,6 +53,8 @@ import { Store } from '@ngrx/store';
       Login
     </button>
   `,
+  standalone: true,
+  imports: [PageHeaderComponent, MatButtonModule],
 })
 export class LoginPageComponent {
   constructor(private store: Store) {}

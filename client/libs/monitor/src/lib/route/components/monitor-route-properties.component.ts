@@ -1,14 +1,18 @@
+import { NgIf } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 import { AsyncValidatorFn } from '@angular/forms';
 import { ValidatorFn } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatStepperModule } from '@angular/material/stepper';
+import { Router, RouterLink } from '@angular/router';
 import { MonitorRouteGroup } from '@api/common/monitor';
 import { MonitorRouteProperties } from '@api/common/monitor';
 import { Day } from '@api/custom';
@@ -21,6 +25,12 @@ import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
 import { MonitorRouteParameters } from './monitor-route-parameters';
+import { MonitorRoutePropertiesStep1GroupComponent } from './monitor-route-properties-step-1-group.component';
+import { MonitorRoutePropertiesStep2NameComponent } from './monitor-route-properties-step-2-name.component';
+import { MonitorRoutePropertiesStep3RelationComponent } from './monitor-route-properties-step-3-relation.component';
+import { MonitorRoutePropertiesStep4ReferenceTypeComponent } from './monitor-route-properties-step-4-reference-type.component';
+import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './monitor-route-properties-step-5-reference-details.component';
+import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-properties-step-6-comment.component';
 import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.component';
 
 @Component({
@@ -135,6 +145,20 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       <a [routerLink]="groupLink()" i18n="@@action.cancel">Cancel</a>
     </div>
   `,
+  standalone: true,
+  imports: [
+    MatStepperModule,
+    NgIf,
+    ReactiveFormsModule,
+    MonitorRoutePropertiesStep1GroupComponent,
+    MonitorRoutePropertiesStep2NameComponent,
+    MonitorRoutePropertiesStep3RelationComponent,
+    MonitorRoutePropertiesStep4ReferenceTypeComponent,
+    MonitorRoutePropertiesStep5ReferenceDetailsComponent,
+    MonitorRoutePropertiesStep6CommentComponent,
+    MatButtonModule,
+    RouterLink,
+  ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   @Input() mode: string;

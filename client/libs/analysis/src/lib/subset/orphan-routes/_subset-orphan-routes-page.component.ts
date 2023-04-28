@@ -1,8 +1,15 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ErrorComponent } from '@app/components/shared/error';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
+import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetOrphanRoutesPageInit } from '../store/subset.actions';
 import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
+import { SubsetOrphanRoutesTableComponent } from './subset-orphan-routes-table.component';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-page',
@@ -32,6 +39,15 @@ import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    SubsetPageHeaderBlockComponent,
+    ErrorComponent,
+    NgIf,
+    SituationOnComponent,
+    SubsetOrphanRoutesTableComponent,
+    AsyncPipe,
+  ],
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectSubsetOrphanRoutesPage);

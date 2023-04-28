@@ -1,6 +1,12 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { FactDiffs } from '@api/common/diff/common';
+import { FactNameComponent } from '@app/analysis/fact';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
 
 @Component({
   selector: 'kpn-fact-diffs',
@@ -67,6 +73,14 @@ import { FactDiffs } from '@api/common/diff/common';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    FactNameComponent,
+    NgFor,
+    IconHappyComponent,
+    IconInvestigateComponent,
+  ],
 })
 export class FactDiffsComponent {
   @Input() factDiffs: FactDiffs;

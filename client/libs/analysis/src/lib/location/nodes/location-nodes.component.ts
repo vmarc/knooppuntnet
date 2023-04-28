@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { LocationNodesPage } from '@api/common/location';
+import { LocationNodeTableComponent } from './location-node-table.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-location-nodes',
@@ -21,6 +23,8 @@ import { LocationNodesPage } from '@api/common/location';
       [nodeCount]="page.nodeCount"
     />
   `,
+  standalone: true,
+  imports: [NgIf, LocationNodeTableComponent],
 })
 export class LocationNodesComponent {
   @Input() page: LocationNodesPage;

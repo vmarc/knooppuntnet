@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { PoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { MapService } from '../../../services/map.service';
@@ -77,6 +79,8 @@ import { MapService } from '../../../services/map.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, MatRadioModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
   @Input() poiId: string;

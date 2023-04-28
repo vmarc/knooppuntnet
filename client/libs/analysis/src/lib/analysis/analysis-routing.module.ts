@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { AnalysisSidebarComponent } from './analysis-sidebar.component';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';

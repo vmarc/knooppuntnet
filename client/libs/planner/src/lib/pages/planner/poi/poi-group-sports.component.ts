@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { PoiConfigComponent } from './poi-config.component';
+import { PoiGroupComponent } from './poi-group.component';
 
 @Component({
   selector: 'kpn-poi-group-sports',
@@ -23,5 +25,7 @@ import { Component } from '@angular/core';
       <kpn-poi-config poiId="volleyball" />
     </kpn-poi-group>
   `,
+  standalone: true,
+  imports: [PoiGroupComponent, PoiConfigComponent],
 })
 export class PoiGroupSportsComponent {}

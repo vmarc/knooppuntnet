@@ -23,6 +23,7 @@ import { Component } from '@angular/core';
       </text>
     </svg>
   `,
+  standalone: true,
 })
 export class LegendIconComponent {
   @Input() color: string;

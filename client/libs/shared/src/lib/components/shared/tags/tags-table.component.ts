@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { InterpretedTags } from './interpreted-tags';
 
 @Component({
@@ -40,6 +43,8 @@ import { InterpretedTags } from './interpreted-tags';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor],
 })
 export class TagsTableComponent {
   @Input() tags: InterpretedTags;

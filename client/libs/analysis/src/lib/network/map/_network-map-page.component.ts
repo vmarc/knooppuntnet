@@ -1,11 +1,16 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
+import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkMapPageInit } from '../store/network.actions';
 import { selectNetworkMapPositionFromUrl } from '../store/network.selectors';
 import { selectNetworkId } from '../store/network.selectors';
 import { selectNetworkMapPage } from '../store/network.selectors';
+import { NetworkMapComponent } from './network-map.component';
 
 @Component({
   selector: 'kpn-network-map-page',
@@ -34,6 +39,8 @@ import { selectNetworkMapPage } from '../store/network.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [NetworkPageHeaderComponent, NgIf, NetworkMapComponent, AsyncPipe],
 })
 export class NetworkMapPageComponent implements OnInit {
   readonly networkId$ = this.store.select(selectNetworkId);

@@ -1,10 +1,24 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 import { ActivatedRoute } from '@angular/router';
 import { PoiDetail } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
+import { PoiDetailMapComponent } from '@app/components/ol/components';
+import { PoiAnalysisComponent } from '@app/components/poi';
+import { DataComponent } from '@app/components/shared/data';
+import { JosmNodeComponent } from '@app/components/shared/link';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { JosmWayComponent } from '@app/components/shared/link';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -129,6 +143,24 @@ import { mergeMap } from 'rxjs/operators';
         margin-bottom: 1em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    PoiAnalysisComponent,
+    MatDividerModule,
+    PoiDetailMapComponent,
+    DataComponent,
+    OsmLinkNodeComponent,
+    OsmLinkWayComponent,
+    OsmLinkRelationComponent,
+    JosmNodeComponent,
+    JosmWayComponent,
+    JosmRelationComponent,
+    NgFor,
+    TagsTableComponent,
+    TimestampComponent,
+    AsyncPipe,
   ],
 })
 export class PoiDetailPageComponent implements OnInit {

@@ -1,5 +1,7 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatSliderModule } from '@angular/material/slider';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { actionDemoUpdateProgress } from '../store/demo.actions';
@@ -39,6 +41,8 @@ import { selectDemoProgress } from '../store/demo.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatSliderModule, AsyncPipe],
 })
 export class DemoVideoProgressComponent {
   progress$: Observable<number>;

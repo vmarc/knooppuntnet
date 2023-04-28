@@ -1,6 +1,14 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { NetworkDetailsPage } from '@api/common/network';
+import { CountryNameComponent } from '@app/components/shared';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-network-summary',
@@ -57,6 +65,16 @@ import { NetworkDetailsPage } from '@api/common/network';
       </markdown>
     </p>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    CountryNameComponent,
+    OsmLinkRelationComponent,
+    JosmRelationComponent,
+    MatIconModule,
+    MarkdownModule,
+    IntegerFormatPipe,
+  ],
 })
 export class NetworkSummaryComponent {
   @Input() page: NetworkDetailsPage;

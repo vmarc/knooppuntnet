@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-fact-route-tag-invalid',
@@ -15,5 +16,7 @@ import { Component } from '@angular/core';
       *"motorboat"*, *"canoe"* and *"inline_skates"*.
     </markdown>
   `,
+  standalone: true,
+  imports: [MarkdownModule],
 })
 export class FactRouteTagInvalidComponent {}

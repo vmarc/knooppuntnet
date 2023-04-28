@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -9,6 +14,7 @@ import { actionMonitorGroupDeleteDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupDeleteInit } from '../../store/monitor.actions';
 import { actionMonitorGroupDelete } from '../../store/monitor.actions';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
+import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 
 @Component({
   selector: 'kpn-monitor-group-delete-page',
@@ -58,6 +64,15 @@ import { selectMonitorGroupPage } from '../../store/monitor.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    MonitorGroupBreadcrumbComponent,
+    NgIf,
+    MatIconModule,
+    MatButtonModule,
+    RouterLink,
+    AsyncPipe,
+  ],
 })
 export class MonitorGroupDeletePageComponent implements OnInit, OnDestroy {
   readonly response$ = selectDefined(this.store, selectMonitorGroupPage);

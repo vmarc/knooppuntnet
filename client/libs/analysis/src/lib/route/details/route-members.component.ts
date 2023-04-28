@@ -1,7 +1,15 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { NetworkType } from '@api/custom';
 import { RouteMemberInfo } from '@api/custom';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { OsmLinkComponent } from '@app/components/shared/link';
+import { TagsTextComponent } from '@app/components/shared/tags';
+import { LinkImageComponent } from './link-image.component';
 
 @Component({
   selector: 'kpn-route-members',
@@ -126,6 +134,16 @@ import { RouteMemberInfo } from '@api/custom';
         text-align: right;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    LinkImageComponent,
+    LinkNodeComponent,
+    OsmLinkComponent,
+    MatIconModule,
+    TagsTextComponent,
   ],
 })
 export class RouteMembersComponent {

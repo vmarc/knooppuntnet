@@ -1,9 +1,19 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgSwitch } from '@angular/common';
+import { NgSwitchCase } from '@angular/common';
+import { NgSwitchDefault } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
+import { DialogComponent } from '@app/components/shared/dialog';
 import { selectSharedHttpError } from '@app/core';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
@@ -15,6 +25,7 @@ import { actionMonitorRouteSaveDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteSaveInit } from '../../store/monitor.actions';
 import { selectMonitorRouteSaveState } from '../../store/monitor.selectors';
 import { MonitorRouteParameters } from './monitor-route-parameters';
+import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.component';
 
 @Component({
   selector: 'kpn-monitor-route-save-dialog',
@@ -106,6 +117,19 @@ import { MonitorRouteParameters } from './monitor-route-parameters';
         padding-right: 1.5em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    DialogComponent,
+    MatDialogModule,
+    MonitorRouteSaveStepComponent,
+    NgIf,
+    NgFor,
+    NgSwitch,
+    NgSwitchCase,
+    NgSwitchDefault,
+    MatButtonModule,
+    AsyncPipe,
   ],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {

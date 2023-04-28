@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { DocLinkComponent } from '@app/components/shared/link';
+import { PlanComponent } from './plan.component';
 
 @Component({
   selector: 'kpn-planner-sidebar-planner',
@@ -32,5 +35,7 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatExpansionModule, DocLinkComponent, PlanComponent],
 })
 export class PlannerSideBarPlannerComponent {}

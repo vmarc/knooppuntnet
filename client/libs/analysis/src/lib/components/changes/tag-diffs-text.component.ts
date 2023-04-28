@@ -1,3 +1,5 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { TagDetail } from '@api/common/diff';
@@ -150,6 +152,8 @@ import { TagDiffs } from '@api/common/diff';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor],
 })
 export class TagDiffsTextComponent implements OnInit {
   @Input() tagDiffs: TagDiffs;

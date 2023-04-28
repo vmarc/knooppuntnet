@@ -1,5 +1,8 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FilterComponent } from '@app/analysis/components/filter';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { NetworkNodesService } from './network-nodes.service';
 
 @Component({
@@ -12,6 +15,8 @@ import { NetworkNodesService } from './network-nodes.service';
       />
     </kpn-sidebar>
   `,
+  standalone: true,
+  imports: [SidebarComponent, FilterComponent, AsyncPipe],
 })
 export class NetworkNodesSidebarComponent {
   constructor(public networkNodesService: NetworkNodesService) {}

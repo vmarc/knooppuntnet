@@ -1,5 +1,7 @@
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangeSetElementRef } from '@api/common';
 
 export class ChangeSetElement {
@@ -23,6 +25,8 @@ export class ChangeSetElement {
     </div>
   `,
   styleUrls: ['./change-set-element-ref.component.scss'],
+  standalone: true,
+  imports: [NgClass],
 })
 export class ChangesSetElementRefComponent {
   @Input() element: ChangeSetElement;

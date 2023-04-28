@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkType } from '@api/custom';
+import { NetworkTypeIconComponent } from './network-type-icon.component';
+import { NetworkTypeNameComponent } from './network-type-name.component';
 
 @Component({
   selector: 'kpn-network-type',
@@ -26,6 +29,8 @@ import { NetworkType } from '@api/custom';
       }
     `,
   ],
+  standalone: true,
+  imports: [NetworkTypeIconComponent, NetworkTypeNameComponent],
 })
 export class NetworkTypeComponent {
   @Input() networkType: NetworkType;

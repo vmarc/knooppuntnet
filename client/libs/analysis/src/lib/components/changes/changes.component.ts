@@ -1,8 +1,12 @@
+import { NgIf } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { PaginatorComponent } from '@app/components/shared/paginator';
 
 @Component({
   selector: 'kpn-changes',
@@ -30,6 +34,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
       <ng-content></ng-content>
     </div>
   `,
+  standalone: true,
+  imports: [MatSlideToggleModule, PaginatorComponent, NgIf],
 })
 export class ChangesComponent {
   @Input() changeCount: number;

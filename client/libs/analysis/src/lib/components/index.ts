@@ -1,1 +1,1 @@
-export * from "./analysis-components.module";
+export * from './analysis-components.module';

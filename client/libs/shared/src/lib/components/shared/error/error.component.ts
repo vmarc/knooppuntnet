@@ -1,3 +1,5 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { selectSharedHttpError } from '@app/core';
@@ -42,6 +44,8 @@ import { Store } from '@ngrx/store';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, AsyncPipe],
 })
 export class ErrorComponent {
   readonly httpError$ = this.store.select(selectSharedHttpError);

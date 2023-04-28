@@ -1,14 +1,22 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { ErrorComponent } from '@app/components/shared/error';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
+import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 import { actionMonitorGroupsPageDestroy } from '../store/monitor.actions';
 import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
 import { selectMonitorGroupsPage } from '../store/monitor.selectors';
 import { selectMonitorAdmin } from '../store/monitor.selectors';
+import { MonitorGroupTableComponent } from './monitor-group-table.component';
 
 @Component({
   selector: 'kpn-monitor-groups',
@@ -61,6 +69,17 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         flex-grow: 1;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    MonitorPageMenuComponent,
+    ErrorComponent,
+    NgIf,
+    MonitorAdminToggleComponent,
+    MonitorGroupTableComponent,
+    MatButtonModule,
+    AsyncPipe,
   ],
 })
 export class MonitorGroupsPageComponent implements OnInit, OnDestroy {

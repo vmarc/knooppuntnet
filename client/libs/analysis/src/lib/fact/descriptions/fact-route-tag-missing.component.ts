@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-fact-route-tag-missing',
@@ -9,5 +10,7 @@ import { Component } from '@angular/core';
       Routerelation does not contain the required _route_ tag.
     </markdown>
   `,
+  standalone: true,
+  imports: [MarkdownModule],
 })
 export class FactRouteTagMissingComponent {}

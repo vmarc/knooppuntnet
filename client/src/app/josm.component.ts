@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { EditParameters } from '@app/analysis/components/edit';
 import { actionSharedEdit } from '@app/core';
@@ -104,6 +105,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf],
 })
 export class JosmComponent {
   browser = '';

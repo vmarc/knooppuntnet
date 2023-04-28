@@ -66,8 +66,6 @@ import { SubsetSidebarComponent } from './subset-sidebar.component';
     MatDialogModule,
     MatButtonModule,
     AnalysisStrategyModule,
-  ],
-  declarations: [
     SubsetPageBreadcrumbComponent,
     SubsetPageMenuComponent,
     SubsetChangesPageComponent,

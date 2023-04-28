@@ -1,5 +1,8 @@
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-monitor-route-save-step',
@@ -32,6 +35,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, MatProgressSpinnerModule, MatIconModule],
 })
 export class MonitorRouteSaveStepComponent {
   @Input() enabled: boolean;

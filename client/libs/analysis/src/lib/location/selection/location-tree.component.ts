@@ -1,4 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
+import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -6,8 +7,12 @@ import { Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
+import { MatTreeModule } from '@angular/material/tree';
 import { MatTreeFlattener } from '@angular/material/tree';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
@@ -115,6 +120,15 @@ import { LocationFlatNode } from './location-flat-node';
         display: none;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatRadioModule,
+    MatTreeModule,
+    NgClass,
+    NgIf,
+    MatIconModule,
   ],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {

@@ -1,10 +1,16 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkNodeRow } from '@api/common/network';
 import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { IntegrityIndicatorData } from '@app/components/shared/indicator';
+import { IntegrityIndicatorComponent } from '@app/components/shared/indicator';
+import { NetworkIndicatorComponent } from './indicators/network-indicator.component';
+import { NodeConnectionIndicatorComponent } from './indicators/node-connection-indicator.component';
+import { ProposedIndicatorComponent } from './indicators/proposed-indicator.component';
+import { RoleConnectionIndicatorComponent } from './indicators/role-connection-indicator.component';
 
 @Component({
   selector: 'kpn-network-node-analysis',
@@ -24,6 +30,14 @@ import { IntegrityIndicatorData } from '@app/components/shared/indicator';
         display: flex;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NetworkIndicatorComponent,
+    NodeConnectionIndicatorComponent,
+    RoleConnectionIndicatorComponent,
+    IntegrityIndicatorComponent,
+    ProposedIndicatorComponent,
   ],
 })
 export class NetworkNodeAnalysisComponent implements OnInit {

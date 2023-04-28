@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { LocationRoutesType } from '@api/custom';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Store } from '@ngrx/store';
 import { actionLocationRoutesType } from '../store/location.actions';
 import { selectLocationRoutesPage } from '../store/location.selectors';
@@ -71,6 +75,8 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarComponent, NgIf, MatRadioModule, AsyncPipe],
 })
 export class LocationRoutesSidebarComponent {
   readonly locationRoutesType = LocationRoutesType;

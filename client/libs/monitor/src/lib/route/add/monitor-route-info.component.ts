@@ -1,7 +1,9 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
+import { DataComponent } from '@app/components/shared/data';
 
 @Component({
   selector: 'kpn-monitor-route-info',
@@ -63,6 +65,8 @@ import { MonitorRouteInfoPage } from '@api/common/monitor';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, DataComponent],
 })
 export class MonitorRouteInfoComponent {
   @Input() routeInfo: MonitorRouteInfoPage;

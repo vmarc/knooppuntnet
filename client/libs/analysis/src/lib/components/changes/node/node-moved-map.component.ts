@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { NodeMovedMapService } from './node-moved-map.service';
 
@@ -21,6 +23,8 @@ import { NodeMovedMapService } from './node-moved-map.service';
       useExisting: NodeMovedMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodeMoved: NodeMoved;

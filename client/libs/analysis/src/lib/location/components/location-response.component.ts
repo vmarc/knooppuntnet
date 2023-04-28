@@ -1,7 +1,9 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ApiResponse } from '@api/custom';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 
 @Component({
   selector: 'kpn-location-response',
@@ -20,6 +22,8 @@ import { ApiResponse } from '@api/custom';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, SituationOnComponent],
 })
 export class LocationResponseComponent {
   @Input() situationOnEnabled = true;

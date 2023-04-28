@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'kpn-icon-button',
@@ -53,6 +56,8 @@ import { Component, Input } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [RouterLink, MatIconModule],
 })
 export class IconButtonComponent {
   @Input() title: string;

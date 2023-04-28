@@ -28,8 +28,6 @@ import { OverviewValueComponent } from './overview/overview-value.component';
     OverviewRoutingModule,
     MatListModule,
     MatRadioModule,
-  ],
-  declarations: [
     OverviewListComponent,
     OverviewListStatComponent,
     OverviewListStatRowComponent,

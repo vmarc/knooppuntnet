@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkScope } from '@api/custom';
 import { I18nService } from '@app/i18n';
 
@@ -7,6 +8,7 @@ import { I18nService } from '@app/i18n';
   selector: 'kpn-network-scope-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ networkScopeName() }}`,
+  standalone: true,
 })
 export class NetworkScopeNameComponent {
   @Input() networkScope: NetworkScope;

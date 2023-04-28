@@ -1,9 +1,14 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { TagDiffs } from '@api/common/diff';
 import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { TagDiffsTableComponent } from './tag-diffs-table.component';
+import { TagDiffsTextComponent } from './tag-diffs-text.component';
 
 @Component({
   selector: 'kpn-tag-diffs',
@@ -21,6 +26,8 @@ import { map } from 'rxjs/operators';
       <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs" />
     </ng-template>
   `,
+  standalone: true,
+  imports: [NgIf, TagDiffsTextComponent, TagDiffsTableComponent, AsyncPipe],
 })
 export class TagDiffsComponent {
   @Input() tagDiffs: TagDiffs;

@@ -1,7 +1,9 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PeriodParameters } from '@api/common/status';
 import { SystemStatusPage } from '@api/common/status';
@@ -10,7 +12,15 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { DataSizeChartComponent } from './charts/system/data-size-chart.component';
+import { DiskSizeChartComponent } from './charts/system/disk-size-chart.component';
+import { DiskSizeExternalChartComponent } from './charts/system/disk-size-external-chart.component';
+import { DiskSpaceAvailableChartComponent } from './charts/system/disk-space-available-chart.component';
+import { DiskSpaceOverpassChartComponent } from './charts/system/disk-space-overpass-chart.component';
+import { DiskSpaceUsedChartComponent } from './charts/system/disk-space-used-chart.component';
+import { DocsChartComponent } from './charts/system/docs-chart.component';
 import { StatusLinks } from './status-links';
+import { StatusPageMenuComponent } from './status-page-menu.component';
 
 @Component({
   selector: 'kpn-system-status-page',
@@ -108,6 +118,20 @@ import { StatusLinks } from './status-links';
         padding-right: 5px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgIf,
+    StatusPageMenuComponent,
+    DiskSpaceUsedChartComponent,
+    DiskSpaceAvailableChartComponent,
+    DiskSpaceOverpassChartComponent,
+    DocsChartComponent,
+    DiskSizeChartComponent,
+    DiskSizeExternalChartComponent,
+    DataSizeChartComponent,
+    AsyncPipe,
   ],
 })
 export class SystemStatusPageComponent implements OnInit {

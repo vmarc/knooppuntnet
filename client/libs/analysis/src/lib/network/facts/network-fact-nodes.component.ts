@@ -1,6 +1,10 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Ref } from '@api/common/common';
+import { LinkNodeComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-fact-nodes',
@@ -26,6 +30,8 @@ import { Ref } from '@api/common/common';
       />
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, LinkNodeComponent],
 })
 export class NetworkFactNodesComponent {
   @Input() nodes: Ref[];

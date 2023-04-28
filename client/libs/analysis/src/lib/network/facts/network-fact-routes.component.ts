@@ -1,7 +1,11 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { NetworkType } from '@api/custom';
+import { LinkRouteComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-fact-routes',
@@ -28,6 +32,8 @@ import { NetworkType } from '@api/custom';
       />
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, LinkRouteComponent],
 })
 export class NetworkFactRoutesComponent {
   @Input() networkType: NetworkType;

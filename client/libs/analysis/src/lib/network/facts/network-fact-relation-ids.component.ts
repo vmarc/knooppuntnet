@@ -1,5 +1,9 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-fact-relation-ids',
@@ -15,6 +19,8 @@ import { Component, Input } from '@angular/core';
       </span>
     </div>
   `,
+  standalone: true,
+  imports: [NgFor, OsmLinkRelationComponent, JosmRelationComponent],
 })
 export class NetworkFactRelationIdsComponent {
   @Input() elementIds: number[];

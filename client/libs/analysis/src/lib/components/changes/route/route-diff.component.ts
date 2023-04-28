@@ -1,7 +1,13 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { RouteDiff } from '@api/common/diff/route';
 import { Util } from '@app/components/shared';
+import { FactDiffsComponent } from '../fact-diffs.component';
+import { TagDiffsComponent } from '../tag-diffs.component';
+import { RouteNodeDiffComponent } from './route-node-diff.component';
 
 @Component({
   selector: 'kpn-route-diff',
@@ -73,6 +79,14 @@ import { Util } from '@app/components/shared';
       <kpn-tag-diffs [tagDiffs]="diffs.tagDiffs" class="kpn-detail" />
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    FactDiffsComponent,
+    NgFor,
+    RouteNodeDiffComponent,
+    TagDiffsComponent,
+  ],
 })
 export class RouteDiffComponent {
   @Input() diffs: RouteDiff;

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { DemoVideoControlComponent } from './demo-video-control.component';
 
 @Component({
   selector: 'kpn-demo-sidebar',
@@ -60,5 +61,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [DemoVideoControlComponent],
 })
 export class DemoSidebarComponent {}

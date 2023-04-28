@@ -1,14 +1,23 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteAdminRelationIdChanged } from '../../store/monitor.actions';
 import { actionMonitorRouteInfo } from '../../store/monitor.actions';
 import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
+import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-3-relation',
@@ -121,6 +130,18 @@ import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
         padding-bottom: 1em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatRadioModule,
+    ReactiveFormsModule,
+    NgIf,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MonitorRouteInfoComponent,
+    MatStepperModule,
+    AsyncPipe,
   ],
 })
 export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {

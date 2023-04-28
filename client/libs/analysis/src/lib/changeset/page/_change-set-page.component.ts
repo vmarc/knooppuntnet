@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ChangeSetPage } from '@api/common/changes';
 import { ApiResponse } from '@api/custom';
@@ -7,7 +10,13 @@ import { Util } from '@app/components/shared';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { mergeMap } from 'rxjs/operators';
+import { ChangeSetHeaderComponent } from './change-set-header.component';
+import { ChangeSetLocationChangesComponent } from './change-set-location-changes.component';
+import { ChangeSetNetworkChangesComponent } from './change-set-network-changes.component';
+import { ChangeSetOrphanNodeChangesComponent } from './change-set-orphan-node-changes.component';
+import { ChangeSetOrphanRouteChangesComponent } from './change-set-orphan-route-changes.component';
 
 class ChangeSetKey {
   constructor(
@@ -40,6 +49,16 @@ class ChangeSetKey {
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NgIf,
+    ChangeSetHeaderComponent,
+    ChangeSetLocationChangesComponent,
+    ChangeSetNetworkChangesComponent,
+    ChangeSetOrphanNodeChangesComponent,
+    ChangeSetOrphanRouteChangesComponent,
+    AsyncPipe,
+  ],
 })
 export class ChangeSetPageComponent implements OnInit {
   response$: Observable<ApiResponse<ChangeSetPage>>;

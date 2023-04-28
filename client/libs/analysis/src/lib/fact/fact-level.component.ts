@@ -1,5 +1,7 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { FactLevel } from './fact-level';
 
 @Component({
@@ -32,6 +34,8 @@ import { FactLevel } from './fact-level';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf],
 })
 export class FactLevelComponent {
   @Input() factLevel: FactLevel;

@@ -1,9 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { Observable } from 'rxjs';
@@ -50,6 +54,8 @@ import { map } from 'rxjs/operators';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, MatButtonModule, MatIconModule, AsyncPipe],
 })
 export class PlanActionButtonComponent implements OnInit {
   @Input() enabled = false;

@@ -5,5 +5,6 @@ import { Component } from '@angular/core';
   selector: 'kpn-fact-route-broken',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <p i18n="@@fact.description.route-broken">TODO</p> `,
+  standalone: true,
 })
 export class FactRouteBrokenComponent {}

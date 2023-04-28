@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
 import { actionSubsetMapViewInit } from '../store/subset.actions';
@@ -22,6 +24,8 @@ import { SubsetMapService } from './subset-map.service';
       useExisting: SubsetMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class SubsetMapComponent implements AfterViewInit, OnDestroy {
   constructor(protected service: SubsetMapService, private store: Store) {}

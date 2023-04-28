@@ -10,5 +10,6 @@ import { Component } from '@angular/core';
       rhn_ref tag has been removed.
     </p>
   `,
+  standalone: true,
 })
 export class FactLostHorseNodeTagComponent {}

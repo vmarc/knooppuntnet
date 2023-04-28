@@ -1,7 +1,13 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MonitorRouteDescriptionComponent } from './monitor-route-description.component';
+import { MonitorRouteNameComponent } from './monitor-route-name.component';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-2-name',
@@ -25,6 +31,15 @@ import { FormControl } from '@angular/forms';
       </button>
     </div>
   `,
+  standalone: true,
+  imports: [
+    MonitorRouteNameComponent,
+    ReactiveFormsModule,
+    MonitorRouteDescriptionComponent,
+    NgIf,
+    MatButtonModule,
+    MatStepperModule,
+  ],
 })
 export class MonitorRoutePropertiesStep2NameComponent {
   @Input() mode: string;

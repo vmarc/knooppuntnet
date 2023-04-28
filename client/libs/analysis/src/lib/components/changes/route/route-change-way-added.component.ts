@@ -1,8 +1,13 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { WayInfo } from '@api/common/diff';
 import { RouteChangeInfo } from '@api/common/route';
+import { MetaDataComponent } from '@app/components/shared';
+import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
+import { TagsTableComponent } from '@app/components/shared/tags';
 
 @Component({
   selector: 'kpn-route-change-way-added',
@@ -39,6 +44,8 @@ import { InterpretedTags } from '@app/components/shared/tags';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [OsmLinkWayComponent, NgIf, MetaDataComponent, TagsTableComponent],
 })
 export class RouteChangeWayAddedComponent {
   @Input() wayInfo: WayInfo;

@@ -1,5 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IconButtonComponent } from '@app/components/shared/icon';
+import { IconButtonsComponent } from '@app/components/shared/icon';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { MapService } from '../../services/map.service';
 
 @Component({
@@ -53,6 +58,13 @@ import { MapService } from '../../services/map.service';
       />
     </kpn-icon-buttons>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    PageHeaderComponent,
+    IconButtonsComponent,
+    IconButtonComponent,
+  ],
 })
 export class MapPageComponent implements OnInit {
   constructor(private mapService: MapService) {}

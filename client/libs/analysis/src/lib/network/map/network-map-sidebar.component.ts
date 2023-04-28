@@ -1,9 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ZoomLevel } from '@app/components/ol/domain';
 import { MapZoomService } from '@app/components/ol/services';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { NetworkMapLegendIconComponent } from './network-map-legend-icon.component';
 
 @Component({
   selector: 'kpn-network-map-sidebar',
@@ -54,6 +58,8 @@ import { delay } from 'rxjs/operators';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarComponent, NgIf, NetworkMapLegendIconComponent, AsyncPipe],
 })
 export class NetworkMapSidebarComponent implements OnInit {
   zoomLevel$: Observable<number>;

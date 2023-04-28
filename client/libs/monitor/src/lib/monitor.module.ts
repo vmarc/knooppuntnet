@@ -112,8 +112,6 @@ import { monitorFeatureKey } from './store/monitor.state';
     MatSelectModule,
     MatDialogModule,
     MarkdownModule,
-  ],
-  declarations: [
     LegendLineComponent,
     MonitorAboutPageComponent,
     MonitorRouteDeletePageComponent,

@@ -5,6 +5,8 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { Bounds } from '@api/common';
 import { NetworkType } from '@api/custom';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { Store } from '@ngrx/store';
 import { actionLocationMapViewInit } from '../store/location.actions';
@@ -25,6 +27,8 @@ import { LocationMapService } from './location-map.service';
       useExisting: LocationMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class LocationMapComponent implements AfterViewInit, OnDestroy {
   @Input() networkType: NetworkType;

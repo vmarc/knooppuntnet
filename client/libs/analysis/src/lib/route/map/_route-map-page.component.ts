@@ -1,14 +1,19 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
+import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteMapPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteMapPage } from '../store/route.selectors';
 import { selectRouteChangeCount } from '../store/route.selectors';
 import { selectRouteName } from '../store/route.selectors';
 import { selectRouteId } from '../store/route.selectors';
+import { RouteMapComponent } from './route-map.component';
 
 @Component({
   selector: 'kpn-route-changes-page',
@@ -43,6 +48,14 @@ import { selectRouteId } from '../store/route.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    RoutePageHeaderComponent,
+    NgIf,
+    RouteMapComponent,
+    AsyncPipe,
+  ],
 })
 export class RouteMapPageComponent implements OnInit {
   readonly routeId$ = this.store.select(selectRouteId);

@@ -1,8 +1,14 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
+import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkNodesPageInit } from '../store/network.actions';
 import { selectNetworkNodesPage } from '../store/network.selectors';
+import { NetworkNodeTableComponent } from './network-node-table.component';
 
 @Component({
   selector: 'kpn-network-nodes-page',
@@ -39,6 +45,14 @@ import { selectNetworkNodesPage } from '../store/network.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NetworkPageHeaderComponent,
+    NgIf,
+    SituationOnComponent,
+    NetworkNodeTableComponent,
+    AsyncPipe,
+  ],
 })
 export class NetworkNodesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectNetworkNodesPage);

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'kpn-page-menu',
@@ -20,6 +21,7 @@ import { Component } from '@angular/core';
       .menu-wrapper {
         display: flex;
       }
+
       .menu {
         line-height: 30px;
       }
@@ -36,5 +38,7 @@ import { Component } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatDividerModule],
 })
 export class PageMenuComponent {}

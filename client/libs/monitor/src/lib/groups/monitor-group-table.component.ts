@@ -1,8 +1,13 @@
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { RouterLink } from '@angular/router';
 import { MonitorGroupDetail } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -88,6 +93,14 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
       ></tr>
     </table>
   `,
+  standalone: true,
+  imports: [
+    MatTableModule,
+    RouterLink,
+    MatButtonModule,
+    MatIconModule,
+    AsyncPipe,
+  ],
 })
 export class MonitorGroupTableComponent implements OnInit {
   @Input() groups: MonitorGroupDetail[];

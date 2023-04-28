@@ -5,6 +5,9 @@ import { PlanParams } from '@api/common/planner';
 import { LegHttpErrorDialogComponent } from '@app/components/ol/components';
 import { LegNotFoundDialogComponent } from '@app/components/ol/components';
 import { NoRouteDialogComponent } from '@app/components/ol/components';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
+import { RouteControlComponent } from '@app/components/ol/components';
 import { MapZoomService } from '@app/components/ol/services';
 import { NewMapService } from '@app/components/ol/services';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
@@ -27,7 +30,10 @@ import { MapService } from '../../services/map.service';
 import { actionPlannerMapViewInit } from '../../store/planner-actions';
 import { actionPlannerInit } from '../../store/planner-actions';
 import { selectPlannerNetworkType } from '../../store/planner-selectors';
+import { GeolocationControlComponent } from './geolocation/geolocation-control.component';
 import { PlannerMapService } from './planner-map.service';
+import { PoiMenuComponent } from './poi-menu.component';
+import { PlannerPopupComponent } from './popup/planner-popup.component';
 
 @Component({
   selector: 'kpn-planner-page',
@@ -65,6 +71,15 @@ import { PlannerMapService } from './planner-map.service';
       provide: MAP_SERVICE_TOKEN,
       useExisting: PlannerMapService,
     },
+  ],
+  standalone: true,
+  imports: [
+    PlannerPopupComponent,
+    RouteControlComponent,
+    GeolocationControlComponent,
+    LayerSwitcherComponent,
+    PoiMenuComponent,
+    MapLinkMenuComponent,
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {

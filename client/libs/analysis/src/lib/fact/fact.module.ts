@@ -75,8 +75,6 @@ import { FactsComponent } from './facts.component';
     MatRadioModule,
     MatCheckboxModule,
     RouterModule,
-  ],
-  declarations: [
     FactsComponent,
     FactLevelComponent,
     FactNameComponent,

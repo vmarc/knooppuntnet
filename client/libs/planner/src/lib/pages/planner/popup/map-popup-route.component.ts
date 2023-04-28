@@ -1,8 +1,11 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MapRouteDetail } from '@api/common/route';
 import { ApiResponse } from '@api/custom';
+import { LinkRouteComponent } from '@app/components/shared/link';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
@@ -70,6 +73,8 @@ import { MapService } from '../../../services/map.service';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink, LinkRouteComponent, AsyncPipe],
 })
 export class MapPopupRouteComponent implements OnInit {
   protected response$: Observable<ApiResponse<MapRouteDetail>>;

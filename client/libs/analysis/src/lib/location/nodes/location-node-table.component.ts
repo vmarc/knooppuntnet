@@ -1,14 +1,23 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
-import { ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Input } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { TimeInfo } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
 import { NetworkScope } from '@api/custom';
+import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { PageWidthService } from '@app/components/shared';
+import { DayComponent } from '@app/components/shared/day';
+import { DayPipe } from '@app/components/shared/format';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { JosmNodeComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { actionSharedEdit } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -20,6 +29,8 @@ import { actionLocationNodesPageSize } from '../store/location.actions';
 import { actionLocationNodesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
 import { selectLocationNodesPageIndex } from '../store/location.selectors';
+import { LocationNodeAnalysisComponent } from './location-node-analysis.component';
+import { LocationNodeRoutesComponent } from './location-node-routes.component';
 
 @Component({
   selector: 'kpn-location-node-table',
@@ -164,6 +175,20 @@ import { selectLocationNodesPageIndex } from '../store/location.selectors';
         flex: 0 0 4em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    EditAndPaginatorComponent,
+    MatTableModule,
+    LocationNodeAnalysisComponent,
+    LinkNodeComponent,
+    LocationNodeRoutesComponent,
+    DayComponent,
+    JosmNodeComponent,
+    OsmLinkNodeComponent,
+    PaginatorComponent,
+    AsyncPipe,
+    DayPipe,
   ],
 })
 export class LocationNodeTableComponent implements OnInit, OnChanges {

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'kpn-fact-route-incomplete',
@@ -11,5 +12,7 @@ import { Component } from '@angular/core';
       *"incomplete"* in the route relation.
     </markdown>
   `,
+  standalone: true,
+  imports: [MarkdownModule],
 })
 export class FactRouteIncompleteComponent {}

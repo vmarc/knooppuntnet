@@ -1,7 +1,9 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { LogPage } from '@api/common/status';
 import { PeriodParameters } from '@api/common/status';
@@ -10,7 +12,16 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { LogAnalysisChartComponent } from './charts/log/log-analysis-chart.component';
+import { LogAnalysisRobotChartComponent } from './charts/log/log-analysis-robot-chart.component';
+import { LogApiChartComponent } from './charts/log/log-api-chart.component';
+import { LogApiRobotChartComponent } from './charts/log/log-api-robot-chart.component';
+import { LogNonRobotChartComponent } from './charts/log/log-non-robot-chart.component';
+import { LogRobotChartComponent } from './charts/log/log-robot-chart.component';
+import { LogTileChartComponent } from './charts/log/log-tile-chart.component';
+import { LogTileRobotChartComponent } from './charts/log/log-tile-robot-chart.component';
 import { StatusLinks } from './status-links';
+import { StatusPageMenuComponent } from './status-page-menu.component';
 
 @Component({
   selector: 'kpn-log-page',
@@ -82,6 +93,21 @@ import { StatusLinks } from './status-links';
         padding-right: 5px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgIf,
+    StatusPageMenuComponent,
+    LogTileChartComponent,
+    LogTileRobotChartComponent,
+    LogApiChartComponent,
+    LogApiRobotChartComponent,
+    LogAnalysisChartComponent,
+    LogAnalysisRobotChartComponent,
+    LogRobotChartComponent,
+    LogNonRobotChartComponent,
+    AsyncPipe,
   ],
 })
 export class LogPageComponent implements OnInit {

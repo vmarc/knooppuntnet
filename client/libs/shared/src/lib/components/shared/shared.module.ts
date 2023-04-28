@@ -15,7 +15,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
-import { SpinnerModule } from '@app/spinner';
 import { MarkdownModule } from 'ngx-markdown';
 import { CountryNameComponent } from './country-name.component';
 import { DataComponent } from './data';
@@ -104,15 +103,12 @@ import { ToolbarComponent } from './toolbar';
     MatButtonModule,
     MatDialogModule,
     RouterModule,
-    SpinnerModule,
     MatPaginatorModule,
     MarkdownModule,
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-  ],
-  declarations: [
     LinkChangesetComponent,
     LinkNetworkDetailsComponent,
     LinkNodeComponent,

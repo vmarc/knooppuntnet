@@ -1,6 +1,9 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NetworkType } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { I18nService } from '@app/i18n';
@@ -18,6 +21,8 @@ import { I18nService } from '@app/i18n';
       >
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink],
 })
 export class NodeLocationComponent {
   @Input() networkType: NetworkType;

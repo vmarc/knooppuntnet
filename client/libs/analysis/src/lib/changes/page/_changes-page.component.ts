@@ -1,4 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
+import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
+import { ChangesComponent } from '@app/analysis/components/changes';
+import { ErrorComponent } from '@app/components/shared/error';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { LinkLoginComponent } from '@app/components/shared/link';
+import { PageHeaderComponent } from '@app/components/shared/page';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { actionChangesPageSize } from '../store/changes.actions';
@@ -73,6 +87,22 @@ import { selectChangesPage } from '../store/changes.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    PageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    LinkLoginComponent,
+    SituationOnComponent,
+    ChangesComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    ChangeNetworkAnalysisSummaryComponent,
+    ChangeLocationAnalysisSummaryComponent,
+    AsyncPipe,
+  ],
 })
 export class ChangesPageComponent implements OnInit {
   readonly response$ = this.store.select(selectChangesPage);

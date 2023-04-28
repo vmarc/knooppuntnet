@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicator-dialog.component';
 
 @Component({
@@ -15,6 +17,8 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class RouteProposedIndicatorComponent implements OnInit {
   @Input() proposed: boolean;

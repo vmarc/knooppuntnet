@@ -42,8 +42,6 @@ import { nodeFeatureKey } from './store/node.state';
     FactModule,
     MatPaginatorModule,
     MatIconModule,
-  ],
-  declarations: [
     NodeDetailsPageComponent,
     NodeChangeComponent,
     NodeSummaryComponent,

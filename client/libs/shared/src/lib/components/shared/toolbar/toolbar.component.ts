@@ -1,5 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { SpinnerComponent } from '@app/spinner';
 import { Observable } from 'rxjs';
 import { PageService } from '..';
 
@@ -63,6 +69,16 @@ import { PageService } from '..';
         background-color: rgba(255, 182, 193, 0.3);
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    SpinnerComponent,
+    RouterOutlet,
+    AsyncPipe,
   ],
 })
 export class ToolbarComponent {

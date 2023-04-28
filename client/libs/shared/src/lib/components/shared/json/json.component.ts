@@ -1,5 +1,8 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 
 @Component({
   selector: 'kpn-json',
@@ -19,6 +22,8 @@ import { Component, Input, OnInit } from '@angular/core';
     <br />
     <br />
   `,
+  standalone: true,
+  imports: [NgIf],
 })
 export class JsonComponent implements OnInit {
   @Input() object: any;

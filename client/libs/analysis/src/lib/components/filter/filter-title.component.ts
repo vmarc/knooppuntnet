@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { FilterOptions } from '@app/kpn/filter';
 
 @Component({
@@ -14,6 +15,7 @@ import { FilterOptions } from '@app/kpn/filter';
     </div>
   `,
   styleUrls: ['./filter.scss'],
+  standalone: true,
 })
 export class FilterTitleComponent {
   @Input() filterOptions: FilterOptions;

@@ -1,6 +1,11 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Subset } from '@api/custom';
+import { CountryNameComponent } from '@app/components/shared';
+import { NetworkTypeNameComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-subset-page-breadcrumb',
@@ -52,6 +57,8 @@ import { Subset } from '@api/custom';
       </li>
     </ul>
   `,
+  standalone: true,
+  imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent, NgIf],
 })
 export class SubsetPageBreadcrumbComponent {
   @Input() subset: Subset;

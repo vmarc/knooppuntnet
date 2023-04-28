@@ -1,6 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NodeChangeInfo } from '@api/common/node';
+import { TimestampComponent } from '@app/components/shared/timestamp';
+import { NodeMovedMapComponent } from './node-moved-map.component';
 
 @Component({
   selector: 'kpn-node-change-moved',
@@ -43,6 +47,8 @@ import { NodeChangeInfo } from '@api/common/node';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NodeMovedMapComponent, TimestampComponent],
 })
 export class NodeChangeMovedComponent {
   @Input() nodeChangeInfo: NodeChangeInfo;

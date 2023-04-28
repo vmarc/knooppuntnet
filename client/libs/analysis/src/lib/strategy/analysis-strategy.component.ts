@@ -1,8 +1,10 @@
+import { AsyncPipe } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { selectPreferencesAnalysisStrategy } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -44,6 +46,8 @@ import { Store } from '@ngrx/store';
   styleUrls: [
     '../../../../shared/src/lib/components/shared/sidebar/sidebar.scss',
   ],
+  standalone: true,
+  imports: [MatRadioModule, AsyncPipe],
 })
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();

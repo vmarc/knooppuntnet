@@ -1,10 +1,20 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { LocationNode } from '@api/common/location';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
+import { CountryNameComponent } from '@app/components/shared';
+import { NetworkTypeNameComponent } from '@app/components/shared';
+import { ErrorComponent } from '@app/components/shared/error';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { Countries } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
@@ -16,6 +26,8 @@ import { actionLocationSelectionPageInit } from '../store/location.actions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationModeService } from './location-mode.service';
 import { LocationSelectionService } from './location-selection.service';
+import { LocationSelectorComponent } from './location-selector.component';
+import { LocationTreeComponent } from './location-tree.component';
 
 @Component({
   selector: 'kpn-location-selection-page',
@@ -76,6 +88,19 @@ import { LocationSelectionService } from './location-selection.service';
         content: ' ';
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    ErrorComponent,
+    NgIf,
+    RouterLink,
+    NetworkTypeNameComponent,
+    CountryNameComponent,
+    PageHeaderComponent,
+    MatIconModule,
+    LocationSelectorComponent,
+    LocationTreeComponent,
+    AsyncPipe,
   ],
 })
 export class LocationSelectionPageComponent implements OnInit, OnDestroy {

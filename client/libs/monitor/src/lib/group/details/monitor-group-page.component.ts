@@ -1,16 +1,23 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { actionMonitorGroupPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupPageInit } from '../../store/monitor.actions';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupPage } from '../../store/monitor.selectors';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
+import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
+import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.component';
 
 @Component({
   selector: 'kpn-monitor-group-page',
@@ -56,6 +63,16 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
       </div>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgIf,
+    MonitorGroupPageMenuComponent,
+    MonitorAdminToggleComponent,
+    MonitorGroupRouteTableComponent,
+    MatButtonModule,
+    AsyncPipe,
+  ],
 })
 export class MonitorGroupPageComponent implements OnInit, OnDestroy {
   readonly groupName$ = this.store.select(selectMonitorGroupName);

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { selectUserUser } from '@app/core';
@@ -17,6 +18,8 @@ import { Store } from '@ngrx/store';
       list of authorised applications
     </a>
   `,
+  standalone: true,
+  imports: [AsyncPipe],
 })
 export class OsmLinkUserAothClientsComponent {
   readonly user$ = this.store.select(selectUserUser);

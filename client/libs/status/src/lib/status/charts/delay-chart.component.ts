@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { BarChart2D } from '@api/common/status';
+import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.component';
 
 @Component({
   selector: 'kpn-delay-chart',
@@ -18,6 +19,8 @@ import { BarChart2D } from '@api/common/status';
       />
     </div>
   `,
+  standalone: true,
+  imports: [ActionBarChartStackedComponent],
 })
 export class DelayChartComponent {
   @Input() barChart: BarChart2D;

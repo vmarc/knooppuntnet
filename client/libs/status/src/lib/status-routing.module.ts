@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { LogPageComponent } from './status/log-page.component';
 import { ReplicationStatusPageComponent } from './status/replication-status-page.component';

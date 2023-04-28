@@ -1,11 +1,17 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MapNodeDetail } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
 import { OlUtil } from '@app/components/ol';
 import { MapZoomService } from '@app/components/ol/services';
+import { LinkRouteComponent } from '@app/components/shared/link';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { ApiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
@@ -100,6 +106,15 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
         margin-top: 2em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    TimestampComponent,
+    NgFor,
+    RouterLink,
+    LinkRouteComponent,
+    AsyncPipe,
   ],
 })
 export class PlannerPopupNodeComponent implements OnInit, OnDestroy {

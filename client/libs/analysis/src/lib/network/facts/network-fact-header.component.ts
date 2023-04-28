@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NetworkFact } from '@api/common';
 import { EditParameters } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
+import { FactDescriptionComponent } from '@app/analysis/fact';
+import { FactLevelComponent } from '@app/analysis/fact';
+import { FactNameComponent } from '@app/analysis/fact';
 import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
@@ -38,6 +42,8 @@ import { Store } from '@ngrx/store';
       }
     `,
   ],
+  standalone: true,
+  imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent],
 })
 export class NetworkFactHeaderComponent {
   @Input() fact: NetworkFact;
@@ -58,6 +64,7 @@ export class NetworkFactHeaderComponent {
     if (this.fact.checks) {
       return this.fact.checks.length;
     }
+    return 0;
   }
 
   edit(networkFact: NetworkFact): void {

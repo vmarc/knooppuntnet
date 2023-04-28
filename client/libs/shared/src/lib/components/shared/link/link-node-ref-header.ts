@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { KnownElements } from '@api/common/common';
 import { Ref } from '@api/common/common';
+import { LinkNodeComponent } from './link-node.component';
+import { OsmLinkNodeComponent } from './osm-link-node.component';
 
 @Component({
   selector: 'kpn-link-node-ref-header',
@@ -15,6 +20,8 @@ import { Ref } from '@api/common/common';
       <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.id.toString()" />
     </div>
   `,
+  standalone: true,
+  imports: [NgIf, LinkNodeComponent, OsmLinkNodeComponent],
 })
 export class LinkNodeRefHeaderComponent implements OnInit {
   @Input() ref: Ref;

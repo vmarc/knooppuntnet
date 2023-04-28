@@ -6,6 +6,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Bounds } from '@api/common';
 import { RawNode } from '@api/common/data/raw';
 import { GeometryDiff } from '@api/common/route';
+import { MapLinkMenuComponent } from '@app/components/ol/components';
+import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
 import { RouteChangeMapService } from './route-change-map.service';
 
@@ -25,6 +27,8 @@ import { RouteChangeMapService } from './route-change-map.service';
       useExisting: RouteChangeMapService,
     },
   ],
+  standalone: true,
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   @Input() geometryDiff: GeometryDiff;

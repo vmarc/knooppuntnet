@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { LocationModeService } from './location-mode.service';
 
 @Component({
@@ -40,6 +41,8 @@ import { LocationModeService } from './location-mode.service';
   styleUrls: [
     '../../../../../shared/src/lib/components/shared/sidebar/sidebar.scss',
   ],
+  standalone: true,
+  imports: [MatRadioModule],
 })
 export class LocationModeComponent {
   constructor(private locationModeService: LocationModeService) {}

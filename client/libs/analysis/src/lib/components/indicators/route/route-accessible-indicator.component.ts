@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkType } from '@api/custom';
+import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteAccessibleData } from './route-accessible-data';
 import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indicator-dialog.component';
 
@@ -17,6 +19,8 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
   @Input() accessible: boolean;

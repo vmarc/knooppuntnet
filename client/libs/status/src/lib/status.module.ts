@@ -39,8 +39,11 @@ import { StatusSidebarComponent } from './status/status-sidebar.component';
 import { SystemStatusPageComponent } from './status/system-status-page.component';
 
 @NgModule({
-  imports: [CommonModule, StatusRoutingModule, SharedModule, NgxChartsModule],
-  declarations: [
+  imports: [
+    CommonModule,
+    StatusRoutingModule,
+    SharedModule,
+    NgxChartsModule,
     StatusPageComponent,
     StatusSidebarComponent,
     ActionBarChartComponent,

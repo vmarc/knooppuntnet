@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeRow } from '@api/common/network';
+import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RoleConnectionIndicatorDialogComponent } from './role-connection-indicator-dialog.component';
 
 @Component({
@@ -16,6 +18,8 @@ import { RoleConnectionIndicatorDialogComponent } from './role-connection-indica
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class RoleConnectionIndicatorComponent implements OnInit {
   @Input() node: NetworkNodeRow;

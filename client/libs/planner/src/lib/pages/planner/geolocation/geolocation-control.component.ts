@@ -2,6 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import { GeolocationPermissionDeniedDialogComponent } from './geolocation-permission-denied-dialog.component';
@@ -60,6 +61,8 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
       }
     `,
   ],
+  standalone: true,
+  imports: [MatIconModule],
 })
 export class GeolocationControlComponent {
   @Output() action = new EventEmitter<Coordinate>();

@@ -1,2 +1,2 @@
-export * from "./friso.module";
-export * from "./friso-routing.module";
+export * from './friso.module';
+export * from './friso-routing.module';

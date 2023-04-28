@@ -1,8 +1,18 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { ChangesComponent } from '@app/analysis/components/changes';
+import { ErrorComponent } from '@app/components/shared/error';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { LinkLoginComponent } from '@app/components/shared/link';
+import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectDefined } from '@app/core';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeChangesPageSize } from '../store/node.actions';
 import { actionNodeChangesPageImpact } from '../store/node.actions';
 import { actionNodeChangesPageIndex } from '../store/node.actions';
@@ -14,6 +24,7 @@ import { selectNodeChangesPage } from '../store/node.selectors';
 import { selectNodeChangeCount } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
 import { selectNodeId } from '../store/node.selectors';
+import { NodeChangeComponent } from './node-change.component';
 
 @Component({
   selector: 'kpn-node-changes-page',
@@ -84,6 +95,21 @@ import { selectNodeId } from '../store/node.selectors';
       </ng-template>
     </div>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    NodePageHeaderComponent,
+    ErrorComponent,
+    NgIf,
+    LinkLoginComponent,
+    SituationOnComponent,
+    ChangesComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    NodeChangeComponent,
+    AsyncPipe,
+  ],
 })
 export class NodeChangesPageComponent implements OnInit {
   readonly nodeId$ = this.store.select(selectNodeId);

@@ -9,5 +9,6 @@ import { Component } from '@angular/core';
       The route does not contain any network nodes.
     </p>
   `,
+  standalone: true,
 })
 export class FactRouteWithoutNodesComponent {}

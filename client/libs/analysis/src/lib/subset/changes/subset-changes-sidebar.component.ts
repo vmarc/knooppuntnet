@@ -1,4 +1,7 @@
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
@@ -15,6 +18,8 @@ import { selectSubsetChangesFilterOptions } from '../store/subset.selectors';
       />
     </kpn-sidebar>
   `,
+  standalone: true,
+  imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class SubsetChangesSidebarComponent {
   readonly filterOptions$ = this.store

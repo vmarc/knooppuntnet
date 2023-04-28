@@ -22,8 +22,6 @@ import { AnalysisPageComponent } from './pages/analysis-page.component';
     MatIconModule,
     AnalysisRoutingModule,
     AnalysisStrategyModule,
-  ],
-  declarations: [
     AnalysisPageComponent,
     AnalysisCyclingPageComponent,
     AnalysisHikingPageComponent,

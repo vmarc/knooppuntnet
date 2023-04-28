@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -28,6 +29,8 @@ import { Plan } from '../../../domain/plan/plan';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf],
 })
 export class PlanDistanceComponent implements OnChanges {
   @Input() plan: Plan;

@@ -1,5 +1,8 @@
+import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'kpn-page-menu-option',
@@ -29,6 +32,8 @@ import { Component, Input } from '@angular/core';
       }
     `,
   ],
+  standalone: true,
+  imports: [RouterLink, NgClass, NgIf],
 })
 export class PageMenuOptionComponent {
   @Input() link: string;

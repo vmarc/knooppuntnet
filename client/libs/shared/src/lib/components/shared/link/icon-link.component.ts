@@ -1,7 +1,12 @@
+import { NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
+import { NetworkScopeNameComponent } from '../network-scope-name.component';
+import { NetworkTypeIconComponent } from '../network-type-icon.component';
 
 @Component({
   selector: 'kpn-icon-link',
@@ -15,6 +20,13 @@ import { Reference } from '@api/common/common';
       </span>
     </div>
   `,
+  standalone: true,
+  imports: [
+    NetworkTypeIconComponent,
+    RouterLink,
+    NgIf,
+    NetworkScopeNameComponent,
+  ],
 })
 export class IconLinkComponent implements OnInit {
   @Input() reference: Reference;

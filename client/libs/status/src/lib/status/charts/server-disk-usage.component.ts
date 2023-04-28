@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { DiskUsage } from '@api/common/status';
+import { ServerDiskUsageLegendComponent } from './server-disk-usage-legend.component';
+import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.component';
 
 @Component({
   selector: 'kpn-server-disk-usage',
@@ -45,6 +47,8 @@ import { DiskUsage } from '@api/common/status';
       }
     `,
   ],
+  standalone: true,
+  imports: [ServerDiskUsagePieChartComponent, ServerDiskUsageLegendComponent],
 })
 export class ServerDiskUsageComponent {
   @Input() diskUsage: DiskUsage;

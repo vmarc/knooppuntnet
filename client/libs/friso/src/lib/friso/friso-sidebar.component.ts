@@ -1,6 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Store } from '@ngrx/store';
 import { actionFrisoMode } from '../store/friso.actions';
 import { selectFrisoMode } from '../store/friso.selectors';
@@ -100,6 +103,8 @@ import { selectFrisoMode } from '../store/friso.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class FrisoSidebarComponent {
   protected readonly mode$ = this.store.select(selectFrisoMode);

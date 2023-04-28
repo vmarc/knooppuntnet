@@ -1,5 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { AsyncPipe } from '@angular/common';
+import { NgClass } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
@@ -100,6 +105,8 @@ import { selectDemoEnabled } from '../store/demo.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgClass, NgIf, MatIconModule, AsyncPipe],
 })
 export class DemoVideoControlComponent {
   @Input() name: string;

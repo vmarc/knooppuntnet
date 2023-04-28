@@ -1,7 +1,14 @@
+import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MonitorRouteGroup } from '@api/common/monitor';
 
 @Component({
@@ -28,6 +35,16 @@ import { MonitorRouteGroup } from '@api/common/monitor';
         width: 20em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    NgFor,
+    MatOptionModule,
+    MatButtonModule,
+    MatStepperModule,
   ],
 })
 export class MonitorRoutePropertiesStep1GroupComponent {

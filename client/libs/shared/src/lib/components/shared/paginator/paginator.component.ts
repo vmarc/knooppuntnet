@@ -6,6 +6,7 @@ import { EventEmitter } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
@@ -29,6 +30,8 @@ import { MatPaginator } from '@angular/material/paginator';
       }
     `,
   ],
+  standalone: true,
+  imports: [MatPaginatorModule],
 })
 export class PaginatorComponent implements AfterViewInit {
   @Input() pageSize: number;

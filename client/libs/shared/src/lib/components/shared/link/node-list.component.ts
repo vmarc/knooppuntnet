@@ -1,5 +1,8 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OsmLinkNodeComponent } from './osm-link-node.component';
 
 @Component({
   selector: 'kpn-node-list',
@@ -11,6 +14,8 @@ import { Component, Input } from '@angular/core';
       </span>
     </div>
   `,
+  standalone: true,
+  imports: [NgFor, OsmLinkNodeComponent],
 })
 export class NodeListComponent {
   @Input() nodeIds: number[];

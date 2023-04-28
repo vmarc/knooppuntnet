@@ -1,7 +1,9 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Params } from '@angular/router';
+import { Params, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PeriodParameters } from '@api/common/status';
 import { ReplicationStatusPage } from '@api/common/status';
@@ -10,7 +12,15 @@ import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { AnalysisDelayChartComponent } from './charts/analysis-delay-chart.component';
+import { DelayChartComponent } from './charts/delay-chart.component';
+import { ReplicationBytesChartComponent } from './charts/replication-bytes-chart.component';
+import { ReplicationChangesetsChartComponent } from './charts/replication-changesets-chart.component';
+import { ReplicationDelayChartComponent } from './charts/replication-delay-chart.component';
+import { ReplicationElementsChartComponent } from './charts/replication-elements-chart.component';
+import { UpdateDelayChartComponent } from './charts/update-delay-chart.component';
 import { StatusLinks } from './status-links';
+import { StatusPageMenuComponent } from './status-page-menu.component';
 
 @Component({
   selector: 'kpn-replication-status-page',
@@ -83,6 +93,20 @@ import { StatusLinks } from './status-links';
         padding-right: 5px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgIf,
+    StatusPageMenuComponent,
+    DelayChartComponent,
+    AnalysisDelayChartComponent,
+    UpdateDelayChartComponent,
+    ReplicationDelayChartComponent,
+    ReplicationBytesChartComponent,
+    ReplicationElementsChartComponent,
+    ReplicationChangesetsChartComponent,
+    AsyncPipe,
   ],
 })
 export class ReplicationStatusPageComponent implements OnInit {

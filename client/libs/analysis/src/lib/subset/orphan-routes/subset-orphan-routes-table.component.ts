@@ -1,17 +1,28 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { Util } from '@app/components/shared';
+import { DayComponent } from '@app/components/shared/day';
+import { IntegerFormatPipe } from '@app/components/shared/format';
+import { JosmRelationComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
+import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
@@ -136,6 +147,18 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
         width: 100%;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    EditAndPaginatorComponent,
+    MatTableModule,
+    SubsetOrphanRouteAnalysisComponent,
+    LinkRouteComponent,
+    DayComponent,
+    JosmRelationComponent,
+    OsmLinkRelationComponent,
+    AsyncPipe,
+    IntegerFormatPipe,
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {

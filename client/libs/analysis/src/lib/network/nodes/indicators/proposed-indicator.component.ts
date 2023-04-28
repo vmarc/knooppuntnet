@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeRow } from '@api/common/network';
+import { IndicatorComponent } from '@app/components/shared/indicator';
 import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.component';
 
 @Component({
@@ -17,6 +18,8 @@ import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.co
       (openDialog)="onOpenDialog()"
     />
   `,
+  standalone: true,
+  imports: [IndicatorComponent],
 })
 export class ProposedIndicatorComponent implements OnInit {
   @Input() node: NetworkNodeRow;

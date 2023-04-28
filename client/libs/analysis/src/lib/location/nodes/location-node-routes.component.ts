@@ -1,7 +1,10 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { LocationNodeInfo } from '@api/common/location';
+import { LinkRouteComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-location-node-routes',
@@ -32,6 +35,8 @@ import { LocationNodeInfo } from '@api/common/location';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, NgFor, LinkRouteComponent],
 })
 export class LocationNodeRoutesComponent {
   @Input() node: LocationNodeInfo;

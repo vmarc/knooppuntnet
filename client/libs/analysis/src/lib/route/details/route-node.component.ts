@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { RouteNetworkNodeInfo } from '@api/common/route';
+import { BracketsComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-route-node',
@@ -14,6 +18,8 @@ import { RouteNetworkNodeInfo } from '@api/common/route';
       </kpn-brackets>
     </p>
   `,
+  standalone: true,
+  imports: [LinkNodeComponent, BracketsComponent, OsmLinkNodeComponent],
 })
 export class RouteNodeComponent {
   @Input() title: string;

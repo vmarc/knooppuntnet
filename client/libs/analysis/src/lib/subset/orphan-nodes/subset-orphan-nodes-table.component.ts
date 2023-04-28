@@ -1,11 +1,20 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { Util } from '@app/components/shared';
+import { DayComponent } from '@app/components/shared/day';
+import { JosmNodeComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -106,6 +115,16 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
         width: 3rem;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    EditAndPaginatorComponent,
+    MatTableModule,
+    LinkNodeComponent,
+    DayComponent,
+    JosmNodeComponent,
+    OsmLinkNodeComponent,
+    AsyncPipe,
   ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {

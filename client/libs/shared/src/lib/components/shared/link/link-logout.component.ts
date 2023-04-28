@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
   selector: 'kpn-link-logout',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <a (click)="logoutClicked()" i18n="@@link.logout">logout</a> `,
+  standalone: true,
 })
 export class LinkLogoutComponent {
   constructor(private store: Store) {}

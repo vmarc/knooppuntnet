@@ -1,6 +1,9 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { actionPreferencesShowAppearanceOptions } from '@app/core';
 import { selectPreferencesShowAppearanceOptions } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -54,6 +57,8 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
       </ng-template>
     </mat-expansion-panel>
   `,
+  standalone: true,
+  imports: [MatExpansionModule, MatRadioModule, AsyncPipe],
 })
 export class PlannerSideBarAppearanceComponent {
   readonly mapMode$ = this.store.select(selectPlannerMapMode);

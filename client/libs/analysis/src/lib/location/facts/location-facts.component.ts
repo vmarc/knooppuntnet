@@ -1,3 +1,5 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -6,6 +8,15 @@ import { Fact } from '@api/custom';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
+import { FactDescriptionComponent } from '@app/analysis/fact';
+import { FactLevelComponent } from '@app/analysis/fact';
+import { FactNameComponent } from '@app/analysis/fact';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
+import { BracketsComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/components/shared/link';
 import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
@@ -78,6 +89,20 @@ import { Store } from '@ngrx/store';
         padding-right: 20px;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    IconHappyComponent,
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    FactNameComponent,
+    BracketsComponent,
+    FactLevelComponent,
+    FactDescriptionComponent,
+    LinkRouteComponent,
+    LinkNodeComponent,
   ],
 })
 export class LocationFactsComponent {

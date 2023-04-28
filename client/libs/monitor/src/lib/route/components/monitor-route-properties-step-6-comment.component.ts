@@ -1,6 +1,11 @@
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-6-comment',
@@ -24,6 +29,14 @@ import { FormControl } from '@angular/forms';
         width: 50em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatStepperModule,
   ],
 })
 export class MonitorRoutePropertiesStep6CommentComponent {

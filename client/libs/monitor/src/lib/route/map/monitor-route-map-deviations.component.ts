@@ -1,8 +1,17 @@
+import { NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule, MatSelectionListChange } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MonitorRouteDeviation } from '@api/common/monitor';
+import { DistancePipe } from '@app/components/shared/format';
+import { IconHappyComponent } from '@app/components/shared/icon';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { LegendLineComponent } from './legend-line';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapSelectDeviation } from './store/monitor-route-map.actions';
 import { selectMonitorRouteMapSelectedDeviationId } from './store/monitor-route-map.selectors';
@@ -160,6 +169,19 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
         margin-left: auto;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    NgIf,
+    IconHappyComponent,
+    LegendLineComponent,
+    MatMenuModule,
+    MatListModule,
+    NgFor,
+    MatButtonModule,
+    MatIconModule,
+    AsyncPipe,
+    DistancePipe,
   ],
 })
 export class MonitorRouteMapDeviationsComponent {

@@ -1,14 +1,25 @@
+import { AsyncPipe } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { Timestamp } from '@api/custom';
 import { Util } from '@app/components/shared';
+import { ErrorComponent } from '@app/components/shared/error';
+import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { IconHappyComponent } from '@app/components/shared/icon';
+import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
+import { TimestampComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { actionMonitorRouteChangePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteChangePageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
 import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
+import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.component';
 
 @Component({
   selector: 'kpn-monitor-route-change-page',
@@ -235,6 +246,20 @@ import { selectMonitorRouteChangePage } from '../../store/monitor.selectors';
         padding-bottom: 2em;
       }
     `,
+  ],
+  standalone: true,
+  imports: [
+    RouterLink,
+    ErrorComponent,
+    NgIf,
+    OsmLinkChangeSetComponent,
+    TimestampComponent,
+    IconHappyComponent,
+    IconInvestigateComponent,
+    MatIconModule,
+    NgFor,
+    MonitorRouteChangeMapComponent,
+    AsyncPipe,
   ],
 })
 export class MonitorRouteChangePageComponent implements OnInit, OnDestroy {

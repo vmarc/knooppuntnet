@@ -1,8 +1,12 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { selectFalse } from '@app/core';
 import { Store } from '@ngrx/store';
+import { LegendLineComponent } from './legend-line';
 import { actionMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapMatchesVisible } from './store/monitor-route-map.actions';
@@ -110,6 +114,8 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
       }
     `,
   ],
+  standalone: true,
+  imports: [NgIf, MatCheckboxModule, LegendLineComponent, AsyncPipe],
 })
 export class MonitorRouteMapLayersComponent {
   readonly mode$ = this.store.select(selectMonitorRouteMapMode);

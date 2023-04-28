@@ -1,5 +1,13 @@
+import { NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { PageMenuOptionComponent } from '@app/components/shared/menu';
+import { PageMenuComponent } from '@app/components/shared/menu';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { selectNetworkSummary } from '../store/network.selectors';
 import { selectNetworkId } from '../store/network.selectors';
@@ -86,6 +94,16 @@ import { selectNetworkId } from '../store/network.selectors';
       </ng-container>
     </ng-container>
   `,
+  standalone: true,
+  imports: [
+    RouterLink,
+    NgIf,
+    PageHeaderComponent,
+    MatIconModule,
+    PageMenuComponent,
+    PageMenuOptionComponent,
+    AsyncPipe,
+  ],
 })
 export class NetworkPageHeaderComponent {
   @Input() pageName: string;

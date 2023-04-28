@@ -42,8 +42,6 @@ import { VersionChangeComponent } from './page/version-change.component';
     ChangeSetRoutingModule,
     AnalysisComponentsModule,
     MatTreeModule,
-  ],
-  declarations: [
     ChangeSetPageComponent,
     ChangeSetHeaderComponent,
     ChangeSetAnalysisComponent,

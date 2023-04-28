@@ -1,5 +1,10 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FactDescriptionComponent } from '@app/analysis/fact';
+import { FactNameComponent } from '@app/analysis/fact';
+import { ItemComponent } from '@app/components/shared/items';
+import { ItemsComponent } from '@app/components/shared/items';
 import { FactInfo } from '../fact';
 import { Facts } from '../fact';
 
@@ -21,6 +26,14 @@ import { Facts } from '../fact';
       </kpn-item>
     </kpn-items>
   `,
+  standalone: true,
+  imports: [
+    ItemsComponent,
+    NgFor,
+    ItemComponent,
+    FactNameComponent,
+    FactDescriptionComponent,
+  ],
 })
 export class FactsPageComponent {
   allFactNames() {

@@ -1,7 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 import { NodeInfo } from '@api/common';
 import { Reference } from '@api/common/common';
+import { IconNetworkLinkComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-node-network-reference',
@@ -14,6 +16,8 @@ import { Reference } from '@api/common/common';
       />
     </div>
   `,
+  standalone: true,
+  imports: [IconNetworkLinkComponent],
 })
 export class NodeNetworkReferenceComponent {
   @Input() nodeInfo: NodeInfo;

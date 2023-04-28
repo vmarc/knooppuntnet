@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { LocationKey } from '@api/custom';
+import { CountryNameComponent } from '@app/components/shared';
+import { NetworkTypeNameComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-location-page-breadcrumb',
@@ -25,6 +28,8 @@ import { LocationKey } from '@api/custom';
       <li>{{ locationName() }}</li>
     </ul>
   `,
+  standalone: true,
+  imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
 })
 export class LocationPageBreadcrumbComponent {
   @Input() locationKey: LocationKey;
