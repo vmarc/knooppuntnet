@@ -1,49 +1,40 @@
-import {
-  enableProdMode,
-  ErrorHandler,
-  APP_INITIALIZER,
-  importProvidersFrom,
-} from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
+import { LayoutModule } from '@angular/cdk/layout';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { withInterceptorsFromDi } from '@angular/common/http';
+import { APP_INITIALIZER } from '@angular/core';
+import { enableProdMode } from '@angular/core';
+import { ErrorHandler } from '@angular/core';
+import { importProvidersFrom } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { AppComponent } from '@app/*';
+import { AppRoutingModule } from '@app/*';
+import { PageService } from '@app/components/shared';
+import { PageWidthService } from '@app/components/shared';
+import { SharedModule } from '@app/components/shared';
+import { CoreModule } from '@app/core';
+import { I18nService } from '@app/i18n';
+import { ApiService } from '@app/services';
+import { IconService } from '@app/services';
+import { LogUpdateService } from '@app/services';
+import { PoiNameService } from '@app/services';
+import { PoiService } from '@app/services';
+import { VersionService } from '@app/services';
+import { SpinnerInterceptor } from '@app/spinner';
+import { SpinnerService } from '@app/spinner';
 import * as Sentry from '@sentry/angular-ivy';
 import { Breadcrumb } from '@sentry/angular-ivy';
 import { BreadcrumbHint } from '@sentry/angular-ivy';
 import { Event } from '@sentry/angular-ivy';
 import { EventHint } from '@sentry/angular-ivy';
-import { environment } from './environments/environment';
-import { AppComponent } from './app/app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { CoreModule } from '@app/core';
-import { AppRoutingModule } from './app/app-routing.module';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { LayoutModule } from '@angular/cdk/layout';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { BrowserModule, bootstrapApplication } from '@angular/platform-browser';
 import { MarkdownModule } from 'ngx-markdown';
-import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
-import {
-  PageService,
-  PageWidthService,
-  SharedModule,
-} from '@app/components/shared';
-import { I18nService } from '@app/i18n';
-import {
-  VersionService,
-  ApiService,
-  IconService,
-  PoiService,
-  PoiNameService,
-  LogUpdateService,
-} from '@app/services';
-import { SpinnerInterceptor, SpinnerService } from '@app/spinner';
-import {
-  HTTP_INTERCEPTORS,
-  withInterceptorsFromDi,
-  provideHttpClient,
-} from '@angular/common/http';
-import { Router } from '@angular/router';
+import { environment } from './environments/environment';
 
 if (environment.production) {
   const beforeBreadcrumb = (

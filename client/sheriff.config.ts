@@ -127,6 +127,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app': ['app'],
   },
   depRules: {
+    root: ['*'],
     app: ['*'],
     api: ['api'],
     ol: [

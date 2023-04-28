@@ -1,7 +1,6 @@
 import { Params } from '@angular/router';
 import { NetworkType } from '@api/custom';
 import { MapPosition } from '@app/components/ol/domain';
-import { BrowserStorageService } from '@app/services';
 import { PlannerState } from '../store/planner-state';
 import { PlannerStateService } from './planner-state.service';
 
@@ -14,36 +13,39 @@ describe('PlannerStateService', () => {
     layerStates: [],
     pois: false,
     poiLayerStates: [
-      { layerName: 'hiking-biking', visible: true },
-      { layerName: 'landmarks', visible: true },
-      { layerName: 'restaurants', visible: true },
-      { layerName: 'places-to-stay', visible: true },
-      { layerName: 'tourism', visible: true },
-      { layerName: 'amenity', visible: false },
-      { layerName: 'shops', visible: false },
-      { layerName: 'foodshops', visible: false },
-      { layerName: 'sports', visible: false },
+      { layerName: 'hiking-biking', visible: true, enabled: true },
+      { layerName: 'landmarks', visible: true, enabled: true },
+      { layerName: 'restaurants', visible: true, enabled: true },
+      { layerName: 'places-to-stay', visible: true, enabled: true },
+      { layerName: 'tourism', visible: true, enabled: true },
+      { layerName: 'amenity', visible: false, enabled: true },
+      { layerName: 'shops', visible: false, enabled: true },
+      { layerName: 'foodshops', visible: false, enabled: true },
+      { layerName: 'sports', visible: false, enabled: true },
     ],
   };
 
   it('toQueryParams', () => {
-    const storage: BrowserStorageService = null;
-    const service = new PlannerStateService(storage);
+    const browserStorageService = jasmine.createSpyObj(
+      'browserStorageService',
+      ['get']
+    );
+    const service = new PlannerStateService(browserStorageService);
     const state: PlannerState = {
       networkType: NetworkType.hiking,
       position: new MapPosition(12, 1, 2, 0),
       mapMode: 'survey',
       resultMode: 'detailed',
       layerStates: [
-        { layerName: 'layer-1', visible: true },
-        { layerName: 'layer-2', visible: true },
-        { layerName: 'layer-3', visible: false },
+        { layerName: 'layer-1', visible: true, enabled: true },
+        { layerName: 'layer-2', visible: true, enabled: true },
+        { layerName: 'layer-3', visible: false, enabled: true },
       ],
       pois: true,
       poiLayerStates: [
-        { layerName: 'poi-layer-1', visible: true },
-        { layerName: 'poi-layer-2', visible: true },
-        { layerName: 'poi-layer-3', visible: false },
+        { layerName: 'poi-layer-1', visible: true, enabled: true },
+        { layerName: 'poi-layer-2', visible: true, enabled: true },
+        { layerName: 'poi-layer-3', visible: false, enabled: true },
       ],
     };
 
@@ -104,15 +106,15 @@ describe('PlannerStateService', () => {
     expect(state).toEqual(defaultState);
   });
 
-  it('xxx', () => {});
+  it.todo('xxx');
 
-  it('poi layers from browser storage', () => {});
+  it.todo('poi layers from browser storage');
 
-  it('unknown layer', () => {});
+  it.todo('unknown layer');
 
-  it('unknown poi layer', () => {});
+  it.todo('unknown poi layer');
 
-  it('mapMode invalid value', () => {});
+  it.todo('mapMode invalid value');
 
-  it('resultMode invalid value', () => {});
+  it.todo('resultMode invalid value');
 });
