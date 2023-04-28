@@ -2,13 +2,17 @@
   "name": "util",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/util/src",
-  "prefix": "app",
-  "tags": ["util"],
+  "prefix": "kpn",
+  "tags": [
+    "util"
+  ],
   "projectType": "library",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "libs/util/jest.config.ts",
         "passWithNoTests": true
@@ -22,9 +26,14 @@
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/util/**/*.ts", "libs/util/**/*.html"]
+        "lintFilePatterns": [
+          "libs/util/**/*.ts",
+          "libs/util/**/*.html"
+        ]
       }
     }
   }

@@ -10,46 +10,39 @@ const routes: Routes = [
   {
     path: 'analysis',
     loadChildren: () =>
-      import('./analysis/analysis/analysis.module').then(
-        (m) => m.AnalysisModule
-      ),
+      import('@app/analysis/analysis').then((m) => m.AnalysisModule),
   },
   {
     path: 'map',
-    loadChildren: () =>
-      import('./planner/planner.module').then((m) => m.PlannerModule),
+    loadChildren: () => import('@app/planner').then((m) => m.PlannerModule),
   },
   {
     path: 'status',
-    loadChildren: () =>
-      import('./status/status.module').then((m) => m.StatusModule),
+    loadChildren: () => import('@app/status').then((m) => m.StatusModule),
   },
   {
     path: 'settings',
-    loadChildren: () =>
-      import('./settings/settings.module').then((m) => m.SettingsModule),
+    loadChildren: () => import('@app/settings').then((m) => m.SettingsModule),
   },
   {
     path: 'poi',
-    loadChildren: () => import('./poi/poi.module').then((m) => m.PoiModule),
+    loadChildren: () => import('@app/poi').then((m) => m.PoiModule),
   },
   {
     path: 'demo',
-    loadChildren: () => import('./demo/demo.module').then((m) => m.DemoModule),
+    loadChildren: () => import('@app/demo').then((m) => m.DemoModule),
   },
   {
     path: 'monitor',
-    loadChildren: () =>
-      import('./monitor/monitor.module').then((m) => m.MonitorModule),
+    loadChildren: () => import('@app/monitor').then((m) => m.MonitorModule),
   },
   {
     path: 'friso',
-    loadChildren: () =>
-      import('./friso/friso.module').then((m) => m.FrisoModule),
+    loadChildren: () => import('@app/friso').then((m) => m.FrisoModule),
   },
   {
     path: '',
-    loadChildren: () => import('./base/base.module').then((m) => m.BaseModule),
+    loadChildren: () => import('@app/base').then((m) => m.BaseModule),
   },
 ];
 
