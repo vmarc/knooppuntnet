@@ -10,7 +10,7 @@ export class NetworkTypes {
     NetworkType.inlineSkating,
   ];
 
-  static withName(name: string): NetworkType {
+  static withName(name: string): NetworkType | undefined {
     return NetworkTypes.all.find((networkType) => networkType === name);
   }
 

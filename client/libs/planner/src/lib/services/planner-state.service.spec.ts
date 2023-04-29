@@ -1,6 +1,7 @@
 import { Params } from '@angular/router';
 import { NetworkType } from '@api/custom';
 import { MapPosition } from '@app/components/ol/domain';
+import { BrowserStorageService } from '@app/services';
 import { PlannerState } from '../store/planner-state';
 import { PlannerStateService } from './planner-state.service';
 
@@ -25,12 +26,18 @@ describe('PlannerStateService', () => {
     ],
   };
 
+  const storage: Storage = {
+    getItem: jest.fn(),
+    key: jest.fn(),
+    length: 0,
+    removeItem: jest.fn(),
+    setItem: jest.fn(),
+    clear: jest.fn(),
+  };
+  const browserStorageService = new BrowserStorageService(storage);
+  const plannerStateService = new PlannerStateService(browserStorageService);
+
   it('toQueryParams', () => {
-    const browserStorageService = jasmine.createSpyObj(
-      'browserStorageService',
-      ['get']
-    );
-    const service = new PlannerStateService(browserStorageService);
     const state: PlannerState = {
       networkType: NetworkType.hiking,
       position: new MapPosition(12, 1, 2, 0),
@@ -49,7 +56,7 @@ describe('PlannerStateService', () => {
       ],
     };
 
-    const params = service.toQueryParams(state);
+    const params = plannerStateService.toQueryParams(state);
 
     expect(params['mode']).toEqual('survey');
     expect(params['position']).toEqual('0.00001797,0.00000898,12');
@@ -60,30 +67,18 @@ describe('PlannerStateService', () => {
   });
 
   it('default planner state', () => {
-    const browserStorageService = jasmine.createSpyObj(
-      'browserStorageService',
-      ['get']
-    );
-    browserStorageService.get.and.returnValue('');
-    const service = new PlannerStateService(browserStorageService);
     const routeParams: Params = [];
     const queryParams: Params = [];
-    const state = service.toPlannerState(routeParams, queryParams);
+    const state = plannerStateService.toPlannerState(routeParams, queryParams);
     expect(state).toEqual(defaultState);
   });
 
   it('networkType', () => {
-    const browserStorageService = jasmine.createSpyObj(
-      'browserStorageService',
-      ['get']
-    );
-    browserStorageService.get.and.returnValue('');
-    const service = new PlannerStateService(browserStorageService);
     const routeParams: Params = {
       networkType: 'cycling',
     };
     const queryParams: Params = {};
-    const state = service.toPlannerState(routeParams, queryParams);
+    const state = plannerStateService.toPlannerState(routeParams, queryParams);
     const expectedState = {
       ...defaultState,
       networkType: NetworkType.cycling,
@@ -92,17 +87,11 @@ describe('PlannerStateService', () => {
   });
 
   it('networkType invalid value', () => {
-    const browserStorageService = jasmine.createSpyObj(
-      'browserStorageService',
-      ['get']
-    );
-    browserStorageService.get.and.returnValue('');
-    const service = new PlannerStateService(browserStorageService);
     const routeParams: Params = {
       networkType: 'unknown',
     };
     const queryParams: Params = {};
-    const state = service.toPlannerState(routeParams, queryParams);
+    const state = plannerStateService.toPlannerState(routeParams, queryParams);
     expect(state).toEqual(defaultState);
   });
 

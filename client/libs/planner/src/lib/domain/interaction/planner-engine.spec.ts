@@ -182,7 +182,7 @@ describe('PlannerEngine', () => {
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
       const command = setup.context.commandStack.last();
-      expect(command).toEqual(jasmine.any(PlannerCommandMoveStartPoint));
+      expect(command).toEqual(expect.any(PlannerCommandMoveStartPoint));
     });
 
     it('should cancel "move start-node" upon mouse up, while no legs in plan yet, and not hoovering over network node', () => {
@@ -304,7 +304,7 @@ describe('PlannerEngine', () => {
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
       expect(setup.context.commandStack.last()).toEqual(
-        jasmine.any(PlannerCommandMoveFirstLegSource)
+        expect.any(PlannerCommandMoveFirstLegSource)
       );
     });
 
@@ -438,7 +438,7 @@ describe('PlannerEngine', () => {
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
       expect(setup.context.commandStack.last()).toEqual(
-        jasmine.any(PlannerCommandReplaceLeg)
+        expect.any(PlannerCommandReplaceLeg)
       );
     });
 
@@ -575,7 +575,7 @@ describe('PlannerEngine', () => {
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
       expect(setup.context.commandStack.last()).toEqual(
-        jasmine.any(PlannerCommandMoveViaPoint)
+        expect.any(PlannerCommandMoveViaPoint)
       );
     });
 
@@ -707,7 +707,7 @@ describe('PlannerEngine', () => {
 
       expect(setup.context.commandStack.commandCount).toEqual(1);
       const command = setup.context.commandStack.last();
-      expect(command).toEqual(jasmine.any(PlannerCommandSplitLeg));
+      expect(command).toEqual(expect.any(PlannerCommandSplitLeg));
     });
 
     it('should cancel "split leg" upon mouse up, while not hoovering over network node', () => {

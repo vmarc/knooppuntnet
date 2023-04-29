@@ -11,7 +11,7 @@ export class KpnDateAdapter extends NativeDateAdapter {
     super(matDateLocale);
   }
 
-  public parse(value: any, parseFormat?: any): Date | null {
+  public override parse(value: any, parseFormat?: any): Date | null {
     const result = null;
     if (value) {
       let regex = this.enRegex;
@@ -39,7 +39,7 @@ export class KpnDateAdapter extends NativeDateAdapter {
     return result;
   }
 
-  format(date: Date, displayFormat: object): string {
+  override format(date: Date, displayFormat: object): string {
     return DayUtil.toString(this.matDateLocale, DayUtil.toDay(date));
   }
 }

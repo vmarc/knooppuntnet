@@ -76,12 +76,10 @@ export class PlannerStateService {
 
   public parseNetworkType(queryParams: Params): NetworkType {
     const networkTypeParam = queryParams['networkType'];
-    if (!!networkTypeParam) {
-      const exists = NetworkTypes.all.some(
-        (networkType) => networkType === networkTypeParam
-      );
-      if (exists) {
-        return NetworkType[networkTypeParam];
+    if (networkTypeParam) {
+      const networkType = NetworkTypes.withName(networkTypeParam);
+      if (networkType) {
+        return networkType;
       }
     }
     return NetworkType.hiking;
@@ -96,10 +94,10 @@ export class PlannerStateService {
         this.plannerPositionKey
       );
       console.log(`  mapPositionString=${mapPositionString}`);
-      if (!!mapPositionString) {
+      if (mapPositionString) {
         position = MapPosition.fromQueryParam(mapPositionString);
         console.log(
-          `initial position from lcoal storage: ${position.toQueryParam()}`
+          `initial position from local storage: ${position?.toQueryParam()}`
         );
       } else {
         // TODO replace temporary code
@@ -143,13 +141,13 @@ export class PlannerStateService {
 
   public parsePoisFlag(queryParams: Params): boolean {
     const poisParam = queryParams['pois'];
-    return !!poisParam ? poisParam === 'true' : false;
+    return poisParam ? poisParam === 'true' : false;
   }
 
   public parsePoiLayers(queryParams: Params): MapLayerState[] {
     const poiLayersParam = queryParams['poi-layers'];
     let poiLayerStates: MapLayerState[];
-    if (!!poiLayersParam) {
+    if (poiLayersParam) {
       poiLayerStates = this.defaultPoiLayerStates.map((defaultLayerState) => {
         const visible = poiLayersParam.includes(defaultLayerState.layerName);
         return {
