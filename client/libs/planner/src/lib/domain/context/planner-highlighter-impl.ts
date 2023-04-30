@@ -4,8 +4,6 @@ import { Coordinate } from 'ol/coordinate';
 import { Point } from 'ol/geom';
 import { LineString } from 'ol/geom';
 import { MultiLineString } from 'ol/geom';
-import GeometryLayout from 'ol/geom/GeometryLayout';
-import GeometryType from 'ol/geom/GeometryType';
 import RenderFeature from 'ol/render/Feature';
 import { RouteFeature } from '../features/route-feature';
 import { PlannerHighlightLayer } from './planner-highlight-layer';
@@ -31,13 +29,13 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
     if (routeFeature.feature instanceof RenderFeature) {
       const renderFeature = routeFeature.feature as RenderFeature;
       const geometryType = renderFeature.getType();
-      if (geometryType === GeometryType.LINE_STRING) {
+      if (geometryType === 'LineString') {
         const coordinates: number[] =
           renderFeature.getOrientedFlatCoordinates();
-        const lineString = new LineString(coordinates, GeometryLayout.XY);
+        const lineString = new LineString(coordinates, 'XY');
         const feature = new Feature(lineString);
         this.layer.highlightFeature(feature);
-      } else if (geometryType === GeometryType.MULTI_LINE_STRING) {
+      } else if (geometryType === 'MultiLineString') {
         const coordinates: number[] =
           renderFeature.getOrientedFlatCoordinates();
         const ends: number[] = [];
@@ -46,11 +44,7 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
             ends.push(num);
           }
         });
-        const lineString = new MultiLineString(
-          coordinates,
-          GeometryLayout.XY,
-          ends
-        );
+        const lineString = new MultiLineString(coordinates, 'XY', ends);
         const feature = new Feature(lineString);
         this.layer.highlightFeature(feature);
       } else {

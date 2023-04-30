@@ -1,4 +1,4 @@
-import Geocoder from 'ol-geocoder';
+import Geocoder from '@kirtandesai/ol-geocoder';
 import Map from 'ol/Map';
 
 export class MapGeocoder {

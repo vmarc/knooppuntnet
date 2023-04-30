@@ -1,7 +1,7 @@
 import { PageService } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
+import { MapOptions } from 'ol/Map';
 import Map from 'ol/Map';
-import { MapOptions } from 'ol/PluggableMap';
 import { fromEvent } from 'rxjs';
 
 export class OpenLayersMap {

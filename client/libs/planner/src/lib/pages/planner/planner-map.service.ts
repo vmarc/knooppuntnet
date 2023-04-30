@@ -4,10 +4,10 @@ import { NetworkType } from '@api/custom';
 import { ZoomLevel } from '@app/components/ol/domain';
 import { MapGeocoder } from '@app/components/ol/domain';
 import { MapLayerState } from '@app/components/ol/domain';
+import { MapControls } from '@app/components/ol/layers';
 import { MapLayerRegistry } from '@app/components/ol/layers';
 import { BackgroundLayer } from '@app/components/ol/layers';
 import { OsmLayer } from '@app/components/ol/layers';
-import { MapControls } from '@app/components/ol/layers';
 import { TileDebug256Layer } from '@app/components/ol/layers';
 import { TileDebug512Layer } from '@app/components/ol/layers';
 import { OpendataBitmapTileLayer } from '@app/components/ol/layers';
@@ -234,9 +234,10 @@ export class PlannerMapService extends OpenlayersMapService {
     return new Overlay({
       id: 'popup',
       element: document.getElementById('popup'),
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250,
+      autoPan: {
+        animation: {
+          duration: 250,
+        },
       },
     });
   }

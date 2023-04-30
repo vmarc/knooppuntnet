@@ -3,7 +3,6 @@ import { Coordinate } from 'ol/coordinate';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
 import Icon from 'ol/style/Icon';
-import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import Style from 'ol/style/Style';
 
 export class Marker {
@@ -19,8 +18,8 @@ export class Marker {
     return new Style({
       image: new Icon({
         anchor: [12, 41],
-        anchorXUnits: IconAnchorUnits.PIXELS,
-        anchorYUnits: IconAnchorUnits.PIXELS,
+        anchorXUnits: 'pixels',
+        anchorYUnits: 'pixels',
         src,
       }),
     });

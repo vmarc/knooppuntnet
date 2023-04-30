@@ -3,7 +3,6 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Style } from 'ol/style';
 import Icon from 'ol/style/Icon';
-import IconAnchorUnits from 'ol/style/IconAnchorUnits';
 import { MapLayer } from './map-layer';
 
 export class FrisoLayer {
@@ -17,8 +16,8 @@ export class FrisoLayer {
     const style = new Style({
       image: new Icon({
         anchor: [12, 41],
-        anchorXUnits: IconAnchorUnits.PIXELS,
-        anchorYUnits: IconAnchorUnits.PIXELS,
+        anchorXUnits: 'pixels',
+        anchorYUnits: 'pixels',
         src,
       }),
     });

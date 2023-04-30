@@ -633,3 +633,9 @@ input[type=number] {
   min-width: 250px !important;
   overflow: hidden !important;
 }
+
+/* override geocoder control style */
+
+.ol-geocoder .gcd-gl-control {
+  background-color: rgba(0, 0, 0, 0);
+}

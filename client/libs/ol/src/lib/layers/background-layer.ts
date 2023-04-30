@@ -1,6 +1,4 @@
-import MapLibreLayer from '@geoblocks/ol-maplibre-layer';
-import { Source } from 'ol/source';
-import { OsmLibertyStyle } from '../style';
+import { MapboxVector } from 'ol/layer';
 import { MapLayer } from './map-layer';
 
 export class BackgroundLayer {
@@ -12,15 +10,14 @@ export class BackgroundLayer {
     const openMapTilesAttribution =
       '&#169; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a>';
 
-    const layer = new MapLibreLayer({
-      opacity: 0.7,
-      source: new Source({
-        attributions: [openMapTilesAttribution, osmAttribution],
-      }),
-      maplibreOptions: {
-        style: OsmLibertyStyle.osmLibertyStyle,
-      },
+    const layer = new MapboxVector({
+      styleUrl: '/assets/osm-liberty-style.json',
     });
+
+    layer
+      .getSource()
+      .setAttributions([osmAttribution, openMapTilesAttribution]);
+
     return new MapLayer(this.id, this.id, -Infinity, Infinity, layer);
   }
 }
