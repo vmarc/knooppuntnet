@@ -90,6 +90,6 @@ class OverviewPageBuilderImpl(
 
   private def formatted(language: Language, value: Long): String = {
     val f = Formatter.number(value)
-    if (FR == language) f.replaceAll(".", " ") else f
+    if (FR == language) f.replaceAll("\\.", " ") else f
   }
 }
