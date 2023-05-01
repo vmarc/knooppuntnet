@@ -36,6 +36,12 @@ import { AnalysisStrategyService } from '../../strategy';
         i18n-title="@@country.nl"
         title="The Netherlands"
       />
+      <kpn-icon-button
+        [routerLink]="frLink$ | async"
+        icon="france"
+        i18n-title="@@country.fr"
+        title="France"
+      />
       <!-- eslint-enable @angular-eslint/template/i18n -->
     </kpn-icon-buttons>
   `,
@@ -50,7 +56,8 @@ import { AnalysisStrategyService } from '../../strategy';
   ],
 })
 export class AnalysisCanoePageComponent {
-  readonly nlLink$ = this.analysisStrategyService.link('canoe', 'nl');
+  protected readonly nlLink$ = this.analysisStrategyService.link('canoe', 'nl');
+  protected readonly frLink$ = this.analysisStrategyService.link('canoe', 'fr');
 
   constructor(private analysisStrategyService: AnalysisStrategyService) {}
 }

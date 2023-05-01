@@ -82,12 +82,17 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
           [stat]="stat"
           [country]="country.fr"
           [networkType]="networkType.cycling"
-          [rowspan]="2"
+          [rowspan]="3"
         />
         <kpn-overview-list-stat-row
           [stat]="stat"
           [country]="country.fr"
           [networkType]="networkType.hiking"
+        />
+        <kpn-overview-list-stat-row
+          [stat]="stat"
+          [country]="country.fr"
+          [networkType]="networkType.canoe"
         />
 
         <kpn-overview-list-stat-row
