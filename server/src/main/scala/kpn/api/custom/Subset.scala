@@ -20,6 +20,7 @@ object Subset {
   val frHiking: Subset = Subset(Country.fr, NetworkType.hiking)
   val frBicycle: Subset = Subset(Country.fr, NetworkType.cycling)
   val frHorseRiding: Subset = Subset(Country.fr, NetworkType.horseRiding)
+  val frCanoe: Subset = Subset(Country.fr, NetworkType.canoe)
 
   val atBicycle: Subset = Subset(Country.at, NetworkType.cycling)
 
@@ -43,6 +44,7 @@ object Subset {
     deHorseRiding,
     frHorseRiding,
     nlCanoe,
+    frCanoe,
     nlMotorboat,
     nlInlineSkates
   )

@@ -1,10 +1,10 @@
 PROXY_CONFIG = {
   '/api/**': {
-    target: 'http://localhost:9005',
+    target: 'http://localhost:9006',
     secure: false,
   },
   '/admin-api/**': {
-    target: 'http://localhost:9005',
+    target: 'http://localhost:9006',
     secure: false,
   },
   '/tiles/**': {
