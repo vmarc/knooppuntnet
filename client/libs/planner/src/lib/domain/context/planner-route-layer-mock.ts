@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals';
 import { Map } from 'immutable';
 import { PlanLeg } from '../plan/plan-leg';
 import { PlannerRouteLayer } from './planner-route-layer';
@@ -22,7 +23,7 @@ export class PlannerRouteLayerMock extends PlannerRouteLayer {
           .map((leg) => `${leg.featureId}(${leg.key})`)
           .join(', ');
       }
-      fail(message);
+      throw new Error(message);
     }
   }
 

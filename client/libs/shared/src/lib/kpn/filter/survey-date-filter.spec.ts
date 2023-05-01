@@ -1,5 +1,5 @@
-import { SurveyDateInfo } from '@api/common/survey-date-info';
-import { Day } from '@api/custom/day';
+import { SurveyDateInfo } from '@api/common';
+import { Day } from '@api/custom';
 import { Filters } from './filters';
 import { SurveyDateFilter } from './survey-date-filter';
 import { SurveyDateFilterKind } from './survey-date-filter-kind';

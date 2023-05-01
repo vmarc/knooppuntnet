@@ -3,9 +3,6 @@
   "version": "4.0.36",
   "license": "MIT",
   "scripts": {
-    "lint": "nx lint",
-    "build": "nx build",
-    "test": "nx test",
     "prettier-check": "prettier --check --config .prettierrc --ignore-path .prettierignore --loglevel warn \"{**/*,*}.{js,ts}\"",
     "prettier-write": "prettier --write --config .prettierrc --ignore-path .prettierignore --loglevel warn \"{**/*,*}.{js,ts}\"",
     "extract-i18n": "nx extract-i18n --output-path src/locale",

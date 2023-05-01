@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals';
 import { Map as PlanFlagMap } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { expectCoordinate } from '../../util/test-support';
@@ -50,7 +51,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
         message += `, the route-layer contains following flag(s): `;
         message += this.flags.map((flag) => `"${flag.featureId}"`).join(', ');
       }
-      fail(message);
+      throw new Error(message);
     }
   }
 
@@ -96,7 +97,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
           message += `, coordinate=[${feature.coordinate[0]}, ${feature.coordinate[0]}]`;
         });
       }
-      fail(message);
+      throw new Error(message);
     }
 
     expect(flag.flagType).toEqual(flagType);
@@ -132,7 +133,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
           JSON.stringify(flag.coordinate) === coordinateString
       );
     if (!result) {
-      fail(
+      throw new Error(
         `could not find flag with type ${flagType} and coordinate ${coordinate}`
       );
     }

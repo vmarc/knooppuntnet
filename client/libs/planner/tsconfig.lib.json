@@ -2,7 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    // "strict": true, TODO re-enable
+    // TODO re-enable
+    "strict": false,
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
@@ -10,7 +11,6 @@
   },
   "exclude": [
     "src/**/*.spec.ts",
-    "src/**/*-mock.ts",
     "src/test-setup.ts",
     "jest.config.ts",
     "src/**/*.test.ts"
