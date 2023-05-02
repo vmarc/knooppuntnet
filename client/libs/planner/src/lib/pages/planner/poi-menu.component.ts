@@ -3,10 +3,9 @@ import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { PoiService } from '@app/services';
 import { Store } from '@ngrx/store';
-import { actionPlannerPoisEnabled } from '../../store/planner-actions';
-import { selectPlannerPoisEnabled } from '../../store/planner-selectors';
+import { actionPlannerPoisVisible } from '../../store/planner-actions';
+import { selectPlannerPoisVisible } from '../../store/planner-selectors';
 import { PoiMenuOptionComponent } from './poi-menu-option.component';
 
 @Component({
@@ -17,8 +16,8 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
 
     <mat-checkbox
       (click)="$event.stopPropagation()"
-      [checked]="enabled$ | async"
-      (change)="enabledChanged($event)"
+      [checked]="visible$ | async"
+      (change)="visibleChanged($event)"
       class="pois"
       i18n="@@poi.menu.pois"
     >
@@ -84,12 +83,11 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
   ],
 })
 export class PoiMenuComponent {
-  readonly enabled$ = this.store.select(selectPlannerPoisEnabled);
+  readonly visible$ = this.store.select(selectPlannerPoisVisible);
 
-  constructor(private store: Store, private service: PoiService) {}
+  constructor(private store: Store) {}
 
-  enabledChanged(event: MatCheckboxChange): void {
-    this.store.dispatch(actionPlannerPoisEnabled({ enabled: event.checked }));
-    // this.service.updateEnabled(event.checked);
+  visibleChanged(event: MatCheckboxChange): void {
+    this.store.dispatch(actionPlannerPoisVisible({ visible: event.checked }));
   }
 }

@@ -1,3 +1,4 @@
+import { PoiTileLayerService } from '@app/components/ol/services';
 import { createSelector } from '@ngrx/store';
 import { createFeatureSelector } from '@ngrx/store';
 import { PlannerState } from './planner-state';
@@ -41,19 +42,23 @@ export const selectPlannerLayerStates = createSelector(
   (state) => state.layerStates
 );
 
-export const selectPlannerPois = createSelector(
+export const selectPlannerPoisVisible = createSelector(
   selectPlannerState,
-  (state) => state.pois
+  (state) => {
+    let visible = false;
+    const poiLayerState = state.layerStates.find(
+      (ls) => ls.layerName == PoiTileLayerService.poiLayerName
+    );
+    if (poiLayerState) {
+      visible = poiLayerState.visible;
+    }
+    return visible;
+  }
 );
 
 export const selectPlannerPoiLayerStates = createSelector(
   selectPlannerState,
   (state) => state.poiLayerStates
-);
-
-export const selectPlannerPoisEnabled = createSelector(
-  selectPlannerState,
-  (state) => state.pois === true
 );
 
 export const selectPlannerPoiGroupVisible = (layerName: string) =>

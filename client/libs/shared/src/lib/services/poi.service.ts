@@ -11,7 +11,7 @@ import { PoiPreferences } from './poi-preferences';
 
 @Injectable()
 export class PoiService {
-  readonly changed: BehaviorSubject<boolean> = new BehaviorSubject(null);
+  readonly changeCount: BehaviorSubject<number> = new BehaviorSubject(0);
   poiActive = Map<string, boolean>();
   readonly poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> =
     new BehaviorSubject(null);
@@ -135,7 +135,7 @@ export class PoiService {
       });
 
       if (activeChanged) {
-        this.changed.next(true);
+        this.changeCount.next(this.changeCount.value + 1);
       }
     }
   }

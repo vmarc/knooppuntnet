@@ -10,21 +10,20 @@ import { from, Observable } from 'rxjs';
 import { mergeMap, tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PlannerMapService } from '../pages/planner/planner-map.service';
-import { PlannerStateService } from '../services/planner-state.service';
+import { actionPlannerMapMode } from './planner-actions';
 import { actionPlannerMapViewInit } from './planner-actions';
 import { actionPlannerNetworkType } from './planner-actions';
 import { actionPlannerPoiGroupVisible } from './planner-actions';
-import { actionPlannerPoisEnabled } from './planner-actions';
+import { actionPlannerPoisVisible } from './planner-actions';
 import { actionPlannerPosition } from './planner-actions';
 import { actionPlannerLayerStates } from './planner-actions';
 import { actionPlannerInit } from './planner-actions';
 import { actionPlannerLoad } from './planner-actions';
 import { actionPlannerMapFinalized } from './planner-actions';
+import { selectPlannerLayerStates } from './planner-selectors';
 import { selectPlannerState } from './planner-selectors';
 import { selectPlannerMapMode } from './planner-selectors';
-import { selectPlannerPois } from './planner-selectors';
 import { PlannerState } from './planner-state';
-import { initialState } from './planner-state';
 
 @Injectable()
 export class PlannerEffects {
@@ -44,14 +43,13 @@ export class PlannerEffects {
         this.store.select(selectRouteParams),
         this.store.select(selectQueryParams),
       ]),
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       map(([_, routeParams, queryParams]) => {
-        const networkType =
-          this.plannerStateService.parseNetworkType(routeParams);
-        const mapMode = this.plannerStateService.parseMapMode(queryParams);
-        const resultMode =
-          this.plannerStateService.parseResultMode(queryParams);
-        const state = { ...initialState, networkType, mapMode, resultMode };
-        return actionPlannerLoad({ networkType, mapMode, resultMode });
+        const state = this.plannerMapService.toPlannerState(
+          routeParams,
+          queryParams
+        );
+        return actionPlannerLoad({ state });
       })
     );
   });
@@ -61,18 +59,10 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionPlannerMapViewInit),
-        concatLatestFrom(() => [
-          this.store.select(selectPlannerState),
-          this.store.select(selectRouteParams),
-          this.store.select(selectQueryParams),
-        ]),
-        tap(([_, state, routeParams, queryParams]) => {
-          this.plannerMapService.init(
-            state.networkType,
-            state.mapMode,
-            state.resultMode,
-            queryParams
-          );
+        concatLatestFrom(() => [this.store.select(selectPlannerState)]),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        tap(([_, state]) => {
+          this.plannerMapService.init(state);
         })
       );
     },
@@ -84,13 +74,26 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionPlannerNetworkType),
-        concatLatestFrom(() => [
-          this.store.select(selectPlannerMapMode),
-          this.store.select(selectPlannerPois),
-        ]),
-        tap(([{ networkType }, mapMode, pois]) =>
-          this.plannerMapService.handleNetworkChange(networkType, mapMode, pois)
+        concatLatestFrom(() => [this.store.select(selectPlannerMapMode)]),
+        tap(([{ networkType }, mapMode]) =>
+          this.plannerMapService.handleNetworkChange(networkType, mapMode)
         )
+      );
+    },
+    { dispatch: false }
+  );
+
+  // noinspection JSUnusedGlobalSymbols
+  mapModeChange = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionPlannerMapMode),
+        concatLatestFrom(() => [this.store.select(selectPlannerState)]),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        mergeMap(([_, state]) => {
+          this.plannerMapService.updateLayerVisibility();
+          return this.navigate(state);
+        })
       );
     },
     { dispatch: false }
@@ -102,17 +105,15 @@ export class PlannerEffects {
       return this.actions$.pipe(
         ofType(
           actionPlannerMapFinalized,
-          actionPlannerPoisEnabled,
+          actionPlannerPoisVisible,
           actionPlannerPoiGroupVisible,
           actionPlannerNetworkType,
           actionPlannerPosition,
           actionPlannerLayerStates
         ),
         concatLatestFrom(() => [this.store.select(selectPlannerState)]),
-        mergeMap(([action, state]) => {
-          console.log('navigate action=' + action.type);
-          return this.navigate(state);
-        })
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        mergeMap(([_, state]) => this.navigate(state))
       );
     },
     { dispatch: false }
@@ -122,8 +123,13 @@ export class PlannerEffects {
   plannerPoisEnabled = createEffect(
     () => {
       return this.actions$.pipe(
-        ofType(actionPlannerPoisEnabled),
-        tap(({ enabled }) => this.poiService.updateEnabled(enabled))
+        ofType(actionPlannerPoisVisible),
+        concatLatestFrom(() => [this.store.select(selectPlannerLayerStates)]),
+        tap(([{ visible }, layerStates]) => {
+          this.poiService.updateEnabled(visible);
+
+          this.plannerMapService.plannerUpdatePoiLayerVisibility(layerStates);
+        })
       );
     },
     { dispatch: false }
@@ -134,9 +140,9 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionPlannerPoiGroupVisible),
-        tap(({ groupName, visible }) =>
-          this.poiService.updateGroupEnabled(groupName, visible)
-        )
+        tap(({ groupName, visible }) => {
+          this.poiService.updateGroupEnabled(groupName, visible);
+        })
       );
     },
     { dispatch: false }
@@ -148,13 +154,12 @@ export class PlannerEffects {
     private router: Router,
     private route: ActivatedRoute,
     private storage: BrowserStorageService,
-    private plannerStateService: PlannerStateService,
     private poiService: PoiService,
     private plannerMapService: PlannerMapService
   ) {}
 
   private navigate(state: PlannerState): Observable<boolean> {
-    const queryParams = this.plannerStateService.toQueryParams(state);
+    const queryParams = this.plannerMapService.toQueryParams(state);
     const promise = this.router.navigate(['map', state.networkType], {
       queryParams,
     });

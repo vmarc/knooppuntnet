@@ -30,6 +30,9 @@ export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
 export abstract class OpenlayersMapService {
   public mapId: string = UniqueId.get();
   private _map: Map;
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private shouldUpdateUrl = false;
   private _layerStates$ = new BehaviorSubject<MapLayerState[]>([]);
   protected mapLayers: MapLayer[] = [];
   public layerStates$ = this._layerStates$.asObservable();
@@ -40,11 +43,6 @@ export abstract class OpenlayersMapService {
   private readonly pageService = inject(PageService);
   private readonly subscriptions = new Subscriptions();
   private readonly updatePositionHandler = () => this.updateMapPosition();
-
-  private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
-
-  private shouldUpdateUrl = false;
 
   constructor() {
     this.subscriptions.add(

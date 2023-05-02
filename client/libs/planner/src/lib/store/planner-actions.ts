@@ -4,12 +4,13 @@ import { MapLayerState } from '@app/components/ol/domain';
 import { MapMode } from '@app/components/ol/services';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
+import { PlannerState } from './planner-state';
 
 export const actionPlannerInit = createAction('[Planner] Init');
 
 export const actionPlannerLoad = createAction(
   '[Planner] Load',
-  props<{ networkType: NetworkType; mapMode: MapMode; resultMode: string }>()
+  props<{ state: PlannerState }>()
 );
 
 export const actionPlannerMapViewInit = createAction('[Planner] MapViewInit');
@@ -44,9 +45,9 @@ export const actionPlannerLayerStates = createAction(
   props<{ layerStates: MapLayerState[] }>()
 );
 
-export const actionPlannerPoisEnabled = createAction(
-  '[Planner] Pois enabled',
-  props<{ enabled: boolean }>()
+export const actionPlannerPoisVisible = createAction(
+  '[Planner] Pois visible',
+  props<{ visible: boolean }>()
 );
 
 export const actionPlannerPoiGroupVisible = createAction(

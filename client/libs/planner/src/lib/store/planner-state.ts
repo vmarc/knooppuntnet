@@ -9,7 +9,6 @@ export const initialState: PlannerState = {
   mapMode: null,
   resultMode: null,
   layerStates: [],
-  pois: false,
   poiLayerStates: [],
 };
 
@@ -19,7 +18,6 @@ export interface PlannerState {
   mapMode: MapMode;
   resultMode: string; // 'compact' | 'detailed'
   layerStates: MapLayerState[];
-  pois: boolean;
   poiLayerStates: MapLayerState[];
 }
 

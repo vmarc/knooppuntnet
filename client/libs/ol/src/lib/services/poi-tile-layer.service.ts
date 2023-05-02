@@ -8,8 +8,8 @@ import { PoiStyleMap } from '../style';
 
 @Injectable()
 export class PoiTileLayerService {
+  static poiLayerName = 'pois';
   poiStyleMap: PoiStyleMap;
-  static poiLayerName = 'poi-tile-layer';
 
   constructor(private poiService: PoiService) {
     poiService.poiConfiguration.subscribe((configuration) => {
@@ -22,7 +22,10 @@ export class PoiTileLayerService {
   public buildLayer(): MapLayer {
     const layer = new PoiTileLayer().build();
     layer.setStyle(this.poiStyleFunction());
-    this.poiService.changed.subscribe(() => layer.changed());
+    this.poiService.changeCount.subscribe(() => {
+      console.log('poi layer visible = ' + layer.getVisible());
+      layer.changed();
+    });
     return new MapLayer(
       PoiTileLayerService.poiLayerName,
       PoiTileLayerService.poiLayerName,
