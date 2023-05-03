@@ -79,11 +79,11 @@ export abstract class OpenlayersMapService {
     return this._map;
   }
 
-  get layerStates(): MapLayerState[] {
+  protected get layerStates(): MapLayerState[] {
     return this._layerStates$.value;
   }
 
-  updateLayerStates(layerStates: MapLayerState[]) {
+  protected updateLayerStates(layerStates: MapLayerState[]) {
     this._layerStates$.next(layerStates);
   }
 

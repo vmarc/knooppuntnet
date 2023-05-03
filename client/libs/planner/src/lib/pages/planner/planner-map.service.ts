@@ -50,7 +50,7 @@ import { PlannerState } from '../../store/planner-state';
 
 @Injectable()
 export class PlannerMapService extends OpenlayersMapService {
-  readonly plannerPositionKey = 'planner-position';
+  private readonly plannerPositionKey = 'planner-position';
 
   private readonly defaultPoiLayerStates: MapLayerState[] = [
     { layerName: 'hiking-biking', enabled: true, visible: true },

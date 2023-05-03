@@ -4,16 +4,7 @@ import { MapMode } from '../services';
 
 export class MapLayer {
   static simpleLayer(name: string, layer: BaseLayer): MapLayer {
-    return new MapLayer(
-      name,
-      name,
-      -Infinity,
-      Infinity,
-      layer,
-      null,
-      null,
-      null
-    );
+    return new MapLayer(name, name, -Infinity, Infinity, layer, null, null);
   }
 
   constructor(
@@ -23,13 +14,6 @@ export class MapLayer {
     public maxZoom: number,
     public layer: BaseLayer,
     public networkType?: NetworkType,
-    public mapMode?: MapMode,
-    public resizeFunction?: () => void
+    public mapMode?: MapMode
   ) {}
-
-  updateSize(): void {
-    if (this.resizeFunction) {
-      this.resizeFunction();
-    }
-  }
 }
