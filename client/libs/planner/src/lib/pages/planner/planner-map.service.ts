@@ -404,17 +404,12 @@ export class PlannerMapService extends OpenlayersMapService {
   private parsePosition(queryParams: Params): MapPosition {
     const positionParam = queryParams['position'];
     let position = MapPosition.fromQueryParam(positionParam);
-    console.log(`  position=${position}`);
     if (!position) {
       const mapPositionString = this.browserStorageService.get(
         this.plannerPositionKey
       );
-      console.log(`  mapPositionString=${mapPositionString}`);
       if (mapPositionString) {
         position = MapPosition.fromQueryParam(mapPositionString);
-        console.log(
-          `initial position from local storage: ${position?.toQueryParam()}`
-        );
       } else {
         // TODO replace temporary code
         const a: Coordinate = fromLonLat([2.24, 50.16]);
@@ -423,14 +418,7 @@ export class PlannerMapService extends OpenlayersMapService {
         const x = (b[0] - a[0]) / 2 + a[0];
         const y = (b[1] - a[1]) / 2 + a[1];
         position = new MapPosition(14, x, y, 0);
-        console.log(
-          `initial position from temporary code: ${position.toQueryParam()}`
-        );
       }
-    } else {
-      console.log(
-        `initial position from query params: ${position.toQueryParam()}`
-      );
     }
     return position;
   }

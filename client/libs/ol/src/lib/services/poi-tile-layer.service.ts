@@ -22,10 +22,7 @@ export class PoiTileLayerService {
   public buildLayer(): MapLayer {
     const layer = new PoiTileLayer().build();
     layer.setStyle(this.poiStyleFunction());
-    this.poiService.changeCount.subscribe(() => {
-      console.log('poi layer visible = ' + layer.getVisible());
-      layer.changed();
-    });
+    this.poiService.changeCount.subscribe(() => layer.changed());
     return new MapLayer(
       PoiTileLayerService.poiLayerName,
       PoiTileLayerService.poiLayerName,
