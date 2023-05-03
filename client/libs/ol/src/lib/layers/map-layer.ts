@@ -8,8 +8,8 @@ export class MapLayer {
   }
 
   constructor(
-    public name: string,
-    public id: string,
+    public name: string, // e.g. 'hiking'
+    public id: string, // e.g. 'hiking-surface-bitmap'
     public minZoom: number,
     public maxZoom: number,
     public layer: BaseLayer,

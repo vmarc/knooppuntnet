@@ -340,7 +340,7 @@ export class PlannerMapService extends OpenlayersMapService {
     registry.register(
       urlLayerNames,
       this.poiTileLayerService.buildLayer(),
-      false,
+      true,
       false
     );
 

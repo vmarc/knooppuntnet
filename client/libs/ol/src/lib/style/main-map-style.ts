@@ -29,8 +29,11 @@ export class MainMapStyle {
 
   styleFunction(): StyleFunction {
     return (feature, resolution) => {
-      const layer = feature.get('layer');
+      if (!this.parameters) {
+        return this.invisible;
+      }
 
+      const layer = feature.get('layer');
       let show = true;
       const proposed = feature.get('state') === 'proposed';
       if (proposed && !this.parameters.showProposed) {

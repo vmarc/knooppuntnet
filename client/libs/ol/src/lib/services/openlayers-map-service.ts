@@ -160,7 +160,10 @@ export abstract class OpenlayersMapService {
         const zoomInRange =
           zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
         const visible =
-          zoomInRange && mapLayerState.enabled && mapLayerState.visible;
+          zoomInRange &&
+          (mapLayerState.enabled ||
+            mapLayerState.layerName === mapLayer.name) &&
+          mapLayerState.visible;
         if (
           visible &&
           mapLayer.id.includes('vector') &&

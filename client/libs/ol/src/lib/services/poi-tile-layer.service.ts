@@ -30,7 +30,7 @@ export class PoiTileLayerService {
       PoiTileLayerService.poiLayerName,
       PoiTileLayerService.poiLayerName,
       ZoomLevel.poiTileMinZoom,
-      ZoomLevel.poiTileMaxZoom,
+      ZoomLevel.vectorTileMaxOverZoom,
       layer,
       null,
       null

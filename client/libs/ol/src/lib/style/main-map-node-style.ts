@@ -14,8 +14,6 @@ export class MainMapNodeStyle {
   private readonly largeNodeSelectedStyle = this.nodeSelectedStyle(20);
   private readonly nameStyle = nameStyle();
 
-  constructor() {}
-
   nodeStyle(
     parameters: MainMapStyleParameters,
     resolution: number,
