@@ -18,7 +18,7 @@ import { PageService } from '..';
         <mat-icon svgIcon="menu" />
       </button>
       <button mat-button routerLink="/" class="toolbar-app-name">
-        <h1 i18n="@@toolbar.title">knooppuntnet</h1>
+        <div i18n="@@toolbar.title">knooppuntnet</div>
       </button>
       <kpn-spinner />
       <span class="toolbar-spacer"></span>
@@ -38,6 +38,8 @@ import { PageService } from '..';
 
       .toolbar-app-name {
         margin-left: 8px;
+        font-size: 26px;
+        font-weight: 400;
       }
 
       .mat-toolbar-row,

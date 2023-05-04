@@ -182,9 +182,6 @@ export class PlannerMapService extends OpenlayersMapService {
 
     MapGeocoder.install(this.map);
 
-    // if (this.planLoaded) {
-    //   this.zoomInToRoute();
-    // }
     this.finalizeSetup();
 
     this.store.dispatch(

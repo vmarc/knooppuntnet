@@ -289,6 +289,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>1.33.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.softwaremill.diffx</groupId>
             <artifactId>diffx-scalatest-should_2.13</artifactId>
             <version>0.7.1</version>
