@@ -63,6 +63,7 @@ export class PlannerEffects {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         tap(([_, state]) => {
           this.plannerMapService.init(state);
+          this.navigate(state);
         })
       );
     },

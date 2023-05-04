@@ -8,10 +8,11 @@ import com.microsoft.playwright.BrowserContext
 import kpn.e2e.pages.Application
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.BeforeAndAfterEach
+import org.scalatest.matchers.should.Matchers
 
 import java.util.regex.Pattern
 
-class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach {
+class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers {
 
   private val applicationUrl = "http://localhost:4000"
   private var playwright: Playwright = _
@@ -91,6 +92,14 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach {
     assertThat(app.planner.reverseButton).isDisabled()
     assertThat(app.planner.outputButton).isDisabled()
 
+    // http://localhost:4000/map/hiking?mode=surface&position=51.51541504,4.56389044,13&result=compact&layers=background,hiking,pois&poi-layers=hiking-biking,landmarks,restaurants,places-to-stay,tourism
+
+    page.url() should include("?mode=surface")
+    page.url() should include("&position=")
+    page.url() should include("&result=compact")
+    page.url() should include("&layers=background,hiking,pois")
+    page.url() should include("&poi-layers=hiking-biking,landmarks,restaurants,places-to-stay,tourism")
+
     app.planner.searchButton.click()
     app.planner.searchField.fill("essen")
     app.planner.searchField.press("Enter")
@@ -106,12 +115,24 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach {
     app.planner.modeSurface.click()
 
     app.planner.layerButton.click()
+    page.url() should include("&layers=background,hiking,pois")
 
     app.planner.layerPois.click()
+    page.url() should include("&layers=background,hiking")
+
     app.planner.layerPois.click()
+    page.url() should include("&layers=background,hiking,pois")
+
     app.planner.poiLayerTourism.click()
+    page.url() should include("&poi-layers=hiking-biking,landmarks,restaurants,places-to-stay")
+
     app.planner.poiLayerLandmarks.click()
+    page.url() should include("&poi-layers=hiking-biking,restaurants,places-to-stay")
+
     app.planner.poiLayerRestaurants.click()
+    page.url() should include("&poi-layers=hiking-biking,places-to-stay")
+
     app.planner.poiLayerPlacesToStay.click()
+    page.url() should include("&poi-layers=hiking-biking")
   }
 }
