@@ -3500,15 +3500,15 @@
   resolved "https://registry.yarnpkg.com/@socket.io/component-emitter/-/component-emitter-3.1.0.tgz#96116f2a912e0c02817345b3c10751069920d553"
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
-"@softarc/eslint-plugin-sheriff@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@softarc/eslint-plugin-sheriff/-/eslint-plugin-sheriff-0.0.8.tgz#28293b8be4622407ff675179aa8006595accd968"
-  integrity sha512-J4vRr+5TO0EYAmdQ7rqN1hRA9V2YXDaQTRoTgvoWvzQ/THRjQzrvFe2xSdDzvpyOYzJf/+fA4XHX1qaEXuZWSQ==
+"@softarc/eslint-plugin-sheriff@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@softarc/eslint-plugin-sheriff/-/eslint-plugin-sheriff-0.0.9.tgz#5532653b376b3db575cf6f1ee94c79fd311bad35"
+  integrity sha512-cByn80fNMR5Ny7SVeH38qGfM6lLB+Z6R06ynLvKVrywvlw0fkP4mFx1NpC2p7lW84NHUwnuFZAaSFlbxm5ZsJQ==
 
-"@softarc/sheriff-core@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@softarc/sheriff-core/-/sheriff-core-0.0.8.tgz#cf98be70fee65b5954bd568f22dc222a9340c1b9"
-  integrity sha512-rPKC+2kHkJXJOi354868vsNPdLOLjUSiohZnyd9y9LL0+s7joig+tXs3KVvd1Tu+jadVQ4elyMhDDtcLH3ov4A==
+"@softarc/sheriff-core@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@softarc/sheriff-core/-/sheriff-core-0.0.9.tgz#0d2659d8fd4294d02f1a95c7be7f242f3bcabcd6"
+  integrity sha512-YRp07Upk5ND03kz4svyLvwxLoGcx/CUhwuXgAX7fATIchEz0lEBUHrtWGiFdgwi3c28uyDvjJaxuy6W4M0DwGQ==
 
 "@swimlane/ngx-charts@^20.1.0":
   version "20.1.2"
@@ -12445,15 +12445,15 @@ typed-assert@^1.0.8:
   resolved "https://registry.yarnpkg.com/typed-assert/-/typed-assert-1.0.9.tgz#8af9d4f93432c4970ec717e3006f33f135b06213"
   integrity sha512-KNNZtayBCtmnNmbo5mG47p1XsCyrx6iVqomjcZnec/1Y5GGARaxPs6r49RnSPeUP3YjNYiU9sQHAtY4BBvnZwg==
 
-typescript@4.8.4:
-  version "4.8.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.4.tgz#c464abca159669597be5f96b8943500b238e60e6"
-  integrity sha512-QCh+85mCy+h0IGff8r5XWzOVSbBO+KfeYrMQh7NJ58QujwcE22u+NUSmUxqF+un70P9GXKxa2HCNiTTMJknyjQ==
-
 typescript@^5.0.2:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.4.tgz#b217fd20119bd61a94d4011274e0ab369058da3b"
   integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
+
+typescript@~4.9.5:
+  version "4.9.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
+  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
 ua-parser-js@^0.7.30:
   version "0.7.35"
