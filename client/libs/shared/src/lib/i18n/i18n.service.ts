@@ -121,6 +121,10 @@ export class I18nService {
       $localize`:@@map.layer.flanders-hiking:Toerisme Vlaanderen`,
     ]);
     keysAndValues.push([
+      '@@map.layer.flanders-cycling',
+      $localize`:@@map.layer.flanders-cycling:Toerisme Vlaanderen`,
+    ]);
+    keysAndValues.push([
       '@@map.layer.netherlands-hiking',
       $localize`:@@map.layer.netherlands-hiking:Netherlands routedatabank`,
     ]);

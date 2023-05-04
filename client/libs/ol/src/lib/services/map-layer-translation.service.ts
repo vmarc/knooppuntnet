@@ -43,6 +43,7 @@ export class MapLayerTranslationService {
       translation: '@@map.layer.netherlands-hiking', //$localize`:@@map.layer.opendata.netherlands:Routedatabank Nederland`
     },
     { name: 'flanders-hiking', translation: '@@map.layer.flanders-hiking' }, // $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
+    { name: 'flanders-cycling', translation: '@@map.layer.flanders-cycling' }, // $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
     { name: 'debug-512', translation: '@@map.layer.tile-512-names' },
     { name: 'debug-256', translation: '@@map.layer.tile-256-names' },
     { name: 'location-boundary', translation: '@@map.layer.boundary' },
@@ -61,11 +62,11 @@ export class MapLayerTranslationService {
     const layerDefinition = this.mapLayerDefinitions.find(
       (definition) => definition.name === layerName
     );
-    if (!!layerDefinition) {
+    if (layerDefinition) {
       const translation = this.i18nService.translation(
         layerDefinition.translation
       );
-      if (!!translation) {
+      if (translation) {
         return translation;
       }
     }

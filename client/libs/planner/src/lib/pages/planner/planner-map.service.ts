@@ -313,8 +313,12 @@ export class PlannerMapService extends OpenlayersMapService {
       networkType === NetworkType.hiking
     );
 
-    /* TODO planner this.allLayers.push(new OpendataBitmapTileLayer().build(NetworkType.cycling)); */
-    /* TODO planner this.allLayers.push(new OpendataVectorTileLayer().build(NetworkType.cycling)); */
+    registry.registerAll(
+      urlLayerNames,
+      this.flandersOpenDataCyclingLayers(),
+      false,
+      networkType === NetworkType.cycling
+    );
 
     registry.registerAll(
       urlLayerNames,
@@ -356,6 +360,21 @@ export class PlannerMapService extends OpenlayersMapService {
         NetworkType.hiking,
         'flanders-hiking',
         'flanders/hiking'
+      ),
+    ];
+  }
+
+  private flandersOpenDataCyclingLayers(): MapLayer[] {
+    return [
+      new OpendataBitmapTileLayer().build(
+        NetworkType.cycling,
+        'flanders-cycling',
+        'flanders/cycling'
+      ),
+      new OpendataVectorTileLayer().build(
+        NetworkType.cycling,
+        'flanders-cycling',
+        'flanders/cycling'
       ),
     ];
   }
