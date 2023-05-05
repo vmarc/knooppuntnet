@@ -8,6 +8,8 @@ import { enableProdMode } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
@@ -23,6 +25,7 @@ import { AppComponent } from '@app/*';
 import { appRoutes } from '@app/*';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
+import { KpnDateAdapter } from '@app/components/shared/day';
 import { metaReducers } from '@app/core';
 import { SharedEffects } from '@app/core';
 import { UserEffects } from '@app/core';
@@ -122,6 +125,11 @@ bootstrapApplication(AppComponent, {
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    {
+      provide: DateAdapter,
+      useClass: KpnDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
     VersionService,
     ApiService,
     I18nService,
