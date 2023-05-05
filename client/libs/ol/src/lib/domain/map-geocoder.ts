@@ -10,7 +10,7 @@ export class MapGeocoder {
       placeholder: 'Search for...',
       limit: 5,
       keepOpen: false,
-      debug: true,
+      debug: false,
     });
 
     map.addControl(geocoder);
