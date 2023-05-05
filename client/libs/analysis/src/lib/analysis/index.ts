@@ -1,2 +1,1 @@
-export * from './analysis.module';
-export * from './analysis-routing.module';
+export * from './analysis-routes';

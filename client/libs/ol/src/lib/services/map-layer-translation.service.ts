@@ -4,7 +4,9 @@ import { BackgroundLayer } from '../layers';
 import { OsmLayer } from '../layers';
 import { MapLayerDefinition } from './map-layer-definition';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class MapLayerTranslationService {
   readonly mapLayerDefinitions: MapLayerDefinition[] = [
     { name: BackgroundLayer.id, translation: '@@map.layer.background' },

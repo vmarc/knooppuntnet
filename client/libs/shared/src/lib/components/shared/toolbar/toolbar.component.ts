@@ -38,8 +38,9 @@ import { PageService } from '..';
 
       .toolbar-app-name {
         margin-left: 8px;
-        font-size: 26px;
+        font-size: 20px;
         font-weight: 400;
+        letter-spacing: 0.0125em;
       }
 
       .mat-toolbar-row,

@@ -1,2 +1,1 @@
-export * from './route.module';
-export * from './route-routing.module';
+export * from './route-routes';

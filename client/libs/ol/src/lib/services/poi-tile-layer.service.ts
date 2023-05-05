@@ -6,7 +6,9 @@ import { PoiTileLayer } from '../layers';
 import { MapLayer } from '../layers';
 import { PoiStyleMap } from '../style';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PoiTileLayerService {
   static poiLayerName = 'pois';
   poiStyleMap: PoiStyleMap;

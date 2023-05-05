@@ -3,7 +3,9 @@ import { PageService } from '@app/components/shared';
 import { MapOptions } from 'ol/Map';
 import { OpenLayersMap } from '../domain';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class NewMapService {
   constructor(private pageService: PageService) {}
 

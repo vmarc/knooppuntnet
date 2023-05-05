@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 import { BaseSidebarComponent } from './base-sidebar.component';
 import { AuthenticatePageComponent } from './pages/authenticate/authenticate-page.component';
@@ -8,7 +6,7 @@ import { LoginPageComponent } from './pages/login/login-page.component';
 import { LogoutPageComponent } from './pages/logout/logout-page.component';
 import { NotFoundPageComponent } from './pages/not-found/not-found-page.component';
 
-const routes: Routes = [
+export const baseRoutes: Routes = [
   {
     path: '',
     component: HomePageComponent,
@@ -40,9 +38,3 @@ const routes: Routes = [
     pathMatch: 'full',
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class BaseRoutingModule {}

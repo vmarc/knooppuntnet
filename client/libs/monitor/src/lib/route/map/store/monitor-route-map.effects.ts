@@ -283,7 +283,7 @@ export class MonitorRouteMapEffects {
           if (state.mapPosition) {
             queryParams = {
               ...queryParams,
-              position: state.mapPosition.toQueryParam(),
+              position: MapPosition.toQueryParam(state.mapPosition),
             };
           }
           this.router.navigate([], {

@@ -11,7 +11,9 @@ import MapBrowserEventType from 'ol/MapBrowserEventType';
 /*
    Navigates to the node or route specific page when clicking on node or route in the map.
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class MapClickService {
   private interaction: Interaction = this.buildInteraction();
   private ctrl = false;

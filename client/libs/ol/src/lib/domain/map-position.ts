@@ -1,4 +1,3 @@
-import { Params } from '@angular/router';
 import { Coordinate } from 'ol/coordinate';
 import { toLonLat } from 'ol/proj';
 import { fromLonLat } from 'ol/proj';
@@ -46,20 +45,13 @@ export class MapPosition {
     return new MapPosition(zoom, coordinate[0], coordinate[1], 0);
   }
 
-  toQueryParams(): Params {
-    const position = this.toQueryParam();
-    return { position };
-  }
-
-  toQueryParam(): string {
-    const center: Coordinate = [this.x, this.y];
-    const zoom = this.zoom;
-
+  static toQueryParam(mapPosition: MapPosition): string {
+    const center: Coordinate = [mapPosition.x, mapPosition.y];
+    const zoom = mapPosition.zoom;
     const c = toLonLat(center);
     const lng = c[0].toFixed(8);
     const lat = c[1].toFixed(8);
     const z = Math.round(zoom);
-
     return `${lat},${lng},${z}`;
   }
 

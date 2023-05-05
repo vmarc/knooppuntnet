@@ -1,5 +1,4 @@
-export * from './changes.module';
-export * from './changes-routing.module';
+export * from './changes-routes';
 
 export { actionChangesAnalysisStrategy } from './store/changes.actions';
 export { actionChangesFilterOption } from './store/changes.actions';

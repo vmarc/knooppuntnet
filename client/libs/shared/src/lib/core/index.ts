@@ -1,5 +1,4 @@
 export * from './core.state';
-export * from './core.module';
 
 export { PageState } from './page/page.state';
 export * from './page/page.reducer';

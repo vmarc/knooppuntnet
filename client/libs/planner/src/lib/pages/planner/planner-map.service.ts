@@ -108,7 +108,7 @@ export class PlannerMapService extends OpenlayersMapService {
   }
 
   toQueryParams(state: PlannerState): Params {
-    const position = state.position.toQueryParam();
+    const position = MapPosition.toQueryParam(state.position);
     const mode = state.mapMode;
     const result = state.resultMode;
     const layers = state.layerStates

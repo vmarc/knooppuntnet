@@ -2,7 +2,6 @@ export * from './util';
 export * from './day-util';
 export * from './page-width';
 export * from './page.service';
-export * from './shared.module';
 export * from './timestamp-util';
 export * from './page-width.service';
 export * from './meta-data.component';

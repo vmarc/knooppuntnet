@@ -3,7 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { ChangeFilterOptions } from './change-filter-options';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ChangesService {
   readonly filterOptions$: Observable<ChangeFilterOptions>;
   private readonly _filterOptions$ = new BehaviorSubject<ChangeFilterOptions>(

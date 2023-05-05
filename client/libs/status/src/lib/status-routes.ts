@@ -1,5 +1,3 @@
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { LogPageComponent } from './status/log-page.component';
@@ -8,7 +6,7 @@ import { StatusPageComponent } from './status/status-page.component';
 import { StatusSidebarComponent } from './status/status-sidebar.component';
 import { SystemStatusPageComponent } from './status/system-status-page.component';
 
-const routes: Routes = [
+export const statusRoutes: Routes = [
   Util.routePath('', StatusPageComponent, StatusSidebarComponent),
 
   Util.routePath(
@@ -88,9 +86,3 @@ const routes: Routes = [
     StatusSidebarComponent
   ),
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class StatusRoutingModule {}

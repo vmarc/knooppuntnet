@@ -274,42 +274,6 @@
       "@app/util": [
         "libs/util/src/index.ts"
       ]
-      //      "analysis": [
-      //        "libs/analysis/src/index.ts"
-      //      ],
-      //      "api": [
-      //        "libs/api/src/index.ts"
-      //      ],
-      //      "demo": [
-      //        "libs/demo/src/index.ts"
-      //      ],
-      //      "friso": [
-      //        "libs/friso/src/index.ts"
-      //      ],
-      //      "monitor": [
-      //        "libs/monitor/src/index.ts"
-      //      ],
-      //      "ol": [
-      //        "libs/ol/src/index.ts"
-      //      ],
-      //      "planner": [
-      //        "libs/planner/src/index.ts"
-      //      ],
-      //      "poi": [
-      //        "libs/poi/src/index.ts"
-      //      ],
-      //      "settings": [
-      //        "libs/settings/src/index.ts"
-      //      ],
-      //      "shared": [
-      //        "libs/shared/src/index.ts"
-      //      ],
-      //      "status": [
-      //        "libs/status/src/index.ts"
-      //      ],
-      //      "util": [
-      //        "libs/util/src/index.ts"
-      //      ]
     }
   }
 }

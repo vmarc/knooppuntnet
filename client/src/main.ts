@@ -2,23 +2,31 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideHttpClient } from '@angular/common/http';
 import { withInterceptorsFromDi } from '@angular/common/http';
+import { isDevMode } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
 import { enableProdMode } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { bootstrapApplication, BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { withPreloading } from '@angular/router';
+import { provideRouter } from '@angular/router';
+import { PreloadAllModules } from '@angular/router';
 import { Router } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from '@app/*';
-import { AppRoutingModule } from '@app/*';
+import { appRoutes } from '@app/*';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
-import { SharedModule } from '@app/components/shared';
-import { CoreModule } from '@app/core';
+import { metaReducers } from '@app/core';
+import { SharedEffects } from '@app/core';
+import { UserEffects } from '@app/core';
+import { reducers } from '@app/core';
 import { I18nService } from '@app/i18n';
 import { ApiService } from '@app/services';
 import { IconService } from '@app/services';
@@ -28,6 +36,10 @@ import { PoiService } from '@app/services';
 import { VersionService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
+import { provideEffects } from '@ngrx/effects';
+import { provideRouterStore } from '@ngrx/router-store';
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as Sentry from '@sentry/angular-ivy';
 import { Breadcrumb } from '@sentry/angular-ivy';
 import { BreadcrumbHint } from '@sentry/angular-ivy';
@@ -76,6 +88,11 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideRouter(
+      appRoutes,
+      withPreloading(PreloadAllModules)
+      // withDebugTracing()
+    ),
     importProvidersFrom(
       MarkdownModule.forRoot(),
       BrowserModule,
@@ -83,9 +100,7 @@ bootstrapApplication(AppComponent, {
       MatIconModule,
       MatSidenavModule,
       MatButtonModule,
-      SharedModule,
-      AppRoutingModule,
-      CoreModule,
+      MatDialogModule,
       ServiceWorkerModule.register('ngsw-worker.js', {
         enabled: environment.production,
       })
@@ -118,7 +133,34 @@ bootstrapApplication(AppComponent, {
     PoiService,
     PoiNameService,
     LogUpdateService,
+    MatDialog,
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
+    provideStore(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true,
+        strictStateSerializability: false,
+        strictActionSerializability: false,
+        strictActionWithinNgZone: true,
+        strictActionTypeUniqueness: true,
+      },
+    }),
+    provideEffects([SharedEffects, UserEffects]),
+    provideRouterStore(),
+    provideStoreDevtools({
+      name: 'Knooppuntnet',
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+      serialize: {
+        options: {
+          map: true,
+        },
+      },
+    }),
   ],
 }).catch((err) => console.log(err));
