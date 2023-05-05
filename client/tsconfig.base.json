@@ -91,6 +91,9 @@
       "@app/*": [
         "src/app/index.ts"
       ],
+      "@app/analysis/analysis": [
+        "libs/analysis/src/lib/analysis/index.ts"
+      ],
       "@app/analysis/changeset": [
         "libs/analysis/src/lib/changeset/index.ts"
       ],
@@ -150,9 +153,6 @@
       ],
       "@app/analysis/subset": [
         "libs/analysis/src/lib/subset/index.ts"
-      ],
-      "@app/analysis/analysis": [
-        "libs/analysis/src/lib/analysis/index.ts"
       ],
       "@app/base": [
         "libs/shared/src/lib/base/index.ts"
