@@ -5,7 +5,12 @@ import com.microsoft.playwright.Playwright
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import com.microsoft.playwright.Browser
 import com.microsoft.playwright.BrowserContext
+import kpn.api.common.common.User
+import kpn.database.base.Database
+import kpn.database.base.DatabaseImpl
+import kpn.database.util.Mongo
 import kpn.e2e.pages.Application
+import org.mongodb.scala.MongoClient
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers
@@ -18,15 +23,20 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
   private var playwright: Playwright = _
   private var browser: Browser = _
   private var context: BrowserContext = _
+  private var mongoClient: MongoClient = _
+  private var database: Database = _
 
   override def beforeEach(): Unit = {
     playwright = Playwright.create
     val launchOptions = new BrowserType.LaunchOptions().setHeadless(false) // .setSlowMo(1000)
     browser = playwright.firefox.launch(launchOptions)
     context = browser.newContext(new Browser.NewContextOptions().setViewportSize(1600, 900))
+    mongoClient = Mongo.client
+    database = new DatabaseImpl(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
   }
 
   override def afterEach(): Unit = {
+    mongoClient.close()
     playwright.close()
   }
 
@@ -134,5 +144,66 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
 
     app.planner.poiLayerPlacesToStay.click()
     page.url() should include("&poi-layers=hiking-biking")
+  }
+
+  test("monitor") {
+
+    resetDatabase()
+
+    val page = context.newPage
+    val app = new Application(page)
+    page.navigate(applicationUrl)
+
+    app.home.monitorLink.click()
+
+    assertThat(app.monitor.routesInGroups).hasText("0 routes in 0 groups")
+    assertThat(app.monitor.noGroups).hasText("No route groups")
+
+    assertThat(app.monitor.adminToggle).isDisabled()
+    assertThat(app.monitor.groupAddButton).isHidden()
+
+    page.goBack()
+
+    database.users.save(User("test-user"))
+
+    app.home.monitorLink.click()
+
+    assertThat(app.monitor.adminToggle).isEnabled()
+    assertThat(app.monitor.groupAddButton).isHidden()
+
+    app.monitor.adminToggle.click()
+    assertThat(app.monitor.groupAddButton).isVisible()
+
+    app.monitor.groupAddButton.click()
+
+    assertThat(app.title).hasText("Monitor - add group")
+
+    app.monitorAddGroup.groupAddButton.click()
+
+    assertThat(app.monitorAddGroup.nameFieldError).hasText("Name is required.")
+    assertThat(app.monitorAddGroup.descriptionFieldError).hasText("Description is required.")
+
+    app.monitorAddGroup.nameField.fill("group1")
+    app.monitorAddGroup.nameField.press("Enter")
+
+    app.monitorAddGroup.descriptionField.fill("group one")
+    app.monitorAddGroup.descriptionField.press("Enter")
+
+    app.waitForFormValid()
+
+    app.monitorAddGroup.groupAddButton.click()
+    assertThat(app.monitor.routesInGroups).hasText("0 routes in 1 groups")
+
+    app.monitor.link("group1").click()
+  }
+
+  private def resetDatabase(): Unit = {
+    database.users.drop()
+    database.monitorGroups.drop()
+    database.monitorRoutes.drop()
+    database.monitorRouteStates.drop()
+    database.monitorRouteReferences.drop()
+    database.monitorRouteChanges.drop()
+    database.monitorRouteChangeGeometries.drop()
   }
 }

@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 
-class RequestContextFilter extends GenericFilterBean {
+class RequestContextFilter(testEnabled: Boolean) extends GenericFilterBean {
 
   private val userAgentAnalyzer = UserAgentAnalyzer.newBuilder
     .withCache(10000)
@@ -32,7 +32,7 @@ class RequestContextFilter extends GenericFilterBean {
     val userAgentString = Option(result.getUserAgentString)
     val deviceClass = Option(result.get("DeviceClass").getValue)
     val deviceName = Option(result.get("DeviceName").getValue)
-
+    val user = if (testEnabled) Some("test-user") else CurrentUser.name
     RequestContext.instance.set(
       Some(
         RequestContext(
@@ -40,7 +40,7 @@ class RequestContextFilter extends GenericFilterBean {
           userAgentString,
           deviceClass,
           deviceName,
-          CurrentUser.name
+          user
         )
       )
     )

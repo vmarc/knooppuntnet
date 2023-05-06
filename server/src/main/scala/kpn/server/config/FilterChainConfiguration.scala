@@ -8,9 +8,10 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 @Configuration
 class FilterChainConfiguration(
-  securityFilter: SecurityFilter
+  securityFilter: SecurityFilter,
+  testEnabled: Boolean
 ) {
-  private val requestContextFilter = new RequestContextFilter()
+  private val requestContextFilter = new RequestContextFilter(testEnabled)
 
   @Bean
   def filterChain(http: HttpSecurity): SecurityFilterChain = {

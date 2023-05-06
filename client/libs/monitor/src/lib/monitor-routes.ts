@@ -1,3 +1,4 @@
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { SidebarComponent } from '@app/components/shared/sidebar';
@@ -43,6 +44,7 @@ export const monitorRoutes: Routes = [
       provideEffects([MonitorEffects, MonitorRouteMapEffects]),
       MonitorService,
       MonitorRouteMapService,
+      MatDatepickerModule,
     ],
     children: [
       Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),

@@ -34,7 +34,7 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
 
     <div *ngIf="response$ | async as response">
       <div class="header">
-        <div i18n="@@monitor.groups.routes-in-groups">
+        <div id="routes-in-groups" i18n="@@monitor.groups.routes-in-groups">
           {{ routeCount$ | async }} routes in {{ groupCount$ | async }} groups
         </div>
         <kpn-monitor-admin-toggle />
@@ -43,7 +43,9 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
         <kpn-monitor-group-table [groups]="response.result.groups" />
       </div>
       <ng-template #noGroups>
-        <div i18n="@@monitor.groups.no-groups">No route groups</div>
+        <div id="no-groups" i18n="@@monitor.groups.no-groups">
+          No route groups
+        </div>
       </ng-template>
       <div *ngIf="admin$ | async" class="kpn-spacer-above">
         <button

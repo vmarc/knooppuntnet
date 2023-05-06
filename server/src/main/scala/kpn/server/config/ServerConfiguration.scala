@@ -103,6 +103,11 @@ class ServerConfiguration() {
   }
 
   @Bean
+  def testEnabled(@Value("${app.test-enabled:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def vectorTileBuilder: TileBuilder = {
     new VectorTileBuilder()
   }

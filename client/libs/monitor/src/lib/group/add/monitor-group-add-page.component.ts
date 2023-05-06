@@ -1,16 +1,18 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
+import { FormStatusComponent } from '@app/components/shared';
 import { Store } from '@ngrx/store';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorGroupAdd } from '../../store/monitor.actions';
-import { RouterLink } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
-import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 
 @Component({
   selector: 'kpn-monitor-group-add-page',
@@ -37,26 +39,31 @@ import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-bre
         [ngForm]="ngForm"
         [description]="description"
       />
+      <kpn-form-status [statusChanges]="form.statusChanges"></kpn-form-status>
       <div class="kpn-form-buttons">
         <button
           mat-stroked-button
+          id="add-group"
           (click)="add()"
           i18n="@@monitor.group.add.action"
         >
           Add group
         </button>
-        <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
+        <a id="cancel" routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
       </div>
     </form>
   `,
   standalone: true,
   imports: [
+    NgIf,
     MonitorGroupBreadcrumbComponent,
     ReactiveFormsModule,
     MonitorGroupNameComponent,
     MonitorGroupDescriptionComponent,
     MatButtonModule,
     RouterLink,
+    MonitorGroupDescriptionComponent,
+    FormStatusComponent,
   ],
 })
 export class MonitorGroupAddPageComponent {
@@ -81,6 +88,8 @@ export class MonitorGroupAddPageComponent {
   constructor(private monitorService: MonitorService, private store: Store) {}
 
   add(): void {
+    this.form.statusChanges;
+
     if (this.form.valid) {
       this.store.dispatch(actionMonitorGroupAdd(this.form.value));
     }
