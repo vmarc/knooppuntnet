@@ -4,7 +4,7 @@ import com.microsoft.playwright.Locator
 import com.microsoft.playwright.Page
 import com.microsoft.playwright.options.AriaRole
 
-class MonitorAddGroupPage(page: Page) extends TestPage(page) {
+class MonitorGroupAddPage(page: Page) extends TestPage(page) {
 
   def nameField: Locator = {
     page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Name"))

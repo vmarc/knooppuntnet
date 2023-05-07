@@ -24,7 +24,12 @@ import { MonitorRouteGroup } from '@api/common/monitor';
     </mat-form-field>
 
     <div class="kpn-button-group">
-      <button mat-stroked-button matStepperNext i18n="@@action.next">
+      <button
+        id="step1-next"
+        mat-stroked-button
+        matStepperNext
+        i18n="@@action.next"
+      >
         Next
       </button>
     </div>

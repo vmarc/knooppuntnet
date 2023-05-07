@@ -14,10 +14,10 @@ import { Observable } from 'rxjs';
       *ngIf="(statusChanges | async) === 'VALID'; then valid; else invalid"
     ></ng-container>
     <ng-template #valid>
-      <span id="valid" class="form-valid">Valid</span>
+      <span [id]="formName + '-valid'" class="form-valid">Valid</span>
     </ng-template>
     <ng-template #invalid>
-      <span id="invalid" class="form-valid">Invalid</span>
+      <span [id]="formName + '-invalid'" class="form-valid">Invalid</span>
     </ng-template>
   `,
   styles: [
@@ -31,5 +31,6 @@ import { Observable } from 'rxjs';
   imports: [NgIf, AsyncPipe],
 })
 export class FormStatusComponent {
+  @Input() formName: string;
   @Input() statusChanges: Observable<FormControlStatus>;
 }

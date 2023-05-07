@@ -49,11 +49,14 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
         />
       </div>
       <ng-template #noRoutes>
-        <div i18n="@@monitor.group.no-routes">No routes in group</div>
+        <div id="no-routes" i18n="@@monitor.group.no-routes">
+          No routes in group
+        </div>
       </ng-template>
       <div *ngIf="admin$ | async" class="kpn-form-buttons">
         <button
           mat-stroked-button
+          id="add-route"
           [routerLink]="addRouteLink$ | async"
           type="button"
           i18n="@@monitor.group.action.add-route"

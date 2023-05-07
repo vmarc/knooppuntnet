@@ -18,7 +18,12 @@ import { MatStepperModule } from '@angular/material/stepper';
     </mat-form-field>
 
     <div class="kpn-button-group">
-      <button mat-stroked-button matStepperPrevious i18n="@@action.back">
+      <button
+        id="step6-back"
+        mat-stroked-button
+        matStepperPrevious
+        i18n="@@action.back"
+      >
         Back
       </button>
     </div>

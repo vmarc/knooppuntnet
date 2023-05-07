@@ -135,6 +135,7 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
     <div class="kpn-button-group">
       <button
         mat-raised-button
+        id="save"
         color="primary"
         (click)="save()"
         [disabled]="form.invalid"
@@ -142,7 +143,9 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
       >
         Save
       </button>
-      <a [routerLink]="groupLink()" i18n="@@action.cancel">Cancel</a>
+      <a [routerLink]="groupLink()" id="cancel" i18n="@@action.cancel">
+        Cancel
+      </a>
     </div>
   `,
   standalone: true,

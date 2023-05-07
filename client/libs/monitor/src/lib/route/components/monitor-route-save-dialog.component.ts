@@ -60,9 +60,13 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
             i18n="@@monitor.route.save-dialog.busy"
             >This may take a while, please wait...</span
           >
-          <span *ngIf="done$ | async" i18n="@@monitor.route.save-dialog.saved"
-            >Route saved!</span
+          <span
+            *ngIf="done$ | async"
+            id="route-saved"
+            i18n="@@monitor.route.save-dialog.saved"
           >
+            Route saved!
+          </span>
         </div>
 
         <p *ngFor="let error of errors$ | async">
@@ -131,6 +135,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
     MatButtonModule,
     AsyncPipe,
   ],
+  providers: [MonitorService],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
   saveState$ = this.store.select(selectMonitorRouteSaveState);

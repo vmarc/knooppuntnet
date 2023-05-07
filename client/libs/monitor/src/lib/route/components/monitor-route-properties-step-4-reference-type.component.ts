@@ -44,10 +44,20 @@ import { MatStepperModule } from '@angular/material/stepper';
     </div>
 
     <div class="kpn-button-group">
-      <button mat-stroked-button matStepperPrevious i18n="@@action.back">
+      <button
+        id="step4-back"
+        mat-stroked-button
+        matStepperPrevious
+        i18n="@@action.back"
+      >
         Back
       </button>
-      <button mat-stroked-button matStepperNext i18n="@@action.next">
+      <button
+        id="step4-next"
+        mat-stroked-button
+        matStepperNext
+        i18n="@@action.next"
+      >
         Next
       </button>
     </div>

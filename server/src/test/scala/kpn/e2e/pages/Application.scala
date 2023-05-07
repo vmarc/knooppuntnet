@@ -19,15 +19,21 @@ class Application(page: Page) {
 
   def monitor: MonitorPage = new MonitorPage(page)
 
-  def monitorAddGroup: MonitorAddGroupPage = new MonitorAddGroupPage(page)
+  def monitorAddGroup: MonitorGroupAddPage = new MonitorGroupAddPage(page)
 
-  def title: Locator = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setLevel(1))
+  def group: MonitorGroupPage = new MonitorGroupPage(page)
+
+  def routeAdd: MonitorRouteAddPage = new MonitorRouteAddPage(page)
+
+  def h1: Locator = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setLevel(1))
+
+  def h2: Locator = page.getByRole(AriaRole.HEADING, new Page.GetByRoleOptions().setLevel(2))
 
   def goBack(): Unit = page.goBack(new GoBackOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED))
 
-  def waitForFormValid(): Unit = {
+  def waitForFormValid(formName: String): Unit = {
     val visible = new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE)
-    page.locator("#valid").waitFor(visible)
+    page.locator(s"#$formName-valid").waitFor(visible)
   }
 
 }

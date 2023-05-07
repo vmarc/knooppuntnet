@@ -39,7 +39,10 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
         [ngForm]="ngForm"
         [description]="description"
       />
-      <kpn-form-status [statusChanges]="form.statusChanges"></kpn-form-status>
+      <kpn-form-status
+        formName="group"
+        [statusChanges]="form.statusChanges"
+      ></kpn-form-status>
       <div class="kpn-form-buttons">
         <button
           mat-stroked-button
