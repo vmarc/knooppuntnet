@@ -26,4 +26,6 @@ class MonitorGroupAddPage(page: Page) extends TestPage(page) {
 
   def cancelButton: Locator = page.locator("#cancel")
 
+  def valid: Locator = page.locator("#group-form-valid")
+
 }

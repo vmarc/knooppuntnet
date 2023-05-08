@@ -2,49 +2,22 @@ package kpn.e2e.pages
 
 import com.microsoft.playwright.Locator
 import com.microsoft.playwright.Page
-import com.microsoft.playwright.options.AriaRole
 
 class MonitorRouteAddPage(page: Page) extends TestPage(page) {
 
-  def nameField: Locator = {
-    page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Name"))
-  }
+  def step1: MonitorRouteAddStep1 = new MonitorRouteAddStep1(page)
 
-  def nameFieldError: Locator = {
-    page.locator("kpn-monitor-group-name .kpn-form-error")
-  }
+  def step2: MonitorRouteAddStep2 = new MonitorRouteAddStep2(page)
 
-  def descriptionField: Locator = {
-    page.getByRole(AriaRole.TEXTBOX, new Page.GetByRoleOptions().setName("Description"))
-  }
+  def step3: MonitorRouteAddStep3 = new MonitorRouteAddStep3(page)
 
-  def descriptionFieldError: Locator = {
-    page.locator("kpn-monitor-group-description .kpn-form-error")
-  }
+  def step4: MonitorRouteAddStep4 = new MonitorRouteAddStep4(page)
 
-  def step1NextButton: Locator = page.locator("#step1-next")
+  def step5: MonitorRouteAddStep5 = new MonitorRouteAddStep5(page)
 
-  def step2BackButton: Locator = page.locator("#step2-back")
-
-  def step2NextButton: Locator = page.locator("#step2-next")
-
-  def step3BackButton: Locator = page.locator("#step3-back")
-
-  def step3NextButton: Locator = page.locator("#step3-next")
-
-  def step4BackButton: Locator = page.locator("#step4-back")
-
-  def step4NextButton: Locator = page.locator("#step4-next")
-
-  def step5BackButton: Locator = page.locator("#step5-back")
-
-  def step5NextButton: Locator = page.locator("#step5-next")
-
-  def step6BackButton: Locator = page.locator("#step6-back")
-
+  def step6: MonitorRouteAddStep6 = new MonitorRouteAddStep6(page)
 
   def saveButton: Locator = page.locator("#save")
 
   def cancelButton: Locator = page.locator("#cancel")
-
 }

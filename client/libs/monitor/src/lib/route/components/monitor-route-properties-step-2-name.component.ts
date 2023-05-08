@@ -19,7 +19,7 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
       [description]="description"
     />
     <kpn-form-status
-      formName="step2"
+      formName="step2-form"
       [statusChanges]="ngForm.statusChanges"
     ></kpn-form-status>
     <div class="kpn-button-group">

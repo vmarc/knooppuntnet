@@ -7,6 +7,7 @@ import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
+import { FormStatusComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-4-reference-type',
@@ -16,15 +17,24 @@ import { MatStepperModule } from '@angular/material/stepper';
         What do you want to use as reference to compare the OSM relation to?
       </p>
       <mat-radio-group [formControl]="referenceType">
-        <mat-radio-button class="answer" value="gpx">
-          <span i18n="@@monitor.route.properties.reference-type.gpx"
-            >A GPX trace that you will upload now</span
-          >
+        <mat-radio-button id="reference-type.gpx" class="answer" value="gpx">
+          <span i18n="@@monitor.route.properties.reference-type.gpx">
+            A GPX trace that you will upload now
+          </span>
         </mat-radio-button>
-        <mat-radio-button class="answer" value="osm">
-          <span i18n="@@monitor.route.properties.reference-type.osm"
-            >The current or a previous state of the OSM relation</span
-          >
+        <mat-radio-button
+          id="reference-type.multi-gpx"
+          class="answer"
+          value="multi-gpx"
+        >
+          <span i18n="@@monitor.route.properties.reference-type.multi-gpx">
+            Multiple GPX traces, one per route in super route
+          </span>
+        </mat-radio-button>
+        <mat-radio-button id="reference-type.osm" class="answer" value="osm">
+          <span i18n="@@monitor.route.properties.reference-type.osm">
+            The current or a previous state of the OSM relation
+          </span>
         </mat-radio-button>
       </mat-radio-group>
     </div>
@@ -37,12 +47,17 @@ import { MatStepperModule } from '@angular/material/stepper';
     >
       <p
         *ngIf="referenceType.errors.required"
+        id="reference-type.required"
         i18n="@@monitor.route.properties.reference-type.required"
       >
         Please answer the question
       </p>
     </div>
 
+    <kpn-form-status
+      formName="step4-form"
+      [statusChanges]="ngForm.statusChanges"
+    ></kpn-form-status>
     <div class="kpn-button-group">
       <button
         id="step4-back"
@@ -81,6 +96,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     NgIf,
     MatButtonModule,
     MatStepperModule,
+    FormStatusComponent,
   ],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {

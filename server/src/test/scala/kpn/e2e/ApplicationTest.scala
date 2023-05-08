@@ -1,15 +1,9 @@
 package kpn.e2e
 
-import com.microsoft.playwright.BrowserType
-import com.microsoft.playwright.Playwright
-import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
-import com.microsoft.playwright.Browser
-import com.microsoft.playwright.BrowserContext
 import com.microsoft.playwright.assertions.LocatorAssertions
+import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import com.microsoft.playwright.Page
 import com.microsoft.playwright.options.AriaRole
-import com.microsoft.playwright.Locator
-import com.microsoft.playwright.options.WaitForSelectorState
 import kpn.api.common.common.User
 import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
@@ -18,34 +12,24 @@ import kpn.e2e.pages.Application
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import org.mongodb.scala.MongoClient
-import org.scalatest.funsuite.AnyFunSuite
-import org.scalatest.BeforeAndAfterEach
-import org.scalatest.matchers.should.Matchers
 
 import java.nio.file.Paths
 import java.util.regex.Pattern
 
-class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers {
+class ApplicationTest extends EndToEndTest {
 
-  private val applicationUrl = "http://localhost:4000"
-  private var playwright: Playwright = _
-  private var browser: Browser = _
-  private var context: BrowserContext = _
   private var mongoClient: MongoClient = _
   private var database: Database = _
 
   override def beforeEach(): Unit = {
-    playwright = Playwright.create
-    val launchOptions = new BrowserType.LaunchOptions().setHeadless(false) // .setSlowMo(1000)
-    browser = playwright.firefox.launch(launchOptions)
-    context = browser.newContext(new Browser.NewContextOptions().setViewportSize(1600, 900))
+    super.beforeEach();
     mongoClient = Mongo.client
     database = new DatabaseImpl(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
   }
 
   override def afterEach(): Unit = {
     mongoClient.close()
-    playwright.close()
+    super.afterEach()
   }
 
   test("home page") {
@@ -54,42 +38,42 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     page.navigate(applicationUrl)
     assertThat(page).hasTitle("knooppuntnet")
 
-    app.home.analysisLink.click()
+    click(app.home.analysisLink)
     assertThat(page).hasURL(Pattern.compile(".*analysis$"))
     assertThat(page).hasTitle("Analysis | knooppuntnet")
     assertThat(app.h1).hasText("Analysis")
 
-    app.analysis.overviewLink.click()
+    click(app.analysis.overviewLink)
     assertThat(page).hasTitle("Overview | knooppuntnet")
     assertThat(app.h1).hasText("Overview")
     page.goBack()
 
-    app.analysis.cyclingLink.click()
+    click(app.analysis.cyclingLink)
     assertThat(page).hasTitle("Cycling | knooppuntnet")
     assertThat(app.h1).hasText("Cycling")
     page.goBack()
 
-    app.analysis.hikingLink.click()
+    click(app.analysis.hikingLink)
     assertThat(page).hasTitle("Hiking | knooppuntnet")
     assertThat(app.h1).hasText("Hiking")
     page.goBack()
 
-    app.analysis.horseRidingLink.click()
+    click(app.analysis.horseRidingLink)
     assertThat(page).hasTitle("Horse riding | knooppuntnet")
     assertThat(app.h1).hasText("Horse riding")
     page.goBack()
 
-    app.analysis.motorboatLink.click()
+    click(app.analysis.motorboatLink)
     assertThat(page).hasTitle("Motorboat | knooppuntnet")
     assertThat(app.h1).hasText("Motorboat")
     page.goBack()
 
-    app.analysis.canoeLink.click()
+    click(app.analysis.canoeLink)
     assertThat(page).hasTitle("Canoe | knooppuntnet")
     assertThat(app.h1).hasText("Canoe")
     page.goBack()
 
-    app.analysis.inlineSkatingLink.click()
+    click(app.analysis.inlineSkatingLink)
     assertThat(page).hasTitle("Inline skating | knooppuntnet")
     assertThat(app.h1).hasText("Inline skating")
     page.goBack()
@@ -100,9 +84,9 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     val app = new Application(page)
     page.navigate(applicationUrl)
 
-    app.home.mapLink.click()
+    click(app.home.mapLink)
 
-    app.mapMenu.hikingLink.click()
+    click(app.mapMenu.hikingLink)
 
     assertThat(app.planner.undoButton).isDisabled()
     assertThat(app.planner.redoButton).isDisabled()
@@ -118,39 +102,39 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     page.url() should include("&layers=background,hiking,pois")
     page.url() should include("&poi-layers=hiking-biking,landmarks,restaurants,places-to-stay,tourism")
 
-    app.planner.searchButton.click()
+    click(app.planner.searchButton)
     app.planner.searchField.fill("essen")
     app.planner.searchField.press("Enter")
-    app.planner.selectionEssen.click()
+    click(app.planner.selectionEssen)
 
-    app.planner.zoomInButton.click()
-    app.planner.zoomInButton.click()
+    click(app.planner.zoomInButton)
+    click(app.planner.zoomInButton)
 
-    //    PlannerPage(page).zoomOutButton.click()
+    //    click(PlannerPage(page).zoomOutButton)
 
-    app.planner.modeDateLastSurvey.click()
-    app.planner.modeQuality.click()
-    app.planner.modeSurface.click()
+    click(app.planner.modeDateLastSurvey)
+    click(app.planner.modeQuality)
+    click(app.planner.modeSurface)
 
-    app.planner.layerButton.click()
+    click(app.planner.layerButton)
     page.url() should include("&layers=background,hiking,pois")
 
-    app.planner.layerPois.click()
+    click(app.planner.layerPois)
     page.url() should include("&layers=background,hiking")
 
-    app.planner.layerPois.click()
+    click(app.planner.layerPois)
     page.url() should include("&layers=background,hiking,pois")
 
-    app.planner.poiLayerTourism.click()
+    click(app.planner.poiLayerTourism)
     page.url() should include("&poi-layers=hiking-biking,landmarks,restaurants,places-to-stay")
 
-    app.planner.poiLayerLandmarks.click()
+    click(app.planner.poiLayerLandmarks)
     page.url() should include("&poi-layers=hiking-biking,restaurants,places-to-stay")
 
-    app.planner.poiLayerRestaurants.click()
+    click(app.planner.poiLayerRestaurants)
     page.url() should include("&poi-layers=hiking-biking,places-to-stay")
 
-    app.planner.poiLayerPlacesToStay.click()
+    click(app.planner.poiLayerPlacesToStay)
     page.url() should include("&poi-layers=hiking-biking")
   }
 
@@ -162,7 +146,7 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     val app = new Application(page)
     page.navigate(applicationUrl)
 
-    app.home.monitorLink.click()
+    click(app.home.monitorLink)
 
     assertThat(app.monitor.routesInGroups).hasText("0 routes in 0 groups")
     assertThat(app.monitor.noGroups).hasText("No route groups")
@@ -174,19 +158,19 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
 
     database.users.save(User("test-user")) // login
 
-    app.home.monitorLink.click()
+    click(app.home.monitorLink)
 
     assertThat(app.monitor.adminToggle).isEnabled() // logged in
     assertThat(app.monitor.groupAddButton).isHidden() // admin not activated yet
 
-    app.monitor.adminToggle.click()
+    click(app.monitor.adminToggle)
     assertThat(app.monitor.groupAddButton).isVisible()
 
-    app.monitor.groupAddButton.click()
+    click(app.monitor.groupAddButton)
 
     assertThat(app.h1).hasText("Monitor - add group")
 
-    app.monitorAddGroup.groupAddButton.click()
+    click(app.monitorAddGroup.groupAddButton)
 
     assertThat(app.monitorAddGroup.nameFieldError).hasText("Name is required.")
     assertThat(app.monitorAddGroup.descriptionFieldError).hasText("Description is required.")
@@ -194,12 +178,12 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     app.monitorAddGroup.nameField.fill("group1")
     app.monitorAddGroup.descriptionField.fill("group one")
 
-    app.waitForFormValid("group")
+    waitForVisible(app.monitorAddGroup.valid)
 
-    app.monitorAddGroup.groupAddButton.click()
+    click(app.monitorAddGroup.groupAddButton)
     assertThat(app.monitor.routesInGroups).hasText("0 routes in 1 groups")
 
-    app.monitor.link("group1").click()
+    click(app.monitor.link("group1"))
 
     assertThat(app.h1).hasText("group1group one")
 
@@ -209,14 +193,13 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     assertThat(app.group.noRoutesInGroup).isVisible()
     assertThat(app.group.routeAddButton).isEnabled()
 
-    app.group.adminToggle.click()
+    click(app.group.adminToggle)
 
     assertThat(app.group.adminToggle).isChecked(new LocatorAssertions.IsCheckedOptions().setChecked(false))
     assertThat(app.group.routeAddButton).isHidden()
   }
 
-  test("monitor add route") {
-
+  test("monitor add route with osm reference") {
     resetDatabase()
 
     val page = context.newPage
@@ -227,49 +210,139 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
 
     addGroup(app)
 
-    app.group.routeAddButton.click()
+    click(app.group.routeAddButton)
     assertThat(app.h1).hasText("group one")
     assertThat(app.h2).hasText("Add route")
 
-    app.routeAdd.cancelButton.click()
+    click(app.routeAdd.cancelButton)
     assertThat(app.h1).hasText("group1group one")
 
-    app.group.routeAddButton.click()
+    click(app.group.routeAddButton)
     assertThat(app.h1).hasText("group one")
     assertThat(app.h2).hasText("Add route")
 
-    // step 2 (group step 1 is not visible in route mode 'add'):
-    app.routeAdd.nameField.fill("route1")
-    app.routeAdd.descriptionField.fill("route one")
-    app.waitForFormValid("step2")
-    app.routeAdd.step2NextButton.click()
+    // step 1 not visible in route mode 'add':
+    assertThat(app.routeAdd.step1.nextButton).isHidden()
+    assertThat(app.routeAdd.step1.groupSelector).isHidden()
+
+    // step 2:
+    assertThat(app.routeAdd.step2.nameFieldError).isHidden()
+    assertThat(app.routeAdd.step2.descriptionFieldError).isHidden()
+    click(app.routeAdd.step2.nextButton)
+    waitForVisible(app.routeAdd.step2.nameFieldError)
+    assertThat(app.routeAdd.step2.nameFieldError).hasText("Name is required")
+    assertThat(app.routeAdd.step2.descriptionFieldError).hasText("Description is required")
+    app.routeAdd.step2.nameField.fill("route1")
+    assertThat(app.routeAdd.step2.nameFieldError).isHidden()
+    app.routeAdd.step2.descriptionField.fill("route one")
+    assertThat(app.routeAdd.step2.descriptionFieldError).isHidden()
+    waitForVisible(app.routeAdd.step2.valid)
+    click(app.routeAdd.step2.nextButton)
 
     // step 3:
     assertThat(page.getByText("Do you know the OSM relation id for this route?")).isVisible()
-    page.getByText("No", new Page.GetByTextOptions().setExact(true)).click()
-    app.routeAdd.step3NextButton.click()
+    assertThat(app.routeAdd.step3.relationIdField).isHidden()
+    assertThat(app.routeAdd.step3.verifyButton).isHidden()
+    assertThat(app.routeAdd.step3.relationQuestionUnanswered).isHidden()
+    assertThat(app.routeAdd.step3.relationIdMissingWarning).isHidden()
+    assertThat(app.routeAdd.step3.relationIdUnknownComment).isHidden()
+    click(app.routeAdd.step3.nextButton)
+    assertThat(app.routeAdd.step3.relationQuestionUnanswered).isVisible()
+    click(app.routeAdd.step3.relationIdKnownNoButton)
+    assertThat(app.routeAdd.step3.relationQuestionUnanswered).isHidden()
+    assertThat(app.routeAdd.step3.relationIdUnknownComment).isVisible()
+    assertThat(app.routeAdd.step3.relationIdField).isHidden()
+    click(app.routeAdd.step3.relationIdKnownNoButton)
+    assertThat(app.routeAdd.step3.relationIdUnknownComment).isHidden()
+    assertThat(app.routeAdd.step3.relationIdField).isVisible()
+    assertThat(app.routeAdd.step3.verifyButton).isVisible()
+    click(app.routeAdd.step3.nextButton)
+    assertThat(app.routeAdd.step3.relationIdMissingWarning).isVisible()
+    app.routeAdd.step3.relationIdField.fill("1")
+    // TODO click(app.routeAdd.step3.verifyButton)
+    click(app.routeAdd.step3.nextButton)
 
     // step 4:
     assertThat(page.getByText("What do you want to use as reference to compare the OSM relation to?")).isVisible()
-    page.getByText("A GPX trace that you will upload now").click()
-    app.routeAdd.step4NextButton.click()
+    assertThat(app.routeAdd.step4.referenceTypeRequiredWarning).isHidden()
+    click(app.routeAdd.step4.nextButton)
+    assertThat(app.routeAdd.step4.referenceTypeRequiredWarning).isVisible()
+    click(app.routeAdd.step4.referenceTypeOsm)
+    assertThat(app.routeAdd.step4.referenceTypeRequiredWarning).isHidden()
+    click(app.routeAdd.step4.nextButton)
+
+    // step 5:
+    assertThat(app.routeAdd.step5.osmReferenceDateField).isVisible()
+    assertThat(app.routeAdd.step5.osmReferenceDateRequiredError).isHidden()
+    app.routeAdd.step5.osmReferenceDateField.fill("")
+    assertThat(app.routeAdd.step5.osmReferenceDateRequiredError).isVisible()
+    app.routeAdd.step5.osmReferenceDateField.fill("1/5/2023")
+    click(app.routeAdd.step5.nextButton)
+
+    // step 6:
+    assertThat(app.routeAdd.step6.commentField).isVisible()
+    app.routeAdd.step6.commentField.fill("route comment")
+
+    click(app.routeAdd.saveButton)
+
+    waitForVisible(app.routeSaveDialog.routeSaved)
+    click(app.routeSaveDialog.backToGroupButton)
+
+    val groupRepository = new MonitorGroupRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepositoryImpl(database)
+
+    val group = groupRepository.groupByName("group1").get
+    val route = routeRepository.routeByName(group._id, "route1").get
+    val routeStates = routeRepository.routeStates(route._id)
+    val routeReferences = routeRepository.routeReferences(route._id)
+
+    println(route)
+
+    println("done")
+
+  }
+
+  test("monitor add route with gpx reference") {
+    resetDatabase()
+
+    val page = context.newPage
+    val app = new Application(page)
+    page.navigate(applicationUrl)
+
+    database.users.save(User("test-user")) // login
+
+    addGroup(app)
+
+    click(app.group.routeAddButton)
+
+    // step 2:
+    app.routeAdd.step2.nameField.fill("route1")
+    app.routeAdd.step2.descriptionField.fill("route one")
+    waitForVisible(app.routeAdd.step2.valid)
+    click(app.routeAdd.step2.nextButton)
+
+    // step 3:
+    click(app.routeAdd.step3.relationIdKnownNoButton)
+    click(app.routeAdd.step3.nextButton)
+
+    // step 4:
+    click(app.routeAdd.step4.referenceTypeGpx)
+    click(app.routeAdd.step4.nextButton)
 
     // step 5:
     page.locator(".file-input").setInputFiles(Paths.get("/home/vmarc/wrk/osm/gpx/de-nieuwe-drenk-1.gpx"))
-    page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Open calendar")).click()
-    page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("May 1, 2023")).click()
-    app.routeAdd.step5NextButton.click()
+    click(page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Open calendar")))
+    click(page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("May 1, 2023")))
+    click(app.routeAdd.step5.nextButton)
 
     // step 6:
-    page.getByLabel("Additional information about the route (optional):").fill("dddd")
+    app.routeAdd.step6.commentField.fill("route comment")
 
-    app.routeAdd.saveButton.click()
+    // save
+    click(app.routeAdd.saveButton)
 
-
-    val visible = new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE)
-    page.locator(s"#route-saved").waitFor(visible)
-
-    page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Back to group")).click()
+    waitForVisible(app.routeSaveDialog.routeSaved)
+    click(app.routeSaveDialog.backToGroupButton)
 
     val groupRepository = new MonitorGroupRepositoryImpl(database)
     val routeRepository = new MonitorRouteRepositoryImpl(database)
@@ -284,15 +357,88 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     println("done")
   }
 
+  test("monitor add route with multi gpx references") {
+    resetDatabase()
+
+    val page = context.newPage
+    val app = new Application(page)
+    page.navigate(applicationUrl)
+
+    database.users.save(User("test-user")) // login
+
+    addGroup(app)
+
+    click(app.group.routeAddButton)
+
+    // step 2:
+    app.routeAdd.step2.nameField.fill("route1")
+    app.routeAdd.step2.descriptionField.fill("route one")
+    waitForVisible(app.routeAdd.step2.valid)
+    click(app.routeAdd.step2.nextButton)
+
+    // step 3:
+    click(app.routeAdd.step3.relationIdKnownNoButton)
+    waitForVisible(app.routeAdd.step3.valid)
+    click(app.routeAdd.step3.nextButton)
+
+    // step 4:
+    click(app.routeAdd.step4.referenceTypeMultiGpx)
+    waitForVisible(app.routeAdd.step4.valid)
+    click(app.routeAdd.step4.nextButton)
+
+    // step 5:
+    assertThat(app.routeAdd.step5.multiGpxComment).isVisible()
+    assertThat(app.routeAdd.step5.osmReferenceDateField).isHidden()
+    assertThat(app.routeAdd.step5.osmReferenceDateRequiredError).isHidden()
+    assertThat(app.routeAdd.step5.gpxFileInput).isHidden()
+    assertThat(app.routeAdd.step5.referenceFilenameRequired).isHidden()
+    assertThat(app.routeAdd.step5.gpxReferenceDateField).isHidden()
+    assertThat(app.routeAdd.step5.gpxReferenceDateError).isHidden()
+    assertThat(app.routeAdd.step5.gpxFileName).isHidden()
+    waitForVisible(app.routeAdd.step5.valid)
+    click(app.routeAdd.step5.nextButton)
+
+    // step 6:
+    app.routeAdd.step6.commentField.fill("route comment")
+
+    // save
+    click(app.routeAdd.saveButton)
+
+    waitForVisible(app.routeSaveDialog.routeSaved)
+    click(app.routeSaveDialog.backToGroupButton)
+
+    val groupRepository = new MonitorGroupRepositoryImpl(database)
+    val routeRepository = new MonitorRouteRepositoryImpl(database)
+
+    val group = groupRepository.groupByName("group1").get
+    val route = routeRepository.routeByName(group._id, "route1").get
+    val routeStates = routeRepository.routeStates(route._id)
+    val routeReferences = routeRepository.routeReferences(route._id)
+
+    route.name should equal("route1")
+    route.description should equal("route one")
+    route.comment should equal(Some("route comment"))
+    route.relationId should equal(None)
+    route.user should equal("test-user")
+    route.referenceType should equal("multi-gpx")
+    route.referenceDay should equal(None)
+    route.referenceFilename should equal(None)
+    route.relation should equal(None)
+    route.happy should equal(false)
+
+    routeStates.size should equal(0)
+    routeReferences.size should equal(0)
+  }
+
   private def addGroup(app: Application): Unit = {
-    app.home.monitorLink.click()
-    app.monitor.adminToggle.click()
-    app.monitor.groupAddButton.click()
+    click(app.home.monitorLink)
+    click(app.monitor.adminToggle)
+    click(app.monitor.groupAddButton)
     app.monitorAddGroup.nameField.fill("group1")
     app.monitorAddGroup.descriptionField.fill("group one")
-    app.waitForFormValid("group")
-    app.monitorAddGroup.groupAddButton.click()
-    app.monitor.link("group1").click()
+    waitForVisible(app.monitorAddGroup.valid)
+    click(app.monitorAddGroup.groupAddButton)
+    click(app.monitor.link("group1"))
     assertThat(app.h1).hasText("group1group one")
   }
 

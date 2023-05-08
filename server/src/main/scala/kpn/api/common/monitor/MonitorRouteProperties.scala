@@ -8,7 +8,7 @@ case class MonitorRouteProperties(
   description: String,
   comment: Option[String],
   relationId: Option[Long],
-  referenceType: String,
+  referenceType: String, // "osm" | "gpx" | "multi-gpx"
   referenceDay: Option[Day],
   referenceFilename: Option[String],
   referenceFileChanged: Boolean,

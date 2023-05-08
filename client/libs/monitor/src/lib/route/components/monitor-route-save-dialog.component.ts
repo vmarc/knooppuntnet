@@ -94,6 +94,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
         <div class="kpn-button-group">
           <button
             mat-stroked-button
+            id="back-to-group-button"
             (click)="backToGroup()"
             [disabled]="(done$ | async) === false"
             i18n="@@monitor.route.save-dialog.action.back"
@@ -102,6 +103,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
           </button>
           <button
             mat-stroked-button
+            id="goto-analysis-result-button"
             (click)="gotoAnalysisResult()"
             [disabled]="(done$ | async) === false"
             i18n="@@monitor.route.save-dialog.action.analysis-result"

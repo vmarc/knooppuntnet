@@ -14,7 +14,12 @@ import { MatStepperModule } from '@angular/material/stepper';
       <mat-label i18n="@@monitor.route.properties.comment.label"
         >Additional information about the route (optional):
       </mat-label>
-      <textarea matInput rows="4" [formControl]="comment"></textarea>
+      <textarea
+        matInput
+        rows="4"
+        id="comment"
+        [formControl]="comment"
+      ></textarea>
     </mat-form-field>
 
     <div class="kpn-button-group">

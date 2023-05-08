@@ -40,7 +40,7 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
         [description]="description"
       />
       <kpn-form-status
-        formName="group"
+        formName="group-form"
         [statusChanges]="form.statusChanges"
       ></kpn-form-status>
       <div class="kpn-form-buttons">

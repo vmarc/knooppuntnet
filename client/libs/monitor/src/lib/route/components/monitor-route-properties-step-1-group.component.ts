@@ -16,7 +16,7 @@ import { MonitorRouteGroup } from '@api/common/monitor';
   template: `
     <mat-form-field class="group">
       <mat-label i18n="@@monitor.route.properties.group">Group</mat-label>
-      <mat-select [formControl]="group">
+      <mat-select id="group-selector" [formControl]="group">
         <mat-option *ngFor="let gr of routeGroups" [value]="gr">
           {{ gr.groupName + ' - ' + gr.groupDescription }}
         </mat-option>

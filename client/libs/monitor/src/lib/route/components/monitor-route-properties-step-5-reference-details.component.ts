@@ -6,6 +6,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
+import { FormStatusComponent } from '@app/components/shared';
 import { DayInputComponent } from '@app/components/shared/format';
 
 @Component({
@@ -17,6 +18,7 @@ import { DayInputComponent } from '@app/components/shared/format';
         reference:
       </p>
       <kpn-day-input
+        id="osm-reference-date"
         [date]="osmReferenceDate"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
@@ -30,6 +32,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       >
         <div
           *ngIf="osmReferenceDate.errors?.required"
+          id="osm-reference-date-required-error"
           i18n="@@monitor.route.reference-day.required"
         >
           Please provide a valid reference day
@@ -44,6 +47,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       <div class="kpn-small-spacer-above">
         <input
           type="file"
+          id="gpx-file-input"
           class="file-input"
           (change)="selectFile($event)"
           #fileInput
@@ -59,6 +63,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       </div>
       <div class="kpn-small-spacer-above kpn-spacer-below">
         <span
+          id="gpx-file-name"
           class="kpn-label"
           i18n="@@monitor.route.properties.reference-details.file.name"
           >File</span
@@ -76,6 +81,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       >
         <div
           *ngIf="referenceFilename.errors?.required"
+          id="reference-filename.required"
           i18n="@@monitor.route.reference-filename.required"
         >
           Reference filename is required
@@ -87,6 +93,7 @@ import { DayInputComponent } from '@app/components/shared/format';
         valid:
       </p>
       <kpn-day-input
+        id="gpx-reference-date"
         [date]="gpxReferenceDate"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
@@ -100,6 +107,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       >
         <div
           *ngIf="gpxReferenceDate.errors?.required"
+          id="reference-day.required"
           i18n="@@monitor.route.reference-day.required"
         >
           Please provide a valid reference day
@@ -107,6 +115,32 @@ import { DayInputComponent } from '@app/components/shared/format';
       </div>
     </div>
 
+    <div
+      id="multi-gpx.comment"
+      [ngClass]="{ hidden: referenceType.value !== 'multi-gpx' }"
+    >
+      <p
+        i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.1"
+      >
+        Further reference details can be provided later.
+      </p>
+      <p
+        i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.2"
+      >
+        The GPX traces per route in the superroute can be uploaded from the
+        route details page after saving this route definition.
+      </p>
+      <p
+        i18n="@@monitor.route.properties.reference-details.multi-gpx.next-step"
+      >
+        Continue with next step.
+      </p>
+    </div>
+
+    <kpn-form-status
+      formName="step5-form"
+      [statusChanges]="ngForm.statusChanges"
+    ></kpn-form-status>
     <div class="kpn-button-group">
       <button
         id="step5-back"
@@ -140,6 +174,7 @@ import { DayInputComponent } from '@app/components/shared/format';
     NgIf,
     MatButtonModule,
     MatStepperModule,
+    FormStatusComponent,
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {

@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
+import { FormStatusComponent } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { MonitorService } from '../../monitor.service';
@@ -28,15 +29,17 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
       </p>
       <mat-radio-group [formControl]="relationIdKnown">
         <mat-radio-button
+          id="relation-id-known-yes"
           class="answer"
           [value]="true"
           [checked]="relationIdKnown.value === true"
         >
-          <span i18n="@@monitor.route.properties.relation.question.yes"
-            >Yes</span
-          >
+          <span i18n="@@monitor.route.properties.relation.question.yes">
+            Yes
+          </span>
         </mat-radio-button>
         <mat-radio-button
+          id="relation-id-known-no"
           class="answer"
           [value]="false"
           [checked]="relationIdKnown.value === false"
@@ -46,7 +49,11 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
       </mat-radio-group>
     </div>
 
-    <div *ngIf="relationIdKnown.value === false" class="comment">
+    <div
+      *ngIf="relationIdKnown.value === false"
+      id="relation-id-unknown-comment"
+      class="comment"
+    >
       <p i18n="@@monitor.route.properties.relation.ok">
         OK, no problem: if you do not know the relation id right now, you can
         still add it at any time later.
@@ -61,12 +68,18 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
         <mat-label i18n="@@monitor.route.properties.relation.label"
           >Route relation id
         </mat-label>
-        <input matInput type="number" [formControl]="relationId" />
+        <input
+          matInput
+          type="number"
+          id="relation-id"
+          [formControl]="relationId"
+        />
       </mat-form-field>
       <div>
         <button
           mat-stroked-button
           type="button"
+          id="verify"
           (click)="getRouteInformation()"
           i18n="@@monitor.route.properties.relation.action.verify"
         >
@@ -80,6 +93,7 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
 
     <div
       *ngIf="form.invalid && (form.dirty || form.touched || ngForm.submitted)"
+      id="relation.question-unanswered"
       class="kpn-warning"
     >
       <p
@@ -99,12 +113,17 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
     >
       <p
         *ngIf="form.errors?.relationIdMissing"
+        id="relation-id-missing-warning"
         i18n="@@monitor.route.properties.relation.missing"
       >
         Provide a valid OSM route relation id
       </p>
     </div>
 
+    <kpn-form-status
+      formName="step3-form"
+      [statusChanges]="ngForm.statusChanges"
+    ></kpn-form-status>
     <div class="kpn-button-group">
       <button
         id="step3-back"
@@ -152,6 +171,7 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
     MonitorRouteInfoComponent,
     MatStepperModule,
     AsyncPipe,
+    FormStatusComponent,
   ],
 })
 export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {

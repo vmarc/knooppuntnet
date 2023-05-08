@@ -15,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
         <mat-label i18n="@@monitor.route.description.label"
           >Description
         </mat-label>
-        <input matInput [formControl]="description" required />
+        <input matInput id="description" [formControl]="description" required />
       </mat-form-field>
 
       <div
