@@ -20,7 +20,6 @@ import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import kpn.server.monitor.route.MonitorUpdaterConfiguration
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest01 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {

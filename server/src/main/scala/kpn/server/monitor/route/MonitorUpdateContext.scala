@@ -3,11 +3,8 @@ package kpn.server.monitor.route
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(

@@ -4,7 +4,6 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
 import org.springframework.stereotype.Component
 

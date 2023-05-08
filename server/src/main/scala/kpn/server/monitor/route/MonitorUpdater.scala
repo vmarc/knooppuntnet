@@ -5,7 +5,6 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorGroup
 
 import scala.xml.Elem
 

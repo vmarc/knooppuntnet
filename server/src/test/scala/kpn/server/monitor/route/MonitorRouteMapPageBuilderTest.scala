@@ -16,7 +16,6 @@ import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 
 class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
@@ -435,7 +434,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           MonitorRouteMapPage(
             relationId = None,
             routeName = "route",
-            routeDescription = "route-description",
+            routeDescription = "(1/2) sub-relation-11",
             groupName = "group",
             groupDescription = "group-description",
             bounds = Some(Bounds(1, 1, 1, 1)),
@@ -481,7 +480,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           MonitorRouteMapPage(
             relationId = None,
             routeName = "route",
-            routeDescription = "route-description",
+            routeDescription = "(2/2) sub-relation-12",
             groupName = "group",
             groupDescription = "group-description",
             bounds = Some(Bounds(2, 2, 2, 2)),
@@ -658,7 +657,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         MonitorRouteMapPage(
           relationId = None,
           routeName = "route",
-          routeDescription = "route-description",
+          routeDescription = "(1/2) sub-relation-11",
           groupName = "group",
           groupDescription = "group-description",
           bounds = Some(Bounds(1, 1, 1, 1)),
@@ -720,7 +719,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         MonitorRouteMapPage(
           relationId = None,
           routeName = "route",
-          routeDescription = "route-description",
+          routeDescription = "(2/2) sub-relation-12",
           groupName = "group",
           groupDescription = "group-description",
           bounds = Some(Bounds(1, 1, 2, 2)),

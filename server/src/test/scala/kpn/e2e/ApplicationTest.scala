@@ -225,15 +225,7 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
 
     database.users.save(User("test-user")) // login
 
-    app.home.monitorLink.click()
-    app.monitor.adminToggle.click()
-    app.monitor.groupAddButton.click()
-    app.monitorAddGroup.nameField.fill("group1")
-    app.monitorAddGroup.descriptionField.fill("group one")
-    app.waitForFormValid("group")
-    app.monitorAddGroup.groupAddButton.click()
-    app.monitor.link("group1").click()
-    assertThat(app.h1).hasText("group1group one")
+    addGroup(app)
 
     app.group.routeAddButton.click()
     assertThat(app.h1).hasText("group one")
@@ -283,13 +275,26 @@ class ApplicationTest extends AnyFunSuite with BeforeAndAfterEach with Matchers 
     val routeRepository = new MonitorRouteRepositoryImpl(database)
 
     val group = groupRepository.groupByName("group1").get
-    val route = routeRepository.routeByName(group._id, "route1")
+    val route = routeRepository.routeByName(group._id, "route1").get
+    val routeStates = routeRepository.routeStates(route._id)
+    val routeReferences = routeRepository.routeReferences(route._id)
 
     println(route)
 
     println("done")
   }
 
+  private def addGroup(app: Application): Unit = {
+    app.home.monitorLink.click()
+    app.monitor.adminToggle.click()
+    app.monitor.groupAddButton.click()
+    app.monitorAddGroup.nameField.fill("group1")
+    app.monitorAddGroup.descriptionField.fill("group one")
+    app.waitForFormValid("group")
+    app.monitorAddGroup.groupAddButton.click()
+    app.monitor.link("group1").click()
+    assertThat(app.h1).hasText("group1group one")
+  }
 
   private def resetDatabase(): Unit = {
     database.users.drop()

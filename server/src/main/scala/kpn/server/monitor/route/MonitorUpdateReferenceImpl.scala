@@ -9,8 +9,6 @@ import kpn.core.common.Time
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.MonitorUtil
-import kpn.server.monitor.MonitorUtil
-import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import org.locationtech.jts.geom.GeometryCollection

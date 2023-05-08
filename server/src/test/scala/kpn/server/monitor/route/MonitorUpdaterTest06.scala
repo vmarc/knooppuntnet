@@ -14,7 +14,6 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.monitor.MonitorRelationDataBuilder
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.route.MonitorUpdaterConfiguration
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest06 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {

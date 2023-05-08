@@ -4,9 +4,8 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorChangesPage
 import kpn.api.common.monitor.MonitorChangesParameters
 import kpn.api.common.monitor.MonitorGroupChangesPage
-import kpn.api.common.monitor.MonitorRouteChangeSummary
 import kpn.api.common.monitor.MonitorRouteChangesPage
-import kpn.server.monitor.domain.MonitorRouteChange
+import kpn.api.common.monitor.MonitorRouteChangeSummary
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository

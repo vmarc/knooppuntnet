@@ -44,22 +44,22 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  groupAdd(properties: MonitorGroupProperties): Observable<any> {
+  groupAdd(properties: MonitorGroupProperties): Observable<void> {
     const url = `/api/monitor/groups`;
-    return this.http.post(url, properties);
+    return this.http.post<void>(url, properties);
   }
 
   groupUpdate(
     groupId: string,
     properties: MonitorGroupProperties
-  ): Observable<any> {
+  ): Observable<void> {
     const url = `/api/monitor/groups/${groupId}`;
-    return this.http.put(url, properties);
+    return this.http.put<void>(url, properties);
   }
 
-  groupDelete(groupId: string): Observable<any> {
+  groupDelete(groupId: string): Observable<void> {
     const url = `/api/monitor/groups/${groupId}`;
-    return this.http.delete(url);
+    return this.http.delete<void>(url);
   }
 
   groupChanges(
@@ -164,11 +164,11 @@ export class MonitorService {
     routeName: string,
     file: File,
     relationId: number
-  ): Observable<any> {
+  ): Observable<void> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload/${relationId}`;
-    return this.http.post(url, formData);
+    return this.http.post<void>(url, formData);
   }
 
   routeAnalyze(

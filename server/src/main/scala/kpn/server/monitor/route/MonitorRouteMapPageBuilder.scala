@@ -8,10 +8,7 @@ import kpn.core.util.Log
 import kpn.core.util.Triplet
 import kpn.core.util.Util
 import kpn.server.monitor.MonitorUtil
-import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.repository.MonitorGroupRepository

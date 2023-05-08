@@ -5,10 +5,7 @@ import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRouteChange
-import kpn.server.monitor.domain.MonitorRouteChange
-import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.repository.MonitorGroupRepository

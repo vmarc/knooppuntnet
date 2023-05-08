@@ -2,7 +2,6 @@ package kpn.server.monitor
 
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.util.UnitTest
-import kpn.server.monitor.MonitorSupportFacadeImpl
 import org.apache.commons.io.IOUtils
 import org.scalamock.scalatest.MockFactory
 
@@ -18,8 +17,8 @@ class MonitorSupportFacadeTest extends UnitTest with MockFactory {
     val structure = facade.routeStructure(routeRelationId)
 
     val relation = structure.get
-    relation.name should equal(Some("Pieterpad deel 1 - Pieterburen-Vorden"))
-    relation.relations.flatMap(_.name) should equal(
+    relation.name should equal("Pieterpad deel 1 - Pieterburen-Vorden")
+    relation.relations.map(_.name) should equal(
       Seq(
         "Pieterpad deel 1 - 01",
         "Pieterpad deel 1 - 02",

@@ -11,7 +11,6 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
