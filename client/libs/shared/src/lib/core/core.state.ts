@@ -1,9 +1,8 @@
+import { getRouterSelectors } from '@ngrx/router-store';
 import { RouterReducerState } from '@ngrx/router-store';
 import { routerReducer } from '@ngrx/router-store';
-import { getSelectors } from '@ngrx/router-store';
 import { Store } from '@ngrx/store';
 import { ActionReducerMap } from '@ngrx/store';
-import { createFeatureSelector } from '@ngrx/store';
 import { MetaReducer } from '@ngrx/store';
 import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
@@ -43,9 +42,6 @@ export const localStorageSyncReducer = (
 
 export const metaReducers: MetaReducer<AppState>[] = [localStorageSyncReducer];
 
-export const selectRouterState =
-  createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
-
 export const {
   // selectCurrentRoute,   // select the current route
   selectFragment, // select the current route fragment
@@ -55,7 +51,7 @@ export const {
   selectRouteParam, // factory function to select a route param
   // selectRouteData,      // select the current route data
   selectUrl, // select the current url
-} = getSelectors(selectRouterState);
+} = getRouterSelectors();
 
 export const selectDefined = <K>(
   store: Store,
