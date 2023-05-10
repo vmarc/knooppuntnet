@@ -26,26 +26,24 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
 
     <kpn-monitor-route-page-header pageName="changes" />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-      <div *ngIf="!response.result">Route not found</div>
-      <div *ngIf="response.result" class="kpn-spacer-above">
-        <mat-slide-toggle
-          [checked]="impact$ | async"
-          (change)="impactChanged($event)"
+    <div *ngIf="response()?.result as page" class="kpn-spacer-above">
+      <div *ngIf="!page">Route not found</div>
+      <div *ngIf="page" class="kpn-spacer-above">
+        <mat-slide-toggle [checked]="impact()" (change)="impactChanged($event)"
           >Impact
         </mat-slide-toggle>
 
         <kpn-paginator
           (pageIndexChange)="pageChanged($event)"
-          [pageIndex]="response.result.pageIndex"
-          [length]="response.result.totalChangeCount"
+          [pageIndex]="page.pageIndex"
+          [length]="page.totalChangeCount"
           [showPageSizeSelection]="true"
         />
 
         <kpn-monitor-changes
-          [pageSize]="response.result.pageSize"
-          [pageIndex]="response.result.pageIndex"
-          [changes]="response.result.changes"
+          [pageSize]="page.pageSize"
+          [pageIndex]="page.pageIndex"
+          [changes]="page.changes"
         />
       </div>
     </div>
@@ -61,8 +59,8 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
   ],
 })
 export class MonitorRouteChangesPageComponent implements OnInit, OnDestroy {
-  readonly response$ = this.store.select(selectMonitorRouteChangesPage);
-  readonly impact$ = this.store.select(selectPreferencesImpact);
+  readonly response = this.store.selectSignal(selectMonitorRouteChangesPage);
+  readonly impact = this.store.selectSignal(selectPreferencesImpact);
 
   constructor(private store: Store) {}
 

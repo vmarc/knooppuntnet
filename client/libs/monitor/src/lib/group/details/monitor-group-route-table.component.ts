@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -15,7 +16,6 @@ import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
@@ -215,11 +215,8 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedHeaders$ | async"></tr>
-      <tr
-        mat-row
-        *matRowDef="let group; columns: displayedColumns$ | async"
-      ></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders()"></tr>
+      <tr mat-row *matRowDef="let group; columns: displayedColumns()"></tr>
     </table>
   `,
   styles: [
@@ -278,7 +275,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   @Input() routes: MonitorRouteDetail[];
   @Input() groupName: string;
 
-  readonly admin$ = this.store.select(selectMonitorAdmin);
+  readonly admin = this.store.selectSignal(selectMonitorAdmin);
 
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 
@@ -304,18 +301,16 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     'deviation-distance',
   ];
 
-  readonly displayedColumns$ = this.admin$.pipe(
-    map((admin) => {
-      if (admin) {
-        return [...this.columns, 'actions'];
-      }
-      return this.columns;
-    })
-  );
+  readonly displayedColumns = computed(() => {
+    if (this.admin()) {
+      return [...this.columns, 'actions'];
+    }
+    return this.columns;
+  });
 
-  readonly displayedHeaders$ = this.displayedColumns$.pipe(
-    map((columnNames) =>
-      columnNames.filter((name) => !this.columnsWithoutHeader.includes(name))
+  readonly displayedHeaders = computed(() =>
+    this.displayedColumns().filter(
+      (name) => !this.columnsWithoutHeader.includes(name)
     )
   );
 

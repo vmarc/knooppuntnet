@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -9,11 +10,9 @@ import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
 import { selectRouteParam } from '@app/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { actionMonitorRouteDeletePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDeletePageInit } from '../../store/monitor.actions';
 import { actionMonitorRouteDelete } from '../../store/monitor.actions';
-import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 
 @Component({
@@ -24,14 +23,14 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
+        <a [routerLink]="groupLink()">{{ groupName() }}</a>
       </li>
       <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
-      <span class="kpn-label">{{ routeName$ | async }}</span>
-      <span>{{ routeDescription$ | async }}</span>
+      <span class="kpn-label">{{ routeName() }}</span>
+      <span>{{ routeDescription() }}</span>
     </h1>
 
     <h2 i18n="@@monitor.route.delete.title">Delete</h2>
@@ -56,7 +55,7 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
             >Delete Route</span
           >
         </button>
-        <a [routerLink]="groupLink$ | async" i18n="@@action.cancel">Cancel</a>
+        <a [routerLink]="groupLink()" i18n="@@action.cancel">Cancel</a>
       </div>
     </div>
   `,
@@ -77,13 +76,12 @@ import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
   ],
 })
 export class MonitorRouteDeletePageComponent implements OnInit, OnDestroy {
-  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
-  readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
-  readonly groupLink$ = this.groupName$.pipe(
-    map((groupName) => `/monitor/groups/${groupName}`)
+  readonly groupName = this.store.selectSignal(selectRouteParam('groupName'));
+  readonly groupLink = computed(() => `/monitor/groups/${this.groupName}`);
+  readonly routeName = this.store.selectSignal(selectRouteParam('routeName'));
+  readonly routeDescription = this.store.selectSignal(
+    selectMonitorRouteDescription
   );
-  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
-  readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
 
   constructor(private store: Store) {}
 

@@ -17,7 +17,7 @@ import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-monitor-route-page-header pageName="map" />
-    <div *ngIf="page$ | async as page">
+    <div *ngIf="mapPage() as page">
       <div *ngIf="canDisplayMap(page); then map; else noMap"></div>
       <ng-template #noMap>
         <p i18n="@@monitor.route.map.no-map">No map</p>
@@ -36,7 +36,7 @@ import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
   ],
 })
 export class MonitorRouteMapPageComponent implements OnInit, OnDestroy {
-  protected readonly page$ = this.store.select(selectMonitorRouteMapPage);
+  readonly mapPage = this.store.selectSignal(selectMonitorRouteMapPage);
 
   constructor(private store: Store) {}
 

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -10,7 +11,6 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { MonitorGroupDetail } from '@api/common/monitor';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { actionMonitorNavigateGroup } from '../store/monitor.actions';
 import { selectMonitorAdmin } from '../store/monitor.selectors';
 
@@ -86,11 +86,8 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr
-        mat-row
-        *matRowDef="let group; columns: displayedColumns$ | async"
-      ></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let group; columns: displayedColumns()"></tr>
     </table>
   `,
   standalone: true,
@@ -105,17 +102,14 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
 export class MonitorGroupTableComponent implements OnInit {
   @Input() groups: MonitorGroupDetail[];
 
+  private readonly admin = this.store.selectSignal(selectMonitorAdmin);
   readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
-
-  readonly displayedColumns$ = this.store.select(selectMonitorAdmin).pipe(
-    // eslint-disable-next-line @ngrx/avoid-mapping-selectors
-    map((admin) => {
-      if (admin) {
-        return ['name', 'description', 'routeCount', 'actions'];
-      }
-      return ['name', 'description', 'routeCount'];
-    })
-  );
+  readonly displayedColumns = computed(() => {
+    if (this.admin()) {
+      return ['name', 'description', 'routeCount', 'actions'];
+    }
+    return ['name', 'description', 'routeCount'];
+  });
 
   constructor(private store: Store) {}
 

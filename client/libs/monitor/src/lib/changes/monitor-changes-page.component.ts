@@ -38,31 +38,29 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
     <kpn-monitor-page-menu pageName="changes" />
     <kpn-error />
 
-    <div *ngIf="response$ | async as response">
-      <p *ngIf="!response.result" i18n="@@monitor.changes.no-changes">
-        No group changes
-      </p>
-      <div *ngIf="response.result" class="kpn-spacer-above">
+    <div *ngIf="response()?.result as page">
+      <p *ngIf="!page" i18n="@@monitor.changes.no-changes">No group changes</p>
+      <div *ngIf="page" class="kpn-spacer-above">
         <mat-slide-toggle
-          [checked]="impact$ | async"
+          [checked]="impact()"
           (change)="impactChanged($event)"
           i18n="@@monitor.changes.impact"
           >Impact
         </mat-slide-toggle>
 
         <kpn-paginator
-          [pageSize]="pageSize$ | async"
+          [pageSize]="pageSize()"
           (pageSizeChange)="onPageSizeChange($event)"
-          [pageIndex]="response.result.pageIndex"
+          [pageIndex]="page.pageIndex"
           (pageIndexChange)="onPageIndexChange($event)"
-          [length]="response.result.totalChangeCount"
+          [length]="page.totalChangeCount"
           [showPageSizeSelection]="true"
         />
 
         <kpn-monitor-changes
-          [pageSize]="response.result.pageSize"
-          [pageIndex]="response.result.pageIndex"
-          [changes]="response.result.changes"
+          [pageSize]="page.pageSize"
+          [pageIndex]="page.pageIndex"
+          [changes]="page.changes"
         />
       </div>
     </div>
@@ -81,9 +79,9 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
   ],
 })
 export class MonitorChangesPageComponent implements OnInit, OnDestroy {
-  readonly impact$ = this.store.select(selectPreferencesImpact);
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
-  readonly response$ = this.store.select(selectMonitorChangesPage);
+  readonly impact = this.store.selectSignal(selectPreferencesImpact);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  readonly response = this.store.selectSignal(selectMonitorChangesPage);
 
   constructor(private store: Store) {}
 

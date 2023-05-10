@@ -51,7 +51,7 @@ import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-
         <button
           mat-menu-item
           (click)="josmZoomToSelectedDeviation()"
-          [disabled]="josmZoomToSelectedDeviationDisabled$ | async"
+          [disabled]="josmZoomToSelectedDeviationDisabled()"
           i18n="@@monitor.route.map.action.josm.zoom-to-deviation"
         >
           Zoom to selected deviation
@@ -59,7 +59,7 @@ import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-
         <button
           mat-menu-item
           (click)="josmZoomToSelectedOsmSegment()"
-          [disabled]="josmZoomToSelectedOsmSegmentDisabled$ | async"
+          [disabled]="josmZoomToSelectedOsmSegmentDisabled()"
           i18n="@@monitor.route.map.action.josm.zoom-to-osm-segment"
         >
           Zoom to selected OSM segment
@@ -78,11 +78,11 @@ import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-
   imports: [MatButtonModule, MatMenuModule, AsyncPipe],
 })
 export class MonitorRouteMapControlJosmComponent {
-  readonly josmZoomToSelectedDeviationDisabled$ = this.store.select(
+  readonly josmZoomToSelectedDeviationDisabled = this.store.selectSignal(
     selectMonitorRouteMapSelectedDeviationDisabled
   );
 
-  readonly josmZoomToSelectedOsmSegmentDisabled$ = this.store.select(
+  readonly josmZoomToSelectedOsmSegmentDisabled = this.store.selectSignal(
     selectMonitorRouteMapSelectedOsmSegmentDisabled
   );
 

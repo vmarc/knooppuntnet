@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -14,7 +15,6 @@ import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
@@ -235,8 +235,8 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedHeaders$ | async"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders()"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
     </table>
   `,
   styles: [
@@ -286,7 +286,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   @Input() structureRows: MonitorRouteRelationStructureRow[];
   @Input() referenceType: string;
 
-  private readonly admin$ = this.store.select(selectMonitorAdmin);
+  private readonly admin = this.store.selectSignal(selectMonitorAdmin);
 
   readonly dataSource =
     new MatTableDataSource<MonitorRouteRelationStructureRow>();
@@ -321,23 +321,21 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'deviation-distance',
   ];
 
-  readonly displayedColumns$ = this.admin$.pipe(
-    map((admin) => {
-      let columns = [...this.mainColumns];
-      if (this.referenceType === 'multi-gpx') {
-        columns = columns.concat(this.referenceColumns);
-      }
-      columns = columns.concat(this.analysisColumns);
-      if (admin) {
-        columns = [...columns, 'actions'];
-      }
-      return columns;
-    })
-  );
+  readonly displayedColumns = computed(() => {
+    let columns = [...this.mainColumns];
+    if (this.referenceType === 'multi-gpx') {
+      columns = columns.concat(this.referenceColumns);
+    }
+    columns = columns.concat(this.analysisColumns);
+    if (this.admin()) {
+      columns = [...columns, 'actions'];
+    }
+    return columns;
+  });
 
-  readonly displayedHeaders$ = this.displayedColumns$.pipe(
-    map((columnNames) =>
-      columnNames.filter((name) => !this.columnsWithoutHeader.includes(name))
+  readonly displayedHeaders = computed(() =>
+    this.displayedColumns().filter(
+      (name) => !this.columnsWithoutHeader.includes(name)
     )
   );
 
@@ -347,7 +345,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     this.dataSource.data = this.structureRows;
   }
 
-  mapLink(): any {
+  mapLink(): string {
     return `/monitor/groups/${this.groupName}/routes/${this.routeName}/map`;
   }
 

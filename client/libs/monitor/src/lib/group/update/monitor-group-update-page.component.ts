@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { effect } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -10,7 +11,6 @@ import { Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorGroupUpdateDestroy } from '../../store/monitor.actions';
 import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
@@ -28,7 +28,7 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
 
     <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
 
-    <div *ngIf="response$ | async as response" class="kpn-form">
+    <div *ngIf="responseSignal() as response" class="kpn-form">
       <div *ngIf="!response.result">
         <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
       </div>
@@ -85,19 +85,20 @@ export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
     description: this.description,
   });
 
-  readonly response$ = this.store.select(selectMonitorGroupPage).pipe(
-    tap((response) => {
-      if (response?.result) {
-        this.initialName = response.result.groupName;
+  readonly responseSignal = this.store.selectSignal(selectMonitorGroupPage);
+
+  constructor(private monitorService: MonitorService, private store: Store) {
+    effect(() => {
+      const page = this.responseSignal()?.result;
+      if (page) {
+        this.initialName = page.groupName;
         this.form.reset({
-          name: response.result.groupName,
-          description: response.result.groupDescription,
+          name: page.groupName,
+          description: page.groupDescription,
         });
       }
-    })
-  );
-
-  constructor(private monitorService: MonitorService, private store: Store) {}
+    });
+  }
 
   ngOnInit(): void {
     this.store.dispatch(actionMonitorGroupUpdateInit());

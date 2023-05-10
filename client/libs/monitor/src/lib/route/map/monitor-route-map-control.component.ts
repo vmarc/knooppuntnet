@@ -14,7 +14,7 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
   selector: 'kpn-monitor-route-map-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="mode$ | async as mode" class="control">
+    <div *ngIf="routeMapMode() as mode" class="control">
       <kpn-monitor-route-map-control-mode [mode]="mode" />
       <kpn-monitor-route-map-layers />
       <kpn-monitor-route-map-control-josm />
@@ -41,7 +41,7 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
   ],
 })
 export class MonitorRouteMapControlComponent {
-  readonly mode$ = this.store.select(selectMonitorRouteMapMode);
+  readonly routeMapMode = this.store.selectSignal(selectMonitorRouteMapMode);
 
   constructor(private store: Store) {}
 }

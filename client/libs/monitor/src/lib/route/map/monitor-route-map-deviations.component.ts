@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +11,6 @@ import { MonitorRouteDeviation } from '@api/common/monitor';
 import { DistancePipe } from '@app/components/shared/format';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { LegendLineComponent } from './legend-line';
 import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
 import { actionMonitorRouteMapSelectDeviation } from './store/monitor-route-map.actions';
@@ -26,40 +26,40 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
   template: `
     <div
       *ngIf="
-        referenceAvailable$ | async;
-        then referenceAvailable;
-        else noReference
+        referenceAvailable();
+        then showReferenceAvailable;
+        else showNoReference
       "
     ></div>
-    <ng-template #noReference>
+    <ng-template #showNoReference>
       <p i18n="@@monitor.route.map-deviations.no-reference">
         No reference, so no analysis results.
       </p>
     </ng-template>
-    <ng-template #referenceAvailable>
+    <ng-template #showReferenceAvailable>
       <div
         *ngIf="
-          osmRelationAvailable$ | async;
-          then osmRelationAvailable;
-          else osmRelationMissing
+          osmRelationAvailable();
+          then showOsmRelationAvailable;
+          else showOsmRelationMissing
         "
       ></div>
-      <ng-template #osmRelationMissing>
+      <ng-template #showOsmRelationMissing>
         <p i18n="@@monitor.route.map-deviations.no-relation">
           OSM relation missing in route definition, so no analysis results.
         </p>
       </ng-template>
-      <ng-template #osmRelationAvailable>
+      <ng-template #showOsmRelationAvailable>
         <p
-          *ngIf="osmRelationEmpty$ | async"
+          *ngIf="osmRelationEmpty()"
           i18n="@@monitor.route.map-deviations.relation-empty"
         >
           OSM relation empty, so no analysis results.
         </p>
         <div
-          *ngIf="hasDeviations$ | async; then deviations; else noDeviations"
+          *ngIf="hasDeviations(); then showDeviations; else showNoDeviations"
         ></div>
-        <ng-template #noDeviations>
+        <ng-template #showNoDeviations>
           <p class="kpn-spacer-above kpn-line">
             <kpn-icon-happy />
             <span i18n="@@monitor.route.map-deviations.no-deviations">
@@ -68,7 +68,7 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
           </p>
         </ng-template>
 
-        <ng-template #deviations>
+        <ng-template #showDeviations>
           <p class="segments-title">
             <span i18n="@@monitor.route.map-deviations.title">Deviations</span>
           </p>
@@ -110,8 +110,8 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
             [hideSingleSelectionIndicator]="true"
           >
             <mat-list-option
-              *ngFor="let deviation of deviations$ | async"
-              [selected]="(selectedDeviationId$ | async) === deviation.id"
+              *ngFor="let deviation of deviations()"
+              [selected]="selectedDeviationId() === deviation.id"
               [value]="deviation"
             >
               <div class="segment">
@@ -185,25 +185,25 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
   ],
 })
 export class MonitorRouteMapDeviationsComponent {
-  readonly deviations$ = this.store.select(selectMonitorRouteMapDeviations);
-
-  readonly hasDeviations$ = this.deviations$.pipe(
-    map((deviations) => deviations.length > 0)
+  readonly deviations = this.store.selectSignal(
+    selectMonitorRouteMapDeviations
   );
 
-  readonly referenceAvailable$ = this.store.select(
+  readonly hasDeviations = computed(() => this.deviations().length > 0);
+
+  readonly referenceAvailable = this.store.selectSignal(
     selectMonitorRouteMapReferenceEnabled
   );
 
-  readonly osmRelationAvailable$ = this.store.select(
+  readonly osmRelationAvailable = this.store.selectSignal(
     selectMonitorRouteMapOsmRelationAvailable
   );
 
-  readonly osmRelationEmpty$ = this.store.select(
+  readonly osmRelationEmpty = this.store.selectSignal(
     selectMonitorRouteMapOsmRelationEmpty
   );
 
-  readonly selectedDeviationId$ = this.store.select(
+  readonly selectedDeviationId = this.store.selectSignal(
     selectMonitorRouteMapSelectedDeviationId
   );
 

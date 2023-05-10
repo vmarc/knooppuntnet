@@ -36,34 +36,29 @@ import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-
     </ul>
 
     <h1>
-      {{ groupDescription$ | async }}
+      {{ groupDescription() }}
     </h1>
 
-    <kpn-monitor-group-page-menu
-      pageName="changes"
-      [groupName]="groupName$ | async"
-    />
+    <kpn-monitor-group-page-menu pageName="changes" [groupName]="groupName()" />
 
-    <div *ngIf="response$ | async as response">
-      <p *ngIf="!response.result">No group changes</p>
-      <div *ngIf="response.result" class="kpn-spacer-above">
-        <mat-slide-toggle
-          [checked]="impact$ | async"
-          (change)="impactChanged($event)"
+    <div *ngIf="response()?.result as page">
+      <p *ngIf="!page">No group changes</p>
+      <div *ngIf="page" class="kpn-spacer-above">
+        <mat-slide-toggle [checked]="impact()" (change)="impactChanged($event)"
           >Impact
         </mat-slide-toggle>
 
         <kpn-paginator
           (pageIndexChange)="pageChanged($event)"
-          [pageIndex]="response.result.pageIndex"
-          [length]="response.result.totalChangeCount"
+          [pageIndex]="page.pageIndex"
+          [length]="page.totalChangeCount"
           [showPageSizeSelection]="true"
         />
 
         <kpn-monitor-changes
-          [pageSize]="response.result.pageSize"
-          [pageIndex]="response.result.pageIndex"
-          [changes]="response.result.changes"
+          [pageSize]="page.pageSize"
+          [pageIndex]="page.pageIndex"
+          [changes]="page.changes"
         />
       </div>
     </div>
@@ -80,10 +75,12 @@ import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-
   ],
 })
 export class MonitorGroupChangesPageComponent implements OnInit, OnDestroy {
-  readonly groupName$ = this.store.select(selectMonitorGroupName);
-  readonly groupDescription$ = this.store.select(selectMonitorGroupDescription);
-  readonly impact$ = this.store.select(selectPreferencesImpact);
-  readonly response$ = this.store.select(selectMonitorGroupChangesPage);
+  readonly groupName = this.store.selectSignal(selectMonitorGroupName);
+  readonly groupDescription = this.store.selectSignal(
+    selectMonitorGroupDescription
+  );
+  readonly impact = this.store.selectSignal(selectPreferencesImpact);
+  readonly response = this.store.selectSignal(selectMonitorGroupChangesPage);
 
   constructor(private store: Store) {}
 

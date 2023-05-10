@@ -20,9 +20,9 @@ import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.sele
       [hideSingleSelectionIndicator]="true"
     >
       <mat-list-option
-        *ngFor="let segment of segments$ | async"
+        *ngFor="let segment of segments()"
         [value]="segment"
-        [selected]="(selectedSegmentId$ | async) === segment.id"
+        [selected]="selectedSegmentId() === segment.id"
       >
         <div class="segment">
           <span class="segment-id">{{ segment.id }}</span>
@@ -53,10 +53,8 @@ import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.sele
   imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
-  protected readonly segments$ = this.store.select(
-    selectMonitorRouteMapOsmSegments
-  );
-  protected readonly selectedSegmentId$ = this.store.select(
+  readonly segments = this.store.selectSignal(selectMonitorRouteMapOsmSegments);
+  readonly selectedSegmentId = this.store.selectSignal(
     selectMonitorRouteMapSelectedOsmSegmentId
   );
 

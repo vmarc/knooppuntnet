@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -7,9 +8,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
-import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 import { actionMonitorGroupsPageDestroy } from '../store/monitor.actions';
@@ -32,14 +31,14 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
     <kpn-monitor-page-menu pageName="groups" />
     <kpn-error />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="responseSignal() as response">
       <div class="header">
         <div id="routes-in-groups" i18n="@@monitor.groups.routes-in-groups">
-          {{ routeCount$ | async }} routes in {{ groupCount$ | async }} groups
+          {{ routeCount() }} routes in {{ groupCount() }} groups
         </div>
         <kpn-monitor-admin-toggle />
       </div>
-      <div *ngIf="hasGroups$ | async; else noGroups">
+      <div *ngIf="hasGroups(); else noGroups">
         <kpn-monitor-group-table [groups]="response.result.groups" />
       </div>
       <ng-template #noGroups>
@@ -47,7 +46,7 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
           No route groups
         </div>
       </ng-template>
-      <div *ngIf="admin$ | async" class="kpn-spacer-above">
+      <div *ngIf="admin()" class="kpn-spacer-above">
         <button
           mat-stroked-button
           routerLink="/monitor/admin/groups/add"
@@ -85,16 +84,16 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
   ],
 })
 export class MonitorGroupsPageComponent implements OnInit, OnDestroy {
-  readonly admin$ = this.store.select(selectMonitorAdmin);
-  readonly response$ = selectDefined(this.store, selectMonitorGroupsPage);
-  readonly hasGroups$ = this.response$.pipe(
-    map((response) => response.result?.groups?.length > 0)
+  readonly admin = this.store.selectSignal(selectMonitorAdmin);
+  readonly responseSignal = this.store.selectSignal(selectMonitorGroupsPage);
+  readonly hasGroups = computed(
+    () => this.responseSignal().result?.groups?.length > 0
   );
-  readonly routeCount$ = this.response$.pipe(
-    map((response) => response.result?.routeCount)
+  readonly routeCount = computed(
+    () => this.responseSignal().result?.routeCount
   );
-  readonly groupCount$ = this.response$.pipe(
-    map((response) => response.result?.groups?.length)
+  readonly groupCount = computed(
+    () => this.responseSignal().result?.groups?.length
   );
 
   constructor(private store: Store) {}

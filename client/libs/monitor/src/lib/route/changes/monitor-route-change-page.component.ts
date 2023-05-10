@@ -35,12 +35,12 @@ import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.compo
     </ul>
 
     <h1 class="title">
-      {{ routeName$ | async }}
+      {{ routeName() }}
     </h1>
 
     <kpn-error></kpn-error>
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="responseSignal() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">Route/changeset not found</div>
       <div *ngIf="response.result">
         <table class="kpn-table">
@@ -265,8 +265,10 @@ import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.compo
 export class MonitorRouteChangePageComponent implements OnInit, OnDestroy {
   util = Util;
 
-  readonly routeName$ = this.store.select(selectMonitorRouteName);
-  readonly response$ = this.store.select(selectMonitorRouteChangePage);
+  readonly routeName = this.store.selectSignal(selectMonitorRouteName);
+  readonly responseSignal = this.store.selectSignal(
+    selectMonitorRouteChangePage
+  );
 
   constructor(private store: Store) {}
 

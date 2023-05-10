@@ -17,13 +17,18 @@ import { DialogComponent } from '@app/components/shared/dialog';
 import { selectSharedHttpError } from '@app/core';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteSaveDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteSaveInit } from '../../store/monitor.actions';
-import { selectMonitorRouteSaveState } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveErrors } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveAnalyzeStatus } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveAnalyzeEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveUploadGpxStatus } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveUploadGpxEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveRouteStatus } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveRouteEnabled } from '../../store/monitor.selectors';
+import { selectMonitorRouteSaveDone } from '../../store/monitor.selectors';
 import { MonitorRouteParameters } from './monitor-route-parameters';
 import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.component';
 
@@ -37,31 +42,31 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
       </div>
       <div mat-dialog-content>
         <kpn-monitor-route-save-step
-          [enabled]="saveRouteEnabled$ | async"
-          [status]="saveRouteStatus$ | async"
+          [enabled]="saveRouteEnabled()"
+          [status]="saveRouteStatus()"
           label="Save route definition"
         />
 
         <kpn-monitor-route-save-step
-          [enabled]="uploadGpxEnabled$ | async"
-          [status]="uploadGpxStatus$ | async"
+          [enabled]="uploadGpxEnabled()"
+          [status]="uploadGpxStatus()"
           label="Upload GPX file"
         />
 
         <kpn-monitor-route-save-step
-          [enabled]="analyzeEnabled$ | async"
-          [status]="analyzeStatus$ | async"
+          [enabled]="analyzeEnabled()"
+          [status]="analyzeStatus()"
           label="Route analysis"
         />
 
         <div class="done kpn-spacer-below">
           <span
-            *ngIf="(analyzeStatus$ | async) === 'busy'"
+            *ngIf="analyzeStatus() === 'busy'"
             i18n="@@monitor.route.save-dialog.busy"
             >This may take a while, please wait...</span
           >
           <span
-            *ngIf="done$ | async"
+            *ngIf="done()"
             id="route-saved"
             i18n="@@monitor.route.save-dialog.saved"
           >
@@ -69,7 +74,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
           </span>
         </div>
 
-        <p *ngFor="let error of errors$ | async">
+        <p *ngFor="let error of errors()">
           <ng-container [ngSwitch]="error">
             <span
               *ngSwitchCase="'no-relation-id'"
@@ -96,7 +101,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
             mat-stroked-button
             id="back-to-group-button"
             (click)="backToGroup()"
-            [disabled]="(done$ | async) === false"
+            [disabled]="done() === false"
             i18n="@@monitor.route.save-dialog.action.back"
           >
             Back to group
@@ -105,7 +110,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
             mat-stroked-button
             id="goto-analysis-result-button"
             (click)="gotoAnalysisResult()"
-            [disabled]="(done$ | async) === false"
+            [disabled]="done() === false"
             i18n="@@monitor.route.save-dialog.action.analysis-result"
           >
             Go to analysis result
@@ -140,15 +145,26 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
   providers: [MonitorService],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
-  saveState$ = this.store.select(selectMonitorRouteSaveState);
-  saveRouteEnabled$ = this.state((state) => state.saveRouteEnabled);
-  saveRouteStatus$ = this.state((state) => state.saveRouteStatus);
-  uploadGpxEnabled$ = this.state((state) => state.uploadGpxEnabled);
-  uploadGpxStatus$ = this.state((state) => state.uploadGpxStatus);
-  analyzeEnabled$ = this.state((state) => state.analyzeEnabled);
-  analyzeStatus$ = this.state((state) => state.analyzeStatus);
-  errors$ = this.state((state) => state.errors);
-  done$ = this.state((state) => state.done);
+  readonly saveRouteEnabled = this.store.selectSignal(
+    selectMonitorRouteSaveRouteEnabled
+  );
+  readonly saveRouteStatus = this.store.selectSignal(
+    selectMonitorRouteSaveRouteStatus
+  );
+  readonly uploadGpxEnabled = this.store.selectSignal(
+    selectMonitorRouteSaveUploadGpxEnabled
+  );
+  readonly uploadGpxStatus = this.store.selectSignal(
+    selectMonitorRouteSaveUploadGpxStatus
+  );
+  readonly analyzeEnabled = this.store.selectSignal(
+    selectMonitorRouteSaveAnalyzeEnabled
+  );
+  readonly analyzeStatus = this.store.selectSignal(
+    selectMonitorRouteSaveAnalyzeStatus
+  );
+  readonly errors = this.store.selectSignal(selectMonitorRouteSaveErrors);
+  readonly done = this.store.selectSignal(selectMonitorRouteSaveDone);
 
   private readonly subscriptions = new Subscriptions();
 
@@ -186,9 +202,5 @@ export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
           this.dialogRef.close();
         })
     );
-  }
-
-  private state<T>(project: (MonitorRouteSaveState) => T): Observable<T> {
-    return this.saveState$.pipe(map(project));
   }
 }

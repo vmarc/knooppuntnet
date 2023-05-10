@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -12,9 +13,6 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
 import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { selectMonitorRouteName } from '../../store/monitor.selectors';
@@ -32,21 +30,21 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
+        <a [routerLink]="groupLink()">{{ groupName() }}</a>
       </li>
       <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
-      <span class="kpn-label">{{ routeName$ | async }}</span>
-      <span>{{ routeDescription$ | async }}</span>
+      <span class="kpn-label">{{ routeName() }}</span>
+      <span>{{ routeDescription() }}</span>
     </h1>
 
     <mat-menu #appMenu="matMenu" class="sub-relation-menu">
       <ng-template matMenuContent>
         <button
           mat-menu-item
-          *ngFor="let subRelation of subRelations$ | async"
+          *ngFor="let subRelation of subRelations()"
           (click)="select(subRelation)"
         >
           {{ subRelation.name }}
@@ -56,7 +54,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
     <kpn-page-menu>
       <kpn-page-menu-option
-        [link]="routeDetailLink$ | async"
+        [link]="routeDetailLink()"
         [active]="pageName === 'details'"
         i18n="@@monitor.route.menu.details"
       >
@@ -64,7 +62,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        [link]="routeMapLink$ | async"
+        [link]="routeMapLink()"
         [active]="pageName === 'map'"
         i18n="@@monitor.route.menu.map"
       >
@@ -73,7 +71,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
       <kpn-monitor-sub-relation-menu-option
         *ngIf="pageName === 'map'"
-        [routeSubRelation]="previous$ | async"
+        [routeSubRelation]="previous()"
         (selectSubRelation)="select($event)"
         name="Previous"
         i18n-name="@@monitor.route.menu.previous"
@@ -81,7 +79,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
       <kpn-monitor-sub-relation-menu-option
         *ngIf="pageName === 'map'"
-        [routeSubRelation]="next$ | async"
+        [routeSubRelation]="next()"
         (selectSubRelation)="select($event)"
         name="Next"
         i18n-name="@@monitor.route.menu.next"
@@ -89,7 +87,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
       <a
         *ngIf="pageName === 'map'"
-        [ngClass]="{ disabled: (subrelationsEmpty$ | async) }"
+        [ngClass]="{ disabled: subrelationsEmpty() }"
         [matMenuTriggerFor]="appMenu"
         i18n="@@monitor.route.menu.select"
         >Select</a
@@ -128,46 +126,33 @@ export class MonitorRoutePageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly groupName$ = this.store.select(selectMonitorGroupName);
-  readonly routeName$ = this.store.select(selectMonitorRouteName);
-  readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
-  readonly groupLink$ = this.groupName$.pipe(
-    map((groupName) => `/monitor/groups/${groupName}`)
+  readonly groupName = this.store.selectSignal(selectMonitorGroupName);
+  readonly routeName = this.store.selectSignal(selectMonitorRouteName);
+  readonly routeDescription = this.store.selectSignal(
+    selectMonitorRouteDescription
+  );
+  readonly groupLink = computed(() => `/monitor/groups/${this.groupName()}`);
+  readonly routeDetailLink = computed(
+    () => `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`
+  );
+  readonly routeMapLink = computed(
+    () => `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`
   );
 
-  readonly routeDetailLink$ = combineLatest([
-    this.groupName$,
-    this.routeName$,
-  ]).pipe(
-    map(
-      ([groupName, routeName]) =>
-        `/monitor/groups/${groupName}/routes/${routeName}`
-    )
+  readonly subRelations = this.store.selectSignal(
+    selectMonitorRouteMapSubRelations
   );
 
-  readonly routeMapLink$ = combineLatest([
-    this.groupName$,
-    this.routeName$,
-  ]).pipe(
-    map(
-      ([groupName, routeName]) =>
-        `/monitor/groups/${groupName}/routes/${routeName}/map`
-    )
-  );
+  readonly subrelationsEmpty = computed(() => {
+    const sr = this.subRelations();
+    return !sr || sr.length == 0;
+  });
 
-  readonly subRelations$ = this.store.select(selectMonitorRouteMapSubRelations);
-
-  readonly subrelationsEmpty$: Observable<boolean> = this.subRelations$.pipe(
-    map((subRelations) => {
-      return !subRelations || subRelations.length == 0;
-    })
-  );
-
-  readonly previous$ = this.store.select(
+  readonly previous = this.store.selectSignal(
     selectMonitorRouteMapPreviousSubRelation
   );
 
-  readonly next$ = this.store.select(selectMonitorRouteMapNextSubRelation);
+  readonly next = this.store.selectSignal(selectMonitorRouteMapNextSubRelation);
 
   constructor(private store: Store) {}
 

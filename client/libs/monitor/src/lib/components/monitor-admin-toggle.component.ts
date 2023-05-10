@@ -15,8 +15,8 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
     <div class="toggle">
       <mat-slide-toggle
         id="admin-toggle"
-        [disabled]="(adminRole$ | async) === false"
-        [checked]="admin$ | async"
+        [disabled]="adminRole() === false"
+        [checked]="admin()"
         (change)="adminChanged($event)"
         i18n="@@monitor.admin-toggle"
       >
@@ -38,8 +38,8 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   imports: [MatSlideToggleModule, AsyncPipe],
 })
 export class MonitorAdminToggleComponent {
-  readonly admin$ = this.store.select(selectMonitorAdmin);
-  readonly adminRole$ = this.store.select(selectMonitorAdminRole);
+  readonly admin = this.store.selectSignal(selectMonitorAdmin);
+  readonly adminRole = this.store.selectSignal(selectMonitorAdminRole);
 
   constructor(private store: Store) {}
 

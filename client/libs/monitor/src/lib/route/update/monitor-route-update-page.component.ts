@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -7,9 +8,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
 import { selectRouteParam } from '@app/core';
-import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 import { MonitorService } from '../../monitor.service';
 import { actionMonitorRouteUpdatePageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
@@ -25,14 +24,14 @@ import { MonitorRoutePropertiesComponent } from '../components/monitor-route-pro
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink$ | async">{{ groupName$ | async }}</a>
+        <a [routerLink]="groupLink()">{{ groupName() }}</a>
       </li>
       <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
-      <span class="kpn-label">{{ routeName$ | async }}</span>
-      <span> {{ routeDescription$ | async }}</span
+      <span class="kpn-label">{{ routeName() }}</span>
+      <span> {{ routeDescription() }}</span
       >&nbsp;
     </h1>
 
@@ -40,12 +39,12 @@ import { MonitorRoutePropertiesComponent } from '../components/monitor-route-pro
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="response()?.result as page">
       <kpn-monitor-route-properties
         mode="update"
-        [groupName]="groupName$ | async"
-        [initialProperties]="response.result.properties"
-        [routeGroups]="response.result.groups"
+        [groupName]="groupName()"
+        [initialProperties]="page.properties"
+        [routeGroups]="page.groups"
       />
     </div>
   `,
@@ -59,13 +58,13 @@ import { MonitorRoutePropertiesComponent } from '../components/monitor-route-pro
   ],
 })
 export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
-  readonly response$ = selectDefined(this.store, selectMonitorRouteUpdatePage);
-  readonly groupName$ = this.store.select(selectRouteParam('groupName'));
-  readonly routeName$ = this.store.select(selectRouteParam('routeName'));
-  readonly routeDescription$ = this.store.select(selectMonitorRouteDescription);
-  readonly groupLink$ = this.groupName$.pipe(
-    map((groupName) => `/monitor/groups/${groupName}`)
+  readonly response = this.store.selectSignal(selectMonitorRouteUpdatePage);
+  readonly groupName = this.store.selectSignal(selectRouteParam('groupName'));
+  readonly routeName = this.store.selectSignal(selectRouteParam('routeName'));
+  readonly routeDescription = this.store.selectSignal(
+    selectMonitorRouteDescription
   );
+  readonly groupLink = computed(() => `/monitor/groups/${this.groupName()}`);
 
   constructor(private monitorService: MonitorService, private store: Store) {}
 

@@ -15,7 +15,7 @@ import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.
   selector: 'kpn-monitor-route-map-control-mode',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="modeSelectionEnabled$ | async">
+    <div *ngIf="modeSelectionEnabled()">
       <mat-radio-group [value]="mode" (change)="modeChanged($event)">
         <mat-radio-button value="comparison">
           <span i18n="@@monitor.route.map.mode.comparison">
@@ -24,7 +24,7 @@ import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.
         </mat-radio-button>
         <mat-radio-button value="osm-segments">
           <span i18n="@@monitor.route.map.mode.osm-segments">OSM segments</span>
-          <span class="kpn-brackets">{{ osmSegmentCount$ | async }}</span>
+          <span class="kpn-brackets">{{ osmSegmentCount() }}</span>
         </mat-radio-button>
       </mat-radio-group>
     </div>
@@ -35,11 +35,11 @@ import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.
 export class MonitorRouteMapControlModeComponent {
   @Input() mode: MonitorMapMode;
 
-  readonly osmSegmentCount$ = this.store.select(
+  readonly osmSegmentCount = this.store.selectSignal(
     selectMonitorRouteMapOsmSegmentCount
   );
 
-  readonly modeSelectionEnabled$ = this.store.select(
+  readonly modeSelectionEnabled = this.store.selectSignal(
     selectMonitorRouteMapModeSelectionEnabled
   );
 
