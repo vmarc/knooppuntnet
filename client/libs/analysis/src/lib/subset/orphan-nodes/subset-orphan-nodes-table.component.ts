@@ -32,7 +32,7 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
       (edit)="edit()"
       editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@subset-orphan-nodes.edit.title"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
@@ -137,9 +137,9 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
-  private readonly filterCriteria = new BehaviorSubject(
+  private readonly filterCriteria$ = new BehaviorSubject(
     new SubsetOrphanNodeFilterCriteria()
   );
 
@@ -151,11 +151,11 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
-    this.filterCriteria.subscribe((criteria) => {
+    this.filterCriteria$.subscribe((criteria) => {
       const filter = new SubsetOrphanNodeFilter(
         this.timeInfo,
         criteria,
-        this.filterCriteria
+        this.filterCriteria$
       );
       this.dataSource.data = filter.filter(this.nodes);
       this.subsetOrphanNodesService.filterOptions$.next(

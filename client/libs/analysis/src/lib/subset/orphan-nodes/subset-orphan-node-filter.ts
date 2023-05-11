@@ -36,7 +36,7 @@ export class SubsetOrphanNodeFilter {
   constructor(
     private readonly timeInfo: TimeInfo,
     private readonly criteria: SubsetOrphanNodeFilterCriteria,
-    private readonly filterCriteria: BehaviorSubject<SubsetOrphanNodeFilterCriteria>
+    private readonly filterCriteria$: BehaviorSubject<SubsetOrphanNodeFilterCriteria>
   ) {}
 
   filter(nodes: OrphanNodeInfo[]): OrphanNodeInfo[] {
@@ -60,6 +60,6 @@ export class SubsetOrphanNodeFilter {
   }
 
   private update(criteria: SubsetOrphanNodeFilterCriteria) {
-    return () => this.filterCriteria.next(criteria);
+    return () => this.filterCriteria$.next(criteria);
   }
 }

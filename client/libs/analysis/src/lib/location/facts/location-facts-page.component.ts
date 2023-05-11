@@ -25,7 +25,7 @@ import { LocationFactsComponent } from './location-facts.component';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-facts [locationFacts]="response.result.locationFacts" />
       </kpn-location-response>
@@ -42,7 +42,7 @@ import { LocationFactsComponent } from './location-facts.component';
   ],
 })
 export class LocationFactsPageComponent implements OnInit, OnDestroy {
-  readonly response$ = this.store.select(selectLocationFactsPage);
+  readonly apiResponse = this.store.selectSignal(selectLocationFactsPage);
 
   constructor(private store: Store) {}
 

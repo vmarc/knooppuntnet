@@ -22,7 +22,7 @@ import { SubsetMapComponent } from './subset-map.component';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <kpn-subset-map />
     </div>
   `,
@@ -36,7 +36,7 @@ import { SubsetMapComponent } from './subset-map.component';
   ],
 })
 export class SubsetMapPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectSubsetMapPage);
+  readonly apiResponse = this.store.selectSignal(selectSubsetMapPage);
 
   constructor(private store: Store) {}
 

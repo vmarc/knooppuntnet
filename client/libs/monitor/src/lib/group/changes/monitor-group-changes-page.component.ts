@@ -41,11 +41,11 @@ import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-
 
     <kpn-monitor-group-page-menu pageName="changes" [groupName]="groupName()" />
 
-    <div *ngIf="response()?.result as page">
-      <p *ngIf="!page">No group changes</p>
-      <div *ngIf="page" class="kpn-spacer-above">
-        <mat-slide-toggle [checked]="impact()" (change)="impactChanged($event)"
-          >Impact
+    <div *ngIf="apiResponse() as response">
+      <p *ngIf="!response.result">No group changes</p>
+      <div *ngIf="response.result as page" class="kpn-spacer-above">
+        <mat-slide-toggle [checked]="impact()" (change)="impactChanged($event)">
+          Impact
         </mat-slide-toggle>
 
         <kpn-paginator
@@ -80,7 +80,7 @@ export class MonitorGroupChangesPageComponent implements OnInit, OnDestroy {
     selectMonitorGroupDescription
   );
   readonly impact = this.store.selectSignal(selectPreferencesImpact);
-  readonly response = this.store.selectSignal(selectMonitorGroupChangesPage);
+  readonly apiResponse = this.store.selectSignal(selectMonitorGroupChangesPage);
 
   constructor(private store: Store) {}
 

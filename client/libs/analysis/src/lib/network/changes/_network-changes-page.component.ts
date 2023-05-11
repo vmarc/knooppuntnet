@@ -30,7 +30,7 @@ import { NetworkChangeSetComponent } from './network-change-set.component';
       i18n-pageTitle="@@network-changes.title"
     />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <p
         *ngIf="!response.result; else networkFound"
         i18n="@@network-page.network-not-found"
@@ -39,7 +39,7 @@ import { NetworkChangeSetComponent } from './network-change-set.component';
       </p>
       <ng-template #networkFound>
         <div
-          *ngIf="(loggedIn$ | async) === false; else loggedIn"
+          *ngIf="loggedIn() === false; else changes"
           i18n="@@network-changes.login-required"
         >
           The details of network changes history are available to registered
@@ -47,14 +47,14 @@ import { NetworkChangeSetComponent } from './network-change-set.component';
           <kpn-link-login />
           .
         </div>
-        <ng-template #loggedIn>
+        <ng-template #changes>
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
           </p>
           <kpn-changes
-            [impact]="impact$ | async"
-            [pageSize]="pageSize$ | async"
-            [pageIndex]="pageIndex$ | async"
+            [impact]="impact()"
+            [pageSize]="pageSize()"
+            [pageIndex]="pageIndex()"
             (impactChange)="onImpactChange($event)"
             (pageSizeChange)="onPageSizeChange($event)"
             (pageIndexChange)="onPageIndexChange($event)"
@@ -91,11 +91,11 @@ import { NetworkChangeSetComponent } from './network-change-set.component';
   ],
 })
 export class NetworkChangesPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectNetworkChangesPage);
-  readonly impact$ = this.store.select(selectNetworkChangesImpact);
-  readonly pageSize$ = this.store.select(selectNetworkChangesPageSize);
-  readonly pageIndex$ = this.store.select(selectNetworkChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
+  readonly apiResponse = this.store.selectSignal(selectNetworkChangesPage);
+  readonly impact = this.store.selectSignal(selectNetworkChangesImpact);
+  readonly pageSize = this.store.selectSignal(selectNetworkChangesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectNetworkChangesPageIndex);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
 
   constructor(private store: Store) {}
 

@@ -29,7 +29,7 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div
         *ngIf="response.result.networks.length === 0"
         i18n="@@subset-networks.no-networks"
@@ -78,7 +78,7 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
 export class SubsetNetworksPageComponent implements OnInit {
   large$: Observable<boolean>;
 
-  readonly response$ = this.store.select(selectSubsetNetworksPage);
+  readonly apiResponse = this.store.selectSignal(selectSubsetNetworksPage);
 
   constructor(
     private store: Store,

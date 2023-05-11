@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
-import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeMapPageInit } from '../store/node.actions';
@@ -29,14 +28,14 @@ import { NodeMapComponent } from './node-map.component';
 
     <kpn-node-page-header
       pageName="map"
-      [nodeId]="nodeId$ | async"
-      [nodeName]="nodeName$ | async"
-      [changeCount]="changeCount$ | async"
+      [nodeId]="nodeId()"
+      [nodeName]="nodeName()"
+      [changeCount]="changeCount()"
     />
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <div
         *ngIf="!response.result"
         class="kpn-spacer-above"
@@ -60,10 +59,12 @@ import { NodeMapComponent } from './node-map.component';
   ],
 })
 export class NodeMapPageComponent implements OnInit {
-  protected readonly nodeId$ = this.store.select(selectNodeId);
-  protected readonly nodeName$ = this.store.select(selectNodeName);
-  protected readonly changeCount$ = this.store.select(selectNodeChangeCount);
-  protected readonly response$ = selectDefined(this.store, selectNodeMapPage);
+  protected readonly nodeId = this.store.selectSignal(selectNodeId);
+  protected readonly nodeName = this.store.selectSignal(selectNodeName);
+  protected readonly changeCount = this.store.selectSignal(
+    selectNodeChangeCount
+  );
+  protected readonly apiResponse = this.store.selectSignal(selectNodeMapPage);
 
   constructor(private store: Store) {}
 

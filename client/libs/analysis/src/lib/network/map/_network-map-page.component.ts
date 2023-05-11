@@ -3,7 +3,6 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkMapPageInit } from '../store/network.actions';
@@ -22,7 +21,7 @@ import { NetworkMapComponent } from './network-map.component';
       i18n-pageTitle="@@network-map.title"
     />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <p
         *ngIf="!response.result; else networkFound"
         class="kpn-spacer-above"
@@ -32,9 +31,9 @@ import { NetworkMapComponent } from './network-map.component';
       </p>
       <ng-template #networkFound>
         <kpn-network-map
-          [networkId]="networkId$ | async"
+          [networkId]="networkId()"
           [page]="response.result"
-          [mapPositionFromUrl]="mapPositionFromUrl$ | async"
+          [mapPositionFromUrl]="mapPositionFromUrl()"
         />
       </ng-template>
     </div>
@@ -43,9 +42,9 @@ import { NetworkMapComponent } from './network-map.component';
   imports: [NetworkPageHeaderComponent, NgIf, NetworkMapComponent, AsyncPipe],
 })
 export class NetworkMapPageComponent implements OnInit {
-  readonly networkId$ = this.store.select(selectNetworkId);
-  readonly response$ = selectDefined(this.store, selectNetworkMapPage);
-  readonly mapPositionFromUrl$ = this.store.select(
+  readonly networkId = this.store.selectSignal(selectNetworkId);
+  readonly apiResponse = this.store.selectSignal(selectNetworkMapPage);
+  readonly mapPositionFromUrl = this.store.selectSignal(
     selectNetworkMapPositionFromUrl
   );
 

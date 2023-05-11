@@ -19,7 +19,7 @@ import { NetworkDetailsComponent } from './network-details.component';
       i18n-pageTitle="@@network-details.title"
     />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
@@ -37,7 +37,7 @@ import { NetworkDetailsComponent } from './network-details.component';
   ],
 })
 export class NetworkDetailsPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectNetworkDetailsPage);
+  readonly apiResponse = this.store.selectSignal(selectNetworkDetailsPage);
 
   constructor(private store: Store) {}
 

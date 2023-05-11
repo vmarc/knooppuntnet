@@ -8,7 +8,6 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { LinkLoginComponent } from '@app/components/shared/link';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectDefined } from '@app/core';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
@@ -40,13 +39,13 @@ import { RouteChangeComponent } from './route-change.component';
 
     <kpn-route-page-header
       pageName="changes"
-      [routeId]="routeId$ | async"
-      [routeName]="routeName$ | async"
-      [changeCount]="changeCount$ | async"
-      [networkType]="networkType$ | async"
+      [routeId]="routeId()"
+      [routeName]="routeName()"
+      [changeCount]="changeCount()"
+      [networkType]="networkType()"
     />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div
         *ngIf="!response.result; else routeFound"
         i18n="@@route.route-not-found"
@@ -55,7 +54,7 @@ import { RouteChangeComponent } from './route-change.component';
       </div>
       <ng-template #routeFound>
         <div
-          *ngIf="(loggedIn$ | async) === false; else loggedIn"
+          *ngIf="loggedIn() === false; else changes"
           i18n="@@route-changes.login-required"
         >
           The details of the route changes history is available to registered
@@ -63,15 +62,15 @@ import { RouteChangeComponent } from './route-change.component';
           <kpn-link-login></kpn-link-login>
           .
         </div>
-        <ng-template #loggedIn>
+        <ng-template #changes>
           <div *ngIf="response.result as page">
             <p>
               <kpn-situation-on [timestamp]="response.situationOn" />
             </p>
             <kpn-changes
-              [impact]="impact$ | async"
-              [pageSize]="pageSize$ | async"
-              [pageIndex]="pageIndex$ | async"
+              [impact]="impact()"
+              [pageSize]="pageSize()"
+              [pageIndex]="pageIndex()"
               (impactChange)="onImpactChange($event)"
               (pageSizeChange)="onPageSizeChange($event)"
               (pageIndexChange)="onPageIndexChange($event)"
@@ -108,15 +107,15 @@ import { RouteChangeComponent } from './route-change.component';
   ],
 })
 export class RouteChangesPageComponent implements OnInit {
-  readonly routeId$ = this.store.select(selectRouteId);
-  readonly routeName$ = this.store.select(selectRouteName);
-  readonly networkType$ = this.store.select(selectRouteNetworkType);
-  readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly impact$ = this.store.select(selectRouteChangesPageImpact);
-  readonly pageSize$ = this.store.select(selectRouteChangesPageSize);
-  readonly pageIndex$ = this.store.select(selectRouteChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
-  readonly response$ = selectDefined(this.store, selectRouteChangesPage);
+  readonly routeId = this.store.selectSignal(selectRouteId);
+  readonly routeName = this.store.selectSignal(selectRouteName);
+  readonly networkType = this.store.selectSignal(selectRouteNetworkType);
+  readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
+  readonly impact = this.store.selectSignal(selectRouteChangesPageImpact);
+  readonly pageSize = this.store.selectSignal(selectRouteChangesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectRouteChangesPageIndex);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
+  readonly apiResponse = this.store.selectSignal(selectRouteChangesPage);
 
   constructor(private store: Store) {}
 

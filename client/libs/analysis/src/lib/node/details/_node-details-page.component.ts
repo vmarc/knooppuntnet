@@ -12,7 +12,6 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
-import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
@@ -41,14 +40,14 @@ import { NodeSummaryComponent } from './node-summary.component';
 
     <kpn-node-page-header
       pageName="details"
-      [nodeId]="nodeId$ | async"
-      [nodeName]="nodeName$ | async"
-      [changeCount]="changeCount$ | async"
+      [nodeId]="nodeId()"
+      [nodeName]="nodeName()"
+      [changeCount]="changeCount()"
     />
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@node.node-not-found">
         Node not found
       </div>
@@ -75,7 +74,7 @@ import { NodeSummaryComponent } from './node-summary.component';
         </kpn-data>
 
         <kpn-data title="Location" i18n-title="@@node.location">
-          <div *ngIf="networkTypes$ | async as networkTypes">
+          <div *ngIf="networkTypes() as networkTypes">
             <div *ngIf="networkTypes.length > 1">
               <div *ngFor="let networkType of networkTypes" class="kpn-line">
                 <kpn-network-type-icon [networkType]="networkType" />
@@ -148,11 +147,11 @@ import { NodeSummaryComponent } from './node-summary.component';
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {
-  readonly nodeId$ = this.store.select(selectNodeId);
-  readonly nodeName$ = this.store.select(selectNodeName);
-  readonly changeCount$ = this.store.select(selectNodeChangeCount);
-  readonly networkTypes$ = this.store.select(selectNodeNetworkTypes);
-  readonly response$ = selectDefined(this.store, selectNodeDetailsPage);
+  readonly nodeId = this.store.selectSignal(selectNodeId);
+  readonly nodeName = this.store.selectSignal(selectNodeName);
+  readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
+  readonly networkTypes = this.store.selectSignal(selectNodeNetworkTypes);
+  readonly apiResponse = this.store.selectSignal(selectNodeDetailsPage);
 
   constructor(private store: Store) {}
 

@@ -53,7 +53,7 @@ import { map } from 'rxjs/operators';
           <main>
             <router-outlet />
           </main>
-          <footer *ngIf="showFooter$ | async">
+          <footer *ngIf="showFooter()">
             <kpn-page-footer />
           </footer>
         </div>
@@ -102,7 +102,7 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  readonly showFooter$ = this.store.select(selectPageShowFooter);
+  readonly showFooter = this.store.selectSignal(selectPageShowFooter);
   smallPage = false;
   private readonly subscriptions = new Subscriptions();
 

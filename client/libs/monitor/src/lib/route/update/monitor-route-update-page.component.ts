@@ -39,12 +39,12 @@ import { MonitorRoutePropertiesComponent } from '../components/monitor-route-pro
 
     <kpn-error />
 
-    <div *ngIf="response()?.result as page">
+    <div *ngIf="apiResponse() as response">
       <kpn-monitor-route-properties
         mode="update"
         [groupName]="groupName()"
-        [initialProperties]="page.properties"
-        [routeGroups]="page.groups"
+        [initialProperties]="response.result.properties"
+        [routeGroups]="response.result.groups"
       />
     </div>
   `,
@@ -58,7 +58,7 @@ import { MonitorRoutePropertiesComponent } from '../components/monitor-route-pro
   ],
 })
 export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
-  readonly response = this.store.selectSignal(selectMonitorRouteUpdatePage);
+  readonly apiResponse = this.store.selectSignal(selectMonitorRouteUpdatePage);
   readonly groupName = this.store.selectSignal(selectRouteParam('groupName'));
   readonly routeName = this.store.selectSignal(selectRouteParam('routeName'));
   readonly routeDescription = this.store.selectSignal(

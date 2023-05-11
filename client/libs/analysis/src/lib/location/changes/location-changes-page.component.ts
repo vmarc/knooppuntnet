@@ -25,7 +25,7 @@ import { LocationChangesComponent } from './location-changes.component';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <kpn-location-response [response]="response">
         <kpn-location-changes />
       </kpn-location-response>
@@ -42,7 +42,7 @@ import { LocationChangesComponent } from './location-changes.component';
   ],
 })
 export class LocationChangesPageComponent implements OnInit, OnDestroy {
-  readonly response$ = this.store.select(selectLocationChangesPage);
+  readonly apiResponse = this.store.selectSignal(selectLocationChangesPage);
 
   constructor(private store: Store) {}
 

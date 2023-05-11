@@ -1,5 +1,7 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { Signal } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -10,8 +12,6 @@ import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { selectLocationFactCount } from '../store/location.selectors';
 import { selectLocationRouteCount } from '../store/location.selectors';
 import { selectLocationChangeCount } from '../store/location.selectors';
@@ -23,48 +23,48 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   selector: 'kpn-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="locationKey$ | async as locationKey">
-      <kpn-location-page-breadcrumb [locationKey]="locationKey" />
+    <ng-container *ngIf="locationKey() as key">
+      <kpn-location-page-breadcrumb [locationKey]="key" />
 
-      <kpn-page-header [pageTitle]="pageTitle$ | async" subject="location-page">
+      <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
         <span class="header-network-type-icon">
-          <mat-icon [svgIcon]="locationKey.networkType" />
+          <mat-icon [svgIcon]="key.networkType" />
         </span>
-        <kpn-network-type-name [networkType]="locationKey.networkType" />&nbsp;
+        <kpn-network-type-name [networkType]="key.networkType" />&nbsp;
         <span i18n="@@location-page.header.in">in</span>
-        {{ locationName(locationKey) }}
+        {{ locationName(key) }}
       </kpn-page-header>
 
       <kpn-page-menu>
         <kpn-page-menu-option
-          [link]="nodesLink$ | async"
+          [link]="nodesLink()"
           [active]="pageName === 'nodes'"
           i18n="@@location-page.menu.nodes"
-          [elementCount]="nodeCount$ | async"
+          [elementCount]="nodeCount()"
         >
           Nodes
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="routesLink$ | async"
+          [link]="routesLink()"
           [active]="pageName === 'routes'"
           i18n="@@location-page.menu.routes"
-          [elementCount]="routeCount$ | async"
+          [elementCount]="routeCount()"
         >
           Routes
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="factsLink$ | async"
+          [link]="factsLink()"
           [active]="pageName === 'facts'"
           i18n="@@location-page.menu.facts"
-          [elementCount]="factCount$ | async"
+          [elementCount]="factCount()"
         >
           Facts
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="mapLink$ | async"
+          [link]="mapLink()"
           [active]="pageName === 'map'"
           i18n="@@location-page.menu.map"
         >
@@ -72,16 +72,16 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="changesLink$ | async"
+          [link]="changesLink()"
           [active]="pageName === 'changes'"
           i18n="@@location-page.menu.changes"
-          [elementCount]="changeCount$ | async"
+          [elementCount]="changeCount()"
         >
           Changes
         </kpn-page-menu-option>
 
         <kpn-page-menu-option
-          [link]="editLink$ | async"
+          [link]="editLink()"
           [active]="pageName === 'edit'"
           i18n="@@location-page.menu.edit"
         >
@@ -106,23 +106,21 @@ export class LocationPageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly locationKey$ = this.store.select(selectLocationKey);
-  readonly nodeCount$ = this.store.select(selectLocationNodeCount);
-  readonly routeCount$ = this.store.select(selectLocationRouteCount);
-  readonly factCount$ = this.store.select(selectLocationFactCount);
-  readonly changeCount$ = this.store.select(selectLocationChangeCount);
+  readonly locationKey = this.store.selectSignal(selectLocationKey);
+  readonly nodeCount = this.store.selectSignal(selectLocationNodeCount);
+  readonly routeCount = this.store.selectSignal(selectLocationRouteCount);
+  readonly factCount = this.store.selectSignal(selectLocationFactCount);
+  readonly changeCount = this.store.selectSignal(selectLocationChangeCount);
 
-  readonly nodesLink$ = this.link('nodes');
-  readonly routesLink$ = this.link('routes');
-  readonly factsLink$ = this.link('facts');
-  readonly mapLink$ = this.link('map');
-  readonly changesLink$ = this.link('changes');
-  readonly editLink$ = this.link('edit');
+  readonly nodesLink = this.link('nodes');
+  readonly routesLink = this.link('routes');
+  readonly factsLink = this.link('facts');
+  readonly mapLink = this.link('map');
+  readonly changesLink = this.link('changes');
+  readonly editLink = this.link('edit');
 
-  readonly pageTitle$ = this.locationKey$.pipe(
-    map((locationKey) => {
-      return `${locationKey.name} | ${this.pageTitle}`;
-    })
+  readonly fullPageTitle = computed(
+    () => `${this.locationKey().name} | ${this.pageTitle}`
   );
 
   constructor(private store: Store) {}
@@ -132,12 +130,11 @@ export class LocationPageHeaderComponent {
     return nameParts[nameParts.length - 1];
   }
 
-  private link(target: string): Observable<string> {
-    return this.locationKey$.pipe(
-      map((locationKey) => {
-        const key = `${locationKey.networkType}/${locationKey.country}/${locationKey.name}`;
-        return `/analysis/${key}/${target}`;
-      })
-    );
+  private link(target: string): Signal<string> {
+    return computed(() => {
+      const lk = this.locationKey();
+      const key = `${lk.networkType}/${lk.country}/${lk.name}`;
+      return `/analysis/${key}/${target}`;
+    });
   }
 }

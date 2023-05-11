@@ -27,7 +27,7 @@ import { LocationMapService } from './location-map.service';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <kpn-location-response [response]="response">
         <kpn-location-map />
       </kpn-location-response>
@@ -44,8 +44,10 @@ import { LocationMapService } from './location-map.service';
   ],
 })
 export class LocationMapPageComponent implements OnInit, OnDestroy {
-  protected readonly response$ = this.store.select(selectLocationMapPage);
-  protected readonly networkType$ = this.store.select(
+  protected readonly apiResponse = this.store.selectSignal(
+    selectLocationMapPage
+  );
+  protected readonly networkType = this.store.selectSignal(
     selectLocationNetworkType
   );
 

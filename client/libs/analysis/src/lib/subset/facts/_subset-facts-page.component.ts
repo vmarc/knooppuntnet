@@ -36,7 +36,7 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <p>
         <kpn-situation-on [timestamp]="response.situationOn" />
       </p>
@@ -89,7 +89,7 @@ import { selectSubsetFactsPage } from '../store/subset.selectors';
   ],
 })
 export class SubsetFactsPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectSubsetFactsPage);
+  readonly apiResponse = this.store.selectSignal(selectSubsetFactsPage);
 
   constructor(private store: Store) {}
 

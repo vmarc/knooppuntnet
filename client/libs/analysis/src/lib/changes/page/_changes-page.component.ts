@@ -41,9 +41,9 @@ import { selectChangesPage } from '../store/changes.selectors';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <p
-        *ngIf="(loggedIn$ | async) === false; else loggedIn"
+        *ngIf="loggedIn() === false; else changes"
         i18n="@@changes-page.login-required"
         class="kpn-spacer-above"
       >
@@ -52,15 +52,15 @@ import { selectChangesPage } from '../store/changes.selectors';
         <kpn-link-login />
         .
       </p>
-      <ng-template #loggedIn>
+      <ng-template #changes>
         <div *ngIf="response.result as page">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
           </p>
           <kpn-changes
-            [impact]="impact$ | async"
-            [pageSize]="pageSize$ | async"
-            [pageIndex]="pageIndex$ | async"
+            [impact]="impact()"
+            [pageSize]="pageSize()"
+            [pageIndex]="pageIndex()"
             (impactChange)="onImpactChange($event)"
             (pageSizeChange)="onPageSizeChange($event)"
             (pageIndexChange)="onPageIndexChange($event)"
@@ -105,11 +105,11 @@ import { selectChangesPage } from '../store/changes.selectors';
   ],
 })
 export class ChangesPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectChangesPage);
-  readonly impact$ = this.store.select(selectChangesImpact);
-  readonly pageSize$ = this.store.select(selectChangesPageSize);
-  readonly pageIndex$ = this.store.select(selectChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
+  readonly apiResponse = this.store.selectSignal(selectChangesPage);
+  readonly impact = this.store.selectSignal(selectChangesImpact);
+  readonly pageSize = this.store.selectSignal(selectChangesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectChangesPageIndex);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
 
   constructor(private store: Store) {}
 

@@ -9,7 +9,6 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { LinkLoginComponent } from '@app/components/shared/link';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectDefined } from '@app/core';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
@@ -40,21 +39,21 @@ import { NodeChangeComponent } from './node-change.component';
 
     <kpn-node-page-header
       pageName="changes"
-      [nodeId]="nodeId$ | async"
-      [nodeName]="nodeName$ | async"
-      [changeCount]="changeCount$ | async"
+      [nodeId]="nodeId()"
+      [nodeName]="nodeName()"
+      [changeCount]="changeCount()"
     />
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <p *ngIf="!response.result; else nodeFound" i18n="@@node.node-not-found">
         Node not found
       </p>
 
       <ng-template #nodeFound>
         <div
-          *ngIf="(loggedIn$ | async) === false; else loggedIn"
+          *ngIf="loggedIn() === false; else changes"
           i18n="@@node.login-required"
           class="kpn-spacer-above"
         >
@@ -64,7 +63,7 @@ import { NodeChangeComponent } from './node-change.component';
           .
         </div>
 
-        <ng-template #loggedIn>
+        <ng-template #changes>
           <div *ngIf="response.result as page">
             <p>
               <kpn-situation-on
@@ -72,9 +71,9 @@ import { NodeChangeComponent } from './node-change.component';
               ></kpn-situation-on>
             </p>
             <kpn-changes
-              [impact]="impact$ | async"
-              [pageSize]="pageSize$ | async"
-              [pageIndex]="pageIndex$ | async"
+              [impact]="impact()"
+              [pageSize]="pageSize()"
+              [pageIndex]="pageIndex()"
               (impactChange)="onImpactChange($event)"
               (pageSizeChange)="onPageSizeChange($event)"
               (pageIndexChange)="onPageIndexChange($event)"
@@ -112,14 +111,14 @@ import { NodeChangeComponent } from './node-change.component';
   ],
 })
 export class NodeChangesPageComponent implements OnInit {
-  readonly nodeId$ = this.store.select(selectNodeId);
-  readonly nodeName$ = this.store.select(selectNodeName);
-  readonly changeCount$ = this.store.select(selectNodeChangeCount);
-  readonly impact$ = this.store.select(selectNodeChangesPageImpact);
-  readonly pageSize$ = this.store.select(selectNodeChangesPageSize);
-  readonly pageIndex$ = this.store.select(selectNodeChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
-  readonly response$ = selectDefined(this.store, selectNodeChangesPage);
+  readonly nodeId = this.store.selectSignal(selectNodeId);
+  readonly nodeName = this.store.selectSignal(selectNodeName);
+  readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
+  readonly impact = this.store.selectSignal(selectNodeChangesPageImpact);
+  readonly pageSize = this.store.selectSignal(selectNodeChangesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectNodeChangesPageIndex);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
+  readonly apiResponse = this.store.selectSignal(selectNodeChangesPage);
 
   constructor(private store: Store) {}
 

@@ -45,7 +45,7 @@ export class SubsetOrphanRouteFilter {
   constructor(
     private readonly timeInfo: TimeInfo,
     private readonly criteria: SubsetOrphanRouteFilterCriteria,
-    private readonly filterCriteria: BehaviorSubject<SubsetOrphanRouteFilterCriteria>
+    private readonly filterCriteria$: BehaviorSubject<SubsetOrphanRouteFilterCriteria>
   ) {}
 
   filter(routes: OrphanRouteInfo[]): OrphanRouteInfo[] {
@@ -70,6 +70,6 @@ export class SubsetOrphanRouteFilter {
   }
 
   private update(criteria: SubsetOrphanRouteFilterCriteria) {
-    return () => this.filterCriteria.next(criteria);
+    return () => this.filterCriteria$.next(criteria);
   }
 }

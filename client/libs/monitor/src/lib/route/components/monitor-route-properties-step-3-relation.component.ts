@@ -86,8 +86,8 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
           Verify route relation id
         </button>
       </div>
-      <div *ngIf="response()?.result as page">
-        <kpn-monitor-route-info [routeInfo]="page" />
+      <div *ngIf="apiResponse() as response">
+        <kpn-monitor-route-info [routeInfo]="response.result" />
       </div>
     </div>
 
@@ -180,7 +180,7 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
   @Input() relationIdKnown: FormControl<boolean>;
   @Input() relationId: FormControl<number | null>;
 
-  readonly response = this.store.selectSignal(selectMonitorRouteInfoPage);
+  readonly apiResponse = this.store.selectSignal(selectMonitorRouteInfoPage);
   private readonly subscriptions = new Subscriptions();
 
   constructor(private monitorService: MonitorService, private store: Store) {}

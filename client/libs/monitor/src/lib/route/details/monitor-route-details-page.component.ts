@@ -22,12 +22,12 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
   template: `
     <kpn-monitor-route-page-header pageName="details" />
 
-    <div *ngIf="response()?.result as page" class="kpn-spacer-above">
-      <div *ngIf="!page" i18n="@@monitor.route.details.not-found">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+      <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
         Route not found
       </div>
 
-      <div *ngIf="page">
+      <div *ngIf="response.result as page">
         <kpn-data title="Summary" i18n-title="@@monitor.route.details.summary">
           <kpn-monitor-route-details-summary [page]="page" />
         </kpn-data>
@@ -92,7 +92,7 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
   ],
 })
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
-  readonly response = this.store.selectSignal(selectMonitorRouteDetailsPage);
+  readonly apiResponse = this.store.selectSignal(selectMonitorRouteDetailsPage);
 
   constructor(private store: Store) {}
 

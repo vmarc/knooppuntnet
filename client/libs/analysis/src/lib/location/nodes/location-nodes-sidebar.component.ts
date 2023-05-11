@@ -15,10 +15,7 @@ import { selectLocationNodesPage } from '../store/location.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <div
-        *ngIf="locationNodesPageResponse$ | async as response"
-        class="filter"
-      >
+      <div *ngIf="apiResponse() as response" class="filter">
         <div class="title" i18n="@@location-nodes-sidebar.filter.title">
           Filter
         </div>
@@ -81,9 +78,7 @@ import { selectLocationNodesPage } from '../store/location.selectors';
 })
 export class LocationNodesSidebarComponent {
   readonly locationNodesType = LocationNodesType;
-  readonly locationNodesPageResponse$ = this.store.select(
-    selectLocationNodesPage
-  );
+  readonly apiResponse = this.store.selectSignal(selectLocationNodesPage);
 
   constructor(private store: Store) {}
 

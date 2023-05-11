@@ -35,7 +35,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       (edit)="edit()"
       editLinkTitle="Load the routes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@subset-orphan-routes.edit.title"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
@@ -180,9 +180,9 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
     'last-edit',
   ];
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
-  private readonly filterCriteria = new BehaviorSubject(
+  private readonly filterCriteria$ = new BehaviorSubject(
     new SubsetOrphanRouteFilterCriteria()
   );
 
@@ -194,11 +194,11 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
-    this.filterCriteria.subscribe((criteria) => {
+    this.filterCriteria$.subscribe((criteria) => {
       const filter = new SubsetOrphanRouteFilter(
         this.timeInfo,
         criteria,
-        this.filterCriteria
+        this.filterCriteria$
       );
       this.dataSource.data = filter.filter(this.orphanRoutes);
       this.subsetOrphanRoutesService.filterOptions$.next(

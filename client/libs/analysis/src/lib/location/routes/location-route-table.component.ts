@@ -40,9 +40,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       (edit)="edit()"
       editLinkTitle="Load the routes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@location-routes.edit.title"
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount"
       [showPageSizeSelection]="true"
@@ -68,7 +68,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
         <td mat-cell *matCellDef="let route">
           <kpn-location-route-analysis
             [route]="route"
-            [networkType]="networkType$ | async"
+            [networkType]="networkType()"
           />
         </td>
       </ng-container>
@@ -85,7 +85,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
-            [networkType]="networkType$ | async"
+            [networkType]="networkType()"
           />
         </td>
       </ng-container>
@@ -139,9 +139,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     </table>
 
     <kpn-paginator
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount"
     />
@@ -183,9 +183,9 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
-  readonly pageIndex$ = this.store.select(selectLocationRoutesPageIndex);
-  readonly networkType$ = this.store.select(selectLocationNetworkType);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectLocationRoutesPageIndex);
+  readonly networkType = this.store.selectSignal(selectLocationNetworkType);
 
   dataSource: MatTableDataSource<LocationRouteInfo>;
   displayedColumns$: Observable<Array<string>>;

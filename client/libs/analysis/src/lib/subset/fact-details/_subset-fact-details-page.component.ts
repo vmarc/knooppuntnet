@@ -19,7 +19,7 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
   selector: 'kpn-subset-fact-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="subsetFact$ | async as subsetFact">
+    <div *ngIf="subsetFact() as fact">
       <div>
         <kpn-subset-page-header-block
           pageName="facts"
@@ -27,16 +27,16 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
           i18n-pageTitle="@@subset-facts.title"
         />
         <h2>
-          <kpn-fact-name [fact]="subsetFact.factName" />
+          <kpn-fact-name [fact]="fact.factName" />
         </h2>
         <div class="fact-description">
-          <kpn-fact-description [factInfo]="factInfo(subsetFact)" />
+          <kpn-fact-description [factInfo]="factInfo(fact)" />
         </div>
       </div>
 
       <kpn-error />
 
-      <div *ngIf="response$ | async as response">
+      <div *ngIf="apiResponse() as response">
         <div *ngIf="response.result">
           <kpn-subset-fact-details [page]="response.result" />
         </div>
@@ -56,8 +56,8 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
   ],
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
-  readonly subsetFact$ = this.store.select(selectSubsetFact);
-  readonly response$ = this.store.select(selectSubsetFactDetailsPage);
+  readonly subsetFact = this.store.selectSignal(selectSubsetFact);
+  readonly apiResponse = this.store.selectSignal(selectSubsetFactDetailsPage);
 
   constructor(private store: Store) {}
 

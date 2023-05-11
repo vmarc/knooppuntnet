@@ -38,9 +38,11 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
     <kpn-monitor-page-menu pageName="changes" />
     <kpn-error />
 
-    <div *ngIf="response()?.result as page">
-      <p *ngIf="!page" i18n="@@monitor.changes.no-changes">No group changes</p>
-      <div *ngIf="page" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response">
+      <p *ngIf="!response.result" i18n="@@monitor.changes.no-changes">
+        No group changes
+      </p>
+      <div *ngIf="response.result as page" class="kpn-spacer-above">
         <mat-slide-toggle
           [checked]="impact()"
           (change)="impactChanged($event)"
@@ -81,7 +83,7 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
 export class MonitorChangesPageComponent implements OnInit, OnDestroy {
   readonly impact = this.store.selectSignal(selectPreferencesImpact);
   readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  readonly response = this.store.selectSignal(selectMonitorChangesPage);
+  readonly apiResponse = this.store.selectSignal(selectMonitorChangesPage);
 
   constructor(private store: Store) {}
 

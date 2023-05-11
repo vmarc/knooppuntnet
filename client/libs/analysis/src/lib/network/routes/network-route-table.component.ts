@@ -45,7 +45,7 @@ import { NetworkRoutesService } from './network-routes.service';
       (edit)="edit()"
       editLinkTitle="Load the routes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@network-routes.edit.title"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routes?.length"
       [showPageSizeSelection]="true"
@@ -200,7 +200,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() routes: NetworkRouteRow[];
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
   @ViewChild(EditAndPaginatorComponent, { static: true })
   paginator: EditAndPaginatorComponent;

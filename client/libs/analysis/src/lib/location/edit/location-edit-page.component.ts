@@ -26,7 +26,7 @@ import { LocationEditComponent } from './location-edit.component';
     <kpn-error />
 
     <div
-      *ngIf="response$ | async as response; else analyzing"
+      *ngIf="apiResponse() as response; else analyzing"
       class="kpn-spacer-above"
     >
       <kpn-location-response [situationOnEnabled]="false" [response]="response">
@@ -87,7 +87,7 @@ import { LocationEditComponent } from './location-edit.component';
   ],
 })
 export class LocationEditPageComponent implements OnInit, OnDestroy {
-  readonly response$ = this.store.select(selectLocationEditPage);
+  readonly apiResponse = this.store.selectSignal(selectLocationEditPage);
   readonly noHttpError$ = this.store
     .select(selectSharedHttpError)
     .pipe(map((error) => error == null));

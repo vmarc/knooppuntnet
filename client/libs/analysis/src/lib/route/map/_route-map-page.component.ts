@@ -4,7 +4,6 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { selectDefined } from '@app/core';
 import { Store } from '@ngrx/store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteMapPageInit } from '../store/route.actions';
@@ -29,13 +28,13 @@ import { RouteMapComponent } from './route-map.component';
 
     <kpn-route-page-header
       pageName="map"
-      [routeId]="routeId$ | async"
-      [routeName]="routeName$ | async"
-      [changeCount]="changeCount$ | async"
-      [networkType]="networkType$ | async"
+      [routeId]="routeId()"
+      [routeName]="routeName()"
+      [changeCount]="changeCount()"
+      [networkType]="networkType()"
     />
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <div
         *ngIf="!response.result"
         class="kpn-spacer-above"
@@ -58,11 +57,11 @@ import { RouteMapComponent } from './route-map.component';
   ],
 })
 export class RouteMapPageComponent implements OnInit {
-  readonly routeId$ = this.store.select(selectRouteId);
-  readonly routeName$ = this.store.select(selectRouteName);
-  readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly response$ = selectDefined(this.store, selectRouteMapPage);
-  readonly networkType$ = this.store.select(selectRouteNetworkType);
+  readonly routeId = this.store.selectSignal(selectRouteId);
+  readonly routeName = this.store.selectSignal(selectRouteName);
+  readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
+  readonly apiResponse = this.store.selectSignal(selectRouteMapPage);
+  readonly networkType = this.store.selectSignal(selectRouteNetworkType);
 
   constructor(private store: Store) {}
 

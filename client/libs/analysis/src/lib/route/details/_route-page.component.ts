@@ -48,13 +48,13 @@ import { RouteSummaryComponent } from './route-summary.component';
 
     <kpn-route-page-header
       pageName="details"
-      [routeId]="routeId$ | async"
-      [routeName]="routeName$ | async"
-      [changeCount]="changeCount$ | async"
-      [networkType]="networkType$ | async"
+      [routeId]="routeId()"
+      [routeName]="routeName()"
+      [changeCount]="changeCount()"
+      [networkType]="networkType()"
     />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@route.route-not-found">
         Route not found
       </div>
@@ -138,7 +138,7 @@ import { RouteSummaryComponent } from './route-summary.component';
 
         <kpn-data title="Location" i18n-title="@@route.location">
           <kpn-route-location
-            [networkType]="networkType$ | async"
+            [networkType]="networkType()"
             [locationAnalysis]="page.route.analysis.locationAnalysis"
           />
         </kpn-data>
@@ -189,11 +189,11 @@ import { RouteSummaryComponent } from './route-summary.component';
   ],
 })
 export class RoutePageComponent implements OnInit {
-  readonly routeId$ = this.store.select(selectRouteId);
-  readonly routeName$ = this.store.select(selectRouteName);
-  readonly changeCount$ = this.store.select(selectRouteChangeCount);
-  readonly response$ = this.store.select(selectRouteDetailsPage);
-  readonly networkType$ = this.store.select(selectRouteNetworkType);
+  readonly routeId = this.store.selectSignal(selectRouteId);
+  readonly routeName = this.store.selectSignal(selectRouteName);
+  readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
+  readonly apiResponse = this.store.selectSignal(selectRouteDetailsPage);
+  readonly networkType = this.store.selectSignal(selectRouteNetworkType);
 
   showRouteDetails$: Observable<boolean>;
 

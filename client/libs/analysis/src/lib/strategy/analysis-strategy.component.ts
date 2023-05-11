@@ -18,10 +18,7 @@ import { Store } from '@ngrx/store';
         Analysis strategy
       </div>
 
-      <mat-radio-group
-        [value]="strategy$ | async"
-        (change)="onStrategyChange($event)"
-      >
+      <mat-radio-group [value]="strategy()" (change)="onStrategyChange($event)">
         <div>
           <mat-radio-button
             value="location"
@@ -52,7 +49,9 @@ import { Store } from '@ngrx/store';
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
-  readonly strategy$ = this.store.select(selectPreferencesAnalysisStrategy);
+  readonly strategy = this.store.selectSignal(
+    selectPreferencesAnalysisStrategy
+  );
 
   constructor(private store: Store) {}
 

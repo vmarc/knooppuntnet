@@ -20,27 +20,24 @@ import { NetworkNodeTableComponent } from './network-node-table.component';
       i18n-pageTitle="@@network-nodes.title"
     />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
-      <div *ngIf="response.result">
+      <div *ngIf="response.result as page">
         <p>
           <kpn-situation-on [timestamp]="response.situationOn" />
         </p>
-        <div
-          *ngIf="response.result.nodes.length === 0"
-          i18n="@@network-nodes.no-nodes"
-        >
+        <div *ngIf="page.nodes.length === 0" i18n="@@network-nodes.no-nodes">
           No network nodes in network
         </div>
         <kpn-network-node-table
-          *ngIf="response.result.nodes.length > 0"
-          [networkType]="response.result.summary.networkType"
-          [networkScope]="response.result.summary.networkScope"
-          [timeInfo]="response.result.timeInfo"
-          [surveyDateInfo]="response.result.surveyDateInfo"
-          [nodes]="response.result.nodes"
+          *ngIf="page.nodes.length > 0"
+          [networkType]="page.summary.networkType"
+          [networkScope]="page.summary.networkScope"
+          [timeInfo]="page.timeInfo"
+          [surveyDateInfo]="page.surveyDateInfo"
+          [nodes]="page.nodes"
         />
       </div>
     </div>
@@ -55,7 +52,7 @@ import { NetworkNodeTableComponent } from './network-node-table.component';
   ],
 })
 export class NetworkNodesPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectNetworkNodesPage);
+  readonly apiResponse = this.store.selectSignal(selectNetworkNodesPage);
 
   constructor(private store: Store) {}
 

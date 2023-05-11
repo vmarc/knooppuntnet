@@ -24,7 +24,7 @@ import { SubsetOrphanNodesTableComponent } from './subset-orphan-nodes-table.com
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <p>
         <kpn-situation-on [timestamp]="response.situationOn" />
       </p>
@@ -52,7 +52,7 @@ import { SubsetOrphanNodesTableComponent } from './subset-orphan-nodes-table.com
   ],
 })
 export class SubsetOrphanNodesPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectSubsetOrphanNodesPage);
+  readonly apiResponse = this.store.selectSignal(selectSubsetOrphanNodesPage);
 
   constructor(private store: Store) {}
 

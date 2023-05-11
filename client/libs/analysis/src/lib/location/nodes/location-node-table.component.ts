@@ -40,9 +40,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       (edit)="edit()"
       editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@location-nodes.edit.title"
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
       [showFirstLastButtons]="false"
@@ -68,7 +68,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
         <td mat-cell *matCellDef="let node">
           <kpn-location-node-analysis
             [node]="node"
-            [networkType]="networkType$ | async"
+            [networkType]="networkType()"
             [networkScope]="networkScope"
           />
         </td>
@@ -162,9 +162,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     </table>
 
     <kpn-paginator
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount"
     />
@@ -202,9 +202,9 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
-  readonly pageIndex$ = this.store.select(selectLocationNodesPageIndex);
-  readonly networkType$ = this.store.select(selectLocationNetworkType);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectLocationNodesPageIndex);
+  readonly networkType = this.store.selectSignal(selectLocationNetworkType);
 
   dataSource: MatTableDataSource<LocationNodeInfo>;
   displayedColumns$: Observable<Array<string>>;

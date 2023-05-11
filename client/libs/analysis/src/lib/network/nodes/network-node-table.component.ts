@@ -45,7 +45,7 @@ import { NetworkNodesService } from './network-nodes.service';
       (edit)="edit()"
       editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@network-nodes.edit.title"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodes?.length"
       [showPageSizeSelection]="true"
@@ -225,7 +225,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: NetworkNodeRow[];
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
   @ViewChild(EditAndPaginatorComponent, { static: true })
   paginator: EditAndPaginatorComponent;
@@ -235,7 +235,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   headerColumns2$: Observable<Array<string>>;
   displayedColumns$: Observable<Array<string>>;
 
-  private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria> =
+  private readonly filterCriteria$: BehaviorSubject<NetworkNodeFilterCriteria> =
     new BehaviorSubject(new NetworkNodeFilterCriteria());
 
   constructor(
@@ -257,7 +257,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<NetworkNodeRow>();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
-    this.filterCriteria
+    this.filterCriteria$
       .pipe(
         map(
           (criteria) =>
@@ -265,7 +265,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
               this.timeInfo,
               this.surveyDateInfo,
               criteria,
-              this.filterCriteria
+              this.filterCriteria$
             )
         ),
         tap((filter) => (this.dataSource.data = filter.filter(this.nodes))),

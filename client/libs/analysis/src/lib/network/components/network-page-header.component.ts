@@ -24,8 +24,8 @@ import { selectNetworkId } from '../store/network.selectors';
       <li i18n="@@breadcrumb.network">Network</li>
     </ul>
 
-    <ng-container *ngIf="networkId$ | async as networkId">
-      <ng-container *ngIf="summary$ | async as summary">
+    <ng-container *ngIf="networkIdSignal() as networkId">
+      <ng-container *ngIf="summarySignal() as summary">
         <kpn-page-header
           [pageTitle]="networkPageTitle(summary.name)"
           subject="network-page"
@@ -109,8 +109,8 @@ export class NetworkPageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly networkId$ = this.store.select(selectNetworkId);
-  readonly summary$ = this.store.select(selectNetworkSummary);
+  readonly networkIdSignal = this.store.selectSignal(selectNetworkId);
+  readonly summarySignal = this.store.selectSignal(selectNetworkSummary);
 
   constructor(private store: Store) {}
 

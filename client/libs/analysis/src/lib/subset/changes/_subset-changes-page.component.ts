@@ -32,9 +32,9 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
 
     <kpn-error />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <p
-        *ngIf="(loggedIn$ | async) === false; else loggedIn"
+        *ngIf="loggedIn() === false; else changes"
         i18n="@@subset-changes.login-required"
       >
         This details of the changes history are available to registered
@@ -42,14 +42,14 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
         <kpn-link-login />
         .
       </p>
-      <ng-template #loggedIn>
+      <ng-template #changes>
         <p>
           <kpn-situation-on [timestamp]="response.situationOn" />
         </p>
         <kpn-changes
-          [impact]="impact$ | async"
-          [pageSize]="pageSize$ | async"
-          [pageIndex]="pageIndex$ | async"
+          [impact]="impact()"
+          [pageSize]="pageSize()"
+          [pageIndex]="pageIndex()"
           (impactChange)="onImpactChange($event)"
           (pageSizeChange)="onPageSizeChange($event)"
           (pageIndexChange)="onPageIndexChange($event)"
@@ -92,11 +92,11 @@ import { selectSubsetChangesPage } from '../store/subset.selectors';
   ],
 })
 export class SubsetChangesPageComponent implements OnInit {
-  readonly impact$ = this.store.select(selectSubsetChangesPageImpact);
-  readonly pageSize$ = this.store.select(selectSubsetChangesPageSize);
-  readonly pageIndex$ = this.store.select(selectSubsetChangesPageIndex);
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
-  readonly response$ = this.store.select(selectSubsetChangesPage);
+  readonly impact = this.store.selectSignal(selectSubsetChangesPageImpact);
+  readonly pageSize = this.store.selectSignal(selectSubsetChangesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectSubsetChangesPageIndex);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
+  readonly apiResponse = this.store.selectSignal(selectSubsetChangesPage);
 
   constructor(private store: Store) {}
 

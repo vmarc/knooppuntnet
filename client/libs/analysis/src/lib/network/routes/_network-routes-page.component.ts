@@ -20,7 +20,7 @@ import { NetworkRouteTableComponent } from './network-route-table.component';
       i18n-pageTitle="@@network-routes.title"
     />
 
-    <div *ngIf="response$ | async as response" class="kpn-spacer-above">
+    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">
         <p i18n="@@network-page.network-not-found">Network not found</p>
       </div>
@@ -54,7 +54,7 @@ import { NetworkRouteTableComponent } from './network-route-table.component';
   ],
 })
 export class NetworkRoutesPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectNetworkRoutesPage);
+  readonly apiResponse = this.store.selectSignal(selectNetworkRoutesPage);
 
   constructor(private store: Store) {}
 
