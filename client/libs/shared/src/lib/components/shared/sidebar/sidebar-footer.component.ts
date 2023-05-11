@@ -30,8 +30,8 @@ import { Store } from '@ngrx/store';
       </p>
 
       <ng-container *ngIf="loginEnabled">
-        <p *ngIf="loggedIn$ | async; else notLoggedIn">
-          {{ user$ | async }}
+        <p *ngIf="loggedIn(); else notLoggedIn">
+          {{ user() }}
           <br />
           <kpn-link-logout />
         </p>
@@ -63,8 +63,8 @@ import { Store } from '@ngrx/store';
 })
 export class SidebarFooterComponent {
   @Input() loginEnabled = true;
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
-  readonly user$ = this.store.select(selectUserUser);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
+  readonly user = this.store.selectSignal(selectUserUser);
 
   constructor(
     private router: Router,

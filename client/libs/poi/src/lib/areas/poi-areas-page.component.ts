@@ -21,7 +21,7 @@ import { PoiMapComponent } from './poi-map.component';
       collect the point of interest information.
     </p>
 
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <kpn-poi-map />
     </div>
   `,
@@ -29,7 +29,7 @@ import { PoiMapComponent } from './poi-map.component';
   imports: [PageHeaderComponent, NgIf, PoiMapComponent, AsyncPipe],
 })
 export class PoiAreasPageComponent implements OnInit {
-  protected readonly response$ = this.store.select(selectPoiAreasPage);
+  readonly apiResponse = this.store.selectSignal(selectPoiAreasPage);
 
   constructor(private store: Store) {}
 

@@ -12,11 +12,11 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
   selector: 'kpn-plan-result-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="menu" *ngIf="resultMode$ | async as resultMode">
+    <div class="menu" *ngIf="plannerResultMode() as resultMode">
       <span>
         <a
           [ngClass]="{ selected: resultMode === 'compact' }"
-          (click)="compact($event)"
+          (click)="resultModeCompact($event)"
           i18n="@@planner.compact"
         >
           Compact
@@ -25,16 +25,16 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
       <span>
         <a
           [ngClass]="{ selected: resultMode === 'detailed' }"
-          (click)="detailed($event)"
+          (click)="resultModeDetailed($event)"
           i18n="@@planner.detailed"
         >
           Detailed
         </a>
       </span>
-      <span *ngIf="instructions$ | async">
+      <span *ngIf="instructions()">
         <a
           [ngClass]="{ selected: resultMode === 'instructions' }"
-          (click)="instructions($event)"
+          (click)="resultModeInstructions($event)"
           i18n="@@planner.instructions"
         >
           Instructions
@@ -64,20 +64,22 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
   imports: [NgIf, NgClass, AsyncPipe],
 })
 export class PlanResultMenuComponent {
-  readonly resultMode$ = this.store.select(selectPlannerResultMode);
-  readonly instructions$ = this.store.select(selectPreferencesInstructions);
+  readonly plannerResultMode = this.store.selectSignal(selectPlannerResultMode);
+  readonly instructions = this.store.selectSignal(
+    selectPreferencesInstructions
+  );
 
   constructor(private plannerService: PlannerService, private store: Store) {}
 
-  compact(event) {
+  resultModeCompact(event) {
     this.handleResultMode(event, 'compact');
   }
 
-  detailed(event) {
+  resultModeDetailed(event) {
     this.handleResultMode(event, 'detailed');
   }
 
-  instructions(event) {
+  resultModeInstructions(event) {
     this.handleResultMode(event, 'instructions');
   }
 

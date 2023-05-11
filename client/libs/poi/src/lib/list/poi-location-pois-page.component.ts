@@ -12,7 +12,7 @@ import { PoiLocationPoiTableComponent } from './poi-location-poi-table.component
   selector: 'kpn-poi-location-pois-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="response$ | async as response">
+    <div *ngIf="apiResponse() as response">
       <div *ngIf="response.result as page">
         <kpn-poi-location-poi-table
           [pois]="page.pois"
@@ -25,7 +25,7 @@ import { PoiLocationPoiTableComponent } from './poi-location-poi-table.component
   imports: [NgIf, PoiLocationPoiTableComponent, AsyncPipe],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
-  readonly response$ = this.store.select(selectLocationPoisPage);
+  readonly apiResponse = this.store.selectSignal(selectLocationPoisPage);
 
   constructor(private store: Store) {}
 

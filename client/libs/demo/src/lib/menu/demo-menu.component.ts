@@ -11,9 +11,9 @@ import { selectDemoEnabled } from '../store/demo.selectors';
   selector: 'kpn-demo-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
+    <div *ngIf="enabled(); then comment; else disabled"></div>
 
-    <ng-template #enabled>
+    <ng-template #comment>
       <p i18n="@@demo.select-video">
         Select a video on the left by clicking its play button.
       </p>
@@ -46,7 +46,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
   imports: [NgIf, DemoDisabledComponent, MatIconModule, AsyncPipe],
 })
 export class DemoMenuComponent {
-  enabled$ = this.store.select(selectDemoEnabled);
+  readonly enabled = this.store.selectSignal(selectDemoEnabled);
 
   constructor(private store: Store) {}
 }

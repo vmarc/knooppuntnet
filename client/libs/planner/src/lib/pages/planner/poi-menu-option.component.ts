@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { Signal } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
@@ -6,7 +7,6 @@ import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { actionPlannerPoiGroupVisible } from '../../store/planner-actions';
 import { selectPlannerPoisVisible } from '../../store/planner-selectors';
 import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
@@ -17,8 +17,8 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
   template: `
     <mat-checkbox
       (click)="$event.stopPropagation()"
-      [checked]="visible$ | async"
-      [disabled]="(enabled$ | async) === false"
+      [checked]="visible()"
+      [disabled]="enabled() === false"
       (change)="enabledChanged($event)"
       class="poi-group"
     >
@@ -40,15 +40,13 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
 export class PoiMenuOptionComponent implements OnInit {
   @Input() groupName: string;
 
-  protected readonly enabled$: Observable<boolean>;
-  protected visible$: Observable<boolean>;
+  readonly enabled = this.store.selectSignal(selectPlannerPoisVisible);
+  protected visible: Signal<boolean>;
 
-  constructor(private store: Store) {
-    this.enabled$ = this.store.select(selectPlannerPoisVisible);
-  }
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.visible$ = this.store.select(
+    this.visible = this.store.selectSignal(
       selectPlannerPoiGroupVisible(this.groupName)
     );
   }

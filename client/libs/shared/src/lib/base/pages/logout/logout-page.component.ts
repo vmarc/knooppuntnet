@@ -20,7 +20,7 @@ import { Store } from '@ngrx/store';
       >Logout
     </kpn-page-header>
 
-    <div *ngIf="loggedIn$ | async; else notLoggedIn">
+    <div *ngIf="loggedIn(); else notLoggedIn">
       <div class="note-page-contents">
         <p i18n="@@logout.logged-in">
           You are currently logged in as
@@ -80,7 +80,7 @@ import { Store } from '@ngrx/store';
   ],
 })
 export class LogoutPageComponent {
-  readonly loggedIn$ = this.store.select(selectUserLoggedIn);
+  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
 
   constructor(private store: Store) {}
 

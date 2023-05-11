@@ -14,14 +14,14 @@ import { LegendIconComponent } from './legend-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel
-      [expanded]="expanded$ | async"
+      [expanded]="expanded()"
       (expandedChange)="expandedChanged($event)"
     >
       <mat-expansion-panel-header i18n="@@planner.legend">
         Legend
       </mat-expansion-panel-header>
 
-      <div *ngIf="mapMode$ | async as mapMode">
+      <div *ngIf="plannerMapMode() as mapMode">
         <div *ngIf="mapMode === 'surface'" class="legend">
           <div>
             <kpn-legend-icon color="rgb(0, 200, 0)" />
@@ -156,8 +156,8 @@ import { LegendIconComponent } from './legend-icon.component';
   imports: [MatExpansionModule, NgIf, LegendIconComponent, AsyncPipe],
 })
 export class PlannerSideBarLegendComponent {
-  readonly expanded$ = this.store.select(selectPreferencesShowLegend);
-  readonly mapMode$ = this.store.select(selectPlannerMapMode);
+  readonly expanded = this.store.selectSignal(selectPreferencesShowLegend);
+  readonly plannerMapMode = this.store.selectSignal(selectPlannerMapMode);
 
   constructor(private store: Store) {}
 

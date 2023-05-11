@@ -23,7 +23,7 @@ import { Store } from '@ngrx/store';
 
     <div class="setting">
       <mat-slide-toggle
-        [checked]="instructions$ | async"
+        [checked]="instructions()"
         (change)="instructionsChanged($event)"
         i18n="@@settings.directions"
       >
@@ -42,7 +42,7 @@ import { Store } from '@ngrx/store';
 
     <div class="setting">
       <mat-slide-toggle
-        [checked]="extraLayers$ | async"
+        [checked]="extraLayers()"
         (change)="extraLayersChanged($event)"
         i18n="@@settings.extra-layers"
       >
@@ -81,8 +81,10 @@ import { Store } from '@ngrx/store';
   imports: [RouterLink, PageHeaderComponent, MatSlideToggleModule, AsyncPipe],
 })
 export class SettingsPageComponent {
-  readonly instructions$ = this.store.select(selectPreferencesInstructions);
-  readonly extraLayers$ = this.store.select(selectPreferencesExtraLayers);
+  readonly instructions = this.store.selectSignal(
+    selectPreferencesInstructions
+  );
+  readonly extraLayers = this.store.selectSignal(selectPreferencesExtraLayers);
 
   constructor(private store: Store) {}
 

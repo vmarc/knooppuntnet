@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      *ngIf="httpError$ | async as httpError"
+      *ngIf="sharedHttpError() as httpError"
       class="kpn-spacer-above http-error"
     >
       <p *ngIf="httpError === 'error-500'" i18n="@@error.500.code">
@@ -48,7 +48,7 @@ import { Store } from '@ngrx/store';
   imports: [NgIf, AsyncPipe],
 })
 export class ErrorComponent {
-  readonly httpError$ = this.store.select(selectSharedHttpError);
+  readonly sharedHttpError = this.store.selectSignal(selectSharedHttpError);
 
   constructor(private store: Store) {}
 

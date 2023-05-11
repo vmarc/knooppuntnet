@@ -14,7 +14,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-button-toggle-group
-      [value]="networkType$ | async"
+      [value]="networkType()"
       (change)="networkTypeChanged($event)"
     >
       <mat-button-toggle value="cycling">
@@ -59,7 +59,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   imports: [MatButtonToggleModule, MatIconModule, AsyncPipe],
 })
 export class NetworkTypeSelectorComponent {
-  readonly networkType$ = this.store.select(selectPlannerNetworkType);
+  readonly networkType = this.store.selectSignal(selectPlannerNetworkType);
 
   constructor(private store: Store) {}
 

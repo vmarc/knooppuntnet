@@ -9,17 +9,13 @@ import { OsmLinkComponent } from './osm-link.component';
   selector: 'kpn-osm-link-user',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-osm-link
-      kind="user"
-      [elementId]="user$ | async"
-      [title]="user$ | async"
-    />
+    <kpn-osm-link kind="user" [elementId]="user()" [title]="user()" />
   `,
   standalone: true,
   imports: [OsmLinkComponent, AsyncPipe],
 })
 export class OsmLinkUserComponent {
-  readonly user$ = this.store.select(selectUserUser);
+  readonly user = this.store.selectSignal(selectUserUser);
 
   constructor(private store: Store) {}
 }

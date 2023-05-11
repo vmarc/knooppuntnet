@@ -10,13 +10,13 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
 
 @Component({
   selector: 'kpn-poi-menu',
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-divider></mat-divider>
 
     <mat-checkbox
       (click)="$event.stopPropagation()"
-      [checked]="visible$ | async"
+      [checked]="visible()"
       (change)="visibleChanged($event)"
       class="pois"
       i18n="@@poi.menu.pois"
@@ -83,7 +83,7 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
   ],
 })
 export class PoiMenuComponent {
-  readonly visible$ = this.store.select(selectPlannerPoisVisible);
+  readonly visible = this.store.selectSignal(selectPlannerPoisVisible);
 
   constructor(private store: Store) {}
 

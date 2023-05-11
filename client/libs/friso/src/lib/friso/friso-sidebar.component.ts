@@ -15,7 +15,7 @@ import { selectFrisoMode } from '../store/friso.selectors';
     <!-- For now, English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="mode-selector">
-      <mat-radio-group [value]="mode$ | async" (change)="modeChanged($event)">
+      <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
         <div>
           <mat-radio-button value="rename">
             <span>Rename</span>
@@ -107,7 +107,7 @@ import { selectFrisoMode } from '../store/friso.selectors';
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class FrisoSidebarComponent {
-  protected readonly mode$ = this.store.select(selectFrisoMode);
+  protected readonly mode = this.store.selectSignal(selectFrisoMode);
 
   constructor(private store: Store) {}
 

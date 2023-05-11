@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { selectUserUser } from '@app/core';
@@ -10,7 +11,7 @@ import { Store } from '@ngrx/store';
   template: `
     <a
       class="external"
-      href="{{ link(user$ | async) }}"
+      href="{{ link() }}}"
       rel="nofollow noreferrer"
       target="_blank"
       i18n="@@osm-link.oath-clients"
@@ -22,11 +23,10 @@ import { Store } from '@ngrx/store';
   imports: [AsyncPipe],
 })
 export class OsmLinkUserAothClientsComponent {
-  readonly user$ = this.store.select(selectUserUser);
+  readonly user = this.store.selectSignal(selectUserUser);
+  readonly link = computed(
+    () => `https://www.openstreetmap.org/user/${this.user()}/oauth_clients`
+  );
 
   constructor(private store: Store) {}
-
-  link(user: string): string {
-    return `https://www.openstreetmap.org/user/${user}/oauth_clients`;
-  }
 }

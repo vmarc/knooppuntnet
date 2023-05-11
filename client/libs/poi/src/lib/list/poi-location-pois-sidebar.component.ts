@@ -21,7 +21,7 @@ import { CountrySelectComponent } from './country-select.component';
       <div class="location-selector">
         <kpn-country-select (country)="countryChanged($event)" />
 
-        <div *ngIf="locationNode$ | async as locationNode">
+        <div *ngIf="locationNode() as locationNode">
           <kpn-location-selector
             [country]="country"
             [locationNode]="locationNode"
@@ -31,7 +31,7 @@ import { CountrySelectComponent } from './country-select.component';
         </div>
       </div>
 
-      <div *ngIf="response$ | async as response" class="filter">
+      <div *ngIf="apiResponse() as response" class="filter">
         <div *ngIf="response.result as page">
           <div *ngFor="let group of page.groups">
             <div>
@@ -99,8 +99,8 @@ import { CountrySelectComponent } from './country-select.component';
   ],
 })
 export class LocationPoisSidebarComponent implements OnInit {
-  readonly response$ = this.store.select(selectLocationPoiSummaryPage);
-  readonly locationNode$ = this.store.select(
+  readonly apiResponse = this.store.selectSignal(selectLocationPoiSummaryPage);
+  readonly locationNode = this.store.selectSignal(
     selectLocationPoiSummaryLocationNode
   );
 

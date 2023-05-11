@@ -78,7 +78,7 @@ import { PlannerService } from '../../../planner.service';
         </button>
 
         <button
-          *ngIf="instructions$ | async"
+          *ngIf="instructions()"
           mat-stroked-button
           (click)="printInstructions()"
           title="Produce a route pdf with navigation instructions"
@@ -156,7 +156,9 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   qrCode: string | ArrayBuffer = '';
 
-  readonly instructions$ = this.store.select(selectPreferencesInstructions);
+  readonly instructions = this.store.selectSignal(
+    selectPreferencesInstructions
+  );
 
   constructor(
     private pdfService: PdfService,

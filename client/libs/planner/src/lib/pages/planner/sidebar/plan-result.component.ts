@@ -19,9 +19,9 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
   template: `
     <div *ngIf="plan$ | async as plan">
       <kpn-plan-distance [plan]="plan" />
-      <kpn-plan-compact *ngIf="compact$ | async" [plan]="plan" />
-      <kpn-plan-detailed *ngIf="detailed$ | async" [plan]="plan" />
-      <kpn-plan-instructions *ngIf="instructions$ | async" [plan]="plan" />
+      <kpn-plan-compact *ngIf="compact()" [plan]="plan" />
+      <kpn-plan-detailed *ngIf="detailed()" [plan]="plan" />
+      <kpn-plan-instructions *ngIf="instructions()" [plan]="plan" />
     </div>
   `,
   standalone: true,
@@ -35,9 +35,9 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
   ],
 })
 export class PlanResultComponent implements OnInit {
-  readonly compact$ = this.store.select(selectPlannerResultModeCompact);
-  readonly detailed$ = this.store.select(selectPlannerResultModeDetailed);
-  readonly instructions$ = this.store.select(
+  readonly compact = this.store.selectSignal(selectPlannerResultModeCompact);
+  readonly detailed = this.store.selectSignal(selectPlannerResultModeDetailed);
+  readonly instructions = this.store.selectSignal(
     selectPlannerResultModeInstructions
   );
   plan$: Observable<Plan>;

@@ -26,9 +26,9 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="poiCount"
       [showFirstLastButtons]="false"
@@ -125,9 +125,9 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
     </table>
 
     <kpn-paginator
-      [pageIndex]="pageIndex$ | async"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize$ | async"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="poiCount"
     />
@@ -149,8 +149,8 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;
 
-  readonly pageSize$ = this.store.select(selectPreferencesPageSize);
-  readonly pageIndex$ = this.store.select(selectLocationPoisPageIndex);
+  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  readonly pageIndex = this.store.selectSignal(selectLocationPoisPageIndex);
 
   dataSource: MatTableDataSource<LocationPoiInfo>;
   displayedColumns$: Observable<Array<string>>;
