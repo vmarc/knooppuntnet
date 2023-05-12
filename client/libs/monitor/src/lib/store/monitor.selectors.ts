@@ -112,6 +112,11 @@ export const selectMonitorRouteDetailsPage = createSelector(
   (state: MonitorState) => state.routeDetailsPage
 );
 
+export const selectMonitorRouteGpxPage = createSelector(
+  selectMonitorState,
+  (state: MonitorState) => state.routeGpxPage
+);
+
 export const selectMonitorRouteChangesPage = createSelector(
   selectMonitorState,
   (state: MonitorState) => state.routeChangesPage

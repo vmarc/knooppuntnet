@@ -13,6 +13,7 @@ import { MonitorRouteUpdatePage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
+import { MonitorRouteGpxPage } from '../../../../api/src/lib/common/monitor/monitor-route-gpx-page';
 import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
 
 export const actionMonitorAdmin = createAction(
@@ -245,6 +246,24 @@ export const actionMonitorRouteDelete = createAction('[Monitor] Route delete');
 export const actionMonitorRouteInfoLoaded = createAction(
   '[Monitor] Route info loaded',
   props<ApiResponse<MonitorRouteInfoPage>>()
+);
+
+export const actionMonitorRouteGpxPageInit = createAction(
+  '[MonitorRouteGpxPage] Init'
+);
+
+export const actionMonitorRouteGpxPageLoad = createAction(
+  '[MonitorRouteGpxPage] Load',
+  props<{ groupName: string; routeName: string; relationId: number }>()
+);
+
+export const actionMonitorRouteGpxPageLoaded = createAction(
+  '[MonitorRouteGpxPage] Loaded',
+  props<ApiResponse<MonitorRouteGpxPage>>()
+);
+
+export const actionMonitorRouteGpxPageDestroy = createAction(
+  '[MonitorRouteGpxPage] Destroy'
 );
 
 export const actionMonitorChangesPageInit = createAction(

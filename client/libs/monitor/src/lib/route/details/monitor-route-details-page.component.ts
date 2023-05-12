@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 import { DataComponent } from '@app/components/shared/data';
 import { Store } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
+import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { actionMonitorRouteDetailsPageDestroy } from '../../store/monitor.actions';
 import { actionMonitorRouteDetailsPageInit } from '../../store/monitor.actions';
 import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
@@ -21,6 +22,8 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-monitor-route-page-header pageName="details" />
+
+    <kpn-monitor-admin-toggle />
 
     <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
@@ -89,6 +92,7 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
     MarkdownModule,
     MonitorRouteDetailsStructureComponent,
     AsyncPipe,
+    MonitorAdminToggleComponent,
   ],
 })
 export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {

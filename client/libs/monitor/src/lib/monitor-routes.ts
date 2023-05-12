@@ -17,6 +17,7 @@ import { MonitorRouteChangePageComponent } from './route/changes/monitor-route-c
 import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-changes-page.component';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
+import { MonitorRouteGpxComponent } from './route/gpx/monitor-route-gpx.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapService } from './route/map/monitor-route-map.service';
@@ -66,6 +67,11 @@ export const monitorRoutes: Routes = [
       Util.routePath(
         'groups/:groupName/routes/:routeName/map',
         MonitorRouteMapPageComponent,
+        MonitorRouteMapSidebarComponent
+      ),
+      Util.routePath(
+        'groups/:groupName/routes/:routeName/gpx',
+        MonitorRouteGpxComponent,
         MonitorRouteMapSidebarComponent
       ),
       Util.routePath(

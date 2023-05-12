@@ -1,6 +1,9 @@
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
 import { actionMonitorRouteMapPageLoaded } from '../route/map/store/monitor-route-map.actions';
+import { actionMonitorRouteGpxPageDestroy } from './monitor.actions';
+import { actionMonitorRouteGpxPageLoaded } from './monitor.actions';
+import { actionMonitorRouteGpxPageLoad } from './monitor.actions';
 import { actionMonitorRouteAddPageLoad } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
 import { actionMonitorRouteSaveDestroy } from './monitor.actions';
@@ -366,6 +369,39 @@ export const monitorReducer = createReducer<MonitorState>(
       groupName: undefined,
       groupDescription: undefined,
       routeDetailsPage: undefined,
+    };
+  }),
+  on(
+    actionMonitorRouteGpxPageLoad,
+    (state, { groupName, routeName, relationId }): MonitorState => {
+      return {
+        ...state,
+        routeName,
+        groupName,
+        relationId,
+      };
+    }
+  ),
+  on(actionMonitorRouteGpxPageLoaded, (state, response): MonitorState => {
+    const result = response.result;
+    const routeName = result?.routeName ?? state.routeName;
+    const groupName = result?.groupName ?? state.groupName;
+    return {
+      ...state,
+      routeName,
+      groupName,
+      routeGpxPage: response,
+    };
+  }),
+  on(actionMonitorRouteGpxPageDestroy, (state): MonitorState => {
+    return {
+      ...state,
+      relationId: undefined,
+      routeName: undefined,
+      routeDescription: undefined,
+      groupName: undefined,
+      groupDescription: undefined,
+      routeGpxPage: undefined,
     };
   }),
   on(

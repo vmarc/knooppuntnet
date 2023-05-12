@@ -49,16 +49,6 @@ import { Store } from '@ngrx/store';
         display: flex;
         align-items: center;
       }
-
-      .title {
-        padding-bottom: 15px;
-      }
-
-      .legend-icon {
-        width: 60px;
-        padding-right: 10px;
-        text-align: center;
-      }
     `,
   ],
   standalone: true,

@@ -11,6 +11,7 @@ import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
@@ -31,6 +32,7 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.route.MonitorRouteChangePageBuilder
 import kpn.server.monitor.route.MonitorRouteChangesPageBuilder
 import kpn.server.monitor.route.MonitorRouteDetailsPageBuilder
+import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
@@ -49,6 +51,7 @@ class MonitorFacadeImpl(
   monitorRouteUpdatePageBuilder: MonitorRouteUpdatePageBuilder,
   monitorRouteDetailsPageBuilder: MonitorRouteDetailsPageBuilder,
   monitorRouteMapPageBuilder: MonitorRouteMapPageBuilder,
+  monitorRouteGpxPageBuilder: MonitorRouteGpxPageBuilder,
   monitorRouteChangesPageBuilder: MonitorRouteChangesPageBuilder,
   monitorRouteChangePageBuilder: MonitorRouteChangePageBuilder,
   monitorRouteInfoBuilder: MonitorRouteInfoBuilder,
@@ -123,6 +126,13 @@ class MonitorFacadeImpl(
     }
     api.execute("monitor-route-map", args) {
       reply(monitorRouteMapPageBuilder.build(groupName, routeName, relationId))
+    }
+  }
+
+  override def routeGpx(groupName: String, routeName: String, subRelationId: Long): ApiResponse[MonitorRouteGpxPage] = {
+    val args = s"groupName=$groupName, routeName=$routeName, subRelationId=$subRelationId"
+    api.execute("monitor-route-gpx", args) {
+      reply(monitorRouteGpxPageBuilder.build(groupName, routeName, subRelationId))
     }
   }
 

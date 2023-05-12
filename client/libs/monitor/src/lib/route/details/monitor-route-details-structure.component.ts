@@ -72,10 +72,11 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           <a
             *ngIf="row.physical"
             [routerLink]="mapLink()"
-            [queryParams]="mapQueryParams(row)"
+            [queryParams]="subRelationQueryParams(row)"
             i18n="@@monitor.group.route-table.map-link"
-            >map</a
           >
+            map
+          </a>
         </td>
       </ng-container>
 
@@ -225,12 +226,13 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         <td mat-cell *matCellDef="let row" class="kpn-action-cell">
           <button
             mat-icon-button
-            [routerLink]="uploadGpx(row)"
-            title="Upload"
+            [routerLink]="uploadGpx()"
+            [queryParams]="subRelationQueryParams(row)"
+            title="Upload GPX trace for this sub-relation"
             i18n-title="@@action.upload"
             class="kpn-action-button kpn-link"
           >
-            <mat-icon svgIcon="upload" />
+            <mat-icon svgIcon="pencil" />
           </button>
         </td>
       </ng-container>
@@ -349,15 +351,14 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     return `/monitor/groups/${this.groupName}/routes/${this.routeName}/map`;
   }
 
-  mapQueryParams(row: MonitorRouteRelationStructureRow): Params {
+  subRelationQueryParams(row: MonitorRouteRelationStructureRow): Params {
     if (row.level === 1) {
       return {};
     }
     return { 'sub-relation-id': row.relationId };
   }
 
-  uploadGpx(route: MonitorRouteRelationStructureRow): string {
-    // return `/monitor/admin/groups/${this.groupName}/routes/${route.name}`;
-    return '';
+  uploadGpx(): string {
+    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx`;
   }
 }

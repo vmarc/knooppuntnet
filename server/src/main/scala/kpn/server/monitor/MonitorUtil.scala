@@ -6,6 +6,23 @@ import kpn.server.monitor.domain.MonitorRoute
 
 object MonitorUtil {
 
+  def subRelation(route: MonitorRoute, subRelationId: Long): Option[MonitorRouteRelation] = {
+    route.relation.flatMap { relation =>
+      findSubRelation(relation, subRelationId)
+    }
+  }
+
+  private def findSubRelation(relation: MonitorRouteRelation, subRelationId: Long): Option[MonitorRouteRelation] = {
+    if (relation.relationId == subRelationId) {
+      Some(relation)
+    }
+    else {
+      relation.relations.flatMap { sr =>
+        findSubRelation(sr, subRelationId)
+      }.headOption
+    }
+  }
+
   def subRelationsIn(route: MonitorRoute): Seq[MonitorRouteSubRelation] = {
     route.relation match {
       case Some(monitorRouteRelation) => monitorRouteRelation.relations.flatMap(xx)

@@ -9,6 +9,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
 import { MonitorRouteUpdatePage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
+import { MonitorRouteGpxPage } from '../../../../api/src/lib/common/monitor/monitor-route-gpx-page';
 
 export class MonitorRouteSaveState {
   constructor(
@@ -42,6 +43,7 @@ export const initialState: MonitorState = {
   routeInfoPage: undefined,
   routeSaveState: undefined,
   routeDetailsPage: undefined,
+  routeGpxPage: undefined,
   routeChangesPageIndex: undefined,
   routeChangesPage: undefined,
   routeChangePage: undefined,
@@ -66,6 +68,7 @@ export interface MonitorState {
   routeInfoPage: ApiResponse<MonitorRouteInfoPage> | undefined;
   routeSaveState: MonitorRouteSaveState | null;
   routeDetailsPage: ApiResponse<MonitorRouteDetailsPage> | undefined;
+  routeGpxPage: ApiResponse<MonitorRouteGpxPage> | undefined;
   routeChangesPageIndex: number | undefined;
   routeChangesPage: ApiResponse<MonitorRouteChangesPage> | undefined;
   routeChangePage: ApiResponse<MonitorRouteChangePage> | undefined;

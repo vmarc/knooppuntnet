@@ -16,19 +16,37 @@ import { IconHappyComponent } from '@app/components/shared/icon';
     </p>
     <div *ngIf="!page.happy">
       <p>
-        <span>{{ page.deviationCount + ' ' }}</span>
-        <span i18n="@@monitor.route.details.analysis.deviations"
-          >deviations</span
+        <span>{{ page.deviationCount }}</span>
+        <span
+          *ngIf="page.deviationCount === 1"
+          i18n="@@monitor.route.details.analysis.deviation"
         >
+          deviation
+        </span>
+        <span
+          *ngIf="page.deviationCount !== 1"
+          i18n="@@monitor.route.details.analysis.deviations"
+        >
+          deviations
+        </span>
         <span *ngIf="page.deviationCount > 0" class="kpn-brackets">
           <span>{{ page.deviationDistance | distance }}</span>
         </span>
       </p>
       <p>
-        <span>{{ page.osmSegmentCount + ' ' }}</span>
-        <span i18n="@@monitor.route.details.analysis.osm-segments"
-          >OSM segment(s)</span
+        <span>{{ page.osmSegmentCount }}</span>
+        <span
+          *ngIf="page.osmSegmentCount === 1"
+          i18n="@@monitor.route.details.analysis.osm-segment"
         >
+          OSM segment
+        </span>
+        <span
+          *ngIf="page.osmSegmentCount !== 1"
+          i18n="@@monitor.route.details.analysis.osm-segments"
+        >
+          OSM segments
+        </span>
       </p>
     </div>
   `,

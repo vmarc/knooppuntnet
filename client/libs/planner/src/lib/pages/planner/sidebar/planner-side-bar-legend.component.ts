@@ -141,10 +141,6 @@ import { LegendIconComponent } from './legend-icon.component';
         align-items: center;
       }
 
-      .title {
-        padding-bottom: 15px;
-      }
-
       .legend-icon {
         width: 60px;
         padding-right: 10px;

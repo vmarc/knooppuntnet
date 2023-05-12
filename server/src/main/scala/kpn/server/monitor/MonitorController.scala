@@ -11,6 +11,7 @@ import kpn.api.common.monitor.MonitorRouteAddPage
 import kpn.api.common.monitor.MonitorRouteChangePage
 import kpn.api.common.monitor.MonitorRouteChangesPage
 import kpn.api.common.monitor.MonitorRouteDetailsPage
+import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteProperties
@@ -129,6 +130,15 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable relationId: Long,
   ): ApiResponse[MonitorRouteMapPage] = {
     facade.routeMap(groupName, routeName, Some(relationId))
+  }
+
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/gpx/{subRelationId}"))
+  def routeSubRelationGpx(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+    @PathVariable subRelationId: Long
+  ): ApiResponse[MonitorRouteGpxPage] = {
+    facade.routeGpx(groupName, routeName, subRelationId)
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))

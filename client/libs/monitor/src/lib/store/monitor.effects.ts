@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MonitorChangesParameters } from '@api/common/monitor';
+import { selectQueryParam } from '@app/core';
 import { selectRouteParam } from '@app/core';
 import { selectRouteParams } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -15,6 +16,9 @@ import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { MonitorService } from '../monitor.service';
+import { actionMonitorRouteGpxPageLoaded } from './monitor.actions';
+import { actionMonitorRouteGpxPageLoad } from './monitor.actions';
+import { actionMonitorRouteGpxPageInit } from './monitor.actions';
 import { actionMonitorGroupPageLoad } from './monitor.actions';
 import { actionMonitorRouteAddPageLoad } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoad } from './monitor.actions';
@@ -377,6 +381,38 @@ export class MonitorEffects {
         this.monitorService
           .routeChange(monitorRouteId, changeSetId, replicationNumber)
           .pipe(map((response) => actionMonitorRouteChangePageLoaded(response)))
+      )
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  monitorRouteGpxPageInit = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionMonitorRouteGpxPageInit),
+      concatLatestFrom(() => [
+        this.store.select(selectRouteParam('groupName')),
+        this.store.select(selectRouteParam('routeName')),
+        this.store.select(selectQueryParam('sub-relation-id')),
+      ]),
+      map(([_, groupName, routeName, relationIdParam]) => {
+        const relationId = +relationIdParam;
+        return actionMonitorRouteGpxPageLoad({
+          groupName,
+          routeName,
+          relationId,
+        });
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
+  actionMonitorRouteGpxPageLoad = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionMonitorRouteGpxPageLoad),
+      mergeMap(({ groupName, routeName, relationId }) =>
+        this.monitorService
+          .routeGpx(groupName, routeName, relationId)
+          .pipe(map((response) => actionMonitorRouteGpxPageLoaded(response)))
       )
     );
   });

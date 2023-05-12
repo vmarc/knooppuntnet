@@ -24,6 +24,7 @@ import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { MonitorRouteGpxPage } from '../../../api/src/lib/common/monitor/monitor-route-gpx-page';
 
 @Injectable()
 export class MonitorService {
@@ -119,6 +120,15 @@ export class MonitorService {
     if (relationId !== 0) {
       url = url + `/${relationId}`;
     }
+    return this.http.get(url);
+  }
+
+  routeGpx(
+    groupName: string,
+    routeName: string,
+    relationId: number
+  ): Observable<ApiResponse<MonitorRouteGpxPage>> {
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/gpx/${relationId}`;
     return this.http.get(url);
   }
 
