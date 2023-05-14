@@ -5,7 +5,9 @@ import { Map } from 'immutable';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class BitmapIconService {
   icons: Map<string, string> = Map<string, string>();
 
@@ -13,7 +15,7 @@ export class BitmapIconService {
 
   public getIcon(iconName: string): Observable<string> {
     const icon = this.icons.get(iconName);
-    if (!!icon) {
+    if (icon) {
       return of(icon);
     }
     return this.createIcon(iconName);

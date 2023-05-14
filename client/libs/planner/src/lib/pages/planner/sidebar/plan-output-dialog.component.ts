@@ -20,7 +20,6 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
-import { BitmapIconService } from '../../../pdf/services/bitmap-icon.service';
 import { PlannerService } from '../../../planner.service';
 
 @Component({
@@ -147,7 +146,7 @@ import { PlannerService } from '../../../planner.service';
     ClipboardModule,
     AsyncPipe,
   ],
-  providers: [PdfService, BitmapIconService],
+  providers: [PdfService],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('routename') input: ElementRef;

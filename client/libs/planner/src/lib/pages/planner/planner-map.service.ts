@@ -48,7 +48,9 @@ import { actionPlannerMapFinalized } from '../../store/planner-actions';
 import { selectPlannerMapMode } from '../../store/planner-selectors';
 import { PlannerState } from '../../store/planner-state';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class PlannerMapService extends OpenlayersMapService {
   private readonly plannerPositionKey = 'planner-position';
 

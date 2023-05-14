@@ -1,7 +1,7 @@
 import { List } from 'immutable';
 import { jsPDF } from 'jspdf';
 import { PlanInstruction } from '../../domain/plan/plan-instruction';
-import { PlannerService } from '../../planner.service';
+import { PlannerTranslations } from '../../util/planner-translations';
 import { BitmapIconService } from '../services/bitmap-icon.service';
 import { PdfPage } from './pdf-page';
 import { PdfSideBar } from './pdf-side-bar';
@@ -18,7 +18,6 @@ export class PdfDirections {
   constructor(
     private instructions: List<PlanInstruction>,
     private iconService: BitmapIconService,
-    private plannerService: PlannerService,
     private name: string
   ) {}
 
@@ -73,9 +72,9 @@ export class PdfDirections {
 
   private printInstruction(y: number, instruction: PlanInstruction): void {
     this.printInstructionDivider(y);
-    if (!!instruction.node) {
+    if (instruction.node) {
       this.printNode(y, instruction.node);
-    } else if (!!instruction.colour) {
+    } else if (instruction.colour) {
       this.printColour(y, instruction.colour);
     } else {
       const yy = y + PdfPage.spacer;
@@ -106,20 +105,20 @@ export class PdfDirections {
 
   private instructionText(instruction: PlanInstruction): string {
     let texts = List<string>();
-    if (!!instruction.heading) {
-      texts = texts.push(this.plannerService.translate('head'));
+    if (instruction.heading) {
+      texts = texts.push(PlannerTranslations.translate('head'));
       texts = texts.push(' ');
       texts = texts.push(
-        this.plannerService.translate('heading-' + instruction.heading)
+        PlannerTranslations.translate('heading-' + instruction.heading)
       );
-      if (!!instruction.street) {
+      if (instruction.street) {
         texts = texts.push(': ');
         texts = texts.push(instruction.street);
       }
     } else {
       const key = 'command-' + instruction.command;
-      texts = texts.push(this.plannerService.translate(key));
-      if (!!instruction.street) {
+      texts = texts.push(PlannerTranslations.translate(key));
+      if (instruction.street) {
         texts = texts.push(': ');
         texts = texts.push(instruction.street);
       }
@@ -146,12 +145,12 @@ export class PdfDirections {
 
   private printColour(y: number, colour: string): void {
     this.doc.setFontSize(10);
-    let translatedColour = this.plannerService.colour(colour);
+    let translatedColour = PlannerTranslations.colour(colour);
     if (!(translatedColour && translatedColour.length > 0)) {
       translatedColour = colour;
     }
     let texts = List<string>();
-    texts = texts.push(this.plannerService.translate('follow-colour'));
+    texts = texts.push(PlannerTranslations.translate('follow-colour'));
     texts = texts.push(' ');
     texts = texts.push(translatedColour);
     const text = texts.join('');

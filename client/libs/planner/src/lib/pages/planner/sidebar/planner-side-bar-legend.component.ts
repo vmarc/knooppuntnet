@@ -14,7 +14,7 @@ import { LegendIconComponent } from './legend-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel
-      [expanded]="expanded()"
+      [expanded]="expanded$ | async"
       (expandedChange)="expandedChanged($event)"
     >
       <mat-expansion-panel-header i18n="@@planner.legend">
@@ -152,7 +152,7 @@ import { LegendIconComponent } from './legend-icon.component';
   imports: [MatExpansionModule, NgIf, LegendIconComponent, AsyncPipe],
 })
 export class PlannerSideBarLegendComponent {
-  readonly expanded = this.store.selectSignal(selectPreferencesShowLegend);
+  readonly expanded$ = this.store.select(selectPreferencesShowLegend);
   readonly plannerMapMode = this.store.selectSignal(selectPlannerMapMode);
 
   constructor(private store: Store) {}

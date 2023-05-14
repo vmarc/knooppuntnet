@@ -10,6 +10,7 @@ import { PlannerPageComponent } from './pages/planner/planner-page.component';
 import { PlannerSidebarComponent } from './pages/planner/sidebar/planner-sidebar.component';
 import { PlannerToolbarComponent } from './pages/planner/sidebar/planner-toolbar.component';
 import { MapPageComponent } from './pages/selector/_map-page.component';
+import { PdfService } from './pdf/pdf.service';
 import { PlannerService } from './planner.service';
 import { MapService } from './services/map.service';
 import { PlannerEffects } from './store/planner-effects';
@@ -25,6 +26,7 @@ export const plannerRoutes: Routes = [
         reducer: plannerReducer,
       }),
       provideEffects([PlannerEffects]),
+      PdfService,
       PlannerService,
       PlannerMapService,
       MapService,

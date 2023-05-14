@@ -7,7 +7,9 @@ import { NodeClick } from '../domain/interaction/actions/node-click';
 import { PoiClick } from '../domain/interaction/actions/poi-click';
 import { RouteClick } from '../domain/interaction/actions/route-click';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class MapService {
   highlightedNodeId$: Observable<string>;
   highlightedRouteId$: Observable<string>;

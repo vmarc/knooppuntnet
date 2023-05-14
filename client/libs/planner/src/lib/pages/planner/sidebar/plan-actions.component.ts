@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { Injector } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -99,7 +100,8 @@ export class PlanActionsComponent implements OnInit {
   constructor(
     private plannerService: PlannerService,
     private pageWidthService: PageWidthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private injector: Injector
   ) {}
 
   ngOnInit(): void {
@@ -143,9 +145,15 @@ export class PlanActionsComponent implements OnInit {
   }
 
   output(): void {
+    const injector = Injector.create({
+      parent: this.injector,
+      providers: [{ provide: PlannerService, useValue: this.plannerService }],
+    });
+
     this.dialog.open(PlanOutputDialogComponent, {
       minWidth: 280,
       autoFocus: false,
+      injector,
     });
   }
 

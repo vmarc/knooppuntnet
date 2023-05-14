@@ -1,6 +1,6 @@
 import { jsPDF } from 'jspdf';
 import { Plan } from '../../domain/plan/plan';
-import { PlannerService } from '../../planner.service';
+import { PlannerTranslations } from '../../util/planner-translations';
 import { PdfFooter } from './pdf-footer';
 import { PdfPage } from './pdf-page';
 import { PdfPlanBuilder } from './pdf-plan-builder';
@@ -13,11 +13,7 @@ export class PdfTextDocument {
 
   private readonly model: PdfTextDocumentModel;
 
-  constructor(
-    plan: Plan,
-    private name: string,
-    private plannerService: PlannerService
-  ) {
+  constructor(plan: Plan, private name: string) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfTextDocumentModel(pdfPlan.nodes);
   }
@@ -123,7 +119,7 @@ export class PdfTextDocument {
     if (node.distance !== null) {
       let routeInfo = node.distance;
       if (node.colour) {
-        const translatedColour = this.plannerService.colour(node.colour);
+        const translatedColour = PlannerTranslations.colour(node.colour);
         routeInfo = routeInfo + '   ' + translatedColour;
       }
 

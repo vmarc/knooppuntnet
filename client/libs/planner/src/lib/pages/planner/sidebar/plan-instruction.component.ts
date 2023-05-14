@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { PlanInstruction } from '../../../domain/plan/plan-instruction';
-import { PlannerService } from '../../../planner.service';
+import { PlannerTranslations } from '../../../util/planner-translations';
 import { PlanInstructionCommandComponent } from './plan-instruction-command.component';
 
 @Component({
@@ -111,13 +111,11 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
 export class PlanInstructionComponent {
   @Input() instruction: PlanInstruction;
 
-  constructor(private plannerService: PlannerService) {}
-
   translate(key: string): string {
-    return this.plannerService.translate(key);
+    return PlannerTranslations.translate(key);
   }
 
   colour(colour: string): string {
-    return this.plannerService.colour(colour);
+    return PlannerTranslations.colour(colour);
   }
 }
