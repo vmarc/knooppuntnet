@@ -224,16 +224,28 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           Actions
         </th>
         <td mat-cell *matCellDef="let row" class="kpn-action-cell">
-          <button
-            mat-icon-button
-            [routerLink]="uploadGpx()"
-            [queryParams]="subRelationQueryParams(row)"
-            title="Upload GPX trace for this sub-relation"
-            i18n-title="@@action.upload"
-            class="kpn-action-button kpn-link"
-          >
-            <mat-icon svgIcon="pencil" />
-          </button>
+          <ng-container *ngIf="row.physical">
+            <button
+              mat-icon-button
+              [routerLink]="uploadGpx()"
+              [queryParams]="subRelationQueryParams(row)"
+              title="Upload GPX trace for this sub-relation"
+              i18n-title="@@action.gpx.upload"
+              class="kpn-action-button kpn-link"
+            >
+              <mat-icon svgIcon="pencil" />
+            </button>
+            <button
+              mat-icon-button
+              [routerLink]="deleteGpx()"
+              [queryParams]="subRelationQueryParams(row)"
+              title="Remove GPX trace for this sub-relation"
+              i18n-title="@@action.gpx.delete"
+              class="kpn-action-button  kpn-warning"
+            >
+              <mat-icon svgIcon="garbage" />
+            </button>
+          </ng-container>
         </td>
       </ng-container>
 
@@ -360,5 +372,9 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
 
   uploadGpx(): string {
     return `/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx`;
+  }
+
+  deleteGpx(): string {
+    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx/delete`;
   }
 }

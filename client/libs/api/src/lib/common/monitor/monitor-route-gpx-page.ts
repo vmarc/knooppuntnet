@@ -9,4 +9,5 @@ export interface MonitorRouteGpxPage {
   readonly subRelationDescription: string;
   readonly referenceDay: Day;
   readonly referenceFilename: string;
+  readonly referenceDistance: number;
 }

@@ -62,9 +62,25 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteReferences.deleteMany(routeFilter, log)
   }
 
+  override def deleteRouteReference(routeId: ObjectId, subRelationId: Long): Unit = {
+    val routeReferenceFilter = and(
+      equal("routeId", routeId.raw),
+      equal("relationId", subRelationId)
+    )
+    database.monitorRouteReferences.deleteMany(routeReferenceFilter, log)
+  }
+
   override def deleteRouteStates(routeId: ObjectId): Unit = {
     val routeFilter = equal("routeId", routeId.raw)
     database.monitorRouteStates.deleteMany(routeFilter, log)
+  }
+
+  override def deleteRouteState(routeId: ObjectId, subRelationId: Long): Unit = {
+    val routeReferenceFilter = and(
+      equal("routeId", routeId.raw),
+      equal("relationId", subRelationId)
+    )
+    database.monitorRouteStates.deleteMany(routeReferenceFilter, log)
   }
 
   override def saveRouteState(routeState: MonitorRouteState): Unit = {

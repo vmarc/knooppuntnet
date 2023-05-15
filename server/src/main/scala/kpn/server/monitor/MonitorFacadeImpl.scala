@@ -136,6 +136,25 @@ class MonitorFacadeImpl(
     }
   }
 
+  override def routeGpxDelete(groupName: String, routeName: String, subRelationId: Long): Unit = {
+    val args = s"groupName=$groupName, routeName=$routeName, subRelationId=$subRelationId"
+    api.execute("monitor-route-gpx-delete", args) {
+      assertAdminUser(RequestContext.user)
+      monitorGroupRepository.groupByName(groupName).foreach { group =>
+        monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
+          monitorRouteRepository.deleteRouteReference(route._id, subRelationId)
+          monitorRouteRepository.deleteRouteState(route._id, subRelationId)
+          // TODO update route --> remove reference info
+          //          val updatedRoute = route.copy(
+          //            referenceDay = None,
+          //            referenceFilename = None,
+          //            referenceDistance = 0,
+          //          )
+        }
+      }
+    }
+  }
+
   override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage] = {
     val args = s"monitorRouteId=$monitorRouteId"
     api.execute("monitor-route-changes", args) {

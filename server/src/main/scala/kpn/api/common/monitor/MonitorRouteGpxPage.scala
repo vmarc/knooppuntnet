@@ -9,4 +9,5 @@ case class MonitorRouteGpxPage(
   subRelationDescription: String,
   referenceDay: Day,
   referenceFilename: Option[String],
+  referenceDistance: Long
 )

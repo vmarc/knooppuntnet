@@ -20,7 +20,7 @@ import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcru
 import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference.component';
 
 @Component({
-  selector: 'kpn-monitor-route-details-gpx',
+  selector: 'kpn-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-monitor-route-gpx-breadcrumb />

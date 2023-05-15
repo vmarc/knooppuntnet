@@ -141,6 +141,15 @@ class MonitorController(facade: MonitorFacade) {
     facade.routeGpx(groupName, routeName, subRelationId)
   }
 
+  @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}/gpx/{subRelationId}"))
+  def routeSubRelationGpxDelete(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+    @PathVariable subRelationId: Long
+  ): Unit = {
+    facade.routeGpxDelete(groupName, routeName, subRelationId)
+  }
+
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))
   def routeChanges(
     @PathVariable groupName: String,

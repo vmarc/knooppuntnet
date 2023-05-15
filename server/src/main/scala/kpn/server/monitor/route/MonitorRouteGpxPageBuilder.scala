@@ -28,6 +28,7 @@ class MonitorRouteGpxPageBuilder(
             monitorRouteRelation.name,
             referenceDay,
             monitorRouteRelation.referenceFilename,
+            monitorRouteRelation.referenceDistance
           )
         }
       }

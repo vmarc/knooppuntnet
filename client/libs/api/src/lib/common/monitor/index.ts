@@ -10,6 +10,7 @@ export * from './monitor-route-add-page';
 export * from './monitor-route-map-page';
 export * from './monitor-route-relation';
 export * from './monitor-route-deviation';
+export * from './monitor-route-gpx-page';
 export * from './monitor-route-info-page';
 export * from './monitor-group-properties';
 export * from './monitor-route-properties';
