@@ -9,23 +9,18 @@ import { DistancePipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { RouteSummaryComponent } from '../../../../../analysis/src/lib/route/details/route-summary.component';
 import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcrumb.component';
-import { MonitorRouteGpxDeleteService } from './monitor-route-gpx-delete.service';
+import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
 @Component({
   selector: 'kpn-monitor-route-gpx-delete',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
-      <li>
-        <a [routerLink]="service.groupLink()">{{ service.groupName() }}</a>
-      </li>
-      <li>
-        <a [routerLink]="service.routeLink()">{{ service.routeName() }}</a>
-      </li>
-      <li i18n="@@breadcrumb.monitor.route.gpx.delete">gpx delete</li>
-    </ul>
+    <kpn-monitor-route-gpx-breadcrumb
+      [groupName]="service.groupName()"
+      [groupLink]="service.groupLink()"
+      [routeName]="service.routeName()"
+      [routeLink]="service.routeLink()"
+    />
 
     <div *ngIf="service.apiResponse() as response">
       <div *ngIf="!response.result" i18n="@@monitor.route.gpx-delete.not-found">
@@ -91,7 +86,7 @@ import { MonitorRouteGpxDeleteService } from './monitor-route-gpx-delete.service
     `,
   ],
   standalone: true,
-  providers: [MonitorRouteGpxDeleteService],
+  providers: [MonitorRouteGpxService],
   imports: [
     NgIf,
     RouterLink,
@@ -104,7 +99,7 @@ import { MonitorRouteGpxDeleteService } from './monitor-route-gpx-delete.service
   ],
 })
 export class MonitorRouteGpxDeleteComponent implements OnInit {
-  constructor(protected service: MonitorRouteGpxDeleteService) {}
+  constructor(protected service: MonitorRouteGpxService) {}
 
   ngOnInit(): void {
     this.service.init();

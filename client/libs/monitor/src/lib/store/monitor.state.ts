@@ -8,8 +8,8 @@ import { MonitorRouteChangesPage } from '@api/common/monitor';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
 import { MonitorRouteUpdatePage } from '@api/common/monitor';
+import { MonitorRouteGpxPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
-import { MonitorRouteGpxPage } from '../../../../api/src/lib/common/monitor/monitor-route-gpx-page';
 
 export class MonitorRouteSaveState {
   constructor(

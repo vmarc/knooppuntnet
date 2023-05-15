@@ -1,6 +1,4 @@
 import { NgIf } from '@angular/common';
-import { computed } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -10,22 +8,22 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { actionMonitorRouteGpxPageDestroy } from '../../store/monitor.actions';
-import { actionMonitorRouteGpxPageInit } from '../../store/monitor.actions';
-import { selectMonitorRouteName } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
-import { selectMonitorRouteGpxPage } from '../../store/monitor.selectors';
 import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcrumb.component';
 import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference.component';
+import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
 @Component({
   selector: 'kpn-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-gpx-breadcrumb />
+    <kpn-monitor-route-gpx-breadcrumb
+      [groupName]="service.groupName()"
+      [groupLink]="service.groupLink()"
+      [routeName]="service.routeName()"
+      [routeLink]="service.routeLink()"
+    />
 
-    <div *ngIf="apiResponse() as response">
+    <div *ngIf="service.apiResponse() as response">
       <div *ngIf="!response.result" i18n="@@monitor.route.gpx.not-found">
         Route not found
       </div>
@@ -56,7 +54,11 @@ import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference
           >
             Save
           </button>
-          <a [routerLink]="routeLink()" id="cancel" i18n="@@action.cancel">
+          <a
+            [routerLink]="service.routeLink()"
+            id="cancel"
+            i18n="@@action.cancel"
+          >
             Cancel
           </a>
         </div>
@@ -82,14 +84,7 @@ import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference
     MonitorRouteGpxBreadcrumbComponent,
   ],
 })
-export class MonitorRouteGpxComponent implements OnInit, OnDestroy {
-  readonly groupName = this.store.selectSignal(selectMonitorGroupName);
-  readonly routeName = this.store.selectSignal(selectMonitorRouteName);
-  readonly routeLink = computed(
-    () => `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`
-  );
-  readonly apiResponse = this.store.selectSignal(selectMonitorRouteGpxPage);
-
+export class MonitorRouteGpxComponent implements OnInit {
   readonly gpxReferenceDate = new FormControl<Date | null>(
     null,
     Validators.required
@@ -106,17 +101,13 @@ export class MonitorRouteGpxComponent implements OnInit, OnDestroy {
     referenceFile: this.referenceFile,
   });
 
-  constructor(private store: Store) {}
+  constructor(protected service: MonitorRouteGpxService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteGpxPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorRouteGpxPageDestroy());
+    this.service.init();
   }
 
   save(): void {
-    console.log('TODO save');
+    this.service.save();
   }
 }

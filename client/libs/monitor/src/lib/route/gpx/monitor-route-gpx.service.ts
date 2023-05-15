@@ -3,31 +3,22 @@ import { WritableSignal } from '@angular/core';
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { MonitorRouteGpxPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
+import { Util } from '@app/components/shared';
 import { tap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 
 @Injectable()
-export class MonitorRouteGpxDeleteService {
-  readonly groupName = toSignal(
-    this.route.paramMap.pipe(map((m) => m.get('groupName')))
-  );
+export class MonitorRouteGpxService {
+  readonly groupName = Util.param(this.route, 'groupName');
+  readonly routeName = Util.param(this.route, 'routeName');
+  readonly subRelationId = Util.queryParam(this.route, 'sub-relation-id');
   readonly groupLink = computed(() => `/monitor/groups/${this.groupName()}`);
-  readonly routeName = toSignal(
-    this.route.paramMap.pipe(map((m) => m.get('routeName')))
-  );
-  readonly subRelationId = toSignal(
-    this.route.queryParamMap.pipe(map((m) => m.get('sub-relation-id')))
-  );
-
   readonly routeLink = computed(
     () => `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`
   );
-  readonly test = signal(0);
   readonly apiResponse: WritableSignal<ApiResponse<MonitorRouteGpxPage> | null> =
     signal(null);
 
@@ -43,6 +34,10 @@ export class MonitorRouteGpxDeleteService {
       .get<ApiResponse<MonitorRouteGpxPage>>(url)
       .pipe(tap((response) => this.apiResponse.set(response)))
       .subscribe();
+  }
+
+  save(): void {
+    console.log('TODO save');
   }
 
   delete(): void {

@@ -1,4 +1,7 @@
+import { Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute } from '@angular/router';
 import { Route } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common';
@@ -9,6 +12,7 @@ import { Map } from 'immutable';
 import { boundingExtent } from 'ol/extent';
 import { Extent } from 'ol/extent';
 import { fromLonLat } from 'ol/proj';
+import { map } from 'rxjs/operators';
 
 type IPropertyGetter<T> = () => T;
 
@@ -32,6 +36,17 @@ export class Util {
         },
       ],
     };
+  }
+
+  public static param(route: ActivatedRoute, name: string): Signal<string> {
+    return toSignal(route.paramMap.pipe(map((m) => m.get(name))));
+  }
+
+  public static queryParam(
+    route: ActivatedRoute,
+    name: string
+  ): Signal<string> {
+    return toSignal(route.queryParamMap.pipe(map((m) => m.get(name))));
   }
 
   public static replicationName(replicationNumber: number): string {
