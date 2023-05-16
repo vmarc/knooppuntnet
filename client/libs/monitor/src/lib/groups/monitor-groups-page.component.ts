@@ -1,21 +1,15 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
-import { Store } from '@ngrx/store';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
-import { actionMonitorGroupsPageDestroy } from '../store/monitor.actions';
-import { actionMonitorGroupsPageInit } from '../store/monitor.actions';
-import { selectMonitorGroupsPage } from '../store/monitor.selectors';
-import { selectMonitorAdmin } from '../store/monitor.selectors';
 import { MonitorGroupTableComponent } from './monitor-group-table.component';
+import { MonitorGroupsPageService } from './monitor-groups-page.service';
 
 @Component({
   selector: 'kpn-monitor-groups',
@@ -31,22 +25,26 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
     <kpn-monitor-page-menu pageName="groups" />
     <kpn-error />
 
-    <div *ngIf="responseSignal() as response">
+    <div *ngIf="service.apiResponse() as response">
       <div class="header">
         <div id="routes-in-groups" i18n="@@monitor.groups.routes-in-groups">
-          {{ routeCount() }} routes in {{ groupCount() }} groups
+          {{ response.result.routeCount }} routes in
+          {{ response.result.groups.length }} groups
         </div>
         <kpn-monitor-admin-toggle />
       </div>
-      <div *ngIf="hasGroups(); else noGroups">
-        <kpn-monitor-group-table [groups]="response.result.groups" />
+      <div *ngIf="response.result.groups.length > 0; else noGroups">
+        <kpn-monitor-group-table
+          [admin]="service.admin()"
+          [groups]="response.result.groups"
+        />
       </div>
       <ng-template #noGroups>
         <div id="no-groups" i18n="@@monitor.groups.no-groups">
           No route groups
         </div>
       </ng-template>
-      <div *ngIf="admin()" class="kpn-spacer-above">
+      <div *ngIf="service.admin()" class="kpn-spacer-above">
         <button
           mat-stroked-button
           routerLink="/monitor/admin/groups/add"
@@ -71,6 +69,7 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
       }
     `,
   ],
+  providers: [MonitorGroupsPageService],
   standalone: true,
   imports: [
     RouterLink,
@@ -83,26 +82,10 @@ import { MonitorGroupTableComponent } from './monitor-group-table.component';
     AsyncPipe,
   ],
 })
-export class MonitorGroupsPageComponent implements OnInit, OnDestroy {
-  readonly admin = this.store.selectSignal(selectMonitorAdmin);
-  readonly responseSignal = this.store.selectSignal(selectMonitorGroupsPage);
-  readonly hasGroups = computed(
-    () => this.responseSignal().result?.groups?.length > 0
-  );
-  readonly routeCount = computed(
-    () => this.responseSignal().result?.routeCount
-  );
-  readonly groupCount = computed(
-    () => this.responseSignal().result?.groups?.length
-  );
-
-  constructor(private store: Store) {}
+export class MonitorGroupsPageComponent implements OnInit {
+  constructor(protected service: MonitorGroupsPageService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorGroupsPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorGroupsPageDestroy());
+    this.service.init();
   }
 }

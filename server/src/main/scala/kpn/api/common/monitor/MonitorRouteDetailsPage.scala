@@ -3,6 +3,7 @@ package kpn.api.common.monitor
 import kpn.api.custom.Day
 
 case class MonitorRouteDetailsPage(
+  adminRole: Boolean,
   groupName: String,
   groupDescription: String,
   routeName: String,

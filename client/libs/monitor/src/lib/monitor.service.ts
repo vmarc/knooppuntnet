@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
@@ -18,21 +19,37 @@ import { MonitorRouteMapPage } from '@api/common/monitor';
 import { MonitorRouteProperties } from '@api/common/monitor';
 import { MonitorRouteSaveResult } from '@api/common/monitor';
 import { MonitorRouteUpdatePage } from '@api/common/monitor';
+import { MonitorRouteGpxPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { MonitorRouteGpxPage } from '../../../api/src/lib/common/monitor/monitor-route-gpx-page';
 
 @Injectable()
 export class MonitorService {
-  constructor(private http: HttpClient, private store: Store) {}
+  private readonly _admin = signal(false);
+  private readonly _adminRole = signal(false);
+
+  readonly admin = this._admin.asReadonly();
+  readonly adminRole = this._adminRole.asReadonly();
+
+  constructor(private http: HttpClient) {}
+
+  setAdmin(value: boolean): void {
+    this._admin.set(value);
+  }
 
   groups(): Observable<ApiResponse<MonitorGroupsPage>> {
     const url = '/api/monitor/groups';
-    return this.http.get(url);
+    return this.http.get<ApiResponse<MonitorGroupsPage>>(url).pipe(
+      tap((response) => {
+        if (response.result) {
+          this._adminRole.set(response.result.adminRole);
+        }
+      })
+    );
   }
 
   private groupNames(): Observable<ApiResponse<Array<string>>> {
@@ -42,7 +59,13 @@ export class MonitorService {
 
   group(groupName: string): Observable<ApiResponse<MonitorGroupPage>> {
     const url = `/api/monitor/groups/${groupName}`;
-    return this.http.get(url);
+    return this.http.get<ApiResponse<MonitorGroupPage>>(url).pipe(
+      tap((response) => {
+        if (response.result) {
+          this._adminRole.set(response.result.adminRole);
+        }
+      })
+    );
   }
 
   groupAdd(properties: MonitorGroupProperties): Observable<void> {
@@ -100,7 +123,13 @@ export class MonitorService {
     routeName: string
   ): Observable<ApiResponse<MonitorRouteDetailsPage>> {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
-    return this.http.get(url);
+    return this.http.get<ApiResponse<MonitorRouteDetailsPage>>(url).pipe(
+      tap((response) => {
+        if (response.result) {
+          this._adminRole.set(response.result.adminRole);
+        }
+      })
+    );
   }
 
   routeDelete(

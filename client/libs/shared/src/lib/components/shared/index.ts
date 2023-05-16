@@ -11,3 +11,4 @@ export * from './network-type-icon.component';
 export * from './network-type-name.component';
 export * from './network-scope-name.component';
 export * from './form-status.component';
+export * from './nav.service';

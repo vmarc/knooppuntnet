@@ -1,18 +1,15 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { NavService } from '@app/components/shared';
 import { FormStatusComponent } from '@app/components/shared';
-import { Store } from '@ngrx/store';
-import { MonitorService } from '../../monitor.service';
-import { actionMonitorGroupAdd } from '../../store/monitor.actions';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
+import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
 
 @Component({
   selector: 'kpn-monitor-group-add-page',
@@ -33,15 +30,15 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
       </p>
     </div>
 
-    <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
-      <kpn-monitor-group-name [ngForm]="ngForm" [name]="name" />
+    <form [formGroup]="service.form" class="kpn-form" #ngForm="ngForm">
+      <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
       <kpn-monitor-group-description
         [ngForm]="ngForm"
-        [description]="description"
+        [description]="service.description"
       />
       <kpn-form-status
         formName="group-form"
-        [statusChanges]="form.statusChanges"
+        [statusChanges]="service.form.statusChanges"
       ></kpn-form-status>
       <div class="kpn-form-buttons">
         <button
@@ -56,45 +53,24 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
       </div>
     </form>
   `,
+  providers: [MonitorGroupAddPageService, NavService],
   standalone: true,
   imports: [
-    NgIf,
-    MonitorGroupBreadcrumbComponent,
-    ReactiveFormsModule,
-    MonitorGroupNameComponent,
-    MonitorGroupDescriptionComponent,
-    MatButtonModule,
-    RouterLink,
-    MonitorGroupDescriptionComponent,
     FormStatusComponent,
+    MatButtonModule,
+    MonitorGroupBreadcrumbComponent,
+    MonitorGroupDescriptionComponent,
+    MonitorGroupDescriptionComponent,
+    MonitorGroupNameComponent,
+    NgIf,
+    ReactiveFormsModule,
+    RouterLink,
   ],
 })
 export class MonitorGroupAddPageComponent {
-  readonly name = new FormControl<string>('', {
-    validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
-      () => ''
-    ),
-    // updateOn: 'blur',
-  });
-
-  readonly description = new FormControl<string>('', [
-    Validators.required,
-    Validators.maxLength(100),
-  ]);
-
-  readonly form = new FormGroup({
-    name: this.name,
-    description: this.description,
-  });
-
-  constructor(private monitorService: MonitorService, private store: Store) {}
+  constructor(protected service: MonitorGroupAddPageService) {}
 
   add(): void {
-    this.form.statusChanges;
-
-    if (this.form.valid) {
-      this.store.dispatch(actionMonitorGroupAdd(this.form.value));
-    }
+    this.service.add();
   }
 }

@@ -1,5 +1,4 @@
 import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -10,9 +9,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { MonitorGroupDetail } from '@api/common/monitor';
-import { Store } from '@ngrx/store';
-import { actionMonitorNavigateGroup } from '../store/monitor.actions';
-import { selectMonitorAdmin } from '../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-group-table',
@@ -24,9 +20,9 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
           Name
         </th>
         <td mat-cell *matCellDef="let group">
-          <a [routerLink]="groupLink(group)" (click)="navigateGroup(group)">{{
-            group.name
-          }}</a>
+          <a [routerLink]="groupLink(group)" [state]="group">
+            {{ group.name }}
+          </a>
         </td>
       </ng-container>
 
@@ -86,8 +82,8 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns()"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns(admin)"></tr>
+      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin)"></tr>
     </table>
   `,
   standalone: true,
@@ -100,21 +96,20 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   ],
 })
 export class MonitorGroupTableComponent implements OnInit {
+  @Input() admin: boolean;
   @Input() groups: MonitorGroupDetail[];
 
-  private readonly admin = this.store.selectSignal(selectMonitorAdmin);
   readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
-  readonly displayedColumns = computed(() => {
-    if (this.admin()) {
-      return ['name', 'description', 'routeCount', 'actions'];
-    }
-    return ['name', 'description', 'routeCount'];
-  });
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.dataSource.data = this.groups;
+  }
+
+  displayedColumns(admin: boolean) {
+    if (admin) {
+      return ['name', 'description', 'routeCount', 'actions'];
+    }
+    return ['name', 'description', 'routeCount'];
   }
 
   groupLink(group: MonitorGroupDetail): string {
@@ -127,15 +122,5 @@ export class MonitorGroupTableComponent implements OnInit {
 
   deleteLink(group: MonitorGroupDetail): string {
     return `/monitor/admin/groups/${group.name}/delete`;
-  }
-
-  navigateGroup(group: MonitorGroupDetail): void {
-    this.store.dispatch(
-      actionMonitorNavigateGroup({
-        groupName: group.name,
-        groupDescription: group.description,
-      })
-    );
-    // TODO MON navigeren hier of in effect in plaats van routerLink ???
   }
 }

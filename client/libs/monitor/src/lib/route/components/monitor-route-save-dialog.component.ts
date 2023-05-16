@@ -129,6 +129,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
       }
     `,
   ],
+  providers: [MonitorService],
   standalone: true,
   imports: [
     DialogComponent,
@@ -142,7 +143,6 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
     MatButtonModule,
     AsyncPipe,
   ],
-  providers: [MonitorService],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
   readonly saveRouteEnabled = this.store.selectSignal(

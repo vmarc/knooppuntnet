@@ -134,6 +134,7 @@ import { PlannerService } from '../../../planner.service';
       }
     `,
   ],
+  providers: [PdfService],
   standalone: true,
   imports: [
     DialogComponent,
@@ -146,7 +147,6 @@ import { PlannerService } from '../../../planner.service';
     ClipboardModule,
     AsyncPipe,
   ],
-  providers: [PdfService],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('routename') input: ElementRef;

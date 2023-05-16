@@ -23,6 +23,7 @@ import { DayUtil } from '..';
       <mat-datepicker #picker />
     </mat-form-field>
   `,
+  providers: [MatNativeDateModule],
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -31,7 +32,6 @@ import { DayUtil } from '..';
     ReactiveFormsModule,
     MatNativeDateModule,
   ],
-  providers: [MatNativeDateModule],
 })
 export class DayInputComponent {
   @Input() date: FormControl<Date | null>;

@@ -1,21 +1,15 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { MonitorGroupPage } from '@api/common/monitor';
+import { NavService } from '@app/components/shared';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
-import { actionMonitorGroupPageDestroy } from '../../store/monitor.actions';
-import { actionMonitorGroupPageInit } from '../../store/monitor.actions';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
-import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
-import { selectMonitorGroupPage } from '../../store/monitor.selectors';
-import { selectMonitorAdmin } from '../../store/monitor.selectors';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
+import { MonitorGroupPageService } from './monitor-group-page.service';
 import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.component';
 
 @Component({
@@ -28,72 +22,64 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
       <li i18n="@@breadcrumb.monitor.group">Group</li>
     </ul>
 
-    <h1 class="title" *ngIf="groupName()">
-      <span class="kpn-label">{{ groupName() }}</span>
-      <span>{{ groupDescription() }}</span>
+    <h1 class="title" *ngIf="service.groupName() as groupName">
+      <span class="kpn-label">{{ groupName }}</span>
+      <span>{{ service.groupDescription() }}</span>
     </h1>
 
-    <kpn-monitor-group-page-menu pageName="routes" [groupName]="groupName()" />
+    <kpn-monitor-group-page-menu
+      pageName="routes"
+      [groupName]="service.groupName()"
+    />
 
     <kpn-monitor-admin-toggle />
 
-    <div *ngIf="responseSignal() as response" class="kpn-form">
-      <div *ngIf="hasRoutes(); else noRoutes">
+    <div *ngIf="service.apiResponse() as response" class="kpn-form">
+      <div *ngIf="response.result?.routes.length > 0; else noRoutes">
         <kpn-monitor-group-route-table
-          [groupName]="groupName()"
+          [admin]="service.admin()"
+          [groupName]="response.result.groupName"
           [routes]="response.result.routes"
         />
+        <div *ngIf="service.admin()" class="kpn-form-buttons">
+          <button
+            mat-stroked-button
+            id="add-route"
+            [routerLink]="addRouteLink(response.result)"
+            type="button"
+            i18n="@@monitor.group.action.add-route"
+          >
+            Add route
+          </button>
+        </div>
       </div>
       <ng-template #noRoutes>
         <div id="no-routes" i18n="@@monitor.group.no-routes">
           No routes in group
         </div>
       </ng-template>
-      <div *ngIf="admin()" class="kpn-form-buttons">
-        <button
-          mat-stroked-button
-          id="add-route"
-          [routerLink]="addRouteLink()"
-          type="button"
-          i18n="@@monitor.group.action.add-route"
-        >
-          Add route
-        </button>
-      </div>
     </div>
   `,
+  providers: [MonitorGroupPageService, NavService],
   standalone: true,
   imports: [
-    RouterLink,
-    NgIf,
-    MonitorGroupPageMenuComponent,
-    MonitorAdminToggleComponent,
-    MonitorGroupRouteTableComponent,
-    MatButtonModule,
     AsyncPipe,
+    MatButtonModule,
+    MonitorAdminToggleComponent,
+    MonitorGroupPageMenuComponent,
+    MonitorGroupRouteTableComponent,
+    NgIf,
+    RouterLink,
   ],
 })
-export class MonitorGroupPageComponent implements OnInit, OnDestroy {
-  readonly groupName = this.store.selectSignal(selectMonitorGroupName);
-  readonly groupDescription = this.store.selectSignal(
-    selectMonitorGroupDescription
-  );
-  readonly addRouteLink = computed(
-    () => `/monitor/admin/groups/${this.groupName()}/routes/add`
-  );
-  readonly admin = this.store.selectSignal(selectMonitorAdmin);
-  readonly responseSignal = this.store.selectSignal(selectMonitorGroupPage);
-  readonly hasRoutes = computed(
-    () => this.responseSignal()?.result?.routes.length > 0
-  );
-
-  constructor(private store: Store) {}
+export class MonitorGroupPageComponent implements OnInit {
+  constructor(protected service: MonitorGroupPageService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorGroupPageInit());
+    this.service.init();
   }
 
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorGroupPageDestroy());
+  addRouteLink(page: MonitorGroupPage): string {
+    return `/monitor/admin/groups/${page.groupName}/routes/add`;
   }
 }

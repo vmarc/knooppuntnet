@@ -1,24 +1,15 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { effect } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormControl } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { MonitorService } from '../../monitor.service';
-import { actionMonitorGroupUpdateDestroy } from '../../store/monitor.actions';
-import { actionMonitorGroupUpdateInit } from '../../store/monitor.actions';
-import { actionMonitorGroupUpdate } from '../../store/monitor.actions';
-import { selectMonitorGroupPage } from '../../store/monitor.selectors';
+import { NavService } from '@app/components/shared';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
+import { MonitorGroupUpdatePageService } from './monitor-group-update-page.service';
 
 @Component({
   selector: 'kpn-monitor-group-update-page',
@@ -28,22 +19,22 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
 
     <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
 
-    <div *ngIf="responseSignal() as response" class="kpn-form">
+    <div *ngIf="service.apiResponse() as response" class="kpn-form">
       <div *ngIf="!response.result">
         <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
       </div>
-      <div *ngIf="response.result">
-        <form [formGroup]="form" #ngForm="ngForm">
-          <kpn-monitor-group-name [ngForm]="ngForm" [name]="name" />
+      <div *ngIf="response.result as page">
+        <form [formGroup]="service.form" #ngForm="ngForm">
+          <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
           <kpn-monitor-group-description
             [ngForm]="ngForm"
-            [description]="description"
+            [description]="service.description"
           />
 
           <div class="kpn-form-buttons">
             <button
               mat-stroked-button
-              (click)="update(response.result.groupId)"
+              (click)="service.update(page.groupId)"
               i18n="@@monitor.group.update.action"
             >
               Update group
@@ -54,65 +45,22 @@ import { MonitorGroupNameComponent } from '../components/monitor-group-name.comp
       </div>
     </div>
   `,
+  providers: [MonitorGroupUpdatePageService, NavService],
   standalone: true,
   imports: [
-    MonitorGroupBreadcrumbComponent,
     NgIf,
-    ReactiveFormsModule,
-    MonitorGroupNameComponent,
-    MonitorGroupDescriptionComponent,
     MatButtonModule,
     RouterLink,
-    AsyncPipe,
+    ReactiveFormsModule,
+    MonitorGroupBreadcrumbComponent,
+    MonitorGroupNameComponent,
+    MonitorGroupDescriptionComponent,
   ],
 })
-export class MonitorGroupUpdatePageComponent implements OnInit, OnDestroy {
-  private initialName = '';
-  readonly name = new FormControl<string>('', {
-    validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
-      () => this.initialName
-    ),
-    // updateOn: 'blur',
-  });
-  readonly description = new FormControl<string>('', [
-    Validators.required,
-    Validators.maxLength(100),
-  ]);
-
-  readonly form = new FormGroup({
-    name: this.name,
-    description: this.description,
-  });
-
-  readonly responseSignal = this.store.selectSignal(selectMonitorGroupPage);
-
-  constructor(private monitorService: MonitorService, private store: Store) {
-    effect(() => {
-      const page = this.responseSignal()?.result;
-      if (page) {
-        this.initialName = page.groupName;
-        this.form.reset({
-          name: page.groupName,
-          description: page.groupDescription,
-        });
-      }
-    });
-  }
+export class MonitorGroupUpdatePageComponent implements OnInit {
+  constructor(protected service: MonitorGroupUpdatePageService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorGroupUpdateInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorGroupUpdateDestroy());
-  }
-
-  update(groupId: string): void {
-    if (this.form.valid) {
-      this.store.dispatch(
-        actionMonitorGroupUpdate({ groupId, properties: this.form.value })
-      );
-    }
+    this.service.init();
   }
 }

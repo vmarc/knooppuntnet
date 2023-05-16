@@ -1,6 +1,5 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -14,8 +13,6 @@ import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
-import { Store } from '@ngrx/store';
-import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-details-structure',
@@ -249,8 +246,8 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedHeaders()"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders(admin)"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns(admin)"></tr>
     </table>
   `,
   styles: [
@@ -295,12 +292,11 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {
-  @Input() groupName: string;
-  @Input() routeName: string;
-  @Input() structureRows: MonitorRouteRelationStructureRow[];
-  @Input() referenceType: string;
-
-  private readonly admin = this.store.selectSignal(selectMonitorAdmin);
+  @Input({ required: true }) admin: boolean;
+  @Input({ required: true }) groupName: string;
+  @Input({ required: true }) routeName: string;
+  @Input({ required: true }) structureRows: MonitorRouteRelationStructureRow[];
+  @Input({ required: true }) referenceType: string;
 
   readonly dataSource =
     new MatTableDataSource<MonitorRouteRelationStructureRow>();
@@ -335,28 +331,26 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'deviation-distance',
   ];
 
-  readonly displayedColumns = computed(() => {
+  ngOnInit(): void {
+    this.dataSource.data = this.structureRows;
+  }
+
+  displayedColumns(admin: boolean) {
     let columns = [...this.mainColumns];
     if (this.referenceType === 'multi-gpx') {
       columns = columns.concat(this.referenceColumns);
     }
     columns = columns.concat(this.analysisColumns);
-    if (this.admin()) {
+    if (admin) {
       columns = [...columns, 'actions'];
     }
     return columns;
-  });
+  }
 
-  readonly displayedHeaders = computed(() =>
-    this.displayedColumns().filter(
+  displayedHeaders(admin: boolean) {
+    return this.displayedColumns(admin).filter(
       (name) => !this.columnsWithoutHeader.includes(name)
-    )
-  );
-
-  constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.dataSource.data = this.structureRows;
+    );
   }
 
   mapLink(): string {

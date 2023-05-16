@@ -1,78 +1,61 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
-import { selectRouteParam } from '@app/core';
-import { Store } from '@ngrx/store';
-import { MonitorService } from '../../monitor.service';
-import { actionMonitorRouteUpdatePageDestroy } from '../../store/monitor.actions';
-import { actionMonitorRouteUpdatePageInit } from '../../store/monitor.actions';
-import { selectMonitorRouteDescription } from '../../store/monitor.selectors';
-import { selectMonitorRouteUpdatePage } from '../../store/monitor.selectors';
 import { MonitorRoutePropertiesComponent } from '../components/monitor-route-properties.component';
+import { MonitorRouteUpdatePageService } from './monitor-route-update-page.service';
 
 @Component({
   selector: 'kpn-monitor-route-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
-      <li>
-        <a [routerLink]="groupLink()">{{ groupName() }}</a>
-      </li>
-      <li i18n="@@breadcrumb.monitor.route">Route</li>
-    </ul>
+    <ng-container *ngIf="service.groupName() as groupName">
+      <ul class="breadcrumb">
+        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+        </li>
+        <li>
+          <a [routerLink]="groupLink(groupName)">{{ groupName }}</a>
+        </li>
+        <li i18n="@@breadcrumb.monitor.route">Route</li>
+      </ul>
 
-    <h1>
-      <span class="kpn-label">{{ routeName() }}</span>
-      <span> {{ routeDescription() }}</span
-      >&nbsp;
-    </h1>
+      <h1>
+        <span class="kpn-label">{{ service.routeName() }}</span>
+        <span> {{ service.routeDescription() }}</span
+        >&nbsp;
+      </h1>
 
-    <h2 i18n="@@monitor.route.update.title">Update route</h2>
+      <h2 i18n="@@monitor.route.update.title">Update route</h2>
 
-    <kpn-error />
+      <kpn-error />
 
-    <div *ngIf="apiResponse() as response">
-      <kpn-monitor-route-properties
-        mode="update"
-        [groupName]="groupName()"
-        [initialProperties]="response.result.properties"
-        [routeGroups]="response.result.groups"
-      />
-    </div>
+      <div *ngIf="service.apiResponse() as response">
+        <kpn-monitor-route-properties
+          mode="update"
+          [groupName]="groupName"
+          [initialProperties]="response.result.properties"
+          [routeGroups]="response.result.groups"
+        />
+      </div>
+    </ng-container>
   `,
+  providers: [MonitorRouteUpdatePageService, NavService],
   standalone: true,
-  imports: [
-    RouterLink,
-    ErrorComponent,
-    NgIf,
-    MonitorRoutePropertiesComponent,
-    AsyncPipe,
-  ],
+  imports: [ErrorComponent, MonitorRoutePropertiesComponent, NgIf, RouterLink],
 })
-export class MonitorRouteUpdatePageComponent implements OnInit, OnDestroy {
-  readonly apiResponse = this.store.selectSignal(selectMonitorRouteUpdatePage);
-  readonly groupName = this.store.selectSignal(selectRouteParam('groupName'));
-  readonly routeName = this.store.selectSignal(selectRouteParam('routeName'));
-  readonly routeDescription = this.store.selectSignal(
-    selectMonitorRouteDescription
-  );
-  readonly groupLink = computed(() => `/monitor/groups/${this.groupName()}`);
-
-  constructor(private monitorService: MonitorService, private store: Store) {}
+export class MonitorRouteUpdatePageComponent implements OnInit {
+  constructor(protected service: MonitorRouteUpdatePageService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteUpdatePageInit());
+    this.service.init();
   }
 
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorRouteUpdatePageDestroy());
+  groupLink(groupName: string) {
+    return `/monitor/groups/${groupName}`;
   }
 }

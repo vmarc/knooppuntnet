@@ -1,18 +1,14 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { NavService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
-import { Store } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
-import { actionMonitorRouteDetailsPageDestroy } from '../../store/monitor.actions';
-import { actionMonitorRouteDetailsPageInit } from '../../store/monitor.actions';
-import { selectMonitorRouteDetailsPage } from '../../store/monitor.selectors';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
+import { MonitorRouteDetailsPageService } from './monitor-route-details-page.service';
 import { MonitorRouteDetailsReferenceComponent } from './monitor-route-details-reference.component';
 import { MonitorRouteDetailsStructureComponent } from './monitor-route-details-structure.component';
 import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-summary.component';
@@ -21,11 +17,16 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
   selector: 'kpn-monitor-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header pageName="details" />
+    <kpn-monitor-route-page-header
+      pageName="details"
+      [groupName]="service.groupName()"
+      [routeName]="service.routeName()"
+      [routeDescription]="service.routeDescription()"
+    />
 
     <kpn-monitor-admin-toggle />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+    <div *ngIf="service.apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
         Route not found
       </div>
@@ -65,6 +66,7 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
         />
         <div *ngIf="page.structureRows" class="structure">
           <kpn-monitor-route-details-structure
+            [admin]="service.admin()"
             [groupName]="page.groupName"
             [routeName]="page.routeName"
             [structureRows]="page.structureRows"
@@ -81,34 +83,24 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
       }
     `,
   ],
+  providers: [MonitorRouteDetailsPageService, NavService],
   standalone: true,
   imports: [
+    DataComponent,
+    MarkdownModule,
+    MonitorAdminToggleComponent,
+    MonitorRouteDetailsAnalysisComponent,
+    MonitorRouteDetailsReferenceComponent,
+    MonitorRouteDetailsStructureComponent,
+    MonitorRouteDetailsSummaryComponent,
     MonitorRoutePageHeaderComponent,
     NgIf,
-    DataComponent,
-    MonitorRouteDetailsSummaryComponent,
-    MonitorRouteDetailsReferenceComponent,
-    MonitorRouteDetailsAnalysisComponent,
-    MarkdownModule,
-    MonitorRouteDetailsStructureComponent,
-    AsyncPipe,
-    MonitorAdminToggleComponent,
   ],
 })
-export class MonitorRouteDetailsPageComponent implements OnInit, OnDestroy {
-  readonly apiResponse = this.store.selectSignal(selectMonitorRouteDetailsPage);
-
-  constructor(private store: Store) {}
+export class MonitorRouteDetailsPageComponent implements OnInit {
+  constructor(protected service: MonitorRouteDetailsPageService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteDetailsPageInit());
+    this.service.init();
   }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorRouteDetailsPageDestroy());
-  }
-
-  gpxUpload(): void {}
-
-  gpxDownload(): void {}
 }

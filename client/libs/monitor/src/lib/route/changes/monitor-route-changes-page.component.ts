@@ -24,7 +24,12 @@ import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-pag
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-monitor-route-page-header pageName="changes" />
+    <kpn-monitor-route-page-header
+      pageName="changes"
+      [groupName]="'service.groupName()'"
+      [routeName]="'service.routeName()'"
+      [routeDescription]="'service.routeDescription()'"
+    />
 
     <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
       <div *ngIf="!response.result">Route not found</div>

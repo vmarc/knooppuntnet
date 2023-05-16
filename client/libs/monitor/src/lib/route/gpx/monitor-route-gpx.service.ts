@@ -3,18 +3,16 @@ import { WritableSignal } from '@angular/core';
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 import { MonitorRouteGpxPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
-import { Util } from '@app/components/shared';
+import { NavService } from '@app/components/shared';
 import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class MonitorRouteGpxService {
-  readonly groupName = Util.param(this.route, 'groupName');
-  readonly routeName = Util.param(this.route, 'routeName');
-  readonly subRelationId = Util.queryParam(this.route, 'sub-relation-id');
+  readonly groupName = this.nav.param('groupName');
+  readonly routeName = this.nav.param('routeName');
+  readonly subRelationId = this.nav.queryParam('sub-relation-id');
   readonly groupLink = computed(() => `/monitor/groups/${this.groupName()}`);
   readonly routeLink = computed(
     () => `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`
@@ -22,11 +20,7 @@ export class MonitorRouteGpxService {
   readonly apiResponse: WritableSignal<ApiResponse<MonitorRouteGpxPage> | null> =
     signal(null);
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private nav: NavService, private http: HttpClient) {}
 
   init(): void {
     const url = `/api/monitor/groups/${this.groupName()}/routes/${this.routeName()}/gpx/${this.subRelationId()}`;
@@ -46,12 +40,7 @@ export class MonitorRouteGpxService {
 
     this.http
       .delete(apiUrl)
-      .pipe(
-        tap((response) => {
-          // TODO handle error
-          this.router.navigate([routeUrl]);
-        })
-      )
+      .pipe(tap(() => this.nav.go(routeUrl)))
       .subscribe();
   }
 }

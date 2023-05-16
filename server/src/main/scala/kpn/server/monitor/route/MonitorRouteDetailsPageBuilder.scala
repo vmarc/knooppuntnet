@@ -3,21 +3,26 @@ package kpn.server.monitor.route
 import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteRelationStructureRow
+import kpn.server.config.RequestContext
 import kpn.server.monitor.repository.MonitorGroupRepository
+import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorRouteDetailsPageBuilder(
+  monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository
 ) {
 
   def build(groupName: String, routeName: String): Option[MonitorRouteDetailsPage] = {
+    val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
         val structureRows = flattenRelationTree(route.relation)
         MonitorRouteDetailsPage(
+          admin,
           group.name,
           group.description,
           route.name,

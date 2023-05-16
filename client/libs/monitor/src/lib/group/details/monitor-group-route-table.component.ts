@@ -1,6 +1,5 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -11,12 +10,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteDetail } from '@api/common/monitor';
-import { PageWidthService } from '@app/components/shared';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
-import { Store } from '@ngrx/store';
-import { selectMonitorAdmin } from '../../store/monitor.selectors';
 
 @Component({
   selector: 'kpn-monitor-group-route-table',
@@ -48,7 +44,9 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           Name
         </th>
         <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeLink(route)">{{ route.name }}</a>
+          <a [routerLink]="routeLink(route)" [state]="route">{{
+            route.name
+          }}</a>
         </td>
       </ng-container>
 
@@ -70,9 +68,11 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         <td mat-cell *matCellDef="let route">
           <a
             [routerLink]="routeMapLink(route)"
+            [state]="route"
             i18n="@@monitor.group.route-table.map-link"
-            >map</a
           >
+            map
+          </a>
         </td>
       </ng-container>
 
@@ -197,6 +197,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           <button
             mat-icon-button
             [routerLink]="routeUpdateLink(route)"
+            [state]="route"
             title="Update"
             i18n-title="@@action.update"
             class="kpn-action-button kpn-link"
@@ -206,6 +207,7 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
           <button
             mat-icon-button
             [routerLink]="routeDeleteLink(route)"
+            [state]="route"
             title="delete"
             i18n-title="@@action.delete"
             class="kpn-action-button kpn-warning"
@@ -215,8 +217,8 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedHeaders()"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns()"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders(admin)"></tr>
+      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin)"></tr>
     </table>
   `,
   styles: [
@@ -272,10 +274,9 @@ import { selectMonitorAdmin } from '../../store/monitor.selectors';
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {
-  @Input() routes: MonitorRouteDetail[];
+  @Input() admin: boolean;
   @Input() groupName: string;
-
-  readonly admin = this.store.selectSignal(selectMonitorAdmin);
+  @Input() routes: MonitorRouteDetail[];
 
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 
@@ -301,26 +302,21 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     'deviation-distance',
   ];
 
-  readonly displayedColumns = computed(() => {
-    if (this.admin()) {
+  ngOnInit(): void {
+    this.dataSource.data = this.routes;
+  }
+
+  displayedColumns(admin: boolean): string[] {
+    if (admin) {
       return [...this.columns, 'actions'];
     }
     return this.columns;
-  });
+  }
 
-  readonly displayedHeaders = computed(() =>
-    this.displayedColumns().filter(
+  displayedHeaders(admin: boolean): string[] {
+    return this.displayedColumns(admin).filter(
       (name) => !this.columnsWithoutHeader.includes(name)
-    )
-  );
-
-  constructor(
-    private pageWidthService: PageWidthService,
-    private store: Store
-  ) {}
-
-  ngOnInit(): void {
-    this.dataSource.data = this.routes;
+    );
   }
 
   routeLink(route: MonitorRouteDetail): string {

@@ -4,6 +4,7 @@ import { Day } from '@api/custom';
 import { MonitorRouteRelationStructureRow } from './monitor-route-relation-structure-row';
 
 export interface MonitorRouteDetailsPage {
+  readonly adminRole: boolean;
   readonly groupName: string;
   readonly groupDescription: string;
   readonly routeName: string;

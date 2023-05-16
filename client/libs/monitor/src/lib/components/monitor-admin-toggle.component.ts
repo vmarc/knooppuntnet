@@ -3,10 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { Store } from '@ngrx/store';
-import { actionMonitorAdmin } from '../store/monitor.actions';
-import { selectMonitorAdminRole } from '../store/monitor.selectors';
-import { selectMonitorAdmin } from '../store/monitor.selectors';
+import { MonitorService } from '../monitor.service';
 
 @Component({
   selector: 'kpn-monitor-admin-toggle',
@@ -15,8 +12,8 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
     <div class="toggle">
       <mat-slide-toggle
         id="admin-toggle"
-        [disabled]="adminRole() === false"
-        [checked]="admin()"
+        [disabled]="service.adminRole() === false"
+        [checked]="service.admin()"
         (change)="adminChanged($event)"
         i18n="@@monitor.admin-toggle"
       >
@@ -38,12 +35,9 @@ import { selectMonitorAdmin } from '../store/monitor.selectors';
   imports: [MatSlideToggleModule, AsyncPipe],
 })
 export class MonitorAdminToggleComponent {
-  readonly admin = this.store.selectSignal(selectMonitorAdmin);
-  readonly adminRole = this.store.selectSignal(selectMonitorAdminRole);
+  constructor(protected service: MonitorService) {}
 
-  constructor(private store: Store) {}
-
-  adminChanged(event: MatSlideToggleChange) {
-    this.store.dispatch(actionMonitorAdmin({ admin: event.checked }));
+  adminChanged(event: MatSlideToggleChange): void {
+    this.service.setAdmin(event.checked);
   }
 }
