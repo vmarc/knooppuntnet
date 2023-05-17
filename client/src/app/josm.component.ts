@@ -1,8 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { EditParameters } from '@app/analysis/components/edit';
-import { actionSharedEdit } from '@app/core';
-import { Store } from '@ngrx/store';
+import { EditService } from '@app/components/shared';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
@@ -117,18 +115,17 @@ export class JosmComponent {
   url = `${this.url1}272946${this.url2}`;
 
   constructor(
-    private store: Store,
-    private deviceService: DeviceDetectorService
+    private deviceService: DeviceDetectorService,
+    private editService: EditService
   ) {
     this.browser = deviceService.browser;
   }
 
   josm1(): void {
-    const editParameters: EditParameters = {
+    this.editService.edit({
       relationIds: [9624148],
       fullRelation: true,
-    };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    });
   }
 
   josm3(): void {

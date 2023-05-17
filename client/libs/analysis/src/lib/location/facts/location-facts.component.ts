@@ -11,13 +11,13 @@ import { Facts } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
+import { EditService } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { BracketsComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -108,7 +108,7 @@ import { Store } from '@ngrx/store';
 export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
-  constructor(private store: Store) {}
+  constructor(private editService: EditService, private store: Store) {}
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);
@@ -130,7 +130,7 @@ export class LocationFactsComponent {
       };
     }
 
-    this.store.dispatch(actionSharedEdit(editParameters));
+    this.editService.edit(editParameters);
   }
 
   factInfo(locationFact: LocationFact): FactInfo {

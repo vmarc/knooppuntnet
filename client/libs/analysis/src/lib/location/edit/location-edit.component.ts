@@ -9,9 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LocationEditPage } from '@api/common/location';
 import { EditConfiguration } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
-import { actionSharedEdit } from '@app/core';
-import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { EditService } from '@app/components/shared';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -78,13 +76,11 @@ export class LocationEditComponent implements OnInit {
   routeRelationsSelection = true;
   fullRouteSelection = false;
 
-  subscription: Subscription;
-
   showEstimatedTime$ = new BehaviorSubject<boolean>(false);
 
   private readonly configuration = new EditConfiguration();
 
-  constructor(private store: Store) {}
+  constructor(private editService: EditService) {}
 
   ngOnInit(): void {
     this.updateExpectation();
@@ -107,7 +103,7 @@ export class LocationEditComponent implements OnInit {
 
   edit(): void {
     const editParameters = this.buildEditParameters();
-    this.store.dispatch(actionSharedEdit(editParameters));
+    this.editService.edit(editParameters);
   }
 
   private updateExpectation(): void {

@@ -6,9 +6,9 @@ import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { EditParameters } from '@app/analysis/components/edit';
 import { PageParams } from '@app/base';
+import { EditService } from '@app/components/shared';
 import { selectRouteParams } from '@app/core';
 import { selectQueryParams } from '@app/core';
-import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -115,32 +115,37 @@ export class SubsetEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  editDialog = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionSubsetFactRefsLoaded),
-      map((response) => {
-        const subsetFactRefs = response.result;
-        let editParameters: EditParameters = null;
-        if (subsetFactRefs.elementType === 'node') {
-          editParameters = {
-            nodeIds: subsetFactRefs.elementIds,
-          };
-        }
-        if (subsetFactRefs.elementType === 'way') {
-          editParameters = {
-            wayIds: subsetFactRefs.elementIds,
-          };
-        }
-        if (subsetFactRefs.elementType === 'relation') {
-          editParameters = {
-            relationIds: subsetFactRefs.elementIds,
-            fullRelation: true,
-          };
-        }
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
+  editDialog = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionSubsetFactRefsLoaded),
+        map((response) => {
+          const subsetFactRefs = response.result;
+          let editParameters: EditParameters = null;
+          if (subsetFactRefs.elementType === 'node') {
+            editParameters = {
+              nodeIds: subsetFactRefs.elementIds,
+            };
+          }
+          if (subsetFactRefs.elementType === 'way') {
+            editParameters = {
+              wayIds: subsetFactRefs.elementIds,
+            };
+          }
+          if (subsetFactRefs.elementType === 'relation') {
+            editParameters = {
+              relationIds: subsetFactRefs.elementIds,
+              fullRelation: true,
+            };
+          }
+          this.editService.edit(editParameters);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
   factDetailsPageInit = createEffect(() => {
@@ -353,6 +358,7 @@ export class SubsetEffects {
     private actions$: Actions,
     private store: Store,
     private apiService: ApiService,
+    private editService: EditService,
     private router: Router,
     private route: ActivatedRoute,
     private subsetMapService: SubsetMapService,

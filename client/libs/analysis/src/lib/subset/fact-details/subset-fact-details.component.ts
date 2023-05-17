@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset';
 import { EditParameters } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
@@ -15,7 +16,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
-import { actionSharedEdit } from '@app/core';
 import { Store } from '@ngrx/store';
 
 @Component({
@@ -156,7 +156,7 @@ export class SubsetFactDetailsComponent implements OnInit {
   refCount = 0;
   factCount = 0;
 
-  constructor(private store: Store) {}
+  constructor(private editService: EditService, private store: Store) {}
 
   ngOnInit(): void {
     this.refCount = this.calculateRefCount();
@@ -227,6 +227,6 @@ export class SubsetFactDetailsComponent implements OnInit {
         fullRelation: true,
       };
     }
-    this.store.dispatch(actionSharedEdit(editParameters));
+    this.editService.edit(editParameters);
   }
 }

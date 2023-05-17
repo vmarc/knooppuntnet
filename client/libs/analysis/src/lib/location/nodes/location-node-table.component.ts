@@ -12,6 +12,7 @@ import { TimeInfo } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
 import { NetworkScope } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
@@ -19,7 +20,6 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { JosmNodeComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { actionSharedEdit } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -211,6 +211,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   constructor(
     private pageWidthService: PageWidthService,
+    private editService: EditService,
     private store: Store
   ) {
     this.dataSource = new MatTableDataSource();
@@ -242,7 +243,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
     const editParameters: EditParameters = {
       nodeIds: this.nodes.map((node) => node.id),
     };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    this.editService.edit(editParameters);
   }
 
   private displayedColumns() {

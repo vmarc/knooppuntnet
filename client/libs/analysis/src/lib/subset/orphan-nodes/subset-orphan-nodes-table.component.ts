@@ -9,13 +9,12 @@ import { MatTableModule } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditParameters } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { JosmNodeComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
-import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -145,6 +144,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanNodesService: SubsetOrphanNodesService,
+    private editService: EditService,
     private store: Store
   ) {}
 
@@ -176,9 +176,8 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
     const nodeIds = Util.currentPageItems(this.dataSource).map(
       (node) => node.id
     );
-    const editParameters: EditParameters = {
+    this.editService.edit({
       nodeIds,
-    };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    });
   }
 }

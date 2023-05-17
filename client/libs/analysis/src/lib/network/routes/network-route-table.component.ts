@@ -13,7 +13,7 @@ import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from '@api/common/network';
 import { NetworkType } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditParameters } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
@@ -22,7 +22,6 @@ import { IntegerFormatPipe } from '@app/components/shared/format';
 import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
-import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
@@ -214,6 +213,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkRoutesService: NetworkRoutesService,
+    private editService: EditService,
     private store: Store
   ) {
     this.displayedColumns$ = pageWidthService.current$.pipe(
@@ -261,11 +261,10 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     const relationIds = Util.currentPageItems(this.dataSource).map(
       (route) => route.id
     );
-    const editParameters: EditParameters = {
+    this.editService.edit({
       relationIds,
       fullRelation: true,
-    };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    });
   }
 
   private displayedColumns() {

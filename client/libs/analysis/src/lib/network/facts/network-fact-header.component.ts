@@ -9,8 +9,7 @@ import { Facts } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
-import { actionSharedEdit } from '@app/core';
-import { Store } from '@ngrx/store';
+import { EditService } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-network-fact-header',
@@ -48,7 +47,7 @@ import { Store } from '@ngrx/store';
 export class NetworkFactHeaderComponent {
   @Input() fact: NetworkFact;
 
-  constructor(private store: Store) {}
+  constructor(private editService: EditService) {}
 
   factLevel(): FactLevel {
     return Facts.factLevels.get(this.fact.name);
@@ -84,7 +83,7 @@ export class NetworkFactHeaderComponent {
         nodeIds: networkFact.checks.map((check) => check.nodeId),
       };
     }
-    this.store.dispatch(actionSharedEdit(editParameters));
+    this.editService.edit(editParameters);
   }
 
   factInfo(networkFact: NetworkFact): FactInfo {

@@ -4,11 +4,11 @@ import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { EditParameters } from '@app/analysis/components/edit';
 import { MapPosition } from '@app/components/ol/domain';
+import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { selectQueryParam } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { selectRouteParam } from '@app/core';
-import { actionSharedEdit } from '@app/core';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -184,67 +184,89 @@ export class MonitorRouteMapEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmLoadRouteRelation = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmLoadRouteRelation),
-      concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
-      map(([_, page]) => {
-        const editParameters: EditParameters = {
-          relationIds: [page.relationId],
-          fullRelation: true,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
+  monitorRouteMapJosmLoadRouteRelation = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionMonitorRouteMapJosmLoadRouteRelation),
+        concatLatestFrom(() => [this.store.select(selectMonitorRouteMapPage)]),
+        tap(([_, page]) => {
+          const editParameters: EditParameters = {
+            relationIds: [page.relationId],
+            fullRelation: true,
+          };
+          this.editService.edit(editParameters);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitRoute = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmZoomToFitRoute),
-      concatLatestFrom(() => [this.store.select(selectMonitorRouteMapBounds)]),
-      map(([_, bounds]) => {
-        const editParameters: EditParameters = {
-          bounds,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
+  monitorRouteMapJosmZoomToFitRoute = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionMonitorRouteMapJosmZoomToFitRoute),
+        concatLatestFrom(() => [
+          this.store.select(selectMonitorRouteMapBounds),
+        ]),
+        tap(([_, bounds]) => {
+          const editParameters: EditParameters = {
+            bounds,
+          };
+          this.editService.edit(editParameters);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitSelectedDeviation = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmZoomToSelectedDeviation),
-      concatLatestFrom(() => [
-        this.store.select(selectMonitorRouteMapSelectedDeviation),
-      ]),
-      filter(([_, segment]) => !!segment),
-      map(([_, segment]) => {
-        const editParameters: EditParameters = {
-          bounds: segment.bounds,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
+  monitorRouteMapJosmZoomToFitSelectedDeviation = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionMonitorRouteMapJosmZoomToSelectedDeviation),
+        concatLatestFrom(() => [
+          this.store.select(selectMonitorRouteMapSelectedDeviation),
+        ]),
+        filter(([_, segment]) => !!segment),
+        map(([_, segment]) => {
+          const editParameters: EditParameters = {
+            bounds: segment.bounds,
+          };
+          this.editService.edit(editParameters);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
-  monitorRouteMapJosmZoomToFitSelectedOsmSegment = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorRouteMapJosmZoomToSelectedOsmSegment),
-      concatLatestFrom(() => [
-        this.store.select(selectMonitorRouteMapSelectedOsmSegment),
-      ]),
-      filter(([_, segment]) => !!segment),
-      map(([_, segment]) => {
-        const editParameters: EditParameters = {
-          bounds: segment.bounds,
-        };
-        return actionSharedEdit(editParameters);
-      })
-    );
-  });
+  monitorRouteMapJosmZoomToFitSelectedOsmSegment = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(actionMonitorRouteMapJosmZoomToSelectedOsmSegment),
+        concatLatestFrom(() => [
+          this.store.select(selectMonitorRouteMapSelectedOsmSegment),
+        ]),
+        filter(([_, segment]) => !!segment),
+        map(([_, segment]) => {
+          const editParameters: EditParameters = {
+            bounds: segment.bounds,
+          };
+          this.editService.edit(editParameters);
+        })
+      );
+    },
+    {
+      dispatch: false,
+    }
+  );
 
   // noinspection JSUnusedGlobalSymbols
   routeMapQueryParamsEffect = createEffect(
@@ -304,6 +326,7 @@ export class MonitorRouteMapEffects {
     private router: Router,
     private monitorService: MonitorService,
     private monitorRouteMapService: MonitorRouteMapService,
+    private editService: EditService,
     private activatedRoute: ActivatedRoute
   ) {}
 }

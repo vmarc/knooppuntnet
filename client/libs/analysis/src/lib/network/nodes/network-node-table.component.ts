@@ -13,7 +13,7 @@ import { NetworkNodeRow } from '@api/common/network';
 import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditParameters } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
@@ -21,7 +21,6 @@ import { DayPipe } from '@app/components/shared/format';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { JosmNodeComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
-import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
@@ -241,6 +240,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   constructor(
     private pageWidthService: PageWidthService,
     private networkNodesService: NetworkNodesService,
+    private editService: EditService,
     private store: Store
   ) {
     this.headerColumns1$ = pageWidthService.current$.pipe(
@@ -300,10 +300,9 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     const nodeIds = Util.currentPageItems(this.dataSource).map(
       (node) => node.detail.id
     );
-    const editParameters: EditParameters = {
+    this.editService.edit({
       nodeIds,
-    };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    });
   }
 
   private displayedColumns() {

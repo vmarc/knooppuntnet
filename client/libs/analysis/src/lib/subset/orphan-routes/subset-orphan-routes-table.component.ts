@@ -10,14 +10,13 @@ import { OrphanRouteInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditParameters } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
-import { actionSharedEdit } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -188,6 +187,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   constructor(
     private subsetOrphanRoutesService: SubsetOrphanRoutesService,
+    private editService: EditService,
     private store: Store
   ) {}
 
@@ -219,10 +219,9 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
     const routeIds = Util.currentPageItems(this.dataSource).map(
       (orphanRoute) => orphanRoute.id
     );
-    const editParameters: EditParameters = {
+    this.editService.edit({
       relationIds: routeIds,
       fullRelation: true,
-    };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    });
   }
 }

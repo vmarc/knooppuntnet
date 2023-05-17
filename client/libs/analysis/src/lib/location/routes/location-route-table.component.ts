@@ -13,6 +13,7 @@ import { TimeInfo } from '@api/common';
 import { LocationRouteInfo } from '@api/common/location';
 import { EditParameters } from '@app/analysis/components/edit';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
+import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
@@ -21,7 +22,6 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { actionSharedEdit } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -192,6 +192,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   constructor(
     private pageWidthService: PageWidthService,
+    private editService: EditService,
     private store: Store
   ) {
     this.dataSource = new MatTableDataSource();
@@ -224,7 +225,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
       relationIds: this.routes.map((route) => route.id),
       fullRelation: true,
     };
-    this.store.dispatch(actionSharedEdit(editParameters));
+    this.editService.edit(editParameters);
   }
 
   private displayedColumns() {
