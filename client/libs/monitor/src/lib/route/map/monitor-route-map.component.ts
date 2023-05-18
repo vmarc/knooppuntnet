@@ -5,10 +5,8 @@ import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/components/ol/components';
 import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
-import { Store } from '@ngrx/store';
+import { NavService } from '@app/components/shared';
 import { MonitorRouteMapService } from './monitor-route-map.service';
-import { actionMonitorRouteMapPageViewInit } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.actions';
 
 @Component({
   selector: 'kpn-monitor-route-map',
@@ -31,15 +29,14 @@ import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.acti
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   constructor(
     protected service: MonitorRouteMapService,
-    private store: Store
+    private navService: NavService
   ) {}
 
   ngAfterViewInit(): void {
-    this.store.dispatch(actionMonitorRouteMapPageViewInit());
+    this.service.init(this.navService.params(), this.navService.queryParams());
   }
 
   ngOnDestroy(): void {
     this.service.destroy();
-    this.store.dispatch(actionMonitorRouteMapPageDestroy());
   }
 }

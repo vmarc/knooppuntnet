@@ -22,6 +22,7 @@ import { PreloadAllModules } from '@angular/router';
 import { Router } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { appRoutes } from '@app/*';
+import { EditService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { KpnDateAdapter } from '@app/components/shared/day';
@@ -97,6 +98,7 @@ export const appConfig: ApplicationConfig = {
     IconService,
     PoiService,
     PoiNameService,
+    EditService,
     LogUpdateService,
     MatDialog,
     provideAnimations(),

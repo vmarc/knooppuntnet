@@ -3,12 +3,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor';
 import { DistancePipe } from '@app/components/shared/format';
-import { Store } from '@ngrx/store';
 import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapService } from './monitor-route-map.service';
-import { actionMonitorRouteMapSelectOsmSegment } from './store/monitor-route-map.actions';
-import { selectMonitorRouteMapSelectedOsmSegmentId } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.selectors';
 
 @Component({
   selector: 'kpn-monitor-route-map-osm-segments',
@@ -20,9 +16,9 @@ import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.sele
       [hideSingleSelectionIndicator]="true"
     >
       <mat-list-option
-        *ngFor="let segment of segments()"
+        *ngFor="let segment of service.osmSegments()"
         [value]="segment"
-        [selected]="selectedSegmentId() === segment.id"
+        [selected]="service.selectedOsmSegment()?.id === segment.id"
       >
         <div class="segment">
           <span class="segment-id">{{ segment.id }}</span>
@@ -53,25 +49,16 @@ import { selectMonitorRouteMapOsmSegments } from './store/monitor-route-map.sele
   imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
-  readonly segments = this.store.selectSignal(selectMonitorRouteMapOsmSegments);
-  readonly selectedSegmentId = this.store.selectSignal(
-    selectMonitorRouteMapSelectedOsmSegmentId
-  );
-
-  constructor(
-    private monitorRouteMapService: MonitorRouteMapService,
-    private store: Store
-  ) {}
+  constructor(protected service: MonitorRouteMapService) {}
 
   selectionChanged(event: MatSelectionListChange): void {
-    let segment: MonitorRouteSegment = null;
     if (event.options.length > 0) {
-      segment = event.options[0].value;
+      const segment = event.options[0].value;
+      this.service.selectedOsmSegmentChanged(segment);
     }
-    this.store.dispatch(actionMonitorRouteMapSelectOsmSegment(segment));
   }
 
   segmentColor(segment: MonitorRouteSegment): string {
-    return this.monitorRouteMapService.colorForSegmentId(segment.id);
+    return this.service.colorForSegmentId(segment.id);
   }
 }

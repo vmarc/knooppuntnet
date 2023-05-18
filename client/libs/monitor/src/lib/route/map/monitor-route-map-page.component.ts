@@ -1,23 +1,25 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor';
-import { Store } from '@ngrx/store';
+import { NavService } from '@app/components/shared';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
+import { MonitorRouteMapPageService } from './monitor-route-map-page.service';
 import { MonitorRouteMapComponent } from './monitor-route-map.component';
-import { actionMonitorRouteMapPageDestroy } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapPageInit } from './store/monitor-route-map.actions';
-import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header pageName="map" />
-    <div *ngIf="mapPage() as page">
+    <kpn-monitor-route-page-header
+      pageName="map"
+      [groupName]="service.groupName()"
+      [routeName]="service.routeName()"
+      [routeDescription]="service.routeDescription()"
+    />
+    <div *ngIf="mapService.page() as page">
       <div *ngIf="canDisplayMap(page); then map; else noMap"></div>
       <ng-template #noMap>
         <p i18n="@@monitor.route.map.no-map">No map</p>
@@ -27,25 +29,18 @@ import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
       </ng-template>
     </div>
   `,
+  providers: [MonitorRouteMapPageService, NavService],
   standalone: true,
-  imports: [
-    MonitorRoutePageHeaderComponent,
-    NgIf,
-    MonitorRouteMapComponent,
-    AsyncPipe,
-  ],
+  imports: [MonitorRouteMapComponent, MonitorRoutePageHeaderComponent, NgIf],
 })
-export class MonitorRouteMapPageComponent implements OnInit, OnDestroy {
-  readonly mapPage = this.store.selectSignal(selectMonitorRouteMapPage);
-
-  constructor(private store: Store) {}
+export class MonitorRouteMapPageComponent implements OnInit {
+  constructor(
+    protected service: MonitorRouteMapPageService,
+    protected mapService: MonitorRouteMapService
+  ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorRouteMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorRouteMapPageDestroy());
+    this.service.init();
   }
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {

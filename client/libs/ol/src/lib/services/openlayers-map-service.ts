@@ -37,6 +37,8 @@ export abstract class OpenlayersMapService {
   protected mapLayers: MapLayer[] = [];
   public layerStates$ = this._layerStates$.asObservable();
 
+  // TODO private readonly _mapPosition = signal<MapPosition | null>(null);
+  // TODO readonly mapPosition = this._mapPosition.asReadonly();
   private _mapPosition$ = new BehaviorSubject<MapPosition | null>(null);
   public mapPosition$ = this._mapPosition$.pipe(distinct(), debounceTime(50));
 
@@ -217,8 +219,10 @@ export abstract class OpenlayersMapService {
     const z = Math.round(zoom);
 
     const position = `${lat},${lng},${z}`;
-    const queryParams: Params = { position };
+    this.setQueryParams({ position });
+  }
 
+  protected setQueryParams(queryParams: Params): void {
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams,

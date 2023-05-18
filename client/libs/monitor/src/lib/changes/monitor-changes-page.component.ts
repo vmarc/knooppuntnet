@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -69,15 +68,14 @@ import { selectMonitorChangesPage } from '../store/monitor.selectors';
   `,
   standalone: true,
   imports: [
-    RouterLink,
-    MonitorPageMenuComponent,
     ErrorComponent,
-    NgIf,
     MatSlideToggleModule,
-    PaginatorComponent,
+    MatSlideToggleModule,
     MonitorChangesComponent,
-    AsyncPipe,
-    MatSlideToggleModule,
+    MonitorPageMenuComponent,
+    NgIf,
+    PaginatorComponent,
+    RouterLink,
   ],
 })
 export class MonitorChangesPageComponent implements OnInit, OnDestroy {

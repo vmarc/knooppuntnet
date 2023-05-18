@@ -2,19 +2,18 @@ import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { MonitorRouteMapControlJosmComponent } from './monitor-route-map-control-josm.component';
 import { MonitorRouteMapControlModeComponent } from './monitor-route-map-control-mode.component';
 import { MonitorRouteMapDeviationsComponent } from './monitor-route-map-deviations.component';
 import { MonitorRouteMapLayersComponent } from './monitor-route-map-layers.component';
 import { MonitorRouteMapOsmSegmentsComponent } from './monitor-route-map-osm-segments.component';
-import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="routeMapMode() as mode" class="control">
+    <div *ngIf="service.mode() as mode" class="control">
       <kpn-monitor-route-map-control-mode [mode]="mode" />
       <kpn-monitor-route-map-layers />
       <kpn-monitor-route-map-control-josm />
@@ -41,7 +40,5 @@ import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
   ],
 })
 export class MonitorRouteMapControlComponent {
-  readonly routeMapMode = this.store.selectSignal(selectMonitorRouteMapMode);
-
-  constructor(private store: Store) {}
+  constructor(protected service: MonitorRouteMapService) {}
 }

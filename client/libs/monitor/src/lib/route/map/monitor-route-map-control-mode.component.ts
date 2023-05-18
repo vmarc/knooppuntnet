@@ -1,21 +1,17 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { Store } from '@ngrx/store';
 import { MonitorMapMode } from './monitor-map-mode';
-import { actionMonitorRouteMapMode } from './store/monitor-route-map.actions';
-import { selectMonitorRouteMapModeSelectionEnabled } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.selectors';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-control-mode',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="modeSelectionEnabled()">
+    <div *ngIf="service.osmSegments().length > 1">
       <mat-radio-group [value]="mode" (change)="modeChanged($event)">
         <mat-radio-button value="comparison">
           <span i18n="@@monitor.route.map.mode.comparison">
@@ -24,28 +20,20 @@ import { selectMonitorRouteMapOsmSegmentCount } from './store/monitor-route-map.
         </mat-radio-button>
         <mat-radio-button value="osm-segments">
           <span i18n="@@monitor.route.map.mode.osm-segments">OSM segments</span>
-          <span class="kpn-brackets">{{ osmSegmentCount() }}</span>
+          <span class="kpn-brackets">{{ service.osmSegments().length }}</span>
         </mat-radio-button>
       </mat-radio-group>
     </div>
   `,
   standalone: true,
-  imports: [NgIf, MatRadioModule, AsyncPipe],
+  imports: [NgIf, MatRadioModule],
 })
 export class MonitorRouteMapControlModeComponent {
   @Input() mode: MonitorMapMode;
 
-  readonly osmSegmentCount = this.store.selectSignal(
-    selectMonitorRouteMapOsmSegmentCount
-  );
-
-  readonly modeSelectionEnabled = this.store.selectSignal(
-    selectMonitorRouteMapModeSelectionEnabled
-  );
-
-  constructor(private store: Store) {}
+  constructor(protected service: MonitorRouteMapService) {}
 
   modeChanged(event: MatRadioChange): void {
-    this.store.dispatch(actionMonitorRouteMapMode({ mapMode: event.value }));
+    this.service.mapModeChanged(event.value);
   }
 }

@@ -1,24 +1,16 @@
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MonitorRouteDeviation } from '@api/common/monitor';
+import { EditService } from '@app/components/shared';
 import { DistancePipe } from '@app/components/shared/format';
 import { IconHappyComponent } from '@app/components/shared/icon';
-import { Store } from '@ngrx/store';
 import { LegendLineComponent } from './legend-line';
-import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapSelectDeviation } from './store/monitor-route-map.actions';
-import { selectMonitorRouteMapSelectedDeviationId } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapOsmRelationAvailable } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapOsmRelationEmpty } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selectors';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-deviations',
@@ -26,7 +18,7 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
   template: `
     <div
       *ngIf="
-        referenceAvailable();
+        service.referenceAvailable();
         then showReferenceAvailable;
         else showNoReference
       "
@@ -39,7 +31,7 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
     <ng-template #showReferenceAvailable>
       <div
         *ngIf="
-          osmRelationAvailable();
+          service.osmRelationAvailable();
           then showOsmRelationAvailable;
           else showOsmRelationMissing
         "
@@ -51,13 +43,17 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
       </ng-template>
       <ng-template #showOsmRelationAvailable>
         <p
-          *ngIf="osmRelationEmpty()"
+          *ngIf="service.osmRelationEmpty()"
           i18n="@@monitor.route.map-deviations.relation-empty"
         >
           OSM relation empty, so no analysis results.
         </p>
         <div
-          *ngIf="hasDeviations(); then showDeviations; else showNoDeviations"
+          *ngIf="
+            service.deviations().length > 0;
+            then showDeviations;
+            else showNoDeviations
+          "
         ></div>
         <ng-template #showNoDeviations>
           <p class="kpn-spacer-above kpn-line">
@@ -89,7 +85,7 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
             <ng-template matMenuContent let-deviation="deviation">
               <button
                 mat-menu-item
-                (click)="josmZoomToSelectedDeviation()"
+                (click)="josmZoomToSelectedDeviation(deviation)"
                 i18n="@@monitor.route.map-deviations.zoom-josm"
               >
                 Go here in JOSM
@@ -110,8 +106,8 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
             [hideSingleSelectionIndicator]="true"
           >
             <mat-list-option
-              *ngFor="let deviation of deviations()"
-              [selected]="selectedDeviationId() === deviation.id"
+              *ngFor="let deviation of service.deviations()"
+              [selected]="service.selectedDeviation()?.id === deviation.id"
               [value]="deviation"
             >
               <div class="segment">
@@ -172,55 +168,36 @@ import { selectMonitorRouteMapDeviations } from './store/monitor-route-map.selec
   ],
   standalone: true,
   imports: [
-    NgIf,
+    DistancePipe,
     IconHappyComponent,
     LegendLineComponent,
-    MatMenuModule,
-    MatListModule,
-    NgFor,
     MatButtonModule,
     MatIconModule,
-    AsyncPipe,
-    DistancePipe,
+    MatListModule,
+    MatMenuModule,
+    NgFor,
+    NgIf,
   ],
 })
 export class MonitorRouteMapDeviationsComponent {
-  readonly deviations = this.store.selectSignal(
-    selectMonitorRouteMapDeviations
-  );
-
-  readonly hasDeviations = computed(() => this.deviations().length > 0);
-
-  readonly referenceAvailable = this.store.selectSignal(
-    selectMonitorRouteMapReferenceEnabled
-  );
-
-  readonly osmRelationAvailable = this.store.selectSignal(
-    selectMonitorRouteMapOsmRelationAvailable
-  );
-
-  readonly osmRelationEmpty = this.store.selectSignal(
-    selectMonitorRouteMapOsmRelationEmpty
-  );
-
-  readonly selectedDeviationId = this.store.selectSignal(
-    selectMonitorRouteMapSelectedDeviationId
-  );
-
   readonly longDistance = '> 2.5 km';
 
-  constructor(private store: Store) {}
+  constructor(
+    protected service: MonitorRouteMapService,
+    private editService: EditService
+  ) {}
 
   selectionChanged(event: MatSelectionListChange): void {
-    let deviation: MonitorRouteDeviation = null;
     if (event.options.length > 0) {
-      deviation = event.options[0].value;
+      const deviation = event.options[0].value;
+      this.service.selectedDeviationChanged(deviation);
     }
-    this.store.dispatch(actionMonitorRouteMapSelectDeviation(deviation));
   }
 
-  josmZoomToSelectedDeviation(): void {
-    this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedDeviation());
+  josmZoomToSelectedDeviation(deviation: MonitorRouteDeviation): void {
+    this.editService.edit({
+      bounds: deviation.bounds,
+    });
   }
 
   zoomToDeviationInOpenstreetMap(deviation: MonitorRouteDeviation): void {

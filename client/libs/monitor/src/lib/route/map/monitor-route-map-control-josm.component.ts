@@ -1,16 +1,12 @@
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { Store } from '@ngrx/store';
-import { actionMonitorRouteMapZoomToFitRoute } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapJosmZoomToSelectedOsmSegment } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapJosmLoadRouteRelation } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapJosmZoomToSelectedDeviation } from './store/monitor-route-map.actions';
-import { actionMonitorRouteMapJosmZoomToFitRoute } from './store/monitor-route-map.actions';
-import { selectMonitorRouteMapSelectedOsmSegmentDisabled } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-route-map.selectors';
+import { EditService } from '@app/components/shared';
+import { MonitorMapMode } from './monitor-map-mode';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-control-josm',
@@ -78,33 +74,47 @@ import { selectMonitorRouteMapSelectedDeviationDisabled } from './store/monitor-
   imports: [MatButtonModule, MatMenuModule, AsyncPipe],
 })
 export class MonitorRouteMapControlJosmComponent {
-  readonly josmZoomToSelectedDeviationDisabled = this.store.selectSignal(
-    selectMonitorRouteMapSelectedDeviationDisabled
+  readonly josmZoomToSelectedDeviationDisabled = computed(
+    () =>
+      this.service.mode() !== MonitorMapMode.comparison ||
+      !this.service.selectedDeviation()
   );
 
-  readonly josmZoomToSelectedOsmSegmentDisabled = this.store.selectSignal(
-    selectMonitorRouteMapSelectedOsmSegmentDisabled
+  readonly josmZoomToSelectedOsmSegmentDisabled = computed(
+    () =>
+      this.service.mode() !== MonitorMapMode.osmSegments ||
+      !this.service.selectedOsmSegment()
   );
 
-  constructor(private store: Store) {}
+  constructor(
+    protected service: MonitorRouteMapService,
+    private editService: EditService
+  ) {}
 
   zoomToFitRoute(): void {
-    this.store.dispatch(actionMonitorRouteMapZoomToFitRoute());
+    this.service.focus(this.service.page().bounds);
   }
 
   josmLoadRouteRelation(): void {
-    this.store.dispatch(actionMonitorRouteMapJosmLoadRouteRelation());
+    const relationIds = [this.service.page().relationId];
+    this.editService.edit({
+      relationIds,
+      fullRelation: true,
+    });
   }
 
   josmZoomToFitRoute(): void {
-    this.store.dispatch(actionMonitorRouteMapJosmZoomToFitRoute());
+    const bounds = this.service.page().bounds;
+    this.editService.edit({ bounds });
   }
 
   josmZoomToSelectedDeviation(): void {
-    this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedDeviation());
+    const bounds = this.service.selectedDeviation().bounds;
+    this.editService.edit({ bounds });
   }
 
   josmZoomToSelectedOsmSegment(): void {
-    this.store.dispatch(actionMonitorRouteMapJosmZoomToSelectedOsmSegment());
+    const bounds = this.service.selectedOsmSegment().bounds;
+    this.editService.edit({ bounds });
   }
 }

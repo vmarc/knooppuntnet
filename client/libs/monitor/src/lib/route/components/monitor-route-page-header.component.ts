@@ -12,7 +12,6 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { Store } from '@ngrx/store';
-import { actionMonitorRouteMapSelectSubRelation } from '../map/store/monitor-route-map.actions';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
 @Component({
@@ -127,7 +126,8 @@ export class MonitorRoutePageHeaderComponent {
   constructor(private store: Store) {}
 
   select(subRelation: MonitorRouteSubRelation): void {
-    this.store.dispatch(actionMonitorRouteMapSelectSubRelation(subRelation));
+    throw new Error('this sub menu should be moved to the map page service?');
+    // this.store.dispatch(actionMonitorRouteMapSelectSubRelation(subRelation));
   }
 
   groupLink(): string {

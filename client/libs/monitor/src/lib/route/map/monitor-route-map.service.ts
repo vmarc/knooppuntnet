@@ -1,5 +1,10 @@
+import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { Params } from '@angular/router';
 import { Bounds } from '@api/common';
+import { MonitorRouteSegment } from '@api/common/monitor';
+import { MonitorRouteDeviation } from '@api/common/monitor';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { MapPosition } from '@app/components/ol/domain';
 import { ZoomLevel } from '@app/components/ol/domain';
@@ -9,8 +14,6 @@ import { MapLayerRegistry } from '@app/components/ol/layers';
 import { OsmLayer } from '@app/components/ol/layers';
 import { OpenlayersMapService } from '@app/components/ol/services';
 import { Util } from '@app/components/shared';
-import { Subscriptions } from '@app/util';
-import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
 import { GeoJSON } from 'ol/format';
 import { Geometry } from 'ol/geom';
@@ -20,18 +23,57 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
-import { selectMonitorRouteMapReferenceEnabled } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapMode } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapMatchesVisible } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapDeviationsVisible } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapOsmRelationVisible } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapReferenceVisible } from './store/monitor-route-map.selectors';
-import { selectMonitorRouteMapPage } from './store/monitor-route-map.selectors';
+import { MonitorMapMode } from './monitor-map-mode';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MonitorRouteMapService extends OpenlayersMapService {
+  private readonly _page = signal<MonitorRouteMapPage | null>(null);
+
+  private readonly _mode = signal<MonitorMapMode>(MonitorMapMode.comparison);
+  private readonly _referenceVisible = signal(false);
+  private readonly _matchesVisible = signal(false);
+  private readonly _deviationsVisible = signal(false);
+  private readonly _osmRelationVisible = signal(false);
+  private readonly _osmRelationAvailable = signal(false);
+  private readonly _osmRelationEmpty = signal(false);
+  // private readonly _pages: Map<number, MonitorRouteMapPage> | undefined;
+  // private readonly _page: MonitorRouteMapPage | undefined;
+  private readonly _selectedDeviation = signal<MonitorRouteDeviation | null>(
+    null
+  );
+  private readonly _selectedOsmSegment = signal<MonitorRouteSegment | null>(
+    null
+  );
+
+  private readonly _referenceType = signal('osm');
+  private readonly _referenceAvailable = signal(false);
+  private readonly _matchesEnabled = signal(false);
+  private readonly _gpxDeviationsEnabled = signal(false);
+  private readonly _osmRelationEnabled = signal(false);
+  private readonly _deviations = signal<MonitorRouteDeviation[]>([]);
+  private readonly _osmSegments = signal<MonitorRouteSegment[]>([]);
+
+  readonly page = this._page.asReadonly();
+  readonly mode = this._mode.asReadonly();
+  readonly referenceVisible = this._referenceVisible.asReadonly();
+  readonly matchesVisible = this._matchesVisible.asReadonly();
+  readonly deviationsVisible = this._deviationsVisible.asReadonly();
+  readonly osmRelationVisible = this._osmRelationVisible.asReadonly();
+  readonly osmRelationAvailable = this._osmRelationAvailable.asReadonly();
+  readonly osmRelationEmpty = this._osmRelationEmpty.asReadonly();
+  // readonly pages= this._mode.asReadonly();
+  // readonly page= this._mode.asReadonly();
+  readonly selectedDeviation = this._selectedDeviation.asReadonly();
+  readonly selectedOsmSegment = this._selectedOsmSegment.asReadonly();
+
+  readonly referenceType = this._referenceType.asReadonly();
+  readonly referenceAvailable = this._referenceAvailable.asReadonly();
+  readonly matchesEnabled = this._matchesEnabled.asReadonly();
+  readonly gpxDeviationsEnabled = this._gpxDeviationsEnabled.asReadonly();
+  readonly osmRelationEnabled = this._osmRelationEnabled.asReadonly();
+  readonly deviations = this._deviations.asReadonly();
+  readonly osmSegments = this._osmSegments.asReadonly();
+
   private readonly colors = [
     'red',
     'yellow',
@@ -50,43 +92,94 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.fixedStyle(color, 4)
   );
 
-  private readonly page$ = this.store.select(selectMonitorRouteMapPage);
-
   private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly matchesLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly deviationsLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
-  private readonly extraSubscriptions = new Subscriptions();
-
-  private mode = '';
-  private referenceAvailable = false;
-
-  constructor(private store: Store) {
+  constructor() {
     super();
     this.referenceLayer = this.buildReferencesLayer();
     this.matchesLayer = this.buildMatchesLayer();
     this.deviationsLayer = this.buildDeviationsLayer();
     this.osmRelationLayer = this.buildOsmRelationLayer();
     this.initialize();
-
-    this.extraSubscriptions.add(
-      this.store.select(selectMonitorRouteMapMode).subscribe((mode) => {
-        this.mode = mode;
-        this.osmRelationLayer.changed();
-      })
-    );
-
-    this.extraSubscriptions.add(
-      this.store
-        .select(selectMonitorRouteMapReferenceEnabled)
-        .subscribe((enabled) => {
-          this.referenceAvailable = enabled;
-        })
-    );
   }
 
-  init(page: MonitorRouteMapPage, mapPositionFromUrl: MapPosition): void {
+  init(params: Params, queryParams: Params): void {
+    const param = queryParams['position'];
+    const mapPositionFromUrl = MapPosition.fromQueryParam(param);
+
+    const matchesParam = queryParams['matches'];
+    let matchesVisible =
+      !!this.page().matchesGeoJson && this.page().osmSegments.length > 0;
+    if (matchesVisible && matchesParam) {
+      matchesVisible = matchesParam === 'true';
+    }
+    this._matchesVisible.set(matchesVisible);
+
+    const deviationsParam = queryParams['deviations'];
+    let deviationsVisible = this.page().deviations.length > 0;
+    if (deviationsVisible && deviationsParam) {
+      deviationsVisible = deviationsParam === 'true';
+    }
+    this._deviationsVisible.set(deviationsVisible);
+
+    const osmRelationParam = queryParams['osm-relation'];
+    let osmRelationVisible = this.page().osmSegments.length > 0;
+    if (osmRelationVisible && osmRelationParam) {
+      osmRelationVisible = osmRelationParam === 'true';
+    }
+    this._osmRelationVisible.set(osmRelationVisible);
+
+    this._osmRelationEnabled.set(!!this.page().relationId);
+
+    const osmRelationEmpty =
+      this.page().osmSegments.length === 0 && !!this.page().relationId;
+    this._osmRelationEmpty.set(osmRelationEmpty);
+
+    const referenceAvailable = (this.page().reference?.geoJson.length ?? 0) > 0;
+    const referenceParam = queryParams['reference'];
+    let referenceVisible =
+      referenceAvailable &&
+      !(matchesVisible || deviationsVisible || osmRelationVisible);
+    if (referenceAvailable && referenceParam) {
+      referenceVisible = referenceParam === 'true';
+    }
+    this._referenceAvailable.set(referenceAvailable);
+    this._referenceVisible.set(referenceVisible);
+
+    let mode = MonitorMapMode.comparison;
+    const modeParam = queryParams['mode'];
+    if (modeParam) {
+      if (modeParam === 'osm-segments') {
+        mode = MonitorMapMode.osmSegments;
+      }
+    }
+    this._mode.set(mode);
+
+    const selectedDeviationParameter = queryParams['selected-deviation'];
+    if (!isNaN(Number(selectedDeviationParameter))) {
+      const id = +selectedDeviationParameter;
+      const selectedDeviation = this.page().deviations?.find(
+        (d) => d.id === id
+      );
+      if (selectedDeviation) {
+        this._selectedDeviation.set(selectedDeviation);
+      }
+    }
+
+    const selectedOsmSegmentParam = queryParams['selected-osm-segment'];
+    if (!isNaN(Number(selectedOsmSegmentParam))) {
+      const id = +selectedOsmSegmentParam;
+      const selectedOsmSegment = this.page().osmSegments.find(
+        (segment) => segment.id === id
+      );
+      if (selectedOsmSegment) {
+        this._selectedOsmSegment.set(selectedOsmSegment);
+      }
+    }
+
     this.registerLayers();
     this.initMap(
       new Map({
@@ -111,14 +204,121 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       const center: Coordinate = [mapPositionFromUrl.x, mapPositionFromUrl.y];
       this.map.getView().setCenter(center);
     } else {
-      this.map.getView().fit(Util.toExtent(page.bounds, 0.05));
+      this.map.getView().fit(Util.toExtent(this.page().bounds, 0.05));
     }
     this.finalizeSetup(true);
   }
 
-  override destroy(): void {
-    this.extraSubscriptions.unsubscribe();
-    super.destroy();
+  referenceVisibleChanged(visible: boolean): void {
+    this._referenceVisible.set(visible);
+    this.updateQueryParams();
+  }
+
+  matchesVisibleChanged(value: boolean): void {
+    this._matchesVisible.set(value);
+    this.updateQueryParams();
+  }
+
+  deviationsVisibleChanged(value: boolean): void {
+    this._deviationsVisible.set(value);
+    this.updateQueryParams();
+  }
+
+  osmRelationVisibleChanged(value: boolean): void {
+    this._osmRelationVisible.set(value);
+    this.updateQueryParams();
+  }
+
+  selectedDeviationChanged(deviation: MonitorRouteDeviation): void {
+    this._selectedDeviation.set(deviation);
+  }
+
+  selectedOsmSegmentChanged(osmSegment: MonitorRouteSegment): void {
+    this._selectedOsmSegment.set(osmSegment);
+  }
+
+  mapModeChanged(mode: MonitorMapMode): void {
+    const referenceVisible = false;
+    let matchesVisible = false;
+    let deviationsVisible = false;
+    let osmRelationVisible = false;
+    if (mode === MonitorMapMode.comparison) {
+      matchesVisible = !!this.page()?.reference.geoJson;
+      deviationsVisible = this.deviations().length > 0;
+      osmRelationVisible = this.osmSegments().length > 0;
+    } else if (mode === MonitorMapMode.osmSegments) {
+      osmRelationVisible = true;
+    }
+
+    this._mode.set(mode);
+    this._referenceVisible.set(referenceVisible);
+    this._matchesVisible.set(matchesVisible);
+    this._deviationsVisible.set(deviationsVisible);
+    this._osmRelationVisible.set(osmRelationVisible);
+    this._selectedDeviation.set(null);
+    this._selectedOsmSegment.set(null);
+
+    this.osmRelationLayer.changed();
+
+    this.updateQueryParams();
+  }
+
+  pageChanged(page: MonitorRouteMapPage): void {
+    this._page.set(page);
+
+    this._referenceType.set(page.reference.referenceType);
+    this._referenceAvailable.set(!!page.reference.geoJson);
+    this._matchesEnabled.set(
+      this.mode() === 'comparison' && !!page.matchesGeoJson
+    );
+    this._gpxDeviationsEnabled.set(
+      this.mode() === MonitorMapMode.comparison &&
+        (page.deviations.length ?? 0) > 0
+    );
+    this._osmRelationEnabled.set((page.osmSegments.length ?? 0) > 0);
+    this._deviations.set(page.deviations);
+    this._osmSegments.set(page.osmSegments);
+
+    this.referenceLayer.getSource().clear();
+    if (page?.reference?.geoJson) {
+      const features = new GeoJSON().readFeatures(page.reference.geoJson, {
+        featureProjection: 'EPSG:3857',
+      });
+      this.referenceLayer.getSource().addFeatures(features);
+    }
+
+    this.matchesLayer.getSource().clear();
+    if (page?.matchesGeoJson) {
+      const features = new GeoJSON().readFeatures(page.matchesGeoJson, {
+        featureProjection: 'EPSG:3857',
+      });
+      this.matchesLayer.getSource().addFeatures(features);
+    }
+
+    this.deviationsLayer.getSource().clear();
+    if (page?.deviations) {
+      const features = [];
+      page.deviations.forEach((segment) => {
+        new GeoJSON()
+          .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
+          .forEach((feature) => features.push(feature));
+      });
+      this.deviationsLayer.getSource().addFeatures(features);
+    }
+
+    this.osmRelationLayer.getSource().clear();
+    if (page?.osmSegments) {
+      const features = [];
+      page.osmSegments.forEach((segment) => {
+        new GeoJSON()
+          .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
+          .forEach((feature) => {
+            feature.set('segmentId', segment.id);
+            features.push(feature);
+          });
+      });
+      this.osmRelationLayer.getSource().addFeatures(features);
+    }
   }
 
   focus(bounds: Bounds): void {
@@ -145,82 +345,24 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   private initialize(): void {
-    this.extraSubscriptions.add(
-      this.store
-        .select(selectMonitorRouteMapReferenceVisible)
-        .subscribe((visible) => {
-          this.referenceLayer.setVisible(visible);
-        })
-    );
-
-    this.extraSubscriptions.add(
-      this.store
-        .select(selectMonitorRouteMapMatchesVisible)
-        .subscribe((visible) => {
-          this.matchesLayer.setVisible(visible);
-        })
-    );
-
-    this.extraSubscriptions.add(
-      this.store
-        .select(selectMonitorRouteMapDeviationsVisible)
-        .subscribe((visible) => {
-          this.deviationsLayer.setVisible(visible);
-        })
-    );
-
-    this.extraSubscriptions.add(
-      this.store
-        .select(selectMonitorRouteMapOsmRelationVisible)
-        .subscribe((visible) => {
-          this.osmRelationLayer.setVisible(visible);
-        })
-    );
-
-    this.extraSubscriptions.add(
-      this.page$.subscribe((page) => {
-        this.referenceLayer.getSource().clear();
-        if (page?.reference?.geoJson) {
-          const features = new GeoJSON().readFeatures(page.reference.geoJson, {
-            featureProjection: 'EPSG:3857',
-          });
-          this.referenceLayer.getSource().addFeatures(features);
-        }
-
-        this.matchesLayer.getSource().clear();
-        if (page?.matchesGeoJson) {
-          const features = new GeoJSON().readFeatures(page.matchesGeoJson, {
-            featureProjection: 'EPSG:3857',
-          });
-          this.matchesLayer.getSource().addFeatures(features);
-        }
-
-        this.deviationsLayer.getSource().clear();
-        if (page?.deviations) {
-          const features = [];
-          page.deviations.forEach((segment) => {
-            new GeoJSON()
-              .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
-              .forEach((feature) => features.push(feature));
-          });
-          this.deviationsLayer.getSource().addFeatures(features);
-        }
-
-        this.osmRelationLayer.getSource().clear();
-        if (page?.osmSegments) {
-          const features = [];
-          page.osmSegments.forEach((segment) => {
-            new GeoJSON()
-              .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
-              .forEach((feature) => {
-                feature.set('segmentId', segment.id);
-                features.push(feature);
-              });
-          });
-          this.osmRelationLayer.getSource().addFeatures(features);
-        }
-      })
-    );
+    effect(() => {
+      this.referenceLayer.setVisible(this.referenceVisible());
+    });
+    effect(() => {
+      this.matchesLayer.setVisible(this.matchesVisible());
+    });
+    effect(() => {
+      this.deviationsLayer.setVisible(this.deviationsVisible());
+    });
+    effect(() => {
+      this.osmRelationLayer.setVisible(this.osmRelationVisible());
+    });
+    effect(() => {
+      const deviation = this.selectedDeviation();
+      if (deviation) {
+        this.focus(deviation.bounds);
+      }
+    });
   }
 
   private buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {
@@ -251,16 +393,15 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   private buildOsmRelationLayer(): VectorLayer<VectorSource<Geometry>> {
-    const self = this;
     const thinStyle = this.fixedStyle('gold', 4);
     const thickStyle = this.fixedStyle('gold', 10);
 
     const styleFunction = (feature) => {
-      if (self.mode === 'osm-segments') {
+      if (this.mode() === 'osm-segments') {
         const segmentId = feature.get('segmentId');
-        return self.styleForSegmentId(segmentId);
+        return this.styleForSegmentId(segmentId);
       }
-      if (self.referenceAvailable) {
+      if (this.referenceAvailable()) {
         return thickStyle;
       }
       return thinStyle;
@@ -280,5 +421,30 @@ export class MonitorRouteMapService extends OpenlayersMapService {
         width,
       }),
     });
+  }
+
+  private updateQueryParams(): void {
+    let selectedDeviation = 0;
+    if (this.selectedDeviation()) {
+      selectedDeviation = this.selectedDeviation().id;
+    }
+    let selectedOsmSegment = 0;
+    if (this.selectedOsmSegment()) {
+      selectedOsmSegment = this.selectedOsmSegment().id;
+    }
+    const subRelationId = this.page().currentSubRelation?.relationId ?? 0;
+
+    const queryParams: Params = {
+      mode: this.mode(),
+      reference: this.referenceVisible(),
+      matches: this.matchesVisible(),
+      deviations: this.deviationsVisible(),
+      'osm-relation': this.osmRelationVisible(),
+      'selected-deviation': selectedDeviation,
+      'selected-osm-segment': selectedOsmSegment,
+      'sub-relation-id': subRelationId,
+    };
+
+    this.setQueryParams(queryParams);
   }
 }

@@ -1,6 +1,5 @@
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
-import { actionMonitorRouteMapPageLoaded } from '../route/map/store/monitor-route-map.actions';
 import { actionMonitorRouteGpxPageDestroy } from './monitor.actions';
 import { actionMonitorRouteGpxPageLoaded } from './monitor.actions';
 import { actionMonitorRouteGpxPageLoad } from './monitor.actions';
@@ -40,7 +39,6 @@ import { actionMonitorNavigateGroup } from './monitor.actions';
 import { actionMonitorGroupUpdateLoaded } from './monitor.actions';
 import { actionMonitorGroupDeleteLoaded } from './monitor.actions';
 import { actionMonitorGroupsPageLoaded } from './monitor.actions';
-import { actionMonitorAdmin } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteDetailsPageLoaded } from './monitor.actions';
@@ -50,13 +48,6 @@ import { initialState } from './monitor.state';
 
 export const monitorReducer = createReducer<MonitorState>(
   initialState,
-  on(
-    actionMonitorAdmin,
-    (state, { admin }): MonitorState => ({
-      ...state,
-      admin,
-    })
-  ),
   on(
     actionMonitorChangesPageInit,
     (state): MonitorState => ({
@@ -454,22 +445,6 @@ export const monitorReducer = createReducer<MonitorState>(
       ...state,
       routeName: undefined,
       routeChangePage: undefined,
-    };
-  }),
-  on(actionMonitorRouteMapPageLoaded, (state, { page }): MonitorState => {
-    const relationId = page?.relationId ?? state.relationId;
-    const routeName = page?.routeName ?? state.routeName;
-    const routeDescription = page?.routeDescription ?? state.routeDescription;
-    const groupName = page?.groupName ?? state.groupName;
-    const groupDescription = page?.groupDescription ?? state.groupDescription;
-
-    return {
-      ...state,
-      relationId,
-      routeName,
-      routeDescription,
-      groupName,
-      groupDescription,
     };
   })
 );

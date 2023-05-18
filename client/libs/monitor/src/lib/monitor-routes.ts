@@ -22,9 +22,6 @@ import { MonitorRouteGpxComponent } from './route/gpx/monitor-route-gpx.componen
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapService } from './route/map/monitor-route-map.service';
-import { MonitorRouteMapEffects } from './route/map/store/monitor-route-map.effects';
-import { monitorRouteMapReducer } from './route/map/store/monitor-route-map.reducer';
-import { monitorRouteMapFeatureKey } from './route/map/store/monitor-route-map.state';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
@@ -38,13 +35,8 @@ export const monitorRoutes: Routes = [
         name: monitorFeatureKey,
         reducer: monitorReducer,
       }),
-      provideState({
-        name: monitorRouteMapFeatureKey,
-        reducer: monitorRouteMapReducer,
-      }),
-      provideEffects([MonitorEffects, MonitorRouteMapEffects]),
+      provideEffects([MonitorEffects]),
       MonitorService,
-      MonitorRouteMapService,
     ],
     children: [
       Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),
@@ -65,11 +57,21 @@ export const monitorRoutes: Routes = [
         MonitorRouteDetailsPageComponent,
         SidebarComponent
       ),
-      Util.routePath(
-        'groups/:groupName/routes/:routeName/map',
-        MonitorRouteMapPageComponent,
-        MonitorRouteMapSidebarComponent
-      ),
+      {
+        path: 'groups/:groupName/routes/:routeName/map',
+        providers: [MonitorRouteMapService],
+        children: [
+          {
+            path: '',
+            component: MonitorRouteMapPageComponent,
+          },
+          {
+            path: '',
+            component: MonitorRouteMapSidebarComponent,
+            outlet: 'sidebar',
+          },
+        ],
+      },
       Util.routePath(
         'groups/:groupName/routes/:routeName/gpx',
         MonitorRouteGpxComponent,
