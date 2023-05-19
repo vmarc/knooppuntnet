@@ -1,4 +1,5 @@
 import { NgIf } from '@angular/common';
+import { AfterViewInit } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,8 +20,8 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       [routeName]="service.routeName()"
       [routeDescription]="service.routeDescription()"
     />
-    <div *ngIf="mapService.page() as page">
-      <div *ngIf="canDisplayMap(page); then map; else noMap"></div>
+    <div *ngIf="mapService.page() !== null">
+      <div *ngIf="canDisplayMap(mapService.page()); then map; else noMap"></div>
       <ng-template #noMap>
         <p i18n="@@monitor.route.map.no-map">No map</p>
       </ng-template>
@@ -33,14 +34,20 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   standalone: true,
   imports: [MonitorRouteMapComponent, MonitorRoutePageHeaderComponent, NgIf],
 })
-export class MonitorRouteMapPageComponent implements OnInit {
+export class MonitorRouteMapPageComponent implements OnInit, AfterViewInit {
   constructor(
     protected service: MonitorRouteMapPageService,
     protected mapService: MonitorRouteMapService
   ) {}
 
   ngOnInit(): void {
+    console.log('MonitorRouteMapPageComponent.ngOnInit()');
+    // console.log('MonitorRouteMapPageComponent.ngAfterContentChecked()');
     this.service.init();
+  }
+
+  ngAfterViewInit(): void {
+    console.log('MonitorRouteMapPageComponent.ngAfterViewInit()');
   }
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {

@@ -98,7 +98,12 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
   constructor() {
+    console.log('MonitorRouteMapService.constructor');
     super();
+    effect(() => {
+      console.log('EFFECT referenceVisible=' + this.referenceVisible());
+    });
+
     this.referenceLayer = this.buildReferencesLayer();
     this.matchesLayer = this.buildMatchesLayer();
     this.deviationsLayer = this.buildDeviationsLayer();
@@ -264,8 +269,6 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    this._page.set(page);
-
     this._referenceType.set(page.reference.referenceType);
     this._referenceAvailable.set(!!page.reference.geoJson);
     this._matchesEnabled.set(
@@ -319,6 +322,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       });
       this.osmRelationLayer.getSource().addFeatures(features);
     }
+    console.log('MonitorRouteMapService setting page');
+    this._page.set(page);
   }
 
   focus(bounds: Bounds): void {

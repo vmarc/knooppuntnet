@@ -1,4 +1,3 @@
-import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Util } from '@app/components/shared';
@@ -9,7 +8,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
 @Injectable()
 export class MonitorRouteMapPageService {
   private pages: Map<number, MonitorRouteMapPage> = new Map();
-  private readonly apiResponse = Util.response<MonitorRouteMapPage>();
   private readonly _routeDescription = this.nav.state('description');
 
   readonly groupName = this.nav.param('groupName');
@@ -21,15 +19,7 @@ export class MonitorRouteMapPageService {
     private monitorService: MonitorService,
     private mapService: MonitorRouteMapService,
     private nav: NavService
-  ) {
-    effect(() => {
-      const page = this.apiResponse()?.result;
-      if (page) {
-        this.pages.set(page.currentSubRelation.relationId, page);
-        this.mapService.pageChanged(page);
-      }
-    });
-  }
+  ) {}
 
   init(): void {
     const subRelationIdParameter = this.subRelationId();
@@ -44,15 +34,22 @@ export class MonitorRouteMapPageService {
       this.monitorService
         .routeMap(this.groupName(), this.routeName(), relationId)
         .subscribe((response) => {
+          console.log('MonitorRouteMapPageService processing api response');
           if (response.result) {
-            let relationId = 0;
-            if (response.result.currentSubRelation) {
-              relationId = response.result.currentSubRelation.relationId;
-            } else if (response.result.relationId) {
-              relationId = response.result.relationId;
+            const page = response.result;
+            if (page) {
+              let relationId = 0;
+              if (page.currentSubRelation) {
+                relationId = page.currentSubRelation.relationId;
+              } else if (page.relationId) {
+                relationId = page.relationId;
+              }
+              console.log('MonitorRouteMapPageService caching result');
+              this.pages.set(relationId, page);
+              console.log('MonitorRouteMapPageService pageChanged start');
+              this.mapService.pageChanged(page);
+              console.log('MonitorRouteMapPageService pageChanged done');
             }
-            this.pages.set(relationId, response.result);
-            this.mapService.pageChanged(response.result);
           }
         });
     }

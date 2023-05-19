@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -10,7 +9,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   selector: 'kpn-monitor-route-map-layers',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="service.mode()" class="map-layers">
+    <div class="map-layers">
       <ng-container *ngIf="service.referenceType()">
         <mat-checkbox
           [checked]="service.referenceVisible()"
@@ -99,8 +98,10 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     `,
   ],
   standalone: true,
-  imports: [NgIf, MatCheckboxModule, LegendLineComponent, AsyncPipe],
+  imports: [NgIf, MatCheckboxModule, LegendLineComponent],
 })
 export class MonitorRouteMapLayersComponent {
-  constructor(protected service: MonitorRouteMapService) {}
+  constructor(protected service: MonitorRouteMapService) {
+    console.log('MonitorRouteMapLayersComponent.constructor()');
+  }
 }
