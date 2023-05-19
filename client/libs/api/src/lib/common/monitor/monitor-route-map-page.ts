@@ -12,6 +12,7 @@ export interface MonitorRouteMapPage {
   readonly routeDescription: string;
   readonly groupName: string;
   readonly groupDescription: string;
+  readonly referenceType: string;
   readonly bounds: Bounds;
   readonly currentSubRelation: MonitorRouteSubRelation;
   readonly previousSubRelation: MonitorRouteSubRelation;

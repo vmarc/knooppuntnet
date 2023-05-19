@@ -102,7 +102,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 })
 export class MonitorRouteMapLayersComponent {
   readonly referenceType = computed(() => {
-    return this.service.page().reference.referenceType;
+    return this.service.page().referenceType;
   });
   readonly osmRelationEnabled = computed(() => {
     return this.service.page().osmSegments.length > 0;

@@ -8,6 +8,7 @@ case class MonitorRouteMapPage(
   routeDescription: String,
   groupName: String,
   groupDescription: String,
+  referenceType: String, // "osm" | "gpx" | "multi-gpx"
   bounds: Option[Bounds],
   currentSubRelation: Option[MonitorRouteSubRelation],
   previousSubRelation: Option[MonitorRouteSubRelation],

@@ -63,7 +63,8 @@ export class MonitorRouteMapPageComponent implements OnInit {
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {
     return (
-      !!page &&
+      page &&
+      page.bounds &&
       (page.bounds.minLat !== 0 ||
         page.bounds.minLon !== 0 ||
         page.bounds.maxLat !== 0 ||
