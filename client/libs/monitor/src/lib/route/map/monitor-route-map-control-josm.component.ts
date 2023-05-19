@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { EditService } from '@app/components/shared';
 import { MonitorMapMode } from './monitor-map-mode';
-import { MonitorRouteMapService } from './monitor-route-map.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-control-josm',
@@ -87,12 +87,12 @@ export class MonitorRouteMapControlJosmComponent {
   );
 
   constructor(
-    protected service: MonitorRouteMapService,
+    protected service: MonitorRouteMapStateService,
     private editService: EditService
   ) {}
 
   zoomToFitRoute(): void {
-    this.service.focus(this.service.page().bounds);
+    this.service.focusChanged(this.service.page().bounds);
   }
 
   josmLoadRouteRelation(): void {

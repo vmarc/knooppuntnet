@@ -10,7 +10,7 @@ import { EditService } from '@app/components/shared';
 import { DistancePipe } from '@app/components/shared/format';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { LegendLineComponent } from './legend-line';
-import { MonitorRouteMapService } from './monitor-route-map.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-deviations',
@@ -183,7 +183,7 @@ export class MonitorRouteMapDeviationsComponent {
   readonly longDistance = '> 2.5 km';
 
   constructor(
-    protected service: MonitorRouteMapService,
+    protected service: MonitorRouteMapStateService,
     private editService: EditService
   ) {}
 

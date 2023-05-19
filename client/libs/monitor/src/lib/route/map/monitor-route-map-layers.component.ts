@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LegendLineComponent } from './legend-line';
-import { MonitorRouteMapService } from './monitor-route-map.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-layers',
@@ -101,7 +101,5 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [NgIf, MatCheckboxModule, LegendLineComponent],
 })
 export class MonitorRouteMapLayersComponent {
-  constructor(protected service: MonitorRouteMapService) {
-    console.log('MonitorRouteMapLayersComponent.constructor()');
-  }
+  constructor(protected service: MonitorRouteMapStateService) {}
 }

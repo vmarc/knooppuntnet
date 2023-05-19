@@ -7,7 +7,7 @@ import { MonitorRouteMapControlModeComponent } from './monitor-route-map-control
 import { MonitorRouteMapDeviationsComponent } from './monitor-route-map-deviations.component';
 import { MonitorRouteMapLayersComponent } from './monitor-route-map-layers.component';
 import { MonitorRouteMapOsmSegmentsComponent } from './monitor-route-map-osm-segments.component';
-import { MonitorRouteMapService } from './monitor-route-map.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-sidebar',
@@ -15,7 +15,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   template: `
     <kpn-sidebar>
       <div *ngIf="service.page() !== null" class="control">
-        <kpn-monitor-route-map-control-mode [mode]="service.mode()" />
+        <kpn-monitor-route-map-control-mode />
         <kpn-monitor-route-map-layers />
         <kpn-monitor-route-map-control-josm />
         <kpn-monitor-route-map-deviations
@@ -46,7 +46,5 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   ],
 })
 export class MonitorRouteMapSidebarComponent {
-  constructor(protected service: MonitorRouteMapService) {
-    console.log('MonitorRouteMapSidebarComponent.constructor()');
-  }
+  constructor(protected service: MonitorRouteMapStateService) {}
 }

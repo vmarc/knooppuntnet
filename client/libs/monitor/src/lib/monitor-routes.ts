@@ -21,7 +21,7 @@ import { MonitorRouteGpxDeleteComponent } from './route/gpx/monitor-route-gpx-de
 import { MonitorRouteGpxComponent } from './route/gpx/monitor-route-gpx.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
-import { MonitorRouteMapService } from './route/map/monitor-route-map.service';
+import { MonitorRouteMapStateService } from './route/map/monitor-route-map-state.service';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
@@ -59,7 +59,7 @@ export const monitorRoutes: Routes = [
       ),
       {
         path: 'groups/:groupName/routes/:routeName/map',
-        providers: [MonitorRouteMapService],
+        providers: [MonitorRouteMapStateService],
         children: [
           {
             path: '',

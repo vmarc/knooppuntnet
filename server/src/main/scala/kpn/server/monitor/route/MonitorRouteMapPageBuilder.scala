@@ -247,6 +247,20 @@ class MonitorRouteMapPageBuilder(
       case None =>
 
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
+        val referenceOption = monitorRouteRepository.routeRelationReference(route._id, relationId).map { reference =>
+          MonitorRouteReferenceInfo(
+            reference.timestamp,
+            reference.user,
+            reference.bounds,
+            reference.distance,
+            reference.referenceType,
+            reference.referenceDay,
+            reference.segmentCount,
+            reference.filename,
+            reference.geoJson
+          )
+        }
+
         val bounds = stateOption.map(_.bounds)
         MonitorRouteMapPage(
           route.relationId,
@@ -261,7 +275,7 @@ class MonitorRouteMapPageBuilder(
           stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
-          None,
+          referenceOption,
           subRelations
         )
 

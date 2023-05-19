@@ -4,7 +4,7 @@ import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor';
 import { DistancePipe } from '@app/components/shared/format';
 import { LegendLineComponent } from './legend-line';
-import { MonitorRouteMapService } from './monitor-route-map.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-osm-segments',
@@ -49,7 +49,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
-  constructor(protected service: MonitorRouteMapService) {}
+  constructor(protected service: MonitorRouteMapStateService) {}
 
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
@@ -59,6 +59,8 @@ export class MonitorRouteMapOsmSegmentsComponent {
   }
 
   segmentColor(segment: MonitorRouteSegment): string {
-    return this.service.colorForSegmentId(segment.id);
+    // TODO move color logic into separate class?
+    // return this.service.colorForSegmentId(segment.id);
+    return 'red';
   }
 }

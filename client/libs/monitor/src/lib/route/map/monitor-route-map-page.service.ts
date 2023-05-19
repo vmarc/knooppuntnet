@@ -3,6 +3,7 @@ import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Util } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { MonitorService } from '../../monitor.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Injectable()
@@ -18,6 +19,7 @@ export class MonitorRouteMapPageService {
   constructor(
     private monitorService: MonitorService,
     private mapService: MonitorRouteMapService,
+    private stateService: MonitorRouteMapStateService,
     private nav: NavService
   ) {}
 
@@ -44,11 +46,11 @@ export class MonitorRouteMapPageService {
               } else if (page.relationId) {
                 relationId = page.relationId;
               }
-              console.log('MonitorRouteMapPageService caching result');
               this.pages.set(relationId, page);
-              console.log('MonitorRouteMapPageService pageChanged start');
+              const params = this.nav.params();
+              const queryParams = this.nav.queryParams();
+              this.stateService.initialState(params, queryParams, page);
               this.mapService.pageChanged(page);
-              console.log('MonitorRouteMapPageService pageChanged done');
             }
           }
         });

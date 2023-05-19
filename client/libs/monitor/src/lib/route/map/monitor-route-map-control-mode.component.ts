@@ -1,18 +1,18 @@
 import { NgIf } from '@angular/common';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { MonitorMapMode } from './monitor-map-mode';
-import { MonitorRouteMapService } from './monitor-route-map.service';
+import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-control-mode',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="service.osmSegments().length > 1">
-      <mat-radio-group [value]="mode" (change)="modeChanged($event)">
+      <mat-radio-group
+        [value]="service.mode()"
+        (change)="service.modeChanged($event.value)"
+      >
         <mat-radio-button value="comparison">
           <span i18n="@@monitor.route.map.mode.comparison">
             GPX / OSM comparison
@@ -29,11 +29,5 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [NgIf, MatRadioModule],
 })
 export class MonitorRouteMapControlModeComponent {
-  @Input() mode: MonitorMapMode;
-
-  constructor(protected service: MonitorRouteMapService) {}
-
-  modeChanged(event: MatRadioChange): void {
-    this.service.mapModeChanged(event.value);
-  }
+  constructor(protected service: MonitorRouteMapStateService) {}
 }
