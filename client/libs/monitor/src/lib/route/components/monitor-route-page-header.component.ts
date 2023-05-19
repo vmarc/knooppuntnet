@@ -2,6 +2,8 @@ import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -122,12 +124,12 @@ export class MonitorRoutePageHeaderComponent {
   @Input() subRelations: MonitorRouteSubRelation[] = [];
   @Input() previous: MonitorRouteSubRelation;
   @Input() next: MonitorRouteSubRelation;
+  @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
 
   constructor(private store: Store) {}
 
   select(subRelation: MonitorRouteSubRelation): void {
-    throw new Error('this sub menu should be moved to the map page service?');
-    // this.store.dispatch(actionMonitorRouteMapSelectSubRelation(subRelation));
+    this.selectSubRelation.emit(subRelation);
   }
 
   groupLink(): string {

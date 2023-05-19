@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Util } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
@@ -51,6 +52,36 @@ export class MonitorRouteMapPageService {
               const queryParams = this.nav.queryParams();
               this.stateService.initialState(params, queryParams, page);
               this.mapService.pageChanged(page);
+            }
+          }
+        });
+    }
+  }
+
+  selectSubRelation(subRelation: MonitorRouteSubRelation): void {
+    const page = this.pages.get(subRelation.relationId);
+    if (page) {
+      this.stateService.pageChanged(page);
+      this.mapService.pageChanged(page);
+      this.stateService.focusChanged(page.bounds);
+    } else {
+      this.monitorService
+        .routeMap(this.groupName(), this.routeName(), subRelation.relationId)
+        .subscribe((response) => {
+          console.log('MonitorRouteMapPageService processing api response');
+          if (response.result) {
+            const page = response.result;
+            if (page) {
+              let relationId = 0;
+              if (page.currentSubRelation) {
+                relationId = page.currentSubRelation.relationId;
+              } else if (page.relationId) {
+                relationId = page.relationId;
+              }
+              this.pages.set(relationId, page);
+              this.stateService.pageChanged(page);
+              this.mapService.pageChanged(page);
+              this.stateService.focusChanged(page.bounds);
             }
           }
         });

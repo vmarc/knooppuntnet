@@ -1,4 +1,5 @@
 import { NgIf } from '@angular/common';
+import { computed } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,6 +20,10 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       [groupName]="service.groupName()"
       [routeName]="service.routeName()"
       [routeDescription]="service.routeDescription()"
+      [subRelations]="subRelations()"
+      [previous]="previous()"
+      [next]="next()"
+      (selectSubRelation)="service.selectSubRelation($event)"
     />
     <div *ngIf="stateService.page() !== null">
       <div
@@ -37,6 +42,16 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [MonitorRouteMapComponent, MonitorRoutePageHeaderComponent, NgIf],
 })
 export class MonitorRouteMapPageComponent implements OnInit {
+  readonly subRelations = computed(() => {
+    return this.stateService.page()?.subRelations ?? [];
+  });
+  readonly previous = computed(() => {
+    return this.stateService.page()?.previousSubRelation;
+  });
+  readonly next = computed(() => {
+    return this.stateService.page()?.nextSubRelation;
+  });
+
   constructor(
     protected service: MonitorRouteMapPageService,
     protected stateService: MonitorRouteMapStateService

@@ -17,38 +17,35 @@ export class MonitorRouteMapStateService {
   private readonly _focus = signal<Bounds | null>(null);
 
   readonly state = this._state.asReadonly();
-  readonly page = computed(() => this._state().page);
-  readonly mode = computed(() => this._state().mode);
-  readonly referenceVisible = computed(() => this._state().referenceVisible);
-  readonly matchesVisible = computed(() => this._state().matchesVisible);
-  readonly deviationsVisible = computed(() => this._state().deviationsVisible);
-  readonly osmRelationVisible = computed(
-    () => this._state().osmRelationVisible
-  );
-  readonly osmRelationAvailable = computed(
-    () => this._state().osmRelationAvailable
-  );
-  readonly osmRelationEmpty = computed(() => this._state().osmRelationEmpty);
-  readonly selectedDeviation = computed(() => this._state().selectedDeviation);
+  readonly focus = this._focus.asReadonly();
+
+  readonly page = computed(() => {
+    return this._state().page;
+  });
+  readonly mode = computed(() => {
+    return this._state().mode;
+  });
+  readonly referenceVisible = computed(() => {
+    return this._state().referenceVisible;
+  });
+  readonly matchesVisible = computed(() => {
+    return this._state().matchesVisible;
+  });
+  readonly deviationsVisible = computed(() => {
+    return this._state().deviationsVisible;
+  });
+  readonly osmRelationVisible = computed(() => {
+    return this._state().osmRelationVisible;
+  });
+  readonly selectedDeviation = computed(() => {
+    return this._state().selectedDeviation;
+  });
   readonly selectedOsmSegment = computed(
     () => this._state().selectedOsmSegment
   );
-
-  readonly referenceType = computed(() => this._state().referenceType);
-  readonly referenceAvailable = computed(
-    () => this._state().referenceAvailable
-  );
-  readonly matchesEnabled = computed(() => this._state().matchesEnabled);
-  readonly gpxDeviationsEnabled = computed(
-    () => this._state().gpxDeviationsEnabled
-  );
-  readonly osmRelationEnabled = computed(
-    () => this._state().osmRelationEnabled
-  );
-  readonly deviations = computed(() => this._state().deviations);
-  readonly osmSegments = computed(() => this._state().osmSegments);
-
-  readonly focus = this._focus.asReadonly();
+  readonly referenceAvailable = computed(() => {
+    return this._state().referenceAvailable;
+  });
 
   constructor() {
     effect(() => {
@@ -87,10 +84,6 @@ export class MonitorRouteMapStateService {
       osmRelationVisible = osmRelationParam === 'true';
     }
 
-    const osmRelationAvailable = !!page.relationId;
-
-    const osmRelationEmpty = page.osmSegments.length === 0 && !!page.relationId;
-
     let selectedDeviation: MonitorRouteDeviation = null;
     const selectedDeviationParameter = queryParams['selected-deviation'];
     if (!isNaN(Number(selectedDeviationParameter))) {
@@ -107,8 +100,6 @@ export class MonitorRouteMapStateService {
       );
     }
 
-    const referenceType = page.reference.referenceType;
-
     const referenceAvailable = (page.reference?.geoJson.length ?? 0) > 0;
     const referenceParam = queryParams['reference'];
     let referenceVisible =
@@ -118,21 +109,6 @@ export class MonitorRouteMapStateService {
       referenceVisible = referenceParam === 'true';
     }
 
-    const matchesEnabled = mode === 'comparison' && !!page.matchesGeoJson;
-
-    // TODO candidate for computed() and move to component?
-    const gpxDeviationsEnabled =
-      mode === MonitorMapMode.comparison && (page.deviations.length ?? 0) > 0;
-
-    // TODO candidate for computed() and move to component?
-    const osmRelationEnabled = (page.osmSegments.length ?? 0) > 0;
-
-    // TODO candidate for computed() and move to component?
-    const deviations = page.deviations;
-
-    // TODO candidate for computed() and move to component?
-    const osmSegments = page.osmSegments;
-
     const state: MonitorRouteMapState = {
       page,
       mode,
@@ -140,19 +116,15 @@ export class MonitorRouteMapStateService {
       matchesVisible,
       deviationsVisible,
       osmRelationVisible,
-      osmRelationAvailable,
-      osmRelationEmpty,
       selectedDeviation,
       selectedOsmSegment,
-      referenceType,
       referenceAvailable,
-      matchesEnabled,
-      gpxDeviationsEnabled,
-      osmRelationEnabled,
-      deviations,
-      osmSegments,
     };
     this._state.set(state);
+  }
+
+  pageChanged(page: MonitorRouteMapPage): void {
+    this._state.update((state) => ({ ...state, page }));
   }
 
   referenceVisibleChanged(referenceVisible: boolean): void {
@@ -173,7 +145,9 @@ export class MonitorRouteMapStateService {
 
   selectedDeviationChanged(selectedDeviation: MonitorRouteDeviation): void {
     this._state.update((state) => ({ ...state, selectedDeviation }));
-    this._focus.set(selectedDeviation.bounds);
+    if (selectedDeviation) {
+      this._focus.set(selectedDeviation.bounds);
+    }
   }
 
   selectedOsmSegmentChanged(selectedOsmSegment: MonitorRouteSegment): void {
@@ -181,47 +155,7 @@ export class MonitorRouteMapStateService {
   }
 
   modeChanged(mode: MonitorMapMode): void {
-    console.log(`mapModeChanged(${mode})`);
-    const referenceVisible = false;
-    let matchesVisible = false;
-    let deviationsVisible = false;
-    let osmRelationVisible = false;
-    if (mode === MonitorMapMode.comparison) {
-      matchesVisible = !!this.page()?.reference.geoJson;
-      deviationsVisible = this.deviations().length > 0;
-      osmRelationVisible = this.osmSegments().length > 0;
-    } else if (mode === MonitorMapMode.osmSegments) {
-      osmRelationVisible = true;
-    }
-
-    // TODO cleanup
-    // this._mode.set(mode);
-    // this._referenceVisible.set(referenceVisible);
-    // this._matchesVisible.set(matchesVisible);
-    // this._deviationsVisible.set(deviationsVisible);
-    // this._osmRelationVisible.set(osmRelationVisible);
-    // this._selectedDeviation.set(null);
-    // this._selectedOsmSegment.set(null);
-    //
-    // this.osmRelationLayer.changed();
-    //
-    // this.updateQueryParams();
-  }
-
-  // TODO cleanup
-  pageChanged(page: MonitorRouteMapPage): void {
-    // this._referenceType.set(page.reference.referenceType);
-    // this._referenceAvailable.set(!!page.reference.geoJson);
-    // this._matchesEnabled.set(
-    //   this.mode() === 'comparison' && !!page.matchesGeoJson
-    // );
-    // this._gpxDeviationsEnabled.set(
-    //   this.mode() === MonitorMapMode.comparison &&
-    //     (page.deviations.length ?? 0) > 0
-    // );
-    // this._osmRelationEnabled.set((page.osmSegments.length ?? 0) > 0);
-    // this._deviations.set(page.deviations);
-    // this._osmSegments.set(page.osmSegments);
+    this._state.update((state) => ({ ...state, mode }));
   }
 
   focusChanged(bounds: Bounds): void {

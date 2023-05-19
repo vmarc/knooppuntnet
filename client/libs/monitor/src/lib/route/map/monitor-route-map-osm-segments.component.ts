@@ -1,4 +1,5 @@
 import { AsyncPipe, NgFor } from '@angular/common';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor';
@@ -16,7 +17,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       [hideSingleSelectionIndicator]="true"
     >
       <mat-list-option
-        *ngFor="let segment of service.osmSegments()"
+        *ngFor="let segment of osmSegments()"
         [value]="segment"
         [selected]="service.selectedOsmSegment()?.id === segment.id"
       >
@@ -49,6 +50,10 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
+  readonly osmSegments = computed(() => {
+    return this.service.page()?.osmSegments ?? [];
+  });
+
   constructor(protected service: MonitorRouteMapStateService) {}
 
   selectionChanged(event: MatSelectionListChange): void {

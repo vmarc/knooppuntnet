@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -31,7 +32,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     <ng-template #showReferenceAvailable>
       <div
         *ngIf="
-          service.osmRelationAvailable();
+          osmRelationAvailable();
           then showOsmRelationAvailable;
           else showOsmRelationMissing
         "
@@ -43,14 +44,14 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </ng-template>
       <ng-template #showOsmRelationAvailable>
         <p
-          *ngIf="service.osmRelationEmpty()"
+          *ngIf="osmRelationEmpty()"
           i18n="@@monitor.route.map-deviations.relation-empty"
         >
           OSM relation empty, so no analysis results.
         </p>
         <div
           *ngIf="
-            service.deviations().length > 0;
+            deviations().length > 0;
             then showDeviations;
             else showNoDeviations
           "
@@ -106,7 +107,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
             [hideSingleSelectionIndicator]="true"
           >
             <mat-list-option
-              *ngFor="let deviation of service.deviations()"
+              *ngFor="let deviation of deviations()"
               [selected]="service.selectedDeviation()?.id === deviation.id"
               [value]="deviation"
             >
@@ -181,6 +182,16 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 })
 export class MonitorRouteMapDeviationsComponent {
   readonly longDistance = '> 2.5 km';
+  readonly osmRelationAvailable = computed(() => {
+    return !!this.service.page().relationId;
+  });
+  readonly osmRelationEmpty = computed(() => {
+    const page = this.service.page();
+    return page.osmSegments.length === 0 && !!page.relationId;
+  });
+  readonly deviations = computed(() => {
+    return this.service.page()?.deviations ?? [];
+  });
 
   constructor(
     protected service: MonitorRouteMapStateService,
