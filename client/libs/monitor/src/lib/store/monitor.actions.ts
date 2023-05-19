@@ -1,87 +1,12 @@
 import { MonitorChangesPage } from '@api/common/monitor';
 import { MonitorGroupChangesPage } from '@api/common/monitor';
-import { MonitorGroupPage } from '@api/common/monitor';
-import { MonitorGroupProperties } from '@api/common/monitor';
-import { MonitorGroupsPage } from '@api/common/monitor';
-import { MonitorRouteAddPage } from '@api/common/monitor';
 import { MonitorRouteChangePage } from '@api/common/monitor';
 import { MonitorRouteChangesPage } from '@api/common/monitor';
-import { MonitorRouteDetailsPage } from '@api/common/monitor';
-import { MonitorRouteInfoPage } from '@api/common/monitor';
 import { MonitorRouteSaveResult } from '@api/common/monitor';
-import { MonitorRouteUpdatePage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { MonitorRouteGpxPage } from '../../../../api/src/lib/common/monitor/monitor-route-gpx-page';
 import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
-
-export const actionMonitorAdmin = createAction(
-  '[Monitor] Admin',
-  props<{ admin: boolean }>()
-);
-
-export const actionMonitorGroupsPageInit = createAction(
-  '[MonitorGroupsPage] Init'
-);
-
-export const actionMonitorGroupsPageDestroy = createAction(
-  '[MonitorGroupsPage] Destroy'
-);
-
-export const actionMonitorGroupsPageLoaded = createAction(
-  '[MonitorGroupsPage] Loaded',
-  props<ApiResponse<MonitorGroupsPage>>()
-);
-
-export const actionMonitorNavigateGroup = createAction(
-  '[MonitorGroupsPage] Navigate to group',
-  props<{ groupName: string; groupDescription: string }>()
-);
-
-export const actionMonitorGroupDeleteInit = createAction(
-  '[MonitorAdminGroupDeletePage] Init'
-);
-
-export const actionMonitorGroupDeleteDestroy = createAction(
-  '[MonitorAdminGroupDeletePage] Destroy'
-);
-
-export const actionMonitorGroupDeleteLoaded = createAction(
-  '[MonitorAdminGroupDeletePage] Loaded',
-  props<ApiResponse<MonitorGroupPage>>()
-);
-
-export const actionMonitorGroupUpdateInit = createAction(
-  '[MonitorAdminGroupUpdatePage] Init'
-);
-
-export const actionMonitorGroupUpdateDestroy = createAction(
-  '[MonitorAdminGroupUpdatePage] Destroy'
-);
-
-export const actionMonitorGroupUpdateLoaded = createAction(
-  '[MonitorAdminGroupUpdatePage] Loaded',
-  props<ApiResponse<MonitorGroupPage>>()
-);
-
-export const actionMonitorGroupPageInit = createAction(
-  '[MonitorGroupPage] Init'
-);
-
-export const actionMonitorGroupPageLoad = createAction(
-  '[MonitorGroupPage] Load',
-  props<{ groupName: string }>()
-);
-
-export const actionMonitorGroupPageDestroy = createAction(
-  '[MonitorGroupPage] Destroy'
-);
-
-export const actionMonitorGroupPageLoaded = createAction(
-  '[MonitorGroupPage] Loaded',
-  props<ApiResponse<MonitorGroupPage>>()
-);
 
 export const actionMonitorGroupChangesPageInit = createAction(
   '[MonitorGroupChangesPage] Init'
@@ -99,24 +24,6 @@ export const actionMonitorGroupChangesPageIndex = createAction(
 export const actionMonitorGroupChangesPageLoaded = createAction(
   '[MonitorGroupChangesPage] Loaded',
   props<ApiResponse<MonitorGroupChangesPage>>()
-);
-
-export const actionMonitorRouteDetailsPageInit = createAction(
-  '[MonitorRouteDetailsPage] Init'
-);
-
-export const actionMonitorRouteDetailsPageLoad = createAction(
-  '[MonitorRouteDetailsPage] Load',
-  props<{ groupName: string; routeName: string }>()
-);
-
-export const actionMonitorRouteDetailsPageLoaded = createAction(
-  '[MonitorRouteDetailsPage] Loaded',
-  props<ApiResponse<MonitorRouteDetailsPage>>()
-);
-
-export const actionMonitorRouteDetailsPageDestroy = createAction(
-  '[MonitorRouteDetailsPage] Destroy'
 );
 
 export const actionMonitorRouteChangesPageInit = createAction(
@@ -150,21 +57,6 @@ export const actionMonitorRouteChangePageLoaded = createAction(
   props<ApiResponse<MonitorRouteChangePage>>()
 );
 
-export const actionMonitorGroupAdd = createAction(
-  '[MonitorAdminGroupAddPage] Add group',
-  props<MonitorGroupProperties>()
-);
-
-export const actionMonitorGroupUpdate = createAction(
-  '[MonitorAdminGroupUpdatePage] Update',
-  props<{ groupId: string; properties: MonitorGroupProperties }>()
-);
-
-export const actionMonitorGroupDelete = createAction(
-  '[MonitorAdminGroupDeletePage] Delete',
-  props<{ groupId: string }>()
-);
-
 export const actionMonitorRouteInfo = createAction(
   '[Monitor] Route info',
   props<{ relationId: number | null }>()
@@ -172,24 +64,6 @@ export const actionMonitorRouteInfo = createAction(
 
 export const actionMonitorRouteAdminRelationIdChanged = createAction(
   '[Monitor] Relation id changed'
-);
-
-export const actionMonitorRouteAddPageInit = createAction(
-  '[MonitorRouteAddPage] Init'
-);
-
-export const actionMonitorRouteAddPageLoad = createAction(
-  '[MonitorRouteAddPage] Load',
-  props<{ groupName: string }>()
-);
-
-export const actionMonitorRouteAddPageDestroy = createAction(
-  '[MonitorRouteAddPage] Destroy'
-);
-
-export const actionMonitorRouteAddPageLoaded = createAction(
-  '[MonitorRouteAddPage] Loaded',
-  props<ApiResponse<MonitorRouteAddPage>>()
 );
 
 export const actionMonitorRouteSaveInit = createAction(
@@ -201,69 +75,9 @@ export const actionMonitorRouteSaveDestroy = createAction(
   '[Monitor] Route save Destroy'
 );
 
-export const actionMonitorRouteUploadInit = createAction(
-  '[Monitor] Route upload init',
-  props<MonitorRouteParameters>()
-);
-
-export const actionMonitorRouteUploaded = createAction(
-  '[Monitor] Route uploaded',
-  props<MonitorRouteParameters>()
-);
-
-export const actionMonitorRouteAnalyzed = createAction(
-  '[Monitor] Route analyzed'
-);
-
 export const actionMonitorRouteSaved = createAction(
   '[Monitor] Route saved',
   props<ApiResponse<MonitorRouteSaveResult>>()
-);
-
-export const actionMonitorRouteDeletePageInit = createAction(
-  '[Monitor] Route delete init'
-);
-
-export const actionMonitorRouteDeletePageDestroy = createAction(
-  '[Monitor] Route delete Destroy'
-);
-
-export const actionMonitorRouteUpdatePageInit = createAction(
-  '[MonitorRouteUpdatePage] Init'
-);
-
-export const actionMonitorRouteUpdatePageDestroy = createAction(
-  '[MonitorRouteUpdatePage] Destroy'
-);
-
-export const actionMonitorRouteUpdatePageLoaded = createAction(
-  '[MonitorRouteUpdatePage] Loaded',
-  props<ApiResponse<MonitorRouteUpdatePage>>()
-);
-
-export const actionMonitorRouteDelete = createAction('[Monitor] Route delete');
-
-export const actionMonitorRouteInfoLoaded = createAction(
-  '[Monitor] Route info loaded',
-  props<ApiResponse<MonitorRouteInfoPage>>()
-);
-
-export const actionMonitorRouteGpxPageInit = createAction(
-  '[MonitorRouteGpxPage] Init'
-);
-
-export const actionMonitorRouteGpxPageLoad = createAction(
-  '[MonitorRouteGpxPage] Load',
-  props<{ groupName: string; routeName: string; relationId: number }>()
-);
-
-export const actionMonitorRouteGpxPageLoaded = createAction(
-  '[MonitorRouteGpxPage] Loaded',
-  props<ApiResponse<MonitorRouteGpxPage>>()
-);
-
-export const actionMonitorRouteGpxPageDestroy = createAction(
-  '[MonitorRouteGpxPage] Destroy'
 );
 
 export const actionMonitorChangesPageInit = createAction(
