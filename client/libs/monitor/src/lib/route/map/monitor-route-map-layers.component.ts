@@ -20,7 +20,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         <div class="kpn-line">
           <kpn-legend-line color="blue"></kpn-legend-line>
           <span
-            *ngIf="referenceType() === 'gpx'"
+            *ngIf="referenceType() === 'gpx' || referenceType() === 'multi-gpx'"
             i18n="@@monitor.route.map-layers.reference.gpx"
             >GPX Reference</span
           >
@@ -40,7 +40,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         <div class="kpn-line">
           <kpn-legend-line color="green" />
           <span
-            *ngIf="referenceType() === 'gpx'"
+            *ngIf="referenceType() === 'gpx' || referenceType() === 'multi-gpx'"
             i18n="@@monitor.route.map-layers.gpx-same-as-osm"
           >
             GPX same as OSM
@@ -62,7 +62,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         <div class="kpn-line">
           <kpn-legend-line color="red" />
           <span
-            *ngIf="referenceType() === 'gpx'"
+            *ngIf="referenceType() === 'gpx' || referenceType() === 'multi-gpx'"
             i18n="@@monitor.route.map-layers.deviations.gpx"
           >
             GPX where OSM is deviating
