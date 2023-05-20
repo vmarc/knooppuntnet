@@ -26,9 +26,10 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { MonitorRouteService } from './route/monitor-route.service';
 
 @Injectable()
-export class MonitorService {
+export class MonitorService implements MonitorRouteService {
   private readonly _admin = signal(false);
   private readonly _adminRole = signal(false);
 

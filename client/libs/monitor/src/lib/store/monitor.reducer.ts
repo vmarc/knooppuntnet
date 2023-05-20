@@ -1,12 +1,10 @@
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
-import { actionMonitorRouteSaveDestroy } from './monitor.actions';
 import { actionMonitorChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangePageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangesPageDestroy } from './monitor.actions';
 import { actionMonitorGroupChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteSaved } from './monitor.actions';
-import { actionMonitorRouteSaveInit } from './monitor.actions';
 import { actionMonitorRouteAdminRelationIdChanged } from './monitor.actions';
 import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorChangesPageInit } from './monitor.actions';
@@ -19,7 +17,6 @@ import { actionMonitorGroupChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { MonitorState } from './monitor.state';
-import { MonitorRouteSaveState } from './monitor.state';
 import { initialState } from './monitor.state';
 
 export const monitorReducer = createReducer<MonitorState>(
@@ -90,40 +87,6 @@ export const monitorReducer = createReducer<MonitorState>(
     return {
       ...state,
       routeInfoPage: null,
-    };
-  }),
-  on(actionMonitorRouteSaveInit, (state, parameters): MonitorState => {
-    let routeSaveState: MonitorRouteSaveState;
-    if (parameters.mode === 'add') {
-      const gpx = parameters.properties.referenceType === 'gpx';
-      routeSaveState = {
-        ...new MonitorRouteSaveState(),
-        saveRouteEnabled: true,
-        saveRouteStatus: 'busy',
-        uploadGpxEnabled: gpx,
-        analyzeEnabled: gpx,
-      };
-    } else {
-      const gpx =
-        parameters.properties.referenceType === 'gpx' &&
-        parameters.properties.referenceFileChanged;
-      routeSaveState = {
-        ...new MonitorRouteSaveState(),
-        saveRouteEnabled: true,
-        saveRouteStatus: 'busy',
-        uploadGpxEnabled: gpx,
-        analyzeEnabled: gpx,
-      };
-    }
-    return {
-      ...state,
-      routeSaveState,
-    };
-  }),
-  on(actionMonitorRouteSaveDestroy, (state): MonitorState => {
-    return {
-      ...state,
-      routeSaveState: undefined,
     };
   }),
   on(actionMonitorRouteSaved, (state, response): MonitorState => {

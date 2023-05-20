@@ -19,17 +19,8 @@ import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
-import { actionMonitorRouteSaveDestroy } from '../../store/monitor.actions';
-import { actionMonitorRouteSaveInit } from '../../store/monitor.actions';
-import { selectMonitorRouteSaveErrors } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveAnalyzeStatus } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveAnalyzeEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveUploadGpxStatus } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveUploadGpxEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveRouteStatus } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveRouteEnabled } from '../../store/monitor.selectors';
-import { selectMonitorRouteSaveDone } from '../../store/monitor.selectors';
 import { MonitorRouteParameters } from './monitor-route-parameters';
+import { MonitorRouteSaveDialogService } from './monitor-route-save-dialog.service';
 import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.component';
 
 @Component({
@@ -37,86 +28,89 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>
-      <div mat-dialog-title i18n="@@monitor.route.save-dialog.title">
-        Save route
-      </div>
-      <div mat-dialog-content>
-        <kpn-monitor-route-save-step
-          [enabled]="saveRouteEnabled()"
-          [status]="saveRouteStatus()"
-          label="Save route definition"
-        />
-
-        <kpn-monitor-route-save-step
-          [enabled]="uploadGpxEnabled()"
-          [status]="uploadGpxStatus()"
-          label="Upload GPX file"
-        />
-
-        <kpn-monitor-route-save-step
-          [enabled]="analyzeEnabled()"
-          [status]="analyzeStatus()"
-          label="Route analysis"
-        />
-
-        <div class="done kpn-spacer-below">
-          <span
-            *ngIf="analyzeStatus() === 'busy'"
-            i18n="@@monitor.route.save-dialog.busy"
-            >This may take a while, please wait...</span
-          >
-          <span
-            *ngIf="done()"
-            id="route-saved"
-            i18n="@@monitor.route.save-dialog.saved"
-          >
-            Route saved!
-          </span>
+      <ng-container *ngIf="service.state() as state">
+        <div mat-dialog-title i18n="@@monitor.route.save-dialog.title">
+          Save route
         </div>
+        <div mat-dialog-content>
+          <kpn-monitor-route-save-step
+            [enabled]="state.saveRouteEnabled"
+            [status]="state.saveRouteStatus"
+            label="Save route definition"
+          />
 
-        <p *ngFor="let error of errors()">
-          <ng-container [ngSwitch]="error">
+          <kpn-monitor-route-save-step
+            [enabled]="state.uploadGpxEnabled"
+            [status]="state.uploadGpxStatus"
+            label="Upload GPX file"
+          />
+
+          <kpn-monitor-route-save-step
+            [enabled]="state.analyzeEnabled"
+            [status]="state.analyzeStatus"
+            label="Route analysis"
+          />
+
+          <div class="done kpn-spacer-below">
             <span
-              *ngSwitchCase="'no-relation-id'"
-              i18n="@@monitor.route.save-dialog.no-relation-id"
+              *ngIf="state.analyzeStatus === 'busy'"
+              i18n="@@monitor.route.save-dialog.busy"
+              >This may take a while, please wait...</span
             >
-              Note: we cannot yet perform an analysis. The reference information
-              is still incomplete. The relation id has not been specified.
-            </span>
             <span
-              *ngSwitchCase="'osm-relation-not-found'"
-              i18n="@@monitor.route.save-dialog.osm-relation-not-found"
+              *ngIf="state.done"
+              id="route-saved"
+              i18n="@@monitor.route.save-dialog.saved"
             >
-              Note: we cannot yet perform an analysis. The reference information
-              is still incomplete. No route with given relation id was found at
-              given reference date.
+              Route saved!
             </span>
-            <span *ngSwitchDefault>
-              {{ error }}
-            </span>
-          </ng-container>
-        </p>
-        <div class="kpn-button-group">
-          <button
-            mat-stroked-button
-            id="back-to-group-button"
-            (click)="backToGroup()"
-            [disabled]="done() === false"
-            i18n="@@monitor.route.save-dialog.action.back"
-          >
-            Back to group
-          </button>
-          <button
-            mat-stroked-button
-            id="goto-analysis-result-button"
-            (click)="gotoAnalysisResult()"
-            [disabled]="done() === false"
-            i18n="@@monitor.route.save-dialog.action.analysis-result"
-          >
-            Go to analysis result
-          </button>
+          </div>
+
+          <p *ngFor="let error of state.errors">
+            <ng-container [ngSwitch]="error">
+              <span
+                *ngSwitchCase="'no-relation-id'"
+                i18n="@@monitor.route.save-dialog.no-relation-id"
+              >
+                Note: we cannot yet perform an analysis. The reference
+                information is still incomplete. The relation id has not been
+                specified.
+              </span>
+              <span
+                *ngSwitchCase="'osm-relation-not-found'"
+                i18n="@@monitor.route.save-dialog.osm-relation-not-found"
+              >
+                Note: we cannot yet perform an analysis. The reference
+                information is still incomplete. No route with given relation id
+                was found at given reference date.
+              </span>
+              <span *ngSwitchDefault>
+                {{ error }}
+              </span>
+            </ng-container>
+          </p>
+          <div class="kpn-button-group">
+            <button
+              mat-stroked-button
+              id="back-to-group-button"
+              (click)="backToGroup()"
+              [disabled]="state.done === false"
+              i18n="@@monitor.route.save-dialog.action.back"
+            >
+              Back to group
+            </button>
+            <button
+              mat-stroked-button
+              id="goto-analysis-result-button"
+              (click)="gotoAnalysisResult()"
+              [disabled]="state.done === false"
+              i18n="@@monitor.route.save-dialog.action.analysis-result"
+            >
+              Go to analysis result
+            </button>
+          </div>
         </div>
-      </div>
+      </ng-container>
     </kpn-dialog>
   `,
   styles: [
@@ -145,44 +139,23 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
   ],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
-  readonly saveRouteEnabled = this.store.selectSignal(
-    selectMonitorRouteSaveRouteEnabled
-  );
-  readonly saveRouteStatus = this.store.selectSignal(
-    selectMonitorRouteSaveRouteStatus
-  );
-  readonly uploadGpxEnabled = this.store.selectSignal(
-    selectMonitorRouteSaveUploadGpxEnabled
-  );
-  readonly uploadGpxStatus = this.store.selectSignal(
-    selectMonitorRouteSaveUploadGpxStatus
-  );
-  readonly analyzeEnabled = this.store.selectSignal(
-    selectMonitorRouteSaveAnalyzeEnabled
-  );
-  readonly analyzeStatus = this.store.selectSignal(
-    selectMonitorRouteSaveAnalyzeStatus
-  );
-  readonly errors = this.store.selectSignal(selectMonitorRouteSaveErrors);
-  readonly done = this.store.selectSignal(selectMonitorRouteSaveDone);
-
   private readonly subscriptions = new Subscriptions();
 
   constructor(
     private dialogRef: MatDialogRef<MonitorRouteSaveDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public parameters: MonitorRouteParameters,
     private monitorService: MonitorService,
+    protected service: MonitorRouteSaveDialogService,
     private store: Store
   ) {}
 
   ngOnInit(): void {
     this.closeDialogUponHttpError();
-    this.store.dispatch(actionMonitorRouteSaveInit(this.parameters));
+    this.service.init(this.parameters);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.store.dispatch(actionMonitorRouteSaveDestroy());
   }
 
   backToGroup(): void {

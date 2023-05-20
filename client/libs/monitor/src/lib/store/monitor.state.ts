@@ -11,17 +11,26 @@ import { MonitorRouteUpdatePage } from '@api/common/monitor';
 import { MonitorRouteGpxPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
 
-export class MonitorRouteSaveState {
-  constructor(
-    readonly saveRouteEnabled: boolean = false,
-    readonly saveRouteStatus: 'todo' | 'busy' | 'done' = 'todo',
-    readonly uploadGpxEnabled: boolean = false,
-    readonly uploadGpxStatus: 'todo' | 'busy' | 'done' = 'todo',
-    readonly analyzeEnabled: boolean = false,
-    readonly analyzeStatus: 'todo' | 'busy' | 'done' = 'todo',
-    readonly errors: string[] = [],
-    readonly done: boolean = false
-  ) {}
+export const initialMonitorRouteSaveState: MonitorRouteSaveState = {
+  saveRouteEnabled: false,
+  saveRouteStatus: 'todo',
+  uploadGpxEnabled: false,
+  uploadGpxStatus: 'todo',
+  analyzeEnabled: false,
+  analyzeStatus: 'todo',
+  errors: [],
+  done: false,
+};
+
+export interface MonitorRouteSaveState {
+  readonly saveRouteEnabled: boolean;
+  readonly saveRouteStatus: 'todo' | 'busy' | 'done';
+  readonly uploadGpxEnabled: boolean;
+  readonly uploadGpxStatus: 'todo' | 'busy' | 'done';
+  readonly analyzeEnabled: boolean;
+  readonly analyzeStatus: 'todo' | 'busy' | 'done';
+  readonly errors: string[];
+  readonly done: boolean;
 }
 
 export const initialState: MonitorState = {
