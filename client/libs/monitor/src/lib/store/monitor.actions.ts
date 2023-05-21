@@ -2,11 +2,9 @@ import { MonitorChangesPage } from '@api/common/monitor';
 import { MonitorGroupChangesPage } from '@api/common/monitor';
 import { MonitorRouteChangePage } from '@api/common/monitor';
 import { MonitorRouteChangesPage } from '@api/common/monitor';
-import { MonitorRouteSaveResult } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-import { MonitorRouteParameters } from '../route/components/monitor-route-parameters';
 
 export const actionMonitorGroupChangesPageInit = createAction(
   '[MonitorGroupChangesPage] Init'
@@ -64,20 +62,6 @@ export const actionMonitorRouteInfo = createAction(
 
 export const actionMonitorRouteAdminRelationIdChanged = createAction(
   '[Monitor] Relation id changed'
-);
-
-export const actionMonitorRouteSaveInit = createAction(
-  '[Monitor] Route save init',
-  props<MonitorRouteParameters>()
-);
-
-export const actionMonitorRouteSaveDestroy = createAction(
-  '[Monitor] Route save Destroy'
-);
-
-export const actionMonitorRouteSaved = createAction(
-  '[Monitor] Route saved',
-  props<ApiResponse<MonitorRouteSaveResult>>()
 );
 
 export const actionMonitorChangesPageInit = createAction(

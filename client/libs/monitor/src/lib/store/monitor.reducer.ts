@@ -4,7 +4,6 @@ import { actionMonitorChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangePageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangesPageDestroy } from './monitor.actions';
 import { actionMonitorGroupChangesPageDestroy } from './monitor.actions';
-import { actionMonitorRouteSaved } from './monitor.actions';
 import { actionMonitorRouteAdminRelationIdChanged } from './monitor.actions';
 import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorChangesPageInit } from './monitor.actions';
@@ -87,17 +86,6 @@ export const monitorReducer = createReducer<MonitorState>(
     return {
       ...state,
       routeInfoPage: null,
-    };
-  }),
-  on(actionMonitorRouteSaved, (state, response): MonitorState => {
-    return {
-      ...state,
-      routeSaveState: {
-        ...state.routeSaveState,
-        saveRouteStatus: 'done',
-        errors: response.result?.errors,
-        done: true,
-      },
     };
   }),
   on(
