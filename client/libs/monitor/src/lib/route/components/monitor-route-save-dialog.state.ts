@@ -1,4 +1,4 @@
-export const initialMonitorRouteSaveState: MonitorRouteSaveState = {
+export const initialState: MonitorRouteSaveDialogState = {
   saveRouteEnabled: false,
   saveRouteStatus: 'todo',
   uploadGpxEnabled: false,
@@ -9,7 +9,7 @@ export const initialMonitorRouteSaveState: MonitorRouteSaveState = {
   done: false,
 };
 
-export interface MonitorRouteSaveState {
+export interface MonitorRouteSaveDialogState {
   readonly saveRouteEnabled: boolean;
   readonly saveRouteStatus: 'todo' | 'busy' | 'done';
   readonly uploadGpxEnabled: boolean;

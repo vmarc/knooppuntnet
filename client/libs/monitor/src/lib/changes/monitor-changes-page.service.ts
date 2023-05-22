@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor';
 import { PreferencesService } from '@app/core';
 import { MonitorService } from '../monitor.service';
-import { initialState } from './monitor-changes-page-state';
-import { MonitorChangesPageState } from './monitor-changes-page-state';
+import { initialState } from './monitor-changes-page.state';
+import { MonitorChangesPageState } from './monitor-changes-page.state';
 
 @Injectable()
 export class MonitorChangesPageService {
@@ -16,9 +16,7 @@ export class MonitorChangesPageService {
   constructor(
     private monitorService: MonitorService,
     private preferencesService: PreferencesService
-  ) {}
-
-  init(): void {
+  ) {
     this.load();
   }
 

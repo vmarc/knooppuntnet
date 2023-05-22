@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -70,12 +69,8 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     RouterLink,
   ],
 })
-export class MonitorChangesPageComponent implements OnInit {
+export class MonitorChangesPageComponent {
   constructor(protected service: MonitorChangesPageService) {}
-
-  ngOnInit(): void {
-    this.service.init();
-  }
 
   impactChanged(event: MatSlideToggleChange) {
     this.service.impactChanged(event.checked);

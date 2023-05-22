@@ -49,7 +49,7 @@ export class MonitorRouteMapStateService {
 
   constructor() {
     effect(() => {
-      console.log(['state', this._state()]);
+      console.log(['MonitorRouteMapState', this._state()]);
     });
   }
 

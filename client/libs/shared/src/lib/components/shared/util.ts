@@ -19,10 +19,12 @@ export class Util {
   public static routePath(
     path: string,
     component: any,
-    sidebarComponent: any
+    sidebarComponent: any,
+    ...providers: any[]
   ): Route {
     return {
       path,
+      providers,
       children: [
         {
           path: '',

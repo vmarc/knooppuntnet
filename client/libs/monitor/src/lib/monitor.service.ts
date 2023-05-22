@@ -162,19 +162,21 @@ export class MonitorService {
   }
 
   routeChanges(
-    monitorRouteId: string,
+    groupName: string,
+    routeName: string,
     parameters: MonitorChangesParameters
   ): Observable<ApiResponse<MonitorRouteChangesPage>> {
-    const url = `/api/monitor/routes/${monitorRouteId}/changes`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/changes`;
     return this.http.post(url, parameters);
   }
 
   routeChange(
-    monitorRouteId: string,
+    groupName: string,
+    routeName: string,
     changeSetId: string,
     replicationNumber: string
   ): Observable<ApiResponse<MonitorRouteChangePage>> {
-    const url = `/api/monitor/routes/${monitorRouteId}/changes/${changeSetId}/${replicationNumber}`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/changes/${changeSetId}/${replicationNumber}`;
     return this.http.get(url);
   }
 

@@ -37,7 +37,6 @@ export class MonitorRouteMapPageService {
       this.monitorService
         .routeMap(this.groupName(), this.routeName(), relationId)
         .subscribe((response) => {
-          console.log('MonitorRouteMapPageService processing api response');
           if (response.result) {
             const page = response.result;
             if (page) {
@@ -68,7 +67,6 @@ export class MonitorRouteMapPageService {
       this.monitorService
         .routeMap(this.groupName(), this.routeName(), subRelation.relationId)
         .subscribe((response) => {
-          console.log('MonitorRouteMapPageService processing api response');
           if (response.result) {
             const page = response.result;
             if (page) {

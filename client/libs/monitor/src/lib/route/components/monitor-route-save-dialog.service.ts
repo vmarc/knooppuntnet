@@ -4,14 +4,12 @@ import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { MonitorRouteService } from '../monitor-route.service';
 import { MonitorRouteParameters } from './monitor-route-parameters';
-import { initialMonitorRouteSaveState } from './monitor-route-save-state';
-import { MonitorRouteSaveState } from './monitor-route-save-state';
+import { initialState } from './monitor-route-save-dialog.state';
+import { MonitorRouteSaveDialogState } from './monitor-route-save-dialog.state';
 
 @Injectable()
 export class MonitorRouteSaveDialogService {
-  private readonly _state = signal<MonitorRouteSaveState>(
-    initialMonitorRouteSaveState
-  );
+  private readonly _state = signal<MonitorRouteSaveDialogState>(initialState);
   readonly state = this._state.asReadonly();
 
   constructor(private monitorRouteService: MonitorRouteService) {}

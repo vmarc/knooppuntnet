@@ -1,20 +1,23 @@
 import { Routes } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { MonitorAboutPageComponent } from './about/monitor-about-page.component';
 import { MonitorChangesPageComponent } from './changes/monitor-changes-page.component';
+import { MonitorChangesPageService } from './changes/monitor-changes-page.service';
 import { MonitorGroupAddPageComponent } from './group/add/monitor-group-add-page.component';
 import { MonitorGroupChangesPageComponent } from './group/changes/monitor-group-changes-page.component';
+import { MonitorGroupChangesPageService } from './group/changes/monitor-group-changes-page.service';
 import { MonitorGroupDeletePageComponent } from './group/delete/monitor-group-delete-page.component';
 import { MonitorGroupPageComponent } from './group/details/monitor-group-page.component';
 import { MonitorGroupUpdatePageComponent } from './group/update/monitor-group-update-page.component';
 import { MonitorGroupsPageComponent } from './groups/monitor-groups-page.component';
 import { MonitorService } from './monitor.service';
 import { MonitorRouteAddPageComponent } from './route/add/monitor-route-add-page.component';
-import { MonitorRouteChangePageComponent } from './route/changes/monitor-route-change-page.component';
+import { MonitorRouteChangePageComponent } from './route/change/monitor-route-change-page.component';
+import { MonitorRouteChangePageService } from './route/change/monitor-route-change-page.service';
 import { MonitorRouteChangesPageComponent } from './route/changes/monitor-route-changes-page.component';
+import { MonitorRouteChangesPageService } from './route/changes/monitor-route-changes-page.service';
 import { MonitorRouteDeletePageComponent } from './route/delete/monitor-route-delete-page.component';
 import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-details-page.component';
 import { MonitorRouteGpxDeleteComponent } from './route/gpx/monitor-route-gpx-delete.component';
@@ -23,7 +26,6 @@ import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapStateService } from './route/map/monitor-route-map-state.service';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
-import { MonitorEffects } from './store/monitor.effects';
 import { monitorReducer } from './store/monitor.reducer';
 import { monitorFeatureKey } from './store/monitor.state';
 
@@ -35,12 +37,16 @@ export const monitorRoutes: Routes = [
         name: monitorFeatureKey,
         reducer: monitorReducer,
       }),
-      provideEffects([MonitorEffects]),
       MonitorService,
     ],
     children: [
       Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),
-      Util.routePath('changes', MonitorChangesPageComponent, SidebarComponent),
+      Util.routePath(
+        'changes',
+        MonitorChangesPageComponent,
+        SidebarComponent,
+        MonitorChangesPageService
+      ),
       Util.routePath('about', MonitorAboutPageComponent, SidebarComponent),
       Util.routePath(
         'groups/:groupName',
@@ -50,7 +56,8 @@ export const monitorRoutes: Routes = [
       Util.routePath(
         'groups/:groupName/changes',
         MonitorGroupChangesPageComponent,
-        SidebarComponent
+        SidebarComponent,
+        MonitorGroupChangesPageService
       ),
       Util.routePath(
         'groups/:groupName/routes/:routeName',
@@ -85,12 +92,14 @@ export const monitorRoutes: Routes = [
       Util.routePath(
         'groups/:groupName/routes/:routeName/changes',
         MonitorRouteChangesPageComponent,
-        SidebarComponent
+        SidebarComponent,
+        MonitorRouteChangesPageService
       ),
       Util.routePath(
         'groups/:groupName/routes/:routeName/changes/:changeSetId/:replicationNumber',
         MonitorRouteChangePageComponent,
-        SidebarComponent
+        SidebarComponent,
+        MonitorRouteChangePageService
       ),
       Util.routePath(
         'admin/groups/add',

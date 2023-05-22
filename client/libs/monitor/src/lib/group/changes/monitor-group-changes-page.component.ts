@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -70,12 +69,8 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     RouterLink,
   ],
 })
-export class MonitorGroupChangesPageComponent implements OnInit {
+export class MonitorGroupChangesPageComponent {
   constructor(protected service: MonitorGroupChangesPageService) {}
-
-  ngOnInit(): void {
-    this.service.init();
-  }
 
   pageChanged(pageIndex: number) {
     window.scroll(0, 0);
