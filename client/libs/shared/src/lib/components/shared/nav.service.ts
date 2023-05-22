@@ -8,6 +8,7 @@ import { ParamMap } from '@angular/router';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { Nav } from './nav';
 
 @Injectable()
 export class NavService {
@@ -17,6 +18,11 @@ export class NavService {
   constructor(private router: Router, private route: ActivatedRoute) {
     this.paramMap = toSignal(this.route.paramMap);
     this.queryParamMap = toSignal(this.route.queryParamMap);
+  }
+
+  nav(): Nav {
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    return new Nav(this.paramMap(), this.queryParamMap(), state);
   }
 
   public params(): ParamMap {
@@ -44,13 +50,13 @@ export class NavService {
   }
 
   public state(name: string): WritableSignal<string> {
-    const state = this.router.getCurrentNavigation().extras.state;
+    const state = this.router.getCurrentNavigation()?.extras.state;
     const value = state && state[name] ? state[name] : '';
     return signal(value);
   }
 
   public newState(name: string): string {
-    const state = this.router.getCurrentNavigation().extras.state;
+    const state = this.router.getCurrentNavigation()?.extras.state;
     return state && state[name] ? state[name] : '';
   }
 

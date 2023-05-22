@@ -1,27 +1,38 @@
+import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorGroupPage } from '@api/common/monitor';
-import { NavService } from '@app/components/shared';
-import { Util } from '@app/components/shared';
+import { Nav } from '@app/components/shared';
 import { MonitorService } from '../../monitor.service';
+import { MonitorGroupPageState } from './monitor-group-page.state';
+import { initialState } from './monitor-group-page.state';
 
 @Injectable()
 export class MonitorGroupPageService {
-  private readonly _groupDescription = this.nav.state('description');
-  private readonly _apiResponse = Util.response<MonitorGroupPage>();
-
+  private readonly _state = signal<MonitorGroupPageState>(initialState);
+  readonly state = this._state.asReadonly();
   readonly admin = this.monitorService.admin;
-  readonly groupName = this.nav.param('groupName');
-  readonly groupDescription = this._groupDescription.asReadonly();
-  readonly apiResponse = this._apiResponse.asReadonly();
 
-  constructor(
-    private nav: NavService,
-    private monitorService: MonitorService
-  ) {}
+  constructor(private monitorService: MonitorService) {
+    effect(() => console.log(['MonitorGroupPageState', this.state()]));
+  }
 
-  init(): void {
-    this.monitorService
-      .group(this.groupName())
-      .subscribe((response) => this._apiResponse.set(response));
+  init(nav: Nav): void {
+    const groupName = nav.param('groupName');
+    const groupDescription = nav.state('description');
+    this._state.update((state) => ({
+      ...state,
+      groupName,
+      groupDescription,
+    }));
+
+    this.monitorService.group(groupName).subscribe((response) => {
+      const groupDescription =
+        response.result?.groupDescription ?? this.state().groupDescription;
+      this._state.update((state) => ({
+        ...state,
+        groupDescription,
+        response,
+      }));
+    });
   }
 }

@@ -53,7 +53,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
       </div>
     </form>
   `,
-  providers: [MonitorGroupAddPageService, NavService],
+  providers: [NavService],
   standalone: true,
   imports: [
     FormStatusComponent,
@@ -68,9 +68,12 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   ],
 })
 export class MonitorGroupAddPageComponent {
-  constructor(protected service: MonitorGroupAddPageService) {}
+  constructor(
+    private navService: NavService,
+    protected service: MonitorGroupAddPageService
+  ) {}
 
   add(): void {
-    this.service.add();
+    this.service.add(this.navService);
   }
 }

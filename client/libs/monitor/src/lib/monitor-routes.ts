@@ -6,12 +6,15 @@ import { MonitorAboutPageComponent } from './about/monitor-about-page.component'
 import { MonitorChangesPageComponent } from './changes/monitor-changes-page.component';
 import { MonitorChangesPageService } from './changes/monitor-changes-page.service';
 import { MonitorGroupAddPageComponent } from './group/add/monitor-group-add-page.component';
+import { MonitorGroupAddPageService } from './group/add/monitor-group-add-page.service';
 import { MonitorGroupChangesPageComponent } from './group/changes/monitor-group-changes-page.component';
 import { MonitorGroupChangesPageService } from './group/changes/monitor-group-changes-page.service';
 import { MonitorGroupDeletePageComponent } from './group/delete/monitor-group-delete-page.component';
 import { MonitorGroupPageComponent } from './group/details/monitor-group-page.component';
+import { MonitorGroupPageService } from './group/details/monitor-group-page.service';
 import { MonitorGroupUpdatePageComponent } from './group/update/monitor-group-update-page.component';
 import { MonitorGroupsPageComponent } from './groups/monitor-groups-page.component';
+import { MonitorGroupsPageService } from './groups/monitor-groups-page.service';
 import { MonitorService } from './monitor.service';
 import { MonitorRouteAddPageComponent } from './route/add/monitor-route-add-page.component';
 import { MonitorRouteChangePageComponent } from './route/change/monitor-route-change-page.component';
@@ -26,6 +29,7 @@ import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page
 import { MonitorRouteMapSidebarComponent } from './route/map/monitor-route-map-sidebar.component';
 import { MonitorRouteMapStateService } from './route/map/monitor-route-map-state.service';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
+import { MonitorRouteUpdatePageService } from './route/update/monitor-route-update-page.service';
 import { monitorReducer } from './store/monitor.reducer';
 import { monitorFeatureKey } from './store/monitor.state';
 
@@ -40,7 +44,12 @@ export const monitorRoutes: Routes = [
       MonitorService,
     ],
     children: [
-      Util.routePath('', MonitorGroupsPageComponent, SidebarComponent),
+      Util.routePath(
+        '',
+        MonitorGroupsPageComponent,
+        SidebarComponent,
+        MonitorGroupsPageService
+      ),
       Util.routePath(
         'changes',
         MonitorChangesPageComponent,
@@ -51,7 +60,8 @@ export const monitorRoutes: Routes = [
       Util.routePath(
         'groups/:groupName',
         MonitorGroupPageComponent,
-        SidebarComponent
+        SidebarComponent,
+        MonitorGroupPageService
       ),
       Util.routePath(
         'groups/:groupName/changes',
@@ -104,7 +114,8 @@ export const monitorRoutes: Routes = [
       Util.routePath(
         'admin/groups/add',
         MonitorGroupAddPageComponent,
-        SidebarComponent
+        SidebarComponent,
+        MonitorGroupAddPageService
       ),
       Util.routePath(
         'admin/groups/:groupName',
@@ -124,7 +135,8 @@ export const monitorRoutes: Routes = [
       Util.routePath(
         'admin/groups/:groupName/routes/:routeName',
         MonitorRouteUpdatePageComponent,
-        SidebarComponent
+        SidebarComponent,
+        MonitorRouteUpdatePageService
       ),
       Util.routePath(
         'admin/groups/:groupName/routes/:routeName/delete',

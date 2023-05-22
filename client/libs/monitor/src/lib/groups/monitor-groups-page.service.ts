@@ -1,19 +1,20 @@
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorGroupsPage } from '@api/common/monitor';
-import { Util } from '@app/components/shared';
 import { MonitorService } from '../monitor.service';
+import { initialState } from './monitor-groups-page.state';
+import { MonitorGroupsPageState } from './monitor-groups-page.state';
 
 @Injectable()
 export class MonitorGroupsPageService {
+  private readonly _state = signal<MonitorGroupsPageState>(initialState);
+  readonly state = this._state.asReadonly();
   readonly admin = this.monitorService.admin;
-  private readonly _apiResponse = Util.response<MonitorGroupsPage>();
-  readonly apiResponse = this._apiResponse.asReadonly();
 
-  constructor(private monitorService: MonitorService) {}
-
-  init(): void {
+  constructor(private monitorService: MonitorService) {
     this.monitorService
       .groups()
-      .subscribe((response) => this._apiResponse.set(response));
+      .subscribe((response) =>
+        this._state.update((state) => ({ ...state, response }))
+      );
   }
 }

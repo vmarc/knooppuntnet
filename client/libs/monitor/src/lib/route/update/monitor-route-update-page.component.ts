@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -12,21 +11,21 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
   selector: 'kpn-monitor-route-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.groupName() as groupName">
+    <ng-container *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
           <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
         </li>
         <li>
-          <a [routerLink]="groupLink(groupName)">{{ groupName }}</a>
+          <a [routerLink]="groupLink(state.groupName)">{{ state.groupName }}</a>
         </li>
         <li i18n="@@breadcrumb.monitor.route">Route</li>
       </ul>
 
       <h1>
-        <span class="kpn-label">{{ service.routeName() }}</span>
-        <span> {{ service.routeDescription() }}</span
+        <span class="kpn-label">{{ state.routeName }}</span>
+        <span> {{ state.routeDescription }}</span
         >&nbsp;
       </h1>
 
@@ -34,25 +33,30 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
 
       <kpn-error />
 
-      <div *ngIf="service.apiResponse() as response">
+      <div *ngIf="state.response as response">
         <kpn-monitor-route-properties
           mode="update"
-          [groupName]="groupName"
+          [groupName]="state.groupName"
           [initialProperties]="response.result.properties"
           [routeGroups]="response.result.groups"
         />
       </div>
     </ng-container>
   `,
-  providers: [MonitorRouteUpdatePageService, NavService],
+  providers: [NavService],
   standalone: true,
   imports: [ErrorComponent, MonitorRoutePropertiesComponent, NgIf, RouterLink],
 })
-export class MonitorRouteUpdatePageComponent implements OnInit {
-  constructor(protected service: MonitorRouteUpdatePageService) {}
-
-  ngOnInit(): void {
-    this.service.init();
+export class MonitorRouteUpdatePageComponent {
+  constructor(
+    private navService: NavService,
+    protected service: MonitorRouteUpdatePageService
+  ) {
+    console.log(
+      'MonitorRouteUpdatePageComponent.constructor() routeDescription=' +
+        this.navService.state('description')()
+    );
+    this.service.init(this.navService.nav());
   }
 
   groupLink(groupName: string) {

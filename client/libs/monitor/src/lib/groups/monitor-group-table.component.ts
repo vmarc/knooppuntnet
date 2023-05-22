@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -61,7 +60,7 @@ import { MonitorGroupDetail } from '@api/common/monitor';
           Actions
         </th>
         <td mat-cell *matCellDef="let group" class="kpn-action-cell">
-          <button
+          <a
             mat-icon-button
             [routerLink]="updateLink(group)"
             title="Update"
@@ -69,7 +68,7 @@ import { MonitorGroupDetail } from '@api/common/monitor';
             class="kpn-action-button kpn-link"
           >
             <mat-icon svgIcon="pencil" />
-          </button>
+          </a>
           <button
             mat-icon-button
             [routerLink]="deleteLink(group)"
@@ -87,13 +86,7 @@ import { MonitorGroupDetail } from '@api/common/monitor';
     </table>
   `,
   standalone: true,
-  imports: [
-    MatTableModule,
-    RouterLink,
-    MatButtonModule,
-    MatIconModule,
-    AsyncPipe,
-  ],
+  imports: [MatButtonModule, MatIconModule, MatTableModule, RouterLink],
 })
 export class MonitorGroupTableComponent implements OnInit {
   @Input() admin: boolean;
