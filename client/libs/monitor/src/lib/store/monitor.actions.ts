@@ -1,4 +1,3 @@
-import { MonitorChangesPage } from '@api/common/monitor';
 import { MonitorRouteChangePage } from '@api/common/monitor';
 import { MonitorRouteChangesPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
@@ -43,22 +42,4 @@ export const actionMonitorRouteInfo = createAction(
 
 export const actionMonitorRouteAdminRelationIdChanged = createAction(
   '[Monitor] Relation id changed'
-);
-
-export const actionMonitorChangesPageInit = createAction(
-  '[MonitorChangesPage] Init'
-);
-
-export const actionMonitorChangesPageDestroy = createAction(
-  '[MonitorChangesPage] Destroy'
-);
-
-export const actionMonitorChangesPageIndex = createAction(
-  '[MonitorChangesPage] Page index',
-  props<{ pageIndex: number }>()
-);
-
-export const actionMonitorChangesPageLoaded = createAction(
-  '[MonitorChangesPage] Loaded',
-  props<ApiResponse<MonitorChangesPage>>()
 );

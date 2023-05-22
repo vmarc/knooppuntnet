@@ -12,16 +12,11 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { MonitorService } from '../monitor.service';
-import { actionMonitorChangesPageIndex } from './monitor.actions';
 import { actionMonitorRouteChangesPageIndex } from './monitor.actions';
-import { actionMonitorChangesPageLoaded } from './monitor.actions';
-import { actionMonitorChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangePageInit } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
-import { selectMonitorChangesPageIndex } from './monitor.selectors';
-import { selectMonitorGroupChangesPageIndex } from './monitor.selectors';
 
 @Injectable()
 export class MonitorEffects {
@@ -35,7 +30,6 @@ export class MonitorEffects {
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('monitorRouteId')),
         this.store.select(selectPreferencesPageSize),
-        this.store.select(selectMonitorGroupChangesPageIndex),
         this.store.select(selectPreferencesImpact),
       ]),
       mergeMap(([_, monitorRouteId, pageSize, pageIndex, impact]) => {
@@ -67,28 +61,6 @@ export class MonitorEffects {
           .routeChange(monitorRouteId, changeSetId, replicationNumber)
           .pipe(map((response) => actionMonitorRouteChangePageLoaded(response)))
       )
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  monitorChangesPageInit = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionMonitorChangesPageInit, actionMonitorChangesPageIndex),
-      concatLatestFrom(() => [
-        this.store.select(selectPreferencesPageSize),
-        this.store.select(selectMonitorChangesPageIndex),
-        this.store.select(selectPreferencesImpact),
-      ]),
-      mergeMap(([_, pageSize, pageIndex, impact]) => {
-        const parameters: MonitorChangesParameters = {
-          pageSize,
-          pageIndex,
-          impact,
-        };
-        return this.monitorService
-          .changes(parameters)
-          .pipe(map((response) => actionMonitorChangesPageLoaded(response)));
-      })
     );
   });
 

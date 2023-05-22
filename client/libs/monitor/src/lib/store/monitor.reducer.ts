@@ -1,14 +1,10 @@
 import { createReducer } from '@ngrx/store';
 import { on } from '@ngrx/store';
-import { actionMonitorChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangePageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteAdminRelationIdChanged } from './monitor.actions';
-import { actionMonitorChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageIndex } from './monitor.actions';
-import { actionMonitorChangesPageIndex } from './monitor.actions';
-import { actionMonitorChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { MonitorState } from './monitor.state';
@@ -16,35 +12,6 @@ import { initialState } from './monitor.state';
 
 export const monitorReducer = createReducer<MonitorState>(
   initialState,
-  on(
-    actionMonitorChangesPageInit,
-    (state): MonitorState => ({
-      ...state,
-      changesPageIndex: 0,
-    })
-  ),
-  on(
-    actionMonitorChangesPageDestroy,
-    (state): MonitorState => ({
-      ...state,
-      changesPage: undefined,
-      changesPageIndex: undefined,
-    })
-  ),
-  on(
-    actionMonitorChangesPageLoaded,
-    (state, response): MonitorState => ({
-      ...state,
-      changesPage: response,
-    })
-  ),
-  on(
-    actionMonitorChangesPageIndex,
-    (state, action): MonitorState => ({
-      ...state,
-      changesPageIndex: action.pageIndex,
-    })
-  ),
   on(actionMonitorRouteAdminRelationIdChanged, (state): MonitorState => {
     return {
       ...state,

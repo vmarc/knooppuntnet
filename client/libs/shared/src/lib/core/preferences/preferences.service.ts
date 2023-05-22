@@ -81,7 +81,7 @@ export class PreferencesService {
     this.store.dispatch(actionPreferencesExtraLayers({ extraLayers }));
   }
 
-  setpageSize(pageSize: number): void {
+  setPageSize(pageSize: number): void {
     this.store.dispatch(actionPreferencesPageSize({ pageSize }));
   }
 
