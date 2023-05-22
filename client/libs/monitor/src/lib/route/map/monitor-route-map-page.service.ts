@@ -22,9 +22,7 @@ export class MonitorRouteMapPageService {
     private mapService: MonitorRouteMapService,
     private stateService: MonitorRouteMapStateService,
     private nav: NavService
-  ) {}
-
-  init(): void {
+  ) {
     const subRelationIdParameter = this.subRelationId();
     let relationId = 0;
     if (subRelationIdParameter) {

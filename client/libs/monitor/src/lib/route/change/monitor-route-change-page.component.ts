@@ -5,10 +5,13 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { Timestamp } from '@api/custom';
+import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
+import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.component';
 import { MonitorRouteChangePageService } from './monitor-route-change-page.service';
@@ -20,7 +23,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <ng-container *ngIf="service.state() as state">
+    <kpn-page *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/monitor/routes">Monitor</a></li>
@@ -211,7 +214,8 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
           </div>
         </div>
       </div>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -230,6 +234,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
       }
     `,
   ],
+  providers: [MonitorRouteChangePageService, NavService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -242,6 +247,8 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     OsmLinkChangeSetComponent,
     RouterLink,
     TimestampComponent,
+    SidebarComponent,
+    PageComponent,
   ],
 })
 export class MonitorRouteChangePageComponent {

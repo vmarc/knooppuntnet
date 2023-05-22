@@ -13,12 +13,7 @@ export class MonitorRouteAddPageService {
   readonly groupDescription = this._groupDescription.asReadonly();
   readonly apiResponse = this._apiResponse.asReadonly();
 
-  constructor(
-    private monitorService: MonitorService,
-    private nav: NavService
-  ) {}
-
-  init() {
+  constructor(private monitorService: MonitorService, private nav: NavService) {
     this.monitorService.routeAddPage(this.groupName()).subscribe((response) => {
       this._apiResponse.set(response);
       if (response.result) {

@@ -12,12 +12,7 @@ export class MonitorGroupDeletePageService {
   readonly groupName = this.nav.param('groupName');
   readonly apiResponse = this._apiResponse.asReadonly();
 
-  constructor(
-    private nav: NavService,
-    private monitorService: MonitorService
-  ) {}
-
-  init(): void {
+  constructor(private nav: NavService, private monitorService: MonitorService) {
     this.monitorService
       .group(this.groupName())
       .subscribe((response) => this._apiResponse.set(response));

@@ -3,7 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 import { MonitorGroupTableComponent } from './monitor-group-table.component';
@@ -13,7 +16,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   selector: 'kpn-monitor-groups',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.state() as state">
+    <kpn-page *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.monitor">Monitor</li>
@@ -54,7 +57,8 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
           </div>
         </ng-container>
       </ng-container>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -70,6 +74,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
       }
     `,
   ],
+  providers: [MonitorGroupsPageService, NavService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -79,6 +84,8 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     MonitorPageMenuComponent,
     NgIf,
     RouterLink,
+    PageComponent,
+    SidebarComponent,
   ],
 })
 export class MonitorGroupsPageComponent {

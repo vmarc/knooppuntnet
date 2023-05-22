@@ -10,9 +10,9 @@ import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class MonitorRouteGpxService {
-  readonly groupName = this.nav.param('groupName');
-  readonly routeName = this.nav.param('routeName');
-  readonly subRelationId = this.nav.queryParam('sub-relation-id');
+  readonly groupName = this.navService.param('groupName');
+  readonly routeName = this.navService.param('routeName');
+  readonly subRelationId = this.navService.queryParam('sub-relation-id');
   readonly groupLink = computed(() => `/monitor/groups/${this.groupName}`);
   readonly routeLink = computed(
     () => `/monitor/groups/${this.groupName}/routes/${this.routeName}`
@@ -20,9 +20,7 @@ export class MonitorRouteGpxService {
   readonly apiResponse: WritableSignal<ApiResponse<MonitorRouteGpxPage> | null> =
     signal(null);
 
-  constructor(private nav: NavService, private http: HttpClient) {}
-
-  init(): void {
+  constructor(private navService: NavService, private http: HttpClient) {
     const url = `/api/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx/${this.subRelationId}`;
     this.http
       .get<ApiResponse<MonitorRouteGpxPage>>(url)
@@ -40,7 +38,7 @@ export class MonitorRouteGpxService {
 
     this.http
       .delete(apiUrl)
-      .pipe(tap(() => this.nav.go(routeUrl)))
+      .pipe(tap(() => this.navService.go(routeUrl)))
       .subscribe();
   }
 }

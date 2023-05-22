@@ -9,10 +9,10 @@ import { MonitorService } from '../../monitor.service';
 
 @Injectable()
 export class MonitorGroupUpdatePageService {
-  private readonly _groupDescription = this.nav.state('description');
+  private readonly _groupDescription = this.navService.state('description');
   private readonly _apiResponse = Util.response<MonitorGroupPage>();
 
-  readonly groupName = this.nav.param('groupName');
+  readonly groupName = this.navService.param('groupName');
   readonly apiResponse = this._apiResponse.asReadonly();
 
   private initialName = '';
@@ -33,11 +33,9 @@ export class MonitorGroupUpdatePageService {
   });
 
   constructor(
-    private nav: NavService,
+    private navService: NavService,
     private monitorService: MonitorService
-  ) {}
-
-  init(): void {
+  ) {
     this.monitorService.group(this.groupName()).subscribe((response) => {
       this._apiResponse.set(response);
       if (response.result) {
@@ -58,7 +56,7 @@ export class MonitorGroupUpdatePageService {
     if (this.form.valid) {
       this.monitorService
         .groupUpdate(groupId, this.form.value)
-        .subscribe(() => this.nav.go('/monitor'));
+        .subscribe(() => this.navService.go('/monitor'));
     }
   }
 }

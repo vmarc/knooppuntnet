@@ -10,12 +10,15 @@ export class MonitorRouteChangePageService {
   private readonly _state = signal<MonitorRouteChangePageState>(initialState);
   readonly state = this._state.asReadonly();
 
-  constructor(private nav: NavService, private monitorService: MonitorService) {
-    const groupName = this.nav.newParam('groupName');
-    const routeName = this.nav.newParam('routeName');
-    const routeDescription = this.nav.newParam('routeDescription');
-    const changeSetId = this.nav.newParam('changeSetId');
-    const replicationNumber = this.nav.newParam('replicationNumber');
+  constructor(
+    private navService: NavService,
+    private monitorService: MonitorService
+  ) {
+    const groupName = this.navService.newParam('groupName');
+    const routeName = this.navService.newParam('routeName');
+    const routeDescription = this.navService.newParam('routeDescription');
+    const changeSetId = this.navService.newParam('changeSetId');
+    const replicationNumber = this.navService.newParam('replicationNumber');
     this._state.update((state) => ({
       ...state,
       groupName,

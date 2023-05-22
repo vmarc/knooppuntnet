@@ -15,12 +15,7 @@ export class MonitorRouteDetailsPageService {
   readonly routeDescription = this._routeDescription.asReadonly();
   readonly apiResponse = this._apiResponse.asReadonly();
 
-  constructor(
-    private nav: NavService,
-    private monitorService: MonitorService
-  ) {}
-
-  init() {
+  constructor(private nav: NavService, private monitorService: MonitorService) {
     this.monitorService
       .route(this.groupName(), this.routeName())
       .subscribe((response) => {

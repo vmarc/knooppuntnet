@@ -43,21 +43,12 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
       </div>
     </ng-container>
   `,
-  providers: [NavService],
+  providers: [MonitorRouteUpdatePageService, NavService],
   standalone: true,
   imports: [ErrorComponent, MonitorRoutePropertiesComponent, NgIf, RouterLink],
 })
 export class MonitorRouteUpdatePageComponent {
-  constructor(
-    private navService: NavService,
-    protected service: MonitorRouteUpdatePageService
-  ) {
-    console.log(
-      'MonitorRouteUpdatePageComponent.constructor() routeDescription=' +
-        this.navService.state('description')()
-    );
-    this.service.init(this.navService.nav());
-  }
+  constructor(protected service: MonitorRouteUpdatePageService) {}
 
   groupLink(groupName: string) {
     return `/monitor/groups/${groupName}`;

@@ -1,12 +1,14 @@
 import { NgIf } from '@angular/common';
 import { computed } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { NavService } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteMapPageService } from './monitor-route-map-page.service';
+import { MonitorRouteMapSidebarComponent } from './monitor-route-map-sidebar.component';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 import { MonitorRouteMapComponent } from './monitor-route-map.component';
 import { MonitorRouteMapService } from './monitor-route-map.service';
@@ -15,33 +17,48 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   selector: 'kpn-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-page-header
-      pageName="map"
-      [groupName]="service.groupName()"
-      [routeName]="service.routeName()"
-      [routeDescription]="service.routeDescription()"
-      [subRelations]="subRelations()"
-      [previous]="previous()"
-      [next]="next()"
-      (selectSubRelation)="service.selectSubRelation($event)"
-    />
-    <div *ngIf="stateService.page() !== null">
-      <div
-        *ngIf="canDisplayMap(stateService.page()); then map; else noMap"
-      ></div>
-      <ng-template #noMap>
-        <p i18n="@@monitor.route.map.no-map">No map</p>
-      </ng-template>
-      <ng-template #map>
-        <kpn-monitor-route-map />
-      </ng-template>
-    </div>
+    <kpn-page>
+      <kpn-monitor-route-page-header
+        pageName="map"
+        [groupName]="service.groupName()"
+        [routeName]="service.routeName()"
+        [routeDescription]="service.routeDescription()"
+        [subRelations]="subRelations()"
+        [previous]="previous()"
+        [next]="next()"
+        (selectSubRelation)="service.selectSubRelation($event)"
+      />
+      <div *ngIf="stateService.page() !== null">
+        <div
+          *ngIf="canDisplayMap(stateService.page()); then map; else noMap"
+        ></div>
+        <ng-template #noMap>
+          <p i18n="@@monitor.route.map.no-map">No map</p>
+        </ng-template>
+        <ng-template #map>
+          <kpn-monitor-route-map />
+        </ng-template>
+      </div>
+      <kpn-monitor-route-map-sidebar sidebar />
+    </kpn-page>
   `,
-  providers: [MonitorRouteMapPageService, MonitorRouteMapService, NavService],
+  providers: [
+    MonitorRouteMapPageService,
+    MonitorRouteMapService,
+    MonitorRouteMapStateService,
+    NavService,
+  ],
   standalone: true,
-  imports: [MonitorRouteMapComponent, MonitorRoutePageHeaderComponent, NgIf],
+  imports: [
+    MonitorRouteMapComponent,
+    MonitorRouteMapSidebarComponent,
+    MonitorRoutePageHeaderComponent,
+    NgIf,
+    PageComponent,
+    SidebarComponent,
+  ],
 })
-export class MonitorRouteMapPageComponent implements OnInit {
+export class MonitorRouteMapPageComponent {
   readonly subRelations = computed(() => {
     return this.stateService.page()?.subRelations ?? [];
   });
@@ -56,10 +73,6 @@ export class MonitorRouteMapPageComponent implements OnInit {
     protected service: MonitorRouteMapPageService,
     protected stateService: MonitorRouteMapStateService
   ) {}
-
-  ngOnInit(): void {
-    this.service.init();
-  }
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {
     return (

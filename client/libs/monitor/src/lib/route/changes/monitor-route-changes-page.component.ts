@@ -3,7 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { NavService } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteChangesPageService } from './monitor-route-changes-page.service';
@@ -15,7 +18,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <ng-container *ngIf="service.state() as state">
+    <kpn-page *ngIf="service.state() as state">
       <kpn-monitor-route-page-header
         pageName="changes"
         [groupName]="state.groupName"
@@ -46,8 +49,10 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
           />
         </div>
       </div>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
+  providers: [MonitorRouteChangesPageService, NavService],
   standalone: true,
   imports: [
     MatSlideToggleModule,
@@ -55,6 +60,8 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     MonitorRoutePageHeaderComponent,
     NgIf,
     PaginatorComponent,
+    PageComponent,
+    SidebarComponent,
   ],
 })
 export class MonitorRouteChangesPageComponent {

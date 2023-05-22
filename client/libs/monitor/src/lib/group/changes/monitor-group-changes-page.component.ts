@@ -3,7 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
+import { NavService } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 import { MonitorGroupChangesPageService } from './monitor-group-changes-page.service';
@@ -15,7 +18,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <ng-container *ngIf="service.state() as state">
+    <kpn-page *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -57,16 +60,20 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
           />
         </div>
       </div>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
+  providers: [NavService, MonitorGroupChangesPageService],
   standalone: true,
   imports: [
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorGroupPageMenuComponent,
     NgIf,
+    PageComponent,
     PaginatorComponent,
     RouterLink,
+    SidebarComponent,
   ],
 })
 export class MonitorGroupChangesPageComponent {

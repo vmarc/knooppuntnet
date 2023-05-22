@@ -29,13 +29,16 @@ export class MonitorGroupAddPageService implements OnDestroy {
     description: this.description,
   });
 
-  constructor(private monitorService: MonitorService) {}
+  constructor(
+    private navService: NavService,
+    private monitorService: MonitorService
+  ) {}
 
-  add(navService: NavService): void {
+  add(): void {
     if (this.form.valid) {
       this.monitorService
         .groupAdd(this.form.value)
-        .subscribe(() => navService.go('/monitor'));
+        .subscribe(() => this.navService.go('/monitor'));
     }
   }
 }

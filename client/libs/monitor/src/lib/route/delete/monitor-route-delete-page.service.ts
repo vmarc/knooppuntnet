@@ -7,19 +7,17 @@ import { MonitorService } from '../../monitor.service';
 @Injectable()
 export class MonitorRouteDeletePageService {
   private readonly _apiResponse = Util.response<MonitorRouteDetailsPage>();
-  private readonly _routeDescription = this.nav.state('description');
+  private readonly _routeDescription = this.navService.state('description');
 
-  readonly groupName = this.nav.param('groupName');
-  readonly routeName = this.nav.param('routeName');
+  readonly groupName = this.navService.param('groupName');
+  readonly routeName = this.navService.param('routeName');
   readonly routeDescription = this._routeDescription.asReadonly();
   readonly apiResponse = this._apiResponse.asReadonly();
 
   constructor(
-    private nav: NavService,
+    private navService: NavService,
     private monitorService: MonitorService
-  ) {}
-
-  init() {
+  ) {
     this.monitorService
       .route(this.groupName(), this.routeName())
       .subscribe((response) => {
@@ -34,6 +32,6 @@ export class MonitorRouteDeletePageService {
     const url = `/monitor/groups/${this.groupName()}`;
     this.monitorService
       .routeDelete(this.groupName(), this.routeName())
-      .subscribe(() => this.nav.go(url));
+      .subscribe(() => this.navService.go(url));
   }
 }

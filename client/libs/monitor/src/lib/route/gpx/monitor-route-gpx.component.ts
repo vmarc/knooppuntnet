@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
@@ -8,6 +7,9 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
+import { NavService } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcrumb.component';
 import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference.component';
 import { MonitorRouteGpxService } from './monitor-route-gpx.service';
@@ -16,54 +18,57 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   selector: 'kpn-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-monitor-route-gpx-breadcrumb
-      [groupName]="service.groupName()"
-      [groupLink]="service.groupLink()"
-      [routeName]="service.routeName()"
-      [routeLink]="service.routeLink()"
-    />
+    <kpn-page>
+      <kpn-monitor-route-gpx-breadcrumb
+        [groupName]="service.groupName()"
+        [groupLink]="service.groupLink()"
+        [routeName]="service.routeName()"
+        [routeLink]="service.routeLink()"
+      />
 
-    <div *ngIf="service.apiResponse() as response">
-      <div *ngIf="!response.result" i18n="@@monitor.route.gpx.not-found">
-        Route not found
-      </div>
-
-      <div *ngIf="response.result as page">
-        <h1>{{ page.subRelationDescription }}</h1>
-        <h2>GPX reference</h2>
-
-        <div class="gpx-form">
-          <form [formGroup]="form" #ngForm="ngForm">
-            <kpn-monitor-route-gpx-reference
-              [ngForm]="ngForm"
-              [gpxReferenceDate]="gpxReferenceDate"
-              [referenceFilename]="referenceFilename"
-              [referenceFile]="referenceFile"
-            />
-          </form>
+      <div *ngIf="service.apiResponse() as response">
+        <div *ngIf="!response.result" i18n="@@monitor.route.gpx.not-found">
+          Route not found
         </div>
 
-        <div class="kpn-button-group">
-          <button
-            mat-raised-button
-            id="save"
-            color="primary"
-            (click)="save()"
-            [disabled]="form.invalid"
-            i18n="@@action.save"
-          >
-            Save
-          </button>
-          <a
-            [routerLink]="service.routeLink()"
-            id="cancel"
-            i18n="@@action.cancel"
-          >
-            Cancel
-          </a>
+        <div *ngIf="response.result as page">
+          <h1>{{ page.subRelationDescription }}</h1>
+          <h2>GPX reference</h2>
+
+          <div class="gpx-form">
+            <form [formGroup]="form" #ngForm="ngForm">
+              <kpn-monitor-route-gpx-reference
+                [ngForm]="ngForm"
+                [gpxReferenceDate]="gpxReferenceDate"
+                [referenceFilename]="referenceFilename"
+                [referenceFile]="referenceFile"
+              />
+            </form>
+          </div>
+
+          <div class="kpn-button-group">
+            <button
+              mat-raised-button
+              id="save"
+              color="primary"
+              (click)="save()"
+              [disabled]="form.invalid"
+              i18n="@@action.save"
+            >
+              Save
+            </button>
+            <a
+              [routerLink]="service.routeLink()"
+              id="cancel"
+              i18n="@@action.cancel"
+            >
+              Cancel
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -74,6 +79,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
       }
     `,
   ],
+  providers: [MonitorRouteGpxService, NavService],
   standalone: true,
   imports: [
     NgIf,
@@ -82,9 +88,11 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     MatButtonModule,
     ReactiveFormsModule,
     MonitorRouteGpxBreadcrumbComponent,
+    PageComponent,
+    SidebarComponent,
   ],
 })
-export class MonitorRouteGpxComponent implements OnInit {
+export class MonitorRouteGpxComponent {
   readonly gpxReferenceDate = new FormControl<Date | null>(
     null,
     Validators.required
@@ -102,10 +110,6 @@ export class MonitorRouteGpxComponent implements OnInit {
   });
 
   constructor(protected service: MonitorRouteGpxService) {}
-
-  ngOnInit(): void {
-    this.service.init();
-  }
 
   save(): void {
     this.service.save();

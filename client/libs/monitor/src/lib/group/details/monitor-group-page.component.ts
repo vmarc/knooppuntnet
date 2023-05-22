@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { MonitorGroupPage } from '@api/common/monitor';
 import { NavService } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 import { MonitorGroupPageService } from './monitor-group-page.service';
@@ -14,7 +16,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   selector: 'kpn-monitor-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.state() as state">
+    <kpn-page *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -62,9 +64,10 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
           </ng-template>
         </ng-container>
       </div>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
-  providers: [NavService],
+  providers: [NavService, MonitorGroupPageService],
   standalone: true,
   imports: [
     MatButtonModule,
@@ -73,15 +76,12 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     MonitorGroupRouteTableComponent,
     NgIf,
     RouterLink,
+    PageComponent,
+    SidebarComponent,
   ],
 })
 export class MonitorGroupPageComponent {
-  constructor(
-    private navService: NavService,
-    protected service: MonitorGroupPageService
-  ) {
-    service.init(this.navService.nav());
-  }
+  constructor(protected service: MonitorGroupPageService) {}
 
   addRouteLink(page: MonitorGroupPage): string {
     return `/monitor/admin/groups/${page.groupName}/routes/add`;

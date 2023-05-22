@@ -15,12 +15,12 @@ export class MonitorGroupChangesPageService {
   readonly impact = this.preferencesService.impact;
 
   constructor(
-    private nav: NavService,
+    private navService: NavService,
     private monitorService: MonitorService,
     private preferencesService: PreferencesService
   ) {
-    const groupName = this.nav.newParam('groupName');
-    const groupDescription = this.nav.newState('groupDescription');
+    const groupName = navService.newParam('groupName');
+    const groupDescription = navService.newState('groupDescription');
     this._state.update((state) => ({
       ...state,
       groupName,

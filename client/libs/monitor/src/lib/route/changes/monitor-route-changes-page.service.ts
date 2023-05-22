@@ -16,13 +16,13 @@ export class MonitorRouteChangesPageService {
   readonly pageSize = this.preferencesService.pageSize;
 
   constructor(
-    private nav: NavService,
+    private navService: NavService,
     private monitorService: MonitorService,
     private preferencesService: PreferencesService
   ) {
-    const groupName = this.nav.newParam('groupName');
-    const routeName = this.nav.newParam('routeName');
-    const routeDescription = this.nav.newParam('routeDescription');
+    const groupName = this.navService.newParam('groupName');
+    const routeName = this.navService.newParam('routeName');
+    const routeDescription = this.navService.newParam('routeDescription');
     this._state.update((state) => ({
       ...state,
       groupName,

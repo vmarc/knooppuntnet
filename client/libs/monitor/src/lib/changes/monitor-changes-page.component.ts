@@ -5,7 +5,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
@@ -14,7 +16,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   selector: 'kpn-monitor-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.state() as state">
+    <kpn-page *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -56,8 +58,10 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
           />
         </div>
       </div>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
+  providers: [MonitorChangesPageService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -65,8 +69,10 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     MonitorChangesComponent,
     MonitorPageMenuComponent,
     NgIf,
+    PageComponent,
     PaginatorComponent,
     RouterLink,
+    SidebarComponent,
   ],
 })
 export class MonitorChangesPageComponent {

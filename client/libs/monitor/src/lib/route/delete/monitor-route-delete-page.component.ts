@@ -1,5 +1,4 @@
 import { NgIf } from '@angular/common';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,13 +6,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
 @Component({
   selector: 'kpn-monitor-route-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="service.groupName() as groupName">
+    <kpn-page *ngIf="service.groupName() as groupName">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -57,18 +58,23 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
           >
         </div>
       </div>
-    </ng-container>
+      <kpn-sidebar sidebar />
+    </kpn-page>
   `,
   providers: [MonitorRouteDeletePageService, NavService],
   standalone: true,
-  imports: [NgIf, ErrorComponent, MatButtonModule, MatIconModule, RouterLink],
+  imports: [
+    ErrorComponent,
+    MatButtonModule,
+    MatIconModule,
+    NgIf,
+    PageComponent,
+    RouterLink,
+    SidebarComponent,
+  ],
 })
-export class MonitorRouteDeletePageComponent implements OnInit {
+export class MonitorRouteDeletePageComponent {
   constructor(protected service: MonitorRouteDeletePageService) {}
-
-  ngOnInit(): void {
-    this.service.init();
-  }
 
   groupLink(groupName: string): string {
     return `/monitor/groups/${groupName}`;
