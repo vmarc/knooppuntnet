@@ -4,6 +4,7 @@ export { PageState } from './page/page.state';
 export * from './page/page.reducer';
 export * from './page/page.selectors';
 
+export { PreferencesService } from './preferences/preferences.service';
 export { PreferencesState } from './preferences/preferences.state';
 export { AnalysisStrategy } from './preferences/preferences.state';
 export * from './preferences/preferences.actions';

@@ -3,16 +3,12 @@ import { on } from '@ngrx/store';
 import { actionMonitorChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangePageDestroy } from './monitor.actions';
 import { actionMonitorRouteChangesPageDestroy } from './monitor.actions';
-import { actionMonitorGroupChangesPageDestroy } from './monitor.actions';
 import { actionMonitorRouteAdminRelationIdChanged } from './monitor.actions';
-import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageIndex } from './monitor.actions';
-import { actionMonitorGroupChangesPageIndex } from './monitor.actions';
 import { actionMonitorChangesPageIndex } from './monitor.actions';
 import { actionMonitorChangesPageLoaded } from './monitor.actions';
-import { actionMonitorGroupChangesPageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
 import { actionMonitorRouteChangesPageLoaded } from './monitor.actions';
 import { MonitorState } from './monitor.state';
@@ -47,39 +43,6 @@ export const monitorReducer = createReducer<MonitorState>(
     (state, action): MonitorState => ({
       ...state,
       changesPageIndex: action.pageIndex,
-    })
-  ),
-  on(
-    actionMonitorGroupChangesPageInit,
-    (state): MonitorState => ({
-      ...state,
-      groupChangesPageIndex: 0,
-    })
-  ),
-  on(
-    actionMonitorGroupChangesPageLoaded,
-    (state, response): MonitorState => ({
-      ...state,
-      groupName: response?.result?.groupName ?? state.groupName,
-      groupDescription:
-        response?.result?.groupDescription ?? state.groupDescription,
-      groupChangesPage: response,
-    })
-  ),
-  on(
-    actionMonitorGroupChangesPageDestroy,
-    (state): MonitorState => ({
-      ...state,
-      groupName: undefined,
-      groupDescription: undefined,
-      groupChangesPage: undefined,
-    })
-  ),
-  on(
-    actionMonitorGroupChangesPageIndex,
-    (state, action): MonitorState => ({
-      ...state,
-      groupChangesPageIndex: action.pageIndex,
     })
   ),
   on(actionMonitorRouteAdminRelationIdChanged, (state): MonitorState => {

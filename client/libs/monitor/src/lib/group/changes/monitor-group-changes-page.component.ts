@@ -1,24 +1,13 @@
 import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { actionPreferencesImpact } from '@app/core';
-import { selectPreferencesImpact } from '@app/core';
-import { Store } from '@ngrx/store';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
-import { actionMonitorGroupChangesPageDestroy } from '../../store/monitor.actions';
-import { actionMonitorGroupChangesPageIndex } from '../../store/monitor.actions';
-import { actionMonitorGroupChangesPageInit } from '../../store/monitor.actions';
-import { selectMonitorGroupChangesPage } from '../../store/monitor.selectors';
-import { selectMonitorGroupDescription } from '../../store/monitor.selectors';
-import { selectMonitorGroupName } from '../../store/monitor.selectors';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
+import { MonitorGroupChangesPageService } from './monitor-group-changes-page.service';
 
 @Component({
   selector: 'kpn-monitor-group-changes',
@@ -27,78 +16,69 @@ import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
-        <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-      </li>
-      <li>Group changes</li>
-    </ul>
+    <ng-container *ngIf="service.state() as state">
+      <ul class="breadcrumb">
+        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+        </li>
+        <li>Group changes</li>
+      </ul>
 
-    <h1>
-      {{ groupDescription() }}
-    </h1>
+      <h1>
+        {{ state.groupDescription }}
+      </h1>
 
-    <kpn-monitor-group-page-menu pageName="changes" [groupName]="groupName()" />
+      <kpn-monitor-group-page-menu
+        pageName="changes"
+        [groupName]="state.groupName"
+      />
 
-    <div *ngIf="apiResponse() as response">
-      <p *ngIf="!response.result">No group changes</p>
-      <div *ngIf="response.result as page" class="kpn-spacer-above">
-        <mat-slide-toggle [checked]="impact()" (change)="impactChanged($event)">
-          Impact
-        </mat-slide-toggle>
+      <div *ngIf="state.response as response">
+        <p *ngIf="!response.result">No group changes</p>
+        <div *ngIf="response.result as page" class="kpn-spacer-above">
+          <mat-slide-toggle
+            [checked]="service.impact()"
+            (change)="service.impactChanged($event.checked)"
+          >
+            Impact
+          </mat-slide-toggle>
 
-        <kpn-paginator
-          (pageIndexChange)="pageChanged($event)"
-          [pageIndex]="page.pageIndex"
-          [length]="page.totalChangeCount"
-          [showPageSizeSelection]="true"
-        />
+          <kpn-paginator
+            (pageIndexChange)="pageChanged($event)"
+            [pageIndex]="page.pageIndex"
+            [length]="page.totalChangeCount"
+            [showPageSizeSelection]="true"
+          />
 
-        <kpn-monitor-changes
-          [pageSize]="page.pageSize"
-          [pageIndex]="page.pageIndex"
-          [changes]="page.changes"
-        />
+          <kpn-monitor-changes
+            [pageSize]="page.pageSize"
+            [pageIndex]="page.pageIndex"
+            [changes]="page.changes"
+          />
+        </div>
       </div>
-    </div>
+    </ng-container>
   `,
   standalone: true,
   imports: [
-    RouterLink,
+    MatSlideToggleModule,
+    MonitorChangesComponent,
     MonitorGroupPageMenuComponent,
     NgIf,
-    MatSlideToggleModule,
     PaginatorComponent,
-    MonitorChangesComponent,
-    AsyncPipe,
+    RouterLink,
   ],
 })
-export class MonitorGroupChangesPageComponent implements OnInit, OnDestroy {
-  readonly groupName = this.store.selectSignal(selectMonitorGroupName);
-  readonly groupDescription = this.store.selectSignal(
-    selectMonitorGroupDescription
-  );
-  readonly impact = this.store.selectSignal(selectPreferencesImpact);
-  readonly apiResponse = this.store.selectSignal(selectMonitorGroupChangesPage);
-
-  constructor(private store: Store) {}
+export class MonitorGroupChangesPageComponent implements OnInit {
+  constructor(protected service: MonitorGroupChangesPageService) {}
 
   ngOnInit(): void {
-    this.store.dispatch(actionMonitorGroupChangesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionMonitorGroupChangesPageDestroy());
-  }
-
-  impactChanged(event: MatSlideToggleChange) {
-    this.store.dispatch(actionPreferencesImpact({ impact: event.checked }));
-    this.store.dispatch(actionMonitorGroupChangesPageInit());
+    this.service.init();
   }
 
   pageChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(actionMonitorGroupChangesPageIndex({ pageIndex }));
+    this.service.pageChanged(pageIndex);
   }
 }

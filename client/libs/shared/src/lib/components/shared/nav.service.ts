@@ -49,6 +49,11 @@ export class NavService {
     return signal(value);
   }
 
+  public newState(name: string): string {
+    const state = this.router.getCurrentNavigation().extras.state;
+    return state && state[name] ? state[name] : '';
+  }
+
   public go(url: string) {
     this.router.navigate([url]);
   }

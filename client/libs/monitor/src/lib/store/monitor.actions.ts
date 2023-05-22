@@ -1,28 +1,9 @@
 import { MonitorChangesPage } from '@api/common/monitor';
-import { MonitorGroupChangesPage } from '@api/common/monitor';
 import { MonitorRouteChangePage } from '@api/common/monitor';
 import { MonitorRouteChangesPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
-
-export const actionMonitorGroupChangesPageInit = createAction(
-  '[MonitorGroupChangesPage] Init'
-);
-
-export const actionMonitorGroupChangesPageDestroy = createAction(
-  '[MonitorGroupChangesPage] Destroy'
-);
-
-export const actionMonitorGroupChangesPageIndex = createAction(
-  '[MonitorGroupChangesPage] Page index',
-  props<{ pageIndex: number }>()
-);
-
-export const actionMonitorGroupChangesPageLoaded = createAction(
-  '[MonitorGroupChangesPage] Loaded',
-  props<ApiResponse<MonitorGroupChangesPage>>()
-);
 
 export const actionMonitorRouteChangesPageInit = createAction(
   '[MonitorRouteChangesPage] Init'

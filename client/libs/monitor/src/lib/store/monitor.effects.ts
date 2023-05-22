@@ -14,11 +14,8 @@ import { mergeMap } from 'rxjs/operators';
 import { MonitorService } from '../monitor.service';
 import { actionMonitorChangesPageIndex } from './monitor.actions';
 import { actionMonitorRouteChangesPageIndex } from './monitor.actions';
-import { actionMonitorGroupChangesPageIndex } from './monitor.actions';
 import { actionMonitorChangesPageLoaded } from './monitor.actions';
 import { actionMonitorChangesPageInit } from './monitor.actions';
-import { actionMonitorGroupChangesPageLoaded } from './monitor.actions';
-import { actionMonitorGroupChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangesPageInit } from './monitor.actions';
 import { actionMonitorRouteChangePageInit } from './monitor.actions';
 import { actionMonitorRouteChangePageLoaded } from './monitor.actions';
@@ -28,34 +25,6 @@ import { selectMonitorGroupChangesPageIndex } from './monitor.selectors';
 
 @Injectable()
 export class MonitorEffects {
-  // noinspection JSUnusedGlobalSymbols
-  monitorGroupChangesPageInit = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(
-        actionMonitorGroupChangesPageInit,
-        actionMonitorGroupChangesPageIndex
-      ),
-      concatLatestFrom(() => [
-        this.store.select(selectRouteParam('groupName')),
-        this.store.select(selectPreferencesPageSize),
-        this.store.select(selectMonitorGroupChangesPageIndex),
-        this.store.select(selectPreferencesImpact),
-      ]),
-      mergeMap(([_, groupName, pageSize, pageIndex, impact]) => {
-        const parameters: MonitorChangesParameters = {
-          pageSize,
-          pageIndex,
-          impact,
-        };
-        return this.monitorService
-          .groupChanges(groupName, parameters)
-          .pipe(
-            map((response) => actionMonitorGroupChangesPageLoaded(response))
-          );
-      })
-    );
-  });
-
   // noinspection JSUnusedGlobalSymbols
   monitorRouteChangesPageInit = createEffect(() => {
     return this.actions$.pipe(
