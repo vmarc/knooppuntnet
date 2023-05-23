@@ -22,7 +22,7 @@ import { PageService } from '..';
       </button>
       <kpn-spinner />
       <span class="toolbar-spacer"></span>
-      <router-outlet name="toolbar" />
+      <ng-content />
     </mat-toolbar>
   `,
   styles: [

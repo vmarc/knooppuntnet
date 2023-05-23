@@ -17,75 +17,85 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
+import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetFactRefsLoad } from '../store/subset.actions';
 import { actionSubsetFactsPageInit } from '../store/subset.actions';
 import { selectSubsetFactsPage } from '../store/subset.selectors';
+import { SubsetSidebarComponent } from '../subset-sidebar.component';
 
 @Component({
   selector: 'kpn-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-subset-page-header-block
-      pageName="facts"
-      pageTitle="Facts"
-      i18n-pageTitle="@@subset-facts.title"
-    />
+    <kpn-page>
+      <kpn-subset-page-header-block
+        pageName="facts"
+        pageTitle="Facts"
+        i18n-pageTitle="@@subset-facts.title"
+      />
 
-    <kpn-error />
+      <kpn-error />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <p>
-        <kpn-situation-on [timestamp]="response.situationOn" />
-      </p>
-      <p *ngIf="!hasFacts(response)" class="kpn-line">
-        <span i18n="@@subset-facts.no-facts">No facts</span>
-        <kpn-icon-happy />
-      </p>
-      <div *ngIf="hasFacts(response)" class="kpn-line">
-        <kpn-items>
-          <kpn-item
-            *ngFor="let factCount of response.result.factCounts; let i = index"
-            [index]="i"
-          >
-            <div class="kpn-line">
-              <a [routerLink]="factCount.fact">
-                <kpn-fact-name [fact]="factCount.fact" />
-              </a>
-              <span>({{ factCount.count }})</span>
-              <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
-              <a
-                rel="nofollow"
-                (click)="edit(factCount.fact)"
-                title="Open in editor (like JOSM)"
-                i18n-title="@@edit.link.title"
-                i18n="@@edit.link"
-                >edit</a
-              >
-            </div>
-            <kpn-fact-description [factInfo]="factInfo(factCount)" />
-          </kpn-item>
-        </kpn-items>
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+        <p>
+          <kpn-situation-on [timestamp]="response.situationOn" />
+        </p>
+        <p *ngIf="!hasFacts(response)" class="kpn-line">
+          <span i18n="@@subset-facts.no-facts">No facts</span>
+          <kpn-icon-happy />
+        </p>
+        <div *ngIf="hasFacts(response)" class="kpn-line">
+          <kpn-items>
+            <kpn-item
+              *ngFor="
+                let factCount of response.result.factCounts;
+                let i = index
+              "
+              [index]="i"
+            >
+              <div class="kpn-line">
+                <a [routerLink]="factCount.fact">
+                  <kpn-fact-name [fact]="factCount.fact" />
+                </a>
+                <span>({{ factCount.count }})</span>
+                <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
+                <a
+                  rel="nofollow"
+                  (click)="edit(factCount.fact)"
+                  title="Open in editor (like JOSM)"
+                  i18n-title="@@edit.link.title"
+                  i18n="@@edit.link"
+                  >edit</a
+                >
+              </div>
+              <kpn-fact-description [factInfo]="factInfo(factCount)" />
+            </kpn-item>
+          </kpn-items>
+        </div>
       </div>
-    </div>
+      <kpn-subset-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    SubsetPageHeaderBlockComponent,
+    AsyncPipe,
     ErrorComponent,
-    NgIf,
-    SituationOnComponent,
+    FactDescriptionComponent,
+    FactLevelComponent,
+    FactNameComponent,
     IconHappyComponent,
+    ItemComponent,
     ItemsComponent,
     NgFor,
-    ItemComponent,
+    NgIf,
+    PageComponent,
     RouterLink,
-    FactNameComponent,
-    FactLevelComponent,
-    FactDescriptionComponent,
-    AsyncPipe,
+    SituationOnComponent,
+    SubsetPageHeaderBlockComponent,
+    SubsetSidebarComponent,
   ],
 })
 export class SubsetFactsPageComponent implements OnInit {

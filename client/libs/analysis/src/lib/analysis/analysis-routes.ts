@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { Util } from '@app/components/shared';
-import { AnalysisSidebarComponent } from './analysis-sidebar.component';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
 import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';
 import { AnalysisHikingPageComponent } from './pages/analysis-hiking-page.component';
@@ -16,7 +14,7 @@ export const analysisRoutes: Routes = [
     path: '',
     providers: [AnalysisStrategyService],
     children: [
-      Util.routePath('', AnalysisPageComponent, AnalysisSidebarComponent),
+      { path: '', component: AnalysisPageComponent },
       {
         path: 'node',
         loadChildren: () => import('../node').then((m) => m.nodeRoutes),
@@ -46,36 +44,30 @@ export const analysisRoutes: Routes = [
         path: 'overview',
         loadChildren: () => import('../overview').then((m) => m.overviewRoutes),
       },
-      Util.routePath(
-        'cycling',
-        AnalysisCyclingPageComponent,
-        AnalysisSidebarComponent
-      ),
-      Util.routePath(
-        'hiking',
-        AnalysisHikingPageComponent,
-        AnalysisSidebarComponent
-      ),
-      Util.routePath(
-        'horse-riding',
-        AnalysisHorseRidingPageComponent,
-        AnalysisSidebarComponent
-      ),
-      Util.routePath(
-        'motorboat',
-        AnalysisMotorboatPageComponent,
-        AnalysisSidebarComponent
-      ),
-      Util.routePath(
-        'canoe',
-        AnalysisCanoePageComponent,
-        AnalysisSidebarComponent
-      ),
-      Util.routePath(
-        'inline-skating',
-        AnalysisInlineSkatingPageComponent,
-        AnalysisSidebarComponent
-      ),
+      {
+        path: 'cycling',
+        component: AnalysisCyclingPageComponent,
+      },
+      {
+        path: 'hiking',
+        component: AnalysisHikingPageComponent,
+      },
+      {
+        path: 'horse-riding',
+        component: AnalysisHorseRidingPageComponent,
+      },
+      {
+        path: 'motorboat',
+        component: AnalysisMotorboatPageComponent,
+      },
+      {
+        path: 'canoe',
+        component: AnalysisCanoePageComponent,
+      },
+      {
+        path: 'inline-skating',
+        component: AnalysisInlineSkatingPageComponent,
+      },
       {
         matcher: LocationUrlMatcher.match,
         loadChildren: () => import('../location').then((m) => m.locationRoutes),

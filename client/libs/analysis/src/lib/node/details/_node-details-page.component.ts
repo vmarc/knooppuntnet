@@ -9,10 +9,12 @@ import { FactsComponent } from '@app/analysis/fact';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
+import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
 import { selectNodeNetworkTypes } from '../store/node.selectors';
@@ -30,98 +32,103 @@ import { NodeSummaryComponent } from './node-summary.component';
   selector: 'kpn-node-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
-        <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li i18n="@@breadcrumb.node">Node</li>
-    </ul>
+    <kpn-page>
+      <ul class="breadcrumb">
+        <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis"
+            >Analysis</a
+          >
+        </li>
+        <li i18n="@@breadcrumb.node">Node</li>
+      </ul>
 
-    <kpn-node-page-header
-      pageName="details"
-      [nodeId]="nodeId()"
-      [nodeName]="nodeName()"
-      [changeCount]="changeCount()"
-    />
+      <kpn-node-page-header
+        pageName="details"
+        [nodeId]="nodeId()"
+        [nodeName]="nodeName()"
+        [changeCount]="changeCount()"
+      />
 
-    <kpn-error />
+      <kpn-error />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <div *ngIf="!response.result" i18n="@@node.node-not-found">
-        Node not found
-      </div>
-      <div *ngIf="response.result as page">
-        <kpn-data title="Summary" i18n-title="@@node.summary">
-          <kpn-node-summary [nodeInfo]="page.nodeInfo" />
-        </kpn-data>
-
-        <div class="data2">
-          <div class="title">
-            <span i18n="@@node.situation-on">Situation on</span>
-          </div>
-          <div class="body">
-            <kpn-timestamp [timestamp]="response.situationOn" />
-          </div>
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+        <div *ngIf="!response.result" i18n="@@node.node-not-found">
+          Node not found
         </div>
+        <div *ngIf="response.result as page">
+          <kpn-data title="Summary" i18n-title="@@node.summary">
+            <kpn-node-summary [nodeInfo]="page.nodeInfo" />
+          </kpn-data>
 
-        <kpn-data title="Last updated" i18n-title="@@node.last-updated">
-          <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
-        </kpn-data>
-
-        <kpn-data title="Tags" i18n-title="@@node.tags">
-          <kpn-tags-table [tags]="buildTags(page)" />
-        </kpn-data>
-
-        <kpn-data title="Location" i18n-title="@@node.location">
-          <div *ngIf="networkTypes() as networkTypes">
-            <div *ngIf="networkTypes.length > 1">
-              <div *ngFor="let networkType of networkTypes" class="kpn-line">
-                <kpn-network-type-icon [networkType]="networkType" />
-                <kpn-node-location
-                  [networkType]="networkType"
-                  [locations]="page.nodeInfo.locations"
-                />
-              </div>
+          <div class="data2">
+            <div class="title">
+              <span i18n="@@node.situation-on">Situation on</span>
             </div>
-            <div *ngIf="networkTypes.length === 1">
-              <div *ngFor="let networkType of networkTypes">
-                <kpn-node-location
-                  [networkType]="networkTypes[0]"
-                  [locations]="page.nodeInfo.locations"
-                />
-              </div>
+            <div class="body">
+              <kpn-timestamp [timestamp]="response.situationOn" />
             </div>
           </div>
-        </kpn-data>
 
-        <kpn-data title="Integrity" i18n-title="@@node.integrity">
-          <kpn-node-integrity
-            [integrity]="page.integrity"
-            [mixedNetworkScopes]="page.mixedNetworkScopes"
-          />
-        </kpn-data>
+          <kpn-data title="Last updated" i18n-title="@@node.last-updated">
+            <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
+          </kpn-data>
 
-        <kpn-data title="Routes" i18n-title="@@node.routes">
-          <kpn-node-route-references
-            [references]="page.routeReferences"
-            [mixedNetworkScopes]="page.mixedNetworkScopes"
-          />
-        </kpn-data>
+          <kpn-data title="Tags" i18n-title="@@node.tags">
+            <kpn-tags-table [tags]="buildTags(page)" />
+          </kpn-data>
 
-        <kpn-data title="Networks" i18n-title="@@node.networks">
-          <kpn-node-network-references
-            [nodeInfo]="page.nodeInfo"
-            [references]="page.networkReferences"
-            [mixedNetworkScopes]="page.mixedNetworkScopes"
-          />
-        </kpn-data>
+          <kpn-data title="Location" i18n-title="@@node.location">
+            <div *ngIf="networkTypes() as networkTypes">
+              <div *ngIf="networkTypes.length > 1">
+                <div *ngFor="let networkType of networkTypes" class="kpn-line">
+                  <kpn-network-type-icon [networkType]="networkType" />
+                  <kpn-node-location
+                    [networkType]="networkType"
+                    [locations]="page.nodeInfo.locations"
+                  />
+                </div>
+              </div>
+              <div *ngIf="networkTypes.length === 1">
+                <div *ngFor="let networkType of networkTypes">
+                  <kpn-node-location
+                    [networkType]="networkTypes[0]"
+                    [locations]="page.nodeInfo.locations"
+                  />
+                </div>
+              </div>
+            </div>
+          </kpn-data>
 
-        <kpn-data title="Facts" i18n-title="@@node.facts">
-          <kpn-facts [factInfos]="buildFactInfos(page)" />
-        </kpn-data>
+          <kpn-data title="Integrity" i18n-title="@@node.integrity">
+            <kpn-node-integrity
+              [integrity]="page.integrity"
+              [mixedNetworkScopes]="page.mixedNetworkScopes"
+            />
+          </kpn-data>
+
+          <kpn-data title="Routes" i18n-title="@@node.routes">
+            <kpn-node-route-references
+              [references]="page.routeReferences"
+              [mixedNetworkScopes]="page.mixedNetworkScopes"
+            />
+          </kpn-data>
+
+          <kpn-data title="Networks" i18n-title="@@node.networks">
+            <kpn-node-network-references
+              [nodeInfo]="page.nodeInfo"
+              [references]="page.networkReferences"
+              [mixedNetworkScopes]="page.mixedNetworkScopes"
+            />
+          </kpn-data>
+
+          <kpn-data title="Facts" i18n-title="@@node.facts">
+            <kpn-facts [factInfos]="buildFactInfos(page)" />
+          </kpn-data>
+        </div>
       </div>
-    </div>
+      <kpn-analysis-sidebar sidebar />
+    </kpn-page>
   `,
   styleUrls: [
     '../../../../../shared/src/lib/components/shared/data/data.component.scss',
@@ -144,6 +151,8 @@ import { NodeSummaryComponent } from './node-summary.component';
     NodeNetworkReferencesComponent,
     FactsComponent,
     AsyncPipe,
+    PageComponent,
+    AnalysisSidebarComponent,
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {

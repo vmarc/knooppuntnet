@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { BaseSidebarComponent } from '@app/base';
 import { MapLayerTranslationService } from '@app/components/ol/services';
 import { NewMapService } from '@app/components/ol/services';
 import { PoiTileLayerService } from '@app/components/ol/services';
@@ -7,8 +6,6 @@ import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { PlannerMapService } from './pages/planner/planner-map.service';
 import { PlannerPageComponent } from './pages/planner/planner-page.component';
-import { PlannerSidebarComponent } from './pages/planner/sidebar/planner-sidebar.component';
-import { PlannerToolbarComponent } from './pages/planner/sidebar/planner-toolbar.component';
 import { MapPageComponent } from './pages/selector/_map-page.component';
 import { PdfService } from './pdf/pdf.service';
 import { PlannerService } from './planner.service';
@@ -26,12 +23,12 @@ export const plannerRoutes: Routes = [
         reducer: plannerReducer,
       }),
       provideEffects([PlannerEffects]),
-      PdfService,
-      PlannerService,
-      PlannerMapService,
+      MapLayerTranslationService,
       MapService,
       NewMapService,
-      MapLayerTranslationService,
+      PdfService,
+      PlannerMapService,
+      PlannerService,
       PoiTileLayerService,
     ],
     children: [
@@ -41,27 +38,11 @@ export const plannerRoutes: Routes = [
         component: MapPageComponent,
       },
       {
-        path: '',
-        pathMatch: 'full',
-        component: BaseSidebarComponent,
-        outlet: 'sidebar',
-      },
-      {
         path: ':networkType',
         children: [
           {
             path: '',
             component: PlannerPageComponent,
-          },
-          {
-            path: '',
-            component: PlannerSidebarComponent,
-            outlet: 'sidebar',
-          },
-          {
-            path: '',
-            component: PlannerToolbarComponent,
-            outlet: 'toolbar',
           },
         ],
       },

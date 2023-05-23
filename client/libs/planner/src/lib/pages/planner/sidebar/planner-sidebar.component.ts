@@ -23,12 +23,12 @@ import { PlannerSideBarPlannerComponent } from './planner-side-bar-planner.compo
   `,
   standalone: true,
   imports: [
-    PlannerSideBarPlannerComponent,
+    PageFooterComponent,
     PlannerSideBarAppearanceComponent,
     PlannerSideBarLegendComponent,
     PlannerSideBarOptionsComponent,
+    PlannerSideBarPlannerComponent,
     SidebarFooterComponent,
-    PageFooterComponent,
   ],
 })
 export class PlannerSidebarComponent {}

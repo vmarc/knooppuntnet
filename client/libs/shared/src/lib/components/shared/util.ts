@@ -1,7 +1,6 @@
 import { signal } from '@angular/core';
 import { WritableSignal } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Route } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common';
 import { TagDiffs } from '@api/common/diff';
@@ -16,29 +15,6 @@ import { fromLonLat } from 'ol/proj';
 type IPropertyGetter<T> = () => T;
 
 export class Util {
-  public static routePath(
-    path: string,
-    component: any,
-    sidebarComponent: any,
-    ...providers: any[]
-  ): Route {
-    return {
-      path,
-      providers,
-      children: [
-        {
-          path: '',
-          component,
-        },
-        {
-          path: '',
-          component: sidebarComponent,
-          outlet: 'sidebar',
-        },
-      ],
-    };
-  }
-
   public static response<T>(): WritableSignal<ApiResponse<T> | null> {
     return signal<ApiResponse<T> | null>(null);
   }

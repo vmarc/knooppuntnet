@@ -14,6 +14,7 @@ import { NewMapService } from '@app/components/ol/services';
 import { PoiTileLayerService } from '@app/components/ol/services';
 import { PageService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
 import { selectFragment } from '@app/core';
 import { selectQueryParam } from '@app/core';
 import { ApiService } from '@app/services';
@@ -34,20 +35,26 @@ import { GeolocationControlComponent } from './geolocation/geolocation-control.c
 import { PlannerMapService } from './planner-map.service';
 import { PoiMenuComponent } from './poi-menu.component';
 import { PlannerPopupComponent } from './popup/planner-popup.component';
+import { PlannerSidebarComponent } from './sidebar/planner-sidebar.component';
+import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
 
 @Component({
   selector: 'kpn-planner-page',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-planner-popup></kpn-planner-popup>
-    <div [id]="service.mapId" class="map" (mouseleave)="mouseleave()">
-      <kpn-route-control (action)="zoomInToRoute()" />
-      <kpn-geolocation-control (action)="geolocation($event)" />
-      <kpn-layer-switcher>
-        <kpn-poi-menu />
-      </kpn-layer-switcher>
-      <kpn-map-link-menu />
-    </div>
+    <kpn-page>
+      <kpn-planner-popup></kpn-planner-popup>
+      <div [id]="service.mapId" class="map" (mouseleave)="mouseleave()">
+        <kpn-route-control (action)="zoomInToRoute()" />
+        <kpn-geolocation-control (action)="geolocation($event)" />
+        <kpn-layer-switcher>
+          <kpn-poi-menu />
+        </kpn-layer-switcher>
+        <kpn-map-link-menu />
+      </div>
+      <kpn-planner-toolbar toolbar />
+      <kpn-planner-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -74,12 +81,15 @@ import { PlannerPopupComponent } from './popup/planner-popup.component';
   ],
   standalone: true,
   imports: [
-    PlannerPopupComponent,
-    RouteControlComponent,
     GeolocationControlComponent,
     LayerSwitcherComponent,
-    PoiMenuComponent,
     MapLinkMenuComponent,
+    PageComponent,
+    PlannerPopupComponent,
+    PlannerSidebarComponent,
+    PoiMenuComponent,
+    RouteControlComponent,
+    PlannerToolbarComponent,
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {

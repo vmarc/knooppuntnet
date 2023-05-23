@@ -11,6 +11,7 @@ import { PageFooterComponent } from '@app/components/shared/page';
 import { PageExperimentalComponent } from '@app/components/shared/page';
 import { SidebarBackComponent } from '@app/components/shared/sidebar';
 import { ToolbarComponent } from '@app/components/shared/toolbar';
+import { IconService } from '@app/services';
 import { VersionService } from '@app/services';
 import { SpinnerService } from '@app/spinner';
 import { Subscriptions } from '@app/util';
@@ -95,6 +96,7 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     private store: Store,
+    private iconService: IconService,
     private spinnerService: SpinnerService,
     private versionService: VersionService,
     router: Router

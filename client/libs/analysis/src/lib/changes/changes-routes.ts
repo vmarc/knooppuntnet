@@ -3,7 +3,6 @@ import { ChangesService } from '@app/analysis/components/changes/filter';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { ChangesPageComponent } from './page/_changes-page.component';
-import { ChangesSidebarComponent } from './sidebar/changes-sidebar.component';
 import { ChangesEffects } from './store/changes.effects';
 import { changesReducer } from './store/changes.reducer';
 import { changesFeatureKey } from './store/changes.state';
@@ -23,11 +22,6 @@ export const changesRoutes: Routes = [
       {
         path: '',
         component: ChangesPageComponent,
-      },
-      {
-        path: '',
-        component: ChangesSidebarComponent,
-        outlet: 'sidebar',
       },
     ],
   },

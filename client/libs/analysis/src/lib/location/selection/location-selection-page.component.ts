@@ -14,6 +14,7 @@ import { NetworkType } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
 import { NetworkTypeNameComponent } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Countries } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
@@ -25,6 +26,7 @@ import { actionLocationSelectionPageDestroy } from '../store/location.actions';
 import { actionLocationSelectionPageInit } from '../store/location.actions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationModeService } from './location-mode.service';
+import { LocationSelectionSidebarComponent } from './location-selection-sidebar.component';
 import { LocationSelectionService } from './location-selection.service';
 import { LocationSelectorComponent } from './location-selector.component';
 import { LocationTreeComponent } from './location-tree.component';
@@ -33,50 +35,53 @@ import { LocationTreeComponent } from './location-tree.component';
   selector: 'kpn-location-selection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-error />
+    <kpn-page>
+      <kpn-error />
 
-    <div *ngIf="locationNode$ | async as locationNode">
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
-          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li>
-          <a [routerLink]="networkTypeLink()">
-            <kpn-network-type-name [networkType]="networkType" />
-          </a>
-        </li>
-        <li>
+      <div *ngIf="locationNode$ | async as locationNode">
+        <ul class="breadcrumb">
+          <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+          <li>
+            <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+          </li>
+          <li>
+            <a [routerLink]="networkTypeLink()">
+              <kpn-network-type-name [networkType]="networkType" />
+            </a>
+          </li>
+          <li>
+            <kpn-country-name [country]="country" />
+          </li>
+        </ul>
+
+        <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
+          <span class="header-network-type-icon">
+            <mat-icon [svgIcon]="networkType" />
+          </span>
+          <kpn-network-type-name [networkType]="networkType" />
+          <span i18n="@@subset.in" class="in">in</span>
           <kpn-country-name [country]="country" />
-        </li>
-      </ul>
+        </kpn-page-header>
 
-      <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
-        <span class="header-network-type-icon">
-          <mat-icon [svgIcon]="networkType" />
-        </span>
-        <kpn-network-type-name [networkType]="networkType" />
-        <span i18n="@@subset.in" class="in">in</span>
-        <kpn-country-name [country]="country" />
-      </kpn-page-header>
+        <div *ngIf="isModeName() | async">
+          <kpn-location-selector
+            [country]="country"
+            [locationNode]="locationNode"
+            (selection)="selected($event)"
+          />
+        </div>
 
-      <div *ngIf="isModeName() | async">
-        <kpn-location-selector
-          [country]="country"
-          [locationNode]="locationNode"
-          (selection)="selected($event)"
-        />
+        <div *ngIf="isModeTree() | async">
+          <kpn-location-tree
+            [networkType]="networkType"
+            [country]="country"
+            [locationNode]="locationNode"
+            (selection)="selected($event)"
+          />
+        </div>
       </div>
-
-      <div *ngIf="isModeTree() | async">
-        <kpn-location-tree
-          [networkType]="networkType"
-          [country]="country"
-          [locationNode]="locationNode"
-          (selection)="selected($event)"
-        />
-      </div>
-    </div>
+      <kpn-location-selection-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -91,16 +96,18 @@ import { LocationTreeComponent } from './location-tree.component';
   ],
   standalone: true,
   imports: [
-    ErrorComponent,
-    NgIf,
-    RouterLink,
-    NetworkTypeNameComponent,
+    AsyncPipe,
     CountryNameComponent,
-    PageHeaderComponent,
-    MatIconModule,
+    ErrorComponent,
+    LocationSelectionSidebarComponent,
     LocationSelectorComponent,
     LocationTreeComponent,
-    AsyncPipe,
+    MatIconModule,
+    NetworkTypeNameComponent,
+    NgIf,
+    PageComponent,
+    PageHeaderComponent,
+    RouterLink,
   ],
 })
 export class LocationSelectionPageComponent implements OnInit, OnDestroy {

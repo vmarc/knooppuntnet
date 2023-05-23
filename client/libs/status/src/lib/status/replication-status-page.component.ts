@@ -7,6 +7,7 @@ import { Params, RouterLink } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { PeriodParameters } from '@api/common/status';
 import { ReplicationStatusPage } from '@api/common/status';
+import { PageComponent } from '@app/components/shared/page';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
@@ -21,6 +22,7 @@ import { ReplicationElementsChartComponent } from './charts/replication-elements
 import { UpdateDelayChartComponent } from './charts/update-delay-chart.component';
 import { StatusLinks } from './status-links';
 import { StatusPageMenuComponent } from './status-page-menu.component';
+import { StatusSidebarComponent } from './status-sidebar.component';
 
 @Component({
   selector: 'kpn-replication-status-page',
@@ -28,56 +30,59 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
-      <li i18n="@@breadcrumb.replication">Replication</li>
-    </ul>
+    <kpn-page>
+      <ul class="breadcrumb">
+        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+        <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
+        <li i18n="@@breadcrumb.replication">Replication</li>
+      </ul>
 
-    <h1>Replication</h1>
+      <h1>Replication</h1>
 
-    <div *ngIf="page$ | async as page">
-      <kpn-status-page-menu
-        [links]="statusLinks"
-        [periodType]="page.periodType"
-      />
+      <div *ngIf="page$ | async as page">
+        <kpn-status-page-menu
+          [links]="statusLinks"
+          [periodType]="page.periodType"
+        />
 
-      <div>
-        <a [routerLink]="'TODO previous'" class="previous">previous</a>
-        <a [routerLink]="'TODO next'">next</a>
+        <div>
+          <a [routerLink]="'TODO previous'" class="previous">previous</a>
+          <a [routerLink]="'TODO next'">next</a>
+        </div>
+
+        <div class="chart-group">
+          <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="xAxisLabel" />
+          <kpn-analysis-delay-chart
+            [barChart]="page.analysisDelay"
+            [xAxisLabel]="xAxisLabel"
+          />
+          <kpn-update-delay-chart
+            [barChart]="page.updateDelay"
+            [xAxisLabel]="xAxisLabel"
+          />
+          <kpn-replication-delay-chart
+            [barChart]="page.replicationDelay"
+            [xAxisLabel]="xAxisLabel"
+          />
+        </div>
+
+        <div class="chart-group">
+          <kpn-replication-bytes-chart
+            [barChart]="page.replicationBytes"
+            [xAxisLabel]="xAxisLabel"
+          />
+          <kpn-replication-elements-chart
+            [barChart]="page.replicationElements"
+            [xAxisLabel]="xAxisLabel"
+          />
+          <kpn-replication-changesets-chart
+            [barChart]="page.replicationChangeSets"
+            [xAxisLabel]="xAxisLabel"
+          />
+        </div>
       </div>
-
-      <div class="chart-group">
-        <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="xAxisLabel" />
-        <kpn-analysis-delay-chart
-          [barChart]="page.analysisDelay"
-          [xAxisLabel]="xAxisLabel"
-        />
-        <kpn-update-delay-chart
-          [barChart]="page.updateDelay"
-          [xAxisLabel]="xAxisLabel"
-        />
-        <kpn-replication-delay-chart
-          [barChart]="page.replicationDelay"
-          [xAxisLabel]="xAxisLabel"
-        />
-      </div>
-
-      <div class="chart-group">
-        <kpn-replication-bytes-chart
-          [barChart]="page.replicationBytes"
-          [xAxisLabel]="xAxisLabel"
-        />
-        <kpn-replication-elements-chart
-          [barChart]="page.replicationElements"
-          [xAxisLabel]="xAxisLabel"
-        />
-        <kpn-replication-changesets-chart
-          [barChart]="page.replicationChangeSets"
-          [xAxisLabel]="xAxisLabel"
-        />
-      </div>
-    </div>
+      <kpn-status-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -96,17 +101,19 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
   ],
   standalone: true,
   imports: [
-    RouterLink,
-    NgIf,
-    StatusPageMenuComponent,
-    DelayChartComponent,
     AnalysisDelayChartComponent,
-    UpdateDelayChartComponent,
-    ReplicationDelayChartComponent,
-    ReplicationBytesChartComponent,
-    ReplicationElementsChartComponent,
-    ReplicationChangesetsChartComponent,
     AsyncPipe,
+    DelayChartComponent,
+    NgIf,
+    PageComponent,
+    ReplicationBytesChartComponent,
+    ReplicationChangesetsChartComponent,
+    ReplicationDelayChartComponent,
+    ReplicationElementsChartComponent,
+    RouterLink,
+    StatusPageMenuComponent,
+    StatusSidebarComponent,
+    UpdateDelayChartComponent,
   ],
 })
 export class ReplicationStatusPageComponent implements OnInit {

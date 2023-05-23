@@ -6,6 +6,7 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { LinkLoginComponent } from '@app/components/shared/link';
+import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -19,62 +20,66 @@ import { selectNetworkChangesImpact } from '../store/network.selectors';
 import { selectNetworkChangesPageIndex } from '../store/network.selectors';
 import { selectNetworkChangesPage } from '../store/network.selectors';
 import { NetworkChangeSetComponent } from './network-change-set.component';
+import { NetworkChangesSidebarComponent } from './network-changes-sidebar.component';
 
 @Component({
   selector: 'kpn-network-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-network-page-header
-      pageName="changes"
-      pageTitle="Changes"
-      i18n-pageTitle="@@network-changes.title"
-    />
+    <kpn-page>
+      <kpn-network-page-header
+        pageName="changes"
+        pageTitle="Changes"
+        i18n-pageTitle="@@network-changes.title"
+      />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <p
-        *ngIf="!response.result; else networkFound"
-        i18n="@@network-page.network-not-found"
-      >
-        Network not found
-      </p>
-      <ng-template #networkFound>
-        <div
-          *ngIf="loggedIn() === false; else changes"
-          i18n="@@network-changes.login-required"
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+        <p
+          *ngIf="!response.result; else networkFound"
+          i18n="@@network-page.network-not-found"
         >
-          The details of network changes history are available to registered
-          OpenStreetMap contributors only, after
-          <kpn-link-login />
-          .
-        </div>
-        <ng-template #changes>
-          <p>
-            <kpn-situation-on [timestamp]="response.situationOn" />
-          </p>
-          <kpn-changes
-            [impact]="impact()"
-            [pageSize]="pageSize()"
-            [pageIndex]="pageIndex()"
-            (impactChange)="onImpactChange($event)"
-            (pageSizeChange)="onPageSizeChange($event)"
-            (pageIndexChange)="onPageIndexChange($event)"
-            [totalCount]="response.result.totalCount"
-            [changeCount]="response.result.changes.length"
+          Network not found
+        </p>
+        <ng-template #networkFound>
+          <div
+            *ngIf="loggedIn() === false; else changes"
+            i18n="@@network-changes.login-required"
           >
-            <kpn-items>
-              <kpn-item
-                *ngFor="let networkChangeInfo of response.result.changes"
-                [index]="networkChangeInfo.rowIndex"
-              >
-                <kpn-network-change-set
-                  [networkChangeInfo]="networkChangeInfo"
-                />
-              </kpn-item>
-            </kpn-items>
-          </kpn-changes>
+            The details of network changes history are available to registered
+            OpenStreetMap contributors only, after
+            <kpn-link-login />
+            .
+          </div>
+          <ng-template #changes>
+            <p>
+              <kpn-situation-on [timestamp]="response.situationOn" />
+            </p>
+            <kpn-changes
+              [impact]="impact()"
+              [pageSize]="pageSize()"
+              [pageIndex]="pageIndex()"
+              (impactChange)="onImpactChange($event)"
+              (pageSizeChange)="onPageSizeChange($event)"
+              (pageIndexChange)="onPageIndexChange($event)"
+              [totalCount]="response.result.totalCount"
+              [changeCount]="response.result.changes.length"
+            >
+              <kpn-items>
+                <kpn-item
+                  *ngFor="let networkChangeInfo of response.result.changes"
+                  [index]="networkChangeInfo.rowIndex"
+                >
+                  <kpn-network-change-set
+                    [networkChangeInfo]="networkChangeInfo"
+                  />
+                </kpn-item>
+              </kpn-items>
+            </kpn-changes>
+          </ng-template>
         </ng-template>
-      </ng-template>
-    </div>
+      </div>
+      <kpn-network-changes-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
@@ -88,6 +93,8 @@ import { NetworkChangeSetComponent } from './network-change-set.component';
     ItemComponent,
     NetworkChangeSetComponent,
     AsyncPipe,
+    PageComponent,
+    NetworkChangesSidebarComponent,
   ],
 })
 export class NetworkChangesPageComponent implements OnInit {

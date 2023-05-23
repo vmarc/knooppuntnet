@@ -7,6 +7,7 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { LinkLoginComponent } from '@app/components/shared/link';
+import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -24,86 +25,94 @@ import { selectRouteChangeCount } from '../store/route.selectors';
 import { selectRouteName } from '../store/route.selectors';
 import { selectRouteId } from '../store/route.selectors';
 import { RouteChangeComponent } from './route-change.component';
+import { RouteChangesSidebarComponent } from './route-changes-sidebar.component';
 
 @Component({
   selector: 'kpn-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
-        <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li i18n="@@breadcrumb.route-changes">Route changes</li>
-    </ul>
+    <kpn-page>
+      <ul class="breadcrumb">
+        <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis"
+            >Analysis</a
+          >
+        </li>
+        <li i18n="@@breadcrumb.route-changes">Route changes</li>
+      </ul>
 
-    <kpn-route-page-header
-      pageName="changes"
-      [routeId]="routeId()"
-      [routeName]="routeName()"
-      [changeCount]="changeCount()"
-      [networkType]="networkType()"
-    />
+      <kpn-route-page-header
+        pageName="changes"
+        [routeId]="routeId()"
+        [routeName]="routeName()"
+        [changeCount]="changeCount()"
+        [networkType]="networkType()"
+      />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <div
-        *ngIf="!response.result; else routeFound"
-        i18n="@@route.route-not-found"
-      >
-        Route not found
-      </div>
-      <ng-template #routeFound>
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
         <div
-          *ngIf="loggedIn() === false; else changes"
-          i18n="@@route-changes.login-required"
+          *ngIf="!response.result; else routeFound"
+          i18n="@@route.route-not-found"
         >
-          The details of the route changes history is available to registered
-          OpenStreetMap contributors only, after
-          <kpn-link-login></kpn-link-login>
-          .
+          Route not found
         </div>
-        <ng-template #changes>
-          <div *ngIf="response.result as page">
-            <p>
-              <kpn-situation-on [timestamp]="response.situationOn" />
-            </p>
-            <kpn-changes
-              [impact]="impact()"
-              [pageSize]="pageSize()"
-              [pageIndex]="pageIndex()"
-              (impactChange)="onImpactChange($event)"
-              (pageSizeChange)="onPageSizeChange($event)"
-              (pageIndexChange)="onPageIndexChange($event)"
-              [totalCount]="page.totalCount"
-              [changeCount]="page.changeCount"
-            >
-              <kpn-items>
-                <kpn-item
-                  *ngFor="let routeChangeInfo of page.changes"
-                  [index]="routeChangeInfo.rowIndex"
-                >
-                  <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
-                </kpn-item>
-              </kpn-items>
-            </kpn-changes>
+        <ng-template #routeFound>
+          <div
+            *ngIf="loggedIn() === false; else changes"
+            i18n="@@route-changes.login-required"
+          >
+            The details of the route changes history is available to registered
+            OpenStreetMap contributors only, after
+            <kpn-link-login></kpn-link-login>
+            .
           </div>
+          <ng-template #changes>
+            <div *ngIf="response.result as page">
+              <p>
+                <kpn-situation-on [timestamp]="response.situationOn" />
+              </p>
+              <kpn-changes
+                [impact]="impact()"
+                [pageSize]="pageSize()"
+                [pageIndex]="pageIndex()"
+                (impactChange)="onImpactChange($event)"
+                (pageSizeChange)="onPageSizeChange($event)"
+                (pageIndexChange)="onPageIndexChange($event)"
+                [totalCount]="page.totalCount"
+                [changeCount]="page.changeCount"
+              >
+                <kpn-items>
+                  <kpn-item
+                    *ngFor="let routeChangeInfo of page.changes"
+                    [index]="routeChangeInfo.rowIndex"
+                  >
+                    <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
+                  </kpn-item>
+                </kpn-items>
+              </kpn-changes>
+            </div>
+          </ng-template>
         </ng-template>
-      </ng-template>
-    </div>
+      </div>
+      <kpn-route-changes-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    RouterLink,
-    RoutePageHeaderComponent,
-    NgIf,
-    LinkLoginComponent,
-    SituationOnComponent,
-    ChangesComponent,
-    ItemsComponent,
-    NgFor,
-    ItemComponent,
-    RouteChangeComponent,
     AsyncPipe,
+    ChangesComponent,
+    ItemComponent,
+    ItemsComponent,
+    LinkLoginComponent,
+    NgFor,
+    NgIf,
+    PageComponent,
+    RouteChangeComponent,
+    RouteChangesSidebarComponent,
+    RoutePageHeaderComponent,
+    RouterLink,
+    SituationOnComponent,
   ],
 })
 export class RouteChangesPageComponent implements OnInit {

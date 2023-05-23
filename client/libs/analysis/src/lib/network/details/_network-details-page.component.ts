@@ -3,7 +3,9 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
+import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkDetailsPageInit } from '../store/network.actions';
 import { selectNetworkDetailsPage } from '../store/network.selectors';
@@ -13,27 +15,32 @@ import { NetworkDetailsComponent } from './network-details.component';
   selector: 'kpn-network-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-network-page-header
-      pageName="details"
-      pageTitle="Details"
-      i18n-pageTitle="@@network-details.title"
-    />
+    <kpn-page>
+      <kpn-network-page-header
+        pageName="details"
+        pageTitle="Details"
+        i18n-pageTitle="@@network-details.title"
+      />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <div *ngIf="!response.result">
-        <p i18n="@@network-page.network-not-found">Network not found</p>
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+        <div *ngIf="!response.result">
+          <p i18n="@@network-page.network-not-found">Network not found</p>
+        </div>
+        <div *ngIf="response.result">
+          <kpn-network-details [response]="response" />
+        </div>
       </div>
-      <div *ngIf="response.result">
-        <kpn-network-details [response]="response" />
-      </div>
-    </div>
+      <kpn-analysis-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
+    AnalysisSidebarComponent,
+    AsyncPipe,
+    NetworkDetailsComponent,
     NetworkPageHeaderComponent,
     NgIf,
-    NetworkDetailsComponent,
-    AsyncPipe,
+    PageComponent,
   ],
 })
 export class NetworkDetailsPageComponent implements OnInit {

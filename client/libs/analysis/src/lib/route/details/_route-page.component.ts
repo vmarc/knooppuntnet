@@ -11,6 +11,8 @@ import { FactsComponent } from '@app/analysis/fact';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
+import { PageComponent } from '@app/components/shared/page';
+import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
@@ -38,154 +40,164 @@ import { RouteSummaryComponent } from './route-summary.component';
   selector: 'kpn-route-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
-        <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li i18n="@@breadcrumb.route-details">Route details</li>
-    </ul>
+    <kpn-page>
+      <ul class="breadcrumb">
+        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+        </li>
+        <li i18n="@@breadcrumb.route-details">Route details</li>
+      </ul>
 
-    <kpn-route-page-header
-      pageName="details"
-      [routeId]="routeId()"
-      [routeName]="routeName()"
-      [changeCount]="changeCount()"
-      [networkType]="networkType()"
-    />
+      <kpn-route-page-header
+        pageName="details"
+        [routeId]="routeId()"
+        [routeName]="routeName()"
+        [changeCount]="changeCount()"
+        [networkType]="networkType()"
+      />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <div *ngIf="!response.result" i18n="@@route.route-not-found">
-        Route not found
-      </div>
-
-      <div *ngIf="response.result as page">
-        <kpn-data title="Summary" i18n-title="@@route.summary">
-          <kpn-route-summary [route]="page.route" />
-        </kpn-data>
-
-        <div class="data2">
-          <div class="title">
-            <span i18n="@@route.situation-on">Situation on</span>
-          </div>
-          <div class="body">
-            <kpn-timestamp [timestamp]="response.situationOn" />
-          </div>
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+        <div *ngIf="!response.result" i18n="@@route.route-not-found">
+          Route not found
         </div>
 
-        <div class="data2">
-          <div class="title">
-            <span i18n="@@route.last-updated">Last updated</span>
+        <div *ngIf="response.result as page">
+          <kpn-data title="Summary" i18n-title="@@route.summary">
+            <kpn-route-summary [route]="page.route" />
+          </kpn-data>
+
+          <div class="data2">
+            <div class="title">
+              <span i18n="@@route.situation-on">Situation on</span>
+            </div>
+            <div class="body">
+              <kpn-timestamp [timestamp]="response.situationOn" />
+            </div>
           </div>
-          <div class="body">
-            <kpn-timestamp [timestamp]="page.route.lastUpdated" />
+
+          <div class="data2">
+            <div class="title">
+              <span i18n="@@route.last-updated">Last updated</span>
+            </div>
+            <div class="body">
+              <kpn-timestamp [timestamp]="page.route.lastUpdated" />
+            </div>
           </div>
-        </div>
-
-        <kpn-data
-          title="Relation last updated"
-          i18n-title="@@route.relation-last-updated"
-        >
-          <kpn-timestamp [timestamp]="page.route.summary.timestamp" />
-        </kpn-data>
-
-        <kpn-data title="Network" i18n-title="@@route.network">
-          <kpn-route-network-references [references]="page.networkReferences" />
-        </kpn-data>
-
-        <div *ngIf="page.route.analysis as analysis">
-          <kpn-data
-            *ngIf="hasFreeNodes(analysis)"
-            title="Nodes"
-            i18n-title="@@route.nodes"
-          >
-            <kpn-route-free-nodes [analysis]="analysis" />
-          </kpn-data>
 
           <kpn-data
-            *ngIf="!hasFreeNodes(analysis)"
-            title="Start node"
-            i18n-title="@@route.start-node"
+            title="Relation last updated"
+            i18n-title="@@route.relation-last-updated"
           >
-            <kpn-route-start-nodes [analysis]="analysis" />
+            <kpn-timestamp [timestamp]="page.route.summary.timestamp" />
           </kpn-data>
 
-          <kpn-data
-            *ngIf="!hasFreeNodes(analysis)"
-            title="End node"
-            i18n-title="@@route.end-node"
-          >
-            <kpn-route-end-nodes [analysis]="analysis" />
+          <kpn-data title="Network" i18n-title="@@route.network">
+            <kpn-route-network-references
+              [references]="page.networkReferences"
+            />
           </kpn-data>
 
-          <div *ngIf="analysis.map.redundantNodes.length > 0">
+          <div *ngIf="page.route.analysis as analysis">
             <kpn-data
-              title="Redundant node"
-              i18n-title="@@route.redundant-node"
+              *ngIf="hasFreeNodes(analysis)"
+              title="Nodes"
+              i18n-title="@@route.nodes"
             >
-              <kpn-route-redundant-nodes [analysis]="analysis" />
+              <kpn-route-free-nodes [analysis]="analysis" />
+            </kpn-data>
+
+            <kpn-data
+              *ngIf="!hasFreeNodes(analysis)"
+              title="Start node"
+              i18n-title="@@route.start-node"
+            >
+              <kpn-route-start-nodes [analysis]="analysis" />
+            </kpn-data>
+
+            <kpn-data
+              *ngIf="!hasFreeNodes(analysis)"
+              title="End node"
+              i18n-title="@@route.end-node"
+            >
+              <kpn-route-end-nodes [analysis]="analysis" />
+            </kpn-data>
+
+            <div *ngIf="analysis.map.redundantNodes.length > 0">
+              <kpn-data
+                title="Redundant node"
+                i18n-title="@@route.redundant-node"
+              >
+                <kpn-route-redundant-nodes [analysis]="analysis" />
+              </kpn-data>
+            </div>
+
+            <kpn-data
+              title="Number of ways"
+              i18n-title="@@route.number-of-ways"
+            >
+              {{ page.route.summary.wayCount }}
             </kpn-data>
           </div>
 
-          <kpn-data title="Number of ways" i18n-title="@@route.number-of-ways">
-            {{ page.route.summary.wayCount }}
+          <kpn-data title="Tags" i18n-title="@@route.tags">
+            <kpn-tags-table [tags]="routeTags(page)" />
           </kpn-data>
-        </div>
 
-        <kpn-data title="Tags" i18n-title="@@route.tags">
-          <kpn-tags-table [tags]="routeTags(page)" />
-        </kpn-data>
-
-        <kpn-data title="Location" i18n-title="@@route.location">
-          <kpn-route-location
-            [networkType]="networkType()"
-            [locationAnalysis]="page.route.analysis.locationAnalysis"
-          />
-        </kpn-data>
-
-        <div *ngIf="page.route.analysis && showRouteDetails$ | async">
-          <kpn-data title="Structure" i18n-title="@@route.structure">
-            <kpn-route-structure
-              [structureStrings]="page.route.analysis.structureStrings"
+          <kpn-data title="Location" i18n-title="@@route.location">
+            <kpn-route-location
+              [networkType]="networkType()"
+              [locationAnalysis]="page.route.analysis.locationAnalysis"
             />
           </kpn-data>
-        </div>
 
-        <kpn-data title="Facts" i18n-title="@@route.facts">
-          <kpn-facts [factInfos]="factInfos(page)" />
-        </kpn-data>
+          <div *ngIf="page.route.analysis && showRouteDetails$ | async">
+            <kpn-data title="Structure" i18n-title="@@route.structure">
+              <kpn-route-structure
+                [structureStrings]="page.route.analysis.structureStrings"
+              />
+            </kpn-data>
+          </div>
 
-        <div *ngIf="showRouteDetails$ | async">
-          <kpn-route-members
-            [networkType]="page.route.summary.networkType"
-            [members]="page.route.analysis.members"
-          />
+          <kpn-data title="Facts" i18n-title="@@route.facts">
+            <kpn-facts [factInfos]="factInfos(page)" />
+          </kpn-data>
+
+          <div *ngIf="showRouteDetails$ | async">
+            <kpn-route-members
+              [networkType]="page.route.summary.networkType"
+              [members]="page.route.analysis.members"
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <kpn-analysis-sidebar sidebar />
+    </kpn-page>
   `,
   styleUrls: [
     '../../../../../shared/src/lib/components/shared/data/data.component.scss',
   ],
   standalone: true,
   imports: [
-    RouterLink,
-    RoutePageHeaderComponent,
-    NgIf,
-    DataComponent,
-    RouteSummaryComponent,
-    TimestampComponent,
-    RouteNetworkReferencesComponent,
-    RouteFreeNodesComponent,
-    RouteStartNodesComponent,
-    RouteEndNodesComponent,
-    RouteRedundantNodesComponent,
-    TagsTableComponent,
-    RouteLocationComponent,
-    RouteStructureComponent,
-    FactsComponent,
-    RouteMembersComponent,
+    AnalysisSidebarComponent,
     AsyncPipe,
+    DataComponent,
+    FactsComponent,
+    NgIf,
+    PageComponent,
+    RouteEndNodesComponent,
+    RouteFreeNodesComponent,
+    RouteLocationComponent,
+    RouteMembersComponent,
+    RouteNetworkReferencesComponent,
+    RoutePageHeaderComponent,
+    RouteRedundantNodesComponent,
+    RouteStartNodesComponent,
+    RouteStructureComponent,
+    RouteSummaryComponent,
+    RouterLink,
+    TagsTableComponent,
+    TimestampComponent,
   ],
 })
 export class RoutePageComponent implements OnInit {

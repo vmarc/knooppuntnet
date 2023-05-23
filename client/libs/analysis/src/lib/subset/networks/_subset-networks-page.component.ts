@@ -6,6 +6,7 @@ import { OnInit } from '@angular/core';
 import { PageWidthService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IntegerFormatPipe } from '@app/components/shared/format';
+import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
@@ -14,6 +15,7 @@ import { map } from 'rxjs/operators';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetNetworksPageInit } from '../store/subset.actions';
 import { selectSubsetNetworksPage } from '../store/subset.selectors';
+import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetNetworkListComponent } from './subset-network-list.component';
 import { SubsetNetworkTableComponent } from './subset-network-table.component';
 
@@ -21,58 +23,65 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
   selector: 'kpn-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-subset-page-header-block
-      pageName="networks"
-      pageTitle="Networks"
-      i18n-pageTitle="@@subset-networks.title"
-    />
+    <kpn-page>
+      <kpn-subset-page-header-block
+        pageName="networks"
+        pageTitle="Networks"
+        i18n-pageTitle="@@subset-networks.title"
+      />
 
-    <kpn-error />
+      <kpn-error />
 
-    <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-      <div
-        *ngIf="response.result.networks.length === 0"
-        i18n="@@subset-networks.no-networks"
-      >
-        No networks
+      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
+        <div
+          *ngIf="response.result.networks.length === 0"
+          i18n="@@subset-networks.no-networks"
+        >
+          No networks
+        </div>
+        <div *ngIf="response.result.networks.length > 0">
+          <p>
+            <kpn-situation-on
+              [timestamp]="response.situationOn"
+            ></kpn-situation-on>
+          </p>
+
+          <markdown i18n="@@subset-networks.summary">
+            _There are __{{ response.result.networkCount | integer }}__
+            networks, with a total of __{{
+              response.result.nodeCount | integer
+            }}__ nodes and __{{ response.result.routeCount | integer }}__ routes
+            with an overall length of __{{ response.result.km | integer }}__
+            km._
+          </markdown>
+
+          <ng-container
+            *ngIf="large$ | async; then table; else list"
+          ></ng-container>
+          <ng-template #table>
+            <kpn-subset-network-table [networks]="response.result.networks" />
+          </ng-template>
+          <ng-template #list>
+            <kpn-subset-network-list [networks]="response.result.networks" />
+          </ng-template>
+        </div>
       </div>
-      <div *ngIf="response.result.networks.length > 0">
-        <p>
-          <kpn-situation-on
-            [timestamp]="response.situationOn"
-          ></kpn-situation-on>
-        </p>
-
-        <markdown i18n="@@subset-networks.summary">
-          _There are __{{ response.result.networkCount | integer }}__ networks,
-          with a total of __{{ response.result.nodeCount | integer }}__ nodes
-          and __{{ response.result.routeCount | integer }}__ routes with an
-          overall length of __{{ response.result.km | integer }}__ km._
-        </markdown>
-
-        <ng-container
-          *ngIf="large$ | async; then table; else list"
-        ></ng-container>
-        <ng-template #table>
-          <kpn-subset-network-table [networks]="response.result.networks" />
-        </ng-template>
-        <ng-template #list>
-          <kpn-subset-network-list [networks]="response.result.networks" />
-        </ng-template>
-      </div>
-    </div>
+      <kpn-subset-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    SubsetPageHeaderBlockComponent,
-    ErrorComponent,
-    NgIf,
-    SituationOnComponent,
-    MarkdownModule,
-    SubsetNetworkTableComponent,
-    SubsetNetworkListComponent,
     AsyncPipe,
+    ErrorComponent,
     IntegerFormatPipe,
+    MarkdownModule,
+    NgIf,
+    PageComponent,
+    SituationOnComponent,
+    SubsetNetworkListComponent,
+    SubsetNetworkTableComponent,
+    SubsetPageHeaderBlockComponent,
+    SubsetSidebarComponent,
   ],
 })
 export class SubsetNetworksPageComponent implements OnInit {

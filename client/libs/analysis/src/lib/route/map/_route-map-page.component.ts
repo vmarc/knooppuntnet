@@ -4,6 +4,8 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PageComponent } from '@app/components/shared/page';
+import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { Store } from '@ngrx/store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteMapPageInit } from '../store/route.actions';
@@ -18,42 +20,47 @@ import { RouteMapComponent } from './route-map.component';
   selector: 'kpn-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
-        <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li i18n="@@breadcrumb.route-map">Route map</li>
-    </ul>
+    <kpn-page>
+      <ul class="breadcrumb">
+        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+        </li>
+        <li i18n="@@breadcrumb.route-map">Route map</li>
+      </ul>
 
-    <kpn-route-page-header
-      pageName="map"
-      [routeId]="routeId()"
-      [routeName]="routeName()"
-      [changeCount]="changeCount()"
-      [networkType]="networkType()"
-    />
+      <kpn-route-page-header
+        pageName="map"
+        [routeId]="routeId()"
+        [routeName]="routeName()"
+        [changeCount]="changeCount()"
+        [networkType]="networkType()"
+      />
 
-    <div *ngIf="apiResponse() as response">
-      <div
-        *ngIf="!response.result"
-        class="kpn-spacer-above"
-        i18n="@@route.route-not-found"
-      >
-        Route not found
+      <div *ngIf="apiResponse() as response">
+        <div
+          *ngIf="!response.result"
+          class="kpn-spacer-above"
+          i18n="@@route.route-not-found"
+        >
+          Route not found
+        </div>
+        <div *ngIf="response.result">
+          <kpn-route-map />
+        </div>
       </div>
-      <div *ngIf="response.result">
-        <kpn-route-map />
-      </div>
-    </div>
+      <kpn-analysis-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    RouterLink,
-    RoutePageHeaderComponent,
-    NgIf,
-    RouteMapComponent,
+    AnalysisSidebarComponent,
     AsyncPipe,
+    NgIf,
+    PageComponent,
+    RouteMapComponent,
+    RoutePageHeaderComponent,
+    RouterLink,
   ],
 })
 export class RouteMapPageComponent implements OnInit {

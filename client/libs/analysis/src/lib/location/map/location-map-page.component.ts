@@ -5,9 +5,11 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
+import { LocationSidebarComponent } from '../location-sidebar.component';
 import { actionLocationMapPageDestroy } from '../store/location.actions';
 import { actionLocationMapPageInit } from '../store/location.actions';
 import { selectLocationMapPage } from '../store/location.selectors';
@@ -19,28 +21,33 @@ import { LocationMapService } from './location-map.service';
   selector: 'kpn-location-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-location-page-header
-      pageName="map"
-      pageTitle="Map"
-      i18n-pageTitle="@@location-map.title"
-    />
+    <kpn-page>
+      <kpn-location-page-header
+        pageName="map"
+        pageTitle="Map"
+        i18n-pageTitle="@@location-map.title"
+      />
 
-    <kpn-error />
+      <kpn-error />
 
-    <div *ngIf="apiResponse() as response">
-      <kpn-location-response [response]="response">
-        <kpn-location-map />
-      </kpn-location-response>
-    </div>
+      <div *ngIf="apiResponse() as response">
+        <kpn-location-response [response]="response">
+          <kpn-location-map />
+        </kpn-location-response>
+      </div>
+      <kpn-location-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    LocationPageHeaderComponent,
-    ErrorComponent,
-    NgIf,
-    LocationResponseComponent,
-    LocationMapComponent,
     AsyncPipe,
+    ErrorComponent,
+    LocationMapComponent,
+    LocationPageHeaderComponent,
+    LocationResponseComponent,
+    LocationSidebarComponent,
+    NgIf,
+    PageComponent,
   ],
 })
 export class LocationMapPageComponent implements OnInit, OnDestroy {

@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { BaseSidebarComponent } from './base-sidebar.component';
 import { AuthenticatePageComponent } from './pages/authenticate/authenticate-page.component';
 import { HomePageComponent } from './pages/home/home-page.component';
 import { LoginPageComponent } from './pages/login/login-page.component';
@@ -10,11 +9,6 @@ export const baseRoutes: Routes = [
   {
     path: '',
     component: HomePageComponent,
-  },
-  {
-    path: '',
-    component: BaseSidebarComponent,
-    outlet: 'sidebar',
   },
   {
     path: 'authenticate',

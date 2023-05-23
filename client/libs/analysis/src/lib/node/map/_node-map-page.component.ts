@@ -5,8 +5,10 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
+import { NodeDetailsSidebarComponent } from '../details/node-details-sidebar.component';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
@@ -18,44 +20,49 @@ import { NodeMapComponent } from './node-map.component';
   selector: 'kpn-node-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
-        <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li i18n="@@breadcrumb.node-map">Node map</li>
-    </ul>
+    <kpn-page>
+      <ul class="breadcrumb">
+        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+        <li>
+          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+        </li>
+        <li i18n="@@breadcrumb.node-map">Node map</li>
+      </ul>
 
-    <kpn-node-page-header
-      pageName="map"
-      [nodeId]="nodeId()"
-      [nodeName]="nodeName()"
-      [changeCount]="changeCount()"
-    />
+      <kpn-node-page-header
+        pageName="map"
+        [nodeId]="nodeId()"
+        [nodeName]="nodeName()"
+        [changeCount]="changeCount()"
+      />
 
-    <kpn-error />
+      <kpn-error />
 
-    <div *ngIf="apiResponse() as response">
-      <div
-        *ngIf="!response.result"
-        class="kpn-spacer-above"
-        i18n="@@node.node-not-found"
-      >
-        Node not found
+      <div *ngIf="apiResponse() as response">
+        <div
+          *ngIf="!response.result"
+          class="kpn-spacer-above"
+          i18n="@@node.node-not-found"
+        >
+          Node not found
+        </div>
+        <div *ngIf="response.result as page">
+          <kpn-node-map />
+        </div>
       </div>
-      <div *ngIf="response.result as page">
-        <kpn-node-map />
-      </div>
-    </div>
+      <kpn-node-details-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    RouterLink,
-    NodePageHeaderComponent,
+    AsyncPipe,
     ErrorComponent,
     NgIf,
+    NodeDetailsSidebarComponent,
     NodeMapComponent,
-    AsyncPipe,
+    NodePageHeaderComponent,
+    PageComponent,
+    RouterLink,
   ],
 })
 export class NodeMapPageComponent implements OnInit {

@@ -7,6 +7,7 @@ import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { OnDestroy } from '@angular/core';
+import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { select } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -19,6 +20,7 @@ import { actionDemoTimeUpdate } from '../store/demo.actions';
 import { actionDemoPlayingChanged } from '../store/demo.actions';
 import { selectDemoEnabled } from '../store/demo.selectors';
 import { DemoDisabledComponent } from './demo-disabled.component';
+import { DemoSidebarComponent } from './demo-sidebar.component';
 import { DemoVideoPlayButtonComponent } from './demo-video-play-button.component';
 import { DemoVideoProgressComponent } from './demo-video-progress.component';
 import { VideoCoverComponent } from './video-cover.component';
@@ -27,39 +29,42 @@ import { VideoCoverComponent } from './video-cover.component';
   selector: 'kpn-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="video-page">
-      <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
+    <kpn-page>
+      <div class="video-page">
+        <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
 
-      <ng-template #disabled>
-        <kpn-demo-disabled />
-      </ng-template>
+        <ng-template #disabled>
+          <kpn-demo-disabled />
+        </ng-template>
 
-      <ng-template #enabled>
-        <kpn-video-cover *ngIf="!canPlayReceived" />
-        <kpn-demo-video-play-button />
-      </ng-template>
+        <ng-template #enabled>
+          <kpn-video-cover *ngIf="!canPlayReceived" />
+          <kpn-demo-video-play-button />
+        </ng-template>
 
-      <div [ngClass]="{ hidden: (disabled$ | async) || !canPlayReceived }">
-        <video
-          #videoPlayer
-          width="1280px"
-          height="720px"
-          autoplay
-          (click)="playPause()"
-          (playing)="playingChanged()"
-          (pause)="pauseChanged()"
-          (canplay)="canPlayChanged()"
-          (timeupdate)="timeChanged()"
-        >
-          <source #videoPlayerSource src="" type="video/mp4" />
-          <ng-container i18n="@@demo.no-video-support">
-            Sorry, cannot play videos in your browser.
-          </ng-container>
-        </video>
+        <div [ngClass]="{ hidden: (disabled$ | async) || !canPlayReceived }">
+          <video
+            #videoPlayer
+            width="1280px"
+            height="720px"
+            autoplay
+            (click)="playPause()"
+            (playing)="playingChanged()"
+            (pause)="pauseChanged()"
+            (canplay)="canPlayChanged()"
+            (timeupdate)="timeChanged()"
+          >
+            <source #videoPlayerSource src="" type="video/mp4" />
+            <ng-container i18n="@@demo.no-video-support">
+              Sorry, cannot play videos in your browser.
+            </ng-container>
+          </video>
 
-        <kpn-demo-video-progress />
+          <kpn-demo-video-progress />
+        </div>
       </div>
-    </div>
+      <kpn-demo-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -80,13 +85,15 @@ import { VideoCoverComponent } from './video-cover.component';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    DemoDisabledComponent,
-    VideoCoverComponent,
-    DemoVideoPlayButtonComponent,
-    NgClass,
-    DemoVideoProgressComponent,
     AsyncPipe,
+    DemoDisabledComponent,
+    DemoSidebarComponent,
+    DemoVideoPlayButtonComponent,
+    DemoVideoProgressComponent,
+    NgClass,
+    NgIf,
+    PageComponent,
+    VideoCoverComponent,
   ],
 })
 export class DemoVideoComponent implements AfterViewInit, OnDestroy {

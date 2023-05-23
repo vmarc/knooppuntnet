@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { Util } from '@app/components/shared';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
-import { DemoSidebarComponent } from './components/demo-sidebar.component';
 import { DemoVideoComponent } from './components/demo-video.component';
 import { DemoService } from './demo.service';
 import { DemoMenuComponent } from './menu/demo-menu.component';
@@ -22,8 +20,14 @@ export const demoRoutes: Routes = [
       DemoService,
     ],
     children: [
-      Util.routePath(':video', DemoVideoComponent, DemoSidebarComponent),
-      Util.routePath('', DemoMenuComponent, DemoSidebarComponent),
+      {
+        path: ':video',
+        component: DemoVideoComponent,
+      },
+      {
+        path: '',
+        component: DemoMenuComponent,
+      },
     ],
   },
 ];

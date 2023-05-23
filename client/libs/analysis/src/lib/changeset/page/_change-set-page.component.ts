@@ -7,11 +7,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ChangeSetPage } from '@api/common/changes';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
+import { PageComponent } from '@app/components/shared/page';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { ChangeSetHeaderComponent } from './change-set-header.component';
 import { ChangeSetLocationChangesComponent } from './change-set-location-changes.component';
 import { ChangeSetNetworkChangesComponent } from './change-set-network-changes.component';
@@ -29,35 +31,40 @@ class ChangeSetKey {
   selector: 'kpn-change-set-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h1>
-      <ng-container i18n="@@change-set.title">Changeset</ng-container>
-      {{ changeSetTitle }}
-    </h1>
+    <kpn-page>
+      <h1>
+        <ng-container i18n="@@change-set.title">Changeset</ng-container>
+        {{ changeSetTitle }}
+      </h1>
 
-    <div *ngIf="response$ | async as response">
-      <div *ngIf="!response.result" i18n="@@changeset.not-found">
-        Changeset not found
+      <div *ngIf="response$ | async as response">
+        <div *ngIf="!response.result" i18n="@@changeset.not-found">
+          Changeset not found
+        </div>
+        <div *ngIf="response.result">
+          <kpn-change-set-header [page]="response.result" />
+          <kpn-change-set-location-changes
+            [changess]="response.result.summary.locationChanges"
+          />
+          <kpn-change-set-network-changes [page]="response.result" />
+          <kpn-change-set-orphan-node-changes [page]="response.result" />
+          <kpn-change-set-orphan-route-changes [page]="response.result" />
+        </div>
       </div>
-      <div *ngIf="response.result">
-        <kpn-change-set-header [page]="response.result" />
-        <kpn-change-set-location-changes
-          [changess]="response.result.summary.locationChanges"
-        />
-        <kpn-change-set-network-changes [page]="response.result" />
-        <kpn-change-set-orphan-node-changes [page]="response.result" />
-        <kpn-change-set-orphan-route-changes [page]="response.result" />
-      </div>
-    </div>
+      <kpn-analysis-sidebar sidebar />
+    </kpn-page>
   `,
   standalone: true,
   imports: [
-    NgIf,
+    AnalysisSidebarComponent,
+    AsyncPipe,
     ChangeSetHeaderComponent,
     ChangeSetLocationChangesComponent,
     ChangeSetNetworkChangesComponent,
     ChangeSetOrphanNodeChangesComponent,
     ChangeSetOrphanRouteChangesComponent,
-    AsyncPipe,
+    NgIf,
+    PageComponent,
   ],
 })
 export class ChangeSetPageComponent implements OnInit {

@@ -3,11 +3,13 @@ import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageComponent } from '@app/components/shared/page';
 import { selectSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
+import { LocationSidebarComponent } from '../location-sidebar.component';
 import { actionLocationEditPageDestroy } from '../store/location.actions';
 import { actionLocationEditPageInit } from '../store/location.actions';
 import { selectLocationEditPage } from '../store/location.selectors';
@@ -17,52 +19,58 @@ import { LocationEditComponent } from './location-edit.component';
   selector: 'kpn-location-edit-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-location-page-header
-      pageName="edit"
-      pageTitle="Load in editor"
-      i18n-pageTitle="@@location-edit.title"
-    />
+    <kpn-page>
+      <kpn-location-page-header
+        pageName="edit"
+        pageTitle="Load in editor"
+        i18n-pageTitle="@@location-edit.title"
+      />
 
-    <kpn-error />
+      <kpn-error />
 
-    <div
-      *ngIf="apiResponse() as response; else analyzing"
-      class="kpn-spacer-above"
-    >
-      <kpn-location-response [situationOnEnabled]="false" [response]="response">
-        <p
-          *ngIf="response.result.tooManyNodes"
-          class="too-many-nodes"
-          i18n="@@location-edit.too-many-nodes.1"
-        >
-          This location contains more than the maximum number of nodes ({{
-            response.result.maxNodes
-          }}) that can be loaded in the editor in one go. This limitation is to
-          avoid overloading the OpenStreetMap api while loading the node and
-          route details from JOSM.
-        </p>
-        <p
-          *ngIf="response.result.tooManyNodes"
-          class="too-many-nodes"
-          i18n="@@location-edit.too-many-nodes.2"
-        >
-          Please select a location with less nodes.
-        </p>
-        <kpn-location-edit
-          *ngIf="!response.result.tooManyNodes"
-          [page]="response.result"
-        />
-      </kpn-location-response>
-    </div>
-    <ng-template #analyzing>
-      <p
-        *ngIf="noHttpError$ | async"
-        class="analyzing"
-        i18n="@@location-edit.analyzing"
+      <div
+        *ngIf="apiResponse() as response; else analyzing"
+        class="kpn-spacer-above"
       >
-        Analyzing location nodes and routes, please wait...
-      </p>
-    </ng-template>
+        <kpn-location-response
+          [situationOnEnabled]="false"
+          [response]="response"
+        >
+          <p
+            *ngIf="response.result.tooManyNodes"
+            class="too-many-nodes"
+            i18n="@@location-edit.too-many-nodes.1"
+          >
+            This location contains more than the maximum number of nodes ({{
+              response.result.maxNodes
+            }}) that can be loaded in the editor in one go. This limitation is
+            to avoid overloading the OpenStreetMap api while loading the node
+            and route details from JOSM.
+          </p>
+          <p
+            *ngIf="response.result.tooManyNodes"
+            class="too-many-nodes"
+            i18n="@@location-edit.too-many-nodes.2"
+          >
+            Please select a location with less nodes.
+          </p>
+          <kpn-location-edit
+            *ngIf="!response.result.tooManyNodes"
+            [page]="response.result"
+          />
+        </kpn-location-response>
+      </div>
+      <ng-template #analyzing>
+        <p
+          *ngIf="noHttpError$ | async"
+          class="analyzing"
+          i18n="@@location-edit.analyzing"
+        >
+          Analyzing location nodes and routes, please wait...
+        </p>
+      </ng-template>
+      <kpn-location-sidebar sidebar />
+    </kpn-page>
   `,
   styles: [
     `
@@ -78,12 +86,14 @@ import { LocationEditComponent } from './location-edit.component';
   ],
   standalone: true,
   imports: [
-    LocationPageHeaderComponent,
-    ErrorComponent,
-    NgIf,
-    LocationResponseComponent,
-    LocationEditComponent,
     AsyncPipe,
+    ErrorComponent,
+    LocationEditComponent,
+    LocationPageHeaderComponent,
+    LocationResponseComponent,
+    LocationSidebarComponent,
+    NgIf,
+    PageComponent,
   ],
 })
 export class LocationEditPageComponent implements OnInit, OnDestroy {

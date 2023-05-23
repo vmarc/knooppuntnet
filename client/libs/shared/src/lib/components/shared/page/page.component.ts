@@ -14,7 +14,6 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarBackComponent } from '@app/components/shared/sidebar';
 import { ToolbarComponent } from '@app/components/shared/toolbar';
 import { selectPageShowFooter } from '@app/core';
-import { IconService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
@@ -45,7 +44,9 @@ import { PageFooterComponent } from './page-footer.component';
 
       <mat-sidenav-content>
         <header>
-          <kpn-toolbar />
+          <kpn-toolbar>
+            <ng-content select="[toolbar]" />
+          </kpn-toolbar>
         </header>
         <div class="page-contents">
           <main>
@@ -106,7 +107,6 @@ export class PageComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private iconService: IconService,
     private pageService: PageService,
     private pageWidthService: PageWidthService
   ) {}
