@@ -18,7 +18,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
+      <kpn-monitor-group-breadcrumb />
 
       <h1 i18n="@@monitor.group.add.title">Monitor - add group</h1>
 
@@ -58,7 +58,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NavService, MonitorGroupAddPageService],
+  providers: [MonitorGroupAddPageService, NavService],
   standalone: true,
   imports: [
     FormStatusComponent,

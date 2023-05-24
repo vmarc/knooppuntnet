@@ -18,7 +18,7 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
           <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
         </li>
         <li>
-          <a [routerLink]="groupLink(state.groupName)">{{ state.groupName }}</a>
+          <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
         </li>
         <li i18n="@@breadcrumb.monitor.route">Route</li>
       </ul>
@@ -49,8 +49,4 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
 })
 export class MonitorRouteUpdatePageComponent {
   constructor(protected service: MonitorRouteUpdatePageService) {}
-
-  groupLink(groupName: string) {
-    return `/monitor/groups/${groupName}`;
-  }
 }

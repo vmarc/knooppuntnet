@@ -18,17 +18,17 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
   selector: 'kpn-monitor-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page *ngIf="service.state() as state">
       <kpn-monitor-route-page-header
         pageName="details"
-        [groupName]="service.groupName()"
-        [routeName]="service.routeName()"
-        [routeDescription]="service.routeDescription()"
+        [groupName]="state.groupName"
+        [routeName]="state.routeName"
+        [routeDescription]="state.routeDescription"
       />
 
       <kpn-monitor-admin-toggle />
 
-      <div *ngIf="service.apiResponse() as response" class="kpn-spacer-above">
+      <div *ngIf="state.response as response" class="kpn-spacer-above">
         <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
           Route not found
         </div>

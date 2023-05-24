@@ -12,8 +12,8 @@ export class MonitorGroupPageService {
   readonly admin = this.monitorService.admin;
 
   constructor(navService: NavService, private monitorService: MonitorService) {
-    const groupName = navService.newParam('groupName');
-    const groupDescription = navService.newState('description');
+    const groupName = navService.param('groupName');
+    const groupDescription = navService.state('description');
     this._state.update((state) => ({
       ...state,
       groupName,

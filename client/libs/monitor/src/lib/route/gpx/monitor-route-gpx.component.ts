@@ -18,15 +18,15 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   selector: 'kpn-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page *ngIf="service.state() as state">
       <kpn-monitor-route-gpx-breadcrumb
-        [groupName]="service.groupName()"
-        [groupLink]="service.groupLink()"
-        [routeName]="service.routeName()"
-        [routeLink]="service.routeLink()"
+        [groupName]="state.groupName"
+        [groupLink]="state.groupLink"
+        [routeName]="state.routeName"
+        [routeLink]="state.routeLink"
       />
 
-      <div *ngIf="service.apiResponse() as response">
+      <div *ngIf="state.response as response">
         <div *ngIf="!response.result" i18n="@@monitor.route.gpx.not-found">
           Route not found
         </div>
@@ -58,7 +58,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
               Save
             </button>
             <a
-              [routerLink]="service.routeLink()"
+              [routerLink]="state.routeLink"
               id="cancel"
               i18n="@@action.cancel"
             >
@@ -82,13 +82,13 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   providers: [MonitorRouteGpxService, NavService],
   standalone: true,
   imports: [
-    NgIf,
-    RouterLink,
-    MonitorRouteGpxReferenceComponent,
     MatButtonModule,
-    ReactiveFormsModule,
     MonitorRouteGpxBreadcrumbComponent,
+    MonitorRouteGpxReferenceComponent,
+    NgIf,
     PageComponent,
+    ReactiveFormsModule,
+    RouterLink,
     SidebarComponent,
   ],
 })

@@ -16,12 +16,12 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
   selector: 'kpn-monitor-group-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page *ngIf="service.state() as state">
       <kpn-monitor-group-breadcrumb />
 
       <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
 
-      <div *ngIf="service.apiResponse() as response" class="kpn-form">
+      <div *ngIf="state.response as response" class="kpn-form">
         <div *ngIf="!response.result">
           <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
         </div>

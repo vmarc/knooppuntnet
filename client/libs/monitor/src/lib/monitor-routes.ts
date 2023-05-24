@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { provideState } from '@ngrx/store';
 import { MonitorAboutPageComponent } from './about/monitor-about-page.component';
 import { MonitorChangesPageComponent } from './changes/monitor-changes-page.component';
 import { MonitorGroupAddPageComponent } from './group/add/monitor-group-add-page.component';
@@ -18,19 +17,11 @@ import { MonitorRouteGpxDeleteComponent } from './route/gpx/monitor-route-gpx-de
 import { MonitorRouteGpxComponent } from './route/gpx/monitor-route-gpx.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
-import { monitorReducer } from './store/monitor.reducer';
-import { monitorFeatureKey } from './store/monitor.state';
 
 export const monitorRoutes: Routes = [
   {
     path: '',
-    providers: [
-      provideState({
-        name: monitorFeatureKey,
-        reducer: monitorReducer,
-      }),
-      MonitorService,
-    ],
+    providers: [MonitorService],
     children: [
       {
         path: '',

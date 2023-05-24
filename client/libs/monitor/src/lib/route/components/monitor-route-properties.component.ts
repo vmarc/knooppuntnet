@@ -18,7 +18,6 @@ import { MonitorRouteProperties } from '@api/common/monitor';
 import { Day } from '@api/custom';
 import { DayUtil } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -150,16 +149,16 @@ import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.com
   `,
   standalone: true,
   imports: [
+    MatButtonModule,
     MatStepperModule,
-    NgIf,
-    ReactiveFormsModule,
     MonitorRoutePropertiesStep1GroupComponent,
     MonitorRoutePropertiesStep2NameComponent,
     MonitorRoutePropertiesStep3RelationComponent,
     MonitorRoutePropertiesStep4ReferenceTypeComponent,
     MonitorRoutePropertiesStep5ReferenceDetailsComponent,
     MonitorRoutePropertiesStep6CommentComponent,
-    MatButtonModule,
+    NgIf,
+    ReactiveFormsModule,
     RouterLink,
   ],
 })
@@ -251,7 +250,6 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   constructor(
     private monitorService: MonitorService,
-    private store: Store,
     private dialog: MatDialog,
     private router: Router
   ) {}

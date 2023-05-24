@@ -1,19 +1,17 @@
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { MonitorGroupPage } from '@api/common/monitor';
-import { Util } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { MonitorService } from '../../monitor.service';
+import { initialState } from './monitor-group-update-page.state';
+import { MonitorGroupUpdatePageState } from './monitor-group-update-page.state';
 
 @Injectable()
 export class MonitorGroupUpdatePageService {
-  private readonly _groupDescription = this.navService.state('description');
-  private readonly _apiResponse = Util.response<MonitorGroupPage>();
-
-  readonly groupName = this.navService.param('groupName');
-  readonly apiResponse = this._apiResponse.asReadonly();
+  private readonly _state = signal<MonitorGroupUpdatePageState>(initialState);
+  readonly state = this._state.asReadonly();
 
   private initialName = '';
   readonly name = new FormControl<string>('', {
@@ -36,10 +34,22 @@ export class MonitorGroupUpdatePageService {
     private navService: NavService,
     private monitorService: MonitorService
   ) {
-    this.monitorService.group(this.groupName()).subscribe((response) => {
-      this._apiResponse.set(response);
+    const groupName = this.navService.param('groupName');
+    const description = this.navService.state('description');
+    this._state.update((state) => ({
+      ...state,
+      groupName,
+      groupDescription: description,
+    }));
+
+    this.monitorService.group(groupName).subscribe((response) => {
+      const groupDescription = response.result?.groupDescription ?? description;
+      this._state.update((state) => ({
+        ...state,
+        groupDescription,
+        response,
+      }));
       if (response.result) {
-        this._groupDescription.set(response.result.groupDescription);
         const page = response.result;
         if (page) {
           this.initialName = page.groupName;

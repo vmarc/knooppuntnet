@@ -1,24 +1,35 @@
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorRouteAddPage } from '@api/common/monitor';
-import { Util } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { MonitorService } from '../../monitor.service';
+import { initialState } from './monitor-route-add-page.state';
+import { MonitorRouteAddPageState } from './monitor-route-add-page.state';
 
 @Injectable()
 export class MonitorRouteAddPageService {
-  private readonly _apiResponse = Util.response<MonitorRouteAddPage>();
-  private readonly _groupDescription = this.nav.state('description');
+  private readonly _state = signal<MonitorRouteAddPageState>(initialState);
+  readonly state = this._state.asReadonly();
 
-  readonly groupName = this.nav.param('groupName');
-  readonly groupDescription = this._groupDescription.asReadonly();
-  readonly apiResponse = this._apiResponse.asReadonly();
-
-  constructor(private monitorService: MonitorService, private nav: NavService) {
-    this.monitorService.routeAddPage(this.groupName()).subscribe((response) => {
-      this._apiResponse.set(response);
-      if (response.result) {
-        this._groupDescription.set(response.result.groupDescription);
-      }
+  constructor(
+    private monitorService: MonitorService,
+    private navService: NavService
+  ) {
+    const groupName = this.navService.param('groupName');
+    const description = this.navService.state('description');
+    const groupLink = `/monitor/groups/${groupName}`;
+    this._state.update((state) => ({
+      ...state,
+      groupName,
+      groupDescription: description,
+      groupLink,
+    }));
+    this.monitorService.routeAddPage(groupName).subscribe((response) => {
+      const groupDescription = response.result?.groupDescription ?? description;
+      this._state.update((state) => ({
+        ...state,
+        groupDescription,
+        response,
+      }));
     });
   }
 }

@@ -17,12 +17,12 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   selector: 'kpn-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page *ngIf="service.state() as state">
       <kpn-monitor-route-page-header
         pageName="map"
-        [groupName]="service.groupName()"
-        [routeName]="service.routeName()"
-        [routeDescription]="service.routeDescription()"
+        [groupName]="state.groupName"
+        [routeName]="state.routeName"
+        [routeDescription]="state.routeDescription"
         [subRelations]="subRelations()"
         [previous]="previous()"
         [next]="next()"

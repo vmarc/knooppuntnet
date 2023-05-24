@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/components/ol/components';
 import { LayerSwitcherComponent } from '@app/components/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
-import { NavService } from '@app/components/shared';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
@@ -27,13 +26,10 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    protected service: MonitorRouteMapService,
-    private navService: NavService
-  ) {}
+  constructor(protected service: MonitorRouteMapService) {}
 
   ngAfterViewInit(): void {
-    this.service.init(this.navService.params(), this.navService.queryParams());
+    this.service.init();
   }
 
   ngOnDestroy(): void {

@@ -13,7 +13,6 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
-import { Store } from '@ngrx/store';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
 @Component({
@@ -104,16 +103,16 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
   ],
   standalone: true,
   imports: [
-    RouterLink,
+    AsyncPipe,
+    ErrorComponent,
     MatMenuModule,
-    NgFor,
-    PageMenuComponent,
-    PageMenuOptionComponent,
-    NgIf,
     MonitorRouteSubRelationMenuOptionComponent,
     NgClass,
-    ErrorComponent,
-    AsyncPipe,
+    NgFor,
+    NgIf,
+    PageMenuComponent,
+    PageMenuOptionComponent,
+    RouterLink,
   ],
 })
 export class MonitorRoutePageHeaderComponent {
@@ -125,8 +124,6 @@ export class MonitorRoutePageHeaderComponent {
   @Input() previous: MonitorRouteSubRelation;
   @Input() next: MonitorRouteSubRelation;
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
-
-  constructor(private store: Store) {}
 
   select(subRelation: MonitorRouteSubRelation): void {
     this.selectSubRelation.emit(subRelation);

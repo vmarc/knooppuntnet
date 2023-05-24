@@ -14,23 +14,23 @@ export class MonitorRouteChangePageService {
     private navService: NavService,
     private monitorService: MonitorService
   ) {
-    const groupName = this.navService.newParam('groupName');
-    const routeName = this.navService.newParam('routeName');
-    const routeDescription = this.navService.newParam('routeDescription');
-    const changeSetId = this.navService.newParam('changeSetId');
-    const replicationNumber = this.navService.newParam('replicationNumber');
+    const groupName = this.navService.param('groupName');
+    const routeName = this.navService.param('routeName');
+    const changeSetId = this.navService.param('changeSetId');
+    const replicationNumber = this.navService.param('replicationNumber');
+    const description = this.navService.state('description');
     this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
-      routeDescription,
       changeSetId,
       replicationNumber,
+      routeDescription: description,
     }));
     this.monitorService
       .routeChange(groupName, routeName, changeSetId, replicationNumber)
       .subscribe((response) => {
-        const routeDescription = 'TODO'; // TODO response.result?.routeDescription;
+        const routeDescription = 'TODO'; // TODO response.result?.routeDescription && description;
         this._state.update((state) => ({
           ...state,
           routeDescription,

@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
@@ -13,12 +14,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormStatusComponent } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
-import { Store } from '@ngrx/store';
-import { MonitorService } from '../../monitor.service';
-import { actionMonitorRouteAdminRelationIdChanged } from '../../store/monitor.actions';
-import { actionMonitorRouteInfo } from '../../store/monitor.actions';
-import { selectMonitorRouteInfoPage } from '../../store/monitor.selectors';
 import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
+import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-properties-step-3-relation.service';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-3-relation',
@@ -160,30 +157,33 @@ import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
       }
     `,
   ],
+  providers: [MonitorRoutePropertiesStep3RelationService],
   standalone: true,
   imports: [
-    MatRadioModule,
-    ReactiveFormsModule,
-    NgIf,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MonitorRouteInfoComponent,
-    MatStepperModule,
     AsyncPipe,
     FormStatusComponent,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatStepperModule,
+    MonitorRouteInfoComponent,
+    NgIf,
+    ReactiveFormsModule,
   ],
 })
-export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
+export class MonitorRoutePropertiesStep3RelationComponent
+  implements OnInit, OnDestroy
+{
   @Input() ngForm: FormGroupDirective;
   @Input() form: FormGroup;
   @Input() relationIdKnown: FormControl<boolean>;
   @Input() relationId: FormControl<number | null>;
 
-  readonly apiResponse = this.store.selectSignal(selectMonitorRouteInfoPage);
+  readonly apiResponse = this.service.apiResponse;
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private monitorService: MonitorService, private store: Store) {}
+  constructor(private service: MonitorRoutePropertiesStep3RelationService) {}
 
   ngOnInit(): void {
     this.subscriptions.add(
@@ -193,13 +193,15 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
   getRouteInformation(): void {
-    this.store.dispatch(
-      actionMonitorRouteInfo({ relationId: this.relationId.value })
-    );
+    this.service.getRouteInformation(this.relationId.value);
   }
 
   resetRouteInformation(): void {
-    this.store.dispatch(actionMonitorRouteAdminRelationIdChanged());
+    this.service.resetRouteInformation();
   }
 }

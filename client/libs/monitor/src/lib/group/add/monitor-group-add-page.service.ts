@@ -1,4 +1,3 @@
-import { OnDestroy } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -7,11 +6,7 @@ import { NavService } from '@app/components/shared';
 import { MonitorService } from '../../monitor.service';
 
 @Injectable()
-export class MonitorGroupAddPageService implements OnDestroy {
-  ngOnDestroy(): void {
-    console.log('MonitorGroupAddPageServicengOnDestroy()');
-  }
-
+export class MonitorGroupAddPageService {
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
     asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(

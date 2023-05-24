@@ -14,21 +14,23 @@ export class MonitorRouteUpdatePageService {
     private navService: NavService,
     private monitorService: MonitorService
   ) {
-    const groupName = navService.newParam('groupName');
-    const routeName = navService.newParam('routeName');
-    const routeDescription = navService.newState('description');
+    const groupName = navService.param('groupName');
+    const routeName = navService.param('routeName');
+    const description = navService.state('description');
+    const groupLink = `/monitor/groups/${groupName}`;
     this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
-      routeDescription,
+      routeDescription: description,
+      groupLink,
     }));
 
     this.monitorService
       .routeUpdatePage(groupName, routeName)
       .subscribe((response) => {
         const routeDescription =
-          response.result?.routeDescription ?? this.state().routeDescription;
+          response.result?.routeDescription ?? description;
         this._state.update((state) => ({
           ...state,
           routeDescription,

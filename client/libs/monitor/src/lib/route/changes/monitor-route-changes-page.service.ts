@@ -20,14 +20,14 @@ export class MonitorRouteChangesPageService {
     private monitorService: MonitorService,
     private preferencesService: PreferencesService
   ) {
-    const groupName = this.navService.newParam('groupName');
-    const routeName = this.navService.newParam('routeName');
-    const routeDescription = this.navService.newParam('routeDescription');
+    const groupName = this.navService.param('groupName');
+    const routeName = this.navService.param('routeName');
+    const description = this.navService.state('description');
     this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
-      routeDescription,
+      routeDescription: description,
     }));
     this.load();
   }
@@ -51,7 +51,7 @@ export class MonitorRouteChangesPageService {
     this.monitorService
       .routeChanges(this.state().groupName, this.state().routeName, parameters)
       .subscribe((response) => {
-        const routeDescription = 'TODO'; // TODO response?.result?.routeDescription;
+        const routeDescription = 'TODO'; // TODO response?.result?.routeDescription && this.state().routeDescription;
         this._state.update((state) => ({
           ...state,
           routeDescription,

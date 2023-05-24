@@ -19,8 +19,8 @@ export class MonitorGroupChangesPageService {
     private monitorService: MonitorService,
     private preferencesService: PreferencesService
   ) {
-    const groupName = navService.newParam('groupName');
-    const groupDescription = navService.newState('groupDescription');
+    const groupName = navService.param('groupName');
+    const groupDescription = navService.state('groupDescription');
     this._state.update((state) => ({
       ...state,
       groupName,

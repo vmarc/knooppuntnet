@@ -14,12 +14,12 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
   selector: 'kpn-monitor-group-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
-      <kpn-monitor-group-breadcrumb></kpn-monitor-group-breadcrumb>
+    <kpn-page *ngIf="service.state() as state">
+      <kpn-monitor-group-breadcrumb />
 
       <h1 i18n="@@monitor.group.delete.title">Monitor - delete group</h1>
 
-      <div *ngIf="service.apiResponse() as response" class="kpn-form">
+      <div *ngIf="state.response as response" class="kpn-form">
         <div *ngIf="!response.result">
           <p i18n="@@monitor.group.delete.group-not-found">Group not found</p>
         </div>
@@ -61,7 +61,7 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NavService, MonitorGroupDeletePageService],
+  providers: [MonitorGroupDeletePageService, NavService],
   standalone: true,
   imports: [
     MatButtonModule,

@@ -1,31 +1,41 @@
 import { HttpClient } from '@angular/common/http';
-import { WritableSignal } from '@angular/core';
 import { signal } from '@angular/core';
-import { computed } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteGpxPage } from '@api/common/monitor';
 import { ApiResponse } from '@api/custom';
 import { NavService } from '@app/components/shared';
 import { tap } from 'rxjs/operators';
+import { MonitorRouteGpxState } from './monitor-route-gpx.state';
+import { initialState } from './monitor-route-gpx.state';
 
 @Injectable()
 export class MonitorRouteGpxService {
-  readonly groupName = this.navService.param('groupName');
-  readonly routeName = this.navService.param('routeName');
-  readonly subRelationId = this.navService.queryParam('sub-relation-id');
-  readonly groupLink = computed(() => `/monitor/groups/${this.groupName}`);
-  readonly routeLink = computed(
-    () => `/monitor/groups/${this.groupName}/routes/${this.routeName}`
-  );
-  readonly apiResponse: WritableSignal<ApiResponse<MonitorRouteGpxPage> | null> =
-    signal(null);
+  private readonly _state = signal<MonitorRouteGpxState>(initialState);
+  readonly state = this._state.asReadonly();
 
   constructor(private navService: NavService, private http: HttpClient) {
-    const url = `/api/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx/${this.subRelationId}`;
+    const groupName = this.navService.param('groupName');
+    const routeName = this.navService.param('routeName');
+    const subRelationId = this.navService.queryParam('sub-relation-id');
+    const groupLink = `/monitor/groups/${groupName}`;
+    const routeLink = `/monitor/groups/${groupName}/routes/${routeName}`;
+    this._state.update((state) => ({
+      ...state,
+      groupName,
+      routeName,
+      subRelationId,
+      groupLink,
+      routeLink,
+    }));
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/gpx/${subRelationId}`;
     this.http
       .get<ApiResponse<MonitorRouteGpxPage>>(url)
-      .pipe(tap((response) => this.apiResponse.set(response)))
-      .subscribe();
+      .subscribe((response) => {
+        this._state.update((state) => ({
+          ...state,
+          response,
+        }));
+      });
   }
 
   save(): void {
@@ -33,9 +43,11 @@ export class MonitorRouteGpxService {
   }
 
   delete(): void {
-    const routeUrl = `/monitor/groups/${this.groupName}/routes/${this.routeName}`;
-    const apiUrl = `/api${routeUrl}/gpx/${this.subRelationId}`;
-
+    const groupName = this.state().groupName;
+    const routeName = this.state().routeName;
+    const subRelationId = this.state().subRelationId;
+    const routeUrl = `/monitor/groups/${groupName}/routes/${routeName}`;
+    const apiUrl = `/api${routeUrl}/gpx/${subRelationId}`;
     this.http
       .delete(apiUrl)
       .pipe(tap(() => this.navService.go(routeUrl)))

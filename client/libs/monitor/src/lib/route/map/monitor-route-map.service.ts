@@ -9,6 +9,7 @@ import { MapControls } from '@app/components/ol/layers';
 import { MapLayerRegistry } from '@app/components/ol/layers';
 import { OsmLayer } from '@app/components/ol/layers';
 import { OpenlayersMapService } from '@app/components/ol/services';
+import { NavService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { Coordinate } from 'ol/coordinate';
 import { GeoJSON } from 'ol/format';
@@ -47,7 +48,10 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   private readonly deviationsLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
-  constructor(private stateService: MonitorRouteMapStateService) {
+  constructor(
+    private navService: NavService,
+    private stateService: MonitorRouteMapStateService
+  ) {
     super();
     this.referenceLayer = this.buildReferencesLayer();
     this.matchesLayer = this.buildMatchesLayer();
@@ -56,8 +60,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.initEffects();
   }
 
-  init(params: Params, queryParams: Params): void {
-    const param = queryParams['position'];
+  init(): void {
+    const param = this.navService.queryParam('position');
     const mapPositionFromUrl = MapPosition.fromQueryParam(param);
 
     this.registerLayers();
@@ -92,20 +96,6 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    // TODO cleanup
-    // this._referenceType.set(page.reference.referenceType);
-    // this._referenceAvailable.set(!!page.reference.geoJson);
-    // this._matchesEnabled.set(
-    //   this.mode() === 'comparison' && !!page.matchesGeoJson
-    // );
-    // this._gpxDeviationsEnabled.set(
-    //   this.mode() === MonitorMapMode.comparison &&
-    //     (page.deviations.length ?? 0) > 0
-    // );
-    // this._osmRelationEnabled.set((page.osmSegments.length ?? 0) > 0);
-    // this._deviations.set(page.deviations);
-    // this._osmSegments.set(page.osmSegments);
-
     this.referenceLayer.getSource().clear();
     if (page?.reference?.geoJson) {
       const features = new GeoJSON().readFeatures(page.reference.geoJson, {

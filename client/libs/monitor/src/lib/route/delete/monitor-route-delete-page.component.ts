@@ -14,21 +14,21 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   selector: 'kpn-monitor-route-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.groupName() as groupName">
+    <kpn-page *ngIf="service.state() as state">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
           <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
         </li>
         <li>
-          <a [routerLink]="groupLink(groupName)">{{ groupName }}</a>
+          <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
         </li>
         <li i18n="@@breadcrumb.monitor.route">Route</li>
       </ul>
 
       <h1>
-        <span class="kpn-label">{{ service.routeName() }}</span>
-        <span>{{ service.routeDescription() }}</span>
+        <span class="kpn-label">{{ state.routeName }}</span>
+        <span>{{ state.routeDescription }}</span>
       </h1>
 
       <h2 i18n="@@monitor.route.delete.title">Delete</h2>
@@ -53,9 +53,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
               >Delete Route</span
             >
           </button>
-          <a [routerLink]="groupLink(groupName)" i18n="@@action.cancel"
-            >Cancel</a
-          >
+          <a [routerLink]="state.groupLink" i18n="@@action.cancel">Cancel</a>
         </div>
       </div>
       <kpn-sidebar sidebar />
@@ -75,8 +73,4 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
 })
 export class MonitorRouteDeletePageComponent {
   constructor(protected service: MonitorRouteDeletePageService) {}
-
-  groupLink(groupName: string): string {
-    return `/monitor/groups/${groupName}`;
-  }
 }

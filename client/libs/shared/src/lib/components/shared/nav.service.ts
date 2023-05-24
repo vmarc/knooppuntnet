@@ -1,14 +1,9 @@
-import { computed } from '@angular/core';
-import { Signal } from '@angular/core';
-import { signal } from '@angular/core';
-import { WritableSignal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ParamMap } from '@angular/router';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Nav } from './nav';
 
 @Injectable()
 export class NavService {
@@ -20,11 +15,6 @@ export class NavService {
     this.queryParamMap = toSignal(this.route.queryParamMap);
   }
 
-  nav(): Nav {
-    const state = this.router.getCurrentNavigation()?.extras.state;
-    return new Nav(this.paramMap(), this.queryParamMap(), state);
-  }
-
   public params(): ParamMap {
     return this.paramMap();
   }
@@ -33,29 +23,15 @@ export class NavService {
     return this.queryParamMap();
   }
 
-  public newParam(name: string): string {
+  public param(name: string): string {
     return this.paramMap().get(name);
   }
 
-  public param(name: string): Signal<string> {
-    return computed(() => this.paramMap().get(name));
-  }
-
-  public queryParam(name: string): Signal<string> {
-    return computed(() => this.queryParamMap().get(name));
-  }
-
-  public newQueryParam(name: string): string {
+  public queryParam(name: string): string {
     return this.queryParamMap().get(name);
   }
 
-  public state(name: string): WritableSignal<string> {
-    const state = this.router.getCurrentNavigation()?.extras.state;
-    const value = state && state[name] ? state[name] : '';
-    return signal(value);
-  }
-
-  public newState(name: string): string {
+  public state(name: string): string {
     const state = this.router.getCurrentNavigation()?.extras.state;
     return state && state[name] ? state[name] : '';
   }

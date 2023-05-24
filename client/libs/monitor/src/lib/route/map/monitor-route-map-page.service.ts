@@ -1,39 +1,49 @@
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Util } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { MonitorService } from '../../monitor.service';
+import { initialState } from './monitor-route-map-page.state';
+import { MonitorRouteMapPageState } from './monitor-route-map-page.state';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Injectable()
 export class MonitorRouteMapPageService {
-  private pages: Map<number, MonitorRouteMapPage> = new Map();
-  private readonly _routeDescription = this.nav.state('description');
-
-  readonly groupName = this.nav.param('groupName');
-  readonly routeName = this.nav.param('routeName');
-  readonly subRelationId = this.nav.queryParam('sub-relation-id');
-  readonly routeDescription = this._routeDescription.asReadonly();
+  private readonly pages: Map<number, MonitorRouteMapPage> = new Map();
+  private readonly _state = signal<MonitorRouteMapPageState>(initialState);
+  readonly state = this._state.asReadonly();
 
   constructor(
     private monitorService: MonitorService,
     private mapService: MonitorRouteMapService,
     private stateService: MonitorRouteMapStateService,
-    private nav: NavService
+    private navService: NavService
   ) {
-    const subRelationIdParameter = this.subRelationId();
+    const groupName = this.navService.param('groupName');
+    const routeName = this.navService.param('routeName');
+    const relationIdParameter = this.navService.queryParam('sub-relation-id');
     let relationId = 0;
-    if (subRelationIdParameter) {
-      relationId = Util.toInteger(subRelationIdParameter);
+    if (relationIdParameter) {
+      relationId = Util.toInteger(relationIdParameter);
     }
+    const routeDescription = this.navService.state('description');
+    this._state.update((state) => ({
+      ...state,
+      groupName,
+      routeName,
+      relationId,
+      routeDescription,
+    }));
+
     const routeMapPage = this.pages.get(relationId);
     if (routeMapPage) {
       this.mapService.pageChanged(routeMapPage);
     } else {
       this.monitorService
-        .routeMap(this.groupName(), this.routeName(), relationId)
+        .routeMap(groupName, routeName, relationId)
         .subscribe((response) => {
           if (response.result) {
             const page = response.result;
@@ -45,8 +55,8 @@ export class MonitorRouteMapPageService {
                 relationId = page.relationId;
               }
               this.pages.set(relationId, page);
-              const params = this.nav.params();
-              const queryParams = this.nav.queryParams();
+              const params = this.navService.params();
+              const queryParams = this.navService.queryParams();
               this.stateService.initialState(params, queryParams, page);
               this.mapService.pageChanged(page);
             }
@@ -63,7 +73,11 @@ export class MonitorRouteMapPageService {
       this.stateService.focusChanged(page.bounds);
     } else {
       this.monitorService
-        .routeMap(this.groupName(), this.routeName(), subRelation.relationId)
+        .routeMap(
+          this.state().groupName,
+          this.state().routeName,
+          subRelation.relationId
+        )
         .subscribe((response) => {
           if (response.result) {
             const page = response.result;
