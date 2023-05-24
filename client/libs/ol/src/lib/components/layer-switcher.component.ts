@@ -64,13 +64,13 @@ import { MapLayerTranslationService } from '../services';
   ],
   standalone: true,
   imports: [
-    MatMenuModule,
-    NgIf,
-    NgFor,
+    AsyncPipe,
     MatCheckboxModule,
     MatDividerModule,
     MatIconModule,
-    AsyncPipe,
+    MatMenuModule,
+    NgFor,
+    NgIf,
   ],
 })
 export class LayerSwitcherComponent {

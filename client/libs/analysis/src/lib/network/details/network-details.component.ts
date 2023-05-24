@@ -54,8 +54,8 @@ import { NetworkSummaryComponent } from './network-summary.component';
   imports: [
     DataComponent,
     NetworkSummaryComponent,
-    TimestampComponent,
     TagsTableComponent,
+    TimestampComponent,
   ],
 })
 export class NetworkDetailsComponent implements OnInit {

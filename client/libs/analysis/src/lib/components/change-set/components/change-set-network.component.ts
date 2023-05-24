@@ -43,9 +43,9 @@ export class ChangeSetNetworkAction {
   `,
   standalone: true,
   imports: [
+    ChangesSetElementRefsComponent,
     NetworkTypeIconComponent,
     RouterLink,
-    ChangesSetElementRefsComponent,
   ],
 })
 export class ChangesSetNetworkComponent {

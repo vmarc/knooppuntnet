@@ -38,14 +38,14 @@ import { LocationFactsComponent } from './location-facts.component';
   `,
   standalone: true,
   imports: [
-    LocationPageHeaderComponent,
-    ErrorComponent,
-    NgIf,
-    LocationResponseComponent,
-    LocationFactsComponent,
     AsyncPipe,
-    PageComponent,
+    ErrorComponent,
+    LocationFactsComponent,
+    LocationPageHeaderComponent,
+    LocationResponseComponent,
     LocationSidebarComponent,
+    NgIf,
+    PageComponent,
   ],
 })
 export class LocationFactsPageComponent implements OnInit, OnDestroy {

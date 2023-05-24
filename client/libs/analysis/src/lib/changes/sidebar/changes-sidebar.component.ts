@@ -26,10 +26,10 @@ import { selectChangesFilterOptions } from '../store/changes.selectors';
   `,
   standalone: true,
   imports: [
-    SidebarComponent,
     AnalysisStrategyComponent,
-    ChangeFilterComponent,
     AsyncPipe,
+    ChangeFilterComponent,
+    SidebarComponent,
   ],
 })
 export class ChangesSidebarComponent {

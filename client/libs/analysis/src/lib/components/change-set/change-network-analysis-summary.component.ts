@@ -51,10 +51,10 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
   standalone: true,
   imports: [
     ChangeHeaderComponent,
-    NgFor,
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,
     ChangesSetOrphanRoutesComponent,
+    NgFor,
   ],
 })
 export class ChangeNetworkAnalysisSummaryComponent implements OnInit {

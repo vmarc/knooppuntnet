@@ -49,8 +49,8 @@ import { RouteChangeDetailComponent } from '@app/analysis/components/changes/rou
   standalone: true,
   imports: [
     ChangeHeaderComponent,
-    NgIf,
     ChangeSetTagsComponent,
+    NgIf,
     RouteChangeDetailComponent,
   ],
 })

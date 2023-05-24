@@ -140,16 +140,16 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
   `,
   standalone: true,
   imports: [
-    NgFor,
+    FactDiffsComponent,
     FactNameComponent,
-    NgIf,
     LinkNetworkDetailsComponent,
     LinkRouteComponent,
-    FactDiffsComponent,
-    TagDiffsComponent,
+    NgFor,
+    NgIf,
     NodeChangeMovedComponent,
-    TagsTableComponent,
     NodeMovedMapComponent,
+    TagDiffsComponent,
+    TagsTableComponent,
   ],
 })
 export class NodeChangeDetailComponent implements OnInit {

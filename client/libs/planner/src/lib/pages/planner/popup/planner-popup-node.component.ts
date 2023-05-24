@@ -109,12 +109,12 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    TimestampComponent,
-    NgFor,
-    RouterLink,
-    LinkRouteComponent,
     AsyncPipe,
+    LinkRouteComponent,
+    NgFor,
+    NgIf,
+    RouterLink,
+    TimestampComponent,
   ],
 })
 export class PlannerPopupNodeComponent implements OnInit, OnDestroy {

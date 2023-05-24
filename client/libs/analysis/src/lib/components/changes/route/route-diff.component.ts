@@ -81,9 +81,9 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
   `,
   standalone: true,
   imports: [
-    NgIf,
     FactDiffsComponent,
     NgFor,
+    NgIf,
     RouteNodeDiffComponent,
     TagDiffsComponent,
   ],

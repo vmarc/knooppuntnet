@@ -281,15 +281,15 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   ],
   standalone: true,
   imports: [
-    MatTableModule,
-    NgIf,
-    MatIconModule,
-    RouterLink,
-    OsmLinkRelationComponent,
-    MatButtonModule,
     AsyncPipe,
     DayPipe,
     DistancePipe,
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    NgIf,
+    OsmLinkRelationComponent,
+    RouterLink,
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {

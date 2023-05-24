@@ -45,8 +45,8 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
   standalone: true,
   imports: [
     ChangeHeaderComponent,
-    NgIf,
     ChangeSetTagsComponent,
+    NgIf,
     NodeChangeDetailComponent,
   ],
 })

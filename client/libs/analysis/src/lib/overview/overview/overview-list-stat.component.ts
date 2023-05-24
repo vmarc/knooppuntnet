@@ -95,9 +95,9 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
   ],
   standalone: true,
   imports: [
-    NgIf,
-    MatIconModule,
     MarkdownModule,
+    MatIconModule,
+    NgIf,
     OverviewListStatTableComponent,
   ],
 })

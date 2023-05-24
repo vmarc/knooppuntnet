@@ -88,15 +88,15 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
   standalone: true,
   imports: [
-    OsmLinkNodeComponent,
-    JosmNodeComponent,
-    NgIf,
-    NgFor,
-    NetworkTypeComponent,
-    NetworkScopeNameComponent,
     CountryNameComponent,
-    MatIconModule,
+    JosmNodeComponent,
     MarkdownModule,
+    MatIconModule,
+    NetworkScopeNameComponent,
+    NetworkTypeComponent,
+    NgFor,
+    NgIf,
+    OsmLinkNodeComponent,
   ],
 })
 export class NodeSummaryComponent {

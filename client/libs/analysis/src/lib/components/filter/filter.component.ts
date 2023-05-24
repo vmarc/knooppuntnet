@@ -23,11 +23,11 @@ import { FilterTitleComponent } from './filter-title.component';
   styleUrls: ['./filter.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    FilterTitleComponent,
-    NgFor,
     FilterCheckboxGroupComponent,
     FilterRadioGroupComponent,
+    FilterTitleComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class FilterComponent {

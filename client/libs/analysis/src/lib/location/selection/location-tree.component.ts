@@ -124,11 +124,11 @@ import { LocationFlatNode } from './location-flat-node';
   standalone: true,
   imports: [
     MatButtonModule,
+    MatIconModule,
     MatRadioModule,
     MatTreeModule,
     NgClass,
     NgIf,
-    MatIconModule,
   ],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {

@@ -89,13 +89,13 @@ import { CountrySelectComponent } from './country-select.component';
   ],
   standalone: true,
   imports: [
-    SidebarComponent,
-    CountrySelectComponent,
-    NgIf,
-    LocationSelectorComponent,
-    NgFor,
-    MatCheckboxModule,
     AsyncPipe,
+    CountrySelectComponent,
+    LocationSelectorComponent,
+    MatCheckboxModule,
+    NgFor,
+    NgIf,
+    SidebarComponent,
   ],
 })
 export class LocationPoisSidebarComponent implements OnInit {

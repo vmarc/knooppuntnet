@@ -47,15 +47,15 @@ import { SubsetOrphanNodesTableComponent } from './subset-orphan-nodes-table.com
   `,
   standalone: true,
   imports: [
-    SubsetPageHeaderBlockComponent,
-    ErrorComponent,
-    NgIf,
-    SituationOnComponent,
-    IconHappyComponent,
-    SubsetOrphanNodesTableComponent,
     AsyncPipe,
+    ErrorComponent,
+    IconHappyComponent,
+    NgIf,
     PageComponent,
+    SituationOnComponent,
     SubsetOrphanNodesSidebarComponent,
+    SubsetOrphanNodesTableComponent,
+    SubsetPageHeaderBlockComponent,
   ],
 })
 export class SubsetOrphanNodesPageComponent implements OnInit {

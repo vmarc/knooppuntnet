@@ -149,15 +149,15 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   ],
   standalone: true,
   imports: [
-    EditAndPaginatorComponent,
-    MatTableModule,
-    SubsetOrphanRouteAnalysisComponent,
-    LinkRouteComponent,
-    DayComponent,
-    JosmRelationComponent,
-    OsmLinkRelationComponent,
     AsyncPipe,
+    DayComponent,
+    EditAndPaginatorComponent,
     IntegerFormatPipe,
+    JosmRelationComponent,
+    LinkRouteComponent,
+    MatTableModule,
+    OsmLinkRelationComponent,
+    SubsetOrphanRouteAnalysisComponent,
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {

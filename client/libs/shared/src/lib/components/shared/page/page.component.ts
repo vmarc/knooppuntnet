@@ -90,14 +90,14 @@ import { PageFooterComponent } from './page-footer.component';
   ],
   standalone: true,
   imports: [
+    AsyncPipe,
     MatSidenavModule,
     NgIf,
-    SidebarBackComponent,
     PageExperimentalComponent,
-    RouterOutlet,
-    ToolbarComponent,
     PageFooterComponent,
-    AsyncPipe,
+    RouterOutlet,
+    SidebarBackComponent,
+    ToolbarComponent,
   ],
 })
 export class PageComponent implements OnInit, OnDestroy {

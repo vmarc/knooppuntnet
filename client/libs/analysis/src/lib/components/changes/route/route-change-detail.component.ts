@@ -50,13 +50,13 @@ import { RouteDiffComponent } from './route-diff.component';
   `,
   standalone: true,
   imports: [
-    RouteDiffComponent,
+    NgFor,
     NgIf,
     RouteChangeMapComponent,
-    NgFor,
-    RouteChangeWayRemovedComponent,
     RouteChangeWayAddedComponent,
+    RouteChangeWayRemovedComponent,
     RouteChangeWayUpdatedComponent,
+    RouteDiffComponent,
   ],
 })
 export class RouteChangeDetailComponent {

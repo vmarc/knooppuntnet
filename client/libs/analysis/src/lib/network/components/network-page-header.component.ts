@@ -96,13 +96,13 @@ import { selectNetworkId } from '../store/network.selectors';
   `,
   standalone: true,
   imports: [
-    RouterLink,
+    AsyncPipe,
+    MatIconModule,
     NgIf,
     PageHeaderComponent,
-    MatIconModule,
     PageMenuComponent,
     PageMenuOptionComponent,
-    AsyncPipe,
+    RouterLink,
   ],
 })
 export class NetworkPageHeaderComponent {

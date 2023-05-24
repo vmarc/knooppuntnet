@@ -34,10 +34,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   standalone: true,
   imports: [
     MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    NgFor,
     MatOptionModule,
+    MatSelectModule,
+    NgFor,
+    ReactiveFormsModule,
   ],
 })
 export class CountrySelectComponent implements OnInit, OnDestroy {

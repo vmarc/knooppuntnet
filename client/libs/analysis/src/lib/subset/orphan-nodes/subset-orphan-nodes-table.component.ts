@@ -117,13 +117,13 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   ],
   standalone: true,
   imports: [
-    EditAndPaginatorComponent,
-    MatTableModule,
-    LinkNodeComponent,
-    DayComponent,
-    JosmNodeComponent,
-    OsmLinkNodeComponent,
     AsyncPipe,
+    DayComponent,
+    EditAndPaginatorComponent,
+    JosmNodeComponent,
+    LinkNodeComponent,
+    MatTableModule,
+    OsmLinkNodeComponent,
   ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {

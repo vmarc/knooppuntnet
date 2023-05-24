@@ -75,13 +75,13 @@ import { PageService } from '..';
   ],
   standalone: true,
   imports: [
-    MatToolbarModule,
+    AsyncPipe,
     MatButtonModule,
     MatIconModule,
+    MatToolbarModule,
     RouterLink,
-    SpinnerComponent,
     RouterOutlet,
-    AsyncPipe,
+    SpinnerComponent,
   ],
 })
 export class ToolbarComponent {

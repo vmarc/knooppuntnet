@@ -102,18 +102,18 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
   ],
   standalone: true,
   imports: [
-    NgIf,
-    IconHappyComponent,
-    DistancePipe,
     DataComponent,
+    DayInputComponent,
+    DistancePipe,
+    IconHappyComponent,
     MarkdownModule,
+    MatButtonModule,
     MonitorRouteDetailsAnalysisComponent,
     MonitorRouteDetailsReferenceComponent,
     MonitorRouteDetailsStructureComponent,
     MonitorRouteDetailsSummaryComponent,
+    NgIf,
     RouterLink,
-    DayInputComponent,
-    MatButtonModule,
   ],
 })
 export class MonitorRouteGpxReferenceComponent {

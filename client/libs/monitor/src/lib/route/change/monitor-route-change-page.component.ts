@@ -245,10 +245,10 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     NgFor,
     NgIf,
     OsmLinkChangeSetComponent,
-    RouterLink,
-    TimestampComponent,
-    SidebarComponent,
     PageComponent,
+    RouterLink,
+    SidebarComponent,
+    TimestampComponent,
   ],
 })
 export class MonitorRouteChangePageComponent {

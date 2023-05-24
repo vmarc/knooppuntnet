@@ -137,17 +137,17 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./_subset-fact-details-page.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     IconHappyComponent,
-    ItemsComponent,
-    NgFor,
     ItemComponent,
-    RouterLink,
+    ItemsComponent,
     LinkNodeComponent,
     LinkRouteComponent,
+    NgFor,
+    NgIf,
     OsmLinkNodeComponent,
-    OsmLinkWayComponent,
     OsmLinkRelationComponent,
+    OsmLinkWayComponent,
+    RouterLink,
   ],
 })
 export class SubsetFactDetailsComponent implements OnInit {

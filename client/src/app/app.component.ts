@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -83,12 +82,11 @@ import { setTag } from '@sentry/angular-ivy';
   imports: [
     MatSidenavModule,
     NgIf,
-    SidebarBackComponent,
     PageExperimentalComponent,
-    RouterOutlet,
-    ToolbarComponent,
     PageFooterComponent,
-    AsyncPipe,
+    RouterOutlet,
+    SidebarBackComponent,
+    ToolbarComponent,
   ],
 })
 export class AppComponent implements OnDestroy {

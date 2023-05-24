@@ -33,12 +33,12 @@ import { SubsetMapComponent } from './subset-map.component';
   `,
   standalone: true,
   imports: [
-    SubsetPageHeaderBlockComponent,
+    AsyncPipe,
     ErrorComponent,
     NgIf,
-    SubsetMapComponent,
-    AsyncPipe,
     PageComponent,
+    SubsetMapComponent,
+    SubsetPageHeaderBlockComponent,
     SubsetSidebarComponent,
   ],
 })

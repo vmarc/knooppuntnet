@@ -44,9 +44,9 @@ import { OverviewValueComponent } from './overview-value.component';
   ],
   standalone: true,
   imports: [
-    NgIf,
     CountryNameComponent,
     NetworkTypeIconComponent,
+    NgIf,
     OverviewValueComponent,
   ],
 })

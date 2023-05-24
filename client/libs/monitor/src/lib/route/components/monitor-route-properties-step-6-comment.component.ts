@@ -42,11 +42,11 @@ import { MatStepperModule } from '@angular/material/stepper';
   ],
   standalone: true,
   imports: [
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule,
-    MatButtonModule,
     MatStepperModule,
+    ReactiveFormsModule,
   ],
 })
 export class MonitorRoutePropertiesStep6CommentComponent {

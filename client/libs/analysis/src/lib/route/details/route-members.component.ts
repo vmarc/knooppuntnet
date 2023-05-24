@@ -137,12 +137,12 @@ import { LinkImageComponent } from './link-image.component';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     LinkImageComponent,
     LinkNodeComponent,
-    OsmLinkComponent,
     MatIconModule,
+    NgFor,
+    NgIf,
+    OsmLinkComponent,
     TagsTextComponent,
   ],
 })

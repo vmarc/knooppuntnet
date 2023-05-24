@@ -83,8 +83,8 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     MonitorGroupTableComponent,
     MonitorPageMenuComponent,
     NgIf,
-    RouterLink,
     PageComponent,
+    RouterLink,
     SidebarComponent,
   ],
 })

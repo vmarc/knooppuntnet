@@ -34,10 +34,10 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   `,
   standalone: true,
   imports: [
+    DistancePipe,
+    JosmRelationComponent,
     NgIf,
     OsmLinkRelationComponent,
-    JosmRelationComponent,
-    DistancePipe,
   ],
 })
 export class MonitorRouteDetailsSummaryComponent {

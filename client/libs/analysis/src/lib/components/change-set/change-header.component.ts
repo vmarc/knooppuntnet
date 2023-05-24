@@ -53,12 +53,12 @@ import { map } from 'rxjs/operators';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    LinkChangesetComponent,
-    TimestampComponent,
+    AsyncPipe,
     IconHappyComponent,
     IconInvestigateComponent,
-    AsyncPipe,
+    LinkChangesetComponent,
+    NgIf,
+    TimestampComponent,
   ],
 })
 export class ChangeHeaderComponent {

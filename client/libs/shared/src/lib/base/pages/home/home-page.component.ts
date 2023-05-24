@@ -47,12 +47,12 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
   `,
   standalone: true,
   imports: [
+    BaseSidebarComponent,
     IconButtonComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,
     SidebarComponent,
-    BaseSidebarComponent,
   ],
 })
 export class HomePageComponent {}

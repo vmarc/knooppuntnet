@@ -37,11 +37,11 @@ import { RouteDiffsData } from './route-diffs-data';
   `,
   standalone: true,
   imports: [
-    NgIf,
     IconInvestigateComponent,
-    NgFor,
     LinkRouteRefHeaderComponent,
     MetaDataComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class RouteDiffsRemovedComponent implements OnInit {

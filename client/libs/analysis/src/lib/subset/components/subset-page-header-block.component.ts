@@ -38,11 +38,11 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   `,
   standalone: true,
   imports: [
-    SubsetPageBreadcrumbComponent,
-    PageHeaderComponent,
-    MatIconModule,
-    SubsetPageMenuComponent,
     AsyncPipe,
+    MatIconModule,
+    PageHeaderComponent,
+    SubsetPageBreadcrumbComponent,
+    SubsetPageMenuComponent,
   ],
 })
 export class SubsetPageHeaderBlockComponent {

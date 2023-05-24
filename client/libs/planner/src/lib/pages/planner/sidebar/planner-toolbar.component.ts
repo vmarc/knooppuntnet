@@ -27,10 +27,10 @@ import { PlanActionsComponent } from './plan-actions.component';
   ],
   standalone: true,
   imports: [
-    PlanActionsComponent,
-    NgIf,
-    NetworkTypeSelectorComponent,
     AsyncPipe,
+    NetworkTypeSelectorComponent,
+    NgIf,
+    PlanActionsComponent,
   ],
 })
 export class PlannerToolbarComponent {

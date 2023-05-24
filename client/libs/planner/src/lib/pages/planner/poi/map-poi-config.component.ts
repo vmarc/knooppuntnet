@@ -97,15 +97,15 @@ import { PoiGroupHikingBikingComponent } from './poi-group-hiking-biking.compone
   ],
   standalone: true,
   imports: [
+    PoiGroupAmenityComponent,
+    PoiGroupFoodshopsComponent,
     PoiGroupHikingBikingComponent,
     PoiGroupLandmarksComponent,
-    PoiGroupRestaurantsComponent,
     PoiGroupPlacesToStayComponent,
-    PoiGroupTourismComponent,
-    PoiGroupAmenityComponent,
+    PoiGroupRestaurantsComponent,
     PoiGroupShopsComponent,
-    PoiGroupFoodshopsComponent,
     PoiGroupSportsComponent,
+    PoiGroupTourismComponent,
   ],
 })
 export class MapPoiConfigComponent {}

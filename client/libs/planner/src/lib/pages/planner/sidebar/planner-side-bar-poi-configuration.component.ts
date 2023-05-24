@@ -44,10 +44,10 @@ import { MapPoiConfigComponent } from '../poi/map-poi-config.component';
   `,
   standalone: true,
   imports: [
-    MatExpansionModule,
-    MatCheckboxModule,
     MapPoiConfigComponent,
     MatButtonModule,
+    MatCheckboxModule,
+    MatExpansionModule,
   ],
 })
 export class PlannerSideBarPoiConfigurationComponent {

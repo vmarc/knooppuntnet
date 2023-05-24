@@ -78,11 +78,11 @@ import { EditService } from './edit.service';
   providers: [EditService],
   standalone: true,
   imports: [
-    MatDialogModule,
-    NgIf,
-    MatProgressBarModule,
-    MatButtonModule,
     AsyncPipe,
+    MatButtonModule,
+    MatDialogModule,
+    MatProgressBarModule,
+    NgIf,
   ],
 })
 export class EditDialogComponent implements OnInit, OnDestroy {

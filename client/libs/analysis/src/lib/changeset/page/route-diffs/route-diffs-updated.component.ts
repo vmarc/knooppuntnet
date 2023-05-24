@@ -42,11 +42,11 @@ import { RouteDiffsData } from './route-diffs-data';
   `,
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     LinkRouteRefHeaderComponent,
-    VersionChangeComponent,
+    NgFor,
+    NgIf,
     RouteChangeDetailComponent,
+    VersionChangeComponent,
   ],
 })
 export class RouteDiffsUpdatedComponent implements OnInit {

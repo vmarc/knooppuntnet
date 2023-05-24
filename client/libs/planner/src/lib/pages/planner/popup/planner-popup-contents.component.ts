@@ -33,12 +33,12 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    NgClass,
-    PlannerPopupPoiComponent,
-    PlannerPopupNodeComponent,
-    MapPopupRouteComponent,
     AsyncPipe,
+    MapPopupRouteComponent,
+    NgClass,
+    NgIf,
+    PlannerPopupNodeComponent,
+    PlannerPopupPoiComponent,
   ],
 })
 export class PlannerPopupContentsComponent {

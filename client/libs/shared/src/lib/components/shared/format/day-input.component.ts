@@ -26,11 +26,11 @@ import { DayUtil } from '..';
   providers: [MatNativeDateModule],
   standalone: true,
   imports: [
+    MatDatepickerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
     MatNativeDateModule,
+    ReactiveFormsModule,
   ],
 })
 export class DayInputComponent {

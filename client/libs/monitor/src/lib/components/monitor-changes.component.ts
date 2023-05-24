@@ -91,14 +91,14 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
   ],
   standalone: true,
   imports: [
-    ItemsComponent,
-    NgFor,
-    ItemComponent,
-    MonitorChangeHeaderComponent,
-    NgIf,
-    RouterLink,
     IconHappyComponent,
     IconInvestigateComponent,
+    ItemComponent,
+    ItemsComponent,
+    MonitorChangeHeaderComponent,
+    NgFor,
+    NgIf,
+    RouterLink,
   ],
 })
 export class MonitorChangesComponent {

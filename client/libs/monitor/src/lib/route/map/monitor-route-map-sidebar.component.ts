@@ -36,13 +36,13 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   ],
   standalone: true,
   imports: [
-    SidebarComponent,
     MonitorRouteMapControlJosmComponent,
     MonitorRouteMapControlModeComponent,
     MonitorRouteMapDeviationsComponent,
     MonitorRouteMapLayersComponent,
     MonitorRouteMapOsmSegmentsComponent,
     NgIf,
+    SidebarComponent,
   ],
 })
 export class MonitorRouteMapSidebarComponent {

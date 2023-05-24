@@ -82,15 +82,15 @@ import { Facts } from './facts';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
+    BracketsComponent,
+    FactDescriptionComponent,
     FactLevelComponent,
     FactNameComponent,
-    BracketsComponent,
-    RouterLink,
-    LinkRouteComponent,
     LinkNodeComponent,
-    FactDescriptionComponent,
+    LinkRouteComponent,
+    NgFor,
+    NgIf,
+    RouterLink,
   ],
 })
 export class FactsComponent {

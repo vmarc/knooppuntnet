@@ -97,11 +97,11 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   ],
   standalone: true,
   imports: [
-    NgFor,
-    LinkNetworkDetailsComponent,
-    SubsetNetworkHappyComponent,
-    NgClass,
     IntegerFormatPipe,
+    LinkNetworkDetailsComponent,
+    NgClass,
+    NgFor,
+    SubsetNetworkHappyComponent,
   ],
 })
 export class SubsetNetworkTableComponent {

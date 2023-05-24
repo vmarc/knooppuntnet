@@ -59,8 +59,8 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     MonitorChangesComponent,
     MonitorRoutePageHeaderComponent,
     NgIf,
-    PaginatorComponent,
     PageComponent,
+    PaginatorComponent,
     SidebarComponent,
   ],
 })

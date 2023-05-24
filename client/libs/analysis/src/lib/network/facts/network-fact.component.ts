@@ -47,14 +47,14 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
   `,
   standalone: true,
   imports: [
-    NetworkFactHeaderComponent,
-    NgIf,
-    NetworkFactNodeIdsComponent,
-    NetworkFactWayIdsComponent,
-    NetworkFactRelationIdsComponent,
-    NetworkFactNodesComponent,
-    NetworkFactRoutesComponent,
     NetworkFactChecksComponent,
+    NetworkFactHeaderComponent,
+    NetworkFactNodeIdsComponent,
+    NetworkFactNodesComponent,
+    NetworkFactRelationIdsComponent,
+    NetworkFactRoutesComponent,
+    NetworkFactWayIdsComponent,
+    NgIf,
   ],
 })
 export class NetworkFactComponent {

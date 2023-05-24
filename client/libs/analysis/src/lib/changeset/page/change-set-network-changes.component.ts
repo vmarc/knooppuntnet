@@ -46,10 +46,10 @@ import { CsNcComponent } from './network/cs-nc.component';
   `,
   standalone: true,
   imports: [
-    NgFor,
-    NetworkTypeIconComponent,
-    LinkNetworkDetailsComponent,
     CsNcComponent,
+    LinkNetworkDetailsComponent,
+    NetworkTypeIconComponent,
+    NgFor,
   ],
 })
 export class ChangeSetNetworkChangesComponent

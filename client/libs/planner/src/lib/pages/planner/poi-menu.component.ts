@@ -76,10 +76,10 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
   ],
   standalone: true,
   imports: [
-    MatDividerModule,
-    MatCheckboxModule,
-    PoiMenuOptionComponent,
     AsyncPipe,
+    MatCheckboxModule,
+    MatDividerModule,
+    PoiMenuOptionComponent,
   ],
 })
 export class PoiMenuComponent {

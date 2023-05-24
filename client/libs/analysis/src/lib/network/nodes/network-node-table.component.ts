@@ -205,16 +205,16 @@ import { NetworkNodesService } from './network-nodes.service';
   ],
   standalone: true,
   imports: [
+    AsyncPipe,
+    DayComponent,
+    DayPipe,
     EditAndPaginatorComponent,
+    JosmNodeComponent,
+    LinkNodeComponent,
     MatTableModule,
     NetworkNodeAnalysisComponent,
-    LinkNodeComponent,
     NetworkNodeRoutesComponent,
-    DayComponent,
-    JosmNodeComponent,
     OsmLinkNodeComponent,
-    AsyncPipe,
-    DayPipe,
   ],
 })
 export class NetworkNodeTableComponent implements OnInit, OnDestroy {

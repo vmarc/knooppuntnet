@@ -76,12 +76,12 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   ],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
-    NetworkTypeIconComponent,
     IconHappyComponent,
     IconInvestigateComponent,
     NetworkScopeNameComponent,
+    NetworkTypeIconComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class NodeIntegrityComponent {

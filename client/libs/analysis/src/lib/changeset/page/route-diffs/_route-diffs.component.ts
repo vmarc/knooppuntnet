@@ -16,8 +16,8 @@ import { RouteDiffsUpdatedComponent } from './route-diffs-updated.component';
   `,
   standalone: true,
   imports: [
-    RouteDiffsRemovedComponent,
     RouteDiffsAddedComponent,
+    RouteDiffsRemovedComponent,
     RouteDiffsUpdatedComponent,
   ],
 })

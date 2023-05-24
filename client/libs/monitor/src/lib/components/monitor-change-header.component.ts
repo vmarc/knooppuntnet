@@ -43,11 +43,11 @@ import { map } from 'rxjs/operators';
   ],
   standalone: true,
   imports: [
-    RouterLink,
-    NgIf,
+    AsyncPipe,
     IconHappyComponent,
     IconInvestigateComponent,
-    AsyncPipe,
+    NgIf,
+    RouterLink,
   ],
 })
 export class MonitorChangeHeaderComponent {

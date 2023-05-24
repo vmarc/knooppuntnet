@@ -22,10 +22,10 @@ import { NetworkTypeIconComponent } from '../network-type-icon.component';
   `,
   standalone: true,
   imports: [
-    NetworkTypeIconComponent,
-    RouterLink,
-    NgIf,
     NetworkScopeNameComponent,
+    NetworkTypeIconComponent,
+    NgIf,
+    RouterLink,
   ],
 })
 export class IconLinkComponent implements OnInit {

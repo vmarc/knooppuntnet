@@ -64,11 +64,11 @@ import { NodeDiffsData } from './node-diffs-data';
   `,
   standalone: true,
   imports: [
-    NgIf,
     IconHappyComponent,
-    NgFor,
     LinkNodeRefHeaderComponent,
     MetaDataComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class NodeDiffsAddedComponent implements OnInit {

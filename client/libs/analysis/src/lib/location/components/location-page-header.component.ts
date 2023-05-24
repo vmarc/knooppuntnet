@@ -92,14 +92,14 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   `,
   standalone: true,
   imports: [
-    NgIf,
+    AsyncPipe,
     LocationPageBreadcrumbComponent,
-    PageHeaderComponent,
     MatIconModule,
     NetworkTypeNameComponent,
+    NgIf,
+    PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
-    AsyncPipe,
   ],
 })
 export class LocationPageHeaderComponent {

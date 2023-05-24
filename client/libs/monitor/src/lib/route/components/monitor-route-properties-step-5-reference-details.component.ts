@@ -169,12 +169,12 @@ import { DayInputComponent } from '@app/components/shared/format';
   ],
   standalone: true,
   imports: [
-    NgClass,
     DayInputComponent,
-    NgIf,
+    FormStatusComponent,
     MatButtonModule,
     MatStepperModule,
-    FormStatusComponent,
+    NgClass,
+    NgIf,
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {

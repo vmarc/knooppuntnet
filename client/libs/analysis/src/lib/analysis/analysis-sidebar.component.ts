@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
     </kpn-sidebar>
   `,
   standalone: true,
-  imports: [SidebarComponent, AnalysisStrategyComponent],
+  imports: [AnalysisStrategyComponent, SidebarComponent],
 })
 export class AnalysisSidebarComponent {
   constructor(private store: Store) {}

@@ -50,9 +50,9 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   `,
   standalone: true,
   imports: [
-    PageHeaderComponent,
     MatIconModule,
     NgIf,
+    PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
   ],

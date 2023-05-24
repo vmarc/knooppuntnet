@@ -82,10 +82,10 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
   `,
   standalone: true,
   imports: [
+    ChangeSetAnalysisComponent,
+    NgIf,
     OsmLinkChangeSetComponent,
     TimestampComponent,
-    NgIf,
-    ChangeSetAnalysisComponent,
   ],
 })
 export class ChangeSetHeaderComponent {

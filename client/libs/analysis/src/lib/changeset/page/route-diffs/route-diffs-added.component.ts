@@ -76,12 +76,12 @@ import { RouteDiffsData } from './route-diffs-data';
   `,
   standalone: true,
   imports: [
-    NgIf,
+    FactDiffsComponent,
     IconHappyComponent,
-    NgFor,
     LinkRouteRefHeaderComponent,
     MetaDataComponent,
-    FactDiffsComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class RouteDiffsAddedComponent implements OnInit {

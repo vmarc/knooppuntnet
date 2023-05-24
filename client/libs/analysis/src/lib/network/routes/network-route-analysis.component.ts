@@ -31,9 +31,9 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
   ],
   standalone: true,
   imports: [
-    RouteInvestigateIndicatorComponent,
     RouteAccessibleIndicatorComponent,
     RouteConnectionIndicatorComponent,
+    RouteInvestigateIndicatorComponent,
     RouteProposedIndicatorComponent,
   ],
 })

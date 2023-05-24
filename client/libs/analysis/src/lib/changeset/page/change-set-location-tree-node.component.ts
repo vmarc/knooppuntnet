@@ -119,12 +119,12 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   ],
   standalone: true,
   imports: [
-    NgFor,
-    NgIf,
     IconHappyComponent,
     IconInvestigateComponent,
-    LinkRouteComponent,
     LinkNodeComponent,
+    LinkRouteComponent,
+    NgFor,
+    NgIf,
     forwardRef(() => ChangeSetLocationTreeNodeComponent),
   ],
 })

@@ -66,13 +66,13 @@ import { MapService } from '../../services/map.service';
   `,
   standalone: true,
   imports: [
+    BaseSidebarComponent,
     IconButtonComponent,
     IconButtonsComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,
     SidebarComponent,
-    BaseSidebarComponent,
   ],
 })
 export class MapPageComponent implements OnInit {

@@ -82,10 +82,10 @@ import { TagDiffsComponent } from '../tag-diffs.component';
   `,
   standalone: true,
   imports: [
-    OsmLinkWayComponent,
-    NgIf,
     MetaDataComponent,
+    NgIf,
     NodeListComponent,
+    OsmLinkWayComponent,
     TagDiffsComponent,
   ],
 })

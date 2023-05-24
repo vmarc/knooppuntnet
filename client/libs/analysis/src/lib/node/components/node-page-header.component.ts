@@ -45,8 +45,8 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   `,
   standalone: true,
   imports: [
-    PageHeaderComponent,
     NgIf,
+    PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
   ],

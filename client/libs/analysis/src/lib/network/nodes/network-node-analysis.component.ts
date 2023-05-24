@@ -33,11 +33,11 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
   ],
   standalone: true,
   imports: [
+    IntegrityIndicatorComponent,
     NetworkIndicatorComponent,
     NodeConnectionIndicatorComponent,
-    RoleConnectionIndicatorComponent,
-    IntegrityIndicatorComponent,
     ProposedIndicatorComponent,
+    RoleConnectionIndicatorComponent,
   ],
 })
 export class NetworkNodeAnalysisComponent implements OnInit {

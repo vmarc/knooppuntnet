@@ -43,13 +43,13 @@ import { MonitorRouteGroup } from '@api/common/monitor';
   ],
   standalone: true,
   imports: [
-    MatFormFieldModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    NgFor,
-    MatOptionModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
     MatStepperModule,
+    NgFor,
+    ReactiveFormsModule,
   ],
 })
 export class MonitorRoutePropertiesStep1GroupComponent {

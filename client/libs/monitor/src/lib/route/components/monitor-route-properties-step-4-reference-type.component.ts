@@ -91,12 +91,12 @@ import { FormStatusComponent } from '@app/components/shared';
   ],
   standalone: true,
   imports: [
-    MatRadioModule,
-    ReactiveFormsModule,
-    NgIf,
-    MatButtonModule,
-    MatStepperModule,
     FormStatusComponent,
+    MatButtonModule,
+    MatRadioModule,
+    MatStepperModule,
+    NgIf,
+    ReactiveFormsModule,
   ],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {

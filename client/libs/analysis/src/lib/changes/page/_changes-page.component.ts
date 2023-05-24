@@ -96,7 +96,6 @@ import { selectChangesPage } from '../store/changes.selectors';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     ChangeLocationAnalysisSummaryComponent,
     ChangeNetworkAnalysisSummaryComponent,
     ChangesComponent,

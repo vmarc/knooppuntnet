@@ -52,11 +52,11 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   ],
   standalone: true,
   imports: [
-    LinkNetworkDetailsComponent,
-    SubsetNetworkHappyComponent,
-    OsmLinkRelationComponent,
-    JosmRelationComponent,
     IntegerFormatPipe,
+    JosmRelationComponent,
+    LinkNetworkDetailsComponent,
+    OsmLinkRelationComponent,
+    SubsetNetworkHappyComponent,
   ],
 })
 export class SubsetNetworkComponent implements OnInit {

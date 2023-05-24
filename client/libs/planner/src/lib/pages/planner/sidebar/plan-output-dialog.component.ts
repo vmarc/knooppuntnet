@@ -137,15 +137,15 @@ import { PlannerService } from '../../../planner.service';
   providers: [PdfService],
   standalone: true,
   imports: [
-    DialogComponent,
-    MatDialogModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    NgIf,
-    ClipboardModule,
     AsyncPipe,
+    ClipboardModule,
+    DialogComponent,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    NgIf,
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {

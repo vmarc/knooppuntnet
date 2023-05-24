@@ -25,11 +25,11 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   `,
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     FactNameComponent,
     IconHappyComponent,
     IconInvestigateComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class FactCommaListComponent {

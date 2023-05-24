@@ -57,10 +57,10 @@ import { NodeDiffsData } from './node-diffs-data';
   `,
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     LinkNodeRefHeaderComponent,
     MetaDataComponent,
+    NgFor,
+    NgIf,
     NodeChangeDetailComponent,
   ],
 })

@@ -82,10 +82,10 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
   standalone: true,
   imports: [
     ChangeHeaderComponent,
-    NgFor,
-    NetworkTypeIconComponent,
-    RouterLink,
     ChangesSetElementRefsComponent,
+    NetworkTypeIconComponent,
+    NgFor,
+    RouterLink,
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {

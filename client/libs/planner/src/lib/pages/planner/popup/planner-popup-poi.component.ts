@@ -74,12 +74,12 @@ import { MapService } from '../../../services/map.service';
   ],
   standalone: true,
   imports: [
+    AsyncPipe,
+    JosmLinkComponent,
     NgIf,
+    OsmLinkComponent,
     PoiAnalysisComponent,
     TagsTableComponent,
-    OsmLinkComponent,
-    JosmLinkComponent,
-    AsyncPipe,
   ],
 })
 export class PlannerPopupPoiComponent implements OnInit {

@@ -126,16 +126,16 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
   providers: [MonitorService],
   standalone: true,
   imports: [
+    AsyncPipe,
     DialogComponent,
+    MatButtonModule,
     MatDialogModule,
     MonitorRouteSaveStepComponent,
-    NgIf,
     NgFor,
+    NgIf,
     NgSwitch,
     NgSwitchCase,
     NgSwitchDefault,
-    MatButtonModule,
-    AsyncPipe,
   ],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {

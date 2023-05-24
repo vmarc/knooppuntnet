@@ -26,12 +26,12 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
   `,
   standalone: true,
   imports: [
+    AsyncPipe,
     NgIf,
-    PlanDistanceComponent,
     PlanCompactComponent,
     PlanDetailedComponent,
+    PlanDistanceComponent,
     PlanInstructionsComponent,
-    AsyncPipe,
   ],
 })
 export class PlanResultComponent implements OnInit {

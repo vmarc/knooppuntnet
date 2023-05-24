@@ -98,15 +98,15 @@ import { LocationOption } from './location-option';
   ],
   standalone: true,
   imports: [
-    ReactiveFormsModule,
+    AsyncPipe,
+    MatAutocompleteModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule,
-    NgFor,
     MatOptionModule,
+    NgFor,
     NgIf,
-    MatButtonModule,
-    AsyncPipe,
+    ReactiveFormsModule,
   ],
 })
 export class LocationSelectorComponent implements OnInit {

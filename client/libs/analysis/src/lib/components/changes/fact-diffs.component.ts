@@ -75,11 +75,11 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   `,
   standalone: true,
   imports: [
-    NgIf,
     FactNameComponent,
-    NgFor,
     IconHappyComponent,
     IconInvestigateComponent,
+    NgFor,
+    NgIf,
   ],
 })
 export class FactDiffsComponent {

@@ -44,13 +44,13 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
   `,
   standalone: true,
   imports: [
-    MonitorRouteNameComponent,
-    ReactiveFormsModule,
-    MonitorRouteDescriptionComponent,
-    NgIf,
+    FormStatusComponent,
     MatButtonModule,
     MatStepperModule,
-    FormStatusComponent,
+    MonitorRouteDescriptionComponent,
+    MonitorRouteNameComponent,
+    NgIf,
+    ReactiveFormsModule,
   ],
 })
 export class MonitorRoutePropertiesStep2NameComponent {

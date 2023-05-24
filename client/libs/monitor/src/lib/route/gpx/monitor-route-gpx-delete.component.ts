@@ -102,9 +102,9 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     MatButtonModule,
     MonitorRouteGpxBreadcrumbComponent,
     NgIf,
+    PageComponent,
     RouteSummaryComponent,
     RouterLink,
-    PageComponent,
     SidebarComponent,
   ],
 })

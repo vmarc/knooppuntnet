@@ -45,12 +45,12 @@ import { NetworkMapComponent } from './network-map.component';
   `,
   standalone: true,
   imports: [
+    AsyncPipe,
+    NetworkMapComponent,
+    NetworkMapSidebarComponent,
     NetworkPageHeaderComponent,
     NgIf,
-    NetworkMapComponent,
-    AsyncPipe,
     PageComponent,
-    NetworkMapSidebarComponent,
   ],
 })
 export class NetworkMapPageComponent implements OnInit {

@@ -75,8 +75,8 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     MonitorGroupPageMenuComponent,
     MonitorGroupRouteTableComponent,
     NgIf,
-    RouterLink,
     PageComponent,
+    RouterLink,
     SidebarComponent,
   ],
 })

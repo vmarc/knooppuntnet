@@ -30,9 +30,9 @@ import { NetworkMapService } from './network-map.service';
   ],
   standalone: true,
   imports: [
-    NetworkControlComponent,
     LayerSwitcherComponent,
     MapLinkMenuComponent,
+    NetworkControlComponent,
   ],
 })
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {

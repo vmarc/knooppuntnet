@@ -87,9 +87,9 @@ import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
     PageComponent,
     PlannerPopupComponent,
     PlannerSidebarComponent,
+    PlannerToolbarComponent,
     PoiMenuComponent,
     RouteControlComponent,
-    PlannerToolbarComponent,
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {

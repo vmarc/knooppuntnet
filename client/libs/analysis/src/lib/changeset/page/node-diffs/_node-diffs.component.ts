@@ -16,8 +16,8 @@ import { NodeDiffsUpdatedComponent } from './node-diffs-updated.component';
   `,
   standalone: true,
   imports: [
-    NodeDiffsRemovedComponent,
     NodeDiffsAddedComponent,
+    NodeDiffsRemovedComponent,
     NodeDiffsUpdatedComponent,
   ],
 })

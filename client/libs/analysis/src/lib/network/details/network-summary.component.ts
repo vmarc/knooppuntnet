@@ -67,13 +67,13 @@ import { MarkdownModule } from 'ngx-markdown';
   `,
   standalone: true,
   imports: [
-    NgIf,
     CountryNameComponent,
-    OsmLinkRelationComponent,
-    JosmRelationComponent,
-    MatIconModule,
-    MarkdownModule,
     IntegerFormatPipe,
+    JosmRelationComponent,
+    MarkdownModule,
+    MatIconModule,
+    NgIf,
+    OsmLinkRelationComponent,
   ],
 })
 export class NetworkSummaryComponent {
