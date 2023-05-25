@@ -10,49 +10,42 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest12_update_group extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()
   }
 
-  test("route update - move to group that does not exist") {
+  test("route update - change group") {
 
     withDatabase() { database =>
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val group1 = newMonitorGroup("group1")
-
+      val group2 = newMonitorGroup("group2")
       val route = newMonitorRoute(
         group1._id,
         name = "route",
         relationId = Some(1),
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(1))),
+        referenceDay = Some(Day(2022, 8, Some(11))),
         referenceFilename = None,
-      )
-      val state = newMonitorRouteState(
-        routeId = route._id,
-        relationId = 1,
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
         relationId = 1,
-        timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
-        referenceDay = Day(2022, 8, 1),
+        referenceDay = Day(2022, 8, 11),
       )
 
       configuration.monitorGroupRepository.saveGroup(group1)
+      configuration.monitorGroupRepository.saveGroup(group2)
       configuration.monitorRouteRepository.saveRoute(route)
-      configuration.monitorRouteRepository.saveRouteState(state)
       configuration.monitorRouteRepository.saveRouteReference(reference)
 
       val properties = MonitorRouteProperties(
-        groupName = "group2", // <-- changed, but there is no group2
+        groupName = group2.name, // <-- changed
         name = "route",
         description = "",
         comment = None,
@@ -63,22 +56,18 @@ class MonitorUpdaterTest12b extends UnitTest with BeforeAndAfterEach with Shared
         referenceFileChanged = false,
       )
 
-      Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
+      Time.set(Timestamp(2023, 1, 1))
       val saveResult = configuration.monitorUpdater.update("user", "group1", "route", properties)
 
-      saveResult should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find group with name "group2"""")
-        )
-      )
+      saveResult should equal(MonitorRouteSaveResult())
 
-      val updatedRoute = configuration.monitorRouteRepository.routeByName(group1._id, "route").get
-      val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group2._id, "route").get
       val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      // TODO val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
 
-      updatedRoute should equal(route)
-      updatedState should equal(state)
+      updatedRoute.groupId should equal(group2._id)
       updatedReference should equal(reference)
+      // TODO assert state not updated
     }
   }
 }

@@ -22,7 +22,7 @@ import org.scalatest.BeforeAndAfterEach
 
 import scala.xml.XML
 
-class MonitorUpdaterTest04 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()

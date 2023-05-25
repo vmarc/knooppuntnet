@@ -8,7 +8,7 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest13 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   test("cannot add route that already exists") {
 

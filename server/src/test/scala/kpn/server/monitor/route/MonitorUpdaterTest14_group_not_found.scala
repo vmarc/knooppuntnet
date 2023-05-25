@@ -8,7 +8,7 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest14 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   test("add/update/upload - group not found") {
 

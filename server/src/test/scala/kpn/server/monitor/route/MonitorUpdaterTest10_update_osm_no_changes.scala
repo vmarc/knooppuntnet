@@ -10,24 +10,24 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest10_update_osm_no_changes extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()
   }
 
-  test("route update - change group") {
+  test("route update - no changes") {
 
     withDatabase() { database =>
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
-      val group1 = newMonitorGroup("group1")
-      val group2 = newMonitorGroup("group2")
+      val group = newMonitorGroup("group")
       val route = newMonitorRoute(
-        group1._id,
+        group._id,
         name = "route",
         relationId = Some(1),
+        user = "user",
         referenceType = "osm",
         referenceDay = Some(Day(2022, 8, Some(11))),
         referenceFilename = None,
@@ -38,14 +38,19 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
         referenceType = "osm",
         referenceDay = Day(2022, 8, 11),
       )
+      val state = newMonitorRouteState(
+        route._id,
+        1,
+        timestamp = Timestamp(2022, 8, 11),
+      )
 
-      configuration.monitorGroupRepository.saveGroup(group1)
-      configuration.monitorGroupRepository.saveGroup(group2)
+      configuration.monitorGroupRepository.saveGroup(group)
       configuration.monitorRouteRepository.saveRoute(route)
       configuration.monitorRouteRepository.saveRouteReference(reference)
+      configuration.monitorRouteRepository.saveRouteState(state)
 
       val properties = MonitorRouteProperties(
-        groupName = group2.name, // <-- changed
+        groupName = group.name,
         name = "route",
         description = "",
         comment = None,
@@ -57,17 +62,17 @@ class MonitorUpdaterTest12 extends UnitTest with BeforeAndAfterEach with SharedT
       )
 
       Time.set(Timestamp(2023, 1, 1))
-      val saveResult = configuration.monitorUpdater.update("user", "group1", "route", properties)
+      val saveResult = configuration.monitorUpdater.update("user", "group", "route", properties)
 
       saveResult should equal(MonitorRouteSaveResult())
 
-      val updatedRoute = configuration.monitorRouteRepository.routeByName(group2._id, "route").get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
-      // TODO val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
+      val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
 
-      updatedRoute.groupId should equal(group2._id)
+      updatedRoute should equal(route)
       updatedReference should equal(reference)
-      // TODO assert state not updated
+      updatedState should equal(state)
     }
   }
 }

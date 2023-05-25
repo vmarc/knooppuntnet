@@ -22,7 +22,7 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
 
       <kpn-monitor-page-menu pageName="about" />
 
-      <div class="kpn-comment">
+      <div class="kpn-comment kpn-spacer-above">
         <p i18n="@@monitor.about.text">
           The route monitoring function allows you to compare a route geometry
           in OpenStreetMap against a given reference geometry.

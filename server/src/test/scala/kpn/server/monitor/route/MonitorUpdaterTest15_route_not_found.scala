@@ -7,7 +7,7 @@ import kpn.api.custom.Day
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
-class MonitorUpdaterTest15 extends UnitTest with SharedTestObjects {
+class MonitorUpdaterTest15_route_not_found extends UnitTest with SharedTestObjects {
 
   test("update/upload - route not found") {
 

@@ -2,6 +2,7 @@ package kpn.server.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.Day
 import kpn.core.common.Time
@@ -189,6 +190,34 @@ class MonitorUpdaterImpl(
             exception = Some(e.getMessage)
           )
       }
+    }
+  }
+
+  override def resetSubRelationGpxReference(groupName: String, routeName: String, subRelationId: Long): Unit = {
+    monitorGroupRepository.groupByName(groupName).foreach { group =>
+      monitorRouteRepository.routeByName(group._id, routeName).foreach { route =>
+        monitorRouteRepository.deleteRouteReference(route._id, subRelationId)
+        monitorRouteRepository.deleteRouteState(route._id, subRelationId)
+        val updatedRoute = route.copy(
+          relation = route.relation.map(rel => resetReference(rel, subRelationId))
+        )
+        monitorRouteRepository.saveRoute(updatedRoute)
+      }
+    }
+  }
+
+  private def resetReference(relation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
+    if (relation.relationId == subRelationId) {
+      relation.copy(
+        referenceDay = None,
+        referenceFilename = None,
+        referenceDistance = 0
+      )
+    }
+    else {
+      relation.copy(
+        relations = relation.relations.map(rel => resetReference(rel, subRelationId))
+      )
     }
   }
 

@@ -46,7 +46,7 @@ trait MonitorFacade {
 
   def routeGpx(groupName: String, routeName: String, subRelationId: Long): ApiResponse[MonitorRouteGpxPage]
 
-  def routeGpxDelete(groupName: String, routeName: String, subRelationId: Long): Unit
+  def routeResetSubRelationGpxReference(groupName: String, routeName: String, subRelationId: Long): Unit
 
   def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
 

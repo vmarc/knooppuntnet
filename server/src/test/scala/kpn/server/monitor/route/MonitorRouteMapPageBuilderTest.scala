@@ -121,6 +121,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             routeDescription = "route-description",
             groupName = "group",
             groupDescription = "group-description",
+            referenceType = "osm",
             bounds = None,
             currentSubRelation = None,
             previousSubRelation = None,
@@ -181,6 +182,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             routeDescription = "route-description",
             groupName = "group",
             groupDescription = "group-description",
+            referenceType = "gpx",
             bounds = Some(Bounds(1, 1, 1, 1)),
             currentSubRelation = None,
             previousSubRelation = None,
@@ -316,6 +318,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           routeDescription = "route-description",
           groupName = "group",
           groupDescription = "group-description",
+          referenceType = "osm",
           bounds = Some(Bounds(1, 1, 1, 1)),
           currentSubRelation = None,
           nextSubRelation = None,
@@ -437,6 +440,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             routeDescription = "(1/2) sub-relation-11",
             groupName = "group",
             groupDescription = "group-description",
+            referenceType = "multi-gpx",
             bounds = Some(Bounds(1, 1, 1, 1)),
             currentSubRelation = Some(
               MonitorRouteSubRelation(
@@ -483,6 +487,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             routeDescription = "(2/2) sub-relation-12",
             groupName = "group",
             groupDescription = "group-description",
+            referenceType = "multi-gpx",
             bounds = Some(Bounds(2, 2, 2, 2)),
             currentSubRelation = Some(
               MonitorRouteSubRelation(
@@ -660,6 +665,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           routeDescription = "(1/2) sub-relation-11",
           groupName = "group",
           groupDescription = "group-description",
+          referenceType = "multi-gpx",
           bounds = Some(Bounds(1, 1, 1, 1)),
           currentSubRelation = Some(
             MonitorRouteSubRelation(
@@ -722,6 +728,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           routeDescription = "(2/2) sub-relation-12",
           groupName = "group",
           groupDescription = "group-description",
+          referenceType = "multi-gpx",
           bounds = Some(Bounds(1, 1, 2, 2)),
           currentSubRelation = Some(
             MonitorRouteSubRelation(

@@ -37,4 +37,6 @@ trait MonitorUpdater {
 
   def analyzeRelation(group: MonitorGroup, routeId: ObjectId, relationId: Long): Unit
 
+  def resetSubRelationGpxReference(groupName: String, routeName: String, subRelationId: Long): Unit
+
 }
