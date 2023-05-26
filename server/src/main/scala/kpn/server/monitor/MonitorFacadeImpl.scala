@@ -242,6 +242,17 @@ class MonitorFacadeImpl(
     }
   }
 
+  override def routeAnalyze(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteSaveResult] = {
+    api.execute("monitor-route-analyze", s"$groupName:$routeName") {
+      assertAdminUser(user)
+      monitorUpdater.analyze(groupName, routeName)
+    }
+  }
+
   override def routeNames(groupName: String): ApiResponse[Seq[String]] = {
     api.execute("monitor-group-route-names", groupName) {
       reply(

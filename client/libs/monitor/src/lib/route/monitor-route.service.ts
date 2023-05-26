@@ -30,7 +30,10 @@ export class MonitorRouteService {
     );
   }
 
-  routeAnalyze(groupName: string, name: string): Observable<ApiResponse<void>> {
+  routeAnalyze(
+    groupName: string,
+    name: string
+  ): Observable<ApiResponse<MonitorRouteSaveResult>> {
     return this.monitorService.routeAnalyze(groupName, name);
   }
 

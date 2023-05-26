@@ -24,10 +24,10 @@ import kpn.server.monitor.route.MonitorRouteRelationAnalyzerImpl
 import kpn.server.monitor.route.MonitorRouteRelationRepository
 import kpn.server.monitor.route.MonitorUpdateAnalyzerImpl
 import kpn.server.monitor.route.MonitorUpdateReferenceImpl
+import kpn.server.monitor.route.MonitorUpdaterImpl
 import kpn.server.monitor.route.MonitorUpdateRouteImpl
 import kpn.server.monitor.route.MonitorUpdateSaverImpl
 import kpn.server.monitor.route.MonitorUpdateStructureImpl
-import kpn.server.monitor.route.MonitorUpdaterImpl
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.mongodb.scala.MongoNamespace

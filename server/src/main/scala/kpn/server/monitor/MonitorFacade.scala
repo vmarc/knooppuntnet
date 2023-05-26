@@ -73,6 +73,12 @@ trait MonitorFacade {
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult]
 
+  def routeAnalyze(
+    user: Option[String],
+    groupName: String,
+    routeName: String
+  ): ApiResponse[MonitorRouteSaveResult]
+
   def routeNames(groupName: String): ApiResponse[Seq[String]]
 
 }

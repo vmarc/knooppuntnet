@@ -62,9 +62,16 @@ case class MonitorRouteRelation(
   name: String,
   role: Option[String],
   survey: Option[Day],
-  referenceDay: Option[Day], // only filled in for referenceType = "multi-gpx"
-  referenceFilename: Option[String], // only filled in for referenceType = "multi-gpx"
-  referenceDistance: Long, // only filled in for referenceType = "multi-gpx"
+
+  /*
+    Reference details are only filled in when the route reference type is "multi-gpx".
+    Values are None when this MonitorRouteRelation represents the main super route relation
+    and that relation has no ways itself, or any subrelation without ways.
+   */
+  referenceDay: Option[Day],
+  referenceFilename: Option[String],
+  referenceDistance: Long,
+
   deviationDistance: Long,
   deviationCount: Long,
   osmWayCount: Long,

@@ -237,9 +237,12 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
               mat-icon-button
               [routerLink]="deleteGpx()"
               [queryParams]="subRelationQueryParams(row)"
+              [disabled]="!row.referenceFilename"
               title="Remove GPX trace for this sub-relation"
               i18n-title="@@action.gpx.delete"
-              class="kpn-action-button  kpn-warning"
+              class="kpn-action-button"
+              [class.kpn-disabled]="!row.referenceFilename"
+              [class.kpn-warning]="row.referenceFilename"
             >
               <mat-icon svgIcon="garbage" />
             </button>

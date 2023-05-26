@@ -19,6 +19,7 @@ import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
+import { MonitorRouteService } from '../monitor-route.service';
 import { MonitorRouteParameters } from './monitor-route-parameters';
 import { MonitorRouteSaveDialogService } from './monitor-route-save-dialog.service';
 import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.component';
@@ -123,7 +124,11 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
       }
     `,
   ],
-  providers: [MonitorService],
+  providers: [
+    MonitorService,
+    MonitorRouteService,
+    MonitorRouteSaveDialogService,
+  ],
   standalone: true,
   imports: [
     AsyncPipe,

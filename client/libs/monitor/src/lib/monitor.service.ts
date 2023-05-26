@@ -215,7 +215,7 @@ export class MonitorService {
   routeAnalyze(
     groupName: string,
     routeName: string
-  ): Observable<ApiResponse<void>> {
+  ): Observable<ApiResponse<MonitorRouteSaveResult>> {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}/analyze`;
     return this.http.post(url, '');
   }

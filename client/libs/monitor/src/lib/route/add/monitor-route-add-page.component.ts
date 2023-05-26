@@ -31,7 +31,11 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
 
       <kpn-error />
 
-      <kpn-monitor-route-properties mode="add" [groupName]="state.groupName" />
+      <kpn-monitor-route-properties
+        mode="add"
+        [groupName]="state.groupName"
+        [initialProperties]="{ groupName: state.groupName }"
+      />
 
       <kpn-sidebar sidebar />
     </kpn-page>

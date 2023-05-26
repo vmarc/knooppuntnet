@@ -19,6 +19,7 @@ import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
 import kpn.core.common.Time
+import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -204,6 +205,14 @@ class MonitorController(facade: MonitorFacade) {
       file.getOriginalFilename,
       xml
     )
+  }
+
+  @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/analyze"))
+  def routeAnalyze(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+  ): Unit = {
+    facade.routeAnalyze(CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/route-names"))

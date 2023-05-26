@@ -4,6 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.custom.ApiResponse
 import kpn.api.custom.Day
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
@@ -219,6 +220,10 @@ class MonitorUpdaterImpl(
         relations = relation.relations.map(rel => resetReference(rel, subRelationId))
       )
     }
+  }
+
+  def analyze(groupName: String, routeName: String): ApiResponse[MonitorRouteSaveResult] = {
+    null
   }
 
   override def analyzeAll(group: MonitorGroup, routeId: ObjectId): Unit = {

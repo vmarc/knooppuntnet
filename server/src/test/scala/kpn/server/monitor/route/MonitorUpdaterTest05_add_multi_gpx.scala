@@ -47,8 +47,8 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         Some("route-comment"),
         Some(1),
         "multi-gpx",
-        None,
-        None,
+        referenceDay = None,
+        referenceFilename = None,
         referenceFileChanged = false,
       )
 
@@ -73,9 +73,9 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
           referenceFilename = None,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 0,
-          osmDistance = 0,
-          osmSegmentCount = 0,
+          osmWayCount = 0, // TODO should be non-zero, or only filled in after analysis?
+          osmDistance = 0, // TODO should be non-zero, or only filled in after analysis?
+          osmSegmentCount = 0, // TODO should be non-zero, or only filled in after analysis?
           happy = false,
           osmSegments = Seq.empty,
           relation = Some(
@@ -89,9 +89,9 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
               referenceDistance = 0,
               deviationDistance = 0,
               deviationCount = 0,
-              osmWayCount = 0,
-              osmDistance = 0,
-              osmSegmentCount = 0,
+              osmWayCount = 0, // TODO should be non-zero, or only filled in after analysis?
+              osmDistance = 0, // TODO should be non-zero, or only filled in after analysis?
+              osmSegmentCount = 0, // TODO should be non-zero, or only filled in after analysis?
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(
@@ -104,9 +104,9 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
                   referenceDistance = 0,
                   deviationDistance = 0,
                   deviationCount = 0,
-                  osmWayCount = 0,
-                  osmDistance = 0,
-                  osmSegmentCount = 0,
+                  osmWayCount = 0, // TODO should be non-zero, or only filled in after analysis?
+                  osmDistance = 0, // TODO should be non-zero, or only filled in after analysis?
+                  osmSegmentCount = 0, // TODO should be non-zero, or only filled in after analysis?
                   happy = false,
                   relations = Seq.empty
                 ),
@@ -120,9 +120,9 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
                   referenceDistance = 0,
                   deviationDistance = 0,
                   deviationCount = 0,
-                  osmWayCount = 0,
-                  osmDistance = 0,
-                  osmSegmentCount = 0,
+                  osmWayCount = 0, // TODO should be non-zero, or only filled in after analysis?
+                  osmDistance = 0, // TODO should be non-zero, or only filled in after analysis?
+                  osmSegmentCount = 0, // TODO should be non-zero, or only filled in after analysis?
                   happy = false,
                   relations = Seq.empty
                 )
@@ -135,6 +135,10 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
       configuration.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(None)
       configuration.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
+
+      configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeState(route._id, 11) should equal(None)
+      configuration.monitorRouteRepository.routeState(route._id, 12) should equal(None)
 
       val xml1 = XML.loadString(
         """
@@ -171,7 +175,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         route.copy(
           referenceDay = None,
           referenceFilename = None,
-          referenceDistance = 196,
+          referenceDistance = 196, // subrelation 11 reference distance
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 1,
@@ -219,7 +223,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "gpx", // TODO should be "multi-gpx" ???
+          referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceDay = Day(2022, 8, 1),
           distance = 196,
           segmentCount = 1,
@@ -266,7 +270,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         route.copy(
           referenceDay = None,
           referenceFilename = None,
-          referenceDistance = 335,
+          referenceDistance = 335, // sum of subrelation 11 and subrelation 12 reference distances
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 2,
@@ -332,7 +336,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
-          referenceType = "gpx", // TODO should be "multi-gpx" ???
+          referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceDay = Day(2022, 8, 2),
           distance = 139,
           segmentCount = 1,
