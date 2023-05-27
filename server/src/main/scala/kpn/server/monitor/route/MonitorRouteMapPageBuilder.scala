@@ -96,7 +96,7 @@ class MonitorRouteMapPageBuilder(
     route.relation match {
       case None =>
         if (route.referenceType == "gpx") {
-          monitorRouteRepository.routeRelationReference(route._id, 0) match {
+          monitorRouteRepository.routeReferenceRouteWithId(route._id) match {
             case Some(reference) => buildPageWithGpxReferenceOnly(group, route, reference)
             case None => buildEmptyPage(group, route) // TODO or throw exception?
           }

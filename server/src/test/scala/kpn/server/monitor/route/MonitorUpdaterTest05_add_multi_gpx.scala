@@ -158,7 +158,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         "user",
         group.name,
         route.name,
-        11,
+        Some(11),
         Day(2022, 8, 1),
         "filename-1",
         xml1
@@ -219,7 +219,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         MonitorRouteReference(
           reference1._id,
           routeId = route._id,
-          relationId = 11,
+          relationId = Some(11),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
@@ -253,7 +253,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         "user",
         group.name,
         route.name,
-        12,
+        Some(12),
         Day(2022, 8, 2),
         "filename-2",
         xml2
@@ -332,7 +332,7 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
         MonitorRouteReference(
           reference2._id,
           routeId = route._id,
-          relationId = 12,
+          relationId = Some(12),
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
           user = "user",
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),

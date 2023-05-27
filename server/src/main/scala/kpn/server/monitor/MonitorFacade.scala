@@ -67,7 +67,7 @@ trait MonitorFacade {
   def upload(
     groupName: String,
     routeName: String,
-    relationId: Long,
+    relationId: Option[Long],
     referenceDay: Day,
     filename: String,
     xml: Elem

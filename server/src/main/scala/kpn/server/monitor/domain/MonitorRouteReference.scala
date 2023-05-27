@@ -9,11 +9,11 @@ import kpn.api.custom.Timestamp
 case class MonitorRouteReference(
   _id: ObjectId,
   routeId: ObjectId,
-  relationId: Long, // 0 when gpx reference and osm relationId not known yet
+  relationId: Option[Long], // None when route with referenceType "gpx" and osm relationId not known yet
   timestamp: Timestamp,
   user: String,
   bounds: Bounds,
-  referenceType: String, // "osm" | "gpx"
+  referenceType: String, // "osm" | "gpx" (subrelation references for "multi-gpx" routes also have reference type"gpx")
   referenceDay: Day,
   distance: Long,
   segmentCount: Long,

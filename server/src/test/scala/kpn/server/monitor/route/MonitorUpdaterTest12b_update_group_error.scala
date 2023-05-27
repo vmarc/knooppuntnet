@@ -40,7 +40,7 @@ class MonitorUpdaterTest12b_update_group_error extends UnitTest with BeforeAndAf
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 1,
+        relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
         referenceDay = Day(2022, 8, 1),

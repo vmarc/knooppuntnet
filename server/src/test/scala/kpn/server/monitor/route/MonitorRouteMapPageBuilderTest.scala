@@ -155,13 +155,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         name = "route",
         description = "route-description",
         relationId = None,
-        referenceDay = Some(Day(2022, 8, 11))
+        referenceType = "gpx",
+        referenceDay = Some(Day(2022, 8, 11)),
+        referenceDistance = 1000,
+        referenceFilename = Some("filename"),
       )
       routeRepository.saveRoute(route)
 
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 0,
+        relationId = None,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -266,7 +269,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 1,
+        relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -405,7 +408,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference11 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 11,
+        relationId = Some(11),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -418,7 +421,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       )
       val reference12 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 12,
+        relationId = Some(12),
         timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
         user = "user",
         bounds = Bounds(2, 2, 2, 2),
@@ -568,7 +571,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference11 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 11,
+        relationId = Some(11),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
@@ -613,7 +616,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       val reference12 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 12,
+        relationId = Some(12),
         timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
         user = "user",
         bounds = Bounds(2, 2, 2, 2),

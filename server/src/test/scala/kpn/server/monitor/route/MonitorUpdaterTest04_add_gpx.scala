@@ -5,6 +5,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -18,6 +19,7 @@ import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 import scala.xml.XML
@@ -46,8 +48,8 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
         Some("route-comment"),
         Some(1),
         "gpx",
-        None,
-        None,
+        referenceDay = Some(Day(2022, 8, 1)), // <-- filled in already, but not used yet during "add"
+        referenceFilename = Some("filename"), // <-- filled in already, but not used yet during "add"
         referenceFileChanged = false,
       )
 
@@ -67,8 +69,8 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "gpx",
-          referenceDay = None,
-          referenceFilename = None,
+          referenceDay = Some(Day(2022, 8, 1)),
+          referenceFilename = Some("filename"),
           referenceDistance = 0,
           deviationDistance = 0,
           deviationCount = 0,
@@ -83,9 +85,14 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
               name = "route-name",
               role = None,
               survey = None,
+
+              /*
+                No reference information: gpx not uploaded yet
+               */
               referenceDay = None,
               referenceFilename = None,
               referenceDistance = 0,
+
               deviationDistance = 0,
               deviationCount = 0,
               osmWayCount = 0,
@@ -99,6 +106,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
       )
 
       configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
 
       val xml1 = XML.loadString(
         """
@@ -118,7 +126,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
         "user2",
         group.name,
         route.name,
-        1,
+        Some(1),
         Day(2022, 8, 1),
         "filename",
         xml1
@@ -160,9 +168,9 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
                 name = "route-name",
                 role = None,
                 survey = None,
-                referenceDay = None,
-                referenceFilename = None,
-                referenceDistance = 0,
+                referenceDay = Some(Day(2022, 8, 1)),
+                referenceFilename = Some("filename"),
+                referenceDistance = 196,
                 deviationDistance = 0,
                 deviationCount = 0,
                 osmWayCount = 1,
@@ -182,7 +190,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
         MonitorRouteReference(
           reference._id,
           routeId = route._id,
-          relationId = 1,
+          relationId = Some(1),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user2",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
@@ -192,6 +200,32 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
           segmentCount = 1,
           filename = Some("filename"),
           geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+        )
+      )
+
+      val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
+      state.shouldMatchTo(
+        MonitorRouteState(
+          state._id,
+          routeId = route._id,
+          relationId = 1,
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+          wayCount = 1,
+          osmDistance = 196,
+          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          osmSegments = Seq(
+            MonitorRouteSegment(
+              1,
+              1001,
+              1002,
+              196,
+              Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+              """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+            )
+          ),
+          matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+          deviations = Seq.empty,
+          happy = true
         )
       )
     }

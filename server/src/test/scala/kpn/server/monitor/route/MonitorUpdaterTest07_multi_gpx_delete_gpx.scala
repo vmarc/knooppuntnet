@@ -69,21 +69,21 @@ class MonitorUpdaterTest07_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       )
       val reference11 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 11,
+        relationId = Some(11),
         referenceType = "gpx",
         referenceDay = Day(2022, 8, 11),
         filename = Some("filename-11"),
       )
       val reference111 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 111,
+        relationId = Some(111),
         referenceType = "gpx",
         referenceDay = Day(2022, 8, 11),
         filename = Some("filename-111"),
       )
       val reference112 = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 112,
+        relationId = Some(112),
         referenceType = "gpx",
         referenceDay = Day(2022, 8, 11),
         filename = Some("filename-112"),

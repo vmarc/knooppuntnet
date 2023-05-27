@@ -227,12 +227,12 @@ class MonitorFacadeImpl(
   override def upload(
     groupName: String,
     routeName: String,
-    relationId: Long,
+    relationId: Option[Long],
     referenceDay: Day,
     filename: String,
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute("monitor-route-reference", s"$groupName:$routeName") {
+    api.execute("monitor-route-upload", s"$groupName:$routeName") {
       assertAdminUser(RequestContext.user)
       reply(
         Some(

@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import org.springframework.stereotype.Component
@@ -99,7 +100,7 @@ class MonitorUpdaterImpl(
     user: String,
     groupName: String,
     routeName: String,
-    relationId: Long,
+    relationId: Option[Long],
     referenceDay: Day,
     filename: String,
     xml: Elem
@@ -161,13 +162,39 @@ class MonitorUpdaterImpl(
             )
 
             context = monitorUpdateAnalyzer.analyze(context)
+
+            val monitorRouteRelationOption = context.oldRoute.get.relation.map { oldMonitorRouteRelation =>
+              val state = context.newStates.head
+              oldMonitorRouteRelation.copy(
+                referenceDay = Some(referenceDay),
+                referenceFilename = Some(filename),
+                referenceDistance = referenceDistance,
+                deviationDistance = state.deviations.map(_.distance).sum,
+                deviationCount = state.deviations.size,
+                osmWayCount = state.wayCount,
+                osmDistance = state.osmDistance,
+                osmSegmentCount = state.osmSegments.size,
+                happy = state.happy,
+                relations = Seq.empty
+              )
+            }
+
+            val updatedRoute2 = context.oldRoute.get.copy(
+              relation = monitorRouteRelationOption,
+            )
+
+            context = context.copy(
+              newRoute = Some(updatedRoute2)
+            )
+
             context = saver.save(context)
 
           case Some("multi-gpx") =>
 
             // TODO perform analysis of the sub-relation !!
 
-            monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
+            val stateOption = monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference)
+            stateOption match {
               case None =>
               case Some(state) =>
                 context = context.copy(
@@ -177,6 +204,18 @@ class MonitorUpdaterImpl(
                   )
                 )
             }
+
+            val monitorRouteRelationOption = context.oldRoute.get.relation.map { oldMonitorRouteRelation =>
+              updateMonitorRouteRelation(oldMonitorRouteRelation, reference, stateOption)
+            }
+
+            val updatedRoute2 = context.oldRoute.get.copy(
+              relation = monitorRouteRelationOption,
+            )
+
+            context = context.copy(
+              newRoute = Some(updatedRoute2)
+            )
 
             context = saver.save(context)
 
@@ -191,6 +230,53 @@ class MonitorUpdaterImpl(
             exception = Some(e.getMessage)
           )
       }
+    }
+  }
+
+  private def updateMonitorRouteRelation(
+    monitorRouteRelation: MonitorRouteRelation,
+    reference: MonitorRouteReference,
+    stateOption: Option[MonitorRouteState]
+  ): MonitorRouteRelation = {
+
+    reference.relationId match {
+      case None => monitorRouteRelation
+      case Some(referenceRelationId) =>
+
+        if (referenceRelationId == monitorRouteRelation.relationId) {
+
+          val deviationDistance = stateOption match {
+            case None => 0
+            case Some(state) => state.deviations.map(_.distance).sum
+          }
+          val deviationCount = stateOption match {
+            case None => 0
+            case Some(state) => state.deviations.size
+          }
+          val happy = stateOption match {
+            case None => false
+            case Some(state) => state.happy
+          }
+
+          monitorRouteRelation.copy(
+            referenceDay = Some(reference.referenceDay),
+            referenceFilename = reference.filename,
+            referenceDistance = reference.distance,
+            deviationDistance = deviationDistance,
+            deviationCount = deviationCount,
+            // TODO update happy, taking into account subrelations
+            happy = happy
+          )
+        }
+        else {
+          val relations = monitorRouteRelation.relations.map { subRelation =>
+            updateMonitorRouteRelation(subRelation, reference, stateOption)
+          }
+          monitorRouteRelation.copy(
+            relations = relations
+            // TODO update happy, taking into account subrelations
+          )
+        }
     }
   }
 

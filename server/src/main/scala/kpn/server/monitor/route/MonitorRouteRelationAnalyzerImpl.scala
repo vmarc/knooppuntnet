@@ -20,11 +20,9 @@ class MonitorRouteRelationAnalyzerImpl(
 
   override def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteState] = {
 
-    if (reference.relationId == 0) {
-      None // gpx reference while osm relationId not known yet: cannot analyze
-    }
-    else {
-      monitorRouteRelationRepository.loadTopLevel(None, reference.relationId) match {
+    reference.relationId.flatMap { relationId =>
+
+      monitorRouteRelationRepository.loadTopLevel(None, relationId) match {
         case None => None
         case Some(relation) =>
 
@@ -55,7 +53,7 @@ class MonitorRouteRelationAnalyzerImpl(
             MonitorRouteState(
               ObjectId(),
               routeId,
-              reference.relationId,
+              relationId,
               Time.now,
               routeAnalysis.wayCount,
               routeAnalysis.osmDistance,

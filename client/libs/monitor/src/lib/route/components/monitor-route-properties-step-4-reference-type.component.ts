@@ -28,7 +28,8 @@ import { FormStatusComponent } from '@app/components/shared';
           value="multi-gpx"
         >
           <span i18n="@@monitor.route.properties.reference-type.multi-gpx">
-            Multiple GPX traces, one per route in super route
+            Multiple GPX traces (one per route in super route), to be uploaded
+            separately
           </span>
         </mat-radio-button>
         <mat-radio-button id="reference-type.osm" class="answer" value="osm">

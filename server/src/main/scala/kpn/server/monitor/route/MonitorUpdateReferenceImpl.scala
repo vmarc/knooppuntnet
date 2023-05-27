@@ -154,7 +154,7 @@ class MonitorUpdateReferenceImpl(
     MonitorRouteReference(
       ObjectId(),
       newRoute._id,
-      relation.id,
+      Some(relation.id),
       Time.now,
       context.user,
       bounds,

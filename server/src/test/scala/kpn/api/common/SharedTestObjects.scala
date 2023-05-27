@@ -1120,7 +1120,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newMonitorRouteReference(
     routeId: ObjectId,
-    relationId: Long,
+    relationId: Option[Long],
     timestamp: Timestamp = Time.now,
     user: String = "",
     bounds: Bounds = Bounds(),

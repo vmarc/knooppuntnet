@@ -34,7 +34,7 @@ class MonitorUpdaterTest10_update_osm_no_changes extends UnitTest with BeforeAnd
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
-        relationId = 1,
+        relationId = Some(1),
         referenceType = "osm",
         referenceDay = Day(2022, 8, 11),
       )

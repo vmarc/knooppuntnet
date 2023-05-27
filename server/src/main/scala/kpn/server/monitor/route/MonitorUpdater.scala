@@ -28,7 +28,7 @@ trait MonitorUpdater {
     user: String,
     groupName: String,
     routeName: String,
-    relationId: Long,
+    relationId: Option[Long],
     referenceDay: Day,
     filename: String,
     xml: Elem

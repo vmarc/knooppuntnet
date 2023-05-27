@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
+import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -16,6 +17,8 @@ import kpn.server.monitor.MonitorRelationDataBuilder
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
+import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest03_add_osm_super_route extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
@@ -26,7 +29,7 @@ class MonitorUpdaterTest03_add_osm_super_route extends UnitTest with BeforeAndAf
 
   test("add superroute osm reference") {
 
-    val referenceDay = Day(2023, 8, 11)
+    val referenceDay = Day(2022, 8, 11)
 
     withDatabase() { database =>
 
@@ -144,6 +147,101 @@ class MonitorUpdaterTest03_add_osm_super_route extends UnitTest with BeforeAndAf
               )
             )
           )
+        )
+      )
+
+      val reference1 = configuration.monitorRouteRepository.routeRelationReference(route._id, 1)
+      reference1 should equal(None)
+
+
+      val reference11 = configuration.monitorRouteRepository.routeRelationReference(route._id, 11).get
+      reference11.shouldMatchTo(
+        MonitorRouteReference(
+          reference11._id,
+          routeId = route._id,
+          relationId = Some(11),
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          user = "user",
+          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          referenceType = "osm",
+          referenceDay = Day(2022, 8, 11),
+          distance = 196,
+          segmentCount = 1,
+          filename = None,
+          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
+        )
+      )
+
+      val reference12 = configuration.monitorRouteRepository.routeRelationReference(route._id, 12).get
+      reference12.shouldMatchTo(
+        MonitorRouteReference(
+          reference12._id,
+          routeId = route._id,
+          relationId = Some(12),
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          user = "user",
+          bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
+          referenceType = "osm",
+          referenceDay = Day(2022, 8, 11),
+          distance = 139,
+          segmentCount = 1,
+          filename = None,
+          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}"""
+        )
+      )
+
+      val state = configuration.monitorRouteRepository.routeState(route._id, 1)
+      state should equal(None)
+
+      val state11 = configuration.monitorRouteRepository.routeState(route._id, 11).get
+      state11.shouldMatchTo(
+        MonitorRouteState(
+          state11._id,
+          routeId = route._id,
+          relationId = 11,
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          wayCount = 1,
+          osmDistance = 196,
+          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          osmSegments = Seq(
+            MonitorRouteSegment(
+              1,
+              1001,
+              1002,
+              196,
+              Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+              """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+            )
+          ),
+          matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+          deviations = Seq.empty,
+          happy = true
+        )
+      )
+
+      val state12 = configuration.monitorRouteRepository.routeState(route._id, 12).get
+      state12.shouldMatchTo(
+        MonitorRouteState(
+          state12._id,
+          routeId = route._id,
+          relationId = 12,
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          wayCount = 1,
+          osmDistance = 139,
+          bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
+          osmSegments = Seq(
+            MonitorRouteSegment(
+              1,
+              1002,
+              1003,
+              139,
+              bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
+              """{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+            )
+          ),
+          matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
+          deviations = Seq.empty,
+          happy = true
         )
       )
     }

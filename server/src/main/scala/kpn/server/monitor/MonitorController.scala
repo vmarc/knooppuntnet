@@ -187,8 +187,27 @@ class MonitorController(facade: MonitorFacade) {
     facade.routeInfo(routeId)
   }
 
+  @PostMapping(value = Array(s"groups/{groupName}/routes/{routeName}/upload"))
+  def routeGpxUpload(
+    @PathVariable groupName: String,
+    @PathVariable routeName: String,
+    @RequestParam("file") file: MultipartFile
+  ): ApiResponse[MonitorRouteSaveResult] = {
+
+    val xml = XML.load(file.getInputStream)
+
+    facade.upload(
+      groupName,
+      routeName,
+      None,
+      Time.now.toDay, // TODO should get reference day from client !!!
+      file.getOriginalFilename,
+      xml
+    )
+  }
+
   @PostMapping(value = Array(s"groups/{groupName}/routes/{routeName}/upload/{relationId}"))
-  def routeReferenceGpxFileUpload(
+  def routeSubRelationGpxUpload(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
     @PathVariable relationId: Long,
@@ -200,7 +219,7 @@ class MonitorController(facade: MonitorFacade) {
     facade.upload(
       groupName,
       routeName,
-      relationId,
+      Some(relationId),
       Time.now.toDay, // TODO should get reference day from client !!!
       file.getOriginalFilename,
       xml

@@ -46,7 +46,7 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
         "user",
         "unknown-group",
         "route-name",
-        1,
+        Some(1),
         Day(2022, 8, 11),
         "filename",
         null

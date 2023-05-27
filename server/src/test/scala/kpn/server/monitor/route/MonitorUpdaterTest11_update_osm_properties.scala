@@ -94,7 +94,7 @@ class MonitorUpdaterTest11_update_osm_properties extends UnitTest with BeforeAnd
       val reference = MonitorRouteReference(
         ObjectId(),
         routeId = route._id,
-        relationId = 1,
+        relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         user = "user1",
         bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),

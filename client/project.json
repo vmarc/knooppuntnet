@@ -143,7 +143,8 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
         "port": 4000,
-        "browserTarget": "knooppuntnet:build"
+        "browserTarget": "knooppuntnet:build",
+        "proxyConfig": "src/proxy-dev.conf.js"
       },
       "configurations": {
         "production": {

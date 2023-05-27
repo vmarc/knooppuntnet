@@ -153,7 +153,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
             user = "user",
             groupName = group.name,
             routeName = properties.name,
-            relationId = superRouteRelation.relationId,
+            relationId = Some(superRouteRelation.relationId),
             referenceDay = Time.now.toDay,
             filename = new File(superRouteRelation.referenceFilename).getName,
             xml = xml
@@ -239,7 +239,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       val reference = MonitorRouteReference(
         oldReference._id,
         routeId = newRoute._id,
-        relationId = newRoute.relationId.getOrElse(0),
+        relationId = newRoute.relationId,
         timestamp = oldReference.created,
         user = oldReference.user,
         bounds = oldReference.bounds,
