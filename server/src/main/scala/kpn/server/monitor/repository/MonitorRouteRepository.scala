@@ -56,17 +56,13 @@ trait MonitorRouteRepository {
 
   def routeStateSegments(routeId: ObjectId): Seq[MonitorRouteSegmentInfo]
 
-  def routeReferenceRouteWithId(routeId: ObjectId): Option[MonitorRouteReference]
+  def routeReference(routeId: ObjectId): Option[MonitorRouteReference]
 
   def routeRelationReference(routeId: ObjectId, relationId: Long): Option[MonitorRouteReference]
 
   def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference]
 
   def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference]
-
-  def routeReference(referenceId: ObjectId): Option[MonitorRouteReference]
-
-  def oldRouteReference(referenceId: ObjectId): Option[OldMonitorRouteReference]
 
   def superRouteReferenceSummary(routeId: ObjectId): Option[Long]
 
