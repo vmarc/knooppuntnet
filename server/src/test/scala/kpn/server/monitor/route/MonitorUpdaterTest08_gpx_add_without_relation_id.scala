@@ -3,7 +3,6 @@ package kpn.server.monitor.route
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.Day
@@ -24,13 +23,13 @@ import org.scalatest.BeforeAndAfterEach
 
 import scala.xml.XML
 
-class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()
   }
 
-  test("add non-super route with single gpx reference") {
+  test("add non-super route with single gpx reference, but initially with relationId unknown") {
 
     withDatabase() { database =>
 
@@ -46,7 +45,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
         "route-name",
         "route-description",
         Some("route-comment"),
-        Some(1),
+        None, // <-- no relationId yet
         "gpx",
         referenceDay = Some(Day(2022, 8, 1)), // <-- filled in already, but not used yet during "add"
         referenceFilename = Some("filename"), // <-- filled in already, but not used yet during "add"
@@ -65,7 +64,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
           name = "route-name",
           description = "route-description",
           comment = Some("route-comment"),
-          relationId = Some(1),
+          relationId = None, // <-- no relationId yet
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "gpx",
@@ -79,29 +78,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
           osmSegmentCount = 0,
           happy = false,
           osmSegments = Seq.empty,
-          relation = Some(
-            MonitorRouteRelation(
-              relationId = 1,
-              name = "route-name",
-              role = None,
-              survey = None,
-
-              /*
-                No reference information: gpx not uploaded yet
-               */
-              referenceDay = None,
-              referenceFilename = None,
-              referenceDistance = 0,
-
-              deviationDistance = 0,
-              deviationCount = 0,
-              osmWayCount = 0,
-              osmDistance = 0,
-              osmSegmentCount = 0,
-              happy = false,
-              relations = Seq.empty
-            )
-          )
+          relation = None
         )
       )
 
@@ -162,24 +139,7 @@ class MonitorUpdaterTest04_add_gpx extends UnitTest with BeforeAndAfterEach with
                 )
               )
             ),
-            relation = Some(
-              MonitorRouteRelation(
-                relationId = 1,
-                name = "route-name",
-                role = None,
-                survey = None,
-                referenceDay = Some(Day(2022, 8, 1)),
-                referenceFilename = Some("filename"),
-                referenceDistance = 196,
-                deviationDistance = 0,
-                deviationCount = 0,
-                osmWayCount = 1,
-                osmDistance = 196,
-                osmSegmentCount = 1,
-                happy = true,
-                relations = Seq.empty
-              )
-            ),
+            relation = None,
             happy = true
           )
         )

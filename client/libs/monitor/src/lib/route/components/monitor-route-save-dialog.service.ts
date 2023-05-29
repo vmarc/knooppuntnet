@@ -129,13 +129,11 @@ export class MonitorRouteSaveDialogService {
       ...state,
       uploadGpxStatus: 'busy',
     }));
-    const relationId = 0;
     return this.monitorRouteService
       .routeGpxUpload(
         parameters.initialProperties.groupName,
         parameters.properties.name,
-        parameters.referenceFile,
-        relationId
+        parameters.referenceFile
       )
       .pipe(
         tap(() => {

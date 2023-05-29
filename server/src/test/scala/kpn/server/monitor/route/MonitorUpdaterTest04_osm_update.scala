@@ -16,7 +16,7 @@ import kpn.server.monitor.MonitorRelationDataBuilder
 import kpn.server.monitor.domain.MonitorRoute
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest06_update_osm extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()

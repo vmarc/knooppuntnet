@@ -23,7 +23,7 @@ import org.scalatest.BeforeAndAfterEach
 import scala.xml.Elem
 import scala.xml.XML
 
-class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -73,9 +73,9 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
           referenceFilename = None,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 0, // TODO should be non-zero, or only filled in after analysis?
-          osmDistance = 0, // TODO should be non-zero, or only filled in after analysis?
-          osmSegmentCount = 0, // TODO should be non-zero, or only filled in after analysis?
+          osmWayCount = 0,
+          osmDistance = 0,
+          osmSegmentCount = 0,
           happy = false,
           osmSegments = Seq.empty,
           relation = Some(
@@ -89,9 +89,9 @@ class MonitorUpdaterTest05_add_multi_gpx extends UnitTest with BeforeAndAfterEac
               referenceDistance = 0,
               deviationDistance = 0,
               deviationCount = 0,
-              osmWayCount = 0, // TODO should be non-zero, or only filled in after analysis?
-              osmDistance = 0, // TODO should be non-zero, or only filled in after analysis?
-              osmSegmentCount = 0, // TODO should be non-zero, or only filled in after analysis?
+              osmWayCount = 0,
+              osmDistance = 0,
+              osmSegmentCount = 0,
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(

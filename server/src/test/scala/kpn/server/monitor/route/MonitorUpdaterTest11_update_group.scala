@@ -10,7 +10,7 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest12_update_group extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest11_update_group extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()

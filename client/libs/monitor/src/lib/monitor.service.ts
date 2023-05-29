@@ -20,6 +20,7 @@ import { MonitorRouteProperties } from '@api/common/monitor';
 import { MonitorRouteSaveResult } from '@api/common/monitor';
 import { MonitorRouteUpdatePage } from '@api/common/monitor';
 import { MonitorRouteGpxPage } from '@api/common/monitor';
+import { Day } from '@api/custom';
 import { ApiResponse } from '@api/custom';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -132,12 +133,9 @@ export class MonitorService {
     );
   }
 
-  routeDelete(
-    groupName: string,
-    routeName: string
-  ): Observable<ApiResponse<void>> {
+  routeDelete(groupName: string, routeName: string): Observable<void> {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
-    return this.http.delete(url);
+    return this.http.delete<void>(url);
   }
 
   routeMap(
@@ -155,10 +153,20 @@ export class MonitorService {
   routeGpx(
     groupName: string,
     routeName: string,
-    relationId: number
+    relationId: string
   ): Observable<ApiResponse<MonitorRouteGpxPage>> {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}/gpx/${relationId}`;
     return this.http.get(url);
+  }
+
+  deleteGpx(
+    groupName: string,
+    routeName: string,
+    relationId: string
+  ): Observable<void> {
+    const routeUrl = `/monitor/groups/${groupName}/routes/${routeName}`;
+    const apiUrl = `/api${routeUrl}/gpx/${relationId}`;
+    return this.http.delete<void>(apiUrl);
   }
 
   routeChanges(
@@ -203,12 +211,25 @@ export class MonitorService {
   routeGpxUpload(
     groupName: string,
     routeName: string,
-    file: File,
-    relationId: number
+    file: File
   ): Observable<void> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload/${relationId}`;
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload`;
+    return this.http.post<void>(url, formData);
+  }
+
+  routeSubRelationGpxUpload(
+    groupName: string,
+    routeName: string,
+    subRelationId: string,
+    file: File,
+    referenceDay: Day
+  ): Observable<void> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+    formData.append('referenceDay', referenceDay);
+    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload/${subRelationId}`;
     return this.http.post<void>(url, formData);
   }
 

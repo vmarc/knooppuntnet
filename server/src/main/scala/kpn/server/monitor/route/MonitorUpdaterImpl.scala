@@ -298,7 +298,9 @@ class MonitorUpdaterImpl(
       relation.copy(
         referenceDay = None,
         referenceFilename = None,
-        referenceDistance = 0
+        referenceDistance = 0,
+        deviationDistance = 0,
+        deviationCount = 0,
       )
     }
     else {

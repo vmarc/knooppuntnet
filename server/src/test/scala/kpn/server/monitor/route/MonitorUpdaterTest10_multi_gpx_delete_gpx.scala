@@ -8,13 +8,13 @@ import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest07_multi_gpx_delete_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   override def afterEach(): Unit = {
     Time.clear()
   }
 
-  test("route with multi gpx reference - delete subrelation gpx ") {
+  test("add route with gpx references per subrelation - delete subrelation gpx reference") {
 
     withDatabase() { database =>
 
@@ -50,7 +50,9 @@ class MonitorUpdaterTest07_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
                     name = "sub-route-111",
                     referenceDay = Some(Day(2022, 8, 11)),
                     referenceFileName = Some("filename-111"),
-                    referenceDistance = 11,
+                    referenceDistance = 1110,
+                    deviationDistance = 111,
+                    deviationCount = 3,
                     happy = true,
                   ),
                   newMonitorRouteRelation(
@@ -58,7 +60,9 @@ class MonitorUpdaterTest07_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
                     name = "sub-route-112",
                     referenceDay = Some(Day(2022, 8, 11)),
                     referenceFileName = Some("filename-112"),
-                    referenceDistance = 11,
+                    referenceDistance = 1120,
+                    deviationDistance = 112,
+                    deviationCount = 5,
                     happy = true,
                   )
                 )
@@ -121,6 +125,15 @@ class MonitorUpdaterTest07_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
 
       subrelation111.referenceDay should equal(None)
       subrelation111.referenceFilename should equal(None)
+      subrelation111.deviationDistance should equal(0)
+      subrelation111.deviationCount should equal(0)
+
+      val subrelation112 = updatedRoute.relation.get.relations.head.relations(1)
+
+      subrelation112.referenceDay should equal(Some(Day(2022, 8, 11)))
+      subrelation112.referenceFilename should equal(Some("filename-112"))
+      subrelation112.deviationDistance should equal(112)
+      subrelation112.deviationCount should equal(5)
 
       configuration.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(Some(reference11))
       configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))

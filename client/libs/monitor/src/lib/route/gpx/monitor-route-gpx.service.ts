@@ -1,10 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorRouteGpxPage } from '@api/common/monitor';
-import { ApiResponse } from '@api/custom';
+import { Day } from '@api/custom';
 import { NavService } from '@app/components/shared';
 import { tap } from 'rxjs/operators';
+import { MonitorService } from '../../monitor.service';
 import { MonitorRouteGpxState } from './monitor-route-gpx.state';
 import { initialState } from './monitor-route-gpx.state';
 
@@ -13,7 +12,10 @@ export class MonitorRouteGpxService {
   private readonly _state = signal<MonitorRouteGpxState>(initialState);
   readonly state = this._state.asReadonly();
 
-  constructor(private navService: NavService, private http: HttpClient) {
+  constructor(
+    private navService: NavService,
+    private monitorService: MonitorService
+  ) {
     const groupName = this.navService.param('groupName');
     const routeName = this.navService.param('routeName');
     const subRelationId = this.navService.queryParam('sub-relation-id');
@@ -27,9 +29,9 @@ export class MonitorRouteGpxService {
       groupLink,
       routeLink,
     }));
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/gpx/${subRelationId}`;
-    this.http
-      .get<ApiResponse<MonitorRouteGpxPage>>(url)
+
+    this.monitorService
+      .routeGpx(groupName, routeName, subRelationId)
       .subscribe((response) => {
         this._state.update((state) => ({
           ...state,
@@ -38,8 +40,20 @@ export class MonitorRouteGpxService {
       });
   }
 
-  save(): void {
-    console.log('TODO save');
+  save(file: File, referenceDay: Day): void {
+    const groupName = this.state().groupName;
+    const routeName = this.state().routeName;
+    const routeUrl = `/monitor/groups/${groupName}/routes/${routeName}`;
+    this.monitorService
+      .routeSubRelationGpxUpload(
+        this.state().groupName,
+        this.state().routeName,
+        this.state().subRelationId,
+        file,
+        referenceDay
+      )
+      .pipe(tap(() => this.navService.go(routeUrl)))
+      .subscribe();
   }
 
   delete(): void {
@@ -47,9 +61,8 @@ export class MonitorRouteGpxService {
     const routeName = this.state().routeName;
     const subRelationId = this.state().subRelationId;
     const routeUrl = `/monitor/groups/${groupName}/routes/${routeName}`;
-    const apiUrl = `/api${routeUrl}/gpx/${subRelationId}`;
-    this.http
-      .delete(apiUrl)
+    this.monitorService
+      .deleteGpx(groupName, routeName, subRelationId)
       .pipe(tap(() => this.navService.go(routeUrl)))
       .subscribe();
   }
