@@ -4,11 +4,13 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { KpnDateAdapter } from '@app/components/shared/day';
 import { DayUtil } from '..';
 
 @Component({
@@ -23,7 +25,14 @@ import { DayUtil } from '..';
       <mat-datepicker #picker />
     </mat-form-field>
   `,
-  providers: [MatNativeDateModule],
+  providers: [
+    MatNativeDateModule,
+    {
+      provide: DateAdapter,
+      useClass: KpnDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
+  ],
   standalone: true,
   imports: [
     MatDatepickerModule,
