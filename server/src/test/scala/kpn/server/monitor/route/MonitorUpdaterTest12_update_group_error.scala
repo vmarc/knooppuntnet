@@ -3,7 +3,6 @@ package kpn.server.monitor.route
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -30,7 +29,7 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
         relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(1))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
         referenceFilename = None,
       )
       val state = newMonitorRouteState(
@@ -43,7 +42,7 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
         relationId = Some(1),
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
-        referenceDay = Day(2022, 8, 1),
+        referenceTimestamp = Timestamp(2022, 8, 1),
       )
 
       configuration.monitorGroupRepository.saveGroup(group1)
@@ -58,7 +57,7 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
         comment = None,
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         referenceFileChanged = false,
       )

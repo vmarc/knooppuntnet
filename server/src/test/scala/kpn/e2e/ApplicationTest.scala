@@ -421,7 +421,7 @@ class ApplicationTest extends EndToEndTest {
     route.relationId should equal(None)
     route.user should equal("test-user")
     route.referenceType should equal("multi-gpx")
-    route.referenceDay should equal(None)
+    route.referenceTimestamp should equal(None)
     route.referenceFilename should equal(None)
     route.relation should equal(None)
     route.happy should equal(false)

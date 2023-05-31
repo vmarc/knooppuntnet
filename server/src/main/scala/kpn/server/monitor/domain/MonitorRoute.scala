@@ -3,7 +3,6 @@ package kpn.server.monitor.domain
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class MonitorRoute(
@@ -28,12 +27,12 @@ case class MonitorRoute(
   referenceType: String,
 
   /*
-    The "referenceDay" is only filled in when the reference type is "osm" or "gpx".
-    The "referenceDay" is not filled in for reference type "multi-gpx", even if a file is
+    The "referenceTimestamp" is only filled in when the reference type is "osm" or "gpx".
+    The "referenceTimestamp" is not filled in for reference type "multi-gpx", even if a file is
     uploaded for the main relation (the reference details will be in the MonitorRelation in
     "structure").
    */
-  referenceDay: Option[Day],
+  referenceTimestamp: Option[Timestamp],
 
   /*
     The "referenceFilename" is only filled in when the reference type is "gpx".

@@ -5,7 +5,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
-import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -47,7 +46,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         Some("route-comment"),
         Some(1),
         "multi-gpx",
-        referenceDay = None,
+        referenceTimestamp = None,
         referenceFilename = None,
         referenceFileChanged = false,
       )
@@ -68,7 +67,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "multi-gpx",
-          referenceDay = None,
+          referenceTimestamp = None,
           referenceDistance = 0,
           referenceFilename = None,
           deviationDistance = 0,
@@ -84,7 +83,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
               name = "main-relation",
               role = None,
               survey = None,
-              referenceDay = None,
+              referenceTimestamp = None,
               referenceFilename = None,
               referenceDistance = 0,
               deviationDistance = 0,
@@ -99,7 +98,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   name = "sub-relation-1",
                   role = None,
                   survey = None,
-                  referenceDay = None,
+                  referenceTimestamp = None,
                   referenceFilename = None,
                   referenceDistance = 0,
                   deviationDistance = 0,
@@ -115,7 +114,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   name = "sub-relation-2",
                   role = None,
                   survey = None,
-                  referenceDay = None,
+                  referenceTimestamp = None,
                   referenceFilename = None,
                   referenceDistance = 0,
                   deviationDistance = 0,
@@ -159,7 +158,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         group.name,
         route.name,
         Some(11),
-        Day(2022, 8, 1),
+        Timestamp(2022, 8, 1),
         "filename-1",
         xml1
       )
@@ -173,7 +172,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated1.shouldMatchTo(
         route.copy(
-          referenceDay = None,
+          referenceTimestamp = None,
           referenceFilename = None,
           referenceDistance = 196, // subrelation 11 reference distance
           deviationDistance = 0,
@@ -199,7 +198,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
             relation.copy(
               relations = Seq(
                 relation.relations.head.copy(
-                  referenceDay = Some(Day(2022, 8, 1)),
+                  referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
                   referenceDistance = 196,
                   osmWayCount = 1,
@@ -224,7 +223,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
-          referenceDay = Day(2022, 8, 1),
+          referenceTimestamp = Timestamp(2022, 8, 1),
           distance = 196,
           segmentCount = 1,
           filename = Some("filename-1"),
@@ -254,7 +253,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         group.name,
         route.name,
         Some(12),
-        Day(2022, 8, 2),
+        Timestamp(2022, 8, 2),
         "filename-2",
         xml2
       )
@@ -268,7 +267,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated2.shouldMatchTo(
         route.copy(
-          referenceDay = None,
+          referenceTimestamp = None,
           referenceFilename = None,
           referenceDistance = 335, // sum of subrelation 11 and subrelation 12 reference distances
           deviationDistance = 0,
@@ -301,7 +300,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
             relation.copy(
               relations = Seq(
                 relation.relations.head.copy(
-                  referenceDay = Some(Day(2022, 8, 1)),
+                  referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
                   referenceDistance = 196,
                   osmWayCount = 1,
@@ -310,7 +309,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   happy = true,
                 ),
                 relation.relations(1).copy(
-                  referenceDay = Some(Day(2022, 8, 2)),
+                  referenceTimestamp = Some(Timestamp(2022, 8, 2)),
                   referenceFilename = Some("filename-2"),
                   referenceDistance = 139,
                   osmWayCount = 1,
@@ -337,7 +336,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           user = "user",
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
-          referenceDay = Day(2022, 8, 2),
+          referenceTimestamp = Timestamp(2022, 8, 2),
           distance = 139,
           segmentCount = 1,
           filename = Some("filename-2"),

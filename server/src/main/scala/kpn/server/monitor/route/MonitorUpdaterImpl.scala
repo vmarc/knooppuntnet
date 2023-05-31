@@ -5,7 +5,7 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Log
@@ -101,7 +101,7 @@ class MonitorUpdaterImpl(
     groupName: String,
     routeName: String,
     relationId: Option[Long],
-    referenceDay: Day,
+    referenceTimestamp: Timestamp,
     filename: String,
     xml: Elem
   ): MonitorRouteSaveResult = {
@@ -133,7 +133,7 @@ class MonitorUpdaterImpl(
           user = user,
           bounds = bounds,
           referenceType = "gpx",
-          referenceDay = referenceDay,
+          referenceTimestamp = referenceTimestamp,
           distance = distance,
           segmentCount = segmentCount,
           filename = Some(filename),
@@ -152,7 +152,7 @@ class MonitorUpdaterImpl(
             }
 
             val updatedRoute = context.oldRoute.get.copy(
-              referenceDay = Some(referenceDay),
+              referenceTimestamp = Some(referenceTimestamp),
               referenceFilename = reference.filename,
               referenceDistance = referenceDistance,
             )
@@ -166,7 +166,7 @@ class MonitorUpdaterImpl(
             val monitorRouteRelationOption = context.oldRoute.get.relation.map { oldMonitorRouteRelation =>
               val state = context.newStates.head
               oldMonitorRouteRelation.copy(
-                referenceDay = Some(referenceDay),
+                referenceTimestamp = Some(referenceTimestamp),
                 referenceFilename = Some(filename),
                 referenceDistance = referenceDistance,
                 deviationDistance = state.deviations.map(_.distance).sum,
@@ -259,7 +259,7 @@ class MonitorUpdaterImpl(
           }
 
           monitorRouteRelation.copy(
-            referenceDay = Some(reference.referenceDay),
+            referenceTimestamp = Some(reference.referenceTimestamp),
             referenceFilename = reference.filename,
             referenceDistance = reference.distance,
             deviationDistance = deviationDistance,
@@ -296,7 +296,7 @@ class MonitorUpdaterImpl(
   private def resetReference(relation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
     if (relation.relationId == subRelationId) {
       relation.copy(
-        referenceDay = None,
+        referenceTimestamp = None,
         referenceFilename = None,
         referenceDistance = 0,
         deviationDistance = 0,

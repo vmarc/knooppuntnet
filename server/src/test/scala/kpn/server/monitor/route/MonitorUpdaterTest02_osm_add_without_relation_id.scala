@@ -6,7 +6,6 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -44,7 +43,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
         None,
         None, // no relationId
         "osm",
-        Some(Day(2022, 8, 1)),
+        Some(Timestamp(2022, 8, 1)),
         None,
         referenceFileChanged = false,
       )
@@ -66,7 +65,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "osm",
-          referenceDay = Some(Day(2022, 8, 1)),
+          referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,
           referenceDistance = 0,
           deviationDistance = 0,
@@ -111,7 +110,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
             user = "user",
             timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
             referenceType = "osm",
-            referenceDay = Some(Day(2022, 8, 1)),
+            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             referenceFilename = None,
             referenceDistance = 196,
             deviationDistance = 0,
@@ -139,7 +138,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
                 name = "route-name",
                 role = None,
                 survey = None,
-                referenceDay = None,
+                referenceTimestamp = None,
                 referenceFilename = None,
                 referenceDistance = 0,
                 deviationDistance = 0,
@@ -165,7 +164,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
-          referenceDay = Day(2022, 8, 1),
+          referenceTimestamp = Timestamp(2022, 8, 1),
           distance = 196,
           segmentCount = 1,
           filename = None,

@@ -3,7 +3,7 @@ package kpn.server.monitor.route
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
@@ -23,7 +23,7 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
         comment = Some("comment"),
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFileChanged = false,
         referenceFilename = None
       )
@@ -47,7 +47,7 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
         "unknown-group",
         "route-name",
         Some(1),
-        Day(2022, 8, 11),
+        Timestamp(2022, 8, 11),
         "filename",
         null
       )

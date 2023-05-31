@@ -7,7 +7,6 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -38,7 +37,7 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
         user = "user1",
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, 1)),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
         referenceFilename = None,
         referenceDistance = 196,
         deviationDistance = 0,
@@ -54,7 +53,7 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
             name = "route-name",
             role = None,
             survey = None,
-            referenceDay = None,
+            referenceTimestamp = None,
             referenceFilename = None,
             referenceDistance = 0,
             deviationDistance = 0,
@@ -99,7 +98,7 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
         user = "user1",
         bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         referenceType = "osm",
-        referenceDay = Day(2022, 8, 1),
+        referenceTimestamp = Timestamp(2022, 8, 1),
         distance = 196,
         segmentCount = 1,
         filename = None,
@@ -118,7 +117,7 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
         comment = Some("comment-changed"), // <-- changed
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(1))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
         referenceFileChanged = false,
         referenceFilename = None
       )

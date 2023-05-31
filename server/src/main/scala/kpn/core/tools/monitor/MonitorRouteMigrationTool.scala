@@ -1,6 +1,7 @@
 package kpn.core.tools.monitor
 
 import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.Log
@@ -154,7 +155,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
             groupName = group.name,
             routeName = properties.name,
             relationId = Some(superRouteRelation.relationId),
-            referenceDay = Time.now.toDay,
+            referenceTimestamp = Time.now,
             filename = new File(superRouteRelation.referenceFilename).getName,
             xml = xml
           )
@@ -207,7 +208,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       oldRoute.comment,
       oldRoute.relationId,
       oldRoute.referenceType.get,
-      oldRoute.referenceDay,
+      oldRoute.referenceDay.map(day => Timestamp(day)),
       oldRoute.referenceFilename,
       referenceFileChanged = false,
     )
@@ -244,7 +245,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
         user = oldReference.user,
         bounds = oldReference.bounds,
         referenceType = oldReference.referenceType,
-        referenceDay = oldReference.referenceDay.get,
+        referenceTimestamp = Timestamp(oldReference.referenceDay.get),
         distance = distance,
         segmentCount = oldReference.segmentCount,
         filename = oldReference.filename,

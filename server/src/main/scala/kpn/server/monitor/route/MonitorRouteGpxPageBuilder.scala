@@ -17,16 +17,16 @@ class MonitorRouteGpxPageBuilder(
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).flatMap { route =>
         MonitorUtil.subRelation(route, subRelationId).map { monitorRouteRelation =>
-          val referenceDay = monitorRouteRelation.referenceDay match {
-            case None => Time.now.toDay
-            case Some(day) => day
+          val referenceTimestamp = monitorRouteRelation.referenceTimestamp match {
+            case None => Time.now
+            case Some(timestamp) => timestamp
           }
           MonitorRouteGpxPage(
             group.name,
             route.name,
             subRelationId,
             monitorRouteRelation.name,
-            referenceDay,
+            referenceTimestamp,
             monitorRouteRelation.referenceFilename,
             monitorRouteRelation.referenceDistance
           )

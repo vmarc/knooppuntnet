@@ -18,7 +18,7 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
 import kpn.server.config.RequestContext
@@ -228,7 +228,7 @@ class MonitorFacadeImpl(
     groupName: String,
     routeName: String,
     relationId: Option[Long],
-    referenceDay: Day,
+    referenceTimestamp: Timestamp,
     filename: String,
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult] = {
@@ -236,7 +236,15 @@ class MonitorFacadeImpl(
       assertAdminUser(RequestContext.user)
       reply(
         Some(
-          monitorUpdater.upload(RequestContext.user.get, groupName, routeName, relationId, referenceDay, filename, xml)
+          monitorUpdater.upload(
+            RequestContext.user.get,
+            groupName,
+            routeName,
+            relationId,
+            referenceTimestamp,
+            filename,
+            xml
+          )
         )
       )
     }

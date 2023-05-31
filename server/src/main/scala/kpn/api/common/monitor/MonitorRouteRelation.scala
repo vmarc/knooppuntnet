@@ -2,6 +2,7 @@ package kpn.api.common.monitor
 
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 
@@ -43,7 +44,7 @@ object MonitorRouteRelation {
       name = name,
       role = role,
       survey = survey,
-      referenceDay = None,
+      referenceTimestamp = None,
       referenceFilename = None,
       referenceDistance = 0,
       deviationDistance = 0,
@@ -68,7 +69,7 @@ case class MonitorRouteRelation(
     Values are None when this MonitorRouteRelation represents the main super route relation
     and that relation has no ways itself, or any subrelation without ways.
    */
-  referenceDay: Option[Day],
+  referenceTimestamp: Option[Timestamp],
   referenceFilename: Option[String],
   referenceDistance: Long,
 

@@ -2,7 +2,6 @@ package kpn.server.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
-import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -60,7 +59,7 @@ class MonitorUpdateReferenceImpl(
     newRoute.referenceType == "osm" && (
       oldRoute.referenceType != newRoute.referenceType ||
         oldRoute.relationId != newRoute.relationId ||
-        oldRoute.referenceDay != newRoute.referenceDay
+        oldRoute.referenceTimestamp != newRoute.referenceTimestamp
       )
   }
 
@@ -74,13 +73,13 @@ class MonitorUpdateReferenceImpl(
         updatedContext
 
       case Some(relationId) =>
-        val referenceDay = newRoute.referenceDay.getOrElse(throw new RuntimeException("reference day not found"))
+        val referenceTimestamp = newRoute.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
         val monitorRouteRelation = newRoute.relation.getOrElse(throw new RuntimeException("route structure not found"))
         if (monitorRouteRelation.relations.isEmpty) {
-          updateSingleReference(updatedContext, newRoute, referenceDay, relationId)
+          updateSingleReference(updatedContext, newRoute, referenceTimestamp, relationId)
         }
         else {
-          updateSuperRouteReferences(updatedContext, newRoute, referenceDay)
+          updateSuperRouteReferences(updatedContext, newRoute, referenceTimestamp)
         }
     }
   }
@@ -88,11 +87,11 @@ class MonitorUpdateReferenceImpl(
   private def updateSingleReference(
     context: MonitorUpdateContext,
     newRoute: MonitorRoute,
-    referenceDay: Day,
+    referenceTimestamp: Timestamp,
     relationId: Long
   ): MonitorUpdateContext = {
 
-    monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), relationId) match {
+    monitorRouteRelationRepository.loadTopLevel(Some(referenceTimestamp), relationId) match {
       case None =>
         val newRoute = context.newRoute match {
           case Some(route) => resetAnalysis(route)
@@ -101,7 +100,7 @@ class MonitorUpdateReferenceImpl(
         context.copy(
           newRoute = Some(newRoute),
           saveResult = context.saveResult.copy(
-            errors = context.saveResult.errors :+ s"Could not load relation $relationId at ${referenceDay.yyyymmdd}"
+            errors = context.saveResult.errors :+ s"Could not load relation $relationId at ${referenceTimestamp.yyyymmddhhmmss}"
           )
         )
 
@@ -116,18 +115,18 @@ class MonitorUpdateReferenceImpl(
   private def updateSuperRouteReferences(
     originalContext: MonitorUpdateContext,
     newRoute: MonitorRoute,
-    referenceDay: Day
+    referenceTimestamp: Timestamp
   ): MonitorUpdateContext = {
 
     var context = originalContext
 
     val references = MonitorUtil.subRelationsIn(newRoute).flatMap { monitorRouteSubRelation =>
-      monitorRouteRelationRepository.loadTopLevel(Some(Timestamp(referenceDay)), monitorRouteSubRelation.relationId) match {
+      monitorRouteRelationRepository.loadTopLevel(Some(referenceTimestamp), monitorRouteSubRelation.relationId) match {
         case Some(subRelation) => Some(buildReference(context, newRoute, subRelation))
         case None =>
           context = context.copy(
             saveResult = context.saveResult.copy(
-              errors = context.saveResult.errors :+ s"Could not load relation ${monitorRouteSubRelation.relationId} at ${referenceDay.yyyymmdd}"
+              errors = context.saveResult.errors :+ s"Could not load relation ${monitorRouteSubRelation.relationId} at ${referenceTimestamp.yyyymmddhhmmss}"
             )
           )
           None
@@ -159,7 +158,7 @@ class MonitorUpdateReferenceImpl(
       context.user,
       bounds,
       "osm",
-      newRoute.referenceDay.get,
+      newRoute.referenceTimestamp.get,
       analysis.osmDistance,
       analysis.routeSegments.size,
       None,

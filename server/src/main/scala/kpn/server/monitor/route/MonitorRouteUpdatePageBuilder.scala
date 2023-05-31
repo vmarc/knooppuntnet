@@ -41,7 +41,7 @@ class MonitorRouteUpdatePageBuilder(
                   comment = route.comment,
                   relationId = route.relationId,
                   referenceType = route.referenceType,
-                  referenceDay = route.referenceDay,
+                  referenceTimestamp = route.referenceTimestamp,
                   referenceFileChanged = false,
                   referenceFilename = route.referenceFilename
                 )

@@ -1,6 +1,6 @@
 package kpn.api.common.monitor
 
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 
 case class MonitorRouteDetail(
   rowIndex: Long,
@@ -9,7 +9,7 @@ case class MonitorRouteDetail(
   description: String,
   relationId: Option[Long],
   referenceType: String,
-  referenceDay: Option[Day],
+  referenceTimestamp: Option[Timestamp],
   referenceDistance: Long,
   deviationDistance: Long,
   deviationCount: Long,

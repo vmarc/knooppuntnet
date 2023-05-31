@@ -34,7 +34,7 @@ class MonitorUpdateRouteImpl(
                 user = user,
                 timestamp = Time.now,
                 referenceType = properties.referenceType,
-                referenceDay = properties.referenceDay,
+                referenceTimestamp = properties.referenceTimestamp,
                 referenceFilename = properties.referenceFilename,
               )
             )
@@ -58,7 +58,7 @@ class MonitorUpdateRouteImpl(
               user,
               Time.now,
               referenceType = properties.referenceType,
-              referenceDay = properties.referenceDay,
+              referenceTimestamp = properties.referenceTimestamp,
               referenceFilename = properties.referenceFilename,
               referenceDistance = 0L,
               deviationDistance = 0L,
@@ -82,7 +82,7 @@ class MonitorUpdateRouteImpl(
       oldRoute.comment != properties.comment ||
       oldRoute.relationId != properties.relationId ||
       oldRoute.referenceType != properties.referenceType ||
-      oldRoute.referenceDay != properties.referenceDay ||
+      oldRoute.referenceTimestamp != properties.referenceTimestamp ||
       oldRoute.referenceFilename != properties.referenceFilename
   }
 

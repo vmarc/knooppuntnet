@@ -18,7 +18,7 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 
 import scala.xml.Elem
 
@@ -68,7 +68,7 @@ trait MonitorFacade {
     groupName: String,
     routeName: String,
     relationId: Option[Long],
-    referenceDay: Day,
+    referenceTimestamp: Timestamp,
     filename: String,
     xml: Elem
   ): ApiResponse[MonitorRouteSaveResult]

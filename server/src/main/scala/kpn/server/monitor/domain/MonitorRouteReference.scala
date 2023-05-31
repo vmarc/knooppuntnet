@@ -3,7 +3,6 @@ package kpn.server.monitor.domain
 import kpn.api.base.ObjectId
 import kpn.api.base.WithObjectId
 import kpn.api.common.Bounds
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class MonitorRouteReference(
@@ -14,7 +13,7 @@ case class MonitorRouteReference(
   user: String,
   bounds: Bounds,
   referenceType: String, // "osm" | "gpx" (subrelation references for "multi-gpx" routes also have reference type"gpx")
-  referenceDay: Day,
+  referenceTimestamp: Timestamp,
   distance: Long,
   segmentCount: Long,
   filename: Option[String],

@@ -150,7 +150,7 @@ class MonitorUpdateSaverImpl(
           )
         case Some(reference) =>
           monitorRouteRelation.copy(
-            referenceDay = Some(reference.referenceDay),
+            referenceTimestamp = Some(reference.referenceTimestamp),
             referenceFilename = reference.filename,
             referenceDistance = reference.distance,
             relations = relations

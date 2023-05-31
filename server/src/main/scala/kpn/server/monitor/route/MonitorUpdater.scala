@@ -4,7 +4,7 @@ import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 import kpn.server.monitor.domain.MonitorGroup
 
 import scala.xml.Elem
@@ -29,7 +29,7 @@ trait MonitorUpdater {
     groupName: String,
     routeName: String,
     relationId: Option[Long],
-    referenceDay: Day,
+    referenceTimestamp: Timestamp,
     filename: String,
     xml: Elem
   ): MonitorRouteSaveResult

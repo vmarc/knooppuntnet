@@ -1,13 +1,13 @@
 package kpn.api.common.monitor
 
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 
 case class MonitorRouteGpxPage(
   groupName: String,
   routeName: String,
   subRelationId: Long,
   subRelationDescription: String,
-  referenceDay: Day,
+  referenceTimestamp: Timestamp,
   referenceFilename: Option[String],
   referenceDistance: Long
 )

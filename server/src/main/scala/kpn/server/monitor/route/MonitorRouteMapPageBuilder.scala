@@ -148,7 +148,7 @@ class MonitorRouteMapPageBuilder(
       reference.bounds,
       reference.distance,
       reference.referenceType,
-      reference.referenceDay,
+      reference.referenceTimestamp,
       reference.segmentCount,
       reference.filename,
       reference.geoJson
@@ -186,7 +186,7 @@ class MonitorRouteMapPageBuilder(
             reference.bounds,
             reference.distance,
             reference.referenceType,
-            reference.referenceDay,
+            reference.referenceTimestamp,
             reference.segmentCount,
             reference.filename,
             reference.geoJson
@@ -257,7 +257,7 @@ class MonitorRouteMapPageBuilder(
             reference.bounds,
             reference.distance,
             reference.referenceType,
-            reference.referenceDay,
+            reference.referenceTimestamp,
             reference.segmentCount,
             reference.filename,
             reference.geoJson
@@ -291,7 +291,7 @@ class MonitorRouteMapPageBuilder(
           reference.bounds,
           reference.distance,
           reference.referenceType,
-          reference.referenceDay,
+          reference.referenceTimestamp,
           reference.segmentCount,
           reference.filename,
           reference.geoJson

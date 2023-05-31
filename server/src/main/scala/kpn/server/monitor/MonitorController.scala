@@ -200,7 +200,7 @@ class MonitorController(facade: MonitorFacade) {
       groupName,
       routeName,
       None,
-      Time.now.toDay, // TODO should get reference day from client !!!
+      Time.now, // TODO should get reference timestamp from client !!!
       file.getOriginalFilename,
       xml
     )
@@ -220,7 +220,7 @@ class MonitorController(facade: MonitorFacade) {
       groupName,
       routeName,
       Some(relationId),
-      Time.now.toDay, // TODO should get reference day from client !!!
+      Time.now, // TODO should get reference timestamp from client !!!
       file.getOriginalFilename,
       xml
     )

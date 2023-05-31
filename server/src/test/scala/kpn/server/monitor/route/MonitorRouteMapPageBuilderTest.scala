@@ -7,7 +7,6 @@ import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteSubRelation
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.Log
@@ -75,7 +74,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         description = "route-description",
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, 11)),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         relation = Some(
           newMonitorRouteRelation(
             relationId = 1,
@@ -108,7 +107,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         description = "route-description",
         relationId = None,
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, 11))
+        referenceTimestamp = Some(Timestamp(2022, 8, 11))
       )
 
       routeRepository.saveRoute(route)
@@ -156,7 +155,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         description = "route-description",
         relationId = None,
         referenceType = "gpx",
-        referenceDay = Some(Day(2022, 8, 11)),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceDistance = 1000,
         referenceFilename = Some("filename"),
       )
@@ -169,7 +168,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         distance = 1000,
         segmentCount = 1,
         filename = Some("filename"),
@@ -200,7 +199,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
                 bounds = Bounds(1, 1, 1, 1),
                 distance = 1000,
                 referenceType = "gpx",
-                referenceDay = Day(2022, 8, 11),
+                referenceTimestamp = Timestamp(2022, 8, 11),
                 segmentCount = 1,
                 gpxFilename = Some("filename"),
                 geoJson = "geo-json-reference"
@@ -232,7 +231,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         description = "route-description",
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, 11)),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceDistance = 1000,
         deviationDistance = 100,
         deviationCount = 1,
@@ -274,7 +273,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
         referenceType = "osm",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         distance = 1000,
         segmentCount = 1,
         filename = None,
@@ -353,7 +352,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               bounds = Bounds(1, 1, 1, 1),
               distance = 1000,
               referenceType = "osm",
-              referenceDay = Day(2022, 8, 11),
+              referenceTimestamp = Timestamp(2022, 8, 11),
               segmentCount = 1,
               gpxFilename = None,
               geoJson = "geo-json-reference"
@@ -387,7 +386,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         description = "route-description",
         relationId = None,
         referenceType = "multi-gpx",
-        referenceDay = Some(Day(2022, 8, 11)),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         relation = Some(
           newMonitorRouteRelation(
             relationId = 1,
@@ -413,7 +412,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         distance = 1000,
         segmentCount = 1,
         filename = Some("filename-11"),
@@ -426,7 +425,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         user = "user",
         bounds = Bounds(2, 2, 2, 2),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 12),
+        referenceTimestamp = Timestamp(2022, 8, 12),
         distance = 1000,
         segmentCount = 1,
         filename = Some("filename-12"),
@@ -468,7 +467,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
                 bounds = Bounds(1, 1, 1, 1),
                 distance = 1000,
                 referenceType = "gpx",
-                referenceDay = Day(2022, 8, 11),
+                referenceTimestamp = Timestamp(2022, 8, 11),
                 segmentCount = 1,
                 gpxFilename = Some("filename-11"),
                 geoJson = "geo-json-reference-11"
@@ -515,7 +514,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
                 bounds = Bounds(2, 2, 2, 2),
                 distance = 1000,
                 referenceType = "gpx",
-                referenceDay = Day(2022, 8, 12),
+                referenceTimestamp = Timestamp(2022, 8, 12),
                 segmentCount = 1,
                 gpxFilename = Some("filename-12"),
                 geoJson = "geo-json-reference-12"
@@ -550,7 +549,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         description = "route-description",
         relationId = None,
         referenceType = "multi-gpx",
-        referenceDay = Some(Day(2022, 8, 11)),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         relation = Some(
           newMonitorRouteRelation(
             relationId = 1,
@@ -576,7 +575,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         user = "user",
         bounds = Bounds(1, 1, 1, 1),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         distance = 1000,
         segmentCount = 1,
         filename = Some("filename-11"),
@@ -621,7 +620,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         user = "user",
         bounds = Bounds(2, 2, 2, 2),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 12),
+        referenceTimestamp = Timestamp(2022, 8, 12),
         distance = 1000,
         segmentCount = 1,
         filename = Some("filename-12"),
@@ -711,7 +710,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               bounds = Bounds(1, 1, 1, 1),
               distance = 1000,
               referenceType = "gpx",
-              referenceDay = Day(2022, 8, 11),
+              referenceTimestamp = Timestamp(2022, 8, 11),
               segmentCount = 1,
               gpxFilename = Some("filename-11"),
               geoJson = "geo-json-reference-11"
@@ -773,7 +772,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               bounds = Bounds(2, 2, 2, 2),
               distance = 1000,
               referenceType = "gpx",
-              referenceDay = Day(2022, 8, 12),
+              referenceTimestamp = Timestamp(2022, 8, 12),
               segmentCount = 1,
               gpxFilename = Some("filename-12"),
               geoJson = "geo-json-reference-12"

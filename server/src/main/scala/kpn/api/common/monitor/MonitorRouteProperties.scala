@@ -1,6 +1,6 @@
 package kpn.api.common.monitor
 
-import kpn.api.custom.Day
+import kpn.api.custom.Timestamp
 
 case class MonitorRouteProperties(
   groupName: String,
@@ -9,7 +9,7 @@ case class MonitorRouteProperties(
   comment: Option[String],
   relationId: Option[Long],
   referenceType: String, // "osm" | "gpx" | "multi-gpx"
-  referenceDay: Option[Day],
+  referenceTimestamp: Option[Timestamp],
   referenceFilename: Option[String],
   referenceFileChanged: Boolean,
 )

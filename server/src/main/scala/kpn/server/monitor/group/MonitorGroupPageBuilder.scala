@@ -30,7 +30,7 @@ class MonitorGroupPageBuilder(
             route.description,
             route.relationId,
             route.referenceType,
-            route.referenceDay,
+            route.referenceTimestamp,
             route.referenceDistance,
             route.deviationDistance,
             route.deviationCount,

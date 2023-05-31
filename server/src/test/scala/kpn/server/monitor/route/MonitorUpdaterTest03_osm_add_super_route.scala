@@ -5,7 +5,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -29,13 +28,13 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
 
   test("add superroute osm reference") {
 
-    val referenceDay = Day(2022, 8, 11)
+    val referenceTimestamp = Timestamp(2022, 8, 11)
 
     withDatabase() { database =>
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
       setupLoadStructure(configuration)
-      setupLoadTopLevel(configuration, referenceDay)
+      setupLoadTopLevel(configuration, referenceTimestamp)
 
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
@@ -47,7 +46,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
         Some("route-comment"),
         Some(1),
         "osm",
-        Some(referenceDay),
+        Some(referenceTimestamp),
         None,
         referenceFileChanged = false,
       )
@@ -67,7 +66,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "osm",
-          referenceDay = Some(referenceDay),
+          referenceTimestamp = Some(referenceTimestamp),
           referenceFilename = None,
           referenceDistance = 335,
           deviationDistance = 0,
@@ -102,7 +101,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
               name = "main-relation",
               role = None,
               survey = None,
-              referenceDay = None,
+              referenceTimestamp = None,
               referenceFilename = None,
               referenceDistance = 0,
               deviationDistance = 0,
@@ -117,7 +116,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   name = "sub-relation-1",
                   role = None,
                   survey = None,
-                  referenceDay = None,
+                  referenceTimestamp = None,
                   referenceFilename = None,
                   referenceDistance = 0,
                   deviationDistance = 0,
@@ -133,7 +132,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   name = "sub-relation-2",
                   role = None,
                   survey = None,
-                  referenceDay = None,
+                  referenceTimestamp = None,
                   referenceFilename = None,
                   referenceDistance = 0,
                   deviationDistance = 0,
@@ -164,7 +163,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           user = "user",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
-          referenceDay = Day(2022, 8, 11),
+          referenceTimestamp = Timestamp(2022, 8, 11),
           distance = 196,
           segmentCount = 1,
           filename = None,
@@ -182,7 +181,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           user = "user",
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "osm",
-          referenceDay = Day(2022, 8, 11),
+          referenceTimestamp = Timestamp(2022, 8, 11),
           distance = 139,
           segmentCount = 1,
           filename = None,
@@ -277,7 +276,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
     (configuration.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
   }
 
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration, referenceDay: Day): Unit = {
+  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration, referenceTimestamp: Timestamp): Unit = {
 
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")
@@ -308,8 +307,8 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
     val subRelation1 = data.relations(11)
     val subRelation2 = data.relations(12)
 
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 11).returns(Some(subRelation1))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(referenceDay)), 12).returns(Some(subRelation2))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(referenceTimestamp), 11).returns(Some(subRelation1))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(referenceTimestamp), 12).returns(Some(subRelation2))
 
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))

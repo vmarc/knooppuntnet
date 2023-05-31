@@ -4,7 +4,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
-import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -22,7 +21,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
     Time.clear()
   }
 
-  test("route with osm reference - delete previous reference if route not found at referenceDay") {
+  test("route with osm reference - delete previous reference if route not found at referenceTimestamp") {
 
     withDatabase() { database =>
 
@@ -39,7 +38,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
         relationId = Some(1),
         user = "user",
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         relation = Some(
           newMonitorRouteRelation(
@@ -52,7 +51,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
         routeId = route._id,
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
       )
       val state = newMonitorRouteState(
         route._id,
@@ -72,7 +71,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
         None,
         Some(1),
         "osm",
-        Some(Day(2022, 8, 1)),
+        Some(Timestamp(2022, 8, 1)),
         None,
         referenceFileChanged = false,
       )
@@ -100,7 +99,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "osm",
-          referenceDay = Some(Day(2022, 8, 1)),
+          referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,
           referenceDistance = 0,
           deviationDistance = 0,
@@ -115,7 +114,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
               name = "route",
               role = None,
               survey = None,
-              referenceDay = None,
+              referenceTimestamp = None,
               referenceFilename = None,
               referenceDistance = 0,
               deviationDistance = 0,

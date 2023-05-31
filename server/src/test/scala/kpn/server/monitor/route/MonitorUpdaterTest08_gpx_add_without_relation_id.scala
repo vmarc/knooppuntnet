@@ -5,7 +5,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.Day
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -47,7 +46,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
         Some("route-comment"),
         None, // <-- no relationId yet
         "gpx",
-        referenceDay = Some(Day(2022, 8, 1)), // <-- filled in already, but not used yet during "add"
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)), // <-- filled in already, but not used yet during "add"
         referenceFilename = Some("filename"), // <-- filled in already, but not used yet during "add"
         referenceFileChanged = false,
       )
@@ -68,7 +67,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "gpx",
-          referenceDay = Some(Day(2022, 8, 1)),
+          referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
           referenceDistance = 0,
           deviationDistance = 0,
@@ -104,7 +103,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
         group.name,
         route.name,
         Some(1),
-        Day(2022, 8, 1),
+        Timestamp(2022, 8, 1),
         "filename",
         xml1
       )
@@ -118,7 +117,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
         Some(
           route.copy(
-            referenceDay = Some(Day(2022, 8, 1)),
+            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             referenceFilename = Some("filename"),
             referenceDistance = 196,
             deviationDistance = 0,
@@ -155,7 +154,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           user = "user2",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx",
-          referenceDay = Day(2022, 8, 1),
+          referenceTimestamp = Timestamp(2022, 8, 1),
           distance = 196,
           segmentCount = 1,
           filename = Some("filename"),

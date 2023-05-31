@@ -3,7 +3,6 @@ package kpn.server.monitor.route
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -29,14 +28,14 @@ class MonitorUpdaterTest11_update_group extends UnitTest with BeforeAndAfterEach
         name = "route",
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
       )
 
       configuration.monitorGroupRepository.saveGroup(group1)
@@ -51,7 +50,7 @@ class MonitorUpdaterTest11_update_group extends UnitTest with BeforeAndAfterEach
         comment = None,
         relationId = Some(1),
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         referenceFileChanged = false,
       )

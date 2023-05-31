@@ -1,7 +1,6 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -29,7 +28,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
         relationId = Some(1),
         user = "user",
         referenceType = "osm",
-        referenceDay = Some(Day(2022, 8, Some(11))),
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
         relation = Some(
           newMonitorRouteRelation(
@@ -40,7 +39,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
               newMonitorRouteRelation(
                 relationId = 11,
                 name = "sub-route-11",
-                referenceDay = Some(Day(2022, 8, 11)),
+                referenceTimestamp = Some(Timestamp(2022, 8, 11)),
                 referenceFileName = Some("filename-11"),
                 referenceDistance = 11,
                 happy = true,
@@ -48,7 +47,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
                   newMonitorRouteRelation(
                     relationId = 111,
                     name = "sub-route-111",
-                    referenceDay = Some(Day(2022, 8, 11)),
+                    referenceTimestamp = Some(Timestamp(2022, 8, 11)),
                     referenceFileName = Some("filename-111"),
                     referenceDistance = 1110,
                     deviationDistance = 111,
@@ -58,7 +57,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
                   newMonitorRouteRelation(
                     relationId = 112,
                     name = "sub-route-112",
-                    referenceDay = Some(Day(2022, 8, 11)),
+                    referenceTimestamp = Some(Timestamp(2022, 8, 11)),
                     referenceFileName = Some("filename-112"),
                     referenceDistance = 1120,
                     deviationDistance = 112,
@@ -75,21 +74,21 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
         routeId = route._id,
         relationId = Some(11),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         filename = Some("filename-11"),
       )
       val reference111 = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(111),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         filename = Some("filename-111"),
       )
       val reference112 = newMonitorRouteReference(
         routeId = route._id,
         relationId = Some(112),
         referenceType = "gpx",
-        referenceDay = Day(2022, 8, 11),
+        referenceTimestamp = Timestamp(2022, 8, 11),
         filename = Some("filename-112"),
       )
 
@@ -123,14 +122,14 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       val subrelation111 = updatedRoute.relation.get.relations.head.relations.head
 
-      subrelation111.referenceDay should equal(None)
+      subrelation111.referenceTimestamp should equal(None)
       subrelation111.referenceFilename should equal(None)
       subrelation111.deviationDistance should equal(0)
       subrelation111.deviationCount should equal(0)
 
       val subrelation112 = updatedRoute.relation.get.relations.head.relations(1)
 
-      subrelation112.referenceDay should equal(Some(Day(2022, 8, 11)))
+      subrelation112.referenceTimestamp should equal(Some(Timestamp(2022, 8, 11)))
       subrelation112.referenceFilename should equal(Some("filename-112"))
       subrelation112.deviationDistance should equal(112)
       subrelation112.deviationCount should equal(5)
