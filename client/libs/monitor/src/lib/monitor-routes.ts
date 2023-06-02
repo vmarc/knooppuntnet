@@ -7,6 +7,7 @@ import { MonitorGroupDeletePageComponent } from './group/delete/monitor-group-de
 import { MonitorGroupPageComponent } from './group/details/monitor-group-page.component';
 import { MonitorGroupUpdatePageComponent } from './group/update/monitor-group-update-page.component';
 import { MonitorGroupsPageComponent } from './groups/monitor-groups-page.component';
+import { MonitorWebsocketComponent } from './monitor-websocket.component';
 import { MonitorService } from './monitor.service';
 import { MonitorRouteAddPageComponent } from './route/add/monitor-route-add-page.component';
 import { MonitorRouteChangePageComponent } from './route/change/monitor-route-change-page.component';
@@ -34,6 +35,10 @@ export const monitorRoutes: Routes = [
       {
         path: 'about',
         component: MonitorAboutPageComponent,
+      },
+      {
+        path: 'websocket',
+        component: MonitorWebsocketComponent,
       },
       {
         path: 'groups/:groupName',

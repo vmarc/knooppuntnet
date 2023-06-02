@@ -7,6 +7,11 @@ PROXY_CONFIG = {
     target: 'http://localhost:9005',
     secure: false,
   },
+  '/websocket/*': {
+    target: 'ws://localhost:9005',
+    secure: false,
+    ws: true,
+  },
   '/tiles/**': {
     target: 'https://experimental.knooppuntnet.nl',
     changeOrigin: true,
