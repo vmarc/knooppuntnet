@@ -12,11 +12,11 @@ class ServerWebSocketHandler extends AbstractWebSocketHandler {
 
   override def handleTextMessage(session: WebSocketSession, message: TextMessage): Unit = {
     val request = message.getPayload
-    log.info(s"handleTextMessage() received: '${request.substring(0, 100)}'")
+    log.info(s"handleTextMessage() received: '${request.substring(0, 24)}'")
     session.sendMessage(new TextMessage("{message: 'one'}"))
     session.sendMessage(new TextMessage("{message: 'two'}"))
     session.sendMessage(new TextMessage("{message: 'three'}"))
-    session.close()
+    //session.close()
   }
 
   override def handleTransportError(session: WebSocketSession, exception: Throwable): Unit = {

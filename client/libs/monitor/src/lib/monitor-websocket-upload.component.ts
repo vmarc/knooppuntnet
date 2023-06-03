@@ -14,6 +14,12 @@ import { webSocket } from 'rxjs/webSocket';
       <p>Messages received via websocket:</p>
       <pre *ngFor="let message of messages">  {{ message }}</pre>
     </div>
+    <div>
+      <button type="button" (click)="sendMessage()">Send message</button>
+    </div>
+    <div>
+      <button type="button" (click)="complete()">Complete</button>
+    </div>
   `,
   styles: [
     `
@@ -69,5 +75,13 @@ export class MonitorWebsocketUploadComponent implements OnInit {
       },
     });
     this.subject.next(this.data);
+  }
+
+  sendMessage(): void {
+    this.subject.next('this is another message');
+  }
+
+  complete(): void {
+    this.subject.complete();
   }
 }
