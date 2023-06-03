@@ -1,69 +1,74 @@
-import { DOCUMENT } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
-import { Inject } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { WebSocketSubject } from 'rxjs/webSocket';
-import { webSocket } from 'rxjs/webSocket';
+import { FormGroup } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { from } from 'rxjs';
+import { MonitorWebsocketUploadComponent } from './monitor-websocket-upload.component';
 
 @Component({
   selector: 'kpn-monitor-websocket',
   template: `
-    <div class="messages">
-      <p>Messages received via websocket:</p>
-      <pre *ngFor="let message of messages">  {{ message }}</pre>
+    <form [formGroup]="referenceDetailsForm" (ngSubmit)="submit()">
+      <div class="padding">
+        <input type="file" (change)="selectFile($event)" #fileInput />
+      </div>
+      <div class="padding">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <div *ngIf="data">
+      <kpn-monitor-websocket-upload [data]="data" />
     </div>
   `,
   styles: [
     `
-      .messages {
+      .padding {
         padding: 1em;
       }
     `,
   ],
   standalone: true,
-  imports: [NgFor],
+  imports: [
+    NgFor,
+    NgIf,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MonitorWebsocketUploadComponent,
+  ],
 })
-export class MonitorWebsocketComponent implements OnInit {
-  messages: string[] = [];
-  subject: WebSocketSubject<string>;
+export class MonitorWebsocketComponent {
+  data: any;
 
-  constructor(@Inject(DOCUMENT) private document) {}
+  readonly referenceFilename = new FormControl<string | null>(null);
+  readonly referenceFile = new FormControl<File | null>(null);
+  readonly referenceDetailsForm = new FormGroup({
+    referenceFilename: this.referenceFilename,
+    referenceFile: this.referenceFile,
+  });
 
-  ngOnInit() {
-    let protocol = 'wss';
-    if (document.location.protocol === 'http:') {
-      protocol = 'ws';
-    }
-    const host = document.location.host;
-    const url = `${protocol}://${host}/websocket`;
+  selectFile(selectEvent: any) {
+    this.referenceFile.setValue(selectEvent.target.files[0]);
+    this.referenceFilename.setValue(selectEvent.target.files[0].name);
+  }
 
-    this.subject = webSocket<string>({
-      url,
-      serializer: (x) => {
-        return x;
-      },
-      deserializer: (messageEvent) => {
-        return messageEvent.data;
-      },
-      openObserver: {
-        next: () => {
-          console.log('websocket connection open');
-        },
-      },
+  submit() {
+    const file = this.referenceFile.value;
+
+    const promise = file.text();
+    console.log(`Send file ${file.name}, size=${file.size}`);
+    from(promise).subscribe((buffer) => {
+      const data = {
+        action: 'add-route',
+        filename: this.referenceFilename.value,
+        file: buffer,
+      };
+
+      console.log(`Send file ${file.name}, size=${file.size}`);
+      this.data = data;
     });
-    this.subject.subscribe({
-      next: (msg) => {
-        console.log('websocket message received: ' + msg);
-        this.messages.push(msg);
-      },
-      error: (err) => {
-        console.log(['websocket error', err]);
-      },
-      complete: () => {
-        console.log('websocket complete');
-      },
-    });
-    this.subject.next('Initial message');
   }
 }
