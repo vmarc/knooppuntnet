@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { DayUtil } from '@app/components/shared';
+import { TimestampUtil } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
@@ -113,7 +113,9 @@ export class MonitorRouteGpxComponent {
   constructor(protected service: MonitorRouteGpxService) {}
 
   save(): void {
-    const referenceDay = DayUtil.toDay(this.gpxReferenceDate.value);
-    this.service.save(this.referenceFile.value, referenceDay);
+    const referenceTimestamp = TimestampUtil.toTimestamp(
+      this.gpxReferenceDate.value
+    );
+    this.service.save(this.referenceFile.value, referenceTimestamp);
   }
 }

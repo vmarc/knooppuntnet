@@ -3,6 +3,7 @@ import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { TimestampDayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 
@@ -17,7 +18,7 @@ import { DayPipe } from '@app/components/shared/format';
       Reference not defined yet
     </div>
     <p *ngIf="page.referenceType === 'osm' || page.referenceType === 'gpx'">
-      <span>{{ page.referenceDay | day }}</span>
+      <span>{{ page.referenceTimestamp | yyyymmdd }}</span>
     </p>
     <p
       *ngIf="page.referenceType === 'osm'"
@@ -39,7 +40,7 @@ import { DayPipe } from '@app/components/shared/format';
     <p>{{ page.referenceDistance | distance }}</p>
   `,
   standalone: true,
-  imports: [NgIf, DayPipe, DistancePipe],
+  imports: [NgIf, DayPipe, DistancePipe, TimestampDayPipe],
 })
 export class MonitorRouteDetailsReferenceComponent {
   @Input() page: MonitorRouteDetailsPage;

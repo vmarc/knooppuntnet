@@ -15,7 +15,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { Router, RouterLink } from '@angular/router';
 import { MonitorRouteGroup } from '@api/common/monitor';
 import { MonitorRouteProperties } from '@api/common/monitor';
-import { Day } from '@api/custom';
+import { Timestamp } from '@api/custom';
+import { TimestampUtil } from '@app/components/shared';
 import { DayUtil } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
 import { of } from 'rxjs';
@@ -186,11 +187,11 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   );
   readonly osmReferenceDate = new FormControl<Date | null>(
     null,
-    this.osmReferenceDayValidator()
+    this.osmReferenceTimestampValidator()
   );
   readonly gpxReferenceDate = new FormControl<Date | null>(
     null,
-    this.gpxReferenceDayValidator()
+    this.gpxReferenceTimestampValidator()
   );
   readonly referenceFilename = new FormControl<string | null>(
     null,
@@ -280,8 +281,12 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
         referenceType: this.initialProperties.referenceType,
       });
       this.referenceDetailsForm.patchValue({
-        osmReferenceDate: DayUtil.toDate(this.initialProperties.referenceDay),
-        gpxReferenceDate: DayUtil.toDate(this.initialProperties.referenceDay),
+        osmReferenceDate: DayUtil.toDate(
+          this.initialProperties.referenceTimestamp
+        ),
+        gpxReferenceDate: DayUtil.toDate(
+          this.initialProperties.referenceTimestamp
+        ),
         referenceFilename: this.initialProperties.referenceFilename,
         referenceFile: null,
       });
@@ -333,11 +338,15 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   }
 
   private buildProperties(): MonitorRouteProperties {
-    let referenceDay: Day = null;
+    let referenceTimestamp: Timestamp = null;
     if (this.referenceType.value === 'osm') {
-      referenceDay = DayUtil.toDay(this.osmReferenceDate.value);
+      referenceTimestamp = TimestampUtil.toTimestamp(
+        this.osmReferenceDate.value
+      );
     } else if (this.referenceType.value === 'gpx') {
-      referenceDay = DayUtil.toDay(this.gpxReferenceDate.value);
+      referenceTimestamp = TimestampUtil.toTimestamp(
+        this.gpxReferenceDate.value
+      );
     }
 
     let relationId = undefined;
@@ -351,7 +360,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       groupName: this.group.value?.groupName,
       relationId,
       referenceType: this.referenceType.value,
-      referenceDay,
+      referenceTimestamp,
       referenceFilename: this.referenceFilename.value,
       referenceFileChanged: !!this.referenceFile.value,
       comment: this.comment.value,
@@ -441,7 +450,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     };
   }
 
-  private gpxReferenceDayValidator(): ValidatorFn {
+  private gpxReferenceTimestampValidator(): ValidatorFn {
     return (): ValidationErrors | null => {
       if (this.referenceType.value === 'gpx') {
         if (!this.gpxReferenceDate.value) {
@@ -452,7 +461,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     };
   }
 
-  private osmReferenceDayValidator(): ValidatorFn {
+  private osmReferenceTimestampValidator(): ValidatorFn {
     return (): ValidationErrors | null => {
       if (this.referenceType.value === 'osm') {
         if (!this.osmReferenceDate.value) {

@@ -20,7 +20,7 @@ import { MonitorRouteProperties } from '@api/common/monitor';
 import { MonitorRouteSaveResult } from '@api/common/monitor';
 import { MonitorRouteUpdatePage } from '@api/common/monitor';
 import { MonitorRouteGpxPage } from '@api/common/monitor';
-import { Day } from '@api/custom';
+import { Timestamp } from '@api/custom';
 import { ApiResponse } from '@api/custom';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
@@ -224,11 +224,11 @@ export class MonitorService {
     routeName: string,
     subRelationId: string,
     file: File,
-    referenceDay: Day
+    referenceTimestamp: Timestamp
   ): Observable<void> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    formData.append('referenceDay', referenceDay);
+    formData.append('referenceTimestamp', referenceTimestamp);
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload/${subRelationId}`;
     return this.http.post<void>(url, formData);
   }

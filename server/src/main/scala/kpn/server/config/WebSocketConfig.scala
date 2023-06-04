@@ -9,7 +9,6 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 import org.springframework.web.socket.WebSocketHandler
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean
 
-
 @Configuration
 @EnableWebSocket
 class WebSocketConfig extends WebSocketConfigurer {
@@ -22,7 +21,7 @@ class WebSocketConfig extends WebSocketConfigurer {
   @Bean
   def createServletServerContainerFactoryBean: ServletServerContainerFactoryBean = {
     val container = new ServletServerContainerFactoryBean
-    container.setMaxTextMessageBufferSize(10 * 1024 * 1024)
+    container.setMaxTextMessageBufferSize(20 * 1024 * 1024)
     container
   }
 

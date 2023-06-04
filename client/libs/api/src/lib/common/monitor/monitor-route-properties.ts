@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom';
+import { Timestamp } from '@api/custom';
 
 export interface MonitorRouteProperties {
   readonly groupName?: string;
@@ -9,7 +9,7 @@ export interface MonitorRouteProperties {
   readonly comment?: string;
   readonly relationId?: number;
   readonly referenceType?: string;
-  readonly referenceDay?: Day;
+  readonly referenceTimestamp?: Timestamp;
   readonly referenceFilename?: string;
   readonly referenceFileChanged?: boolean;
 }

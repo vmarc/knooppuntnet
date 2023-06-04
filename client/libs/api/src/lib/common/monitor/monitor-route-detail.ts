@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom';
+import { Timestamp } from '@api/custom';
 
 export interface MonitorRouteDetail {
   readonly rowIndex: number;
@@ -9,7 +9,7 @@ export interface MonitorRouteDetail {
   readonly description: string;
   readonly relationId: number;
   readonly referenceType: string;
-  readonly referenceDay: Day;
+  readonly referenceTimestamp: Timestamp;
   readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly deviationCount: number;

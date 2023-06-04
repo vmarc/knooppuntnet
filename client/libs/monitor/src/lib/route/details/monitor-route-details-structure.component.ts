@@ -11,6 +11,7 @@ import { MatTableModule } from '@angular/material/table';
 import { Params } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
+import { TimestampDayPipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
@@ -147,7 +148,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
         </th>
         <td mat-cell *matCellDef="let row">
           <ng-container *ngIf="row.physical">
-            {{ row.referenceDay | day }}
+            {{ row.referenceTimestamp | yyyymmdd }}
           </ng-container>
         </td>
       </ng-container>
@@ -293,6 +294,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
     NgIf,
     OsmLinkRelationComponent,
     RouterLink,
+    TimestampDayPipe,
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {

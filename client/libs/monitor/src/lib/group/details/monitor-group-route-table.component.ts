@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteDetail } from '@api/common/monitor';
+import { TimestampDayPipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
@@ -123,7 +124,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
       <ng-container matColumnDef="reference-day">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          {{ route.referenceDay | day }}
+          {{ route.referenceTimestamp | yyyymmdd }}
         </td>
       </ng-container>
 
@@ -271,6 +272,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
     NgIf,
     OsmLinkRelationComponent,
     RouterLink,
+    TimestampDayPipe,
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {

@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Day } from '@api/custom';
+import { Timestamp } from '@api/custom';
 import { NavService } from '@app/components/shared';
 import { tap } from 'rxjs/operators';
 import { MonitorService } from '../../monitor.service';
@@ -40,7 +40,7 @@ export class MonitorRouteGpxService {
       });
   }
 
-  save(file: File, referenceDay: Day): void {
+  save(file: File, referenceTimestamp: Timestamp): void {
     const groupName = this.state().groupName;
     const routeName = this.state().routeName;
     const routeUrl = `/monitor/groups/${groupName}/routes/${routeName}`;
@@ -50,7 +50,7 @@ export class MonitorRouteGpxService {
         this.state().routeName,
         this.state().subRelationId,
         file,
-        referenceDay
+        referenceTimestamp
       )
       .pipe(tap(() => this.navService.go(routeUrl)))
       .subscribe();

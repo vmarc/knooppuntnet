@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MonitorRouteSaveResult } from '@api/common/monitor';
 import { MonitorRouteProperties } from '@api/common/monitor';
-import { Day } from '@api/custom';
+import { Timestamp } from '@api/custom';
 import { ApiResponse } from '@api/custom';
 import { Observable } from 'rxjs';
 import { MonitorService } from '../monitor.service';
@@ -30,14 +30,14 @@ export class MonitorRouteService {
     name: string,
     relationId: string,
     referenceFile: File,
-    referenceDay: Day
+    referenceTimestamp: Timestamp
   ): Observable<void> {
     return this.monitorService.routeSubRelationGpxUpload(
       groupName,
       name,
       relationId,
       referenceFile,
-      referenceDay
+      referenceTimestamp
     );
   }
 

@@ -1,3 +1,4 @@
+import { Day } from '@api/custom';
 import { Timestamp } from '@api/custom';
 
 export class TimestampUtil {
@@ -54,5 +55,15 @@ export class TimestampUtil {
       return timestamp.substring(17, 19);
     }
     return '';
+  }
+
+  static toTimestamp(date: Date): Day {
+    if (date === null) {
+      return null;
+    }
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const dayPart = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${dayPart}T00:00:00Z`;
   }
 }

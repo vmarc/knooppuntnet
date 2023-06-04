@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
+import { TimestampDayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { PageComponent } from '@app/components/shared/page';
@@ -48,7 +49,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
               title="Reference day"
               i18n-title="@@monitor.route.gpx-delete.reference-day"
             >
-              {{ page.referenceDay | day }}
+              {{ page.referenceTimestamp | yyyymmdd }}
             </kpn-data>
             <kpn-data
               title="Distance"
@@ -106,6 +107,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     RouteSummaryComponent,
     RouterLink,
     SidebarComponent,
+    TimestampDayPipe,
   ],
 })
 export class MonitorRouteGpxDeleteComponent {
