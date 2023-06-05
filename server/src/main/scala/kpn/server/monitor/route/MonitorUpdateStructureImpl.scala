@@ -1,14 +1,16 @@
 package kpn.server.monitor.route
 
-import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.server.monitor.domain.MonitorRoute
+import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorRoute
 import org.springframework.stereotype.Component
 
 @Component
 class MonitorUpdateStructureImpl(
-  monitorRouteRelationRepository: MonitorRouteRelationRepository
+  monitorRouteRelationRepository: MonitorRouteRelationRepository,
+  monitorRouteStructureLoader: MonitorRouteStructureLoader
 ) extends MonitorUpdateStructure {
+
+  private val log = Log(classOf[MonitorUpdateStructureImpl])
 
   def update(context: MonitorUpdateContext): MonitorUpdateContext = {
 
@@ -25,6 +27,10 @@ class MonitorUpdateStructureImpl(
             context
 
           case Some(relationId) =>
+
+            //            val context2 = loadStructure(context, newRoute, relationId)
+            //            println("structure loaded")
+            //            context2
 
             context.oldRoute match {
               case None =>
@@ -45,10 +51,11 @@ class MonitorUpdateStructureImpl(
   }
 
   private def loadStructure(context: MonitorUpdateContext, newRoute: MonitorRoute, relationId: Long): MonitorUpdateContext = {
-    monitorRouteRelationRepository.loadStructure(None, relationId) match {
+    log.info(s"load structure relationId=$relationId")
+    monitorRouteStructureLoader.load(None, relationId) match {
       case None => context // TODO add message in saveResult: "could not load route structure"
-      case Some(relation) =>
-        val monitorRouteRelation = MonitorRouteRelation.from(relation, None)
+      case Some(monitorRouteRelation) =>
+        log.info(s"load structure relationId=$relationId, subrelations=${monitorRouteRelation.relations.size}")
         val singleRoute = monitorRouteRelation.relations.isEmpty
         val updatedRoute = newRoute.copy(
           relation = Some(monitorRouteRelation)

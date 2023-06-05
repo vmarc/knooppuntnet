@@ -7,6 +7,11 @@ object MonitorUpdaterTestSupport extends MockFactory {
 
   def configuration(database: Database): MonitorUpdaterConfiguration = {
     val monitorRouteRelationRepository: MonitorRouteRelationRepository = stub[MonitorRouteRelationRepository]
-    new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
+    val monitorRouteStructureLoader: MonitorRouteStructureLoader = stub[MonitorRouteStructureLoader]
+    new MonitorUpdaterConfiguration(
+      database,
+      monitorRouteRelationRepository,
+      monitorRouteStructureLoader
+    )
   }
 }

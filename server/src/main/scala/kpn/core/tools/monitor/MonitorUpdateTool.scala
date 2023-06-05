@@ -9,6 +9,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.route.MonitorRouteRelationRepository
+import kpn.server.monitor.route.MonitorRouteStructureLoader
 import kpn.server.monitor.route.MonitorUpdaterConfiguration
 
 object MonitorUpdateTool {
@@ -59,7 +60,12 @@ class MonitorUpdateTool(
 ) {
 
   private val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
-  private val configuration = new MonitorUpdaterConfiguration(database, monitorRouteRelationRepository)
+  private val monitorRouteStructureLoader = new MonitorRouteStructureLoader(overpassQueryExecutor)
+  private val configuration = new MonitorUpdaterConfiguration(
+    database,
+    monitorRouteRelationRepository,
+    monitorRouteStructureLoader
+  )
 
   def analyze(): Unit = {
     val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)

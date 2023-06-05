@@ -13,7 +13,6 @@ import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.monitor.MonitorRelationDataBuilder
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
@@ -238,8 +237,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           "name" -> "route-name"
         )
       )
-    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
+    setupRouteStructure(configuration, overpassData, 1)
   }
 
   private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {

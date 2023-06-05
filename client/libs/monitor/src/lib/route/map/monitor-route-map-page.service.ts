@@ -51,6 +51,10 @@ export class MonitorRouteMapPageService {
               let relationId = 0;
               if (page.currentSubRelation) {
                 relationId = page.currentSubRelation.relationId;
+                this._state.update((state) => ({
+                  ...state,
+                  routeDescription: page.currentSubRelation.name,
+                }));
               } else if (page.relationId) {
                 relationId = page.relationId;
               }
@@ -85,6 +89,10 @@ export class MonitorRouteMapPageService {
               let relationId = 0;
               if (page.currentSubRelation) {
                 relationId = page.currentSubRelation.relationId;
+                this._state.update((state) => ({
+                  ...state,
+                  routeDescription: page.currentSubRelation.name,
+                }));
               } else if (page.relationId) {
                 relationId = page.relationId;
               }

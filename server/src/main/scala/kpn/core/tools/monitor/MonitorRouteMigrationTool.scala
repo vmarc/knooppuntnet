@@ -23,6 +23,7 @@ import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import kpn.server.monitor.route.MonitorRouteRelationAnalyzerImpl
 import kpn.server.monitor.route.MonitorRouteRelationRepository
+import kpn.server.monitor.route.MonitorRouteStructureLoader
 import kpn.server.monitor.route.MonitorUpdateAnalyzerImpl
 import kpn.server.monitor.route.MonitorUpdateReferenceImpl
 import kpn.server.monitor.route.MonitorUpdaterImpl
@@ -51,7 +52,8 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
   private val monitorUpdateRoute = new MonitorUpdateRouteImpl(monitorGroupRepository)
   private val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
-  private val monitorUpdateStructure = new MonitorUpdateStructureImpl(monitorRouteRelationRepository)
+  private val monitorRouteStructureLoader = new MonitorRouteStructureLoader(overpassQueryExecutor)
+  private val monitorUpdateStructure = new MonitorUpdateStructureImpl(monitorRouteRelationRepository, monitorRouteStructureLoader)
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
   private val monitorUpdateReference = new MonitorUpdateReferenceImpl(monitorRouteRelationRepository, monitorRouteOsmSegmentAnalyzer)

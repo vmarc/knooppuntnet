@@ -8,9 +8,8 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelation
-import kpn.core.overpass.QueryRelationStructure
 import kpn.core.overpass.QueryRelationTopLevel
-import kpn.server.monitor.MonitorRelationDataBuilder
+import kpn.core.util.Log
 import org.springframework.stereotype.Component
 
 import scala.xml.XML
@@ -20,15 +19,11 @@ class MonitorRouteRelationRepository(
   overpassQueryExecutor: OverpassQueryExecutor,
 ) {
 
+  private val log = Log(classOf[MonitorRouteRelationRepository])
+
   def load(timestamp: Option[Timestamp], relationId: Long): Option[Relation] = {
     val rawData = execute(timestamp, QueryRelation(relationId))
     val data = new DataBuilder(rawData).data
-    data.relations.get(relationId)
-  }
-
-  def loadStructure(timestamp: Option[Timestamp], relationId: Long): Option[Relation] = {
-    val rawData = execute(timestamp, QueryRelationStructure(relationId))
-    val data = new MonitorRelationDataBuilder(rawData).data
     data.relations.get(relationId)
   }
 

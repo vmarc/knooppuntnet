@@ -11,7 +11,6 @@ import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
-import kpn.server.monitor.MonitorRelationDataBuilder
 import kpn.server.monitor.domain.MonitorRoute
 import org.scalatest.BeforeAndAfterEach
 
@@ -26,7 +25,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
     withDatabase() { database =>
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
-      setupLoadStructure(configuration)
+      setupStructureLoader(configuration)
       setupLoadTopLevel(configuration)
 
       val group = newMonitorGroup("group")
@@ -82,7 +81,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
       saveResult should equal(
         MonitorRouteSaveResult(
           errors = Seq(
-            "Could not load relation 1 at 2022-08-01"
+            "Could not load relation 1 at 2022-08-01 00:00:00"
           )
         )
       )
@@ -135,7 +134,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
     }
   }
 
-  private def setupLoadStructure(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupStructureLoader(configuration: MonitorUpdaterConfiguration): Unit = {
 
     val overpassData = OverpassData()
       .relation(
@@ -145,8 +144,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
         ),
       )
 
-    val relation = new MonitorRelationDataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadStructure _).when(None, 1).returns(Some(relation))
+    setupRouteStructure(configuration, overpassData, 1)
   }
 
   private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
