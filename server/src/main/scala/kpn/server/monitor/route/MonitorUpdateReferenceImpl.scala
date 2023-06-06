@@ -5,6 +5,7 @@ import kpn.api.common.Bounds
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.MonitorUtil
@@ -20,6 +21,8 @@ class MonitorUpdateReferenceImpl(
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer
 ) extends MonitorUpdateReference {
+
+  private val log = Log(classOf[MonitorUpdateReferenceImpl])
 
   def update(context: MonitorUpdateContext): MonitorUpdateContext = {
 
@@ -97,6 +100,7 @@ class MonitorUpdateReferenceImpl(
           case Some(route) => resetAnalysis(route)
           case None => resetAnalysis(context.oldRoute.get)
         }
+
         context.copy(
           newRoute = Some(newRoute),
           saveResult = context.saveResult.copy(
@@ -121,6 +125,7 @@ class MonitorUpdateReferenceImpl(
     var context = originalContext
 
     val references = MonitorUtil.subRelationsIn(newRoute).flatMap { monitorRouteSubRelation =>
+      log.info(s"build reference ${monitorRouteSubRelation.relationId} ${monitorRouteSubRelation.name}")
       monitorRouteRelationRepository.loadTopLevel(Some(referenceTimestamp), monitorRouteSubRelation.relationId) match {
         case Some(subRelation) => Some(buildReference(context, newRoute, subRelation))
         case None =>

@@ -1,8 +1,9 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -50,24 +51,30 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
       configuration.monitorRouteRepository.saveRouteState(state)
       configuration.monitorRouteRepository.saveRouteReference(reference)
 
-      val properties = MonitorRouteProperties(
-        groupName = "group2", // <-- changed, but there is no group2
-        name = "route",
-        description = "",
+      val update = MonitorRouteUpdate(
+        action = "update",
+        groupName = "group1",
+        newGroupName = Some("group2"), // <-- changed, but there is no group2
+        routeName = "route",
+        referenceType = "osm",
+        description = Some(""),
         comment = None,
         relationId = Some(1),
-        referenceType = "osm",
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        referenceFilename = None,
-        referenceFileChanged = false,
       )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val saveResult = configuration.monitorUpdater.update("user", "group1", "route", properties)
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
-      saveResult should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find group with name "group2"""")
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
+            exception = Some("""Could not find group with name "group2"""")
+          )
         )
       )
 

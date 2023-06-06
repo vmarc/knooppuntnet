@@ -28,24 +28,25 @@ class MonitorUpdateStructureImpl(
 
           case Some(relationId) =>
 
-            //            val context2 = loadStructure(context, newRoute, relationId)
-            //            println("structure loaded")
-            //            context2
+            log.info("load structure")
+            val context2 = loadStructure(context, newRoute, relationId)
+            log.info("structure loaded")
+            context2
 
-            context.oldRoute match {
-              case None =>
-                // this is a new route: need to read the route structure
-                loadStructure(context, newRoute, relationId)
-
-              case Some(oldRoute) =>
-                if (oldRoute.relationId.contains(relationId)) {
-                  // relationId in the new route is the same as the old one, no need to pick up the structure, we should already know the structure
-                  context
-                }
-                else {
-                  loadStructure(context, newRoute, relationId)
-                }
-            }
+          //            context.oldRoute match {
+          //              case None =>
+          //                // this is a new route: need to read the route structure
+          //                loadStructure(context, newRoute, relationId)
+          //
+          //              case Some(oldRoute) =>
+          //                if (oldRoute.relationId.contains(relationId)) {
+          //                  // relationId in the new route is the same as the old one, no need to pick up the structure, we should already know the structure
+          //                  context
+          //                }
+          //                else {
+          //                  loadStructure(context, newRoute, relationId)
+          //                }
+          //            }
         }
     }
   }

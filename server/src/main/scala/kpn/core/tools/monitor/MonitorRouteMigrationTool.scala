@@ -24,9 +24,9 @@ import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import kpn.server.monitor.route.MonitorRouteRelationAnalyzerImpl
 import kpn.server.monitor.route.MonitorRouteRelationRepository
 import kpn.server.monitor.route.MonitorRouteStructureLoader
+import kpn.server.monitor.route.MonitorRouteUpdaterImpl
 import kpn.server.monitor.route.MonitorUpdateAnalyzerImpl
 import kpn.server.monitor.route.MonitorUpdateReferenceImpl
-import kpn.server.monitor.route.MonitorUpdaterImpl
 import kpn.server.monitor.route.MonitorUpdateRouteImpl
 import kpn.server.monitor.route.MonitorUpdateSaverImpl
 import kpn.server.monitor.route.MonitorUpdateStructureImpl
@@ -68,7 +68,7 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
     monitorRouteRelationAnalyzer
   )
   private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
-  val monitorUpdater = new MonitorUpdaterImpl(
+  val monitorUpdater = new MonitorRouteUpdaterImpl(
     monitorGroupRepository,
     monitorRouteRepository,
     monitorUpdateRoute,

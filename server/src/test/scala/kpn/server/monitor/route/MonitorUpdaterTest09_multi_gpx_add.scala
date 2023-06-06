@@ -2,9 +2,10 @@ package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -17,9 +18,6 @@ import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
 import org.scalatest.BeforeAndAfterEach
-
-import scala.xml.Elem
-import scala.xml.XML
 
 class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
@@ -38,21 +36,29 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val properties = MonitorRouteProperties(
-        group.name,
-        "route-name",
-        "route-description",
-        Some("route-comment"),
-        Some(1),
-        "multi-gpx",
-        referenceTimestamp = None,
-        referenceFilename = None,
-        referenceFileChanged = false,
+      val routeAdd = MonitorRouteUpdate(
+        action = "add",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "multi-gpx",
+        description = Some("route-description"),
+        comment = Some("route-comment"),
+        relationId = Some(1),
       )
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-      val saveResult = configuration.monitorUpdater.add("user", group.name, properties)
-      saveResult should equal(MonitorRouteSaveResult())
+      val routeAddReporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", routeAdd, routeAddReporter)
+
+      routeAddReporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy"),
+            )
+          )
+        )
+      )
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -138,7 +144,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteRepository.routeState(route._id, 11) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 12) should equal(None)
 
-      val xml1 = XML.loadString(
+      val gpx1 =
         """
           |<gpx>
           |  <trk>
@@ -149,24 +155,32 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           |  </trk>
           |</gpx>
           |""".stripMargin
-      )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val uploadSaveResult1 = configuration.monitorUpdater.upload(
-        "user",
-        group.name,
-        route.name,
-        Some(11),
-        Timestamp(2022, 8, 1),
-        "filename-1",
-        xml1
+      val uploadGpx1 = MonitorRouteUpdate(
+        action = "gpx-upload",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "multi-gpx",
+        relationId = Some(1),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1, 0, 0, 0)),
+        referenceFilename = Some("filename-1"),
+        referenceGpx = Some(gpx1)
       )
 
-      uploadSaveResult1 should equal(
-        MonitorRouteSaveResult(
-          analyzed = true
+      val uploadGpxReporter1 = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", uploadGpx1, uploadGpxReporter1)
+
+      uploadGpxReporter1.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy"),
+            )
+          )
         )
       )
+
 
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated1.shouldMatchTo(
@@ -233,7 +247,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
       configuration.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
 
-      val xml2: Elem = XML.loadString(
+      val gpx2 =
         """
           |<gpx>
           |  <trk>
@@ -244,22 +258,30 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           |  </trk>
           |</gpx>
           |""".stripMargin
-      )
 
       Time.set(Timestamp(2022, 8, 13, 12, 0, 0))
-      val uploadSaveResult2 = configuration.monitorUpdater.upload(
-        "user",
-        group.name,
-        route.name,
-        Some(12),
-        Timestamp(2022, 8, 2),
-        "filename-2",
-        xml2
+
+      val uploadGpx2 = MonitorRouteUpdate(
+        action = "gpx-upload",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "multi-gpx",
+        relationId = Some(12),
+        referenceTimestamp = Some(Timestamp(2022, 8, 2, 0, 0, 0)),
+        referenceFilename = Some("filename-2"),
+        referenceGpx = Some(gpx2)
       )
 
-      uploadSaveResult2 should equal(
-        MonitorRouteSaveResult(
-          analyzed = true
+      val uploadGpxReporter2 = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", uploadGpx2, uploadGpxReporter2)
+
+      uploadGpxReporter2.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy"),
+            )
+          )
         )
       )
 

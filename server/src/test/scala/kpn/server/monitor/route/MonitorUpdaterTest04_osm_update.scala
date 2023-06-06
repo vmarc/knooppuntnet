@@ -1,9 +1,10 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -63,25 +64,34 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
       configuration.monitorRouteRepository.saveRouteReference(reference)
       configuration.monitorRouteRepository.saveRouteState(state)
 
-      val properties = MonitorRouteProperties(
-        group.name,
-        "route",
-        "route",
-        None,
-        Some(1),
-        "osm",
-        Some(Timestamp(2022, 8, 1)),
-        None,
-        referenceFileChanged = false,
+      val update = MonitorRouteUpdate(
+        action = "update",
+        groupName = group.name,
+        routeName = "route",
+        referenceType = "osm",
+        description = Some("route description"),
+        relationId = Some(1),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
       )
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-      val saveResult = configuration.monitorUpdater.update("user", group.name, route.name, properties)
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
-      saveResult should equal(
-        MonitorRouteSaveResult(
-          errors = Seq(
-            "Could not load relation 1 at 2022-08-01 00:00:00"
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            )
+          ),
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
+            errors = Seq(
+              "Could not load relation 1 at 2022-08-01 00:00:00"
+            )
           )
         )
       )
@@ -92,7 +102,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
           _id = route._id,
           groupId = group._id,
           name = "route",
-          description = "route",
+          description = "route description",
           comment = None,
           relationId = Some(1),
           user = "user",

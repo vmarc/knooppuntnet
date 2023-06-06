@@ -1,7 +1,7 @@
 package kpn.server.monitor.route
 
-import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteUpdate
 
 trait MonitorUpdateRoute {
-  def update(context: MonitorUpdateContext, user: String, properties: MonitorRouteProperties): MonitorUpdateContext
+  def update(context: MonitorUpdateContext, user: String, update: MonitorRouteUpdate): MonitorUpdateContext
 }

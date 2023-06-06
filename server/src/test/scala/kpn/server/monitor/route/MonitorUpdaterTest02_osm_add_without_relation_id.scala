@@ -2,10 +2,9 @@ package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -35,22 +34,21 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val properties = MonitorRouteProperties(
-        group.name,
-        "route-name",
-        "",
-        None,
-        None, // no relationId
-        "osm",
-        Some(Timestamp(2022, 8, 1)),
-        None,
-        referenceFileChanged = false,
+      val update = MonitorRouteUpdate(
+        action = "add",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "osm",
+        description = Some(""),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
       )
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
 
-      val saveResult = configuration.monitorUpdater.add("user", group.name, properties)
-      saveResult should equal(MonitorRouteSaveResult())
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
+
+      // TODO replace: saveResult should equal(MonitorRouteSaveResult())
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -84,18 +82,21 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
       setupLoadStructure(configuration)
       setupLoadTopLevel(configuration)
 
-      val updatedProperties = properties.copy(
+      val updatedUpdate = update.copy(
+        action = "update",
         relationId = Some(1)
       )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
 
-      val updateSaveResult = configuration.monitorUpdater.update("user", group.name, route.name, updatedProperties)
-      updateSaveResult should equal(
-        MonitorRouteSaveResult(
-          analyzed = true,
-        )
-      )
+      val reporter2 = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", updatedUpdate, reporter2)
+
+      //      updateSaveResult should equal (
+      //        MonitorRouteSaveResult(
+      //          analyzed = true,
+      //        )
+      //        )
 
       configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
         Some(

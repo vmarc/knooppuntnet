@@ -36,7 +36,7 @@ import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
-import kpn.server.monitor.route.MonitorUpdater
+import kpn.server.monitor.route.MonitorRouteUpdater
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 
@@ -58,7 +58,7 @@ class MonitorFacadeImpl(
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdater: MonitorUpdater
+  monitorUpdater: MonitorRouteUpdater
 ) extends MonitorFacade {
 
   override def changes(parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage] = {
@@ -207,7 +207,7 @@ class MonitorFacadeImpl(
       assertAdminUser(RequestContext.user)
       reply(
         Some(
-          monitorUpdater.update(RequestContext.user.get, groupName, routeName, properties)
+          monitorUpdater.oldUpdate(RequestContext.user.get, groupName, routeName, properties)
         )
       )
     }

@@ -1,8 +1,9 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -48,22 +49,29 @@ class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAnd
       configuration.monitorRouteRepository.saveRouteReference(reference)
       configuration.monitorRouteRepository.saveRouteState(state)
 
-      val properties = MonitorRouteProperties(
+      val update = MonitorRouteUpdate(
+        action = "update",
         groupName = group.name,
-        name = "route",
-        description = "",
-        comment = None,
+        routeName = "route",
+        description = Some(""),
         relationId = Some(1),
         referenceType = "osm",
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        referenceFilename = None,
-        referenceFileChanged = false,
       )
 
       Time.set(Timestamp(2023, 1, 1))
-      val saveResult = configuration.monitorUpdater.update("user", "group", "route", properties)
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
-      saveResult should equal(MonitorRouteSaveResult())
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            )
+          )
+        )
+      )
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get

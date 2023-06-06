@@ -32,7 +32,7 @@ class MonitorUpdaterConfiguration(
     monitorRouteRelationAnalyzer
   )
   private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
-  val monitorUpdater = new MonitorUpdaterImpl(
+  val monitorUpdater = new MonitorRouteUpdaterImpl(
     monitorGroupRepository,
     monitorRouteRepository,
     monitorUpdateRoute,

@@ -2,10 +2,11 @@ package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -19,8 +20,6 @@ import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
-
-import scala.xml.XML
 
 class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
@@ -39,21 +38,46 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val properties = MonitorRouteProperties(
-        group.name,
-        "route-name",
-        "route-description",
-        Some("route-comment"),
-        Some(1),
-        "gpx",
-        referenceTimestamp = Some(Timestamp(2022, 8, 1)), // <-- filled in already, but not used yet during "add"
-        referenceFilename = Some("filename"), // <-- filled in already, but not used yet during "add"
-        referenceFileChanged = false,
+      val gpx =
+        """
+          |<gpx>
+          |  <trk>
+          |    <trkseg>
+          |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
+          |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
+          |    </trkseg>
+          |  </trk>
+          |</gpx>
+          |""".stripMargin
+
+      val update = MonitorRouteUpdate(
+        action = "add",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "gpx",
+        description = Some("route-description"),
+        comment = Some("route-comment"),
+        relationId = Some(1),
+        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+        referenceFilename = Some("filename"),
+        referenceGpx = Some(gpx)
       )
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-      val addSaveResult = configuration.monitorUpdater.add("user", group.name, properties)
-      addSaveResult should equal(MonitorRouteSaveResult())
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
+
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy"),
+              MonitorRouteUpdateStep("upload", "todo"),
+              MonitorRouteUpdateStep("analyze", "todo")
+            )
+          ),
+        )
+      )
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -69,117 +93,44 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
-          referenceDistance = 0,
+          referenceDistance = 196,
           deviationDistance = 0,
           deviationCount = 0,
-          osmWayCount = 0,
-          osmDistance = 0,
-          osmSegmentCount = 0,
-          happy = false,
-          osmSegments = Seq.empty,
+          osmWayCount = 1,
+          osmDistance = 196,
+          osmSegmentCount = 1,
+          osmSegments = Seq(
+            MonitorRouteOsmSegment(
+              Seq(
+                MonitorRouteOsmSegmentElement(
+                  relationId = 1,
+                  segmentId = 1,
+                  meters = 196,
+                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                  reversed = false
+                )
+              )
+            )
+          ),
           relation = Some(
             MonitorRouteRelation(
               relationId = 1,
               name = "route-name",
               role = None,
               survey = None,
-
-              /*
-                No reference information: gpx not uploaded yet
-               */
-              referenceTimestamp = None,
-              referenceFilename = None,
-              referenceDistance = 0,
-
+              referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+              referenceFilename = Some("filename"),
+              referenceDistance = 196,
               deviationDistance = 0,
               deviationCount = 0,
-              osmWayCount = 0,
-              osmDistance = 0,
-              osmSegmentCount = 0,
-              happy = false,
+              osmWayCount = 1,
+              osmDistance = 196,
+              osmSegmentCount = 1,
+              happy = true,
               relations = Seq.empty
             )
-          )
-        )
-      )
-
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
-
-      val xml1 = XML.loadString(
-        """
-          |<gpx>
-          |  <trk>
-          |    <trkseg>
-          |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
-          |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
-          |    </trkseg>
-          |  </trk>
-          |</gpx>
-          |""".stripMargin
-      )
-
-      Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val uploadSaveResult = configuration.monitorUpdater.upload(
-        "user2",
-        group.name,
-        route.name,
-        Some(1),
-        Timestamp(2022, 8, 1),
-        "filename",
-        xml1
-      )
-
-      uploadSaveResult should equal(
-        MonitorRouteSaveResult(
-          analyzed = true
-        )
-      )
-
-      configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
-        Some(
-          route.copy(
-            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-            referenceFilename = Some("filename"),
-            referenceDistance = 196,
-            deviationDistance = 0,
-            deviationCount = 0,
-            osmWayCount = 1,
-            osmDistance = 196,
-            osmSegmentCount = 1,
-            osmSegments = Seq(
-              MonitorRouteOsmSegment(
-                Seq(
-                  MonitorRouteOsmSegmentElement(
-                    relationId = 1,
-                    segmentId = 1,
-                    meters = 196,
-                    bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-                    reversed = false
-                  )
-                )
-              )
-            ),
-            relation = Some(
-              MonitorRouteRelation(
-                relationId = 1,
-                name = "route-name",
-                role = None,
-                survey = None,
-                referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-                referenceFilename = Some("filename"),
-                referenceDistance = 196,
-                deviationDistance = 0,
-                deviationCount = 0,
-                osmWayCount = 1,
-                osmDistance = 196,
-                osmSegmentCount = 1,
-                happy = true,
-                relations = Seq.empty
-              )
-            ),
-            happy = true
-          )
+          ),
+          happy = true
         )
       )
 

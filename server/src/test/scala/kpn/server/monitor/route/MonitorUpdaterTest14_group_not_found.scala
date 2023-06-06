@@ -1,8 +1,9 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -16,44 +17,27 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
-      val properties = MonitorRouteProperties(
+      val update = MonitorRouteUpdate(
+        action = "add",
         groupName = "unknown-group",
-        name = "route-name",
-        description = "description",
+        routeName = "route-name",
+        referenceType = "osm",
+        description = Some("description"),
         comment = Some("comment"),
         relationId = Some(1),
-        referenceType = "osm",
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        referenceFileChanged = false,
-        referenceFilename = None
       )
 
-      val saveResult1 = configuration.monitorUpdater.add("user", "unknown-group", properties)
-      saveResult1 should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find group with name "unknown-group"""")
-        )
-      )
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
-      val saveResult2 = configuration.monitorUpdater.update("user", "unknown-group", "route-name", properties)
-      saveResult2 should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find group with name "unknown-group"""")
-        )
-      )
-
-      val saveResult3 = configuration.monitorUpdater.upload(
-        "user",
-        "unknown-group",
-        "route-name",
-        Some(1),
-        Timestamp(2022, 8, 11),
-        "filename",
-        null
-      )
-      saveResult3 should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find group with name "unknown-group""""
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
+            exception = Some("""Could not find group with name "unknown-group"""")
           )
         )
       )

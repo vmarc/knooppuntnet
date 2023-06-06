@@ -3,10 +3,11 @@ package kpn.server.monitor.route
 import kpn.api.base.ObjectId
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -110,21 +111,32 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
       configuration.monitorRouteRepository.saveRouteState(state)
       configuration.monitorRouteRepository.saveRouteReference(reference)
 
-      val properties = MonitorRouteProperties(
+      val update = MonitorRouteUpdate(
+        action = "update",
         groupName = group.name,
-        name = "route-name-changed", // <-- changed
-        description = "description-changed", // <-- changed
+        routeName = "route-name",
+        referenceType = "osm",
+        description = Some("description-changed"), // <-- changed
         comment = Some("comment-changed"), // <-- changed
         relationId = Some(1),
-        referenceType = "osm",
         referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-        referenceFileChanged = false,
-        referenceFilename = None
+        newRouteName = Some("route-name-changed") // <-- changed
       )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
-      val saveResult = configuration.monitorUpdater.update("user2", group.name, route.name, properties)
-      saveResult should equal(MonitorRouteSaveResult()) // not analyzed, no errors
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user2", update, reporter)
+
+      // not analyzed, no errors
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            )
+          )
+        )
+      )
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name-changed").get
       val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get

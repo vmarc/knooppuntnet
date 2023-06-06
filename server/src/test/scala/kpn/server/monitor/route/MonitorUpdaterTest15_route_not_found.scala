@@ -1,8 +1,10 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStep
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -15,31 +17,31 @@ class MonitorUpdaterTest15_route_not_found extends UnitTest with SharedTestObjec
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
-      val properties = MonitorRouteProperties(
+      val update = MonitorRouteUpdate(
+        action = "update",
         groupName = "group-name",
-        name = "route-name",
-        description = "description",
+        routeName = "unknown-route-name",
+        description = Some("description"),
         comment = Some("comment"),
         relationId = Some(1),
         referenceType = "osm",
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        referenceFileChanged = false,
-        referenceFilename = None
       )
 
       val group = newMonitorGroup("group-name")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val saveResult1 = configuration.monitorUpdater.update(
-        "user",
-        "group-name",
-        "unknown-route-name",
-        properties
-      )
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
-      saveResult1 should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
+      reporter.statusses.shouldMatchTo(
+        Seq(
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
+            exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
+          )
         )
       )
 

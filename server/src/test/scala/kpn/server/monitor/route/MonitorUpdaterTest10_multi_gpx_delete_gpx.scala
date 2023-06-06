@@ -1,6 +1,7 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -117,7 +118,18 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       configuration.monitorRouteRepository.saveRouteState(state111)
       configuration.monitorRouteRepository.saveRouteState(state112)
 
-      configuration.monitorUpdater.resetSubRelationGpxReference(group.name, route.name, 111)
+
+      val update = MonitorRouteUpdate(
+        action = "gpx-delete",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "multi-gpx",
+        relationId = Some(111),
+      )
+
+      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       val subrelation111 = updatedRoute.relation.get.relations.head.relations.head

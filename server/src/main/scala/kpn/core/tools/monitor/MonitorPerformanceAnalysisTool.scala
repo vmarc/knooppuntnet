@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor
 
-import kpn.api.common.monitor.MonitorRouteProperties
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.base.Database
@@ -8,6 +8,7 @@ import kpn.database.util.Mongo
 import kpn.server.monitor.route.MonitorRouteRelationRepository
 import kpn.server.monitor.route.MonitorRouteStructureLoader
 import kpn.server.monitor.route.MonitorUpdaterConfiguration
+import kpn.server.monitor.route.MonitorUpdateReporterLogger
 
 object MonitorPerformanceAnalysisTool {
   def main(args: Array[String]): Unit = {
@@ -30,27 +31,16 @@ class MonitorPerformanceAnalysisTool(database: Database) {
   )
 
   def update(): Unit = {
-    configuration.monitorUpdater.update("user", "AAA", "E2", MonitorRouteProperties(
+    val reporter = new MonitorUpdateReporterLogger()
+    val update = MonitorRouteUpdate(
+      action = "update",
       groupName = "AAA",
-      name = "E2",
-      description = "",
-      None,
-      relationId = Some(1254604),
+      routeName = "E2",
       referenceType = "osm",
-      referenceTimestamp = Some(Timestamp(2023, 6, 2)),
-      referenceFilename = None,
-      referenceFileChanged = false
-    ))
-  }
-
-  def analyze(): Unit = {
-    configuration.monitorGroupRepository.groupByName("AAA") match {
-      case None => println("group not found")
-      case Some(group) =>
-        configuration.monitorRouteRepository.routeByName(group._id, "G9") match {
-          case None => println("route not found")
-          case Some(route) => configuration.monitorUpdater.analyzeAll(group, route._id)
-        }
-    }
+      description = Some(""),
+      relationId = Some(1254604),
+      referenceTimestamp = Some(Timestamp(2023, 5, 25)),
+    )
+    configuration.monitorUpdater.update("user", update, reporter)
   }
 }

@@ -2,9 +2,9 @@ package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -38,20 +38,21 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val properties = MonitorRouteProperties(
-        group.name,
-        "route-name",
-        "route-description",
-        Some("route-comment"),
-        Some(1),
-        "osm",
-        Some(referenceTimestamp),
-        None,
-        referenceFileChanged = false,
+      val update = MonitorRouteUpdate(
+        action = "add",
+        groupName = group.name,
+        routeName = "route-name",
+        referenceType = "osm",
+        description = Some("route-description"),
+        comment = Some("route-comment"),
+        relationId = Some(1),
+        referenceTimestamp = Some(referenceTimestamp),
       )
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-      configuration.monitorUpdater.add("user", group.name, properties)
+
+      val reporter = new MonitorUpdateReporterMock()
+      configuration.monitorUpdater.update("user", update, reporter)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
