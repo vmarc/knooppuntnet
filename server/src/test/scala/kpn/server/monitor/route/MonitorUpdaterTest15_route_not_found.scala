@@ -1,7 +1,6 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.api.common.monitor.MonitorRouteUpdateStep
@@ -40,24 +39,13 @@ class MonitorUpdaterTest15_route_not_found extends UnitTest with SharedTestObjec
             steps = Seq(
               MonitorRouteUpdateStep("definition", "busy")
             ),
+          ),
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
             exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
           )
-        )
-      )
-
-      val saveResult2 = configuration.monitorUpdater.upload(
-        "user",
-        "group-name",
-        "unknown-route-name",
-        Some(1),
-        Timestamp(2022, 8, 11),
-        "filename",
-        null
-      )
-
-      saveResult2 should equal(
-        MonitorRouteSaveResult(
-          exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
         )
       )
     }

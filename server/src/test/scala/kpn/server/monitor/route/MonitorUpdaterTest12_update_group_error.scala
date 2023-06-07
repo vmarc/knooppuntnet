@@ -73,6 +73,11 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
             steps = Seq(
               MonitorRouteUpdateStep("definition", "busy")
             ),
+          ),
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
             exception = Some("""Could not find group with name "group2"""")
           )
         )

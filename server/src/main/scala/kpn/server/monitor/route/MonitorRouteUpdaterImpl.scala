@@ -37,11 +37,13 @@ class MonitorRouteUpdaterImpl(
     update: MonitorRouteUpdate,
     reporter: MonitorUpdateReporter
   ): Unit = {
-    Log.context(Seq("route-save", s"group=${update.groupName}", s"route=${update.routeName}")) {
+    Log.context(Seq("route-update", s"group=${update.groupName}", s"route=${update.routeName}")) {
       var context = MonitorUpdateContext(
         user,
         reporter,
-        update.referenceType
+        update.referenceType,
+        update.referenceFilename,
+        update.referenceGpx
       )
       try {
         if (update.action == "add") {

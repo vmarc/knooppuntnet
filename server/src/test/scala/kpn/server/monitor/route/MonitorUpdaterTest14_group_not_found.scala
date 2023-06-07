@@ -37,6 +37,11 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
             steps = Seq(
               MonitorRouteUpdateStep("definition", "busy")
             ),
+          ),
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
             exception = Some("""Could not find group with name "unknown-group"""")
           )
         )

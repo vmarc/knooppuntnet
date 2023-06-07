@@ -51,6 +51,11 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
             steps = Seq(
               MonitorRouteUpdateStep("definition", "busy")
             ),
+          ),
+          MonitorRouteUpdateStatus(
+            steps = Seq(
+              MonitorRouteUpdateStep("definition", "busy")
+            ),
             exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")
           )
         )

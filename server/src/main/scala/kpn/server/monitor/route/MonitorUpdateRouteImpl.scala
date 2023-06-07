@@ -27,7 +27,7 @@ class MonitorUpdateRouteImpl(
             newRoute = Some(
               oldRoute.copy(
                 groupId = groupId,
-                name = update.routeName,
+                name = update.newRouteName.getOrElse(oldRoute.name),
                 description = update.description.get, // TODO make more safe!!
                 comment = update.comment,
                 relationId = update.relationId,
@@ -76,9 +76,9 @@ class MonitorUpdateRouteImpl(
   }
 
   private def isRouteChanged(oldRoute: MonitorRoute, update: MonitorRouteUpdate, groupId: ObjectId): Boolean = {
-    oldRoute.groupId != groupId ||
-      oldRoute.name != update.newRouteName ||
-      oldRoute.description != update.description ||
+    update.newRouteName.nonEmpty ||
+      oldRoute.groupId != groupId ||
+      !update.description.contains(oldRoute.description) ||
       oldRoute.comment != update.comment ||
       oldRoute.relationId != update.relationId ||
       oldRoute.referenceType != update.referenceType ||
@@ -87,17 +87,16 @@ class MonitorUpdateRouteImpl(
   }
 
   private def determineGroupId(context: MonitorUpdateContext, update: MonitorRouteUpdate): ObjectId = {
-    if (context.group.get.name != update.groupName) {
-      monitorGroupRepository.groupByName(update.groupName).map(_._id) match {
-        case Some(id) => id
-        case None =>
-          throw new IllegalArgumentException(
-            s"""Could not find group with name "${update.groupName}""""
-          )
-      }
-    }
-    else {
-      context.group.get._id
+    update.newGroupName match {
+      case None => context.group.get._id
+      case Some(newGroupName) =>
+        monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
+          case Some(id) => id
+          case None =>
+            throw new IllegalArgumentException(
+              s"""Could not find group with name "${newGroupName}""""
+            )
+        }
     }
   }
 }

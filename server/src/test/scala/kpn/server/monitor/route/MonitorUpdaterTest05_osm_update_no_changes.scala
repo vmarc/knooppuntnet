@@ -22,6 +22,8 @@ class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAnd
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
+      Time.set(Timestamp(2023, 1, 1))
+
       val group = newMonitorGroup("group")
       val route = newMonitorRoute(
         group._id,
@@ -59,7 +61,7 @@ class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAnd
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
       )
 
-      Time.set(Timestamp(2023, 1, 1))
+      Time.set(Timestamp(2023, 1, 2))
       val reporter = new MonitorUpdateReporterMock()
       configuration.monitorUpdater.update("user", update, reporter)
 

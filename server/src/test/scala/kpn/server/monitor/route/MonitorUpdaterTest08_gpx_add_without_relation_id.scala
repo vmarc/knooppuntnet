@@ -92,7 +92,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
-          referenceDistance = 0,
+          referenceDistance = 196,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 0,
@@ -134,6 +134,9 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
         Some(
           route.copy(
+            relationId = Some(1),
+            user = "user2",
+            timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             referenceFilename = Some("filename"),
             referenceDistance = 196,

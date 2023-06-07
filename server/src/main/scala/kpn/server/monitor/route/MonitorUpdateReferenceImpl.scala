@@ -5,9 +5,13 @@ import kpn.api.common.Bounds
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -15,6 +19,8 @@ import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
+
+import scala.xml.XML
 
 @Component
 class MonitorUpdateReferenceImpl(
@@ -36,6 +42,50 @@ class MonitorUpdateReferenceImpl(
             // a new route is added, if reference type "osm": update reference
             if (newRoute.referenceType == "osm") {
               updateReferences(context, newRoute)
+            }
+            else if (newRoute.referenceType == "gpx") {
+              context.referenceGpx match {
+                case None => context
+                case Some(referenceGpx) =>
+
+                  val referenceTimestamp = newRoute.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
+
+                  val now = Time.now
+                  val xml = XML.loadString(referenceGpx)
+                  val geometryCollection = new MonitorRouteGpxReader().read(xml)
+                  val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
+                  val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+
+                  // TODO should delete already existing reference here?
+
+                  val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+                  val distance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
+                  val segmentCount = geometryCollection.getNumGeometries
+
+                  val reference = MonitorRouteReference(
+                    ObjectId(),
+                    routeId = context.routeId,
+                    relationId = context.relationId,
+                    timestamp = now,
+                    user = context.user,
+                    bounds = bounds,
+                    referenceType = "gpx",
+                    referenceTimestamp = referenceTimestamp,
+                    distance = distance,
+                    segmentCount = segmentCount,
+                    filename = context.referenceFilename,
+                    geoJson = geoJson
+                  )
+
+                  val updatedNewRoute = newRoute.copy(
+                    referenceDistance = distance
+                  )
+
+                  context.copy(
+                    newReferences = context.newReferences :+ reference,
+                    newRoute = Some(updatedNewRoute)
+                  )
+              }
             }
             else {
               // nothing to do if not reference type "osm"

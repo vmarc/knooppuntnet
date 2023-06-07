@@ -12,6 +12,8 @@ case class MonitorUpdateContext(
   user: String,
   reporter: MonitorUpdateReporter,
   referenceType: String,
+  referenceFilename: Option[String],
+  referenceGpx: Option[String],
   status: MonitorRouteUpdateStatus = MonitorRouteUpdateStatus(),
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
@@ -22,7 +24,7 @@ case class MonitorUpdateContext(
   newReferences: Seq[MonitorRouteReference] = Seq.empty,
   oldStates: Seq[MonitorRouteState] = Seq.empty,
   newStates: Seq[MonitorRouteState] = Seq.empty,
-  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult() // TODO should eliminate saveResult in favor of using reporter
+  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult(), // TODO should eliminate saveResult in favor of using reporter
 ) {
 
   def withStatus(newStatus: MonitorRouteUpdateStatus): MonitorUpdateContext = {
@@ -37,6 +39,17 @@ case class MonitorUpdateContext(
         newRoute match {
           case Some(route) => route._id
           case None => throw new RuntimeException("could not determine routeId")
+        }
+    }
+  }
+
+  def relationId: Option[Long] = {
+    oldRoute match {
+      case Some(route) => route.relationId
+      case None =>
+        newRoute match {
+          case Some(route) => route.relationId
+          case None => throw new RuntimeException("could not determine relationId")
         }
     }
   }
