@@ -39,7 +39,7 @@ class MonitorPerformanceAnalysisTool(database: Database) {
       referenceType = "osm",
       description = Some(""),
       relationId = Some(1254604),
-      referenceTimestamp = Some(Timestamp(2023, 5, 25)),
+      referenceTimestamp = Some(Timestamp(2023, 6, 1)),
     )
     configuration.monitorUpdater.update("user", update, reporter)
   }

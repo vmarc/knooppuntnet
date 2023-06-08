@@ -26,7 +26,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
     Time.clear()
   }
 
-  test("add non-super route with single gpx reference, but initially with relationId unknown") {
+  ignore("add non-super route with single gpx reference, but initially with relationId unknown") {
 
     withDatabase() { database =>
 

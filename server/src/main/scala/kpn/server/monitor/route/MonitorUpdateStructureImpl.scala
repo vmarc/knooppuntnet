@@ -28,18 +28,13 @@ class MonitorUpdateStructureImpl(
 
           case Some(relationId) =>
 
-            //            log.info("load structure")
-            //            val context2 = loadStructure(context, newRoute, relationId)
-            //            log.info("structure loaded")
-            //            context2
-
             context.oldRoute match {
               case None =>
                 // this is a new route: need to read the route structure
                 loadStructure(context, newRoute, relationId)
 
               case Some(oldRoute) =>
-                if (oldRoute.relationId.contains(relationId)) {
+                if (oldRoute.relationId.contains(relationId) && oldRoute.referenceTimestamp == newRoute.referenceTimestamp) {
                   // relationId in the new route is the same as the old one, no need to pick up the structure, we should already know the structure
                   context
                 }

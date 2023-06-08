@@ -14,18 +14,18 @@ class MonitorUpdateSaverImpl(
 
     var context: MonitorUpdateContext = originalContext
 
-    if (context.removeOldReferences) {
-      monitorRouteRepository.deleteRouteReferences(context.routeId)
-      monitorRouteRepository.deleteRouteStates(context.routeId)
-    }
+    //    if (context.removeOldReferences) {
+    //      monitorRouteRepository.deleteRouteReferences(context.routeId)
+    //      monitorRouteRepository.deleteRouteStates(context.routeId)
+    //    }
 
-    context.newReferences.foreach { routeRelationReference =>
-      monitorRouteRepository.saveRouteReference(routeRelationReference)
-    }
+    //    context.newReferences.foreach { routeRelationReference =>
+    //      monitorRouteRepository.saveRouteReference(routeRelationReference)
+    //    }
 
-    context.newStates.foreach { state =>
-      monitorRouteRepository.saveRouteState(state)
-    }
+    //    context.newStates.foreach { state =>
+    //      monitorRouteRepository.saveRouteState(state)
+    //    }
 
     if (context.newReferences.nonEmpty) {
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {

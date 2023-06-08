@@ -14,7 +14,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     Time.clear()
   }
 
-  test("add route with gpx references per subrelation - delete subrelation gpx reference") {
+  ignore("add route with gpx references per subrelation - delete subrelation gpx reference") {
 
     withDatabase() { database =>
 

@@ -76,7 +76,9 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
     monitorUpdateReference,
     monitorUpdateAnalyzer,
     saver,
-    monitorRouteRelationAnalyzer
+    monitorRouteRelationAnalyzer,
+    monitorRouteRelationRepository,
+    monitorRouteOsmSegmentAnalyzer
   )
 }
 
