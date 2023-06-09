@@ -68,7 +68,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           referenceType = "osm",
           referenceTimestamp = Some(referenceTimestamp),
           referenceFilename = None,
-          referenceDistance = 335,
+          referenceDistance = 0,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 2,
@@ -284,6 +284,16 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
       .way(101, 1001, 1002)
       .way(102, 1002, 1003)
       .relation(
+        1,
+        tags = Tags.from(
+          "name" -> "main-relation"
+        ),
+        members = Seq(
+          newMember("relation", 11),
+          newMember("relation", 12),
+        )
+      )
+      .relation(
         11,
         tags = Tags.from(
           "name" -> "sub-relation-1"
@@ -303,12 +313,15 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
       )
 
     val data = new DataBuilder(overpassData.rawData).data
+    val mainRelation = data.relations(1)
     val subRelation1 = data.relations(11)
     val subRelation2 = data.relations(12)
 
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(referenceTimestamp), 1).returns(Some(mainRelation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(referenceTimestamp), 11).returns(Some(subRelation1))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(referenceTimestamp), 12).returns(Some(subRelation2))
 
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(mainRelation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
   }

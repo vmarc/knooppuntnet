@@ -170,45 +170,60 @@ class MonitorRouteUpdaterImpl(
     log.info(s"${monitorRouteRelation.name}    $subs")
     val referenceOption = log.infoElapsed {
 
-      val rrr = monitorRouteRelationRepository.loadTopLevel(referenceTimestamp, monitorRouteRelation.relationId).map { subRelation =>
-        val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
-        val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
-        val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
-
-        val geomFactory = new GeometryFactory
-        val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
-        val geoJsonWriter = new GeoJsonWriter()
-        geoJsonWriter.setEncodeCRS(false)
-        val geometry = geoJsonWriter.write(geometryCollection)
-
-        val ref = MonitorRouteReference(
-          ObjectId(),
-          context.newRoute.get._id,
-          Some(subRelation.id),
-          Time.now,
-          context.user,
-          bounds,
-          "osm",
-          context.newRoute.get.referenceTimestamp.get,
-          analysis.osmDistance,
-          analysis.routeSegments.size,
-          None,
-          geometry
-        )
-
-        monitorRouteRepository.saveRouteReference(ref)
-
-        if (updateSingleRelationRoute) {
-          context = context.copy(
-            newRoute = Some(
-              context.newRoute.get.copy(
-                referenceDistance = ref.distance
-              )
-            )
+      val rrr = monitorRouteRelationRepository.loadTopLevel(referenceTimestamp, monitorRouteRelation.relationId) match {
+        case None =>
+          val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.map(_.yyyymmddhhmmss).getOrElse(Time.now.yyyymmddhhmmss)}"
+          context.withStatus(
+            context.status.copy(errors = context.status.errors :+ error)
           )
-        }
+          monitorRouteRepository.deleteRouteReference(context.routeId, monitorRouteRelation.relationId)
+          monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
+          None
 
-        ref
+        case Some(subRelation) =>
+          val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
+          if (wayMembers.isEmpty) {
+            None
+          }
+          else {
+            val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
+            val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+
+            val geomFactory = new GeometryFactory
+            val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
+            val geoJsonWriter = new GeoJsonWriter()
+            geoJsonWriter.setEncodeCRS(false)
+            val geometry = geoJsonWriter.write(geometryCollection)
+
+            val ref = MonitorRouteReference(
+              ObjectId(),
+              context.newRoute.get._id,
+              Some(subRelation.id),
+              Time.now,
+              context.user,
+              bounds,
+              "osm",
+              context.newRoute.get.referenceTimestamp.get,
+              analysis.osmDistance,
+              analysis.routeSegments.size,
+              None,
+              geometry
+            )
+
+            monitorRouteRepository.saveRouteReference(ref)
+
+            if (updateSingleRelationRoute) {
+              context = context.copy(
+                newRoute = Some(
+                  context.newRoute.get.copy(
+                    referenceDistance = ref.distance
+                  )
+                )
+              )
+            }
+
+            Some(ref)
+          }
       }
       ("build reference", rrr)
     }
