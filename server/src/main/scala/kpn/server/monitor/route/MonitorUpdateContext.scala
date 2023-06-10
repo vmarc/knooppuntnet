@@ -2,6 +2,7 @@ package kpn.server.monitor.route
 
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteSaveResult
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -9,6 +10,7 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
+  update: MonitorRouteUpdate,
   user: String,
   reporter: MonitorUpdateReporter,
   referenceType: String,
@@ -61,6 +63,43 @@ case class MonitorUpdateContext(
         oldRoute match {
           case Some(route) => route
           case None => throw new RuntimeException("could not determine route")
+        }
+    }
+  }
+
+  def isRouteChanged(): Boolean = {
+    oldRoute match {
+      case None => false
+      case Some(route) =>
+        update.newGroupName.nonEmpty ||
+          update.newRouteName.nonEmpty ||
+          !update.description.contains(route.description) ||
+          route.comment != update.comment ||
+          route.relationId != update.relationId ||
+          route.referenceType != update.referenceType ||
+          route.referenceTimestamp != update.referenceTimestamp ||
+          route.referenceFilename != update.referenceFilename
+    }
+  }
+
+  def isReferenceChanged(): Boolean = {
+    oldRoute match {
+      case None => false
+      case Some(route) =>
+        if (route.referenceType != update.referenceType) {
+          true
+        }
+        else {
+          if (referenceType == "osm") {
+            route.relationId != update.relationId ||
+              route.referenceTimestamp != update.referenceTimestamp
+          }
+          else if (referenceType == "gpx") {
+            update.referenceGpx.nonEmpty
+          }
+          else {
+            throw new RuntimeException("TODO")
+          }
         }
     }
   }

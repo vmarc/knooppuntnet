@@ -10,9 +10,13 @@ import kpn.api.common.Bounds
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
+import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorFilter
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
+import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
@@ -24,6 +28,7 @@ import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.stereotype.Component
 
 import scala.xml.Elem
+import scala.xml.XML
 
 @Component
 class MonitorRouteUpdaterImpl(
@@ -48,6 +53,7 @@ class MonitorRouteUpdaterImpl(
   ): Unit = {
     Log.context(Seq("route-update", s"group=${update.groupName}", s"route=${update.routeName}")) {
       var context = MonitorUpdateContext(
+        update,
         user,
         reporter,
         update.referenceType,
@@ -55,8 +61,8 @@ class MonitorRouteUpdaterImpl(
         update.referenceGpx
       )
       try {
-        if (update.action == "add") {
-          val steps = if (update.referenceType == "gpx") {
+        if (context.update.action == "add") {
+          val steps = if (context.update.referenceType == "gpx") {
             Seq(
               MonitorRouteUpdateStep("definition", "busy"),
               MonitorRouteUpdateStep("upload"),
@@ -77,11 +83,16 @@ class MonitorRouteUpdaterImpl(
             group = Some(findGroup(update.groupName))
           )
 
-          context = assertNewRoute(context, update.routeName)
-          context = monitorUpdateRoute.update(context, user, update)
+          context = assertNewRoute(context)
+          context = monitorUpdateRoute.update(context)
           context = monitorUpdateStructure.update(context)
 
-          context = updateSubRelations(context)
+          if (context.update.referenceType == "gpx") {
+            context = updateRouteWithGpxReference(context)
+          }
+          else {
+            context = updateSubRelations(context)
+          }
 
           // context = monitorUpdateReference.update(context)
           // context = monitorUpdateAnalyzer.analyze(context)
@@ -110,12 +121,19 @@ class MonitorRouteUpdaterImpl(
           )
 
           context = findRoute(context, update.routeName)
-          context = monitorUpdateRoute.update(context, user, update)
+          context = monitorUpdateRoute.update(context)
           context = monitorUpdateStructure.update(context)
 
           // TODO pick up information about existing state and references, and delete the ones that are not the structure anymore
 
-          context = updateSubRelations(context)
+          if (context.update.referenceType == "gpx") {
+            context = updateRouteWithGpxReference(context)
+          }
+          else {
+            if (context.isReferenceChanged()) {
+              context = updateSubRelations(context)
+            }
+          }
 
           // context = monitorUpdateReference.update(context)
           // context = monitorUpdateAnalyzer.analyze(context)
@@ -259,6 +277,74 @@ class MonitorRouteUpdaterImpl(
       subs :+ monitorRouteRelation
     }
   }
+
+  private def updateRouteWithGpxReference(orignalContext: MonitorUpdateContext): MonitorUpdateContext = {
+    var context = orignalContext
+
+    context.referenceGpx match {
+      case None =>
+      case Some(referenceGpx) =>
+
+        val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
+
+        val now = Time.now
+        val xml = XML.loadString(referenceGpx)
+        val geometryCollection = new MonitorRouteGpxReader().read(xml)
+        val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
+        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+
+        // TODO should delete already existing reference here?
+
+        val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+        val distance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
+        val segmentCount = geometryCollection.getNumGeometries
+
+        val reference = MonitorRouteReference(
+          ObjectId(),
+          routeId = context.routeId,
+          relationId = context.relationId,
+          timestamp = now,
+          user = context.user,
+          bounds = bounds,
+          referenceType = "gpx",
+          referenceTimestamp = referenceTimestamp,
+          distance = distance,
+          segmentCount = segmentCount,
+          filename = context.referenceFilename,
+          geoJson = geoJson
+        )
+
+        monitorRouteRepository.saveRouteReference(reference)
+
+        context = context.copy(
+          newRoute = Some(
+            context.newRoute.get.copy(
+              referenceDistance = reference.distance
+            )
+          )
+        )
+
+        val updatedNewRoute = context.newRoute.get.copy(
+          referenceDistance = distance
+        )
+
+        context = context.copy(
+          newReferences = context.newReferences :+ reference,
+          newRoute = Some(updatedNewRoute)
+        )
+
+        monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
+          case None =>
+          case Some(state) =>
+            monitorRouteRepository.saveRouteState(state)
+            context = context.copy(
+              newStates = context.newStates :+ state,
+            )
+        }
+    }
+    context
+  }
+
 
   def add(
     user: String,
@@ -615,12 +701,14 @@ class MonitorRouteUpdaterImpl(
     }
   }
 
-  private def assertNewRoute(context: MonitorUpdateContext, routeName: String): MonitorUpdateContext = {
-    monitorRouteRepository.routeByName(context.group.get._id, routeName) match {
+  private def assertNewRoute(context: MonitorUpdateContext): MonitorUpdateContext = {
+    val group = context.group.get
+    val routeName = context.update.routeName
+    monitorRouteRepository.routeByName(group._id, routeName) match {
       case None => context
       case Some(route) =>
         throw new IllegalStateException(
-          s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${context.group.get.name}""""
+          s"""Could not add route with name "$routeName": already exists (_id=${route._id.oid}) in group with name "${group.name}""""
         )
     }
   }

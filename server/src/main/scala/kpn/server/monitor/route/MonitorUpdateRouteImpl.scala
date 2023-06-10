@@ -1,7 +1,6 @@
 package kpn.server.monitor.route
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.common.Time
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
@@ -12,30 +11,26 @@ class MonitorUpdateRouteImpl(
   monitorGroupRepository: MonitorGroupRepository
 ) extends MonitorUpdateRoute {
 
-  override def update(
-    context: MonitorUpdateContext,
-    user: String,
-    update: MonitorRouteUpdate
-  ): MonitorUpdateContext = {
+  override def update(context: MonitorUpdateContext): MonitorUpdateContext = {
 
-    val groupId = determineGroupId(context, update)
+    val groupId = determineGroupId(context)
 
     context.oldRoute match {
       case Some(oldRoute) =>
-        if (isRouteChanged(oldRoute, update, groupId)) {
+        if (context.isRouteChanged()) {
           context.copy(
             newRoute = Some(
               oldRoute.copy(
                 groupId = groupId,
-                name = update.newRouteName.getOrElse(oldRoute.name),
-                description = update.description.get, // TODO make more safe!!
-                comment = update.comment,
-                relationId = update.relationId,
-                user = user,
+                name = context.update.newRouteName.getOrElse(oldRoute.name),
+                description = context.update.description.get, // TODO make more safe!!
+                comment = context.update.comment,
+                relationId = context.update.relationId,
+                user = context.user,
                 timestamp = Time.now,
-                referenceType = update.referenceType,
-                referenceTimestamp = update.referenceTimestamp,
-                referenceFilename = update.referenceFilename,
+                referenceType = context.update.referenceType,
+                referenceTimestamp = context.update.referenceTimestamp,
+                referenceFilename = context.update.referenceFilename,
               )
             )
           )
@@ -51,21 +46,21 @@ class MonitorUpdateRouteImpl(
             MonitorRoute(
               ObjectId(),
               groupId,
-              update.routeName,
-              update.description.get, // TODO make more safe!
-              update.comment,
-              update.relationId,
-              user,
+              context.update.routeName,
+              context.update.description.getOrElse(""),
+              context.update.comment,
+              context.update.relationId,
+              context.user,
               Time.now,
-              referenceType = update.referenceType,
-              referenceTimestamp = update.referenceTimestamp,
-              referenceFilename = update.referenceFilename,
-              referenceDistance = 0L,
-              deviationDistance = 0L,
-              deviationCount = 0L,
-              osmWayCount = 0L,
-              osmDistance = 0L,
-              osmSegmentCount = 0L,
+              referenceType = context.update.referenceType,
+              referenceTimestamp = context.update.referenceTimestamp,
+              referenceFilename = context.update.referenceFilename,
+              referenceDistance = 0,
+              deviationDistance = 0,
+              deviationCount = 0,
+              osmWayCount = 0,
+              osmDistance = 0,
+              osmSegmentCount = 0,
               happy = false,
               osmSegments = Seq.empty,
               relation = None
@@ -75,19 +70,8 @@ class MonitorUpdateRouteImpl(
     }
   }
 
-  private def isRouteChanged(oldRoute: MonitorRoute, update: MonitorRouteUpdate, groupId: ObjectId): Boolean = {
-    update.newRouteName.nonEmpty ||
-      oldRoute.groupId != groupId ||
-      !update.description.contains(oldRoute.description) ||
-      oldRoute.comment != update.comment ||
-      oldRoute.relationId != update.relationId ||
-      oldRoute.referenceType != update.referenceType ||
-      oldRoute.referenceTimestamp != update.referenceTimestamp ||
-      oldRoute.referenceFilename != update.referenceFilename
-  }
-
-  private def determineGroupId(context: MonitorUpdateContext, update: MonitorRouteUpdate): ObjectId = {
-    update.newGroupName match {
+  private def determineGroupId(context: MonitorUpdateContext): ObjectId = {
+    context.update.newGroupName match {
       case None => context.group.get._id
       case Some(newGroupName) =>
         monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
