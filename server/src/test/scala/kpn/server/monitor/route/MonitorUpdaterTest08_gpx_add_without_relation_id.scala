@@ -2,6 +2,7 @@ package kpn.server.monitor.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
@@ -26,7 +27,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
     Time.clear()
   }
 
-  ignore("add non-super route with single gpx reference, but initially with relationId unknown") {
+  test("add non-super route with single gpx reference, but initially with relationId unknown") {
 
     withDatabase() { database =>
 
@@ -64,7 +65,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorUpdater.update("user1", update, reporter)
 
       reporter.statusses.shouldMatchTo(
         Seq(
@@ -87,7 +88,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           description = "route-description",
           comment = Some("route-comment"),
           relationId = None, // <-- no relationId yet
-          user = "user",
+          user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
@@ -158,21 +159,38 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
                 )
               )
             ),
-            relation = None,
+            relation = Some(
+
+              MonitorRouteRelation(
+                relationId = 1,
+                name = "route-name",
+                role = None,
+                survey = None,
+                referenceTimestamp = None,
+                referenceFilename = None,
+                referenceDistance = 0,
+                deviationDistance = 0,
+                deviationCount = 0,
+                osmWayCount = 1,
+                osmDistance = 196,
+                osmSegmentCount = 1,
+                happy = true,
+                relations = Seq.empty
+              )
+            ),
             happy = true
           )
         )
       )
 
-      // TODO reference should not have changed
       val reference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
       reference.shouldMatchTo(
         MonitorRouteReference(
           reference._id,
           routeId = route._id,
-          relationId = Some(1),
-          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-          user = "user2",
+          relationId = Some(1), // <-- filled in
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0), // <-- date that reference was added, not latest change by "user2"
+          user = "user1", // <-- not "user2" who provided the relationId, the reference was still added by "user1"
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx",
           referenceTimestamp = Timestamp(2022, 8, 1),

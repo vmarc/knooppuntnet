@@ -25,7 +25,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
     Time.clear()
   }
 
-  ignore("add route with gpx references per sub-relation") {
+  test("add route with gpx references per sub-relation") {
 
     withDatabase() { database =>
 

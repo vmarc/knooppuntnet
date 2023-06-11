@@ -281,8 +281,26 @@ class MonitorRouteUpdaterImpl(
   private def updateRouteWithGpxReference(orignalContext: MonitorUpdateContext): MonitorUpdateContext = {
     var context = orignalContext
 
-    context.referenceGpx match {
+    val referenceResult = context.referenceGpx match {
       case None =>
+
+        monitorRouteRepository.routeReference(context.routeId) match {
+          case None => throw new RuntimeException("Could not find gpx reference")
+          case Some(reference) =>
+
+            if (reference.relationId != context.update.relationId) {
+              val updatedReference = reference.copy(
+                relationId = context.update.relationId
+              )
+              monitorRouteRepository.saveRouteReference(updatedReference)
+              updatedReference
+            }
+            else {
+              reference
+            }
+
+        }
+
       case Some(referenceGpx) =>
 
         val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
@@ -333,15 +351,18 @@ class MonitorRouteUpdaterImpl(
           newRoute = Some(updatedNewRoute)
         )
 
-        monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
-          case None =>
-          case Some(state) =>
-            monitorRouteRepository.saveRouteState(state)
-            context = context.copy(
-              newStates = context.newStates :+ state,
-            )
-        }
+        reference
     }
+
+    monitorRouteRelationAnalyzer.analyzeReference(context.routeId, referenceResult) match {
+      case None =>
+      case Some(state) =>
+        monitorRouteRepository.saveRouteState(state)
+        context = context.copy(
+          newStates = context.newStates :+ state,
+        )
+    }
+
     context
   }
 
