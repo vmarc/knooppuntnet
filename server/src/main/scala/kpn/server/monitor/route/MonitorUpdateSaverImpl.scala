@@ -37,7 +37,7 @@ class MonitorUpdateSaverImpl(
                 case None =>
                 case Some(oldRoute) =>
 
-                  val updatedRelation = if (context.referenceType.contains("multi-gpx")) {
+                  val updatedRelation = if (context.update.referenceType.contains("multi-gpx")) {
                     oldRoute.relation.map { monitorRouteRelation =>
                       udpateMonitorRouteRelation(context, monitorRouteRelation)
                     }
@@ -56,7 +56,7 @@ class MonitorUpdateSaverImpl(
               }
 
             case Some(newRoute) =>
-              val updatedRelation = if (context.referenceType.contains("multi-gpx")) {
+              val updatedRelation = if (context.update.referenceType.contains("multi-gpx")) {
                 newRoute.relation.map { monitorRouteRelation =>
                   udpateMonitorRouteRelation(context, monitorRouteRelation)
                 }
@@ -88,7 +88,7 @@ class MonitorUpdateSaverImpl(
             deviationCount = monitorRouteStateSummary.deviationCount,
             osmWayCount = monitorRouteStateSummary.osmWayCount,
             osmDistance = monitorRouteStateSummary.osmDistance,
-            relation = relation
+            relation = relation,
           )
           context = context.copy(
             newRoute = Some(updatedRoute)
@@ -97,7 +97,9 @@ class MonitorUpdateSaverImpl(
 
       val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.routeId)
       val superRouteSuperSegments = MonitorRouteOsmSegmentBuilder.build(monitorRouteSegmentInfos)
-      val happy = superRouteSuperSegments.size == 1 && context.newRoute.map(_.deviationCount).sum == 0
+      val happy = superRouteSuperSegments.size == 1 &&
+        context.newRoute.map(_.deviationCount).sum == 0 &&
+        (context.newRoute.get.relation.map(_.happy).getOrElse(false)) // TODO happy derived from root, no need to traverse tree?
 
       val updatedRoute = context.route.copy(
         osmSegments = superRouteSuperSegments,

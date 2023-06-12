@@ -10,12 +10,9 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
-  update: MonitorRouteUpdate,
   user: String,
+  update: MonitorRouteUpdate,
   reporter: MonitorUpdateReporter,
-  referenceType: String,
-  referenceFilename: Option[String],
-  referenceGpx: Option[String],
   status: MonitorRouteUpdateStatus = MonitorRouteUpdateStatus(),
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
@@ -90,11 +87,11 @@ case class MonitorUpdateContext(
           true
         }
         else {
-          if (referenceType == "osm") {
+          if (update.referenceType == "osm") {
             route.relationId != update.relationId ||
               route.referenceTimestamp != update.referenceTimestamp
           }
-          else if (referenceType == "gpx") {
+          else if (update.referenceType == "gpx") {
             update.referenceGpx.nonEmpty
           }
           else {

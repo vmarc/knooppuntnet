@@ -44,7 +44,7 @@ class MonitorUpdateReferenceImpl(
               updateReferences(context, newRoute)
             }
             else if (newRoute.referenceType == "gpx") {
-              context.referenceGpx match {
+              context.update.referenceGpx match {
                 case None => context
                 case Some(referenceGpx) =>
 
@@ -73,7 +73,7 @@ class MonitorUpdateReferenceImpl(
                     referenceTimestamp = referenceTimestamp,
                     distance = distance,
                     segmentCount = segmentCount,
-                    filename = context.referenceFilename,
+                    filename = context.update.referenceFilename,
                     geoJson = geoJson
                   )
 
