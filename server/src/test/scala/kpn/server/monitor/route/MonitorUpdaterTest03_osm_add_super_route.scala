@@ -74,7 +74,6 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           osmWayCount = 2,
           osmDistance = 335,
           osmSegmentCount = 1,
-          happy = true,
           osmSegments = Seq(
             MonitorRouteOsmSegment(
               Seq(
@@ -109,7 +108,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
               osmWayCount = 0,
               osmDistance = 0,
               osmSegmentCount = 0,
-              happy = false,
+              happy = true,
               relations = Seq(
                 MonitorRouteRelation(
                   relationId = 11,
@@ -145,7 +144,8 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                 )
               )
             )
-          )
+          ),
+          happy = true,
         )
       )
 

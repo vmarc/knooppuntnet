@@ -3,6 +3,7 @@ package kpn.server.monitor.route
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.monitor.repository.MonitorRouteRepository
+import kpn.server.monitor.repository.MonitorRouteStateSummary
 import org.springframework.stereotype.Component
 
 @Component
@@ -10,7 +11,7 @@ class MonitorUpdateSaverImpl(
   monitorRouteRepository: MonitorRouteRepository
 ) extends MonitorUpdateSaver {
 
-  def save(originalContext: MonitorUpdateContext): MonitorUpdateContext = {
+  def save(originalContext: MonitorUpdateContext, gpxDeleted: Boolean): MonitorUpdateContext = {
 
     var context: MonitorUpdateContext = originalContext
 
@@ -26,6 +27,11 @@ class MonitorUpdateSaverImpl(
     //    context.newStates.foreach { state =>
     //      monitorRouteRepository.saveRouteState(state)
     //    }
+
+
+    if (gpxDeleted) {
+
+    }
 
     if (context.newReferences.nonEmpty) {
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {
@@ -47,9 +53,10 @@ class MonitorUpdateSaverImpl(
                   }
 
                   val updatedRoute = oldRoute.copy(
-                    referenceDistance = referenceDistance,
+                    referenceDistance = if (context.update.referenceType == "osm") referenceDistance else 0,
                     relation = updatedRelation
                   )
+
                   context = context.copy(
                     newRoute = Some(updatedRoute)
                   )
@@ -65,7 +72,7 @@ class MonitorUpdateSaverImpl(
                 newRoute.relation
               }
               val updatedRoute = newRoute.copy(
-                referenceDistance = referenceDistance,
+                referenceDistance = if (context.update.referenceType != "multi-gpx") referenceDistance else 0,
                 relation = updatedRelation
               )
               context = context.copy(
@@ -75,25 +82,25 @@ class MonitorUpdateSaverImpl(
       }
     }
 
-    if (context.newStates.nonEmpty) {
+    if (context.newStates.nonEmpty || gpxDeleted) {
 
-      monitorRouteRepository.superRouteStateSummary(context.routeId) match {
-        case None => // cannot do update
-        case Some(monitorRouteStateSummary) =>
+      val stateSummaries = monitorRouteRepository.routeStateSummaries(context.routeId)
+      val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(context, relation, stateSummaries))
 
-          val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(context, relation))
+      val osmWayCount = stateSummaries.map(_.osmWayCount).sum
+      val osmDistance = stateSummaries.map(_.osmDistance).sum
 
-          val updatedRoute = context.route.copy(
-            deviationDistance = monitorRouteStateSummary.deviationDistance,
-            deviationCount = monitorRouteStateSummary.deviationCount,
-            osmWayCount = monitorRouteStateSummary.osmWayCount,
-            osmDistance = monitorRouteStateSummary.osmDistance,
+      context = context.copy(
+        newRoute = Some(
+          context.route.copy(
             relation = relation,
+            //      deviationDistance = relation.deviationDistance
+            //      deviationCount = monitorRouteStateSummary.deviationCount
+            osmWayCount = osmWayCount,
+            osmDistance = osmDistance
           )
-          context = context.copy(
-            newRoute = Some(updatedRoute)
-          )
-      }
+        )
+      )
 
       val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.routeId)
       val superRouteSuperSegments = MonitorRouteOsmSegmentBuilder.build(monitorRouteSegmentInfos)
@@ -118,27 +125,41 @@ class MonitorUpdateSaverImpl(
     context
   }
 
-  private def updatedMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
+  private def updatedMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorRouteStateSummary]): MonitorRouteRelation = {
 
-    val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelation(context, r))
+    println("here...")
+    val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelation(context, r, stateSummaries))
+    val subRelationsHappy = updatedRelations.forall(_.happy)
 
-    context.newStates.find(_.relationId == monitorRouteRelation.relationId) match {
+    val updatedWithState = stateSummaries.find(_.relationId == monitorRouteRelation.relationId) match {
       case None =>
         monitorRouteRelation.copy(
-          relations = updatedRelations
+          relations = updatedRelations,
+          happy = subRelationsHappy
         )
 
       case Some(state) =>
 
         monitorRouteRelation.copy(
-          deviationDistance = state.deviations.map(_.meters).sum,
-          deviationCount = state.deviations.size,
-          osmWayCount = state.wayCount,
+          deviationDistance = state.deviationDistance,
+          deviationCount = state.deviationCount,
+          osmWayCount = state.osmWayCount,
           osmDistance = state.osmDistance,
-          osmSegmentCount = state.osmSegments.size,
-          happy = state.happy,
+          osmSegmentCount = state.osmSegmentCount,
+          happy = state.happy && subRelationsHappy,
           relations = updatedRelations
         )
+
+    }
+    if (context.update.action == "gpx-delete" && context.update.relationId.get == monitorRouteRelation.relationId) {
+      updatedWithState.copy(
+        referenceTimestamp = None,
+        referenceFilename = None,
+        referenceDistance = 0
+      )
+    }
+    else {
+      updatedWithState
     }
   }
 

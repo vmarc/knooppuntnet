@@ -50,7 +50,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val routeAddReporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", routeAdd, routeAddReporter)
+      configuration.monitorUpdater.update("user1", routeAdd, routeAddReporter)
 
       routeAddReporter.statusses.shouldMatchTo(
         Seq(
@@ -71,7 +71,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           description = "route-description",
           comment = Some("route-comment"),
           relationId = Some(1),
-          user = "user",
+          user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           referenceType = "multi-gpx",
           referenceTimestamp = None,
@@ -239,7 +239,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val uploadGpxReporter1 = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", uploadGpx1, uploadGpxReporter1)
+      configuration.monitorUpdater.update("user2", uploadGpx1, uploadGpxReporter1)
 
       uploadGpxReporter1.statusses.shouldMatchTo(
         Seq(
@@ -248,27 +248,27 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      //      routeUpdated1.shouldMatchTo(
-      //        route.copy(
-      //          relation = route.relation.map { relation =>
-      //            relation.copy(
-      //              relations = Seq(
-      //                relation.relations.head.copy(
-      //                  referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-      //                  referenceFilename = Some("filename-1"),
-      //                  referenceDistance = 196,
-      //                  osmWayCount = 1,
-      //                  osmDistance = 196,
-      //                  osmSegmentCount = 1,
-      //                  happy = true,
-      //                ),
-      //                relation.relations(1)
-      //              )
-      //            )
-      //          },
-      //          happy = false,
-      //        )
-      //      )
+      routeUpdated1.shouldMatchTo(
+        route.copy(
+          relation = route.relation.map { relation =>
+            relation.copy(
+              relations = Seq(
+                relation.relations.head.copy(
+                  referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+                  referenceFilename = Some("filename-1"),
+                  referenceDistance = 196,
+                  osmWayCount = 1,
+                  osmDistance = 196,
+                  osmSegmentCount = 1,
+                  happy = true,
+                ),
+                relation.relations(1)
+              )
+            )
+          },
+          happy = false,
+        )
+      )
 
       val reference11 = configuration.monitorRouteRepository.routeRelationReference(route._id, 11).get
       reference11.shouldMatchTo(
@@ -277,7 +277,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           routeId = route._id,
           relationId = Some(11),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-          user = "user",
+          user = "user2",
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 1),
@@ -295,7 +295,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       updatedState11.shouldMatchTo(
         state11.copy(
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-          matchesGeometry = Some("xxx"),
+          matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
           happy = true,
         )
       )
@@ -328,7 +328,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val uploadGpxReporter2 = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", uploadGpx2, uploadGpxReporter2)
+      configuration.monitorUpdater.update("user3", uploadGpx2, uploadGpxReporter2)
 
       uploadGpxReporter2.statusses.shouldMatchTo(
         Seq(
@@ -337,63 +337,36 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      //      routeUpdated2.shouldMatchTo(
-      //        route.copy(
-      //          referenceTimestamp = None,
-      //          referenceFilename = None,
-      //          referenceDistance = 335, // sum of subrelation 11 and subrelation 12 reference distances
-      //          deviationDistance = 0,
-      //          deviationCount = 0,
-      //          osmWayCount = 2,
-      //          osmDistance = 335,
-      //          osmSegmentCount = 1,
-      //          happy = true,
-      //          osmSegments = Seq(
-      //            MonitorRouteOsmSegment(
-      //              Seq(
-      //                MonitorRouteOsmSegmentElement(
-      //                  relationId = 11,
-      //                  segmentId = 1,
-      //                  meters = 196,
-      //                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-      //                  reversed = false
-      //                ),
-      //                MonitorRouteOsmSegmentElement(
-      //                  relationId = 12,
-      //                  segmentId = 1,
-      //                  meters = 139,
-      //                  bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
-      //                  reversed = false
-      //                ),
-      //              )
-      //            )
-      //          ),
-      //          relation = route.relation.map { relation =>
-      //            relation.copy(
-      //              relations = Seq(
-      //                relation.relations.head.copy(
-      //                  referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-      //                  referenceFilename = Some("filename-1"),
-      //                  referenceDistance = 196,
-      //                  osmWayCount = 1,
-      //                  osmDistance = 196,
-      //                  osmSegmentCount = 1,
-      //                  happy = true,
-      //                ),
-      //                relation.relations(1).copy(
-      //                  referenceTimestamp = Some(Timestamp(2022, 8, 2)),
-      //                  referenceFilename = Some("filename-2"),
-      //                  referenceDistance = 139,
-      //                  osmWayCount = 1,
-      //                  osmDistance = 139,
-      //                  osmSegmentCount = 1,
-      //                  happy = true,
-      //                )
-      //              )
-      //            )
-      //          }
-      //        )
-      //      )
+      routeUpdated2.shouldMatchTo(
+        route.copy(
+          relation = route.relation.map { relation =>
+            relation.copy(
+              happy = true,
+              relations = Seq(
+                relation.relations.head.copy(
+                  referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+                  referenceFilename = Some("filename-1"),
+                  referenceDistance = 196,
+                  osmWayCount = 1,
+                  osmDistance = 196,
+                  osmSegmentCount = 1,
+                  happy = true,
+                ),
+                relation.relations(1).copy(
+                  referenceTimestamp = Some(Timestamp(2022, 8, 2)),
+                  referenceFilename = Some("filename-2"),
+                  referenceDistance = 139,
+                  osmWayCount = 1,
+                  osmDistance = 139,
+                  osmSegmentCount = 1,
+                  happy = true,
+                )
+              )
+            )
+          },
+          happy = true
+        )
+      )
 
       configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
       configuration.monitorRouteRepository.routeRelationReference(route._id, 11).shouldMatchTo(Some(reference11))
@@ -405,7 +378,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           routeId = route._id,
           relationId = Some(12),
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
-          user = "user",
+          user = "user3",
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 2),
@@ -416,13 +389,11 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      configuration.monitorRouteRepository.routeState(route._id, 11).get.shouldMatchTo(updatedState11)
-
-      val updatedState12 = configuration.monitorRouteRepository.routeState(route._id, 11).get
+      val updatedState12 = configuration.monitorRouteRepository.routeState(route._id, 12).get
       updatedState12.shouldMatchTo(
         state12.copy(
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
-          matchesGeometry = Some("xxx"),
+          matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
           happy = true,
         )
       )

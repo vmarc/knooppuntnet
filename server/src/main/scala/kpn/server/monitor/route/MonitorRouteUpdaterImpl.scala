@@ -188,21 +188,61 @@ class MonitorRouteUpdaterImpl(
 
           context = context.copy(
             newReferences = context.newReferences :+ reference,
-            newRoute = Some(
-              context.oldRoute.get.copy(
-                referenceDistance = reference.distance
+          )
+
+          if (context.update.referenceType == "multi-gpx") {
+            context = context.copy(
+              newRoute = context.oldRoute
+            )
+          }
+          else {
+            context = context.copy(
+              newRoute = Some(
+                context.oldRoute.get.copy(
+                  referenceDistance = reference.distance
+                )
               )
             )
-          )
+          }
+
 
           monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
             case None =>
             case Some(state) =>
-              monitorRouteRepository.saveRouteState(state)
+              // TODO improve performance by picking up _id only?
+              val stateToSave = monitorRouteRepository.routeState(context.routeId, state.relationId) match {
+                case Some(oldState) => state.copy(_id = oldState._id)
+                case None => state
+              }
+              monitorRouteRepository.saveRouteState(stateToSave)
               context = context.copy(
                 newStates = context.newStates :+ state,
               )
               context = saver.save(context)
+          }
+        }
+        else if (update.action == "gpx-delete") {
+          context = context.copy(
+            group = Some(findGroup(update.groupName))
+          )
+
+          context = findRoute(context, update.routeName)
+
+          context.update.relationId match {
+            case None => throw new RuntimeException("subrelation id needed for gpx-delete")
+            case Some(relationId) =>
+              monitorRouteRepository.deleteRouteReference(context.routeId, relationId)
+              monitorRouteRepository.routeState(context.routeId, relationId) match {
+                case None =>
+                case Some(state) =>
+                  val updatedState = state.copy(
+                    matchesGeometry = None,
+                    deviations = Seq.empty,
+                    happy = false
+                  )
+                  monitorRouteRepository.saveRouteState(updatedState)
+              }
+              context = saver.save(context, gpxDeleted = true)
           }
         }
       }
@@ -443,14 +483,6 @@ class MonitorRouteUpdaterImpl(
         )
 
         monitorRouteRepository.saveRouteReference(reference)
-
-        context = context.copy(
-          newRoute = Some(
-            context.newRoute.get.copy(
-              referenceDistance = reference.distance
-            )
-          )
-        )
 
         val updatedNewRoute = context.newRoute.get.copy(
           referenceDistance = distance

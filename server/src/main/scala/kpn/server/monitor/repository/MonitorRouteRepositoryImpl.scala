@@ -349,6 +349,29 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     database.monitorRouteStates.optionAggregate[MonitorRouteStateSummary](pipeline, log)
   }
 
+  override def routeStateSummaries(routeId: ObjectId): Seq[MonitorRouteStateSummary] = {
+    val pipeline = Seq(
+      filter(
+        equal("routeId", routeId.raw),
+      ),
+      project(
+        fields(
+          excludeId(),
+          include("relationId"),
+          computed("deviationDistance", Document("""{ $sum: "$deviations.meters" }""")),
+          computed("deviationCount", Document("""{ $size: "$deviations" }""")),
+          computed("osmWayCount", "$wayCount"),
+          include("osmDistance"),
+          computed("osmSegmentCount", Document("""{ $size: "$osmSegments" }""")),
+          include("happy"),
+        )
+      ),
+    )
+
+    database.monitorRouteStates.aggregate[MonitorRouteStateSummary](pipeline, log)
+  }
+
+
   override def routeChange(changeKey: ChangeKey): Option[MonitorRouteChange] = {
     database.monitorRouteChanges.findOne(
       filter(

@@ -1,7 +1,9 @@
 package kpn.server.monitor.route
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.monitor.MonitorRouteDeviation
 import kpn.api.common.monitor.MonitorRouteUpdate
+import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -14,7 +16,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
     Time.clear()
   }
 
-  ignore("add route with gpx references per subrelation - delete subrelation gpx reference") {
+  test("add route with gpx references per subrelation - delete subrelation gpx reference") {
 
     withDatabase() { database =>
 
@@ -25,7 +27,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
 
       val route = newMonitorRoute(
         group._id,
-        name = "route",
+        name = "route-name",
         relationId = Some(1),
         user = "user",
         referenceType = "osm",
@@ -102,6 +104,18 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
         route._id,
         111,
         timestamp = Timestamp(2022, 8, 11),
+        matchesGeometry = Some("matches"),
+        deviations = Seq(
+          MonitorRouteDeviation(
+            id = 1,
+            meters = 100,
+            distance = 12,
+            bounds = Bounds(1, 1, 1, 1),
+            geoJson = "geoJson"
+          )
+        ),
+        happy = true
+
       )
       val state112 = newMonitorRouteState(
         route._id,
@@ -131,7 +145,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       val reporter = new MonitorUpdateReporterMock()
       configuration.monitorUpdater.update("user", update, reporter)
 
-      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       val subrelation111 = updatedRoute.relation.get.relations.head.relations.head
 
       subrelation111.referenceTimestamp should equal(None)
@@ -143,14 +157,22 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
 
       subrelation112.referenceTimestamp should equal(Some(Timestamp(2022, 8, 11)))
       subrelation112.referenceFilename should equal(Some("filename-112"))
-      subrelation112.deviationDistance should equal(112)
-      subrelation112.deviationCount should equal(5)
+      subrelation112.deviationDistance should equal(0)
+      subrelation112.deviationCount should equal(0)
 
       configuration.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(Some(reference11))
       configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))
 
       configuration.monitorRouteRepository.routeRelationReference(route._id, 111) should equal(None)
-      configuration.monitorRouteRepository.routeState(route._id, 111) should equal(None)
+      configuration.monitorRouteRepository.routeState(route._id, 111) should equal(
+        Some(
+          state111.copy(
+            matchesGeometry = None,
+            deviations = Seq.empty,
+            happy = false
+          )
+        )
+      )
 
       configuration.monitorRouteRepository.routeRelationReference(route._id, 112) should equal(Some(reference112))
       configuration.monitorRouteRepository.routeState(route._id, 112) should equal(Some(state112))

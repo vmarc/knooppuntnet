@@ -68,6 +68,8 @@ trait MonitorRouteRepository {
 
   def superRouteStateSummary(routeId: ObjectId): Option[MonitorRouteStateSummary]
 
+  def routeStateSummaries(routeId: ObjectId): Seq[MonitorRouteStateSummary]
+
   def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
 
   def routeChangeGeometry(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangeGeometry]
