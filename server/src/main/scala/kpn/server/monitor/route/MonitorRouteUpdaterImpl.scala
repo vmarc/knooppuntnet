@@ -37,8 +37,6 @@ class MonitorRouteUpdaterImpl(
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateRoute: MonitorUpdateRoute,
   monitorUpdateStructure: MonitorUpdateStructure,
-  monitorUpdateReference: MonitorUpdateReference,
-  monitorUpdateAnalyzer: MonitorUpdateAnalyzer,
   saver: MonitorUpdateSaver,
   monitorRouteRelationAnalyzer: MonitorRouteRelationAnalyzer,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
@@ -95,8 +93,6 @@ class MonitorRouteUpdaterImpl(
             context = updateSubRelations(context)
           }
 
-          // context = monitorUpdateReference.update(context)
-          // context = monitorUpdateAnalyzer.analyze(context)
           context = saver.save(context)
         }
         else if (update.action == "update") {
@@ -136,8 +132,6 @@ class MonitorRouteUpdaterImpl(
             }
           }
 
-          // context = monitorUpdateReference.update(context)
-          // context = monitorUpdateAnalyzer.analyze(context)
           context = saver.save(context)
 
           if (context.saveResult.errors.nonEmpty) {

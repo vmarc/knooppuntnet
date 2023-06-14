@@ -15,24 +15,6 @@ class MonitorUpdateSaverImpl(
 
     var context: MonitorUpdateContext = originalContext
 
-    //    if (context.removeOldReferences) {
-    //      monitorRouteRepository.deleteRouteReferences(context.routeId)
-    //      monitorRouteRepository.deleteRouteStates(context.routeId)
-    //    }
-
-    //    context.newReferences.foreach { routeRelationReference =>
-    //      monitorRouteRepository.saveRouteReference(routeRelationReference)
-    //    }
-
-    //    context.newStates.foreach { state =>
-    //      monitorRouteRepository.saveRouteState(state)
-    //    }
-
-
-    if (gpxDeleted) {
-
-    }
-
     if (context.newReferences.nonEmpty) {
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {
         case None =>
@@ -94,8 +76,6 @@ class MonitorUpdateSaverImpl(
         newRoute = Some(
           context.route.copy(
             relation = relation,
-            //      deviationDistance = relation.deviationDistance
-            //      deviationCount = monitorRouteStateSummary.deviationCount
             osmWayCount = osmWayCount,
             osmDistance = osmDistance
           )
@@ -106,7 +86,7 @@ class MonitorUpdateSaverImpl(
       val superRouteSuperSegments = MonitorRouteOsmSegmentBuilder.build(monitorRouteSegmentInfos)
       val happy = superRouteSuperSegments.size == 1 &&
         context.newRoute.map(_.deviationCount).sum == 0 &&
-        (context.newRoute.get.relation.map(_.happy).getOrElse(false)) // TODO happy derived from root, no need to traverse tree?
+        (context.newRoute.get.relation.map(_.happy).getOrElse(false))
 
       val updatedRoute = context.route.copy(
         osmSegments = superRouteSuperSegments,
@@ -127,7 +107,6 @@ class MonitorUpdateSaverImpl(
 
   private def updatedMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorRouteStateSummary]): MonitorRouteRelation = {
 
-    println("here...")
     val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelation(context, r, stateSummaries))
     val subRelationsHappy = updatedRelations.forall(_.happy)
 
