@@ -52,7 +52,7 @@ class MonitorRouteUpdaterImpl(
         monitorRouteOsmSegmentAnalyzer
       )
 
-      new MonitorRouteUpdateExecutor(configuration, context).update()
+      new MonitorRouteUpdateExecutor(configuration, context).execute()
     }
   }
 

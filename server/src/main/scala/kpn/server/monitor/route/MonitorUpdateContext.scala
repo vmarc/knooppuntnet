@@ -1,7 +1,6 @@
 package kpn.server.monitor.route
 
 import kpn.api.base.ObjectId
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
@@ -23,7 +22,6 @@ case class MonitorUpdateContext(
   newReferences: Seq[MonitorRouteReference] = Seq.empty,
   oldStates: Seq[MonitorRouteState] = Seq.empty,
   newStates: Seq[MonitorRouteState] = Seq.empty,
-  saveResult: MonitorRouteSaveResult = MonitorRouteSaveResult(), // TODO should eliminate saveResult in favor of using reporter
 ) {
 
   def withStatus(newStatus: MonitorRouteUpdateStatus): MonitorUpdateContext = {
