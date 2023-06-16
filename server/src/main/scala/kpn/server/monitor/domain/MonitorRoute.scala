@@ -105,10 +105,4 @@ case class MonitorRoute(
     Overall route status. True if "happy" is true in the entire route structure (all MonitorRouteRelation objects).
    */
   happy: Boolean,
-) extends WithObjectId {
-
-  def isSuperRoute: Boolean = relation match {
-    case None => throw new RuntimeException("could not determine wether super route yet")
-    case Some(monitorRouteRelation) => monitorRouteRelation.relations.nonEmpty
-  }
-}
+) extends WithObjectId

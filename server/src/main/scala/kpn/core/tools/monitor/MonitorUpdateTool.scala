@@ -8,9 +8,9 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.route.MonitorRouteRelationRepository
-import kpn.server.monitor.route.MonitorRouteStructureLoader
-import kpn.server.monitor.route.MonitorUpdaterConfiguration
+import kpn.server.monitor.route.update.MonitorRouteRelationRepository
+import kpn.server.monitor.route.update.MonitorRouteStructureLoader
+import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 
 object MonitorUpdateTool {
   private val log = Log(classOf[MonitorUpdateTool])

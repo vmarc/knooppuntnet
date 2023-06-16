@@ -36,7 +36,7 @@ import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
-import kpn.server.monitor.route.MonitorRouteUpdater
+import kpn.server.monitor.route.update.MonitorRouteUpdater
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
 

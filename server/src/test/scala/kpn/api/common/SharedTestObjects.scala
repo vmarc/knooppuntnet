@@ -88,7 +88,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import kpn.server.monitor.route.MonitorUpdaterConfiguration
+import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 import org.scalamock.scalatest.MockFactory
 
 trait SharedTestObjects extends MockFactory {

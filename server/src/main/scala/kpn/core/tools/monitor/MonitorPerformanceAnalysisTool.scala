@@ -5,10 +5,10 @@ import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.monitor.route.MonitorRouteRelationRepository
-import kpn.server.monitor.route.MonitorRouteStructureLoader
-import kpn.server.monitor.route.MonitorUpdaterConfiguration
-import kpn.server.monitor.route.MonitorUpdateReporterLogger
+import kpn.server.monitor.route.update.MonitorRouteRelationRepository
+import kpn.server.monitor.route.update.MonitorRouteStructureLoader
+import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
+import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 
 object MonitorPerformanceAnalysisTool {
   def main(args: Array[String]): Unit = {
