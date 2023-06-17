@@ -19,6 +19,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteReferenceSummary
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -233,19 +234,19 @@ class MonitorRouteUpdateExecutor(
       relationId = Some(relationId),
       timestamp = now,
       user = context.user,
-      bounds = bounds,
+      referenceBounds = bounds,
       referenceType = "gpx",
       referenceTimestamp = referenceTimestamp,
-      distance = distance,
-      segmentCount = segmentCount,
-      filename = context.update.referenceFilename,
-      geoJson = geoJson
+      referenceDistance = distance,
+      referenceSegmentCount = segmentCount,
+      referenceFilename = context.update.referenceFilename,
+      referenceGeoJson = geoJson
     )
 
     monitorRouteRepository.saveRouteReference(reference)
 
     context = context.copy(
-      newReferences = context.newReferences :+ reference,
+      newReferences = context.newReferences :+ MonitorRouteReferenceSummary.from(reference),
     )
 
     if (context.update.referenceType == "multi-gpx") {
@@ -257,7 +258,7 @@ class MonitorRouteUpdateExecutor(
       context = context.copy(
         newRoute = Some(
           context.oldRoute.get.copy(
-            referenceDistance = reference.distance
+            referenceDistance = reference.referenceDistance
           )
         )
       )
@@ -425,7 +426,7 @@ class MonitorRouteUpdateExecutor(
               context = context.copy(
                 newRoute = Some(
                   context.newRoute.get.copy(
-                    referenceDistance = ref.distance
+                    referenceDistance = ref.referenceDistance
                   )
                 )
               )
@@ -495,14 +496,14 @@ class MonitorRouteUpdateExecutor(
         val now = Time.now
         val xml = XML.loadString(referenceGpx)
         val geometryCollection = new MonitorRouteGpxReader().read(xml)
-        val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
-        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+        val referenceBounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
+        val referenceGeoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
 
         // TODO should delete already existing reference here?
 
         val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
-        val distance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
-        val segmentCount = geometryCollection.getNumGeometries
+        val referenceDistance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
+        val referenceSegmentCount = geometryCollection.getNumGeometries
 
         val reference = MonitorRouteReference(
           ObjectId(),
@@ -510,23 +511,23 @@ class MonitorRouteUpdateExecutor(
           relationId = context.relationId,
           timestamp = now,
           user = context.user,
-          bounds = bounds,
+          referenceBounds = referenceBounds,
           referenceType = "gpx",
           referenceTimestamp = referenceTimestamp,
-          distance = distance,
-          segmentCount = segmentCount,
-          filename = context.update.referenceFilename,
-          geoJson = geoJson
+          referenceDistance = referenceDistance,
+          referenceSegmentCount = referenceSegmentCount,
+          referenceFilename = context.update.referenceFilename,
+          referenceGeoJson = referenceGeoJson
         )
 
         monitorRouteRepository.saveRouteReference(reference)
 
         val updatedNewRoute = context.newRoute.get.copy(
-          referenceDistance = distance
+          referenceDistance = referenceDistance
         )
 
         context = context.copy(
-          newReferences = context.newReferences :+ reference,
+          newReferences = context.newReferences :+ MonitorRouteReferenceSummary.from(reference),
           newRoute = Some(updatedNewRoute)
         )
 
@@ -570,8 +571,8 @@ class MonitorRouteUpdateExecutor(
 
           monitorRouteRelation.copy(
             referenceTimestamp = Some(reference.referenceTimestamp),
-            referenceFilename = reference.filename,
-            referenceDistance = reference.distance,
+            referenceFilename = reference.referenceFilename,
+            referenceDistance = reference.referenceDistance,
             deviationDistance = deviationDistance,
             deviationCount = deviationCount,
             // TODO update happy, taking into account subrelations
@@ -787,8 +788,8 @@ class MonitorRouteUpdateExecutor(
         case Some(reference) =>
           monitorRouteRelation.copy(
             referenceTimestamp = Some(reference.referenceTimestamp),
-            referenceFilename = reference.filename,
-            referenceDistance = reference.distance,
+            referenceFilename = reference.referenceFilename,
+            referenceDistance = reference.referenceDistance,
             relations = relations
           )
       }

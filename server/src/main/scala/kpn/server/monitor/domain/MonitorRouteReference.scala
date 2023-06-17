@@ -11,11 +11,11 @@ case class MonitorRouteReference(
   relationId: Option[Long], // None when route with referenceType "gpx" and osm relationId not known yet
   timestamp: Timestamp,
   user: String,
-  bounds: Bounds,
+  referenceBounds: Bounds,
   referenceType: String, // "osm" | "gpx" (subrelation references for "multi-gpx" routes also have reference type"gpx")
   referenceTimestamp: Timestamp,
-  distance: Long,
-  segmentCount: Long,
-  filename: Option[String],
-  geoJson: String
+  referenceDistance: Long,
+  referenceSegmentCount: Long,
+  referenceFilename: Option[String],
+  referenceGeoJson: String
 ) extends WithObjectId

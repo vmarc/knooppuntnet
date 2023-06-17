@@ -147,13 +147,13 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           relationId = Some(1),
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user",
-          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx",
           referenceTimestamp = Timestamp(2022, 8, 1),
-          distance = 196,
-          segmentCount = 1,
-          filename = Some("filename"),
-          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+          referenceDistance = 196,
+          referenceSegmentCount = 1,
+          referenceFilename = Some("filename"),
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
       )
 

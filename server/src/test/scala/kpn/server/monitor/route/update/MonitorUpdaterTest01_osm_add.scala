@@ -131,13 +131,13 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
           relationId = Some(1),
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user",
-          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
           referenceTimestamp = Timestamp(2022, 8, 1),
-          distance = 196,
-          segmentCount = 1,
-          filename = None,
-          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
+          referenceDistance = 196,
+          referenceSegmentCount = 1,
+          referenceFilename = None,
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
         )
       )
 

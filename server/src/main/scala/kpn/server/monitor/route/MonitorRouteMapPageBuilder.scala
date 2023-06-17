@@ -145,13 +145,13 @@ class MonitorRouteMapPageBuilder(
     val referenceInfo = MonitorRouteReferenceInfo(
       reference.timestamp,
       reference.user,
-      reference.bounds,
-      reference.distance,
+      reference.referenceBounds,
+      reference.referenceDistance,
       reference.referenceType,
       reference.referenceTimestamp,
-      reference.segmentCount,
-      reference.filename,
-      reference.geoJson
+      reference.referenceSegmentCount,
+      reference.referenceFilename,
+      reference.referenceGeoJson
     )
 
     MonitorRouteMapPage(
@@ -161,7 +161,7 @@ class MonitorRouteMapPageBuilder(
       groupName = group.name,
       groupDescription = group.description,
       referenceType = route.referenceType,
-      bounds = Some(reference.bounds),
+      bounds = Some(reference.referenceBounds),
       currentSubRelation = None,
       previousSubRelation = None,
       nextSubRelation = None,
@@ -183,26 +183,26 @@ class MonitorRouteMapPageBuilder(
           MonitorRouteReferenceInfo(
             reference.timestamp,
             reference.user,
-            reference.bounds,
-            reference.distance,
+            reference.referenceBounds,
+            reference.referenceDistance,
             reference.referenceType,
             reference.referenceTimestamp,
-            reference.segmentCount,
-            reference.filename,
-            reference.geoJson
+            reference.referenceSegmentCount,
+            reference.referenceFilename,
+            reference.referenceGeoJson
           )
         )
 
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
         val bounds = stateOption match {
-          case None => Some(reference.bounds)
+          case None => Some(reference.referenceBounds)
           case Some(state) =>
             if (state.bounds == Bounds()) {
-              Some(reference.bounds)
+              Some(reference.referenceBounds)
             }
             else {
               Some(
-                Util.mergeBounds(Seq(state.bounds, reference.bounds))
+                Util.mergeBounds(Seq(state.bounds, reference.referenceBounds))
               )
             }
         }
@@ -254,13 +254,13 @@ class MonitorRouteMapPageBuilder(
           MonitorRouteReferenceInfo(
             reference.timestamp,
             reference.user,
-            reference.bounds,
-            reference.distance,
+            reference.referenceBounds,
+            reference.referenceDistance,
             reference.referenceType,
             reference.referenceTimestamp,
-            reference.segmentCount,
-            reference.filename,
-            reference.geoJson
+            reference.referenceSegmentCount,
+            reference.referenceFilename,
+            reference.referenceGeoJson
           )
         }
 
@@ -288,20 +288,20 @@ class MonitorRouteMapPageBuilder(
         val referenceInfo = MonitorRouteReferenceInfo(
           reference.timestamp,
           reference.user,
-          reference.bounds,
-          reference.distance,
+          reference.referenceBounds,
+          reference.referenceDistance,
           reference.referenceType,
           reference.referenceTimestamp,
-          reference.segmentCount,
-          reference.filename,
-          reference.geoJson
+          reference.referenceSegmentCount,
+          reference.referenceFilename,
+          reference.referenceGeoJson
         )
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
         val bounds = stateOption match {
-          case None => reference.bounds
+          case None => reference.referenceBounds
           case Some(state) =>
             if (state.bounds == Bounds()) { // TODO this is not possible?
-              reference.bounds
+              reference.referenceBounds
             }
             else {
               Util.mergeBounds(Seq(state.bounds, referenceInfo.bounds))

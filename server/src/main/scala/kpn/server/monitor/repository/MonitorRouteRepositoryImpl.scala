@@ -311,16 +311,16 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       project(
         fields(
           excludeId(),
-          include("distance"),
+          include("referenceDistance"),
         )
       ),
       group(
         1L,
-        sum("distance", "$distance"),
+        sum("referenceDistance", "$referenceDistance"),
       ),
     )
 
-    database.monitorRouteReferences.optionAggregate[Distance](pipeline, log).map(_.distance)
+    database.monitorRouteReferences.optionAggregate[Distance](pipeline, log).map(_.referenceDistance)
   }
 
   override def superRouteStateSummary(routeId: ObjectId): Option[MonitorRouteStateSummary] = {

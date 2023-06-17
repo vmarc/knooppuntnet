@@ -289,13 +289,13 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           relationId = Some(11),
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user2",
-          bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 1),
-          distance = 196,
-          segmentCount = 1,
-          filename = Some("filename-1"),
-          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+          referenceDistance = 196,
+          referenceSegmentCount = 1,
+          referenceFilename = Some("filename-1"),
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
       )
 
@@ -396,13 +396,13 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           relationId = Some(12),
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
           user = "user3",
-          bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
+          referenceBounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 2),
-          distance = 139,
-          segmentCount = 1,
-          filename = Some("filename-2"),
-          geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+          referenceDistance = 139,
+          referenceSegmentCount = 1,
+          referenceFilename = Some("filename-2"),
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
       )
 

@@ -61,13 +61,13 @@ class MonitorRouteChangePageBuilder(
     val reference = MonitorRouteReferenceInfo(
       routeReference.timestamp,
       routeReference.user,
-      routeReference.bounds,
+      routeReference.referenceBounds,
       0, // TODO distance
       routeReference.referenceType,
       routeReference.referenceTimestamp,
-      routeReference.segmentCount,
-      routeReference.filename,
-      routeReference.geoJson
+      routeReference.referenceSegmentCount,
+      routeReference.referenceFilename,
+      routeReference.referenceGeoJson
     )
 
     Some(
@@ -81,7 +81,7 @@ class MonitorRouteChangePageBuilder(
         routeChange.waysRemoved,
         routeChange.waysUpdated,
         routeChange.osmDistance,
-        routeReference.bounds,
+        routeReference.referenceBounds,
         routeChange.routeSegmentCount,
         routeChangeGeometry.routeSegments,
         routeChangeGeometry.newDeviations,

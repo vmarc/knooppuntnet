@@ -1,3 +1,3 @@
 package kpn.server.repository
 
-case class Distance(distance: Long)
+case class Distance(referenceDistance: Long)

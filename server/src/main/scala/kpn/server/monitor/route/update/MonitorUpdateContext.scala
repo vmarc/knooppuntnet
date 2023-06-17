@@ -5,7 +5,7 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteReference
+import kpn.server.monitor.domain.MonitorRouteReferenceSummary
 
 case class MonitorUpdateContext(
   user: String,
@@ -15,7 +15,7 @@ case class MonitorUpdateContext(
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
   newRoute: Option[MonitorRoute] = None,
-  newReferences: Seq[MonitorRouteReference] = Seq.empty,
+  newReferences: Seq[MonitorRouteReferenceSummary] = Seq.empty,
   stateChanged: Boolean = false
 ) {
 
