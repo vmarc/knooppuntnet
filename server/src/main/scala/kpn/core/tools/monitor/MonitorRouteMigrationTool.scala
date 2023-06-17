@@ -22,7 +22,6 @@ import kpn.server.monitor.route.update.MonitorRouteStructureLoader
 import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
 import kpn.server.monitor.route.update.MonitorUpdateContext
 import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
-import kpn.server.monitor.route.update.MonitorUpdateRouteImpl
 import kpn.server.monitor.route.update.MonitorUpdateStructureImpl
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryFactory
@@ -42,7 +41,6 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
   private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-  private val monitorUpdateRoute = new MonitorUpdateRouteImpl(monitorGroupRepository)
   private val monitorRouteRelationRepository = new MonitorRouteRelationRepository(overpassQueryExecutor)
   private val monitorRouteStructureLoader = new MonitorRouteStructureLoader(overpassQueryExecutor)
   private val monitorUpdateStructure = new MonitorUpdateStructureImpl(monitorRouteRelationRepository, monitorRouteStructureLoader)
@@ -58,7 +56,6 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorGroupRepository,
     monitorRouteRepository,
-    monitorUpdateRoute,
     monitorUpdateStructure,
     monitorRouteRelationAnalyzer,
     monitorRouteRelationRepository,

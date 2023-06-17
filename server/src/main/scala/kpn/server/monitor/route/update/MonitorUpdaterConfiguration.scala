@@ -14,7 +14,6 @@ class MonitorUpdaterConfiguration(
 
   val monitorGroupRepository = new MonitorGroupRepositoryImpl(database)
   val monitorRouteRepository = new MonitorRouteRepositoryImpl(database)
-  private val monitorUpdateRoute = new MonitorUpdateRouteImpl(monitorGroupRepository)
   private val monitorUpdateStructure = new MonitorUpdateStructureImpl(
     monitorRouteRelationRepository,
     monitorRouteStructureLoader
@@ -30,7 +29,6 @@ class MonitorUpdaterConfiguration(
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorGroupRepository,
     monitorRouteRepository,
-    monitorUpdateRoute,
     monitorUpdateStructure,
     monitorRouteRelationAnalyzer,
     monitorRouteRelationRepository,

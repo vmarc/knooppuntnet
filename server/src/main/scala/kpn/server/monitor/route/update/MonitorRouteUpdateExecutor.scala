@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.json.Json
+import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
@@ -36,7 +37,6 @@ import scala.xml.XML
 class MonitorRouteUpdateExecutor(
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdateRoute: MonitorUpdateRoute,
   monitorUpdateStructure: MonitorUpdateStructure,
   monitorRouteRelationAnalyzer: MonitorRouteRelationAnalyzer,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
@@ -92,7 +92,34 @@ class MonitorRouteUpdateExecutor(
 
     findGroup()
     assertNewRoute()
-    context = monitorUpdateRoute.update(context)
+
+    context = context.copy(
+      newRoute = Some(
+        MonitorRoute(
+          ObjectId(),
+          context.group.get._id,
+          context.update.routeName,
+          context.update.description.getOrElse(""),
+          context.update.comment,
+          context.update.relationId,
+          context.user,
+          Time.now,
+          referenceType = context.update.referenceType,
+          referenceTimestamp = context.update.referenceTimestamp,
+          referenceFilename = context.update.referenceFilename,
+          referenceDistance = 0,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 0,
+          osmDistance = 0,
+          osmSegmentCount = 0,
+          happy = false,
+          osmSegments = Seq.empty,
+          relation = None
+        )
+      )
+    )
+
     context = monitorUpdateStructure.update(context)
 
     if (context.update.referenceType == "gpx") {
@@ -127,8 +154,40 @@ class MonitorRouteUpdateExecutor(
     )
 
     findGroup()
-    findRoute()
-    context = monitorUpdateRoute.update(context)
+    val oldRoute = findRoute()
+
+    if (context.isRouteChanged()) {
+
+      val groupId = context.update.newGroupName match {
+        case None => context.group.get._id
+        case Some(newGroupName) =>
+          monitorGroupRepository.groupByName(newGroupName).map(_._id) match {
+            case Some(id) => id
+            case None =>
+              throw new IllegalArgumentException(
+                s"""Could not find group with name "${newGroupName}""""
+              )
+          }
+      }
+
+      context = context.copy(
+        newRoute = Some(
+          oldRoute.copy(
+            groupId = groupId,
+            name = context.update.newRouteName.getOrElse(oldRoute.name),
+            description = context.update.description.get, // TODO make more safe!!
+            comment = context.update.comment,
+            relationId = context.update.relationId,
+            user = context.user,
+            timestamp = Time.now,
+            referenceType = context.update.referenceType,
+            referenceTimestamp = context.update.referenceTimestamp,
+            referenceFilename = context.update.referenceFilename,
+          )
+        )
+      )
+    }
+
     context = monitorUpdateStructure.update(context)
 
     // TODO pick up information about existing state and references, and delete the ones that are not the structure anymore
@@ -562,7 +621,7 @@ class MonitorRouteUpdateExecutor(
     )
   }
 
-  private def findRoute(): Unit = {
+  private def findRoute(): MonitorRoute = {
     val routeName = context.update.routeName
     val route = monitorRouteRepository.routeByName(context.group.get._id, routeName).getOrElse {
       throw new IllegalArgumentException(
@@ -572,6 +631,7 @@ class MonitorRouteUpdateExecutor(
     context = context.copy(
       oldRoute = Some(route)
     )
+    route
   }
 
   private def assertNewRoute(): Unit = {
