@@ -16,22 +16,26 @@ class MonitorUpdaterTest15_route_not_found extends UnitTest with SharedTestObjec
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
-      val update = MonitorRouteUpdate(
-        action = "update",
-        groupName = "group-name",
-        routeName = "unknown-route-name",
-        description = Some("description"),
-        comment = Some("comment"),
-        relationId = Some(1),
-        referenceType = "osm",
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-      )
-
       val group = newMonitorGroup("group-name")
       configuration.monitorGroupRepository.saveGroup(group)
 
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "update",
+            groupName = "group-name",
+            routeName = "unknown-route-name",
+            description = Some("description"),
+            comment = Some("comment"),
+            relationId = Some(1),
+            referenceType = "osm",
+            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          ),
+          reporter
+        )
+      )
 
       reporter.statusses.shouldMatchTo(
         Seq(

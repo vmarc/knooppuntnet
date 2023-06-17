@@ -65,7 +65,13 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user1", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user1",
+          update,
+          reporter
+        )
+      )
 
       reporter.statusses.shouldMatchTo(
         Seq(
@@ -118,8 +124,13 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
       )
 
       val reporter2 = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user2", update2, reporter2)
-
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user2",
+          update2,
+          reporter2
+        )
+      )
       reporter.statusses.shouldMatchTo(
         Seq(
           MonitorRouteUpdateStatus(

@@ -50,7 +50,13 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
 
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val routeAddReporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user1", routeAdd, routeAddReporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user1",
+          routeAdd,
+          routeAddReporter
+        )
+      )
 
       routeAddReporter.statusses.shouldMatchTo(
         Seq(
@@ -239,8 +245,13 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val uploadGpxReporter1 = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user2", uploadGpx1, uploadGpxReporter1)
-
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user2",
+          uploadGpx1,
+          uploadGpxReporter1
+        )
+      )
       uploadGpxReporter1.statusses.shouldMatchTo(
         Seq(
           // TODO add status
@@ -328,7 +339,13 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val uploadGpxReporter2 = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user3", uploadGpx2, uploadGpxReporter2)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user3",
+          uploadGpx2,
+          uploadGpxReporter2
+        )
+      )
 
       uploadGpxReporter2.statusses.shouldMatchTo(
         Seq(

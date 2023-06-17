@@ -64,19 +64,23 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
       configuration.monitorRouteRepository.saveRouteReference(reference)
       configuration.monitorRouteRepository.saveRouteState(state)
 
-      val update = MonitorRouteUpdate(
-        action = "update",
-        groupName = group.name,
-        routeName = "route",
-        referenceType = "osm",
-        description = Some("route description"),
-        relationId = Some(1),
-        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-      )
-
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "update",
+            groupName = group.name,
+            routeName = "route",
+            referenceType = "osm",
+            description = Some("route description"),
+            relationId = Some(1),
+            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+          ),
+          reporter
+        )
+      )
 
       reporter.statusses.shouldMatchTo(
         Seq(

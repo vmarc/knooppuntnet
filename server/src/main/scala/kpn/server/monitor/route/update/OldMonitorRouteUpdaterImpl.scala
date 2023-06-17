@@ -7,27 +7,19 @@ import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.repository.MonitorGroupRepository
-import kpn.server.monitor.repository.MonitorRouteRepository
+import org.springframework.context.ApplicationContext
 import org.springframework.stereotype.Component
 
 import scala.xml.Elem
 
 @Component
-class MonitorRouteUpdaterImpl(
-  monitorGroupRepository: MonitorGroupRepository,
-  monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdateRoute: MonitorUpdateRoute,
-  monitorUpdateStructure: MonitorUpdateStructure,
-  saver: MonitorUpdateSaver,
-  monitorRouteRelationAnalyzer: MonitorRouteRelationAnalyzer,
-  monitorRouteRelationRepository: MonitorRouteRelationRepository,
-  monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer
-) extends MonitorRouteUpdater {
+class OldMonitorRouteUpdaterImpl(
+  applicationContext: ApplicationContext
+) extends OldMonitorRouteUpdater {
 
-  private val log = Log(classOf[MonitorRouteUpdaterImpl])
+  private val log = Log(classOf[OldMonitorRouteUpdaterImpl])
+
 
   def update(
     user: String,
@@ -41,18 +33,7 @@ class MonitorRouteUpdaterImpl(
         reporter
       )
 
-      val configuration = new MonitorRouteUpdateConfiguration(
-        monitorGroupRepository,
-        monitorRouteRepository,
-        monitorUpdateRoute,
-        monitorUpdateStructure,
-        saver,
-        monitorRouteRelationAnalyzer,
-        monitorRouteRelationRepository,
-        monitorRouteOsmSegmentAnalyzer
-      )
-
-      new MonitorRouteUpdateExecutor(configuration, context).execute()
+      applicationContext.getBean(classOf[MonitorRouteUpdateExecutor]).execute(context)
     }
   }
 

@@ -51,22 +51,25 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
       configuration.monitorRouteRepository.saveRouteState(state)
       configuration.monitorRouteRepository.saveRouteReference(reference)
 
-      val update = MonitorRouteUpdate(
-        action = "update",
-        groupName = "group1",
-        newGroupName = Some("group2"), // <-- changed, but there is no group2
-        routeName = "route",
-        referenceType = "osm",
-        description = Some(""),
-        comment = None,
-        relationId = Some(1),
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-      )
-
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
-
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "update",
+            groupName = "group1",
+            newGroupName = Some("group2"), // <-- changed, but there is no group2
+            routeName = "route",
+            referenceType = "osm",
+            description = Some(""),
+            comment = None,
+            relationId = Some(1),
+            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          ),
+          reporter
+        )
+      )
       reporter.statusses.shouldMatchTo(
         Seq(
           MonitorRouteUpdateStatus(

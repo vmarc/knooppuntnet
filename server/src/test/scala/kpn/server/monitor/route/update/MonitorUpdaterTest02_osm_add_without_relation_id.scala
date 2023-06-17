@@ -34,6 +34,8 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
+      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
+
       val update = MonitorRouteUpdate(
         action = "add",
         groupName = group.name,
@@ -43,10 +45,15 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
         referenceTimestamp = Some(Timestamp(2022, 8, 1)),
       )
 
-      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
-
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          update,
+          reporter
+        )
+      )
+
 
       // TODO replace: saveResult should equal(MonitorRouteSaveResult())
 
@@ -90,7 +97,13 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
 
       val reporter2 = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", updatedUpdate, reporter2)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          updatedUpdate,
+          reporter
+        )
+      )
 
       //      updateSaveResult should equal (
       //        MonitorRouteSaveResult(

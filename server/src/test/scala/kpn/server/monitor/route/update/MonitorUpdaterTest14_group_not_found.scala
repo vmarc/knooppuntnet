@@ -17,19 +17,23 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
-      val update = MonitorRouteUpdate(
-        action = "add",
-        groupName = "unknown-group",
-        routeName = "route-name",
-        referenceType = "osm",
-        description = Some("description"),
-        comment = Some("comment"),
-        relationId = Some(1),
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-      )
-
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "add",
+            groupName = "unknown-group",
+            routeName = "route-name",
+            referenceType = "osm",
+            description = Some("description"),
+            comment = Some("comment"),
+            relationId = Some(1),
+            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          ),
+          reporter
+        )
+      )
 
       reporter.statusses.shouldMatchTo(
         Seq(

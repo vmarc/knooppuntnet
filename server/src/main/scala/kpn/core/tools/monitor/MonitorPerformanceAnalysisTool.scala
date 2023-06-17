@@ -7,6 +7,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
+import kpn.server.monitor.route.update.MonitorUpdateContext
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
 import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 
@@ -31,16 +32,20 @@ class MonitorPerformanceAnalysisTool(database: Database) {
   )
 
   def update(): Unit = {
-    val reporter = new MonitorUpdateReporterLogger()
-    val update = MonitorRouteUpdate(
-      action = "update",
-      groupName = "AAA",
-      routeName = "E2",
-      referenceType = "osm",
-      description = Some(""),
-      relationId = Some(1254604),
-      referenceTimestamp = Some(Timestamp(2023, 6, 1)),
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateContext(
+        "user",
+        MonitorRouteUpdate(
+          action = "update",
+          groupName = "AAA",
+          routeName = "E2",
+          referenceType = "osm",
+          description = Some(""),
+          relationId = Some(1254604),
+          referenceTimestamp = Some(Timestamp(2023, 6, 1)),
+        ),
+        new MonitorUpdateReporterLogger()
+      )
     )
-    configuration.monitorUpdater.update("user", update, reporter)
   }
 }

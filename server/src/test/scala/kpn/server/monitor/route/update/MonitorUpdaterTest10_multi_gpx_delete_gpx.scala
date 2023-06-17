@@ -132,18 +132,21 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       configuration.monitorRouteRepository.saveRouteState(state111)
       configuration.monitorRouteRepository.saveRouteState(state112)
 
-
-      val update = MonitorRouteUpdate(
-        action = "gpx-delete",
-        groupName = group.name,
-        routeName = "route-name",
-        referenceType = "multi-gpx",
-        relationId = Some(111),
-      )
-
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "gpx-delete",
+            groupName = group.name,
+            routeName = "route-name",
+            referenceType = "multi-gpx",
+            relationId = Some(111),
+          ),
+          reporter
+        )
+      )
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       val subrelation111 = updatedRoute.relation.get.relations.head.relations.head

@@ -31,19 +31,23 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
       configuration.monitorGroupRepository.saveGroup(group)
       configuration.monitorRouteRepository.saveRoute(route)
 
-      val update = MonitorRouteUpdate(
-        action = "add",
-        groupName = "group-name",
-        routeName = "route-name",
-        referenceType = "osm",
-        description = Some("description"),
-        comment = Some("comment"),
-        relationId = Some(1),
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-      )
-
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "add",
+            groupName = "group-name",
+            routeName = "route-name",
+            referenceType = "osm",
+            description = Some("description"),
+            comment = Some("comment"),
+            relationId = Some(1),
+            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+          ),
+          reporter
+        )
+      )
 
       reporter.statusses.shouldMatchTo(
         Seq(

@@ -10,7 +10,7 @@ import kpn.server.monitor.domain.MonitorGroup
 
 import scala.xml.Elem
 
-trait MonitorRouteUpdater {
+trait OldMonitorRouteUpdater {
 
   def update(
     user: String,

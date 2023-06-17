@@ -77,7 +77,7 @@ class MonitorUpdateTool(
 
     groupRoutes.zipWithIndex.foreach { case (groupRoute, index) =>
       Log.context(s"${index + 1}/${groupRoutes.size}") {
-        configuration.monitorUpdater.analyzeAll(groupRoute.group, groupRoute.routeId)
+        // TODO configuration.monitorUpdater.analyzeAll(groupRoute.group, groupRoute.routeId)
       }
     }
   }

@@ -38,21 +38,25 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val update = MonitorRouteUpdate(
-        action = "add",
-        groupName = group.name,
-        routeName = "route-name",
-        referenceType = "osm",
-        description = Some("route-description"),
-        comment = Some("route-comment"),
-        relationId = Some(1),
-        referenceTimestamp = Some(referenceTimestamp),
-      )
-
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
 
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "add",
+            groupName = group.name,
+            routeName = "route-name",
+            referenceType = "osm",
+            description = Some("route-description"),
+            comment = Some("route-comment"),
+            relationId = Some(1),
+            referenceTimestamp = Some(referenceTimestamp),
+          ),
+          reporter
+        )
+      )
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(

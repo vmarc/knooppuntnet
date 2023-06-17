@@ -50,22 +50,26 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           |</gpx>
           |""".stripMargin
 
-      val update = MonitorRouteUpdate(
-        action = "add",
-        groupName = group.name,
-        routeName = "route-name",
-        referenceType = "gpx",
-        description = Some("route-description"),
-        comment = Some("route-comment"),
-        relationId = Some(1),
-        referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-        referenceFilename = Some("filename"),
-        referenceGpx = Some(gpx)
-      )
-
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
-      configuration.monitorUpdater.update("user", update, reporter)
+      configuration.monitorRouteUpdateExecutor.execute(
+        MonitorUpdateContext(
+          "user",
+          MonitorRouteUpdate(
+            action = "add",
+            groupName = group.name,
+            routeName = "route-name",
+            referenceType = "gpx",
+            description = Some("route-description"),
+            comment = Some("route-comment"),
+            relationId = Some(1),
+            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+            referenceFilename = Some("filename"),
+            referenceGpx = Some(gpx)
+          ),
+          reporter
+        )
+      )
 
       reporter.statusses.shouldMatchTo(
         Seq(

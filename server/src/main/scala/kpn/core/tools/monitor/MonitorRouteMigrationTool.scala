@@ -1,6 +1,7 @@
 package kpn.core.tools.monitor
 
-import kpn.api.common.monitor.MonitorRouteProperties
+
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
@@ -8,15 +9,9 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzerImpl
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzerImpl
-import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.monitor.domain.MonitorGroup
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
-import kpn.server.monitor.domain.MonitorRouteOsmSegmentElement
-import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.OldMonitorRoute
 import kpn.server.monitor.domain.OldMonitorRouteReference
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
@@ -24,24 +19,24 @@ import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import kpn.server.monitor.route.update.MonitorRouteRelationAnalyzerImpl
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
-import kpn.server.monitor.route.update.MonitorRouteUpdaterImpl
+import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
+import kpn.server.monitor.route.update.MonitorUpdateContext
+import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 import kpn.server.monitor.route.update.MonitorUpdateRouteImpl
 import kpn.server.monitor.route.update.MonitorUpdateSaverImpl
 import kpn.server.monitor.route.update.MonitorUpdateStructureImpl
+import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.mongodb.scala.MongoNamespace
 
 import java.io.File
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.xml.Elem
-import scala.xml.XML
 
-case class MonitorExampleSuperRoute(relationId: Long, relations: Seq[MonitorExampleSuperRouteRelation])
+case class MonitorExampleSuperRoute(relationId: Long, relations: Seq[MonitorExampleSuperRouteSubRelation])
 
-case class MonitorExampleSuperRouteRelation(relationId: Long, referenceFilename: String)
+case class MonitorExampleSuperRouteSubRelation(relationId: Long, referenceFilename: String)
 
 class MonitorRouteMigrationConfiguration(val database: Database) {
 
@@ -62,7 +57,7 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   )
 
   private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
-  val monitorUpdater = new MonitorRouteUpdaterImpl(
+  val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorGroupRepository,
     monitorRouteRepository,
     monitorUpdateRoute,
@@ -81,17 +76,17 @@ object MonitorRouteMigrationTool {
   private val exampleSuperRoute = MonitorExampleSuperRoute(
     9453563L,
     Seq(
-      MonitorExampleSuperRouteRelation(6691445L, "/kpn/routes/578-groene-hartpad-etappe-01.gpx"),
-      MonitorExampleSuperRouteRelation(6769053L, "/kpn/routes/579-groene-hartpad-etappe-02.gpx"),
-      MonitorExampleSuperRouteRelation(9510415L, "/kpn/routes/580-groene-hartpad-etappe-03.gpx"),
-      MonitorExampleSuperRouteRelation(6691488L, "/kpn/routes/581-groene-hartpad-etappe-04.gpx"),
-      MonitorExampleSuperRouteRelation(6691494L, "/kpn/routes/582-groene-hartpad-etappe-05.gpx"),
-      MonitorExampleSuperRouteRelation(9510414L, "/kpn/routes/583-groene-hartpad-etappe-06.gpx"),
-      MonitorExampleSuperRouteRelation(6691523L, "/kpn/routes/584-groene-hartpad-etappe-07.gpx"),
-      MonitorExampleSuperRouteRelation(7217854L, "/kpn/routes/585-groene-hartpad-etappe-08.gpx"),
-      MonitorExampleSuperRouteRelation(9510413L, "/kpn/routes/586-groene-hartpad-etappe-09.gpx"),
-      MonitorExampleSuperRouteRelation(6785059L, "/kpn/routes/587-groene-hartpad-etappe-10.gpx"),
-      MonitorExampleSuperRouteRelation(6691446L, "/kpn/routes/588-groene-hartpad-etappe-11.gpx"),
+      MonitorExampleSuperRouteSubRelation(6691445L, "/kpn/routes/578-groene-hartpad-etappe-01.gpx"),
+      MonitorExampleSuperRouteSubRelation(6769053L, "/kpn/routes/579-groene-hartpad-etappe-02.gpx"),
+      MonitorExampleSuperRouteSubRelation(9510415L, "/kpn/routes/580-groene-hartpad-etappe-03.gpx"),
+      MonitorExampleSuperRouteSubRelation(6691488L, "/kpn/routes/581-groene-hartpad-etappe-04.gpx"),
+      MonitorExampleSuperRouteSubRelation(6691494L, "/kpn/routes/582-groene-hartpad-etappe-05.gpx"),
+      MonitorExampleSuperRouteSubRelation(9510414L, "/kpn/routes/583-groene-hartpad-etappe-06.gpx"),
+      MonitorExampleSuperRouteSubRelation(6691523L, "/kpn/routes/584-groene-hartpad-etappe-07.gpx"),
+      MonitorExampleSuperRouteSubRelation(7217854L, "/kpn/routes/585-groene-hartpad-etappe-08.gpx"),
+      MonitorExampleSuperRouteSubRelation(9510413L, "/kpn/routes/586-groene-hartpad-etappe-09.gpx"),
+      MonitorExampleSuperRouteSubRelation(6785059L, "/kpn/routes/587-groene-hartpad-etappe-10.gpx"),
+      MonitorExampleSuperRouteSubRelation(6691446L, "/kpn/routes/588-groene-hartpad-etappe-11.gpx"),
     )
   )
 
@@ -131,29 +126,39 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
           case None =>
         }
 
-        val properties = MonitorRouteProperties(
-          group.name,
-          "example",
-          "example route with gpx trace per sub relation",
-          Some("comment"),
-          Some(exampleSuperRoute.relationId),
-          "multi-gpx",
-          None,
-          None,
-          referenceFileChanged = false,
+        configuration.monitorRouteUpdateExecutor.execute(
+          MonitorUpdateContext(
+            "migration",
+            MonitorRouteUpdate(
+              action = "add",
+              groupName = group.name,
+              routeName = "example",
+              referenceType = "multi-gpx",
+              description = Some("example route with gpx trace per sub relation"),
+              comment = Some("comment"),
+              relationId = Some(exampleSuperRoute.relationId),
+            ),
+            new MonitorUpdateReporterLogger()
+          )
         )
-        configuration.monitorUpdater.add("user", group.name, properties)
 
-        exampleSuperRoute.relations.foreach { superRouteRelation =>
-          val xml: Elem = XML.loadFile(new File(superRouteRelation.referenceFilename))
-          configuration.monitorUpdater.upload(
-            user = "user",
-            groupName = group.name,
-            routeName = properties.name,
-            relationId = Some(superRouteRelation.relationId),
-            referenceTimestamp = Time.now,
-            filename = new File(superRouteRelation.referenceFilename).getName,
-            xml = xml
+        exampleSuperRoute.relations.foreach { superRouteSubRelation =>
+          val referenceGpx = FileUtils.readFileToString(new File(superRouteSubRelation.referenceFilename), "UTF-8")
+          configuration.monitorRouteUpdateExecutor.execute(
+            MonitorUpdateContext(
+              "migration",
+              MonitorRouteUpdate(
+                action = "gpx-upload",
+                groupName = group.name,
+                routeName = "example",
+                referenceType = "multi-gpx",
+                relationId = Some(exampleSuperRoute.relationId),
+                referenceTimestamp = Some(Time.now),
+                referenceFilename = Some(superRouteSubRelation.referenceFilename),
+                referenceGpx = Some(referenceGpx),
+              ),
+              new MonitorUpdateReporterLogger()
+            )
           )
         }
     }
@@ -197,100 +202,104 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       case None =>
     }
 
-    val properties = MonitorRouteProperties(
-      group.name,
-      oldRoute.name,
-      oldRoute.description,
-      oldRoute.comment,
-      oldRoute.relationId,
-      oldRoute.referenceType.get,
-      oldRoute.referenceDay.map(day => Timestamp(day)),
-      oldRoute.referenceFilename,
-      referenceFileChanged = false,
+    configuration.monitorRouteUpdateExecutor.execute(
+      MonitorUpdateContext(
+        oldReference.user,
+        MonitorRouteUpdate(
+          action = "add",
+          groupName = group.name,
+          routeName = oldRoute.name,
+          referenceType = oldRoute.referenceType.get,
+          description = Some(oldRoute.description),
+          comment = oldRoute.comment,
+          relationId = oldRoute.relationId,
+          referenceTimestamp = oldRoute.referenceDay.map(day => Timestamp(day)),
+          referenceFilename = oldRoute.referenceFilename
+          // TODO referenceGpx
+        ),
+        new MonitorUpdateReporterLogger()
+      )
     )
 
-    configuration.monitorUpdater.add(oldReference.user, group.name, properties)
+    /*
+        if (oldRoute.referenceType.contains("gpx")) {
+          val geoJson = oldReference.geometry
+          val geometry = new GeoJsonReader().read(geoJson)
+          val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometry)
+          val simplifiedLineStrings = referenceLineStrings.map { lineString =>
+            val oldCoordinates = lineString.getCoordinates.toList
+            val newCoordinates = MonitorRouteAnalysisSupport.simplifyCoordinates(oldCoordinates)
+            if (newCoordinates.length != oldCoordinates.length) {
+              geometryFactory.createLineString(newCoordinates.toArray)
+            }
+            else {
+              lineString
+            }
+          }
+          val simplifiedGeometry = geometryFactory.createGeometryCollection(simplifiedLineStrings.toArray)
+          val simplifiedGeoJson = MonitorRouteAnalysisSupport.toGeoJson(simplifiedGeometry)
 
-    val newRoute = configuration.monitorRouteRepository.routeByName(group._id, oldRoute.name).get
+          val distance = Math.round(toMeters(simplifiedGeometry.getLength))
 
+          val reference = MonitorRouteReference(
+            oldReference._id,
+            routeId = newRoute._id,
+            relationId = newRoute.relationId,
+            timestamp = oldReference.created,
+            user = oldReference.user,
+            bounds = oldReference.bounds,
+            referenceType = oldReference.referenceType,
+            referenceTimestamp = Timestamp(oldReference.referenceDay.get),
+            distance = distance,
+            segmentCount = oldReference.segmentCount,
+            filename = oldReference.filename,
+            geoJson = simplifiedGeoJson
+          )
 
-    if (oldRoute.referenceType.contains("gpx")) {
-      val geoJson = oldReference.geometry
-      val geometry = new GeoJsonReader().read(geoJson)
-      val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometry)
-      val simplifiedLineStrings = referenceLineStrings.map { lineString =>
-        val oldCoordinates = lineString.getCoordinates.toList
-        val newCoordinates = MonitorRouteAnalysisSupport.simplifyCoordinates(oldCoordinates)
-        if (newCoordinates.length != oldCoordinates.length) {
-          geometryFactory.createLineString(newCoordinates.toArray)
-        }
-        else {
-          lineString
-        }
-      }
-      val simplifiedGeometry = geometryFactory.createGeometryCollection(simplifiedLineStrings.toArray)
-      val simplifiedGeoJson = MonitorRouteAnalysisSupport.toGeoJson(simplifiedGeometry)
+          configuration.monitorRouteRepository.saveRouteReference(reference)
 
-      val distance = Math.round(toMeters(simplifiedGeometry.getLength))
+          val updatedRoute = configuration.monitorRouteRelationAnalyzer.analyzeReference(newRoute._id, reference) match {
+            case None => newRoute.copy(referenceDistance = reference.distance)
+            case Some(state) =>
 
-      val reference = MonitorRouteReference(
-        oldReference._id,
-        routeId = newRoute._id,
-        relationId = newRoute.relationId,
-        timestamp = oldReference.created,
-        user = oldReference.user,
-        bounds = oldReference.bounds,
-        referenceType = oldReference.referenceType,
-        referenceTimestamp = Timestamp(oldReference.referenceDay.get),
-        distance = distance,
-        segmentCount = oldReference.segmentCount,
-        filename = oldReference.filename,
-        geoJson = simplifiedGeoJson
-      )
+              configuration.monitorRouteRepository.saveRouteState(state)
 
-      configuration.monitorRouteRepository.saveRouteReference(reference)
-
-      val updatedRoute = configuration.monitorRouteRelationAnalyzer.analyzeReference(newRoute._id, reference) match {
-        case None => newRoute.copy(referenceDistance = reference.distance)
-        case Some(state) =>
-
-          configuration.monitorRouteRepository.saveRouteState(state)
-
-          newRoute.copy(
-            referenceDistance = reference.distance,
-            deviationDistance = state.deviations.map(_.distance).sum,
-            deviationCount = state.deviations.size,
-            osmWayCount = state.wayCount,
-            osmDistance = state.osmDistance,
-            osmSegmentCount = state.osmSegments.size,
-            osmSegments = state.osmSegments.map { osmSegment =>
-              MonitorRouteOsmSegment(
-                Seq(
-                  MonitorRouteOsmSegmentElement(
-                    relationId = newRoute.relationId.get,
-                    segmentId = osmSegment.id,
-                    meters = osmSegment.meters,
-                    bounds = osmSegment.bounds,
-                    reversed = false
-                  )
-                )
-              )
-            },
-            relation = newRoute.relation.map { monitorRouteRelation =>
-              monitorRouteRelation.copy(
-                deviationDistance = state.deviations.map(_.meters).sum,
+              newRoute.copy(
+                referenceDistance = reference.distance,
+                deviationDistance = state.deviations.map(_.distance).sum,
                 deviationCount = state.deviations.size,
                 osmWayCount = state.wayCount,
                 osmDistance = state.osmDistance,
                 osmSegmentCount = state.osmSegments.size,
-                happy = state.happy,
+                osmSegments = state.osmSegments.map { osmSegment =>
+                  MonitorRouteOsmSegment(
+                    Seq(
+                      MonitorRouteOsmSegmentElement(
+                        relationId = newRoute.relationId.get,
+                        segmentId = osmSegment.id,
+                        meters = osmSegment.meters,
+                        bounds = osmSegment.bounds,
+                        reversed = false
+                      )
+                    )
+                  )
+                },
+                relation = newRoute.relation.map { monitorRouteRelation =>
+                  monitorRouteRelation.copy(
+                    deviationDistance = state.deviations.map(_.meters).sum,
+                    deviationCount = state.deviations.size,
+                    osmWayCount = state.wayCount,
+                    osmDistance = state.osmDistance,
+                    osmSegmentCount = state.osmSegments.size,
+                    happy = state.happy,
+                  )
+                },
+                happy = state.happy
               )
-            },
-            happy = state.happy
-          )
-      }
-      configuration.monitorRouteRepository.saveRoute(updatedRoute)
-    }
+          }
+          configuration.monitorRouteRepository.saveRoute(updatedRoute)
+        }
+          */
   }
 
   private def renameRouteCollection(collection: DatabaseCollection[_]): Unit = {
