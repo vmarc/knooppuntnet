@@ -44,6 +44,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "add",
             groupName = group.name,
@@ -53,8 +54,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
             comment = Some("route-comment"),
             relationId = Some(1),
             referenceTimestamp = Some(referenceTimestamp),
-          ),
-          reporter
+          )
         )
       )
 

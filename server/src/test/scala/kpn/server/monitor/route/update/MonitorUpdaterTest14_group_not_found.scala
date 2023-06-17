@@ -21,6 +21,7 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "add",
             groupName = "unknown-group",
@@ -30,8 +31,7 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
             comment = Some("comment"),
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          ),
-          reporter
+          )
         )
       )
 

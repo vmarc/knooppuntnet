@@ -29,10 +29,9 @@ class OldMonitorRouteUpdaterImpl(
     Log.context(Seq("route-update", s"group=${update.groupName}", s"route=${update.routeName}")) {
       var context = MonitorUpdateContext(
         user,
+        reporter,
         update,
-        reporter
       )
-
       applicationContext.getBean(classOf[MonitorRouteUpdateExecutor]).execute(context)
     }
   }

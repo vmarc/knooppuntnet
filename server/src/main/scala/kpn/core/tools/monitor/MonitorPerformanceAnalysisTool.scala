@@ -35,6 +35,7 @@ class MonitorPerformanceAnalysisTool(database: Database) {
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         "user",
+        new MonitorUpdateReporterLogger(),
         MonitorRouteUpdate(
           action = "update",
           groupName = "AAA",
@@ -43,8 +44,7 @@ class MonitorPerformanceAnalysisTool(database: Database) {
           description = Some(""),
           relationId = Some(1254604),
           referenceTimestamp = Some(Timestamp(2023, 6, 1)),
-        ),
-        new MonitorUpdateReporterLogger()
+        )
       )
     )
   }

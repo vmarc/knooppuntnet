@@ -49,11 +49,10 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
-          update,
-          reporter
+          reporter,
+          update
         )
       )
-
 
       // TODO replace: saveResult should equal(MonitorRouteSaveResult())
 
@@ -100,8 +99,8 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
-          updatedUpdate,
-          reporter
+          reporter,
+          updatedUpdate
         )
       )
 

@@ -56,6 +56,7 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "update",
             groupName = "group1",
@@ -66,8 +67,7 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
             comment = None,
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          ),
-          reporter
+          )
         )
       )
       reporter.statusses.shouldMatchTo(

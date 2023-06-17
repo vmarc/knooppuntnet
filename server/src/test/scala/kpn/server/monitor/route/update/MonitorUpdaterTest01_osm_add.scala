@@ -44,6 +44,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "add",
             groupName = group.name,
@@ -53,8 +54,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
             comment = Some("route-comment"),
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-          ),
-          reporter
+          )
         )
       )
 

@@ -68,8 +68,8 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user1",
-          update,
-          reporter
+          reporter,
+          update
         )
       )
 
@@ -127,8 +127,8 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user2",
-          update2,
-          reporter2
+          reporter2,
+          update2
         )
       )
       reporter.statusses.shouldMatchTo(

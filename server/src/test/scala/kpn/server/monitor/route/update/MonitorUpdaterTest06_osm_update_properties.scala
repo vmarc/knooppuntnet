@@ -116,6 +116,7 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user2",
+          reporter,
           MonitorRouteUpdate(
             action = "update",
             groupName = group.name,
@@ -126,8 +127,7 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             newRouteName = Some("route-name-changed") // <-- changed
-          ),
-          reporter
+          )
         )
       )
 

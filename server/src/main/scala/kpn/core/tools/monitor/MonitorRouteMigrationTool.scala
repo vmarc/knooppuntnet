@@ -129,6 +129,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
         configuration.monitorRouteUpdateExecutor.execute(
           MonitorUpdateContext(
             "migration",
+            new MonitorUpdateReporterLogger(),
             MonitorRouteUpdate(
               action = "add",
               groupName = group.name,
@@ -137,8 +138,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
               description = Some("example route with gpx trace per sub relation"),
               comment = Some("comment"),
               relationId = Some(exampleSuperRoute.relationId),
-            ),
-            new MonitorUpdateReporterLogger()
+            )
           )
         )
 
@@ -147,6 +147,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
           configuration.monitorRouteUpdateExecutor.execute(
             MonitorUpdateContext(
               "migration",
+              new MonitorUpdateReporterLogger(),
               MonitorRouteUpdate(
                 action = "gpx-upload",
                 groupName = group.name,
@@ -156,8 +157,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
                 referenceTimestamp = Some(Time.now),
                 referenceFilename = Some(superRouteSubRelation.referenceFilename),
                 referenceGpx = Some(referenceGpx),
-              ),
-              new MonitorUpdateReporterLogger()
+              )
             )
           )
         }
@@ -205,6 +205,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         oldReference.user,
+        new MonitorUpdateReporterLogger(),
         MonitorRouteUpdate(
           action = "add",
           groupName = group.name,
@@ -216,8 +217,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
           referenceTimestamp = oldRoute.referenceDay.map(day => Timestamp(day)),
           referenceFilename = oldRoute.referenceFilename
           // TODO referenceGpx
-        ),
-        new MonitorUpdateReporterLogger()
+        )
       )
     )
 

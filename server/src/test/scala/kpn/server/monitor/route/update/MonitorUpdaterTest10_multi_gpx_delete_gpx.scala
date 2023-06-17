@@ -137,14 +137,14 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "gpx-delete",
             groupName = group.name,
             routeName = "route-name",
             referenceType = "multi-gpx",
             relationId = Some(111),
-          ),
-          reporter
+          )
         )
       )
 

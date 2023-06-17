@@ -23,6 +23,7 @@ class MonitorUpdaterTest15_route_not_found extends UnitTest with SharedTestObjec
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "update",
             groupName = "group-name",
@@ -32,8 +33,7 @@ class MonitorUpdaterTest15_route_not_found extends UnitTest with SharedTestObjec
             relationId = Some(1),
             referenceType = "osm",
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          ),
-          reporter
+          )
         )
       )
 

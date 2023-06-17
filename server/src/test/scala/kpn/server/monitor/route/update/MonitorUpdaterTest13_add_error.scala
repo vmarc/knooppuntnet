@@ -35,6 +35,7 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "add",
             groupName = "group-name",
@@ -44,8 +45,7 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
             comment = Some("comment"),
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          ),
-          reporter
+          )
         )
       )
 

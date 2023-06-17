@@ -55,6 +55,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "add",
             groupName = group.name,
@@ -66,8 +67,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             referenceFilename = Some("filename"),
             referenceGpx = Some(gpx)
-          ),
-          reporter
+          )
         )
       )
 

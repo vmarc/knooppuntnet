@@ -10,8 +10,8 @@ import kpn.server.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
   user: String,
-  update: MonitorRouteUpdate,
   reporter: MonitorUpdateReporter,
+  update: MonitorRouteUpdate,
   status: MonitorRouteUpdateStatus = MonitorRouteUpdateStatus(),
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,

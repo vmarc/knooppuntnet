@@ -53,8 +53,8 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user1",
-          routeAdd,
-          routeAddReporter
+          routeAddReporter,
+          routeAdd
         )
       )
 
@@ -248,8 +248,8 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user2",
-          uploadGpx1,
-          uploadGpxReporter1
+          uploadGpxReporter1,
+          uploadGpx1
         )
       )
       uploadGpxReporter1.statusses.shouldMatchTo(
@@ -342,8 +342,8 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user3",
-          uploadGpx2,
-          uploadGpxReporter2
+          uploadGpxReporter2,
+          uploadGpx2
         )
       )
 

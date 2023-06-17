@@ -49,6 +49,7 @@ class MonitorUpdaterTest11_update_group extends UnitTest with BeforeAndAfterEach
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user",
+          reporter,
           MonitorRouteUpdate(
             action = "update",
             groupName = group1.name,
@@ -58,8 +59,7 @@ class MonitorUpdaterTest11_update_group extends UnitTest with BeforeAndAfterEach
             description = Some(""),
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-          ),
-          reporter
+          )
         )
       )
 
