@@ -15,7 +15,7 @@ case class MonitorUpdateContext(
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
   newRoute: Option[MonitorRoute] = None,
-  newReferences: Seq[MonitorRouteReferenceSummary] = Seq.empty,
+  newReferenceSummaries: Seq[MonitorRouteReferenceSummary] = Seq.empty,
   stateChanged: Boolean = false
 ) {
 

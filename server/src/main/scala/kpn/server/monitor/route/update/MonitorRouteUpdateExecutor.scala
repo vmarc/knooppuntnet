@@ -246,7 +246,7 @@ class MonitorRouteUpdateExecutor(
     monitorRouteRepository.saveRouteReference(reference)
 
     context = context.copy(
-      newReferences = context.newReferences :+ MonitorRouteReferenceSummary.from(reference),
+      newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
     )
 
     if (context.update.referenceType == "multi-gpx") {
@@ -527,7 +527,7 @@ class MonitorRouteUpdateExecutor(
         )
 
         context = context.copy(
-          newReferences = context.newReferences :+ MonitorRouteReferenceSummary.from(reference),
+          newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
           newRoute = Some(updatedNewRoute)
         )
 
@@ -652,7 +652,7 @@ class MonitorRouteUpdateExecutor(
 
   private def save(): Unit = {
 
-    if (context.newReferences.nonEmpty) {
+    if (context.newReferenceSummaries.nonEmpty) {
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {
         case None =>
         case Some(referenceDistance) =>
@@ -778,9 +778,9 @@ class MonitorRouteUpdateExecutor(
   }
 
   private def udpateMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
-    if (context.newReferences.nonEmpty) {
+    if (context.newReferenceSummaries.nonEmpty) {
       val relations = monitorRouteRelation.relations.map(r => udpateMonitorRouteRelation(context, r))
-      context.newReferences.find(_.relationId.get == monitorRouteRelation.relationId) match {
+      context.newReferenceSummaries.find(_.relationId.get == monitorRouteRelation.relationId) match {
         case None =>
           monitorRouteRelation.copy(
             relations = relations
