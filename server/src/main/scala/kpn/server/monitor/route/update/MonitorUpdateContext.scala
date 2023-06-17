@@ -6,7 +6,6 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatus
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
-import kpn.server.monitor.domain.MonitorRouteState
 
 case class MonitorUpdateContext(
   user: String,
@@ -17,8 +16,7 @@ case class MonitorUpdateContext(
   oldRoute: Option[MonitorRoute] = None,
   newRoute: Option[MonitorRoute] = None,
   newReferences: Seq[MonitorRouteReference] = Seq.empty,
-  oldStates: Seq[MonitorRouteState] = Seq.empty,
-  newStates: Seq[MonitorRouteState] = Seq.empty,
+  stateChanged: Boolean = false
 ) {
 
   def withStatus(newStatus: MonitorRouteUpdateStatus): MonitorUpdateContext = {

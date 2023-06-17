@@ -273,7 +273,7 @@ class MonitorRouteUpdateExecutor(
         }
         monitorRouteRepository.saveRouteState(stateToSave)
         context = context.copy(
-          newStates = context.newStates :+ state,
+          stateChanged = true
         )
         save()
     }
@@ -297,8 +297,11 @@ class MonitorRouteUpdateExecutor(
           happy = false
         )
         monitorRouteRepository.saveRouteState(updatedState)
+        context = context.copy(
+          stateChanged = true
+        )
     }
-    save(gpxDeleted = true)
+    save()
   }
 
   private def addRouteWithMultiGpxReference() = {
@@ -338,7 +341,7 @@ class MonitorRouteUpdateExecutor(
 
                       monitorRouteRepository.saveRouteState(state)
                       context = context.copy(
-                        newStates = context.newStates :+ state
+                        stateChanged = true
                       )
                     }
                 }
@@ -439,7 +442,7 @@ class MonitorRouteUpdateExecutor(
         case Some(state) =>
           monitorRouteRepository.saveRouteState(state)
           context = context.copy(
-            newStates = context.newStates :+ state
+            stateChanged = true
           )
 
         case None =>
@@ -535,7 +538,7 @@ class MonitorRouteUpdateExecutor(
       case Some(state) =>
         monitorRouteRepository.saveRouteState(state)
         context = context.copy(
-          newStates = context.newStates :+ state,
+          stateChanged = true
         )
     }
   }
@@ -646,7 +649,7 @@ class MonitorRouteUpdateExecutor(
     }
   }
 
-  private def save(gpxDeleted: Boolean = false): Unit = {
+  private def save(): Unit = {
 
     if (context.newReferences.nonEmpty) {
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {
@@ -697,11 +700,10 @@ class MonitorRouteUpdateExecutor(
       }
     }
 
-    if (context.newStates.nonEmpty || gpxDeleted) {
+    if (context.stateChanged) {
 
       val stateSummaries = monitorRouteRepository.routeStateSummaries(context.routeId)
       val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(relation, stateSummaries))
-
       val osmWayCount = stateSummaries.map(_.osmWayCount).sum
       val osmDistance = stateSummaries.map(_.osmDistance).sum
 
