@@ -27,13 +27,11 @@ class MonitorUpdaterConfiguration(
     monitorRouteDeviationAnalyzer
   )
 
-  private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorGroupRepository,
     monitorRouteRepository,
     monitorUpdateRoute,
     monitorUpdateStructure,
-    saver,
     monitorRouteRelationAnalyzer,
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer

@@ -23,7 +23,6 @@ import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
 import kpn.server.monitor.route.update.MonitorUpdateContext
 import kpn.server.monitor.route.update.MonitorUpdateReporterLogger
 import kpn.server.monitor.route.update.MonitorUpdateRouteImpl
-import kpn.server.monitor.route.update.MonitorUpdateSaverImpl
 import kpn.server.monitor.route.update.MonitorUpdateStructureImpl
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.GeometryFactory
@@ -56,13 +55,11 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
     monitorRouteDeviationAnalyzer
   )
 
-  private val saver = new MonitorUpdateSaverImpl(monitorRouteRepository)
   val monitorRouteUpdateExecutor = new MonitorRouteUpdateExecutor(
     monitorGroupRepository,
     monitorRouteRepository,
     monitorUpdateRoute,
     monitorUpdateStructure,
-    saver,
     monitorRouteRelationAnalyzer,
     monitorRouteRelationRepository,
     monitorRouteOsmSegmentAnalyzer
