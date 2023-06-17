@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { ChangeSetSummaryInfo } from '.';
-import { ChangesFilterOption } from './changes/filter';
+import { ChangesFilterOption } from '@api/common/changes/filter';
+import { ChangeSetSummaryInfo } from './change-set-summary-info';
 
 export interface ChangesPage {
   readonly filterOptions: ChangesFilterOption[];

@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
+import { Reference } from '@api/common/common';
+import { NodeIntegrity } from '@api/common/node';
 import { Country } from '@api/custom';
 import { Day } from '@api/custom';
 import { Fact } from '@api/custom';
 import { Tags } from '@api/custom';
 import { Timestamp } from '@api/custom';
-import { Reference } from './common';
-import { NodeIntegrity } from './node';
 import { NodeName } from './node-name';
 
 export interface NodeInfo {

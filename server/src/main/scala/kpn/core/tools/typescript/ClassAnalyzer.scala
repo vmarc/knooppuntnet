@@ -28,7 +28,7 @@ class ClassAnalyzer {
 
     val className = caseClass.typeSymbol.name.toString
     val packageName = caseClass.typeSymbol.fullName.dropRight(className.length + 1)
-    val dirName = packageName.replaceAll("\\.", "/")
+    val dirName = packageName.replaceAll("kpn.api.", "").replaceAll("\\.", "/")
     val fileName = dirName + "/" + CamelCaseUtil.toDashed(className) + ".ts"
 
     val fields = caseClass.decls.toSeq.flatMap {
@@ -70,8 +70,15 @@ class ClassAnalyzer {
             }
 
             val fileName = {
-              val fieldDirName = fieldPackageName.replaceAll("\\.", "/")
-              RelativePathUtil.dependencyRelativePath(dirName, fieldDirName) + "/" + CamelCaseUtil.toDashed(withoutPackage)
+              if (fieldPackageName == packageName) {
+                "./" + CamelCaseUtil.toDashed(withoutPackage)
+              }
+              else if (fieldPackageName.startsWith("kpn.api.")) {
+                "@api/" + fieldPackageName.substring("kpn.api.".length).replaceAll("\\.", "/")
+              }
+              else {
+                throw new RuntimeException("unexpected field package name")
+              }
             }
             Some(
               ClassDependency(
@@ -87,11 +94,35 @@ class ClassAnalyzer {
 
     val formClass = TypescriptTool.formClasses.contains(className)
 
+    val sortedDependencies = dependencies.distinct.sortWith { (a, b) =>
+      if (a.fileName == b.fileName) {
+        a.className < b.className
+      }
+      else {
+        if (a.fileName.startsWith(".")) {
+          if (b.fileName.startsWith(".")) {
+            a.fileName < b.fileName
+          }
+          else {
+            false
+          }
+        }
+        else {
+          if (b.fileName.startsWith(".")) {
+            true
+          }
+          else {
+            a.fileName < b.fileName
+          }
+        }
+      }
+    }
+
     ClassInfo(
       className,
       fileName,
       fields,
-      dependencies.distinct.sortBy(_.className),
+      sortedDependencies,
       formClass
     )
   }

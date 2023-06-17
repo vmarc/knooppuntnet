@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { NodeInfo } from '@api/common';
 import { Reference } from '@api/common/common';
-import { NodeInfo } from '../node-info';
 import { NodeIntegrity } from './node-integrity';
 
 export interface NodeDetailsPage {

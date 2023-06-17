@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkFact } from '../network-fact';
+import { NetworkFact } from '@api/common';
 import { NetworkSummary } from './network-summary';
 
 export interface NetworkFactsPage {

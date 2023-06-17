@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { NetworkFacts } from '@api/common';
 import { Tags } from '@api/custom';
-import { NetworkFacts } from '../network-facts';
 import { NetworkAttributes } from './network-attributes';
 import { NetworkSummary } from './network-summary';
 

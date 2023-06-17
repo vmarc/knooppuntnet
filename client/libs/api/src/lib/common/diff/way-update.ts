@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { NodeUpdate } from '.';
-import { MetaData } from '../data';
-import { RawNode } from '../data/raw';
+import { MetaData } from '@api/common/data';
+import { RawNode } from '@api/common/data/raw';
+import { NodeUpdate } from './node-update';
 import { TagDiffs } from './tag-diffs';
 
 export interface WayUpdate {

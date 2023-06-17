@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { ChangeKey } from '@api/common/changes/details';
 import { Timestamp } from '@api/custom';
-import { ChangeKey } from './changes/details';
 import { LocationChangesTree } from './location-changes-tree';
 
 export interface LocationChangeSetSummary {

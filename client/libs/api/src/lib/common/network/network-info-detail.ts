@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkFacts } from '../network-facts';
+import { NetworkFacts } from '@api/common';
 import { NetworkInfoNode } from './network-info-node';
 import { NetworkInfoRoute } from './network-info-route';
 import { NetworkShape } from './network-shape';

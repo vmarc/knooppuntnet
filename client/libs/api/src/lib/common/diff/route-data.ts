@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
+import { RawNode } from '@api/common/data/raw';
+import { RawRelation } from '@api/common/data/raw';
+import { RawWay } from '@api/common/data/raw';
 import { Country } from '@api/custom';
 import { Fact } from '@api/custom';
 import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
-import { RawNode } from '../data/raw';
-import { RawRelation } from '../data/raw';
-import { RawWay } from '../data/raw';
 
 export interface RouteData {
   readonly country: Country;

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { ChangeKey } from './changes/details';
+import { ChangeKey } from '@api/common/changes/details';
 import { LocationChanges } from './location-changes';
 
 export interface LocationChangeSet {

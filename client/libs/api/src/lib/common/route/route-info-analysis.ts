@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { RouteLocationAnalysis } from '@api/common';
 import { RouteMemberInfo } from '@api/custom';
-import { RouteLocationAnalysis } from '../route-location-analysis';
 import { RouteMap } from './route-map';
 
 export interface RouteInfoAnalysis {

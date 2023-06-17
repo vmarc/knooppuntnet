@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { RawWay } from '@api/common/data/raw';
 import { Node } from './node';
-import { RawWay } from './raw';
 
 export interface Way {
   readonly raw: RawWay;
