@@ -1,9 +1,9 @@
 package kpn.server.repository
 
-import kpn.api.common.Poi
 import kpn.api.common.poi.LocationPoiInfo
 import kpn.api.common.poi.LocationPoiLayerCount
 import kpn.api.common.poi.LocationPoiParameters
+import kpn.api.common.poi.Poi
 import kpn.core.poi.PoiInfo
 import kpn.core.util.Log
 import kpn.database.actions.pois.MongoQueryLocationPoiCount

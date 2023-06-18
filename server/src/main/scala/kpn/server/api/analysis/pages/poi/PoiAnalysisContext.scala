@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.poi
 
-import kpn.api.common.Poi
 import kpn.api.common.PoiAnalysis
+import kpn.api.common.poi.Poi
 import kpn.api.custom.Tag
 
 case class PoiAnalysisContext(

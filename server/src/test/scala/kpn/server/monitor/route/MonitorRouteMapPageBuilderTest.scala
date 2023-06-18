@@ -196,13 +196,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteReferenceInfo(
                 created = Timestamp(2022, 8, 11, 12, 0, 0),
                 user = "user",
-                bounds = Bounds(1, 1, 1, 1),
-                distance = 1000,
+                referenceBounds = Bounds(1, 1, 1, 1),
+                referenceDistance = 1000,
                 referenceType = "gpx",
                 referenceTimestamp = Timestamp(2022, 8, 11),
-                segmentCount = 1,
-                gpxFilename = Some("filename"),
-                geoJson = "geo-json-reference"
+                referenceSegmentCount = 1,
+                referenceFilename = Some("filename"),
+                referenceGeoJson = "geo-json-reference"
               )
             ),
             subRelations = Seq.empty
@@ -349,13 +349,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteReferenceInfo(
               created = Timestamp(2022, 8, 11, 12, 0, 0),
               user = "user",
-              bounds = Bounds(1, 1, 1, 1),
-              distance = 1000,
+              referenceBounds = Bounds(1, 1, 1, 1),
+              referenceDistance = 1000,
               referenceType = "osm",
               referenceTimestamp = Timestamp(2022, 8, 11),
-              segmentCount = 1,
-              gpxFilename = None,
-              geoJson = "geo-json-reference"
+              referenceSegmentCount = 1,
+              referenceFilename = None,
+              referenceGeoJson = "geo-json-reference"
             )
           ),
           subRelations = Seq.empty
@@ -464,13 +464,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteReferenceInfo(
                 created = Timestamp(2022, 8, 11, 12, 0, 0),
                 user = "user",
-                bounds = Bounds(1, 1, 1, 1),
-                distance = 1000,
+                referenceBounds = Bounds(1, 1, 1, 1),
+                referenceDistance = 1000,
                 referenceType = "gpx",
                 referenceTimestamp = Timestamp(2022, 8, 11),
-                segmentCount = 1,
-                gpxFilename = Some("filename-11"),
-                geoJson = "geo-json-reference-11"
+                referenceSegmentCount = 1,
+                referenceFilename = Some("filename-11"),
+                referenceGeoJson = "geo-json-reference-11"
               )
             ),
             subRelations = Seq(
@@ -511,13 +511,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               MonitorRouteReferenceInfo(
                 created = Timestamp(2022, 8, 12, 12, 0, 0),
                 user = "user",
-                bounds = Bounds(2, 2, 2, 2),
-                distance = 1000,
+                referenceBounds = Bounds(2, 2, 2, 2),
+                referenceDistance = 1000,
                 referenceType = "gpx",
                 referenceTimestamp = Timestamp(2022, 8, 12),
-                segmentCount = 1,
-                gpxFilename = Some("filename-12"),
-                geoJson = "geo-json-reference-12"
+                referenceSegmentCount = 1,
+                referenceFilename = Some("filename-12"),
+                referenceGeoJson = "geo-json-reference-12"
               )
             ),
             subRelations = Seq(
@@ -707,13 +707,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteReferenceInfo(
               created = Timestamp(2022, 8, 11, 12, 0, 0),
               user = "user",
-              bounds = Bounds(1, 1, 1, 1),
-              distance = 1000,
+              referenceBounds = Bounds(1, 1, 1, 1),
+              referenceDistance = 1000,
               referenceType = "gpx",
               referenceTimestamp = Timestamp(2022, 8, 11),
-              segmentCount = 1,
-              gpxFilename = Some("filename-11"),
-              geoJson = "geo-json-reference-11"
+              referenceSegmentCount = 1,
+              referenceFilename = Some("filename-11"),
+              referenceGeoJson = "geo-json-reference-11"
             )
           ),
           subRelations = Seq(
@@ -769,13 +769,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             MonitorRouteReferenceInfo(
               created = Timestamp(2022, 8, 12, 12, 0, 0),
               user = "user",
-              bounds = Bounds(2, 2, 2, 2),
-              distance = 1000,
+              referenceBounds = Bounds(2, 2, 2, 2),
+              referenceDistance = 1000,
               referenceType = "gpx",
               referenceTimestamp = Timestamp(2022, 8, 12),
-              segmentCount = 1,
-              gpxFilename = Some("filename-12"),
-              geoJson = "geo-json-reference-12"
+              referenceSegmentCount = 1,
+              referenceFilename = Some("filename-12"),
+              referenceGeoJson = "geo-json-reference-12"
             )
           ),
           subRelations = Seq(

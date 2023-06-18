@@ -304,7 +304,7 @@ class MonitorRouteMapPageBuilder(
               reference.referenceBounds
             }
             else {
-              Util.mergeBounds(Seq(state.bounds, referenceInfo.bounds))
+              Util.mergeBounds(Seq(state.bounds, referenceInfo.referenceBounds))
             }
         }
 

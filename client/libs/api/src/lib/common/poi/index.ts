@@ -1,3 +1,4 @@
+export * from './poi';
 export * from './poi-count';
 export * from './poi-group';
 export * from './location-poi-info';

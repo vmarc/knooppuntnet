@@ -1,7 +1,8 @@
-package kpn.api.common
+package kpn.api.common.poi
 
 import kpn.api.base.WithStringId
 import kpn.api.common.location.Location
+import kpn.api.common.LatLon
 import kpn.api.custom.Tags
 
 case class Poi(

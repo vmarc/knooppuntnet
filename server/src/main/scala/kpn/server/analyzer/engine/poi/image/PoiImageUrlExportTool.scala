@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.poi.image
 
-import kpn.api.common.Poi
 import kpn.api.common.PoiAnalysis
+import kpn.api.common.poi.Poi
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo

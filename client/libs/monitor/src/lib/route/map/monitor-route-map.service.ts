@@ -97,10 +97,13 @@ export class MonitorRouteMapService extends OpenlayersMapService {
 
   pageChanged(page: MonitorRouteMapPage): void {
     this.referenceLayer.getSource().clear();
-    if (page?.reference?.geoJson) {
-      const features = new GeoJSON().readFeatures(page.reference.geoJson, {
-        featureProjection: 'EPSG:3857',
-      });
+    if (page?.reference?.referenceGeoJson) {
+      const features = new GeoJSON().readFeatures(
+        page.reference.referenceGeoJson,
+        {
+          featureProjection: 'EPSG:3857',
+        }
+      );
       this.referenceLayer.getSource().addFeatures(features);
     }
 

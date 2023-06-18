@@ -6,11 +6,11 @@ import kpn.api.custom.Timestamp
 case class MonitorRouteReferenceInfo(
   created: Timestamp,
   user: String,
-  bounds: Bounds,
-  distance: Long,
+  referenceBounds: Bounds,
+  referenceDistance: Long,
   referenceType: String, // "osm" | "gpx" | "multi-gpx"
   referenceTimestamp: Timestamp,
-  segmentCount: Long,
-  gpxFilename: Option[String],
-  geoJson: String
+  referenceSegmentCount: Long,
+  referenceFilename: Option[String],
+  referenceGeoJson: String
 )

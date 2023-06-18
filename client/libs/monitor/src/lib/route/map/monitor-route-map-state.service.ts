@@ -100,7 +100,8 @@ export class MonitorRouteMapStateService {
       );
     }
 
-    const referenceAvailable = (page.reference?.geoJson.length ?? 0) > 0;
+    const referenceAvailable =
+      (page.reference?.referenceGeoJson.length ?? 0) > 0;
     const referenceParam = queryParams['reference'];
     let referenceVisible =
       referenceAvailable &&

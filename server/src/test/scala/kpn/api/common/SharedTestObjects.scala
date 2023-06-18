@@ -49,6 +49,7 @@ import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
+import kpn.api.common.poi.Poi
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap

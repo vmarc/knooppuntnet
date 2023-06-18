@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.poi
 
 import kpn.api.common.LatLon
-import kpn.api.common.Poi
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.location.Location
+import kpn.api.common.poi.Poi
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition

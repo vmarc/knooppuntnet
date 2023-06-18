@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.poi
 
-import kpn.api.common.Poi
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
+import kpn.api.common.poi.Poi
 
 object PoiRef {
 

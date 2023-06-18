@@ -2,13 +2,13 @@ package kpn.database.base
 
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.Poi
 import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
+import kpn.api.common.poi.Poi
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc

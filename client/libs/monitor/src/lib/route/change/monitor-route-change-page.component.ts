@@ -187,7 +187,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
               <p>Maximum distance from reference: {{ segment.distance }}m</p>
 
               <kpn-monitor-route-change-map
-                [referenceJson]="page.reference.geoJson"
+                [referenceJson]="page.reference.referenceGeoJson"
                 [routeSegments]="page.routeSegments"
                 [deviation]="segment"
               />
@@ -206,7 +206,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
               <p>Deviation length: {{ deviation.meters }}m</p>
               <p>Maximum distance from reference: {{ deviation.distance }}m</p>
               <kpn-monitor-route-change-map
-                [referenceJson]="page.reference.geoJson"
+                [referenceJson]="page.reference.referenceGeoJson"
                 [routeSegments]="page.routeSegments"
                 [deviation]="deviation"
               />

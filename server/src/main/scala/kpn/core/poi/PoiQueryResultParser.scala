@@ -1,7 +1,7 @@
 package kpn.core.poi
 
-import kpn.api.common.Poi
 import kpn.api.common.location.Location
+import kpn.api.common.poi.Poi
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Poi } from './poi';
+import { Poi } from '@api/common/poi';
 import { PoiAnalysis } from './poi-analysis';
 import { PoiState } from './poi-state';
 

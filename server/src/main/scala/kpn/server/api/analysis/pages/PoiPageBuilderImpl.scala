@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages
 
-import kpn.api.common.Poi
 import kpn.api.common.PoiPage
+import kpn.api.common.poi.Poi
 import kpn.api.custom.Tags
 import kpn.core.poi.PoiConfiguration
 import kpn.core.util.Log

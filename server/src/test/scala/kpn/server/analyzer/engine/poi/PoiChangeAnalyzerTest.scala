@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.poi
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.Poi
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
+import kpn.api.common.poi.Poi
 import kpn.api.custom.Change
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest

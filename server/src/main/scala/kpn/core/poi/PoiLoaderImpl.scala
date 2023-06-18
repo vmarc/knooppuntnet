@@ -1,6 +1,6 @@
 package kpn.core.poi
 
-import kpn.api.common.Poi
+import kpn.api.common.poi.Poi
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.util.Log
 import org.xml.sax.SAXParseException
