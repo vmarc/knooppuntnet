@@ -5,8 +5,8 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatus
-import kpn.api.common.monitor.MonitorRouteUpdateStep
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -73,16 +73,18 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      reporter.statusses.shouldMatchTo(
+      reporter.messages.shouldMatchTo(
         Seq(
-          MonitorRouteUpdateStatus(
-            Seq(
-              MonitorRouteUpdateStep("definition", "busy"),
-              MonitorRouteUpdateStep("upload", "todo"),
-              MonitorRouteUpdateStep("analyze", "todo")
-            )
-          ),
-        )
+          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare"))),
+          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure"))),
+          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+            MonitorRouteUpdateStatusCommand("step-active", "load-gpx"))),
+          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-active", "analyze"))),
+          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-active", "save"))),
+          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-done", "save"))))
       )
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
@@ -131,15 +133,42 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           update2
         )
       )
-      reporter.statusses.shouldMatchTo(
+      reporter.messages.shouldMatchTo(
         Seq(
-          MonitorRouteUpdateStatus(
-            Seq(
-              MonitorRouteUpdateStep("definition", "busy"),
-              MonitorRouteUpdateStep("upload", "todo"),
-              MonitorRouteUpdateStep("analyze", "todo")
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+              MonitorRouteUpdateStatusCommand("step-active", "prepare")
             )
           ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
+              MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+              MonitorRouteUpdateStatusCommand("step-active", "load-gpx")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "analyze")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "save")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-done", "save")
+            )
+          )
         )
       )
 

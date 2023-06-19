@@ -6,8 +6,8 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatus
-import kpn.api.common.monitor.MonitorRouteUpdateStep
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
@@ -132,11 +132,28 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
       )
 
       // not analyzed, no errors
-      reporter.statusses.shouldMatchTo(
+      reporter.messages.shouldMatchTo(
         Seq(
-          MonitorRouteUpdateStatus(
-            Seq(
-              MonitorRouteUpdateStep("definition", "busy")
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+              MonitorRouteUpdateStatusCommand("step-active", "prepare")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "save")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-done", "save")
             )
           )
         )

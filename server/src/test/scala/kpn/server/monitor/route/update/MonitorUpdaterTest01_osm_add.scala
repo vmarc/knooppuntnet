@@ -5,8 +5,8 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatus
-import kpn.api.common.monitor.MonitorRouteUpdateStep
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -58,11 +58,38 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
         )
       )
 
-      reporter.statusses.shouldMatchTo(
+      reporter.messages.shouldMatchTo(
         Seq(
-          MonitorRouteUpdateStatus(
-            steps = Seq(
-              MonitorRouteUpdateStep("definition", "busy")
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+              MonitorRouteUpdateStatusCommand("step-active", "prepare")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "1", Some("1/1 route-name")),
+              MonitorRouteUpdateStatusCommand("step-add", "save"))
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "1")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "save")
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-done", "save")
             )
           )
         )

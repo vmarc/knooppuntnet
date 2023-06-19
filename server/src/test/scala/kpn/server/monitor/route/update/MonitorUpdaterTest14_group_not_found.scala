@@ -2,8 +2,8 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteUpdate
-import kpn.api.common.monitor.MonitorRouteUpdateStatus
-import kpn.api.common.monitor.MonitorRouteUpdateStep
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -35,17 +35,16 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
         )
       )
 
-      reporter.statusses.shouldMatchTo(
+      reporter.messages.shouldMatchTo(
         Seq(
-          MonitorRouteUpdateStatus(
-            steps = Seq(
-              MonitorRouteUpdateStep("definition", "busy")
-            ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+              MonitorRouteUpdateStatusCommand("step-active", "prepare")
+            )
           ),
-          MonitorRouteUpdateStatus(
-            steps = Seq(
-              MonitorRouteUpdateStep("definition", "busy")
-            ),
+          MonitorRouteUpdateStatusMessage(
             exception = Some("""Could not find group with name "unknown-group"""")
           )
         )
