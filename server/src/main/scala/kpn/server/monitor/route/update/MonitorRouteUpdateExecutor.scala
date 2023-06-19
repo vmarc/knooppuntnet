@@ -3,7 +3,8 @@ package kpn.server.monitor.route.update
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSaveResult
-import kpn.api.common.monitor.MonitorRouteUpdateStep
+import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.common.Bounds
 import kpn.api.custom.ApiResponse
 import kpn.core.common.Time
@@ -67,28 +68,24 @@ class MonitorRouteUpdateExecutor(
     catch {
       case e: RuntimeException =>
         log.error(s"Could not update route\nupdate= ${Json.string(context.update)}", e)
-        context.withStatus(
-          context.status.copy(exception = Some(e.getMessage))
+        context.reporter.report(
+          MonitorRouteUpdateStatusMessage(
+            exception = Some(e.getMessage)
+          )
         )
     }
   }
 
   private def add(): Unit = {
 
-    val steps = if (context.update.referenceType == "gpx") {
-      Seq(
-        MonitorRouteUpdateStep("definition", "busy"),
-        MonitorRouteUpdateStep("upload"),
-        MonitorRouteUpdateStep("analyze"),
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+        )
       )
-    }
-    else {
-      Seq(
-        MonitorRouteUpdateStep("definition", "busy"),
-      )
-    }
-    context = context.withStatus(
-      context.status.copy(steps = steps)
     )
 
     findGroup()
@@ -121,6 +118,7 @@ class MonitorRouteUpdateExecutor(
       )
     )
 
+    reportStepActive("analyze-route-structure")
     context = monitorUpdateStructure.update(context)
 
     if (context.update.referenceType == "gpx") {
@@ -137,21 +135,15 @@ class MonitorRouteUpdateExecutor(
   }
 
   private def update(): Unit = {
-    val steps = if (context.update.referenceType == "gpx") {
-      Seq(
-        MonitorRouteUpdateStep("definition", "busy"),
-        MonitorRouteUpdateStep("upload"),
-        MonitorRouteUpdateStep("analyze"),
-      )
-    }
-    else {
-      Seq(
-        MonitorRouteUpdateStep("definition", "busy"),
-      )
-    }
 
-    context = context.withStatus(
-      context.status.copy(steps = steps)
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+          MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+          MonitorRouteUpdateStatusCommand("step-active", "prepare"),
+        )
+      )
     )
 
     findGroup()
@@ -189,6 +181,7 @@ class MonitorRouteUpdateExecutor(
       )
     }
 
+    reportStepActive("analyze-route-structure")
     context = monitorUpdateStructure.update(context)
 
     // TODO pick up information about existing state and references, and delete the ones that are not the structure anymore
@@ -313,8 +306,11 @@ class MonitorRouteUpdateExecutor(
           case None =>
           case Some(monitorRouteRelation) =>
             val processList = composeProcessList(monitorRouteRelation)
+            reportProcessList(processList)
+
             processList.zipWithIndex.foreach { case (mrr, index) =>
               Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
+                reportStepActive(mrr.relationId.toString)
                 val updateSingleRelationRoute = index == 0 && processList.size == 1
 
                 monitorRouteRelationRepository.loadTopLevel(None, mrr.relationId) match {
@@ -352,7 +348,6 @@ class MonitorRouteUpdateExecutor(
     }
   }
 
-
   private def updateSubRelations(): Unit = {
     context.newRoute match {
       case None =>
@@ -361,8 +356,10 @@ class MonitorRouteUpdateExecutor(
           case None =>
           case Some(monitorRouteRelation) =>
             val processList = composeProcessList(monitorRouteRelation)
+            reportProcessList(processList)
             processList.zipWithIndex.foreach { case (mrr, index) =>
               Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
+                reportStepActive(mrr.relationId.toString)
                 val updateSingleRelationRoute = index == 0 && processList.size == 1
                 updateSubRelation(mrr, updateSingleRelationRoute)
               }
@@ -383,8 +380,10 @@ class MonitorRouteUpdateExecutor(
       val rrr = monitorRouteRelationRepository.loadTopLevel(referenceTimestamp, monitorRouteRelation.relationId) match {
         case None =>
           val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.map(_.yyyymmddhhmmss).getOrElse(Time.now.yyyymmddhhmmss)}"
-          context.withStatus(
-            context.status.copy(errors = context.status.errors :+ error)
+          context.reporter.report(
+            MonitorRouteUpdateStatusMessage(
+              errors = Some(Seq(error))
+            )
           )
           monitorRouteRepository.deleteRouteReference(context.routeId, monitorRouteRelation.relationId)
           monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
@@ -448,8 +447,10 @@ class MonitorRouteUpdateExecutor(
 
         case None =>
           val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.get.yyyymmddhhmmss}"
-          context.withStatus(
-            context.status.copy(errors = context.status.errors :+ error)
+          context.reporter.report(
+            MonitorRouteUpdateStatusMessage(
+              errors = Some(Seq(error))
+            )
           )
       }
     }
@@ -469,27 +470,39 @@ class MonitorRouteUpdateExecutor(
 
   private def updateRouteWithGpxReference(): Unit = {
 
-    val referenceResult = context.update.referenceGpx match {
+    context.update.referenceGpx match {
       case None =>
 
         monitorRouteRepository.routeReference(context.routeId) match {
-          case None => throw new RuntimeException("Could not find gpx reference")
+          case None =>
           case Some(reference) =>
-
             if (reference.relationId != context.update.relationId) {
+              context.reporter.report(
+                MonitorRouteUpdateStatusMessage(
+                  commands = Seq(
+                    MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+                  )
+                )
+              )
               val updatedReference = reference.copy(
                 relationId = context.update.relationId
               )
               monitorRouteRepository.saveRouteReference(updatedReference)
-              updatedReference
+              analyze(updatedReference)
             }
-            else {
-              reference
-            }
-
         }
 
       case Some(referenceGpx) =>
+
+        context.reporter.report(
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
+              MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+              MonitorRouteUpdateStatusCommand("step-active", "load-gpx"),
+            )
+          )
+        )
 
         val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
 
@@ -531,10 +544,13 @@ class MonitorRouteUpdateExecutor(
           newRoute = Some(updatedNewRoute)
         )
 
-        reference
+        analyze(reference)
     }
+  }
 
-    monitorRouteRelationAnalyzer.analyzeReference(context.routeId, referenceResult) match {
+  private def analyze(reference: MonitorRouteReference): Unit = {
+    reportStepActive("analyze")
+    monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
       case None =>
       case Some(state) =>
         monitorRouteRepository.saveRouteState(state)
@@ -652,6 +668,8 @@ class MonitorRouteUpdateExecutor(
 
   private def save(): Unit = {
 
+    reportStepActive("save")
+
     if (context.newReferenceSummaries.nonEmpty) {
       monitorRouteRepository.superRouteReferenceSummary(context.routeId) match {
         case None =>
@@ -738,6 +756,7 @@ class MonitorRouteUpdateExecutor(
       case Some(route) => monitorRouteRepository.saveRoute(route)
       case None =>
     }
+    reportStepDone("save")
   }
 
   private def updatedMonitorRouteRelation(monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorRouteStateSummary]): MonitorRouteRelation = {
@@ -797,6 +816,46 @@ class MonitorRouteUpdateExecutor(
     else {
       monitorRouteRelation
     }
+  }
+
+  private def reportProcessList(processList: Seq[MonitorRouteRelation]): Unit = {
+    val commands = processList.zipWithIndex.map { case (monitorRouteRelation, index) =>
+      val description = s"${index + 1}/${processList.size} ${monitorRouteRelation.name}"
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        monitorRouteRelation.relationId.toString,
+        Some(description)
+      )
+    } :+ MonitorRouteUpdateStatusCommand(
+      "step-add",
+      "save"
+    )
+
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = commands
+      )
+    )
+  }
+
+  private def reportStepActive(stepId: String): Unit = {
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-active", stepId)
+        )
+      )
+    )
+  }
+
+  private def reportStepDone(stepId: String): Unit = {
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = Seq(
+          MonitorRouteUpdateStatusCommand("step-done", stepId)
+        )
+      )
+    )
   }
 
 

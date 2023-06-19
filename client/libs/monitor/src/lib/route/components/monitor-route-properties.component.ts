@@ -1,4 +1,6 @@
 import { NgIf } from '@angular/common';
+import { EventEmitter } from '@angular/core';
+import { Output } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -10,28 +12,28 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
 import { MatStepperModule } from '@angular/material/stepper';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { MonitorRouteGroup } from '@api/common/monitor';
 import { MonitorRouteProperties } from '@api/common/monitor';
+import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { Timestamp } from '@api/custom';
 import { TimestampUtil } from '@app/components/shared';
 import { DayUtil } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
+import { from } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorService } from '../../monitor.service';
-import { MonitorRouteParameters } from './monitor-route-parameters';
 import { MonitorRoutePropertiesStep1GroupComponent } from './monitor-route-properties-step-1-group.component';
 import { MonitorRoutePropertiesStep2NameComponent } from './monitor-route-properties-step-2-name.component';
 import { MonitorRoutePropertiesStep3RelationComponent } from './monitor-route-properties-step-3-relation.component';
 import { MonitorRoutePropertiesStep4ReferenceTypeComponent } from './monitor-route-properties-step-4-reference-type.component';
 import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './monitor-route-properties-step-5-reference-details.component';
 import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-properties-step-6-comment.component';
-import { MonitorRouteSaveDialogComponent } from './monitor-route-save-dialog.component';
 
 @Component({
   selector: 'kpn-monitor-route-properties',
@@ -168,6 +170,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   @Input() groupName: string;
   @Input() initialProperties: MonitorRouteProperties = null;
   @Input() routeGroups: MonitorRouteGroup[];
+  @Output() update = new EventEmitter<MonitorRouteUpdate>();
 
   readonly group = new FormControl<MonitorRouteGroup | null>(null);
 
@@ -251,11 +254,11 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   constructor(
     private monitorService: MonitorService,
-    private dialog: MatDialog,
-    private router: Router
+    private monitorWebsocketService: MonitorWebsocketService
   ) {}
 
   ngOnInit(): void {
+    this.monitorWebsocketService.reset();
     if (this.mode === 'add') {
       this.groupForm.setValue({
         group: { groupName: this.groupName, groupDescription: '' },
@@ -313,31 +316,24 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    const data: MonitorRouteParameters = {
-      mode: this.mode,
-      initialProperties: this.initialProperties,
-      properties: this.buildProperties(),
-      referenceFile: this.referenceFile.value,
-    };
-
-    this.dialog
-      .open(MonitorRouteSaveDialogComponent, {
-        data,
-        autoFocus: false,
-        maxWidth: 600,
-      })
-      .afterClosed()
-      .subscribe((response) => {
-        let url = `/monitor/groups/${this.groupName}`;
-        if (response === 'navigate-to-analysis-result') {
-          const routeName = data.properties.name;
-          url = `/monitor/groups/${this.groupName}/routes/${routeName}/map`;
-        }
-        this.router.navigateByUrl(url);
+    if (this.referenceFile.value) {
+      const file = this.referenceFile.value;
+      const promise = file.text();
+      console.log(`Send file ${file.name}, size=${file.size}`);
+      from(promise).subscribe((referenceGpx) => {
+        this.doSave(referenceGpx);
       });
+    } else {
+      this.doSave(null);
+    }
   }
 
-  private buildProperties(): MonitorRouteProperties {
+  private doSave(referenceGpx: string): void {
+    let relationId = undefined;
+    if (this.relationIdKnown.value === true) {
+      relationId = this.relationId.value;
+    }
+
     let referenceTimestamp: Timestamp = null;
     if (this.referenceType.value === 'osm') {
       referenceTimestamp = TimestampUtil.toTimestamp(
@@ -349,22 +345,22 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       );
     }
 
-    let relationId = undefined;
-    if (this.relationIdKnown.value === true) {
-      relationId = this.relationId.value;
-    }
-
-    return {
-      name: this.name.value,
-      description: this.description.value,
+    const command: MonitorRouteUpdate = {
+      action: this.mode,
       groupName: this.group.value?.groupName,
-      relationId,
+      routeName: this.name.value,
       referenceType: this.referenceType.value,
+      description: this.description.value,
+      comment: this.comment.value,
+      relationId,
       referenceTimestamp,
       referenceFilename: this.referenceFilename.value,
-      referenceFileChanged: !!this.referenceFile.value,
-      comment: this.comment.value,
+      referenceGpx,
+      newGroupName: undefined,
+      newRouteName: undefined,
     };
+
+    this.update.emit(command);
   }
 
   private relationIdFormValidator(): ValidatorFn {

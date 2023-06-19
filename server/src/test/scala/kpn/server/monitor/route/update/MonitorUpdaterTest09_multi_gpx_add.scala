@@ -252,7 +252,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           uploadGpx1
         )
       )
-      uploadGpxReporter1.statusses.shouldMatchTo(
+      uploadGpxReporter1.messages.shouldMatchTo(
         Seq(
           // TODO add status
         )
@@ -347,7 +347,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      uploadGpxReporter2.statusses.shouldMatchTo(
+      uploadGpxReporter2.messages.shouldMatchTo(
         Seq(
           // TODO add status
         )

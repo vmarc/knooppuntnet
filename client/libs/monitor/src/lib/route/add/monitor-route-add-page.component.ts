@@ -6,6 +6,7 @@ import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { MonitorRouteFormComponent } from '../components/monitor-route-form.component';
 import { MonitorRoutePropertiesComponent } from '../components/monitor-route-properties.component';
 import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
 
@@ -31,7 +32,7 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
 
       <kpn-error />
 
-      <kpn-monitor-route-properties
+      <kpn-monitor-route-form
         mode="add"
         [groupName]="state.groupName"
         [initialProperties]="{ groupName: state.groupName }"
@@ -49,6 +50,7 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
     PageComponent,
     RouterLink,
     SidebarComponent,
+    MonitorRouteFormComponent,
   ],
 })
 export class MonitorRouteAddPageComponent {

@@ -8,6 +8,7 @@ import { MonitorGroupPageComponent } from './group/details/monitor-group-page.co
 import { MonitorGroupUpdatePageComponent } from './group/update/monitor-group-update-page.component';
 import { MonitorGroupsPageComponent } from './groups/monitor-groups-page.component';
 import { MonitorWebsocketComponent } from './monitor-websocket.component';
+import { MonitorWebsocketService } from './monitor-websocket.service';
 import { MonitorService } from './monitor.service';
 import { MonitorRouteAddPageComponent } from './route/add/monitor-route-add-page.component';
 import { MonitorRouteChangePageComponent } from './route/change/monitor-route-change-page.component';
@@ -22,7 +23,7 @@ import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-up
 export const monitorRoutes: Routes = [
   {
     path: '',
-    providers: [MonitorService],
+    providers: [MonitorService, MonitorWebsocketService],
     children: [
       {
         path: '',

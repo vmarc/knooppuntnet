@@ -6,12 +6,11 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
-import org.springframework.web.socket.WebSocketHandler
 import org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean
 
 @Configuration
 @EnableWebSocket
-class WebSocketConfig extends WebSocketConfigurer {
+class WebSocketConfig(webSocketHandler: ServerWebSocketHandler) extends WebSocketConfigurer {
   private val log = Log(classOf[WebSocketConfig])
 
   def registerWebSocketHandlers(registry: WebSocketHandlerRegistry): Unit = {
@@ -24,7 +23,4 @@ class WebSocketConfig extends WebSocketConfigurer {
     container.setMaxTextMessageBufferSize(20 * 1024 * 1024)
     container
   }
-
-  @Bean
-  def webSocketHandler: WebSocketHandler = new ServerWebSocketHandler()
 }

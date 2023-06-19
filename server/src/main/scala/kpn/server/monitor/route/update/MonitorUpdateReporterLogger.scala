@@ -1,12 +1,12 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.core.util.Log
 
 class MonitorUpdateReporterLogger extends MonitorUpdateReporter {
   private val log = Log(classOf[MonitorUpdateReporterLogger])
 
-  override def report(status: MonitorRouteUpdateStatus): Unit = {
-    log.info(s"status=$status")
+  override def report(message: MonitorRouteUpdateStatusMessage): Unit = {
+    log.info(s"message=$message")
   }
 }

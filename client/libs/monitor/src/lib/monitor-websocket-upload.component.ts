@@ -35,7 +35,7 @@ export class MonitorWebsocketUploadComponent implements OnInit {
   @Input() data;
 
   messages: string[] = [];
-  subject: WebSocketSubject<any>;
+  webSocketSubject: WebSocketSubject<any>;
 
   constructor(@Inject(DOCUMENT) private document) {}
 
@@ -47,7 +47,7 @@ export class MonitorWebsocketUploadComponent implements OnInit {
     const host = document.location.host;
     const url = `${protocol}://${host}/websocket`;
 
-    this.subject = webSocket<any>({
+    this.webSocketSubject = webSocket<any>({
       url,
       // serializer: (x) => {
       //   console.log(['websocket serializer', x]);
@@ -62,7 +62,7 @@ export class MonitorWebsocketUploadComponent implements OnInit {
         },
       },
     });
-    this.subject.subscribe({
+    this.webSocketSubject.subscribe({
       next: (msg) => {
         console.log('websocket message received: ' + msg);
         this.messages.push(msg);
@@ -74,14 +74,14 @@ export class MonitorWebsocketUploadComponent implements OnInit {
         console.log('websocket complete');
       },
     });
-    this.subject.next(this.data);
+    this.webSocketSubject.next(this.data);
   }
 
   sendMessage(): void {
-    this.subject.next('this is another message');
+    this.webSocketSubject.next('this is another message');
   }
 
   complete(): void {
-    this.subject.complete();
+    this.webSocketSubject.complete();
   }
 }

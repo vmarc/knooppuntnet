@@ -19,11 +19,6 @@ case class MonitorUpdateContext(
   stateChanged: Boolean = false
 ) {
 
-  def withStatus(newStatus: MonitorRouteUpdateStatus): MonitorUpdateContext = {
-    reporter.report(newStatus)
-    copy(status = newStatus)
-  }
-
   def routeId: ObjectId = {
     oldRoute match {
       case Some(route) => route._id

@@ -1,22 +1,52 @@
 package kpn.server.config
 
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.core.util.Log
+import kpn.server.json.Json
+import kpn.server.monitor.route.update.MonitorRouteUpdateExecutor
+import kpn.server.monitor.route.update.MonitorUpdateContext
+import kpn.server.monitor.route.update.MonitorUpdateReporterWebsocket
+import org.springframework.context.ApplicationContext
+import org.springframework.stereotype.Component
 import org.springframework.web.socket.CloseStatus
 import org.springframework.web.socket.TextMessage
 import org.springframework.web.socket.WebSocketSession
 import org.springframework.web.socket.handler.AbstractWebSocketHandler
 
-class ServerWebSocketHandler extends AbstractWebSocketHandler {
+@Component
+class ServerWebSocketHandler(
+  applicationContext: ApplicationContext
+) extends AbstractWebSocketHandler {
 
   private val log = Log(classOf[ServerWebSocketHandler])
 
   override def handleTextMessage(session: WebSocketSession, message: TextMessage): Unit = {
-    val request = message.getPayload
-    log.info(s"handleTextMessage() received: '${request.substring(0, 24)}'")
-    session.sendMessage(new TextMessage("{message: 'one'}"))
-    session.sendMessage(new TextMessage("{message: 'two'}"))
-    session.sendMessage(new TextMessage("{message: 'three'}"))
-    //session.close()
+    val user = if (session != null && session.getPrincipal != null) {
+      session.getPrincipal.getName
+    }
+    else {
+      "unknown"
+    }
+    val payload = message.getPayload
+    val command = Json.value(payload, classOf[MonitorRouteUpdate])
+    val reporter = new MonitorUpdateReporterWebsocket(session)
+    Log.context(Seq("route-update", s"group=${command.groupName}", s"route=${command.routeName}")) {
+      val printableCommand = command.copy(
+        referenceGpx = command.referenceGpx.map(gpx => gpx.substring(0, 25))
+      )
+      log.info("" + printableCommand)
+      val context = MonitorUpdateContext(
+        user,
+        reporter,
+        command,
+      )
+      try {
+        applicationContext.getBean(classOf[MonitorRouteUpdateExecutor]).execute(context)
+      }
+      finally {
+        session.close()
+      }
+    }
   }
 
   override def handleTransportError(session: WebSocketSession, exception: Throwable): Unit = {

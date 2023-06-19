@@ -1,8 +1,8 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.monitor.MonitorRouteUpdateStatus
+import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 
 trait MonitorUpdateReporter {
 
-  def report(status: MonitorRouteUpdateStatus): Unit
+  def report(message: MonitorRouteUpdateStatusMessage): Unit
 }
