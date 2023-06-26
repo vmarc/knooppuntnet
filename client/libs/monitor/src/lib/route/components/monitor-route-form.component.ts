@@ -1,4 +1,5 @@
 import { NgClass } from '@angular/common';
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteGroup } from '@api/common/monitor';
@@ -44,15 +45,15 @@ export class MonitorRouteFormComponent {
   @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
   @Input() routeGroups: MonitorRouteGroup[];
 
+  #monitorWebsocketService = inject(MonitorWebsocketService);
+
   saving = false;
   command: MonitorRouteUpdate;
 
-  constructor(private monitorWebsocketService: MonitorWebsocketService) {}
-
   update(command: MonitorRouteUpdate): void {
-    this.monitorWebsocketService.reset();
+    this.#monitorWebsocketService.reset();
     this.command = command;
     this.saving = true;
-    this.monitorWebsocketService.sendCommand(command);
+    this.#monitorWebsocketService.sendCommand(command);
   }
 }

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor';
@@ -9,51 +10,51 @@ import { initialState } from './monitor-group-changes-page.state';
 
 @Injectable()
 export class MonitorGroupChangesPageService {
-  private readonly _state = signal<MonitorGroupChangesPageState>(initialState);
-  readonly state = this._state.asReadonly();
+  readonly #navService = inject(NavService);
+  readonly #monitorService = inject(MonitorService);
+  readonly #preferencesService = inject(PreferencesService);
 
-  readonly impact = this.preferencesService.impact;
+  readonly #state = signal<MonitorGroupChangesPageState>(initialState);
+  readonly state = this.#state.asReadonly();
 
-  constructor(
-    private navService: NavService,
-    private monitorService: MonitorService,
-    private preferencesService: PreferencesService
-  ) {
-    const groupName = navService.param('groupName');
-    const groupDescription = navService.state('groupDescription');
-    this._state.update((state) => ({
+  readonly impact = this.#preferencesService.impact;
+
+  constructor() {
+    const groupName = this.#navService.param('groupName');
+    const groupDescription = this.#navService.state('groupDescription');
+    this.#state.update((state) => ({
       ...state,
       groupName,
       groupDescription,
     }));
-    this.load();
+    this.#load();
   }
 
   impactChanged(impact: boolean): void {
-    this.preferencesService.setImpact(impact);
-    this.load();
+    this.#preferencesService.setImpact(impact);
+    this.#load();
   }
 
   pageChanged(pageIndex: number) {
-    this._state.update((state) => ({
+    this.#state.update((state) => ({
       ...state,
       pageIndex,
     }));
-    this.load();
+    this.#load();
   }
 
-  private load(): void {
+  #load(): void {
     const parameters: MonitorChangesParameters = {
-      pageSize: this.preferencesService.pageSize(),
+      pageSize: this.#preferencesService.pageSize(),
       pageIndex: this.state().pageIndex,
-      impact: this.preferencesService.impact(),
+      impact: this.#preferencesService.impact(),
     };
-    this.monitorService
+    this.#monitorService
       .groupChanges(this.state().groupName, parameters)
       .subscribe((response) => {
         const groupDescription =
           response?.result?.groupDescription ?? this.state().groupDescription;
-        this._state.update((state) => ({
+        this.#state.update((state) => ({
           ...state,
           groupDescription,
           response,

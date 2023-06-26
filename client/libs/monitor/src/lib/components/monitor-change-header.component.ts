@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -53,14 +54,14 @@ import { map } from 'rxjs/operators';
 export class MonitorChangeHeaderComponent {
   @Input() changeSet: MonitorRouteChangeSummary;
 
-  readonly timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
-    map(() => this.timestampOnSeparateLine())
+  readonly #pageWidthService = inject(PageWidthService);
+
+  readonly timestampOnSeparateLine$ = this.#pageWidthService.current$.pipe(
+    map(() => this.#timestampOnSeparateLine())
   );
   readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(
     map((value) => !value)
   );
-
-  constructor(private pageWidthService: PageWidthService) {}
 
   link(): string {
     const key = this.changeSet.key;
@@ -68,11 +69,11 @@ export class MonitorChangeHeaderComponent {
     return `/monitor/groups/${groupName}/routes/${key.elementId}/changes/${key.changeSetId}/${key.replicationNumber}`;
   }
 
-  private timestampOnSeparateLine() {
+  #timestampOnSeparateLine() {
     return (
-      this.pageWidthService.isSmall() ||
-      this.pageWidthService.isVerySmall() ||
-      this.pageWidthService.isVeryVerySmall()
+      this.#pageWidthService.isSmall() ||
+      this.#pageWidthService.isVerySmall() ||
+      this.#pageWidthService.isVeryVerySmall()
     );
   }
 }

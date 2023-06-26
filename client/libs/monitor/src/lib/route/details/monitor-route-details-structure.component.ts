@@ -307,7 +307,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   readonly dataSource =
     new MatTableDataSource<MonitorRouteRelationStructureRow>();
 
-  private readonly mainColumns = [
+  readonly #mainColumns = [
     'nr',
     'name',
     'happy',
@@ -318,19 +318,19 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'survey',
   ];
 
-  private readonly referenceColumns = [
+  readonly #referenceColumns = [
     'reference-day',
     'reference-filename',
     'reference-distance',
   ];
 
-  private readonly analysisColumns = [
+  readonly #analysisColumns = [
     'deviation-count',
     'deviation-distance',
     'osm-segment-count',
   ];
 
-  private readonly columnsWithoutHeader = [
+  readonly #columnsWithoutHeader = [
     'happy',
     'reference-filename',
     'reference-distance',
@@ -342,11 +342,11 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   }
 
   displayedColumns(admin: boolean) {
-    let columns = [...this.mainColumns];
+    let columns = [...this.#mainColumns];
     if (this.referenceType === 'multi-gpx') {
-      columns = columns.concat(this.referenceColumns);
+      columns = columns.concat(this.#referenceColumns);
     }
-    columns = columns.concat(this.analysisColumns);
+    columns = columns.concat(this.#analysisColumns);
     if (admin) {
       columns = [...columns, 'actions'];
     }
@@ -355,7 +355,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
 
   displayedHeaders(admin: boolean) {
     return this.displayedColumns(admin).filter(
-      (name) => !this.columnsWithoutHeader.includes(name)
+      (name) => !this.#columnsWithoutHeader.includes(name)
     );
   }
 

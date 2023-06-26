@@ -4,6 +4,7 @@ import { NgSwitch } from '@angular/common';
 import { NgSwitchCase } from '@angular/common';
 import { NgSwitchDefault } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -29,7 +30,7 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-dialog>
-      <ng-container *ngIf="service.state() as state">
+      <ng-container *ngIf="state() as state">
         <div mat-dialog-title i18n="@@monitor.route.save-dialog.title">
           Save route
         </div>
@@ -144,40 +145,40 @@ import { MonitorRouteSaveStepComponent } from './monitor-route-save-step.compone
   ],
 })
 export class MonitorRouteSaveDialogComponent implements OnInit, OnDestroy {
-  private readonly subscriptions = new Subscriptions();
+  readonly #service = inject(MonitorRouteSaveDialogService);
+  readonly #dialogRef = inject(MatDialogRef<MonitorRouteSaveDialogComponent>);
+  readonly #store = inject(Store);
+  readonly #subscriptions = new Subscriptions();
+  readonly state = this.#service.state;
 
   constructor(
-    private dialogRef: MatDialogRef<MonitorRouteSaveDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public parameters: MonitorRouteParameters,
-    private monitorService: MonitorService,
-    protected service: MonitorRouteSaveDialogService,
-    private store: Store
+    @Inject(MAT_DIALOG_DATA) public parameters: MonitorRouteParameters
   ) {}
 
   ngOnInit(): void {
-    this.closeDialogUponHttpError();
-    this.service.init(this.parameters);
+    this.#closeDialogUponHttpError();
+    this.#service.init(this.parameters);
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.#subscriptions.unsubscribe();
   }
 
   backToGroup(): void {
-    this.dialogRef.close('navigate-to-route-list');
+    this.#dialogRef.close('navigate-to-route-list');
   }
 
   gotoAnalysisResult(): void {
-    this.dialogRef.close('navigate-to-analysis-result');
+    this.#dialogRef.close('navigate-to-analysis-result');
   }
 
-  private closeDialogUponHttpError(): void {
-    this.subscriptions.add(
-      this.store
+  #closeDialogUponHttpError(): void {
+    this.#subscriptions.add(
+      this.#store
         .select(selectSharedHttpError)
         .pipe(filter((error) => !!error))
         .subscribe(() => {
-          this.dialogRef.close();
+          this.#dialogRef.close();
         })
     );
   }

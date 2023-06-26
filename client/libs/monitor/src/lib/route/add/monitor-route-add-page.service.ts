@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NavService } from '@app/components/shared';
@@ -7,25 +8,25 @@ import { MonitorRouteAddPageState } from './monitor-route-add-page.state';
 
 @Injectable()
 export class MonitorRouteAddPageService {
-  private readonly _state = signal<MonitorRouteAddPageState>(initialState);
-  readonly state = this._state.asReadonly();
+  readonly #monitorService = inject(MonitorService);
+  readonly #navService = inject(NavService);
 
-  constructor(
-    private monitorService: MonitorService,
-    private navService: NavService
-  ) {
-    const groupName = this.navService.param('groupName');
-    const description = this.navService.state('description');
+  readonly #state = signal<MonitorRouteAddPageState>(initialState);
+  readonly state = this.#state.asReadonly();
+
+  constructor() {
+    const groupName = this.#navService.param('groupName');
+    const description = this.#navService.state('description');
     const groupLink = `/monitor/groups/${groupName}`;
-    this._state.update((state) => ({
+    this.#state.update((state) => ({
       ...state,
       groupName,
       groupDescription: description,
       groupLink,
     }));
-    this.monitorService.routeAddPage(groupName).subscribe((response) => {
+    this.#monitorService.routeAddPage(groupName).subscribe((response) => {
       const groupDescription = response.result?.groupDescription ?? description;
-      this._state.update((state) => ({
+      this.#state.update((state) => ({
         ...state,
         groupDescription,
         response,

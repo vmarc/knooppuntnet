@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -10,14 +11,17 @@ import { MonitorGroupUpdatePageState } from './monitor-group-update-page.state';
 
 @Injectable()
 export class MonitorGroupUpdatePageService {
-  private readonly _state = signal<MonitorGroupUpdatePageState>(initialState);
-  readonly state = this._state.asReadonly();
+  readonly #navService = inject(NavService);
+  readonly #monitorService = inject(MonitorService);
 
-  private initialName = '';
+  readonly #state = signal<MonitorGroupUpdatePageState>(initialState);
+  readonly state = this.#state.asReadonly();
+
+  #initialName = '';
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
-      () => this.initialName
+    asyncValidators: this.#monitorService.asyncGroupNameUniqueValidator(
+      () => this.#initialName
     ),
   });
   readonly description = new FormControl<string>('', [
@@ -30,21 +34,18 @@ export class MonitorGroupUpdatePageService {
     description: this.description,
   });
 
-  constructor(
-    private navService: NavService,
-    private monitorService: MonitorService
-  ) {
-    const groupName = this.navService.param('groupName');
-    const description = this.navService.state('description');
-    this._state.update((state) => ({
+  constructor() {
+    const groupName = this.#navService.param('groupName');
+    const description = this.#navService.state('description');
+    this.#state.update((state) => ({
       ...state,
       groupName,
       groupDescription: description,
     }));
 
-    this.monitorService.group(groupName).subscribe((response) => {
+    this.#monitorService.group(groupName).subscribe((response) => {
       const groupDescription = response.result?.groupDescription ?? description;
-      this._state.update((state) => ({
+      this.#state.update((state) => ({
         ...state,
         groupDescription,
         response,
@@ -52,7 +53,7 @@ export class MonitorGroupUpdatePageService {
       if (response.result) {
         const page = response.result;
         if (page) {
-          this.initialName = page.groupName;
+          this.#initialName = page.groupName;
           this.form.reset({
             name: page.groupName,
             description: page.groupDescription,
@@ -64,9 +65,9 @@ export class MonitorGroupUpdatePageService {
 
   update(groupId: string): void {
     if (this.form.valid) {
-      this.monitorService
+      this.#monitorService
         .groupUpdate(groupId, this.form.value)
-        .subscribe(() => this.navService.go('/monitor'));
+        .subscribe(() => this.#navService.go('/monitor'));
     }
   }
 }

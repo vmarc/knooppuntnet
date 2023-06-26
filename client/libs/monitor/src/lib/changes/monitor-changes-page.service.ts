@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor';
@@ -8,41 +9,41 @@ import { MonitorChangesPageState } from './monitor-changes-page.state';
 
 @Injectable()
 export class MonitorChangesPageService {
-  private readonly _state = signal<MonitorChangesPageState>(initialState);
-  readonly state = this._state.asReadonly();
-  readonly impact = this.preferencesService.impact;
-  readonly pageSize = this.preferencesService.pageSize;
+  readonly #monitorService = inject(MonitorService);
+  readonly #preferencesService = inject(PreferencesService);
 
-  constructor(
-    private monitorService: MonitorService,
-    private preferencesService: PreferencesService
-  ) {
-    this.load();
+  readonly #state = signal<MonitorChangesPageState>(initialState);
+  readonly state = this.#state.asReadonly();
+  readonly impact = this.#preferencesService.impact;
+  readonly pageSize = this.#preferencesService.pageSize;
+
+  constructor() {
+    this.#load();
   }
 
   impactChanged(impact: boolean) {
-    this.preferencesService.setImpact(impact);
-    this.load();
+    this.#preferencesService.setImpact(impact);
+    this.#load();
   }
 
   pageSizeChanged(pageSize: number) {
-    this.preferencesService.setPageSize(pageSize);
-    this.load();
+    this.#preferencesService.setPageSize(pageSize);
+    this.#load();
   }
 
   pageIndexChanged(pageIndex: number) {
-    this._state.update((state) => ({ ...state, pageIndex }));
-    this.load();
+    this.#state.update((state) => ({ ...state, pageIndex }));
+    this.#load();
   }
 
-  private load(): void {
+  #load(): void {
     const parameters: MonitorChangesParameters = {
-      pageSize: this.preferencesService.pageSize(),
-      pageIndex: this._state().pageIndex,
-      impact: this.preferencesService.impact(),
+      pageSize: this.#preferencesService.pageSize(),
+      pageIndex: this.#state().pageIndex,
+      impact: this.#preferencesService.impact(),
     };
-    this.monitorService.changes(parameters).subscribe((response) => {
-      this._state.update((state) => ({ ...state, response }));
+    this.#monitorService.changes(parameters).subscribe((response) => {
+      this.#state.update((state) => ({ ...state, response }));
     });
   }
 }

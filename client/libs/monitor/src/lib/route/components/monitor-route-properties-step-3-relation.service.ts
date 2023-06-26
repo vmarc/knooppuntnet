@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
@@ -6,19 +7,19 @@ import { MonitorService } from '../../monitor.service';
 
 @Injectable()
 export class MonitorRoutePropertiesStep3RelationService {
-  private readonly _apiResponse =
-    signal<ApiResponse<MonitorRouteInfoPage> | null>(null);
-  readonly apiResponse = this._apiResponse.asReadonly();
-
-  constructor(private monitorService: MonitorService) {}
+  readonly #monitorService = inject(MonitorService);
+  readonly #apiResponse = signal<ApiResponse<MonitorRouteInfoPage> | null>(
+    null
+  );
+  readonly apiResponse = this.#apiResponse.asReadonly();
 
   getRouteInformation(relationId: number): void {
-    this.monitorService.routeInfo(relationId).subscribe((response) => {
-      this._apiResponse.set(response);
+    this.#monitorService.routeInfo(relationId).subscribe((response) => {
+      this.#apiResponse.set(response);
     });
   }
 
   resetRouteInformation(): void {
-    this._apiResponse.set(null);
+    this.#apiResponse.set(null);
   }
 }

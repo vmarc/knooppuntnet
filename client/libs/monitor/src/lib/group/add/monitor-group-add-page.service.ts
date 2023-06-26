@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -7,9 +8,12 @@ import { MonitorService } from '../../monitor.service';
 
 @Injectable()
 export class MonitorGroupAddPageService {
+  #navService = inject(NavService);
+  #monitorService = inject(MonitorService);
+
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
+    asyncValidators: this.#monitorService.asyncGroupNameUniqueValidator(
       () => ''
     ),
   });
@@ -24,16 +28,11 @@ export class MonitorGroupAddPageService {
     description: this.description,
   });
 
-  constructor(
-    private navService: NavService,
-    private monitorService: MonitorService
-  ) {}
-
   add(): void {
     if (this.form.valid) {
-      this.monitorService
+      this.#monitorService
         .groupAdd(this.form.value)
-        .subscribe(() => this.navService.go('/monitor'));
+        .subscribe(() => this.#navService.go('/monitor'));
     }
   }
 }

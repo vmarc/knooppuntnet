@@ -49,7 +49,8 @@ class MonitorUpdateStructureImpl(
   private def loadStructure(context: MonitorUpdateContext, newRoute: MonitorRoute, relationId: Long): MonitorUpdateContext = {
     log.info(s"load structure relationId=$relationId")
     monitorRouteStructureLoader.load(None, relationId) match {
-      case None => context // TODO add message in saveResult: "could not load route structure"
+      case None =>
+        context // TODO add message in saveResult: "could not load route structure"
       case Some(monitorRouteRelation) =>
         log.info(s"load structure relationId=$relationId, subrelations=${monitorRouteRelation.relations.size}")
         val updatedRoute = newRoute.copy(

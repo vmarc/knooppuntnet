@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { mergeMap } from 'rxjs/operators';
@@ -9,22 +10,22 @@ import { MonitorRouteSaveDialogState } from './monitor-route-save-dialog.state';
 
 @Injectable()
 export class MonitorRouteSaveDialogService {
-  private readonly _state = signal<MonitorRouteSaveDialogState>(initialState);
-  readonly state = this._state.asReadonly();
+  readonly #monitorRouteService = inject(MonitorRouteService);
 
-  constructor(private monitorRouteService: MonitorRouteService) {}
+  readonly #state = signal<MonitorRouteSaveDialogState>(initialState);
+  readonly state = this.#state.asReadonly();
 
   init(parameters: MonitorRouteParameters): void {
     if (parameters.mode === 'add') {
-      this.initAdd(parameters);
+      this.#initAdd(parameters);
     } else {
-      this.initUpdate(parameters);
+      this.#initUpdate(parameters);
     }
   }
 
-  private initAdd(parameters: MonitorRouteParameters): void {
+  #initAdd(parameters: MonitorRouteParameters): void {
     const gpx = parameters.properties.referenceType === 'gpx';
-    this._state.update((state) => ({
+    this.#state.update((state) => ({
       ...state,
       saveRouteEnabled: true,
       saveRouteStatus: 'busy',
@@ -33,23 +34,23 @@ export class MonitorRouteSaveDialogService {
     }));
 
     if (gpx) {
-      this.saveRoute(parameters)
+      this.#saveRoute(parameters)
         .pipe(
-          mergeMap(() => this.upload(parameters)),
-          mergeMap(() => this.analyze(parameters))
+          mergeMap(() => this.#upload(parameters)),
+          mergeMap(() => this.#analyze(parameters))
         )
         .subscribe();
     } else {
-      this.saveRoute(parameters).subscribe();
+      this.#saveRoute(parameters).subscribe();
     }
   }
 
-  private initUpdate(parameters: MonitorRouteParameters): void {
+  #initUpdate(parameters: MonitorRouteParameters): void {
     const properties = parameters.properties;
     const gpx =
       properties.referenceType === 'gpx' && properties.referenceFileChanged;
 
-    this._state.update((state) => {
+    this.#state.update((state) => {
       return {
         ...state,
         saveRouteEnabled: true,
@@ -60,31 +61,31 @@ export class MonitorRouteSaveDialogService {
     });
 
     if (gpx) {
-      this.updateRoute(parameters)
+      this.#updateRoute(parameters)
         .pipe(
-          mergeMap(() => this.upload(parameters)),
-          mergeMap(() => this.analyze(parameters))
+          mergeMap(() => this.#upload(parameters)),
+          mergeMap(() => this.#analyze(parameters))
         )
         .subscribe();
     } else {
-      this.updateRoute(parameters).subscribe();
+      this.#updateRoute(parameters).subscribe();
     }
   }
 
-  private saveRoute(parameters: MonitorRouteParameters) {
+  #saveRoute(parameters: MonitorRouteParameters) {
     const groupName = parameters.initialProperties.groupName;
     const properties = parameters.properties;
-    this._state.update((state) => ({
+    this.#state.update((state) => ({
       ...state,
       saveRouteStatus: 'busy',
     }));
 
-    return this.monitorRouteService.routeAdd(groupName, properties).pipe(
+    return this.#monitorRouteService.routeAdd(groupName, properties).pipe(
       tap((response) => {
         const done = !(
           this.state().uploadGpxEnabled || this.state().analyzeEnabled
         );
-        this._state.update((state) => ({
+        this.#state.update((state) => ({
           ...state,
           saveRouteStatus: 'done',
           errors: response.result?.errors,
@@ -95,14 +96,14 @@ export class MonitorRouteSaveDialogService {
     );
   }
 
-  private updateRoute(parameters: MonitorRouteParameters) {
+  #updateRoute(parameters: MonitorRouteParameters) {
     const properties = parameters.properties;
-    this._state.update((state) => ({
+    this.#state.update((state) => ({
       ...state,
       saveRouteStatus: 'busy',
     }));
 
-    return this.monitorRouteService
+    return this.#monitorRouteService
       .routeUpdate(
         parameters.initialProperties.groupName,
         parameters.initialProperties.name,
@@ -113,7 +114,7 @@ export class MonitorRouteSaveDialogService {
           const done = !(
             this.state().uploadGpxEnabled || this.state().analyzeEnabled
           );
-          this._state.update((state) => ({
+          this.#state.update((state) => ({
             ...state,
             saveRouteStatus: 'done',
             errors: response.result?.errors,
@@ -124,12 +125,12 @@ export class MonitorRouteSaveDialogService {
       );
   }
 
-  private upload(parameters: MonitorRouteParameters) {
-    this._state.update((state) => ({
+  #upload(parameters: MonitorRouteParameters) {
+    this.#state.update((state) => ({
       ...state,
       uploadGpxStatus: 'busy',
     }));
-    return this.monitorRouteService
+    return this.#monitorRouteService
       .routeGpxUpload(
         parameters.initialProperties.groupName,
         parameters.properties.name,
@@ -137,7 +138,7 @@ export class MonitorRouteSaveDialogService {
       )
       .pipe(
         tap(() => {
-          this._state.update((state) => ({
+          this.#state.update((state) => ({
             ...state,
             uploadGpxStatus: 'done',
           }));
@@ -145,20 +146,20 @@ export class MonitorRouteSaveDialogService {
       );
   }
 
-  private analyze(parameters: MonitorRouteParameters) {
-    this._state.update((state) => ({
+  #analyze(parameters: MonitorRouteParameters) {
+    this.#state.update((state) => ({
       ...state,
       analyzeStatus: 'busy',
     }));
 
-    return this.monitorRouteService
+    return this.#monitorRouteService
       .routeAnalyze(
         parameters.initialProperties.groupName,
         parameters.properties.name
       )
       .pipe(
         tap(() => {
-          this._state.update((state) => ({
+          this.#state.update((state) => ({
             ...state,
             analyzeStatus: 'done',
             done: true,

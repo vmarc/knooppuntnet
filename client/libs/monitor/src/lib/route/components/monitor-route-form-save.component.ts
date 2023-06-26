@@ -3,6 +3,7 @@ import { NgSwitch } from '@angular/common';
 import { NgSwitchCase } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,7 +12,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
-import { MonitorService } from '../../monitor.service';
 import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 
 @Component({
@@ -117,15 +117,12 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 export class MonitorRouteFormSaveComponent {
   @Input({ required: true }) command: MonitorRouteUpdate;
 
-  readonly steps = this.monitorWebsocketService.steps;
-  readonly errors = this.monitorWebsocketService.errors;
-  readonly done = this.monitorWebsocketService.done;
+  readonly #monitorWebsocketService = inject(MonitorWebsocketService);
+  readonly #router = inject(Router);
 
-  constructor(
-    private monitorService: MonitorService,
-    private monitorWebsocketService: MonitorWebsocketService,
-    private router: Router
-  ) {}
+  readonly steps = this.#monitorWebsocketService.steps;
+  readonly errors = this.#monitorWebsocketService.errors;
+  readonly done = this.#monitorWebsocketService.done;
 
   trackBySteps(index: number, step: MonitorRouteSaveStep): string {
     return `${step.stepId}-${step.status}`;
@@ -133,12 +130,12 @@ export class MonitorRouteFormSaveComponent {
 
   backToGroup(): void {
     const url = `/monitor/groups/${this.groupName()}`;
-    this.router.navigateByUrl(url);
+    this.#router.navigateByUrl(url);
   }
 
   gotoAnalysisResult(): void {
     const url = `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`;
-    this.router.navigateByUrl(url);
+    this.#router.navigateByUrl(url);
   }
 
   groupName(): string {

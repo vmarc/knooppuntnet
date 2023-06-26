@@ -10,16 +10,16 @@ import { MonitorRouteSaveStep } from './route/monitor-route-save-step';
 
 @Injectable()
 export class MonitorWebsocketService {
-  private readonly _steps = signal<MonitorRouteSaveStep[]>([]);
-  readonly steps = this._steps.asReadonly();
+  readonly #steps = signal<MonitorRouteSaveStep[]>([]);
+  readonly steps = this.#steps.asReadonly();
 
-  private readonly _errors = signal<string[]>([]);
-  readonly errors = this._errors.asReadonly();
+  readonly #errors = signal<string[]>([]);
+  readonly errors = this.#errors.asReadonly();
 
-  private readonly _done = signal<boolean>(false);
-  readonly done = this._done.asReadonly();
+  readonly #done = signal<boolean>(false);
+  readonly done = this.#done.asReadonly();
 
-  private webSocketSubject: WebSocketSubject<any>;
+  #webSocketSubject: WebSocketSubject<any>;
 
   constructor(@Inject(DOCUMENT) private document) {}
 
@@ -31,7 +31,7 @@ export class MonitorWebsocketService {
     const host = document.location.host;
     const url = `${protocol}://${host}/websocket`;
 
-    this.webSocketSubject = webSocket({
+    this.#webSocketSubject = webSocket({
       url,
       // serializer: (x) => {
       //   console.log(['websocket serializer', x]);
@@ -42,18 +42,18 @@ export class MonitorWebsocketService {
       },
       openObserver: {
         next: () => {
-          this.log('websocket connection open');
+          this.#log('websocket connection open');
         },
       },
     });
-    this.webSocketSubject.subscribe({
+    this.#webSocketSubject.subscribe({
       next: (msg) => {
-        this.logArgs(['websocket message received', msg]);
+        this.#logArgs(['websocket message received', msg]);
 
         const message: MonitorRouteUpdateStatusMessage = JSON.parse(msg);
 
         if (message.commands) {
-          const stepsArray = this._steps();
+          const stepsArray = this.#steps();
           message.commands.forEach((command) => {
             if (command.action === 'step-add') {
               let description = '';
@@ -98,35 +98,40 @@ export class MonitorWebsocketService {
               });
             }
           });
-          this._steps.set(stepsArray);
+          this.#steps.set(stepsArray);
         }
       },
       error: (err) => {
-        this.logArgs(['websocket error', err]);
+        this.#logArgs(['websocket error', err]);
       },
       complete: () => {
-        this.log('websocket complete');
-        this._done.set(true);
+        this.#log('websocket complete');
+        this.#done.set(true);
       },
     });
-    this.webSocketSubject.next(command);
+    this.#webSocketSubject.next(command);
   }
 
-  complete(): void {
-    this.webSocketSubject.complete();
+  reset() {
+    this.#done.set(false);
+    this.#steps.set([]);
   }
 
-  private log(message: string): void {
-    console.log(`${this.now()} ${message}`);
+  #complete(): void {
+    this.#webSocketSubject.complete();
   }
 
-  private logArgs(args: any[]): void {
-    const coll: any[] = [this.now()];
+  #log(message: string): void {
+    console.log(`${this.#now()} ${message}`);
+  }
+
+  #logArgs(args: any[]): void {
+    const coll: any[] = [this.#now()];
     args.forEach((arg) => coll.push(arg));
     console.log(coll);
   }
 
-  private now(): string {
+  #now(): string {
     const date = new Date();
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -136,10 +141,5 @@ export class MonitorWebsocketService {
     const seconds = date.getSeconds().toString().padStart(2, '0');
     const millis = date.getMilliseconds().toString().padStart(3, '0');
     return `${year}-${month}-${dayPart} ${hours}:${minutes}:${seconds}.${millis}`;
-  }
-
-  reset() {
-    this._done.set(false);
-    this._steps.set([]);
   }
 }

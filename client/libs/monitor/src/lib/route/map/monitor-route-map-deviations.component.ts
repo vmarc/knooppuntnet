@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -19,7 +20,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   template: `
     <div
       *ngIf="
-        service.referenceAvailable();
+        referenceAvailable();
         then showReferenceAvailable;
         else showNoReference
       "
@@ -108,7 +109,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
           >
             <mat-list-option
               *ngFor="let deviation of deviations()"
-              [selected]="service.selectedDeviation()?.id === deviation.id"
+              [selected]="selectedDeviation()?.id === deviation.id"
               [value]="deviation"
             >
               <div class="segment">
@@ -181,32 +182,33 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   ],
 })
 export class MonitorRouteMapDeviationsComponent {
+  readonly #service = inject(MonitorRouteMapStateService);
+  readonly #editService = inject(EditService);
+
+  readonly referenceAvailable = this.#service.referenceAvailable;
+  readonly selectedDeviation = this.#service.selectedDeviation;
+
   readonly longDistance = '> 2.5 km';
   readonly osmRelationAvailable = computed(() => {
-    return !!this.service.page().relationId;
+    return !!this.#service.page().relationId;
   });
   readonly osmRelationEmpty = computed(() => {
-    const page = this.service.page();
+    const page = this.#service.page();
     return page.osmSegments.length === 0 && !!page.relationId;
   });
   readonly deviations = computed(() => {
-    return this.service.page()?.deviations ?? [];
+    return this.#service.page()?.deviations ?? [];
   });
-
-  constructor(
-    protected service: MonitorRouteMapStateService,
-    private editService: EditService
-  ) {}
 
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
       const deviation = event.options[0].value;
-      this.service.selectedDeviationChanged(deviation);
+      this.#service.selectedDeviationChanged(deviation);
     }
   }
 
   josmZoomToSelectedDeviation(deviation: MonitorRouteDeviation): void {
-    this.editService.edit({
+    this.#editService.edit({
       bounds: deviation.bounds,
     });
   }

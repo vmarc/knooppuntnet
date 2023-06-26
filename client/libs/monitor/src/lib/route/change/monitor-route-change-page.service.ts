@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NavService } from '@app/components/shared';
@@ -7,19 +8,19 @@ import { initialState } from './monitor-route-change-page.state';
 
 @Injectable()
 export class MonitorRouteChangePageService {
-  private readonly _state = signal<MonitorRouteChangePageState>(initialState);
-  readonly state = this._state.asReadonly();
+  readonly #navService = inject(NavService);
+  readonly #monitorService = inject(MonitorService);
 
-  constructor(
-    private navService: NavService,
-    private monitorService: MonitorService
-  ) {
-    const groupName = this.navService.param('groupName');
-    const routeName = this.navService.param('routeName');
-    const changeSetId = this.navService.param('changeSetId');
-    const replicationNumber = this.navService.param('replicationNumber');
-    const description = this.navService.state('description');
-    this._state.update((state) => ({
+  readonly #state = signal<MonitorRouteChangePageState>(initialState);
+  readonly state = this.#state.asReadonly();
+
+  constructor() {
+    const groupName = this.#navService.param('groupName');
+    const routeName = this.#navService.param('routeName');
+    const changeSetId = this.#navService.param('changeSetId');
+    const replicationNumber = this.#navService.param('replicationNumber');
+    const description = this.#navService.state('description');
+    this.#state.update((state) => ({
       ...state,
       groupName,
       routeName,
@@ -27,11 +28,11 @@ export class MonitorRouteChangePageService {
       replicationNumber,
       routeDescription: description,
     }));
-    this.monitorService
+    this.#monitorService
       .routeChange(groupName, routeName, changeSetId, replicationNumber)
       .subscribe((response) => {
         const routeDescription = 'TODO'; // TODO response.result?.routeDescription && description;
-        this._state.update((state) => ({
+        this.#state.update((state) => ({
           ...state,
           routeDescription,
           response,

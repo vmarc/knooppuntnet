@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
@@ -25,7 +26,10 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Injectable()
 export class MonitorRouteMapService extends OpenlayersMapService {
-  private readonly colors = [
+  readonly #navService = inject(NavService);
+  readonly #stateService = inject(MonitorRouteMapStateService);
+
+  readonly #colors = [
     'red',
     'yellow',
     'lime',
@@ -39,32 +43,29 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     'teal',
   ];
 
-  private readonly osmSegmentStyles = this.colors.map((color) =>
-    this.fixedStyle(color, 4)
+  readonly #osmSegmentStyles = this.#colors.map((color) =>
+    this.#fixedStyle(color, 4)
   );
 
-  private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly matchesLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly deviationsLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
+  readonly #referenceLayer: VectorLayer<VectorSource<Geometry>>;
+  readonly #matchesLayer: VectorLayer<VectorSource<Geometry>>;
+  readonly #deviationsLayer: VectorLayer<VectorSource<Geometry>>;
+  readonly #osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
 
-  constructor(
-    private navService: NavService,
-    private stateService: MonitorRouteMapStateService
-  ) {
+  constructor() {
     super();
-    this.referenceLayer = this.buildReferencesLayer();
-    this.matchesLayer = this.buildMatchesLayer();
-    this.deviationsLayer = this.buildDeviationsLayer();
-    this.osmRelationLayer = this.buildOsmRelationLayer();
-    this.initEffects();
+    this.#referenceLayer = this.#buildReferencesLayer();
+    this.#matchesLayer = this.#buildMatchesLayer();
+    this.#deviationsLayer = this.#buildDeviationsLayer();
+    this.#osmRelationLayer = this.#buildOsmRelationLayer();
+    this.#initEffects();
   }
 
   init(): void {
-    const param = this.navService.queryParam('position');
+    const param = this.#navService.queryParam('position');
     const mapPositionFromUrl = MapPosition.fromQueryParam(param);
 
-    this.registerLayers();
+    this.#registerLayers();
     this.initMap(
       new Map({
         target: this.mapId,
@@ -77,10 +78,10 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       })
     );
 
-    this.map.addLayer(this.referenceLayer);
-    this.map.addLayer(this.matchesLayer);
-    this.map.addLayer(this.deviationsLayer);
-    this.map.addLayer(this.osmRelationLayer);
+    this.map.addLayer(this.#referenceLayer);
+    this.map.addLayer(this.#matchesLayer);
+    this.map.addLayer(this.#deviationsLayer);
+    this.map.addLayer(this.#osmRelationLayer);
 
     if (mapPositionFromUrl) {
       this.map.getView().setZoom(mapPositionFromUrl.zoom);
@@ -90,13 +91,13 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     } else {
       this.map
         .getView()
-        .fit(Util.toExtent(this.stateService.page().bounds, 0.05));
+        .fit(Util.toExtent(this.#stateService.page().bounds, 0.05));
     }
     this.finalizeSetup(true);
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    this.referenceLayer.getSource().clear();
+    this.#referenceLayer.getSource().clear();
     if (page?.reference?.referenceGeoJson) {
       const features = new GeoJSON().readFeatures(
         page.reference.referenceGeoJson,
@@ -104,18 +105,18 @@ export class MonitorRouteMapService extends OpenlayersMapService {
           featureProjection: 'EPSG:3857',
         }
       );
-      this.referenceLayer.getSource().addFeatures(features);
+      this.#referenceLayer.getSource().addFeatures(features);
     }
 
-    this.matchesLayer.getSource().clear();
+    this.#matchesLayer.getSource().clear();
     if (page?.matchesGeoJson) {
       const features = new GeoJSON().readFeatures(page.matchesGeoJson, {
         featureProjection: 'EPSG:3857',
       });
-      this.matchesLayer.getSource().addFeatures(features);
+      this.#matchesLayer.getSource().addFeatures(features);
     }
 
-    this.deviationsLayer.getSource().clear();
+    this.#deviationsLayer.getSource().clear();
     if (page?.deviations) {
       const features = [];
       page.deviations.forEach((segment) => {
@@ -123,10 +124,10 @@ export class MonitorRouteMapService extends OpenlayersMapService {
           .readFeatures(segment.geoJson, { featureProjection: 'EPSG:3857' })
           .forEach((feature) => features.push(feature));
       });
-      this.deviationsLayer.getSource().addFeatures(features);
+      this.#deviationsLayer.getSource().addFeatures(features);
     }
 
-    this.osmRelationLayer.getSource().clear();
+    this.#osmRelationLayer.getSource().clear();
     if (page?.osmSegments) {
       const features = [];
       page.osmSegments.forEach((segment) => {
@@ -137,50 +138,52 @@ export class MonitorRouteMapService extends OpenlayersMapService {
             features.push(feature);
           });
       });
-      this.osmRelationLayer.getSource().addFeatures(features);
+      this.#osmRelationLayer.getSource().addFeatures(features);
     }
   }
 
   colorForSegmentId(id: number): string {
     const index = id % 10;
-    return this.colors[index];
+    return this.#colors[index];
   }
 
-  private styleForSegmentId(id: number): Style {
+  #styleForSegmentId(id: number): Style {
     const index = id % 10;
-    return this.osmSegmentStyles[index];
+    return this.#osmSegmentStyles[index];
   }
 
-  private registerLayers(): void {
+  #registerLayers(): void {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
     this.register(registry);
   }
 
-  private initEffects(): void {
+  #initEffects(): void {
     effect(() => {
-      this.referenceLayer.setVisible(this.stateService.referenceVisible());
+      this.#referenceLayer.setVisible(this.#stateService.referenceVisible());
     });
     effect(() => {
-      this.matchesLayer.setVisible(this.stateService.matchesVisible());
+      this.#matchesLayer.setVisible(this.#stateService.matchesVisible());
     });
     effect(() => {
-      this.deviationsLayer.setVisible(this.stateService.deviationsVisible());
+      this.#deviationsLayer.setVisible(this.#stateService.deviationsVisible());
     });
     effect(() => {
-      this.osmRelationLayer.setVisible(this.stateService.osmRelationVisible());
+      this.#osmRelationLayer.setVisible(
+        this.#stateService.osmRelationVisible()
+      );
     });
     effect(() => {
-      const focusBounds = this.stateService.focus();
+      const focusBounds = this.#stateService.focus();
       if (this.map !== null && focusBounds !== null) {
         this.map.getView().fit(Util.toExtent(focusBounds, 0.1));
       }
     });
     effect(
       () => {
-        if (this.stateService.page() !== null) {
-          this.updateQueryParams(this.stateService.state());
+        if (this.#stateService.page() !== null) {
+          this.#updateQueryParams(this.#stateService.state());
         }
       },
       {
@@ -189,8 +192,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     );
   }
 
-  private buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {
-    const layerStyle = this.fixedStyle('blue', 4);
+  #buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {
+    const layerStyle = this.#fixedStyle('blue', 4);
     return new VectorLayer({
       zIndex: 50,
       source: new VectorSource(),
@@ -198,8 +201,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private buildMatchesLayer(): VectorLayer<VectorSource<Geometry>> {
-    const layerStyle = this.fixedStyle('green', 4);
+  #buildMatchesLayer(): VectorLayer<VectorSource<Geometry>> {
+    const layerStyle = this.#fixedStyle('green', 4);
     return new VectorLayer({
       zIndex: 60,
       source: new VectorSource(),
@@ -207,8 +210,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private buildDeviationsLayer(): VectorLayer<VectorSource<Geometry>> {
-    const layerStyle = this.fixedStyle('red', 4);
+  #buildDeviationsLayer(): VectorLayer<VectorSource<Geometry>> {
+    const layerStyle = this.#fixedStyle('red', 4);
     return new VectorLayer({
       zIndex: 70,
       source: new VectorSource(),
@@ -216,16 +219,16 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private buildOsmRelationLayer(): VectorLayer<VectorSource<Geometry>> {
-    const thinStyle = this.fixedStyle('gold', 4);
-    const thickStyle = this.fixedStyle('gold', 10);
+  #buildOsmRelationLayer(): VectorLayer<VectorSource<Geometry>> {
+    const thinStyle = this.#fixedStyle('gold', 4);
+    const thickStyle = this.#fixedStyle('gold', 10);
 
     const styleFunction = (feature) => {
-      if (this.stateService.mode() === 'osm-segments') {
+      if (this.#stateService.mode() === 'osm-segments') {
         const segmentId = feature.get('segmentId');
-        return this.styleForSegmentId(segmentId);
+        return this.#styleForSegmentId(segmentId);
       }
-      if (this.stateService.referenceAvailable()) {
+      if (this.#stateService.referenceAvailable()) {
         return thickStyle;
       }
       return thinStyle;
@@ -238,7 +241,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private fixedStyle(color: string, width: number): Style {
+  #fixedStyle(color: string, width: number): Style {
     return new Style({
       stroke: new Stroke({
         color,
@@ -247,7 +250,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private updateQueryParams(state: MonitorRouteMapState): void {
+  #updateQueryParams(state: MonitorRouteMapState): void {
     let queryParams: Params = {
       mode: state.mode,
       reference: state.referenceVisible,

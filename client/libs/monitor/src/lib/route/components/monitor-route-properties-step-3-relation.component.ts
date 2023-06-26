@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Input, OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -180,13 +181,13 @@ export class MonitorRoutePropertiesStep3RelationComponent
   @Input() relationIdKnown: FormControl<boolean>;
   @Input() relationId: FormControl<number | null>;
 
-  readonly apiResponse = this.service.apiResponse;
-  private readonly subscriptions = new Subscriptions();
+  readonly #service = inject(MonitorRoutePropertiesStep3RelationService);
 
-  constructor(private service: MonitorRoutePropertiesStep3RelationService) {}
+  readonly apiResponse = this.#service.apiResponse;
+  readonly #subscriptions = new Subscriptions();
 
   ngOnInit(): void {
-    this.subscriptions.add(
+    this.#subscriptions.add(
       this.relationId.valueChanges.subscribe(() => {
         this.resetRouteInformation();
       })
@@ -194,14 +195,14 @@ export class MonitorRoutePropertiesStep3RelationComponent
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+    this.#subscriptions.unsubscribe();
   }
 
   getRouteInformation(): void {
-    this.service.getRouteInformation(this.relationId.value);
+    this.#service.getRouteInformation(this.relationId.value);
   }
 
   resetRouteInformation(): void {
-    this.service.resetRouteInformation();
+    this.#service.resetRouteInformation();
   }
 }
