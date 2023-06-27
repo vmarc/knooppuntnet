@@ -43,5 +43,5 @@ import { DayPipe } from '@app/components/shared/format';
   imports: [NgIf, DayPipe, DistancePipe, TimestampDayPipe],
 })
 export class MonitorRouteDetailsReferenceComponent {
-  @Input() page: MonitorRouteDetailsPage;
+  @Input({ required: true }) page: MonitorRouteDetailsPage;
 }

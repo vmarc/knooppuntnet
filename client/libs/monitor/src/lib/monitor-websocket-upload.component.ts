@@ -32,7 +32,7 @@ import { webSocket } from 'rxjs/webSocket';
   imports: [NgFor],
 })
 export class MonitorWebsocketUploadComponent implements OnInit {
-  @Input() data;
+  @Input({ required: true }) data;
 
   messages: string[] = [];
   webSocketSubject: WebSocketSubject<any>;

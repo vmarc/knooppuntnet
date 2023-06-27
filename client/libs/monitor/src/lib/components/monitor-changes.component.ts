@@ -102,9 +102,9 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
   ],
 })
 export class MonitorChangesComponent {
-  @Input() pageSize: number;
-  @Input() pageIndex: number;
-  @Input() changes: MonitorRouteChangeSummary[];
+  @Input({ required: true }) pageSize: number;
+  @Input({ required: true }) pageIndex: number;
+  @Input({ required: true }) changes: MonitorRouteChangeSummary[];
 
   rowIndex(index: number): number {
     return this.pageSize * this.pageIndex + index;

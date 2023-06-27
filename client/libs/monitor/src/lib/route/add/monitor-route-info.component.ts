@@ -69,5 +69,5 @@ import { DataComponent } from '@app/components/shared/data';
   imports: [NgIf, DataComponent],
 })
 export class MonitorRouteInfoComponent {
-  @Input() routeInfo: MonitorRouteInfoPage;
+  @Input({ required: true }) routeInfo: MonitorRouteInfoPage;
 }

@@ -89,8 +89,8 @@ import { MonitorGroupDetail } from '@api/common/monitor';
   imports: [MatButtonModule, MatIconModule, MatTableModule, RouterLink],
 })
 export class MonitorGroupTableComponent implements OnInit {
-  @Input() admin: boolean;
-  @Input() groups: MonitorGroupDetail[];
+  @Input({ required: true }) admin: boolean;
+  @Input({ required: true }) groups: MonitorGroupDetail[];
 
   readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
 

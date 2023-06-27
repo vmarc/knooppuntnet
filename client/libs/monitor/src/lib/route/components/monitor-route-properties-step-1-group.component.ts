@@ -53,7 +53,7 @@ import { MonitorRouteGroup } from '@api/common/monitor';
   ],
 })
 export class MonitorRoutePropertiesStep1GroupComponent {
-  @Input() ngForm: FormGroupDirective;
-  @Input() group: FormControl<MonitorRouteGroup | null>;
-  @Input() routeGroups: MonitorRouteGroup[];
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) group: FormControl<MonitorRouteGroup | null>;
+  @Input({ required: true }) routeGroups: MonitorRouteGroup[];
 }

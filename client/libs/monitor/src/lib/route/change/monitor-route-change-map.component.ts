@@ -32,9 +32,9 @@ import { MonitorRouteChangeMapService } from './monitor-route-change-map.service
 export class MonitorRouteChangeMapComponent
   implements AfterViewInit, OnDestroy
 {
-  @Input() referenceJson: string;
-  @Input() routeSegments: MonitorRouteSegment[];
-  @Input() deviation: MonitorRouteDeviation;
+  @Input({ required: true }) referenceJson: string;
+  @Input({ required: true }) routeSegments: MonitorRouteSegment[];
+  @Input({ required: true }) deviation: MonitorRouteDeviation;
 
   constructor(protected service: MonitorRouteChangeMapService) {}
 

@@ -54,5 +54,5 @@ import { IconHappyComponent } from '@app/components/shared/icon';
   imports: [NgIf, IconHappyComponent, DistancePipe],
 })
 export class MonitorRouteDetailsAnalysisComponent {
-  @Input() page: MonitorRouteDetailsPage;
+  @Input({ required: true }) page: MonitorRouteDetailsPage;
 }

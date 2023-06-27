@@ -24,6 +24,6 @@ import { PageMenuComponent } from '@app/components/shared/menu';
   imports: [PageMenuComponent, PageMenuOptionComponent, ErrorComponent],
 })
 export class MonitorGroupPageMenuComponent {
-  @Input() pageName: string;
-  @Input() groupName: string;
+  @Input({ required: true }) pageName: string;
+  @Input({ required: true }) groupName: string;
 }

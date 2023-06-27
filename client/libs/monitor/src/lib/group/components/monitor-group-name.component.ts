@@ -50,6 +50,6 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf],
 })
 export class MonitorGroupNameComponent {
-  @Input() ngForm: FormGroupDirective;
-  @Input() name: FormControl<string>;
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) name: FormControl<string>;
 }

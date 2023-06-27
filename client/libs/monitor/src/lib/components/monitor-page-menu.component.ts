@@ -29,5 +29,5 @@ import { PageMenuComponent } from '@app/components/shared/menu';
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class MonitorPageMenuComponent {
-  @Input() pageName: string;
+  @Input({ required: true }) pageName: string;
 }

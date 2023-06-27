@@ -41,5 +41,5 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   ],
 })
 export class MonitorRouteDetailsSummaryComponent {
-  @Input() page: MonitorRouteDetailsPage;
+  @Input({ required: true }) page: MonitorRouteDetailsPage;
 }

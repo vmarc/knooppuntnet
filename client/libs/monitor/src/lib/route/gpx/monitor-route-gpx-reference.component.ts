@@ -117,10 +117,10 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
   ],
 })
 export class MonitorRouteGpxReferenceComponent {
-  @Input() ngForm: FormGroupDirective;
-  @Input() gpxReferenceDate: FormControl<Date | null>;
-  @Input() referenceFilename: FormControl<string>;
-  @Input() referenceFile: FormControl<File>;
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) gpxReferenceDate: FormControl<Date | null>;
+  @Input({ required: true }) referenceFilename: FormControl<string>;
+  @Input({ required: true }) referenceFile: FormControl<File>;
 
   selectFile(selectEvent: any) {
     this.referenceFile.setValue(selectEvent.target.files[0]);

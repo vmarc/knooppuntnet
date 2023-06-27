@@ -54,6 +54,6 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf],
 })
 export class MonitorRouteDescriptionComponent {
-  @Input() ngForm: FormGroupDirective;
-  @Input() description: FormControl<string>;
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) description: FormControl<string>;
 }

@@ -54,8 +54,8 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
   ],
 })
 export class MonitorRoutePropertiesStep2NameComponent {
-  @Input() mode: string;
-  @Input() ngForm: FormGroupDirective;
-  @Input() name: FormControl<string>;
-  @Input() description: FormControl<string>;
+  @Input({ required: true }) mode: string;
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) name: FormControl<string>;
+  @Input({ required: true }) description: FormControl<string>;
 }

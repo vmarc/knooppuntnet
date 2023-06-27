@@ -101,6 +101,6 @@ import { FormStatusComponent } from '@app/components/shared';
   ],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {
-  @Input() ngForm: FormGroupDirective;
-  @Input() referenceType: FormControl<string>;
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) referenceType: FormControl<string>;
 }

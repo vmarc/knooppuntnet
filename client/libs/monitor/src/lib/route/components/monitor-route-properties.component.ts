@@ -167,10 +167,10 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
   ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
-  @Input() mode: string;
-  @Input() groupName: string;
-  @Input() initialProperties: MonitorRouteProperties = null;
-  @Input() routeGroups: MonitorRouteGroup[];
+  @Input({ required: true }) mode: string;
+  @Input({ required: true }) groupName: string;
+  @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
+  @Input({ required: true }) routeGroups: MonitorRouteGroup[];
   @Output() update = new EventEmitter<MonitorRouteUpdate>();
 
   readonly #monitorService = inject(MonitorService);

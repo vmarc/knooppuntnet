@@ -176,10 +176,10 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
 export class MonitorRoutePropertiesStep3RelationComponent
   implements OnInit, OnDestroy
 {
-  @Input() ngForm: FormGroupDirective;
-  @Input() form: FormGroup;
-  @Input() relationIdKnown: FormControl<boolean>;
-  @Input() relationId: FormControl<number | null>;
+  @Input({ required: true }) ngForm: FormGroupDirective;
+  @Input({ required: true }) form: FormGroup;
+  @Input({ required: true }) relationIdKnown: FormControl<boolean>;
+  @Input({ required: true }) relationId: FormControl<number | null>;
 
   readonly #service = inject(MonitorRoutePropertiesStep3RelationService);
 

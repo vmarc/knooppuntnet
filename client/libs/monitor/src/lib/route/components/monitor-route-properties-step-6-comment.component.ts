@@ -50,5 +50,5 @@ import { MatStepperModule } from '@angular/material/stepper';
   ],
 })
 export class MonitorRoutePropertiesStep6CommentComponent {
-  @Input() comment: FormControl<string>;
+  @Input({ required: true }) comment: FormControl<string>;
 }

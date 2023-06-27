@@ -52,7 +52,7 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class MonitorChangeHeaderComponent {
-  @Input() changeSet: MonitorRouteChangeSummary;
+  @Input({ required: true }) changeSet: MonitorRouteChangeSummary;
 
   readonly #pageWidthService = inject(PageWidthService);
 

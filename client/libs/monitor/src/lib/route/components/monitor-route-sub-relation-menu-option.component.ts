@@ -30,8 +30,8 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
   imports: [NgClass],
 })
 export class MonitorRouteSubRelationMenuOptionComponent {
-  @Input() routeSubRelation: MonitorRouteSubRelation;
-  @Input() name: string;
+  @Input({ required: true }) routeSubRelation: MonitorRouteSubRelation;
+  @Input({ required: true }) name: string;
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
 
   goto(): void {

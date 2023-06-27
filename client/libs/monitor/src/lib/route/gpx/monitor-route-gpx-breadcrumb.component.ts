@@ -23,8 +23,8 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class MonitorRouteGpxBreadcrumbComponent {
-  @Input() groupName: string;
-  @Input() routeName: string;
-  @Input() groupLink: string;
-  @Input() routeLink: string;
+  @Input({ required: true }) groupName: string;
+  @Input({ required: true }) routeName: string;
+  @Input({ required: true }) groupLink: string;
+  @Input({ required: true }) routeLink: string;
 }

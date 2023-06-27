@@ -276,9 +276,9 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {
-  @Input() admin: boolean;
-  @Input() groupName: string;
-  @Input() routes: MonitorRouteDetail[];
+  @Input({ required: true }) admin: boolean;
+  @Input({ required: true }) groupName: string;
+  @Input({ required: true }) routes: MonitorRouteDetail[];
 
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 

@@ -1,8 +1,8 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-monitor-route-save-step',
@@ -39,7 +39,7 @@ import { NgIf } from '@angular/common';
   imports: [NgIf, MatProgressSpinnerModule, MatIconModule],
 })
 export class MonitorRouteSaveStepComponent {
-  @Input() enabled: boolean;
-  @Input() status: 'todo' | 'busy' | 'done';
-  @Input() label: string;
+  @Input({ required: true }) enabled: boolean;
+  @Input({ required: true }) status: 'todo' | 'busy' | 'done';
+  @Input({ required: true }) label: string;
 }
