@@ -43,7 +43,7 @@ export class MonitorRouteFormComponent {
   @Input({ required: true }) mode: string;
   @Input({ required: true }) groupName: string;
   @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
-  @Input() routeGroups: MonitorRouteGroup[];
+  @Input({ required: false }) routeGroups: MonitorRouteGroup[];
 
   #monitorWebsocketService = inject(MonitorWebsocketService);
 

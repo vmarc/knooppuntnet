@@ -109,8 +109,8 @@ import { selectDemoEnabled } from '../store/demo.selectors';
   imports: [NgClass, NgIf, MatIconModule, AsyncPipe],
 })
 export class DemoVideoControlComponent {
-  @Input() name: string;
-  @Input() duration: string;
+  @Input({ required: true }) name: string;
+  @Input({ required: true }) duration: string;
 
   readonly selected$: Observable<boolean> = this.store
     .select(selectDemoVideo)

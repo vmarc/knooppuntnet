@@ -20,6 +20,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkNodeComponent {
-  @Input() nodeId: number;
-  @Input() nodeName: string;
+  @Input({ required: true }) nodeId: number;
+  @Input({ required: true }) nodeName: string;
 }

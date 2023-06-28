@@ -43,8 +43,8 @@ import { DayUtil } from '..';
   ],
 })
 export class DayInputComponent {
-  @Input() date: FormControl<Date | null>;
-  @Input() label: string;
+  @Input({ required: true }) date: FormControl<Date | null>;
+  @Input({ required: true }) label: string;
 
   constructor(@Inject(MAT_DATE_LOCALE) private matDateLocale: string) {}
 

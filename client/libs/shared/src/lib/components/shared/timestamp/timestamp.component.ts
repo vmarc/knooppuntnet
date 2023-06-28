@@ -12,5 +12,5 @@ import { TimestampPipe } from '../format/timestamp-pipe';
   imports: [TimestampPipe],
 })
 export class TimestampComponent {
-  @Input() timestamp: Timestamp;
+  @Input({ required: true }) timestamp: Timestamp;
 }

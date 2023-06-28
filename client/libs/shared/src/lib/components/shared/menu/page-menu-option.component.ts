@@ -36,7 +36,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, NgClass, NgIf],
 })
 export class PageMenuOptionComponent {
-  @Input() link: string;
+  @Input({ required: true }) link: string;
   @Input() active = false;
   @Input() state: { [k: string]: any };
   @Input() elementCount: number;

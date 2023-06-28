@@ -24,8 +24,8 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
   imports: [NgIf, LinkNodeComponent, OsmLinkNodeComponent],
 })
 export class LinkNodeRefHeaderComponent implements OnInit {
-  @Input() ref: Ref;
-  @Input() knownElements: KnownElements;
+  @Input({ required: true }) ref: Ref;
+  @Input({ required: true }) knownElements: KnownElements;
 
   known: boolean;
 

@@ -18,5 +18,5 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
   imports: [NgFor, OsmLinkNodeComponent],
 })
 export class NodeListComponent {
-  @Input() nodeIds: number[];
+  @Input({ required: true }) nodeIds: number[];
 }

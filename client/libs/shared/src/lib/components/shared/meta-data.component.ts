@@ -20,5 +20,5 @@ import { TimestampComponent } from './timestamp/timestamp.component';
   imports: [NgIf, TimestampComponent],
 })
 export class MetaDataComponent {
-  @Input() metaData: MetaData;
+  @Input({ required: true }) metaData: MetaData;
 }

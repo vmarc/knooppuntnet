@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { StatusLinks } from './status-links';
 import { RouterLink } from '@angular/router';
+import { StatusLinks } from './status-links';
 
 @Component({
   selector: 'kpn-status-links',
@@ -22,5 +22,5 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class StatusLinksComponent {
-  @Input() links: StatusLinks;
+  @Input({ required: true }) links: StatusLinks;
 }

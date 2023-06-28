@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkFactComponent {
-  @Input() fact: string;
-  @Input() country: string;
-  @Input() networkType: string;
+  @Input({ required: true }) fact: string;
+  @Input({ required: true }) country: string;
+  @Input({ required: true }) networkType: string;
 }

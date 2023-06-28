@@ -26,7 +26,7 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   imports: [IndicatorIconComponent],
 })
 export class IndicatorComponent {
-  @Input() letter: string;
+  @Input({ required: true }) letter: string;
   @Input() color: string;
 
   @Output() openDialog = new EventEmitter<void>();

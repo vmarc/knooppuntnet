@@ -31,6 +31,6 @@ import { Observable } from 'rxjs';
   imports: [NgIf, AsyncPipe],
 })
 export class FormStatusComponent {
-  @Input() formName: string;
-  @Input() statusChanges: Observable<FormControlStatus>;
+  @Input({ required: true }) formName: string;
+  @Input({ required: true }) statusChanges: Observable<FormControlStatus>;
 }

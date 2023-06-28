@@ -26,7 +26,7 @@ import { OnInit } from '@angular/core';
   imports: [NgIf],
 })
 export class JsonComponent implements OnInit {
-  @Input() object: any;
+  @Input({ required: true }) object: any;
   contents = '';
   visible = false;
 

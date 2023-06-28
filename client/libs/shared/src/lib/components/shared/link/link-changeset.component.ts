@@ -18,6 +18,6 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkChangesetComponent {
-  @Input() changeSetId: number;
+  @Input({ required: true }) changeSetId: number;
   @Input() replicationNumber: number;
 }

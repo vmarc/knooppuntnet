@@ -11,7 +11,7 @@ import { I18nService } from '@app/i18n';
   standalone: true,
 })
 export class NetworkScopeNameComponent {
-  @Input() networkScope: NetworkScope;
+  @Input({ required: true }) networkScope: NetworkScope;
 
   constructor(private i18nService: I18nService) {}
 

@@ -12,5 +12,5 @@ import { TimestampDayPipe } from '../format/timestamp-day.pipe';
   imports: [TimestampDayPipe],
 })
 export class DayComponent {
-  @Input() timestamp: Timestamp;
+  @Input({ required: true }) timestamp: Timestamp;
 }

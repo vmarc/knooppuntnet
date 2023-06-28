@@ -13,6 +13,6 @@ import { OsmLinkComponent } from './osm-link.component';
   imports: [OsmLinkComponent],
 })
 export class OsmLinkWayComponent {
-  @Input() wayId: number;
-  @Input() title = 'osm';
+  @Input({ required: true }) wayId: number;
+  @Input({ required: false }) title = 'osm';
 }

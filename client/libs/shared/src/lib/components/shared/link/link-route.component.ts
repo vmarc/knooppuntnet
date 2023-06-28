@@ -2,8 +2,8 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
-import { NetworkType } from '@api/custom';
 import { RouterLink } from '@angular/router';
+import { NetworkType } from '@api/custom';
 
 @Component({
   selector: 'kpn-link-route',
@@ -21,10 +21,10 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
 })
 export class LinkRouteComponent implements OnInit {
-  @Input() routeId: number;
-  @Input() networkType: NetworkType;
-  @Input() routeName: string;
-  @Input() title: string;
+  @Input({ required: true }) routeId: number;
+  @Input({ required: true }) routeName: string;
+  @Input({ required: false }) networkType: NetworkType;
+  @Input({ required: false }) title: string;
 
   protected linkTitle = '';
 

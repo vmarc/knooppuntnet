@@ -1,10 +1,10 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { PoiAnalysis } from '@api/common';
 import { Tags } from '@api/custom';
 import { PoiService } from '@app/services';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-poi-analysis',
@@ -210,7 +210,7 @@ import { NgIf } from '@angular/common';
   imports: [NgIf],
 })
 export class PoiAnalysisComponent {
-  @Input() poi: PoiAnalysis;
+  @Input({ required: true }) poi: PoiAnalysis;
   tags: Tags;
 
   constructor(private poiService: PoiService) {}

@@ -29,9 +29,9 @@ import { NetworkTypeIconComponent } from '../network-type-icon.component';
   ],
 })
 export class IconLinkComponent implements OnInit {
-  @Input() reference: Reference;
-  @Input() mixedNetworkScopes: boolean;
-  @Input() elementType: string;
+  @Input({ required: true }) reference: Reference;
+  @Input({ required: true }) mixedNetworkScopes: boolean;
+  @Input({ required: true }) elementType: string;
   protected state = {};
   protected link: string;
 

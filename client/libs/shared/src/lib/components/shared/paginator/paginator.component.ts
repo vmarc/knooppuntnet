@@ -34,11 +34,11 @@ import { MatPaginator } from '@angular/material/paginator';
   imports: [MatPaginatorModule],
 })
 export class PaginatorComponent implements AfterViewInit {
-  @Input() pageSize: number;
-  @Input() pageIndex: number;
-  @Input() length: number;
-  @Input() showFirstLastButtons = false;
-  @Input() showPageSizeSelection = false;
+  @Input({ required: true }) pageSize: number;
+  @Input({ required: true }) pageIndex: number;
+  @Input({ required: true }) length: number;
+  @Input({ required: false }) showFirstLastButtons = false;
+  @Input({ required: false }) showPageSizeSelection = false;
 
   @Output() pageSizeChange = new EventEmitter<number>();
   @Output() pageIndexChange = new EventEmitter<number>();

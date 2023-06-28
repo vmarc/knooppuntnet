@@ -17,6 +17,6 @@ import { OsmLinkComponent } from './osm-link.component';
   imports: [OsmLinkComponent],
 })
 export class OsmLinkRelationComponent {
-  @Input() relationId: number;
-  @Input() title = 'osm';
+  @Input({ required: true }) relationId: number;
+  @Input({ required: false }) title = 'osm';
 }

@@ -35,6 +35,6 @@ import { StatusLinks } from './status-links';
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class StatusPageMenuComponent {
-  @Input() periodType: string;
+  @Input({ required: true }) periodType: string;
   @Input() links: StatusLinks;
 }

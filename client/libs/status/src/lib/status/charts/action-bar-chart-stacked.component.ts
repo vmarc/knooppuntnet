@@ -29,7 +29,7 @@ import { BarChartModule } from '@swimlane/ngx-charts';
   imports: [BarChartModule],
 })
 export class ActionBarChartStackedComponent {
-  @Input() barChart: BarChart2D;
+  @Input({ required: true }) barChart: BarChart2D;
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;
 

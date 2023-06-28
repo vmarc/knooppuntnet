@@ -23,6 +23,6 @@ import { ActionBarChartComponent } from './action-bar-chart.component';
   imports: [ActionBarChartComponent],
 })
 export class ReplicationElementsChartComponent {
-  @Input() barChart: BarChart;
+  @Input({ required: true }) barChart: BarChart;
   @Input() xAxisLabel: string;
 }

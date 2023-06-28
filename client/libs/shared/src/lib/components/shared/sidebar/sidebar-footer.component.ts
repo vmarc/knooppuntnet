@@ -62,7 +62,8 @@ import { Store } from '@ngrx/store';
   imports: [NgIf, LinkLogoutComponent, LinkLoginComponent, AsyncPipe],
 })
 export class SidebarFooterComponent {
-  @Input() loginEnabled = true;
+  @Input({ required: false }) loginEnabled = true;
+
   readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
   readonly user = this.store.selectSignal(selectUserUser);
 

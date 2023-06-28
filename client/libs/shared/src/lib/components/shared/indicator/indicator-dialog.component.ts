@@ -40,6 +40,6 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   imports: [DialogComponent, MatDialogModule, IndicatorIconComponent],
 })
 export class IndicatorDialogComponent {
-  @Input() letter: string;
+  @Input({ required: true }) letter: string;
   @Input() color: string;
 }

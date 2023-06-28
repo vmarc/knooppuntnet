@@ -38,8 +38,8 @@ import { PageService } from '../page.service';
   imports: [NgIf, DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
-  @Input() subject: string;
-  @Input() pageTitle: string;
+  @Input({ required: false }) subject: string;
+  @Input({ required: false }) pageTitle: string;
 
   @ViewChild('title', { read: ElementRef, static: true })
   renderedTitle: ElementRef;

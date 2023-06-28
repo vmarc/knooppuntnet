@@ -19,7 +19,7 @@ import { NetworkType } from '@api/custom';
   imports: [RouterLink],
 })
 export class LinkNetworkDetailsComponent {
-  @Input() networkId: number;
-  @Input() networkType: NetworkType;
-  @Input() networkName: string;
+  @Input({ required: true }) networkId: number;
+  @Input({ required: true }) networkName: string;
+  @Input({ required: false }) networkType: NetworkType;
 }

@@ -47,5 +47,5 @@ import { InterpretedTags } from './interpreted-tags';
   imports: [NgIf, NgFor],
 })
 export class TagsTableComponent {
-  @Input() tags: InterpretedTags;
+  @Input({ required: true }) tags: InterpretedTags;
 }

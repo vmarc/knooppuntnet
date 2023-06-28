@@ -48,6 +48,6 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class IndicatorIconComponent {
-  @Input() letter: string;
-  @Input() color: string;
+  @Input({ required: true }) letter: string;
+  @Input({ required: true }) color: string;
 }

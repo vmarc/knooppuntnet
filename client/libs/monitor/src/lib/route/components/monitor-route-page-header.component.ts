@@ -120,9 +120,9 @@ export class MonitorRoutePageHeaderComponent {
   @Input({ required: true }) groupName: string;
   @Input({ required: true }) routeName: string;
   @Input({ required: true }) routeDescription: string;
-  @Input() subRelations: MonitorRouteSubRelation[] = [];
-  @Input() previous: MonitorRouteSubRelation;
-  @Input() next: MonitorRouteSubRelation;
+  @Input({ required: false }) subRelations: MonitorRouteSubRelation[] = [];
+  @Input({ required: false }) previous: MonitorRouteSubRelation;
+  @Input({ required: false }) next: MonitorRouteSubRelation;
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
 
   select(subRelation: MonitorRouteSubRelation): void {

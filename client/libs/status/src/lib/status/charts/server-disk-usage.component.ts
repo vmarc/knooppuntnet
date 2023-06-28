@@ -51,5 +51,5 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
   imports: [ServerDiskUsagePieChartComponent, ServerDiskUsageLegendComponent],
 })
 export class ServerDiskUsageComponent {
-  @Input() diskUsage: DiskUsage;
+  @Input({ required: true }) diskUsage: DiskUsage;
 }

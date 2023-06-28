@@ -1,10 +1,10 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { KnownElements } from '@api/common/common';
 import { Ref } from '@api/common/common';
-import { OsmLinkNodeComponent } from './osm-link-node.component';
 import { LinkNodeComponent } from './link-node.component';
-import { NgIf } from '@angular/common';
+import { OsmLinkNodeComponent } from './osm-link-node.component';
 
 @Component({
   selector: 'kpn-link-node-ref',
@@ -17,8 +17,8 @@ import { NgIf } from '@angular/common';
   imports: [NgIf, LinkNodeComponent, OsmLinkNodeComponent],
 })
 export class LinkNodeRefComponent implements OnInit {
-  @Input() ref: Ref;
-  @Input() knownElements: KnownElements;
+  @Input({ required: true }) ref: Ref;
+  @Input({ required: true }) knownElements: KnownElements;
 
   known: boolean;
 

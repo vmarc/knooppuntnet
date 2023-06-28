@@ -143,8 +143,8 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
   imports: [PaginatorComponent, MatTableModule, NgFor, RouterLink, AsyncPipe],
 })
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
-  @Input() pois: LocationPoiInfo[];
-  @Input() poiCount: number;
+  @Input({ required: true }) pois: LocationPoiInfo[];
+  @Input({ required: true }) poiCount: number;
 
   @ViewChild(PaginatorComponent, { static: true })
   paginator: PaginatorComponent;

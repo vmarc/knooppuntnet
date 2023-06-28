@@ -30,7 +30,7 @@ import { BarChartModule } from '@swimlane/ngx-charts';
   imports: [BarChartModule],
 })
 export class ActionBarChartComponent {
-  @Input() barChart: BarChart;
+  @Input({ required: true }) barChart: BarChart;
   @Input() xAxisLabel: string;
   @Input() yAxisLabel: string;
 

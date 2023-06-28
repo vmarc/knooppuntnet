@@ -49,6 +49,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
           <kpn-paginator
             (pageIndexChange)="pageChanged($event)"
             [pageIndex]="page.pageIndex"
+            [pageSize]="page.pageSize"
             [length]="page.totalChangeCount"
             [showPageSizeSelection]="true"
           />

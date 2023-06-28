@@ -11,7 +11,7 @@ import { I18nService } from '@app/i18n';
   standalone: true,
 })
 export class NetworkTypeNameComponent {
-  @Input() networkType: NetworkType;
+  @Input({ required: true }) networkType: NetworkType;
 
   constructor(private i18nService: I18nService) {}
 

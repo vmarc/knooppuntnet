@@ -23,6 +23,6 @@ import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.compo
   imports: [ActionBarChartStackedComponent],
 })
 export class DelayChartComponent {
-  @Input() barChart: BarChart2D;
-  @Input() xAxisLabel: string;
+  @Input({ required: true }) barChart: BarChart2D;
+  @Input({ required: true }) xAxisLabel: string;
 }

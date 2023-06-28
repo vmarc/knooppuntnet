@@ -55,7 +55,7 @@ import { CsNcComponent } from './network/cs-nc.component';
 export class ChangeSetNetworkChangesComponent
   implements OnDestroy, AfterViewInit
 {
-  @Input() page: ChangeSetPage;
+  @Input({ required: true }) page: ChangeSetPage;
 
   private readonly subscriptions = new Subscriptions();
 

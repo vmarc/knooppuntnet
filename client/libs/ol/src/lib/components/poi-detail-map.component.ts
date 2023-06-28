@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { PoiDetail } from '@api/common';
 import { MAP_SERVICE_TOKEN } from '../services';
-import { PoiDetailMapService } from './poi-detail-map.service';
-import { MapLinkMenuComponent } from './map-link-menu.component';
 import { LayerSwitcherComponent } from './layer-switcher.component';
+import { MapLinkMenuComponent } from './map-link-menu.component';
+import { PoiDetailMapService } from './poi-detail-map.service';
 
 @Component({
   selector: 'kpn-poi-detail-map',
@@ -29,7 +29,7 @@ import { LayerSwitcherComponent } from './layer-switcher.component';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
-  @Input() poiDetail: PoiDetail;
+  @Input({ required: true }) poiDetail: PoiDetail;
 
   constructor(protected service: PoiDetailMapService) {}
 

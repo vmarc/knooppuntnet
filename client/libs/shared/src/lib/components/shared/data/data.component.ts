@@ -19,5 +19,5 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class DataComponent {
-  @Input() title: string;
+  @Input({ required: true }) title: string;
 }

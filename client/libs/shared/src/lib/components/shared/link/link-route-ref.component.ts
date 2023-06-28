@@ -23,8 +23,8 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
   imports: [NgIf, LinkRouteComponent, OsmLinkRelationComponent],
 })
 export class LinkRouteRefComponent implements OnInit {
-  @Input() ref: Ref;
-  @Input() knownElements: KnownElements;
+  @Input({ required: true }) ref: Ref;
+  @Input({ required: true }) knownElements: KnownElements;
 
   known: boolean;
 

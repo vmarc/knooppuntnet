@@ -59,5 +59,5 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class ItemComponent {
-  @Input() index: number;
+  @Input({ required: true }) index: number;
 }

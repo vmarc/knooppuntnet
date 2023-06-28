@@ -33,5 +33,5 @@ import { NetworkTypeNameComponent } from './network-type-name.component';
   imports: [NetworkTypeIconComponent, NetworkTypeNameComponent],
 })
 export class NetworkTypeComponent {
-  @Input() networkType: NetworkType;
+  @Input({ required: true }) networkType: NetworkType;
 }

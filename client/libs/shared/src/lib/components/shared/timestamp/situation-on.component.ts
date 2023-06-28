@@ -17,5 +17,5 @@ import { TimestampComponent } from './timestamp.component';
   imports: [TimestampComponent],
 })
 export class SituationOnComponent {
-  @Input() timestamp: Timestamp;
+  @Input({ required: true }) timestamp: Timestamp;
 }

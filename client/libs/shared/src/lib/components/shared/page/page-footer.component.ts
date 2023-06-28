@@ -1,9 +1,9 @@
+import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { I18nService } from '@app/i18n';
 import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { I18nService } from '@app/i18n';
 
 @Component({
   selector: 'kpn-page-footer',
@@ -53,7 +53,7 @@ import { NgIf } from '@angular/common';
   imports: [NgIf, RouterLink],
 })
 export class PageFooterComponent {
-  @Input() settings = false;
+  @Input({ required: false }) settings = false;
 
   constructor(private i18nService: I18nService) {}
 

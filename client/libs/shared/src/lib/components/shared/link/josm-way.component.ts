@@ -11,5 +11,5 @@ import { JosmLinkComponent } from './josm-link.component';
   imports: [JosmLinkComponent],
 })
 export class JosmWayComponent {
-  @Input() wayId: number;
+  @Input({ required: true }) wayId: number;
 }

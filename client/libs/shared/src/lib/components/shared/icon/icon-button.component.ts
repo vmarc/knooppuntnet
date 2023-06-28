@@ -60,7 +60,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, MatIconModule],
 })
 export class IconButtonComponent {
-  @Input() title: string;
-  @Input() routerLink: string;
-  @Input() icon: string;
+  @Input({ required: true }) title: string;
+  @Input({ required: true }) routerLink: string;
+  @Input({ required: true }) icon: string;
 }

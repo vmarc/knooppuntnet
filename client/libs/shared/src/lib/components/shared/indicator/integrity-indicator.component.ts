@@ -21,7 +21,7 @@ import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.
   imports: [IndicatorComponent],
 })
 export class IntegrityIndicatorComponent {
-  @Input() data: IntegrityIndicatorData;
+  @Input({ required: true }) data: IntegrityIndicatorData;
 
   constructor(private dialog: MatDialog) {}
 

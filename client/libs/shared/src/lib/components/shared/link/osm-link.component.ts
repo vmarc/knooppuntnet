@@ -20,7 +20,7 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class OsmLinkComponent {
-  @Input() kind: string;
-  @Input() elementId: string;
-  @Input() title: string;
+  @Input({ required: true }) kind: string;
+  @Input({ required: true }) elementId: string;
+  @Input({ required: true }) title: string;
 }

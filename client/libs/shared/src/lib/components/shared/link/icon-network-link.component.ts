@@ -18,6 +18,6 @@ import { IconLinkComponent } from './icon-link.component';
   imports: [IconLinkComponent],
 })
 export class IconNetworkLinkComponent {
-  @Input() reference: Reference;
-  @Input() mixedNetworkScopes: boolean;
+  @Input({ required: true }) reference: Reference;
+  @Input({ required: true }) mixedNetworkScopes: boolean;
 }

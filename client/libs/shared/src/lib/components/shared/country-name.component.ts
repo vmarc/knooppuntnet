@@ -20,7 +20,7 @@ import { Util } from './util';
   imports: [NgIf],
 })
 export class CountryNameComponent {
-  @Input() country: Country;
+  @Input({ required: true }) country: Country;
 
   constructor(private i18nService: I18nService) {}
 

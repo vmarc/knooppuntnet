@@ -21,9 +21,9 @@ import { TimeoutComponent } from './timeout.component';
   standalone: true,
 })
 export class JosmLinkComponent {
-  @Input() kind: string;
-  @Input() elementId: number;
-  @Input() full = false;
+  @Input({ required: true }) kind: string;
+  @Input({ required: true }) elementId: number;
+  @Input({ required: false }) full = false;
 
   constructor(private apiService: ApiService, private dialog: MatDialog) {}
 

@@ -29,7 +29,7 @@ import { I18nService } from '@app/i18n';
   imports: [MatIconModule],
 })
 export class DocLinkComponent {
-  @Input() subject: string;
+  @Input({ required: true }) subject: string;
 
   constructor(private i18nService: I18nService) {}
 

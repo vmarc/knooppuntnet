@@ -32,5 +32,5 @@ import { Tags } from '@api/custom';
   imports: [NgIf, NgFor],
 })
 export class TagsTextComponent {
-  @Input() tags: Tags;
+  @Input({ required: true }) tags: Tags;
 }

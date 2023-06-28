@@ -15,5 +15,5 @@ import { JosmLinkComponent } from './josm-link.component';
   imports: [JosmLinkComponent],
 })
 export class JosmRelationComponent {
-  @Input() relationId: number;
+  @Input({ required: true }) relationId: number;
 }

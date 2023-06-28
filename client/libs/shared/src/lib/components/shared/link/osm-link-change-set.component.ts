@@ -17,5 +17,5 @@ import { OsmLinkComponent } from './osm-link.component';
   imports: [OsmLinkComponent],
 })
 export class OsmLinkChangeSetComponent {
-  @Input() changeSetId: number;
+  @Input({ required: true }) changeSetId: number;
 }

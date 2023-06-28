@@ -12,5 +12,5 @@ import { NetworkType } from '@api/custom';
   imports: [MatIconModule],
 })
 export class NetworkTypeIconComponent {
-  @Input() networkType: NetworkType;
+  @Input({ required: true }) networkType: NetworkType;
 }
