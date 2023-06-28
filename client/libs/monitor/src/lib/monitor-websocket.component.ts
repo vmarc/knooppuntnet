@@ -43,8 +43,8 @@ import { MonitorWebsocketUploadComponent } from './monitor-websocket-upload.comp
 export class MonitorWebsocketComponent {
   data: any;
 
-  readonly referenceFilename = new FormControl<string | null>(null);
-  readonly referenceFile = new FormControl<File | null>(null);
+  readonly referenceFilename = new FormControl<string>(null);
+  readonly referenceFile = new FormControl<File>(null);
   readonly referenceDetailsForm = new FormGroup({
     referenceFilename: this.referenceFilename,
     referenceFile: this.referenceFile,

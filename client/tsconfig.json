@@ -1,11 +1,17 @@
 {
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "noImplicitAny": false,
     "typeRoots": [
       "node_modules/@types"
     ],
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": false,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

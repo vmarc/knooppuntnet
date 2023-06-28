@@ -176,7 +176,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   readonly #monitorService = inject(MonitorService);
   readonly #monitorWebsocketService = inject(MonitorWebsocketService);
 
-  readonly group = new FormControl<MonitorRouteGroup | null>(null);
+  readonly group = new FormControl<MonitorRouteGroup>(null);
 
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
@@ -186,27 +186,24 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     Validators.required,
     Validators.maxLength(100),
   ]);
-  readonly relationIdKnown = new FormControl<boolean | null>(null);
-  readonly relationId = new FormControl<number | null>(null);
-  readonly referenceType = new FormControl<string | null>(
-    null,
-    Validators.required
-  );
-  readonly osmReferenceDate = new FormControl<Date | null>(
+  readonly relationIdKnown = new FormControl<boolean>(null);
+  readonly relationId = new FormControl<number>(null);
+  readonly referenceType = new FormControl<string>(null, Validators.required);
+  readonly osmReferenceDate = new FormControl<Date>(
     null,
     this.#osmReferenceTimestampValidator()
   );
-  readonly gpxReferenceDate = new FormControl<Date | null>(
+  readonly gpxReferenceDate = new FormControl<Date>(
     null,
     this.#gpxReferenceTimestampValidator()
   );
-  readonly referenceFilename = new FormControl<string | null>(
+  readonly referenceFilename = new FormControl<string>(
     null,
     this.#gpxReferenceFilenameValidator()
   );
-  readonly referenceFile = new FormControl<File | null>(null);
+  readonly referenceFile = new FormControl<File>(null);
 
-  readonly comment = new FormControl<string | null>(null);
+  readonly comment = new FormControl<string>(null);
 
   readonly groupForm = new FormGroup({
     group: this.group,

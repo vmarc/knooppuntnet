@@ -1,14 +1,10 @@
 import { getRouterSelectors } from '@ngrx/router-store';
 import { RouterReducerState } from '@ngrx/router-store';
 import { routerReducer } from '@ngrx/router-store';
-import { Store } from '@ngrx/store';
 import { ActionReducerMap } from '@ngrx/store';
 import { MetaReducer } from '@ngrx/store';
 import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
 import { pageReducer } from './page/page.reducer';
 import { PageState } from './page/page.state';
 import { preferencesReducer } from './preferences/preferences.reducer';
@@ -52,17 +48,3 @@ export const {
   // selectRouteData,      // select the current route data
   selectUrl, // select the current url
 } = getRouterSelectors();
-
-export const selectDefined = <K>(
-  store: Store,
-  selector: (state: AppState) => K
-): Observable<K> => {
-  return store.select(selector).pipe(filter((x) => !!x));
-};
-
-export const selectFalse = (
-  store: Store,
-  selector: (state: AppState) => boolean
-): Observable<boolean> => {
-  return store.select(selector).pipe(map((e) => e === false));
-};

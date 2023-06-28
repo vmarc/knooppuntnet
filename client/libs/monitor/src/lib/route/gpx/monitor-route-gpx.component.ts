@@ -94,15 +94,12 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   ],
 })
 export class MonitorRouteGpxComponent {
-  readonly gpxReferenceDate = new FormControl<Date | null>(
+  readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
+  readonly referenceFilename = new FormControl<string>(
     null,
     Validators.required
   );
-  readonly referenceFilename = new FormControl<string | null>(
-    null,
-    Validators.required
-  );
-  readonly referenceFile = new FormControl<File | null>(null);
+  readonly referenceFile = new FormControl<File>(null);
 
   readonly form = new FormGroup({
     gpxReferenceDate: this.gpxReferenceDate,
