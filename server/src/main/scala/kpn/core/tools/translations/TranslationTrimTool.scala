@@ -1,17 +1,17 @@
 package kpn.core.tools.translations
 
-import java.io.File
-import java.io.StringWriter
-
-import javax.xml.parsers.DocumentBuilderFactory
-import javax.xml.transform.TransformerFactory
-import javax.xml.transform.dom.DOMSource
-import javax.xml.transform.stream.StreamResult
 import org.apache.commons.io.FileUtils
 import org.w3c.dom.Document
 import org.w3c.dom.Node
 import org.w3c.dom.traversal.DocumentTraversal
 import org.w3c.dom.traversal.NodeFilter
+
+import java.io.File
+import java.io.StringWriter
+import javax.xml.parsers.DocumentBuilderFactory
+import javax.xml.transform.TransformerFactory
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 object TranslationTrimTool {
   def main(args: Array[String]): Unit = {
@@ -25,23 +25,23 @@ class TranslationTrimTool(root: String) {
 
   def trim(): Unit = {
     val doc = readDocument()
-    timeNodes(doc)
+    trimNodes(doc)
     writeXmlDocumentToXmlFile(doc)
   }
 
-  def timeNodes(doc: Document): Unit = {
+  def trimNodes(doc: Document): Unit = {
     val traversal = doc.asInstanceOf[DocumentTraversal]
     val it = traversal.createNodeIterator(doc.getDocumentElement, NodeFilter.SHOW_ELEMENT, null, true)
     var node = it.nextNode
     while (node != null) {
       if (node.getNodeName == "source" || node.getNodeName == "target") {
-        timeNode(node)
+        trimNode(node)
       }
       node = it.nextNode
     }
   }
 
-  private def timeNode(node: Node): Unit = {
+  private def trimNode(node: Node): Unit = {
     val children = node.getChildNodes
     val firstChild = children.item(0)
     if (firstChild.getNodeType == Node.TEXT_NODE) {
@@ -61,6 +61,9 @@ class TranslationTrimTool(root: String) {
 
   private def readDocument(): Document = {
     val file = new File(s"$root/locale/translations.xlf")
+    if (!file.exists()) {
+      throw new RuntimeException("translations file not found: " + file.getAbsolutePath)
+    }
     val factory = DocumentBuilderFactory.newInstance
     factory.newDocumentBuilder.parse(file)
   }
@@ -72,6 +75,7 @@ class TranslationTrimTool(root: String) {
     transformer.transform(new DOMSource(doc), new StreamResult(writer))
     val xmlString = writer.getBuffer.toString
     val file = new File(s"$root/locale/translations.trimmed.xlf")
+    println("write " + file.getAbsolutePath)
     FileUtils.writeStringToFile(file, xmlString, "UTF-8")
   }
 }

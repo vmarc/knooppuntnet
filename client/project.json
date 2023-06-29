@@ -165,7 +165,8 @@
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
         "browserTarget": "knooppuntnet:build",
-        "outFile": "translations.xlf"
+        "outFile": "translations.xlf",
+        "outputPath": "src/locale"
       }
     },
     "test": {
