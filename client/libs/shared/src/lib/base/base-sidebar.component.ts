@@ -28,6 +28,11 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
             <a routerLink="/status">Status</a>
           </p>
         </li>
+        <li>
+          <p>
+            <a routerLink="/symbols">Symbols</a>
+          </p>
+        </li>
       </ul>
     </kpn-sidebar>
   `,

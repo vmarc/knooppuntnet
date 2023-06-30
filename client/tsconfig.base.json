@@ -201,6 +201,9 @@
       ],
       "@app/util": [
         "libs/util/src/index.ts"
+      ],
+      "@app/symbol": [
+        "libs/symbol/src/lib/index.ts"
       ]
     }
   }
