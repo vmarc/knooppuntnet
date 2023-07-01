@@ -22,6 +22,7 @@ import { SymbolShape } from './symbol-shape';
 })
 export class SymbolComponent implements AfterViewInit {
   @Input({ required: true }) shape: string;
+  @Input({ required: false }) background = false;
   @ViewChild('symbolCanvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
@@ -36,7 +37,11 @@ export class SymbolComponent implements AfterViewInit {
     context.beginPath();
     context.strokeStyle = 'grey';
     context.fillStyle = 'grey';
-    SymbolShape.draw(context, this.shape);
+    if (this.background) {
+      SymbolShape.drawBackground(context, this.shape);
+    } else {
+      SymbolShape.drawForeground(context, this.shape);
+    }
     context.closePath();
   }
 }

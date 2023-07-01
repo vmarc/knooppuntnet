@@ -1,5 +1,14 @@
 export class SymbolShape {
-  static readonly #drawFunctions = new Map<
+  static readonly #backgroundShapeFunctions = new Map<
+    string,
+    (context: CanvasRenderingContext2D) => void
+  >([
+    ['circle', this.#drawBackgroundCircle],
+    ['frame', this.#drawBackgroundFrame],
+    ['round', this.#drawBackgroundRound],
+  ]);
+
+  static readonly #foregroundShapeFunctions = new Map<
     string,
     (context: CanvasRenderingContext2D) => void
   >([
@@ -94,19 +103,56 @@ export class SymbolShape {
     shell_modern: this.#drawShellModern,
   };
 
-  static shapes(): string[] {
-    return Array.from(this.#drawFunctions.keys());
-  }
+  static readonly backgroundShapes = Array.from(
+    this.#backgroundShapeFunctions.keys()
+  );
+  static readonly foregroundShapes = Array.from(
+    this.#foregroundShapeFunctions.keys()
+  );
 
-  static draw(context: CanvasRenderingContext2D, shape: string): void {
-    const drawFunction = this.#drawFunctions.get(shape);
+  static drawBackground(
+    context: CanvasRenderingContext2D,
+    shape: string
+  ): void {
+    const drawFunction = this.#backgroundShapeFunctions.get(shape);
     if (!drawFunction) {
       console.error(
-        `unknown symbol shape '${shape}' (no drawing function available for this shape)`
+        `unknown symbol background shape '${shape}' (no drawing function available for this shape)`
       );
     } else {
       drawFunction(context);
     }
+  }
+
+  static drawForeground(
+    context: CanvasRenderingContext2D,
+    shape: string
+  ): void {
+    const drawFunction = this.#foregroundShapeFunctions.get(shape);
+    if (!drawFunction) {
+      console.error(
+        `unknown symbol foreground shape '${shape}' (no drawing function available for this shape)`
+      );
+    } else {
+      drawFunction(context);
+    }
+  }
+
+  static #drawBackgroundCircle(context: CanvasRenderingContext2D): void {
+    context.lineWidth = 0.1;
+    context.arc(0.5, 0.5, 0.4, 0, 2 * Math.PI);
+    context.stroke();
+  }
+
+  static #drawBackgroundFrame(context: CanvasRenderingContext2D): void {
+    context.lineWidth = 0.1;
+    context.rect(0.15, 0.15, 0.7, 0.7);
+    context.stroke();
+  }
+
+  static #drawBackgroundRound(context: CanvasRenderingContext2D): void {
+    context.arc(0.5, 0.5, 0.4, 0, 2 * Math.PI);
+    context.fill();
   }
 
   static #drawArch(context: CanvasRenderingContext2D): void {
