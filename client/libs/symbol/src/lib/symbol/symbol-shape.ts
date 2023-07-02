@@ -56,53 +56,6 @@ export class SymbolShape {
     ['shell_modern', this.#drawShellModern],
   ]);
 
-  static readonly #oldDrawFunctions: {
-    [K: string]: (context: CanvasRenderingContext2D) => void;
-  } = {
-    arch: this.#drawArch,
-    arrow: this.#drawArrow,
-    backslash: this.#drawBackslash,
-    bar: this.#drawBar,
-    bowl: this.#drawBowl,
-    circle: this.#drawCircle,
-    corner: this.#drawCorner,
-    corner_left: this.#drawCornerLeft,
-    crest: this.#drawCrest,
-    cross: this.#drawCross,
-    diamond_line: this.#drawDiamondLine,
-    diamond: this.#drawDiamond,
-    diamond_left: this.#drawDiamondLeft,
-    diamond_right: this.#drawDiamondRight,
-    dot: this.#drawDot,
-    drop: this.#drawDrop,
-    drop_line: this.#drawDropLine,
-    fork: this.#drawFork,
-    house: this.#drawHouse,
-    L: this.#drawL,
-    left: this.#drawLeft,
-    left_arrow: this.#drawLeftArrow,
-    left_pointer: this.#drawLeftPointer,
-    lower: this.#drawLower,
-    right: this.#drawRight,
-    pointer: this.#drawPointer,
-    rectangle_line: this.#drawRectangleLine,
-    rectangle: this.#drawRectangle,
-    right_arrow: this.#drawRightArrow,
-    right_pointer: this.#drawRightPointer,
-    slash: this.#drawSlash,
-    stripe: this.#drawStripe,
-    triangle_line: this.#drawTriangleLine,
-    triangle: this.#drawTriangle,
-    triangle_turned: this.#drawTriangleTurned,
-    turned_T: this.#drawTurnedT,
-    upper: this.#drawUpper,
-    upper_bowl: this.#drawUpperBowl,
-    x: this.#drawX,
-    hexagon: this.#drawHexagon,
-    shell: this.#drawShell,
-    shell_modern: this.#drawShellModern,
-  };
-
   static readonly backgroundShapes = Array.from(
     this.#backgroundShapeFunctions.keys()
   );

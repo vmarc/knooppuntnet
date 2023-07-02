@@ -4,13 +4,14 @@ import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SymbolGrid } from './symbol-grid';
-import { SymbolShape } from './symbol-shape';
+import { SymbolBuilder } from './symbol-builder';
 
 @Component({
   selector: 'kpn-symbol',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <canvas #symbolCanvas width="100" height="100"></canvas> `,
+  template: `
+    <canvas #symbolCanvas [width]="width" [height]="height"></canvas>
+  `,
   styles: [
     `
       canvas {
@@ -21,27 +22,17 @@ import { SymbolShape } from './symbol-shape';
   standalone: true,
 })
 export class SymbolComponent implements AfterViewInit {
-  @Input({ required: true }) shape: string;
-  @Input({ required: false }) background = false;
+  @Input({ required: true }) description: string;
+  @Input({ required: false }) width = 50;
+  @Input({ required: false }) height = 50;
+  @Input({ required: false }) grid = false;
   @ViewChild('symbolCanvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   ngAfterViewInit(): void {
-    const context = this.canvas.nativeElement.getContext('2d');
-    context.scale(
-      this.canvas.nativeElement.width,
-      this.canvas.nativeElement.height
-    );
-
-    SymbolGrid.draw(context);
-
-    context.beginPath();
-    context.strokeStyle = 'grey';
-    context.fillStyle = 'grey';
-    if (this.background) {
-      SymbolShape.drawBackground(context, this.shape);
-    } else {
-      SymbolShape.drawForeground(context, this.shape);
+    const sb = new SymbolBuilder(this.canvas);
+    if (this.grid) {
+      sb.drawGrid();
     }
-    context.closePath();
+    sb.draw(this.description);
   }
 }
