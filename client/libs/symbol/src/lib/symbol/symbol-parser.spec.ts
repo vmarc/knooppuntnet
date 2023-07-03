@@ -136,23 +136,36 @@ describe('parser', () => {
     });
   });
 
-  // it(`parse 'xxx'`, () => {
-  //   expect(parse('xxx')).toEqual({
-  //     waycolor: '',
-  //     background: {
-  //       color: '',
-  //       shape: '',
-  //     },
-  //     foreground: {
-  //       color: '',
-  //       shape: '',
-  //     },
-  //     foreground2: {
-  //       color: '',
-  //       shape: '',
-  //     },
-  //     text: '',
-  //     textcolor: '',
-  //   });
-  // });
+  it(`parse - skip foreground - space`, () => {
+    expect(parse('blue:blue: :E9:yellow')).toEqual({
+      waycolor: 'blue',
+      background: {
+        color: 'blue',
+      },
+      text: 'E9',
+      textcolor: 'yellow',
+    });
+  });
+
+  it(`parse - parse - skip foreground - empty`, () => {
+    expect(parse('blue:blue::E9:yellow')).toEqual({
+      waycolor: 'blue',
+      background: {
+        color: 'blue',
+      },
+      text: 'E9',
+      textcolor: 'yellow',
+    });
+  });
+
+  it(`parse - skip foreground - text follows background immediately`, () => {
+    expect(parse('blue:blue:E9:yellow')).toEqual({
+      waycolor: 'blue',
+      background: {
+        color: 'blue',
+      },
+      text: 'E9',
+      textcolor: 'yellow',
+    });
+  });
 });

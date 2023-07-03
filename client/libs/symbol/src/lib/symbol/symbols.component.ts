@@ -1,6 +1,8 @@
 import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { SymbolExample } from './symbol-example';
 import { SymbolShape } from './symbol-shape';
 import { SymbolComponent } from './symbol.component';
 
@@ -39,6 +41,30 @@ import { SymbolComponent } from './symbol.component';
           <kpn-symbol [description]="symbol" [grid]="true"></kpn-symbol>
         </div>
       </div>
+      <h2>Node network examples</h2>
+      <div>
+        <div *ngFor="let symbol of nodeNetworkExamples" class="example">
+          <div class="symbol-name">{{ symbol }}</div>
+          <kpn-symbol [description]="symbol" [grid]="true"></kpn-symbol>
+        </div>
+      </div>
+      <h2>Monitor examples</h2>
+      <div>
+        <div *ngFor="let example of monitorExamples" class="example">
+          <div class="symbol-name">
+            <span>{{ example.description }} (relation </span>
+            <kpn-osm-link-relation
+              [relationId]="example.relationId"
+              [title]="example.relationId.toString()"
+            />
+            <span>)</span>
+          </div>
+          <kpn-symbol
+            [description]="example.description"
+            [grid]="true"
+          ></kpn-symbol>
+        </div>
+      </div>
     </div>
   `,
   styles: [
@@ -71,7 +97,7 @@ import { SymbolComponent } from './symbol.component';
     `,
   ],
   standalone: true,
-  imports: [NgFor, SymbolComponent],
+  imports: [NgFor, SymbolComponent, OsmLinkRelationComponent],
 })
 export class SymbolsComponent {
   readonly symbols = SymbolShape.foregroundShapes;
@@ -86,6 +112,83 @@ export class SymbolsComponent {
     'blue:blue:shell_modern',
     'green:white:yellow_bar:green_stripe',
     'blue:yellow:white_diamond:blue_diamond_right',
+  ];
+
+  // mongodb aggregation to build list with all "osmc:symbol" values used in node network routes:
+  // [
+  //   {
+  //     $unwind: {
+  //       path: "$tags.tags",
+  //     },
+  //   },
+  //   {
+  //     $match: {
+  //       "tags.tags.key": "osmc:symbol",
+  //     },
+  //   },
+  //   {
+  //     $project: {
+  //       symbol: "$tags.tags.value",
+  //     },
+  //   },
+  //   {
+  //     $group: {
+  //       _id: "$symbol",
+  //     },
+  //   },
+  // ]
+  readonly nodeNetworkExamples = [
+    'blue:white:blue_dot',
+    'black:white:black_diamond_line',
+    'blue:white:blue_arrow',
+    'yellow::yellow_bar::',
+    'yellow:white:yellow_lower::',
+    'red:white:red_bar',
+    'red:white:red_circle',
+    'red:yellow:blue_diamond',
+    'red:white:red_diamond',
+    'white:white',
+    'red:white:red_lower',
+    'green:white:green_diamond_line:S:blue',
+    'red:yellow:red_lower:HSG:black',
+    'grey:white:grey_pointer',
+    'red:white::GR:red',
+    'blue:white:blue_diamond:~:white',
+    'blue:blue_diamond_line:white_diamond:s:blue',
+    'red:white:red_lower:420:black',
+    'green:white:lower_green:RO:black',
+    'red:white:green_diamond:rs:white',
+  ];
+
+  readonly monitorExamples: SymbolExample[] = [
+    { description: 'blue:blue:E9:yellow', relationId: 12524022 },
+    { description: 'blue:blue:shell_modern', relationId: 1247178 },
+    { description: 'blue:white:blue_bar', relationId: 1983045 },
+    { description: 'blue:white:red_lower:Nk:black', relationId: 1959162 },
+    { description: 'blue:white:yellow_bar', relationId: 4124609 },
+    { description: 'blue:yellow:blue_lower::', relationId: 5194526 },
+    { description: 'orange:', relationId: 2535650 },
+    { description: 'orange:yellow:red_lower::black', relationId: 6391596 },
+    { description: 'orange:yellow:red_lower:GH:black', relationId: 6691445 },
+    { description: 'red:', relationId: 7413278 },
+    { description: 'red:blue::E2:yellow', relationId: 13638 },
+    { description: 'red:blue_round:white_hiker', relationId: 5369302 },
+    { description: 'red:red:white_stripe:VF:black', relationId: 15976219 },
+    { description: 'red:white:red_lower:347:black', relationId: 12909801 },
+    { description: 'red:white:red_lower:565A:black', relationId: 9823786 },
+    { description: 'red:white:red_lower:Antw:black', relationId: 2436557 },
+    { description: 'red:yellow:red_lower', relationId: 10059997 },
+    { description: 'red:yellow:red_lower:123:black', relationId: 10493121 },
+    { description: 'red:yellow:red_lower:151V:black', relationId: 14006040 },
+    { description: 'red:yellow:red_lower::black', relationId: 6247442 },
+    { description: 'red:yellow:red_lower:D:black', relationId: 71268 },
+    { description: 'yellow:green:yellow_bar:B01:blue', relationId: 12118545 },
+    {
+      description: 'yellow:white:yellow_lower:25.1:black',
+      relationId: 3743890,
+    },
+    { description: 'yellow:white:yellow_rectangle', relationId: 12930557 },
+    { description: 'yellow:yellow:red_lower:Dp:black', relationId: 3195499 },
   ];
 
   backgroundShapeDescription(shape: string): string {

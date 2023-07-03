@@ -150,7 +150,7 @@ export class SymbolShape {
   }
 
   static #drawCircle(context: CanvasRenderingContext2D): void {
-    context.lineWidth = 0.21;
+    context.lineWidth = 0.12;
     context.arc(0.5, 0.5, 0.33, 0, 2 * Math.PI);
     context.stroke();
   }
@@ -192,12 +192,12 @@ export class SymbolShape {
   }
 
   static #drawDiamondLine(context: CanvasRenderingContext2D): void {
-    context.lineWidth = 0.15;
-    context.moveTo(0.1, 0.5);
-    context.lineTo(0.5, 0.1);
-    context.lineTo(0.9, 0.5);
-    context.lineTo(0.5, 0.9);
-    context.closePath();
+    context.lineWidth = 0.1;
+    context.moveTo(0, 0.5);
+    context.lineTo(0.5, 0.25);
+    context.lineTo(1, 0.5);
+    context.lineTo(0.5, 0.75);
+    context.lineTo(0, 0.5);
     context.stroke();
   }
 

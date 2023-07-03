@@ -128,70 +128,77 @@ export class SymbolParser {
   }
 
   #parseForeground(): void {
-    const shapeIndex = SymbolShape.foregroundShapes.indexOf(this.currentPart);
-    if (shapeIndex >= 0) {
-      const shape = this.currentPart;
-      // shape without color
-      this.description = {
-        ...this.description,
-        foreground: {
-          shape,
-        },
-      };
-      if (shape === 'shell' || shape === 'shell_modern') {
-        this.description = {
-          ...this.description,
-          foreground: {
-            ...this.description.foreground,
-            color: 'yellow',
-          },
-        };
-      }
+    if (this.currentPart.length === 0) {
       if (this.#hasNextPart()) {
         this.#nextPart();
         this.#parseForeground2();
       }
     } else {
-      const underscoreIndex = this.currentPart.indexOf('_');
-      if (underscoreIndex === -1) {
-        const color = this.currentPart;
-        if (this.colors.indexOf(color) == -1) {
-          this.description = {
-            ...this.description,
-            text: this.currentPart,
-          };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseTextcolor();
-          }
-        } else {
+      const shapeIndex = SymbolShape.foregroundShapes.indexOf(this.currentPart);
+      if (shapeIndex >= 0) {
+        const shape = this.currentPart;
+        // shape without color
+        this.description = {
+          ...this.description,
+          foreground: {
+            shape,
+          },
+        };
+        if (shape === 'shell' || shape === 'shell_modern') {
           this.description = {
             ...this.description,
             foreground: {
-              color,
+              ...this.description.foreground,
+              color: 'yellow',
             },
           };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseForeground2();
-          }
+        }
+        if (this.#hasNextPart()) {
+          this.#nextPart();
+          this.#parseForeground2();
         }
       } else {
-        const color = this.currentPart.substring(0, underscoreIndex);
-        const shape = this.currentPart.substring(underscoreIndex + 1);
-        const foregroundShapeIndex =
-          SymbolShape.foregroundShapes.indexOf(shape);
-        if (foregroundShapeIndex >= 0) {
-          this.description = {
-            ...this.description,
-            foreground: {
-              color,
-              shape,
-            },
-          };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseForeground2();
+        const underscoreIndex = this.currentPart.indexOf('_');
+        if (underscoreIndex === -1) {
+          const color = this.currentPart;
+          if (this.colors.indexOf(color) == -1) {
+            this.description = {
+              ...this.description,
+              text: this.currentPart,
+            };
+            if (this.#hasNextPart()) {
+              this.#nextPart();
+              this.#parseTextcolor();
+            }
+          } else {
+            this.description = {
+              ...this.description,
+              foreground: {
+                color,
+              },
+            };
+            if (this.#hasNextPart()) {
+              this.#nextPart();
+              this.#parseForeground2();
+            }
+          }
+        } else {
+          const color = this.currentPart.substring(0, underscoreIndex);
+          const shape = this.currentPart.substring(underscoreIndex + 1);
+          const foregroundShapeIndex =
+            SymbolShape.foregroundShapes.indexOf(shape);
+          if (foregroundShapeIndex >= 0) {
+            this.description = {
+              ...this.description,
+              foreground: {
+                color,
+                shape,
+              },
+            };
+            if (this.#hasNextPart()) {
+              this.#nextPart();
+              this.#parseForeground2();
+            }
           }
         }
       }
@@ -199,70 +206,77 @@ export class SymbolParser {
   }
 
   #parseForeground2(): void {
-    const shapeIndex = SymbolShape.foregroundShapes.indexOf(this.currentPart);
-    if (shapeIndex >= 0) {
-      const shape = this.currentPart;
-      // shape without color
-      this.description = {
-        ...this.description,
-        foreground: {
-          shape,
-        },
-      };
-      if (shape === 'shell' || shape === 'shell_modern') {
+    if (this.currentPart.length === 0) {
+      if (this.#hasNextPart()) {
+        this.#nextPart();
+        this.#parseTextcolor();
+      }
+    } else {
+      const shapeIndex = SymbolShape.foregroundShapes.indexOf(this.currentPart);
+      if (shapeIndex >= 0) {
+        const shape = this.currentPart;
+        // shape without color
         this.description = {
           ...this.description,
           foreground: {
-            ...this.description.foreground,
-            color: 'yellow',
+            shape,
           },
         };
-      }
-      if (this.#hasNextPart()) {
-        this.#nextPart();
-        this.#parseForeground2();
-      }
-    } else {
-      const underscoreIndex = this.currentPart.indexOf('_');
-      if (underscoreIndex === -1) {
-        const color = this.currentPart;
-        if (this.colors.indexOf(color) == -1) {
+        if (shape === 'shell' || shape === 'shell_modern') {
           this.description = {
             ...this.description,
-            text: this.currentPart,
-          };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseTextcolor();
-          }
-        } else {
-          this.description = {
-            ...this.description,
-            foreground2: {
-              color,
+            foreground: {
+              ...this.description.foreground,
+              color: 'yellow',
             },
           };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseText();
-          }
+        }
+        if (this.#hasNextPart()) {
+          this.#nextPart();
+          this.#parseForeground2();
         }
       } else {
-        const color = this.currentPart.substring(0, underscoreIndex);
-        const shape = this.currentPart.substring(underscoreIndex + 1);
-        const foregroundShapeIndex =
-          SymbolShape.foregroundShapes.indexOf(shape);
-        if (foregroundShapeIndex >= 0) {
-          this.description = {
-            ...this.description,
-            foreground2: {
-              color,
-              shape,
-            },
-          };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseText();
+        const underscoreIndex = this.currentPart.indexOf('_');
+        if (underscoreIndex === -1) {
+          const color = this.currentPart;
+          if (this.colors.indexOf(color) == -1) {
+            this.description = {
+              ...this.description,
+              text: this.currentPart,
+            };
+            if (this.#hasNextPart()) {
+              this.#nextPart();
+              this.#parseTextcolor();
+            }
+          } else {
+            this.description = {
+              ...this.description,
+              foreground2: {
+                color,
+              },
+            };
+            if (this.#hasNextPart()) {
+              this.#nextPart();
+              this.#parseText();
+            }
+          }
+        } else {
+          const color = this.currentPart.substring(0, underscoreIndex);
+          const shape = this.currentPart.substring(underscoreIndex + 1);
+          const foregroundShapeIndex =
+            SymbolShape.foregroundShapes.indexOf(shape);
+          if (foregroundShapeIndex >= 0) {
+            this.description = {
+              ...this.description,
+              foreground2: {
+                color,
+                shape,
+              },
+            };
+            if (this.#hasNextPart()) {
+              this.#nextPart();
+              this.#parseText();
+            }
           }
         }
       }
@@ -295,6 +309,6 @@ export class SymbolParser {
 
   #nextPart() {
     this.currentPartIndex++;
-    this.currentPart = this.parts[this.currentPartIndex];
+    this.currentPart = this.parts[this.currentPartIndex].trim();
   }
 }

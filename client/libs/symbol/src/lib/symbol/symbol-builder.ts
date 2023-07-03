@@ -87,7 +87,7 @@ export class SymbolBuilder {
       this.context.textAlign = 'center';
       this.context.textBaseline = 'middle';
       this.context.fillStyle = textColor;
-      this.context.font = '0.4px Arial';
+      this.context.font = 'normal 700 0.4px Arial';
       this.context.fillText(description.text, 0.5, 0.53);
       this.context.closePath();
     }
