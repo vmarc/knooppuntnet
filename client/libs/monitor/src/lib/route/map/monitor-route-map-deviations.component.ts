@@ -182,33 +182,33 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   ],
 })
 export class MonitorRouteMapDeviationsComponent {
-  readonly #service = inject(MonitorRouteMapStateService);
-  readonly #editService = inject(EditService);
+  private readonly service = inject(MonitorRouteMapStateService);
+  private readonly editService = inject(EditService);
 
-  readonly referenceAvailable = this.#service.referenceAvailable;
-  readonly selectedDeviation = this.#service.selectedDeviation;
+  readonly referenceAvailable = this.service.referenceAvailable;
+  readonly selectedDeviation = this.service.selectedDeviation;
 
   readonly longDistance = '> 2.5 km';
   readonly osmRelationAvailable = computed(() => {
-    return !!this.#service.page().relationId;
+    return !!this.service.page().relationId;
   });
   readonly osmRelationEmpty = computed(() => {
-    const page = this.#service.page();
+    const page = this.service.page();
     return page.osmSegments.length === 0 && !!page.relationId;
   });
   readonly deviations = computed(() => {
-    return this.#service.page()?.deviations ?? [];
+    return this.service.page()?.deviations ?? [];
   });
 
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
       const deviation = event.options[0].value;
-      this.#service.selectedDeviationChanged(deviation);
+      this.service.selectedDeviationChanged(deviation);
     }
   }
 
   josmZoomToSelectedDeviation(deviation: MonitorRouteDeviation): void {
-    this.#editService.edit({
+    this.editService.edit({
       bounds: deviation.bounds,
     });
   }

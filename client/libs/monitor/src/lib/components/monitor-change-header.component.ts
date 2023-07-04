@@ -54,10 +54,10 @@ import { map } from 'rxjs/operators';
 export class MonitorChangeHeaderComponent {
   @Input({ required: true }) changeSet: MonitorRouteChangeSummary;
 
-  readonly #pageWidthService = inject(PageWidthService);
+  private readonly pageWidthService = inject(PageWidthService);
 
-  readonly timestampOnSeparateLine$ = this.#pageWidthService.current$.pipe(
-    map(() => this.#timestampOnSeparateLine())
+  readonly timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
+    map(() => this.timestampOnSeparateLine())
   );
   readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(
     map((value) => !value)
@@ -69,11 +69,11 @@ export class MonitorChangeHeaderComponent {
     return `/monitor/groups/${groupName}/routes/${key.elementId}/changes/${key.changeSetId}/${key.replicationNumber}`;
   }
 
-  #timestampOnSeparateLine() {
+  private timestampOnSeparateLine() {
     return (
-      this.#pageWidthService.isSmall() ||
-      this.#pageWidthService.isVerySmall() ||
-      this.#pageWidthService.isVeryVerySmall()
+      this.pageWidthService.isSmall() ||
+      this.pageWidthService.isVerySmall() ||
+      this.pageWidthService.isVeryVerySmall()
     );
   }
 }

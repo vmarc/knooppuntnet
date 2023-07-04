@@ -8,19 +8,19 @@ import { initialState } from './monitor-route-change-page.state';
 
 @Injectable()
 export class MonitorRouteChangePageService {
-  readonly #navService = inject(NavService);
-  readonly #monitorService = inject(MonitorService);
+  private readonly navService = inject(NavService);
+  private readonly monitorService = inject(MonitorService);
 
-  readonly #state = signal<MonitorRouteChangePageState>(initialState);
-  readonly state = this.#state.asReadonly();
+  private readonly _state = signal<MonitorRouteChangePageState>(initialState);
+  readonly state = this._state.asReadonly();
 
   constructor() {
-    const groupName = this.#navService.param('groupName');
-    const routeName = this.#navService.param('routeName');
-    const changeSetId = this.#navService.param('changeSetId');
-    const replicationNumber = this.#navService.param('replicationNumber');
-    const description = this.#navService.state('description');
-    this.#state.update((state) => ({
+    const groupName = this.navService.param('groupName');
+    const routeName = this.navService.param('routeName');
+    const changeSetId = this.navService.param('changeSetId');
+    const replicationNumber = this.navService.param('replicationNumber');
+    const description = this.navService.state('description');
+    this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
@@ -28,11 +28,11 @@ export class MonitorRouteChangePageService {
       replicationNumber,
       routeDescription: description,
     }));
-    this.#monitorService
+    this.monitorService
       .routeChange(groupName, routeName, changeSetId, replicationNumber)
       .subscribe((response) => {
         const routeDescription = 'TODO'; // TODO response.result?.routeDescription && description;
-        this.#state.update((state) => ({
+        this._state.update((state) => ({
           ...state,
           routeDescription,
           response,

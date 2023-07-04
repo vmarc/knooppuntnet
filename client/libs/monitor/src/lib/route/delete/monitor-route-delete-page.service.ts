@@ -8,27 +8,27 @@ import { initialState } from './monitor-route-delete-page.state';
 
 @Injectable()
 export class MonitorRouteDeletePageService {
-  readonly #navService = inject(NavService);
-  readonly #monitorService = inject(MonitorService);
+  private readonly navService = inject(NavService);
+  private readonly monitorService = inject(MonitorService);
 
-  readonly #state = signal<MonitorRouteDeletePageState>(initialState);
-  readonly state = this.#state.asReadonly();
+  private readonly _state = signal<MonitorRouteDeletePageState>(initialState);
+  readonly state = this._state.asReadonly();
 
   constructor() {
-    const groupName = this.#navService.param('groupName');
-    const routeName = this.#navService.param('routeName');
-    const description = this.#navService.state('description');
+    const groupName = this.navService.param('groupName');
+    const routeName = this.navService.param('routeName');
+    const description = this.navService.state('description');
     const groupLink = `/monitor/groups/${groupName}`;
-    this.#state.update((state) => ({
+    this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
       routeDescription: description,
       groupLink,
     }));
-    this.#monitorService.route(groupName, routeName).subscribe((response) => {
+    this.monitorService.route(groupName, routeName).subscribe((response) => {
       const routeDescription = response.result?.routeDescription ?? description;
-      this.#state.update((state) => ({
+      this._state.update((state) => ({
         ...state,
         routeDescription,
         response,
@@ -40,8 +40,8 @@ export class MonitorRouteDeletePageService {
     const groupName = this.state().groupName;
     const routeName = this.state().routeName;
     const url = `/monitor/groups/${groupName}`;
-    this.#monitorService
+    this.monitorService
       .routeDelete(groupName, routeName)
-      .subscribe(() => this.#navService.go(url));
+      .subscribe(() => this.navService.go(url));
   }
 }

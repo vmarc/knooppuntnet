@@ -8,27 +8,27 @@ import { initialState } from './monitor-route-details-page.state';
 
 @Injectable()
 export class MonitorRouteDetailsPageService {
-  readonly #nav = inject(NavService);
-  readonly #monitorService = inject(MonitorService);
+  private readonly nav = inject(NavService);
+  private readonly monitorService = inject(MonitorService);
 
-  readonly #state = signal<MonitorRouteDetailsPageState>(initialState);
-  readonly state = this.#state.asReadonly();
-  readonly admin = this.#monitorService.admin;
+  private readonly _state = signal<MonitorRouteDetailsPageState>(initialState);
+  readonly state = this._state.asReadonly();
+  readonly admin = this.monitorService.admin;
 
   constructor() {
-    const groupName = this.#nav.param('groupName');
-    const routeName = this.#nav.param('routeName');
-    const routeDescription = this.#nav.state('description');
-    this.#state.update((state) => ({
+    const groupName = this.nav.param('groupName');
+    const routeName = this.nav.param('routeName');
+    const routeDescription = this.nav.state('description');
+    this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
       routeDescription,
     }));
-    this.#monitorService.route(groupName, routeName).subscribe((response) => {
+    this.monitorService.route(groupName, routeName).subscribe((response) => {
       const routeDescription =
         response.result?.routeDescription ?? this.state().routeDescription;
-      this.#state.update((state) => ({
+      this._state.update((state) => ({
         ...state,
         routeDescription,
         response,

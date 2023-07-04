@@ -282,7 +282,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
 
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 
-  readonly #columns = [
+  private readonly columns = [
     'nr',
     'name',
     'happy',
@@ -297,7 +297,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     'osm-segment-count',
   ];
 
-  readonly #columnsWithoutHeader = [
+  private readonly columnsWithoutHeader = [
     'happy',
     'reference-day',
     'reference-distance',
@@ -310,14 +310,14 @@ export class MonitorGroupRouteTableComponent implements OnInit {
 
   displayedColumns(admin: boolean): string[] {
     if (admin) {
-      return [...this.#columns, 'actions'];
+      return [...this.columns, 'actions'];
     }
-    return this.#columns;
+    return this.columns;
   }
 
   displayedHeaders(admin: boolean): string[] {
     return this.displayedColumns(admin).filter(
-      (name) => !this.#columnsWithoutHeader.includes(name)
+      (name) => !this.columnsWithoutHeader.includes(name)
     );
   }
 

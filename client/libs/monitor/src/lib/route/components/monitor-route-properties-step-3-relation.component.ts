@@ -181,13 +181,13 @@ export class MonitorRoutePropertiesStep3RelationComponent
   @Input({ required: true }) relationIdKnown: FormControl<boolean>;
   @Input({ required: true }) relationId: FormControl<number | null>;
 
-  readonly #service = inject(MonitorRoutePropertiesStep3RelationService);
+  private readonly service = inject(MonitorRoutePropertiesStep3RelationService);
 
-  readonly apiResponse = this.#service.apiResponse;
-  readonly #subscriptions = new Subscriptions();
+  readonly apiResponse = this.service.apiResponse;
+  private readonly subscriptions = new Subscriptions();
 
   ngOnInit(): void {
-    this.#subscriptions.add(
+    this.subscriptions.add(
       this.relationId.valueChanges.subscribe(() => {
         this.resetRouteInformation();
       })
@@ -195,14 +195,14 @@ export class MonitorRoutePropertiesStep3RelationComponent
   }
 
   ngOnDestroy(): void {
-    this.#subscriptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   getRouteInformation(): void {
-    this.#service.getRouteInformation(this.relationId.value);
+    this.service.getRouteInformation(this.relationId.value);
   }
 
   resetRouteInformation(): void {
-    this.#service.resetRouteInformation();
+    this.service.resetRouteInformation();
   }
 }

@@ -10,16 +10,14 @@ import { MonitorRouteSaveStep } from './route/monitor-route-save-step';
 
 @Injectable()
 export class MonitorWebsocketService {
-  readonly #steps = signal<MonitorRouteSaveStep[]>([]);
-  readonly steps = this.#steps.asReadonly();
+  private readonly _steps = signal<MonitorRouteSaveStep[]>([]);
+  private readonly _errors = signal<string[]>([]);
+  private readonly _done = signal<boolean>(false);
+  private webSocketSubject: WebSocketSubject<any>;
 
-  readonly #errors = signal<string[]>([]);
-  readonly errors = this.#errors.asReadonly();
-
-  readonly #done = signal<boolean>(false);
-  readonly done = this.#done.asReadonly();
-
-  #webSocketSubject: WebSocketSubject<any>;
+  readonly steps = this._steps.asReadonly();
+  readonly errors = this._errors.asReadonly();
+  readonly done = this._done.asReadonly();
 
   constructor(@Inject(DOCUMENT) private document) {}
 
@@ -31,7 +29,7 @@ export class MonitorWebsocketService {
     const host = document.location.host;
     const url = `${protocol}://${host}/websocket`;
 
-    this.#webSocketSubject = webSocket({
+    this.webSocketSubject = webSocket({
       url,
       // serializer: (x) => {
       //   console.log(['websocket serializer', x]);
@@ -42,18 +40,18 @@ export class MonitorWebsocketService {
       },
       openObserver: {
         next: () => {
-          this.#log('websocket connection open');
+          this.log('websocket connection open');
         },
       },
     });
-    this.#webSocketSubject.subscribe({
+    this.webSocketSubject.subscribe({
       next: (msg) => {
-        this.#logArgs(['websocket message received', msg]);
+        this.logArgs(['websocket message received', msg]);
 
         const message: MonitorRouteUpdateStatusMessage = JSON.parse(msg);
 
         if (message.commands) {
-          const stepsArray = this.#steps();
+          const stepsArray = this._steps();
           message.commands.forEach((command) => {
             if (command.action === 'step-add') {
               let description = '';
@@ -98,40 +96,40 @@ export class MonitorWebsocketService {
               });
             }
           });
-          this.#steps.set(stepsArray);
+          this._steps.set(stepsArray);
         }
       },
       error: (err) => {
-        this.#logArgs(['websocket error', err]);
+        this.logArgs(['websocket error', err]);
       },
       complete: () => {
-        this.#log('websocket complete');
-        this.#done.set(true);
+        this.log('websocket complete');
+        this._done.set(true);
       },
     });
-    this.#webSocketSubject.next(command);
+    this.webSocketSubject.next(command);
   }
 
   reset() {
-    this.#done.set(false);
-    this.#steps.set([]);
+    this._done.set(false);
+    this._steps.set([]);
   }
 
-  #complete(): void {
-    this.#webSocketSubject.complete();
+  private complete(): void {
+    this.webSocketSubject.complete();
   }
 
-  #log(message: string): void {
-    console.log(`${this.#now()} ${message}`);
+  private log(message: string): void {
+    console.log(`${this.now()} ${message}`);
   }
 
-  #logArgs(args: any[]): void {
-    const coll: any[] = [this.#now()];
+  private logArgs(args: any[]): void {
+    const coll: any[] = [this.now()];
     args.forEach((arg) => coll.push(arg));
     console.log(coll);
   }
 
-  #now(): string {
+  private now(): string {
     const date = new Date();
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');

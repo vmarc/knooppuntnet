@@ -75,45 +75,45 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   imports: [MatButtonModule, MatMenuModule, AsyncPipe],
 })
 export class MonitorRouteMapControlJosmComponent {
-  readonly #service = inject(MonitorRouteMapStateService);
-  readonly #editService = inject(EditService);
+  private readonly service = inject(MonitorRouteMapStateService);
+  private readonly editService = inject(EditService);
 
   readonly josmZoomToSelectedDeviationDisabled = computed(
     () =>
-      this.#service.mode() !== MonitorMapMode.comparison ||
-      !this.#service.selectedDeviation()
+      this.service.mode() !== MonitorMapMode.comparison ||
+      !this.service.selectedDeviation()
   );
 
   readonly josmZoomToSelectedOsmSegmentDisabled = computed(
     () =>
-      this.#service.mode() !== MonitorMapMode.osmSegments ||
-      !this.#service.selectedOsmSegment()
+      this.service.mode() !== MonitorMapMode.osmSegments ||
+      !this.service.selectedOsmSegment()
   );
 
   zoomToFitRoute(): void {
-    this.#service.focusChanged(this.#service.page().bounds);
+    this.service.focusChanged(this.service.page().bounds);
   }
 
   josmLoadRouteRelation(): void {
-    const relationIds = [this.#service.page().relationId];
-    this.#editService.edit({
+    const relationIds = [this.service.page().relationId];
+    this.editService.edit({
       relationIds,
       fullRelation: true,
     });
   }
 
   josmZoomToFitRoute(): void {
-    const bounds = this.#service.page().bounds;
-    this.#editService.edit({ bounds });
+    const bounds = this.service.page().bounds;
+    this.editService.edit({ bounds });
   }
 
   josmZoomToSelectedDeviation(): void {
-    const bounds = this.#service.selectedDeviation().bounds;
-    this.#editService.edit({ bounds });
+    const bounds = this.service.selectedDeviation().bounds;
+    this.editService.edit({ bounds });
   }
 
   josmZoomToSelectedOsmSegment(): void {
-    const bounds = this.#service.selectedOsmSegment().bounds;
-    this.#editService.edit({ bounds });
+    const bounds = this.service.selectedOsmSegment().bounds;
+    this.editService.edit({ bounds });
   }
 }

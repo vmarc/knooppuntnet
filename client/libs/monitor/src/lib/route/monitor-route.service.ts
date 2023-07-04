@@ -9,13 +9,13 @@ import { MonitorService } from '../monitor.service';
 
 @Injectable()
 export class MonitorRouteService {
-  readonly #monitorService = inject(MonitorService);
+  private readonly monitorService = inject(MonitorService);
 
   routeAdd(
     groupName: string,
     properties: MonitorRouteProperties
   ): Observable<ApiResponse<MonitorRouteSaveResult>> {
-    return this.#monitorService.routeAdd(groupName, properties);
+    return this.monitorService.routeAdd(groupName, properties);
   }
 
   routeGpxUpload(
@@ -23,7 +23,7 @@ export class MonitorRouteService {
     name: string,
     referenceFile: File
   ): Observable<void> {
-    return this.#monitorService.routeGpxUpload(groupName, name, referenceFile);
+    return this.monitorService.routeGpxUpload(groupName, name, referenceFile);
   }
 
   routeSubRelationGpxUpload(
@@ -33,7 +33,7 @@ export class MonitorRouteService {
     referenceFile: File,
     referenceTimestamp: Timestamp
   ): Observable<void> {
-    return this.#monitorService.routeSubRelationGpxUpload(
+    return this.monitorService.routeSubRelationGpxUpload(
       groupName,
       name,
       relationId,
@@ -46,7 +46,7 @@ export class MonitorRouteService {
     groupName: string,
     name: string
   ): Observable<ApiResponse<MonitorRouteSaveResult>> {
-    return this.#monitorService.routeAnalyze(groupName, name);
+    return this.monitorService.routeAnalyze(groupName, name);
   }
 
   routeUpdate(
@@ -54,6 +54,6 @@ export class MonitorRouteService {
     name: string,
     properties: MonitorRouteProperties
   ): Observable<ApiResponse<MonitorRouteSaveResult>> {
-    return this.#monitorService.routeUpdate(groupName, name, properties);
+    return this.monitorService.routeUpdate(groupName, name, properties);
   }
 }

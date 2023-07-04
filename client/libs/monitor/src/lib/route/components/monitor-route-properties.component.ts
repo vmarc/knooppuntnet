@@ -173,14 +173,14 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   @Input({ required: true }) routeGroups: MonitorRouteGroup[];
   @Output() update = new EventEmitter<MonitorRouteUpdate>();
 
-  readonly #monitorService = inject(MonitorService);
-  readonly #monitorWebsocketService = inject(MonitorWebsocketService);
+  private readonly monitorService = inject(MonitorService);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
   readonly group = new FormControl<MonitorRouteGroup>(null);
 
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.#asyncAddRouteNameUniqueValidator(),
+    asyncValidators: this.asyncAddRouteNameUniqueValidator(),
   });
   readonly description = new FormControl<string>('', [
     Validators.required,
@@ -191,15 +191,15 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   readonly referenceType = new FormControl<string>(null, Validators.required);
   readonly osmReferenceDate = new FormControl<Date>(
     null,
-    this.#osmReferenceTimestampValidator()
+    this.osmReferenceTimestampValidator()
   );
   readonly gpxReferenceDate = new FormControl<Date>(
     null,
-    this.#gpxReferenceTimestampValidator()
+    this.gpxReferenceTimestampValidator()
   );
   readonly referenceFilename = new FormControl<string>(
     null,
-    this.#gpxReferenceFilenameValidator()
+    this.gpxReferenceFilenameValidator()
   );
   readonly referenceFile = new FormControl<File>(null);
 
@@ -219,7 +219,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       relationIdKnown: this.relationIdKnown,
       relationId: this.relationId,
     },
-    this.#relationIdFormValidator()
+    this.relationIdFormValidator()
   );
 
   readonly referenceTypeForm = new FormGroup({
@@ -247,14 +247,14 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       commentForm: this.commentForm,
     },
     {
-      asyncValidators: this.#asyncUpdateRouteNameUniqueValidator(),
+      asyncValidators: this.asyncUpdateRouteNameUniqueValidator(),
     }
   );
 
-  readonly #subscriptions = new Subscriptions();
+  private readonly subscriptions = new Subscriptions();
 
   ngOnInit(): void {
-    this.#monitorWebsocketService.reset();
+    this.monitorWebsocketService.reset();
     if (this.mode === 'add') {
       this.groupForm.setValue({
         group: { groupName: this.groupName, groupDescription: '' },
@@ -294,7 +294,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       });
     }
 
-    this.#subscriptions.add(
+    this.subscriptions.add(
       this.referenceTypeForm.valueChanges.subscribe(() => {
         this.referenceFilename.updateValueAndValidity();
         this.gpxReferenceDate.updateValueAndValidity();
@@ -304,7 +304,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.#subscriptions.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   groupLink(): string {
@@ -317,14 +317,14 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       const promise = file.text();
       console.log(`Send file ${file.name}, size=${file.size}`);
       from(promise).subscribe((referenceGpx) => {
-        this.#doSave(referenceGpx);
+        this.doSave(referenceGpx);
       });
     } else {
-      this.#doSave(null);
+      this.doSave(null);
     }
   }
 
-  #doSave(referenceGpx: string): void {
+  private doSave(referenceGpx: string): void {
     let relationId = undefined;
     if (this.relationIdKnown.value === true) {
       relationId = this.relationId.value;
@@ -359,7 +359,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     this.update.emit(command);
   }
 
-  #relationIdFormValidator(): ValidatorFn {
+  private relationIdFormValidator(): ValidatorFn {
     return (): { [key: string]: any } => {
       if (this.relationIdKnown.value === false) {
         return null;
@@ -374,37 +374,37 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     };
   }
 
-  #previousValidationGroupName: string | null = null;
-  #previousValidationRouteName: string | null = null;
-  #previousValidationResult: ValidationErrors | null = null;
+  private previousValidationGroupName: string | null = null;
+  private previousValidationRouteName: string | null = null;
+  private previousValidationResult: ValidationErrors | null = null;
 
-  #asyncAddRouteNameUniqueValidator(): AsyncValidatorFn {
+  private asyncAddRouteNameUniqueValidator(): AsyncValidatorFn {
     return (): Observable<ValidationErrors | null> => {
       if (this.mode === 'update') {
         return of(null);
       }
-      return this.#validateRouteNameUnique();
+      return this.validateRouteNameUnique();
     };
   }
 
-  #asyncUpdateRouteNameUniqueValidator(): AsyncValidatorFn {
+  private asyncUpdateRouteNameUniqueValidator(): AsyncValidatorFn {
     return (): Observable<ValidationErrors | null> => {
       if (this.mode === 'add') {
         return of(null);
       }
-      return this.#validateRouteNameUnique();
+      return this.validateRouteNameUnique();
     };
   }
 
-  #validateRouteNameUnique(): Observable<ValidationErrors | null> {
+  private validateRouteNameUnique(): Observable<ValidationErrors | null> {
     const validationGroupName = this.group.value.groupName;
     const validationRouteName = this.name.value;
 
     if (
-      validationGroupName === this.#previousValidationGroupName &&
-      validationRouteName === this.#previousValidationRouteName
+      validationGroupName === this.previousValidationGroupName &&
+      validationRouteName === this.previousValidationRouteName
     ) {
-      return of(this.#previousValidationResult);
+      return of(this.previousValidationResult);
     }
 
     if (
@@ -412,26 +412,26 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       this.groupName === validationGroupName &&
       this.initialProperties?.name === validationRouteName
     ) {
-      this.#previousValidationResult = null;
+      this.previousValidationResult = null;
       return of(null);
     }
 
-    return this.#monitorService.routeNames(validationGroupName).pipe(
+    return this.monitorService.routeNames(validationGroupName).pipe(
       map((response) => response.result),
       map((routeNames) => {
         if (routeNames.includes(validationRouteName)) {
           const result = { routeNameNonUnique: true };
-          this.#previousValidationResult = result;
+          this.previousValidationResult = result;
           return result;
         }
-        this.#previousValidationResult = null;
+        this.previousValidationResult = null;
         return null;
       }),
       catchError(() => of(null))
     );
   }
 
-  #gpxReferenceFilenameValidator(): ValidatorFn {
+  private gpxReferenceFilenameValidator(): ValidatorFn {
     return (): ValidationErrors | null => {
       if (this.referenceType.value === 'gpx') {
         if (!this.referenceFilename.value) {
@@ -442,7 +442,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     };
   }
 
-  #gpxReferenceTimestampValidator(): ValidatorFn {
+  private gpxReferenceTimestampValidator(): ValidatorFn {
     return (): ValidationErrors | null => {
       if (this.referenceType.value === 'gpx') {
         if (!this.gpxReferenceDate.value) {
@@ -453,7 +453,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     };
   }
 
-  #osmReferenceTimestampValidator(): ValidatorFn {
+  private osmReferenceTimestampValidator(): ValidatorFn {
     return (): ValidationErrors | null => {
       if (this.referenceType.value === 'osm') {
         if (!this.osmReferenceDate.value) {

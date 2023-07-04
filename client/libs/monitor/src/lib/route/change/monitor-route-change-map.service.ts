@@ -28,7 +28,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     deviation: MonitorRouteDeviation,
     routeSegments: MonitorRouteSegment[]
   ): void {
-    this.#registerLayers(referenceJson, deviation, routeSegments);
+    this.registerLayers(referenceJson, deviation, routeSegments);
     this.initMap(
       new Map({
         target: this.mapId,
@@ -44,7 +44,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     this.finalizeSetup();
   }
 
-  #registerLayers(
+  private registerLayers(
     referenceJson: string,
     deviation: MonitorRouteDeviation,
     routeSegments: MonitorRouteSegment[]
@@ -52,14 +52,14 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
-    registry.register([], this.#buildReferenceLayer(referenceJson), true);
-    registry.register([], this.#buildNokSegmentLayer(deviation), true);
-    registry.register([], this.#buildOsmRelationLayer(routeSegments), true);
+    registry.register([], this.buildReferenceLayer(referenceJson), true);
+    registry.register([], this.buildNokSegmentLayer(deviation), true);
+    registry.register([], this.buildOsmRelationLayer(routeSegments), true);
     this.register(registry);
   }
 
-  #buildReferenceLayer(referenceJson: string): MapLayer {
-    const layerStyle = this.#fixedStyle('blue', 4);
+  private buildReferenceLayer(referenceJson: string): MapLayer {
+    const layerStyle = this.fixedStyle('blue', 4);
     const features = new GeoJSON().readFeatures(referenceJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -73,8 +73,8 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     return MapLayer.simpleLayer('gpx-reference-layer', layer);
   }
 
-  #buildNokSegmentLayer(deviation: MonitorRouteDeviation): MapLayer {
-    const layerStyle = this.#fixedStyle('red', 4);
+  private buildNokSegmentLayer(deviation: MonitorRouteDeviation): MapLayer {
+    const layerStyle = this.fixedStyle('red', 4);
     const features = new GeoJSON().readFeatures(deviation.geoJson, {
       featureProjection: 'EPSG:3857',
     });
@@ -88,8 +88,10 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     return MapLayer.simpleLayer('not-ok-layer', layer);
   }
 
-  #buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): MapLayer {
-    const thickStyle = this.#fixedStyle('yellow', 10);
+  private buildOsmRelationLayer(
+    routeSegments: MonitorRouteSegment[]
+  ): MapLayer {
+    const thickStyle = this.fixedStyle('yellow', 10);
     const features = [];
     routeSegments.forEach((segment) => {
       new GeoJSON()
@@ -109,7 +111,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     return MapLayer.simpleLayer('osm-relation-layer', layer);
   }
 
-  #fixedStyle(color: string, width: number): Style {
+  private fixedStyle(color: string, width: number): Style {
     return new Style({
       stroke: new Stroke({
         color,

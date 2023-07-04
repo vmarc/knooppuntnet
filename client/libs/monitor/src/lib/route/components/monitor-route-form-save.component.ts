@@ -117,12 +117,12 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 export class MonitorRouteFormSaveComponent {
   @Input({ required: true }) command: MonitorRouteUpdate;
 
-  readonly #monitorWebsocketService = inject(MonitorWebsocketService);
-  readonly #router = inject(Router);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
+  private readonly router = inject(Router);
 
-  readonly steps = this.#monitorWebsocketService.steps;
-  readonly errors = this.#monitorWebsocketService.errors;
-  readonly done = this.#monitorWebsocketService.done;
+  readonly steps = this.monitorWebsocketService.steps;
+  readonly errors = this.monitorWebsocketService.errors;
+  readonly done = this.monitorWebsocketService.done;
 
   trackBySteps(index: number, step: MonitorRouteSaveStep): string {
     return `${step.stepId}-${step.status}`;
@@ -130,12 +130,12 @@ export class MonitorRouteFormSaveComponent {
 
   backToGroup(): void {
     const url = `/monitor/groups/${this.groupName()}`;
-    this.#router.navigateByUrl(url);
+    this.router.navigateByUrl(url);
   }
 
   gotoAnalysisResult(): void {
     const url = `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`;
-    this.#router.navigateByUrl(url);
+    this.router.navigateByUrl(url);
   }
 
   groupName(): string {

@@ -1,6 +1,5 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
-import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { Bounds } from '@api/common';
@@ -13,45 +12,39 @@ import { MonitorRouteMapState } from './monitor-route-map-state';
 
 @Injectable()
 export class MonitorRouteMapStateService {
-  readonly #state = signal<MonitorRouteMapState>(initialState);
-  readonly #focus = signal<Bounds | null>(null);
+  private readonly _state = signal<MonitorRouteMapState>(initialState);
+  private readonly _focus = signal<Bounds | null>(null);
 
-  readonly state = this.#state.asReadonly();
-  readonly focus = this.#focus.asReadonly();
+  readonly state = this._state.asReadonly();
+  readonly focus = this._focus.asReadonly();
 
   readonly page = computed(() => {
-    return this.#state().page;
+    return this._state().page;
   });
   readonly mode = computed(() => {
-    return this.#state().mode;
+    return this._state().mode;
   });
   readonly referenceVisible = computed(() => {
-    return this.#state().referenceVisible;
+    return this._state().referenceVisible;
   });
   readonly matchesVisible = computed(() => {
-    return this.#state().matchesVisible;
+    return this._state().matchesVisible;
   });
   readonly deviationsVisible = computed(() => {
-    return this.#state().deviationsVisible;
+    return this._state().deviationsVisible;
   });
   readonly osmRelationVisible = computed(() => {
-    return this.#state().osmRelationVisible;
+    return this._state().osmRelationVisible;
   });
   readonly selectedDeviation = computed(() => {
-    return this.#state().selectedDeviation;
+    return this._state().selectedDeviation;
   });
   readonly selectedOsmSegment = computed(
-    () => this.#state().selectedOsmSegment
+    () => this._state().selectedOsmSegment
   );
   readonly referenceAvailable = computed(() => {
-    return this.#state().referenceAvailable;
+    return this._state().referenceAvailable;
   });
-
-  constructor() {
-    effect(() => {
-      console.log(['MonitorRouteMapState', this.#state()]);
-    });
-  }
 
   initialState(
     params: Params,
@@ -121,45 +114,45 @@ export class MonitorRouteMapStateService {
       selectedOsmSegment,
       referenceAvailable,
     };
-    this.#state.set(state);
+    this._state.set(state);
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    this.#state.update((state) => ({ ...state, page }));
+    this._state.update((state) => ({ ...state, page }));
   }
 
   referenceVisibleChanged(referenceVisible: boolean): void {
-    this.#state.update((state) => ({ ...state, referenceVisible }));
+    this._state.update((state) => ({ ...state, referenceVisible }));
   }
 
   matchesVisibleChanged(matchesVisible: boolean): void {
-    this.#state.update((state) => ({ ...state, matchesVisible }));
+    this._state.update((state) => ({ ...state, matchesVisible }));
   }
 
   deviationsVisibleChanged(deviationsVisible: boolean): void {
-    this.#state.update((state) => ({ ...state, deviationsVisible }));
+    this._state.update((state) => ({ ...state, deviationsVisible }));
   }
 
   osmRelationVisibleChanged(osmRelationVisible: boolean): void {
-    this.#state.update((state) => ({ ...state, osmRelationVisible }));
+    this._state.update((state) => ({ ...state, osmRelationVisible }));
   }
 
   selectedDeviationChanged(selectedDeviation: MonitorRouteDeviation): void {
-    this.#state.update((state) => ({ ...state, selectedDeviation }));
+    this._state.update((state) => ({ ...state, selectedDeviation }));
     if (selectedDeviation) {
-      this.#focus.set(selectedDeviation.bounds);
+      this._focus.set(selectedDeviation.bounds);
     }
   }
 
   selectedOsmSegmentChanged(selectedOsmSegment: MonitorRouteSegment): void {
-    this.#state.update((state) => ({ ...state, selectedOsmSegment }));
+    this._state.update((state) => ({ ...state, selectedOsmSegment }));
   }
 
   modeChanged(mode: MonitorMapMode): void {
-    this.#state.update((state) => ({ ...state, mode }));
+    this._state.update((state) => ({ ...state, mode }));
   }
 
   focusChanged(bounds: Bounds): void {
-    this.#focus.set(bounds);
+    this._focus.set(bounds);
   }
 }

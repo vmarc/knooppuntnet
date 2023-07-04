@@ -9,41 +9,41 @@ import { MonitorChangesPageState } from './monitor-changes-page.state';
 
 @Injectable()
 export class MonitorChangesPageService {
-  readonly #monitorService = inject(MonitorService);
-  readonly #preferencesService = inject(PreferencesService);
+  private readonly monitorService = inject(MonitorService);
+  private readonly preferencesService = inject(PreferencesService);
 
-  readonly #state = signal<MonitorChangesPageState>(initialState);
-  readonly state = this.#state.asReadonly();
-  readonly impact = this.#preferencesService.impact;
-  readonly pageSize = this.#preferencesService.pageSize;
+  private readonly _state = signal<MonitorChangesPageState>(initialState);
+  readonly state = this._state.asReadonly();
+  readonly impact = this.preferencesService.impact;
+  readonly pageSize = this.preferencesService.pageSize;
 
   constructor() {
-    this.#load();
+    this.load();
   }
 
   impactChanged(impact: boolean) {
-    this.#preferencesService.setImpact(impact);
-    this.#load();
+    this.preferencesService.setImpact(impact);
+    this.load();
   }
 
   pageSizeChanged(pageSize: number) {
-    this.#preferencesService.setPageSize(pageSize);
-    this.#load();
+    this.preferencesService.setPageSize(pageSize);
+    this.load();
   }
 
   pageIndexChanged(pageIndex: number) {
-    this.#state.update((state) => ({ ...state, pageIndex }));
-    this.#load();
+    this._state.update((state) => ({ ...state, pageIndex }));
+    this.load();
   }
 
-  #load(): void {
+  private load(): void {
     const parameters: MonitorChangesParameters = {
-      pageSize: this.#preferencesService.pageSize(),
-      pageIndex: this.#state().pageIndex,
-      impact: this.#preferencesService.impact(),
+      pageSize: this.preferencesService.pageSize(),
+      pageIndex: this._state().pageIndex,
+      impact: this.preferencesService.impact(),
     };
-    this.#monitorService.changes(parameters).subscribe((response) => {
-      this.#state.update((state) => ({ ...state, response }));
+    this.monitorService.changes(parameters).subscribe((response) => {
+      this._state.update((state) => ({ ...state, response }));
     });
   }
 }

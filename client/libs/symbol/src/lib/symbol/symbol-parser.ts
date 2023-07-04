@@ -37,22 +37,22 @@ export class SymbolParser {
 
     this.description = { waycolor: this.currentPart };
 
-    if (this.#hasNextPart()) {
-      this.#nextPart();
-      this.#parseBackground();
+    if (this.hasNextPart()) {
+      this.nextPart();
+      this.parseBackground();
     }
 
     return this.description;
   }
 
-  #parseBackground(): void {
+  private parseBackground(): void {
     const underscoreIndex = this.currentPart.indexOf('_');
     if (underscoreIndex === -1) {
       const color = this.currentPart;
       if (color.length === 0) {
-        if (this.#hasNextPart()) {
-          this.#nextPart();
-          this.#parseForeground();
+        if (this.hasNextPart()) {
+          this.nextPart();
+          this.parseForeground();
         }
       } else {
         this.description = {
@@ -61,9 +61,9 @@ export class SymbolParser {
             color,
           },
         };
-        if (this.#hasNextPart()) {
-          this.#nextPart();
-          this.#parseForeground();
+        if (this.hasNextPart()) {
+          this.nextPart();
+          this.parseForeground();
         }
       }
     } else {
@@ -86,9 +86,9 @@ export class SymbolParser {
             },
           };
         }
-        if (this.#hasNextPart()) {
-          this.#nextPart();
-          this.#parseForeground2();
+        if (this.hasNextPart()) {
+          this.nextPart();
+          this.parseForeground2();
         }
       } else {
         const color = this.currentPart.substring(0, underscoreIndex);
@@ -106,9 +106,9 @@ export class SymbolParser {
               shape,
             },
           };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseForeground();
+          if (this.hasNextPart()) {
+            this.nextPart();
+            this.parseForeground();
           }
         } else if (foregroundShapeIndex >= 0) {
           this.description = {
@@ -118,20 +118,20 @@ export class SymbolParser {
               shape,
             },
           };
-          if (this.#hasNextPart()) {
-            this.#nextPart();
-            this.#parseForeground2();
+          if (this.hasNextPart()) {
+            this.nextPart();
+            this.parseForeground2();
           }
         }
       }
     }
   }
 
-  #parseForeground(): void {
+  private parseForeground(): void {
     if (this.currentPart.length === 0) {
-      if (this.#hasNextPart()) {
-        this.#nextPart();
-        this.#parseForeground2();
+      if (this.hasNextPart()) {
+        this.nextPart();
+        this.parseForeground2();
       }
     } else {
       const shapeIndex = SymbolShape.foregroundShapes.indexOf(this.currentPart);
@@ -153,9 +153,9 @@ export class SymbolParser {
             },
           };
         }
-        if (this.#hasNextPart()) {
-          this.#nextPart();
-          this.#parseForeground2();
+        if (this.hasNextPart()) {
+          this.nextPart();
+          this.parseForeground2();
         }
       } else {
         const underscoreIndex = this.currentPart.indexOf('_');
@@ -166,9 +166,9 @@ export class SymbolParser {
               ...this.description,
               text: this.currentPart,
             };
-            if (this.#hasNextPart()) {
-              this.#nextPart();
-              this.#parseTextcolor();
+            if (this.hasNextPart()) {
+              this.nextPart();
+              this.parseTextcolor();
             }
           } else {
             this.description = {
@@ -177,9 +177,9 @@ export class SymbolParser {
                 color,
               },
             };
-            if (this.#hasNextPart()) {
-              this.#nextPart();
-              this.#parseForeground2();
+            if (this.hasNextPart()) {
+              this.nextPart();
+              this.parseForeground2();
             }
           }
         } else {
@@ -195,9 +195,9 @@ export class SymbolParser {
                 shape,
               },
             };
-            if (this.#hasNextPart()) {
-              this.#nextPart();
-              this.#parseForeground2();
+            if (this.hasNextPart()) {
+              this.nextPart();
+              this.parseForeground2();
             }
           }
         }
@@ -205,11 +205,11 @@ export class SymbolParser {
     }
   }
 
-  #parseForeground2(): void {
+  private parseForeground2(): void {
     if (this.currentPart.length === 0) {
-      if (this.#hasNextPart()) {
-        this.#nextPart();
-        this.#parseTextcolor();
+      if (this.hasNextPart()) {
+        this.nextPart();
+        this.parseTextcolor();
       }
     } else {
       const shapeIndex = SymbolShape.foregroundShapes.indexOf(this.currentPart);
@@ -231,9 +231,9 @@ export class SymbolParser {
             },
           };
         }
-        if (this.#hasNextPart()) {
-          this.#nextPart();
-          this.#parseForeground2();
+        if (this.hasNextPart()) {
+          this.nextPart();
+          this.parseForeground2();
         }
       } else {
         const underscoreIndex = this.currentPart.indexOf('_');
@@ -244,9 +244,9 @@ export class SymbolParser {
               ...this.description,
               text: this.currentPart,
             };
-            if (this.#hasNextPart()) {
-              this.#nextPart();
-              this.#parseTextcolor();
+            if (this.hasNextPart()) {
+              this.nextPart();
+              this.parseTextcolor();
             }
           } else {
             this.description = {
@@ -255,9 +255,9 @@ export class SymbolParser {
                 color,
               },
             };
-            if (this.#hasNextPart()) {
-              this.#nextPart();
-              this.#parseText();
+            if (this.hasNextPart()) {
+              this.nextPart();
+              this.parseText();
             }
           }
         } else {
@@ -273,9 +273,9 @@ export class SymbolParser {
                 shape,
               },
             };
-            if (this.#hasNextPart()) {
-              this.#nextPart();
-              this.#parseText();
+            if (this.hasNextPart()) {
+              this.nextPart();
+              this.parseText();
             }
           }
         }
@@ -283,19 +283,19 @@ export class SymbolParser {
     }
   }
 
-  #parseText(): void {
+  private parseText(): void {
     const text = this.currentPart;
     this.description = {
       ...this.description,
       text,
     };
-    if (this.#hasNextPart()) {
-      this.#nextPart();
-      this.#parseTextcolor();
+    if (this.hasNextPart()) {
+      this.nextPart();
+      this.parseTextcolor();
     }
   }
 
-  #parseTextcolor(): void {
+  private parseTextcolor(): void {
     const textcolor = this.currentPart;
     this.description = {
       ...this.description,
@@ -303,11 +303,11 @@ export class SymbolParser {
     };
   }
 
-  #hasNextPart() {
+  private hasNextPart() {
     return this.currentPartIndex + 1 < this.parts.length;
   }
 
-  #nextPart() {
+  private nextPart() {
     this.currentPartIndex++;
     this.currentPart = this.parts[this.currentPartIndex].trim();
   }

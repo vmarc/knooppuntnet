@@ -45,15 +45,15 @@ export class MonitorRouteFormComponent {
   @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
   @Input({ required: false }) routeGroups: MonitorRouteGroup[];
 
-  #monitorWebsocketService = inject(MonitorWebsocketService);
+  private monitorWebsocketService = inject(MonitorWebsocketService);
 
   saving = false;
   command: MonitorRouteUpdate;
 
   update(command: MonitorRouteUpdate): void {
-    this.#monitorWebsocketService.reset();
+    this.monitorWebsocketService.reset();
     this.command = command;
     this.saving = true;
-    this.#monitorWebsocketService.sendCommand(command);
+    this.monitorWebsocketService.sendCommand(command);
   }
 }

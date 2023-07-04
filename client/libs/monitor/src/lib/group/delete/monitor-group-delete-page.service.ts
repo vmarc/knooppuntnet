@@ -9,20 +9,20 @@ import { MonitorGroupDeletePageState } from './monitor-group-delete-page.state';
 
 @Injectable()
 export class MonitorGroupDeletePageService {
-  readonly #nav = inject(NavService);
-  readonly #monitorService = inject(MonitorService);
+  private readonly nav = inject(NavService);
+  private readonly monitorService = inject(MonitorService);
 
-  readonly #state = signal<MonitorGroupDeletePageState>(initialState);
-  readonly state = this.#state.asReadonly();
+  private readonly _state = signal<MonitorGroupDeletePageState>(initialState);
+  readonly state = this._state.asReadonly();
 
   constructor() {
-    const groupName = this.#nav.param('groupName');
-    this.#state.update((state) => ({
+    const groupName = this.nav.param('groupName');
+    this._state.update((state) => ({
       ...state,
       groupName,
     }));
-    this.#monitorService.group(groupName).subscribe((response) =>
-      this.#state.update((state) => ({
+    this.monitorService.group(groupName).subscribe((response) =>
+      this._state.update((state) => ({
         ...state,
         response,
       }))
@@ -30,11 +30,11 @@ export class MonitorGroupDeletePageService {
   }
 
   delete(groupId: string): void {
-    this.#monitorService
+    this.monitorService
       .groupDelete(groupId)
       .pipe(
         tap((response) => {
-          this.#nav.go('/monitor');
+          this.nav.go('/monitor');
         })
       )
       .subscribe();

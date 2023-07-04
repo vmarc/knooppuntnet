@@ -7,17 +7,17 @@ import { MonitorGroupsPageState } from './monitor-groups-page.state';
 
 @Injectable()
 export class MonitorGroupsPageService {
-  readonly #monitorService = inject(MonitorService);
+  private readonly monitorService = inject(MonitorService);
 
-  readonly #state = signal<MonitorGroupsPageState>(initialState);
-  readonly state = this.#state.asReadonly();
-  readonly admin = this.#monitorService.admin;
+  private readonly _state = signal<MonitorGroupsPageState>(initialState);
+  readonly state = this._state.asReadonly();
+  readonly admin = this.monitorService.admin;
 
   constructor() {
-    this.#monitorService
+    this.monitorService
       .groups()
       .subscribe((response) =>
-        this.#state.update((state) => ({ ...state, response }))
+        this._state.update((state) => ({ ...state, response }))
       );
   }
 }

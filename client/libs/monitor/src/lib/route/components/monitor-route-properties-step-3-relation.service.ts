@@ -7,19 +7,18 @@ import { MonitorService } from '../../monitor.service';
 
 @Injectable()
 export class MonitorRoutePropertiesStep3RelationService {
-  readonly #monitorService = inject(MonitorService);
-  readonly #apiResponse = signal<ApiResponse<MonitorRouteInfoPage> | null>(
-    null
-  );
-  readonly apiResponse = this.#apiResponse.asReadonly();
+  private readonly monitorService = inject(MonitorService);
+  private readonly _apiResponse =
+    signal<ApiResponse<MonitorRouteInfoPage> | null>(null);
+  readonly apiResponse = this._apiResponse.asReadonly();
 
   getRouteInformation(relationId: number): void {
-    this.#monitorService.routeInfo(relationId).subscribe((response) => {
-      this.#apiResponse.set(response);
+    this.monitorService.routeInfo(relationId).subscribe((response) => {
+      this._apiResponse.set(response);
     });
   }
 
   resetRouteInformation(): void {
-    this.#apiResponse.set(null);
+    this._apiResponse.set(null);
   }
 }
