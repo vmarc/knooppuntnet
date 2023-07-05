@@ -30,6 +30,7 @@ class NetworkRoutesPageBuilder(database: Database) {
           networkType = data.summary.networkType,
           summary = data.summary,
           routes = data.routes.map { route =>
+            val symbol = route.tags("osmc:symbol")
             NetworkRouteRow(
               route.id,
               route.name,
@@ -40,7 +41,8 @@ class NetworkRoutesPageBuilder(database: Database) {
               route.roleConnection,
               route.lastUpdated,
               route.lastSurvey,
-              route.proposed
+              route.proposed,
+              symbol
             )
           }
         )

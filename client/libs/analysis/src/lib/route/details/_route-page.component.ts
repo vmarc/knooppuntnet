@@ -19,6 +19,7 @@ import { TimestampComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
@@ -66,6 +67,12 @@ import { RouteSummaryComponent } from './route-summary.component';
           <kpn-data title="Summary" i18n-title="@@route.summary">
             <kpn-route-summary [route]="page.route" />
           </kpn-data>
+
+          <ng-container *ngIf="hasSymbol(page)">
+            <kpn-data title="Symbol" i18n-title="@@route.symbol">
+              <kpn-symbol [description]="symbolDescription(page)" />
+            </kpn-data>
+          </ng-container>
 
           <div class="data2">
             <div class="title">
@@ -198,6 +205,7 @@ import { RouteSummaryComponent } from './route-summary.component';
     RouterLink,
     TagsTableComponent,
     TimestampComponent,
+    SymbolComponent,
   ],
 })
 export class RoutePageComponent implements OnInit {
@@ -259,5 +267,19 @@ export class RoutePageComponent implements OnInit {
 
   hasFreeNodes(analysis: RouteInfoAnalysis): boolean {
     return analysis.map.freeNodes && analysis.map.freeNodes.length > 0;
+  }
+
+  hasSymbol(page: RouteDetailsPage): boolean {
+    return !!this.symbolDescription(page);
+  }
+
+  symbolDescription(page: RouteDetailsPage): string {
+    const symbolTag = page.route.tags.tags.find(
+      (tag) => tag.key === 'osmc:symbol'
+    );
+    if (symbolTag) {
+      return symbolTag.value;
+    }
+    return undefined;
   }
 }

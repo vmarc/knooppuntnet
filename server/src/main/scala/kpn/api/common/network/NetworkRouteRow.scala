@@ -14,7 +14,8 @@ case class NetworkRouteRow(
   roleConnection: Boolean,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  proposed: Boolean
+  proposed: Boolean,
+  symbol: Option[String]
 ) {
 
   def toRef: Ref = {

@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -31,6 +32,7 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
+import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
@@ -78,6 +80,25 @@ import { NetworkRoutesService } from './network-routes.service';
           <kpn-network-route-analysis
             [route]="route"
             [networkType]="networkType"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="symbol">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          i18n="@@network-routes.table.symbol"
+        >
+          Symbol
+        </th>
+        <td mat-cell *matCellDef="let route">
+          <kpn-symbol
+            *ngIf="route.symbol"
+            [description]="route.symbol"
+            [width]="25"
+            [height]="25"
           />
         </td>
       </ng-container>
@@ -171,6 +192,10 @@ import { NetworkRoutesService } from './network-routes.service';
         width: 3rem;
       }
 
+      .mat-column-symbol {
+        padding-top: 5px;
+      }
+
       .distance {
         white-space: nowrap;
         text-align: right;
@@ -190,7 +215,9 @@ import { NetworkRoutesService } from './network-routes.service';
     MatSortModule,
     MatTableModule,
     NetworkRouteAnalysisComponent,
+    NgIf,
     OsmLinkRelationComponent,
+    SymbolComponent,
   ],
 })
 export class NetworkRouteTableComponent implements OnInit, OnDestroy {
@@ -272,6 +299,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
       return [
         'nr',
         'analysis',
+        'symbol',
         'route',
         'distance',
         'role',
