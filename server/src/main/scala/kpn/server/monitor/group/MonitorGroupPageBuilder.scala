@@ -28,6 +28,7 @@ class MonitorGroupPageBuilder(
             route._id.oid,
             route.name,
             route.description,
+            route.symbol,
             route.relationId,
             route.referenceType,
             route.referenceTimestamp,

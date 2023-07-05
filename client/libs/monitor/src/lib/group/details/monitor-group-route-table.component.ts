@@ -14,6 +14,7 @@ import { TimestampDayPipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 
 @Component({
   selector: 'kpn-monitor-group-route-table',
@@ -90,6 +91,24 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
             *ngIf="!!route.relationId"
             [relationId]="route.relationId"
             [title]="route.relationId.toString()"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="symbol">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@monitor.group.route-table.symbol"
+        >
+          Symbol
+        </th>
+        <td mat-cell *matCellDef="let route" class="symbol">
+          <kpn-symbol
+            *ngIf="route.symbol"
+            [description]="route.symbol"
+            [width]="25"
+            [height]="25"
           />
         </td>
       </ng-container>
@@ -259,6 +278,10 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
         text-align: right !important;
         white-space: nowrap;
       }
+
+      .symbol {
+        vertical-align: middle;
+      }
     `,
   ],
   standalone: true,
@@ -273,6 +296,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
     OsmLinkRelationComponent,
     RouterLink,
     TimestampDayPipe,
+    SymbolComponent,
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {
@@ -288,6 +312,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
     'happy',
     'map',
     'relationId',
+    'symbol',
     'description',
     'reference-type',
     'reference-day',

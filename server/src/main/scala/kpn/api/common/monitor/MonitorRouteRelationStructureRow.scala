@@ -10,6 +10,7 @@ case class MonitorRouteRelationStructureRow(
   relationId: Long,
   role: Option[String],
   survey: Option[Day],
+  symbol: Option[String],
   referenceTimestamp: Option[Timestamp],
   referenceFilename: Option[String],
   referenceDistance: Long,

@@ -120,6 +120,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           relationId = Some(1),
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          symbol = None,
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
@@ -148,6 +149,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
               name = "route-name",
               role = None,
               survey = None,
+              symbol = None,
               // following reference fields are used for multi-gpx only
               referenceTimestamp = None,
               referenceFilename = None,

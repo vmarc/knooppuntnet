@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.custom.Relation
+import kpn.core.util.RouteSymbol
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -21,8 +22,10 @@ class MonitorRouteStateUpdater(routeRepository: MonitorRouteRepository) {
     val osmSegmentCount = state.osmSegments.size
     val happy = route.referenceDistance > 0 && deviationCount == 0 && osmSegmentCount == 1
     val relation = MonitorRouteRelation.from(routeRelation, None)
+    val symbol = RouteSymbol.from(routeRelation.tags)
 
     val newRoute = route.copy(
+      symbol = symbol,
       deviationDistance = deviationDistance,
       deviationCount = deviationCount,
       osmWayCount = newState.wayCount,

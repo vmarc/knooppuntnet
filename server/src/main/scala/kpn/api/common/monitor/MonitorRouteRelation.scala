@@ -4,6 +4,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.util.Haversine
+import kpn.core.util.RouteSymbol
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 
 import scala.util.Failure
@@ -30,6 +31,7 @@ object MonitorRouteRelation {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
     }
+    val symbol = RouteSymbol.from(relation.tags)
     val osmWayCount = relation.wayMembers.size
     val osmDistance = relation.wayMembers.map(w => Haversine.meters(w.way.nodes)).sum
 
@@ -44,6 +46,7 @@ object MonitorRouteRelation {
       name = name,
       role = role,
       survey = survey,
+      symbol = symbol,
       referenceTimestamp = None,
       referenceFilename = None,
       referenceDistance = 0,
@@ -63,6 +66,7 @@ case class MonitorRouteRelation(
   name: String,
   role: Option[String],
   survey: Option[Day],
+  symbol: Option[String],
 
   /*
     Reference details are only filled in when the route reference type is "multi-gpx".

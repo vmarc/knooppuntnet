@@ -67,6 +67,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
           relationId = None, // no relationId yet
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          symbol = None,
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,
@@ -121,6 +122,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
             relationId = Some(1), // relationId filled in
             user = "user",
             timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+            symbol = None,
             referenceType = "osm",
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             referenceFilename = None,
@@ -150,6 +152,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
                 name = "route-name",
                 role = None,
                 survey = None,
+                symbol = None,
                 referenceTimestamp = None,
                 referenceFilename = None,
                 referenceDistance = 0,

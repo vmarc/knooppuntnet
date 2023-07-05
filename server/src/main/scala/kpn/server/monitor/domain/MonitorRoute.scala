@@ -18,6 +18,7 @@ case class MonitorRoute(
   relationId: Option[Long],
   user: String,
   timestamp: Timestamp,
+  symbol: Option[String],
 
   // *** reference information ***
 

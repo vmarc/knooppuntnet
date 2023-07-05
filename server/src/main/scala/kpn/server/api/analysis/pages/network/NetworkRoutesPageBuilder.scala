@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.core.util.Log
+import kpn.core.util.RouteSymbol
 import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
@@ -30,7 +31,7 @@ class NetworkRoutesPageBuilder(database: Database) {
           networkType = data.summary.networkType,
           summary = data.summary,
           routes = data.routes.map { route =>
-            val symbol = route.tags("osmc:symbol")
+            val symbol = RouteSymbol.from(route.tags)
             NetworkRouteRow(
               route.id,
               route.name,

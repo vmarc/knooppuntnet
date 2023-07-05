@@ -5,6 +5,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.QueryRelationTopLevel
+import kpn.core.util.RouteSymbol
 import org.springframework.stereotype.Component
 
 import scala.xml.XML
@@ -28,7 +29,7 @@ class MonitorRouteInfoBuilder(overpassQueryExecutor: OverpassQueryExecutor) {
           to = relation.tags("to"),
           operator = relation.tags("operator"),
           website = relation.tags("website"),
-          symbol = relation.tags("osmc:symbol"),
+          symbol = RouteSymbol.from(relation.tags),
         )
     }
   }

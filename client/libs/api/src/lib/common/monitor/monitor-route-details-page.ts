@@ -11,6 +11,7 @@ export interface MonitorRouteDetailsPage {
   readonly routeDescription: string;
   readonly relationId: number;
   readonly comment: string;
+  readonly symbol: string;
   readonly referenceType: string;
   readonly referenceTimestamp: Timestamp;
   readonly referenceFilename: string;

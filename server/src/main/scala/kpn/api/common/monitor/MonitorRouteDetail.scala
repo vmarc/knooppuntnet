@@ -7,6 +7,7 @@ case class MonitorRouteDetail(
   routeId: String,
   name: String,
   description: String,
+  symbol: Option[String],
   relationId: Option[Long],
   referenceType: String,
   referenceTimestamp: Option[Timestamp],

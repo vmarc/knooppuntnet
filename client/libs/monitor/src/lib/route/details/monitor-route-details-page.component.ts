@@ -28,7 +28,7 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
 
       <kpn-monitor-admin-toggle />
 
-      <div *ngIf="state.response as response" class="kpn-spacer-above">
+      <div *ngIf="state.response as response">
         <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
           Route not found
         </div>

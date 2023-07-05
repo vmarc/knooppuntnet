@@ -6,6 +6,7 @@ import { MonitorRouteDetailsPage } from '@api/common/monitor';
 import { DistancePipe } from '@app/components/shared/format';
 import { JosmRelationComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-summary',
@@ -30,6 +31,9 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
         <span i18n="@@monitor.route.details.ways">ways</span>
       </p>
       <p>{{ page.osmDistance | distance }}</p>
+      <div *ngIf="page.symbol" class="kpn-small-spacer-above">
+        <kpn-symbol [description]="page.symbol" />
+      </div>
     </div>
   `,
   standalone: true,
@@ -38,6 +42,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
     JosmRelationComponent,
     NgIf,
     OsmLinkRelationComponent,
+    SymbolComponent,
   ],
 })
 export class MonitorRouteDetailsSummaryComponent {

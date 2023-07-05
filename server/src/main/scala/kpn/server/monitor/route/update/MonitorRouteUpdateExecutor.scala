@@ -102,6 +102,7 @@ class MonitorRouteUpdateExecutor(
           context.update.relationId,
           context.user,
           Time.now,
+          None,
           referenceType = context.update.referenceType,
           referenceTimestamp = context.update.referenceTimestamp,
           referenceFilename = context.update.referenceFilename,
@@ -723,12 +724,14 @@ class MonitorRouteUpdateExecutor(
 
       val stateSummaries = monitorRouteRepository.routeStateSummaries(context.routeId)
       val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(relation, stateSummaries))
+      val symbol = relation.flatMap(_.symbol)
       val osmWayCount = stateSummaries.map(_.osmWayCount).sum
       val osmDistance = stateSummaries.map(_.osmDistance).sum
 
       context = context.copy(
         newRoute = Some(
           context.route.copy(
+            symbol = symbol,
             relation = relation,
             osmWayCount = osmWayCount,
             osmDistance = osmDistance

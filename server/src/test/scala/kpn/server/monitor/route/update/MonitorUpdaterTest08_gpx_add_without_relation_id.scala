@@ -98,6 +98,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           relationId = None, // <-- no relationId yet
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          symbol = None,
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
@@ -206,6 +207,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
                 name = "route-name",
                 role = None,
                 survey = None,
+                symbol = None,
                 referenceTimestamp = None,
                 referenceFilename = None,
                 referenceDistance = 0,
