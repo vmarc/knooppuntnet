@@ -1,13 +1,12 @@
 package kpn.api.common.monitor
 
 case class MonitorRouteInfoPage(
-  routeId: String,
   relationId: Long,
   name: Option[String] = None,
-  operator: Option[String] = None,
   ref: Option[String] = None,
-  nodeCount: Long = 0,
-  wayCount: Long = 0,
-  relationCount: Long = 0,
-  km: Long = 0
+  from: Option[String] = None,
+  to: Option[String] = None,
+  operator: Option[String] = None,
+  website: Option[String] = None,
+  symbol: Option[String] = None
 )

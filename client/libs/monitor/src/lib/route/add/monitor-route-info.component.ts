@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
 import { DataComponent } from '@app/components/shared/data';
+import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 
 @Component({
   selector: 'kpn-monitor-route-info',
@@ -31,6 +32,22 @@ import { DataComponent } from '@app/components/shared/data';
       </kpn-data>
 
       <kpn-data
+        *ngIf="routeInfo.from"
+        title="From"
+        i18n-title="@@monitor.relation.from"
+      >
+        {{ routeInfo.from }}
+      </kpn-data>
+
+      <kpn-data
+        *ngIf="routeInfo.to"
+        title="To"
+        i18n-title="@@monitor.relation.to"
+      >
+        {{ routeInfo.to }}
+      </kpn-data>
+
+      <kpn-data
         *ngIf="routeInfo.operator"
         title="Operator"
         i18n-title="@@monitor.relation.operator"
@@ -38,18 +55,28 @@ import { DataComponent } from '@app/components/shared/data';
         {{ routeInfo.operator }}
       </kpn-data>
 
-      <kpn-data title="Relation" i18n-title="@@monitor.relation.summary.label">
-        {{ routeInfo.wayCount }}
-        <span i18n="@@monitor.relation.summary.ways">ways,</span>
-        {{ routeInfo.nodeCount }}
-        <span i18n="@@monitor.relation.summary.nodes">nodes,</span>
-        {{ routeInfo.relationCount }}
-        <span i18n="@@monitor.relation.summary.relations">relations</span>
+      <kpn-data
+        *ngIf="routeInfo.website"
+        title="Website"
+        i18n-title="@@monitor.relation.website"
+      >
+        <a
+          class="external"
+          rel="nofollow noreferrer"
+          target="_blank"
+          [href]="routeInfo.website"
+        >
+          {{ routeInfo.website }}
+        </a>
       </kpn-data>
 
-      <kpn-data title="Distance" i18n-title="@@monitor.relation.distance">
-        <span>{{ routeInfo.km }}</span>
-        <span i18n="@@monitor.relation.summary.km">km</span>
+      <kpn-data
+        *ngIf="routeInfo.symbol"
+        title="Symbol"
+        i18n-title="@@monitor.relation.symbol"
+      >
+        <p>{{ routeInfo.symbol }}</p>
+        <kpn-symbol [description]="routeInfo.symbol" />
       </kpn-data>
     </div>
   `,
@@ -66,7 +93,7 @@ import { DataComponent } from '@app/components/shared/data';
     `,
   ],
   standalone: true,
-  imports: [NgIf, DataComponent],
+  imports: [NgIf, DataComponent, SymbolComponent],
 })
 export class MonitorRouteInfoComponent {
   @Input({ required: true }) routeInfo: MonitorRouteInfoPage;
