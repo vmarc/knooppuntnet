@@ -121,6 +121,8 @@ export class SymbolsComponent {
     'blue:blue:shell_modern',
     'green:white:yellow_bar:green_stripe',
     'blue:yellow:white_diamond:blue_diamond_right',
+    'blue:blue:white_hiker',
+    'blue:green:orange_wheel',
   ];
 
   // mongodb aggregation to build list with all "osmc:symbol" values used in node network routes:
@@ -204,6 +206,6 @@ export class SymbolsComponent {
   }
 
   foregroundShapeDescription(shape: string): string {
-    return `black::yellow_${shape}`;
+    return `black::gray_${shape}`;
   }
 }

@@ -1,7 +1,6 @@
 import { ElementRef } from '@angular/core';
 import { SymbolDescription } from './symbol-description';
 import { SymbolImage } from './symbol-image';
-import { SymbolParser } from './symbol-parser';
 import { SymbolShape } from './symbol-shape';
 
 export class SymbolBuilder {
@@ -31,8 +30,7 @@ export class SymbolBuilder {
     }
   }
 
-  draw(descriptionString: string): void {
-    const description = new SymbolParser().parse(descriptionString);
+  draw(description: SymbolDescription): void {
     this.drawBackground(description);
     this.drawImage(description.foreground);
     this.drawImage(description.foreground2);

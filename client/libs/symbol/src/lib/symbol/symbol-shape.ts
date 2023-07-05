@@ -57,6 +57,8 @@ export class SymbolShape {
     ['hexagon', this.drawHexagon],
     ['shell', this.drawShell],
     ['shell_modern', this.drawShellModern],
+    ['hiker', this.drawHiker],
+    ['wheel', this.drawWheel],
   ]);
 
   static readonly backgroundShapes = Array.from(
@@ -524,6 +526,16 @@ export class SymbolShape {
     context.moveTo(0.1, 0.5);
     context.lineTo(0.3, 1);
     context.stroke();
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private static drawHiker(context: CanvasRenderingContext2D): void {
+    // leave empty
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private static drawWheel(context: CanvasRenderingContext2D): void {
+    // leave empty
   }
 
   private static strokeOutline(context: CanvasRenderingContext2D): void {
