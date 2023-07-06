@@ -26,6 +26,7 @@ object LocationRoutesPageExample {
           meters = 100,
           lastUpdated = Timestamp(2018, 8, 11),
           lastSurvey = Some(Day(2018, 8)),
+          symbol = None,
           broken = true,
           inaccessible = false
         ),
@@ -36,6 +37,7 @@ object LocationRoutesPageExample {
           meters = 130,
           lastUpdated = Timestamp(2018, 8, 13),
           lastSurvey = None,
+          symbol = None,
           broken = false,
           inaccessible = true
         )

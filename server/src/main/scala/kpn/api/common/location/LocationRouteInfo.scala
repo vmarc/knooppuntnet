@@ -10,6 +10,7 @@ case class LocationRouteInfo(
   meters: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
+  symbol: Option[String],
   broken: Boolean,
   inaccessible: Boolean
 )

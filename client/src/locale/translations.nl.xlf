@@ -4433,7 +4433,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="linenumber">56,58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.route" datatype="html">
@@ -4441,7 +4441,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">81,83</context>
+          <context context-type="linenumber">101,103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.distance" datatype="html">
@@ -4449,7 +4449,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Afstand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">98,100</context>
+          <context context-type="linenumber">118,120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.last-edit" datatype="html">
@@ -4457,7 +4457,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Laatst bewerkt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">124,126</context>
+          <context context-type="linenumber">144,146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
@@ -4650,7 +4650,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Route-details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.version" datatype="html">
@@ -4778,7 +4778,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Samenvatting</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.situation-on" datatype="html">
@@ -4786,7 +4786,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Situatie op</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.last-updated" datatype="html">
@@ -4794,7 +4794,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Aangepast</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.relation-last-updated" datatype="html">
@@ -4802,7 +4802,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Relatie aangepast</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.network" datatype="html">
@@ -4810,7 +4810,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Netwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.start-node" datatype="html">
@@ -4818,7 +4818,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Startknooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">112</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.end-node" datatype="html">
@@ -4826,7 +4826,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Eindknooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.redundant-node" datatype="html">
@@ -4834,7 +4834,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Overtollig knooppunt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.number-of-ways" datatype="html">
@@ -4842,7 +4842,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Aantal wegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.tags" datatype="html">
@@ -4850,7 +4850,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">150</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.location" datatype="html">
@@ -4858,7 +4858,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Locatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.structure" datatype="html">
@@ -4866,7 +4866,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Structuur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.facts" datatype="html">
@@ -4874,7 +4874,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Feiten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-changes.title" datatype="html">
@@ -5717,7 +5717,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/map/_route-map-page.component.ts</context>
@@ -6105,7 +6105,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/map/_route-map-page.component.ts</context>
@@ -6257,7 +6257,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/map/_route-map-page.component.ts</context>
@@ -6529,7 +6529,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">63,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.analysis" datatype="html">
@@ -6537,7 +6537,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">74,76</context>
+          <context context-type="linenumber">76,78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.node" datatype="html">
@@ -6545,7 +6545,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">112,114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-edit" datatype="html">
@@ -6553,7 +6553,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Meest recente wijziging</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">151,153</context>
+          <context context-type="linenumber">172,174</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-accessible-indicator.gray.title" datatype="html">
@@ -7011,7 +7011,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Afstand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">109,111</context>
+          <context context-type="linenumber">130,132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.role" datatype="html">
@@ -7019,7 +7019,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Rol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">123,125</context>
+          <context context-type="linenumber">144,146</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.last-survey" datatype="html">
@@ -7027,7 +7027,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Recentste controle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">137,139</context>
+          <context context-type="linenumber">158,160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-header.start" datatype="html">
@@ -8539,7 +8539,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">65,67</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.last-survey" datatype="html">
@@ -8547,7 +8547,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Recentste controle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">111,113</context>
+          <context context-type="linenumber">131,133</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.last-survey" datatype="html">
@@ -8611,7 +8611,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Knooppunten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="experimental.title" datatype="html">
@@ -9408,7 +9408,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Routes in deze pagina laden in een editor (bijvoorbeeld JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.edit.title" datatype="html">
@@ -9424,7 +9424,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Routes in deze pagina laden in een editor (bijvoorbeeld JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.edit.title" datatype="html">
@@ -9984,7 +9984,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.name" datatype="html">
@@ -9992,7 +9992,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Naam</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">44,46</context>
+          <context context-type="linenumber">45,47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.map" datatype="html">
@@ -10000,11 +10000,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Kaart</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">66,68</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">67,69</context>
+          <context context-type="linenumber">68,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.map-link" datatype="html">
@@ -10012,11 +10012,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>kaart</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">74,76</context>
+          <context context-type="linenumber">75,77</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">76,78</context>
+          <context context-type="linenumber">77,79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.relation" datatype="html">
@@ -10024,7 +10024,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">85,87</context>
+          <context context-type="linenumber">86,88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.description" datatype="html">
@@ -10032,7 +10032,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Beschrijving</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">102,104</context>
+          <context context-type="linenumber">121,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.actions" datatype="html">
@@ -10040,11 +10040,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Acties</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">194,196</context>
+          <context context-type="linenumber">213,215</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">222,224</context>
+          <context context-type="linenumber">241,243</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10052,7 +10052,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Aanpassen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">202</context>
+          <context context-type="linenumber">221</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/groups/monitor-group-table.component.ts</context>
@@ -10064,7 +10064,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Verwijderen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">231</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/groups/monitor-group-table.component.ts</context>
@@ -10192,7 +10192,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Route informatie:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">12,14</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.relation.summary.label" datatype="html">
@@ -10232,7 +10232,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Ref</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.relation.name" datatype="html">
@@ -10240,7 +10240,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Naam</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.relation.operator" datatype="html">
@@ -10248,7 +10248,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Operator</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.description.label" datatype="html">
@@ -10616,7 +10616,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>wegen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-summary.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.ok" datatype="html">
@@ -11040,11 +11040,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Afwijkingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">146,148</context>
+          <context context-type="linenumber">165,167</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">180,182</context>
+          <context context-type="linenumber">199,201</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.osm-segment-count" datatype="html">
@@ -11052,11 +11052,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>OSM segmenten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">179,181</context>
+          <context context-type="linenumber">198,200</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">207,209</context>
+          <context context-type="linenumber">226,228</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.reference" datatype="html">
@@ -11064,11 +11064,11 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Referentie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">116,118</context>
+          <context context-type="linenumber">135,137</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">146,148</context>
+          <context context-type="linenumber">165,167</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.day" datatype="html">
@@ -11156,7 +11156,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Routerelatie is nog niet gedefinieerd</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-summary.component.ts</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">18,20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.reference-undefined" datatype="html">
@@ -11236,7 +11236,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.relation" datatype="html">
@@ -11244,7 +11244,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Relatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">87,89</context>
+          <context context-type="linenumber">88,90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.name" datatype="html">
@@ -11252,7 +11252,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Naam</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">43,45</context>
+          <context context-type="linenumber">44,46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.role" datatype="html">
@@ -11260,7 +11260,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Rol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">104,106</context>
+          <context context-type="linenumber">123,125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.distance" datatype="html">
@@ -11268,7 +11268,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Afstand</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">117,119</context>
+          <context context-type="linenumber">136,138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.survey" datatype="html">
@@ -11276,7 +11276,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Recentste controle</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">132,134</context>
+          <context context-type="linenumber">151,153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.relation-empty" datatype="html">
@@ -11412,7 +11412,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Voorbereiding</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.analyze-route-structure" datatype="html">
@@ -11420,7 +11420,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Analyse van de route structuur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.load-gpx" datatype="html">
@@ -11428,7 +11428,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>GPX laden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.analyze" datatype="html">
@@ -11436,7 +11436,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Analyse van de route afwijkingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.save" datatype="html">
@@ -11444,7 +11444,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Bewaren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-type.multi-gpx" datatype="html">
@@ -11500,7 +11500,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Opladen van het GPX spoor voor deze subrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">231</context>
+          <context context-type="linenumber">250</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.gpx.delete" datatype="html">
@@ -11508,7 +11508,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Verwijderen van het GPX spoor voor deze subrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">242</context>
+          <context context-type="linenumber">261</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.monitor.route.gpx" datatype="html">
@@ -11573,6 +11573,78 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
           <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="location-routes.table.symbol" datatype="html">
+        <source>Symbol</source>
+        <target>Symbool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">83,85</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-routes.table.symbol" datatype="html">
+        <source>Symbol</source>
+        <target>Symbool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">93,95</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="route.symbol" datatype="html">
+        <source>Symbol</source>
+        <target>Symbool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.symbol" datatype="html">
+        <source>Symbol</source>
+        <target>Symbool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">103,105</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.relation.from" datatype="html">
+        <source>From</source>
+        <target>Vertek</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.relation.to" datatype="html">
+        <source>To</source>
+        <target>Aankomst</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.relation.website" datatype="html">
+        <source>Website</source>
+        <target>Website</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.relation.symbol" datatype="html">
+        <source>Symbol</source>
+        <target>Symbool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.relation-table.symbol" datatype="html">
+        <source>Symbol</source>
+        <target>Symbool</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">105,107</context>
         </context-group>
       </trans-unit>
     </body>

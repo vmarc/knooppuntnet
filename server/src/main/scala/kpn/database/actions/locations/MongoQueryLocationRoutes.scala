@@ -1,11 +1,15 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.location.LocationRouteInfo
+import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.core.util.RouteSymbol
 import kpn.database.actions.locations.MongoQueryLocationRoutes.log
 import kpn.database.base.Database
 import org.mongodb.scala.bson.conversions.Bson
@@ -22,6 +26,17 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
+
+case class LocationRouteInfoData(
+  id: Long,
+  name: String,
+  meters: Long,
+  lastUpdated: Timestamp,
+  lastSurvey: Option[Day],
+  tags: Tags,
+  broken: Boolean,
+  inaccessible: Boolean
+)
 
 object MongoQueryLocationRoutes {
   private val log = Log(classOf[MongoQueryLocationRoutes])
@@ -55,6 +70,7 @@ class MongoQueryLocationRoutes(database: Database) {
           computed("meters", "$summary.meters"),
           include("lastUpdated"),
           include("lastSurvey"),
+          computed("tags", "$summary.tags"),
           computed("broken", "$summary.broken"),
           computed("inaccessible", "$summary.inaccessible")
         )
@@ -62,10 +78,19 @@ class MongoQueryLocationRoutes(database: Database) {
     )
 
     log.debugElapsed {
-      val docs = database.routes.aggregate[LocationRouteInfo](pipeline).zipWithIndex.map { case (doc, index) =>
+      val docs = database.routes.aggregate[LocationRouteInfoData](pipeline).zipWithIndex.map { case (doc, index) =>
         val rowIndex = pageSize * pageIndex + index
-        doc.copy( // could have done this in the aggregation?
-          rowIndex = rowIndex
+        val symbol = RouteSymbol.from(doc.tags)
+        LocationRouteInfo(
+          rowIndex = rowIndex,
+          id = doc.id,
+          name = doc.name,
+          meters = doc.meters,
+          lastUpdated = doc.lastUpdated,
+          lastSurvey = doc.lastSurvey,
+          symbol = symbol,
+          broken = doc.broken,
+          inaccessible = doc.inaccessible
         )
       }
       (s"location routes: ${docs.size}", docs)

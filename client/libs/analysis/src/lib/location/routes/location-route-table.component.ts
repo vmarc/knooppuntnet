@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -26,6 +27,7 @@ import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 import { actionLocationRoutesPageSize } from '../store/location.actions';
 import { actionLocationRoutesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
@@ -69,6 +71,24 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
           <kpn-location-route-analysis
             [route]="route"
             [networkType]="networkType()"
+          />
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="symbol">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@location-routes.table.symbol"
+        >
+          Symbol
+        </th>
+        <td mat-cell *matCellDef="let route" class="symbol">
+          <kpn-symbol
+            *ngIf="route.symbol"
+            [description]="route.symbol"
+            [width]="25"
+            [height]="25"
           />
         </td>
       </ng-container>
@@ -157,6 +177,10 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
         text-align: right;
         width: 100%;
       }
+
+      .symbol {
+        vertical-align: middle;
+      }
     `,
   ],
   standalone: true,
@@ -172,7 +196,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     MatSortModule,
     MatTableModule,
     OsmLinkRelationComponent,
+    NgIf,
     PaginatorComponent,
+    SymbolComponent,
   ],
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
@@ -230,7 +256,15 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'analysis', 'route', 'distance', 'last-survey', 'lastEdit'];
+      return [
+        'nr',
+        'analysis',
+        'symbol',
+        'route',
+        'distance',
+        'last-survey',
+        'lastEdit',
+      ];
     }
 
     if (this.pageWidthService.isLarge()) {

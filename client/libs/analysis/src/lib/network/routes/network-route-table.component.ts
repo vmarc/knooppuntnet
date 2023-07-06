@@ -93,7 +93,7 @@ import { NetworkRoutesService } from './network-routes.service';
         >
           Symbol
         </th>
-        <td mat-cell *matCellDef="let route">
+        <td mat-cell *matCellDef="let route" class="symbol">
           <kpn-symbol
             *ngIf="route.symbol"
             [description]="route.symbol"
@@ -192,8 +192,8 @@ import { NetworkRoutesService } from './network-routes.service';
         width: 3rem;
       }
 
-      .mat-column-symbol {
-        padding-top: 5px;
+      .symbol {
+        vertical-align: middle;
       }
 
       .distance {

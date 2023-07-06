@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.custom.Day
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
@@ -46,7 +47,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
           newRouteSummary(
             10L,
             name = "bbb",
-            meters = 100
+            meters = 100,
+            tags = Tags.from("osmc:symbol" -> "red:white:red_lower")
           ),
           labels = Seq(
             "active",
@@ -106,6 +108,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             200,
             defaultTimestamp,
             None,
+            None,
             broken = true,
             inaccessible = false
           ),
@@ -116,6 +119,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             100,
             defaultTimestamp,
             Some(Day(2020, 8)),
+            Some("red:white:red_lower"),
             broken = false,
             inaccessible = false
           ),
@@ -126,6 +130,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
             300,
             defaultTimestamp,
             None,
+            None,
             broken = true,
             inaccessible = true
           )
@@ -135,10 +140,15 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   }
 
   private def route(database: Database, id: Long, labels: String*): Unit = {
+    routeWithTags(database, id, Tags.empty, labels: _*)
+  }
+
+  private def routeWithTags(database: Database, id: Long, tags: Tags, labels: String*): Unit = {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(id),
-        labels = labels
+        labels = labels,
+        tags = tags
       )
     )
   }

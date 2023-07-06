@@ -69,7 +69,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/map/_route-map-page.component.ts</context>
@@ -220,7 +220,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/map/_route-map-page.component.ts</context>
@@ -2723,49 +2723,56 @@
         <source>Load the routes in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.nr">
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="linenumber">56,58</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.analysis">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">65,67</context>
+          <context context-type="linenumber">67,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-routes.table.symbol">
+        <source>Symbol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
+          <context context-type="linenumber">83,85</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.route">
         <source>Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">81,83</context>
+          <context context-type="linenumber">101,103</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.distance">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">98,100</context>
+          <context context-type="linenumber">118,120</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.last-survey">
         <source>Survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">111,113</context>
+          <context context-type="linenumber">131,133</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.last-edit">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">124,126</context>
+          <context context-type="linenumber">144,146</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.title">
@@ -3638,56 +3645,63 @@
         <source>Load the routes in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.nr">
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">63,65</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.analysis">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">74,76</context>
+          <context context-type="linenumber">76,78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="network-routes.table.symbol">
+        <source>Symbol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
+          <context context-type="linenumber">93,95</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.node">
         <source>Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">112,114</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.distance">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">109,111</context>
+          <context context-type="linenumber">130,132</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.role">
         <source>Role</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">123,125</context>
+          <context context-type="linenumber">144,146</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.last-survey">
         <source>Survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">137,139</context>
+          <context context-type="linenumber">158,160</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.table.last-edit">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/network/routes/network-route-table.component.ts</context>
-          <context context-type="linenumber">151,153</context>
+          <context context-type="linenumber">172,174</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.node-changes">
@@ -4529,7 +4543,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/map/_route-map-page.component.ts</context>
@@ -4610,105 +4624,112 @@
         <source>Route details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.summary">
         <source>Summary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="route.symbol">
+        <source>Symbol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.situation-on">
         <source>Situation on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.last-updated">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">81</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.relation-last-updated">
         <source>Relation last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.network">
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.nodes">
         <source>Nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.start-node">
         <source>Start node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">112</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.end-node">
         <source>End node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="linenumber">127</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.redundant-node">
         <source>Redundant node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">128</context>
+          <context context-type="linenumber">135</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.number-of-ways">
         <source>Number of ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.tags">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">143</context>
+          <context context-type="linenumber">150</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.location">
         <source>Location</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">147</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.structure">
         <source>Structure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.facts">
         <source>Facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/route/details/_route-page.component.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="linenumber">169</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.location.none">
@@ -5661,101 +5682,108 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.name">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">44,46</context>
+          <context context-type="linenumber">45,47</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.map">
         <source>Map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">66,68</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">67,69</context>
+          <context context-type="linenumber">68,70</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.map-link">
         <source>map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">74,76</context>
+          <context context-type="linenumber">75,77</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">76,78</context>
+          <context context-type="linenumber">77,79</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.relation">
         <source>Relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">85,87</context>
+          <context context-type="linenumber">86,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.group.route-table.symbol">
+        <source>Symbol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
+          <context context-type="linenumber">103,105</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.description">
         <source>Description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">102,104</context>
+          <context context-type="linenumber">121,123</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.reference">
         <source>Reference</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">116,118</context>
+          <context context-type="linenumber">135,137</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">146,148</context>
+          <context context-type="linenumber">165,167</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.deviations">
         <source>Deviations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">146,148</context>
+          <context context-type="linenumber">165,167</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">180,182</context>
+          <context context-type="linenumber">199,201</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.osm-segment-count">
         <source>OSM segments</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">179,181</context>
+          <context context-type="linenumber">198,200</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">207,209</context>
+          <context context-type="linenumber">226,228</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.actions">
         <source>Actions</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">194,196</context>
+          <context context-type="linenumber">213,215</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">222,224</context>
+          <context context-type="linenumber">241,243</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.update">
         <source>Update</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">202</context>
+          <context context-type="linenumber">221</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/groups/monitor-group-table.component.ts</context>
@@ -5766,7 +5794,7 @@
         <source>delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">231</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/groups/monitor-group-table.component.ts</context>
@@ -5854,35 +5882,35 @@
         <source>Prepare</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.analyze-route-structure">
         <source>Analyze route structure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.load-gpx">
         <source>Load gpx</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.analyze">
         <source>Analyze route deviations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.save">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.monitor.route">
@@ -5915,70 +5943,56 @@
         <source>Route information:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">12,14</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.relation.ref">
         <source>Ref</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.relation.name">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.relation.from">
+        <source>From</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.relation.to">
+        <source>To</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.relation.operator">
         <source>Operator</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="monitor.relation.summary.label">
-        <source>Relation</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="monitor.relation.summary.ways">
-        <source>ways,</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="monitor.relation.summary.nodes">
-        <source>nodes,</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="monitor.relation.summary.relations">
-        <source>relations</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="monitor.relation.distance">
-        <source>Distance</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="monitor.relation.summary.km">
-        <source>km</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
           <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.relation.website">
+        <source>Website</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.relation.symbol">
+        <source>Symbol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.description.label">
@@ -6554,70 +6568,77 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.name">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">43,45</context>
+          <context context-type="linenumber">44,46</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.relation">
         <source>Relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">87,89</context>
+          <context context-type="linenumber">88,90</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.route.relation-table.symbol">
+        <source>Symbol</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">105,107</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.role">
         <source>Role</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">104,106</context>
+          <context context-type="linenumber">123,125</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.distance">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">117,119</context>
+          <context context-type="linenumber">136,138</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.survey">
         <source>Survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">132,134</context>
+          <context context-type="linenumber">151,153</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.gpx.upload">
         <source>Upload GPX trace for this sub-relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">231</context>
+          <context context-type="linenumber">250</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.gpx.delete">
         <source>Remove GPX trace for this sub-relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">242</context>
+          <context context-type="linenumber">261</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.relation-id-undefined">
         <source>Route relation has not been defined yet</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-summary.component.ts</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">18,20</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.ways">
         <source>ways</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-summary.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.monitor.route.gpx">
