@@ -175,7 +175,13 @@ export class SymbolShape {
     context.lineTo(1, 0);
     context.closePath();
     context.fill();
-    SymbolShape.strokeOutline(context);
+    context.closePath();
+    context.beginPath();
+    context.lineWidth = SymbolShape.outlineLineWidth;
+    context.strokeStyle = SymbolShape.outlineStrokeStyle;
+    context.moveTo(0, 0);
+    context.lineTo(1, 1);
+    context.stroke();
   }
 
   private static drawCornerLeft(context: CanvasRenderingContext2D): void {
@@ -184,7 +190,13 @@ export class SymbolShape {
     context.lineTo(0, 0);
     context.closePath();
     context.fill();
-    SymbolShape.strokeOutline(context);
+    context.closePath();
+    context.beginPath();
+    context.lineWidth = SymbolShape.outlineLineWidth;
+    context.strokeStyle = SymbolShape.outlineStrokeStyle;
+    context.moveTo(1, 0);
+    context.lineTo(0, 1);
+    context.stroke();
   }
 
   private static drawCrest(context: CanvasRenderingContext2D): void {
@@ -303,7 +315,13 @@ export class SymbolShape {
   private static drawLeft(context: CanvasRenderingContext2D): void {
     context.rect(0, 0, 0.5, 1);
     context.fill();
-    SymbolShape.strokeOutline(context);
+    context.closePath();
+    context.beginPath();
+    context.lineWidth = SymbolShape.outlineLineWidth;
+    context.strokeStyle = SymbolShape.outlineStrokeStyle;
+    context.moveTo(0.5, 0);
+    context.lineTo(0.5, 1);
+    context.stroke();
   }
 
   private static drawLeftArrow(context: CanvasRenderingContext2D): void {
@@ -343,7 +361,13 @@ export class SymbolShape {
   private static drawRight(context: CanvasRenderingContext2D): void {
     context.rect(0.5, 0, 0.5, 1);
     context.fill();
-    SymbolShape.strokeOutline(context);
+    context.closePath();
+    context.beginPath();
+    context.lineWidth = SymbolShape.outlineLineWidth;
+    context.strokeStyle = SymbolShape.outlineStrokeStyle;
+    context.moveTo(0.5, 0);
+    context.lineTo(0.5, 1);
+    context.stroke();
   }
 
   private static drawPointer(context: CanvasRenderingContext2D): void {
@@ -449,7 +473,13 @@ export class SymbolShape {
   private static drawUpper(context: CanvasRenderingContext2D): void {
     context.rect(0, 0, 1, 0.5);
     context.fill();
-    SymbolShape.strokeOutline(context);
+    context.closePath();
+    context.beginPath();
+    context.lineWidth = SymbolShape.outlineLineWidth;
+    context.strokeStyle = SymbolShape.outlineStrokeStyle;
+    context.moveTo(0, 0.5);
+    context.lineTo(1, 0.5);
+    context.stroke();
   }
 
   static drawUpperBowl(context: CanvasRenderingContext2D): void {

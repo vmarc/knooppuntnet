@@ -206,6 +206,6 @@ export class SymbolsComponent {
   }
 
   foregroundShapeDescription(shape: string): string {
-    return `black::gray_${shape}`;
+    return `black::yellow_${shape}`;
   }
 }
