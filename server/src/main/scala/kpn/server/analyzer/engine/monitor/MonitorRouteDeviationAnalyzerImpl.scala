@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.Way
 import kpn.api.common.monitor.MonitorRouteDeviation
+import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteDeviationAnalysis
@@ -40,7 +41,7 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
 
     val allMatches = geometryFactory.createGeometryCollection(analysisResults.map(_.matches).toArray)
 
-    val referenceDistance = Math.round(toMeters(referenceSegments.map(_.getLength).sum))
+    val referenceDistance = Math.round(referenceSegments.map(Haversine.meters).sum)
 
     val matchesGeometry = Some(MonitorRouteAnalysisSupport.toGeoJson(allMatches))
 
@@ -87,7 +88,7 @@ class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer 
     val deviations = nokSequences.zipWithIndex.flatMap { case (sequence, sequenceIndex) =>
       val maxDistance = sequence.indexes.map(index => distances(index)).max
       val lineString = MonitorRouteAnalysisSupport.toLineString(referenceSampleCoordinates, sequence)
-      val meters: Long = Math.round(toMeters(lineString.getLength))
+      val meters = Math.round(Haversine.meters(lineString))
       if (meters == 0L) {
         None
       }

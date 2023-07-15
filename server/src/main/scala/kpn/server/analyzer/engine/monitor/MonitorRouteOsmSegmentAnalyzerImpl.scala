@@ -3,11 +3,11 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.common.data.WayMember
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.custom.NetworkType
+import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.MonitorSegmentBuilder
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import org.locationtech.jts.geom.Coordinate
@@ -35,7 +35,7 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
     val routeSegments = filteredSegments.zipWithIndex.map { case (segment, index) =>
 
       val lineString = geometryFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
-      val meters: Long = Math.round(toMeters(lineString.getLength))
+      val meters = Math.round(Haversine.meters(lineString))
       val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
       val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
 

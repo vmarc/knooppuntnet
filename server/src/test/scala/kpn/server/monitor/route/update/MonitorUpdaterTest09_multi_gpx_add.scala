@@ -127,7 +127,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 2,
-          osmDistance = 335,
+          osmDistance = 334,
           osmSegmentCount = 1,
           osmSegments = Seq(
             MonitorRouteOsmSegment(
@@ -135,7 +135,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                 MonitorRouteOsmSegmentElement(
                   relationId = 11,
                   segmentId = 1,
-                  meters = 196,
+                  meters = 195,
                   bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
                   reversed = false
                 ),
@@ -164,7 +164,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
               osmWayCount = 0,
               osmSegmentCount = 0,
               osmDistance = 0,
-              osmDistanceSubRelations = 335,
+              osmDistanceSubRelations = 334,
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(
@@ -180,7 +180,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   deviationCount = 0,
                   osmWayCount = 1,
                   osmSegmentCount = 1,
-                  osmDistance = 196,
+                  osmDistance = 195,
                   osmDistanceSubRelations = 0,
                   happy = false,
                   relations = Seq.empty
@@ -223,14 +223,14 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           relationId = 11,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 196,
+          osmDistance = 195,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               id = 1,
               startNodeId = 1001,
               endNodeId = 1002,
-              meters = 196,
+              meters = 195,
               bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               geoJson = """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             ),
@@ -323,9 +323,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                 relation.relations.head.copy(
                   referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
-                  referenceDistance = 196,
+                  referenceDistance = 195,
                   osmWayCount = 1,
-                  osmDistance = 196,
+                  osmDistance = 195,
                   osmSegmentCount = 1,
                   happy = true,
                 ),
@@ -348,7 +348,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 1),
-          referenceDistance = 196,
+          referenceDistance = 195,
           referenceSegmentCount = 1,
           referenceFilename = Some("filename-1"),
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
@@ -428,9 +428,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                 relation.relations.head.copy(
                   referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
-                  referenceDistance = 196,
+                  referenceDistance = 195,
                   osmWayCount = 1,
-                  osmDistance = 196,
+                  osmDistance = 195,
                   osmSegmentCount = 1,
                   happy = true,
                 ),

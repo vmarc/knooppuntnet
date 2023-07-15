@@ -9,11 +9,11 @@ import kpn.api.common.Bounds
 import kpn.api.custom.ApiResponse
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
+import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport.toMeters
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
@@ -219,7 +219,7 @@ class MonitorRouteUpdateExecutor(
     // TODO should delete already existing reference here?
 
     val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
-    val distance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
+    val distance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
     val segmentCount = geometryCollection.getNumGeometries
 
     val reference = MonitorRouteReference(
@@ -516,7 +516,7 @@ class MonitorRouteUpdateExecutor(
         // TODO should delete already existing reference here?
 
         val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
-        val referenceDistance = Math.round(toMeters(referenceLineStrings.map(_.getLength).sum))
+        val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
         val referenceSegmentCount = geometryCollection.getNumGeometries
 
         val reference = MonitorRouteReference(

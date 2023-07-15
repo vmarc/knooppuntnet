@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.common.RelationUtil
+import kpn.core.util.Haversine
 import org.locationtech.jts.densify.Densifier
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
@@ -108,8 +109,8 @@ object MonitorRouteAnalysisSupport {
   }
 
   def toSampleCoordinates(sampleDistanceMeters: Int, lineString: LineString): Seq[Coordinate] = {
-    val referenceMeters = toMeters(lineString.getLength)
-    val distanceBetweenSamples = sampleDistanceMeters.toDouble * lineString.getLength / referenceMeters
+    val referenceMeters = Haversine.meters(lineString)
+    val distanceBetweenSamples = sampleDistanceMeters.toDouble * Haversine.meters(lineString) / referenceMeters
     val densifiedLineString = Densifier.densify(lineString, distanceBetweenSamples)
     densifiedLineString.getCoordinates.toSeq
   }

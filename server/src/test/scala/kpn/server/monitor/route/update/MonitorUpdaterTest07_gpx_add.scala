@@ -124,11 +124,11 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
-          referenceDistance = 196,
+          referenceDistance = 195,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 1,
-          osmDistance = 196,
+          osmDistance = 195,
           osmSegmentCount = 1,
           osmSegments = Seq(
             MonitorRouteOsmSegment(
@@ -136,7 +136,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
                 MonitorRouteOsmSegmentElement(
                   relationId = 1,
                   segmentId = 1,
-                  meters = 196,
+                  meters = 195,
                   bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
                   reversed = false
                 )
@@ -158,7 +158,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
               deviationCount = 0,
               osmWayCount = 1,
               osmSegmentCount = 1,
-              osmDistance = 196,
+              osmDistance = 195,
               osmDistanceSubRelations = 0,
               happy = true,
               relations = Seq.empty
@@ -179,7 +179,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx",
           referenceTimestamp = Timestamp(2022, 8, 1),
-          referenceDistance = 196,
+          referenceDistance = 195,
           referenceSegmentCount = 1,
           referenceFilename = Some("filename"),
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
@@ -194,14 +194,14 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
           relationId = 1,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 196,
+          osmDistance = 195,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               1,
               1001,
               1002,
-              196,
+              195,
               Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )

@@ -4,6 +4,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.location.LocationCandidate
 import kpn.api.common.route.RouteMap
+import kpn.core.util.Haversine
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -68,8 +69,12 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
 
   private def lineLength(geometry: Geometry): Double = {
     geometry match {
-      case lineString: LineString => lineString.getLength
-      case multiLineString: MultiLineString => multiLineString.getLength
+      case lineString: LineString => Haversine.meters(lineString)
+      case multiLineString: MultiLineString =>
+        0.until(multiLineString.getNumGeometries).map { index =>
+          Haversine.meters(multiLineString.getGeometryN(index).asInstanceOf[LineString])
+        }.sum
+
       case _ => 0d
     }
   }

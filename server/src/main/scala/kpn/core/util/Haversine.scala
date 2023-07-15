@@ -3,6 +3,7 @@ package kpn.core.util
 import kpn.api.common.LatLon
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
+import org.locationtech.jts.geom.LineString
 
 import scala.math.asin
 import scala.math.cos
@@ -41,6 +42,19 @@ object Haversine {
         Haversine.km(node1.lat, node1.lon, node2.lat, node2.lon)
       }.sum
       (km * 1000).toInt
+    }
+  }
+
+  def meters(lineString: LineString): Double = {
+    val coordinates = lineString.getCoordinates
+    if (coordinates.size < 2) {
+      0
+    }
+    else {
+      val km = coordinates.sliding(2).map { case Array(coordinate1, coordinate2) =>
+        Haversine.km(coordinate1.getY, coordinate1.getX, coordinate2.getY, coordinate2.getX)
+      }.sum
+      km * 1000
     }
   }
 }

@@ -242,7 +242,7 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
           *matHeaderCellDef
           i18n="@@monitor.group.route-table.osm-segment-count"
         >
-          OSM segments
+          Segments
         </th>
         <td mat-cell *matCellDef="let row">
           <ng-container *ngIf="row.physical">
