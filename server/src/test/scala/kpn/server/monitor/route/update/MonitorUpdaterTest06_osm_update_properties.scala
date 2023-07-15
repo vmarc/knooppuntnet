@@ -62,8 +62,9 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
             deviationDistance = 0,
             deviationCount = 0,
             osmWayCount = 1,
-            osmDistance = 196,
             osmSegmentCount = 1,
+            osmDistance = 196,
+            osmDistanceSubRelations = 196,
             happy = true,
             relations = Seq.empty
           )

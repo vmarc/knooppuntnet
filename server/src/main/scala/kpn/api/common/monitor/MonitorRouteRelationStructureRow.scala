@@ -17,7 +17,8 @@ case class MonitorRouteRelationStructureRow(
   deviationDistance: Long,
   deviationCount: Long,
   osmWayCount: Long,
-  osmDistance: Long,
   osmSegmentCount: Long,
+  osmDistance: Long,
+  osmDistanceSubRelations: Long,
   happy: Boolean
 )

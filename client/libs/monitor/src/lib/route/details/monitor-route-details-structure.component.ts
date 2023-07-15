@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Params } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
@@ -137,8 +138,25 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
           Distance
         </th>
         <td mat-cell *matCellDef="let row">
-          <div *ngIf="row.physical" class="distance">
-            {{ row.osmDistance | distance }}
+          <div class="distance">
+            <span
+              *ngIf="row.osmDistanceSubRelations > 0"
+              class="cumulative-distance"
+              matTooltip="Total length of ways in all subrelations"
+            >
+              {{ row.osmDistanceSubRelations | distance }}
+            </span>
+            <span
+              *ngIf="row.osmDistanceSubRelations > 0 && row.osmDistance > 0"
+            >
+              /
+            </span>
+            <span
+              *ngIf="row.osmDistance > 0"
+              matTooltip="Total length of ways in this relation"
+            >
+              {{ row.osmDistance | distance }}
+            </span>
           </div>
         </td>
       </ng-container>
@@ -282,6 +300,10 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
         width: 100%;
       }
 
+      .cumulative-distance {
+        font-weight: 800;
+      }
+
       .level-1 {
       }
 
@@ -314,6 +336,7 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
     MatButtonModule,
     MatIconModule,
     MatTableModule,
+    MatTooltipModule,
     NgIf,
     OsmLinkRelationComponent,
     RouterLink,

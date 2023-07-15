@@ -89,8 +89,9 @@ class MonitorRouteDetailsPageBuilder(
       deviationDistance = monitorRouteRelation.deviationDistance,
       deviationCount = monitorRouteRelation.deviationCount,
       osmWayCount = monitorRouteRelation.osmWayCount,
-      osmDistance = monitorRouteRelation.osmDistance,
       osmSegmentCount = monitorRouteRelation.osmSegmentCount,
+      osmDistance = monitorRouteRelation.osmDistance,
+      osmDistanceSubRelations = monitorRouteRelation.osmDistanceSubRelations,
       happy = monitorRouteRelation.happy
     )
   }

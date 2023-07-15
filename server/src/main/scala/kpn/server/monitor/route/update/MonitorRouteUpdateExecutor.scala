@@ -110,8 +110,8 @@ class MonitorRouteUpdateExecutor(
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 0,
-          osmDistance = 0,
           osmSegmentCount = 0,
+          osmDistance = 0,
           happy = false,
           osmSegments = Seq.empty,
           relation = None
@@ -608,9 +608,9 @@ class MonitorRouteUpdateExecutor(
     }
   }
 
-  private def resetReference(relation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
-    if (relation.relationId == subRelationId) {
-      relation.copy(
+  private def resetReference(monitorRouteRelation: MonitorRouteRelation, subRelationId: Long): MonitorRouteRelation = {
+    if (monitorRouteRelation.relationId == subRelationId) {
+      monitorRouteRelation.copy(
         referenceTimestamp = None,
         referenceFilename = None,
         referenceDistance = 0,
@@ -619,8 +619,8 @@ class MonitorRouteUpdateExecutor(
       )
     }
     else {
-      relation.copy(
-        relations = relation.relations.map(rel => resetReference(rel, subRelationId))
+      monitorRouteRelation.copy(
+        relations = monitorRouteRelation.relations.map(rel => resetReference(rel, subRelationId))
       )
     }
   }
@@ -724,7 +724,9 @@ class MonitorRouteUpdateExecutor(
 
       val stateSummaries = monitorRouteRepository.routeStateSummaries(context.routeId)
       val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(relation, stateSummaries))
-      val symbol = relation.flatMap(_.symbol)
+      val updatedRelation = relation.map(updatedMonitorRouteRelationCumulativeDistance)
+
+      val symbol = updatedRelation.flatMap(_.symbol)
       val osmWayCount = stateSummaries.map(_.osmWayCount).sum
       val osmDistance = stateSummaries.map(_.osmDistance).sum
 
@@ -732,7 +734,7 @@ class MonitorRouteUpdateExecutor(
         newRoute = Some(
           context.route.copy(
             symbol = symbol,
-            relation = relation,
+            relation = updatedRelation,
             osmWayCount = osmWayCount,
             osmDistance = osmDistance
           )
@@ -780,13 +782,13 @@ class MonitorRouteUpdateExecutor(
           deviationDistance = state.deviationDistance,
           deviationCount = state.deviationCount,
           osmWayCount = state.osmWayCount,
-          osmDistance = state.osmDistance,
           osmSegmentCount = state.osmSegmentCount,
+          osmDistance = state.osmDistance,
           happy = state.happy && subRelationsHappy,
           relations = updatedRelations
         )
-
     }
+
     if (context.update.action == "gpx-delete" && context.update.relationId.get == monitorRouteRelation.relationId) {
       updatedWithState.copy(
         referenceTimestamp = None,
@@ -797,6 +799,19 @@ class MonitorRouteUpdateExecutor(
     else {
       updatedWithState
     }
+  }
+
+  private def updatedMonitorRouteRelationCumulativeDistance(monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
+    val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationCumulativeDistance(r))
+    val osmDistanceSubRelations = monitorRouteRelation.relations.flatMap(monitorRouteRelationSubRelations).map(_.osmDistance).sum
+    monitorRouteRelation.copy(
+      osmDistanceSubRelations = osmDistanceSubRelations,
+      relations = updatedRelations
+    )
+  }
+
+  private def monitorRouteRelationSubRelations(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteRelation] = {
+    monitorRouteRelation +: monitorRouteRelation.relations.flatMap(r => monitorRouteRelationSubRelations(r))
   }
 
   private def udpateMonitorRouteRelation(context: MonitorUpdateContext, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {

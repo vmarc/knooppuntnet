@@ -1073,8 +1073,9 @@ trait SharedTestObjects extends MockFactory {
     deviationDistance: Long = 0,
     deviationCount: Long = 0,
     osmWayCount: Long = 0,
-    osmDistance: Long = 0,
     osmSegmentCount: Long = 0,
+    osmDistance: Long = 0,
+    osmDistanceSubRelations: Long = 0,
     happy: Boolean = false,
     relations: Seq[MonitorRouteRelation] = Seq.empty
   ): MonitorRouteRelation = {
@@ -1090,8 +1091,9 @@ trait SharedTestObjects extends MockFactory {
       deviationDistance,
       deviationCount,
       osmWayCount,
-      osmDistance,
       osmSegmentCount,
+      osmDistance,
+      osmDistanceSubRelations,
       happy,
       relations
     )

@@ -53,8 +53,9 @@ object MonitorRouteRelation {
       deviationDistance = 0,
       deviationCount = 0,
       osmWayCount = osmWayCount,
-      osmDistance = osmDistance + subRelationsDistance,
       osmSegmentCount = 0,
+      osmDistance = osmDistance,
+      osmDistanceSubRelations = subRelationsDistance,
       happy = false,
       relations = relations
     )
@@ -80,8 +81,9 @@ case class MonitorRouteRelation(
   deviationDistance: Long,
   deviationCount: Long,
   osmWayCount: Long,
-  osmDistance: Long,
   osmSegmentCount: Long,
+  osmDistance: Long,
+  osmDistanceSubRelations: Long,
   happy: Boolean,
   relations: Seq[MonitorRouteRelation]
 )

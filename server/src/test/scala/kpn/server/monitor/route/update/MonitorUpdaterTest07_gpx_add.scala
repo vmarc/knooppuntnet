@@ -157,8 +157,9 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
               deviationDistance = 0,
               deviationCount = 0,
               osmWayCount = 1,
-              osmDistance = 196,
               osmSegmentCount = 1,
+              osmDistance = 196,
+              osmDistanceSubRelations = 0,
               happy = true,
               relations = Seq.empty
             )

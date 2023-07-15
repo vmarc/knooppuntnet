@@ -112,8 +112,9 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
               deviationDistance = 0,
               deviationCount = 0,
               osmWayCount = 0,
-              osmDistance = 0,
               osmSegmentCount = 0,
+              osmDistance = 0,
+              osmDistanceSubRelations = 335,
               happy = true,
               relations = Seq(
                 MonitorRouteRelation(
@@ -128,8 +129,9 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   deviationDistance = 0,
                   deviationCount = 0,
                   osmWayCount = 1,
-                  osmDistance = 196,
                   osmSegmentCount = 1,
+                  osmDistance = 196,
+                  osmDistanceSubRelations = 0,
                   happy = true,
                   relations = Seq.empty
                 ),
@@ -145,8 +147,9 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   deviationDistance = 0,
                   deviationCount = 0,
                   osmWayCount = 1,
-                  osmDistance = 139,
                   osmSegmentCount = 1,
+                  osmDistance = 139,
+                  osmDistanceSubRelations = 0,
                   happy = true,
                   relations = Seq.empty
                 )

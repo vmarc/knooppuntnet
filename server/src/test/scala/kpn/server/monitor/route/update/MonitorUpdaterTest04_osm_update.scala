@@ -158,8 +158,9 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
               deviationDistance = 0,
               deviationCount = 0,
               osmWayCount = 0,
-              osmDistance = 0,
               osmSegmentCount = 0,
+              osmDistance = 0,
+              osmDistanceSubRelations = 0,
               happy = false,
               relations = Seq.empty
             )

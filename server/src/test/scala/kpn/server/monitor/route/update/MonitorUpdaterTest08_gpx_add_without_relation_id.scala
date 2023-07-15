@@ -214,8 +214,9 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
                 deviationDistance = 0,
                 deviationCount = 0,
                 osmWayCount = 1,
-                osmDistance = 196,
                 osmSegmentCount = 1,
+                osmDistance = 196,
+                osmDistanceSubRelations = 0,
                 happy = true,
                 relations = Seq.empty
               )

@@ -162,8 +162,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
               deviationDistance = 0,
               deviationCount = 0,
               osmWayCount = 0,
-              osmDistance = 0,
               osmSegmentCount = 0,
+              osmDistance = 0,
+              osmDistanceSubRelations = 335,
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(
@@ -178,8 +179,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   deviationDistance = 0,
                   deviationCount = 0,
                   osmWayCount = 1,
-                  osmDistance = 196,
                   osmSegmentCount = 1,
+                  osmDistance = 196,
+                  osmDistanceSubRelations = 0,
                   happy = false,
                   relations = Seq.empty
                 ),
@@ -195,8 +197,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   deviationDistance = 0,
                   deviationCount = 0,
                   osmWayCount = 1,
-                  osmDistance = 139,
                   osmSegmentCount = 1,
+                  osmDistance = 139,
+                  osmDistanceSubRelations = 0,
                   happy = false,
                   relations = Seq.empty
                 )
