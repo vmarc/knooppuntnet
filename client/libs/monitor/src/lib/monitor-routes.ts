@@ -18,6 +18,7 @@ import { MonitorRouteDetailsPageComponent } from './route/details/monitor-route-
 import { MonitorRouteGpxDeleteComponent } from './route/gpx/monitor-route-gpx-delete.component';
 import { MonitorRouteGpxComponent } from './route/gpx/monitor-route-gpx.component';
 import { MonitorRouteMapPageComponent } from './route/map/monitor-route-map-page.component';
+import { MonitorRouteGapsComponent } from './route/monitor-route-gaps.component';
 import { MonitorRouteUpdatePageComponent } from './route/update/monitor-route-update-page.component';
 
 export const monitorRoutes: Routes = [
@@ -28,6 +29,10 @@ export const monitorRoutes: Routes = [
       {
         path: '',
         component: MonitorGroupsPageComponent,
+      },
+      {
+        path: 'gaps',
+        component: MonitorRouteGapsComponent,
       },
       {
         path: 'changes',
