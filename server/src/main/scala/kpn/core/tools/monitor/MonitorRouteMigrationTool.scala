@@ -16,6 +16,7 @@ import kpn.server.monitor.domain.OldMonitorRoute
 import kpn.server.monitor.domain.OldMonitorRouteReference
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
+import kpn.server.monitor.route.update.MonitorRouteGapAnalyzer
 import kpn.server.monitor.route.update.MonitorRouteRelationAnalyzerImpl
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
@@ -46,6 +47,7 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
   private val monitorUpdateStructure = new MonitorUpdateStructureImpl(monitorRouteRelationRepository, monitorRouteStructureLoader)
   private val monitorRouteOsmSegmentAnalyzer = new MonitorRouteOsmSegmentAnalyzerImpl()
   private val monitorRouteDeviationAnalyzer = new MonitorRouteDeviationAnalyzerImpl()
+  private val monitorRouteGapAnalyzer = new MonitorRouteGapAnalyzer()
 
   val monitorRouteRelationAnalyzer = new MonitorRouteRelationAnalyzerImpl(
     monitorRouteRelationRepository,
@@ -59,7 +61,8 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
     monitorUpdateStructure,
     monitorRouteRelationAnalyzer,
     monitorRouteRelationRepository,
-    monitorRouteOsmSegmentAnalyzer
+    monitorRouteOsmSegmentAnalyzer,
+    monitorRouteGapAnalyzer
   )
 }
 

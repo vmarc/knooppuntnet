@@ -6,7 +6,6 @@ import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.common.Bounds
-import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.api.custom.ApiResponse
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
@@ -20,7 +19,6 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteReferenceSummary
 import kpn.server.monitor.domain.MonitorRouteState
@@ -46,6 +44,7 @@ class MonitorRouteUpdateExecutor(
   monitorRouteRelationAnalyzer: MonitorRouteRelationAnalyzer,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
+  monitorRouteGapAnalyzer: MonitorRouteGapAnalyzer
 ) {
 
   private val log = Log(classOf[MonitorRouteUpdateExecutor])
@@ -734,17 +733,13 @@ class MonitorRouteUpdateExecutor(
       val monitorRouteSegmentInfos = monitorRouteRepository.routeStateSegments(context.routeId)
       val superRouteSuperSegments = MonitorRouteOsmSegmentBuilder.build(monitorRouteSegmentInfos)
 
-      val gapInfos = relationWithDistances.toSeq.flatMap(monitorRouteRelation =>
-        collectMonitorRouteRelationGapInfos(
-          monitorRouteRelation,
+      val relationWithGaps = relationWithDistances.map { monitorRouteRelation =>
+        monitorRouteGapAnalyzer.calculate(
+          monitorRouteSegmentInfos,
           superRouteSuperSegments,
-          monitorRouteSegmentInfos
+          monitorRouteRelation
         )
-      )
-
-      val calculatedGapInfos = calculateGaps(gapInfos)
-
-      val relationWithGaps = relationWithDistances.map(r => updatedMonitorRouteRelationGap(r, calculatedGapInfos))
+      }
 
       val symbol = relationWithGaps.flatMap(_.symbol)
       val osmWayCount = stateSummaries.map(_.osmWayCount).sum
@@ -820,50 +815,6 @@ class MonitorRouteUpdateExecutor(
   }
 
 
-  private def calculateGaps(gapInfos: Seq[MonitorRouteRelationGapInfo]): Seq[MonitorRouteRelationGapInfo] = {
-
-    gapInfos.zipWithIndex.map { case (gapInfo, index) =>
-      var gaps: Seq[String] = Seq.empty
-
-      if (index == 0) {
-        gaps = gaps :+ "start"
-      }
-      else {
-        val previousGapInfo = gapInfos(index - 1)
-        if (previousGapInfo.endNodeId != gapInfo.startNodeId) {
-          gaps = gaps :+ "top"
-        }
-      }
-
-      if (gapInfo.osmSegmentCount > 1) {
-        gaps = gaps :+ "middle"
-      }
-
-      if (index == gapInfos.size - 1) {
-        gaps = gaps :+ "end"
-      }
-      else {
-        val nextGapInfo = gapInfos(index + 1)
-        if (gapInfo.endNodeId != nextGapInfo.startNodeId) {
-          gaps = gaps :+ "bottom"
-        }
-      }
-
-      gapInfo.copy(
-        gaps = Some(if (gaps.isEmpty) "" else gaps.mkString("-"))
-      )
-    }
-  }
-
-  private def updatedMonitorRouteRelationGap(monitorRouteRelation: MonitorRouteRelation, gapInfos: Seq[MonitorRouteRelationGapInfo]): MonitorRouteRelation = {
-    val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationGap(r, gapInfos))
-    val gaps = gapInfos.find(_.relationId == monitorRouteRelation.relationId).flatMap(_.gaps)
-    monitorRouteRelation.copy(
-      gaps = gaps,
-      relations = updatedRelations
-    )
-  }
-
   private def updatedMonitorRouteRelationCumulativeDistance(monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
     val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationCumulativeDistance(r))
     val osmDistanceSubRelations = monitorRouteRelation.relations.flatMap(monitorRouteRelationSubRelations).map(_.osmDistance).sum
@@ -871,55 +822,6 @@ class MonitorRouteUpdateExecutor(
       osmDistanceSubRelations = osmDistanceSubRelations,
       relations = updatedRelations
     )
-  }
-
-  private def collectMonitorRouteRelationGapInfos(
-    monitorRouteRelation: MonitorRouteRelation,
-    superRouteSegments: Seq[MonitorRouteOsmSegment],
-    segments: Seq[MonitorRouteSegmentInfo]
-  ): Seq[MonitorRouteRelationGapInfo] = {
-    val endNodes: Seq[(Long, Long)] = superRouteSegments.flatMap(_.elements).flatMap { element =>
-      if (element.relationId == monitorRouteRelation.relationId) {
-        segments.find(_.relationId == element.relationId) match {
-          case None => None
-          case Some(segment) =>
-            if (element.reversed) {
-              Some((segment.endNodeId, segment.startNodeId))
-            }
-            else {
-              Some((segment.startNodeId, segment.endNodeId))
-            }
-        }
-      }
-      else {
-        None
-      }
-    }
-
-    val gapInfos: Seq[MonitorRouteRelationGapInfo] = if (endNodes.isEmpty) {
-      Seq.empty
-    }
-    else {
-      val startNodeId = endNodes.headOption.map(_._1).getOrElse(0L)
-      val endNodeId = endNodes.lastOption.map(_._2).getOrElse(0L)
-      Seq(
-        MonitorRouteRelationGapInfo(
-          monitorRouteRelation.relationId,
-          monitorRouteRelation.osmSegmentCount,
-          startNodeId,
-          endNodeId,
-          None
-        )
-      )
-    }
-
-    gapInfos ++ monitorRouteRelation.relations.flatMap { r =>
-      collectMonitorRouteRelationGapInfos(
-        r,
-        superRouteSegments,
-        segments
-      )
-    }
   }
 
   private def monitorRouteRelationSubRelations(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteRelation] = {
