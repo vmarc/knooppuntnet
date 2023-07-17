@@ -65,8 +65,6 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
             osmSegmentCount = 1,
             osmDistance = 196,
             osmDistanceSubRelations = 196,
-            startNodeId = None,
-            endNodeId = None,
             gaps = None,
             happy = true,
             relations = Seq.empty

@@ -217,8 +217,6 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
                 osmSegmentCount = 1,
                 osmDistance = 181,
                 osmDistanceSubRelations = 0,
-                startNodeId = Some(1001),
-                endNodeId = Some(1002),
                 gaps = Some("start-end"),
                 happy = true,
                 relations = Seq.empty

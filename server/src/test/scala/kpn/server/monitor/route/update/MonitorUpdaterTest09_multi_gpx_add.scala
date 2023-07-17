@@ -117,8 +117,6 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
               osmSegmentCount = 0,
               osmDistance = 0,
               osmDistanceSubRelations = 274,
-              startNodeId = None,
-              endNodeId = None,
               gaps = None,
               happy = false,
               relations = Seq(
@@ -137,8 +135,6 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   osmSegmentCount = 1,
                   osmDistance = 181,
                   osmDistanceSubRelations = 0,
-                  startNodeId = Some(1001),
-                  endNodeId = Some(1002),
                   gaps = Some("start"),
                   happy = false,
                   relations = Seq.empty
@@ -158,8 +154,6 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   osmSegmentCount = 1,
                   osmDistance = 93,
                   osmDistanceSubRelations = 0,
-                  startNodeId = Some(1002),
-                  endNodeId = Some(1003),
                   gaps = Some("end"),
                   happy = false,
                   relations = Seq.empty

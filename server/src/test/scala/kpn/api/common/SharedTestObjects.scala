@@ -1076,8 +1076,6 @@ trait SharedTestObjects extends MockFactory {
     osmSegmentCount: Long = 0,
     osmDistance: Long = 0,
     osmDistanceSubRelations: Long = 0,
-    startNodeId: Option[Long] = None,
-    endNodeId: Option[Long] = None,
     gaps: Option[String] = None,
     happy: Boolean = false,
     relations: Seq[MonitorRouteRelation] = Seq.empty
@@ -1097,8 +1095,6 @@ trait SharedTestObjects extends MockFactory {
       osmSegmentCount,
       osmDistance,
       osmDistanceSubRelations,
-      startNodeId,
-      endNodeId,
       gaps,
       happy,
       relations

@@ -115,8 +115,6 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
               osmSegmentCount = 0,
               osmDistance = 0,
               osmDistanceSubRelations = 274,
-              startNodeId = None,
-              endNodeId = None,
               gaps = None,
               happy = true,
               relations = Seq(
@@ -135,8 +133,6 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   osmSegmentCount = 1,
                   osmDistance = 181,
                   osmDistanceSubRelations = 0,
-                  startNodeId = Some(1001),
-                  endNodeId = Some(1002),
                   gaps = Some("start"),
                   happy = true,
                   relations = Seq.empty
@@ -156,8 +152,6 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   osmSegmentCount = 1,
                   osmDistance = 93,
                   osmDistanceSubRelations = 0,
-                  startNodeId = Some(1002),
-                  endNodeId = Some(1003),
                   gaps = Some("end"),
                   happy = true,
                   relations = Seq.empty

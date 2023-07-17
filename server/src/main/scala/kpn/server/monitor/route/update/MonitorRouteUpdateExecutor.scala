@@ -857,19 +857,11 @@ class MonitorRouteUpdateExecutor(
 
   private def updatedMonitorRouteRelationGap(monitorRouteRelation: MonitorRouteRelation, gapInfos: Seq[MonitorRouteRelationGapInfo]): MonitorRouteRelation = {
     val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationGap(r, gapInfos))
-    gapInfos.find(_.relationId == monitorRouteRelation.relationId) match {
-      case None =>
-        monitorRouteRelation.copy(
-          relations = updatedRelations
-        )
-      case Some(gapInfo) =>
-        monitorRouteRelation.copy(
-          startNodeId = Some(gapInfo.startNodeId),
-          endNodeId = Some(gapInfo.endNodeId),
-          gaps = gapInfo.gaps,
-          relations = updatedRelations
-        )
-    }
+    val gaps = gapInfos.find(_.relationId == monitorRouteRelation.relationId).flatMap(_.gaps)
+    monitorRouteRelation.copy(
+      gaps = gaps,
+      relations = updatedRelations
+    )
   }
 
   private def updatedMonitorRouteRelationCumulativeDistance(monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
@@ -928,38 +920,6 @@ class MonitorRouteUpdateExecutor(
         segments
       )
     }
-  }
-
-  private def updatedMonitorRouteRelationNodeIds(monitorRouteRelation: MonitorRouteRelation, superRouteSegments: Seq[MonitorRouteOsmSegment], segments: Seq[MonitorRouteSegmentInfo]): MonitorRouteRelation = {
-
-    val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationNodeIds(r, superRouteSegments, segments))
-
-    val endNodes: Seq[(Long, Long)] = superRouteSegments.flatMap(_.elements).flatMap { element =>
-      if (element.relationId == monitorRouteRelation.relationId) {
-        segments.find(_.relationId == element.relationId) match {
-          case None => None
-          case Some(segment) =>
-            if (element.reversed) {
-              Some((segment.endNodeId, segment.startNodeId))
-            }
-            else {
-              Some((segment.startNodeId, segment.endNodeId))
-            }
-        }
-      }
-      else {
-        None
-      }
-    }
-
-    val startNodeId = endNodes.headOption.map(_._1)
-    val endNodeId = endNodes.lastOption.map(_._2)
-
-    monitorRouteRelation.copy(
-      startNodeId = startNodeId,
-      endNodeId = endNodeId,
-      relations = updatedRelations
-    )
   }
 
   private def monitorRouteRelationSubRelations(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteRelation] = {

@@ -53,8 +53,6 @@ object MonitorRouteRelation {
       osmSegmentCount = 0,
       osmDistance = 0,
       osmDistanceSubRelations = subRelationsDistance,
-      startNodeId = None,
-      endNodeId = None,
       gaps = None,
       happy = false,
       relations = relations
@@ -84,8 +82,6 @@ case class MonitorRouteRelation(
   osmSegmentCount: Long,
   osmDistance: Long,
   osmDistanceSubRelations: Long,
-  startNodeId: Option[Long],
-  endNodeId: Option[Long],
   gaps: Option[String],
   happy: Boolean,
   relations: Seq[MonitorRouteRelation]
