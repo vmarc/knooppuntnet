@@ -92,6 +92,7 @@ class MonitorRouteDetailsPageBuilder(
       osmSegmentCount = monitorRouteRelation.osmSegmentCount,
       osmDistance = monitorRouteRelation.osmDistance,
       osmDistanceSubRelations = monitorRouteRelation.osmDistanceSubRelations,
+      gaps = monitorRouteRelation.gaps,
       happy = monitorRouteRelation.happy
     )
   }

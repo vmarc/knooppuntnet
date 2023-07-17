@@ -20,5 +20,6 @@ case class MonitorRouteRelationStructureRow(
   osmSegmentCount: Long,
   osmDistance: Long,
   osmDistanceSubRelations: Long,
+  gaps: Option[String],
   happy: Boolean
 )

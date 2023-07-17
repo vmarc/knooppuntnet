@@ -110,14 +110,14 @@ class MonitorChangeProcessorImpl(
     val beforeRouteSegments = log.infoElapsed {
       ("toRouteSegments before", Seq.empty /* MonitorRouteAnalysisSupport.toRouteSegments(beforeRelation) */ )
     }
-    val beforeRoute = log.infoElapsed {
+    val beforeRouteAnalysis = log.infoElapsed {
       ("analyze change before", analyzeChange(reference, beforeRelation, beforeRouteSegments))
     }
 
     val afterRouteSegments = log.infoElapsed {
       ("toRouteSegments after", Seq.empty /* MonitorRouteAnalysisSupport.toRouteSegments(afterRelation) */ )
     }
-    val afterRoute = log.infoElapsed {
+    val afterRouteAnalysis = log.infoElapsed {
       ("analyze change after", analyzeChange(reference, afterRelation, afterRouteSegments))
     }
 
@@ -139,24 +139,24 @@ class MonitorChangeProcessorImpl(
       log.info("No geometry changes, no further analysis")
     }
     else {
-      val beforeGeoJons = beforeRoute.deviations.map(_.geoJson)
-      val afterGeoJons = afterRoute.deviations.map(_.geoJson)
+      val beforeGeoJons = beforeRouteAnalysis.deviations.map(_.geoJson)
+      val afterGeoJons = afterRouteAnalysis.deviations.map(_.geoJson)
 
-      val newSegments = afterRoute.deviations.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
-      val resolvedSegments = beforeRoute.deviations.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
+      val newSegments = afterRouteAnalysis.deviations.filterNot(nokSegment => beforeGeoJons.contains(nokSegment.geoJson))
+      val resolvedSegments = beforeRouteAnalysis.deviations.filterNot(nokSegment => afterGeoJons.contains(nokSegment.geoJson))
 
-      val message = s"ways=${afterRoute.wayCount} $wayIdsAdded/$wayIdsRemoved/$wayIdsUpdated," ++
-        s" osm=${afterRoute.osmDistance}," ++
-        s" gpx=${afterRoute.gpxDistance}," ++
-        s" osmSegments=${afterRoute.osmSegments.size}," ++
-        s" nokSegments=${afterRoute.deviations.size}," ++
+      val message = s"ways=${afterRouteAnalysis.wayCount} $wayIdsAdded/$wayIdsRemoved/$wayIdsUpdated," ++
+        s" osm=${afterRouteAnalysis.osmDistance}," ++
+        s" gpx=${afterRouteAnalysis.gpxDistance}," ++
+        s" osmSegments=${afterRouteAnalysis.osmSegments.size}," ++
+        s" nokSegments=${afterRouteAnalysis.deviations.size}," ++
         s" new=${newSegments.size}," ++
         s" resolved=${resolvedSegments.size}"
 
       val key = context.buildChangeKey(routeId)
 
       val routeSegments = if (newSegments.nonEmpty || resolvedSegments.nonEmpty) {
-        afterRoute.osmSegments
+        afterRouteAnalysis.osmSegments
       }
       else {
         Seq.empty
@@ -166,13 +166,13 @@ class MonitorChangeProcessorImpl(
         ObjectId(),
         ObjectId("TODO"), // key.toId,
         key,
-        afterRoute.wayCount,
+        afterRouteAnalysis.wayCount,
         wayIdsAdded,
         wayIdsRemoved,
         wayIdsUpdated,
-        afterRoute.osmDistance,
-        afterRoute.osmSegments.size,
-        afterRoute.deviations.size,
+        afterRouteAnalysis.osmDistance,
+        afterRouteAnalysis.osmSegments.size,
+        afterRouteAnalysis.deviations.size,
         resolvedSegments.size,
         happy = resolvedSegments.nonEmpty,
         investigate = newSegments.nonEmpty
@@ -195,13 +195,15 @@ class MonitorChangeProcessorImpl(
         ObjectId(),
         null, // TODO routeId,
         1L, // TODO relationId
-        afterRoute.relation.timestamp,
-        afterRoute.wayCount,
-        afterRoute.osmDistance,
-        afterRoute.bounds,
-        afterRoute.osmSegments,
-        afterRoute.matchesGeometry,
-        afterRoute.deviations,
+        afterRouteAnalysis.relation.timestamp,
+        afterRouteAnalysis.wayCount,
+        afterRouteAnalysis.startNodeId,
+        afterRouteAnalysis.endNodeId,
+        afterRouteAnalysis.osmDistance,
+        afterRouteAnalysis.bounds,
+        afterRouteAnalysis.osmSegments,
+        afterRouteAnalysis.matchesGeometry,
+        afterRouteAnalysis.deviations,
         happy,
       )
 
@@ -215,6 +217,8 @@ class MonitorChangeProcessorImpl(
     MonitorRouteAnalysis(
       routeRelation,
       routeRelation.wayMembers.size,
+      None, // TODO
+      None, // TODO
       0,
       0,
       Bounds(),

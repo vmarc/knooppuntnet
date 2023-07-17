@@ -65,6 +65,9 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
             osmSegmentCount = 1,
             osmDistance = 196,
             osmDistanceSubRelations = 196,
+            startNodeId = None,
+            endNodeId = None,
+            gaps = None,
             happy = true,
             relations = Seq.empty
           )
@@ -77,6 +80,8 @@ class MonitorUpdaterTest06_osm_update_properties extends UnitTest with BeforeAnd
         relationId = 1,
         timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
         wayCount = 1,
+        startNodeId = None,
+        endNodeId = None,
         osmDistance = 196,
         bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
         osmSegments = Seq(

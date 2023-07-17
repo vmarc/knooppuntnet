@@ -102,7 +102,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),
-          referenceDistance = 195,
+          referenceDistance = 181,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 0,
@@ -181,11 +181,11 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
             timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             referenceFilename = Some("filename"),
-            referenceDistance = 195,
+            referenceDistance = 181,
             deviationDistance = 0,
             deviationCount = 0,
             osmWayCount = 1,
-            osmDistance = 195,
+            osmDistance = 181,
             osmSegmentCount = 1,
             osmSegments = Seq(
               MonitorRouteOsmSegment(
@@ -193,7 +193,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
                   MonitorRouteOsmSegmentElement(
                     relationId = 1,
                     segmentId = 1,
-                    meters = 195,
+                    meters = 181,
                     bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
                     reversed = false
                   )
@@ -215,8 +215,11 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
                 deviationCount = 0,
                 osmWayCount = 1,
                 osmSegmentCount = 1,
-                osmDistance = 195,
+                osmDistance = 181,
                 osmDistanceSubRelations = 0,
+                startNodeId = Some(1001),
+                endNodeId = Some(1002),
+                gaps = Some("start-end"),
                 happy = true,
                 relations = Seq.empty
               )
@@ -237,7 +240,7 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx",
           referenceTimestamp = Timestamp(2022, 8, 1),
-          referenceDistance = 195,
+          referenceDistance = 181,
           referenceSegmentCount = 1,
           referenceFilename = Some("filename"),
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
@@ -252,14 +255,16 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           relationId = 1,
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 195,
+          startNodeId = Some(1001),
+          endNodeId = Some(1002),
+          osmDistance = 181,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               1,
               1001,
               1002,
-              195,
+              181,
               Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )

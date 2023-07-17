@@ -58,55 +58,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      routeAddReporter.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "11", Some("1/3 sub-relation-1")),
-              MonitorRouteUpdateStatusCommand("step-add", "12", Some("2/3 sub-relation-2")),
-              MonitorRouteUpdateStatusCommand("step-add", "1", Some("3/3 main-relation")),
-              MonitorRouteUpdateStatusCommand("step-add", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "11")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "12")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "1")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save")
-            )
-          )
-        )
-      )
+      assertRouteAddMessages(routeAddReporter.messages)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -127,7 +79,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 2,
-          osmDistance = 334,
+          osmDistance = 274,
           osmSegmentCount = 1,
           osmSegments = Seq(
             MonitorRouteOsmSegment(
@@ -135,14 +87,14 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                 MonitorRouteOsmSegmentElement(
                   relationId = 11,
                   segmentId = 1,
-                  meters = 195,
+                  meters = 181,
                   bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
                   reversed = false
                 ),
                 MonitorRouteOsmSegmentElement(
                   relationId = 12,
                   segmentId = 1,
-                  meters = 139,
+                  meters = 93,
                   bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
                   reversed = false
                 )
@@ -164,7 +116,10 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
               osmWayCount = 0,
               osmSegmentCount = 0,
               osmDistance = 0,
-              osmDistanceSubRelations = 334,
+              osmDistanceSubRelations = 274,
+              startNodeId = None,
+              endNodeId = None,
+              gaps = None,
               happy = false,
               relations = Seq(
                 MonitorRouteRelation(
@@ -180,8 +135,11 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   deviationCount = 0,
                   osmWayCount = 1,
                   osmSegmentCount = 1,
-                  osmDistance = 195,
+                  osmDistance = 181,
                   osmDistanceSubRelations = 0,
+                  startNodeId = Some(1001),
+                  endNodeId = Some(1002),
+                  gaps = Some("start"),
                   happy = false,
                   relations = Seq.empty
                 ),
@@ -198,8 +156,11 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                   deviationCount = 0,
                   osmWayCount = 1,
                   osmSegmentCount = 1,
-                  osmDistance = 139,
+                  osmDistance = 93,
                   osmDistanceSubRelations = 0,
+                  startNodeId = Some(1002),
+                  endNodeId = Some(1003),
+                  gaps = Some("end"),
                   happy = false,
                   relations = Seq.empty
                 )
@@ -223,14 +184,16 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           relationId = 11,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 195,
+          startNodeId = Some(1001),
+          endNodeId = Some(1002),
+          osmDistance = 181,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               id = 1,
               startNodeId = 1001,
               endNodeId = 1002,
-              meters = 195,
+              meters = 181,
               bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               geoJson = """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             ),
@@ -249,14 +212,16 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           relationId = 12,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 139,
+          startNodeId = Some(1002),
+          endNodeId = Some(1003),
+          osmDistance = 93,
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               id = 1,
               startNodeId = 1002,
               endNodeId = 1003,
-              meters = 139,
+              meters = 93,
               bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
               geoJson = """{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             ),
@@ -299,20 +264,8 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           uploadGpx1
         )
       )
-      uploadGpxReporter1.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save")
-            )
-          )
-        )
-      )
+
+      assertUploadGpx1Messages(uploadGpxReporter1.messages)
 
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated1.shouldMatchTo(
@@ -323,9 +276,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                 relation.relations.head.copy(
                   referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
-                  referenceDistance = 195,
+                  referenceDistance = 181,
                   osmWayCount = 1,
-                  osmDistance = 195,
+                  osmDistance = 181,
                   osmSegmentCount = 1,
                   happy = true,
                 ),
@@ -348,7 +301,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 1),
-          referenceDistance = 195,
+          referenceDistance = 181,
           referenceSegmentCount = 1,
           referenceFilename = Some("filename-1"),
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
@@ -403,20 +356,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      uploadGpxReporter2.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save")
-            )
-          )
-        )
-      )
+      assertUploadGpx2Messages(uploadGpxReporter2.messages)
 
       val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated2.shouldMatchTo(
@@ -428,18 +368,18 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
                 relation.relations.head.copy(
                   referenceTimestamp = Some(Timestamp(2022, 8, 1)),
                   referenceFilename = Some("filename-1"),
-                  referenceDistance = 195,
+                  referenceDistance = 181,
                   osmWayCount = 1,
-                  osmDistance = 195,
+                  osmDistance = 181,
                   osmSegmentCount = 1,
                   happy = true,
                 ),
                 relation.relations(1).copy(
                   referenceTimestamp = Some(Timestamp(2022, 8, 2)),
                   referenceFilename = Some("filename-2"),
-                  referenceDistance = 139,
+                  referenceDistance = 93,
                   osmWayCount = 1,
-                  osmDistance = 139,
+                  osmDistance = 93,
                   osmSegmentCount = 1,
                   happy = true,
                 )
@@ -464,7 +404,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           referenceBounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "gpx", // the route reference type is "multi-gpx", but the invidual reference is "gpx"
           referenceTimestamp = Timestamp(2022, 8, 2),
-          referenceDistance = 139,
+          referenceDistance = 93,
           referenceSegmentCount = 1,
           referenceFilename = Some("filename-2"),
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
@@ -552,5 +492,91 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(mainRelation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 11).returns(Some(subRelation1))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 12).returns(Some(subRelation2))
+  }
+
+  private def assertRouteAddMessages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
+    messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "11", Some("1/3 sub-relation-1")),
+            MonitorRouteUpdateStatusCommand("step-add", "12", Some("2/3 sub-relation-2")),
+            MonitorRouteUpdateStatusCommand("step-add", "1", Some("3/3 main-relation")),
+            MonitorRouteUpdateStatusCommand("step-add", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "11")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "12")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "1")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
+  }
+
+  private def assertUploadGpx1Messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
+    messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
+  }
+
+  private def assertUploadGpx2Messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
+    messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
   }
 }

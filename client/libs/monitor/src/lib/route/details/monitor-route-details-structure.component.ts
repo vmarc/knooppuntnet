@@ -17,6 +17,7 @@ import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
+import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-structure',
@@ -240,6 +241,7 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
         <th
           mat-header-cell
           *matHeaderCellDef
+          colspan="2"
           i18n="@@monitor.group.route-table.osm-segment-count"
         >
           Segments
@@ -247,6 +249,15 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
         <td mat-cell *matCellDef="let row">
           <ng-container *ngIf="row.physical">
             {{ row.osmSegmentCount }}
+          </ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="gap">
+        <th style="display: none" mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.gaps !== undefined">
+            <kpn-monitor-route-gap [description]="row.gaps" />
           </ng-container>
         </td>
       </ng-container>
@@ -337,6 +348,7 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
     MatIconModule,
     MatTableModule,
     MatTooltipModule,
+    MonitorRouteGapComponent,
     NgIf,
     OsmLinkRelationComponent,
     RouterLink,
@@ -376,6 +388,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'deviation-count',
     'deviation-distance',
     'osm-segment-count',
+    'gap',
   ];
 
   private readonly columnsWithoutHeader = [

@@ -29,12 +29,12 @@ class MonitorRouteRelationAnalyzerImpl(
           val wayMembers = MonitorFilter.filterWayMembers(relation.wayMembers)
           val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
           val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.referenceGeoJson)
-
           val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
-
           val routeAnalysis = MonitorRouteAnalysis(
             relation,
             wayMembers.size,
+            osmSegmentAnalysis.startNodeId,
+            osmSegmentAnalysis.endNodeId,
             osmSegmentAnalysis.osmDistance,
             deviationAnalysis.referenceDistance,
             bounds,
@@ -56,6 +56,8 @@ class MonitorRouteRelationAnalyzerImpl(
               relationId,
               Time.now,
               routeAnalysis.wayCount,
+              routeAnalysis.startNodeId,
+              routeAnalysis.endNodeId,
               routeAnalysis.osmDistance,
               routeAnalysis.bounds,
               routeAnalysis.osmSegments,

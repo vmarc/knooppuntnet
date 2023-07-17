@@ -13,6 +13,8 @@ case class MonitorRouteState(
   relationId: Long,
   timestamp: Timestamp, // time of most recent analysis
   wayCount: Long,
+  startNodeId: Option[Long],
+  endNodeId: Option[Long],
   osmDistance: Long,
   bounds: Bounds,
   osmSegments: Seq[MonitorRouteSegment],

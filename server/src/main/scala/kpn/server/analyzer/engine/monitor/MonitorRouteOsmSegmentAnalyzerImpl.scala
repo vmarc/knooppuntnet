@@ -39,37 +39,15 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
       val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
       val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
 
-      val startId = {
-        segment.fragments.headOption match {
-          case None =>
-            0 // TODO throw exception
-          case Some(f) =>
-            f.fragment.nodes.headOption match {
-              case None =>
-                0 // TODO throw exception
-              case Some(n) => n.id
-            }
-        }
-      }
-      val endId = {
-        segment.fragments.lastOption match {
-          case None =>
-            0 // TODO throw exception
-          case Some(f) =>
-            f.fragment.nodes.lastOption match {
-              case None =>
-                0 // TODO throw exception
-              case Some(n) => n.id
-            }
-        }
-      }
+      val startNodeId = segment.fragments.headOption.map(_.startNode.id).getOrElse(0L)
+      val endNodeId = segment.fragments.lastOption.map(_.endNode.id).getOrElse(0L)
 
       MonitorRouteSegmentData(
         index + 1,
         MonitorRouteSegment(
           index + 1,
-          startId,
-          endId,
+          startNodeId,
+          endNodeId,
           meters,
           bounds,
           geoJson

@@ -18,6 +18,9 @@ export interface MonitorRouteRelation {
   readonly osmSegmentCount: number;
   readonly osmDistance: number;
   readonly osmDistanceSubRelations: number;
+  readonly startNodeId: number;
+  readonly endNodeId: number;
+  readonly gaps: string;
   readonly happy: boolean;
   readonly relations: MonitorRouteRelation[];
 }

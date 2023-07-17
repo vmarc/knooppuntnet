@@ -8,6 +8,8 @@ import kpn.api.custom.Relation
 case class MonitorRouteAnalysis(
   relation: Relation,
   wayCount: Long,
+  startNodeId: Option[Long],
+  endNodeId: Option[Long],
   osmDistance: Long,
   gpxDistance: Long,
   bounds: Bounds,

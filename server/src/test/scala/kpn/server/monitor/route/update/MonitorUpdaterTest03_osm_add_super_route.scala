@@ -77,7 +77,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 2,
-          osmDistance = 334,
+          osmDistance = 274,
           osmSegmentCount = 1,
           osmSegments = Seq(
             MonitorRouteOsmSegment(
@@ -85,14 +85,14 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                 MonitorRouteOsmSegmentElement(
                   relationId = 11,
                   segmentId = 1,
-                  meters = 195,
+                  meters = 181,
                   bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
                   reversed = false
                 ),
                 MonitorRouteOsmSegmentElement(
                   relationId = 12,
                   segmentId = 1,
-                  meters = 139,
+                  meters = 93,
                   bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
                   reversed = false
                 ),
@@ -114,7 +114,10 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
               osmWayCount = 0,
               osmSegmentCount = 0,
               osmDistance = 0,
-              osmDistanceSubRelations = 334,
+              osmDistanceSubRelations = 274,
+              startNodeId = None,
+              endNodeId = None,
+              gaps = None,
               happy = true,
               relations = Seq(
                 MonitorRouteRelation(
@@ -130,8 +133,11 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   deviationCount = 0,
                   osmWayCount = 1,
                   osmSegmentCount = 1,
-                  osmDistance = 195,
+                  osmDistance = 181,
                   osmDistanceSubRelations = 0,
+                  startNodeId = Some(1001),
+                  endNodeId = Some(1002),
+                  gaps = Some("start"),
                   happy = true,
                   relations = Seq.empty
                 ),
@@ -148,8 +154,11 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
                   deviationCount = 0,
                   osmWayCount = 1,
                   osmSegmentCount = 1,
-                  osmDistance = 139,
+                  osmDistance = 93,
                   osmDistanceSubRelations = 0,
+                  startNodeId = Some(1002),
+                  endNodeId = Some(1003),
+                  gaps = Some("end"),
                   happy = true,
                   relations = Seq.empty
                 )
@@ -175,7 +184,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
           referenceTimestamp = Timestamp(2022, 8, 11),
-          referenceDistance = 195,
+          referenceDistance = 181,
           referenceSegmentCount = 1,
           referenceFilename = None,
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
@@ -193,7 +202,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           referenceBounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           referenceType = "osm",
           referenceTimestamp = Timestamp(2022, 8, 11),
-          referenceDistance = 139,
+          referenceDistance = 93,
           referenceSegmentCount = 1,
           referenceFilename = None,
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]]}]}"""
@@ -211,14 +220,16 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           relationId = 11,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 195,
+          startNodeId = Some(1001),
+          endNodeId = Some(1002),
+          osmDistance = 181,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               1,
               1001,
               1002,
-              195,
+              181,
               Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )
@@ -237,14 +248,16 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           relationId = 12,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 139,
+          startNodeId = Some(1002),
+          endNodeId = Some(1003),
+          osmDistance = 93,
           bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               1,
               1002,
               1003,
-              139,
+              93,
               bounds = Bounds(51.4614496, 4.455056, 51.4618272, 4.4562458),
               """{"type":"LineString","coordinates":[[4.4562458,51.4618272],[4.455056,51.4614496]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )

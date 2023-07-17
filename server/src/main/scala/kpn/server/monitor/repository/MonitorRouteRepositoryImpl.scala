@@ -363,6 +363,8 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
           computed("osmWayCount", "$wayCount"),
           include("osmDistance"),
           computed("osmSegmentCount", Document("""{ $size: "$osmSegments" }""")),
+          include("startNodeId"),
+          include("endNodeId"),
           include("happy"),
         )
       ),

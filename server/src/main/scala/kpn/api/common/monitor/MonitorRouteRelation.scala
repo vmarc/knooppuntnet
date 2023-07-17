@@ -3,7 +3,6 @@ package kpn.api.common.monitor
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
-import kpn.core.util.Haversine
 import kpn.core.util.RouteSymbol
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 
@@ -32,8 +31,6 @@ object MonitorRouteRelation {
       case Failure(_) => None
     }
     val symbol = RouteSymbol.from(relation.tags)
-    val osmWayCount = relation.wayMembers.size
-    val osmDistance = relation.wayMembers.map(w => Haversine.meters(w.way.nodes)).sum
 
     val relations = relation.relationMembers.filterNot(_.role.contains("place_of_worship")).map { member =>
       MonitorRouteRelation.from(member.relation, member.role)
@@ -52,10 +49,13 @@ object MonitorRouteRelation {
       referenceDistance = 0,
       deviationDistance = 0,
       deviationCount = 0,
-      osmWayCount = osmWayCount,
+      osmWayCount = 0,
       osmSegmentCount = 0,
-      osmDistance = osmDistance,
+      osmDistance = 0,
       osmDistanceSubRelations = subRelationsDistance,
+      startNodeId = None,
+      endNodeId = None,
+      gaps = None,
       happy = false,
       relations = relations
     )
@@ -84,6 +84,9 @@ case class MonitorRouteRelation(
   osmSegmentCount: Long,
   osmDistance: Long,
   osmDistanceSubRelations: Long,
+  startNodeId: Option[Long],
+  endNodeId: Option[Long],
+  gaps: Option[String],
   happy: Boolean,
   relations: Seq[MonitorRouteRelation]
 )

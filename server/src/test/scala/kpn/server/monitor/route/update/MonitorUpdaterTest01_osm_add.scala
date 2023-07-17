@@ -110,11 +110,11 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,
-          referenceDistance = 195,
+          referenceDistance = 181,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 1,
-          osmDistance = 195,
+          osmDistance = 181,
           osmSegmentCount = 1,
           osmSegments = Seq(
             MonitorRouteOsmSegment(
@@ -122,7 +122,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
                 MonitorRouteOsmSegmentElement(
                   relationId = 1,
                   segmentId = 1,
-                  meters = 195,
+                  meters = 181,
                   bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
                   reversed = false
                 )
@@ -143,8 +143,11 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
               deviationCount = 0,
               osmWayCount = 1,
               osmSegmentCount = 1,
-              osmDistance = 195,
+              osmDistance = 181,
               osmDistanceSubRelations = 0,
+              startNodeId = Some(1001),
+              endNodeId = Some(1002),
+              gaps = Some("start-end"),
               happy = true,
               relations = Seq.empty
             )
@@ -164,7 +167,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
           referenceTimestamp = Timestamp(2022, 8, 1),
-          referenceDistance = 195,
+          referenceDistance = 181,
           referenceSegmentCount = 1,
           referenceFilename = None,
           referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
@@ -179,14 +182,16 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
           relationId = 1,
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
-          osmDistance = 195,
+          startNodeId = Some(1001),
+          endNodeId = Some(1002),
+          osmDistance = 181,
           bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           osmSegments = Seq(
             MonitorRouteSegment(
               id = 1,
               startNodeId = 1001,
               endNodeId = 1002,
-              meters = 195,
+              meters = 181,
               bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
               geoJson = """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             )
