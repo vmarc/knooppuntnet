@@ -27,6 +27,7 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteStateSummary
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
 import org.springframework.context.annotation.Scope
@@ -208,16 +209,25 @@ class MonitorRouteUpdateExecutor(
     findGroup()
     findRoute()
 
-    val referenceGpx = context.update.referenceGpx.getOrElse(throw new RuntimeException("reference gpx missing in update"))
+    val now = Time.now
     val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp missing in update"))
     val relationId = context.update.relationId.getOrElse(throw new RuntimeException("relationId missing in update"))
 
-    val now = Time.now
-    val xml = XML.loadString(referenceGpx)
-    val geometryCollection = new MonitorRouteGpxReader().read(xml)
-    val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
-    val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+    val geometryCollection: GeometryCollection = context.update.migrationGeojson match {
+      case Some(migrationGeojson) =>
+        val geometryFactory = new GeometryFactory
+        new GeoJsonReader(geometryFactory).read(migrationGeojson).asInstanceOf[GeometryCollection]
+      case None =>
+        val referenceGpx = context.update.referenceGpx.getOrElse(throw new RuntimeException("reference gpx missing in update"))
+        val xml = XML.loadString(referenceGpx)
+        new MonitorRouteGpxReader().read(xml)
+    }
 
+    val bounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
+    val geoJson = context.update.migrationGeojson match {
+      case Some(migrationGeojson) => migrationGeojson
+      case None => MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+    }
     // TODO should delete already existing reference here?
 
     val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
@@ -260,7 +270,7 @@ class MonitorRouteUpdateExecutor(
       )
     }
 
-    monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
+    monitorRouteRelationAnalyzer.analyzeReference(context, reference) match {
       case None =>
       case Some(state) =>
         // TODO improve performance by picking up _id only?
@@ -443,7 +453,7 @@ class MonitorRouteUpdateExecutor(
     }
 
     referenceOption.foreach { reference =>
-      monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
+      monitorRouteRelationAnalyzer.analyzeReference(context, reference) match {
         case Some(state) =>
           monitorRouteRepository.saveRouteState(state)
           context = context.copy(
@@ -478,22 +488,69 @@ class MonitorRouteUpdateExecutor(
     context.update.referenceGpx match {
       case None =>
 
-        monitorRouteRepository.routeReference(context.routeId) match {
+        context.update.migrationGeojson match {
+          case Some(referenceGeoJson) =>
+
+            val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
+
+            val now = Time.now
+            val geometryFactory = new GeometryFactory
+
+            val geometryCollection = new GeoJsonReader(geometryFactory).read(referenceGeoJson)
+            val referenceBounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
+
+            // TODO should delete already existing reference here?
+
+            val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
+            val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
+            val referenceSegmentCount = geometryCollection.getNumGeometries
+
+            val reference = MonitorRouteReference(
+              ObjectId(),
+              routeId = context.routeId,
+              relationId = context.relationId,
+              timestamp = now,
+              user = context.user,
+              referenceBounds = referenceBounds,
+              referenceType = "gpx",
+              referenceTimestamp = referenceTimestamp,
+              referenceDistance = referenceDistance,
+              referenceSegmentCount = referenceSegmentCount,
+              referenceFilename = context.update.referenceFilename,
+              referenceGeoJson = referenceGeoJson
+            )
+
+            monitorRouteRepository.saveRouteReference(reference)
+
+            val updatedNewRoute = context.newRoute.get.copy(
+              referenceDistance = referenceDistance
+            )
+
+            context = context.copy(
+              newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
+              newRoute = Some(updatedNewRoute)
+            )
+
+            analyze(reference)
+
           case None =>
-          case Some(reference) =>
-            if (reference.relationId != context.update.relationId) {
-              context.reporter.report(
-                MonitorRouteUpdateStatusMessage(
-                  commands = Seq(
-                    MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+            monitorRouteRepository.routeReference(context.routeId) match {
+              case None =>
+              case Some(reference) =>
+                if (reference.relationId != context.update.relationId) {
+                  context.reporter.report(
+                    MonitorRouteUpdateStatusMessage(
+                      commands = Seq(
+                        MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+                      )
+                    )
                   )
-                )
-              )
-              val updatedReference = reference.copy(
-                relationId = context.update.relationId
-              )
-              monitorRouteRepository.saveRouteReference(updatedReference)
-              analyze(updatedReference)
+                  val updatedReference = reference.copy(
+                    relationId = context.update.relationId
+                  )
+                  monitorRouteRepository.saveRouteReference(updatedReference)
+                  analyze(updatedReference)
+                }
             }
         }
 
@@ -555,7 +612,7 @@ class MonitorRouteUpdateExecutor(
 
   private def analyze(reference: MonitorRouteReference): Unit = {
     reportStepActive("analyze")
-    monitorRouteRelationAnalyzer.analyzeReference(context.routeId, reference) match {
+    monitorRouteRelationAnalyzer.analyzeReference(context, reference) match {
       case None =>
       case Some(state) =>
         monitorRouteRepository.saveRouteState(state)

@@ -96,6 +96,7 @@ object MonitorRouteMigrationTool {
       // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
       // tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
       // tool.migrateOne("SGR", "GR-129S-L3")
+      // tool.migrateOne("SGR", "GR-5")
       tool.migrate()
     }
     println("Done")
@@ -199,6 +200,13 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
       case None =>
     }
 
+    val migrationGeojson = if (oldRoute.referenceFilename.isDefined) {
+      Some(oldReference.geometry)
+    }
+    else {
+      None
+    }
+
     configuration.monitorRouteUpdateExecutor.execute(
       MonitorUpdateContext(
         oldReference.user,
@@ -212,8 +220,8 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
           comment = oldRoute.comment,
           relationId = oldRoute.relationId,
           referenceTimestamp = oldRoute.referenceDay.map(day => Timestamp(day)),
-          referenceFilename = oldRoute.referenceFilename
-          // TODO referenceGpx
+          referenceFilename = oldRoute.referenceFilename,
+          migrationGeojson = migrationGeojson,
         )
       )
     )

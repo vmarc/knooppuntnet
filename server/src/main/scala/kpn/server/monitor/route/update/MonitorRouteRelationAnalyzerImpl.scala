@@ -18,7 +18,7 @@ class MonitorRouteRelationAnalyzerImpl(
   monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
 ) extends MonitorRouteRelationAnalyzer {
 
-  override def analyzeReference(routeId: ObjectId, reference: MonitorRouteReference): Option[MonitorRouteState] = {
+  override def analyzeReference(context: MonitorUpdateContext, reference: MonitorRouteReference): Option[MonitorRouteState] = {
 
     reference.relationId.flatMap { relationId =>
 
@@ -52,7 +52,7 @@ class MonitorRouteRelationAnalyzerImpl(
           Some(
             MonitorRouteState(
               ObjectId(),
-              routeId,
+              context.routeId,
               relationId,
               Time.now,
               routeAnalysis.wayCount,

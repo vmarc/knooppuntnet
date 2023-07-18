@@ -45,23 +45,23 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
               [groupName]="page.groupName"
               [routes]="page.routes"
             />
-            <div *ngIf="service.admin()" class="kpn-form-buttons">
-              <button
-                mat-stroked-button
-                id="add-route"
-                [routerLink]="addRouteLink(page)"
-                type="button"
-                i18n="@@monitor.group.action.add-route"
-              >
-                Add route
-              </button>
-            </div>
           </div>
           <ng-template #noRoutes>
             <div id="no-routes" i18n="@@monitor.group.no-routes">
               No routes in group
             </div>
           </ng-template>
+          <div *ngIf="service.admin()" class="kpn-form-buttons">
+            <button
+              mat-stroked-button
+              id="add-route"
+              [routerLink]="addRouteLink(page)"
+              type="button"
+              i18n="@@monitor.group.action.add-route"
+            >
+              Add route
+            </button>
+          </div>
         </ng-container>
       </div>
       <kpn-sidebar sidebar />

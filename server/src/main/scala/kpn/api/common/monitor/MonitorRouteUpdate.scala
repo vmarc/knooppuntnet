@@ -13,6 +13,7 @@ case class MonitorRouteUpdate(
   referenceTimestamp: Option[Timestamp] = None,
   referenceFilename: Option[String] = None,
   referenceGpx: Option[String] = None,
+  migrationGeojson: Option[String] = None,
   newGroupName: Option[String] = None,
   newRouteName: Option[String] = None,
 )
