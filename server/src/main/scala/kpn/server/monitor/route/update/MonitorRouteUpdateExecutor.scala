@@ -435,6 +435,9 @@ class MonitorRouteUpdateExecutor(
             )
 
             monitorRouteRepository.saveRouteReference(ref)
+            context = context.copy(
+              newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(ref),
+            )
 
             if (updateSingleRelationRoute) {
               context = context.copy(
@@ -549,6 +552,9 @@ class MonitorRouteUpdateExecutor(
                     relationId = context.update.relationId
                   )
                   monitorRouteRepository.saveRouteReference(updatedReference)
+                  context = context.copy(
+                    newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(updatedReference),
+                  )
                   analyze(updatedReference)
                 }
             }

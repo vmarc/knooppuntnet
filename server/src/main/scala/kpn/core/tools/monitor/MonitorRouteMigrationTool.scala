@@ -96,8 +96,8 @@ object MonitorRouteMigrationTool {
       // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
       // tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
       // tool.migrateOne("SGR", "GR-129S-L3")
-      // tool.migrateOne("SGR", "GR-5")
-      tool.migrate()
+      tool.migrateOne("NL-LAW", "LAW-9-1")
+      // tool.migrate()
     }
     println("Done")
   }
@@ -262,6 +262,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
           )
 
           configuration.monitorRouteRepository.saveRouteReference(reference)
+          context = context.copy(referenceChanged = true)
 
           val updatedRoute = configuration.monitorRouteRelationAnalyzer.analyzeReference(newRoute._id, reference) match {
             case None => newRoute.copy(referenceDistance = reference.distance)

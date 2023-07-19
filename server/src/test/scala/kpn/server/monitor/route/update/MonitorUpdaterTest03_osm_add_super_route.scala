@@ -73,7 +73,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           referenceType = "osm",
           referenceTimestamp = Some(referenceTimestamp),
           referenceFilename = None,
-          referenceDistance = 0,
+          referenceDistance = 274,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 2,
