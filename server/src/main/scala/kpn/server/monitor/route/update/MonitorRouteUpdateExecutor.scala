@@ -6,7 +6,9 @@ import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.common.Bounds
+import kpn.api.common.data.WayMember
 import kpn.api.custom.ApiResponse
+import kpn.api.custom.Relation
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Haversine
@@ -17,6 +19,8 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
+import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -42,10 +46,10 @@ class MonitorRouteUpdateExecutor(
   monitorGroupRepository: MonitorGroupRepository,
   monitorRouteRepository: MonitorRouteRepository,
   monitorUpdateStructure: MonitorUpdateStructure,
-  monitorRouteRelationAnalyzer: MonitorRouteRelationAnalyzer,
   monitorRouteRelationRepository: MonitorRouteRelationRepository,
   monitorRouteOsmSegmentAnalyzer: MonitorRouteOsmSegmentAnalyzer,
-  monitorRouteGapAnalyzer: MonitorRouteGapAnalyzer
+  monitorRouteGapAnalyzer: MonitorRouteGapAnalyzer,
+  monitorRouteDeviationAnalyzer: MonitorRouteDeviationAnalyzer
 ) {
 
   private val log = Log(classOf[MonitorRouteUpdateExecutor])
@@ -270,7 +274,7 @@ class MonitorRouteUpdateExecutor(
       )
     }
 
-    monitorRouteRelationAnalyzer.analyzeReference(context, reference) match {
+    analyzeReference(reference) match {
       case None =>
       case Some(state) =>
         // TODO improve performance by picking up _id only?
@@ -456,7 +460,7 @@ class MonitorRouteUpdateExecutor(
     }
 
     referenceOption.foreach { reference =>
-      monitorRouteRelationAnalyzer.analyzeReference(context, reference) match {
+      analyzeReference(reference) match {
         case Some(state) =>
           monitorRouteRepository.saveRouteState(state)
           context = context.copy(
@@ -618,7 +622,7 @@ class MonitorRouteUpdateExecutor(
 
   private def analyze(reference: MonitorRouteReference): Unit = {
     reportStepActive("analyze")
-    monitorRouteRelationAnalyzer.analyzeReference(context, reference) match {
+    analyzeReference(reference) match {
       case None =>
       case Some(state) =>
         monitorRouteRepository.saveRouteState(state)
@@ -842,27 +846,42 @@ class MonitorRouteUpdateExecutor(
 
   private def updatedMonitorRouteRelation(monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorRouteStateSummary]): MonitorRouteRelation = {
 
-    val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelation(r, stateSummaries))
-    val subRelationsHappy = updatedRelations.forall(_.happy)
+    val updatedWithState = if (context.update.referenceType == "gpx") {
+      stateSummaries.headOption match {
+        case None => monitorRouteRelation
+        case Some(stateSummary) =>
+          monitorRouteRelation.copy(
+            deviationDistance = stateSummary.deviationDistance,
+            deviationCount = stateSummary.deviationCount,
+            osmWayCount = stateSummary.osmWayCount,
+            osmSegmentCount = stateSummary.osmSegmentCount,
+            osmDistanceSubRelations = 0,
+            happy = stateSummary.happy,
+          )
+      }
+    }
+    else {
+      val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelation(r, stateSummaries))
+      val subRelationsHappy = updatedRelations.forall(_.happy)
+      stateSummaries.find(_.relationId == monitorRouteRelation.relationId) match {
+        case None =>
+          monitorRouteRelation.copy(
+            relations = updatedRelations,
+            happy = subRelationsHappy
+          )
 
-    val updatedWithState = stateSummaries.find(_.relationId == monitorRouteRelation.relationId) match {
-      case None =>
-        monitorRouteRelation.copy(
-          relations = updatedRelations,
-          happy = subRelationsHappy
-        )
+        case Some(state) =>
 
-      case Some(state) =>
-
-        monitorRouteRelation.copy(
-          deviationDistance = state.deviationDistance,
-          deviationCount = state.deviationCount,
-          osmWayCount = state.osmWayCount,
-          osmSegmentCount = state.osmSegmentCount,
-          osmDistance = state.osmDistance,
-          happy = state.happy && subRelationsHappy,
-          relations = updatedRelations
-        )
+          monitorRouteRelation.copy(
+            deviationDistance = state.deviationDistance,
+            deviationCount = state.deviationCount,
+            osmWayCount = state.osmWayCount,
+            osmSegmentCount = state.osmSegmentCount,
+            osmDistance = state.osmDistance,
+            happy = state.happy && subRelationsHappy,
+            relations = updatedRelations
+          )
+      }
     }
 
     if (context.update.action == "gpx-delete" && context.update.relationId.get == monitorRouteRelation.relationId) {
@@ -876,7 +895,6 @@ class MonitorRouteUpdateExecutor(
       updatedWithState
     }
   }
-
 
   private def updatedMonitorRouteRelationCumulativeDistance(monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
     val updatedRelations = monitorRouteRelation.relations.map(r => updatedMonitorRouteRelationCumulativeDistance(r))
@@ -951,5 +969,133 @@ class MonitorRouteUpdateExecutor(
         )
       )
     )
+  }
+
+  private def analyzeReference(reference: MonitorRouteReference): Option[MonitorRouteState] = {
+
+    reference.relationId.flatMap { relationId =>
+      val relationOption = if (context.update.referenceType == "gpx") {
+        monitorRouteRelationRepository.load(None, relationId)
+      }
+      else {
+        monitorRouteRelationRepository.loadTopLevel(None, relationId)
+      }
+      relationOption match {
+        case None => None
+        case Some(relation) =>
+          if (context.update.referenceType == "gpx") {
+            updateSubRelationOsmInfo(relation)
+          }
+
+          val allWayMembers = if (context.update.referenceType == "gpx") {
+            collectAllWayMembers(relation)
+          }
+          else {
+            relation.wayMembers
+          }
+          val wayMembers = MonitorFilter.filterWayMembers(allWayMembers)
+          val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+          val deviationAnalysis = monitorRouteDeviationAnalyzer.analyze(wayMembers.map(_.way), reference.referenceGeoJson)
+          val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds) ++ deviationAnalysis.deviations.map(_.bounds))
+          val routeAnalysis = MonitorRouteAnalysis(
+            relation,
+            wayMembers.size,
+            osmSegmentAnalysis.startNodeId,
+            osmSegmentAnalysis.endNodeId,
+            osmSegmentAnalysis.osmDistance,
+            deviationAnalysis.referenceDistance,
+            bounds,
+            osmSegmentAnalysis.routeSegments.map(_.segment),
+            Some(deviationAnalysis.referenceGeometry),
+            deviationAnalysis.matchesGeometry,
+            deviationAnalysis.deviations,
+            relations = Seq.empty
+          )
+
+          val happy = routeAnalysis.gpxDistance > 0 &&
+            routeAnalysis.deviations.isEmpty &&
+            routeAnalysis.osmSegments.size == 1
+
+          Some(
+            MonitorRouteState(
+              ObjectId(),
+              context.routeId,
+              relationId,
+              Time.now,
+              routeAnalysis.wayCount,
+              routeAnalysis.startNodeId,
+              routeAnalysis.endNodeId,
+              routeAnalysis.osmDistance,
+              routeAnalysis.bounds,
+              routeAnalysis.osmSegments,
+              routeAnalysis.matchesGeometry,
+              routeAnalysis.deviations,
+              happy,
+            )
+          )
+      }
+    }
+  }
+
+  private def collectAllWayMembers(relation: Relation): Seq[WayMember] = {
+    val wayMembers = relation.wayMembers
+    val subRelationWayMembers = relation.relationMembers.flatMap { relationMember =>
+      collectAllWayMembers(relationMember.relation)
+    }
+    wayMembers ++ subRelationWayMembers
+  }
+
+  private def updateSubRelationOsmInfo(relation: Relation): Unit = {
+    context.newRoute match {
+      case None =>
+      case Some(newRoute) =>
+        val updatedRelation = newRoute.relation.map { monitorRouteRelation =>
+          updateSubRelationOsmInfo(relation, monitorRouteRelation)
+        }
+        context = context.copy(
+          newRoute = Some(
+            newRoute.copy(
+              relation = updatedRelation
+            )
+          )
+        )
+    }
+  }
+
+  private def updateSubRelationOsmInfo(relation: Relation, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelation = {
+
+    findSubRelation(relation, monitorRouteRelation.relationId) match {
+      case None => monitorRouteRelation
+      case Some(subRelation) =>
+
+        val updatedRelations = monitorRouteRelation.relations.map { subMonitorRouteRelation =>
+          updateSubRelationOsmInfo(subRelation, subMonitorRouteRelation)
+        }
+
+        val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
+        val osmWayCount = wayMembers.size
+        val osmDistance = wayMembers.map(_.way.length).sum
+        val osmDistanceSubRelations = updatedRelations.map { monitorRouteRelation =>
+          monitorRouteRelation.osmDistance + monitorRouteRelation.osmDistanceSubRelations
+        }.sum
+
+        monitorRouteRelation.copy(
+          osmWayCount = osmWayCount,
+          osmDistance = osmDistance,
+          osmDistanceSubRelations = osmDistanceSubRelations,
+          relations = updatedRelations
+        )
+    }
+  }
+
+  private def findSubRelation(relation: Relation, relationId: Long): Option[Relation] = {
+    if (relation.id == relationId) {
+      Some(relation)
+    }
+    else {
+      relation.relationMembers.flatMap { subRelationMember =>
+        findSubRelation(subRelationMember.relation, relationId)
+      }.headOption
+    }
   }
 }

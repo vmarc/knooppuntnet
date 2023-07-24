@@ -4,6 +4,7 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteRelationStructureRow
 import kpn.server.config.RequestContext
+import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
@@ -20,7 +21,7 @@ class MonitorRouteDetailsPageBuilder(
     val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-        val structureRows = flattenRelationTree(route.relation)
+        val structureRows = flattenRelationTree(route, route.relation)
         MonitorRouteDetailsPage(
           admin,
           group.name,
@@ -46,7 +47,7 @@ class MonitorRouteDetailsPageBuilder(
     }
   }
 
-  private def flattenRelationTree(relation: Option[MonitorRouteRelation]): Option[Seq[MonitorRouteRelationStructureRow]] = {
+  private def flattenRelationTree(route: MonitorRoute, relation: Option[MonitorRouteRelation]): Option[Seq[MonitorRouteRelationStructureRow]] = {
     relation match {
       case None => None
       case Some(relationLevel1) =>
@@ -54,17 +55,17 @@ class MonitorRouteDetailsPageBuilder(
           val rowsLevel3 = relationLevel2.relations.flatMap { relationLevel3 =>
             val rowsLevel4 = relationLevel3.relations.flatMap { relationLevel4 =>
               val rowsLevel5 = relationLevel4.relations.map { relationLevel5 =>
-                toRow(5, relationLevel5)
+                toRow(route, 5, relationLevel5)
               }
-              toRow(4, relationLevel4) +: rowsLevel5
+              toRow(route, 4, relationLevel4) +: rowsLevel5
             }
-            toRow(3, relationLevel3) +: rowsLevel4
+            toRow(route, 3, relationLevel3) +: rowsLevel4
           }
-          toRow(2, relationLevel2) +: rowsLevel3
+          toRow(route, 2, relationLevel2) +: rowsLevel3
         }
         if (rowsLevel2.nonEmpty) {
           Some(
-            toRow(1, relationLevel1) +: rowsLevel2
+            toRow(route, 1, relationLevel1) +: rowsLevel2
           )
         }
         else {
@@ -73,8 +74,21 @@ class MonitorRouteDetailsPageBuilder(
     }
   }
 
-  private def toRow(level: Long, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelationStructureRow = {
+  private def toRow(route: MonitorRoute, level: Long, monitorRouteRelation: MonitorRouteRelation): MonitorRouteRelationStructureRow = {
     val physical = monitorRouteRelation.osmDistance > 0 || monitorRouteRelation.referenceFilename.isDefined
+
+    val visible = if (route.referenceType == "gpx") {
+      level == 1
+    }
+    else {
+      physical
+    }
+
+    val showMap = if (route.referenceType == "gpx") level == 1 else physical
+    val deviationDistance = if (visible) Some(monitorRouteRelation.deviationDistance) else None
+    val deviationCount = if (visible) Some(monitorRouteRelation.deviationCount) else None
+    val osmSegmentCount = if (visible) Some(monitorRouteRelation.osmSegmentCount) else None
+
     MonitorRouteRelationStructureRow(
       level = level,
       physical = physical,
@@ -86,13 +100,13 @@ class MonitorRouteDetailsPageBuilder(
       referenceTimestamp = monitorRouteRelation.referenceTimestamp,
       referenceFilename = monitorRouteRelation.referenceFilename,
       referenceDistance = monitorRouteRelation.referenceDistance,
-      deviationDistance = monitorRouteRelation.deviationDistance,
-      deviationCount = monitorRouteRelation.deviationCount,
-      osmWayCount = monitorRouteRelation.osmWayCount,
-      osmSegmentCount = monitorRouteRelation.osmSegmentCount,
+      deviationDistance = deviationDistance,
+      deviationCount = deviationCount,
+      osmSegmentCount = osmSegmentCount,
       osmDistance = monitorRouteRelation.osmDistance,
       osmDistanceSubRelations = monitorRouteRelation.osmDistanceSubRelations,
       gaps = monitorRouteRelation.gaps,
+      showMap = showMap,
       happy = monitorRouteRelation.happy
     )
   }

@@ -14,12 +14,12 @@ case class MonitorRouteRelationStructureRow(
   referenceTimestamp: Option[Timestamp],
   referenceFilename: Option[String],
   referenceDistance: Long,
-  deviationDistance: Long,
-  deviationCount: Long,
-  osmWayCount: Long,
-  osmSegmentCount: Long,
+  deviationDistance: Option[Long],
+  deviationCount: Option[Long],
+  osmSegmentCount: Option[Long],
   osmDistance: Long,
   osmDistanceSubRelations: Long,
   gaps: Option[String],
+  showMap: Boolean,
   happy: Boolean
 )

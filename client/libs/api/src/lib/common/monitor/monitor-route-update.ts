@@ -13,6 +13,7 @@ export interface MonitorRouteUpdate {
   readonly referenceTimestamp: Timestamp;
   readonly referenceFilename: string;
   readonly referenceGpx: string;
+  readonly migrationGeojson: string;
   readonly newGroupName: string;
   readonly newRouteName: string;
 }

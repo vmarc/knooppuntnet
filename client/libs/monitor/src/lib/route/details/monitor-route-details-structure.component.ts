@@ -72,7 +72,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         </th>
         <td mat-cell *matCellDef="let row">
           <a
-            *ngIf="row.physical"
+            *ngIf="row.showMap"
             [routerLink]="mapLink()"
             [queryParams]="subRelationQueryParams(row)"
             i18n="@@monitor.group.route-table.map-link"
@@ -219,7 +219,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           Deviations
         </th>
         <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.physical">
+          <ng-container>
             {{ row.deviationCount }}
           </ng-container>
         </td>
@@ -228,7 +228,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       <ng-container matColumnDef="deviation-distance">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.physical">
+          <ng-container>
             <span *ngIf="row.deviationCount > 0">
               {{ row.deviationDistance | distance }}
             </span>
@@ -247,7 +247,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           Segments
         </th>
         <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.physical">
+          <ng-container>
             {{ row.osmSegmentCount }}
           </ng-container>
         </td>

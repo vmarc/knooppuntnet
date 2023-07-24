@@ -33,7 +33,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
       setupLoadStructure(configuration)
-      setupLoadTopLevel(configuration)
+      setupLoadRelation(configuration)
 
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
@@ -228,7 +228,7 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
     setupRouteStructure(configuration, overpassData, 1)
   }
 
-  private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
+  private def setupLoadRelation(configuration: MonitorUpdaterConfiguration): Unit = {
 
     val overpassData = OverpassData()
       .node(1001, latitude = "51.4633666", longitude = "4.4553911")
@@ -245,6 +245,6 @@ class MonitorUpdaterTest07_gpx_add extends UnitTest with BeforeAndAfterEach with
       )
 
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.load _).when(None, 1).returns(Some(relation))
   }
 }
