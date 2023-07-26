@@ -853,6 +853,8 @@ class MonitorRouteUpdateExecutor(
       val symbol = relationWithGaps.flatMap(_.symbol)
       val osmWayCount = stateSummaries.map(_.osmWayCount).sum
       val osmDistance = stateSummaries.map(_.osmDistance).sum
+      val deviationCount = stateSummaries.map(_.deviationCount).sum
+      val deviationDistance = stateSummaries.map(_.deviationDistance).sum
 
       context = context.copy(
         newRoute = Some(
@@ -860,7 +862,9 @@ class MonitorRouteUpdateExecutor(
             symbol = symbol,
             relation = relationWithGaps,
             osmWayCount = osmWayCount,
-            osmDistance = osmDistance
+            osmDistance = osmDistance,
+            deviationCount = deviationCount,
+            deviationDistance = deviationDistance
           )
         )
       )

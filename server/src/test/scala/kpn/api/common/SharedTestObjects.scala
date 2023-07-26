@@ -1451,7 +1451,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def setupRouteStructure(configuration: MonitorUpdaterConfiguration, overpassData: OverpassData, relationId: Long): Unit = {
-    val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(1), None)
-    (configuration.monitorRouteStructureLoader.load _).when(None, 1).returns(Some(monitorRouteRelation))
+    val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
+    (configuration.monitorRouteStructureLoader.load _).when(None, relationId).returns(Some(monitorRouteRelation))
   }
 }
