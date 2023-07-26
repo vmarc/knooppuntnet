@@ -110,6 +110,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
             [gpxReferenceDate]="gpxReferenceDate"
             [referenceFilename]="referenceFilename"
             [referenceFile]="referenceFile"
+            [oldReferenceTimestamp]="oldReferenceTimestamp"
           />
         </form>
       </mat-step>
@@ -253,6 +254,8 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   private readonly subscriptions = new Subscriptions();
 
+  oldReferenceTimestamp: Timestamp = null;
+
   ngOnInit(): void {
     this.monitorWebsocketService.reset();
     if (this.mode === 'add') {
@@ -276,8 +279,12 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
         relationIdKnown: !!this.initialProperties.relationId,
         relationId: this.initialProperties.relationId,
       });
+      let referenceType = this.initialProperties.referenceType;
+      if (referenceType === 'osm') {
+        referenceType = 'osm-past';
+      }
       this.referenceTypeForm.setValue({
-        referenceType: this.initialProperties.referenceType,
+        referenceType: referenceType,
       });
       this.referenceDetailsForm.patchValue({
         osmReferenceDate: DayUtil.toDate(
@@ -292,6 +299,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       this.commentForm.patchValue({
         comment: this.initialProperties.comment,
       });
+      this.oldReferenceTimestamp = this.initialProperties.referenceTimestamp;
     }
 
     this.subscriptions.add(
@@ -330,25 +338,35 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       relationId = this.relationId.value;
     }
 
+    let referenceType = '';
+    let referenceNow = false;
     let referenceTimestamp: Timestamp = null;
-    if (this.referenceType.value === 'osm') {
+    if (this.referenceType.value === 'osm-now') {
+      referenceType = 'osm';
+      referenceNow = true;
+    } else if (this.referenceType.value === 'osm-past') {
+      referenceType = 'osm';
       referenceTimestamp = TimestampUtil.toTimestamp(
         this.osmReferenceDate.value
       );
     } else if (this.referenceType.value === 'gpx') {
+      referenceType = 'gpx';
       referenceTimestamp = TimestampUtil.toTimestamp(
         this.gpxReferenceDate.value
       );
+    } else if (this.referenceType.value === 'multi-gpx') {
+      referenceType = 'multi-gpx';
     }
 
     const command: MonitorRouteUpdate = {
       action: this.mode,
       groupName: this.group.value?.groupName,
       routeName: this.name.value,
-      referenceType: this.referenceType.value,
+      referenceType,
       description: this.description.value,
       comment: this.comment.value,
       relationId,
+      referenceNow,
       referenceTimestamp,
       referenceFilename: this.referenceFilename.value,
       referenceGpx,

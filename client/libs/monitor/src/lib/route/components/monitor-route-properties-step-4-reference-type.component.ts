@@ -32,9 +32,22 @@ import { FormStatusComponent } from '@app/components/shared';
             separately
           </span>
         </mat-radio-button>
-        <mat-radio-button id="reference-type.osm" class="answer" value="osm">
-          <span i18n="@@monitor.route.properties.reference-type.osm">
-            The current or a previous state of the OSM relation
+        <mat-radio-button
+          id="reference-type.osm-now"
+          class="answer"
+          value="osm-now"
+        >
+          <span i18n="@@monitor.route.properties.reference-type.osm-now">
+            The OSM relation at this moment
+          </span>
+        </mat-radio-button>
+        <mat-radio-button
+          id="reference-type.osm-past"
+          class="answer"
+          value="osm-past"
+        >
+          <span i18n="@@monitor.route.properties.reference-type.osm-past">
+            The OSM relation at a given moment in the past
           </span>
         </mat-radio-button>
       </mat-radio-group>

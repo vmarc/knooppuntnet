@@ -8,8 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteDetail } from '@api/common/monitor';
+import { TimestampPipe } from '@app/components/shared/format';
 import { TimestampDayPipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
@@ -142,7 +144,12 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
 
       <ng-container matColumnDef="reference-day">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let route">
+        <td
+          mat-cell
+          *matCellDef="let route"
+          [matTooltip]="route.referenceTimestamp | yyyymmddhhmm"
+          matTooltipPosition="after"
+        >
           {{ route.referenceTimestamp | yyyymmdd }}
         </td>
       </ng-container>
@@ -292,11 +299,13 @@ import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.com
     MatButtonModule,
     MatIconModule,
     MatTableModule,
+    MatTooltipModule,
     NgIf,
     OsmLinkRelationComponent,
     RouterLink,
-    TimestampDayPipe,
     SymbolComponent,
+    TimestampDayPipe,
+    TimestampPipe,
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {

@@ -9481,7 +9481,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">149,151</context>
+          <context context-type="linenumber">150,152</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/delete/monitor-route-delete-page.component.ts</context>
@@ -9985,7 +9985,7 @@
         <target>No routes in group</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">50,52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.action.add-route" datatype="html">
@@ -9993,7 +9993,7 @@
         <target>Add route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">55,57</context>
+          <context context-type="linenumber">61,63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.nr" datatype="html">
@@ -10001,7 +10001,7 @@
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">30,32</context>
+          <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.name" datatype="html">
@@ -10009,7 +10009,7 @@
         <target>Name</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="linenumber">47,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.map" datatype="html">
@@ -10017,11 +10017,11 @@
         <target>Map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">67,69</context>
+          <context context-type="linenumber">69,71</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">70,72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.map-link" datatype="html">
@@ -10029,11 +10029,11 @@
         <target>map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">75,77</context>
+          <context context-type="linenumber">77,79</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">77,79</context>
+          <context context-type="linenumber">79,81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.relation" datatype="html">
@@ -10041,7 +10041,7 @@
         <target>Relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">86,88</context>
+          <context context-type="linenumber">88,90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.description" datatype="html">
@@ -10049,7 +10049,7 @@
         <target>Description</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">121,123</context>
+          <context context-type="linenumber">123,125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.actions" datatype="html">
@@ -10057,11 +10057,11 @@
         <target>Actions</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">213,215</context>
+          <context context-type="linenumber">220,222</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">241,243</context>
+          <context context-type="linenumber">270,272</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10069,7 +10069,7 @@
         <target>Update</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">221</context>
+          <context context-type="linenumber">228</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/groups/monitor-group-table.component.ts</context>
@@ -10081,7 +10081,7 @@
         <target>delete</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">231</context>
+          <context context-type="linenumber">238</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/groups/monitor-group-table.component.ts</context>
@@ -10365,11 +10365,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">76,78</context>
+          <context context-type="linenumber">89,91</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">158,160</context>
+          <context context-type="linenumber">179,181</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.back" datatype="html">
@@ -10385,11 +10385,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">81,83</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">150,152</context>
+          <context context-type="linenumber">171,173</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-6-comment.component.ts</context>
@@ -10497,7 +10497,7 @@
         <target>Please answer the question</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">53,55</context>
+          <context context-type="linenumber">66,68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file" datatype="html">
@@ -10505,7 +10505,7 @@
         <target>Select the file that contains the GPX trace:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">44,46</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -10517,7 +10517,7 @@
         <target>Select file</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">60,62</context>
+          <context context-type="linenumber">81,83</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -10529,7 +10529,7 @@
         <target>File</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">90</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -10541,7 +10541,7 @@
         <target>Save</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">146,148</context>
+          <context context-type="linenumber">147,149</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
@@ -10817,7 +10817,7 @@
         <target>The route name should be unique within its the group. A route with name &quot;<x equiv-text="{{ name.value }}" id="INTERPOLATION"/>&quot; already exists within group &quot;<x equiv-text="{{         group.value.groupName       }}" id="INTERPOLATION_1"/>&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">131,136</context>
+          <context context-type="linenumber">132,137</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.no-relation-id" datatype="html">
@@ -11057,23 +11057,23 @@
         <target>Deviations</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">165,167</context>
+          <context context-type="linenumber">172,174</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">199,201</context>
+          <context context-type="linenumber">218,220</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.osm-segment-count" datatype="html">
-        <source>OSM segments</source>
-        <target>OSM segments</target>
+        <source>Segments</source>
+        <target>Segments</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">198,200</context>
+          <context context-type="linenumber">205,207</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">226,228</context>
+          <context context-type="linenumber">246,248</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.reference" datatype="html">
@@ -11081,19 +11081,19 @@
         <target>Reference</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">135,137</context>
+          <context context-type="linenumber">137,139</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">165,167</context>
+          <context context-type="linenumber">184,186</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.day" datatype="html">
-        <source>Select the date of the route relation state that will serve as a reference:</source>
-        <target>Select the date of the route relation state that will serve as a reference:</target>
+        <source>Select the date (midnight) of the route relation state that will serve as a reference:</source>
+        <target>Select the date (midnight) of the route relation state that will serve as a reference:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">16,19</context>
+          <context context-type="linenumber">37,40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.day.label" datatype="html">
@@ -11101,11 +11101,11 @@
         <target>Reference day</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">98</context>
+          <context context-type="linenumber">119</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -11117,11 +11117,11 @@
         <target>Please provide a valid reference day</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">58,60</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">112,114</context>
+          <context context-type="linenumber">133,135</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -11133,7 +11133,7 @@
         <target>Reference filename is required</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">86,88</context>
+          <context context-type="linenumber">107,109</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -11145,7 +11145,7 @@
         <target>Select the date at which the gpx trace was recorded or was known to be valid:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">91,94</context>
+          <context context-type="linenumber">112,115</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-reference.component.ts</context>
@@ -11165,7 +11165,7 @@
         <target>Comment</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.relation-id-undefined" datatype="html">
@@ -11181,7 +11181,7 @@
         <target>Reference not defined yet</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-reference.component.ts</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">18,20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.reference.osm" datatype="html">
@@ -11189,7 +11189,7 @@
         <target>OSM relation snapshot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-reference.component.ts</context>
-          <context context-type="linenumber">26,28</context>
+          <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.deviations" datatype="html">
@@ -11253,7 +11253,7 @@
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">30,32</context>
+          <context context-type="linenumber">32,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.relation" datatype="html">
@@ -11261,7 +11261,7 @@
         <target>Relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">88,90</context>
+          <context context-type="linenumber">90,92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.name" datatype="html">
@@ -11269,7 +11269,7 @@
         <target>Name</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">44,46</context>
+          <context context-type="linenumber">46,48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.role" datatype="html">
@@ -11277,7 +11277,7 @@
         <target>Role</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">123,125</context>
+          <context context-type="linenumber">125,127</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.distance" datatype="html">
@@ -11285,7 +11285,7 @@
         <target>Distance</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">136,138</context>
+          <context context-type="linenumber">138,140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.relation-table.survey" datatype="html">
@@ -11293,7 +11293,7 @@
         <target>Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">151,153</context>
+          <context context-type="linenumber">170,172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map-deviations.relation-empty" datatype="html">
@@ -11357,7 +11357,7 @@
         <target>GPX trace per sub relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-reference.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.flanders-hiking" datatype="html">
@@ -11477,7 +11477,7 @@
         <target>Further reference details can be provided later.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">124,126</context>
+          <context context-type="linenumber">145,147</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.multi-gpx.comment.2" datatype="html">
@@ -11485,7 +11485,7 @@
         <target>The GPX traces per route in the superroute can be uploaded from the route details page after saving this route definition.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">129,132</context>
+          <context context-type="linenumber">150,153</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.multi-gpx.next-step" datatype="html">
@@ -11493,7 +11493,7 @@
         <target>Continue with next step.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">135,137</context>
+          <context context-type="linenumber">156,158</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.deviation" datatype="html">
@@ -11517,7 +11517,7 @@
         <target>Upload GPX trace for this sub-relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">250</context>
+          <context context-type="linenumber">279</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.gpx.delete" datatype="html">
@@ -11525,7 +11525,7 @@
         <target>Remove GPX trace for this sub-relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">261</context>
+          <context context-type="linenumber">290</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.monitor.route.gpx" datatype="html">
@@ -11621,7 +11621,7 @@
         <target>Symbol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/group/details/monitor-group-route-table.component.ts</context>
-          <context context-type="linenumber">103,105</context>
+          <context context-type="linenumber">105,107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.relation.from" datatype="html">
@@ -11661,7 +11661,47 @@
         <target>Symbol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">105,107</context>
+          <context context-type="linenumber">107,109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-type.osm-now" datatype="html">
+        <source>The OSM relation at this moment</source>
+        <target>The OSM relation at this moment</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
+          <context context-type="linenumber">40,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-type.osm-past" datatype="html">
+        <source>The OSM relation at a given moment in the past</source>
+        <target>The OSM relation at a given moment in the past</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.osm-now" datatype="html">
+        <source>The state of the OSM relation at this moment will be used as the reference for the monitor analysis.</source>
+        <target>The state of the OSM relation at this moment will be used as the reference for the monitor analysis.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">18,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.osm-now.next-step" datatype="html">
+        <source>Continue with next step.</source>
+        <target>Continue with next step.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">22,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.osm-now.timestamp" datatype="html">
+        <source>Current reference timestamp</source>
+        <target>Current reference timestamp</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
     </body>

@@ -6,16 +6,37 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
+import { Timestamp } from '@api/custom';
 import { FormStatusComponent } from '@app/components/shared';
+import { TimestampPipe } from '@app/components/shared/format';
 import { DayInputComponent } from '@app/components/shared/format';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-5-reference-details',
   template: `
-    <div [ngClass]="{ hidden: referenceType.value !== 'osm' }">
+    <div [ngClass]="{ hidden: referenceType.value !== 'osm-now' }">
+      <p i18n="@@monitor.route.properties.reference-details.osm-now">
+        The state of the OSM relation at this moment will be used as the
+        reference for the monitor analysis.
+      </p>
+      <p i18n="@@monitor.route.properties.reference-details.osm-now.next-step">
+        Continue with next step.
+      </p>
+    </div>
+
+    <div [ngClass]="{ hidden: referenceType.value !== 'osm-past' }">
+      <p *ngIf="oldReferenceTimestamp" class="kpn-spacer-below">
+        <span
+          class="kpn-label"
+          i18n="@@monitor.route.properties.reference-details.osm-now.timestamp"
+          >Current reference timestamp</span
+        >
+        {{ oldReferenceTimestamp | yyyymmddhhmm }}
+      </p>
+
       <p i18n="@@monitor.route.properties.reference-details.day">
-        Select the date of the route relation state that will serve as a
-        reference:
+        Select the date (midnight) of the route relation state that will serve
+        as a reference:
       </p>
       <kpn-day-input
         id="osm-reference-date"
@@ -175,6 +196,7 @@ import { DayInputComponent } from '@app/components/shared/format';
     MatStepperModule,
     NgClass,
     NgIf,
+    TimestampPipe,
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
@@ -184,6 +206,7 @@ export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
   @Input({ required: true }) gpxReferenceDate: FormControl<Date | null>;
   @Input({ required: true }) referenceFilename: FormControl<string>;
   @Input({ required: true }) referenceFile: FormControl<File>;
+  @Input({ required: true }) oldReferenceTimestamp: Timestamp | null;
 
   selectFile(selectEvent: any) {
     this.referenceFile.setValue(selectEvent.target.files[0]);

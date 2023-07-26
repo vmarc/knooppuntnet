@@ -98,6 +98,13 @@ class MonitorRouteUpdateExecutor(
     findGroup()
     assertNewRoute()
 
+    val referenceTimestamp = if (context.update.referenceNow) {
+      Some(Time.now)
+    }
+    else {
+      context.update.referenceTimestamp
+    }
+
     context = context.copy(
       newRoute = Some(
         MonitorRoute(
@@ -111,7 +118,7 @@ class MonitorRouteUpdateExecutor(
           Time.now,
           None,
           referenceType = context.update.referenceType,
-          referenceTimestamp = context.update.referenceTimestamp,
+          referenceTimestamp = referenceTimestamp,
           referenceFilename = context.update.referenceFilename,
           referenceDistance = 0,
           deviationDistance = 0,
@@ -274,7 +281,7 @@ class MonitorRouteUpdateExecutor(
       )
     }
 
-    analyzeReference(reference) match {
+    analyzeReference(reference, None) match {
       case None =>
       case Some(state) =>
         // TODO improve performance by picking up _id only?
@@ -394,87 +401,86 @@ class MonitorRouteUpdateExecutor(
     val referenceTimestamp = context.newRoute.get.referenceTimestamp
     val subs = monitorRouteRelation.relations.map(_.relationId).mkString("(", ",", ")")
     log.info(s"${monitorRouteRelation.name}    $subs")
-    val referenceOption = log.infoElapsed {
-
-      val rrr = monitorRouteRelationRepository.loadTopLevel(referenceTimestamp, monitorRouteRelation.relationId) match {
-        case None =>
-          val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.map(_.yyyymmddhhmmss).getOrElse(Time.now.yyyymmddhhmmss)}"
-          context.reporter.report(
-            MonitorRouteUpdateStatusMessage(
-              errors = Some(Seq(error))
-            )
+    monitorRouteRelationRepository.loadTopLevel(referenceTimestamp, monitorRouteRelation.relationId) match {
+      case None =>
+        val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.map(_.yyyymmddhhmmss).getOrElse(Time.now.yyyymmddhhmmss)}"
+        context.reporter.report(
+          MonitorRouteUpdateStatusMessage(
+            errors = Some(Seq(error))
           )
-          monitorRouteRepository.deleteRouteReference(context.routeId, monitorRouteRelation.relationId)
-          monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
+        )
+        monitorRouteRepository.deleteRouteReference(context.routeId, monitorRouteRelation.relationId)
+        monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
+        None
+
+      case Some(subRelation) =>
+        val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
+        if (wayMembers.isEmpty) {
           None
+        }
+        else {
+          val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
+          val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
-        case Some(subRelation) =>
-          val wayMembers = MonitorFilter.filterWayMembers(subRelation.wayMembers)
-          if (wayMembers.isEmpty) {
-            None
-          }
-          else {
-            val bounds = Bounds.from(wayMembers.flatMap(_.way.nodes))
-            val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
+          val geomFactory = new GeometryFactory
+          val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
+          val geoJsonWriter = new GeoJsonWriter()
+          geoJsonWriter.setEncodeCRS(false)
+          val geometry = geoJsonWriter.write(geometryCollection)
 
-            val geomFactory = new GeometryFactory
-            val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
-            val geoJsonWriter = new GeoJsonWriter()
-            geoJsonWriter.setEncodeCRS(false)
-            val geometry = geoJsonWriter.write(geometryCollection)
+          val ref = MonitorRouteReference(
+            ObjectId(),
+            context.newRoute.get._id,
+            Some(subRelation.id),
+            Time.now,
+            context.user,
+            bounds,
+            "osm",
+            context.newRoute.get.referenceTimestamp.get,
+            analysis.osmDistance,
+            analysis.routeSegments.size,
+            None,
+            geometry
+          )
 
-            val ref = MonitorRouteReference(
-              ObjectId(),
-              context.newRoute.get._id,
-              Some(subRelation.id),
-              Time.now,
-              context.user,
-              bounds,
-              "osm",
-              context.newRoute.get.referenceTimestamp.get,
-              analysis.osmDistance,
-              analysis.routeSegments.size,
-              None,
-              geometry
-            )
+          monitorRouteRepository.saveRouteReference(ref)
+          context = context.copy(
+            newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(ref),
+          )
 
-            monitorRouteRepository.saveRouteReference(ref)
+          if (updateSingleRelationRoute) {
             context = context.copy(
-              newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(ref),
-            )
-
-            if (updateSingleRelationRoute) {
-              context = context.copy(
-                newRoute = Some(
-                  context.newRoute.get.copy(
-                    referenceDistance = ref.referenceDistance
-                  )
+              newRoute = Some(
+                context.newRoute.get.copy(
+                  referenceDistance = ref.referenceDistance
                 )
               )
-            }
-
-            Some(ref)
-          }
-      }
-      ("build reference", rrr)
-    }
-
-    referenceOption.foreach { reference =>
-      analyzeReference(reference) match {
-        case Some(state) =>
-          monitorRouteRepository.saveRouteState(state)
-          context = context.copy(
-            stateChanged = true
-          )
-
-        case None =>
-          val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.get.yyyymmddhhmmss}"
-          context.reporter.report(
-            MonitorRouteUpdateStatusMessage(
-              errors = Some(Seq(error))
             )
-          )
-      }
+          }
+
+          val currentRelation = if (context.update.referenceNow) {
+            Some(subRelation)
+          }
+          else {
+            None
+          }
+
+          analyzeReference(ref, currentRelation) match {
+            case Some(state) =>
+              monitorRouteRepository.saveRouteState(state)
+              context = context.copy(
+                stateChanged = true
+              )
+
+            case None =>
+              val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${referenceTimestamp.get.yyyymmddhhmmss}"
+              context.reporter.report(
+                MonitorRouteUpdateStatusMessage(
+                  errors = Some(Seq(error))
+                )
+              )
+          }
+        }
     }
   }
 
@@ -622,7 +628,7 @@ class MonitorRouteUpdateExecutor(
 
   private def analyze(reference: MonitorRouteReference): Unit = {
     reportStepActive("analyze")
-    analyzeReference(reference) match {
+    analyzeReference(reference, None) match {
       case None =>
       case Some(state) =>
         monitorRouteRepository.saveRouteState(state)
@@ -971,10 +977,12 @@ class MonitorRouteUpdateExecutor(
     )
   }
 
-  private def analyzeReference(reference: MonitorRouteReference): Option[MonitorRouteState] = {
-
+  private def analyzeReference(reference: MonitorRouteReference, currentRelation: Option[Relation]): Option[MonitorRouteState] = {
     reference.relationId.flatMap { relationId =>
-      val relationOption = if (context.update.referenceType == "gpx") {
+      val relationOption = if (currentRelation.nonEmpty) {
+        currentRelation
+      }
+      else if (context.update.referenceType == "gpx") {
         monitorRouteRelationRepository.load(None, relationId)
       }
       else {
