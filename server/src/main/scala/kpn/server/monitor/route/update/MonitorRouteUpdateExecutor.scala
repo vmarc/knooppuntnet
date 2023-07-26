@@ -29,6 +29,7 @@ import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteStateSummary
+import kpn.server.monitor.MonitorUtil
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
@@ -206,7 +207,15 @@ class MonitorRouteUpdateExecutor(
     reportStepActive("analyze-route-structure")
     context = monitorUpdateStructure.update(context)
 
-    // TODO pick up information about existing state and references, and delete the ones that are not the structure anymore
+    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(context.routeId)
+    val oldStateIds = monitorRouteRepository.routeStateIds(context.routeId)
+    context = context.copy(
+      oldReferenceIds = oldReferenceIds,
+      oldStateIds = oldStateIds
+    )
+
+    removeObsoleteReferences()
+    removeObsoleteStates()
 
     if (context.update.referenceType == "gpx") {
       updateRouteWithGpxReference()
@@ -354,8 +363,8 @@ class MonitorRouteUpdateExecutor(
                       val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
 
                       val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
-                        monitorRouteRepository.routeStateId(context.routeId, mrr.relationId) match {
-                          case Some(id) => id
+                        context.oldStateIds.find(_.relationId == mrr.relationId) match {
+                          case Some(oldStateId) => oldStateId._id
                           case None => ObjectId()
                         }
                       }
@@ -1052,8 +1061,8 @@ class MonitorRouteUpdateExecutor(
             routeAnalysis.osmSegments.size == 1
 
           val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
-            monitorRouteRepository.routeStateId(context.routeId, relationId) match {
-              case Some(id) => id
+            context.oldStateIds.find(_.relationId == relationId) match {
+              case Some(oldStateId) => oldStateId._id
               case None => ObjectId()
             }
           }
@@ -1141,6 +1150,47 @@ class MonitorRouteUpdateExecutor(
       relation.relationMembers.flatMap { subRelationMember =>
         findSubRelation(subRelationMember.relation, relationId)
       }.headOption
+    }
+  }
+
+  private def removeObsoleteReferences(): Unit = {
+    context.newRoute match {
+      case None =>
+      case Some(newRoute) =>
+        if (newRoute.referenceType == "osm") {
+          val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
+          if (allRelationIds.isEmpty) {
+            monitorRouteRepository.deleteRouteReferences(newRoute._id)
+          }
+          else {
+            val obsoleteReferenceIds = context.oldReferenceIds.filter { oldReferenceId =>
+              oldReferenceId.relationId match {
+                case Some(relationId) => !allRelationIds.contains(relationId)
+                case None => true
+              }
+            }
+            obsoleteReferenceIds.foreach { referenceId =>
+              monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
+            }
+          }
+        }
+    }
+  }
+
+  private def removeObsoleteStates(): Unit = {
+    context.newRoute match {
+      case None =>
+      case Some(newRoute) =>
+        val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
+        if (allRelationIds.isEmpty) {
+          monitorRouteRepository.deleteRouteStates(newRoute._id)
+        }
+        else {
+          val obsoleteStateIds = context.oldStateIds.filterNot(id => allRelationIds.contains(id.relationId))
+          obsoleteStateIds.foreach { stateId =>
+            monitorRouteRepository.deleteRouteStateById(stateId._id)
+          }
+        }
     }
   }
 }

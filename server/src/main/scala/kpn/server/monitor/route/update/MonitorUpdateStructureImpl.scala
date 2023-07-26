@@ -23,8 +23,31 @@ class MonitorUpdateStructureImpl(
         newRoute.relationId match {
           case None =>
             // relationId has not been defined for the route yet, so cannot pick up route structure yet
-            // TODO if the old route contained a relationId, and the new one does not, we have stuff to delete?
-            context
+            val updatedNewRoute = context.newRoute.get.copy(
+              symbol = None,
+              deviationDistance = 0,
+              deviationCount = 0,
+              osmWayCount = 0,
+              osmDistance = 0,
+              osmSegmentCount = 0,
+              osmSegments = Seq.empty,
+              relation = None,
+              happy = false
+            )
+
+            val updatedNewRoute2 = if (context.update.referenceType == "osm") {
+              updatedNewRoute.copy(
+                referenceFilename = None,
+                referenceDistance = 0,
+              )
+            }
+            else {
+              updatedNewRoute
+            }
+
+            context.copy(
+              newRoute = Some(updatedNewRoute2)
+            )
 
           case Some(relationId) =>
 

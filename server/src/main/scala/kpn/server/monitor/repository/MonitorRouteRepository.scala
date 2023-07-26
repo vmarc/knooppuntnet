@@ -26,9 +26,13 @@ trait MonitorRouteRepository {
 
   def deleteRouteReference(routeId: ObjectId, subRelationId: Long): Unit
 
+  def deleteRouteReferenceById(objectId: ObjectId): Unit
+
   def deleteRouteStates(routeId: ObjectId): Unit
 
   def deleteRouteState(routeId: ObjectId, subRelationId: Long): Unit
+
+  def deleteRouteStateById(objectId: ObjectId): Unit
 
   def saveRouteState(routeState: MonitorRouteState): Unit
 
@@ -45,8 +49,6 @@ trait MonitorRouteRepository {
   def oldRouteByName(groupId: ObjectId, routeName: String): Option[OldMonitorRoute]
 
   def routeState(routeId: ObjectId, relationId: Long): Option[MonitorRouteState]
-
-  def routeStateId(routeId: ObjectId, relationId: Long): Option[ObjectId]
 
   def oldRouteState(routeId: ObjectId): Option[OldMonitorRouteState]
 
@@ -66,6 +68,8 @@ trait MonitorRouteRepository {
 
   def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference]
 
+  def routeReferenceIds(routeId: ObjectId): Seq[MonitorRouteReferenceId]
+
   def oldRouteReferenceRouteWithId(routeId: ObjectId): Option[OldMonitorRouteReference]
 
   def superRouteReferenceSummary(routeId: ObjectId): Option[Long]
@@ -73,6 +77,8 @@ trait MonitorRouteRepository {
   def superRouteStateSummary(routeId: ObjectId): Option[MonitorRouteStateSummary]
 
   def routeStateSummaries(routeId: ObjectId): Seq[MonitorRouteStateSummary]
+
+  def routeStateIds(routeId: ObjectId): Seq[MonitorRouteStateId]
 
   def routeChange(monitorRouteId: String, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChange]
 
