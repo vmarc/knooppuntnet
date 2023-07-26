@@ -7,6 +7,7 @@ import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.NameRow
+import kpn.database.base.ObjectIdId
 import kpn.server.monitor.domain.MonitorGroupRouteCount
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
@@ -138,6 +139,24 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     )
     database.monitorRouteStates.optionAggregate[MonitorRouteState](pipeline, log)
   }
+
+  override def routeStateId(routeId: ObjectId, relationId: Long): Option[ObjectId] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("routeId", routeId.raw),
+          equal("relationId", relationId),
+        ),
+      ),
+      project(
+        fields(
+          include("_id")
+        )
+      )
+    )
+    database.monitorRouteStates.optionAggregate[ObjectIdId](pipeline, log).map(_._id)
+  }
+
 
   override def oldRouteState(routeId: ObjectId): Option[OldMonitorRouteState] = {
     val pipeline = Seq(
@@ -275,6 +294,23 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
+  }
+
+  override def routeRelationReferenceId(routeId: ObjectId, relationId: Long): Option[ObjectId] = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("routeId", routeId.raw),
+          equal("relationId", relationId),
+        )
+      ),
+      project(
+        fields(
+          include("_id")
+        )
+      )
+    )
+    database.monitorRouteReferences.optionAggregate[ObjectIdId](pipeline, log).map(_._id)
   }
 
   override def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference] = {

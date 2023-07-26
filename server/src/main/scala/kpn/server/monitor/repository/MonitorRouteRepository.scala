@@ -46,6 +46,8 @@ trait MonitorRouteRepository {
 
   def routeState(routeId: ObjectId, relationId: Long): Option[MonitorRouteState]
 
+  def routeStateId(routeId: ObjectId, relationId: Long): Option[ObjectId]
+
   def oldRouteState(routeId: ObjectId): Option[OldMonitorRouteState]
 
   def routeStates(routeId: ObjectId): Seq[MonitorRouteState]
@@ -59,6 +61,8 @@ trait MonitorRouteRepository {
   def routeReference(routeId: ObjectId): Option[MonitorRouteReference]
 
   def routeRelationReference(routeId: ObjectId, relationId: Long): Option[MonitorRouteReference]
+
+  def routeRelationReferenceId(routeId: ObjectId, relationId: Long): Option[ObjectId]
 
   def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference]
 

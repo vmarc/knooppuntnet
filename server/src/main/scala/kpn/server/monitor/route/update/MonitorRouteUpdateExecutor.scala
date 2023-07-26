@@ -178,6 +178,13 @@ class MonitorRouteUpdateExecutor(
           }
       }
 
+      val referenceTimestamp = if (context.update.referenceNow) {
+        Some(Time.now)
+      }
+      else {
+        context.update.referenceTimestamp
+      }
+
       context = context.copy(
         newRoute = Some(
           oldRoute.copy(
@@ -189,7 +196,7 @@ class MonitorRouteUpdateExecutor(
             user = context.user,
             timestamp = Time.now,
             referenceType = context.update.referenceType,
-            referenceTimestamp = context.update.referenceTimestamp,
+            referenceTimestamp = referenceTimestamp,
             referenceFilename = context.update.referenceFilename,
           )
         )
@@ -346,8 +353,18 @@ class MonitorRouteUpdateExecutor(
                       val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
                       val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
 
+                      val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
+                        monitorRouteRepository.routeStateId(context.routeId, mrr.relationId) match {
+                          case Some(id) => id
+                          case None => ObjectId()
+                        }
+                      }
+                      else {
+                        ObjectId()
+                      }
+
                       val state = MonitorRouteState(
-                        ObjectId(),
+                        id,
                         routeId = context.routeId,
                         relationId = mrr.relationId,
                         timestamp = Time.now,
@@ -428,8 +445,18 @@ class MonitorRouteUpdateExecutor(
           geoJsonWriter.setEncodeCRS(false)
           val geometry = geoJsonWriter.write(geometryCollection)
 
+          val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
+            monitorRouteRepository.routeRelationReferenceId(context.routeId, subRelation.id) match {
+              case Some(id) => id
+              case None => ObjectId()
+            }
+          }
+          else {
+            ObjectId()
+          }
+
           val ref = MonitorRouteReference(
-            ObjectId(),
+            id,
             context.newRoute.get._id,
             Some(subRelation.id),
             Time.now,
@@ -1024,9 +1051,19 @@ class MonitorRouteUpdateExecutor(
             routeAnalysis.deviations.isEmpty &&
             routeAnalysis.osmSegments.size == 1
 
+          val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
+            monitorRouteRepository.routeStateId(context.routeId, relationId) match {
+              case Some(id) => id
+              case None => ObjectId()
+            }
+          }
+          else {
+            ObjectId()
+          }
+
           Some(
             MonitorRouteState(
-              ObjectId(),
+              id,
               context.routeId,
               relationId,
               Time.now,
