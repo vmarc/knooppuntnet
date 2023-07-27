@@ -259,36 +259,16 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   private updateQueryParams(state: MonitorRouteMapState): void {
-    let queryParams: Params = {
+    const queryParams: Params = {
       mode: state.mode,
       reference: state.referenceVisible,
       matches: state.matchesVisible,
       deviations: state.deviationsVisible,
       'osm-relation': state.osmRelationVisible,
+      'selected-deviation': state.selectedDeviation?.id,
+      'selected-osm-segment': state.selectedOsmSegment?.id,
+      'sub-relation-id': state.page?.currentSubRelation?.relationId,
     };
-
-    if (state.selectedDeviation) {
-      queryParams = {
-        ...queryParams,
-        'selected-deviation': state.selectedDeviation.id,
-      };
-    }
-
-    if (state.selectedOsmSegment) {
-      queryParams = {
-        ...queryParams,
-        'selected-osm-segment': state.selectedOsmSegment.id,
-      };
-    }
-
-    const subRelationId = state.page?.currentSubRelation?.relationId;
-    if (subRelationId) {
-      queryParams = {
-        ...queryParams,
-        'sub-relation-id': subRelationId,
-      };
-    }
-
     this.setQueryParams(queryParams);
   }
 }

@@ -148,7 +148,12 @@ export class MonitorRouteMapStateService {
   }
 
   modeChanged(mode: MonitorMapMode): void {
-    this._state.update((state) => ({ ...state, mode }));
+    this._state.update((state) => ({
+      ...state,
+      mode,
+      selectedDeviation: null,
+      selectedOsmSegment: null,
+    }));
   }
 
   focusChanged(bounds: Bounds): void {
