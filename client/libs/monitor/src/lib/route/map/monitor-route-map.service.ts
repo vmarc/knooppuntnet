@@ -21,6 +21,7 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
+import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapState } from './monitor-route-map-state';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
@@ -170,9 +171,6 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       this.deviationsLayer.setVisible(this.stateService.deviationsVisible());
     });
     effect(() => {
-      this.osmRelationLayer.setVisible(this.stateService.osmRelationVisible());
-    });
-    effect(() => {
       const focusBounds = this.stateService.focus();
       if (this.map !== null && focusBounds !== null) {
         this.map.getView().fit(Util.toExtent(focusBounds, 0.1));
@@ -188,6 +186,23 @@ export class MonitorRouteMapService extends OpenlayersMapService {
         allowSignalWrites: true,
       }
     );
+    effect(() => {
+      const mode = this.stateService.mode();
+      if (mode === MonitorMapMode.osmSegments) {
+        this.osmRelationLayer.setVisible(true);
+        this.referenceLayer.setVisible(false);
+        this.matchesLayer.setVisible(false);
+        this.deviationsLayer.setVisible(false);
+      } else {
+        this.osmRelationLayer.setVisible(
+          this.stateService.osmRelationLayerVisible()
+        );
+        this.referenceLayer.setVisible(this.stateService.referenceVisible());
+        this.matchesLayer.setVisible(this.stateService.matchesVisible());
+        this.deviationsLayer.setVisible(this.stateService.deviationsVisible());
+      }
+      this.osmRelationLayer.changed();
+    });
   }
 
   private buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {
@@ -222,7 +237,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     const thickStyle = this.fixedStyle('gold', 10);
 
     const styleFunction = (feature) => {
-      if (this.stateService.mode() === 'osm-segments') {
+      if (this.stateService.mode() === MonitorMapMode.osmSegments) {
         const segmentId = feature.get('segmentId');
         return this.styleForSegmentId(segmentId);
       }

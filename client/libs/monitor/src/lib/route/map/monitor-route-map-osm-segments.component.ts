@@ -6,6 +6,7 @@ import { MonitorRouteSegment } from '@api/common/monitor';
 import { DistancePipe } from '@app/components/shared/format';
 import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
+import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-map-osm-segments',
@@ -19,7 +20,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       <mat-list-option
         *ngFor="let segment of osmSegments()"
         [value]="segment"
-        [selected]="service.selectedOsmSegment()?.id === segment.id"
+        [selected]="mapStateService.selectedOsmSegment()?.id === segment.id"
       >
         <div class="segment">
           <span class="segment-id">{{ segment.id }}</span>
@@ -51,21 +52,22 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 })
 export class MonitorRouteMapOsmSegmentsComponent {
   readonly osmSegments = computed(() => {
-    return this.service.page()?.osmSegments ?? [];
+    return this.mapStateService.page()?.osmSegments ?? [];
   });
 
-  constructor(protected service: MonitorRouteMapStateService) {}
+  constructor(
+    protected mapStateService: MonitorRouteMapStateService,
+    private mapService: MonitorRouteMapService
+  ) {}
 
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
       const segment = event.options[0].value;
-      this.service.selectedOsmSegmentChanged(segment);
+      this.mapStateService.selectedOsmSegmentChanged(segment);
     }
   }
 
   segmentColor(segment: MonitorRouteSegment): string {
-    // TODO move color logic into separate class?
-    // return this.service.colorForSegmentId(segment.id);
-    return 'red';
+    return this.mapService.colorForSegmentId(segment.id);
   }
 }

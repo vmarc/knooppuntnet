@@ -18,33 +18,26 @@ export class MonitorRouteMapStateService {
   readonly state = this._state.asReadonly();
   readonly focus = this._focus.asReadonly();
 
-  readonly page = computed(() => {
-    return this._state().page;
-  });
-  readonly mode = computed(() => {
-    return this._state().mode;
-  });
-  readonly referenceVisible = computed(() => {
-    return this._state().referenceVisible;
-  });
-  readonly matchesVisible = computed(() => {
-    return this._state().matchesVisible;
-  });
-  readonly deviationsVisible = computed(() => {
-    return this._state().deviationsVisible;
-  });
-  readonly osmRelationVisible = computed(() => {
-    return this._state().osmRelationVisible;
-  });
-  readonly selectedDeviation = computed(() => {
-    return this._state().selectedDeviation;
-  });
+  readonly page = computed(() => this._state().page);
+  readonly mode = computed(() => this._state().mode);
+  readonly referenceVisible = computed(() => this._state().referenceVisible);
+  readonly matchesVisible = computed(() => this._state().matchesVisible);
+  readonly deviationsVisible = computed(() => this._state().deviationsVisible);
+  readonly osmRelationVisible = computed(
+    () => this._state().osmRelationVisible
+  );
+  readonly selectedDeviation = computed(() => this._state().selectedDeviation);
   readonly selectedOsmSegment = computed(
     () => this._state().selectedOsmSegment
   );
-  readonly referenceAvailable = computed(() => {
-    return this._state().referenceAvailable;
-  });
+  readonly referenceAvailable = computed(
+    () => this._state().referenceAvailable
+  );
+  readonly osmRelationLayerVisible = computed(
+    () =>
+      this.mode() === MonitorMapMode.osmSegments ||
+      (this.mode() === MonitorMapMode.comparison && this.osmRelationVisible())
+  );
 
   initialState(
     params: Params,
@@ -54,7 +47,7 @@ export class MonitorRouteMapStateService {
     let mode = MonitorMapMode.comparison;
     const modeParam = queryParams['mode'];
     if (modeParam) {
-      if (modeParam === 'osm-segments') {
+      if (modeParam === MonitorMapMode.osmSegments) {
         mode = MonitorMapMode.osmSegments;
       }
     }
@@ -146,13 +139,18 @@ export class MonitorRouteMapStateService {
 
   selectedOsmSegmentChanged(selectedOsmSegment: MonitorRouteSegment): void {
     this._state.update((state) => ({ ...state, selectedOsmSegment }));
+    if (selectedOsmSegment) {
+      this._focus.set(selectedOsmSegment.bounds);
+    }
   }
 
   modeChanged(mode: MonitorMapMode): void {
+    console.log('mode changed to ' + mode);
     this._state.update((state) => ({ ...state, mode }));
   }
 
   focusChanged(bounds: Bounds): void {
+    console.log('focusChanged');
     this._focus.set(bounds);
   }
 }

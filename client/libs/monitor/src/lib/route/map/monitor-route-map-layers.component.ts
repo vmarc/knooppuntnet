@@ -13,9 +13,9 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   template: `
     <div class="map-layers">
       <mat-checkbox
-        [checked]="service.referenceVisible()"
-        [disabled]="service.referenceAvailable() === false"
-        (change)="service.referenceVisibleChanged($event.checked)"
+        [checked]="mapStateService.referenceVisible()"
+        [disabled]="!referenceEnabled()"
+        (change)="mapStateService.referenceVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
           <kpn-legend-line color="blue"></kpn-legend-line>
@@ -33,9 +33,9 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </mat-checkbox>
 
       <mat-checkbox
-        [checked]="service.matchesVisible()"
-        [disabled]="matchesEnabled() === false"
-        (change)="service.matchesVisibleChanged($event.checked)"
+        [checked]="mapStateService.matchesVisible()"
+        [disabled]="!matchesEnabled()"
+        (change)="mapStateService.matchesVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
           <kpn-legend-line color="green" />
@@ -55,9 +55,9 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </mat-checkbox>
 
       <mat-checkbox
-        [checked]="service.deviationsVisible()"
-        [disabled]="gpxDeviationsEnabled() === false"
-        (change)="service.deviationsVisibleChanged($event.checked)"
+        [checked]="mapStateService.deviationsVisible()"
+        [disabled]="!gpxDeviationsEnabled()"
+        (change)="mapStateService.deviationsVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
           <kpn-legend-line color="red" />
@@ -77,9 +77,9 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </mat-checkbox>
 
       <mat-checkbox
-        [checked]="service.osmRelationVisible()"
-        [disabled]="osmRelationEnabled() === false"
-        (change)="service.osmRelationVisibleChanged($event.checked)"
+        [checked]="mapStateService.osmRelationVisible()"
+        [disabled]="!osmRelationEnabled()"
+        (change)="mapStateService.osmRelationVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
           <kpn-legend-line color="gold" />
@@ -101,24 +101,33 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   imports: [NgIf, MatCheckboxModule, LegendLineComponent],
 })
 export class MonitorRouteMapLayersComponent {
-  readonly referenceType = computed(() => {
-    return this.service.page().referenceType;
-  });
-  readonly osmRelationEnabled = computed(() => {
-    return this.service.page().osmSegments.length > 0;
-  });
-  readonly gpxDeviationsEnabled = computed(() => {
-    return (
-      this.service.mode() === MonitorMapMode.comparison &&
-      this.service.page().deviations.length > 0
-    );
-  });
-  readonly matchesEnabled = computed(() => {
-    return (
-      this.service.mode() === MonitorMapMode.comparison &&
-      !!this.service.page().matchesGeoJson
-    );
-  });
+  readonly referenceType = computed(
+    () => this.mapStateService.page().referenceType
+  );
 
-  constructor(protected service: MonitorRouteMapStateService) {}
+  readonly referenceEnabled = computed(
+    () =>
+      this.mapStateService.mode() === MonitorMapMode.comparison &&
+      this.mapStateService.referenceAvailable() === true
+  );
+
+  readonly osmRelationEnabled = computed(
+    () =>
+      this.mapStateService.mode() === MonitorMapMode.comparison &&
+      this.mapStateService.page().osmSegments.length > 0
+  );
+
+  readonly gpxDeviationsEnabled = computed(
+    () =>
+      this.mapStateService.mode() === MonitorMapMode.comparison &&
+      this.mapStateService.page().deviations.length > 0
+  );
+
+  readonly matchesEnabled = computed(
+    () =>
+      this.mapStateService.mode() === MonitorMapMode.comparison &&
+      !!this.mapStateService.page().matchesGeoJson
+  );
+
+  constructor(protected mapStateService: MonitorRouteMapStateService) {}
 }

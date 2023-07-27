@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapControlJosmComponent } from './monitor-route-map-control-josm.component';
 import { MonitorRouteMapControlModeComponent } from './monitor-route-map-control-mode.component';
 import { MonitorRouteMapDeviationsComponent } from './monitor-route-map-deviations.component';
@@ -19,10 +20,10 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         <kpn-monitor-route-map-layers />
         <kpn-monitor-route-map-control-josm />
         <kpn-monitor-route-map-deviations
-          *ngIf="service.mode() === 'comparison'"
+          *ngIf="service.mode() === MonitorMapMode.comparison"
         />
         <kpn-monitor-route-map-osm-segments
-          *ngIf="service.mode() === 'osm-segments'"
+          *ngIf="service.mode() === MonitorMapMode.osmSegments"
         />
       </div>
     </kpn-sidebar>
@@ -47,4 +48,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 })
 export class MonitorRouteMapSidebarComponent {
   constructor(protected service: MonitorRouteMapStateService) {}
+
+  protected readonly MonitorMapMode = MonitorMapMode;
 }

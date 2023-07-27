@@ -3,6 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
+import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
 @Component({
@@ -19,7 +20,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
             GPX / OSM comparison
           </span>
         </mat-radio-button>
-        <mat-radio-button value="osm-segments">
+        <mat-radio-button [value]="MonitorMapMode.osmSegments">
           <span i18n="@@monitor.route.map.mode.osm-segments">OSM segments</span>
           <span class="kpn-brackets">{{ osmSegmentCount() }}</span>
         </mat-radio-button>
@@ -35,4 +36,6 @@ export class MonitorRouteMapControlModeComponent {
   });
 
   constructor(protected service: MonitorRouteMapStateService) {}
+
+  protected readonly MonitorMapMode = MonitorMapMode;
 }
