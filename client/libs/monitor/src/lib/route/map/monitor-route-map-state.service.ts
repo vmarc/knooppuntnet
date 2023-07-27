@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Params } from '@angular/router';
+import { ParamMap } from '@angular/router';
 import { Bounds } from '@api/common';
 import { MonitorRouteSegment } from '@api/common/monitor';
 import { MonitorRouteDeviation } from '@api/common/monitor';
@@ -33,52 +33,55 @@ export class MonitorRouteMapStateService {
   readonly referenceAvailable = computed(
     () => this._state().referenceAvailable
   );
+  readonly referenceLayerVisible = computed(
+    () => this.mode() === MonitorMapMode.comparison && this.referenceVisible()
+  );
+  readonly matchesLayerVisible = computed(
+    () => this.mode() === MonitorMapMode.comparison && this.matchesVisible()
+  );
+  readonly deviationsLayerVisible = computed(
+    () => this.mode() === MonitorMapMode.comparison && this.deviationsVisible()
+  );
   readonly osmRelationLayerVisible = computed(
     () =>
       this.mode() === MonitorMapMode.osmSegments ||
       (this.mode() === MonitorMapMode.comparison && this.osmRelationVisible())
   );
 
-  initialState(
-    params: Params,
-    queryParams: Params,
-    page: MonitorRouteMapPage
-  ): void {
+  initialState(queryParams: ParamMap, page: MonitorRouteMapPage): void {
     let mode = MonitorMapMode.comparison;
-    const modeParam = queryParams['mode'];
-    if (modeParam) {
-      if (modeParam === MonitorMapMode.osmSegments) {
-        mode = MonitorMapMode.osmSegments;
-      }
+    const modeParam = queryParams.get('mode');
+    if (modeParam === MonitorMapMode.osmSegments) {
+      mode = MonitorMapMode.osmSegments;
     }
 
-    const matchesParam = queryParams['matches'];
+    const matchesParam = queryParams.get('matches');
     let matchesVisible = !!page.matchesGeoJson && page.osmSegments.length > 0;
     if (matchesVisible && matchesParam) {
       matchesVisible = matchesParam === 'true';
     }
 
-    const deviationsParam = queryParams['deviations'];
+    const deviationsParam = queryParams.get('deviations');
     let deviationsVisible = page.deviations.length > 0;
     if (deviationsVisible && deviationsParam) {
       deviationsVisible = deviationsParam === 'true';
     }
 
-    const osmRelationParam = queryParams['osm-relation'];
+    const osmRelationParam = queryParams.get('osm-relation');
     let osmRelationVisible = page.osmSegments.length > 0;
     if (osmRelationVisible && osmRelationParam) {
       osmRelationVisible = osmRelationParam === 'true';
     }
 
     let selectedDeviation: MonitorRouteDeviation = null;
-    const selectedDeviationParameter = queryParams['selected-deviation'];
+    const selectedDeviationParameter = queryParams.get('selected-deviation');
     if (!isNaN(Number(selectedDeviationParameter))) {
       const id = +selectedDeviationParameter;
       selectedDeviation = page.deviations?.find((d) => d.id === id);
     }
 
     let selectedOsmSegment: MonitorRouteSegment = null;
-    const selectedOsmSegmentParam = queryParams['selected-osm-segment'];
+    const selectedOsmSegmentParam = queryParams.get('selected-osm-segment');
     if (!isNaN(Number(selectedOsmSegmentParam))) {
       const id = +selectedOsmSegmentParam;
       selectedOsmSegment = page.osmSegments.find(
@@ -88,7 +91,7 @@ export class MonitorRouteMapStateService {
 
     const referenceAvailable =
       (page.reference?.referenceGeoJson.length ?? 0) > 0;
-    const referenceParam = queryParams['reference'];
+    const referenceParam = queryParams.get('reference');
     let referenceVisible =
       referenceAvailable &&
       !(matchesVisible || deviationsVisible || osmRelationVisible);
@@ -145,12 +148,10 @@ export class MonitorRouteMapStateService {
   }
 
   modeChanged(mode: MonitorMapMode): void {
-    console.log('mode changed to ' + mode);
     this._state.update((state) => ({ ...state, mode }));
   }
 
   focusChanged(bounds: Bounds): void {
-    console.log('focusChanged');
     this._focus.set(bounds);
   }
 }

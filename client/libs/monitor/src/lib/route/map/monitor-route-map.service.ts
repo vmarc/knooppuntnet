@@ -162,13 +162,25 @@ export class MonitorRouteMapService extends OpenlayersMapService {
 
   private initEffects(): void {
     effect(() => {
-      this.referenceLayer.setVisible(this.stateService.referenceVisible());
+      const visible = this.stateService.referenceLayerVisible();
+      this.referenceLayer.setVisible(visible);
     });
     effect(() => {
-      this.matchesLayer.setVisible(this.stateService.matchesVisible());
+      const visible = this.stateService.matchesLayerVisible();
+      this.matchesLayer.setVisible(visible);
     });
     effect(() => {
-      this.deviationsLayer.setVisible(this.stateService.deviationsVisible());
+      const visible = this.stateService.deviationsLayerVisible();
+      this.deviationsLayer.setVisible(visible);
+    });
+    effect(() => {
+      const visible = this.stateService.osmRelationLayerVisible();
+      this.osmRelationLayer.setVisible(visible);
+    });
+    effect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const mode = this.stateService.mode();
+      this.osmRelationLayer.changed();
     });
     effect(() => {
       const focusBounds = this.stateService.focus();
@@ -186,23 +198,6 @@ export class MonitorRouteMapService extends OpenlayersMapService {
         allowSignalWrites: true,
       }
     );
-    effect(() => {
-      const mode = this.stateService.mode();
-      if (mode === MonitorMapMode.osmSegments) {
-        this.osmRelationLayer.setVisible(true);
-        this.referenceLayer.setVisible(false);
-        this.matchesLayer.setVisible(false);
-        this.deviationsLayer.setVisible(false);
-      } else {
-        this.osmRelationLayer.setVisible(
-          this.stateService.osmRelationLayerVisible()
-        );
-        this.referenceLayer.setVisible(this.stateService.referenceVisible());
-        this.matchesLayer.setVisible(this.stateService.matchesVisible());
-        this.deviationsLayer.setVisible(this.stateService.deviationsVisible());
-      }
-      this.osmRelationLayer.changed();
-    });
   }
 
   private buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {

@@ -60,9 +60,8 @@ export class MonitorRouteMapPageService {
                 relationId = page.relationId;
               }
               this.pages.set(relationId, page);
-              const params = this.navService.params();
               const queryParams = this.navService.queryParams();
-              this.stateService.initialState(params, queryParams, page);
+              this.stateService.initialState(queryParams, page);
               this.mapService.pageChanged(page);
             }
           }
