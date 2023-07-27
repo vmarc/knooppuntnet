@@ -113,6 +113,20 @@ class MonitorUpdaterTest18_osm_update_relation_id extends UnitTest with BeforeAn
               MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
             )
           ),
+
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-add", "2", Some("1/1 route-name")),
+              MonitorRouteUpdateStatusCommand("step-add", "save", None),
+            )
+          ),
+          MonitorRouteUpdateStatusMessage(
+            commands = Seq(
+              MonitorRouteUpdateStatusCommand("step-active", "2")
+            )
+          ),
+
+
           MonitorRouteUpdateStatusMessage(
             commands = Seq(
               MonitorRouteUpdateStatusCommand("step-active", "save")

@@ -89,8 +89,8 @@ object MonitorRouteMigrationTool {
       // tool.migrateOne("fr-iwn-Camino", "Voie-Toulouse")
       // tool.migrateOne("fr-iwn-Camino", "Voie-Vezelay")
       // tool.migrateOne("SGR", "GR-129S-L3")
-      tool.migrateOne("NL-LAW", "LAW-9-1")
-      // tool.migrate()
+      // tool.migrateOne("GRV", "p01")
+      tool.migrate()
     }
     println("Done")
   }
