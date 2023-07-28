@@ -107,7 +107,7 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
         form.invalid &&
         (relationId.dirty || relationId.touched || ngForm.submitted)
       "
-      class="kpn-warning"
+      class="kpn-error"
     >
       <p
         *ngIf="form.errors?.relationIdMissing"
