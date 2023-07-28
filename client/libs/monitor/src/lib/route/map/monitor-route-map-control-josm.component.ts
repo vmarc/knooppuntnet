@@ -75,27 +75,27 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   imports: [MatButtonModule, MatMenuModule, AsyncPipe],
 })
 export class MonitorRouteMapControlJosmComponent {
-  private readonly service = inject(MonitorRouteMapStateService);
+  private readonly stateService = inject(MonitorRouteMapStateService);
   private readonly editService = inject(EditService);
 
   readonly josmZoomToSelectedDeviationDisabled = computed(
     () =>
-      this.service.mode() !== MonitorMapMode.comparison ||
-      !this.service.selectedDeviation()
+      this.stateService.mode() !== MonitorMapMode.comparison ||
+      !this.stateService.selectedDeviation()
   );
 
   readonly josmZoomToSelectedOsmSegmentDisabled = computed(
     () =>
-      this.service.mode() !== MonitorMapMode.osmSegments ||
-      !this.service.selectedOsmSegment()
+      this.stateService.mode() !== MonitorMapMode.osmSegments ||
+      !this.stateService.selectedOsmSegment()
   );
 
   zoomToFitRoute(): void {
-    this.service.focusChanged(this.service.page().bounds);
+    this.stateService.zoomToFitRoute();
   }
 
   josmLoadRouteRelation(): void {
-    const relationIds = [this.service.page().relationId];
+    const relationIds = [this.stateService.page().relationId];
     this.editService.edit({
       relationIds,
       fullRelation: true,
@@ -103,17 +103,17 @@ export class MonitorRouteMapControlJosmComponent {
   }
 
   josmZoomToFitRoute(): void {
-    const bounds = this.service.page().bounds;
+    const bounds = this.stateService.page().bounds;
     this.editService.edit({ bounds });
   }
 
   josmZoomToSelectedDeviation(): void {
-    const bounds = this.service.selectedDeviation().bounds;
+    const bounds = this.stateService.selectedDeviation().bounds;
     this.editService.edit({ bounds });
   }
 
   josmZoomToSelectedOsmSegment(): void {
-    const bounds = this.service.selectedOsmSegment().bounds;
+    const bounds = this.stateService.selectedOsmSegment().bounds;
     this.editService.edit({ bounds });
   }
 }

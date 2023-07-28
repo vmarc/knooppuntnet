@@ -136,14 +136,14 @@ export class MonitorRouteMapStateService {
   selectedDeviationChanged(selectedDeviation: MonitorRouteDeviation): void {
     this._state.update((state) => ({ ...state, selectedDeviation }));
     if (selectedDeviation) {
-      this._focus.set(selectedDeviation.bounds);
+      this.focusChanged(selectedDeviation.bounds);
     }
   }
 
   selectedOsmSegmentChanged(selectedOsmSegment: MonitorRouteSegment): void {
     this._state.update((state) => ({ ...state, selectedOsmSegment }));
     if (selectedOsmSegment) {
-      this._focus.set(selectedOsmSegment.bounds);
+      this.focusChanged(selectedOsmSegment.bounds);
     }
   }
 
@@ -151,6 +151,15 @@ export class MonitorRouteMapStateService {
     this._state.update((state) => ({
       ...state,
       mode,
+      selectedDeviation: null,
+      selectedOsmSegment: null,
+    }));
+  }
+
+  zoomToFitRoute(): void {
+    this.focusChanged(this.page().bounds);
+    this._state.update((state) => ({
+      ...state,
       selectedDeviation: null,
       selectedOsmSegment: null,
     }));
