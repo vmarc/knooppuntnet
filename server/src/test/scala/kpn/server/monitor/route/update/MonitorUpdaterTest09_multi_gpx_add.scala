@@ -165,9 +165,9 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(None)
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(12)) should equal(None)
 
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
       val state11 = configuration.monitorRouteRepository.routeState(route._id, 11).get
@@ -284,7 +284,7 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      val reference11 = configuration.monitorRouteRepository.routeRelationReference(route._id, 11).get
+      val reference11 = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
       reference11.shouldMatchTo(
         MonitorRouteReference(
           reference11._id,
@@ -302,8 +302,8 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 12) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(12)) should equal(None)
 
       val updatedState11 = configuration.monitorRouteRepository.routeState(route._id, 11).get
       updatedState11.shouldMatchTo(
@@ -384,10 +384,10 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 11).shouldMatchTo(Some(reference11))
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(11)).shouldMatchTo(Some(reference11))
 
-      val reference2 = configuration.monitorRouteRepository.routeRelationReference(route._id, 12).get
+      val reference2 = configuration.monitorRouteRepository.routeReference(route._id, Some(12)).get
       reference2.shouldMatchTo(
         MonitorRouteReference(
           reference2._id,

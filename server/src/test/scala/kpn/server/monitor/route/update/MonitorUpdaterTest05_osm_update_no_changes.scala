@@ -96,7 +96,7 @@ class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAnd
       )
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
       val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
 
       updatedRoute should equal(route)

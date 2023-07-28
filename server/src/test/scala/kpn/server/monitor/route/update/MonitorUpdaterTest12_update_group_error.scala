@@ -87,7 +87,7 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group1._id, "route").get
       val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
-      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
 
       updatedRoute should equal(route)
       updatedState should equal(state)

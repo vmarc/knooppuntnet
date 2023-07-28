@@ -96,7 +96,7 @@ class MonitorRouteMapPageBuilder(
     route.relation match {
       case None =>
         if (route.referenceType == "gpx") {
-          monitorRouteRepository.routeReference(route._id) match {
+          monitorRouteRepository.routeReference(route._id, None) match {
             case Some(reference) => buildPageWithGpxReferenceOnly(group, route, reference)
             case None => buildEmptyPage(group, route) // TODO or throw exception?
           }
@@ -175,7 +175,7 @@ class MonitorRouteMapPageBuilder(
 
   private def buildSimpleRoutePage(group: MonitorGroup, route: MonitorRoute, relationId: Long): MonitorRouteMapPage = {
 
-    monitorRouteRepository.routeRelationReference(route._id, relationId) match {
+    monitorRouteRepository.routeReference(route._id, Some(relationId)) match {
       case None => buildEmptyPage(group, route) // TODO or throw exception?
       case Some(reference) =>
 
@@ -246,11 +246,11 @@ class MonitorRouteMapPageBuilder(
         s"(${index + 1}/${subRelations.size}) ${subRelation.name}"
     }.getOrElse("?")
 
-    monitorRouteRepository.routeRelationReference(route._id, relationId) match {
+    monitorRouteRepository.routeReference(route._id, Some(relationId)) match {
       case None =>
 
         val stateOption = monitorRouteRepository.routeState(route._id, relationId)
-        val referenceOption = monitorRouteRepository.routeRelationReference(route._id, relationId).map { reference =>
+        val referenceOption = monitorRouteRepository.routeReference(route._id, Some(relationId)).map { reference =>
           MonitorRouteReferenceInfo(
             reference.timestamp,
             reference.user,

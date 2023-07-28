@@ -455,7 +455,7 @@ class MonitorRouteUpdateExecutor(
           val geometry = geoJsonWriter.write(geometryCollection)
 
           val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
-            monitorRouteRepository.routeRelationReferenceId(context.routeId, subRelation.id) match {
+            monitorRouteRepository.routeRelationReferenceId(context.routeId, Some(subRelation.id)) match {
               case Some(id) => id
               case None => ObjectId()
             }
@@ -583,7 +583,7 @@ class MonitorRouteUpdateExecutor(
             analyze(reference)
 
           case None =>
-            monitorRouteRepository.routeReference(context.routeId) match {
+            monitorRouteRepository.routeReference(context.routeId, None) match {
               case None =>
               case Some(reference) =>
                 if (reference.relationId != context.update.relationId) {

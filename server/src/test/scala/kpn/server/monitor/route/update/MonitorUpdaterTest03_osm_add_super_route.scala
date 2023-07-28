@@ -163,11 +163,11 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
         )
       )
 
-      val reference1 = configuration.monitorRouteRepository.routeRelationReference(route._id, 1)
+      val reference1 = configuration.monitorRouteRepository.routeReference(route._id, Some(1))
       reference1 should equal(None)
 
 
-      val reference11 = configuration.monitorRouteRepository.routeRelationReference(route._id, 11).get
+      val reference11 = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
       reference11.shouldMatchTo(
         MonitorRouteReference(
           reference11._id,
@@ -185,7 +185,7 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
         )
       )
 
-      val reference12 = configuration.monitorRouteRepository.routeRelationReference(route._id, 12).get
+      val reference12 = configuration.monitorRouteRepository.routeReference(route._id, Some(12)).get
       reference12.shouldMatchTo(
         MonitorRouteReference(
           reference12._id,

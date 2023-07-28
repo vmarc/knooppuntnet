@@ -142,7 +142,7 @@ class MonitorUpdaterTest17_osm_remove_relation_id extends UnitTest with BeforeAn
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
     }
   }

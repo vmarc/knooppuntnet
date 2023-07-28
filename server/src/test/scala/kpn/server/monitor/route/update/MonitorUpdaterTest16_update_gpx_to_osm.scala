@@ -129,7 +129,7 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
         )
       )
 
-      val addedReference = configuration.monitorRouteRepository.routeRelationReference(addedRoute._id, 1).get
+      val addedReference = configuration.monitorRouteRepository.routeReference(addedRoute._id, Some(1)).get
       addedReference.shouldMatchTo(
         MonitorRouteReference(
           addedReference._id,
@@ -254,7 +254,7 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
         )
       )
 
-      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(updatedRoute._id, 1).get
+      val updatedReference = configuration.monitorRouteRepository.routeReference(updatedRoute._id, Some(1)).get
       updatedReference.shouldMatchTo(
         MonitorRouteReference(
           addedReference._id,

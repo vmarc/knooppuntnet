@@ -163,10 +163,10 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
       subrelation112.deviationDistance should equal(0)
       subrelation112.deviationCount should equal(0)
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 11) should equal(Some(reference11))
+      configuration.monitorRouteRepository.routeReference(route._id, Some(11)) should equal(Some(reference11))
       configuration.monitorRouteRepository.routeState(route._id, 11) should equal(Some(state11))
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 111) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(111)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 111) should equal(
         Some(
           state111.copy(
@@ -177,7 +177,7 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 112) should equal(Some(reference112))
+      configuration.monitorRouteRepository.routeReference(route._id, Some(112)) should equal(Some(reference112))
       configuration.monitorRouteRepository.routeState(route._id, 112) should equal(Some(state112))
     }
   }

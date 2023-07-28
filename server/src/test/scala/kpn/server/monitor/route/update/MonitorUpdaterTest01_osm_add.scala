@@ -154,7 +154,7 @@ class MonitorUpdaterTest01_osm_add extends UnitTest with BeforeAndAfterEach with
         )
       )
 
-      val reference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
       reference.shouldMatchTo(
         MonitorRouteReference(
           _id = reference._id,

@@ -170,7 +170,7 @@ class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach w
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
     }
   }

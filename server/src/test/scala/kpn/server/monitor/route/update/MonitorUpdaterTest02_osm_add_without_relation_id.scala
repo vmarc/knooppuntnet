@@ -83,7 +83,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      configuration.monitorRouteRepository.routeRelationReference(route._id, 1) should equal(None)
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
 
       setupLoadStructure(configuration)
@@ -171,7 +171,7 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      val reference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
       reference.shouldMatchTo(
         MonitorRouteReference(
           reference._id,

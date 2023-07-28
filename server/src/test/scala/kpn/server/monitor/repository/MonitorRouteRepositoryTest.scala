@@ -303,6 +303,42 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
     }
   }
 
+  test("routeReference and routeRelationReferenceId") {
+
+    withDatabase { database =>
+
+      val group = newMonitorGroup("group")
+      val route = newMonitorRoute(
+        group._id,
+        "route",
+        "description",
+      )
+
+      val reference1 = newMonitorRouteReference(
+        route._id,
+        None
+      )
+      val reference2 = newMonitorRouteReference(
+        route._id,
+        Some(1)
+      )
+
+      database.monitorGroups.save(group)
+      database.monitorRoutes.save(route)
+      database.monitorRouteReferences.save(reference1)
+      database.monitorRouteReferences.save(reference2)
+
+      val routeRepository = new MonitorRouteRepositoryImpl(database)
+
+      routeRepository.routeReference(route._id, None).shouldMatchTo(Some(reference1))
+      routeRepository.routeReference(route._id, Some(1)).shouldMatchTo(Some(reference2))
+
+      routeRepository.routeRelationReferenceId(route._id, None).shouldMatchTo(Some(reference1._id))
+      routeRepository.routeRelationReferenceId(route._id, Some(1)).shouldMatchTo(Some(reference2._id))
+    }
+  }
+
+
   private def buildChange(groupName: String /*TODO MON remove*/ , routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
     newMonitorRouteChange(
       newChangeKey(

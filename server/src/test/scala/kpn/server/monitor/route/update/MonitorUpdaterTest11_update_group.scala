@@ -91,7 +91,7 @@ class MonitorUpdaterTest11_update_group extends UnitTest with BeforeAndAfterEach
       )
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group2._id, "route").get
-      val updatedReference = configuration.monitorRouteRepository.routeRelationReference(route._id, 1).get
+      val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
       // TODO val updatedState = config.monitorRouteRepository.routeState(route._id, 1).get
 
       updatedRoute.groupId should equal(group2._id)

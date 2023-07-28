@@ -71,7 +71,7 @@ class MonitorChangeProcessorImpl(
       case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
       case Some(referenceKey) =>
 
-        val referenceOption = monitorRouteRepository.routeReference(ObjectId("TODO MON") /*, routeId, referenceKey*/)
+        val referenceOption = monitorRouteRepository.routeReference(ObjectId("TODO MON") /*, routeId, referenceKey*/ , None)
         monitorRouteLoader.loadBefore(changeSetContext.changeSet.id, changeSetContext.changeSet.timestampBefore, routeId) match {
           case None => log.warn(s"$routeId TODO route did not exist before --> create change ???")
           case Some(beforeRelation) =>

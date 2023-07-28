@@ -21,6 +21,7 @@ import kpn.server.repository.Distance
 import kpn.server.repository.NetworkRepositoryImpl
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.bson.BsonNull
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
@@ -257,43 +258,24 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
     }
   }
 
-  override def routeReference(routeId: ObjectId): Option[MonitorRouteReference] = {
+  override def routeReference(routeId: ObjectId, relationId: Option[Long]): Option[MonitorRouteReference] = {
+    val relationIdValue = relationId match {
+      case Some(value) => value
+      case None => BsonNull()
+    }
     val pipeline = Seq(
-      filter(
-        equal("routeId", routeId.raw),
-      ),
-      sort(
-        orderBy(
-          descending(
-            "created"
-          )
-        )
-      ),
-      limit(1)
+      routeReferenceFilter(routeId, relationId)
     )
     database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
   }
 
-  override def routeRelationReference(routeId: ObjectId, relationId: Long): Option[MonitorRouteReference] = {
+  override def routeRelationReferenceId(routeId: ObjectId, relationId: Option[Long]): Option[ObjectId] = {
+    val relationIdValue = relationId match {
+      case Some(value) => value
+      case None => BsonNull()
+    }
     val pipeline = Seq(
-      filter(
-        and(
-          equal("routeId", routeId.raw),
-          equal("relationId", relationId),
-        )
-      )
-    )
-    database.monitorRouteReferences.optionAggregate[MonitorRouteReference](pipeline, log)
-  }
-
-  override def routeRelationReferenceId(routeId: ObjectId, relationId: Long): Option[ObjectId] = {
-    val pipeline = Seq(
-      filter(
-        and(
-          equal("routeId", routeId.raw),
-          equal("relationId", relationId),
-        )
-      ),
+      routeReferenceFilter(routeId, relationId),
       project(
         fields(
           include("_id")
@@ -301,6 +283,19 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       )
     )
     database.monitorRouteReferences.optionAggregate[ObjectIdId](pipeline, log).map(_._id)
+  }
+
+  private def routeReferenceFilter(routeId: ObjectId, relationId: Option[Long]): Bson = {
+    val relationIdValue = relationId match {
+      case Some(value) => value
+      case None => BsonNull()
+    }
+    filter(
+      and(
+        equal("routeId", routeId.raw),
+        equal("relationId", relationIdValue),
+      )
+    )
   }
 
   override def routeReferences(routeId: ObjectId): Seq[MonitorRouteReference] = {
