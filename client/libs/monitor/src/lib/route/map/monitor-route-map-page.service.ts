@@ -52,13 +52,13 @@ export class MonitorRouteMapPageService {
               let relationId = 0;
               if (page.currentSubRelation) {
                 relationId = page.currentSubRelation.relationId;
-                this._state.update((state) => ({
-                  ...state,
-                  routeDescription: page.currentSubRelation.name,
-                }));
               } else if (page.relationId) {
                 relationId = page.relationId;
               }
+              this._state.update((state) => ({
+                ...state,
+                routeDescription: page.routeDescription,
+              }));
               this.pages.set(relationId, page);
               const queryParams = this.navService.queryParams();
               this.stateService.initialState(queryParams, page);
@@ -75,6 +75,10 @@ export class MonitorRouteMapPageService {
       this.stateService.pageChanged(page);
       this.mapService.pageChanged(page);
       this.stateService.focusChanged(page.bounds);
+      this._state.update((state) => ({
+        ...state,
+        routeDescription: page.routeDescription,
+      }));
     } else {
       this.monitorService
         .routeMap(
@@ -89,13 +93,13 @@ export class MonitorRouteMapPageService {
               let relationId = 0;
               if (page.currentSubRelation) {
                 relationId = page.currentSubRelation.relationId;
-                this._state.update((state) => ({
-                  ...state,
-                  routeDescription: page.currentSubRelation.name,
-                }));
               } else if (page.relationId) {
                 relationId = page.relationId;
               }
+              this._state.update((state) => ({
+                ...state,
+                routeDescription: page.routeDescription,
+              }));
               this.pages.set(relationId, page);
               this.stateService.pageChanged(page);
               this.mapService.pageChanged(page);

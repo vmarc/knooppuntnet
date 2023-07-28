@@ -49,6 +49,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       <kpn-page-menu-option
         [link]="routeDetailLink()"
         [active]="pageName === 'details'"
+        [state]="routeLinkState()"
         i18n="@@monitor.route.menu.details"
       >
         Details
@@ -57,6 +58,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       <kpn-page-menu-option
         [link]="routeMapLink()"
         [active]="pageName === 'map'"
+        [state]="routeLinkState()"
         i18n="@@monitor.route.menu.map"
       >
         Map
@@ -139,6 +141,10 @@ export class MonitorRoutePageHeaderComponent {
 
   routeMapLink() {
     return `/monitor/groups/${this.groupName}/routes/${this.routeName}/map`;
+  }
+
+  routeLinkState() {
+    return { description: this.routeDescription };
   }
 
   subrelationsEmpty() {

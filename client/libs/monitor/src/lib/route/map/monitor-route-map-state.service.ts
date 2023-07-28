@@ -114,7 +114,11 @@ export class MonitorRouteMapStateService {
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    this._state.update((state) => ({ ...state, page }));
+    this._state.update((state) => ({
+      ...state,
+      page,
+      routeDescription: page.routeDescription,
+    }));
   }
 
   referenceVisibleChanged(referenceVisible: boolean): void {

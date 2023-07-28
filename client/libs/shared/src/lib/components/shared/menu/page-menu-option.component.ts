@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'kpn-page-menu-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a [routerLink]="link" [ngClass]="{ active: active }" class="link">
+    <a [routerLink]="link" [ngClass]="{ active: active }" [state]="state" class="link">
       <ng-content />
       <span *ngIf="!!elementCount" class="element-count">
         ({{ elementCount }})
