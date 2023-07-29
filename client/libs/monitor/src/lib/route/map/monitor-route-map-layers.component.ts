@@ -14,7 +14,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     <div class="map-layers">
       <mat-checkbox
         [checked]="mapStateService.referenceVisible()"
-        [disabled]="!referenceEnabled()"
+        [disabled]="!modeComparison()"
         (change)="mapStateService.referenceVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
@@ -34,7 +34,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
       <mat-checkbox
         [checked]="mapStateService.matchesVisible()"
-        [disabled]="!matchesEnabled()"
+        [disabled]="!modeComparison()"
         (change)="mapStateService.matchesVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
@@ -56,7 +56,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
       <mat-checkbox
         [checked]="mapStateService.deviationsVisible()"
-        [disabled]="!gpxDeviationsEnabled()"
+        [disabled]="!modeComparison()"
         (change)="mapStateService.deviationsVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
@@ -78,7 +78,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
       <mat-checkbox
         [checked]="mapStateService.osmRelationVisible()"
-        [disabled]="!osmRelationEnabled()"
+        [disabled]="!modeComparison()"
         (change)="mapStateService.osmRelationVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
@@ -105,28 +105,8 @@ export class MonitorRouteMapLayersComponent {
     () => this.mapStateService.page().referenceType
   );
 
-  readonly referenceEnabled = computed(
-    () =>
-      this.mapStateService.mode() === MonitorMapMode.comparison &&
-      this.mapStateService.referenceAvailable() === true
-  );
-
-  readonly osmRelationEnabled = computed(
-    () =>
-      this.mapStateService.mode() === MonitorMapMode.comparison &&
-      this.mapStateService.page().osmSegments.length > 0
-  );
-
-  readonly gpxDeviationsEnabled = computed(
-    () =>
-      this.mapStateService.mode() === MonitorMapMode.comparison &&
-      this.mapStateService.page().deviations.length > 0
-  );
-
-  readonly matchesEnabled = computed(
-    () =>
-      this.mapStateService.mode() === MonitorMapMode.comparison &&
-      !!this.mapStateService.page().matchesGeoJson
+  readonly modeComparison = computed(
+    () => this.mapStateService.mode() === MonitorMapMode.comparison
   );
 
   constructor(protected mapStateService: MonitorRouteMapStateService) {}

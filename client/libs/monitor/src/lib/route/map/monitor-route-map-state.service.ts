@@ -56,16 +56,10 @@ export class MonitorRouteMapStateService {
     }
 
     const matchesParam = queryParams.get('matches');
-    let matchesVisible = !!page.matchesGeoJson && page.osmSegments.length > 0;
-    if (matchesVisible && matchesParam) {
-      matchesVisible = matchesParam === 'true';
-    }
+    const matchesVisible = matchesParam !== 'false';
 
     const deviationsParam = queryParams.get('deviations');
-    let deviationsVisible = page.deviations.length > 0;
-    if (deviationsVisible && deviationsParam) {
-      deviationsVisible = deviationsParam === 'true';
-    }
+    const deviationsVisible = deviationsParam !== 'false';
 
     const osmRelationParam = queryParams.get('osm-relation');
     let osmRelationVisible = page.osmSegments.length > 0;
