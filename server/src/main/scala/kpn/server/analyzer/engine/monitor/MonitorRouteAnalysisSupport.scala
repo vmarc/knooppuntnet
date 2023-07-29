@@ -110,7 +110,7 @@ object MonitorRouteAnalysisSupport {
 
   def toSampleCoordinates(sampleDistanceMeters: Int, lineString: LineString): Seq[Coordinate] = {
     val referenceMeters = Haversine.meters(lineString)
-    val distanceBetweenSamples = sampleDistanceMeters.toDouble * Haversine.meters(lineString) / referenceMeters
+    val distanceBetweenSamples = sampleDistanceMeters.toDouble * lineString.getLength / referenceMeters
     val densifiedLineString = Densifier.densify(lineString, distanceBetweenSamples)
     densifiedLineString.getCoordinates.toSeq
   }
