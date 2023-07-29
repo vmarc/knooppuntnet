@@ -85,9 +85,9 @@ object MonitorRouteMigrationTool {
       val configuration = new MonitorRouteMigrationConfiguration(database)
       val tool = new MonitorRouteMigrationTool(configuration)
       // tool.renameRouteCollections()
-      tool.addExampleSuperRoute(exampleSuperRoute)
+      // tool.addExampleSuperRoute(exampleSuperRoute)
       // tool.migrateOne("GRV", "p04")
-      // tool.migrate()
+      tool.migrate()
     }
     println("Done")
   }
@@ -141,7 +141,7 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
                 groupName = group.name,
                 routeName = "example",
                 referenceType = "multi-gpx",
-                relationId = Some(exampleSuperRoute.relationId),
+                relationId = Some(superRouteSubRelation.relationId),
                 referenceTimestamp = Some(Time.now),
                 referenceFilename = Some(superRouteSubRelation.referenceFilename),
                 referenceGpx = Some(referenceGpx),
