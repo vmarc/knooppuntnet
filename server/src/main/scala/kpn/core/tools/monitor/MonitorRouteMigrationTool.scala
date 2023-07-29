@@ -1,6 +1,5 @@
 package kpn.core.tools.monitor
 
-
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time

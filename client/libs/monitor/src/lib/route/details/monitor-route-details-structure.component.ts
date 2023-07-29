@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
@@ -255,7 +256,11 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 
       <ng-container matColumnDef="gap">
         <th style="display: none" mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row">
+        <td
+          mat-cell
+          *matCellDef="let row"
+          [ngClass]="{ 'no-route-gap': row.gaps === undefined }"
+        >
           <ng-container *ngIf="row.gaps !== undefined">
             <kpn-monitor-route-gap [description]="row.gaps" />
           </ng-container>
@@ -337,6 +342,10 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       .symbol {
         vertical-align: middle;
       }
+
+      .no-route-gap {
+        background-color: #f8f8f8;
+      }
     `,
   ],
   standalone: true,
@@ -354,6 +363,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     RouterLink,
     TimestampDayPipe,
     SymbolComponent,
+    NgClass,
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {
