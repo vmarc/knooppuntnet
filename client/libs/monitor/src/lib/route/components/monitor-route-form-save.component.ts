@@ -1,6 +1,6 @@
 import { NgSwitchDefault } from '@angular/common';
-import { NgSwitch } from '@angular/common';
 import { NgSwitchCase } from '@angular/common';
+import { NgSwitch } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { inject } from '@angular/core';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteSaveStep } from '../monitor-route-save-step';
+import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-step.component';
 
 @Component({
   selector: 'kpn-monitor-route-form-save',
@@ -21,24 +22,10 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
       <div *ngIf="command" class="kpn-spacer-below">
         Route: {{ routeName() }}
       </div>
-      <div
+      <kpn-monitor-route-form-save-step
         *ngFor="let step of steps(); trackBy: trackBySteps"
-        class="kpn-line kpn-spacer-below"
-      >
-        <div class="icon">
-          <mat-spinner
-            *ngIf="step.status === 'busy'"
-            diameter="20"
-          ></mat-spinner>
-          <mat-icon *ngIf="step.status === 'todo'" svgIcon="dot" class="todo" />
-          <mat-icon
-            *ngIf="step.status === 'done'"
-            svgIcon="tick"
-            class="done"
-          />
-        </div>
-        <span>{{ step.description }}</span>
-      </div>
+        [step]="step"
+      />
     </div>
 
     <p *ngFor="let error of errors()">
@@ -84,29 +71,12 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .icon {
-        width: 2em;
-        height: 1.5em;
-      }
-
-      .done {
-        color: green;
-      }
-
-      .todo {
-        color: gray;
-        width: 0.3em;
-        height: 0.3em;
-      }
-    `,
-  ],
   standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,
     MatProgressSpinnerModule,
+    MonitorRouteFormSaveStepComponent,
     NgFor,
     NgIf,
     NgSwitch,

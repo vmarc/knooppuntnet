@@ -10,6 +10,7 @@ import { MonitorRouteSaveStep } from './route/monitor-route-save-step';
 
 @Injectable()
 export class MonitorWebsocketService {
+  private readonly logEnabled = false;
   private readonly _steps = signal<MonitorRouteSaveStep[]>([]);
   private readonly _errors = signal<string[]>([]);
   private readonly _done = signal<boolean>(false);
@@ -120,13 +121,17 @@ export class MonitorWebsocketService {
   }
 
   private log(message: string): void {
-    console.log(`${this.now()} ${message}`);
+    if (this.logEnabled) {
+      console.log(`${this.now()} ${message}`);
+    }
   }
 
   private logArgs(args: any[]): void {
-    const coll: any[] = [this.now()];
-    args.forEach((arg) => coll.push(arg));
-    console.log(coll);
+    if (this.logEnabled) {
+      const coll: any[] = [this.now()];
+      args.forEach((arg) => coll.push(arg));
+      console.log(coll);
+    }
   }
 
   private now(): string {
