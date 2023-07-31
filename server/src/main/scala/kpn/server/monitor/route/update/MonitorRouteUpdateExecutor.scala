@@ -191,7 +191,7 @@ class MonitorRouteUpdateExecutor(
           oldRoute.copy(
             groupId = groupId,
             name = context.update.newRouteName.getOrElse(oldRoute.name),
-            description = context.update.description.get, // TODO make more safe!!
+            description = context.update.description.getOrElse(""),
             comment = context.update.comment,
             relationId = context.update.relationId,
             user = context.user,
@@ -236,6 +236,13 @@ class MonitorRouteUpdateExecutor(
     findGroup()
     findRoute()
 
+    val oldReferenceIds = monitorRouteRepository.routeReferenceIds(context.routeId)
+    val oldStateIds = monitorRouteRepository.routeStateIds(context.routeId)
+    context = context.copy(
+      oldReferenceIds = oldReferenceIds,
+      oldStateIds = oldStateIds
+    )
+
     val now = Time.now
     val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp missing in update"))
     val relationId = context.update.relationId.getOrElse(throw new RuntimeException("relationId missing in update"))
@@ -255,14 +262,15 @@ class MonitorRouteUpdateExecutor(
       case Some(migrationGeojson) => migrationGeojson
       case None => MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
     }
-    // TODO should delete already existing reference here?
 
     val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
     val distance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
     val segmentCount = geometryCollection.getNumGeometries
 
+    val objectId = context.oldReferenceIds.filter(_.relationId.contains(relationId)).map(_._id).headOption.getOrElse(ObjectId())
+
     val reference = MonitorRouteReference(
-      ObjectId(),
+      objectId,
       routeId = context.routeId,
       relationId = Some(relationId),
       timestamp = now,
@@ -300,12 +308,7 @@ class MonitorRouteUpdateExecutor(
     analyzeReference(reference, None) match {
       case None =>
       case Some(state) =>
-        // TODO improve performance by picking up _id only?
-        val stateToSave = monitorRouteRepository.routeState(context.routeId, state.relationId) match {
-          case Some(oldState) => state.copy(_id = oldState._id)
-          case None => state
-        }
-        monitorRouteRepository.saveRouteState(stateToSave)
+        monitorRouteRepository.saveRouteState(state)
         context = context.copy(
           stateChanged = true
         )
@@ -548,8 +551,6 @@ class MonitorRouteUpdateExecutor(
             val geometryCollection = new GeoJsonReader(geometryFactory).read(referenceGeoJson)
             val referenceBounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
 
-            // TODO should delete already existing reference here?
-
             val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
             val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
             val referenceSegmentCount = geometryCollection.getNumGeometries
@@ -625,8 +626,6 @@ class MonitorRouteUpdateExecutor(
         val geometryCollection = new MonitorRouteGpxReader().read(xml)
         val referenceBounds = MonitorRouteAnalysisSupport.geometryBounds(geometryCollection)
         val referenceGeoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
-
-        // TODO should delete already existing reference here?
 
         val referenceLineStrings = MonitorRouteReferenceUtil.toLineStrings(geometryCollection)
         val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
