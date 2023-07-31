@@ -13,6 +13,7 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
@@ -21,7 +22,9 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest18_osm_update_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest19_osm_update_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -99,46 +102,11 @@ class MonitorUpdaterTest18_osm_update_relation_id extends UnitTest with BeforeAn
         )
       )
 
-      reporter.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-            )
-          ),
+      assertMessages(reporter)
 
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "2", Some("1/1 route-name")),
-              MonitorRouteUpdateStatusCommand("step-add", "save", None),
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "2")
-            )
-          ),
-
-
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save")
-            )
-          )
-        )
-      )
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       updatedRoute.shouldMatchTo(
@@ -282,5 +250,45 @@ class MonitorUpdaterTest18_osm_update_relation_id extends UnitTest with BeforeAn
     val relation = new DataBuilder(overpassData.rawData).data.relations(2)
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 2).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 12)), 2).returns(Some(relation))
+  }
+
+  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    reporter.messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "2", Some("1/1 route-name")),
+            MonitorRouteUpdateStatusCommand("step-add", "save", None),
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "2")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
   }
 }

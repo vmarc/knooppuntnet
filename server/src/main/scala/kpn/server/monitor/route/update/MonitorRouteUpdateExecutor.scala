@@ -632,8 +632,10 @@ class MonitorRouteUpdateExecutor(
         val referenceDistance = Math.round(referenceLineStrings.map(Haversine.meters).sum)
         val referenceSegmentCount = geometryCollection.getNumGeometries
 
+        val objectId = context.oldReferenceIds.filter(_.relationId == context.relationId).map(_._id).headOption.getOrElse(ObjectId())
+
         val reference = MonitorRouteReference(
-          ObjectId(),
+          objectId,
           routeId = context.routeId,
           relationId = context.relationId,
           timestamp = now,

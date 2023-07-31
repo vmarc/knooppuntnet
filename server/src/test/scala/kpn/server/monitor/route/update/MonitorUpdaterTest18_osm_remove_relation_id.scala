@@ -7,12 +7,15 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest17_osm_remove_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -88,32 +91,11 @@ class MonitorUpdaterTest17_osm_remove_relation_id extends UnitTest with BeforeAn
         )
       )
 
-      reporter.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save")
-            )
-          )
-        )
-      )
+      assertMessages(reporter)
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(0)
+      database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       updatedRoute.shouldMatchTo(
@@ -145,5 +127,34 @@ class MonitorUpdaterTest17_osm_remove_relation_id extends UnitTest with BeforeAn
       configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
     }
+  }
+
+  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    reporter.messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
   }
 }

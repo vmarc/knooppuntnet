@@ -6,11 +6,14 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
+  private val log = new MockLog()
+  
   test("add/update/upload - group not found") {
 
     withDatabase() { database =>
@@ -49,6 +52,10 @@ class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterE
           )
         )
       )
+
+      database.monitorRoutes.countDocuments(log) should equal(0)
+      database.monitorRouteReferences.countDocuments(log) should equal(0)
+      database.monitorRouteStates.countDocuments(log) should equal(0)
     }
   }
 }

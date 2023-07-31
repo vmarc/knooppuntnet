@@ -6,10 +6,13 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   test("cannot add route that already exists") {
 
@@ -63,6 +66,10 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
           )
         )
       )
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(0)
+      database.monitorRouteStates.countDocuments(log) should equal(0)
     }
   }
 }

@@ -11,6 +11,7 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
@@ -20,6 +21,8 @@ import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -57,6 +60,10 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
           )
         )
       )
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(2)
+      database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -165,7 +172,6 @@ class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAf
 
       val reference1 = configuration.monitorRouteRepository.routeReference(route._id, Some(1))
       reference1 should equal(None)
-
 
       val reference11 = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
       reference11.shouldMatchTo(

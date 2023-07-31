@@ -13,6 +13,7 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
@@ -22,6 +23,8 @@ import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -73,19 +76,11 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      reporter.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-            MonitorRouteUpdateStatusCommand("step-active", "prepare"))),
-          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure"))),
-          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
-            MonitorRouteUpdateStatusCommand("step-add", "analyze"),
-            MonitorRouteUpdateStatusCommand("step-active", "load-gpx"))),
-          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-active", "analyze"))),
-          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-active", "save"))),
-          MonitorRouteUpdateStatusMessage(commands = Seq(MonitorRouteUpdateStatusCommand("step-done", "save"))))
-      )
+      assertAddMessages(reporter)
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -117,6 +112,23 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
       configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
 
+      val reference = configuration.monitorRouteRepository.routeReference(route._id, None).get
+      reference.shouldMatchTo(
+        MonitorRouteReference(
+          reference._id,
+          routeId = route._id,
+          relationId = None, // <-- not filled in
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          user = "user1",
+          referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+          referenceType = "gpx",
+          referenceTimestamp = Timestamp(2022, 8, 1),
+          referenceDistance = 181,
+          referenceSegmentCount = 1,
+          referenceFilename = Some("filename"),
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+        )
+      )
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
 
@@ -134,44 +146,12 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
           update2
         )
       )
-      reporter.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze"),
-              MonitorRouteUpdateStatusCommand("step-active", "load-gpx")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "analyze")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save")
-            )
-          )
-        )
-      )
+
+      assertUpdateMessages(reporter)
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(1)
 
       configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
         Some(
@@ -227,8 +207,8 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
-      reference.shouldMatchTo(
+      val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+      updatedReference.shouldMatchTo(
         MonitorRouteReference(
           reference._id,
           routeId = route._id,
@@ -304,5 +284,87 @@ class MonitorUpdaterTest08_gpx_add_without_relation_id extends UnitTest with Bef
 
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
     (configuration.monitorRouteRelationRepository.load _).when(None, 1).returns(Some(relation))
+  }
+
+  private def assertAddMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    reporter.messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+            MonitorRouteUpdateStatusCommand("step-active", "load-gpx")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
+  }
+
+  private def assertUpdateMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    reporter.messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "load-gpx"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze"),
+            MonitorRouteUpdateStatusCommand("step-active", "load-gpx")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save")
+          )
+        )
+      )
+    )
   }
 }

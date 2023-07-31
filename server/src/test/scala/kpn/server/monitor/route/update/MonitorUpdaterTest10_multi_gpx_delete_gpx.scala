@@ -7,10 +7,13 @@ import kpn.api.common.Bounds
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -147,6 +150,10 @@ class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndA
           )
         )
       )
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(2)
+      database.monitorRouteStates.countDocuments(log) should equal(3)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       val subrelation111 = updatedRoute.relation.get.relations.head.relations.head

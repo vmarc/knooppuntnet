@@ -7,10 +7,13 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -84,6 +87,10 @@ class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAft
           )
         )
       )
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group1._id, "route").get
       val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get

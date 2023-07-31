@@ -13,6 +13,7 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
@@ -22,6 +23,8 @@ import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -59,6 +62,10 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       assertRouteAddMessages(routeAddReporter.messages)
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(0)
+      database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -261,6 +268,10 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
 
       assertUploadGpx1Messages(uploadGpxReporter1.messages)
 
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(2)
+
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated1.shouldMatchTo(
         route.copy(
@@ -351,6 +362,10 @@ class MonitorUpdaterTest09_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       assertUploadGpx2Messages(uploadGpxReporter2.messages)
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(2)
+      database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       routeUpdated2.shouldMatchTo(

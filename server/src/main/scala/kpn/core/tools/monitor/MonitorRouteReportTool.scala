@@ -8,7 +8,7 @@ import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 
 object MonitorRouteReportTool {
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-prod") { database =>
+    Mongo.executeIn("kpn-monitor") { database =>
       val groupRepository = new MonitorGroupRepositoryImpl(database)
       val routeRepository = new MonitorRouteRepositoryImpl(database)
       new MonitorRouteReportTool(groupRepository, routeRepository).report()
@@ -24,9 +24,12 @@ class MonitorRouteReportTool(
     groupRepository.groups().sortBy(_.name).foreach { group =>
       println(s"group ${group.name}")
       groupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
-        val stateCount = routeRepository.routeStateCount(route._id)
-        val stateSize = routeRepository.routeStateSize(route._id)
-        println(s"  route ${route.name}: $stateCount states, size=${"%.0fMb".format(stateSize / 1000000d)}")
+        val hasRole = route.relation match {
+          case None => false
+          case Some(relation) =>
+            relation.relations.flatMap(_.role).size > 0
+        }
+        println(s"  route ${route.name} has role: $hasRole")
       }
     }
   }

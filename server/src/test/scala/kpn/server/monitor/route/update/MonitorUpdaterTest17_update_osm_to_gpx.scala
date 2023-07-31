@@ -20,7 +20,7 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest17_update_osm_to_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 
@@ -39,18 +39,6 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      val gpx =
-        """
-          |<gpx>
-          |  <trk>
-          |    <trkseg>
-          |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
-          |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
-          |    </trkseg>
-          |  </trk>
-          |</gpx>
-          |""".stripMargin
-
       Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
       configuration.monitorRouteUpdateExecutor.execute(
@@ -61,13 +49,11 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
             action = "add",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "gpx",
+            referenceType = "osm",
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
             referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-            referenceFilename = Some("filename"),
-            referenceGpx = Some(gpx)
           )
         )
       )
@@ -88,9 +74,9 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          referenceType = "gpx",
+          referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-          referenceFilename = Some("filename"),
+          referenceFilename = None,
           referenceDistance = 181,
           deviationDistance = 0,
           deviationCount = 0,
@@ -145,12 +131,12 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           user = "user1",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "gpx",
+          referenceType = "osm",
           referenceTimestamp = Timestamp(2022, 8, 1),
           referenceDistance = 181,
           referenceSegmentCount = 1,
-          referenceFilename = Some("filename"),
-          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+          referenceFilename = None,
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
         )
       )
 
@@ -184,6 +170,19 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
 
+      val gpx =
+        """
+          |<gpx>
+          |  <trk>
+          |    <trkseg>
+          |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
+          |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
+          |    </trkseg>
+          |  </trk>
+          |</gpx>
+          |""".stripMargin
+
+
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user2",
@@ -192,11 +191,13 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
             action = "update",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "osm",
-            referenceNow = true,
+            referenceType = "gpx",
+            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
+            referenceFilename = Some("filename"),
+            referenceGpx = Some(gpx)
           )
         )
       )
@@ -217,9 +218,9 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           user = "user2",
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           symbol = None,
-          referenceType = "osm",
-          referenceTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
-          referenceFilename = None,
+          referenceType = "gpx",
+          referenceTimestamp = Some(Timestamp(2022, 8, 1, 0, 0, 0)),
+          referenceFilename = Some("filename"),
           referenceDistance = 181,
           deviationDistance = 0,
           deviationCount = 0,
@@ -274,12 +275,12 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           user = "user2",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "osm",
-          referenceTimestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+          referenceType = "gpx",
+          referenceTimestamp = Timestamp(2022, 8, 1, 0, 0, 0),
           referenceDistance = 181,
           referenceSegmentCount = 1,
-          referenceFilename = None,
-          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}]}"""
+          referenceFilename = Some("filename"),
+          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
         )
       )
 
@@ -341,7 +342,12 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       )
 
     val relation = new DataBuilder(overpassData.rawData).data.relations(1)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.load _).when(None, 1).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(
+      Some(Timestamp(2022, 8, 1, 0, 0, 0))
+      , 1
+    ).returns(Some(relation))
     (configuration.monitorRouteRelationRepository.loadTopLevel _).when(
       Some(Timestamp(2022, 8, 12, 12, 0, 0))
       , 1

@@ -7,10 +7,13 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -69,31 +72,11 @@ class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAnd
         )
       )
 
-      reporter.messages.shouldMatchTo(
-        Seq(
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-add", "prepare"),
-              MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
-              MonitorRouteUpdateStatusCommand("step-active", "prepare")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-active", "save")
-            )
-          ),
-          MonitorRouteUpdateStatusMessage(
-            commands = Seq(
-              MonitorRouteUpdateStatusCommand("step-done", "save"))
-          )
-        )
-      )
+      assertMessages(reporter)
+
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
       val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
@@ -103,5 +86,33 @@ class MonitorUpdaterTest05_osm_update_no_changes extends UnitTest with BeforeAnd
       updatedReference should equal(reference)
       updatedState should equal(state)
     }
+  }
+
+  private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
+    reporter.messages.shouldMatchTo(
+      Seq(
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-add", "prepare"),
+            MonitorRouteUpdateStatusCommand("step-add", "analyze-route-structure"),
+            MonitorRouteUpdateStatusCommand("step-active", "prepare")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "analyze-route-structure")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-active", "save")
+          )
+        ),
+        MonitorRouteUpdateStatusMessage(
+          commands = Seq(
+            MonitorRouteUpdateStatusCommand("step-done", "save"))
+        )
+      )
+    )
   }
 }

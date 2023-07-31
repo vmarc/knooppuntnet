@@ -11,6 +11,7 @@ import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
+import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
@@ -20,6 +21,8 @@ import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
 class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+
+  private val log = new MockLog()
 
   override def afterEach(): Unit = {
     Time.clear()
@@ -54,7 +57,9 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      // TODO replace: saveResult should equal(MonitorRouteSaveResult())
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(0)
+      database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
       route.shouldMatchTo(
@@ -105,11 +110,9 @@ class MonitorUpdaterTest02_osm_add_without_relation_id extends UnitTest with Bef
         )
       )
 
-      //      updateSaveResult should equal (
-      //        MonitorRouteSaveResult(
-      //          analyzed = true,
-      //        )
-      //        )
+      database.monitorRoutes.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(1)
 
       configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
         Some(
