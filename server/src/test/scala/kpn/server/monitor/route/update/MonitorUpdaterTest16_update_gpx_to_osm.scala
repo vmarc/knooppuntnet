@@ -193,7 +193,7 @@ class MonitorUpdaterTest16_update_gpx_to_osm extends UnitTest with BeforeAndAfte
             groupName = group.name,
             routeName = "route-name",
             referenceType = "osm",
-            referenceNow = true,
+            referenceNow = Some(true),
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),

@@ -99,7 +99,7 @@ class MonitorRouteUpdateExecutor(
     findGroup()
     assertNewRoute()
 
-    val referenceTimestamp = if (context.update.referenceNow) {
+    val referenceTimestamp = if (context.update.referenceNow.contains(true)) {
       Some(Time.now)
     }
     else {
@@ -179,7 +179,7 @@ class MonitorRouteUpdateExecutor(
           }
       }
 
-      val referenceTimestamp = if (context.update.referenceNow) {
+      val referenceTimestamp = if (context.update.referenceNow.contains(true)) {
         Some(Time.now)
       }
       else {
@@ -231,7 +231,26 @@ class MonitorRouteUpdateExecutor(
 
   private def gpxUpload(): Unit = {
 
-    // TODO communicate expected steps
+    val commands = Seq(
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        "upload",
+      ),
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        "save"
+      ),
+      MonitorRouteUpdateStatusCommand(
+        "step-active",
+        "upload",
+      ),
+    )
+
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = commands
+      )
+    )
 
     findGroup()
     findRoute()
@@ -290,7 +309,7 @@ class MonitorRouteUpdateExecutor(
       newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
     )
 
-    if (context.update.referenceType == "multi-gpx") {
+    if (context.update.referenceType == "multi-gpx") { // TODO referenceType will always be "multi-gpx" ?
       context = context.copy(
         newRoute = context.oldRoute
       )
@@ -305,20 +324,43 @@ class MonitorRouteUpdateExecutor(
       )
     }
 
-    analyzeReference(reference, None) match {
+    monitorRouteRelationRepository.loadTopLevel(None, relationId) match {
       case None =>
-      case Some(state) =>
-        monitorRouteRepository.saveRouteState(state)
-        context = context.copy(
-          stateChanged = true
-        )
-        save()
+      case Some(relation) =>
+        analyzeReference(reference, Some(relation)) match {
+          case None =>
+          case Some(state) =>
+            monitorRouteRepository.saveRouteState(state)
+            context = context.copy(
+              stateChanged = true
+            )
+            save()
+        }
     }
   }
 
   private def gpxDelete(): Unit = {
 
-    // TODO communicate expected steps
+    val commands = Seq(
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        "delete",
+      ),
+      MonitorRouteUpdateStatusCommand(
+        "step-add",
+        "save"
+      ),
+      MonitorRouteUpdateStatusCommand(
+        "step-active",
+        "delete",
+      ),
+    )
+
+    context.reporter.report(
+      MonitorRouteUpdateStatusMessage(
+        commands = commands
+      )
+    )
 
     findGroup()
     findRoute()
@@ -338,6 +380,7 @@ class MonitorRouteUpdateExecutor(
           stateChanged = true
         )
     }
+
     save()
   }
 
@@ -497,7 +540,7 @@ class MonitorRouteUpdateExecutor(
             )
           }
 
-          val currentRelation = if (context.update.referenceNow) {
+          val currentRelation = if (context.update.referenceNow.contains(true)) {
             Some(subRelation)
           }
           else {

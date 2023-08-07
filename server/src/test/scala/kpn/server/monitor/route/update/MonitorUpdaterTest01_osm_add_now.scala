@@ -56,7 +56,7 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
-            referenceNow = true,
+            referenceNow = Some(true),
           )
         )
       )
