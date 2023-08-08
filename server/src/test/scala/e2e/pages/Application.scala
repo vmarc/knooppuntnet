@@ -1,4 +1,4 @@
-package kpn.e2e.pages
+package e2e.pages
 
 import com.microsoft.playwright.Page
 import com.microsoft.playwright.Page.GoBackOptions

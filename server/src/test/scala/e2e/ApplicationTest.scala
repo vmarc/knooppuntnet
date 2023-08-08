@@ -1,14 +1,14 @@
-package kpn.e2e
+package e2e
 
 import com.microsoft.playwright.assertions.LocatorAssertions
 import com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat
 import com.microsoft.playwright.Page
 import com.microsoft.playwright.options.AriaRole
+import e2e.pages.Application
 import kpn.api.common.common.User
 import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
 import kpn.database.util.Mongo
-import kpn.e2e.pages.Application
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import org.mongodb.scala.MongoClient

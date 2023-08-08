@@ -1,4 +1,4 @@
-package kpn.e2e
+package e2e
 
 import com.microsoft.playwright.Browser
 import com.microsoft.playwright.BrowserContext
