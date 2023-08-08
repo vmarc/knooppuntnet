@@ -1,12 +1,12 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
+import kpn.api.common.Bounds
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -22,7 +22,7 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 
@@ -30,7 +30,7 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
     Time.clear()
   }
 
-  test("osm reference at current system time") {
+  test("osm reference, update relation id - delete obsolete reference and state") {
 
     withDatabase() { database =>
 
@@ -41,22 +41,63 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
       val group = newMonitorGroup("group")
       configuration.monitorGroupRepository.saveGroup(group)
 
-      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
+      val route = newMonitorRoute(
+        group._id,
+        name = "route",
+        relationId = Some(1),
+        user = "user1",
+        symbol = None,
+        referenceType = "osm",
+        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
+        referenceFilename = None,
+        referenceDistance = 1000,
+        deviationDistance = 100,
+        deviationCount = 2,
+        osmWayCount = 30,
+        osmDistance = 1010,
+        osmSegmentCount = 1,
+        osmSegments = Seq(
+          MonitorRouteOsmSegment(Seq.empty)
+        ),
+        relation = Some(
+          newMonitorRouteRelation(
+            relationId = 1,
+            name = "route"
+          )
+        ),
+        happy = true
+      )
+      val reference = newMonitorRouteReference(
+        routeId = route._id,
+        relationId = Some(1),
+        referenceType = "osm",
+        referenceTimestamp = Timestamp(2022, 8, 11),
+      )
+      val state = newMonitorRouteState(
+        route._id,
+        1,
+        timestamp = Timestamp(2022, 8, 11),
+      )
 
+      configuration.monitorGroupRepository.saveGroup(group)
+      configuration.monitorRouteRepository.saveRoute(route)
+      configuration.monitorRouteRepository.saveRouteReference(reference)
+      configuration.monitorRouteRepository.saveRouteState(state)
+
+      Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
       val reporter = new MonitorUpdateReporterMock()
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
-          "user",
+          "user2",
           reporter,
           MonitorRouteUpdate(
-            action = "add",
+            action = "update",
             groupName = group.name,
-            routeName = "route-name",
+            routeName = "route",
             referenceType = "osm",
-            description = Some("route-description"),
-            comment = Some("route-comment"),
-            relationId = Some(1),
-            referenceNow = Some(true),
+            description = Some("description"),
+            relationId = Some(2),
+            referenceTimestamp = Some(Timestamp(2022, 8, 12)),
           )
         )
       )
@@ -67,20 +108,20 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
       database.monitorRouteReferences.countDocuments(log) should equal(1)
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
-      val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.shouldMatchTo(
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
+      updatedRoute.shouldMatchTo(
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
-          name = "route-name",
-          description = "route-description",
-          comment = Some("route-comment"),
-          relationId = Some(1),
-          user = "user",
-          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          name = "route",
+          description = "description",
+          comment = None,
+          relationId = Some(2),
+          user = "user2",
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           symbol = None,
           referenceType = "osm",
-          referenceTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
+          referenceTimestamp = Some(Timestamp(2022, 8, 12)),
           referenceFilename = None,
           referenceDistance = 181,
           deviationDistance = 0,
@@ -92,7 +133,7 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
             MonitorRouteOsmSegment(
               Seq(
                 MonitorRouteOsmSegmentElement(
-                  relationId = 1,
+                  relationId = 2,
                   segmentId = 1,
                   meters = 181,
                   bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
@@ -103,7 +144,7 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
           ),
           relation = Some(
             MonitorRouteRelation(
-              relationId = 1,
+              relationId = 2,
               name = "route-name",
               role = None,
               survey = None,
@@ -126,17 +167,20 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
         )
       )
 
-      val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
-      reference.shouldMatchTo(
+      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
+      configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+
+      val reference2 = configuration.monitorRouteRepository.routeReference(route._id, Some(2)).get
+      reference2.shouldMatchTo(
         MonitorRouteReference(
-          _id = reference._id,
+          _id = reference2._id,
           routeId = route._id,
-          relationId = Some(1),
-          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-          user = "user",
+          relationId = Some(2),
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+          user = "user2",
           referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
           referenceType = "osm",
-          referenceTimestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          referenceTimestamp = Timestamp(2022, 8, 12),
           referenceDistance = 181,
           referenceSegmentCount = 1,
           referenceFilename = None,
@@ -144,13 +188,13 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
         )
       )
 
-      val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
-      state.shouldMatchTo(
+      val state2 = configuration.monitorRouteRepository.routeState(route._id, 2).get
+      state2.shouldMatchTo(
         MonitorRouteState(
-          state._id,
+          state2._id,
           routeId = route._id,
-          relationId = 1,
-          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
+          relationId = 2,
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           wayCount = 1,
           startNodeId = Some(1001),
           endNodeId = Some(1002),
@@ -178,13 +222,13 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
 
     val overpassData = OverpassData()
       .relation(
-        1,
+        2,
         tags = Tags.from(
           "name" -> "route-name"
         ),
       )
 
-    setupRouteStructure(configuration, overpassData, 1)
+    setupRouteStructure(configuration, overpassData, 2)
   }
 
   private def setupLoadTopLevel(configuration: MonitorUpdaterConfiguration): Unit = {
@@ -194,7 +238,7 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
       .node(1002, latitude = "51.4618272", longitude = "4.4562458")
       .way(101, 1001, 1002)
       .relation(
-        1,
+        2,
         tags = Tags.from(
           "name" -> "route-name"
         ),
@@ -203,9 +247,9 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
         )
       )
 
-    val relation = new DataBuilder(overpassData.rawData).data.relations(1)
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 1).returns(Some(relation))
-    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 11, 12, 0, 0)), 1).returns(Some(relation))
+    val relation = new DataBuilder(overpassData.rawData).data.relations(2)
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(None, 2).returns(Some(relation))
+    (configuration.monitorRouteRelationRepository.loadTopLevel _).when(Some(Timestamp(2022, 8, 12)), 2).returns(Some(relation))
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
@@ -225,12 +269,13 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
         ),
         MonitorRouteUpdateStatusMessage(
           commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-add", "1", Some("1/1 route-name")),
-            MonitorRouteUpdateStatusCommand("step-add", "save"))
+            MonitorRouteUpdateStatusCommand("step-add", "2", Some("1/1 route-name")),
+            MonitorRouteUpdateStatusCommand("step-add", "save", None),
+          )
         ),
         MonitorRouteUpdateStatusMessage(
           commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-active", "1")
+            MonitorRouteUpdateStatusCommand("step-active", "2")
           )
         ),
         MonitorRouteUpdateStatusMessage(
@@ -246,5 +291,4 @@ class MonitorUpdaterTest01_osm_add_now extends UnitTest with BeforeAndAfterEach 
       )
     )
   }
-
 }

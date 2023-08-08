@@ -20,7 +20,7 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest03_osm_add_super_route extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 

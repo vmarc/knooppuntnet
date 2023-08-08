@@ -11,7 +11,7 @@ import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest10_multi_gpx_delete_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest11_multi_gpx_delete_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 

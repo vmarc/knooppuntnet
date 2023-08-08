@@ -16,7 +16,7 @@ import kpn.core.util.UnitTest
 import kpn.server.monitor.domain.MonitorRoute
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest04_osm_update extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 

@@ -9,11 +9,9 @@ import kpn.core.common.Time
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
-import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.MonitorRouteOsmSegment
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 
@@ -21,40 +19,23 @@ class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAn
     Time.clear()
   }
 
-  test("osm reference, remove relation id - delete obsolete reference and state") {
+  test("route update - no changes") {
 
     withDatabase() { database =>
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
-      val group = newMonitorGroup("group")
-      configuration.monitorGroupRepository.saveGroup(group)
+      Time.set(Timestamp(2023, 1, 1))
 
+      val group = newMonitorGroup("group")
       val route = newMonitorRoute(
         group._id,
         name = "route",
         relationId = Some(1),
         user = "user",
-        symbol = Some("red:red:white_bar"),
         referenceType = "osm",
         referenceTimestamp = Some(Timestamp(2022, 8, 11)),
         referenceFilename = None,
-        referenceDistance = 1000,
-        deviationDistance = 100,
-        deviationCount = 2,
-        osmWayCount = 30,
-        osmDistance = 1010,
-        osmSegmentCount = 1,
-        osmSegments = Seq(
-          MonitorRouteOsmSegment(Seq.empty)
-        ),
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-            name = "route"
-          )
-        ),
-        happy = true
       )
       val reference = newMonitorRouteReference(
         routeId = route._id,
@@ -73,7 +54,7 @@ class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAn
       configuration.monitorRouteRepository.saveRouteReference(reference)
       configuration.monitorRouteRepository.saveRouteState(state)
 
-      Time.set(Timestamp(2022, 8, 11, 12, 0, 0))
+      Time.set(Timestamp(2023, 1, 2))
       val reporter = new MonitorUpdateReporterMock()
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
@@ -83,10 +64,10 @@ class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAn
             action = "update",
             groupName = group.name,
             routeName = "route",
+            description = Some(""),
+            relationId = Some(1),
             referenceType = "osm",
-            description = Some("route description"),
-            relationId = None,
-            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+            referenceTimestamp = Some(Timestamp(2022, 8, 11)),
           )
         )
       )
@@ -94,38 +75,16 @@ class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAn
       assertMessages(reporter)
 
       database.monitorRoutes.countDocuments(log) should equal(1)
-      database.monitorRouteReferences.countDocuments(log) should equal(0)
-      database.monitorRouteStates.countDocuments(log) should equal(0)
+      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-      updatedRoute.shouldMatchTo(
-        MonitorRoute(
-          _id = route._id,
-          groupId = group._id,
-          name = "route",
-          description = "route description",
-          comment = None,
-          relationId = None,
-          user = "user",
-          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
-          symbol = None,
-          referenceType = "osm",
-          referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-          referenceFilename = None,
-          referenceDistance = 0,
-          deviationDistance = 0,
-          deviationCount = 0,
-          osmWayCount = 0,
-          osmDistance = 0,
-          osmSegmentCount = 0,
-          osmSegments = Seq.empty,
-          relation = None,
-          happy = false
-        )
-      )
+      val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
+      val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
 
-      configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-      configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
+      updatedRoute should equal(route)
+      updatedReference should equal(reference)
+      updatedState should equal(state)
     }
   }
 
@@ -151,8 +110,7 @@ class MonitorUpdaterTest18_osm_remove_relation_id extends UnitTest with BeforeAn
         ),
         MonitorRouteUpdateStatusMessage(
           commands = Seq(
-            MonitorRouteUpdateStatusCommand("step-done", "save")
-          )
+            MonitorRouteUpdateStatusCommand("step-done", "save"))
         )
       )
     )

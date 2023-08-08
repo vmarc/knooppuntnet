@@ -10,10 +10,10 @@ import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest14_group_not_found extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
-  
+
   test("add/update/upload - group not found") {
 
     withDatabase() { database =>

@@ -6,33 +6,18 @@ import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
-import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjects {
 
-  private val log = new MockLog()
-
-  test("cannot add route that already exists") {
+  test("update/upload - route not found") {
 
     withDatabase() { database =>
 
       val configuration = MonitorUpdaterTestSupport.configuration(database)
 
       val group = newMonitorGroup("group-name")
-      val route = newMonitorRoute(
-        group._id,
-        name = "route-name",
-        relationId = None,
-        user = "user",
-        referenceType = "osm",
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        referenceFilename = None,
-      )
-
       configuration.monitorGroupRepository.saveGroup(group)
-      configuration.monitorRouteRepository.saveRoute(route)
 
       val reporter = new MonitorUpdateReporterMock()
       configuration.monitorRouteUpdateExecutor.execute(
@@ -40,13 +25,13 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
           "user",
           reporter,
           MonitorRouteUpdate(
-            action = "add",
+            action = "update",
             groupName = "group-name",
-            routeName = "route-name",
-            referenceType = "osm",
+            routeName = "unknown-route-name",
             description = Some("description"),
             comment = Some("comment"),
             relationId = Some(1),
+            referenceType = "osm",
             referenceTimestamp = Some(Timestamp(2022, 8, 11)),
           )
         )
@@ -62,14 +47,10 @@ class MonitorUpdaterTest13_add_error extends UnitTest with BeforeAndAfterEach wi
             )
           ),
           MonitorRouteUpdateStatusMessage(
-            exception = Some(s"""Could not add route with name "route-name": already exists (_id=${route._id.oid}) in group with name "group-name"""")
+            exception = Some("""Could not find route with name "unknown-route-name" in group "group-name"""")
           )
         )
       )
-
-      database.monitorRoutes.countDocuments(log) should equal(1)
-      database.monitorRouteReferences.countDocuments(log) should equal(0)
-      database.monitorRouteStates.countDocuments(log) should equal(0)
     }
   }
 }

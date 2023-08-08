@@ -11,7 +11,7 @@ import kpn.core.util.MockLog
 import kpn.core.util.UnitTest
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest12_update_group_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 

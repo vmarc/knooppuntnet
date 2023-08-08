@@ -20,7 +20,7 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest17_update_osm_to_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 
