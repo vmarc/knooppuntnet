@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteSaveStep } from '../monitor-route-save-step';
+import { MonitorRouteFormErrorsComponent } from './monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-step.component';
 
 @Component({
@@ -28,28 +29,8 @@ import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-ste
       />
     </div>
 
-    <p *ngFor="let error of errors()">
-      <ng-container [ngSwitch]="error">
-        <span
-          *ngSwitchCase="'no-relation-id'"
-          i18n="@@monitor.route.save-dialog.no-relation-id"
-        >
-          Note: we cannot yet perform an analysis. The reference information is
-          still incomplete. The relation id has not been specified.
-        </span>
-        <span
-          *ngSwitchCase="'osm-relation-not-found'"
-          i18n="@@monitor.route.save-dialog.osm-relation-not-found"
-        >
-          Note: we cannot yet perform an analysis. The reference information is
-          still incomplete. No route with given relation id was found at given
-          reference date.
-        </span>
-        <span *ngSwitchDefault>
-          {{ error }}
-        </span>
-      </ng-container>
-    </p>
+    <kpn-monitor-route-form-errors [errors]="errors()" />
+
     <div class="kpn-button-group">
       <button
         mat-stroked-button
@@ -79,9 +60,7 @@ import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-ste
     MonitorRouteFormSaveStepComponent,
     NgFor,
     NgIf,
-    NgSwitch,
-    NgSwitchCase,
-    NgSwitchDefault,
+    MonitorRouteFormErrorsComponent,
   ],
 })
 export class MonitorRouteFormSaveComponent {

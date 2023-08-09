@@ -285,7 +285,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
               i18n-title="@@action.gpx.upload"
               class="kpn-action-button kpn-link"
             >
-              <mat-icon svgIcon="pencil" />
+              <mat-icon svgIcon="upload" />
             </button>
             <button
               mat-icon-button

@@ -132,6 +132,13 @@ export class IconService {
     );
 
     this.iconRegistry.addSvgIconLiteral(
+      'upload',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/upload.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
       'garbage',
       this.domSanitizer.bypassSecurityTrustHtml(
         require('!svg-inline-loader!src/assets/images/icons/garbage.svg')

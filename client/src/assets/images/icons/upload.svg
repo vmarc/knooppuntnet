@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <polyline fill="none" points="86 82 128 40 170 82" stroke="#00f" stroke-linecap="round" stroke-linejoin="round"
+    stroke-width="12" />
+  <line fill="none" stroke="#00f" stroke-linecap="round" stroke-linejoin="round" stroke-width="12" x1="128" x2="128"
+    y1="152" y2="40" />
+  <path d="M216,152v56a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V152" fill="none" stroke="#00f" stroke-linecap="round"
+    stroke-linejoin="round" stroke-width="12" />
+</svg>

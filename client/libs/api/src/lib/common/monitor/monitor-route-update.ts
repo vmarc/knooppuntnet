@@ -3,18 +3,18 @@
 import { Timestamp } from '@api/custom';
 
 export interface MonitorRouteUpdate {
-  readonly action: string;
-  readonly groupName: string;
-  readonly routeName: string;
-  readonly referenceType: string;
-  readonly description: string;
-  readonly comment: string;
-  readonly relationId: number;
-  readonly referenceNow: boolean;
-  readonly referenceTimestamp: Timestamp;
-  readonly referenceFilename: string;
-  readonly referenceGpx: string;
-  readonly migrationGeojson: string;
-  readonly newGroupName: string;
-  readonly newRouteName: string;
+  readonly action?: string;
+  readonly groupName?: string;
+  readonly routeName?: string;
+  readonly referenceType?: string;
+  readonly description?: string;
+  readonly comment?: string;
+  readonly relationId?: number;
+  readonly referenceNow?: boolean;
+  readonly referenceTimestamp?: Timestamp;
+  readonly referenceFilename?: string;
+  readonly referenceGpx?: string;
+  readonly migrationGeojson?: string;
+  readonly newGroupName?: string;
+  readonly newRouteName?: string;
 }

@@ -102,23 +102,6 @@ export class MonitorService {
     return this.http.post(url, parameters);
   }
 
-  routeAdd(
-    groupName: string,
-    properties: MonitorRouteProperties
-  ): Observable<ApiResponse<MonitorRouteSaveResult>> {
-    const url = `/api/monitor/groups/${groupName}`;
-    return this.http.post(url, properties);
-  }
-
-  routeUpdate(
-    groupName: string,
-    routeName: string,
-    properties: MonitorRouteProperties
-  ): Observable<ApiResponse<MonitorRouteSaveResult>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
-    return this.http.put(url, properties);
-  }
-
   route(
     groupName: string,
     routeName: string
@@ -159,16 +142,6 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  deleteGpx(
-    groupName: string,
-    routeName: string,
-    relationId: string
-  ): Observable<void> {
-    const routeUrl = `/monitor/groups/${groupName}/routes/${routeName}`;
-    const apiUrl = `/api${routeUrl}/gpx/${relationId}`;
-    return this.http.delete<void>(apiUrl);
-  }
-
   routeChanges(
     groupName: string,
     routeName: string,
@@ -206,39 +179,6 @@ export class MonitorService {
   routeInfo(relationId: number): Observable<ApiResponse<MonitorRouteInfoPage>> {
     const url = `/api/monitor/route-info/${relationId}`;
     return this.http.get(url);
-  }
-
-  routeGpxUpload(
-    groupName: string,
-    routeName: string,
-    file: File
-  ): Observable<void> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload`;
-    return this.http.post<void>(url, formData);
-  }
-
-  routeSubRelationGpxUpload(
-    groupName: string,
-    routeName: string,
-    subRelationId: string,
-    file: File,
-    referenceTimestamp: Timestamp
-  ): Observable<void> {
-    const formData: FormData = new FormData();
-    formData.append('file', file);
-    formData.append('referenceTimestamp', referenceTimestamp);
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/upload/${subRelationId}`;
-    return this.http.post<void>(url, formData);
-  }
-
-  routeAnalyze(
-    groupName: string,
-    routeName: string
-  ): Observable<ApiResponse<MonitorRouteSaveResult>> {
-    const url = `/api/monitor/groups/${groupName}/routes/${routeName}/analyze`;
-    return this.http.post(url, '');
   }
 
   asyncGroupNameUniqueValidator(

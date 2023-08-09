@@ -370,9 +370,6 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       referenceTimestamp,
       referenceFilename: this.referenceFilename.value,
       referenceGpx,
-      migrationGeojson: undefined,
-      newGroupName: undefined,
-      newRouteName: undefined,
     };
 
     this.update.emit(command);

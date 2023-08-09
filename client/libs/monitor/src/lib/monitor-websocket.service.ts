@@ -13,11 +13,13 @@ export class MonitorWebsocketService {
   private readonly logEnabled = false;
   private readonly _steps = signal<MonitorRouteSaveStep[]>([]);
   private readonly _errors = signal<string[]>([]);
+  private readonly _busy = signal<boolean>(false);
   private readonly _done = signal<boolean>(false);
   private webSocketSubject: WebSocketSubject<any>;
 
   readonly steps = this._steps.asReadonly();
   readonly errors = this._errors.asReadonly();
+  readonly busy = this._busy.asReadonly();
   readonly done = this._done.asReadonly();
 
   constructor(@Inject(DOCUMENT) private document) {}
@@ -42,6 +44,7 @@ export class MonitorWebsocketService {
       openObserver: {
         next: () => {
           this.log('websocket connection open');
+          this._busy.set(true);
         },
       },
     });
@@ -69,6 +72,10 @@ export class MonitorWebsocketService {
                   description = $localize`:@@monitor.update-command.analyze:Analyze route deviations`;
                 } else if (command.stepId === 'save') {
                   description = $localize`:@@monitor.update-command.save:Save`;
+                } else if (command.stepId === 'upload') {
+                  description = $localize`:@@monitor.update-command.upload:Upload`;
+                } else if (command.stepId === 'delete') {
+                  description = $localize`:@@monitor.update-command.delete:Delete`;
                 } else {
                   description = 'TODO translate: ' + command.stepId;
                 }
@@ -106,12 +113,14 @@ export class MonitorWebsocketService {
       complete: () => {
         this.log('websocket complete');
         this._done.set(true);
+        this._done.set(true);
       },
     });
     this.webSocketSubject.next(command);
   }
 
   reset() {
+    this._busy.set(false);
     this._done.set(false);
     this._steps.set([]);
   }

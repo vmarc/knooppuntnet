@@ -1,4 +1,6 @@
+import { NgForOf } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +13,9 @@ import { DayPipe } from '@app/components/shared/format';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { RouteSummaryComponent } from '../../../../../analysis/src/lib/route/details/route-summary.component';
+import { MonitorWebsocketService } from '../../monitor-websocket.service';
+import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
+import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
 import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcrumb.component';
 import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 
@@ -59,14 +64,14 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             </kpn-data>
           </div>
 
-          <div class="kpn-button-group">
-            <button
-              mat-stroked-button
-              class="delete-button"
-              (click)="delete()"
-              i18n="@@monitor.route.gpx.delete.action"
-            >
-              Delete reference
+          <div *ngIf="busy() === false" class="kpn-button-group">
+            <button mat-stroked-button (click)="delete()">
+              <span
+                class="delete-button"
+                i18n="@@monitor.route.gpx.delete.action"
+              >
+                Delete reference
+              </span>
             </button>
             <a
               [routerLink]="state.routeLink"
@@ -78,6 +83,28 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
           </div>
         </div>
       </div>
+
+      <div *ngIf="busy() === true">
+        <kpn-monitor-route-form-save-step
+          *ngFor="let step of steps()"
+          [step]="step"
+        />
+
+        <kpn-monitor-route-form-errors [errors]="errors()" />
+
+        <div class="kpn-button-group">
+          <button
+            mat-stroked-button
+            id="goto-analysis-result-button"
+            [routerLink]="state.routeLink"
+            [disabled]="done() === false"
+            i18n="@@monitor.route.gpx-delete.action.analysis-result"
+          >
+            Back to route details
+          </button>
+        </div>
+      </div>
+
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
@@ -108,10 +135,27 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     RouterLink,
     SidebarComponent,
     TimestampDayPipe,
+    MonitorRouteFormErrorsComponent,
+    MonitorRouteFormSaveStepComponent,
+    NgForOf,
   ],
 })
-export class MonitorRouteGpxDeleteComponent {
-  constructor(protected service: MonitorRouteGpxService) {}
+export class MonitorRouteGpxDeleteComponent implements OnDestroy {
+  readonly steps = this.monitorWebsocketService.steps;
+  readonly errors = this.monitorWebsocketService.errors;
+  readonly busy = this.monitorWebsocketService.busy;
+  readonly done = this.monitorWebsocketService.done;
+
+  constructor(
+    protected service: MonitorRouteGpxService,
+    private monitorWebsocketService: MonitorWebsocketService
+  ) {
+    this.monitorWebsocketService.reset();
+  }
+
+  ngOnDestroy(): void {
+    this.monitorWebsocketService.reset();
+  }
 
   delete(): void {
     this.service.delete();
