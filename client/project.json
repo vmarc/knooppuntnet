@@ -1,6 +1,6 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
   "name": "knooppuntnet",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
   "i18n": {
     "sourceLocale": {
       "code": "en",
