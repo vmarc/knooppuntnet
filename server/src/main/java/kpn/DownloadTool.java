@@ -8,6 +8,12 @@ import reactor.core.publisher.Flux;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
+/*
+    https://www.vlaanderen.be/datavindplaats/catalogus/toeristisch-recreatief-wandelnetwerk-vlaanderen
+    https://www.vlaanderen.be/datavindplaats/catalogus/toeristisch-recreatief-fietsnetwerk-vlaanderen
+    https://www.vlaanderen.be/datavindplaats/catalogus/toeristisch-recreatief-ruiternetwerk-vlaanderen
+ */
+
 public class DownloadTool {
     public static void main(String[] args) {
         new DownloadTool().download();

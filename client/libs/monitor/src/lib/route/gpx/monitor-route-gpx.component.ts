@@ -1,3 +1,4 @@
+import { NgForOf } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,6 +12,9 @@ import { TimestampUtil } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { MonitorWebsocketService } from '../../monitor-websocket.service';
+import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
+import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
 import { MonitorRouteGpxBreadcrumbComponent } from './monitor-route-gpx-breadcrumb.component';
 import { MonitorRouteGpxReferenceComponent } from './monitor-route-gpx-reference.component';
 import { MonitorRouteGpxService } from './monitor-route-gpx.service';
@@ -47,16 +51,16 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             </form>
           </div>
 
-          <div class="kpn-button-group">
+          <div *ngIf="busy() === false" class="kpn-button-group">
             <button
               mat-raised-button
               id="save"
               color="primary"
               (click)="save()"
               [disabled]="form.invalid"
-              i18n="@@action.save"
+              i18n="@@action.upload"
             >
-              Save
+              Upload
             </button>
             <a
               [routerLink]="state.routeLink"
@@ -68,6 +72,28 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
           </div>
         </div>
       </div>
+
+      <div *ngIf="busy() === true">
+        <kpn-monitor-route-form-save-step
+          *ngFor="let step of steps()"
+          [step]="step"
+        />
+
+        <kpn-monitor-route-form-errors [errors]="errors()" />
+
+        <div class="kpn-button-group">
+          <button
+            mat-stroked-button
+            id="goto-analysis-result-button"
+            [routerLink]="state.routeLink"
+            [disabled]="done() === false"
+            i18n="@@monitor.route.gpx-delete.action.analysis-result"
+          >
+            Back to route details
+          </button>
+        </div>
+      </div>
+
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
@@ -91,9 +117,17 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     ReactiveFormsModule,
     RouterLink,
     SidebarComponent,
+    MonitorRouteFormErrorsComponent,
+    MonitorRouteFormSaveStepComponent,
+    NgForOf,
   ],
 })
 export class MonitorRouteGpxComponent {
+  readonly steps = this.monitorWebsocketService.steps;
+  readonly errors = this.monitorWebsocketService.errors;
+  readonly busy = this.monitorWebsocketService.busy;
+  readonly done = this.monitorWebsocketService.done;
+
   readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
   readonly referenceFilename = new FormControl<string>(
     null,
@@ -107,7 +141,10 @@ export class MonitorRouteGpxComponent {
     referenceFile: this.referenceFile,
   });
 
-  constructor(protected service: MonitorRouteGpxService) {}
+  constructor(
+    protected service: MonitorRouteGpxService,
+    private monitorWebsocketService: MonitorWebsocketService
+  ) {}
 
   save(): void {
     const referenceTimestamp = TimestampUtil.toTimestamp(
