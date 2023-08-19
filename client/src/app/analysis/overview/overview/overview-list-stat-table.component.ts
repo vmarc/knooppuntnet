@@ -80,7 +80,7 @@ import { Stat } from '../domain/stat';
           [stat]="stat"
           [country]="country.fr"
           [networkType]="networkType.cycling"
-          [rowspan]="3"
+          [rowspan]="4"
         ></kpn-overview-list-stat-row>
         <kpn-overview-list-stat-row
           [stat]="stat"
