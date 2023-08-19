@@ -43,6 +43,12 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
           i18n-title="@@country.be"
           title="Belgium"
         />
+        <kpn-icon-button
+          [routerLink]="frLink | async"
+          icon="france"
+          i18n-title="@@country.fr"
+          title="France"
+        />
       </kpn-icon-buttons>
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
@@ -62,6 +68,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 export class AnalysisHorseRidingPageComponent {
   readonly nlLink = this.analysisStrategyService.link('horse-riding', 'nl');
   readonly beLink = this.analysisStrategyService.link('horse-riding', 'be');
+  readonly frLink = this.analysisStrategyService.link('horse-riding', 'fr');
 
   constructor(private analysisStrategyService: AnalysisStrategyService) {}
 }
