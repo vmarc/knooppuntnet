@@ -90,6 +90,11 @@ import { Stat } from '../domain/stat';
         <kpn-overview-list-stat-row
           [stat]="stat"
           [country]="country.fr"
+          [networkType]="networkType.horseRiding"
+        ></kpn-overview-list-stat-row>
+        <kpn-overview-list-stat-row
+          [stat]="stat"
+          [country]="country.fr"
           [networkType]="networkType.canoe"
         ></kpn-overview-list-stat-row>
 

@@ -17,6 +17,7 @@ export class Subsets {
     { country: Country.de, networkType: NetworkType.hiking },
     { country: Country.fr, networkType: NetworkType.cycling },
     { country: Country.fr, networkType: NetworkType.hiking },
+    { country: Country.fr, networkType: NetworkType.horseRiding },
     { country: Country.fr, networkType: NetworkType.canoe },
     { country: Country.at, networkType: NetworkType.cycling },
     { country: Country.es, networkType: NetworkType.cycling },

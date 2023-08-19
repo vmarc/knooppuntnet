@@ -34,12 +34,19 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         i18n-title="@@country.be"
         title="Belgium"
       ></kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="frLink | async"
+        icon="france"
+        i18n-title="@@country.fr"
+        title="France"
+      ></kpn-icon-button>
     </kpn-icon-buttons>
   `,
 })
 export class AnalysisHorseRidingPageComponent {
   readonly nlLink = this.analysisStrategyService.link('horse-riding', 'nl');
   readonly beLink = this.analysisStrategyService.link('horse-riding', 'be');
+  readonly frLink = this.analysisStrategyService.link('horse-riding', 'fr');
 
   constructor(private analysisStrategyService: AnalysisStrategyService) {}
 }
