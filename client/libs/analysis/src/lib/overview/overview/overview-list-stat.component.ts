@@ -15,8 +15,8 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
       <div class="header">
         <div (click)="toggleOpen()" class="title">
           <span class="expand-collapse-icon">
-            <mat-icon svgIcon="expand" *ngIf="open" mat-list-icon></mat-icon>
-            <mat-icon svgIcon="collapse" *ngIf="!open" mat-list-icon></mat-icon>
+            <mat-icon svgIcon="expand" *ngIf="open"></mat-icon>
+            <mat-icon svgIcon="collapse" *ngIf="!open"></mat-icon>
           </span>
           <span class="name">
             {{ stat.configuration.name }}

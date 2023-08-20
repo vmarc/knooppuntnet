@@ -12,8 +12,8 @@ import { Util } from './util';
   template: `
     <ng-container *ngIf="country">{{ countryName() }}</ng-container>
     <ng-container *ngIf="!country" i18n="@@country.unsupported">
-      Unsupported (not Belgium, The Netherlands, Germany, France, Austria or
-      Spain)
+      Unsupported (not Belgium, The Netherlands, Germany, France, Austria, Spain
+      or Denmark)
     </ng-container>
   `,
   standalone: true,

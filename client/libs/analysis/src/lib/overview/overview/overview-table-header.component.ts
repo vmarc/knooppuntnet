@@ -17,6 +17,7 @@ import { Subsets } from '@app/kpn/common';
       <th colspan="4" i18n="@@country.fr">France</th>
       <th colspan="1" i18n="@@country.at">Austria</th>
       <th colspan="2" i18n="@@country.es">Spain</th>
+      <th colspan="1" i18n="@@country.dk">Denmark</th>
       <th rowspan="2" i18n="@@overview-table.comment">Comment</th>
     </tr>
     <tr>
