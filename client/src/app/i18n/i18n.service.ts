@@ -21,6 +21,7 @@ export class I18nService {
     keysAndValues.push(['@@country.fr', $localize`:@@country.fr:France`]);
     keysAndValues.push(['@@country.at', $localize`:@@country.at:Austria`]);
     keysAndValues.push(['@@country.es', $localize`:@@country.es:Spain`]);
+    keysAndValues.push(['@@country.dk', $localize`:@@country.dk:Denmark`]);
 
     keysAndValues.push([
       '@@network-type.hiking',

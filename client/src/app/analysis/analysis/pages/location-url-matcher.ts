@@ -11,7 +11,7 @@ export class LocationUrlMatcher {
   ): UrlMatchResult {
     const networkType =
       /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
-    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(dk)/;
     const detail = /(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
     if (
@@ -45,7 +45,7 @@ export class LocationUrlMatcher {
   ): UrlMatchResult {
     const networkType =
       /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
-    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
+    const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(dk)/;
     const target =
       /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 

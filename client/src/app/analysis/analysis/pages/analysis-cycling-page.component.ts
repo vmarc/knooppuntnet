@@ -58,6 +58,12 @@ import { AnalysisStrategyService } from '../../strategy/analysis-strategy.servic
         i18n-title="@@country.es"
         title="Spain"
       ></kpn-icon-button>
+      <kpn-icon-button
+        [routerLink]="dkLink | async"
+        icon="denmark"
+        i18n-title="@@country.dk"
+        title="Denmark"
+      ></kpn-icon-button>
     </kpn-icon-buttons>
   `,
 })
@@ -68,6 +74,7 @@ export class AnalysisCyclingPageComponent {
   readonly frLink = this.analysisStrategyService.link('cycling', 'fr');
   readonly atLink = this.analysisStrategyService.link('cycling', 'at');
   readonly esLink = this.analysisStrategyService.link('cycling', 'es');
+  readonly dkLink = this.analysisStrategyService.link('cycling', 'dk');
 
   constructor(private analysisStrategyService: AnalysisStrategyService) {}
 }

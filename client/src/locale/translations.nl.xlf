@@ -2,6 +2,12 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" target-language="nl" datatype="plaintext" original="ng2.template">
     <body>
+
+      <trans-unit id="country.dk" datatype="html">
+        <source>Denmark</source>
+        <target>Denmarken</target>
+      </trans-unit>
+
       <trans-unit id="login" datatype="html">
         <source>login</source>
         <target>aanmelden</target>
@@ -832,7 +838,7 @@
       *&quot;motorboat&quot;*, *&quot;canoe&quot;* and *&quot;inline_skates&quot;*.</source>
         <target>De verplichte *&quot;route&quot;* tag heeft een ongeldige waarde.
 
-Een fietsnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;bicycle&quot;* hebben. 
+Een fietsnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;bicycle&quot;* hebben.
 
 Een wandelnetwerk-routerelatie moet een tag met sleutel *&quot;route&quot;* en waarde *&quot;foot&quot;*, *&quot;hiking&quot;* of *&quot;walking&quot;* hebben. De waarde *&quot;walking&quot;* wordt vaak gevonden en door de analyse aanvaard, al is deze waarde niet gedocumenteerd in de OSM wiki-pagina&apos;s.
 

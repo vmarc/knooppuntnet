@@ -232,6 +232,13 @@ export class IconService {
         require('!svg-inline-loader!src/assets/images/icons/spain.svg')
       )
     );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'denmark',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/denmark.svg')
+      )
+    );
   }
 
   private registerAnalysisResultsIcons() {
