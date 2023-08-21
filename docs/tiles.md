@@ -117,8 +117,9 @@ Only first time:
 Currently used bounding box:
 
 
+    http://bboxfinder.com/#36,-9.3,55.15,17.2 // original
     http://bboxfinder.com/#36,-9.3,55.15,24.5 // includes Poland
-    http://bboxfinder.com/#36,-9.3,55.15,17.2
+    http://bboxfinder.com/#36,-9.3,57.76,17.2 // includes Denmark
 
 
 Prepare:

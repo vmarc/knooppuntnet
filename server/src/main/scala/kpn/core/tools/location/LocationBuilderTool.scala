@@ -18,6 +18,7 @@ class LocationBuilderTool {
 
   private val root = "/kpn/locations"
   private val boundaryVersion = "osm-boundaries-2021-11-01"
+  private val boundaryVersion2 = "osm-boundaries-2023-06-05"
 
   def build(): Unit = {
     build("be", "belgium", locationsBelgium())
@@ -26,6 +27,7 @@ class LocationBuilderTool {
     build("fr", "france", locationsFrance())
     build("at", "austria", locationsAustria())
     build("es", "spain", locationsSpain())
+    build("dk", "denmark", locationsDenmark())
   }
 
   private def build(country: String, countryName: String, locationDatas: Seq[LocationData]): Unit = {
@@ -64,6 +66,10 @@ class LocationBuilderTool {
 
   private def locationsSpain(): Seq[LocationData] = {
     new LocationBuilderSpain(s"$root/$boundaryVersion").build()
+  }
+
+  private def locationsDenmark(): Seq[LocationData] = {
+    new LocationBuilderDenmark(s"$root/$boundaryVersion2").build()
   }
 
   private def buildTree(datas: Seq[LocationData]): LocationTree = {
