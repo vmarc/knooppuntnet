@@ -251,7 +251,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="country.nl">
@@ -304,6 +304,10 @@
           <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/analysis/pages/analysis-horse-riding-page.component.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/overview/overview/overview-table-header.component.ts</context>
           <context context-type="linenumber">17</context>
         </context-group>
@@ -332,7 +336,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="country.be">
@@ -411,6 +415,21 @@
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="country.dk">
+        <source>Denmark</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/analysis/pages/analysis-cycling-page.component.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/analysis/src/lib/overview/overview/overview-table-header.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="network-type.hiking">
         <source>Hiking</source>
         <context-group purpose="location">
@@ -431,7 +450,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-type.horse-riding">
@@ -454,7 +473,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-type.inline-skating">
@@ -477,7 +496,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-type.motorboat">
@@ -500,7 +519,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="analysis-page.title">
@@ -1495,11 +1514,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">75,77</context>
+          <context context-type="linenumber">80,82</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">65,67</context>
+          <context context-type="linenumber">69,71</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="edit-dialog.close">
@@ -2853,7 +2872,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location.selector.input.label">
@@ -4455,7 +4474,7 @@
         <source>Total</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/overview/overview/overview-list-stat-table.component.ts</context>
-          <context context-type="linenumber">119</context>
+          <context context-type="linenumber">131</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="overview.sidebar.display-options">
@@ -4525,7 +4544,7 @@
         <source>Comment</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/analysis/src/lib/overview/overview/overview-table-header.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.route-changes">
@@ -5700,7 +5719,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">70,72</context>
+          <context context-type="linenumber">71,73</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.map-link">
@@ -5711,7 +5730,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">79,81</context>
+          <context context-type="linenumber">80,82</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.relation">
@@ -5743,7 +5762,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">184,186</context>
+          <context context-type="linenumber">185,187</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.deviations">
@@ -5754,7 +5773,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">218,220</context>
+          <context context-type="linenumber">219,221</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.osm-segment-count">
@@ -5765,7 +5784,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">246,248</context>
+          <context context-type="linenumber">247,249</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.actions">
@@ -5776,7 +5795,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">270,272</context>
+          <context context-type="linenumber">275,277</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.update">
@@ -5882,35 +5901,49 @@
         <source>Prepare</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.analyze-route-structure">
         <source>Analyze route structure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.load-gpx">
         <source>Load gpx</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.analyze">
         <source>Analyze route deviations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.save">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.update-command.upload">
+        <source>Upload</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.update-command.delete">
+        <source>Delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/monitor-websocket.service.ts</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.monitor.route">
@@ -6033,29 +6066,29 @@
       <trans-unit datatype="html" id="monitor.route.save-dialog.no-relation-id">
         <source>Note: we cannot yet perform an analysis. The reference information is still incomplete. The relation id has not been specified.</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-form-save.component.ts</context>
-          <context context-type="linenumber">49,52</context>
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-form-errors.component.ts</context>
+          <context context-type="linenumber">16,19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.save-dialog.osm-relation-not-found">
         <source>Note: we cannot yet perform an analysis. The reference information is still incomplete. No route with given relation id was found at given reference date.</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-form-save.component.ts</context>
-          <context context-type="linenumber">56,60</context>
+          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-form-errors.component.ts</context>
+          <context context-type="linenumber">23,27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.save-dialog.action.back">
         <source>Back to group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-form-save.component.ts</context>
-          <context context-type="linenumber">73,75</context>
+          <context context-type="linenumber">41,43</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.save-dialog.action.analysis-result">
         <source>Go to analysis result</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-form-save.component.ts</context>
-          <context context-type="linenumber">82,84</context>
+          <context context-type="linenumber">50,52</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.name.label">
@@ -6475,10 +6508,6 @@
           <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties.component.ts</context>
           <context context-type="linenumber">147,149</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">58,60</context>
-        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.delete.title">
         <source>Delete</source>
@@ -6610,63 +6639,63 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">33,35</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.name">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">46,48</context>
+          <context context-type="linenumber">47,49</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.relation">
         <source>Relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">90,92</context>
+          <context context-type="linenumber">91,93</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.symbol">
         <source>Symbol</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">107,109</context>
+          <context context-type="linenumber">108,110</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.role">
         <source>Role</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">125,127</context>
+          <context context-type="linenumber">126,128</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.distance">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">138,140</context>
+          <context context-type="linenumber">139,141</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.survey">
         <source>Survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">170,172</context>
+          <context context-type="linenumber">171,173</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.gpx.upload">
         <source>Upload GPX trace for this sub-relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">279</context>
+          <context context-type="linenumber">284</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.gpx.delete">
         <source>Remove GPX trace for this sub-relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">290</context>
+          <context context-type="linenumber">295</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.relation-id-undefined">
@@ -6694,49 +6723,67 @@
         <source>Route not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">33,35</context>
+          <context context-type="linenumber">38,40</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.gpx-delete.title">
         <source>GPX reference</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.gpx-delete.reference-filename">
         <source>File</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.gpx-delete.reference-day">
         <source>Reference day</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.gpx-delete.reference-distance">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.gpx.delete.action">
         <source>Delete reference</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">72,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.route.gpx-delete.action.analysis-result">
+        <source>Back to route details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx-delete.component.ts</context>
+          <context context-type="linenumber">102,104</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
+          <context context-type="linenumber">91,93</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.gpx.not-found">
         <source>Route not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">31,33</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="action.upload">
+        <source>Upload</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/gpx/monitor-route-gpx.component.ts</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.map.action.zoom-to-fit-route">
@@ -8322,7 +8369,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="country.unsupported">
-        <source>Unsupported (not Belgium, The Netherlands, Germany, France, Austria or Spain)</source>
+        <source>Unsupported (not Belgium, The Netherlands, Germany, France, Austria, Spain or Denmark)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/components/shared/country-name.component.ts</context>
           <context context-type="linenumber">14,17</context>
@@ -8655,546 +8702,546 @@
         <source>local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-scope.regional">
         <source>regional</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-scope.national">
         <source>national</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-scope.international">
         <source>international</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.start-node">
         <source>Start node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.end-node">
         <source>End node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.start-tentacle-node">
         <source>Start tentacle node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.end-tentacle-node">
         <source>End tentacle node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.redundant-node">
         <source>Redundant node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">84</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.free-path">
         <source>Path</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">89</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.forward-route">
         <source>Forward route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.backward-route">
         <source>Backward route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.start-tentacle">
         <source>Start tentacle</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.end-tentacle">
         <source>End tentacle</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="linenumber">106</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.unused">
         <source>Unused</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">110</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.nodes">
         <source>Nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="linenumber">114</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.network">
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">118</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.flanders-hiking">
         <source>Toerisme Vlaanderen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">121</context>
+          <context context-type="linenumber">122</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.flanders-cycling">
         <source>Toerisme Vlaanderen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">125</context>
+          <context context-type="linenumber">126</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.netherlands-hiking">
         <source>Netherlands routedatabank</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">129</context>
+          <context context-type="linenumber">130</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.networks">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="linenumber">134</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.unchanged">
         <source>Unchanged</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="linenumber">139</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.added">
         <source>Added</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="linenumber">143</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.deleted">
         <source>Deleted</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="linenumber">147</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.osm">
         <source>OpenStreetMap</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">151</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.background">
         <source>Background</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">155</context>
+          <context context-type="linenumber">156</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.gpx">
         <source>Your GPX trace</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="linenumber">160</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.tile-256-names">
         <source>Tilenames (256)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="linenumber">164</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.tile-512-names">
         <source>Tilenames (512)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">167</context>
+          <context context-type="linenumber">168</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.other-routes">
         <source>Other routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">171</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.node">
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">173</context>
+          <context context-type="linenumber">174</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.cycling">
         <source>Cycling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">176</context>
+          <context context-type="linenumber">177</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.hiking">
         <source>Hiking</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">180</context>
+          <context context-type="linenumber">181</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.horse-riding">
         <source>Horse riding</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">184</context>
+          <context context-type="linenumber">185</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.motorboat">
         <source>Motorboat</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">189</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.canoe">
         <source>Canoe</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">192</context>
+          <context context-type="linenumber">193</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.inline-skating">
         <source>Inline Skating</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">196</context>
+          <context context-type="linenumber">197</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.nodes-and-routes">
         <source>Nodes and routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">200</context>
+          <context context-type="linenumber">201</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.boundary">
         <source>Boundary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">204</context>
+          <context context-type="linenumber">205</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.poi-areas">
         <source>Poi areas</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">208</context>
+          <context context-type="linenumber">209</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.all">
         <source>all</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">211</context>
+          <context context-type="linenumber">212</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.yes">
         <source>yes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">212</context>
+          <context context-type="linenumber">213</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.no">
         <source>no</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">213</context>
+          <context context-type="linenumber">214</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.unknown">
         <source>unknown</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">216</context>
+          <context context-type="linenumber">217</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.proposed">
         <source>Proposed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">220</context>
+          <context context-type="linenumber">221</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.definedInNetworkRelation">
         <source>Defined in network relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">224</context>
+          <context context-type="linenumber">225</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.referencedInRoute">
         <source>Referenced in route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">228</context>
+          <context context-type="linenumber">229</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.integrityCheck">
         <source>Integrity check</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">232</context>
+          <context context-type="linenumber">233</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.integrityCheckFailed">
         <source>Integrity check failed</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">236</context>
+          <context context-type="linenumber">237</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.connection">
         <source>Connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">240</context>
+          <context context-type="linenumber">241</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.investigate">
         <source>Investigate</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">244</context>
+          <context context-type="linenumber">245</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.accessible">
         <source>Accessible</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">248</context>
+          <context context-type="linenumber">249</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastUpdated">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">252</context>
+          <context context-type="linenumber">253</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastSurvey">
         <source>Survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">256</context>
+          <context context-type="linenumber">257</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastWeek">
         <source>last week</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">260</context>
+          <context context-type="linenumber">261</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastMonth">
         <source>last month</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">264</context>
+          <context context-type="linenumber">265</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastYear">
         <source>last year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">268</context>
+          <context context-type="linenumber">269</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastHalfYear">
         <source>last half year</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">272</context>
+          <context context-type="linenumber">273</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.lastTwoYears">
         <source>last two years</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">276</context>
+          <context context-type="linenumber">277</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.older">
         <source>older</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">278</context>
+          <context context-type="linenumber">279</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="filter.roleConnection">
         <source>Role connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">281</context>
+          <context context-type="linenumber">282</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.home">
         <source>Knooppuntnet</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">284</context>
+          <context context-type="linenumber">285</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.planner">
         <source>Knooppuntnet_planner#What_do_you_see.3F</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">287</context>
+          <context context-type="linenumber">288</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.planner.edit">
         <source>Knooppuntnet_planner#Edit_route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">291</context>
+          <context context-type="linenumber">292</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.login-page">
         <source>Knooppuntnet_analysis#Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">295</context>
+          <context context-type="linenumber">296</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.logout-page">
         <source>Knooppuntnet_analysis#Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">299</context>
+          <context context-type="linenumber">300</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.node-page">
         <source>Knooppuntnet_analysis#Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">303</context>
+          <context context-type="linenumber">304</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.route-page">
         <source>Knooppuntnet_analysis#Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">307</context>
+          <context context-type="linenumber">308</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.network-page">
         <source>Knooppuntnet_analysis#Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">311</context>
+          <context context-type="linenumber">312</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.changes-page">
         <source>Knooppuntnet_analysis#Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">315</context>
+          <context context-type="linenumber">316</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.location-page">
         <source>Knooppuntnet_analysis#Location</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">319</context>
+          <context context-type="linenumber">320</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.overview-in-numbers-page">
         <source>Knooppuntnet_analysis#Overview_in_numbers</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">323</context>
+          <context context-type="linenumber">324</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.subset-networks-page">
         <source>Knooppuntnet_analysis#Subset_networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">327</context>
+          <context context-type="linenumber">328</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.subset-facts-page">
         <source>Knooppuntnet_analysis#Subset_facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">331</context>
+          <context context-type="linenumber">332</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.subset-orphan-nodes-page">
         <source>Knooppuntnet_analysis#Subset_orphan_nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">335</context>
+          <context context-type="linenumber">336</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.subset-orphan-routes-page">
         <source>Knooppuntnet_analysis#Subset_orphan_routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">339</context>
+          <context context-type="linenumber">340</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.subset-map-page">
         <source>Knooppuntnet_analysis#Subset_map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">343</context>
+          <context context-type="linenumber">344</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="wiki.subset-changes-page">
         <source>Knooppuntnet_analysis#Subset_Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">libs/shared/src/lib/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">347</context>
+          <context context-type="linenumber">348</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.alcohol">
