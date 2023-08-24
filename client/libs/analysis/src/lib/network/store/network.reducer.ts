@@ -37,22 +37,6 @@ const defaultSummary: NetworkSummary = {
 
 export const networkReducer = createReducer<NetworkState>(
   initialState,
-  on(routerNavigationAction, (state, action): NetworkState => {
-    const util = new RoutingUtil(action);
-    let changesPage: ApiResponse<NetworkChangesPage> = null;
-    if (util.isNetworkChangesPage()) {
-      changesPage = state.changesPage;
-    }
-    return {
-      ...state,
-      detailsPage: null,
-      nodesPage: null,
-      routesPage: null,
-      factsPage: null,
-      mapPage: null,
-      changesPage,
-    };
-  }),
   on(
     actionNetworkDetailsPageLoad,
     (state, { networkId, networkType, networkName }): NetworkState => {

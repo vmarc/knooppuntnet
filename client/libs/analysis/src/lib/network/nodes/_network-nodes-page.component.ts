@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
+import { actionNetworkNodesPageDestroy } from '../store/network.actions';
 import { actionNetworkNodesPageInit } from '../store/network.actions';
 import { selectNetworkNodesPage } from '../store/network.selectors';
 import { NetworkNodeTableComponent } from './network-node-table.component';
@@ -58,12 +60,16 @@ import { NetworkNodesSidebarComponent } from './network-nodes-sidebar.component'
     SituationOnComponent,
   ],
 })
-export class NetworkNodesPageComponent implements OnInit {
+export class NetworkNodesPageComponent implements OnInit, OnDestroy {
   readonly apiResponse = this.store.selectSignal(selectNetworkNodesPage);
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkNodesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNetworkNodesPageDestroy());
   }
 }

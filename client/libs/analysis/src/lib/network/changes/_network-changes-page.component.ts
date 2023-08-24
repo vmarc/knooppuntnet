@@ -1,4 +1,7 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -12,6 +15,7 @@ import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkChangesImpact } from '../store/network.actions';
+import { actionNetworkChangesPageDestroy } from '../store/network.actions';
 import { actionNetworkChangesPageSize } from '../store/network.actions';
 import { actionNetworkChangesPageIndex } from '../store/network.actions';
 import { actionNetworkChangesPageInit } from '../store/network.actions';
@@ -97,7 +101,7 @@ import { NetworkChangesSidebarComponent } from './network-changes-sidebar.compon
     SituationOnComponent,
   ],
 })
-export class NetworkChangesPageComponent implements OnInit {
+export class NetworkChangesPageComponent implements OnInit, OnDestroy {
   readonly apiResponse = this.store.selectSignal(selectNetworkChangesPage);
   readonly impact = this.store.selectSignal(selectNetworkChangesImpact);
   readonly pageSize = this.store.selectSignal(selectNetworkChangesPageSize);
@@ -108,6 +112,10 @@ export class NetworkChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkChangesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNetworkChangesPageDestroy());
   }
 
   onImpactChange(impact: boolean): void {

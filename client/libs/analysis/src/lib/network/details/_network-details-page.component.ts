@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,6 +8,7 @@ import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
+import { actionNetworkDetailsPageDestroy } from '../store/network.actions';
 import { actionNetworkDetailsPageInit } from '../store/network.actions';
 import { selectNetworkDetailsPage } from '../store/network.selectors';
 import { NetworkDetailsComponent } from './network-details.component';
@@ -43,12 +45,16 @@ import { NetworkDetailsComponent } from './network-details.component';
     PageComponent,
   ],
 })
-export class NetworkDetailsPageComponent implements OnInit {
+export class NetworkDetailsPageComponent implements OnInit, OnDestroy {
   readonly apiResponse = this.store.selectSignal(selectNetworkDetailsPage);
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkDetailsPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNetworkDetailsPageDestroy());
   }
 }

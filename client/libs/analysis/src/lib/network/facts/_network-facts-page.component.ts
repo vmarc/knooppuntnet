@@ -1,4 +1,7 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -10,6 +13,7 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
+import { actionNetworkFactsPageDestroy } from '../store/network.actions';
 import { actionNetworkFactsPageInit } from '../store/network.actions';
 import { selectNetworkFactsPage } from '../store/network.selectors';
 import { NetworkFactComponent } from './network-fact.component';
@@ -68,12 +72,16 @@ import { NetworkFactComponent } from './network-fact.component';
     SituationOnComponent,
   ],
 })
-export class NetworkFactsPageComponent implements OnInit {
+export class NetworkFactsPageComponent implements OnInit, OnDestroy {
   readonly apiResponse = this.store.selectSignal(selectNetworkFactsPage);
 
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkFactsPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNetworkFactsPageDestroy());
   }
 }

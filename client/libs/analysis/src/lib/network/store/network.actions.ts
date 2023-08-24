@@ -30,6 +30,10 @@ export const actionNetworkDetailsPageLoaded = createAction(
   props<ApiResponse<NetworkDetailsPage>>()
 );
 
+export const actionNetworkDetailsPageDestroy = createAction(
+  '[NetworkDetailsPage] Destroy'
+);
+
 export const actionNetworkNodesPageInit = createAction(
   '[NetworkNodesPage] Init'
 );
@@ -42,6 +46,10 @@ export const actionNetworkNodesPageLoad = createAction(
 export const actionNetworkNodesPageLoaded = createAction(
   '[NetworkNodesPage] Loaded',
   props<ApiResponse<NetworkNodesPage>>()
+);
+
+export const actionNetworkNodesPageDestroy = createAction(
+  '[NetworkNodesPage] Destroy'
 );
 
 export const actionNetworkRoutesPageInit = createAction(
@@ -58,6 +66,10 @@ export const actionNetworkRoutesPageLoaded = createAction(
   props<ApiResponse<NetworkRoutesPage>>()
 );
 
+export const actionNetworkRoutesPageDestroy = createAction(
+  '[NetworkRoutesPage] Destroy'
+);
+
 export const actionNetworkFactsPageInit = createAction(
   '[NetworkFactsPage] Init'
 );
@@ -70,6 +82,10 @@ export const actionNetworkFactsPageLoad = createAction(
 export const actionNetworkFactsPageLoaded = createAction(
   '[NetworkFactsPage] Loaded',
   props<ApiResponse<NetworkFactsPage>>()
+);
+
+export const actionNetworkFactsPageDestroy = createAction(
+  '[NetworkFactsPage] Destroy'
 );
 
 export const actionNetworkMapPageInit = createAction('[NetworkMapPage] Init');
@@ -91,6 +107,10 @@ export const actionNetworkMapPageLoaded = createAction(
   }>()
 );
 
+export const actionNetworkMapPageDestroy = createAction(
+  '[NetworkMapPage] Destroy'
+);
+
 export const actionNetworkChangesPageInit = createAction(
   '[NetworkChangesPage] Init'
 );
@@ -103,6 +123,10 @@ export const actionNetworkChangesPageLoad = createAction(
 export const actionNetworkChangesPageLoaded = createAction(
   '[NetworkChangesPage] Loaded',
   props<ApiResponse<NetworkChangesPage>>()
+);
+
+export const actionNetworkChangesPageDestroy = createAction(
+  '[NetworkChangesPage] Destroy'
 );
 
 export const actionNetworkChangesPageSize = createAction(

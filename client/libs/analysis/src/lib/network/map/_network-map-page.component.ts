@@ -1,11 +1,13 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
+import { actionNetworkMapPageDestroy } from '../store/network.actions';
 import { actionNetworkMapPageInit } from '../store/network.actions';
 import { selectNetworkMapPositionFromUrl } from '../store/network.selectors';
 import { selectNetworkId } from '../store/network.selectors';
@@ -53,7 +55,7 @@ import { NetworkMapComponent } from './network-map.component';
     PageComponent,
   ],
 })
-export class NetworkMapPageComponent implements OnInit {
+export class NetworkMapPageComponent implements OnInit, OnDestroy {
   readonly networkId = this.store.selectSignal(selectNetworkId);
   readonly apiResponse = this.store.selectSignal(selectNetworkMapPage);
   readonly mapPositionFromUrl = this.store.selectSignal(
@@ -64,5 +66,9 @@ export class NetworkMapPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkMapPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNetworkMapPageDestroy());
   }
 }
