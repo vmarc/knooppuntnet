@@ -84,7 +84,6 @@ export class NodeEffects {
       map(([_, nodeId, mapPositionString]) => {
         const mapPositionFromUrl =
           MapPosition.fromQueryParam(mapPositionString);
-
         return actionNodeMapPageLoad({ nodeId, mapPositionFromUrl });
       })
     );

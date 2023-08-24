@@ -1,4 +1,5 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -16,6 +17,7 @@ import { TimestampComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
+import { actionNodeDetailsPageDestroy } from '../store/node.actions';
 import { actionNodeDetailsPageInit } from '../store/node.actions';
 import { selectNodeNetworkTypes } from '../store/node.selectors';
 import { selectNodeDetailsPage } from '../store/node.selectors';
@@ -155,7 +157,7 @@ import { NodeSummaryComponent } from './node-summary.component';
     TimestampComponent,
   ],
 })
-export class NodeDetailsPageComponent implements OnInit {
+export class NodeDetailsPageComponent implements OnInit, OnDestroy {
   readonly nodeId = this.store.selectSignal(selectNodeId);
   readonly nodeName = this.store.selectSignal(selectNodeName);
   readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
@@ -166,6 +168,10 @@ export class NodeDetailsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeDetailsPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNodeDetailsPageDestroy());
   }
 
   buildTags(page: NodeDetailsPage) {

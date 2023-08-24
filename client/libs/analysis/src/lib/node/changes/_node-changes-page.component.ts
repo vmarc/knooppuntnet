@@ -1,4 +1,7 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -13,6 +16,7 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
+import { actionNodeChangesPageDestroy } from '../store/node.actions';
 import { actionNodeChangesPageSize } from '../store/node.actions';
 import { actionNodeChangesPageImpact } from '../store/node.actions';
 import { actionNodeChangesPageIndex } from '../store/node.actions';
@@ -122,7 +126,7 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
     SituationOnComponent,
   ],
 })
-export class NodeChangesPageComponent implements OnInit {
+export class NodeChangesPageComponent implements OnInit, OnDestroy {
   readonly nodeId = this.store.selectSignal(selectNodeId);
   readonly nodeName = this.store.selectSignal(selectNodeName);
   readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
@@ -136,6 +140,10 @@ export class NodeChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeChangesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNodeChangesPageDestroy());
   }
 
   onImpactChange(impact: boolean): void {

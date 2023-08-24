@@ -20,6 +20,10 @@ export const actionNodeDetailsPageLoaded = createAction(
   props<ApiResponse<NodeDetailsPage>>()
 );
 
+export const actionNodeDetailsPageDestroy = createAction(
+  '[NodeDetailsPage] Destroy'
+);
+
 export const actionNodeMapPageInit = createAction('[NodeMapPage] Init');
 
 export const actionNodeMapPageLoad = createAction(
@@ -37,6 +41,8 @@ export const actionNodeMapPageLoaded = createAction(
   }>()
 );
 
+export const actionNodeMapPageDestroy = createAction('[NodeMapPage] Destroy');
+
 export const actionNodeChangesPageInit = createAction('[NodeChangesPage] Init');
 
 export const actionNodeChangesPageLoad = createAction(
@@ -47,6 +53,10 @@ export const actionNodeChangesPageLoad = createAction(
 export const actionNodeChangesPageLoaded = createAction(
   '[NodeChangesPage] Loaded',
   props<ApiResponse<NodeChangesPage>>()
+);
+
+export const actionNodeChangesPageDestroy = createAction(
+  '[NodeChangesPage] Destroy'
 );
 
 export const actionNodeChangesPageImpact = createAction(

@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -9,6 +10,7 @@ import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeDetailsSidebarComponent } from '../details/node-details-sidebar.component';
+import { actionNodeMapPageDestroy } from '../store/node.actions';
 import { actionNodeMapPageInit } from '../store/node.actions';
 import { selectNodeId } from '../store/node.selectors';
 import { selectNodeName } from '../store/node.selectors';
@@ -65,7 +67,7 @@ import { NodeMapComponent } from './node-map.component';
     RouterLink,
   ],
 })
-export class NodeMapPageComponent implements OnInit {
+export class NodeMapPageComponent implements OnInit, OnDestroy {
   protected readonly nodeId = this.store.selectSignal(selectNodeId);
   protected readonly nodeName = this.store.selectSignal(selectNodeName);
   protected readonly changeCount = this.store.selectSignal(
@@ -77,5 +79,9 @@ export class NodeMapPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeMapPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionNodeMapPageDestroy());
   }
 }
