@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,6 +9,8 @@ import { PageComponent } from '@app/components/shared/page';
 import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { Store } from '@ngrx/store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
+import { actionRouteMapPageDestroy } from '../store/route.actions';
+import { actionRouteDetailsPageDestroy } from '../store/route.actions';
 import { actionRouteMapPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteMapPage } from '../store/route.selectors';
@@ -63,7 +66,7 @@ import { RouteMapComponent } from './route-map.component';
     RouterLink,
   ],
 })
-export class RouteMapPageComponent implements OnInit {
+export class RouteMapPageComponent implements OnInit, OnDestroy {
   readonly routeId = this.store.selectSignal(selectRouteId);
   readonly routeName = this.store.selectSignal(selectRouteName);
   readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
@@ -74,5 +77,9 @@ export class RouteMapPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteMapPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionRouteMapPageDestroy());
   }
 }

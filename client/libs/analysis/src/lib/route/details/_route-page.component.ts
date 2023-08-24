@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -21,6 +22,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SymbolComponent } from '../../../../../symbol/src/lib/symbol/symbol.component';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
+import { actionRouteDetailsPageDestroy } from '../store/route.actions';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteDetailsPage } from '../store/route.selectors';
@@ -208,7 +210,7 @@ import { RouteSummaryComponent } from './route-summary.component';
     SymbolComponent,
   ],
 })
-export class RoutePageComponent implements OnInit {
+export class RoutePageComponent implements OnInit, OnDestroy {
   readonly routeId = this.store.selectSignal(selectRouteId);
   readonly routeName = this.store.selectSignal(selectRouteName);
   readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
@@ -232,6 +234,10 @@ export class RoutePageComponent implements OnInit {
           pageWidth !== PageWidth.veryVerySmall
       )
     );
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionRouteDetailsPageDestroy());
   }
 
   routeTags(page: RouteDetailsPage) {

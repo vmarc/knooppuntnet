@@ -1,6 +1,8 @@
-import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
+import { actionRouteChangesPageDestroy } from './route.actions';
+import { actionRouteMapPageDestroy } from './route.actions';
+import { actionRouteDetailsPageDestroy } from './route.actions';
 import { actionRouteMapPageLoad } from './route.actions';
 import { actionRouteDetailsPageLoad } from './route.actions';
 import { actionRouteChangesPageLoad } from './route.actions';
@@ -16,16 +18,6 @@ import { initialState } from './route.state';
 
 export const routeReducer = createReducer<RouteState>(
   initialState,
-  on(
-    routerNavigationAction,
-    (state): RouteState => ({
-      ...state,
-      detailsPage: null,
-      mapPage: null,
-      mapPositionFromUrl: null,
-      changesPage: null,
-    })
-  ),
   on(
     actionRouteDetailsPageLoad,
     (state, { routeId, routeName, networkType }): RouteState => {
@@ -60,6 +52,12 @@ export const routeReducer = createReducer<RouteState>(
       detailsPage: response,
     };
   }),
+  on(actionRouteDetailsPageDestroy, (state): RouteState => {
+    return {
+      ...state,
+      detailsPage: null,
+    };
+  }),
   on(
     actionRouteMapPageLoaded,
     (state, { response, mapPositionFromUrl }): RouteState => {
@@ -81,6 +79,13 @@ export const routeReducer = createReducer<RouteState>(
       };
     }
   ),
+  on(actionRouteMapPageDestroy, (state): RouteState => {
+    return {
+      ...state,
+      mapPage: null,
+      mapPositionFromUrl: null,
+    };
+  }),
   on(
     actionRouteChangesPageLoad,
     (state, { routeId, changesParameters }): RouteState => ({
@@ -104,6 +109,12 @@ export const routeReducer = createReducer<RouteState>(
       networkType,
       changeCount,
       changesPage: response,
+    };
+  }),
+  on(actionRouteChangesPageDestroy, (state): RouteState => {
+    return {
+      ...state,
+      changesPage: null,
     };
   }),
   on(

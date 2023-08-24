@@ -23,6 +23,10 @@ export const actionRouteDetailsPageLoaded = createAction(
   props<ApiResponse<RouteDetailsPage>>()
 );
 
+export const actionRouteDetailsPageDestroy = createAction(
+  '[RouteDetailsPage] Destroy'
+);
+
 export const actionRouteMapPageInit = createAction('[RouteMapPage] Init');
 
 export const actionRouteMapPageLoad = createAction(
@@ -38,6 +42,8 @@ export const actionRouteMapPageLoaded = createAction(
   }>()
 );
 
+export const actionRouteMapPageDestroy = createAction('[RouteMapPage] Destroy');
+
 export const actionRouteMapViewInit = createAction('[RouteMapPage] View init');
 
 export const actionRouteChangesPageInit = createAction(
@@ -52,6 +58,10 @@ export const actionRouteChangesPageLoad = createAction(
 export const actionRouteChangesPageLoaded = createAction(
   '[RouteChangesPage] Loaded',
   props<ApiResponse<RouteChangesPage>>()
+);
+
+export const actionRouteChangesPageDestroy = createAction(
+  '[RouteChangesPage] Destroy'
 );
 
 export const actionRouteChangesPageImpact = createAction(

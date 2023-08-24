@@ -1,4 +1,7 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { NgFor } from '@angular/common';
+import { NgIf } from '@angular/common';
+import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -12,6 +15,7 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
+import { actionRouteChangesPageDestroy } from '../store/route.actions';
 import { actionRouteChangesPageSize } from '../store/route.actions';
 import { actionRouteChangesPageImpact } from '../store/route.actions';
 import { actionRouteChangesPageIndex } from '../store/route.actions';
@@ -115,7 +119,7 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
     SituationOnComponent,
   ],
 })
-export class RouteChangesPageComponent implements OnInit {
+export class RouteChangesPageComponent implements OnInit, OnDestroy {
   readonly routeId = this.store.selectSignal(selectRouteId);
   readonly routeName = this.store.selectSignal(selectRouteName);
   readonly networkType = this.store.selectSignal(selectRouteNetworkType);
@@ -130,6 +134,10 @@ export class RouteChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteChangesPageInit());
+  }
+
+  ngOnDestroy(): void {
+    this.store.dispatch(actionRouteChangesPageDestroy());
   }
 
   onImpactChange(impact: boolean): void {
