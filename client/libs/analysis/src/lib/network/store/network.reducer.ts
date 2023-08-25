@@ -1,8 +1,4 @@
-import { NetworkChangesPage } from '@api/common/network';
 import { NetworkSummary } from '@api/common/network';
-import { ApiResponse } from '@api/custom';
-import { RoutingUtil } from '@app/base';
-import { routerNavigationAction } from '@ngrx/router-store';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { actionNetworkMapPageLoad } from './network.actions';
