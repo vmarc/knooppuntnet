@@ -21,7 +21,7 @@
 .title {
   @media (max-width: $small-max-width) {
     overflow: hidden;
-    text-overflow: 'ellipsis';
+    text-overflow: ellipsis;
     white-space: nowrap;
     padding: 5px;
     left: 10px;
@@ -38,7 +38,7 @@
     width: 160px;
     overflow: hidden;
     clear: left;
-    text-overflow: 'ellipsis';
+    text-overflow: ellipsis;
     white-space: nowrap;
     color: black;
   }
