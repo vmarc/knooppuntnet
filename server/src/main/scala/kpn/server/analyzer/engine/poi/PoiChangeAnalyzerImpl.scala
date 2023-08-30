@@ -35,64 +35,90 @@ class PoiChangeAnalyzerImpl(
   private val log = Log(classOf[PoiChangeAnalyzerImpl])
 
   override def analyze(osmChange: OsmChange): Unit = {
-    val elementCount = osmChange.actions.flatMap(_.elements).size
-    var index = 1
 
-    osmChange.actions.foreach { change =>
-      change.action match {
-        case Create => change.elements.foreach { element =>
-          if ((index % 100) == 0) {
-            log.info(s"$index/$elementCount")
-          }
-          processElement(element)
-          index = index + 1
+    val modifiedElements = modifiedElementsIn(osmChange)
+    val poiChangeAnalyses = analyzePoiChanges(modifiedElements)
+
+    val nodeBasedPoiAnalyses = withCenters("node", poiChangeAnalyses.filter(_.element.isNode))
+    val wayBasedPoiAnalyses = withCenters("way", poiChangeAnalyses.filter(_.element.isWay))
+    val relationBasedPoiAnalyses = withCenters("relation", poiChangeAnalyses.filter(_.element.isRelation))
+
+    val analyses = nodeBasedPoiAnalyses ++ wayBasedPoiAnalyses ++ relationBasedPoiAnalyses
+    analyses.foreach(processPoiChangeAnalysis)
+
+    val deletedPois = osmChange.actions.filter(_.action == Delete).flatMap(_.elements)
+    deletedPois.foreach(element => deletePoi(PoiRef.of(element), "delete"))
+
+    log.info(s"Analyzed ${nodeBasedPoiAnalyses.size} poi nodes, ${wayBasedPoiAnalyses.size} poi ways, ${relationBasedPoiAnalyses.size} poi relations, ${deletedPois.size} poi deletes")
+  }
+
+  private def modifiedElementsIn(osmChange: OsmChange): Seq[RawElement] = {
+    val elements = osmChange.actions.filter(action => action.action == Create || action.action == Modify).flatMap(_.elements)
+    val elementCount = elements.size
+    val nodeCount = elements.count(_.isNode)
+    val wayCount = elements.count(_.isWay)
+    val relationCount = elements.count(_.isRelation)
+    log.info(s"$elementCount modified elements ($nodeCount nodes, $wayCount ways, $relationCount relations)")
+    elements
+  }
+
+  private def analyzePoiChanges(elements: Seq[RawElement]): Seq[PoiChangeAnalysis] = {
+    elements.flatMap { element =>
+      val matchingPoiDefinitions = findMatchingPoiDefinitions(element.tags)
+      val poiRef = PoiRef.of(element)
+      if (knownPoiCache.contains(poiRef) && matchingPoiDefinitions.isEmpty) {
+        deletePoi(poiRef, "known poi lost poi tags")
+        None
+      }
+      else {
+        if (matchingPoiDefinitions.nonEmpty) {
+          Some(
+            PoiChangeAnalysis(element, matchingPoiDefinitions)
+          )
         }
-        case Modify => change.elements.foreach { element =>
-          if ((index % 100) == 0) {
-            log.info(s"$index/$elementCount")
-          }
-          processElement(element)
-          index = index + 1
-        }
-        case Delete => change.elements.foreach { element =>
-          if ((index % 100) == 0) {
-            log.info(s"$index/$elementCount")
-          }
-          deletePoi(PoiRef.of(element), "delete")
-          index = index + 1
+        else {
+          None
         }
       }
     }
   }
 
-  private def processElement(element: RawElement): Unit = {
-    val matchingPoiDefinitions = findMatchingPoiDefinitions(element.tags)
-    val poiRef = PoiRef.of(element)
-    if (knownPoiCache.contains(poiRef) && matchingPoiDefinitions.isEmpty) {
-      deletePoi(poiRef, "known poi lost poi tags")
+  private def withCenters(elementType: String, analyses: Seq[PoiChangeAnalysis]): Seq[PoiChangeAnalysis] = {
+    if (elementType == "node") {
+      analyses.map { analysis =>
+        analysis.copy(center = analysis.element match {
+          case node: RawNode => Some(node)
+          case _ => None
+        })
+      }
     }
     else {
-      if (matchingPoiDefinitions.nonEmpty) {
-        element match {
-          case node: RawNode => processPoi(poiRef, node, node, matchingPoiDefinitions)
-          case _ =>
-            poiQueryExecutor.center(poiRef) match {
-              case Some(center) => processPoi(poiRef, center, element, matchingPoiDefinitions)
-              case _ => deletePoi(poiRef, "center not found")
-            }
+      poiQueryExecutor.centers(elementType, analyses.map(_.element.id)).flatMap { elementCenter =>
+        analyses.find(_.element.id == elementCenter.id).map { poi =>
+          poi.copy(center = Some(elementCenter.latLon))
         }
       }
     }
   }
 
-  private def processPoi(poiRef: PoiRef, center: LatLon, element: RawElement, poiDefinitions: Seq[PoiDefinition]): Unit = {
-    if (!poiScopeAnalyzer.inScope(center)) {
-      if (knownPoiCache.contains(poiRef)) {
-        deletePoi(poiRef, "known poi no longer in scope")
-      }
-    }
-    else {
-      savePoi(poiRef, center, element.tags, poiDefinitions)
+  private def processPoiChangeAnalysis(poiChangeAnalysis: PoiChangeAnalysis): Unit = {
+    poiChangeAnalysis.center match {
+      case None =>
+      case Some(center) =>
+        val poiRef = PoiRef.of(poiChangeAnalysis.element)
+        if (!poiScopeAnalyzer.inScope(center)) {
+          if (knownPoiCache.contains(poiRef)) {
+            deletePoi(poiRef, "known poi no longer in scope")
+          }
+        }
+        else {
+          savePoi(
+            poiRef,
+            center,
+            poiChangeAnalysis.element.tags,
+            poiChangeAnalysis.poiDefinitions
+          )
+        }
     }
   }
 

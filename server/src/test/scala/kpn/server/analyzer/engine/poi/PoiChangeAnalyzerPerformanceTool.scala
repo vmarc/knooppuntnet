@@ -100,19 +100,17 @@ class TaskRepositoryTestImpl() extends TaskRepository {
 }
 
 class OverpassQueryExecutorTestImpl extends OverpassQueryExecutorRemoteImpl {
-  private val log = Log(classOf[OverpassQueryExecutorTestImpl])
-
   var requestCount = 0
 
   override def execute(queryString: String): String = {
     requestCount = requestCount + 1
-    log.info(s"[$requestCount] $queryString")
     super.execute(queryString)
   }
 }
 
 object PoiChangeAnalyzerPerformanceTool {
   private val log = Log(classOf[PoiChangeAnalyzerPerformanceTool])
+
   def main(args: Array[String]): Unit = {
 
     // Configurator.setRootLevel(Level.DEBUG)
@@ -146,6 +144,7 @@ object PoiChangeAnalyzerPerformanceTool {
       ).analyze(ReplicationId("005/719/419"))
 
       log.info(s"${taskRepository.taskCount} tasks added")
+      log.info(s"${overpassQueryExecutor.requestCount} overpass requests")
     }
   }
 }
@@ -157,15 +156,22 @@ class PoiChangeAnalyzerPerformanceTool(
 
   def analyze(replicationId: ReplicationId): Unit = {
     val osmChange = readOsmChange(replicationId)
-    poiChangeAnalyzer.analyze(osmChange)
+    PoiChangeAnalyzerPerformanceTool.log.infoElapsed {
+      poiChangeAnalyzer.analyze(osmChange)
+      ("analysis", ())
+    }
   }
 
   private def readOsmChange(replicationId: ReplicationId): OsmChange = {
     val osmChange = osmChangeRepository.get(replicationId)
     val actionCount = osmChange.actions.size
     val changeSetCount = osmChange.allChangeSetIds.size
-    val elementCount = osmChange.allElementIds.size
-    PoiChangeAnalyzerPerformanceTool.log.info(s"${replicationId.name} $actionCount actions, $changeSetCount changesets, $elementCount elements")
+    val elements = osmChange.actions.flatMap(_.elements)
+    val elementCount = elements.size
+    val nodeCount = elements.count(_.isNode)
+    val wayCount = elements.count(_.isWay)
+    val relationCount = elements.count(_.isRelation)
+    PoiChangeAnalyzerPerformanceTool.log.info(s"${replicationId.name} $actionCount actions, $changeSetCount changesets, $elementCount elements, $nodeCount nodes, $wayCount ways, $relationCount relations")
     osmChange
   }
 }

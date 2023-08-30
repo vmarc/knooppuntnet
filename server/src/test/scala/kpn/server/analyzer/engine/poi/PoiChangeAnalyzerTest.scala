@@ -456,7 +456,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
-    (t.poiQueryExecutor.center _).when(PoiRef("way", 123)).returns(Some(LatLonImpl("1", "2")))
+    //(t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(Seq(ElementCenter(123L, LatLonImpl("1", "2"))))
+    (t.poiQueryExecutor.centers _).when(*, *).returns(Seq(ElementCenter(123L, LatLonImpl("1", "2"))))
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(

@@ -68,7 +68,12 @@ class AnalyzerEngineImpl(
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
 
-        log.info(s"minute diff loaded, ${osmChange.actions.size} actions, ${changeSets.size} changesets")
+        val elements = osmChange.actions.flatMap(_.elements)
+        val nodeCount = elements.count(_.isNode)
+        val wayCount = elements.count(_.isWay)
+        val relationCount = elements.count(_.isRelation)
+
+        log.info(s"minute diff loaded, ${osmChange.actions.size} actions, ${changeSets.size} changesets, $nodeCount nodes, $wayCount ways, $relationCount relations")
 
         val replicationContext = processChangeSets(ReplicationContext(replicationId), changeSets)
 
