@@ -35,11 +35,32 @@ class PoiChangeAnalyzerImpl(
   private val log = Log(classOf[PoiChangeAnalyzerImpl])
 
   override def analyze(osmChange: OsmChange): Unit = {
+    val elementCount = osmChange.actions.flatMap(_.elements).size
+    var index = 1
+
     osmChange.actions.foreach { change =>
       change.action match {
-        case Create => change.elements.foreach(processElement)
-        case Modify => change.elements.foreach(processElement)
-        case Delete => change.elements.foreach(element => deletePoi(PoiRef.of(element), "delete"))
+        case Create => change.elements.foreach { element =>
+          if ((index % 100) == 0) {
+            log.info(s"$index/$elementCount")
+          }
+          processElement(element)
+          index = index + 1
+        }
+        case Modify => change.elements.foreach { element =>
+          if ((index % 100) == 0) {
+            log.info(s"$index/$elementCount")
+          }
+          processElement(element)
+          index = index + 1
+        }
+        case Delete => change.elements.foreach { element =>
+          if ((index % 100) == 0) {
+            log.info(s"$index/$elementCount")
+          }
+          deletePoi(PoiRef.of(element), "delete")
+          index = index + 1
+        }
       }
     }
   }

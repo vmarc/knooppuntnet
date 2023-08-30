@@ -67,7 +67,12 @@ class AnalyzerEngineImpl(
         val osmChange = osmChangeRepository.get(replicationId)
         val timestamp = osmChangeRepository.timestamp(replicationId)
         val changeSets = ChangeSetBuilder.from(timestamp, osmChange)
+
+        log.info(s"minute diff loaded, ${osmChange.actions.size} actions, ${changeSets.size} changesets")
+
         val replicationContext = processChangeSets(ReplicationContext(replicationId), changeSets)
+
+        log.info(s"${changeSets.size} changeSets processed")
 
         if (analyzerPoiUpdateEnabled) {
           poiChangeAnalyzer.analyze(osmChange)
@@ -108,6 +113,8 @@ class AnalyzerEngineImpl(
   }
 
   private def processChangeSet(replicationContext: ReplicationContext, changeSet: ChangeSet): ReplicationContext = {
+    log.info(s"processing changeSet ${changeSet.id}")
+
     Log.context(s"${changeSet.id}") {
       val elementIds = ChangeSetBuilder.elementIdsIn(changeSet)
       val context = ChangeSetContext(
