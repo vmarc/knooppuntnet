@@ -9,9 +9,9 @@ import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzerHelper
+import kpn.server.analyzer.engine.changes.OsmChangeRepositoryImpl
 import kpn.server.analyzer.engine.context.ElementIdMap
 import kpn.server.analyzer.engine.monitor.changes.MonitorChangeImpactAnalyzerImpl
 import org.apache.commons.io.FileUtils
@@ -51,7 +51,7 @@ class MonitorRouteCreateXmlsTool(overpassQueryExecutor: OverpassQueryExecutor, r
 
   private val elementIdMap = ElementIdMap()
   private val monitorChangeImpactAnalyzer = new MonitorChangeImpactAnalyzerImpl()
-  private val osmChangeRepository = new OsmChangeRepository(new File("/kpn/replicate"))
+  private val osmChangeRepository = new OsmChangeRepositoryImpl(new File("/kpn/replicate"))
   private val log = Log(classOf[MonitorRouteCreateXmlsTool])
 
   def analyze(): Unit = {

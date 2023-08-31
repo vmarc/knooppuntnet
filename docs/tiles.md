@@ -125,9 +125,9 @@ Currently used bounding box:
 Prepare:
 
   cd /kpn/openmaptiles/data
-	rm -rf *
+  rm -rf *
 
-	mv /kpn/tile-data/all.osm.pbf .
+  mv /kpn/tile-data/all.osm.pbf .
 
 Import data:
 

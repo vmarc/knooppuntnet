@@ -9,6 +9,7 @@ import kpn.core.tools.status.StatusRepositoryImpl
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApi
 import kpn.server.analyzer.engine.changes.changes.ChangeSetInfoApiImpl
+import kpn.server.analyzer.engine.changes.OsmChangeRepositoryImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
@@ -35,7 +36,7 @@ class AnalyzerConfiguration {
 
   @Bean
   def osmChangeRepository: OsmChangeRepository = {
-    new OsmChangeRepository(dirs.replicate)
+    new OsmChangeRepositoryImpl(dirs.replicate)
   }
 
   @Bean

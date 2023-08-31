@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.tile.TileCalculator
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
+import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.MockTaskRepository
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
@@ -619,7 +620,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val poiQueryExecutor: PoiQueryExecutor = stub[PoiQueryExecutor]
     val poiScopeAnalyzer: PoiScopeAnalyzer = stub[PoiScopeAnalyzer]
     val locationAnalyzer: LocationAnalyzer = stub[LocationAnalyzer]
-    val masterPoiAnalyzer: MasterPoiAnalyzer = stub[MasterPoiAnalyzer]
+    val masterPoiAnalyzer: MasterPoiAnalyzer = new MasterPoiAnalyzerImpl()
 
     val poiChangeAnalyzer: PoiChangeAnalyzer = new PoiChangeAnalyzerImpl(
       knownPoiCache,

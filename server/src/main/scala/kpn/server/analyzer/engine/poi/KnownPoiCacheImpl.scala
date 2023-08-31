@@ -27,7 +27,7 @@ class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) 
     }
   }
 
-  def contains(poiRef: PoiRef): Boolean = {
+  override def contains(poiRef: PoiRef): Boolean = {
     poiRef.elementType match {
       case "node" => knownPois.nodeIds.contains(poiRef.elementId)
       case "way" => knownPois.wayIds.contains(poiRef.elementId)
@@ -35,7 +35,7 @@ class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) 
     }
   }
 
-  def add(poiRef: PoiRef): Unit = {
+  override def add(poiRef: PoiRef): Unit = {
     knownPois = poiRef.elementType match {
       case "node" => knownPois.copy(nodeIds = knownPois.nodeIds + poiRef.elementId)
       case "way" => knownPois.copy(wayIds = knownPois.wayIds + poiRef.elementId)
@@ -43,7 +43,7 @@ class KnownPoiCacheImpl(poiRepository: PoiRepository, analyzerEnabled: Boolean) 
     }
   }
 
-  def delete(poiRef: PoiRef): Unit = {
+  override def delete(poiRef: PoiRef): Unit = {
     knownPois = poiRef.elementType match {
       case "node" => knownPois.copy(nodeIds = knownPois.nodeIds - poiRef.elementId)
       case "way" => knownPois.copy(wayIds = knownPois.wayIds - poiRef.elementId)
