@@ -84,28 +84,35 @@ class PoiChangeAnalyzerImpl(
   }
 
   private def withCenters(elementType: String, analyses: Seq[PoiChangeAnalysis]): Seq[PoiChangeAnalysis] = {
-    if (elementType == "node") {
-      analyses.map { analysis =>
-        analysis.copy(center = analysis.element match {
-          case node: RawNode => Some(node)
-          case _ => None
-        })
+    if (analyses.nonEmpty) {
+      if (elementType == "node") {
+        analyses.map { analysis =>
+          analysis.copy(center = analysis.element match {
+            case node: RawNode => Some(node)
+            case _ => None
+          })
+        }
+      }
+      else {
+        val centers = poiQueryExecutor.centers(elementType, analyses.map(_.element.id))
+        analyses.map { analysis =>
+          centers.find(_.id == analysis.element.id) match {
+            case Some(center) => analysis.copy(center = Some(center.latLon))
+            case None => analysis
+          }
+        }
       }
     }
     else {
-      poiQueryExecutor.centers(elementType, analyses.map(_.element.id)).flatMap { elementCenter =>
-        analyses.find(_.element.id == elementCenter.id).map { poi =>
-          poi.copy(center = Some(elementCenter.latLon))
-        }
-      }
+      Seq.empty
     }
   }
 
   private def processPoiChangeAnalysis(poiChangeAnalysis: PoiChangeAnalysis): Unit = {
+    val poiRef = PoiRef.of(poiChangeAnalysis.element)
     poiChangeAnalysis.center match {
-      case None =>
+      case None => deletePoi(poiRef, "could not determine center")
       case Some(center) =>
-        val poiRef = PoiRef.of(poiChangeAnalysis.element)
         if (!poiScopeAnalyzer.inScope(center)) {
           if (knownPoiCache.contains(poiRef)) {
             deletePoi(poiRef, "known poi no longer in scope")

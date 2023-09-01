@@ -457,7 +457,11 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
-    (t.poiQueryExecutor.center _).when(PoiRef("way", 123)).returns(Some(LatLonImpl("1", "2")))
+    (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(
+      Seq(
+        ElementCenter(123L, LatLonImpl("1", "2"))
+      )
+    )
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
@@ -508,15 +512,15 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
-    (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
-    (t.poiQueryExecutor.center _).when(PoiRef("way", 123)).returns(None)
+    (t.knownPoiCache.contains _).when(PoiRef("way", 123L)).returns(false)
+    (t.poiRepository.get _).when(PoiRef("way", 123L)).returns(None)
+    (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(Seq.empty)
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
         Seq(
           Change(
-            Create,
+            Modify,
             Seq(
               newRawWay(
                 id = 123L,
@@ -552,7 +556,11 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("relation", 123)).returns(None)
-    (t.poiQueryExecutor.center _).when(PoiRef("relation", 123)).returns(Some(LatLonImpl("1", "2")))
+    (t.poiQueryExecutor.centers _).when("relation", Seq(123L)).returns(
+      Seq(
+        ElementCenter(123, LatLonImpl("1", "2"))
+      )
+    )
 
     t.poiChangeAnalyzer.analyze(
       OsmChange(
