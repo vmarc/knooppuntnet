@@ -39,7 +39,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Create,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2",
                 tags = Tags.from("shop" -> "bicycle")
@@ -93,7 +93,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Create,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2"
               )
@@ -145,7 +145,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Modify,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2",
                 tags = Tags.from("shop" -> "bicycle")
@@ -204,7 +204,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Modify,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2",
                 tags = Tags.from("shop" -> "bicycle")
@@ -260,7 +260,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Delete,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2"
               )
@@ -303,7 +303,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Delete,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2"
               )
@@ -346,7 +346,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Delete,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2"
               )
@@ -384,7 +384,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Modify,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2",
                 tags = Tags.from("shop" -> "bicycle")
@@ -429,7 +429,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Modify,
             Seq(
               newRawNode(
-                id = 123L,
+                id = 123,
                 latitude = "1",
                 longitude = "2",
                 tags = Tags.from("shop" -> "bicycle")
@@ -459,7 +459,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
     (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(
       Seq(
-        ElementCenter(123L, LatLonImpl("1", "2"))
+        ElementCenter(123, LatLonImpl("1", "2"))
       )
     )
 
@@ -470,7 +470,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Create,
             Seq(
               newRawWay(
-                id = 123L,
+                id = 123,
                 tags = Tags.from("shop" -> "bicycle")
               )
             )
@@ -512,8 +512,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val t = new TestSetup()
 
-    (t.knownPoiCache.contains _).when(PoiRef("way", 123L)).returns(false)
-    (t.poiRepository.get _).when(PoiRef("way", 123L)).returns(None)
+    (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
+    (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
     (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(Seq.empty)
 
     t.poiChangeAnalyzer.analyze(
@@ -523,7 +523,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Modify,
             Seq(
               newRawWay(
-                id = 123L,
+                id = 123,
                 tags = Tags.from("shop" -> "bicycle")
               )
             )
@@ -569,7 +569,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
             Create,
             Seq(
               newRawRelation(
-                id = 123L,
+                id = 123,
                 tags = Tags.from("shop" -> "bicycle")
               )
             )
@@ -610,7 +610,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   private def existingPoi(): Poi = {
     newPoi(
       elementType = "node",
-      elementId = 123L,
+      elementId = 123,
       latitude = "1",
       longitude = "2",
       tags = Tags.from("shop" -> "bicycle"),
