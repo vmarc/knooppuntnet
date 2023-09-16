@@ -62,7 +62,7 @@
           "src/theme.scss",
           "src/styles.scss",
           "node_modules/ol/ol.css",
-          "node_modules/@kirtandesai/ol-geocoder/dist/ol-geocoder.css"
+          "node_modules/ol-geocoder/dist/ol-geocoder.css"
         ],
         "scripts": [
           "node_modules/marked/marked.min.js"

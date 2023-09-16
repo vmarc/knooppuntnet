@@ -43,9 +43,11 @@ import { MapLayerTranslationService } from '../services';
       </ng-template>
     </mat-menu>
 
-    <div class="map-control map-layers-control" (click)="openPopupMenu()">
+    <div
+      class="ol-control map-control map-layers-control"
+      (click)="openPopupMenu()"
+    >
       <button
-        class="map-control-button"
         [matMenuTriggerFor]="mapMenu"
         title="select the layers displayed in the map"
         i18n-title="@@layer-switcher.title"

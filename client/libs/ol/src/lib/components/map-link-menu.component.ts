@@ -30,7 +30,7 @@ import { MAP_SERVICE_TOKEN } from '../services';
       </ng-template>
     </mat-menu>
 
-    <div class="map-control map-links-control" (click)="openPopupMenu()">
+    <div class="ol-control map-links-control" (click)="openPopupMenu()">
       <button
         class="map-control-button"
         [matMenuTriggerFor]="mapMenu"
@@ -46,6 +46,12 @@ import { MAP_SERVICE_TOKEN } from '../services';
       .map-links-control {
         top: 50px;
         right: 10px;
+        z-index: 100;
+      }
+
+      .map-links-control mat-icon {
+        width: 14px;
+        height: 14px;
       }
     `,
   ],

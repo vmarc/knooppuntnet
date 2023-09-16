@@ -49,8 +49,8 @@
     "ngx-cookie-service": "^15.0.0",
     "ngx-device-detector": "^5.0.1",
     "ngx-markdown": "15.1.2",
-    "ol": "7.3.0",
-    "@kirtandesai/ol-geocoder": "5.0.6",
+    "ol": "7.5.2",
+    "ol-geocoder": "4.3.0",
     "rxjs": "^7.5.6",
     "tslib": "^2.4.0",
     "zone.js": "0.13.0"
