@@ -1,7 +1,6 @@
 import { FeatureLike } from 'ol/Feature';
 import Feature from 'ol/Feature';
 import { Geometry } from 'ol/geom';
-import GeometryType from 'ol/geom/GeometryType';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
 import VectorSource from 'ol/source/Vector';
@@ -73,7 +72,7 @@ export class PlannerHighlightLayer {
 
   styleFunction(): StyleFunction {
     return (feature: FeatureLike) => {
-      if (feature.getGeometry().getType() === GeometryType.POINT) {
+      if (feature.getGeometry().getType() === 'Point') {
         const zoom = this.map.getView().getZoom();
         if ('true' === feature.get('mouse-down')) {
           return this.mouseDownStyle;

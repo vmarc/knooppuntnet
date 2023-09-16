@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "4.0.45",
+  "version": "4.0.46",
   "license": "MIT",
   "scripts": {
     "start": "node --max_old_space_size=3092 ./node_modules/.bin/ng serve --host 127.0.0.1 --port 4001 --proxy-config src/proxy-dev.conf.js",
@@ -53,8 +53,8 @@
     "ngx-cookie-service": "^14.0.1",
     "ngx-device-detector": "^4.0.1",
     "ngx-markdown": "14.0.1",
-    "ol": "6.6.1",
-    "ol-geocoder": "4.1.2",
+    "ol": "v7.5.2",
+    "ol-geocoder": "4.3.0",
     "rxjs": "^7.5.6",
     "tslib": "^2.4.0",
     "zone.js": "~0.11.8"

@@ -218,9 +218,10 @@ export class MapMainPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.overlay = new Overlay({
       id: 'popup',
       element: document.getElementById('popup'),
-      autoPan: true,
-      autoPanAnimation: {
-        duration: 250,
+      autoPan: {
+        animation: {
+          duration: 250,
+        }
       },
     });
 

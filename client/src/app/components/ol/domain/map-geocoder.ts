@@ -5,7 +5,6 @@ export class MapGeocoder {
   static install(map: Map): void {
     const geocoder = new Geocoder('nominatim', {
       provider: 'osm',
-      targetType: 'glass-button',
       lang: 'en', // Photon does not support "nl" (only: "de", "it", "fr" and "en")
       placeholder: 'Search for...',
       limit: 5,
