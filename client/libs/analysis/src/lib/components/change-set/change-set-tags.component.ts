@@ -31,7 +31,7 @@ import { Tags } from '@api/custom';
         border-left-width: 1px;
         border-left-style: solid;
         border-left-color: #ccc;
-        color: gray;
+        color: grey;
       }
     `,
   ],

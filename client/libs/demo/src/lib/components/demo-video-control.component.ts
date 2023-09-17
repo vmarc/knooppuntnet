@@ -79,7 +79,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
       }
 
       .play-pause-button:hover {
-        color: gray;
+        color: grey;
       }
 
       .play-pause-button-disabled {

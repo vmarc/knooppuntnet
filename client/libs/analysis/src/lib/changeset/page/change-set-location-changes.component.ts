@@ -114,7 +114,7 @@ import { map } from 'rxjs/operators';
 
       .node-count {
         padding-left: 20px;
-        color: gray;
+        color: grey;
       }
 
       .buttons {

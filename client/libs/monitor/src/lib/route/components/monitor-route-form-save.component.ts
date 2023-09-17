@@ -1,6 +1,3 @@
-import { NgSwitchDefault } from '@angular/common';
-import { NgSwitchCase } from '@angular/common';
-import { NgSwitch } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { inject } from '@angular/core';

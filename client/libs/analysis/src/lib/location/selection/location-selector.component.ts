@@ -92,7 +92,7 @@ import { LocationOption } from './location-option';
 
       .node-count {
         padding-left: 20px;
-        color: gray;
+        color: grey;
       }
     `,
   ],

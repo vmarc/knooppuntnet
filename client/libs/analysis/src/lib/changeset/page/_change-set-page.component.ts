@@ -78,7 +78,7 @@ export class ChangeSetPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.response$ = this.activatedRoute.params.pipe(
-      map((params) => this.interpreteParams(params)),
+      map((params) => this.interpretParams(params)),
       mergeMap((key) =>
         this.apiService.changeSet(key.changeSetId, key.replicationNumber)
       ),
@@ -94,7 +94,7 @@ export class ChangeSetPageComponent implements OnInit {
     );
   }
 
-  private interpreteParams(params: Params): ChangeSetKey {
+  private interpretParams(params: Params): ChangeSetKey {
     const changeSetId = params['changeSetId'];
     const replicationNumber = params['replicationNumber'];
     return new ChangeSetKey(changeSetId, replicationNumber);

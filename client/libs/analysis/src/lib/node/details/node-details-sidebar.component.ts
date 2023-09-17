@@ -36,7 +36,7 @@ import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 
       .tips {
         font-style: italic;
-        color: gray;
+        color: grey;
         margin: 1em;
       }
     `,

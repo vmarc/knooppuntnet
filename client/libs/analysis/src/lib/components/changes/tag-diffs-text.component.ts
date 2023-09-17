@@ -124,7 +124,7 @@ import { TagDiffs } from '@api/common/diff';
   styles: [
     `
       .title {
-        color: gray;
+        color: grey;
       }
 
       .tag-detail {
@@ -132,12 +132,12 @@ import { TagDiffs } from '@api/common/diff';
         margin-bottom: 10px;
         border-left-style: dotted;
         border-left-width: 1px;
-        border-left-color: gray;
+        border-left-color: grey;
       }
 
       .label {
         display: inline-block;
-        color: gray;
+        color: grey;
         margin-left: 5px;
         width: 60px;
       }
@@ -148,7 +148,7 @@ import { TagDiffs } from '@api/common/diff';
 
       .value {
         display: inline-block;
-        color: gray;
+        color: grey;
       }
     `,
   ],

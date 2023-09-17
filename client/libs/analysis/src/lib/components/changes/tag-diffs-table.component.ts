@@ -65,7 +65,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
       }
 
       .same {
-        color: gray;
+        color: grey;
       }
     `,
   ],

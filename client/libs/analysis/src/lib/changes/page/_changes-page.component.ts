@@ -1,6 +1,5 @@
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';

@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
   styles: [
     `
       .bracket {
-        color: gray;
+        color: grey;
       }
     `,
   ],

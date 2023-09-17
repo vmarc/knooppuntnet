@@ -62,7 +62,7 @@ import { PlannerService } from '../../../planner.service';
 
       .node {
         display: inline-block;
-        border-color: gray;
+        border-color: grey;
         border-radius: 50%;
         border-style: solid;
         border-width: 3px;

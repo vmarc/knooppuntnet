@@ -21,7 +21,7 @@ import { Plan } from '../../../domain/plan/plan';
     `
       .distance {
         margin-bottom: 10px;
-        color: gray;
+        color: grey;
       }
 
       .distance :last-child {

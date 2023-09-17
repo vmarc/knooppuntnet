@@ -26,7 +26,7 @@ import { RouterLink } from '@angular/router';
 
       .wrapper {
         display: inline-block;
-        border-color: gray;
+        border-color: grey;
         border-radius: 50%;
         border-style: solid;
         border-width: 3px;
@@ -52,7 +52,7 @@ import { RouterLink } from '@angular/router';
         width: 50px;
         height: 50px;
         border: none;
-        color: gray;
+        color: grey;
       }
     `,
   ],

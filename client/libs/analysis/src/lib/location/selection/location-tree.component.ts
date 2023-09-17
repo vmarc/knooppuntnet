@@ -105,7 +105,7 @@ import { LocationFlatNode } from './location-flat-node';
 
       .node-count {
         padding-left: 20px;
-        color: gray;
+        color: grey;
       }
 
       .buttons {

@@ -10,7 +10,6 @@ import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { Store } from '@ngrx/store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteMapPageDestroy } from '../store/route.actions';
-import { actionRouteDetailsPageDestroy } from '../store/route.actions';
 import { actionRouteMapPageInit } from '../store/route.actions';
 import { selectRouteNetworkType } from '../store/route.selectors';
 import { selectRouteMapPage } from '../store/route.selectors';

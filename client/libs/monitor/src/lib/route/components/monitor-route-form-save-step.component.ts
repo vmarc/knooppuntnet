@@ -32,7 +32,7 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
       }
 
       .todo {
-        color: gray;
+        color: grey;
         width: 0.3em;
         height: 0.3em;
       }
