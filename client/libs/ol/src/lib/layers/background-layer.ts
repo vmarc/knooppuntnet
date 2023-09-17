@@ -1,4 +1,4 @@
-import { MapboxVector } from 'ol/layer';
+import { MapboxVectorLayer } from 'ol-mapbox-style';
 import { MapLayer } from './map-layer';
 
 export class BackgroundLayer {
@@ -10,7 +10,7 @@ export class BackgroundLayer {
     const openMapTilesAttribution =
       '&#169; <a href="https://www.openmaptiles.org/" target="_blank">OpenMapTiles</a>';
 
-    const layer = new MapboxVector({
+    const layer = new MapboxVectorLayer({
       styleUrl: '/assets/osm-liberty-style.json',
     });
 
