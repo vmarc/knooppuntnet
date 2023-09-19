@@ -35,7 +35,7 @@ class MonitorSymbolMigrationTool(database: Database) {
                   database.monitorRoutes.save(updatedMonitorRoute)
                 }
               case Some(symbol) =>
-                if (monitorRoute.symbol != symbol) {
+                if (!monitorRoute.symbol.contains(symbol)) {
                   val updatedMonitorRoute = monitorRoute.copy(symbol = Some(symbol))
                   database.monitorRoutes.save(updatedMonitorRoute)
                 }

@@ -58,7 +58,10 @@ class MonitorRouteUpdateExecutor(
   private var context: MonitorUpdateContext = null
 
   def execute(originalContext: MonitorUpdateContext): Unit = {
-    context = originalContext
+    Time.set(Time.system())
+    context = originalContext.copy(
+      analysisStartMillis = Some(System.currentTimeMillis())
+    )
     try {
       if (context.update.action == "add") {
         add()
@@ -81,6 +84,9 @@ class MonitorRouteUpdateExecutor(
             exception = Some(e.getMessage)
           )
         )
+    }
+    finally {
+      Time.clear()
     }
   }
 
@@ -117,6 +123,8 @@ class MonitorRouteUpdateExecutor(
           context.update.relationId,
           context.user,
           Time.now,
+          None,
+          None,
           None,
           referenceType = context.update.referenceType,
           referenceTimestamp = referenceTimestamp,
@@ -927,10 +935,15 @@ class MonitorRouteUpdateExecutor(
       )
     }
 
-    context.newRoute match {
-      case Some(route) => monitorRouteRepository.saveRoute(route)
-      case None =>
-    }
+
+    val analysisDuration = System.currentTimeMillis() - context.analysisStartMillis.get
+
+    val savedRoute = context.route.copy(
+      analysisTimestamp = Some(Time.now),
+      analysisDuration = Some(analysisDuration)
+    )
+    monitorRouteRepository.saveRoute(savedRoute)
+
     reportStepDone("save")
   }
 

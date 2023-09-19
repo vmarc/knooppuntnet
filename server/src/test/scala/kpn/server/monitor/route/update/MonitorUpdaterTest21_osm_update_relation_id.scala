@@ -120,6 +120,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
           user = "user2",
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           symbol = None,
+          analysisTimestamp = None,
+          analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 12)),
           referenceFilename = None,

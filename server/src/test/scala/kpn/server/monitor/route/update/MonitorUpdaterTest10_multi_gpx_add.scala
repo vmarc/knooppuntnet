@@ -79,6 +79,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
+          analysisTimestamp = None,
+          analysisDuration = None,
           referenceType = "multi-gpx",
           referenceTimestamp = None,
           referenceDistance = 0,

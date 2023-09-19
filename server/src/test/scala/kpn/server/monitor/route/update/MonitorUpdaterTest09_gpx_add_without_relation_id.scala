@@ -94,6 +94,8 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
+          analysisTimestamp = None,
+          analysisDuration = None,
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = Some("filename"),

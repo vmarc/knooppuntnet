@@ -20,6 +20,9 @@ case class MonitorRoute(
   timestamp: Timestamp,
   symbol: Option[String],
 
+  analysisTimestamp: Option[Timestamp],
+  analysisDuration: Option[Long],
+
   // *** reference information ***
 
   /*

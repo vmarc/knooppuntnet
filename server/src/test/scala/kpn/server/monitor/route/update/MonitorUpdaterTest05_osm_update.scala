@@ -107,6 +107,8 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
+          analysisTimestamp = None,
+          analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
           referenceFilename = None,

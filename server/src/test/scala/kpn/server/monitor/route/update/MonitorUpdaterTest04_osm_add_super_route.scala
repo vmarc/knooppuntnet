@@ -77,6 +77,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
+          analysisTimestamp = None,
+          analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(referenceTimestamp),
           referenceFilename = None,

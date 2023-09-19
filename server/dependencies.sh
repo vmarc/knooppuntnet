@@ -1,1 +1,1 @@
-mvn dependency:tree -Dverbose
+mvn dependency:tree

@@ -4,7 +4,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-
 import kpn.core.util.Log
 import org.apache.commons.net.ProtocolCommandEvent
 import org.apache.commons.net.ProtocolCommandListener
@@ -12,6 +11,8 @@ import org.apache.commons.net.ftp.FTP
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPFile
 import org.apache.commons.net.ftp.FTPReply
+
+import java.time.Duration
 
 object FtpFileSystem {
 
@@ -69,7 +70,7 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
       throw new FtpException("Could not login", newClient.getReplyStrings)
     }
     newClient.setFileType(FTP.BINARY_FILE_TYPE)
-    newClient.setControlKeepAliveTimeout(300)
+    newClient.setControlKeepAliveTimeout(Duration.ofSeconds(300))
     newClient
   }
 

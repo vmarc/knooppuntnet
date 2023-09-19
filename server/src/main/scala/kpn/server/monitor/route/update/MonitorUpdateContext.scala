@@ -20,6 +20,7 @@ case class MonitorUpdateContext(
   oldStateIds: Seq[MonitorRouteStateId] = Seq.empty,
   newRoute: Option[MonitorRoute] = None,
   newReferenceSummaries: Seq[MonitorRouteReferenceSummary] = Seq.empty,
+  analysisStartMillis: Option[Long] = None,
   stateChanged: Boolean = false
 ) {
 
