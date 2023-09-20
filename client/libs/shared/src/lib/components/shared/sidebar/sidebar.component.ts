@@ -7,7 +7,12 @@ import { SidebarFooterComponent } from './sidebar-footer.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-body sidebar-logo">
-      <ng-content />
+      <div>
+        <ng-content />
+      </div>
+      <div class="body-bottom">
+        <ng-content select="[body-bottom]" />
+      </div>
     </div>
     <div class="sidebar-footer">
       <kpn-sidebar-footer />
@@ -18,15 +23,24 @@ import { SidebarFooterComponent } from './sidebar-footer.component';
       :host {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
         min-height: calc(100vh - 48px);
       }
 
       .sidebar-body {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        align-content: stretch;
         flex: 1;
       }
 
       .sidebar-footer {
         flex: 0;
+      }
+
+      .body-bottom {
+        margin-top: auto;
       }
     `,
   ],

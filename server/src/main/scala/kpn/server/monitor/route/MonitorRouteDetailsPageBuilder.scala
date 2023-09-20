@@ -31,6 +31,8 @@ class MonitorRouteDetailsPageBuilder(
           route.relationId,
           route.comment,
           route.symbol,
+          route.analysisTimestamp,
+          route.analysisDuration,
           route.referenceType,
           route.referenceTimestamp,
           route.referenceFilename,

@@ -351,6 +351,10 @@ table.kpn-bordered-table {
   content: 'm';
 }
 
+.kpn-milliseconds::after {
+  content: ' ms';
+}
+
 .kpn-sentence::after {
   content: '.';
 }

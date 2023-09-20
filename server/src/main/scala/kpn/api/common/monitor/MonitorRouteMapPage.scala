@@ -1,6 +1,7 @@
 package kpn.api.common.monitor
 
 import kpn.api.common.Bounds
+import kpn.api.custom.Timestamp
 
 case class MonitorRouteMapPage(
   relationId: Option[Long],
@@ -10,6 +11,7 @@ case class MonitorRouteMapPage(
   groupDescription: String,
   referenceType: String, // "osm" | "gpx" | "multi-gpx"
   bounds: Option[Bounds],
+  analysisTimestamp: Option[Timestamp],
   currentSubRelation: Option[MonitorRouteSubRelation],
   previousSubRelation: Option[MonitorRouteSubRelation],
   nextSubRelation: Option[MonitorRouteSubRelation],

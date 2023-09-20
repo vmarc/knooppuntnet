@@ -13,6 +13,7 @@ import { MonitorRouteDetailsPageService } from './monitor-route-details-page.ser
 import { MonitorRouteDetailsReferenceComponent } from './monitor-route-details-reference.component';
 import { MonitorRouteDetailsStructureComponent } from './monitor-route-details-structure.component';
 import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-summary.component';
+import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-timestamp.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-page',
@@ -39,6 +40,13 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
             i18n-title="@@monitor.route.details.summary"
           >
             <kpn-monitor-route-details-summary [page]="page" />
+          </kpn-data>
+
+          <kpn-data
+            title="Latest analysis"
+            i18n-title="@@monitor.route.details.analysis"
+          >
+            <kpn-monitor-route-details-timestamp [page]="page" />
           </kpn-data>
 
           <kpn-data
@@ -104,6 +112,7 @@ import { MonitorRouteDetailsSummaryComponent } from './monitor-route-details-sum
     NgIf,
     PageComponent,
     SidebarComponent,
+    MonitorRouteDetailsTimestampComponent,
   ],
 })
 export class MonitorRouteDetailsPageComponent {

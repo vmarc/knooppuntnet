@@ -12,6 +12,8 @@ export interface MonitorRouteDetailsPage {
   readonly relationId: number;
   readonly comment: string;
   readonly symbol: string;
+  readonly analysisTimestamp: Timestamp;
+  readonly analysisDuration: number;
   readonly referenceType: string;
   readonly referenceTimestamp: Timestamp;
   readonly referenceFilename: string;

@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { TimestampPipe } from '@app/components/shared/format';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapControlJosmComponent } from './monitor-route-map-control-josm.component';
@@ -26,12 +27,25 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
           *ngIf="service.mode() === MonitorMapMode.osmSegments"
         />
       </div>
+      <div
+        body-bottom
+        *ngIf="service.analysisTimestamp()"
+        class="analysis-timestamp"
+      >
+        <span class="kpn-label">Latest analysis</span>
+        <span>{{ service.analysisTimestamp() | yyyymmddhhmm }}</span>
+      </div>
     </kpn-sidebar>
   `,
   styles: [
     `
       .control {
         padding: 1em;
+      }
+
+      .analysis-timestamp {
+        padding: 3em 1em 1em;
+        text-align: center;
       }
     `,
   ],
@@ -44,6 +58,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     MonitorRouteMapOsmSegmentsComponent,
     NgIf,
     SidebarComponent,
+    TimestampPipe,
   ],
 })
 export class MonitorRouteMapSidebarComponent {

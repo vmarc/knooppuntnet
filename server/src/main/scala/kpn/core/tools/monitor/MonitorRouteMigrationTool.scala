@@ -85,8 +85,8 @@ object MonitorRouteMigrationTool {
       val tool = new MonitorRouteMigrationTool(configuration)
       // tool.renameRouteCollections()
       // tool.addExampleSuperRoute(exampleSuperRoute)
-      // tool.migrateOne("GRV", "p04")
-      tool.migrate()
+      tool.migrateOne("GRV", "p04")
+      // tool.migrate()
     }
     println("Done")
   }

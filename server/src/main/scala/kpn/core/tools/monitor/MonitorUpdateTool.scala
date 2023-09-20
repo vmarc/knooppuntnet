@@ -69,15 +69,10 @@ class MonitorUpdateTool(
 
   def analyze(): Unit = {
     val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)
-    val groupRoutes = groups.flatMap { group =>
-      configuration.monitorGroupRepository.groupRouteIds(group._id).map { routeId =>
-        MonitorGroupRoute(group, routeId)
-      }
-    }
-
-    groupRoutes.zipWithIndex.foreach { case (groupRoute, index) =>
-      Log.context(s"${index + 1}/${groupRoutes.size}") {
-        // TODO configuration.monitorUpdater.analyzeAll(groupRoute.group, groupRoute.routeId)
+    val groupRoutes = groups.foreach { group =>
+      val routeNames = configuration.monitorGroupRepository.groupRoutes(group._id).map(_.name).sorted
+      routeNames.foreach { routeName =>
+        configuration.monitorRouteUpdateExecutor.analyze(group.name, routeName)
       }
     }
   }
