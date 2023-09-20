@@ -21,6 +21,7 @@ import { TimestampPipe } from '@app/components/shared/format';
         </span>
       </span>
     </p>
+    <p *ngIf="!page.analysisTimestamp">-</p>
   `,
   standalone: true,
   imports: [NgIf, TimestampPipe, IntegerFormatPipe],
