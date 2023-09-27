@@ -11759,6 +11759,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="monitor.route.details.seconds" datatype="html">
+        <source>seconds</source>
+        <target>seconden</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-timestamp.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
