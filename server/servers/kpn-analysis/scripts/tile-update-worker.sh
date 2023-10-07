@@ -28,7 +28,7 @@ make clean
 make
 make import-sql
 make generate-tiles
-/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1
+/kpn/soft/mbutil/mb-util /kpn/openmaptiles/data/tiles.mbtiles /kpn/tiles-install/osm --image_format=pbf >> /kpn/logs/mbutil.log 2>&1
 echo file count /kpn/tiles-install/osm
 find /kpn/tiles-install/osm -type f | wc -l
 echo file count /kpn/tiles/osm
