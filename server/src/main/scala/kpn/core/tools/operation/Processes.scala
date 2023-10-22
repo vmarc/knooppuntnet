@@ -2,26 +2,31 @@ package kpn.core.tools.operation
 
 object Processes {
 
-  def apply(lines: List[String]): Processes = {
+  def webServerProcesses(lines: List[String]): Seq[ProcessInfo] = {
     assertHeader(lines.head)
-    Processes(
-      processInfo(lines.tail, "main-dispatcher", "bin/dispatcher --osm-base --attic"),
-      processInfo(lines.tail, "areas-dispatcher", "bin/dispatcher --areas"),
-      processInfo(lines.tail, "replicator", "replicator-log.xml"),
-      processInfo(lines.tail, "updater", "updater-log.xml"),
-      processInfo(lines.tail, "analyzer1", "analyzer-1-log.xml"),
-      processInfo(lines.tail, "analyzer2", "analyzer-2-log.xml"),
-      processInfo(lines.tail, "analyzer3", "analyzer-3-log.xml"),
-      processInfo(lines.tail, "server", "name=server "),
-      processInfo(lines.tail, "server-history", "name=server-history"),
-      processInfo(lines.tail, "change-set-1", "name=change-set-info-tool "),
-      processInfo(lines.tail, "change-set-2", "name=change-set-info-tool-2"),
-      processInfos(lines.tail, "query", "overpass/bin/osm3s_query")
+    Seq(
+      processInfo(lines.tail, "server", "/kpn/java/bin/java -Dname=server "),
+      processInfo(lines.tail, "server-experimental", "/kpn/java/bin/java -Dname=server-experimental "),
+      processInfo(lines.tail, "server-mail", "/kpn/java/bin/java -Dname=server-mail "),
+      processInfo(lines.tail, "nginx", "nginx: master process"),
+      processInfo(lines.tail, "mongod", "mongod --config /kpn/conf/mongod.conf"),
     )
   }
 
+  def analysisServerProcesses(lines: List[String]): Seq[ProcessInfo] = {
+    Seq(
+      processInfo(lines.tail, "main-dispatcher", "/kpn/overpass/bin/dispatcher"),
+      processInfo(lines.tail, "replicator", "name=replicator "),
+      processInfo(lines.tail, "updater", "name=updater "),
+      processInfo(lines.tail, "server", "/kpn/java/bin/java -Dname=server"),
+      processInfo(lines.tail, "lsyncd", "lsyncd /kpn/conf/lsyncd.conf"),
+      processInfo(lines.tail, "nginx", "nginx: master process"),
+      processInfo(lines.tail, "update_from_dir", "/kpn/overpass/bin/update_from_dir"),
+    ) ++ processInfos(lines.tail, "query", "overpass/bin/osm3s_query")
+  }
+
   private def processInfo(lines: Seq[String], name: String, signature: String): ProcessInfo = {
-    val status = lines.find(_.contains(signature)).map(processStatus)
+    val status = lines.filterNot(_.contains("nohup")).find(_.contains(signature)).map(processStatus)
     ProcessInfo(name, status)
   }
 
@@ -37,37 +42,8 @@ object Processes {
   }
 
   private def assertHeader(line: String): Unit = {
-    if (line != "UID        PID  PPID  C STIME TTY          TIME CMD") {
+    if (line != "UID          PID    PPID  C STIME TTY          TIME CMD") {
       throw new IllegalArgumentException("unexpected output from ps -ef")
     }
   }
-}
-
-case class Processes(
-  mainDispatcher: ProcessInfo,
-  areasDispatcher: ProcessInfo,
-  replicator: ProcessInfo,
-  updater: ProcessInfo,
-  analyzer1: ProcessInfo,
-  analyzer2: ProcessInfo,
-  analyzer3: ProcessInfo,
-  server: ProcessInfo,
-  serverHistory: ProcessInfo,
-  changeSetInfoTool: ProcessInfo,
-  changeSetInfoTool2: ProcessInfo,
-  queries: Seq[ProcessInfo]
-) {
-  def all: Seq[ProcessInfo] = Seq(
-    mainDispatcher,
-    areasDispatcher,
-    replicator,
-    updater,
-    analyzer1,
-    analyzer2,
-    analyzer3,
-    server,
-    serverHistory,
-    changeSetInfoTool,
-    changeSetInfoTool2
-  ) ++ queries
 }

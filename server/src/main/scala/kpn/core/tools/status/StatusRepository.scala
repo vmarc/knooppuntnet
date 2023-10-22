@@ -1,16 +1,14 @@
 package kpn.core.tools.status
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
+
+import java.io.File
 
 trait StatusRepository {
 
   def replicatorStatus: Option[ReplicationId]
 
   def updaterStatus: Option[ReplicationId]
-
-  def changesStatus: Option[ReplicationId]
 
   def analysisStatus1: Option[ReplicationId]
 
@@ -27,8 +25,6 @@ trait StatusRepository {
   def writeAnalysisStatus2(status: ReplicationId): Unit
 
   def writeAnalysisStatus3(status: ReplicationId): Unit
-
-  def writeChangesStatus(status: ReplicationId): Unit
 
   def read(file: File): Option[ReplicationId]
 

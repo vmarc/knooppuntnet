@@ -1,20 +1,23 @@
 package kpn.core.tools.operation
 
-import java.io.File
-import java.io.PrintWriter
-
 import jline.console.ConsoleReader
 import jline.console.completer.AggregateCompleter
 import jline.console.completer.ArgumentCompleter
 import jline.console.completer.StringsCompleter
 
+import java.io.File
+import java.io.PrintWriter
+
 object OperationTool {
   def main(args: Array[String]): Unit = {
-    new OperationTool().launch()
+    OperationToolOptions.parse(args) match {
+      case Some(options) => new OperationTool(options.web).launch()
+      case None =>
+    }
   }
 }
 
-class OperationTool {
+class OperationTool(web: Boolean) {
 
   def launch(): Unit = {
     while (loop()) {}
@@ -71,7 +74,7 @@ class OperationTool {
     line match {
       case "start" => "start what?"
       case "stop" => "stop what?"
-      case "status" => actions.status()
+      case "status" => actions.status(web)
       case "start main-dispatcher" => actions.startMainDispatcher()
       case "start areas-dispatcher" => actions.startAreasDispatcher()
       case "start replicator" => actions.startReplicator()

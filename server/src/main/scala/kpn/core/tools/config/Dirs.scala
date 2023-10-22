@@ -18,7 +18,6 @@ class Dirs(val root: File) {
 
   val replicationStatus: File = new File(status, "replication")
   val updateStatus: File = new File(status, "update")
-  val changesStatus: File = new File(status, "changes")
   val analysisStatus1: File = new File(status, "analysis1")
   val analysisStatus2: File = new File(status, "analysis2")
   val analysisStatus3: File = new File(status, "analysis3")

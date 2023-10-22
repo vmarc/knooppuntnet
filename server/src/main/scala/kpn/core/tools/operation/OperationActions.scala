@@ -16,8 +16,8 @@ class OperationActions {
     new ReplicationStateRepositoryImpl(dirs.replicate)
   )
 
-  def status(): String = {
-    systemStatus.status()
+  def status(web: Boolean): String = {
+    systemStatus.status(web)
   }
 
   def startMainDispatcher(): String = {

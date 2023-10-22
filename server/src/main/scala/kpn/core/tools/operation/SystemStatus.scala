@@ -10,18 +10,22 @@ class SystemStatus(
   replicationStateRepository: ReplicationStateRepository
 ) {
 
-  def status(): String = {
-    processStatus() + "\n\n" + toolStatus
+  def status(web: Boolean): String = {
+    if (web) {
+      processStatus(web)
+    }
+    else {
+      processStatus(web) + "\n\n" + toolStatus
+    }
   }
 
   private def toolStatus: String = {
     Seq(
       ("replication", statusRepository.replicatorStatus),
       ("update     ", statusRepository.updaterStatus),
-      ("changes    ", statusRepository.changesStatus),
-      ("analysis1  ", statusRepository.analysisStatus1),
-      ("analysis2  ", statusRepository.analysisStatus2),
-      ("analysis3  ", statusRepository.analysisStatus3)
+      ("analysis   ", statusRepository.analysisStatus1),
+      // ("analysis2  ", statusRepository.analysisStatus2),
+      // ("analysis3  ", statusRepository.analysisStatus3),
     ).map {
       case (title, Some(replicationId)) =>
         val timestamp = replicationStateRepository.read(replicationId)
@@ -31,18 +35,23 @@ class SystemStatus(
     }.mkString("\n")
   }
 
-  private def processStatus(): String = {
-    processStatus(processReporter.processes)
+  private def processStatus(web: Boolean): String = {
+    processStatus(web, processReporter.processes)
   }
 
-  private def processStatus(lines: List[String]): String = {
-    val processes = Processes(lines)
+  private def processStatus(web: Boolean, lines: List[String]): String = {
+    val processes = if (web) {
+      Processes.webServerProcesses(lines)
+    }
+    else {
+      Processes.analysisServerProcesses(lines)
+    }
     (header +: processLines(processes)).mkString("\n")
   }
 
-  private def processLines(processes: Processes): Seq[String] = {
-    processes.all.map { processInfo =>
-      "%16s ".format(processInfo.name) + status(processInfo)
+  private def processLines(processes: Seq[ProcessInfo]): Seq[String] = {
+    processes.map { processInfo =>
+      "%-20s ".format(processInfo.name) + status(processInfo)
     }
   }
 
@@ -53,5 +62,5 @@ class SystemStatus(
     }
   }
 
-  private def header: String = "            Name Status   PID  Start   Elapsed"
+  private def header: String = "Name                 Status   PID  Start   Elapsed"
 }

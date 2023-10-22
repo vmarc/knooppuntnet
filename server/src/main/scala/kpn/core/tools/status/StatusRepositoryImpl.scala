@@ -1,18 +1,16 @@
 package kpn.core.tools.status
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
 import kpn.core.tools.config.Dirs
 import org.apache.commons.io.FileUtils
+
+import java.io.File
 
 class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
 
   def replicatorStatus: Option[ReplicationId] = read(dirs.replicationStatus)
 
   def updaterStatus: Option[ReplicationId] = read(dirs.updateStatus)
-
-  def changesStatus: Option[ReplicationId] = read(dirs.changesStatus)
 
   def analysisStatus1: Option[ReplicationId] = read(dirs.analysisStatus1)
 
@@ -29,8 +27,6 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
   def writeAnalysisStatus2(replicationId: ReplicationId): Unit = write(dirs.analysisStatus2, replicationId)
 
   def writeAnalysisStatus3(replicationId: ReplicationId): Unit = write(dirs.analysisStatus3, replicationId)
-
-  def writeChangesStatus(replicationId: ReplicationId): Unit = write(dirs.changesStatus, replicationId)
 
   override def read(file: File): Option[ReplicationId] = {
     if (file.exists()) {
