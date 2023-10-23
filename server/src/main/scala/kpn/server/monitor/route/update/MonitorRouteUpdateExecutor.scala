@@ -2,12 +2,10 @@ package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
 import kpn.api.common.monitor.MonitorRouteRelation
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.common.Bounds
 import kpn.api.common.data.WayMember
-import kpn.api.custom.ApiResponse
 import kpn.api.custom.Relation
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
@@ -74,6 +72,9 @@ class MonitorRouteUpdateExecutor(
       }
       else if (context.update.action == "gpx-delete") {
         gpxDelete()
+      }
+      else if (context.update.action == "analyze") {
+        analyze()
       }
     }
     catch {
@@ -392,6 +393,39 @@ class MonitorRouteUpdateExecutor(
     save()
   }
 
+  private def analyze(): Unit = {
+
+    findGroup()
+    val oldRoute = findRoute()
+    context = context.copy(
+      newRoute = Some(oldRoute)
+    )
+
+    context = monitorUpdateStructure.update(context)
+
+    val oldStateIds = monitorRouteRepository.routeStateIds(context.routeId)
+    context = context.copy(
+      oldStateIds = oldStateIds
+    )
+
+    removeObsoleteStates()
+
+    if (context.update.referenceType == "gpx") {
+      monitorRouteRepository.routeReference(oldRoute._id, oldRoute.relationId) match {
+        case None =>
+          println("reference not found")
+        // TODO issue error message?
+        case Some(reference) =>
+          analyze(reference)
+      }
+    }
+    else {
+      updateSubRelations()
+    }
+
+    save()
+  }
+
   private def addRouteWithMultiGpxReference() = {
     context.newRoute match {
       case None =>
@@ -570,6 +604,45 @@ class MonitorRouteUpdateExecutor(
                 )
               )
           }
+        }
+    }
+  }
+
+  private def analyzeSubRelations(): Unit = {
+    context.newRoute match {
+      case None =>
+      case Some(newRoute) =>
+        newRoute.relation match {
+          case None =>
+          case Some(monitorRouteRelation) =>
+            val processList = composeProcessList(monitorRouteRelation)
+            processList.zipWithIndex.foreach { case (mrr, index) =>
+              Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
+                analyzeSubRelation(mrr)
+              }
+            }
+        }
+    }
+  }
+
+  private def analyzeSubRelation(monitorRouteRelation: MonitorRouteRelation): Unit = {
+    monitorRouteRelationRepository.loadTopLevel(None, monitorRouteRelation.relationId) match {
+      case None =>
+        val error = s"Could not load relation ${monitorRouteRelation.relationId} at ${Time.now.yyyymmddhhmmss}"
+        monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
+        None
+
+      case Some(subRelation) =>
+        monitorRouteRepository.routeReference(context.routeId, Some(monitorRouteRelation.relationId)) match {
+          case None =>
+          case Some(reference) =>
+            analyzeReference(reference, Some(subRelation)) match {
+              case Some(state) =>
+                monitorRouteRepository.saveRouteState(state)
+                context = context.copy(
+                  stateChanged = true
+                )
+            }
         }
     }
   }
@@ -788,11 +861,6 @@ class MonitorRouteUpdateExecutor(
         relations = monitorRouteRelation.relations.map(rel => resetReference(rel, subRelationId))
       )
     }
-  }
-
-  def analyze(groupName: String, routeName: String): ApiResponse[MonitorRouteSaveResult] = {
-    throw new RuntimeException("deprecated")
-    null
   }
 
   private def findGroup(): Unit = {

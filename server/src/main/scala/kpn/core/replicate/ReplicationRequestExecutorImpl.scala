@@ -1,8 +1,5 @@
 package kpn.core.replicate
 
-import java.io.ByteArrayInputStream
-import java.util.zip.GZIPInputStream
-
 import kpn.api.common.ReplicationId
 import kpn.core.util.Log
 import org.springframework.http.HttpEntity
@@ -13,11 +10,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.client.HttpClientErrorException
 import org.springframework.web.client.RestTemplate
 
+import java.io.ByteArrayInputStream
+import java.util.zip.GZIPInputStream
 import scala.io.Source
 
 class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
 
-  private val URL = "https://planet.osm.org/replication/minute/"
+  private val URL = "https://download.openstreetmap.fr/replication/planet/minute/"
   private val log = Log(classOf[ReplicationRequestExecutorImpl])
 
   def requestChangesFile(replicationId: ReplicationId): Option[String] = {

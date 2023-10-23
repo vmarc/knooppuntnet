@@ -1,19 +1,19 @@
 package kpn.core.overpass
 
-import java.io.InputStream
-import java.io._
-import java.util.Scanner
-import java.util.concurrent.CountDownLatch
-
 import kpn.core.util.Log
 
+import java.io.BufferedInputStream
+import java.io.InputStream
+import java.io.PrintStream
+import java.util.Scanner
+import java.util.concurrent.CountDownLatch
 import scala.collection.mutable.ListBuffer
 
 /**
-  * Executes Overpass queries using the 'osm3s_query' command. This can only be used when
-  * running on the same machine as the Overpass database. The alternative is to use OverpassQueryExecutorImpl
-  * which performs http requests to a remote Overpass database.
-  */
+ * Executes Overpass queries using the 'osm3s_query' command. This can only be used when
+ * running on the same machine as the Overpass database. The alternative is to use OverpassQueryExecutorImpl
+ * which performs http requests to a remote Overpass database.
+ */
 class OverpassQueryExecutorImpl() extends OverpassQueryExecutor {
 
   private val log = Log(classOf[OverpassQueryExecutorImpl])
@@ -35,7 +35,8 @@ class OverpassQueryExecutorImpl() extends OverpassQueryExecutor {
 
     val processBuilder = new java.lang.ProcessBuilder("/kpn/overpass/bin/osm3s_query", "--progress", "--verbose" /*, "--db-dir=/kpn/database"*/)
     val process = processBuilder.start()
-    val pid = pidOf(process)
+    val pid = process.pid().toString
+
     log.trace(s"pid=$pid attempt=$attempt $queryString")
 
     val outputEnd = new CountDownLatch(2)
@@ -129,17 +130,6 @@ class OverpassQueryExecutorImpl() extends OverpassQueryExecutor {
   private def isTimeout(line: String): Boolean = {
     line.contains("Dispatcher_Client::request_read_and_idx::timeout") ||
       line.contains("runtime error: Query timed out")
-  }
-
-  private def pidOf(process: Process): String = {
-    val clazz = process.getClass
-    if (!clazz.getName.equals("java.lang.UNIXProcess")) {
-      throw new IllegalStateException("unexpected process class: " + clazz.getName)
-    }
-
-    val pidField = clazz.getDeclaredField("pid")
-    pidField.setAccessible(true)
-    pidField.get(process).toString
   }
 }
 
