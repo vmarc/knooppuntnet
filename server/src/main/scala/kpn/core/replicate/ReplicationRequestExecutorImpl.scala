@@ -17,7 +17,7 @@ import scala.io.Source
 
 class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
 
-  private val URL = "https://planet.osm.org/replication/minute/"
+  private val URL = "https://download.openstreetmap.fr/replication/planet/minute/"
   private val log = Log(classOf[ReplicationRequestExecutorImpl])
 
   def requestChangesFile(replicationId: ReplicationId): Option[String] = {
