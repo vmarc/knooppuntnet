@@ -14,8 +14,8 @@ import { TimestampPipe } from '@app/components/shared/format';
     <p *ngIf="page.analysisTimestamp" class="kpn-line">
       <span>{{ page.analysisTimestamp | yyyymmddhhmm }}</span>
       <span class="kpn-brackets">
-        <span>{{ analysisDuration }}</span>
-        <span i18n="@@monitor.route.details.seconds">seconds</span>
+        <span>{{ analysisDuration }}</span
+        >&nbsp;<span i18n="@@monitor.route.details.seconds">seconds</span>
       </span>
     </p>
     <p *ngIf="!page.analysisTimestamp">-</p>
