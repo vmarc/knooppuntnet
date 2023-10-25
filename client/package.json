@@ -50,8 +50,8 @@
     "ngx-device-detector": "^6.0.2",
     "ngx-markdown": "16.0.0",
     "ol": "8.1.0",
-    "ol-mapbox-style": "12.0.0",
     "ol-geocoder": "4.3.1",
+    "ol-mapbox-style": "12.0.0",
     "rxjs": "^7.8.1",
     "tslib": "^2.6.2",
     "zone.js": "0.13.3"
@@ -68,6 +68,11 @@
     "@angular/cli": "~16.2.2",
     "@angular/compiler-cli": "16.2.5",
     "@angular/language-service": "16.2.5",
+    "@nx/angular": "17.0.2",
+    "@nx/eslint-plugin": "17.0.2",
+    "@nx/jest": "17.0.2",
+    "@nx/js": "17.0.2",
+    "@nx/workspace": "17.0.2",
     "@schematics/angular": "16.2.2",
     "@softarc/eslint-plugin-sheriff": "^0.13.1",
     "@softarc/sheriff-core": "^0.13.1",
@@ -96,15 +101,9 @@
     "ts-jest": "29.1.1",
     "ts-node": "~10.9.1",
     "typescript": "5.1.6",
-    "webpack-bundle-analyzer": "^4.9.1",
-    "@nx/workspace": "17.0.2",
-    "@nx/js": "17.0.2",
-    "@nx/eslint-plugin": "17.0.2",
-    "@nx/jest": "17.0.2",
-    "@nx/angular": "17.0.2"
+    "webpack-bundle-analyzer": "^4.9.1"
   },
   "cli": {
     "packageManager": "yarn"
   }
 }
-
