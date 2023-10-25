@@ -6,3 +6,5 @@ coverage
 node_modules
 
 .angular
+
+/.nx/cache
