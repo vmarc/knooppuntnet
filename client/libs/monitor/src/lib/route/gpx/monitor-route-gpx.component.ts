@@ -106,7 +106,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
       }
     `,
   ],
-  providers: [MonitorRouteGpxService, NavService],
+  providers: [MonitorRouteGpxService, MonitorWebsocketService, NavService],
   standalone: true,
   imports: [
     MatButtonModule,
@@ -131,7 +131,7 @@ export class MonitorRouteGpxComponent {
   readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
   readonly referenceFilename = new FormControl<string>(
     null,
-    Validators.required
+    Validators.required,
   );
   readonly referenceFile = new FormControl<File>(null);
 
@@ -143,12 +143,12 @@ export class MonitorRouteGpxComponent {
 
   constructor(
     protected service: MonitorRouteGpxService,
-    private monitorWebsocketService: MonitorWebsocketService
+    private monitorWebsocketService: MonitorWebsocketService,
   ) {}
 
   save(): void {
     const referenceTimestamp = TimestampUtil.toTimestamp(
-      this.gpxReferenceDate.value
+      this.gpxReferenceDate.value,
     );
     this.service.save(this.referenceFile.value, referenceTimestamp);
   }

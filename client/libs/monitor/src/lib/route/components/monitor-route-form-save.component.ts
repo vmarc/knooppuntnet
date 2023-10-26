@@ -1,6 +1,5 @@
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
-import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -63,12 +62,14 @@ import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-ste
 export class MonitorRouteFormSaveComponent {
   @Input({ required: true }) command: MonitorRouteUpdate;
 
-  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
-  private readonly router = inject(Router);
-
   readonly steps = this.monitorWebsocketService.steps;
   readonly errors = this.monitorWebsocketService.errors;
   readonly done = this.monitorWebsocketService.done;
+
+  constructor(
+    private monitorWebsocketService: MonitorWebsocketService,
+    private router: Router,
+  ) {}
 
   trackBySteps(index: number, step: MonitorRouteSaveStep): string {
     return `${step.stepId}-${step.status}`;

@@ -17,21 +17,21 @@ export class MonitorRouteGpxService {
   constructor(
     private navService: NavService,
     private monitorService: MonitorService,
-    private monitorWebsocketService: MonitorWebsocketService
+    private monitorWebsocketService: MonitorWebsocketService,
   ) {
     const groupName = this.navService.param('groupName');
     const routeName = this.navService.param('routeName');
     const subRelationId = this.navService.queryParam('sub-relation-id');
     const groupLink = `/monitor/groups/${groupName}`;
     const routeLink = `/monitor/groups/${groupName}/routes/${routeName}`;
-    this._state.update((state) => ({
-      ...state,
+    this._state.set({
+      ...initialState,
       groupName,
       routeName,
       subRelationId,
       groupLink,
       routeLink,
-    }));
+    });
 
     this.monitorService
       .routeGpx(groupName, routeName, subRelationId)

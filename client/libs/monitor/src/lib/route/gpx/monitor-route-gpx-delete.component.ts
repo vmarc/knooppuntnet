@@ -121,7 +121,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
       }
     `,
   ],
-  providers: [MonitorRouteGpxService, NavService],
+  providers: [MonitorRouteGpxService, MonitorWebsocketService, NavService],
   standalone: true,
   imports: [
     DataComponent,
@@ -148,7 +148,7 @@ export class MonitorRouteGpxDeleteComponent implements OnDestroy {
 
   constructor(
     protected service: MonitorRouteGpxService,
-    private monitorWebsocketService: MonitorWebsocketService
+    private monitorWebsocketService: MonitorWebsocketService,
   ) {
     this.monitorWebsocketService.reset();
   }
