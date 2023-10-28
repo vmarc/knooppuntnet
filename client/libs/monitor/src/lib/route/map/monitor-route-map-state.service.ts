@@ -113,6 +113,8 @@ export class MonitorRouteMapStateService {
       ...state,
       page,
       routeDescription: page.routeDescription,
+      selectedDeviation: null,
+      selectedOsmSegment: null,
     }));
   }
 
@@ -157,14 +159,18 @@ export class MonitorRouteMapStateService {
 
   zoomToFitRoute(): void {
     this.focusChanged(this.page().bounds);
+    this.resetSelections();
+  }
+
+  focusChanged(bounds: Bounds): void {
+    this._focus.set(bounds);
+  }
+
+  resetSelections(): void {
     this._state.update((state) => ({
       ...state,
       selectedDeviation: null,
       selectedOsmSegment: null,
     }));
-  }
-
-  focusChanged(bounds: Bounds): void {
-    this._focus.set(bounds);
   }
 }

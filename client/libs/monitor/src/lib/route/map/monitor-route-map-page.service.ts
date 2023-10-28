@@ -79,12 +79,13 @@ export class MonitorRouteMapPageService {
         ...state,
         routeDescription: page.routeDescription,
       }));
+      this.stateService.resetSelections();
     } else {
       this.monitorService
         .routeMap(
           this.state().groupName,
           this.state().routeName,
-          subRelation.relationId
+          subRelation.relationId,
         )
         .subscribe((response) => {
           if (response.result) {

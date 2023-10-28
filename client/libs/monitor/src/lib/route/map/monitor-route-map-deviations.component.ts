@@ -1,10 +1,13 @@
 import { NgIf } from '@angular/common';
 import { NgFor } from '@angular/common';
+import { ViewChild } from '@angular/core';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectionList } from '@angular/material/list';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MonitorRouteDeviation } from '@api/common/monitor';
@@ -103,13 +106,14 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
           </mat-menu>
 
           <mat-selection-list
+            #deviationSelectionList
             [multiple]="false"
             (selectionChange)="selectionChanged($event)"
             [hideSingleSelectionIndicator]="true"
           >
             <mat-list-option
               *ngFor="let deviation of deviations()"
-              [selected]="selectedDeviation()?.id === deviation.id"
+              [selected]="isDeviationSelected(deviation)"
               [value]="deviation"
             >
               <div class="segment">
@@ -200,6 +204,16 @@ export class MonitorRouteMapDeviationsComponent {
     return this.service.page()?.deviations ?? [];
   });
 
+  @ViewChild('deviationSelectionList', { static: false })
+  selectionList: MatSelectionList;
+
+  constructor() {
+    effect(() => {
+      this.deviations();
+      this.selectionList?.deselectAll();
+    });
+  }
+
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {
       const deviation = event.options[0].value;
@@ -217,5 +231,9 @@ export class MonitorRouteMapDeviationsComponent {
     const bounds = deviation.bounds;
     const url = `https://www.openstreetmap.org/?bbox=${bounds.minLon},${bounds.minLat},${bounds.maxLon},${bounds.maxLat}`;
     window.open(url, 'openstreetmap');
+  }
+
+  isDeviationSelected(deviation: MonitorRouteDeviation | null): boolean {
+    return this.selectedDeviation()?.id === deviation.id;
   }
 }
