@@ -8,6 +8,7 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 import kpn.server.monitor.route.update.MonitorRouteStructureLoader
 import kpn.server.monitor.route.update.MonitorUpdaterConfiguration
@@ -20,18 +21,27 @@ object MonitorUpdateTool {
     val exit: Int = try {
       MonitorUpdateToolOptions.parse(args) match {
         case Some(options) =>
-          Mongo.executeIn(options.databaseName) { database =>
-            val overpassQueryExecutor = {
-              if (options.remote) {
-                new OverpassQueryExecutorRemoteImpl()
+          log.infoElapsed {
+            Mongo.executeIn(options.databaseName) { database =>
+              val overpassQueryExecutor = {
+                if (options.remote) {
+                  new OverpassQueryExecutorRemoteImpl()
+                }
+                else {
+                  new OverpassQueryExecutorImpl()
+                }
               }
-              else {
-                new OverpassQueryExecutorImpl()
-              }
+              val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
+              tool.testAnalyze("NL-LAW", "_LAW-2")
+              tool.testAnalyze("NL-LAW", "_LAW-5-1")
+              tool.testAnalyze("NL-LAW", "_LAW-5-2")
+              tool.testAnalyze("NL-LAW", "_LAW-5-3")
+              tool.testAnalyze("NL-LAW", "_LAW-9-1")
+              tool.testAnalyze("NL-LAW", "_LAW-9-2")
+              tool.testAnalyze("NL-LAW", "_SP12")
             }
-            new MonitorUpdateTool(database, overpassQueryExecutor).analyze()
+            ("update completed", ())
           }
-          log.info("Done")
           0
 
         case None =>
@@ -67,13 +77,27 @@ class MonitorUpdateTool(
     monitorRouteStructureLoader
   )
 
+  def testAnalyze(groupName: String, routeName: String): Unit = {
+    configuration.monitorGroupRepository.groupByName(groupName) match {
+      case None => MonitorUpdateTool.log.error(s"group not found: $groupName")
+      case Some(group) =>
+        configuration.monitorRouteRepository.routeByName(group._id, routeName) match {
+          case None => MonitorUpdateTool.log.error(s"route not found: $groupName, $routeName")
+          case Some(route) => updateAnalysis(group, route)
+        }
+    }
+  }
+
   def analyze(): Unit = {
     val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)
     val groupRoutes = groups.foreach { group =>
-      val routeNames = configuration.monitorGroupRepository.groupRoutes(group._id).map(_.name).sorted
-      routeNames.foreach { routeName =>
-        configuration.monitorRouteUpdateExecutor.analyze(group.name, routeName)
+      configuration.monitorGroupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
+        updateAnalysis(group, route)
       }
     }
+  }
+
+  private def updateAnalysis(group: MonitorGroup, route: MonitorRoute): Unit = {
+    configuration.monitorRouteUpdateExecutor.updateAnalysis(group, route)
   }
 }
