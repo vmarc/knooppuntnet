@@ -32,13 +32,19 @@ object MonitorUpdateTool {
                 }
               }
               val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              tool.testAnalyze("NL-LAW", "_LAW-2")
-              tool.testAnalyze("NL-LAW", "_LAW-5-1")
-              tool.testAnalyze("NL-LAW", "_LAW-5-2")
-              tool.testAnalyze("NL-LAW", "_LAW-5-3")
-              tool.testAnalyze("NL-LAW", "_LAW-9-1")
-              tool.testAnalyze("NL-LAW", "_LAW-9-2")
-              tool.testAnalyze("NL-LAW", "_SP12")
+              //  tool.testAnalyze("NL-LAW", "_LAW-2")
+              //  tool.testAnalyze("NL-LAW", "_LAW-5-1")
+              //  tool.testAnalyze("NL-LAW", "_LAW-5-2")
+              //  tool.testAnalyze("NL-LAW", "_LAW-5-3")
+              //  tool.testAnalyze("NL-LAW", "_LAW-9-1")
+              //  tool.testAnalyze("NL-LAW", "_LAW-9-2")
+              //  tool.testAnalyze("NL-LAW", "_SP12")
+              // tool.testAnalyze("AAA", "A1") // 'osm' 2 subrelations
+              // tool.testAnalyze("AAA", "T") // 'osm' 22 subrelations
+              tool.testAnalyze("AAA", "A2") // 'osm' single relation
+
+              // TODO osm single relation: 13150387 "Du Chemin Vendéen à la Voie de Tours, Surgères - Saintes"
+
             }
             ("update completed", ())
           }

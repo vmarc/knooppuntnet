@@ -80,7 +80,8 @@ class MonitorUpdateStructureImpl(
           relation = Some(monitorRouteRelation)
         )
         context.copy(
-          newRoute = Some(updatedRoute)
+          newRoute = Some(updatedRoute),
+          structureChanged = true
         )
     }
   }

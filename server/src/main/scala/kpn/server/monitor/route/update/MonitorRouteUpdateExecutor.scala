@@ -113,18 +113,14 @@ class MonitorRouteUpdateExecutor(
 
         removeObsoleteStates()
 
-        if (oldRoute.referenceType == "gpx") {
-          monitorRouteRepository.routeReference(oldRoute._id, oldRoute.relationId) match {
-            case None => log.error("reference not found")
-            case Some(reference) =>
-              analyze(reference)
-          }
-        }
-        else if (oldRoute.referenceType == "multi-gpx") {
+        if (oldRoute.referenceType == "multi-gpx") {
           analyzeMultiGpx(oldRoute)
         }
+        else if (oldRoute.referenceType == "gpx") {
+          analyzeGpx(oldRoute)
+        }
         else {
-          updateSubRelations()
+          analyzeOsm(oldRoute)
         }
 
         save()
@@ -539,6 +535,69 @@ class MonitorRouteUpdateExecutor(
     }
   }
 
+  private def analyzeGpx(route: MonitorRoute): Unit = {
+    monitorRouteRepository.routeReference(route._id, route.relationId) match {
+      case None => log.error("reference not found")
+      case Some(reference) =>
+        analyzeReference(reference, None) match {
+          case None => log.error("could not analyze")
+          case Some(newState) =>
+
+            val shouldUpdate = route.relationId match {
+              case None => false
+              case Some(relationId) =>
+                monitorRouteRepository.routeState(route._id, relationId) match {
+                  case None => true
+                  case Some(oldState) =>
+                    newState.copy(timestamp = null) != oldState.copy(timestamp = null)
+                }
+            }
+
+            if (shouldUpdate) {
+              monitorRouteRepository.saveRouteState(newState)
+              context = context.copy(
+                stateChanged = true
+              )
+            }
+        }
+    }
+  }
+
+  private def analyzeOsm(route: MonitorRoute): Unit = {
+    route.relation match {
+      case None =>
+      case Some(rootMonitorRouteRelation) =>
+        val monitorRouteRelations = composeProcessList(rootMonitorRouteRelation)
+        monitorRouteRelations.zipWithIndex.foreach { case (monitorRouteRelation, index) =>
+          Log.context(s"${index + 1}/${monitorRouteRelations.size} ${monitorRouteRelation.relationId}") {
+            monitorRouteRepository.routeReference(route._id, Some(monitorRouteRelation.relationId)) match {
+              case None =>
+                log.info("could not find reference") // TODO ???
+              case Some(reference) =>
+                analyzeReference(reference, None) match {
+                  case None =>
+                    log.error("could not analyze")
+                  case Some(newState) =>
+
+                    val shouldUpdate = monitorRouteRepository.routeState(route._id, monitorRouteRelation.relationId) match {
+                      case None =>
+                        true
+                      case Some(oldState) =>
+                        newState.copy(timestamp = null) != oldState.copy(timestamp = null)
+                    }
+
+                    if (shouldUpdate) {
+                      monitorRouteRepository.saveRouteState(newState)
+                      context = context.copy(
+                        stateChanged = true
+                      )
+                    }
+                }
+            }
+          }
+        }
+    }
+  }
 
   private def updateSubRelations(): Unit = {
     context.newRoute match {
@@ -1003,7 +1062,7 @@ class MonitorRouteUpdateExecutor(
       }
     }
 
-    if (context.stateChanged) {
+    if (context.structureChanged || context.stateChanged) {
 
       val stateSummaries = monitorRouteRepository.routeStateSummaries(context.routeId)
       val relation = context.route.relation.map(relation => updatedMonitorRouteRelation(relation, stateSummaries))
@@ -1102,7 +1161,7 @@ class MonitorRouteUpdateExecutor(
       }
     }
 
-    if (context.update.action == "gpx-delete" && context.update.relationId.get == monitorRouteRelation.relationId) {
+    if (context.update != null && context.update.action == "gpx-delete" && context.update.relationId.get == monitorRouteRelation.relationId) {
       updatedWithState.copy(
         referenceTimestamp = None,
         referenceFilename = None,

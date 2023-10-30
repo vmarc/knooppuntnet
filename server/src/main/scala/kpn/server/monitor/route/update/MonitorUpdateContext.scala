@@ -21,7 +21,8 @@ case class MonitorUpdateContext(
   newRoute: Option[MonitorRoute] = None,
   newReferenceSummaries: Seq[MonitorRouteReferenceSummary] = Seq.empty,
   analysisStartMillis: Option[Long] = None,
-  stateChanged: Boolean = false
+  structureChanged: Boolean = false,
+  stateChanged: Boolean = false,
 ) {
 
   def routeId: ObjectId = {
