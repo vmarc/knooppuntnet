@@ -69,7 +69,8 @@ class MonitorRouteMigrationConfiguration(val database: Database) {
 
 object MonitorRouteMigrationTool {
 
-  private val databaseName = "kpn-monitor"
+  private val databaseName = "kpn-monitor-2"
+  private val log = Log(classOf[MonitorRouteMigrationTool])
 
   private val groeneHartpad = MonitorExampleMultiGpxRoute(
     9453563L,
@@ -108,11 +109,10 @@ object MonitorRouteMigrationTool {
       MonitorExampleMultiGpxRouteSubRelation(9176031L, "259-nederlands-kustpad-1-etappe-09.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(9176030L, "260-nederlands-kustpad-1-etappe-10.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(9176029L, "261-nederlands-kustpad-1-etappe-11.gpx"),
-      // TODO
-      //  MonitorExampleSuperRouteSubRelation(0L, "829-nederlands-kustpad-1-etappe-12.gpx"),
-      //  MonitorExampleSuperRouteSubRelation(0L, "263-nederlands-kustpad-1-etappe-13.gpx"),
-      //  MonitorExampleSuperRouteSubRelation(0L, "262-nederlands-kustpad-1-etappe-14.gpx"),
-      //  MonitorExampleSuperRouteSubRelation(0L, "264-nederlands-kustpad-1-etappe-15.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "829-nederlands-kustpad-1-etappe-12.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "263-nederlands-kustpad-1-etappe-13.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "262-nederlands-kustpad-1-etappe-14.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "264-nederlands-kustpad-1-etappe-15.gpx"),
     )
   )
 
@@ -135,10 +135,9 @@ object MonitorRouteMigrationTool {
       MonitorExampleMultiGpxRouteSubRelation(9235613L, "989-nederlands-kustpad-2-etappe-11.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(9235602L, "988-nederlands-kustpad-2-etappe-12.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(9235601L, "987-nederlands-kustpad-2-etappe-13.gpx"),
-      // TODO
-      //  MonitorExampleSuperRouteSubRelation(0L, "985-nederlands-kustpad-2-etappe-a.gpx"),
-      //  MonitorExampleSuperRouteSubRelation(0L, "984-nederlands-kustpad-2-etappe-b.gpx"),
-      //  MonitorExampleSuperRouteSubRelation(0L, "983-nederlands-kustpad-2-etappe-v.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "985-nederlands-kustpad-2-etappe-a.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "984-nederlands-kustpad-2-etappe-b.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "983-nederlands-kustpad-2-etappe-v.gpx"),
     )
   )
 
@@ -194,7 +193,7 @@ object MonitorRouteMigrationTool {
       MonitorExampleMultiGpxRouteSubRelation(3395454L, "444-trekvogelpad-etappe-19.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(3559608L, "445-trekvogelpad-etappe-20.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(8429235L, "446-trekvogelpad-etappe-21.gpx"),
-      // TODO MonitorExampleSuperRouteSubRelation(0L, "447-trekvogelpad-etappe-22.gpx"),
+      // MonitorExampleSuperRouteSubRelation(0L, "447-trekvogelpad-etappe-22.gpx"),
       MonitorExampleMultiGpxRouteSubRelation(8432102L, "448-trekvogelpad-etappe-23.gpx"),
     )
   )
@@ -244,29 +243,30 @@ object MonitorRouteMigrationTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn(databaseName) { database =>
-      val configuration = new MonitorRouteMigrationConfiguration(database)
-      val tool = new MonitorRouteMigrationTool(configuration)
-      // tool.renameRouteCollections()
-
-      // tool.addMultiGpxRoute(groeneHartpad)
-      // tool.addMultiGpxRoute(kustpad1)
-      // tool.addMultiGpxRoute(kustpad2)
-      // tool.addMultiGpxRoute(kustpad3)
-      // tool.addMultiGpxRoute(trekvogelpad)
-      // tool.addMultiGpxRoute(pieterpad1)
-      tool.addMultiGpxRoute(pieterpad2)
-
-      // tool.migrateOne("GRV", "p04")
-      // tool.migrate()
+    log.infoElapsed {
+      Mongo.executeIn(databaseName) { database =>
+        val configuration = new MonitorRouteMigrationConfiguration(database)
+        val tool = new MonitorRouteMigrationTool(configuration)
+        tool.renameRouteCollections()
+        tool.addMultiGpxRoute(groeneHartpad)
+        tool.addMultiGpxRoute(kustpad1)
+        tool.addMultiGpxRoute(kustpad2)
+        tool.addMultiGpxRoute(kustpad3)
+        tool.addMultiGpxRoute(trekvogelpad)
+        tool.addMultiGpxRoute(pieterpad1)
+        tool.addMultiGpxRoute(pieterpad2)
+        tool.migrate()
+        // tool.migrateOne("NL-LAW", "LAW-2")
+      }
+      ("done", ())
     }
-    println("Done")
   }
 }
 
 class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguration) {
 
-  private val log = Log(classOf[MonitorRouteMigrationTool])
+  import kpn.core.tools.monitor.MonitorRouteMigrationTool.log
+
   private val geometryFactory = new GeometryFactory
 
   def renameRouteCollections(): Unit = {
@@ -277,50 +277,53 @@ class MonitorRouteMigrationTool(configuration: MonitorRouteMigrationConfiguratio
 
   def addMultiGpxRoute(exampleSuperRoute: MonitorExampleMultiGpxRoute): Unit = {
 
-    configuration.monitorGroupRepository.groupByName(exampleSuperRoute.groupName) match {
-      case None => log.error("group not found")
-      case Some(group) =>
-        configuration.monitorRouteRepository.routeByName(group._id, exampleSuperRoute.routeName) match {
-          case Some(route) => configuration.monitorRouteRepository.deleteRoute(route._id)
-          case None =>
-        }
+    Log.context(s"${exampleSuperRoute.groupName}:${exampleSuperRoute.routeName}") {
 
-        configuration.monitorRouteUpdateExecutor.execute(
-          MonitorUpdateContext(
-            "migration",
-            new MonitorUpdateReporterLogger(),
-            MonitorRouteUpdate(
-              action = "add",
-              groupName = group.name,
-              routeName = exampleSuperRoute.routeName,
-              referenceType = "multi-gpx",
-              description = Some(exampleSuperRoute.description),
-              comment = None,
-              relationId = Some(exampleSuperRoute.relationId),
-            )
-          )
-        )
+      configuration.monitorGroupRepository.groupByName(exampleSuperRoute.groupName) match {
+        case None => log.error("group not found")
+        case Some(group) =>
+          configuration.monitorRouteRepository.routeByName(group._id, exampleSuperRoute.routeName) match {
+            case Some(route) => configuration.monitorRouteRepository.deleteRoute(route._id)
+            case None =>
+          }
 
-        exampleSuperRoute.relations.foreach { superRouteSubRelation =>
-          val filename = s"/kpn/test/${superRouteSubRelation.referenceFilename}"
-          val referenceGpx = FileUtils.readFileToString(new File(filename), "UTF-8")
           configuration.monitorRouteUpdateExecutor.execute(
             MonitorUpdateContext(
               "migration",
               new MonitorUpdateReporterLogger(),
               MonitorRouteUpdate(
-                action = "gpx-upload",
+                action = "add",
                 groupName = group.name,
                 routeName = exampleSuperRoute.routeName,
                 referenceType = "multi-gpx",
-                relationId = Some(superRouteSubRelation.relationId),
-                referenceTimestamp = Some(Time.now),
-                referenceFilename = Some(superRouteSubRelation.referenceFilename),
-                referenceGpx = Some(referenceGpx),
+                description = Some(exampleSuperRoute.description),
+                comment = None,
+                relationId = Some(exampleSuperRoute.relationId),
               )
             )
           )
-        }
+
+          exampleSuperRoute.relations.foreach { superRouteSubRelation =>
+            val filename = s"/kpn/test/${superRouteSubRelation.referenceFilename}"
+            val referenceGpx = FileUtils.readFileToString(new File(filename), "UTF-8")
+            configuration.monitorRouteUpdateExecutor.execute(
+              MonitorUpdateContext(
+                "migration",
+                new MonitorUpdateReporterLogger(),
+                MonitorRouteUpdate(
+                  action = "gpx-upload",
+                  groupName = group.name,
+                  routeName = exampleSuperRoute.routeName,
+                  referenceType = "multi-gpx",
+                  relationId = Some(superRouteSubRelation.relationId),
+                  referenceTimestamp = Some(Time.now),
+                  referenceFilename = Some(superRouteSubRelation.referenceFilename),
+                  referenceGpx = Some(referenceGpx),
+                )
+              )
+            )
+          }
+      }
     }
   }
 
