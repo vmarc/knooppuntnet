@@ -281,9 +281,11 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
               mat-icon-button
               [routerLink]="uploadGpx()"
               [queryParams]="subRelationQueryParams(row)"
+              [disabled]="!canUpload()"
               title="Upload GPX trace for this sub-relation"
               i18n-title="@@action.gpx.upload"
-              class="kpn-action-button kpn-link"
+              class="kpn-action-button"
+              [class.kpn-disabled]="!canUpload()"
             >
               <mat-icon svgIcon="upload" />
             </button>
@@ -291,7 +293,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
               mat-icon-button
               [routerLink]="deleteGpx()"
               [queryParams]="subRelationQueryParams(row)"
-              [disabled]="!row.referenceFilename"
+              [disabled]="!canDelete(row)"
               title="Remove GPX trace for this sub-relation"
               i18n-title="@@action.gpx.delete"
               class="kpn-action-button"
@@ -426,7 +428,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
 
   displayedHeaders(admin: boolean) {
     return this.displayedColumns(admin).filter(
-      (name) => !this.columnsWithoutHeader.includes(name)
+      (name) => !this.columnsWithoutHeader.includes(name),
     );
   }
 
@@ -447,5 +449,13 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
 
   deleteGpx(): string {
     return `/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx/delete`;
+  }
+
+  canUpload(): boolean {
+    return this.referenceType === 'multi-gpx';
+  }
+
+  canDelete(row: MonitorRouteRelationStructureRow): boolean {
+    return this.referenceType === 'multi-gpx' && !!row.referenceFilename;
   }
 }

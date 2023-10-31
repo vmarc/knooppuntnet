@@ -89,11 +89,11 @@ strong {
   padding-bottom: 1em;
 }
 
-.kpn-disabled {
-  color: gray;
+.kpn-disabled, .kpn-disabled path, .kpn-disabled line, .kpn-disabled polyline {
+  stroke: gray;
 }
 
-.kpn-link {
+.kpn-link, .kpn-link path, .kpn-link line, .kpn-link polyline  {
   color: blue !important;
 }
 
@@ -570,6 +570,10 @@ markdown > p > em:after {
   padding: 0 !important;
   width: 38px !important;
   height: 38px !important;
+}
+
+.kpn-action-button:disabled {
+  pointer-events: auto;
 }
 
 // knooppuntnet specifics after Angular 15 update:
