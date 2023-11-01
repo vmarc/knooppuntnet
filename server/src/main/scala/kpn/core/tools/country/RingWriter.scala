@@ -49,7 +49,7 @@ class RingWriter {
       |    <script>
       |
       |var map = L.map('route-map');
-      |var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+      |var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
       |var cycle = L.tileLayer('https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png');
       |var countryBoundaries = L.layerGroup().addTo(map);
       |
