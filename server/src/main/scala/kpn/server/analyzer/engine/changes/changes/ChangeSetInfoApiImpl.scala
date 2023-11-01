@@ -40,7 +40,7 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
     else {
 
       val restTemplate = new RestTemplate
-      val url = s"https://www.openstreetmap.org/api/0.6/changeset/$changeSetId"
+      val url = s"https://api.openstreetmap.org/api/0.6/changeset/$changeSetId"
 
       val headers = new HttpHeaders()
       headers.setAccept(java.util.Arrays.asList(MediaType.TEXT_XML))
