@@ -35,7 +35,7 @@ class MonitorUpdateStructureImpl(
               happy = false
             )
 
-            val updatedNewRoute2 = if (context.update.referenceType == "osm") {
+            val updatedNewRoute2 = if (updatedNewRoute.referenceType == "osm") {
               updatedNewRoute.copy(
                 referenceFilename = None,
                 referenceDistance = 0,

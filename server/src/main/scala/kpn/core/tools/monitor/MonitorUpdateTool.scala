@@ -32,7 +32,7 @@ object MonitorUpdateTool {
                 }
               }
               val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              tool.testAnalyze("groupname", "routename")
+              tool.testUpdate("eu-iwn-E-paths", "E1")
             }
             ("update completed", ())
           }
@@ -71,7 +71,7 @@ class MonitorUpdateTool(
     monitorRouteStructureLoader
   )
 
-  def testAnalyze(groupName: String, routeName: String): Unit = {
+  def testUpdate(groupName: String, routeName: String): Unit = {
     configuration.monitorGroupRepository.groupByName(groupName) match {
       case None => MonitorUpdateTool.log.error(s"group not found: $groupName")
       case Some(group) =>
