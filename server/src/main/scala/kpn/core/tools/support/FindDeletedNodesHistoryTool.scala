@@ -173,7 +173,7 @@ object FindDeletedNodesHistoryTool {
 
   private def history(nodeId: Long): Unit = {
     val restTemplate = new RestTemplate
-    val url = s"https://www.openstreetmap.org/api/0.6/node/$nodeId/history"
+    val url = s"https://api.openstreetmap.org/api/0.6/node/$nodeId/history"
     val headers = new HttpHeaders()
     headers.setAccept(java.util.Arrays.asList(MediaType.TEXT_XML))
     headers.setAcceptCharset(java.util.Arrays.asList(Charset.forName("UTF-8")))
