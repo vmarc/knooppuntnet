@@ -32,7 +32,8 @@ object MonitorUpdateTool {
                 }
               }
               val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              tool.testUpdate("eu-iwn-E-paths", "E1")
+              // tool.testUpdate("eu-iwn-E-paths", "E1")
+              tool.update()
             }
             ("update completed", ())
           }
@@ -82,7 +83,7 @@ class MonitorUpdateTool(
     }
   }
 
-  def analyze(): Unit = {
+  def update(): Unit = {
     val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)
     val groupRoutes = groups.foreach { group =>
       configuration.monitorGroupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
