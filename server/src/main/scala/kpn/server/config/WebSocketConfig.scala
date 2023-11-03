@@ -14,7 +14,12 @@ class WebSocketConfig(webSocketHandler: ServerWebSocketHandler) extends WebSocke
   private val log = Log(classOf[WebSocketConfig])
 
   def registerWebSocketHandlers(registry: WebSocketHandlerRegistry): Unit = {
-    registry.addHandler(webSocketHandler, "/websocket").setAllowedOriginPatterns("*");
+    registry.addHandler(webSocketHandler, "/websocket").setAllowedOrigins(
+      "https://knooppuntnet.nl",
+      "https://knooppuntnet.be",
+      "https://experimental.knooppuntnet.nl",
+      "https://experimental.knooppuntnet.be",
+    );
   }
 
   @Bean
