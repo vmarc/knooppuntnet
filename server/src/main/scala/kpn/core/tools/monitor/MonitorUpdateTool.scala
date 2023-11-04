@@ -32,7 +32,7 @@ object MonitorUpdateTool {
                 }
               }
               val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              // tool.testUpdate("eu-iwn-E-paths", "E1")
+              //              tool.testUpdate("A", "_SP12")
               tool.update()
             }
             ("update completed", ())

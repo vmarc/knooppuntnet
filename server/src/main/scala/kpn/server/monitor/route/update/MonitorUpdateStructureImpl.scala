@@ -1,7 +1,9 @@
 package kpn.server.monitor.route.update
 
+import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorRoute
+import kpn.server.monitor.MonitorUtil
 import org.springframework.stereotype.Component
 
 @Component
@@ -76,13 +78,37 @@ class MonitorUpdateStructureImpl(
         context // TODO add message in saveResult: "could not load route structure"
       case Some(monitorRouteRelation) =>
         log.info(s"load structure relationId=$relationId, subrelations=${monitorRouteRelation.relations.size}")
+        val updatedMonitorRouteRelation = if (newRoute.referenceType == "multi-gpx") {
+          updateMultiGpxReferences(monitorRouteRelation, newRoute)
+        }
+        else {
+          monitorRouteRelation
+        }
+
         val updatedRoute = newRoute.copy(
-          relation = Some(monitorRouteRelation)
+          relation = Some(updatedMonitorRouteRelation)
         )
         context.copy(
           newRoute = Some(updatedRoute),
           structureChanged = true
         )
     }
+  }
+
+
+  private def updateMultiGpxReferences(monitorRouteRelation: MonitorRouteRelation, oldRoute: MonitorRoute): MonitorRouteRelation = {
+
+    val (referenceTimestamp, referenceFilename, referenceDistance) = MonitorUtil.subRelation(oldRoute, monitorRouteRelation.relationId) match {
+      case Some(subRelation) => (subRelation.referenceTimestamp, subRelation.referenceFilename, subRelation.referenceDistance)
+      case None => (None, None, 0L)
+    }
+
+    val updatedRelations = monitorRouteRelation.relations.map(r => updateMultiGpxReferences(r, oldRoute))
+    monitorRouteRelation.copy(
+      referenceTimestamp = referenceTimestamp,
+      referenceFilename = referenceFilename,
+      referenceDistance = referenceDistance,
+      relations = updatedRelations,
+    )
   }
 }
