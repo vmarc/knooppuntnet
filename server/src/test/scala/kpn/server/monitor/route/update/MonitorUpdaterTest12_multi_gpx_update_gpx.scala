@@ -63,7 +63,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.shouldMatchTo(
+      route.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -74,7 +74,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "multi-gpx",
           referenceTimestamp = None,
@@ -213,8 +213,10 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      routeUpdated1.shouldMatchTo(
+      routeUpdated1.copy(analysisDuration = None).shouldMatchTo(
         route.copy(
+          analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
+          analysisDuration = None,
           relation = route.relation.map { relation =>
             relation.copy(
               happy = true,
@@ -291,8 +293,10 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      routeUpdated2.shouldMatchTo(
+      routeUpdated2.copy(analysisDuration = None).shouldMatchTo(
         route.copy(
+          analysisTimestamp = Some(Timestamp(2022, 8, 13, 12, 0, 0)),
+          analysisDuration = None,
           relation = route.relation.map { relation =>
             relation.copy(
               happy = true,

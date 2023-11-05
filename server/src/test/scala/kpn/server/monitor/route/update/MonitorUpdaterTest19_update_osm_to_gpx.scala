@@ -63,7 +63,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val addedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      addedRoute.shouldMatchTo(
+      addedRoute.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           addedRoute._id,
           groupId = group._id,
@@ -74,7 +74,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),

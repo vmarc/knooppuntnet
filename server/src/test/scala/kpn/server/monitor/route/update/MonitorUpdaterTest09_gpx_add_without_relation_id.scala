@@ -83,7 +83,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
       database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.shouldMatchTo(
+      route.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           route._id,
           groupId = group._id,
@@ -94,7 +94,7 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
@@ -155,57 +155,58 @@ class MonitorUpdaterTest09_gpx_add_without_relation_id extends UnitTest with Bef
       database.monitorRouteReferences.countDocuments(log) should equal(1)
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
-      configuration.monitorRouteRepository.routeByName(group._id, "route-name").shouldMatchTo(
-        Some(
-          route.copy(
-            relationId = Some(1),
-            user = "user2",
-            timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
-            referenceFilename = Some("filename"),
-            referenceDistance = 181,
-            deviationDistance = 0,
-            deviationCount = 0,
-            osmWayCount = 1,
-            osmDistance = 181,
-            osmSegmentCount = 1,
-            osmSegments = Seq(
-              MonitorRouteOsmSegment(
-                Seq(
-                  MonitorRouteOsmSegmentElement(
-                    relationId = 1,
-                    segmentId = 1,
-                    meters = 181,
-                    bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-                    reversed = false
-                  )
+      val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
+      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
+        route.copy(
+          relationId = Some(1),
+          user = "user2",
+          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+          analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
+          analysisDuration = None,
+          referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+          referenceFilename = Some("filename"),
+          referenceDistance = 181,
+          deviationDistance = 0,
+          deviationCount = 0,
+          osmWayCount = 1,
+          osmDistance = 181,
+          osmSegmentCount = 1,
+          osmSegments = Seq(
+            MonitorRouteOsmSegment(
+              Seq(
+                MonitorRouteOsmSegmentElement(
+                  relationId = 1,
+                  segmentId = 1,
+                  meters = 181,
+                  bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
+                  reversed = false
                 )
               )
-            ),
-            relation = Some(
+            )
+          ),
+          relation = Some(
 
-              MonitorRouteRelation(
-                relationId = 1,
-                name = "route-name",
-                role = None,
-                survey = None,
-                symbol = None,
-                referenceTimestamp = None,
-                referenceFilename = None,
-                referenceDistance = 0,
-                deviationDistance = 0,
-                deviationCount = 0,
-                osmWayCount = 1,
-                osmSegmentCount = 1,
-                osmDistance = 181,
-                osmDistanceSubRelations = 0,
-                gaps = Some("start-end"),
-                happy = true,
-                relations = Seq.empty
-              )
-            ),
-            happy = true
-          )
+            MonitorRouteRelation(
+              relationId = 1,
+              name = "route-name",
+              role = None,
+              survey = None,
+              symbol = None,
+              referenceTimestamp = None,
+              referenceFilename = None,
+              referenceDistance = 0,
+              deviationDistance = 0,
+              deviationCount = 0,
+              osmWayCount = 1,
+              osmSegmentCount = 1,
+              osmDistance = 181,
+              osmDistanceSubRelations = 0,
+              gaps = Some("start-end"),
+              happy = true,
+              relations = Seq.empty
+            )
+          ),
+          happy = true
         )
       )
 

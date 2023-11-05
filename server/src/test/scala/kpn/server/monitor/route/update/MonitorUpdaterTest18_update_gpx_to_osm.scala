@@ -77,7 +77,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val addedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      addedRoute.shouldMatchTo(
+      addedRoute.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           addedRoute._id,
           groupId = group._id,
@@ -88,7 +88,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           user = "user1",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "gpx",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
@@ -208,7 +208,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      updatedRoute.shouldMatchTo(
+      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           addedRoute._id,
           groupId = group._id,
@@ -219,7 +219,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           user = "user2",
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),

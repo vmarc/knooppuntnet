@@ -57,7 +57,6 @@ class MonitorRouteUpdateExecutor(
   private var context: MonitorUpdateContext = null
 
   def execute(originalContext: MonitorUpdateContext): Unit = {
-    Time.set(Time.system())
     context = originalContext.copy(
       analysisStartMillis = Some(System.currentTimeMillis())
     )

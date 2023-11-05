@@ -66,7 +66,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
       database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.shouldMatchTo(
+      route.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           route._id,
           groupId = group._id,
@@ -77,7 +77,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(referenceTimestamp),

@@ -152,7 +152,7 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
       val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
       val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
 
-      updatedRoute.shouldMatchTo(
+      updatedRoute.copy(analysisTimestamp = None, analysisDuration = None).shouldMatchTo(
         route.copy(
           name = "route-name-changed",
           description = "description-changed",

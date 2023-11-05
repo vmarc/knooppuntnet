@@ -98,7 +98,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
       database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-      updatedRoute.shouldMatchTo(
+      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -109,7 +109,7 @@ class MonitorUpdaterTest20_osm_remove_relation_id extends UnitTest with BeforeAn
           user = "user",
           timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           symbol = None,
-          analysisTimestamp = None,
+          analysisTimestamp = Some(Timestamp(2022, 8, 11, 12, 0, 0)),
           analysisDuration = None,
           referenceType = "osm",
           referenceTimestamp = Some(Timestamp(2022, 8, 1)),
