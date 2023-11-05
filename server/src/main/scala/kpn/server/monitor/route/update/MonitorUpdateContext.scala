@@ -13,6 +13,7 @@ case class MonitorUpdateContext(
   user: String,
   reporter: MonitorUpdateReporter,
   update: MonitorRouteUpdate,
+  referenceType: Option[String] = None,
   status: MonitorRouteUpdateStatus = MonitorRouteUpdateStatus(),
   group: Option[MonitorGroup] = None,
   oldRoute: Option[MonitorRoute] = None,
@@ -94,4 +95,20 @@ case class MonitorUpdateContext(
         }
     }
   }
+
+  def isReferenceTypeGpx: Boolean = referenceType.contains("gpx")
+
+  def isReferenceTypeMultiGpx: Boolean = referenceType.contains("multi-gpx")
+
+  def isReferenceTypeOsm: Boolean = referenceType.contains("osm")
+
+  def isActionAdd: Boolean = update != null && update.action == "add"
+
+  def isActionUpdate: Boolean = update != null && update.action == "update"
+
+  def isActionGpxUpload: Boolean = update != null && update.action == "gpx-upload"
+
+  def isActionGpxDelete: Boolean = update != null && update.action == "gpx-delete"
+
+  def isActionAnalyze: Boolean = update == null
 }

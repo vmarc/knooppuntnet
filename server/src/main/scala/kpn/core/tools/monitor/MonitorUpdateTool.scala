@@ -32,8 +32,9 @@ object MonitorUpdateTool {
                 }
               }
               val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              //              tool.testUpdate("A", "_SP12")
-              tool.update()
+              // tool.testUpdate("NL-LAW", "LAW-3")
+              // tool.update()
+              tool.repair()
             }
             ("update completed", ())
           }
@@ -71,6 +72,18 @@ class MonitorUpdateTool(
     monitorRouteRelationRepository,
     monitorRouteStructureLoader
   )
+
+  def repair(): Unit = {
+    val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)
+    val groupRoutes = groups.foreach { group =>
+      configuration.monitorGroupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
+        if (route.osmSegmentCount == 0) {
+          println(s"${group.name} ${route.name}")
+          testUpdate(group.name, route.name)
+        }
+      }
+    }
+  }
 
   def testUpdate(groupName: String, routeName: String): Unit = {
     configuration.monitorGroupRepository.groupByName(groupName) match {

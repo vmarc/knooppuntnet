@@ -58,19 +58,20 @@ class MonitorRouteUpdateExecutor(
 
   def execute(originalContext: MonitorUpdateContext): Unit = {
     context = originalContext.copy(
+      referenceType = Some(context.update.referenceType),
       analysisStartMillis = Some(System.currentTimeMillis())
     )
     try {
-      if (context.update.action == "add") {
+      if (context.isActionAdd) {
         add()
       }
-      else if (context.update.action == "update") {
+      else if (context.isActionUpdate) {
         update()
       }
-      else if (context.update.action == "gpx-upload") {
+      else if (context.isActionGpxUpload) {
         gpxUpload()
       }
-      else if (context.update.action == "gpx-delete") {
+      else if (context.isActionGpxDelete) {
         gpxDelete()
       }
     }
@@ -98,6 +99,7 @@ class MonitorRouteUpdateExecutor(
           user = "analyzer",
           reporter = null,
           update = null, //update,
+          referenceType = Some(oldRoute.referenceType),
           group = Some(group),
           newRoute = Some(oldRoute),
           analysisStartMillis = Some(System.currentTimeMillis()),
@@ -183,10 +185,10 @@ class MonitorRouteUpdateExecutor(
     reportStepActive("analyze-route-structure")
     context = monitorUpdateStructure.update(context)
 
-    if (context.update.referenceType == "gpx") {
+    if (context.isReferenceTypeGpx) {
       updateRouteWithGpxReference()
     }
-    else if (context.update.referenceType == "multi-gpx") {
+    else if (context.isReferenceTypeMultiGpx) {
       addRouteWithMultiGpxReference()
     }
     else {
@@ -265,7 +267,7 @@ class MonitorRouteUpdateExecutor(
     removeObsoleteReferences()
     removeObsoleteStates()
 
-    if (context.update.referenceType == "gpx") {
+    if (context.isReferenceTypeGpx) {
       updateRouteWithGpxReference()
     }
     else {
@@ -359,7 +361,7 @@ class MonitorRouteUpdateExecutor(
       newReferenceSummaries = context.newReferenceSummaries :+ MonitorRouteReferenceSummary.from(reference),
     )
 
-    if (context.update.referenceType == "multi-gpx") { // TODO referenceType will always be "multi-gpx" ?
+    if (context.isReferenceTypeMultiGpx) { // TODO referenceType will always be "multi-gpx" ?
       context = context.copy(
         newRoute = context.oldRoute
       )
@@ -462,7 +464,7 @@ class MonitorRouteUpdateExecutor(
                       val osmSegmentAnalysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
                       val bounds = Util.mergeBounds(osmSegmentAnalysis.routeSegments.map(_.segment.bounds))
 
-                      val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
+                      val id = if (context.isActionUpdate || context.isActionGpxUpload) {
                         context.oldStateIds.find(_.relationId == mrr.relationId) match {
                           case Some(oldStateId) => oldStateId._id
                           case None => ObjectId()
@@ -652,7 +654,7 @@ class MonitorRouteUpdateExecutor(
           geoJsonWriter.setEncodeCRS(false)
           val geometry = geoJsonWriter.write(geometryCollection)
 
-          val id = if (context.update.action == "update" || context.update.action == "gpx-upload") {
+          val id = if (context.isActionUpdate || context.isActionGpxUpload) {
             monitorRouteRepository.routeRelationReferenceId(context.routeId, Some(subRelation.id)) match {
               case Some(id) => id
               case None => ObjectId()
@@ -779,7 +781,6 @@ class MonitorRouteUpdateExecutor(
 
             val referenceTimestamp = context.update.referenceTimestamp.getOrElse(throw new RuntimeException("reference timestamp not found"))
 
-            val now = Time.now
             val geometryFactory = new GeometryFactory
 
             val geometryCollection = new GeoJsonReader(geometryFactory).read(referenceGeoJson)
@@ -793,7 +794,7 @@ class MonitorRouteUpdateExecutor(
               ObjectId(),
               routeId = context.routeId,
               relationId = context.relationId,
-              timestamp = now,
+              timestamp = Time.now,
               user = context.user,
               referenceBounds = referenceBounds,
               referenceType = "gpx",
@@ -1022,7 +1023,7 @@ class MonitorRouteUpdateExecutor(
                 case None =>
                 case Some(oldRoute) =>
 
-                  val updatedRelation = if (context.update.referenceType.contains("multi-gpx")) {
+                  val updatedRelation = if (context.isReferenceTypeMultiGpx) {
                     oldRoute.relation.map { monitorRouteRelation =>
                       udpateMonitorRouteRelation(context, monitorRouteRelation)
                     }
@@ -1032,7 +1033,7 @@ class MonitorRouteUpdateExecutor(
                   }
 
                   val updatedRoute = oldRoute.copy(
-                    referenceDistance = if (context.update.referenceType == "osm") referenceDistance else 0,
+                    referenceDistance = if (context.isReferenceTypeOsm) referenceDistance else 0,
                     relation = updatedRelation
                   )
 
@@ -1042,7 +1043,7 @@ class MonitorRouteUpdateExecutor(
               }
 
             case Some(newRoute) =>
-              val updatedRelation = if (context.update.referenceType.contains("multi-gpx")) {
+              val updatedRelation = if (context.isReferenceTypeMultiGpx) {
                 newRoute.relation.map { monitorRouteRelation =>
                   udpateMonitorRouteRelation(context, monitorRouteRelation)
                 }
@@ -1051,7 +1052,7 @@ class MonitorRouteUpdateExecutor(
                 newRoute.relation
               }
               val updatedRoute = newRoute.copy(
-                referenceDistance = if (context.update.referenceType != "multi-gpx") referenceDistance else 0,
+                referenceDistance = if (context.isReferenceTypeMultiGpx) referenceDistance else 0,
                 relation = updatedRelation
               )
               context = context.copy(
@@ -1122,7 +1123,7 @@ class MonitorRouteUpdateExecutor(
 
   private def updatedMonitorRouteRelation(monitorRouteRelation: MonitorRouteRelation, stateSummaries: Seq[MonitorRouteStateSummary]): MonitorRouteRelation = {
 
-    val updatedWithState = if (context.update != null && context.update.referenceType == "gpx") {
+    val updatedWithState = if (context.isReferenceTypeGpx) {
       stateSummaries.headOption match {
         case None => monitorRouteRelation
         case Some(stateSummary) =>
@@ -1160,7 +1161,7 @@ class MonitorRouteUpdateExecutor(
       }
     }
 
-    if (context.update != null && context.update.action == "gpx-delete" && context.update.relationId.get == monitorRouteRelation.relationId) {
+    if (context.isActionGpxDelete && context.update.relationId.get == monitorRouteRelation.relationId) {
       updatedWithState.copy(
         referenceTimestamp = None,
         referenceFilename = None,
@@ -1252,7 +1253,7 @@ class MonitorRouteUpdateExecutor(
       val relationOption = if (currentRelation.nonEmpty) {
         currentRelation
       }
-      else if (context.update != null && context.update.referenceType == "gpx") {
+      else if (context.isReferenceTypeGpx) {
         monitorRouteRelationRepository.load(None, relationId)
       }
       else {
@@ -1261,11 +1262,11 @@ class MonitorRouteUpdateExecutor(
       relationOption match {
         case None => None
         case Some(relation) =>
-          if (context.update != null && context.update.referenceType == "gpx") {
+          if (context.isReferenceTypeGpx) {
             updateSubRelationOsmInfo(relation)
           }
 
-          val allWayMembers = if (context.update != null && context.update.referenceType == "gpx") {
+          val allWayMembers = if (context.isReferenceTypeGpx) {
             collectAllWayMembers(relation)
           }
           else {
@@ -1294,7 +1295,7 @@ class MonitorRouteUpdateExecutor(
             routeAnalysis.deviations.isEmpty &&
             routeAnalysis.osmSegments.size == 1
 
-          val id = if (context.update == null || context.update.action == "update" || context.update.action == "gpx-upload") {
+          val id = if (context.isActionAnalyze || context.isActionUpdate || context.isActionGpxUpload) {
             context.oldStateIds.find(_.relationId == relationId) match {
               case Some(oldStateId) => oldStateId._id
               case None => ObjectId()
