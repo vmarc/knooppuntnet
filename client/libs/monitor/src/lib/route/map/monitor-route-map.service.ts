@@ -31,21 +31,29 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   private readonly stateService = inject(MonitorRouteMapStateService);
 
   private readonly colors = [
-    'red',
-    'yellow',
-    'lime',
-    'aqua',
-    'green',
-    'teal',
-    'blue',
-    'fuchsia',
-    'olive',
-    'purple',
-    'teal',
+    '#e6194B', // red
+    '#3cb44b', // green
+    '#ffe119', // yellow
+    '#4363d8', // blue
+    '#f58231', // orange
+    '#911eb4', // purple
+    '#42d4f4', // cyan
+    '#f032e6', // magenta
+    '#bfef45', // lime
+    '#fabed4', // pink
+    '#469990', // teal
+    '#dcbeff', // lavender
+    '#9A6324', // brown
+    '#fffac8', // beige
+    '#800000', // maroon
+    '#aaffc3', // mint
+    '#808000', // olive
+    '#ffd8b1', // apricot
+    '#000075', // navy
   ];
 
   private readonly osmSegmentStyles = this.colors.map((color) =>
-    this.fixedStyle(color, 4)
+    this.fixedStyle(color, 4),
   );
 
   private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
@@ -76,7 +84,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
           minZoom: 0,
           maxZoom: ZoomLevel.vectorTileMaxOverZoom,
         }),
-      })
+      }),
     );
 
     this.map.addLayer(this.referenceLayer);
@@ -104,7 +112,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
         page.reference.referenceGeoJson,
         {
           featureProjection: 'EPSG:3857',
-        }
+        },
       );
       this.referenceLayer.getSource().addFeatures(features);
     }
@@ -144,12 +152,12 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   colorForSegmentId(id: number): string {
-    const index = id % 10;
+    const index = (id - 1) % this.colors.length;
     return this.colors[index];
   }
 
   private styleForSegmentId(id: number): Style {
-    const index = id % 10;
+    const index = (id - 1) % this.colors.length;
     return this.osmSegmentStyles[index];
   }
 
@@ -196,7 +204,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       },
       {
         allowSignalWrites: true,
-      }
+      },
     );
   }
 
