@@ -3,6 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.server.monitor.domain.MonitorRouteOsmSegment
+import kpn.server.monitor.MonitorUtil
 import org.springframework.stereotype.Component
 
 @Component
@@ -13,96 +14,65 @@ class MonitorRouteGapAnalyzer {
     superRouteSuperSegments: Seq[MonitorRouteOsmSegment],
     monitorRouteRelation: MonitorRouteRelation
   ): MonitorRouteRelation = {
-    val gapInfos = collectMonitorRouteRelationGapInfos(
-      monitorRouteRelation,
-      superRouteSuperSegments,
-      monitorRouteSegmentInfos
-    )
-    val calculatedGapInfos = calculateGaps(gapInfos)
-    updatedMonitorRouteRelationGap(monitorRouteRelation, calculatedGapInfos)
-  }
 
-  private def collectMonitorRouteRelationGapInfos(
-    monitorRouteRelation: MonitorRouteRelation,
-    superRouteSegments: Seq[MonitorRouteOsmSegment],
-    segments: Seq[MonitorRouteSegmentInfo]
-  ): Seq[MonitorRouteRelationGapInfo] = {
-    val endNodes: Seq[(Long, Long)] = superRouteSegments.flatMap(_.elements).flatMap { element =>
-      if (element.relationId == monitorRouteRelation.relationId) {
-        segments.find(_.relationId == element.relationId) match {
-          case None => None
-          case Some(segment) =>
-            if (element.reversed) {
-              Some((segment.endNodeId, segment.startNodeId))
-            }
-            else {
-              Some((segment.startNodeId, segment.endNodeId))
-            }
-        }
-      }
-      else {
-        None
-      }
+    val relationIds = MonitorUtil.subRelationsInRouteRelation(monitorRouteRelation).map(_.relationId)
+
+    val relationWithSegmentsIds = relationIds.filter { relationId =>
+      monitorRouteSegmentInfos.exists(_.relationId == relationId)
     }
 
-    val gapInfos: Seq[MonitorRouteRelationGapInfo] = if (endNodes.isEmpty) {
-      Seq.empty
-    }
-    else {
-      val startNodeId = endNodes.headOption.map(_._1).getOrElse(0L)
-      val endNodeId = endNodes.lastOption.map(_._2).getOrElse(0L)
-      Seq(
-        MonitorRouteRelationGapInfo(
-          monitorRouteRelation.relationId,
-          monitorRouteRelation.osmSegmentCount,
-          startNodeId,
-          endNodeId,
-          None
-        )
-      )
-    }
+    val gapInfos = relationWithSegmentsIds.zipWithIndex.map { case (relationId, index) =>
 
-    gapInfos ++ monitorRouteRelation.relations.flatMap { r =>
-      collectMonitorRouteRelationGapInfos(
-        r,
-        superRouteSegments,
-        segments
-      )
-    }
-  }
-
-  private def calculateGaps(gapInfos: Seq[MonitorRouteRelationGapInfo]): Seq[MonitorRouteRelationGapInfo] = {
-
-    gapInfos.zipWithIndex.map { case (gapInfo, index) =>
       var gaps: Seq[String] = Seq.empty
 
       if (index == 0) {
         gaps = gaps :+ "start"
       }
       else {
-        val previousGapInfo = gapInfos(index - 1)
-        if (previousGapInfo.endNodeId != gapInfo.startNodeId) {
+        val previousRelationId = relationWithSegmentsIds(index - 1)
+        if (!isConnecting(monitorRouteSegmentInfos, previousRelationId, relationId)) {
           gaps = gaps :+ "top"
         }
       }
 
-      if (gapInfo.osmSegmentCount > 1) {
+      val osmSegmentCount = monitorRouteSegmentInfos.count(_.relationId == relationId)
+
+      if (osmSegmentCount > 1) {
         gaps = gaps :+ "middle"
       }
 
-      if (index == gapInfos.size - 1) {
+      if (index == relationWithSegmentsIds.size - 1) {
         gaps = gaps :+ "end"
       }
       else {
-        val nextGapInfo = gapInfos(index + 1)
-        if (gapInfo.endNodeId != nextGapInfo.startNodeId) {
+        val nextRelationId = relationWithSegmentsIds(index + 1)
+        if (!isConnecting(monitorRouteSegmentInfos, relationId, nextRelationId)) {
           gaps = gaps :+ "bottom"
         }
       }
 
-      gapInfo.copy(
+      MonitorRouteRelationGapInfo(
+        relationId = relationId,
+        osmSegmentCount = osmSegmentCount,
+        startNodeId = 0,
+        endNodeId = 0,
         gaps = Some(if (gaps.isEmpty) "" else gaps.mkString("-"))
       )
+    }
+
+    updatedMonitorRouteRelationGap(monitorRouteRelation, gapInfos)
+  }
+
+  private def isConnecting(monitorRouteSegmentInfos: Seq[MonitorRouteSegmentInfo], relationId1: Long, relationId2: Long): Boolean = {
+    val segments1 = monitorRouteSegmentInfos.filter(_.relationId == relationId1)
+    val segments2 = monitorRouteSegmentInfos.find(_.relationId == relationId2)
+    segments1.exists { segment1 =>
+      segments2.exists { segment2 =>
+        segment1.startNodeId == segment2.startNodeId ||
+          segment1.startNodeId == segment2.endNodeId ||
+          segment1.endNodeId == segment2.startNodeId ||
+          segment1.endNodeId == segment2.endNodeId
+      }
     }
   }
 

@@ -25,14 +25,14 @@ object MonitorUtil {
 
   def subRelationsIn(route: MonitorRoute): Seq[MonitorRouteSubRelation] = {
     route.relation match {
-      case Some(monitorRouteRelation) => monitorRouteRelation.relations.flatMap(xx)
+      case Some(monitorRouteRelation) => monitorRouteRelation.relations.flatMap(subRelationsInRouteRelation)
       case None => Seq.empty
     }
   }
 
-  private def xx(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteSubRelation] = {
+  def subRelationsInRouteRelation(monitorRouteRelation: MonitorRouteRelation): Seq[MonitorRouteSubRelation] = {
     Seq(toMonitorSubRelation(monitorRouteRelation)) ++
-      monitorRouteRelation.relations.flatMap(rel => xx(rel))
+      monitorRouteRelation.relations.flatMap(rel => subRelationsInRouteRelation(rel))
   }
 
   private def toMonitorSubRelation(monitorRouteRelation: MonitorRouteRelation): MonitorRouteSubRelation = {
