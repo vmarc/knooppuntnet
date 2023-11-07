@@ -13,7 +13,17 @@ object MonitorRouteRelation {
 
   def from(relation: Relation, role: Option[String]): MonitorRouteRelation = {
 
-    val name = relation.tags("name") match {
+    val nameTagKeys = Seq(
+      "name",
+      "name:de",
+      "name:nl",
+      "name:fr",
+      "name:en",
+    )
+
+    val names = nameTagKeys.flatMap(nameTagKey => relation.tags(nameTagKey))
+
+    val name = names.headOption match {
       case Some(name) => name
       case None =>
         relation.tags("from") match {
@@ -21,7 +31,7 @@ object MonitorRouteRelation {
           case Some(from) =>
             relation.tags("to") match {
               case None => "?"
-              case Some(to) => s"$from-$to"
+              case Some(to) => s"$from — $to"
             }
         }
     }
