@@ -1,6 +1,6 @@
 {
   "name": "knooppuntnet-client",
-  "version": "4.1.0",
+  "version": "4.1.10",
   "license": "MIT",
   "scripts": {
     "prettier-check": "prettier --check --config .prettierrc --ignore-path .prettierignore --loglevel warn \"{**/*,*}.{js,ts}\"",
