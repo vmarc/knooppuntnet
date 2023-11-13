@@ -117,24 +117,24 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "port": 4000,
-            "browserTarget": "knooppuntnet:build",
-            "proxyConfig": "src/proxy-dev.conf.js"
+            "proxyConfig": "src/proxy-dev.conf.js",
+            "buildTarget": "frontend:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "frontend:build:production"
+              "buildTarget": "frontend:build:production"
             },
             "development": {
-              "browserTarget": "frontend:build:development"
+              "buildTarget": "frontend:build:development"
             },
             "nl": {
-              "browserTarget": "frontend:build:nl"
+              "buildTarget": "frontend:build:nl"
             },
             "fr": {
-              "browserTarget": "frontend:build:fr"
+              "buildTarget": "frontend:build:fr"
             },
             "de": {
-              "browserTarget": "frontend:build:de"
+              "buildTarget": "frontend:build:de"
             }
           },
           "defaultConfiguration": "development"
@@ -142,9 +142,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend:build",
             "outFile": "translations.xlf",
-            "outputPath": "src/locale"
+            "outputPath": "src/locale",
+            "buildTarget": "frontend:build"
           }
         },
         "test": {
