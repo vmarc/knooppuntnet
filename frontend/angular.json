@@ -52,7 +52,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "localize": true,
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -79,6 +78,7 @@
           },
           "configurations": {
             "production": {
+              "localize": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -94,6 +94,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "localize": false,
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,

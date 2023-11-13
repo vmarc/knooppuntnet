@@ -1,17 +1,24 @@
 import { Injectable } from '@angular/core';
+import { NoNewVersionDetectedEvent } from "@angular/service-worker";
+import { VersionReadyEvent } from "@angular/service-worker";
+import { VersionInstallationFailedEvent } from "@angular/service-worker";
+import { VersionDetectedEvent } from "@angular/service-worker";
+import { UnrecoverableStateEvent } from "@angular/service-worker";
+import { VersionEvent } from "@angular/service-worker";
 import { SwUpdate } from '@angular/service-worker';
+import { Observable } from "rxjs";
 
 @Injectable()
 export class LogUpdateService {
   constructor(updates: SwUpdate) {
-    updates.available.subscribe((event) => {
+    updates.versionUpdates.subscribe((event: VersionEvent) => {
       console.log(
-        `LogUpdateService: current version is ${event.current}, available version is ${event.available}`
+        `LogUpdateService: event ${event.type}`
       );
     });
-    updates.activated.subscribe((event) => {
+    updates.unrecoverable.subscribe((event: UnrecoverableStateEvent) => {
       console.log(
-        `LogUpdateService: old version was ${event.previous}, new version is ${event.current}`
+        `LogUpdateService: UnrecoverableStateEvent, reason:  ${event.reason}`
       );
     });
   }
