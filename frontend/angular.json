@@ -7,20 +7,27 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "changeDetection": "OnPush",
+          "style": "scss",
           "inlineTemplate": true,
           "inlineStyle": true,
-          "standalone": true
+          "standalone": true,
+          "skipTests": true,
+          "flat": true
         },
         "@schematics/angular:directive": {
           "standalone": true
         },
         "@schematics/angular:pipe": {
           "standalone": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
         }
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "kpn",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -34,20 +41,27 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/manifest.json"
             ],
             "styles": [
-              "src/styles.css"
+              "src/theme.scss",
+              "node_modules/ol/ol.css",
+              "node_modules/ol-geocoder/dist/ol-geocoder.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/marked/marked.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "1600kb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -70,12 +84,26 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "port": 4000,
+            "browserTarget": "knooppuntnet:build",
+            "proxyConfig": "src/proxy-dev.conf.js"
+          },
           "configurations": {
             "production": {
               "browserTarget": "frontend:build:production"
             },
             "development": {
               "browserTarget": "frontend:build:development"
+            },
+            "nl": {
+              "browserTarget": "frontend:build:nl"
+            },
+            "fr": {
+              "browserTarget": "frontend:build:fr"
+            },
+            "de": {
+              "browserTarget": "frontend:build:de"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +111,9 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "frontend:build"
+            "browserTarget": "frontend:build",
+            "outFile": "translations.xlf",
+            "outputPath": "src/locale"
           }
         },
         "test": {

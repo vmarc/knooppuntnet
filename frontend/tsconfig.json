@@ -5,10 +5,12 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    // "strict": true, TODO re-enable?
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
+    // TODO re-enable noPropertyAccessFromIndexSignature?
+    "noPropertyAccessFromIndexSignature": false,
+    // TODO re-enable noImplicitReturns?
+    "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,
@@ -19,10 +21,207 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
+    // TODO re-enable strictPropertyInitialization?
+    "strictPropertyInitialization": false,
+    // TODO re-enable strictNullChecks?
+    "strictNullChecks": false,
+    // TODO re-enable libCheck?
+    "skipLibCheck": true,
     "lib": [
       "ES2022",
       "dom"
-    ]
+    ],
+    "paths": {
+      "@api/*": [
+        "src/app/api/*"
+      ],
+      "@app/*": [
+        "src/app/index.ts"
+      ],
+      "@app/analysis/analysis": [
+        "src/app/analysis/analysis/index.ts"
+      ],
+      "@app/analysis/changeset": [
+        "src/app/analysis/changeset/index.ts"
+      ],
+      "@app/analysis/components/change-set": [
+        "src/app/analysis/components/change-set/index.ts"
+      ],
+      "@app/analysis/components/change-set/components": [
+        "src/app/analysis/components/change-set/components/index.ts"
+      ],
+      "@app/analysis/components/changes": [
+        "src/app/analysis/components/changes/index.ts"
+      ],
+      "@app/analysis/components/changes/filter": [
+        "src/app/analysis/components/changes/filter/index.ts"
+      ],
+      "@app/analysis/components/changes/node": [
+        "src/app/analysis/components/changes/node/index.ts"
+      ],
+      "@app/analysis/components/changes/route": [
+        "src/app/analysis/components/changes/route/index.ts"
+      ],
+      "@app/analysis/components/edit": [
+        "src/app/analysis/components/edit/index.ts"
+      ],
+      "@app/analysis/components/filter": [
+        "src/app/analysis/components/filter/index.ts"
+      ],
+      "@app/analysis/components/indicators/route": [
+        "src/app/analysis/components/indicators/route/index.ts"
+      ],
+      "@app/analysis/fact": [
+        "src/app/analysis/fact/index.ts"
+      ],
+      "@app/analysis/facts": [
+        "src/app/analysis/facts/index.ts"
+      ],
+      "@app/analysis/location": [
+        "src/app/analysis/location/index.ts"
+      ],
+      "@app/analysis/network": [
+        "src/app/analysis/network/index.ts"
+      ],
+      "@app/analysis/node": [
+        "src/app/analysis/node/index.ts"
+      ],
+      "@app/analysis/overview": [
+        "src/app/analysis/overview/index.ts"
+      ],
+      "@app/analysis/route": [
+        "src/app/analysis/route/index.ts"
+      ],
+      "@app/analysis/strategy": [
+        "src/app/analysis/strategy/index.ts"
+      ],
+      "@app/analysis/subset": [
+        "src/app/analysis/subset/index.ts"
+      ],
+      "@app/components/ol": [
+        "src/app/ol/index.ts"
+      ],
+      "@app/components/ol/components": [
+        "src/app/ol/components/index.ts"
+      ],
+      "@app/components/ol/domain": [
+        "src/app/ol/domain/index.ts"
+      ],
+      "@app/components/ol/layers": [
+        "src/app/ol/layers/index.ts"
+      ],
+      "@app/components/ol/services": [
+        "src/app/ol/services/index.ts"
+      ],
+      "@app/components/ol/style": [
+        "src/app/ol/style/index.ts"
+      ],
+      "@app/components/poi": [
+        "src/app/shared/components/poi/index.ts"
+      ],
+      "@app/components/shared": [
+        "src/app/shared/components/shared/index.ts"
+      ],
+      "@app/components/shared/data": [
+        "src/app/shared/components/shared/data/index.ts"
+      ],
+      "@app/components/shared/day": [
+        "src/app/shared/components/shared/day/index.ts"
+      ],
+      "@app/components/shared/dialog": [
+        "src/app/shared/components/shared/dialog/index.ts"
+      ],
+      "@app/components/shared/error": [
+        "src/app/shared/components/shared/error/index.ts"
+      ],
+      "@app/components/shared/format": [
+        "src/app/shared/components/shared/format/index.ts"
+      ],
+      "@app/components/shared/icon": [
+        "src/app/shared/components/shared/icon/index.ts"
+      ],
+      "@app/components/shared/indicator": [
+        "src/app/shared/components/shared/indicator/index.ts"
+      ],
+      "@app/components/shared/items": [
+        "src/app/shared/components/shared/items/index.ts"
+      ],
+      "@app/components/shared/json": [
+        "src/app/shared/components/shared/json/index.ts"
+      ],
+      "@app/components/shared/link": [
+        "src/app/shared/components/shared/link/index.ts"
+      ],
+      "@app/components/shared/menu": [
+        "src/app/shared/components/shared/menu/index.ts"
+      ],
+      "@app/components/shared/page": [
+        "src/app/shared/components/shared/page/index.ts"
+      ],
+      "@app/components/shared/paginator": [
+        "src/app/shared/components/shared/paginator/index.ts"
+      ],
+      "@app/components/shared/sidebar": [
+        "src/app/shared/components/shared/sidebar/index.ts"
+      ],
+      "@app/components/shared/tags": [
+        "src/app/shared/components/shared/tags/index.ts"
+      ],
+      "@app/components/shared/timestamp": [
+        "src/app/shared/components/shared/timestamp/index.ts"
+      ],
+      "@app/components/shared/toolbar": [
+        "src/app/shared/components/shared/toolbar/index.ts"
+      ],
+      "@app/core": [
+        "src/app/shared/core/index.ts"
+      ],
+      "@app/demo": [
+        "src/app/demo/index.ts"
+      ],
+      "@app/friso": [
+        "src/app/friso/index.ts"
+      ],
+      "@app/i18n": [
+        "src/app/shared/i18n/index.ts"
+      ],
+      "@app/kpn/common": [
+        "src/app/shared/kpn/common/index.ts"
+      ],
+      "@app/kpn/filter": [
+        "src/app/shared/kpn/filter/index.ts"
+      ],
+      "@app/monitor": [
+        "src/app/monitor/index.ts"
+      ],
+      "@app/planner": [
+        "src/app/planner/index.ts"
+      ],
+      "@app/poi": [
+        "src/app/poi/index.ts"
+      ],
+      "@app/services": [
+        "src/app/shared/services/index.ts"
+      ],
+      "@app/settings": [
+        "src/app/settings/index.ts"
+      ],
+      "@app/shared/base": [
+        "src/app/shared/base/index.ts"
+      ],
+      "@app/spinner": [
+        "src/app/shared/spinner/index.ts"
+      ],
+      "@app/status": [
+        "src/app/status/index.ts"
+      ],
+      "@app/symbol": [
+        "src/app/symbol/index.ts"
+      ],
+      "@app/util": [
+        "src/app/util/index.ts"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
