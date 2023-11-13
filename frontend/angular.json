@@ -5,6 +5,26 @@
   "projects": {
     "frontend": {
       "projectType": "application",
+      "i18n": {
+        "sourceLocale": {
+          "code": "en",
+          "baseHref": "/en/"
+        },
+        "locales": {
+          "nl": {
+            "translation": "src/locale/translations.nl.xlf",
+            "baseHref": "/nl/"
+          },
+          "fr": {
+            "translation": "src/locale/translations.fr.xlf",
+            "baseHref": "/fr/"
+          },
+          "de": {
+            "translation": "src/locale/translations.de.xlf",
+            "baseHref": "/de/"
+          }
+        }
+      },
       "schematics": {
         "@schematics/angular:component": {
           "changeDetection": "OnPush",
@@ -32,6 +52,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": true,
             "outputPath": "dist/frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -45,6 +66,7 @@
               "src/manifest.json"
             ],
             "styles": [
+              "src/styles.scss",
               "src/theme.scss",
               "node_modules/ol/ol.css",
               "node_modules/ol-geocoder/dist/ol-geocoder.css"
@@ -78,6 +100,15 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "nl": {
+              "localize": ["nl"]
+            },
+            "de": {
+              "localize": ["de"]
+            },
+            "fr": {
+              "localize": ["fr"]
             }
           },
           "defaultConfiguration": "production"
@@ -129,7 +160,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
