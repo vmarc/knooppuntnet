@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.database.util.Mongo
 import kpn.server.monitor.repository.MonitorGroupRepository

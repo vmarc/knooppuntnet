@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.util.RouteSymbol

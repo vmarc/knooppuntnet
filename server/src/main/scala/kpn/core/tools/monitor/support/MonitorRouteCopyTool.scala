@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection

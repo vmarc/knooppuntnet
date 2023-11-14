@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Timestamp

@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
