@@ -396,11 +396,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             relations = Seq(
               newMonitorRouteRelation(
                 relationId = 11,
-                name = "sub-relation-11"
+                name = "sub-relation-11",
+                osmWayCount = 1
               ),
               newMonitorRouteRelation(
                 relationId = 12,
-                name = "sub-relation-12"
+                name = "sub-relation-12",
+                osmWayCount = 1
               )
             )
           )
@@ -451,14 +453,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             currentSubRelation = Some(
               MonitorRouteSubRelation(
                 11,
-                "sub-relation-11"
+                "sub-relation-11",
+                1
               )
             ),
             previousSubRelation = None,
             nextSubRelation = Some(
               MonitorRouteSubRelation(
                 12,
-                "sub-relation-12"
+                "sub-relation-12",
+                1
               )
             ),
             osmSegments = Seq.empty,
@@ -478,8 +482,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               )
             ),
             subRelations = Seq(
-              MonitorRouteSubRelation(11, "sub-relation-11"),
-              MonitorRouteSubRelation(12, "sub-relation-12")
+              MonitorRouteSubRelation(
+                11,
+                "sub-relation-11",
+                1
+              ),
+              MonitorRouteSubRelation(
+                12,
+                "sub-relation-12",
+                1
+              )
             )
           )
         )
@@ -499,13 +511,15 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             currentSubRelation = Some(
               MonitorRouteSubRelation(
                 12,
-                "sub-relation-12"
+                "sub-relation-12",
+                1
               )
             ),
             previousSubRelation = Some(
               MonitorRouteSubRelation(
                 11,
-                "sub-relation-11"
+                "sub-relation-11",
+                1
               )
             ),
             nextSubRelation = None,
@@ -526,8 +540,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
               )
             ),
             subRelations = Seq(
-              MonitorRouteSubRelation(11, "sub-relation-11"),
-              MonitorRouteSubRelation(12, "sub-relation-12")
+              MonitorRouteSubRelation(
+                11,
+                "sub-relation-11",
+                1
+              ),
+              MonitorRouteSubRelation(
+                12,
+                "sub-relation-12",
+                1
+              )
             )
           )
         )
@@ -561,11 +583,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             relations = Seq(
               newMonitorRouteRelation(
                 relationId = 11,
-                name = "sub-relation-11"
+                name = "sub-relation-11",
+                osmWayCount = 1
               ),
               newMonitorRouteRelation(
                 relationId = 12,
-                name = "sub-relation-12"
+                name = "sub-relation-12",
+                osmWayCount = 1
               )
             )
           )
@@ -678,14 +702,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           currentSubRelation = Some(
             MonitorRouteSubRelation(
               11,
-              "sub-relation-11"
+              "sub-relation-11",
+              1
             )
           ),
           previousSubRelation = None,
           nextSubRelation = Some(
             MonitorRouteSubRelation(
               12,
-              "sub-relation-12"
+              "sub-relation-12",
+              1
             )
           ),
           osmSegments = Seq(
@@ -723,8 +749,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             )
           ),
           subRelations = Seq(
-            MonitorRouteSubRelation(11, "sub-relation-11"),
-            MonitorRouteSubRelation(12, "sub-relation-12")
+            MonitorRouteSubRelation(
+              11,
+              "sub-relation-11",
+              1
+            ),
+            MonitorRouteSubRelation(
+              12,
+              "sub-relation-12",
+              1
+            )
           )
         )
       )
@@ -742,13 +776,15 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           currentSubRelation = Some(
             MonitorRouteSubRelation(
               12,
-              "sub-relation-12"
+              "sub-relation-12",
+              1
             )
           ),
           previousSubRelation = Some(
             MonitorRouteSubRelation(
               11,
-              "sub-relation-11"
+              "sub-relation-11",
+              1
             )
           ),
           nextSubRelation = None,
@@ -786,8 +822,16 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             )
           ),
           subRelations = Seq(
-            MonitorRouteSubRelation(11, "sub-relation-11"),
-            MonitorRouteSubRelation(12, "sub-relation-12")
+            MonitorRouteSubRelation(
+              11,
+              "sub-relation-11",
+              1
+            ),
+            MonitorRouteSubRelation(
+              12,
+              "sub-relation-12",
+              1
+            )
           )
         )
       )

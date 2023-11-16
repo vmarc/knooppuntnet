@@ -111,7 +111,13 @@ class MonitorRouteMapPageBuilder(
           buildSimpleRoutePage(group, route, relation.relationId)
         }
         else {
-          buildSuperRoutePage(group, route, relation.relations.head.relationId)
+          val subRelationsWithWays = MonitorUtil.subRelationsIn(route).filter(_.wayCount > 0)
+          if (subRelationsWithWays.isEmpty) {
+            buildSimpleRoutePage(group, route, relation.relationId)
+          }
+          else {
+            buildSuperRoutePage(group, route, subRelationsWithWays.head.relationId)
+          }
         }
     }
   }
@@ -236,7 +242,7 @@ class MonitorRouteMapPageBuilder(
     relationId: Long
   ): MonitorRouteMapPage = {
 
-    val subRelations = MonitorUtil.subRelationsIn(route)
+    val subRelations = MonitorUtil.subRelationsIn(route).filter(_.wayCount > 0)
 
     val subRelationPages = Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId)
 

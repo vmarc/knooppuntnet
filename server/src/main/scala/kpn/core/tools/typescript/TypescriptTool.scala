@@ -32,7 +32,7 @@ class TypescriptTool() {
 
   val root = "/home/vmarc/wrk/projects/knooppuntnet/server/src/main/scala/kpn/api/common"
 
-  val targetDir = "/home/vmarc/wrk/projects/knooppuntnet/client/libs/api/src/lib"
+  val targetDir = "/home/vmarc/wrk/projects/knooppuntnet/frontend/src/app/api"
 
   val ignoredClasses: Seq[String] = Seq(
     // following classes have been manually changed in Typescript after changing List to Array, enable again when switching to interfaces

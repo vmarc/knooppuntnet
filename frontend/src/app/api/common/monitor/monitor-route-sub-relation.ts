@@ -3,4 +3,5 @@
 export interface MonitorRouteSubRelation {
   readonly relationId: number;
   readonly name: string;
+  readonly wayCount: number;
 }
