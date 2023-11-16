@@ -55,7 +55,7 @@ export class MonitorWebsocketService {
         const message: MonitorRouteUpdateStatusMessage = JSON.parse(msg);
 
         if (message.commands) {
-          const stepsArray = this._steps();
+          const stepsArray = [...this._steps()];
           message.commands.forEach((command) => {
             if (command.action === 'step-add') {
               let description = '';
