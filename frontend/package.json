@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "scripts": {
     "ng": "ng",
     "serve": "ng serve --proxy-config src/proxy-dev.conf.js",
@@ -11,7 +11,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --build-optimizer --progress --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*.js */*.json */*.css",
+    "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --build-optimizer --progress --source-map --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*.js */*.json */*.css",
     "zip": "cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
     "dist": "run-s build-prod zip"
   },
