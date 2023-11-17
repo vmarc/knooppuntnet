@@ -57,18 +57,16 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
       </table>
     </div>
   `,
-  styles: [
-    `
-      .title {
-        margin-top: 2px;
-        margin-bottom: 4px;
-      }
+  styles: `
+    .title {
+      margin-top: 2px;
+      margin-bottom: 4px;
+    }
 
-      .same {
-        color: grey;
-      }
-    `,
-  ],
+    .same {
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor, NgClass, TagDiffActionComponent],
 })

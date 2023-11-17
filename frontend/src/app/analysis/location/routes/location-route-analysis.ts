@@ -18,13 +18,11 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
       />
     </div>
   `,
-  styles: [
-    `
-      .analysis {
-        display: flex;
-      }
-    `,
-  ],
+  styles: `
+    .analysis {
+      display: flex;
+    }
+  `,
   standalone: true,
   imports: [
     RouteAccessibleIndicatorComponent,

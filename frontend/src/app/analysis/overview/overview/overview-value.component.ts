@@ -13,13 +13,11 @@ import { Stat } from '../domain/stat';
     <a *ngIf="hasLink()" [routerLink]="link()">{{ value() }}</a>
     <span *ngIf="!hasLink()">{{ value() }}</span>
   `,
-  styles: [
-    `
-      :host {
-        display: contents;
-      }
-    `,
-  ],
+  styles: `
+    :host {
+      display: contents;
+    }
+  `,
   standalone: true,
   imports: [NgIf, RouterLink],
 })

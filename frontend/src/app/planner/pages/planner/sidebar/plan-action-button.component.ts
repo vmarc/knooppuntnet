@@ -38,22 +38,20 @@ import { map } from 'rxjs/operators';
       <mat-icon [svgIcon]="icon" />
     </button>
   `,
-  styles: [
-    `
-      .button-text {
-        padding-left: 10px;
-      }
+  styles: `
+    .button-text {
+      padding-left: 10px;
+    }
 
-      button {
-        margin-right: 10px;
-      }
+    button {
+      margin-right: 10px;
+    }
 
-      button > mat-icon {
-        height: 18px;
-        line-height: 18px;
-      }
-    `,
-  ],
+    button > mat-icon {
+      height: 18px;
+      line-height: 18px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, MatButtonModule, MatIconModule, AsyncPipe],
 })

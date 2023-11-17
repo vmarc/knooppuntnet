@@ -24,13 +24,11 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .hidden {
-        display: none;
-      }
-    `,
-  ],
+  styles: `
+    .hidden {
+      display: none;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

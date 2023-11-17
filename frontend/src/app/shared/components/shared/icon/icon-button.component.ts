@@ -17,45 +17,43 @@ import { RouterLink } from '@angular/router';
       </div>
     </a>
   `,
-  styles: [
-    `
-      :host {
-        display: inline-block;
-        margin: 15px;
-      }
+  styles: `
+    :host {
+      display: inline-block;
+      margin: 15px;
+    }
 
-      .wrapper {
-        display: inline-block;
-        border-color: grey;
-        border-radius: 50%;
-        border-style: solid;
-        border-width: 3px;
-        width: 100px;
-        height: 100px;
-        background: #f8f8f8;
-      }
+    .wrapper {
+      display: inline-block;
+      border-color: grey;
+      border-radius: 50%;
+      border-style: solid;
+      border-width: 3px;
+      width: 100px;
+      height: 100px;
+      background: #f8f8f8;
+    }
 
-      .wrapper:hover {
-        background-color: #e8ebee;
-      }
+    .wrapper:hover {
+      background-color: #e8ebee;
+    }
 
-      .text {
-        width: 100px;
-        margin-top: 5px;
-        text-align: center;
-      }
+    .text {
+      width: 100px;
+      margin-top: 5px;
+      text-align: center;
+    }
 
-      .icon {
-        position: relative;
-        top: 25px;
-        left: 25px;
-        width: 50px;
-        height: 50px;
-        border: none;
-        color: grey;
-      }
-    `,
-  ],
+    .icon {
+      position: relative;
+      top: 25px;
+      left: 25px;
+      width: 50px;
+      height: 50px;
+      border: none;
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [RouterLink, MatIconModule],
 })

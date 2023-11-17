@@ -26,18 +26,16 @@ import { EditLinkComponent } from './edit-link.component';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .edit-and-paginator {
-        display: flex;
-        align-items: center;
-      }
+  styles: `
+    .edit-and-paginator {
+      display: flex;
+      align-items: center;
+    }
 
-      .paginator {
-        margin-left: auto;
-      }
-    `,
-  ],
+    .paginator {
+      margin-left: auto;
+    }
+  `,
   standalone: true,
   imports: [EditLinkComponent, PaginatorComponent],
 })

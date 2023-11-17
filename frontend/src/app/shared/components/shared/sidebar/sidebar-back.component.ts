@@ -15,19 +15,17 @@ import { PageService } from '..';
       </mat-list-item>
     </mat-nav-list>
   `,
-  styles: [
-    `
-      mat-nav-list {
-        padding-top: 0;
-        height: 40px;
-        border-bottom: 1px solid rgb(240, 240, 240);
-      }
+  styles: `
+    mat-nav-list {
+      padding-top: 0;
+      height: 40px;
+      border-bottom: 1px solid rgb(240, 240, 240);
+    }
 
-      span {
-        padding-left: 10px;
-      }
-    `,
-  ],
+    span {
+      padding-left: 10px;
+    }
+  `,
   standalone: true,
   imports: [MatListModule, MatIconModule],
 })

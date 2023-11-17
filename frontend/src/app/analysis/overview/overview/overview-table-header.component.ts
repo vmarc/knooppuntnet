@@ -26,13 +26,11 @@ import { Subsets } from '@app/kpn/common';
       </th>
     </tr>
   `,
-  styles: [
-    `
-      :host {
-        display: table-header-group;
-      }
-    `,
-  ],
+  styles: `
+    :host {
+      display: table-header-group;
+    }
+  `,
   standalone: true,
   imports: [NgFor, MatIconModule],
 })

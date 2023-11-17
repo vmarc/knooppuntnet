@@ -9,14 +9,12 @@ import { Component } from '@angular/core';
       <ng-content />
     </div>
   `,
-  styles: [
-    `
-      .icon-buttons {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    `,
-  ],
+  styles: `
+    .icon-buttons {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  `,
   standalone: true,
 })
 export class IconButtonsComponent {}

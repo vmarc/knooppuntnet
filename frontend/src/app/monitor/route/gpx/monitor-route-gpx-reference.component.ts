@@ -93,13 +93,11 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
       </div>
     </div>
   `,
-  styles: [
-    `
-      .file-input {
-        display: none;
-      }
-    `,
-  ],
+  styles: `
+    .file-input {
+      display: none;
+    }
+  `,
   standalone: true,
   imports: [
     DataComponent,

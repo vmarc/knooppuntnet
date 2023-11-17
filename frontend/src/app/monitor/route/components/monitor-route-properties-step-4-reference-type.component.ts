@@ -91,18 +91,16 @@ import { FormStatusComponent } from '@app/components/shared';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .question {
-        padding-bottom: 1em;
-      }
+  styles: `
+    .question {
+      padding-bottom: 1em;
+    }
 
-      .answer {
-        display: block;
-        padding-top: 0.5em;
-      }
-    `,
-  ],
+    .answer {
+      display: block;
+      padding-top: 0.5em;
+    }
+  `,
   standalone: true,
   imports: [
     FormStatusComponent,

@@ -58,28 +58,26 @@ import { PlannerService } from '../../../planner.service';
       </p>
     </div>
   `,
-  styles: [
-    `
-      .tip {
-        height: 70px;
-        font-style: italic;
-      }
+  styles: `
+    .tip {
+      height: 70px;
+      font-style: italic;
+    }
 
-      #read-more {
-        padding-left: 10px;
-      }
+    #read-more {
+      padding-left: 10px;
+    }
 
-      #read-more::before {
-        content: '(';
-        color: black;
-      }
+    #read-more::before {
+      content: '(';
+      color: black;
+    }
 
-      #read-more::after {
-        content: ')';
-        color: black;
-      }
-    `,
-  ],
+    #read-more::after {
+      content: ')';
+      color: black;
+    }
+  `,
   standalone: true,
   imports: [NgIf, AsyncPipe],
 })

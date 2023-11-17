@@ -38,17 +38,15 @@ import { I18nService } from '@app/i18n';
       </li>
     </ul>
   `,
-  styles: [
-    `
-      .footer {
-        padding: 15px;
-        border-top-width: 1px;
-        border-top-style: solid;
-        border-top-color: lightgray;
-        text-align: center;
-      }
-    `,
-  ],
+  styles: `
+    .footer {
+      padding: 15px;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: lightgray;
+      text-align: center;
+    }
+  `,
   standalone: true,
   imports: [NgIf, RouterLink],
 })

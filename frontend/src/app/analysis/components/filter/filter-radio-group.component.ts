@@ -31,7 +31,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
       </mat-radio-group>
     </div>
   `,
-  styleUrls: ['./filter.scss'],
+  styleUrl: './filter.scss',
   standalone: true,
   imports: [MatRadioModule, NgFor],
 })

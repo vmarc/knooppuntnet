@@ -122,19 +122,17 @@ import { LinkImageComponent } from './link-image.component';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .image-cell {
-        padding: 0;
-        height: 100%;
-      }
+  styles: `
+    .image-cell {
+      padding: 0;
+      height: 100%;
+    }
 
-      .distance {
-        white-space: nowrap;
-        text-align: right;
-      }
-    `,
-  ],
+    .distance {
+      white-space: nowrap;
+      text-align: right;
+    }
+  `,
   standalone: true,
   imports: [
     LinkImageComponent,

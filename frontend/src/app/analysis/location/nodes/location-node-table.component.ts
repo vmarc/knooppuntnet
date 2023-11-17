@@ -169,13 +169,11 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       [length]="nodeCount"
     />
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        flex: 0 0 4em;
-      }
-    `,
-  ],
+  styles: `
+    .mat-column-nr {
+      flex: 0 0 4em;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

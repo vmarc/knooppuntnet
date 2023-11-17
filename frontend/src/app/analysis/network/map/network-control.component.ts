@@ -18,14 +18,12 @@ import { Component } from '@angular/core';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .network-control {
-        left: 8px;
-        top: 112px;
-      }
-    `,
-  ],
+  styles: `
+    .network-control {
+      left: 8px;
+      top: 112px;
+    }
+  `,
   standalone: true,
 })
 export class NetworkControlComponent {

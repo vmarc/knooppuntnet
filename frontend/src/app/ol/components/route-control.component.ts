@@ -18,15 +18,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .geolocation-control {
-        left: 8px;
-        top: 110px;
-        z-index: 100;
-      }
-    `,
-  ],
+  styles: `
+    .geolocation-control {
+      left: 8px;
+      top: 110px;
+      z-index: 100;
+    }
+  `,
   standalone: true,
 })
 export class RouteControlComponent {

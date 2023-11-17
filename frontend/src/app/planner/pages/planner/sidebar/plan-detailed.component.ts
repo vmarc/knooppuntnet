@@ -52,46 +52,44 @@ import { PlannerService } from '../../../planner.service';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .leg {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 35px;
-      }
+  styles: `
+    .leg {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 35px;
+    }
 
-      .node {
-        display: inline-block;
-        border-color: grey;
-        border-radius: 50%;
-        border-style: solid;
-        border-width: 3px;
-        width: 30px;
-        height: 30px;
-      }
+    .node {
+      display: inline-block;
+      border-color: grey;
+      border-radius: 50%;
+      border-style: solid;
+      border-width: 3px;
+      width: 30px;
+      height: 30px;
+    }
 
-      .server-selected {
-        border-width: 1px;
-        padding-left: 2px;
-      }
+    .server-selected {
+      border-width: 1px;
+      padding-left: 2px;
+    }
 
-      .text {
-        width: 30px;
-        margin-top: 5px;
-        text-align: center;
-      }
+    .text {
+      width: 30px;
+      margin-top: 5px;
+      text-align: center;
+    }
 
-      .text-long {
-        width: 260px;
-        margin-left: 40px;
-        margin-top: 5px;
-      }
+    .text-long {
+      width: 260px;
+      margin-left: 40px;
+      margin-top: 5px;
+    }
 
-      .colour {
-        padding-left: 6px;
-      }
-    `,
-  ],
+    .colour {
+      padding-left: 6px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor],
 })

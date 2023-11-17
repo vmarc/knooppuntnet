@@ -46,18 +46,16 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
       </div>
     </kpn-sidebar>
   `,
-  styles: [
-    `
-      .legend {
-        margin-top: 1rem;
-      }
+  styles: `
+    .legend {
+      margin-top: 1rem;
+    }
 
-      .legend > div {
-        display: flex;
-        align-items: center;
-      }
-    `,
-  ],
+    .legend > div {
+      display: flex;
+      align-items: center;
+    }
+  `,
   standalone: true,
   imports: [SidebarComponent, NgIf, NetworkMapLegendIconComponent, AsyncPipe],
 })

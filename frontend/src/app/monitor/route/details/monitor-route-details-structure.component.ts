@@ -310,46 +310,44 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       <tr mat-row *matRowDef="let row; columns: displayedColumns(admin)"></tr>
     </table>
   `,
-  styles: [
-    `
-      .distance {
-        white-space: nowrap;
-        text-align: right;
-        width: 100%;
-      }
+  styles: `
+    .distance {
+      white-space: nowrap;
+      text-align: right;
+      width: 100%;
+    }
 
-      .cumulative-distance {
-        font-weight: 800;
-      }
+    .cumulative-distance {
+      font-weight: 800;
+    }
 
-      .level-1 {
-      }
+    .level-1 {
+    }
 
-      .level-2 {
-        margin-left: 1.5em;
-      }
+    .level-2 {
+      margin-left: 1.5em;
+    }
 
-      .level-3 {
-        margin-left: 3em;
-      }
+    .level-3 {
+      margin-left: 3em;
+    }
 
-      .level-4 {
-        margin-left: 4.5em;
-      }
+    .level-4 {
+      margin-left: 4.5em;
+    }
 
-      .level-5 {
-        margin-left: 6em;
-      }
+    .level-5 {
+      margin-left: 6em;
+    }
 
-      .symbol {
-        vertical-align: middle;
-      }
+    .symbol {
+      vertical-align: middle;
+    }
 
-      .no-route-gap {
-        background-color: #f8f8f8;
-      }
-    `,
-  ],
+    .no-route-gap {
+      background-color: #f8f8f8;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

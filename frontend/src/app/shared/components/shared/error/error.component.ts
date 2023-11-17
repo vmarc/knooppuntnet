@@ -37,13 +37,11 @@ import { Store } from '@ngrx/store';
       </span>
     </div>
   `,
-  styles: [
-    `
-      .http-error {
-        color: red;
-      }
-    `,
-  ],
+  styles: `
+    .http-error {
+      color: red;
+    }
+  `,
   standalone: true,
   imports: [NgIf, AsyncPipe],
 })

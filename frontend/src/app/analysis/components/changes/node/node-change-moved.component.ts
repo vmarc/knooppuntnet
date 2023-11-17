@@ -40,13 +40,11 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .note {
-        margin-top: 5px;
-      }
-    `,
-  ],
+  styles: `
+    .note {
+      margin-top: 5px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NodeMovedMapComponent, TimestampComponent],
 })

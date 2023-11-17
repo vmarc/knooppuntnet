@@ -37,18 +37,16 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </div>
     </kpn-sidebar>
   `,
-  styles: [
-    `
-      .control {
-        padding: 1em;
-      }
+  styles: `
+    .control {
+      padding: 1em;
+    }
 
-      .analysis-timestamp {
-        padding: 3em 1em 1em;
-        text-align: center;
-      }
-    `,
-  ],
+    .analysis-timestamp {
+      padding: 3em 1em 1em;
+      text-align: center;
+    }
+  `,
   standalone: true,
   imports: [
     MonitorRouteMapControlJosmComponent,

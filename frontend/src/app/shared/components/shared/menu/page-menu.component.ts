@@ -16,28 +16,26 @@ import { MatDividerModule } from '@angular/material/divider';
     </div>
     <mat-divider />
   `,
-  styles: [
-    `
-      .menu-wrapper {
-        display: flex;
-      }
+  styles: `
+    .menu-wrapper {
+      display: flex;
+    }
 
-      .menu {
-        line-height: 30px;
-      }
+    .menu {
+      line-height: 30px;
+    }
 
-      .menu-extra {
-        line-height: 30px;
-        margin-left: auto;
-      }
+    .menu-extra {
+      line-height: 30px;
+      margin-left: auto;
+    }
 
-      ::ng-deep .menu :not(:last-child):after {
-        content: ' | ';
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-    `,
-  ],
+    ::ng-deep .menu :not(:last-child):after {
+      content: ' | ';
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  `,
   standalone: true,
   imports: [MatDividerModule],
 })

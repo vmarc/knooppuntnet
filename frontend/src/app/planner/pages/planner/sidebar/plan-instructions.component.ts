@@ -20,7 +20,6 @@ import { PlanInstructionComponent } from './plan-instruction.component';
       <mat-divider />
     </div>
   `,
-  styles: [``],
   standalone: true,
   imports: [NgFor, PlanInstructionComponent, MatDividerModule],
 })

@@ -186,23 +186,21 @@ import { NetworkRoutesService } from './network-routes.service';
       ></tr>
     </table>
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        width: 3rem;
-      }
+  styles: `
+    .mat-column-nr {
+      width: 3rem;
+    }
 
-      .symbol {
-        vertical-align: middle;
-      }
+    .symbol {
+      vertical-align: middle;
+    }
 
-      .distance {
-        white-space: nowrap;
-        text-align: right;
-        width: 100%;
-      }
-    `,
-  ],
+    .distance {
+      white-space: nowrap;
+      text-align: right;
+      width: 100%;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

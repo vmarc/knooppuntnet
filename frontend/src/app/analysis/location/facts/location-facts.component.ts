@@ -76,20 +76,18 @@ import { Store } from '@ngrx/store';
       </kpn-item>
     </kpn-items>
   `,
-  styles: [
-    `
-      .description {
-        max-width: 60em;
-        border-left: 1px solid lightgray;
-        padding-left: 20px;
-      }
+  styles: `
+    .description {
+      max-width: 60em;
+      border-left: 1px solid lightgray;
+      padding-left: 20px;
+    }
 
-      .elements {
-        max-width: 60em;
-        padding-right: 20px;
-      }
-    `,
-  ],
+    .elements {
+      max-width: 60em;
+      padding-right: 20px;
+    }
+  `,
   standalone: true,
   imports: [
     BracketsComponent,

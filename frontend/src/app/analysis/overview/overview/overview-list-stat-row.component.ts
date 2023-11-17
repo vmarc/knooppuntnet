@@ -29,19 +29,17 @@ import { OverviewValueComponent } from './overview-value.component';
       </td>
     </tr>
   `,
-  styles: [
-    `
-      :host {
-        display: contents;
-      }
+  styles: `
+    :host {
+      display: contents;
+    }
 
-      .value {
-        text-align: right;
-        vertical-align: middle;
-        width: 3.5em;
-      }
-    `,
-  ],
+    .value {
+      text-align: right;
+      vertical-align: middle;
+      width: 3.5em;
+    }
+  `,
   standalone: true,
   imports: [
     CountryNameComponent,

@@ -12,13 +12,11 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
     <kpn-icon-happy *ngIf="interpretedNetwork.happy()"></kpn-icon-happy>
     <kpn-icon-happy *ngIf="interpretedNetwork.veryHappy()" class="very-happy" />
   `,
-  styles: [
-    `
-      .very-happy {
-        padding-left: 5px;
-      }
-    `,
-  ],
+  styles: `
+    .very-happy {
+      padding-left: 5px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, IconHappyComponent],
 })

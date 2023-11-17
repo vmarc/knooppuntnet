@@ -96,27 +96,25 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .children {
-        margin-left: 1em;
-      }
+  styles: `
+    .children {
+      margin-left: 1em;
+    }
 
-      .location-block {
-        margin-top: 0.6em;
-      }
+    .location-block {
+      margin-top: 0.6em;
+    }
 
-      .refs-block {
-        margin-top: 0.6em;
-        margin-left: 1em;
-      }
+    .refs-block {
+      margin-top: 0.6em;
+      margin-left: 1em;
+    }
 
-      .refs {
-        margin-top: 0.3em;
-        margin-left: 2em;
-      }
-    `,
-  ],
+    .refs {
+      margin-top: 0.3em;
+      margin-left: 2em;
+    }
+  `,
   standalone: true,
   imports: [
     IconHappyComponent,

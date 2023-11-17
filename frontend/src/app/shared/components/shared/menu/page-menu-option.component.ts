@@ -20,23 +20,21 @@ import { RouterLink } from '@angular/router';
       </span>
     </a>
   `,
-  styles: [
-    `
-      .link {
-        white-space: nowrap;
-      }
+  styles: `
+    .link {
+      white-space: nowrap;
+    }
 
-      .active {
-        font-weight: bold;
-        color: black;
-      }
+    .active {
+      font-weight: bold;
+      color: black;
+    }
 
-      .element-count {
-        color: grey;
-        font-weight: normal;
-      }
-    `,
-  ],
+    .element-count {
+      color: grey;
+      font-weight: normal;
+    }
+  `,
   standalone: true,
   imports: [RouterLink, NgClass, NgIf],
 })

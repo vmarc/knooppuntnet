@@ -18,13 +18,11 @@ import { I18nService } from '@app/i18n';
       <mat-icon svgIcon="help" />
     </a>
   `,
-  styles: [
-    `
-      :host {
-        height: 24px;
-      }
-    `,
-  ],
+  styles: `
+    :host {
+      height: 24px;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule],
 })

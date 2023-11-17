@@ -18,23 +18,21 @@ import { Tags } from '@api/custom';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .tags {
-        padding-top: 5px;
-        padding-left: 15px;
-        padding-bottom: 25px;
-      }
+  styles: `
+    .tags {
+      padding-top: 5px;
+      padding-left: 15px;
+      padding-bottom: 25px;
+    }
 
-      .tag {
-        padding-left: 5px;
-        border-left-width: 1px;
-        border-left-style: solid;
-        border-left-color: #ccc;
-        color: grey;
-      }
-    `,
-  ],
+    .tag {
+      padding-left: 5px;
+      border-left-width: 1px;
+      border-left-style: solid;
+      border-left-color: #ccc;
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor],
 })

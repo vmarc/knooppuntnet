@@ -15,7 +15,7 @@ import { TimestampComponent } from './timestamp/timestamp.component';
       <kpn-timestamp [timestamp]="metaData.timestamp" />
     </div>
   `,
-  styleUrls: ['./meta-data.component.scss'],
+  styleUrl: './meta-data.component.scss',
   standalone: true,
   imports: [NgIf, TimestampComponent],
 })

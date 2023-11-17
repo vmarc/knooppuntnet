@@ -12,28 +12,26 @@ import { FactLevel } from './fact-level';
     <div *ngIf="isError()" class="error circle"></div>
     <div *ngIf="isOther()" class="other circle"></div>
   `,
-  styles: [
-    `
-      .circle {
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-      }
+  styles: `
+    .circle {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
 
-      .info {
-        background: rgb(102, 187, 106); /* material green400 */
-      }
+    .info {
+      background: rgb(102, 187, 106); /* material green400 */
+    }
 
-      .error {
-        background: rgb(239, 83, 80); /* material red400 */
-      }
+    .error {
+      background: rgb(239, 83, 80); /* material red400 */
+    }
 
-      .other {
-        background: rgb(255, 167, 38); /* material orange400 */
-      }
-    `,
-  ],
+    .other {
+      background: rgb(255, 167, 38); /* material orange400 */
+    }
+  `,
   standalone: true,
   imports: [NgIf],
 })

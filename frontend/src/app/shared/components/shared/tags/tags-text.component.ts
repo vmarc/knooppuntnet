@@ -20,14 +20,12 @@ import { Tags } from '@api/custom';
       <div *ngFor="let tag of tags.tags">{{ tag.key }} = {{ tag.value }}</div>
     </div>
   `,
-  styles: [
-    `
-      .no-tags {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+  styles: `
+    .no-tags {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor],
 })

@@ -141,14 +141,12 @@ import { mergeMap } from 'rxjs/operators';
       <kpn-base-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .map-divider {
-        margin-top: 1em;
-        margin-bottom: 1em;
-      }
-    `,
-  ],
+  styles: `
+    .map-divider {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

@@ -41,20 +41,18 @@ import { MAP_SERVICE_TOKEN } from '../services';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .map-links-control {
-        top: 50px;
-        right: 10px;
-        z-index: 100;
-      }
+  styles: `
+    .map-links-control {
+      top: 50px;
+      right: 10px;
+      z-index: 100;
+    }
 
-      .map-links-control mat-icon {
-        width: 14px;
-        height: 14px;
-      }
-    `,
-  ],
+    .map-links-control mat-icon {
+      width: 14px;
+      height: 14px;
+    }
+  `,
   standalone: true,
   imports: [MatMenuModule, MatIconModule],
 })

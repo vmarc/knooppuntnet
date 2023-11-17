@@ -33,20 +33,18 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
       </div>
     </div>
   `,
-  styles: [
-    `
-      .section {
-        margin-top: 20px;
-        border-top: 1px solid lightgray;
-        border-bottom: 1px solid lightgray;
-      }
+  styles: `
+    .section {
+      margin-top: 20px;
+      border-top: 1px solid lightgray;
+      border-bottom: 1px solid lightgray;
+    }
 
-      .charts {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    `,
-  ],
+    .charts {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  `,
   standalone: true,
   imports: [ServerDiskUsagePieChartComponent, ServerDiskUsageLegendComponent],
 })

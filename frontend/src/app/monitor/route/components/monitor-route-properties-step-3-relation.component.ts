@@ -141,23 +141,21 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       </button>
     </div>
   `,
-  styles: [
-    `
-      .question {
-        padding-bottom: 1em;
-      }
+  styles: `
+    .question {
+      padding-bottom: 1em;
+    }
 
-      .answer {
-        display: block;
-        padding-top: 0.5em;
-      }
+    .answer {
+      display: block;
+      padding-top: 0.5em;
+    }
 
-      .comment {
-        padding-top: 2em;
-        padding-bottom: 1em;
-      }
-    `,
-  ],
+    .comment {
+      padding-top: 2em;
+      padding-bottom: 1em;
+    }
+  `,
   providers: [MonitorRoutePropertiesStep3RelationService],
   standalone: true,
   imports: [
@@ -190,7 +188,7 @@ export class MonitorRoutePropertiesStep3RelationComponent
     this.subscriptions.add(
       this.relationId.valueChanges.subscribe(() => {
         this.resetRouteInformation();
-      })
+      }),
     );
   }
 

@@ -60,20 +60,18 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .header {
-        display: flex;
-        align-items: center;
-        padding-top: 1em;
-        padding-bottom: 2em;
-      }
+  styles: `
+    .header {
+      display: flex;
+      align-items: center;
+      padding-top: 1em;
+      padding-bottom: 2em;
+    }
 
-      kpn-monitor-admin-toggle {
-        flex-grow: 1;
-      }
-    `,
-  ],
+    kpn-monitor-admin-toggle {
+      flex-grow: 1;
+    }
+  `,
   providers: [MonitorGroupsPageService, NavService],
   standalone: true,
   imports: [

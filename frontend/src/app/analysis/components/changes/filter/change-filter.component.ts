@@ -28,7 +28,7 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
       </div>
     </div>
   `,
-  styleUrls: ['../../filter/filter.scss'],
+  styleUrl: '../../filter/filter.scss',
   standalone: true,
   imports: [NgIf, NgFor, ChangeFilterPeriodComponent],
 })

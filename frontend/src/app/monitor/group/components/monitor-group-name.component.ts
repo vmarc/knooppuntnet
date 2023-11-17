@@ -39,13 +39,11 @@ import { MatInputModule } from '@angular/material/input';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .name {
-        width: 8em;
-      }
-    `,
-  ],
+  styles: `
+    .name {
+      width: 8em;
+    }
+  `,
   standalone: true,
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, NgIf],
 })

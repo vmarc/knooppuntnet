@@ -21,21 +21,19 @@ import { IndicatorIconComponent } from './indicator-icon.component';
       </div>
     </kpn-dialog>
   `,
-  styles: [
-    `
-      .title {
-        display: flex;
-        align-items: center;
-        padding-top: 0.5em;
-      }
+  styles: `
+    .title {
+      display: flex;
+      align-items: center;
+      padding-top: 0.5em;
+    }
 
-      .title-text {
-        display: inline-block;
-        padding-top: 5px;
-        padding-left: 20px;
-      }
-    `,
-  ],
+    .title-text {
+      display: inline-block;
+      padding-top: 5px;
+      padding-left: 20px;
+    }
+  `,
   standalone: true,
   imports: [DialogComponent, MatDialogModule, IndicatorIconComponent],
 })

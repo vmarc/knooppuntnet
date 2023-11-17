@@ -17,14 +17,12 @@ import { PlanActionsComponent } from './plan-actions.component';
       <kpn-network-type-selector *ngIf="showNetworkTypeSelector$ | async" />
     </div>
   `,
-  styles: [
-    `
-      .toolbar {
-        display: flex;
-        align-items: center;
-      }
-    `,
-  ],
+  styles: `
+    .toolbar {
+      display: flex;
+      align-items: center;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

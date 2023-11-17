@@ -25,54 +25,52 @@ import { PageService } from '..';
       <ng-content />
     </mat-toolbar>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        border-bottom: solid 1px lightgray;
-      }
+  styles: `
+    :host {
+      display: block;
+      border-bottom: solid 1px lightgray;
+    }
 
-      .toolbar-spacer {
-        flex: 1 1 auto;
-      }
+    .toolbar-spacer {
+      flex: 1 1 auto;
+    }
 
-      .toolbar-app-name {
-        margin-left: 8px;
-        font-size: 20px;
-        font-weight: 400;
-        letter-spacing: 0.0125em;
-      }
+    .toolbar-app-name {
+      margin-left: 8px;
+      font-size: 20px;
+      font-weight: 400;
+      letter-spacing: 0.0125em;
+    }
 
-      .mat-toolbar-row,
-      .mat-toolbar-single-row {
-        height: 47px;
-      }
+    .mat-toolbar-row,
+    .mat-toolbar-single-row {
+      height: 47px;
+    }
 
-      .toolbar-style-cycling {
-        background-color: rgba(144, 238, 144, 0.3);
-      }
+    .toolbar-style-cycling {
+      background-color: rgba(144, 238, 144, 0.3);
+    }
 
-      .toolbar-style-hiking {
-        background-color: rgba(252, 185, 128, 0.3);
-      }
+    .toolbar-style-hiking {
+      background-color: rgba(252, 185, 128, 0.3);
+    }
 
-      .toolbar-style-horse-riding {
-        background-color: rgba(250, 97, 41, 0.3);
-      }
+    .toolbar-style-horse-riding {
+      background-color: rgba(250, 97, 41, 0.3);
+    }
 
-      .toolbar-style-motorboat {
-        background-color: rgba(135, 181, 250, 0.3);
-      }
+    .toolbar-style-motorboat {
+      background-color: rgba(135, 181, 250, 0.3);
+    }
 
-      .toolbar-style-canoe {
-        background-color: rgba(20, 178, 252, 0.3);
-      }
+    .toolbar-style-canoe {
+      background-color: rgba(20, 178, 252, 0.3);
+    }
 
-      .toolbar-style-inline-skating {
-        background-color: rgba(255, 182, 193, 0.3);
-      }
-    `,
-  ],
+    .toolbar-style-inline-skating {
+      background-color: rgba(255, 182, 193, 0.3);
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

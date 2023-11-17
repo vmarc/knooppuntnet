@@ -183,9 +183,7 @@ import { RouteSummaryComponent } from './route-summary.component';
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
-  styleUrls: [
-    '../../../shared/components/shared/data/data.component.scss',
-  ],
+  styleUrl: '../../../shared/components/shared/data/data.component.scss',
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
@@ -221,7 +219,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   constructor(
     private pageWidthService: PageWidthService,
-    private store: Store
+    private store: Store,
   ) {}
 
   ngOnInit(): void {
@@ -231,8 +229,8 @@ export class RoutePageComponent implements OnInit, OnDestroy {
         (pageWidth) =>
           pageWidth !== PageWidth.small &&
           pageWidth !== PageWidth.verySmall &&
-          pageWidth !== PageWidth.veryVerySmall
-      )
+          pageWidth !== PageWidth.veryVerySmall,
+      ),
     );
   }
 
@@ -253,7 +251,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
           undefined,
           undefined,
           undefined,
-          unexpectedNodeIds
+          unexpectedNodeIds,
         );
       }
       if (fact === 'RouteUnexpectedRelation') {
@@ -264,7 +262,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
           undefined,
           undefined,
           undefined,
-          unexpectedRelationIds
+          unexpectedRelationIds,
         );
       }
       return new FactInfo(fact);
@@ -281,7 +279,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
 
   symbolDescription(page: RouteDetailsPage): string {
     const symbolTag = page.route.tags.tags.find(
-      (tag) => tag.key === 'osmc:symbol'
+      (tag) => tag.key === 'osmc:symbol',
     );
     if (symbolTag) {
       return symbolTag.value;

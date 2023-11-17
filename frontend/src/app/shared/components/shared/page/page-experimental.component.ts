@@ -27,18 +27,16 @@ import { VersionService } from '@app/services';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .warning-message {
-        background-color: #ffb6c157;
-        padding: 0.8em 3em 0.8em 0.8em;
-      }
+  styles: `
+    .warning-message {
+      background-color: #ffb6c157;
+      padding: 0.8em 3em 0.8em 0.8em;
+    }
 
-      #more {
-        padding-left: 1em;
-      }
-    `,
-  ],
+    #more {
+      padding-left: 1em;
+    }
+  `,
   standalone: true,
   imports: [NgClass, NgIf],
 })

@@ -21,19 +21,17 @@ import { PageService } from '../page.service';
       <kpn-doc-link *ngIf="subject" [subject]="subject" />
     </div>
   `,
-  styles: [
-    `
-      .header {
-        display: flex;
-        vertical-align: middle;
-      }
+  styles: `
+    .header {
+      display: flex;
+      vertical-align: middle;
+    }
 
-      .header h1 {
-        display: inline-block;
-        flex: 1;
-      }
-    `,
-  ],
+    .header h1 {
+      display: inline-block;
+      flex: 1;
+    }
+  `,
   standalone: true,
   imports: [NgIf, DocLinkComponent],
 })

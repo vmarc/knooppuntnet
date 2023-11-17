@@ -52,41 +52,39 @@ import { CountrySelectComponent } from './country-select.component';
       </div>
     </kpn-sidebar>
   `,
-  styles: [
-    `
-      .location-selector {
-        padding: 15px;
-      }
+  styles: `
+    .location-selector {
+      padding: 15px;
+    }
 
-      .filter {
-        padding: 25px 15px 25px 25px;
-      }
+    .filter {
+      padding: 25px 15px 25px 25px;
+    }
 
-      .poi-group-name {
-        display: inline-block;
-        font-weight: bold;
-      }
+    .poi-group-name {
+      display: inline-block;
+      font-weight: bold;
+    }
 
-      .poi-group-body {
-        padding-top: 5px;
-        padding-left: 25px;
-        padding-bottom: 20px;
-      }
+    .poi-group-body {
+      padding-top: 5px;
+      padding-left: 25px;
+      padding-bottom: 20px;
+    }
 
-      .poi-name {
-        display: inline-block;
-        width: 160px;
-        max-width: 160px;
-        word-wrap: break-word;
-      }
+    .poi-name {
+      display: inline-block;
+      width: 160px;
+      max-width: 160px;
+      word-wrap: break-word;
+    }
 
-      .poi-count {
-        display: inline-flex;
-        width: 50px;
-        justify-content: right;
-      }
-    `,
-  ],
+    .poi-count {
+      display: inline-flex;
+      width: 50px;
+      justify-content: right;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

@@ -32,21 +32,19 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       </mat-list-option>
     </mat-selection-list>
   `,
-  styles: [
-    `
-      .segment {
-        display: flex;
-      }
+  styles: `
+    .segment {
+      display: flex;
+    }
 
-      .segment-id {
-        width: 2em;
-      }
+    .segment-id {
+      width: 2em;
+    }
 
-      .segment-legend {
-        width: 3em;
-      }
-    `,
-  ],
+    .segment-legend {
+      width: 3em;
+    }
+  `,
   standalone: true,
   imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
 })

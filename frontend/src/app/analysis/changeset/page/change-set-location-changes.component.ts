@@ -58,78 +58,76 @@ import { map } from 'rxjs/operators';
     <!--      </mat-tree-node>-->
     <!--    </mat-tree>-->
   `,
-  styles: [
-    `
-      .node-label {
-        display: flex;
-        align-items: center;
-      }
+  styles: `
+    .node-label {
+      display: flex;
+      align-items: center;
+    }
 
-      .contents {
-        background-color: lightyellow;
-        position: relative;
-        left: 0;
-        margin-top: 1em;
-        margin-bottom: 1em;
-        margin-right: 100em;
-        padding: 1em;
-        border-top: 1px solid lightgray;
-        border-bottom: 1px solid lightgray;
-      }
+    .contents {
+      background-color: lightyellow;
+      position: relative;
+      left: 0;
+      margin-top: 1em;
+      margin-bottom: 1em;
+      margin-right: 100em;
+      padding: 1em;
+      border-top: 1px solid lightgray;
+      border-bottom: 1px solid lightgray;
+    }
 
-      .sidebar-open {
-        width: calc(100vw - 360px - 80px);
-      }
+    .sidebar-open {
+      width: calc(100vw - 360px - 80px);
+    }
 
-      .sidebar-closed {
-        width: calc(100vw - 80px);
-      }
+    .sidebar-closed {
+      width: calc(100vw - 80px);
+    }
 
-      .contents-level-1 {
-        background-color: lightskyblue;
-        left: -40px;
-      }
+    .contents-level-1 {
+      background-color: lightskyblue;
+      left: -40px;
+    }
 
-      .contents-level-2 {
-        background-color: lightgreen;
-        left: -80px;
-      }
+    .contents-level-2 {
+      background-color: lightgreen;
+      left: -80px;
+    }
 
-      .contents-level-3 {
-        background-color: lightpink;
-        left: -120px;
-      }
+    .contents-level-3 {
+      background-color: lightpink;
+      left: -120px;
+    }
 
-      .contents-level-4 {
-        background-color: lightcyan;
-        left: -160px;
-      }
+    .contents-level-4 {
+      background-color: lightcyan;
+      left: -160px;
+    }
 
-      ::ng-deep .expand-collapse-icon > svg {
-        width: 12px;
-        height: 12px;
-        vertical-align: top;
-        padding-top: 7px;
-      }
+    ::ng-deep .expand-collapse-icon > svg {
+      width: 12px;
+      height: 12px;
+      vertical-align: top;
+      padding-top: 7px;
+    }
 
-      .node-count {
-        padding-left: 20px;
-        color: grey;
-      }
+    .node-count {
+      padding-left: 20px;
+      color: grey;
+    }
 
-      .buttons {
-        margin-top: 20px;
-      }
+    .buttons {
+      margin-top: 20px;
+    }
 
-      .location-button {
-        margin-right: 10px;
-      }
+    .location-button {
+      margin-right: 10px;
+    }
 
-      .hidden {
-        display: none;
-      }
-    `,
-  ],
+    .hidden {
+      display: none;
+    }
+  `,
   standalone: true,
 })
 export class ChangeSetLocationChangesComponent /*implements OnInit*/ {

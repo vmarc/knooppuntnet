@@ -23,13 +23,11 @@ import { MatPaginator } from '@angular/material/paginator';
       [hidePageSize]="!showPageSizeSelection"
     />
   `,
-  styles: [
-    `
-      mat-paginator {
-        background-color: transparent;
-      }
-    `,
-  ],
+  styles: `
+    mat-paginator {
+      background-color: transparent;
+    }
+  `,
   standalone: true,
   imports: [MatPaginatorModule],
 })

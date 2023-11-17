@@ -112,28 +112,26 @@ import { PlannerService } from '../../../planner.service';
       </div>
     </kpn-dialog>
   `,
-  styles: [
-    `
-      .dialog-content {
-        display: flex;
-        flex-direction: column;
-      }
+  styles: `
+    .dialog-content {
+      display: flex;
+      flex-direction: column;
+    }
 
-      .dialog-content > button {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        width: 225px;
-      }
+    .dialog-content > button {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      width: 225px;
+    }
 
-      img {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        width: 225px;
-        height: 225px;
-        border: 1px solid lightgray;
-      }
-    `,
-  ],
+    img {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      width: 225px;
+      height: 225px;
+      border: 1px solid lightgray;
+    }
+  `,
   providers: [PdfService],
   standalone: true,
   imports: [

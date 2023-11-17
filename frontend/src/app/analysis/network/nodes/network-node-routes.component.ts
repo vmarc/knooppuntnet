@@ -31,17 +31,15 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       </span>
     </div>
   `,
-  styles: [
-    `
-      .no-routes {
-        color: red;
-      }
+  styles: `
+    .no-routes {
+      color: red;
+    }
 
-      .route-list {
-        display: inline-block;
-      }
-    `,
-  ],
+    .route-list {
+      display: inline-block;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor, LinkRouteComponent],
 })

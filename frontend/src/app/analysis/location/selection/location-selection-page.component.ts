@@ -83,17 +83,15 @@ import { LocationTreeComponent } from './location-tree.component';
       <kpn-location-selection-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .in:before {
-        content: ' ';
-      }
+  styles: `
+    .in:before {
+      content: ' ';
+    }
 
-      .in:after {
-        content: ' ';
-      }
-    `,
-  ],
+    .in:after {
+      content: ' ';
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

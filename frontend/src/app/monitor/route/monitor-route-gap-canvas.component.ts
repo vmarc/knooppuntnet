@@ -10,13 +10,11 @@ import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
   selector: 'kpn-monitor-route-gap-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <canvas #gapCanvas [height]="height" [width]="width"></canvas> `,
-  styles: [
-    `
-      canvas {
-        display: block;
-      }
-    `,
-  ],
+  styles: `
+    canvas {
+      display: block;
+    }
+  `,
   standalone: true,
 })
 export class MonitorRouteGapCanvasComponent implements AfterViewInit {

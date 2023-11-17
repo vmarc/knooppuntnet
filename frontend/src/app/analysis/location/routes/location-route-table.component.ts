@@ -166,23 +166,21 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       [length]="routeCount"
     />
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        width: 4em;
-      }
+  styles: `
+    .mat-column-nr {
+      width: 4em;
+    }
 
-      .distance {
-        white-space: nowrap;
-        text-align: right;
-        width: 100%;
-      }
+    .distance {
+      white-space: nowrap;
+      text-align: right;
+      width: 100%;
+    }
 
-      .symbol {
-        vertical-align: middle;
-      }
-    `,
-  ],
+    .symbol {
+      vertical-align: middle;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

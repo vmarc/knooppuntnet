@@ -70,15 +70,13 @@ import { MapService } from '../../../services/map.service';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .poi-config {
-        border-bottom: 1px solid lightgray;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+  styles: `
+    .poi-config {
+      border-bottom: 1px solid lightgray;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, MatRadioModule],
 })

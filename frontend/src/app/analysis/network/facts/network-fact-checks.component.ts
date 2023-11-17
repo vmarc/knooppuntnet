@@ -43,13 +43,11 @@ import { LinkNodeComponent } from '@app/components/shared/link';
       </tbody>
     </table>
   `,
-  styles: [
-    `
-      .nr {
-        min-width: 2em;
-      }
-    `,
-  ],
+  styles: `
+    .nr {
+      min-width: 2em;
+    }
+  `,
   standalone: true,
   imports: [NgFor, LinkNodeComponent],
 })

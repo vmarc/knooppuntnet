@@ -38,9 +38,7 @@ import { LocationModeService } from './location-mode.service';
       </mat-radio-group>
     </div>
   `,
-  styleUrls: [
-    '../../../shared/components/shared/sidebar/sidebar.scss',
-  ],
+  styleUrl: '../../../shared/components/shared/sidebar/sidebar.scss',
   standalone: true,
   imports: [MatRadioModule],
 })

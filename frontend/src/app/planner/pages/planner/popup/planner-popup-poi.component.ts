@@ -59,19 +59,17 @@ import { MapService } from '../../../services/map.service';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .item {
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
+  styles: `
+    .item {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
-      .item * {
-        margin-right: 10px;
-        align-items: center;
-      }
-    `,
-  ],
+    .item * {
+      margin-right: 10px;
+      align-items: center;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

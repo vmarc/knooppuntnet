@@ -132,13 +132,11 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       [length]="poiCount"
     />
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        flex: 0 0 4em;
-      }
-    `,
-  ],
+  styles: `
+    .mat-column-nr {
+      flex: 0 0 4em;
+    }
+  `,
   standalone: true,
   imports: [PaginatorComponent, MatTableModule, NgFor, RouterLink, AsyncPipe],
 })

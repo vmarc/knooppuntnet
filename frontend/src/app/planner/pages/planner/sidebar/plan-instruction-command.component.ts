@@ -7,21 +7,19 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'kpn-plan-instruction-command',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mat-icon svgIcon="{{ command }}" class="command-icon" /> `,
-  styles: [
-    `
-      .command-icon {
-        width: 40px;
-        height: 40px;
-      }
+  styles: `
+    .command-icon {
+      width: 40px;
+      height: 40px;
+    }
 
-      ::ng-deep .command-icon > svg {
-        width: 40px;
-        height: 40px;
-        fill: #666666;
-        stroke: #666666;
-      }
-    `,
-  ],
+    ::ng-deep .command-icon > svg {
+      width: 40px;
+      height: 40px;
+      fill: #666666;
+      stroke: #666666;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule],
 })

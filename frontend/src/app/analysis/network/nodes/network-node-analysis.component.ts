@@ -24,13 +24,11 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
       <kpn-proposed-indicator [node]="node" />
     </div>
   `,
-  styles: [
-    `
-      .analysis {
-        display: flex;
-      }
-    `,
-  ],
+  styles: `
+    .analysis {
+      display: flex;
+    }
+  `,
   standalone: true,
   imports: [
     IntegrityIndicatorComponent,

@@ -181,13 +181,11 @@ import { DayInputComponent } from '@app/components/shared/format';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .file-input {
-        display: none;
-      }
-    `,
-  ],
+  styles: `
+    .file-input {
+      display: none;
+    }
+  `,
   standalone: true,
   imports: [
     DayInputComponent,

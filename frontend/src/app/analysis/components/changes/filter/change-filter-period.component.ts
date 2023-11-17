@@ -32,7 +32,7 @@ import { MonthComponent } from './month.component';
       </div>
     </div>
   `,
-  styleUrls: ['../../filter/filter.scss'],
+  styleUrl: '../../filter/filter.scss',
   standalone: true,
   imports: [NgClass, NgIf, MonthComponent],
 })

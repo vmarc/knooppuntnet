@@ -76,35 +76,33 @@ import { SymbolComponent } from './symbol.component';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .page {
-        padding: 1em;
-        width: 100%;
-      }
+  styles: `
+    .page {
+      padding: 1em;
+      width: 100%;
+    }
 
-      .symbols {
-        display: flex;
-        flex-wrap: wrap;
-      }
+    .symbols {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-      .symbol {
-        padding: 0.5em;
-        border: 1px solid lightgray;
-        margin: 0 0 1em 1em;
-        width: 6em;
-      }
+    .symbol {
+      padding: 0.5em;
+      border: 1px solid lightgray;
+      margin: 0 0 1em 1em;
+      width: 6em;
+    }
 
-      .symbol-name {
-        padding-bottom: 0.5em;
-        font-size: 14px;
-      }
+    .symbol-name {
+      padding-bottom: 0.5em;
+      font-size: 14px;
+    }
 
-      .example {
-        margin: 0 0 1em 1em;
-      }
-    `,
-  ],
+    .example {
+      margin: 0 0 1em 1em;
+    }
+  `,
   standalone: true,
   imports: [NgFor, SymbolComponent, OsmLinkRelationComponent, RouterLink],
 })

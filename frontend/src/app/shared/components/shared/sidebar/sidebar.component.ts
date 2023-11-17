@@ -18,32 +18,30 @@ import { SidebarFooterComponent } from './sidebar-footer.component';
       <kpn-sidebar-footer />
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        min-height: calc(100vh - 48px);
-      }
+  styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-height: calc(100vh - 48px);
+    }
 
-      .sidebar-body {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        align-content: stretch;
-        flex: 1;
-      }
+    .sidebar-body {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      align-content: stretch;
+      flex: 1;
+    }
 
-      .sidebar-footer {
-        flex: 0;
-      }
+    .sidebar-footer {
+      flex: 0;
+    }
 
-      .body-bottom {
-        margin-top: auto;
-      }
-    `,
-  ],
+    .body-bottom {
+      margin-top: auto;
+    }
+  `,
   standalone: true,
   imports: [SidebarFooterComponent],
 })

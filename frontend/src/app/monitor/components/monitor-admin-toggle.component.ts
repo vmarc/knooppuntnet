@@ -21,16 +21,14 @@ import { MonitorService } from '../monitor.service';
       </mat-slide-toggle>
     </div>
   `,
-  styles: [
-    `
-      .toggle {
-        padding-top: 0.5em;
-        padding-bottom: 0.5em;
-        display: flex;
-        justify-content: flex-end;
-      }
-    `,
-  ],
+  styles: `
+    .toggle {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+      display: flex;
+      justify-content: flex-end;
+    }
+  `,
   standalone: true,
   imports: [MatSlideToggleModule, AsyncPipe],
 })

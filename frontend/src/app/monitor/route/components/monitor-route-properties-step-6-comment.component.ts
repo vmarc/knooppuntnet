@@ -33,13 +33,11 @@ import { MatStepperModule } from '@angular/material/stepper';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .comment {
-        width: 50em;
-      }
-    `,
-  ],
+  styles: `
+    .comment {
+      width: 50em;
+    }
+  `,
   standalone: true,
   imports: [
     MatButtonModule,

@@ -32,21 +32,19 @@ import { selectDemoEnabled } from '../store/demo.selectors';
       <kpn-demo-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .video-icon {
-        padding-top: 5em;
-        display: flex;
-        justify-content: center;
-      }
+  styles: `
+    .video-icon {
+      padding-top: 5em;
+      display: flex;
+      justify-content: center;
+    }
 
-      .video-icon mat-icon {
-        width: 200px;
-        height: 200px;
-        color: #f8f8f8;
-      }
-    `,
-  ],
+    .video-icon mat-icon {
+      width: 200px;
+      height: 200px;
+      color: #f8f8f8;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

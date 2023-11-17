@@ -49,35 +49,33 @@ import { setTag } from '@sentry/angular-ivy';
     <!--      </mat-sidenav-content>-->
     <!--    </mat-sidenav-container>-->
   `,
-  styles: [
-    `
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 48px;
-        z-index: 1001;
-      }
+  styles: `
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      z-index: 1001;
+    }
 
-      .page-contents {
-        margin-top: 48px;
-        display: flex;
-        min-height: calc(100vh - 48px);
-        flex-direction: column;
-      }
+    .page-contents {
+      margin-top: 48px;
+      display: flex;
+      min-height: calc(100vh - 48px);
+      flex-direction: column;
+    }
 
-      main {
-        flex: 1;
-        margin: 20px;
-      }
+    main {
+      flex: 1;
+      margin: 20px;
+    }
 
-      mat-sidenav {
-        min-width: 360px;
-        max-width: 360px;
-      }
-    `,
-  ],
+    mat-sidenav {
+      min-width: 360px;
+      max-width: 360px;
+    }
+  `,
   standalone: true,
   imports: [
     MatSidenavModule,
@@ -97,7 +95,7 @@ export class AppComponent implements OnDestroy {
     private iconService: IconService,
     private spinnerService: SpinnerService,
     private versionService: VersionService,
-    router: Router
+    router: Router,
   ) {
     setTag('knooppuntnet-version', versionService.version);
 
@@ -113,7 +111,7 @@ export class AppComponent implements OnDestroy {
         error: (error) => {
           console.log('AppComponent router event error: ' + error.toString());
         },
-      })
+      }),
     );
   }
 

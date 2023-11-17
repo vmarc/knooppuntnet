@@ -13,30 +13,28 @@ import { MatIconModule } from '@angular/material/icon';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .cover {
-        background-color: white;
-        width: 1280px;
-        height: 720px;
-        border: 2px solid lightgray;
-      }
+  styles: `
+    .cover {
+      background-color: white;
+      width: 1280px;
+      height: 720px;
+      border: 2px solid lightgray;
+    }
 
-      .cover-text {
-        padding-top: 200px;
-        text-align: center;
-        font-size: 20px;
-        color: grey;
-      }
+    .cover-text {
+      padding-top: 200px;
+      text-align: center;
+      font-size: 20px;
+      color: grey;
+    }
 
-      .video-icon {
-        display: inline-block;
-        width: 100px;
-        height: 100px;
-        color: lightgrey;
-      }
-    `,
-  ],
+    .video-icon {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      color: lightgrey;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule],
 })

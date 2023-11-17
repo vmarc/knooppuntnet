@@ -9,24 +9,22 @@ import { Component } from '@angular/core';
       <ng-content />
     </div>
   `,
-  styles: [
-    `
-      .items {
-        margin-top: 20px;
-        border-top-color: lightgray;
-        border-top-style: solid;
-        border-top-width: 1px;
-      }
+  styles: `
+    .items {
+      margin-top: 20px;
+      border-top-color: lightgray;
+      border-top-style: solid;
+      border-top-width: 1px;
+    }
 
-      @media (max-width: 768px) {
-        /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
-        .items {
-          margin-left: -20px;
-          margin-right: -20px;
-        }
+    @media (max-width: 768px) {
+      /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
+      .items {
+        margin-left: -20px;
+        margin-right: -20px;
       }
-    `,
-  ],
+    }
+  `,
   standalone: true,
 })
 export class ItemsComponent {}

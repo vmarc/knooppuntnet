@@ -21,20 +21,18 @@ import { PlanComponent } from './plan.component';
       </ng-template>
     </mat-expansion-panel>
   `,
-  styles: [
-    `
-      .header {
-        display: flex;
-        align-items: center;
-        width: 100%;
-      }
+  styles: `
+    .header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
 
-      .header h1 {
-        flex: 1;
-        display: inline-block;
-      }
-    `,
-  ],
+    .header h1 {
+      flex: 1;
+      display: inline-block;
+    }
+  `,
   standalone: true,
   imports: [MatExpansionModule, DocLinkComponent, PlanComponent],
 })

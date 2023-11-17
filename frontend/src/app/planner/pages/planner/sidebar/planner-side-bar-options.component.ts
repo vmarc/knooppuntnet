@@ -43,14 +43,12 @@ import { Store } from '@ngrx/store';
       </p>
     </mat-expansion-panel>
   `,
-  styles: [
-    `
-      .legend > div {
-        display: flex;
-        align-items: center;
-      }
-    `,
-  ],
+  styles: `
+    .legend > div {
+      display: flex;
+      align-items: center;
+    }
+  `,
   standalone: true,
   imports: [MatExpansionModule, MatCheckboxModule, AsyncPipe],
 })

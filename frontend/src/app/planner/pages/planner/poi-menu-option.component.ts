@@ -25,15 +25,13 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
       <ng-content />
     </mat-checkbox>
   `,
-  styles: [
-    `
-      .poi-group {
-        display: block;
-        padding-left: 25px;
-        padding-right: 10px;
-      }
-    `,
-  ],
+  styles: `
+    .poi-group {
+      display: block;
+      padding-left: 25px;
+      padding-right: 10px;
+    }
+  `,
   standalone: true,
   imports: [MatCheckboxModule, AsyncPipe],
 })

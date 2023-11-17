@@ -20,24 +20,22 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
       <span>{{ step.description }}</span>
     </div>
   `,
-  styles: [
-    `
-      .icon {
-        width: 2em;
-        height: 1.5em;
-      }
+  styles: `
+    .icon {
+      width: 2em;
+      height: 1.5em;
+    }
 
-      .done {
-        color: green;
-      }
+    .done {
+      color: green;
+    }
 
-      .todo {
-        color: grey;
-        width: 0.3em;
-        height: 0.3em;
-      }
-    `,
-  ],
+    .todo {
+      color: grey;
+      width: 0.3em;
+      height: 0.3em;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule, MatProgressSpinnerModule, NgIf],
 })

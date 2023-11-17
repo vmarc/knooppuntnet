@@ -41,58 +41,56 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
       </div>
     </div>
   `,
-  styles: [
-    `
-      .item {
-        padding: 10px;
-        border-bottom-color: lightgray;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-      }
+  styles: `
+    .item {
+      padding: 10px;
+      border-bottom-color: lightgray;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+    }
 
-      .header {
-        display: flex;
-        max-width: 20em;
-        align-items: center;
-      }
+    .header {
+      display: flex;
+      max-width: 20em;
+      align-items: center;
+    }
 
-      .title {
-        flex: 0 0 auto;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-      }
+    .title {
+      flex: 0 0 auto;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
 
-      .total {
-        flex: 1 0 auto;
-        text-align: right;
-        vertical-align: middle;
-      }
+    .total {
+      flex: 1 0 auto;
+      text-align: right;
+      vertical-align: middle;
+    }
 
-      .expand-collapse-icon {
-        padding-top: 5px;
-      }
+    .expand-collapse-icon {
+      padding-top: 5px;
+    }
 
-      ::ng-deep .expand-collapse-icon svg {
-        width: 12px;
-        height: 12px;
-        vertical-align: middle;
-      }
+    ::ng-deep .expand-collapse-icon svg {
+      width: 12px;
+      height: 12px;
+      vertical-align: middle;
+    }
 
-      .body {
-        margin-left: 20px;
-      }
+    .body {
+      margin-left: 20px;
+    }
 
-      .comment {
-        margin: 20px 20px 20px 10px;
-        padding-left: 5px;
-        border-left-color: lightgray;
-        border-left-style: solid;
-        border-left-width: 3px;
-        max-width: 40em;
-      }
-    `,
-  ],
+    .comment {
+      margin: 20px 20px 20px 10px;
+      padding-left: 5px;
+      border-left-color: lightgray;
+      border-left-style: solid;
+      border-left-width: 3px;
+      max-width: 40em;
+    }
+  `,
   standalone: true,
   imports: [
     MarkdownModule,

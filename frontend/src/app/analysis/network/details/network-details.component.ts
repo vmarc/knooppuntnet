@@ -47,9 +47,7 @@ import { NetworkSummaryComponent } from './network-summary.component';
       <kpn-tags-table [tags]="tags" />
     </kpn-data>
   `,
-  styleUrls: [
-    '../../../shared/components/shared/data/data.component.scss',
-  ],
+  styleUrl: '../../../shared/components/shared/data/data.component.scss',
   standalone: true,
   imports: [
     DataComponent,

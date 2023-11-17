@@ -48,32 +48,30 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .detail-header {
-        padding-bottom: 0.5em;
-      }
+  styles: `
+    .detail-header {
+      padding-bottom: 0.5em;
+    }
 
-      .detail-header-text {
-        display: inline;
-        line-height: 24px;
-      }
+    .detail-header-text {
+      display: inline;
+      line-height: 24px;
+    }
 
-      .detail-header-text :not(:last-child) {
-        padding-right: 0.8em;
-      }
+    .detail-header-text :not(:last-child) {
+      padding-right: 0.8em;
+    }
 
-      kpn-icon-happy {
-        position: relative;
-        top: 3px;
-      }
+    kpn-icon-happy {
+      position: relative;
+      top: 3px;
+    }
 
-      kpn-icon-investigate {
-        position: relative;
-        top: 3px;
-      }
-    `,
-  ],
+    kpn-icon-investigate {
+      position: relative;
+      top: 3px;
+    }
+  `,
   standalone: true,
   imports: [
     IconHappyComponent,

@@ -14,7 +14,7 @@ import { FilterOptions } from '@app/kpn/filter';
       </div>
     </div>
   `,
-  styleUrls: ['./filter.scss'],
+  styleUrl: './filter.scss',
   standalone: true,
 })
 export class FilterTitleComponent {

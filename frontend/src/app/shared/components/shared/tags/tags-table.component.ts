@@ -35,14 +35,12 @@ import { InterpretedTags } from './interpreted-tags';
       </tbody>
     </table>
   `,
-  styles: [
-    `
-      .no-tags {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+  styles: `
+    .no-tags {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor],
 })

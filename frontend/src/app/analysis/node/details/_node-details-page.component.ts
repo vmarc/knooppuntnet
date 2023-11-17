@@ -132,9 +132,7 @@ import { NodeSummaryComponent } from './node-summary.component';
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
-  styleUrls: [
-    '../../../shared/components/shared/data/data.component.scss',
-  ],
+  styleUrl: '../../../shared/components/shared/data/data.component.scss',
   standalone: true,
   imports: [
     AnalysisSidebarComponent,

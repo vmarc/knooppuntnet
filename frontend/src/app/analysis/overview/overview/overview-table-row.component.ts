@@ -28,30 +28,28 @@ import { OverviewValueComponent } from './overview-value.component';
       </p>
     </td>
   `,
-  styles: [
-    `
-      :host {
-        display: table-row;
-      }
+  styles: `
+    :host {
+      display: table-row;
+    }
 
-      ::ng-deep .comment-cell p:first-child {
-        margin-top: 0;
-      }
+    ::ng-deep .comment-cell p:first-child {
+      margin-top: 0;
+    }
 
-      ::ng-deep .comment-cell p:last-child {
-        margin-bottom: 0;
-      }
+    ::ng-deep .comment-cell p:last-child {
+      margin-bottom: 0;
+    }
 
-      ::ng-deep .comment-cell {
-        min-width: 15em;
-      }
+    ::ng-deep .comment-cell {
+      min-width: 15em;
+    }
 
-      .value-cell {
-        white-space: nowrap;
-        text-align: right;
-      }
-    `,
-  ],
+    .value-cell {
+      white-space: nowrap;
+      text-align: right;
+    }
+  `,
   standalone: true,
   imports: [NgFor, OverviewValueComponent, NgIf, MarkdownModule],
 })

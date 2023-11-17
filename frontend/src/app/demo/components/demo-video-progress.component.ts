@@ -27,19 +27,17 @@ import { selectDemoProgress } from '../store/demo.selectors';
       </mat-slider>
     </div>
   `,
-  styles: [
-    `
-      .progress {
-        z-index: 3;
-        position: absolute;
-        padding-top: 720px;
-      }
+  styles: `
+    .progress {
+      z-index: 3;
+      position: absolute;
+      padding-top: 720px;
+    }
 
-      .progress mat-slider {
-        width: 1280px;
-      }
-    `,
-  ],
+    .progress mat-slider {
+      width: 1280px;
+    }
+  `,
   standalone: true,
   imports: [MatSliderModule, AsyncPipe],
 })

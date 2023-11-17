@@ -32,24 +32,22 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       <kpn-josm-relation [relationId]="network.id" />
     </div>
   `,
-  styles: [
-    `
-      .title {
-        display: flex;
-        align-items: center;
-      }
+  styles: `
+    .title {
+      display: flex;
+      align-items: center;
+    }
 
-      .percentage {
-        padding-left: 10px;
-      }
+    .percentage {
+      padding-left: 10px;
+    }
 
-      .happy {
-        padding-left: 10px;
-        height: 25px;
-        white-space: nowrap;
-      }
-    `,
-  ],
+    .happy {
+      padding-left: 10px;
+      height: 25px;
+      white-space: nowrap;
+    }
+  `,
   standalone: true,
   imports: [
     IntegerFormatPipe,

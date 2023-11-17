@@ -56,14 +56,12 @@ import { MapLayerTranslationService } from '../services';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .map-layers-control {
-        top: 90px;
-        right: 10px;
-      }
-    `,
-  ],
+  styles: `
+    .map-layers-control {
+      top: 90px;
+      right: 10px;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

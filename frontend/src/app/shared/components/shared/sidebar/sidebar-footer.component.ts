@@ -43,21 +43,19 @@ import { Store } from '@ngrx/store';
       </ng-container>
     </div>
   `,
-  styles: [
-    `
-      .footer {
-        padding-top: 15px;
-        border-top-width: 1px;
-        border-top-style: solid;
-        border-top-color: lightgray;
-        text-align: center;
-      }
+  styles: `
+    .footer {
+      padding-top: 15px;
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: lightgray;
+      text-align: center;
+    }
 
-      .version {
-        color: lightgray;
-      }
-    `,
-  ],
+    .version {
+      color: lightgray;
+    }
+  `,
   standalone: true,
   imports: [NgIf, LinkLogoutComponent, LinkLoginComponent, AsyncPipe],
 })

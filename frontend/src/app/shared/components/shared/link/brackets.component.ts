@@ -10,13 +10,11 @@ import { Component } from '@angular/core';
     <ng-content />
     <span class="bracket">)</span>
   `,
-  styles: [
-    `
-      .bracket {
-        color: grey;
-      }
-    `,
-  ],
+  styles: `
+    .bracket {
+      color: grey;
+    }
+  `,
   standalone: true,
 })
 export class BracketsComponent {}

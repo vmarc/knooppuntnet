@@ -59,35 +59,33 @@ import { PageFooterComponent } from './page-footer.component';
       </mat-sidenav-content>
     </mat-sidenav-container>
   `,
-  styles: [
-    `
-      header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 48px;
-        z-index: 1001;
-      }
+  styles: `
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 48px;
+      z-index: 1001;
+    }
 
-      .page-contents {
-        margin-top: 48px;
-        display: flex;
-        min-height: calc(100vh - 48px);
-        flex-direction: column;
-      }
+    .page-contents {
+      margin-top: 48px;
+      display: flex;
+      min-height: calc(100vh - 48px);
+      flex-direction: column;
+    }
 
-      main {
-        flex: 1;
-        margin: 20px;
-      }
+    main {
+      flex: 1;
+      margin: 20px;
+    }
 
-      mat-sidenav {
-        min-width: 360px;
-        max-width: 360px;
-      }
-    `,
-  ],
+    mat-sidenav {
+      min-width: 360px;
+      max-width: 360px;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

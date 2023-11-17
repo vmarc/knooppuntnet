@@ -64,17 +64,15 @@ import { EditService } from './edit.service';
       </p>
     </div>
   `,
-  styles: [
-    `
-      .dialog {
-        min-width: 20em;
-      }
+  styles: `
+    .dialog {
+      min-width: 20em;
+    }
 
-      .timeout {
-        color: red;
-      }
-    `,
-  ],
+    .timeout {
+      color: red;
+    }
+  `,
   providers: [EditService],
   standalone: true,
   imports: [

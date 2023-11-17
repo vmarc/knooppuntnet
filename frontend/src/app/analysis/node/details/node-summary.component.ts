@@ -75,17 +75,15 @@ import { MarkdownModule } from 'ngx-markdown';
       </p>
     </div>
   `,
-  styles: [
-    `
-      .network-name {
-        padding-right: 1em;
-      }
+  styles: `
+    .network-name {
+      padding-right: 1em;
+    }
 
-      .network-type {
-        padding-left: 0.4em;
-      }
-    `,
-  ],
+    .network-type {
+      padding-left: 0.4em;
+    }
+  `,
   standalone: true,
   imports: [
     CountryNameComponent,

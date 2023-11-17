@@ -20,7 +20,7 @@ import { FilterTitleComponent } from './filter-title.component';
       </div>
     </div>
   `,
-  styleUrls: ['./filter.scss'],
+  styleUrl: './filter.scss',
   standalone: true,
   imports: [
     FilterCheckboxGroupComponent,

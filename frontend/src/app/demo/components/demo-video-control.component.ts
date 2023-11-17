@@ -45,66 +45,64 @@ import { selectDemoEnabled } from '../store/demo.selectors';
       </ng-template>
     </div>
   `,
-  styles: [
-    `
-      .video-control {
-        display: flex;
-        border-bottom: 1px solid lightgrey;
-        height: 4em;
-        padding: 1em;
-      }
+  styles: `
+    .video-control {
+      display: flex;
+      border-bottom: 1px solid lightgrey;
+      height: 4em;
+      padding: 1em;
+    }
 
-      .control-text {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-      }
+    .control-text {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
-      .selected {
-        background-color: #fafafa;
-      }
+    .selected {
+      background-color: #fafafa;
+    }
 
-      .title {
-        flex-grow: 1;
-        padding-right: 10px;
-      }
+    .title {
+      flex-grow: 1;
+      padding-right: 10px;
+    }
 
-      .duration {
-        color: lightgray;
-      }
+    .duration {
+      color: lightgray;
+    }
 
-      .play-pause-button {
-        color: lightgray;
-        cursor: pointer;
-      }
+    .play-pause-button {
+      color: lightgray;
+      cursor: pointer;
+    }
 
-      .play-pause-button:hover {
-        color: grey;
-      }
+    .play-pause-button:hover {
+      color: grey;
+    }
 
-      .play-pause-button-disabled {
-        color: lightgray;
-      }
+    .play-pause-button-disabled {
+      color: lightgray;
+    }
 
-      .buttonSelected {
-        color: red;
-      }
+    .buttonSelected {
+      color: red;
+    }
 
-      .buttonSelected.play-pause-button:hover {
-        color: red;
-      }
+    .buttonSelected.play-pause-button:hover {
+      color: red;
+    }
 
-      .play-pause-button mat-icon {
-        width: 3em;
-        height: 3em;
-      }
+    .play-pause-button mat-icon {
+      width: 3em;
+      height: 3em;
+    }
 
-      .play-pause-button-disabled mat-icon {
-        width: 3em;
-        height: 3em;
-      }
-    `,
-  ],
+    .play-pause-button-disabled mat-icon {
+      width: 3em;
+      height: 3em;
+    }
+  `,
   standalone: true,
   imports: [NgClass, NgIf, MatIconModule, AsyncPipe],
 })

@@ -18,29 +18,27 @@ import { SidebarFooterComponent } from '@app/components/shared/sidebar';
       <kpn-sidebar-footer />
     </div>
   `,
-  styles: [
-    `
-      :host {
-        display: flex;
-        flex-direction: column;
-        min-height: calc(100vh - 48px);
-      }
+  styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+      min-height: calc(100vh - 48px);
+    }
 
-      .sidebar-body {
-        flex: 1;
-      }
+    .sidebar-body {
+      flex: 1;
+    }
 
-      .sidebar-footer {
-        flex: 0;
-      }
+    .sidebar-footer {
+      flex: 0;
+    }
 
-      .tips {
-        font-style: italic;
-        color: grey;
-        margin: 1em;
-      }
-    `,
-  ],
+    .tips {
+      font-style: italic;
+      color: grey;
+      margin: 1em;
+    }
+  `,
   standalone: true,
   imports: [SidebarFooterComponent],
 })

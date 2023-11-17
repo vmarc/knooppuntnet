@@ -248,49 +248,47 @@ import { SymbolComponent } from '@app/symbol';
       <tr mat-row *matRowDef="let group; columns: displayedColumns(admin)"></tr>
     </table>
   `,
-  styles: [
-    `
-      .id {
-        width: 12em;
-      }
+  styles: `
+    .id {
+      width: 12em;
+    }
 
-      .mat-column-name {
-        white-space: nowrap;
-      }
+    .mat-column-name {
+      white-space: nowrap;
+    }
 
-      .mat-column-description {
-        min-width: 12em;
-      }
+    .mat-column-description {
+      min-width: 12em;
+    }
 
-      .mat-column-reference-day {
-        white-space: nowrap;
-      }
+    .mat-column-reference-day {
+      white-space: nowrap;
+    }
 
-      .mat-column-reference-distance {
-        text-align: right !important;
-        white-space: nowrap;
-      }
+    .mat-column-reference-distance {
+      text-align: right !important;
+      white-space: nowrap;
+    }
 
-      .mat-column-deviation-count {
-        text-align: right !important;
-        white-space: nowrap;
-      }
+    .mat-column-deviation-count {
+      text-align: right !important;
+      white-space: nowrap;
+    }
 
-      .mat-column-deviation-distance {
-        text-align: right !important;
-        white-space: nowrap;
-      }
+    .mat-column-deviation-distance {
+      text-align: right !important;
+      white-space: nowrap;
+    }
 
-      .mat-column-osm-segment-count {
-        text-align: right !important;
-        white-space: nowrap;
-      }
+    .mat-column-osm-segment-count {
+      text-align: right !important;
+      white-space: nowrap;
+    }
 
-      .symbol {
-        vertical-align: middle;
-      }
-    `,
-  ],
+    .symbol {
+      vertical-align: middle;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

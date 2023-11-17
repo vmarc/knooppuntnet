@@ -144,34 +144,32 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </ng-template>
     </ng-template>
   `,
-  styles: [
-    `
-      .segments-title {
-        padding-top: 1em;
-      }
+  styles: `
+    .segments-title {
+      padding-top: 1em;
+    }
 
-      .segment {
-        display: flex;
-        align-items: center;
-      }
+    .segment {
+      display: flex;
+      align-items: center;
+    }
 
-      .segment-header {
-        padding-left: 1em;
-      }
+    .segment-header {
+      padding-left: 1em;
+    }
 
-      .segment-id {
-        width: 3em;
-      }
+    .segment-id {
+      width: 3em;
+    }
 
-      .segment-deviation {
-        width: 5em;
-      }
+    .segment-deviation {
+      width: 5em;
+    }
 
-      .popup-menu {
-        margin-left: auto;
-      }
-    `,
-  ],
+    .popup-menu {
+      margin-left: auto;
+    }
+  `,
   standalone: true,
   imports: [
     DistancePipe,

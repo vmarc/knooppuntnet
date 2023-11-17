@@ -108,13 +108,11 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
       <tr mat-row *matRowDef="let node; columns: displayedColumns"></tr>
     </table>
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        width: 3rem;
-      }
-    `,
-  ],
+  styles: `
+    .mat-column-nr {
+      width: 3rem;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

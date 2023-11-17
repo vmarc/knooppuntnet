@@ -15,47 +15,45 @@ import { Input } from '@angular/core';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .item {
-        border-bottom-color: lightgray;
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-      }
+  styles: `
+    .item {
+      border-bottom-color: lightgray;
+      border-bottom-style: solid;
+      border-bottom-width: 1px;
+    }
 
+    .item-right {
+      display: table-cell;
+      padding: 10px;
+    }
+
+    @media (min-width: 769px) {
+      /*media.minWidth((PageWidth.SmallMaxWidth + 1).px) */
       .item-right {
-        display: table-cell;
-        padding: 10px;
+        border-left-color: lightgray;
+        border-left-style: solid;
+        border-left-width: 1px;
+        width: 100%;
       }
+    }
 
-      @media (min-width: 769px) {
-        /*media.minWidth((PageWidth.SmallMaxWidth + 1).px) */
-        .item-right {
-          border-left-color: lightgray;
-          border-left-style: solid;
-          border-left-width: 1px;
-          width: 100%;
-        }
-      }
+    .item-left {
+      display: table-cell;
+      width: 40px;
+      padding: 10px; /* itemPadding.px */
+    }
 
+    @media (max-width: 768px) {
+      /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
       .item-left {
-        display: table-cell;
-        width: 40px;
-        padding: 10px; /* itemPadding.px */
+        display: none;
       }
-
-      @media (max-width: 768px) {
-        /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
-        .item-left {
-          display: none;
-        }
-        .item-right {
-          padding-left: 20px;
-          padding-right: 20px;
-        }
+      .item-right {
+        padding-left: 20px;
+        padding-right: 20px;
       }
-    `,
-  ],
+    }
+  `,
   standalone: true,
 })
 export class ItemComponent {

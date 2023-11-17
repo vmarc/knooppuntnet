@@ -18,14 +18,12 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
       {{ name }}</a
     >
   `,
-  styles: [
-    `
-      .disabled {
-        pointer-events: none;
-        color: grey;
-      }
-    `,
-  ],
+  styles: `
+    .disabled {
+      pointer-events: none;
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [NgClass],
 })

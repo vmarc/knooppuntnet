@@ -192,17 +192,15 @@ import { NetworkNodesService } from './network-nodes.service';
     <!--      [length]="nodes?.size">-->
     <!--    </kpn-paginator>-->
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        width: 3rem;
-      }
+  styles: `
+    .mat-column-nr {
+      width: 3rem;
+    }
 
-      .mat-column-routes-actual {
-        width: 12rem;
-      }
-    `,
-  ],
+    .mat-column-routes-actual {
+      width: 12rem;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

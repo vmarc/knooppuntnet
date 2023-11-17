@@ -24,13 +24,11 @@ import { MonitorRoutePropertiesComponent } from './monitor-route-properties.comp
       <kpn-monitor-route-form-save [command]="command" />
     </div>
   `,
-  styles: [
-    `
-      .hidden {
-        display: none;
-      }
-    `,
-  ],
+  styles: `
+    .hidden {
+      display: none;
+    }
+  `,
   providers: [MonitorWebsocketService],
   standalone: true,
   imports: [

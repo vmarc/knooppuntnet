@@ -62,18 +62,16 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
       </kpn-poi-menu-option>
     </div>
   `,
-  styles: [
-    `
-      mat-divider {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
+  styles: `
+    mat-divider {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
 
-      .pois {
-        padding-right: 20px;
-      }
-    `,
-  ],
+    .pois {
+      padding-right: 20px;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

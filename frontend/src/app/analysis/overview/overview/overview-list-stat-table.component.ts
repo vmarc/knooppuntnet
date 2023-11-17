@@ -136,15 +136,13 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
       </tbody>
     </table>
   `,
-  styles: [
-    `
-      .value {
-        text-align: right;
-        vertical-align: middle;
-        width: 3.5em;
-      }
-    `,
-  ],
+  styles: `
+    .value {
+      text-align: right;
+      vertical-align: middle;
+      width: 3.5em;
+    }
+  `,
   standalone: true,
   imports: [OverviewListStatRowComponent],
 })

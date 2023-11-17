@@ -53,20 +53,18 @@ import { OverviewService } from '../overview.service';
       </div>
     </kpn-sidebar>
   `,
-  styles: [
-    `
-      .options {
-        padding-top: 25px;
-        padding-left: 25px;
-        display: block;
-      }
+  styles: `
+    .options {
+      padding-top: 25px;
+      padding-left: 25px;
+      display: block;
+    }
 
-      .options-title {
-        font-weight: bold;
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+    .options-title {
+      font-weight: bold;
+      padding-bottom: 10px;
+    }
+  `,
   standalone: true,
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })

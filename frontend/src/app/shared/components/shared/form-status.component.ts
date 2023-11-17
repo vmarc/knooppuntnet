@@ -20,13 +20,11 @@ import { Observable } from 'rxjs';
       <span [id]="formName + '-invalid'" class="form-valid">Invalid</span>
     </ng-template>
   `,
-  styles: [
-    `
-      .form-valid {
-        color: white;
-      }
-    `,
-  ],
+  styles: `
+    .form-valid {
+      color: white;
+    }
+  `,
   standalone: true,
   imports: [NgIf, AsyncPipe],
 })

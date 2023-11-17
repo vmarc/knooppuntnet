@@ -23,14 +23,12 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
       </button>
     </div>
   `,
-  styles: [
-    `
-      .geolocation-control {
-        left: 8px;
-        top: 148px;
-      }
-    `,
-  ],
+  styles: `
+    .geolocation-control {
+      left: 8px;
+      top: 148px;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule],
 })

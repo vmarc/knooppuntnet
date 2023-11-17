@@ -61,17 +61,15 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
       </div>
     </kpn-sidebar>
   `,
-  styles: [
-    `
-      .filter {
-        padding: 25px 15px 25px 25px;
-      }
+  styles: `
+    .filter {
+      padding: 25px 15px 25px 25px;
+    }
 
-      .title {
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+    .title {
+      padding-bottom: 10px;
+    }
+  `,
   standalone: true,
   imports: [SidebarComponent, NgIf, MatRadioModule, AsyncPipe],
 })

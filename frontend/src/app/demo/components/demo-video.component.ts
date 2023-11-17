@@ -66,23 +66,21 @@ import { VideoCoverComponent } from './video-cover.component';
       <kpn-demo-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .video-page {
-        overflow-x: hidden;
-      }
+  styles: `
+    .video-page {
+      overflow-x: hidden;
+    }
 
-      video {
-        z-index: 5;
-        position: absolute;
-        border: 2px solid lightgrey;
-      }
+    video {
+      z-index: 5;
+      position: absolute;
+      border: 2px solid lightgrey;
+    }
 
-      .hidden {
-        display: none;
-      }
-    `,
-  ],
+    .hidden {
+      display: none;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

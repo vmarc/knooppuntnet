@@ -17,18 +17,16 @@ import { Plan } from '../../../domain/plan/plan';
       >{{ unpaved() }}
     </div>
   `,
-  styles: [
-    `
-      .distance {
-        margin-bottom: 10px;
-        color: grey;
-      }
+  styles: `
+    .distance {
+      margin-bottom: 10px;
+      color: grey;
+    }
 
-      .distance :last-child {
-        padding-left: 20px;
-      }
-    `,
-  ],
+    .distance :last-child {
+      padding-left: 20px;
+    }
+  `,
   standalone: true,
   imports: [NgIf],
 })

@@ -97,15 +97,13 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .gpx-form {
-        margin-top: 2rem;
-        margin-left: 2rem;
-        margin-bottom: 4rem;
-      }
-    `,
-  ],
+  styles: `
+    .gpx-form {
+      margin-top: 2rem;
+      margin-left: 2rem;
+      margin-bottom: 4rem;
+    }
+  `,
   providers: [MonitorRouteGpxService, MonitorWebsocketService, NavService],
   standalone: true,
   imports: [

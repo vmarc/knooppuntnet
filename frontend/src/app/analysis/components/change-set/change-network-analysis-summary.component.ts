@@ -40,14 +40,12 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
       </div>
     </div>
   `,
-  styles: [
-    `
-      .change-set {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-    `,
-  ],
+  styles: `
+    .change-set {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  `,
   standalone: true,
   imports: [
     ChangeHeaderComponent,

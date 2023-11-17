@@ -50,17 +50,15 @@ import { DemoVideoControlComponent } from './demo-video-control.component';
       </kpn-demo-video-control>
     </div>
   `,
-  styles: [
-    `
-      .title {
-        padding-left: 20px;
-      }
+  styles: `
+    .title {
+      padding-left: 20px;
+    }
 
-      .video-list {
-        border-top: 1px solid lightgrey;
-      }
-    `,
-  ],
+    .video-list {
+      border-top: 1px solid lightgrey;
+    }
+  `,
   standalone: true,
   imports: [DemoVideoControlComponent],
 })

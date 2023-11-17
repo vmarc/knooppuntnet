@@ -37,24 +37,22 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,
-  styles: [
-    `
-      :host ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
-        width: 34px;
-        height: 34px;
-      }
+  styles: `
+    :host ::ng-deep .mat-button-toggle > .mat-button-toggle-button {
+      width: 34px;
+      height: 34px;
+    }
 
-      :host
-        ::ng-deep
-        .mat-button-toggle
-        > .mat-button-toggle-button
-        > .mat-button-toggle-label-content {
-        line-height: 34px;
-        color: rgba(0, 0, 0, 0.8);
-        padding: 0;
-      }
-    `,
-  ],
+    :host
+      ::ng-deep
+      .mat-button-toggle
+      > .mat-button-toggle-button
+      > .mat-button-toggle-label-content {
+      line-height: 34px;
+      color: rgba(0, 0, 0, 0.8);
+      padding: 0;
+    }
+  `,
   standalone: true,
   imports: [MatButtonToggleModule, MatIconModule, AsyncPipe],
 })

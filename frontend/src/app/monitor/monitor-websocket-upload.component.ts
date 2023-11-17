@@ -21,13 +21,11 @@ import { webSocket } from 'rxjs/webSocket';
       <button type="button" (click)="complete()">Complete</button>
     </div>
   `,
-  styles: [
-    `
-      .messages {
-        padding: 1em;
-      }
-    `,
-  ],
+  styles: `
+    .messages {
+      padding: 1em;
+    }
+  `,
   standalone: true,
   imports: [NgFor],
 })

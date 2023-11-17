@@ -74,14 +74,12 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .buttons {
-        display: flex;
-        flex-wrap: wrap;
-      }
-    `,
-  ],
+  styles: `
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  `,
   standalone: true,
   imports: [
     AnalysisSidebarComponent,

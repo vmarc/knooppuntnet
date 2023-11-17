@@ -12,15 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
     </button>
     <ng-content />
   `,
-  styles: [
-    `
-      .close-button {
-        background-color: white;
-        float: right;
-        z-index: 100;
-      }
-    `,
-  ],
+  styles: `
+    .close-button {
+      background-color: white;
+      float: right;
+      z-index: 100;
+    }
+  `,
   standalone: true,
   imports: [MatButtonModule, MatDialogModule, MatIconModule],
 })

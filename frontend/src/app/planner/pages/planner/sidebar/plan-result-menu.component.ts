@@ -42,24 +42,22 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
       </span>
     </div>
   `,
-  styles: [
-    `
-      .menu {
-        padding-bottom: 5px;
-      }
+  styles: `
+    .menu {
+      padding-bottom: 5px;
+    }
 
-      .menu :not(:last-child):after {
-        content: ' | ';
-        padding-left: 5px;
-        padding-right: 5px;
-      }
+    .menu :not(:last-child):after {
+      content: ' | ';
+      padding-left: 5px;
+      padding-right: 5px;
+    }
 
-      a.selected {
-        color: rgba(0, 0, 0, 0.87);
-        font-weight: bold;
-      }
-    `,
-  ],
+    a.selected {
+      color: rgba(0, 0, 0, 0.87);
+      font-weight: bold;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgClass, AsyncPipe],
 })

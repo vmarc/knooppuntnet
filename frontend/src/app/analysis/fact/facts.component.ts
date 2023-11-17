@@ -55,31 +55,29 @@ import { Facts } from './facts';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .fact {
-        margin-top: 15px;
-      }
+  styles: `
+    .fact {
+      margin-top: 15px;
+    }
 
-      .level {
-        display: inline-block;
-        width: 25px; /* level-width */
-      }
+    .level {
+      display: inline-block;
+      width: 25px; /* level-width */
+    }
 
-      .description {
-        display: inline-block;
-        padding-left: 25px; /* level-width */
-        padding-bottom: 10px;
-        font-style: italic;
-        max-width: 60em;
-      }
+    .description {
+      display: inline-block;
+      padding-left: 25px; /* level-width */
+      padding-bottom: 10px;
+      font-style: italic;
+      max-width: 60em;
+    }
 
-      .reference {
-        display: inline-block;
-        padding-left: 20px;
-      }
-    `,
-  ],
+    .reference {
+      display: inline-block;
+      padding-left: 20px;
+    }
+  `,
   standalone: true,
   imports: [
     BracketsComponent,

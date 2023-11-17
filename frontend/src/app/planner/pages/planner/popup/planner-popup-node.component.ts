@@ -96,17 +96,15 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .reference {
-        margin: 0.5em 0 0.5em 1em;
-      }
+  styles: `
+    .reference {
+      margin: 0.5em 0 0.5em 1em;
+    }
 
-      .more-details {
-        margin-top: 2em;
-      }
-    `,
-  ],
+    .more-details {
+      margin-top: 2em;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

@@ -18,13 +18,11 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
       <kpn-integrity-indicator [data]="integrityIndicatorData" />
     </div>
   `,
-  styles: [
-    `
-      .analysis {
-        display: flex;
-      }
-    `,
-  ],
+  styles: `
+    .analysis {
+      display: flex;
+    }
+  `,
   standalone: true,
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })

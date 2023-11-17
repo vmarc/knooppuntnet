@@ -36,15 +36,13 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
       </ul>
     </kpn-sidebar>
   `,
-  styles: [
-    `
-      .extra-functions {
-        float: right;
-        width: 20px;
-        height: 20px;
-      }
-    `,
-  ],
+  styles: `
+    .extra-functions {
+      float: right;
+      width: 20px;
+      height: 20px;
+    }
+  `,
   standalone: true,
   imports: [SidebarComponent, NgIf, RouterLink],
 })

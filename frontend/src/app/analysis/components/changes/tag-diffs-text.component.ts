@@ -121,37 +121,35 @@ import { TagDiffs } from '@api/common/diff';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .title {
-        color: grey;
-      }
+  styles: `
+    .title {
+      color: grey;
+    }
 
-      .tag-detail {
-        margin-top: 3px;
-        margin-bottom: 10px;
-        border-left-style: dotted;
-        border-left-width: 1px;
-        border-left-color: grey;
-      }
+    .tag-detail {
+      margin-top: 3px;
+      margin-bottom: 10px;
+      border-left-style: dotted;
+      border-left-width: 1px;
+      border-left-color: grey;
+    }
 
-      .label {
-        display: inline-block;
-        color: grey;
-        margin-left: 5px;
-        width: 60px;
-      }
+    .label {
+      display: inline-block;
+      color: grey;
+      margin-left: 5px;
+      width: 60px;
+    }
 
-      .important-value {
-        display: inline-block;
-      }
+    .important-value {
+      display: inline-block;
+    }
 
-      .value {
-        display: inline-block;
-        color: grey;
-      }
-    `,
-  ],
+    .value {
+      display: inline-block;
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor],
 })

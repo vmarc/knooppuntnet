@@ -56,23 +56,21 @@ import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
       <kpn-planner-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .map {
-        position: absolute;
-        top: 48px;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: white;
-        overflow: hidden;
-      }
+  styles: `
+    .map {
+      position: absolute;
+      top: 48px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: white;
+      overflow: hidden;
+    }
 
-      .map:-webkit-full-screen {
-        top: 0;
-      }
-    `,
-  ],
+    .map:-webkit-full-screen {
+      top: 0;
+    }
+  `,
   providers: [
     {
       provide: MAP_SERVICE_TOKEN,

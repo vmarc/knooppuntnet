@@ -15,20 +15,18 @@ import { NetworkTypeNameComponent } from './network-type-name.component';
       <ng-content></ng-content>
     </div>
   `,
-  styles: [
-    `
-      .network-type {
-        display: inline-flex;
-        flex-direction: row;
-        align-items: center;
-      }
+  styles: `
+    .network-type {
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+    }
 
-      kpn-network-type-icon {
-        height: 24px;
-        margin-right: 10px;
-      }
-    `,
-  ],
+    kpn-network-type-icon {
+      height: 24px;
+      margin-right: 10px;
+    }
+  `,
   standalone: true,
   imports: [NetworkTypeIconComponent, NetworkTypeNameComponent],
 })

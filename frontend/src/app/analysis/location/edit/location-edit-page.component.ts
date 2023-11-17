@@ -72,18 +72,16 @@ import { LocationEditComponent } from './location-edit.component';
       <kpn-location-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .too-many-nodes {
-        max-width: 40em;
-        font-style: italic;
-      }
+  styles: `
+    .too-many-nodes {
+      max-width: 40em;
+      font-style: italic;
+    }
 
-      .analyzing {
-        font-style: italic;
-      }
-    `,
-  ],
+    .analyzing {
+      font-style: italic;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

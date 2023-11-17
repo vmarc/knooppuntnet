@@ -51,17 +51,15 @@ import { SubsetMapNetwork } from '@api/common/subset';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .dialog {
-        min-width: 20em;
-      }
+  styles: `
+    .dialog {
+      min-width: 20em;
+    }
 
-      .link {
-        padding-top: 2em;
-      }
-    `,
-  ],
+    .link {
+      padding-top: 2em;
+    }
+  `,
   standalone: true,
   imports: [MatDialogModule, RouterLink, MatButtonModule],
 })

@@ -15,7 +15,7 @@ import { Input } from '@angular/core';
       </div>
     </div>
   `,
-  styleUrls: ['./data.component.scss'],
+  styleUrl: './data.component.scss',
   standalone: true,
 })
 export class DataComponent {

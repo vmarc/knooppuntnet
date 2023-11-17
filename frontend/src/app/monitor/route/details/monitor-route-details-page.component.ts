@@ -91,13 +91,11 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .structure {
-        padding-top: 1em;
-      }
-    `,
-  ],
+  styles: `
+    .structure {
+      padding-top: 1em;
+    }
+  `,
   providers: [MonitorRouteDetailsPageService, NavService],
   standalone: true,
   imports: [

@@ -81,14 +81,12 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
       </kpn-item>
     </kpn-items>
   `,
-  styles: [
-    `
-      .change-set {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
-    `,
-  ],
+  styles: `
+    .change-set {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  `,
   standalone: true,
   imports: [
     IconHappyComponent,

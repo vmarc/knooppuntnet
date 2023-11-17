@@ -6,19 +6,17 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'kpn-icon-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mat-icon svgIcon="happy" /> `,
-  styles: [
-    `
-      :host {
-        width: 18px;
-        height: 18px;
-      }
+  styles: `
+    :host {
+      width: 18px;
+      height: 18px;
+    }
 
-      mat-icon {
-        width: 18px;
-        height: 18px;
-      }
-    `,
-  ],
+    mat-icon {
+      width: 18px;
+      height: 18px;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule],
 })

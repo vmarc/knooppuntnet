@@ -24,13 +24,11 @@ import { MonitorWebsocketUploadComponent } from './monitor-websocket-upload.comp
       <kpn-monitor-websocket-upload [data]="data" />
     </div>
   `,
-  styles: [
-    `
-      .padding {
-        padding: 1em;
-      }
-    `,
-  ],
+  styles: `
+    .padding {
+      padding: 1em;
+    }
+  `,
   standalone: true,
   imports: [
     NgFor,

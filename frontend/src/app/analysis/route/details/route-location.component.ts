@@ -35,18 +35,16 @@ import { I18nService } from '@app/i18n';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .candidates {
-        margin-bottom: 0.5em;
-      }
+  styles: `
+    .candidates {
+      margin-bottom: 0.5em;
+    }
 
-      .percentage {
-        display: inline-block;
-        padding-left: 20px;
-      }
-    `,
-  ],
+    .percentage {
+      display: inline-block;
+      padding-left: 20px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor, RouterLink],
 })

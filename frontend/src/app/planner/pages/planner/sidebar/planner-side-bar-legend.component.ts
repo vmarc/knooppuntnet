@@ -134,20 +134,18 @@ import { LegendIconComponent } from './legend-icon.component';
       </div>
     </mat-expansion-panel>
   `,
-  styles: [
-    `
-      .legend > div {
-        display: flex;
-        align-items: center;
-      }
+  styles: `
+    .legend > div {
+      display: flex;
+      align-items: center;
+    }
 
-      .legend-icon {
-        width: 60px;
-        padding-right: 10px;
-        text-align: center;
-      }
-    `,
-  ],
+    .legend-icon {
+      width: 60px;
+      padding-right: 10px;
+      text-align: center;
+    }
+  `,
   standalone: true,
   imports: [MatExpansionModule, NgIf, LegendIconComponent, AsyncPipe],
 })

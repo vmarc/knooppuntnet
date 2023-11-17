@@ -64,13 +64,11 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </mat-menu>
     </div>
   `,
-  styles: [
-    `
-      .josm {
-        padding-left: 0.8em;
-      }
-    `,
-  ],
+  styles: `
+    .josm {
+      padding-left: 0.8em;
+    }
+  `,
   standalone: true,
   imports: [MatButtonModule, MatMenuModule, AsyncPipe],
 })

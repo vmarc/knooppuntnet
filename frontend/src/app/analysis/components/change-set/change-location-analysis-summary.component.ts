@@ -59,26 +59,24 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
       </div>
     </div>
   `,
-  styles: [
-    `
-      .change-set {
-        margin-top: 5px;
-        margin-bottom: 5px;
-      }
+  styles: `
+    .change-set {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
 
-      .location-names {
-        display: inline;
-      }
+    .location-names {
+      display: inline;
+    }
 
-      .location-name {
-        display: inline;
-      }
+    .location-name {
+      display: inline;
+    }
 
-      .location-names :not(:last-child):after {
-        content: ' \\2192 \\0020 ';
-      }
-    `,
-  ],
+    .location-names :not(:last-child):after {
+      content: ' \\2192 \\0020 ';
+    }
+  `,
   standalone: true,
   imports: [
     ChangeHeaderComponent,

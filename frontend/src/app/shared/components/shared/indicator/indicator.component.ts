@@ -13,15 +13,13 @@ import { IndicatorIconComponent } from './indicator-icon.component';
       <kpn-indicator-icon [letter]="letter" [color]="color" />
     </div>
   `,
-  styles: [
-    `
-      .indicator {
-        display: inline-block;
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-    `,
-  ],
+  styles: `
+    .indicator {
+      display: inline-block;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  `,
   standalone: true,
   imports: [IndicatorIconComponent],
 })

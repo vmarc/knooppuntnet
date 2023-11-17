@@ -44,27 +44,25 @@ import { SymbolWheelComponent } from './symbol-wheel.component';
       ></kpn-symbol-wheel>
     </div>
   `,
-  styles: [
-    `
-      .box {
-        position: relative;
-      }
+  styles: `
+    .box {
+      position: relative;
+    }
 
-      canvas {
-        position: absolute;
-        border: 1px solid lightgray;
-        letter-spacing: 0;
-      }
+    canvas {
+      position: absolute;
+      border: 1px solid lightgray;
+      letter-spacing: 0;
+    }
 
-      kpn-symbol-hiker {
-        position: absolute;
-      }
+    kpn-symbol-hiker {
+      position: absolute;
+    }
 
-      kpn-symbol-wheel {
-        position: absolute;
-      }
-    `,
-  ],
+    kpn-symbol-wheel {
+      position: absolute;
+    }
+  `,
   standalone: true,
   imports: [SymbolHikerComponent, SymbolWheelComponent, NgIf],
 })

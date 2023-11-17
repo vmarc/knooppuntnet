@@ -100,18 +100,16 @@ import { SymbolComponent } from '@app/symbol';
       </div>
     </div>
   `,
-  styles: [
-    `
-      .section-title {
-        padding-top: 2em;
-      }
+  styles: `
+    .section-title {
+      padding-top: 2em;
+    }
 
-      .section-body {
-        padding-top: 1em;
-        padding-left: 2em;
-      }
-    `,
-  ],
+    .section-body {
+      padding-top: 1em;
+      padding-left: 2em;
+    }
+  `,
   standalone: true,
   imports: [NgIf, DataComponent, SymbolComponent, MatIconModule],
 })

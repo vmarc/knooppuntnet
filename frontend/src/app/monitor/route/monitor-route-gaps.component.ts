@@ -23,22 +23,20 @@ import { MonitorRouteGapComponent } from './monitor-route-gap.component';
       </table>
     </div>
   `,
-  styles: [
-    `
-      .page {
-        padding: 1em;
-        width: 100%;
-      }
+  styles: `
+    .page {
+      padding: 1em;
+      width: 100%;
+    }
 
-      .row {
-        height: 2.5rem;
-      }
+    .row {
+      height: 2.5rem;
+    }
 
-      .gap {
-        padding: 0;
-      }
-    `,
-  ],
+    .gap {
+      padding: 0;
+    }
+  `,
   standalone: true,
   imports: [NgFor, MonitorRouteGapComponent],
 })

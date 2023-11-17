@@ -25,23 +25,21 @@ import { PlannerService } from '../../../planner.service';
       </ng-container>
     </ng-container>
   `,
-  styles: [
-    `
-      .node {
-        padding-right: 5px;
-        font-weight: bold;
-      }
+  styles: `
+    .node {
+      padding-right: 5px;
+      font-weight: bold;
+    }
 
-      .visited-node {
-        font-weight: normal;
-      }
+    .visited-node {
+      font-weight: normal;
+    }
 
-      .colour {
-        padding-right: 5px;
-        color: rgba(0, 0, 0, 0.75);
-      }
-    `,
-  ],
+    .colour {
+      padding-right: 5px;
+      color: rgba(0, 0, 0, 0.75);
+    }
+  `,
   standalone: true,
   imports: [NgIf, NgFor],
 })

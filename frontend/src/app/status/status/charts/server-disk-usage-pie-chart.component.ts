@@ -20,20 +20,18 @@ import { PieChartModule } from '@swimlane/ngx-charts';
       <span>{{ total }}</span>
     </div>
   `,
-  styles: [
-    `
-      .server {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 30px;
-      }
+  styles: `
+    .server {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
 
-      ngx-charts-pie-chart {
-        margin: 15px 15px 5px;
-      }
-    `,
-  ],
+    ngx-charts-pie-chart {
+      margin: 15px 15px 5px;
+    }
+  `,
   standalone: true,
   imports: [PieChartModule],
 })

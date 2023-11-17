@@ -42,15 +42,13 @@ import { map } from 'rxjs/operators';
       {{ comment }}
     </div>
   `,
-  styles: [
-    `
-      .comment {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        font-style: italic;
-      }
-    `,
-  ],
+  styles: `
+    .comment {
+      padding-top: 5px;
+      padding-bottom: 5px;
+      font-style: italic;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

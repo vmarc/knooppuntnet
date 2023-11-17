@@ -96,13 +96,11 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       </li>
     </ul>
   `,
-  styles: [
-    `
-      .level1 {
-        padding-bottom: 1em;
-      }
-    `,
-  ],
+  styles: `
+    .level1 {
+      padding-bottom: 1em;
+    }
+  `,
   standalone: true,
   imports: [NgIf],
 })
@@ -116,7 +114,7 @@ export class JosmComponent {
 
   constructor(
     private deviceService: DeviceDetectorService,
-    private editService: EditService
+    private editService: EditService,
   ) {
     this.browser = deviceService.browser;
   }

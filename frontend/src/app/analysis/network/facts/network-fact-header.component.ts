@@ -34,13 +34,11 @@ import { EditService } from '@app/components/shared';
       <kpn-fact-description [factInfo]="factInfo(fact)" />
     </div>
   `,
-  styles: [
-    `
-      .description {
-        max-width: 60em;
-      }
-    `,
-  ],
+  styles: `
+    .description {
+      max-width: 60em;
+    }
+  `,
   standalone: true,
   imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent],
 })

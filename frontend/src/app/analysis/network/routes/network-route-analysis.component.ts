@@ -22,13 +22,11 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
       <kpn-route-proposed-indicator [proposed]="route.proposed" />
     </div>
   `,
-  styles: [
-    `
-      .analysis {
-        display: flex;
-      }
-    `,
-  ],
+  styles: `
+    .analysis {
+      display: flex;
+    }
+  `,
   standalone: true,
   imports: [
     RouteAccessibleIndicatorComponent,

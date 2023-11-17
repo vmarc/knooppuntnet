@@ -217,23 +217,21 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .distance-label {
-        display: inline-block;
-        width: 2.5em;
-      }
+  styles: `
+    .distance-label {
+      display: inline-block;
+      width: 2.5em;
+    }
 
-      .route-analysis {
-        padding-top: 0.5em;
-      }
+    .route-analysis {
+      padding-top: 0.5em;
+    }
 
-      .segment {
-        border-top: 1px solid lightgray;
-        padding-bottom: 2em;
-      }
-    `,
-  ],
+    .segment {
+      border-top: 1px solid lightgray;
+      padding-bottom: 2em;
+    }
+  `,
   providers: [MonitorRouteChangePageService, NavService],
   standalone: true,
   imports: [

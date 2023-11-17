@@ -53,58 +53,56 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
       </div>
     </div>
   `,
-  styles: [
-    `
-      .instruction {
-        display: inline-flex;
-        flex-direction: row;
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
+  styles: `
+    .instruction {
+      display: inline-flex;
+      flex-direction: row;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 
-      kpn-plan-instruction-command {
-        padding-right: 20px;
-      }
+    kpn-plan-instruction-command {
+      padding-right: 20px;
+    }
 
-      .node {
-        display: inline-block;
-        border-color: grey;
-        border-radius: 50%;
-        border-style: solid;
-        border-width: 3px;
-        width: 40px;
-        height: 40px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-      }
+    .node {
+      display: inline-block;
+      border-color: grey;
+      border-radius: 50%;
+      border-style: solid;
+      border-width: 3px;
+      width: 40px;
+      height: 40px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
 
-      .node-number {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-        font-weight: 800;
-        line-height: 40px;
-        text-align: center;
-        vertical-align: middle;
-        color: #666666;
-      }
+    .node-number {
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 40px;
+      text-align: center;
+      vertical-align: middle;
+      color: #666666;
+    }
 
-      .node-number-long {
-        width: 250px;
-        margin-left: 55px;
-        font-size: 16px;
-        font-weight: 800;
-        line-height: 40px;
-        vertical-align: middle;
-        color: #666666;
-      }
+    .node-number-long {
+      width: 250px;
+      margin-left: 55px;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 40px;
+      vertical-align: middle;
+      color: #666666;
+    }
 
-      .colour {
-        padding-top: 10px;
-        padding-bottom: 10px;
-      }
-    `,
-  ],
+    .colour {
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, PlanInstructionCommandComponent],
 })

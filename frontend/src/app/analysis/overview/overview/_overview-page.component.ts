@@ -57,13 +57,11 @@ import { OverviewTableComponent } from './overview-table.component';
       <kpn-overview-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .situation-on {
-        padding-bottom: 15px;
-      }
-    `,
-  ],
+  styles: `
+    .situation-on {
+      padding-bottom: 15px;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

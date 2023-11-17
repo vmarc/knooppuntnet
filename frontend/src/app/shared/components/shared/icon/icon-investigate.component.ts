@@ -6,19 +6,17 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'kpn-icon-investigate',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mat-icon svgIcon="investigate" /> `,
-  styles: [
-    `
-      :host {
-        width: 18px;
-        height: 18px;
-      }
+  styles: `
+    :host {
+      width: 18px;
+      height: 18px;
+    }
 
-      mat-icon {
-        width: 20px;
-        height: 20px;
-      }
-    `,
-  ],
+    mat-icon {
+      width: 20px;
+      height: 20px;
+    }
+  `,
   standalone: true,
   imports: [MatIconModule],
 })

@@ -109,21 +109,19 @@ import { StatusSidebarComponent } from './status-sidebar.component';
       <kpn-status-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .chart-group {
-        padding-bottom: 40px;
-        margin-bottom: 40px;
-        border-bottom: 1px solid lightgray;
-      }
+  styles: `
+    .chart-group {
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid lightgray;
+    }
 
-      .previous:after {
-        content: ' | ';
-        padding-left: 5px;
-        padding-right: 5px;
-      }
-    `,
-  ],
+    .previous:after {
+      content: ' | ';
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

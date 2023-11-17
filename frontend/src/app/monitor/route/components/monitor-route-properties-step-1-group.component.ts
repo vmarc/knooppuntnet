@@ -34,13 +34,11 @@ import { MonitorRouteGroup } from '@api/common/monitor';
       </button>
     </div>
   `,
-  styles: [
-    `
-      .group {
-        width: 20em;
-      }
-    `,
-  ],
+  styles: `
+    .group {
+      width: 20em;
+    }
+  `,
   standalone: true,
   imports: [
     MatButtonModule,

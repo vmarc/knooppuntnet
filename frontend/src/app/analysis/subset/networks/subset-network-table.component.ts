@@ -83,18 +83,16 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       </tbody>
     </table>
   `,
-  styles: [
-    `
-      .happy {
-        min-width: 55px;
-      }
+  styles: `
+    .happy {
+      min-width: 55px;
+    }
 
-      .number-value {
-        white-space: nowrap;
-        text-align: right;
-      }
-    `,
-  ],
+    .number-value {
+      white-space: nowrap;
+      text-align: right;
+    }
+  `,
   standalone: true,
   imports: [
     IntegerFormatPipe,

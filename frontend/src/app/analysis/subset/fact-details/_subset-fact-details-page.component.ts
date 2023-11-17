@@ -48,7 +48,7 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  styleUrls: ['./_subset-fact-details-page.component.scss'],
+  styleUrl: './_subset-fact-details-page.component.scss',
   standalone: true,
   imports: [
     AsyncPipe,

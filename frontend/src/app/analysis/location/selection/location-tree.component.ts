@@ -94,33 +94,31 @@ import { LocationFlatNode } from './location-flat-node';
       </mat-tree-node>
     </mat-tree>
   `,
-  styles: [
-    `
-      ::ng-deep .expand-collapse-icon > svg {
-        width: 12px;
-        height: 12px;
-        vertical-align: top;
-        padding-top: 7px;
-      }
+  styles: `
+    ::ng-deep .expand-collapse-icon > svg {
+      width: 12px;
+      height: 12px;
+      vertical-align: top;
+      padding-top: 7px;
+    }
 
-      .node-count {
-        padding-left: 20px;
-        color: grey;
-      }
+    .node-count {
+      padding-left: 20px;
+      color: grey;
+    }
 
-      .buttons {
-        margin-top: 20px;
-      }
+    .buttons {
+      margin-top: 20px;
+    }
 
-      .location-button {
-        margin-right: 10px;
-      }
+    .location-button {
+      margin-right: 10px;
+    }
 
-      .hidden {
-        display: none;
-      }
-    `,
-  ],
+    .hidden {
+      display: none;
+    }
+  `,
   standalone: true,
   imports: [
     MatButtonModule,

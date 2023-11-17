@@ -131,22 +131,20 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       <tr mat-row *matRowDef="let node; columns: displayedColumns"></tr>
     </table>
   `,
-  styles: [
-    `
-      .mat-column-nr {
-        width: 3rem;
-      }
+  styles: `
+    .mat-column-nr {
+      width: 3rem;
+    }
 
-      td.mat-mdc-cell:first-of-type {
-        padding-left: 10px;
-      }
+    td.mat-mdc-cell:first-of-type {
+      padding-left: 10px;
+    }
 
-      .distance {
-        text-align: right;
-        width: 100%;
-      }
-    `,
-  ],
+    .distance {
+      text-align: right;
+      width: 100%;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

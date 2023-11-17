@@ -64,14 +64,12 @@ import { PoiService } from '@app/services';
       </ng-template>
     </mat-expansion-panel>
   `,
-  styles: [
-    `
-      .title {
-        padding-left: 10px;
-        padding-right: 20px;
-      }
-    `,
-  ],
+  styles: `
+    .title {
+      padding-left: 10px;
+      padding-right: 20px;
+    }
+  `,
   standalone: true,
   imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
 })

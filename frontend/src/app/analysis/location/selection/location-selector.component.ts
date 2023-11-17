@@ -78,24 +78,22 @@ import { LocationOption } from './location-option';
       </button>
     </form>
   `,
-  styles: [
-    `
-      .selector-form {
-        min-width: 250px;
-        max-width: 500px;
-        width: 100%;
-      }
+  styles: `
+    .selector-form {
+      min-width: 250px;
+      max-width: 500px;
+      width: 100%;
+    }
 
-      .selector-full-width {
-        width: 100%;
-      }
+    .selector-full-width {
+      width: 100%;
+    }
 
-      .node-count {
-        padding-left: 20px;
-        color: grey;
-      }
-    `,
-  ],
+    .node-count {
+      padding-left: 20px;
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

@@ -77,15 +77,13 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
       />
     </div>
   `,
-  styles: [
-    `
-      .buttons {
-        display: inline-block;
-        padding-top: 15px;
-        padding-bottom: 15px;
-      }
-    `,
-  ],
+  styles: `
+    .buttons {
+      display: inline-block;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+  `,
   standalone: true,
   imports: [NgIf, PlanActionButtonComponent, AsyncPipe],
 })

@@ -65,23 +65,21 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
       <kpn-settings-sidebar sidebar />
     </kpn-page>
   `,
-  styles: [
-    `
-      .setting {
-        margin-bottom: 3em;
-      }
+  styles: `
+    .setting {
+      margin-bottom: 3em;
+    }
 
-      .comment {
-        margin-left: 1em;
-        max-width: 40em;
-        font-style: italic;
-      }
+    .comment {
+      margin-left: 1em;
+      max-width: 40em;
+      font-style: italic;
+    }
 
-      .spacer {
-        margin-top: 50px;
-      }
-    `,
-  ],
+    .spacer {
+      margin-top: 50px;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,

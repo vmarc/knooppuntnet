@@ -88,21 +88,19 @@ import { selectFrisoMode } from '../store/friso.selectors';
       </mat-radio-group>
     </div>
   </kpn-sidebar>`,
-  styles: [
-    `
-      .mode-selector {
-        width: 300px;
-        padding: 25px 15px 25px 25px;
-      }
+  styles: `
+    .mode-selector {
+      width: 300px;
+      padding: 25px 15px 25px 25px;
+    }
 
-      .mode-comment {
-        color: grey;
-        margin-left: 3em;
-        margin-bottom: 1em;
-        font-size: 14px;
-      }
-    `,
-  ],
+    .mode-comment {
+      color: grey;
+      margin-left: 3em;
+      margin-bottom: 1em;
+      font-size: 14px;
+    }
+  `,
   standalone: true,
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })

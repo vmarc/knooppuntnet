@@ -24,77 +24,75 @@ import { PoiGroupHikingBikingComponent } from './poi-group-hiking-biking.compone
     <kpn-poi-group-foodshops />
     <kpn-poi-group-sports />
   `,
-  styles: [
-    `
-      ::ng-deep .subset-title {
-        margin-top: 40px;
-        margin-bottom: 20px;
-        font-weight: 600;
-      }
+  styles: `
+    ::ng-deep .subset-title {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
 
-      ::ng-deep .col-icon {
-        display: inline-block;
-        position: relative;
-        width: 35px;
-      }
+    ::ng-deep .col-icon {
+      display: inline-block;
+      position: relative;
+      width: 35px;
+    }
 
-      ::ng-deep .col-spacer {
-        display: inline-block;
-        position: relative;
-        width: 40px;
-      }
+    ::ng-deep .col-spacer {
+      display: inline-block;
+      position: relative;
+      width: 40px;
+    }
 
-      ::ng-deep .col-name {
-        display: inline-block;
-        position: relative;
-        width: 130px;
-        line-height: 37px;
-        vertical-align: top;
-      }
+    ::ng-deep .col-name {
+      display: inline-block;
+      position: relative;
+      width: 130px;
+      line-height: 37px;
+      vertical-align: top;
+    }
 
-      ::ng-deep .col-level-0 {
-        display: inline-block;
-        position: relative;
-        width: 40px;
-        vertical-align: top;
-      }
+    ::ng-deep .col-level-0 {
+      display: inline-block;
+      position: relative;
+      width: 40px;
+      vertical-align: top;
+    }
 
-      ::ng-deep .col-level-11 {
-        display: inline-block;
-        position: relative;
-        width: 30px;
-        vertical-align: top;
-      }
+    ::ng-deep .col-level-11 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      vertical-align: top;
+    }
 
-      ::ng-deep .col-level-12 {
-        display: inline-block;
-        position: relative;
-        width: 30px;
-        vertical-align: top;
-      }
+    ::ng-deep .col-level-12 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      vertical-align: top;
+    }
 
-      ::ng-deep .col-level-13 {
-        display: inline-block;
-        position: relative;
-        width: 30px;
-        vertical-align: top;
-      }
+    ::ng-deep .col-level-13 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      vertical-align: top;
+    }
 
-      ::ng-deep .col-level-14 {
-        display: inline-block;
-        position: relative;
-        width: 30px;
-        vertical-align: top;
-      }
+    ::ng-deep .col-level-14 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      vertical-align: top;
+    }
 
-      ::ng-deep .col-level-15 {
-        display: inline-block;
-        position: relative;
-        width: 30px;
-        vertical-align: top;
-      }
-    `,
-  ],
+    ::ng-deep .col-level-15 {
+      display: inline-block;
+      position: relative;
+      width: 30px;
+      vertical-align: top;
+    }
+  `,
   standalone: true,
   imports: [
     PoiGroupAmenityComponent,

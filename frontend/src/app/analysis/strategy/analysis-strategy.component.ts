@@ -40,9 +40,7 @@ import { Store } from '@ngrx/store';
       </mat-radio-group>
     </div>
   `,
-  styleUrls: [
-    '../../shared/components/shared/sidebar/sidebar.scss',
-  ],
+  styleUrl: '../../shared/components/shared/sidebar/sidebar.scss',
   standalone: true,
   imports: [MatRadioModule, AsyncPipe],
 })
@@ -50,7 +48,7 @@ export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
   readonly strategy = this.store.selectSignal(
-    selectPreferencesAnalysisStrategy
+    selectPreferencesAnalysisStrategy,
   );
 
   constructor(private store: Store) {}

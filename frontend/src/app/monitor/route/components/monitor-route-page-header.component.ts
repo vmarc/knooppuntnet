@@ -93,18 +93,16 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
     <kpn-error />
   `,
-  styles: [
-    `
-      ::ng-deep .sub-relation-menu {
-        min-width: 30em !important;
-      }
+  styles: `
+    ::ng-deep .sub-relation-menu {
+      min-width: 30em !important;
+    }
 
-      .disabled {
-        pointer-events: none;
-        color: grey;
-      }
-    `,
-  ],
+    .disabled {
+      pointer-events: none;
+      color: grey;
+    }
+  `,
   standalone: true,
   imports: [
     AsyncPipe,
