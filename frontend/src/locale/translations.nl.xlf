@@ -11177,7 +11177,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.deviations" datatype="html">
         <source>deviations</source>
-        <target>Afwijkingen</target>
+        <target>afwijkingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
           <context context-type="linenumber">29,31</context>
