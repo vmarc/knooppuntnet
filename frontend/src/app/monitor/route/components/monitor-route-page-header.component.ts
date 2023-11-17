@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { ErrorComponent } from '@app/components/shared/error';
+import { EllipsisComponent } from '@app/components/shared/format';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
@@ -29,8 +30,9 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
     </ul>
 
     <h1>
-      <span class="kpn-label">{{ routeName }}</span>
-      <span>{{ routeDescription }}</span>
+      <kpn-ellipsis>
+        {{ routeName + ': ' + routeDescription }}
+      </kpn-ellipsis>
     </h1>
 
     <mat-menu #appMenu="matMenu" class="sub-relation-menu">
@@ -106,6 +108,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
   standalone: true,
   imports: [
     AsyncPipe,
+    EllipsisComponent,
     ErrorComponent,
     MatMenuModule,
     MonitorRouteSubRelationMenuOptionComponent,

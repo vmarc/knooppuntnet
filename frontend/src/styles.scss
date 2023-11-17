@@ -359,11 +359,20 @@ table.kpn-bordered-table {
   content: '.';
 }
 
+.kpn-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 ul.breadcrumb {
   list-style: none;
   padding-inline-start: 0;
   margin-block-start: 0;
   margin-block-end: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 ul.breadcrumb li {

@@ -15,7 +15,7 @@ import { PageService } from '../page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="header">
-      <h1 #title>
+      <h1 #title class="kpn-ellipsis">
         <ng-content></ng-content>
       </h1>
       <kpn-doc-link *ngIf="subject" [subject]="subject" />
