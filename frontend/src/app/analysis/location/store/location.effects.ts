@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { LocationChangesParameters } from '@api/common/location';
 import { LocationNodesParameters } from '@api/common/location';
@@ -85,6 +84,16 @@ export class LocationEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
+  pageSize = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(actionLocationNodesPageSize, actionLocationRoutesPageSize),
+      map(({ pageSize }) => {
+        return actionPreferencesPageSize({ pageSize });
+      })
+    );
+  });
+
+  // noinspection JSUnusedGlobalSymbols
   locationNodesPage = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -99,25 +108,17 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationNodesPageIndex),
       ]),
-      mergeMap(([_, locationKey, locationNodesType, pageSize, pageIndex]) => {
+      mergeMap(([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
+        const actionPageSize = action['pageSize'];
+        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
         const parameters: LocationNodesParameters = {
           locationNodesType,
-          pageSize,
+          pageSize: requestPageSize,
           pageIndex,
         };
         return this.apiService.locationNodes(locationKey, parameters);
       }),
       map((response) => actionLocationNodesPageLoaded(response))
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  pageSize = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionLocationNodesPageSize, actionLocationRoutesPageSize),
-      map(({ pageSize }) => {
-        return actionPreferencesPageSize({ pageSize });
-      })
     );
   });
 
@@ -136,10 +137,12 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationRoutesPageIndex),
       ]),
-      mergeMap(([_, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+      mergeMap(([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+        const actionPageSize = action['pageSize'];
+        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
         const parameters: LocationRoutesParameters = {
           locationRoutesType,
-          pageSize,
+          pageSize: requestPageSize,
           pageIndex,
         };
         return this.apiService.locationRoutes(locationKey, parameters);
@@ -246,7 +249,6 @@ export class LocationEffects {
     private actions$: Actions,
     private store: Store,
     private router: Router,
-    private route: ActivatedRoute,
     private apiService: ApiService,
     private locationMapLayerService: LocationMapService
   ) {}

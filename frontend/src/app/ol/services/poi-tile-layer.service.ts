@@ -14,6 +14,8 @@ export class PoiTileLayerService {
   poiStyleMap: PoiStyleMap;
 
   constructor(private poiService: PoiService) {
+    console.log('PoiTileLayerService.constructor');
+
     poiService.poiConfiguration.subscribe((configuration) => {
       if (configuration !== null) {
         this.poiStyleMap = new PoiStyleMap(configuration);

@@ -13,11 +13,11 @@ import { RouterLink } from '@angular/router';
 import { LocationPoiInfo } from '@api/common/poi';
 import { PageWidthService } from '@app/components/shared';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { actionLocationPoisPageSize } from "../store/poi.actions";
 import { actionLocationPoisPageIndex } from '../store/poi.actions';
 import { selectLocationPoisPageIndex } from '../store/poi.selectors';
 
@@ -174,7 +174,7 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+    this.store.dispatch(actionLocationPoisPageSize({ pageSize }));
   }
 
   onPageIndexChange(pageIndex: number) {

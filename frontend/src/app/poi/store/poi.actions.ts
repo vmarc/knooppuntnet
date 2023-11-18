@@ -20,6 +20,11 @@ export const actionLocationPoisPageIndex = createAction(
   props<{ pageIndex: number }>()
 );
 
+export const actionLocationPoisPageSize = createAction(
+  '[LocationPoisPage] Page size',
+  props<{ pageSize: number }>()
+);
+
 export const actionLocationPoiSummaryPageInit = createAction(
   '[LocationPoiSummaryPage] Init'
 );
