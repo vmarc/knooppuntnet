@@ -35,7 +35,7 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
   }
 
   override def groups(): Seq[MonitorGroup] = {
-    database.monitorGroups.findAll(log)
+    database.monitorGroups.findAll(log).sortBy(_.name)
   }
 
   override def saveGroup(routeGroup: MonitorGroup): Unit = {

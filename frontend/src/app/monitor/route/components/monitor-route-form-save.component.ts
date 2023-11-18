@@ -76,7 +76,7 @@ export class MonitorRouteFormSaveComponent {
   }
 
   backToGroup(): void {
-    const url = `/monitor/groups/${this.groupName()}`;
+    const url = `/monitor/groups/${this.command.groupName}`;
     this.router.navigateByUrl(url);
   }
 

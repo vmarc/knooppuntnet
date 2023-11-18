@@ -366,9 +366,14 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       newRouteName = this.name.value;
     }
 
+    let newGroupName: string = undefined;
+    if (this.mode === 'update' && this.group.value.groupName !== this.initialProperties.groupName) {
+      newGroupName = this.group.value.groupName;
+    }
+
     const command: MonitorRouteUpdate = {
       action: this.mode,
-      groupName: this.group.value?.groupName,
+      groupName: this.initialProperties.groupName,
       routeName,
       referenceType,
       description: this.description.value,
@@ -378,7 +383,8 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       referenceTimestamp,
       referenceFilename: this.referenceFilename.value,
       referenceGpx,
-      newRouteName
+      newGroupName,
+      newRouteName,
     };
 
     this.update.emit(command);
