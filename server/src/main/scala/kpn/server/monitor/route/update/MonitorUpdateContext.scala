@@ -90,7 +90,7 @@ case class MonitorUpdateContext(
             update.referenceGpx.nonEmpty
           }
           else {
-            throw new RuntimeException("TODO")
+            false
           }
         }
     }
