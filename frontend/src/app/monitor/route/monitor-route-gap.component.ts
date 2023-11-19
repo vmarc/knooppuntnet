@@ -12,19 +12,27 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
   selector: 'kpn-monitor-route-gap',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div #canvasWrapper>
+    <div #canvasWrapper class="canvasWrapper">
       <kpn-monitor-route-gap-canvas
         *ngIf="height() > 0"
         [height]="height()"
         [description]="description"
+        [osmSegmentCount]="osmSegmentCount"
       />
     </div>
+  `,
+  styles: `
+    .canvasWrapper {
+      display: flex;
+      justify-content: center
+    }
   `,
   standalone: true,
   imports: [NgIf, MonitorRouteGapCanvasComponent],
 })
 export class MonitorRouteGapComponent implements AfterViewInit {
   @Input({ required: true }) description: string;
+  @Input({ required: true }) osmSegmentCount: number;
   @ViewChild('canvasWrapper') canvasWrapper!: ElementRef<HTMLDivElement>;
 
   height = signal(0);

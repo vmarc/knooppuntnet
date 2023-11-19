@@ -238,31 +238,21 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="osm-segment-count">
+      <ng-container matColumnDef="segments">
         <th
           mat-header-cell
           *matHeaderCellDef
-          colspan="2"
-          i18n="@@monitor.group.route-table.osm-segment-count"
+          i18n="@@monitor.group.route-table.segments"
         >
           Segments
         </th>
-        <td mat-cell *matCellDef="let row">
-          <ng-container>
-            {{ row.osmSegmentCount }}
-          </ng-container>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="gap">
-        <th style="display: none" mat-header-cell *matHeaderCellDef></th>
         <td
           mat-cell
           *matCellDef="let row"
           [ngClass]="{ 'no-route-gap': row.gaps === undefined }"
         >
           <ng-container *ngIf="row.gaps !== undefined">
-            <kpn-monitor-route-gap [description]="row.gaps" />
+            <kpn-monitor-route-gap [description]="row.gaps" [osmSegmentCount]="row.osmSegmentCount"/>
           </ng-container>
         </td>
       </ng-container>
@@ -397,8 +387,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   private readonly analysisColumns = [
     'deviation-count',
     'deviation-distance',
-    'osm-segment-count',
-    'gap',
+    'segments',
   ];
 
   private readonly columnsWithoutHeader = [

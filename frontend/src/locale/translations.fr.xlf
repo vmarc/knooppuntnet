@@ -1298,46 +1298,6 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="route-indicator.green.title" datatype="html">
-        <source>OK - Defined in route relation</source>
-        <target>OK - Défini dans la relation de réseau</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">17,19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.green.text" datatype="html">
-        <source>This node is included as a member in one or more route relations.</source>
-        <target>Ce nœud est inclus comme membre dans une (ou plusieurs) relation(s) d&apos;itinéraire.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">20,22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.gray.title" datatype="html">
-        <source>OK - Not defined in route relation</source>
-        <target>OK - Non défini dans une relation d&apos;itinéraire</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">24,26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.gray.text" datatype="html">
-        <source>This node is not included as a member in any route relations. This is OK as including the node as member in the route relations is optional.</source>
-        <target>Ce nœud n&apos;est inclus comme membre dans aucune relation d&apos;itinéraire. C&apos;est correct car inclure le nœud comme membre dans la relation d&apos;itinéraire est facultatif.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">27,30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.letter" datatype="html">
-        <source>R</source>
-        <target>R</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="breadcrumb.network" datatype="html">
         <source>Network</source>
         <target>Réseau</target>
@@ -2240,46 +2200,6 @@ L&apos;autorisation ne sera plus utilisée. Une nouvelle autorisation sera cré�
           <context context-type="linenumber">43,45</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="planner.pois.title" datatype="html">
-        <source>Points of interest</source>
-        <target>Points d&apos;intérêt</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.enabled-disabled" datatype="html">
-        <source>(Enabled/Disabled)</source>
-        <target>(activé / désactivé)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.enabled" datatype="html">
-        <source>Show points of interest on the map</source>
-        <target>Afficher les points d&apos;intérêt sur la carte</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">27,29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.zoom-in" datatype="html">
-        <source>Zoom in to see the icons on the map.</source>
-        <target>Zoomez pour voir les icônes sur la carte.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">33,35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.reset" datatype="html">
-        <source>Reset configuration to default</source>
-        <target>Réinitialiser la configuration par défaut</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">39,41</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="map.node-popup.title" datatype="html">
         <source>Node</source>
         <target>Carrefour</target>
@@ -2374,30 +2294,6 @@ L&apos;autorisation ne sera plus utilisée. Une nouvelle autorisation sera cré�
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">59</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.show-all" datatype="html">
-        <source>Show all</source>
-        <target>Tout afficher</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/poi/poi-group.component.ts</context>
-          <context context-type="linenumber">33,35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.hide-all" datatype="html">
-        <source>Hide all</source>
-        <target>Tout masquer</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/poi/poi-group.component.ts</context>
-          <context context-type="linenumber">40,42</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.default" datatype="html">
-        <source>Default</source>
-        <target>Par défaut</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/poi/poi-group.component.ts</context>
-          <context context-type="linenumber">47,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.orphan-node" datatype="html">
@@ -7560,22 +7456,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">16,19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
-        <source>Not supported</source>
-        <target>non supporté</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
-          <context context-type="linenumber">10,12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
-        <source>We cannot determine your location. Your device does not seem to support this.</source>
-        <target>Nous ne pouvons pas déterminer votre emplacement. Votre appareil ne semble pas prendre en charge cela.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
-          <context context-type="linenumber">13,16</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="geolocation-control.title" datatype="html">
         <source>position the map on your current location</source>
         <target>positionnez la carte sur votre position actuelle</target>
@@ -10053,7 +9933,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">275,277</context>
+          <context context-type="linenumber">265,267</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10202,38 +10082,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-info.component.ts</context>
           <context context-type="linenumber">32,34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.label" datatype="html">
-        <source>Relation</source>
-        <target>Relation</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.ways" datatype="html">
-        <source>ways,</source>
-        <target>ways,</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.nodes" datatype="html">
-        <source>nodes,</source>
-        <target>nodes,</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.relations" datatype="html">
-        <source>relations</source>
-        <target>relations</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.relation.ref" datatype="html">
@@ -10476,14 +10324,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">21,23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.properties.reference-type.osm" datatype="html">
-        <source>The current or a previous state of the OSM relation</source>
-        <target>The current or a previous state of the OSM relation</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">36,38</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.properties.reference-type.required" datatype="html">
         <source>Please answer the question</source>
         <target>Merci de répondre à la question</target>
@@ -10534,30 +10374,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
           <context context-type="linenumber">146,148</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.save-dialog.title" datatype="html">
-        <source>Save route</source>
-        <target>Save route</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">35,37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.save-dialog.busy" datatype="html">
-        <source>This may take a while, please wait...</source>
-        <target>This may take a while, please wait...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.save-dialog.saved" datatype="html">
-        <source>Route saved!</source>
-        <target>Route saved!</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.back" datatype="html">
@@ -11016,22 +10832,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">61,63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.relation.distance" datatype="html">
-        <source>Distance</source>
-        <target>Distance</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.km" datatype="html">
-        <source>km</source>
-        <target>km</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location.selector.input.label" datatype="html">
         <source>municipality or other administrative boundary name</source>
         <target>entrez la municipalité ou un autre nom de limite administrative</target>
@@ -11058,10 +10858,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
           <context context-type="linenumber">205,207</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">247,249</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.reference" datatype="html">
@@ -11509,7 +11305,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Upload GPX trace for this sub-relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">285</context>
+          <context context-type="linenumber">275</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.gpx.delete" datatype="html">
@@ -11517,7 +11313,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Remove GPX trace for this sub-relation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">297</context>
+          <context context-type="linenumber">287</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.monitor.route.gpx" datatype="html">
@@ -11756,14 +11552,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
           <context context-type="linenumber">91,93</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.details.duration" datatype="html">
-        <source>duration</source>
-        <target>duration</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-timestamp.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.details.seconds" datatype="html">
         <source>seconds</source>
         <target>seconds</target>
@@ -11778,6 +11566,14 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
           <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.segments" datatype="html">
+        <source>Segments</source>
+        <target>Segments</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">246,248</context>
         </context-group>
       </trans-unit>
     </body>

@@ -19,12 +19,13 @@ import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
 })
 export class MonitorRouteGapCanvasComponent implements AfterViewInit {
   @Input({ required: true }) description: string;
+  @Input({ required: true }) osmSegmentCount: number;
   @Input({ required: true }) height: number;
   @ViewChild('gapCanvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   width = 40;
 
   ngAfterViewInit(): void {
-    new MonitorRouteGapBuilder(this.canvas, this.description).draw();
+    new MonitorRouteGapBuilder(this.canvas, this.description, this.osmSegmentCount).draw();
   }
 }

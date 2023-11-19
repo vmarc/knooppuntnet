@@ -2,9 +2,9 @@ import { ElementRef } from '@angular/core';
 
 export class MonitorRouteGapBuilder {
   private readonly parts: string[];
-  private readonly width: number;
   private readonly height: number;
   private readonly lineWidth = 1;
+  private readonly lineX = 5;
   private readonly rectangleSize = 4;
   private readonly gapSize = 4;
   private readonly nodeRadius = 3;
@@ -12,12 +12,12 @@ export class MonitorRouteGapBuilder {
   private readonly yBottom: number;
   private readonly yMiddle1: number;
   private readonly yMiddle2: number;
+  private readonly yText: number;
 
   private context: CanvasRenderingContext2D;
 
-  constructor(canvas: ElementRef<HTMLCanvasElement>, description: string) {
+  constructor(canvas: ElementRef<HTMLCanvasElement>, description: string, private osmSegmentCount: number) {
     this.context = canvas.nativeElement.getContext('2d');
-    this.width = canvas.nativeElement.width;
     this.height = canvas.nativeElement.height;
     this.parts = description.split('-');
 
@@ -25,6 +25,7 @@ export class MonitorRouteGapBuilder {
     this.yBottom = this.height - this.gapSize / 2 - this.rectangleSize / 2;
     this.yMiddle1 = this.height / 2 - this.gapSize / 2 - this.rectangleSize / 2;
     this.yMiddle2 = this.height / 2 + this.gapSize / 2 + this.rectangleSize / 2;
+    this.yText = this.height / 2 + 2;
   }
 
   draw(): void {
@@ -49,6 +50,10 @@ export class MonitorRouteGapBuilder {
     if (this.parts.includes('middle')) {
       this.drawConnector(this.yMiddle1);
       this.drawConnector(this.yMiddle2);
+    }
+
+    if (this.osmSegmentCount > 1) {
+      this.drawOsmSegmentCount();
     }
   }
 
@@ -89,7 +94,7 @@ export class MonitorRouteGapBuilder {
     this.context.beginPath();
     this.context.fillStyle = 'red';
     this.context.rect(
-      this.width / 2 - this.rectangleSize / 2,
+      this.lineX - this.rectangleSize / 2,
       y - this.rectangleSize / 2,
       this.rectangleSize,
       this.rectangleSize
@@ -100,8 +105,8 @@ export class MonitorRouteGapBuilder {
 
   private drawLine(top: number, bottom: number): void {
     this.context.beginPath();
-    this.context.moveTo(this.width / 2, top);
-    this.context.lineTo(this.width / 2, bottom);
+    this.context.moveTo(this.lineX, top);
+    this.context.lineTo(this.lineX, bottom);
     this.context.stroke();
     this.context.closePath();
   }
@@ -109,8 +114,15 @@ export class MonitorRouteGapBuilder {
   private drawNode(y: number): void {
     this.context.beginPath();
     this.context.fillStyle = 'blue';
-    this.context.arc(this.width / 2, y, this.nodeRadius, 0, Math.PI * 2);
+    this.context.arc(this.lineX, y, this.nodeRadius, 0, Math.PI * 2);
     this.context.fill();
     this.context.closePath();
+  }
+
+  private drawOsmSegmentCount(): void {
+    this.context.font = "14px Roboto, sans-serif";
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.8)';
+    this.context.textBaseline = "middle";
+    this.context.fillText(this.osmSegmentCount.toString(), this.lineX + 8, this.yText);
   }
 }

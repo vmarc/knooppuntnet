@@ -1298,46 +1298,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="route-indicator.green.title" datatype="html">
-        <source>OK - Defined in route relation</source>
-        <target>OK - Opgenomen in routerelatie</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">17,19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.green.text" datatype="html">
-        <source>This node is included as a member in one or more route relations.</source>
-        <target>Dit knooppunt is opgenomen als lid in een of meer routerelaties.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">20,22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.gray.title" datatype="html">
-        <source>OK - Not defined in route relation</source>
-        <target>OK - Niet opgenomen in routerelatie</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">24,26</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.gray.text" datatype="html">
-        <source>This node is not included as a member in any route relations. This is OK as including the node as member in the route relations is optional.</source>
-        <target>Dit knooppunt is in geen enkele routerelatie als lid opgenomen. Dit is in orde want het opnemen van de knooppunten als lid van routerelaties is optioneel.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">27,30</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="route-indicator.letter" datatype="html">
-        <source>R</source>
-        <target>R</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/analysis/src/lib/network/nodes/indicators/node-route-indicator-dialog.component.ts</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="breadcrumb.network" datatype="html">
         <source>Network</source>
         <target>Netwerk</target>
@@ -2238,46 +2198,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">43,45</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="planner.pois.title" datatype="html">
-        <source>Points of interest</source>
-        <target>Interessepunten</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.enabled-disabled" datatype="html">
-        <source>(Enabled/Disabled)</source>
-        <target>(Aan/Uit)</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.enabled" datatype="html">
-        <source>Show points of interest on the map</source>
-        <target>Toon interessepunten</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">27,29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.zoom-in" datatype="html">
-        <source>Zoom in to see the icons on the map.</source>
-        <target>Zoom in om de icoontjes op de kaart te zien</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">33,35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.reset" datatype="html">
-        <source>Reset configuration to default</source>
-        <target>Herstel basisconfiguratie</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/sidebar/planner-side-bar-poi-configuration.component.ts</context>
-          <context context-type="linenumber">39,41</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="map.node-popup.title" datatype="html">
         <source>Node</source>
         <target>Knooppunt</target>
@@ -2372,30 +2292,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/map-popup-route.component.ts</context>
           <context context-type="linenumber">59</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.show-all" datatype="html">
-        <source>Show all</source>
-        <target>Toon alle</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/poi/poi-group.component.ts</context>
-          <context context-type="linenumber">33,35</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.hide-all" datatype="html">
-        <source>Hide all</source>
-        <target>Verberg alle</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/poi/poi-group.component.ts</context>
-          <context context-type="linenumber">40,42</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="planner.pois.default" datatype="html">
-        <source>Default</source>
-        <target>Standaard</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/poi/poi-group.component.ts</context>
-          <context context-type="linenumber">47,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.orphan-node" datatype="html">
@@ -7558,22 +7454,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">16,19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="geolocation-dialog.not-supported.title" datatype="html">
-        <source>Not supported</source>
-        <target>Wordt niet ondersteund.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
-          <context context-type="linenumber">10,12</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="geolocation-dialog.not-supported.message" datatype="html">
-        <source>We cannot determine your location. Your device does not seem to support this.</source>
-        <target>Je locatie kan niet bepaald worden. Je toestel lijkt dit niet te ondersteunen.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/planner/src/lib/pages/planner/geolocation/geolocation-not-supported-dialog.component.ts</context>
-          <context context-type="linenumber">13,16</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="geolocation-control.title" datatype="html">
         <source>position the map on your current location</source>
         <target>schuif de kaart naar je huidige locatie</target>
@@ -10048,7 +9928,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">275,277</context>
+          <context context-type="linenumber">265,267</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -10197,38 +10077,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-info.component.ts</context>
           <context context-type="linenumber">32,34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.label" datatype="html">
-        <source>Relation</source>
-        <target>Relatie</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">41</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.ways" datatype="html">
-        <source>ways,</source>
-        <target>wegen,</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.nodes" datatype="html">
-        <source>nodes,</source>
-        <target>knooppunten,</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.relations" datatype="html">
-        <source>relations</source>
-        <target>relaties</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.relation.ref" datatype="html">
@@ -10471,14 +10319,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">21,23</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.properties.reference-type.osm" datatype="html">
-        <source>The current or a previous state of the OSM relation</source>
-        <target>De huidige of een eerdere staat van de OSM-relatie</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">36,38</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.properties.reference-type.required" datatype="html">
         <source>Please answer the question</source>
         <target>Beantwoord de vraag</target>
@@ -10529,30 +10369,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
           <context context-type="linenumber">146,148</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.save-dialog.title" datatype="html">
-        <source>Save route</source>
-        <target>Route bewaren</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">35,37</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.save-dialog.busy" datatype="html">
-        <source>This may take a while, please wait...</source>
-        <target>Dit kan een tijdje duren, even wachten a.u.b. ...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">61</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.route.save-dialog.saved" datatype="html">
-        <source>Route saved!</source>
-        <target>Route bewaard!</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/components/monitor-route-save-dialog.component.ts</context>
-          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.back" datatype="html">
@@ -11011,22 +10827,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">61,63</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.relation.distance" datatype="html">
-        <source>Distance</source>
-        <target>Afstand</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="monitor.relation.summary.km" datatype="html">
-        <source>km</source>
-        <target>km</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/add/monitor-route-info.component.ts</context>
-          <context context-type="linenumber">52</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="location.selector.input.label" datatype="html">
         <source>municipality or other administrative boundary name</source>
         <target>gemeente of ander administratief gebied</target>
@@ -11053,10 +10853,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
           <context context-type="linenumber">205,207</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">247,249</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.reference" datatype="html">
@@ -11504,7 +11300,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Opladen van het GPX spoor voor deze subrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">285</context>
+          <context context-type="linenumber">275</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.gpx.delete" datatype="html">
@@ -11512,7 +11308,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         <target>Verwijderen van het GPX spoor voor deze subrelatie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">297</context>
+          <context context-type="linenumber">287</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.monitor.route.gpx" datatype="html">
@@ -11751,14 +11547,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
           <context context-type="linenumber">91,93</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="monitor.route.details.duration" datatype="html">
-        <source>duration</source>
-        <target>tijdsduur</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">libs/monitor/src/lib/route/details/monitor-route-details-timestamp.component.ts</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="monitor.route.details.seconds" datatype="html">
         <source>seconds</source>
         <target>seconden</target>
@@ -11769,10 +11557,18 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
       </trans-unit>
       <trans-unit id="monitor.route.details.relations" datatype="html">
         <source><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels}}" id="INTERPOLATION_1"/> levels</source>
-        <target><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels}}" id="INTERPOLATION_1"/> levels</target>
+        <target><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relaties in <x equiv-text="{{ page.relationLevels}}" id="INTERPOLATION_1"/> niveaus</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
           <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.group.route-table.segments" datatype="html">
+        <source>Segments</source>
+        <target>Segmenten</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">246,248</context>
         </context-group>
       </trans-unit>
     </body>

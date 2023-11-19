@@ -5819,10 +5819,6 @@
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-route-table.component.ts</context>
           <context context-type="linenumber">205,207</context>
         </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">247,249</context>
-        </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.actions" datatype="html">
         <source> Actions </source>
@@ -5832,7 +5828,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">275,277</context>
+          <context context-type="linenumber">265,267</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.update" datatype="html">
@@ -6731,18 +6727,25 @@
           <context context-type="linenumber">171,173</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="monitor.group.route-table.segments" datatype="html">
+        <source> Segments </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
+          <context context-type="linenumber">246,248</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="action.gpx.upload" datatype="html">
         <source>Upload GPX trace for this sub-relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">285</context>
+          <context context-type="linenumber">275</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.gpx.delete" datatype="html">
         <source>Remove GPX trace for this sub-relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-structure.component.ts</context>
-          <context context-type="linenumber">297</context>
+          <context context-type="linenumber">287</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.relation-id-undefined" datatype="html">
