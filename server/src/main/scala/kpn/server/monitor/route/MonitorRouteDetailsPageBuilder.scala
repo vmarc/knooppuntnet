@@ -22,6 +22,14 @@ class MonitorRouteDetailsPageBuilder(
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
         val structureRows = flattenRelationTree(route, route.relation)
+        val relationCount = structureRows match {
+          case Some(rows) => rows.size
+          case None => 0
+        }
+        val relationLevels = structureRows match {
+          case Some(rows) => rows.map(_.level).max
+          case None => 0
+        }
         MonitorRouteDetailsPage(
           admin,
           group.name,
@@ -43,6 +51,8 @@ class MonitorRouteDetailsPageBuilder(
           route.happy,
           route.osmWayCount,
           route.osmDistance,
+          relationCount,
+          relationLevels,
           structureRows
         )
       }

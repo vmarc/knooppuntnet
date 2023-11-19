@@ -24,5 +24,7 @@ export interface MonitorRouteDetailsPage {
   readonly happy: boolean;
   readonly wayCount: number;
   readonly osmDistance: number;
+  readonly relationCount: number;
+  readonly relationLevels: number;
   readonly structureRows: MonitorRouteRelationStructureRow[] | undefined;
 }

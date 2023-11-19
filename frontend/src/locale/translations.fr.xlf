@@ -411,7 +411,7 @@
         <target>Nombre d&apos;éléments par page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/paginator/paginator.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.next-page-label" datatype="html">
@@ -419,7 +419,7 @@
         <target>Page suivante</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/paginator/paginator.component.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.previous-page-label" datatype="html">
@@ -427,7 +427,7 @@
         <target>Page précédente</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/paginator/paginator.component.ts</context>
-          <context context-type="linenumber">67</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.first-page-label" datatype="html">
@@ -435,7 +435,7 @@
         <target>Première page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/paginator/paginator.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.last-page-label" datatype="html">
@@ -443,7 +443,7 @@
         <target>Dernière page</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/paginator/paginator.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.from" datatype="html">
@@ -451,7 +451,7 @@
         <target>sur</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/paginator/paginator.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.added" datatype="html">
@@ -6160,7 +6160,7 @@ Le [carrefour](docs/fr.html#glossaire-carrefour &quot;carrefour dans le glossair
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -9721,7 +9721,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -10177,7 +10177,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">29</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -10321,7 +10321,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="linenumber">56,58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.menu.map" datatype="html">
@@ -10329,7 +10329,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Map</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">63,65</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.group" datatype="html">
@@ -11185,7 +11185,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>deviations</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.osm-segments" datatype="html">
@@ -11193,7 +11193,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>OSM segments</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.summary" datatype="html">
@@ -11317,7 +11317,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Previous</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">71</context>
+          <context context-type="linenumber">73</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.menu.next" datatype="html">
@@ -11325,7 +11325,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Next</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.menu.select" datatype="html">
@@ -11333,7 +11333,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>Select</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.upload" datatype="html">
@@ -11493,7 +11493,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>deviation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
-          <context context-type="linenumber">23,25</context>
+          <context context-type="linenumber">24,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis.osm-segment" datatype="html">
@@ -11501,7 +11501,7 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <target>OSM segment</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-analysis.component.ts</context>
-          <context context-type="linenumber">41,43</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.gpx.upload" datatype="html">
@@ -11770,6 +11770,14 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-timestamp.component.ts</context>
           <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.details.relations" datatype="html">
+        <source><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels}}" id="INTERPOLATION_1"/> levels</source>
+        <target><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels}}" id="INTERPOLATION_1"/> levels</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
+          <context context-type="linenumber">34,36</context>
         </context-group>
       </trans-unit>
     </body>
