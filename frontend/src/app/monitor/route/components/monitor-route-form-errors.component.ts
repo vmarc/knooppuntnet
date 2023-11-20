@@ -29,7 +29,7 @@ import { Component } from '@angular/core';
           *ngSwitchCase="'invalid-reference-file'"
           i18n="@@monitor.route.save-dialog.invalid-reference-file"
         >
-          Invalid reference file.
+          Invalid reference file (needs to be a valid GPX file).
         </span>
         <span *ngSwitchDefault>
           {{ error }}

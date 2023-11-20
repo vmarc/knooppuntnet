@@ -25,7 +25,7 @@ class WebSocketConfig(webSocketHandler: ServerWebSocketHandler) extends WebSocke
   @Bean
   def createServletServerContainerFactoryBean: ServletServerContainerFactoryBean = {
     val container = new ServletServerContainerFactoryBean
-    container.setMaxTextMessageBufferSize(20 * 1024 * 1024)
+    container.setMaxTextMessageBufferSize(21 * 1024 * 1024)
     container
   }
 }

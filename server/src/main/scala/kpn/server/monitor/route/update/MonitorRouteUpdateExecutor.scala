@@ -12,6 +12,7 @@ import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.Util
+import kpn.core.util.ValidationException
 import kpn.server.analyzer.engine.monitor.MonitorFilter
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
@@ -78,7 +79,11 @@ class MonitorRouteUpdateExecutor(
     }
     catch {
       case e: RuntimeException =>
-        log.error(s"Could not update route\nupdate= ${Json.string(context.update)}", e)
+        val update = Json.string(context.update.printable())
+        e match {
+          case ve: ValidationException => log.info(s"ValidationException(${ve.getMessage}) $update")
+          case _ => log.error(s"Could not update route: $update", e)
+        }
         context.reporter.report(
           MonitorRouteUpdateStatusMessage(
             exception = Some(e.getMessage)
@@ -330,7 +335,7 @@ class MonitorRouteUpdateExecutor(
         }
         catch {
           case e: SAXParseException =>
-            throw new RuntimeException("invalid-reference-file")
+            throw new ValidationException("invalid-reference-file")
         }
 
         new MonitorRouteGpxReader().read(xml)

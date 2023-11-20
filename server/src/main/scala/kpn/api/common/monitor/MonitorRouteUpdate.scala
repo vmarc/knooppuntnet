@@ -17,4 +17,17 @@ case class MonitorRouteUpdate(
   migrationGeojson: Option[String] = None,
   newGroupName: Option[String] = None,
   newRouteName: Option[String] = None,
-)
+) {
+  def printable(): MonitorRouteUpdate = {
+    referenceGpx match {
+      case None => this
+      case Some(gpx) =>
+        if (gpx.length > 25) {
+          copy(referenceGpx = Some(gpx.substring(0, 25)))
+        }
+        else {
+          this
+        }
+    }
+  }
+}

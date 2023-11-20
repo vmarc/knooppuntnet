@@ -45,10 +45,18 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
         id="gpx-file-name"
         class="kpn-label"
         i18n="@@monitor.route.properties.reference-details.file.name"
-        >File</span
+      >File</span
       >
       {{ referenceFilename.value }}
     </div>
+
+    <div class="kpn-form-error">
+      <div *ngIf="referenceFile.errors?.maxFileSizeExceeded"
+        i18n="@@monitor.route.properties.reference-details.file.max-size-exceeded">
+        Cannot upload this file.  It is too big (maximum file size is {{referenceFile.errors.maxFileSizeExceeded}}).
+      </div>
+    </div>
+
     <div
       *ngIf="
         referenceFilename.invalid &&

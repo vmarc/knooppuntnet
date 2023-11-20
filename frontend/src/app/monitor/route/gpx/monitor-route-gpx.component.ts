@@ -2,6 +2,9 @@ import { NgForOf } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AbstractControl } from "@angular/forms";
+import { ValidationErrors } from '@angular/forms';
+import { ValidatorFn } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
@@ -131,7 +134,10 @@ export class MonitorRouteGpxComponent {
     null,
     Validators.required,
   );
-  readonly referenceFile = new FormControl<File>(null);
+  readonly referenceFile = new FormControl<File>(
+    null,
+    this.referenceFileValidator(),
+  );
 
   readonly form = new FormGroup({
     gpxReferenceDate: this.gpxReferenceDate,
@@ -149,5 +155,18 @@ export class MonitorRouteGpxComponent {
       this.gpxReferenceDate.value,
     );
     this.service.save(this.referenceFile.value, referenceTimestamp);
+  }
+
+  private referenceFileValidator(): ValidatorFn {
+    return (control: AbstractControl<File>): ValidationErrors | null => {
+      const maxFileSizeMb = 20;
+      const maxFileSize = maxFileSizeMb * 1024 * 1024;
+      if (control.value) {
+        if (control.value.size > maxFileSize) {
+          return { maxFileSizeExceeded: `${maxFileSizeMb}Mb`};
+        }
+      }
+      return null;
+    };
   }
 }

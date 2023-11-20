@@ -1523,7 +1523,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">69,71</context>
+          <context context-type="linenumber">72,74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit-dialog.close" datatype="html">
@@ -5934,49 +5934,49 @@
         <source>Prepare</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">66</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.analyze-route-structure" datatype="html">
         <source>Analyze route structure</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">72</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.load-gpx" datatype="html">
         <source>Load gpx</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">70</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.analyze" datatype="html">
         <source>Analyze route deviations</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.save" datatype="html">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.upload" datatype="html">
         <source>Upload</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.delete" datatype="html">
         <source>Delete</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/monitor-websocket.service.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.monitor.route" datatype="html">
@@ -6110,6 +6110,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-form-errors.component.ts</context>
           <context context-type="linenumber">23,27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.save-dialog.invalid-reference-file" datatype="html">
+        <source> Invalid reference file (needs to be a valid GPX file). </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-form-errors.component.ts</context>
+          <context context-type="linenumber">31,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.back" datatype="html">
@@ -6389,7 +6396,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.reference-day.required" datatype="html">
@@ -6404,7 +6411,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">99,101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file" datatype="html">
@@ -6448,7 +6455,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
-          <context context-type="linenumber">65,67</context>
+          <context context-type="linenumber">73,75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.gpx.reference-day" datatype="html">
@@ -6459,7 +6466,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
-          <context context-type="linenumber">70,73</context>
+          <context context-type="linenumber">78,81</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.multi-gpx.comment.1" datatype="html">
@@ -6833,21 +6840,28 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">91,93</context>
+          <context context-type="linenumber">94,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.properties.reference-details.file.max-size-exceeded" datatype="html">
+        <source> Cannot upload this file. It is too big (maximum file size is <x id="INTERPOLATION" equiv-text="{{referenceFile.errors.maxFileSizeExceeded}}"/>). </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.gpx.not-found" datatype="html">
         <source> Route not found </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="linenumber">38,40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.upload" datatype="html">
         <source> Upload </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx.component.ts</context>
-          <context context-type="linenumber">62,64</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map.action.zoom-to-fit-route" datatype="html">
