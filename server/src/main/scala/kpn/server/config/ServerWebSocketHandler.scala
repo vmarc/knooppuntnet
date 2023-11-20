@@ -31,10 +31,7 @@ class ServerWebSocketHandler(
     val command = Json.value(payload, classOf[MonitorRouteUpdate])
     val reporter = new MonitorUpdateReporterWebsocket(session)
     Log.context(Seq("route-update", s"group=${command.groupName}", s"route=${command.routeName}")) {
-      val printableCommand = command.copy(
-        referenceGpx = command.referenceGpx.map(gpx => gpx.substring(0, 25))
-      )
-      log.info("" + printableCommand)
+      logCommand(command)
       val context = MonitorUpdateContext(
         user,
         reporter,
@@ -71,5 +68,19 @@ class ServerWebSocketHandler(
       log.warn(s"Error in websocket connection: user=$user, code=${status.getCode}, reason=${status.getReason}");
     }
     super.afterConnectionClosed(session, status);
+  }
+
+  private def logCommand(command: MonitorRouteUpdate): Unit = {
+    val printableCommand = command.referenceGpx match {
+      case None => command
+      case Some(gpx) =>
+        if (gpx.length > 25) {
+          command.copy(referenceGpx = Some(gpx.substring(0, 25)))
+        }
+        else {
+          command
+        }
+    }
+    log.info("" + printableCommand)
   }
 }

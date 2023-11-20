@@ -5,20 +5,16 @@ import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
 import kpn.api.common.Bounds
-import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.common.Time
-import kpn.core.tools.monitor.MonitorRouteGpxReader
 import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.monitor.MonitorFilter
-import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
+import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
-import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
-import kpn.server.analyzer.engine.monitor.MonitorRouteDeviationAnalyzer
 import kpn.server.json.Json
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -30,15 +26,12 @@ import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteStateSummary
 import kpn.server.monitor.MonitorUtil
 import org.locationtech.jts.geom.GeometryCollection
-import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
-import org.locationtech.jts.io.geojson.GeoJsonWriter
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
 import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 
 import scala.collection.immutable.Seq
-import scala.xml.XML
 
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -324,7 +317,14 @@ class MonitorRouteUpdateExecutor(
         new GeoJsonReader(geometryFactory).read(migrationGeojson).asInstanceOf[GeometryCollection]
       case None =>
         val referenceGpx = context.update.referenceGpx.getOrElse(throw new RuntimeException("reference gpx missing in update"))
-        val xml = XML.loadString(referenceGpx)
+        val xml = try {
+          XML.loadString(referenceGpx)
+        }
+        catch {
+          case e: SAXParseException =>
+            throw new RuntimeException("invalid-reference-file")
+        }
+
         new MonitorRouteGpxReader().read(xml)
     }
 

@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'kpn-monitor-route-form-errors',
   template: `
-    <p *ngFor="let error of errors">
+    <p *ngFor="let error of errors" class="kpn-error error">
       <ng-container [ngSwitch]="error">
         <span
           *ngSwitchCase="'no-relation-id'"
@@ -25,11 +25,23 @@ import { Component } from '@angular/core';
           still incomplete. No route with given relation id was found at given
           reference date.
         </span>
+        <span
+          *ngSwitchCase="'invalid-reference-file'"
+          i18n="@@monitor.route.save-dialog.invalid-reference-file"
+        >
+          Invalid reference file.
+        </span>
         <span *ngSwitchDefault>
           {{ error }}
         </span>
       </ng-container>
     </p>
+  `,
+  styles: `
+    .error {
+       margin-left: 2rem;
+       margin-bottom: 2rem;
+     }
   `,
   standalone: true,
   imports: [NgFor, NgSwitch, NgSwitchCase, NgSwitchDefault],
