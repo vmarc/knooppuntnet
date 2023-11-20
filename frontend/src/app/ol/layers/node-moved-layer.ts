@@ -1,5 +1,5 @@
 import { NodeMoved } from '@api/common/diff/node';
-import { OlUtil } from '@app/components/ol';
+import { OlUtil } from '@app/ol';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import VectorLayer from 'ol/layer/Vector';

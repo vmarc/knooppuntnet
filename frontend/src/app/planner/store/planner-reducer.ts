@@ -1,4 +1,4 @@
-import { PoiTileLayerService } from '@app/components/ol/services';
+import { PoiTileLayerService } from '@app/ol/services';
 import { on } from '@ngrx/store';
 import { createReducer } from '@ngrx/store';
 import { actionPlannerNetworkType } from './planner-actions';

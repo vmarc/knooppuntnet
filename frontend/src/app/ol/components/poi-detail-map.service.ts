@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PoiDetail } from '@api/common';
-import { OlUtil } from '@app/components/ol';
+import { OlUtil } from '@app/ol';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { ViewOptions } from 'ol/View';

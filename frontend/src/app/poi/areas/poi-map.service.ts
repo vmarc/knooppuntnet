@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom';
-import { OlUtil } from '@app/components/ol';
-import { ZoomLevel } from '@app/components/ol/domain';
-import { NetworkBitmapTileLayer } from '@app/components/ol/layers';
-import { MapLayerRegistry } from '@app/components/ol/layers';
-import { OsmLayer } from '@app/components/ol/layers';
-import { PoiAreasLayer } from '@app/components/ol/layers';
-import { BackgroundLayer } from '@app/components/ol/layers';
-import { MapControls } from '@app/components/ol/layers';
-import { OpenlayersMapService } from '@app/components/ol/services';
+import { OlUtil } from '@app/ol';
+import { ZoomLevel } from '@app/ol/domain';
+import { NetworkBitmapTileLayer } from '@app/ol/layers';
+import { MapLayerRegistry } from '@app/ol/layers';
+import { OsmLayer } from '@app/ol/layers';
+import { PoiAreasLayer } from '@app/ol/layers';
+import { BackgroundLayer } from '@app/ol/layers';
+import { MapControls } from '@app/ol/layers';
+import { OpenlayersMapService } from '@app/ol/services';
 import Map from 'ol/Map';
 import View from 'ol/View';
 

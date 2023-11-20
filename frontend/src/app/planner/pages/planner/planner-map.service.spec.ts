@@ -1,6 +1,6 @@
 import { Params } from '@angular/router';
 import { NetworkType } from '@api/custom';
-import { MapPosition } from '@app/components/ol/domain';
+import { MapPosition } from '@app/ol/domain';
 import { BrowserStorageService } from '@app/services';
 import { PlannerState } from '../../store/planner-state';
 
@@ -92,15 +92,15 @@ describe('PlannerStateService', () => {
     // expect(state).toEqual(defaultState);
   });
 
-  it.todo('xxx');
-
-  it.todo('poi layers from browser storage');
-
-  it.todo('unknown layer');
-
-  it.todo('unknown poi layer');
-
-  it.todo('mapMode invalid value');
-
-  it.todo('resultMode invalid value');
+  // it.todo('xxx');
+  //
+  // it.todo('poi layers from browser storage');
+  //
+  // it.todo('unknown layer');
+  //
+  // it.todo('unknown poi layer');
+  //
+  // it.todo('mapMode invalid value');
+  //
+  // it.todo('resultMode invalid value');
 });

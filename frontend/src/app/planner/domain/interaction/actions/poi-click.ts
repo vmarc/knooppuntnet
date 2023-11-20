@@ -1,4 +1,4 @@
-import { PoiId } from '@app/components/ol/domain';
+import { PoiId } from '@app/ol/domain';
 import { Coordinate } from 'ol/coordinate';
 
 export class PoiClick {

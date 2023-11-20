@@ -5,9 +5,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteDeviation } from '@api/common/monitor';
 import { MonitorRouteSegment } from '@api/common/monitor';
-import { MapLinkMenuComponent } from '@app/components/ol/components';
-import { LayerSwitcherComponent } from '@app/components/ol/components';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
+import { MapLinkMenuComponent } from '@app/ol/components';
+import { LayerSwitcherComponent } from '@app/ol/components';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { MonitorRouteChangeMapService } from './monitor-route-change-map.service';
 
 @Component({

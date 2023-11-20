@@ -1,6 +1,6 @@
 import { PlanNode } from '@api/common/planner';
-import { OlUtil } from '@app/components/ol';
-import { PoiId } from '@app/components/ol/domain';
+import { OlUtil } from '@app/ol';
+import { PoiId } from '@app/ol/domain';
 import * as Sentry from '@sentry/angular-ivy';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';

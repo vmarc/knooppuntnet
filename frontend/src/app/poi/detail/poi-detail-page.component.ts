@@ -8,7 +8,7 @@ import { PoiDetail } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
 import { BaseSidebarComponent } from '@app/shared/base';
-import { PoiDetailMapComponent } from '@app/components/ol/components';
+import { PoiDetailMapComponent } from '@app/ol/components';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { DataComponent } from '@app/components/shared/data';
 import { JosmNodeComponent } from '@app/components/shared/link';

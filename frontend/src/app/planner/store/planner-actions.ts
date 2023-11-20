@@ -1,7 +1,7 @@
 import { NetworkType } from '@api/custom';
-import { MapPosition } from '@app/components/ol/domain';
-import { MapLayerState } from '@app/components/ol/domain';
-import { MapMode } from '@app/components/ol/services';
+import { MapPosition } from '@app/ol/domain';
+import { MapLayerState } from '@app/ol/domain';
+import { MapMode } from '@app/ol/services';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 import { PlannerState } from './planner-state';

@@ -7,7 +7,7 @@ import { LocationRoutesPage } from '@api/common/location';
 import { ApiResponse } from '@api/custom';
 import { LocationNodesType } from '@api/custom';
 import { LocationRoutesType } from '@api/custom';
-import { MapPosition } from '@app/components/ol/domain';
+import { MapPosition } from '@app/ol/domain';
 import { AnalysisStrategy } from '@app/core';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';

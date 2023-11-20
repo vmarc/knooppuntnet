@@ -7,7 +7,7 @@ import { NetworkNodesPage } from '@api/common/network';
 import { NetworkRoutesPage } from '@api/common/network';
 import { NetworkSummary } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
-import { NetworkMapPosition } from '@app/components/ol/domain';
+import { NetworkMapPosition } from '@app/ol/domain';
 
 export const initialState: NetworkState = {
   networkId: null,

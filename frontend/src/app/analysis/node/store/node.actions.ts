@@ -3,7 +3,7 @@ import { NodeChangesPage } from '@api/common/node';
 import { NodeDetailsPage } from '@api/common/node';
 import { NodeMapPage } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
-import { MapPosition } from '@app/components/ol/domain';
+import { MapPosition } from '@app/ol/domain';
 import { ChangeOption } from '@app/kpn/common';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';

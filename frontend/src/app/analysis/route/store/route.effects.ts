@@ -6,7 +6,7 @@ import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { NetworkType } from '@api/custom';
 import { PageParams } from '@app/shared/base';
-import { MapPosition } from '@app/components/ol/domain';
+import { MapPosition } from '@app/ol/domain';
 import { selectQueryParam } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { selectRouteParams } from '@app/core';

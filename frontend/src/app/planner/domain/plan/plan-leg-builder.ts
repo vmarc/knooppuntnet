@@ -8,7 +8,7 @@ import { RouteLegFragment } from '@api/common/planner';
 import { RouteLegNode } from '@api/common/planner';
 import { RouteLegRoute } from '@api/common/planner';
 import { RouteLegSegment } from '@api/common/planner';
-import { OlUtil } from '@app/components/ol';
+import { OlUtil } from '@app/ol';
 import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { PlanFlag } from './plan-flag';

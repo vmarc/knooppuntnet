@@ -1,5 +1,5 @@
 import { SubsetMapNetwork } from '@api/common/subset';
-import { OlUtil } from '@app/components/ol';
+import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { MapLayer } from '.';

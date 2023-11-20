@@ -1,9 +1,9 @@
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
-import { MapLinkMenuComponent } from '@app/components/ol/components';
-import { LayerSwitcherComponent } from '@app/components/ol/components';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
+import { MapLinkMenuComponent } from '@app/ol/components';
+import { LayerSwitcherComponent } from '@app/ol/components';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { Store } from '@ngrx/store';
 import { actionRouteMapViewInit } from '../store/route.actions';
 import { RouteMapService } from './route-map.service';

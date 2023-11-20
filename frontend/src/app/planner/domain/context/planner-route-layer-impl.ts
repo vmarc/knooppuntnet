@@ -1,5 +1,5 @@
-import { Marker } from '@app/components/ol/domain';
-import { Layers } from '@app/components/ol/layers';
+import { Marker } from '@app/ol/domain';
+import { Layers } from '@app/ol/layers';
 import { Coordinate } from 'ol/coordinate';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';

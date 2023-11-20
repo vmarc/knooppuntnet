@@ -7,7 +7,7 @@ import { NetworkNodesPage } from '@api/common/network';
 import { NetworkRoutesPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
 import { NetworkType } from '@api/custom';
-import { NetworkMapPosition } from '@app/components/ol/domain';
+import { NetworkMapPosition } from '@app/ol/domain';
 import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';

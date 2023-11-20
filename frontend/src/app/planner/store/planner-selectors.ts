@@ -1,4 +1,4 @@
-import { PoiTileLayerService } from '@app/components/ol/services';
+import { PoiTileLayerService } from '@app/ol/services';
 import { createSelector } from '@ngrx/store';
 import { createFeatureSelector } from '@ngrx/store';
 import { PlannerState } from './planner-state';

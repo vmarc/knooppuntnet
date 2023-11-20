@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { MapLayerTranslationService } from '@app/components/ol/services';
-import { NewMapService } from '@app/components/ol/services';
-import { PoiTileLayerService } from '@app/components/ol/services';
+import { MapLayerTranslationService } from '@app/ol/services';
+import { NewMapService } from '@app/ol/services';
+import { PoiTileLayerService } from '@app/ol/services';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { PlannerMapService } from './pages/planner/planner-map.service';

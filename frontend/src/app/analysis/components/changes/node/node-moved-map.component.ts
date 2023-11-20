@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node';
-import { MapLinkMenuComponent } from '@app/components/ol/components';
-import { LayerSwitcherComponent } from '@app/components/ol/components';
-import { MAP_SERVICE_TOKEN } from '@app/components/ol/services';
+import { MapLinkMenuComponent } from '@app/ol/components';
+import { LayerSwitcherComponent } from '@app/ol/components';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { NodeMovedMapService } from './node-moved-map.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { NetworkMapNode } from '@api/common/network';
-import { OlUtil } from '@app/components/ol';
+import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';

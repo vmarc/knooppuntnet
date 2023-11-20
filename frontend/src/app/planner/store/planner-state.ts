@@ -1,7 +1,7 @@
 import { NetworkType } from '@api/custom';
-import { MapLayerState } from '@app/components/ol/domain';
-import { MapPosition } from '@app/components/ol/domain';
-import { MapMode } from '@app/components/ol/services';
+import { MapLayerState } from '@app/ol/domain';
+import { MapPosition } from '@app/ol/domain';
+import { MapMode } from '@app/ol/services';
 
 export const initialState: PlannerState = {
   networkType: NetworkType.hiking,
