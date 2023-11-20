@@ -98,22 +98,22 @@
       "@app/analysis/subset": [
         "src/app/analysis/subset/index.ts"
       ],
-      "@app/components/ol": [
+      "@app/ol": [
         "src/app/ol/index.ts"
       ],
-      "@app/components/ol/components": [
+      "@app/ol/components": [
         "src/app/ol/components/index.ts"
       ],
-      "@app/components/ol/domain": [
+      "@app/ol/domain": [
         "src/app/ol/domain/index.ts"
       ],
-      "@app/components/ol/layers": [
+      "@app/ol/layers": [
         "src/app/ol/layers/index.ts"
       ],
-      "@app/components/ol/services": [
+      "@app/ol/services": [
         "src/app/ol/services/index.ts"
       ],
-      "@app/components/ol/style": [
+      "@app/ol/style": [
         "src/app/ol/style/index.ts"
       ],
       "@app/components/poi": [
