@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import { PlannerCursor } from './planner-cursor';
 
 export class PlannerCursorMock implements PlannerCursor {

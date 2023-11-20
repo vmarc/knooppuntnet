@@ -5,35 +5,35 @@ import { BrowserStorageService } from '@app/services';
 import { PlannerState } from '../../store/planner-state';
 
 describe('PlannerStateService', () => {
-  const defaultState: PlannerState = {
-    networkType: NetworkType.hiking,
-    position: new MapPosition(14, 712444.7410769509, 6830625.472668002, 0),
-    mapMode: 'surface',
-    resultMode: 'compact',
-    layerStates: [],
-    poiLayerStates: [
-      { layerName: 'hiking-biking', visible: true, enabled: true },
-      { layerName: 'landmarks', visible: true, enabled: true },
-      { layerName: 'restaurants', visible: true, enabled: true },
-      { layerName: 'places-to-stay', visible: true, enabled: true },
-      { layerName: 'tourism', visible: true, enabled: true },
-      { layerName: 'amenity', visible: false, enabled: true },
-      { layerName: 'shops', visible: false, enabled: true },
-      { layerName: 'foodshops', visible: false, enabled: true },
-      { layerName: 'sports', visible: false, enabled: true },
-    ],
-  };
-
-  const storage: Storage = {
-    getItem: jest.fn(),
-    key: jest.fn(),
-    length: 0,
-    removeItem: jest.fn(),
-    setItem: jest.fn(),
-    clear: jest.fn(),
-  };
-  const browserStorageService = new BrowserStorageService(storage);
-  // const plannerStateService = new PlannerStateService(browserStorageService);
+  // const defaultState: PlannerState = {
+  //   networkType: NetworkType.hiking,
+  //   position: new MapPosition(14, 712444.7410769509, 6830625.472668002, 0),
+  //   mapMode: 'surface',
+  //   resultMode: 'compact',
+  //   layerStates: [],
+  //   poiLayerStates: [
+  //     { layerName: 'hiking-biking', visible: true, enabled: true },
+  //     { layerName: 'landmarks', visible: true, enabled: true },
+  //     { layerName: 'restaurants', visible: true, enabled: true },
+  //     { layerName: 'places-to-stay', visible: true, enabled: true },
+  //     { layerName: 'tourism', visible: true, enabled: true },
+  //     { layerName: 'amenity', visible: false, enabled: true },
+  //     { layerName: 'shops', visible: false, enabled: true },
+  //     { layerName: 'foodshops', visible: false, enabled: true },
+  //     { layerName: 'sports', visible: false, enabled: true },
+  //   ],
+  // };
+  //
+  // const storage: Storage = {
+  //   getItem: jest.fn(),
+  //   key: jest.fn(),
+  //   length: 0,
+  //   removeItem: jest.fn(),
+  //   setItem: jest.fn(),
+  //   clear: jest.fn(),
+  // };
+  // const browserStorageService = new BrowserStorageService(storage);
+  // // const plannerStateService = new PlannerStateService(browserStorageService);
 
   it('toQueryParams', () => {
     const state: PlannerState = {

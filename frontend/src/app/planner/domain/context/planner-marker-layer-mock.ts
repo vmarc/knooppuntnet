@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import { Map as PlanFlagMap } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { expectCoordinate } from '../../util/test-support';

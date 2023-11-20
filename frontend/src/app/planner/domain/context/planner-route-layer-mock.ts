@@ -1,4 +1,3 @@
-import { expect } from '@jest/globals';
 import { Map } from 'immutable';
 import { PlanLeg } from '../plan/plan-leg';
 import { PlannerRouteLayer } from './planner-route-layer';
