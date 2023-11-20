@@ -109,12 +109,16 @@ export class MonitorRouteMapStateService {
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
+    const referenceAvailable =
+      (page.reference?.referenceGeoJson.length ?? 0) > 0;
+
     this._state.update((state) => ({
       ...state,
       page,
       routeDescription: page.routeDescription,
       selectedDeviation: null,
       selectedOsmSegment: null,
+      referenceAvailable,
     }));
   }
 
