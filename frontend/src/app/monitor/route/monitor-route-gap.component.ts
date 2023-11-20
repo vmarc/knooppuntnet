@@ -6,6 +6,8 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.component';
 
 @Component({
@@ -37,11 +39,26 @@ export class MonitorRouteGapComponent implements AfterViewInit {
 
   height = signal(0);
 
+  private resizeSubscription$: Subscription;
+
   ngAfterViewInit(): void {
+    setTimeout(() => this.height.set(this.rowHeight()), 0);
+  }
+
+  ngOnInit(): void {
+    this.resizeSubscription$ = fromEvent(window, 'resize').subscribe(() => {
+      this.height.set(this.rowHeight());
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.resizeSubscription$.unsubscribe();
+  }
+
+  private rowHeight(): number {
     const gapComponent = this.canvasWrapper.nativeElement.parentElement;
     const td = gapComponent.parentElement;
     const tr = td.parentElement;
-    const rowHeight = tr.offsetHeight;
-    setTimeout(() => this.height.set(rowHeight), 0);
+    return tr.offsetHeight - 1;
   }
 }

@@ -17,7 +17,7 @@ import { MonitorRouteGapComponent } from './monitor-route-gap.component';
             {{ description }}
           </td>
           <td class="gap">
-            <kpn-monitor-route-gap [description]="description" [osmSegmentCount]="99"/>
+            <kpn-monitor-route-gap [description]="description" [osmSegmentCount]="99" name="name"/>
           </td>
         </tr>
       </table>
