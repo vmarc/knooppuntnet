@@ -1,3 +1,21 @@
 body {
   font-family: Roboto, Helvetica, Arial, sans-serif;
 }
+
+a {
+  text-decoration: none;
+  color: blue;
+}
+
+a:visited {
+  color: blue;
+}
+
+a:hover,
+a:active {
+  text-decoration: underline;
+}
+
+a:hover {
+  cursor: pointer
+}

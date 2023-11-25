@@ -1,30 +1,33 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from "@angular/router";
 import { RouterOutlet } from '@angular/router';
 import { OAuthErrorEvent } from "angular-oauth2-oidc";
 import { OAuthService } from "angular-oauth2-oidc";
+import { UserService } from "./service/user.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, RouterLink],
   template: `
     <p>oauth2 spike</p>
     <p class="buttons">
-      <a href="/page1">page1</a>
-      <a href="/page2">page2</a>
-      <a href="/page3">page3</a>
+      <a routerLink="/">home</a>
+      <a routerLink="/page1">page1</a>
+      <a routerLink="/page2">page2</a>
+      <a routerLink="/page3">page3</a>
     </p>
     <p class="buttons">
-      <button (click)="login()">Login</button>
-      <button (click)="refresh()">Refresh</button>
+      <button (click)="login()">login</button>
+      <button (click)="logout()">logout</button>
+      <button (click)="updateAccessToken()">update accessToken</button>
     </p>
-    <hr/>
+    <hr />
     <router-outlet></router-outlet>
-    <hr/>
-    <p>User: {{userName}}</p>
-    <p>Id token: {{idToken}}</p>
-    <p>Access token: {{accessToken}}</p>
+    <hr />
+    <p>User: {{user()}}</p>
+    <p>Access token: {{accessToken()}}</p>
   `,
   styles: `
     .buttons {
@@ -32,51 +35,26 @@ import { OAuthService } from "angular-oauth2-oidc";
       gap: 1em;
     }
   `,
+  providers: [
+    {provide: UserService}
+  ]
 })
 export class AppComponent {
 
-  constructor(private oauthService: OAuthService) {
-    this.oauthService.events.subscribe(event => {
-      if (event instanceof OAuthErrorEvent) {
-        console.error('OAuthErrorEvent Object:', event);
-      } else {
-        console.warn('OAuthEvent Object:', event);
-      }
-    });
-  }
+  user = this.userService.user;
+  accessToken = this.userService.accessToken;
 
-  get userName(): string {
-    const claims = this.oauthService.getIdentityClaims();
-    if (!claims) return 'unknown';
-    return claims['given_name'];
-  }
-
-  get idToken(): string {
-    return this.oauthService.getIdToken();
-  }
-
-  get accessToken(): string {
-    return this.oauthService.getAccessToken();
+  constructor(private userService: UserService) {
   }
 
   login(): void {
-    const authConfig = {
-      issuer: 'https://www.openstreetmap.org',
-      strictDiscoveryDocumentValidation: false,
-      redirectUri: 'http://127.0.0.1:4200',
-      clientId: 'xxx',
-      responseType: 'code',
-      scope: 'read_prefs',
-      showDebugInformation: true,
-      timeoutFactor: 0.01,
-      oidc: false, // added to avoid scope 'openid' to be added automatically in authorize request
-    };
-    this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndLogin();
+    this.userService.login();
   }
 
-  refresh() {
-    this.oauthService.refreshToken();
+  updateAccessToken(): void {
+    this.userService.updateAccessToken();
   }
 
+  logout(): void {
+  }
 }
