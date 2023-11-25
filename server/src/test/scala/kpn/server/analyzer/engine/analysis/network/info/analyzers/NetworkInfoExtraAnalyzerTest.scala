@@ -120,7 +120,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
         NetworkNodeMember(1001, None),
         NetworkNodeMember(1002, None),
         NetworkNodeMember(1003, None),
-        NetworkNodeMember(1004, None)
+        NetworkNodeMember(1004, None),
         NetworkNodeMember(1005, None)
       )
     )
