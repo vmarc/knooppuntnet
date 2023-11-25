@@ -52,15 +52,17 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     context.unexpectedNodeIds should equal(Some(Seq(1003)))
   }
 
-  test("maps and guideposts are expected") {
+  test("maps and guideposts/route markers are expected") {
 
     val d = new RouteTestData("01-02") {
       node(1001, "01")
       node(1002, "02")
       rawNode(newRawNode(1003, tags = Tags.from("tourism" -> "information", "information" -> "map")))
       rawNode(newRawNode(1004, tags = Tags.from("tourism" -> "information", "information" -> "guidepost")))
+      rawNode(newRawNode(1005, tags = Tags.from("tourism" -> "information", "information" -> "route_marker")))
       memberNode(1003)
       memberNode(1004)
+      memberNode(1005)
     }
 
     val context = analyze(d)
