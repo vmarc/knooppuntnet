@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from "../service/user.service";
 
 @Component({
   selector: 'app-authenticated',
@@ -8,4 +9,7 @@ import { Component } from '@angular/core';
   `,
 })
 export class AuthenticatedComponent {
+  constructor(private userService: UserService) {
+    userService.authenticated();
+  }
 }

@@ -11,38 +11,37 @@ import { UserService } from "./service/user.service";
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLink],
   template: `
-    <p>oauth2 spike</p>
-    <p class="buttons">
+    <p>knooppuntnet - oauth2 tryout</p>
+    <p class="menu">
       <a routerLink="/">home</a>
       <a routerLink="/page1">page1</a>
       <a routerLink="/page2">page2</a>
       <a routerLink="/page3">page3</a>
     </p>
-    <p class="buttons">
-      <button (click)="login()">login</button>
-      <button (click)="logout()">logout</button>
-      <button (click)="updateAccessToken()">update accessToken</button>
-    </p>
     <hr />
     <router-outlet></router-outlet>
     <hr />
-    <p>User: {{user()}}</p>
-    <p>Access token: {{accessToken()}}</p>
+
+    <p *ngIf="user() as name; else notLoggedIn">
+      {{name}}
+      <a (click)="logout()">logout</a>
+    </p>
+    <ng-template #notLoggedIn>
+      <p>
+        <a rel="nofollow noreferrer" (click)="login()">login</a>
+      </p>
+    </ng-template>
   `,
   styles: `
-    .buttons {
+    .menu {
       display: flex;
       gap: 1em;
     }
   `,
-  providers: [
-    {provide: UserService}
-  ]
 })
 export class AppComponent {
 
   user = this.userService.user;
-  accessToken = this.userService.accessToken;
 
   constructor(private userService: UserService) {
   }
@@ -51,10 +50,8 @@ export class AppComponent {
     this.userService.login();
   }
 
-  updateAccessToken(): void {
-    this.userService.updateAccessToken();
-  }
 
   logout(): void {
+    this.userService.logout();
   }
 }

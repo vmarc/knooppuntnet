@@ -10,4 +10,9 @@ class BackendConfiguration {
   def oauthClientId(@Value("${oauth.client-id}") value: String): String = {
     value
   }
+
+  @Bean
+  def cryptoKey(@Value("${cryptoKey}") value: String): String = {
+    value
+  }
 }
