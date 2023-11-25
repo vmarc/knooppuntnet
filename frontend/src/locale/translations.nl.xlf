@@ -1444,7 +1444,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
         <source>Route name changed from &quot;<x equiv-text="{{ diffs.nameDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{         diffs.nameDiff.after       }}" id="INTERPOLATION_1"/>&quot;.</source>
-        <target>Routenaam gewijzigd van &quot;<x equiv-text="{{diffs.nameDiff.before}}" id="INTERPOLATION"/>&quot; naar &quot;&lt;x id=&quot;INTERPOLATION_1&quot;</target>
+        <target>Routenaam gewijzigd van &quot;<x equiv-text="{{diffs.nameDiff.before}}" id="INTERPOLATION"/>&quot; naar &quot;<x equiv-text="{{diffs.nameDiff.after}}" id="INTERPOLATION_1"/>&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">20,24</context>
