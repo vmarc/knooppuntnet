@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { RouterOutlet } from '@angular/router';
-import { OAuthErrorEvent } from "angular-oauth2-oidc";
-import { OAuthService } from "angular-oauth2-oidc";
 import { UserService } from "./service/user.service";
 
 @Component({
@@ -22,8 +20,8 @@ import { UserService } from "./service/user.service";
     <router-outlet></router-outlet>
     <hr />
 
-    <p *ngIf="user() as name; else notLoggedIn">
-      {{name}}
+    <p *ngIf="user() as name; else notLoggedIn" class="menu">
+      <span>{{name}}</span>
       <a (click)="logout()">logout</a>
     </p>
     <ng-template #notLoggedIn>
