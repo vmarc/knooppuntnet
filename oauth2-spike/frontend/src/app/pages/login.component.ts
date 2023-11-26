@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UserService } from "../service/user.service";
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'kpn-login',
@@ -16,8 +16,7 @@ import { UserService } from "../service/user.service";
   `,
 })
 export class LoginComponent {
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   login(): void {
     this.userService.login();

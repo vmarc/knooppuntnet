@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PageComponent } from "./page.component";
+import { PageComponent } from './page.component';
 
 @Component({
   selector: 'kpn-home',
@@ -9,9 +9,6 @@ import { PageComponent } from "./page.component";
       <p>home</p>
     </kpn-page>
   `,
-  imports: [
-    PageComponent
-  ]
+  imports: [PageComponent],
 })
-export class HomeComponent {
-}
+export class HomeComponent {}

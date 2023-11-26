@@ -1,17 +1,16 @@
-import { NgIf } from "@angular/common";
-import { Input } from "@angular/core";
+import { Input } from '@angular/core';
 import { Component } from '@angular/core';
-import { RouterOutlet } from "@angular/router";
-import { RouterLink } from "@angular/router";
-import { UserService } from "../service/user.service";
-import { LinkLoginComponent } from "./link-login.component";
-import { LinkLogoutComponent } from "./link-logout.component";
+import { RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { UserService } from '../service/user.service';
+import { LinkLoginComponent } from './link-login.component';
+import { LinkLogoutComponent } from './link-logout.component';
 
 @Component({
   selector: 'kpn-page',
   standalone: true,
   template: `
-    <h1>{{title}}</h1>
+    <h1>{{ title }}</h1>
     <p class="menu">
       <a routerLink="/">home</a>
       <a routerLink="/page1">page1</a>
@@ -22,30 +21,22 @@ import { LinkLogoutComponent } from "./link-logout.component";
     <ng-content />
     <hr />
 
-    <ng-container *ngIf="user() as name; else notLoggedIn" class="menu">
-      <p>Logged in as: {{name}}</p>
-      <p><kpn-link-logout/></p>
-    </ng-container>
-    <ng-template #notLoggedIn>
+    @if (user(); as name) {
+      <p>Logged in as: {{ name }}</p>
+      <kpn-link-logout />
+    } @else {
       <p>Not logged in</p>
-      <p><kpn-link-login /></p>
-    </ng-template>
+      <kpn-link-login />
+    }
   `,
-  imports: [
-    LinkLoginComponent,
-    NgIf,
-    RouterLink,
-    RouterOutlet,
-    LinkLogoutComponent
-  ]
+  imports: [LinkLoginComponent, RouterLink, RouterOutlet, LinkLogoutComponent],
 })
 export class PageComponent {
   @Input({ required: true }) title: string = '';
 
   user = this.userService.user;
 
-  constructor(private userService: UserService) {
-  }
+  constructor(private userService: UserService) {}
 
   logout(): void {
     this.userService.logout();
