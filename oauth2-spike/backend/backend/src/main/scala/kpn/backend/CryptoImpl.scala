@@ -1,6 +1,7 @@
 package kpn.backend
 
 import org.apache.tomcat.util.codec.binary.Base64.decodeBase64
+import org.apache.tomcat.util.codec.binary.Base64.decodeBase64URLSafe
 import org.apache.tomcat.util.codec.binary.Base64.encodeBase64URLSafeString
 import org.springframework.stereotype.Component
 
@@ -30,6 +31,6 @@ class CryptoImpl(cryptoKey: String) extends Crypto {
   override def decrypt(toDecrypt: String): String = {
     val decipher = Cipher.getInstance(TRANSFORM)
     decipher.init(Cipher.DECRYPT_MODE, secretKey, ivKey)
-    new String(decipher.doFinal(decodeBase64(toDecrypt)), UTF_8)
+    new String(decipher.doFinal(decodeBase64URLSafe(toDecrypt)), UTF_8)
   }
 }

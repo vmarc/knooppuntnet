@@ -41,13 +41,15 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
         val claims: util.Map[String, AnyRef] = signedJWT.getJWTClaimsSet.getClaims
         val encryptedAccessToken: Any = claims.get(AuthenticationConfiguration.accessTokenKey)
         if (encryptedAccessToken != null) {
-          val accessToken: String = crypto.decrypt(encryptedAccessToken.toString)
           // At this moment we do not use the access token.
           // We could use it in the future to make a request to OSM to verify
           // if access is still granted to us. Perhaps do not do this all the
           // time but look at 'issueTime' (currently not added in the claims)
           // to decide whether or not to do the check (once per calendar day?
           // once per hour?).
+
+          // val accessToken: String = crypto.decrypt(encryptedAccessToken.toString)
+
           val userValue: Any = claims.get(AuthenticationConfiguration.userKey)
           if (userValue != null) {
             val user: String = userValue.toString

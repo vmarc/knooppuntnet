@@ -5,6 +5,7 @@ import { RouterOutlet } from "@angular/router";
 import { RouterLink } from "@angular/router";
 import { UserService } from "../service/user.service";
 import { LinkLoginComponent } from "./link-login.component";
+import { LinkLogoutComponent } from "./link-logout.component";
 
 @Component({
   selector: 'kpn-page',
@@ -23,7 +24,7 @@ import { LinkLoginComponent } from "./link-login.component";
 
     <ng-container *ngIf="user() as name; else notLoggedIn" class="menu">
       <p>Logged in as: {{name}}</p>
-      <p><a (click)="logout()">logout</a></p>
+      <p><kpn-link-logout/></p>
     </ng-container>
     <ng-template #notLoggedIn>
       <p>Not logged in</p>
@@ -34,7 +35,8 @@ import { LinkLoginComponent } from "./link-login.component";
     LinkLoginComponent,
     NgIf,
     RouterLink,
-    RouterOutlet
+    RouterOutlet,
+    LinkLogoutComponent
   ]
 })
 export class PageComponent {
