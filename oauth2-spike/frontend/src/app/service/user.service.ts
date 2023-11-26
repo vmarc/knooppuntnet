@@ -31,6 +31,14 @@ export class UserService {
     this.initEventHandling();
   }
 
+  cancelLogin(): void {
+    if (this.returnUrl) {
+      const url = this.returnUrl;
+      this.returnUrl = undefined;
+      this.router.navigateByUrl(url);
+    }
+  }
+
   login(): void {
     this.http.get('/api/client-id', {responseType: 'text'}).pipe(
       tap((clientId) => {

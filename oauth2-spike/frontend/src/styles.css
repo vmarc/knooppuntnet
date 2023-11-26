@@ -19,3 +19,18 @@ a:active {
 a:hover {
   cursor: pointer
 }
+
+.menu {
+  display: flex;
+  gap: 1em;
+}
+
+.top-spacer {
+  margin-top: 3em;
+}
+
+button {
+  font-size: 14px;
+  padding-left: 1em;
+  padding-right: 1em;
+}

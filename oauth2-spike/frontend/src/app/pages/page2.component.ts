@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { PageComponent } from "./page.component";
 
 @Component({
-  selector: 'app-page-2',
+  selector: 'kpn-page-2',
   standalone: true,
   template: `
-    <p>page two</p>
+    <kpn-page title="Page2">
+      <p>page two</p>
+    </kpn-page>
   `,
+  imports: [
+    PageComponent
+  ]
 })
 export class Page2Component {
 }

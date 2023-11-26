@@ -13,7 +13,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "kpn",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
