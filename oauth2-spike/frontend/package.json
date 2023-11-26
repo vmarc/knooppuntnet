@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "prettier": "npx prettier --write ./src/app"
+    "prettier-check": "prettier --check --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
+    "prettier-write": "prettier --write --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\""
   },
   "private": true,
   "dependencies": {
