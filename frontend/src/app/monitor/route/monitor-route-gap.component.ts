@@ -1,4 +1,6 @@
 import { NgIf } from '@angular/common';
+import { OnDestroy } from "@angular/core";
+import { OnInit } from "@angular/core";
 import { ChangeDetectionStrategy } from '@angular/core';
 import { signal } from '@angular/core';
 import { Input } from '@angular/core';
@@ -32,7 +34,7 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
   standalone: true,
   imports: [NgIf, MonitorRouteGapCanvasComponent],
 })
-export class MonitorRouteGapComponent implements AfterViewInit {
+export class MonitorRouteGapComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input({ required: true }) description: string;
   @Input({ required: true }) osmSegmentCount: number;
   @ViewChild('canvasWrapper') canvasWrapper!: ElementRef<HTMLDivElement>;
