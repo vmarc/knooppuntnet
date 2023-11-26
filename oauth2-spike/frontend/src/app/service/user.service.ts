@@ -15,26 +15,33 @@ export class UserService {
   private readonly _user = signal<string | null>(null);
   readonly user = this._user.asReadonly();
 
+  private authConfig = {
+    issuer: 'https://www.openstreetmap.org',
+    redirectUri: 'http://127.0.0.1:4200/authenticated', // TODO make dynamic (include redirectUrl)
+    responseType: 'code',
+    scope: 'read_prefs',
+    showDebugInformation: this.showDebugInformation,
+    timeoutFactor: 0.01,
+    oidc: false, // added to avoid scope 'openid' to be added automatically in authorize request
+  };
+
   constructor(private http: HttpClient, private oauthService: OAuthService) {
     this.initEventHandling();
-
-    const authConfig = {
-      issuer: 'https://www.openstreetmap.org',
-      strictDiscoveryDocumentValidation: false, // TODO can remove?
-      redirectUri: 'http://127.0.0.1:4200/authenticated', // TODO make dynamic (include redirectUrl)
-      clientId: 'xxx',
-      responseType: 'code',
-      scope: 'read_prefs',
-      showDebugInformation: true,
-      timeoutFactor: 0.01,
-      oidc: false, // added to avoid scope 'openid' to be added automatically in authorize request
-    };
-    this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
 
   login(): void {
-    this.oauthService.initCodeFlow();
+    this.http.get('/api/client-id', {responseType: 'text'}).pipe(
+      tap((clientId) => {
+        console.log(`clientId=${clientId}`);
+        const authConfigWithClientId = {
+          ...this.authConfig,
+          clientId: clientId
+        };
+        this.oauthService.configure(authConfigWithClientId);
+        this.oauthService.loadDiscoveryDocumentAndTryLogin();
+        this.oauthService.initCodeFlow();
+      })
+    ).subscribe();
   }
 
   logout(): void {
@@ -42,6 +49,17 @@ export class UserService {
   }
 
   authenticated(): void {
+    this.http.get('/api/client-id', {responseType: 'text'}).pipe(
+      tap((clientId) => {
+        console.log(`clientId=${clientId}`);
+        const authConfigWithClientId = {
+          ...this.authConfig,
+          clientId: clientId
+        };
+        this.oauthService.configure(authConfigWithClientId);
+        this.oauthService.loadDiscoveryDocumentAndTryLogin();
+      })
+    ).subscribe();
   }
 
   private initEventHandling(): void {
@@ -60,7 +78,6 @@ export class UserService {
       }
     });
   }
-
 
   private tokenReceived(): void {
     const accessToken = this.oauthService.getAccessToken();
@@ -85,5 +102,4 @@ export class UserService {
       console.log(message, data);
     }
   }
-
 }
