@@ -16,7 +16,11 @@ export class MonitorRouteGapBuilder {
 
   private context: CanvasRenderingContext2D;
 
-  constructor(canvas: ElementRef<HTMLCanvasElement>, description: string, private osmSegmentCount: number) {
+  constructor(
+    canvas: ElementRef<HTMLCanvasElement>,
+    description: string,
+    private osmSegmentCount: number
+  ) {
     this.context = canvas.nativeElement.getContext('2d');
     this.height = canvas.nativeElement.height;
     this.parts = description.split('-');
@@ -120,9 +124,13 @@ export class MonitorRouteGapBuilder {
   }
 
   private drawOsmSegmentCount(): void {
-    this.context.font = "14px Roboto, sans-serif";
+    this.context.font = '14px Roboto, sans-serif';
     this.context.fillStyle = 'rgba(0, 0, 0, 0.8)';
-    this.context.textBaseline = "middle";
-    this.context.fillText(this.osmSegmentCount.toString(), this.lineX + 8, this.yText);
+    this.context.textBaseline = 'middle';
+    this.context.fillText(
+      this.osmSegmentCount.toString(),
+      this.lineX + 8,
+      this.yText
+    );
   }
 }

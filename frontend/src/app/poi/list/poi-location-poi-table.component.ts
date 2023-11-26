@@ -17,7 +17,7 @@ import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { actionLocationPoisPageSize } from "../store/poi.actions";
+import { actionLocationPoisPageSize } from '../store/poi.actions';
 import { actionLocationPoisPageIndex } from '../store/poi.actions';
 import { selectLocationPoisPageIndex } from '../store/poi.selectors';
 

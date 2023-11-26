@@ -42,7 +42,10 @@ export class PlanResultComponent implements OnInit {
   );
   plan$: Observable<Plan>;
 
-  constructor(private plannerService: PlannerService, private store: Store) {}
+  constructor(
+    private plannerService: PlannerService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.plan$ = this.plannerService.context.plan$;

@@ -27,7 +27,10 @@ import { NodeMapService } from './node-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMapComponent implements AfterViewInit, OnDestroy {
-  constructor(private store: Store, protected service: NodeMapService) {}
+  constructor(
+    private store: Store,
+    protected service: NodeMapService
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionNodeMapViewInit());

@@ -107,7 +107,10 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
     map((enabled) => !enabled)
   );
 
-  constructor(private store: Store, private demoService: DemoService) {}
+  constructor(
+    private store: Store,
+    private demoService: DemoService
+  ) {}
 
   ngAfterViewInit(): void {
     this.demoService.setVideoElement(

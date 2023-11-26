@@ -27,7 +27,10 @@ import { RouteMapService } from './route-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class RouteMapComponent implements AfterViewInit, OnDestroy {
-  constructor(protected service: RouteMapService, private store: Store) {}
+  constructor(
+    protected service: RouteMapService,
+    private store: Store
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionRouteMapViewInit());

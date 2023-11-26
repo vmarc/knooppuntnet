@@ -48,7 +48,7 @@ export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
   readonly strategy = this.store.selectSignal(
-    selectPreferencesAnalysisStrategy,
+    selectPreferencesAnalysisStrategy
   );
 
   constructor(private store: Store) {}

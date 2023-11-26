@@ -52,7 +52,10 @@ export class InterpretedTags {
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  private constructor(private standardTagKeys: string[], private tags: Tags) {}
+  private constructor(
+    private standardTagKeys: string[],
+    private tags: Tags
+  ) {}
 
   isEmpty(): boolean {
     return this.tags.tags.length === 0;

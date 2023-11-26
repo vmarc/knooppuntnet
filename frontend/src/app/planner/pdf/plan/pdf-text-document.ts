@@ -13,7 +13,10 @@ export class PdfTextDocument {
 
   private readonly model: PdfTextDocumentModel;
 
-  constructor(plan: Plan, private name: string) {
+  constructor(
+    plan: Plan,
+    private name: string
+  ) {
     const pdfPlan = PdfPlanBuilder.fromPlan(plan);
     this.model = new PdfTextDocumentModel(pdfPlan.nodes);
   }

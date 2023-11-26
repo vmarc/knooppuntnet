@@ -68,7 +68,7 @@ export class MonitorRouteFormSaveComponent {
 
   constructor(
     private monitorWebsocketService: MonitorWebsocketService,
-    private router: Router,
+    private router: Router
   ) {}
 
   trackBySteps(index: number, step: MonitorRouteSaveStep): string {

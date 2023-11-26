@@ -4,7 +4,10 @@ import { Plan } from './plan';
 import { PlanLeg } from './plan-leg';
 
 class PrintPlanNode {
-  private constructor(readonly featureId: string, readonly nodeName: string) {}
+  private constructor(
+    readonly featureId: string,
+    readonly nodeName: string
+  ) {}
 
   static from(planNode: PlanNode): PrintPlanNode {
     if (planNode === null) {

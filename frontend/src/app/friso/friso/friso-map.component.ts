@@ -28,7 +28,10 @@ import { FrisoMapService } from './friso-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class FrisoMapComponent implements AfterViewInit, OnDestroy {
-  constructor(protected service: FrisoMapService, private store: Store) {}
+  constructor(
+    protected service: FrisoMapService,
+    private store: Store
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionFrisoMapViewInit());

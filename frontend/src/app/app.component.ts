@@ -95,7 +95,7 @@ export class AppComponent implements OnDestroy {
     private iconService: IconService,
     private spinnerService: SpinnerService,
     private versionService: VersionService,
-    router: Router,
+    router: Router
   ) {
     setTag('knooppuntnet-version', versionService.version);
 
@@ -111,7 +111,7 @@ export class AppComponent implements OnDestroy {
         error: (error) => {
           console.log('AppComponent router event error: ' + error.toString());
         },
-      }),
+      })
     );
   }
 

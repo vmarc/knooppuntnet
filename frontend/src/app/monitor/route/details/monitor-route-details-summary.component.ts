@@ -31,8 +31,12 @@ import { SymbolComponent } from '@app/symbol';
         <span i18n="@@monitor.route.details.ways">ways</span>
       </p>
       <p>{{ page.osmDistance | distance }}</p>
-      <p *ngIf="page.relationCount > 1" class="kpn-small-spacer-above" i18n="@@monitor.route.details.relations">
-        {{ page.relationCount }} relations in {{ page.relationLevels}} levels
+      <p
+        *ngIf="page.relationCount > 1"
+        class="kpn-small-spacer-above"
+        i18n="@@monitor.route.details.relations"
+      >
+        {{ page.relationCount }} relations in {{ page.relationLevels }} levels
       </p>
       <div *ngIf="page.symbol" class="kpn-small-spacer-above">
         <kpn-symbol [description]="page.symbol" />

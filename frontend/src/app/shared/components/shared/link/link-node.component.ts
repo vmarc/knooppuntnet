@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a
       [routerLink]="'/analysis/node/' + nodeId"
-      [state]="{nodeName}"
+      [state]="{ nodeName }"
       title="Open node page"
       i18n-title="@@link-node.title"
     >

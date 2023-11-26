@@ -1,14 +1,14 @@
 PROXY_CONFIG = {
-  '/api/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+  "/api/**": {
+    target: "https://experimental.knooppuntnet.nl",
     secure: false,
   },
-  '/tiles/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+  "/tiles/**": {
+    target: "https://experimental.knooppuntnet.nl",
     secure: false,
   },
-  '/images/**': {
-    target: 'https://experimental.knooppuntnet.nl',
+  "/images/**": {
+    target: "https://experimental.knooppuntnet.nl",
     secure: true,
   },
 };

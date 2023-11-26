@@ -10,7 +10,7 @@ import { NetworkType } from '@api/custom';
   template: `
     <a
       [routerLink]="'/analysis/network/' + networkId"
-      [state]="{networkType, networkName}"
+      [state]="{ networkType, networkName }"
     >
       {{ networkName }}
     </a>

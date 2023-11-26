@@ -24,28 +24,28 @@ export class MonitorRouteMapStateService {
   readonly matchesVisible = computed(() => this._state().matchesVisible);
   readonly deviationsVisible = computed(() => this._state().deviationsVisible);
   readonly osmRelationVisible = computed(
-    () => this._state().osmRelationVisible,
+    () => this._state().osmRelationVisible
   );
   readonly selectedDeviation = computed(() => this._state().selectedDeviation);
   readonly selectedOsmSegment = computed(
-    () => this._state().selectedOsmSegment,
+    () => this._state().selectedOsmSegment
   );
   readonly referenceAvailable = computed(
-    () => this._state().referenceAvailable,
+    () => this._state().referenceAvailable
   );
   readonly referenceLayerVisible = computed(
-    () => this.mode() === MonitorMapMode.comparison && this.referenceVisible(),
+    () => this.mode() === MonitorMapMode.comparison && this.referenceVisible()
   );
   readonly matchesLayerVisible = computed(
-    () => this.mode() === MonitorMapMode.comparison && this.matchesVisible(),
+    () => this.mode() === MonitorMapMode.comparison && this.matchesVisible()
   );
   readonly deviationsLayerVisible = computed(
-    () => this.mode() === MonitorMapMode.comparison && this.deviationsVisible(),
+    () => this.mode() === MonitorMapMode.comparison && this.deviationsVisible()
   );
   readonly osmRelationLayerVisible = computed(
     () =>
       this.mode() === MonitorMapMode.osmSegments ||
-      (this.mode() === MonitorMapMode.comparison && this.osmRelationVisible()),
+      (this.mode() === MonitorMapMode.comparison && this.osmRelationVisible())
   );
   readonly analysisTimestamp = computed(() => this.page()?.analysisTimestamp);
 
@@ -80,7 +80,7 @@ export class MonitorRouteMapStateService {
     if (!isNaN(Number(selectedOsmSegmentParam))) {
       const id = +selectedOsmSegmentParam;
       selectedOsmSegment = page.osmSegments.find(
-        (segment) => segment.id === id,
+        (segment) => segment.id === id
       );
     }
 

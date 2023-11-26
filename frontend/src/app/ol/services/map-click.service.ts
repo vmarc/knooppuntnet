@@ -18,7 +18,10 @@ export class MapClickService {
   private interaction: Interaction = this.buildInteraction();
   private ctrl = false;
 
-  constructor(private router: Router, private location: Location) {}
+  constructor(
+    private router: Router,
+    private location: Location
+  ) {}
 
   installOn(map: Map): void {
     map.addInteraction(this.interaction);

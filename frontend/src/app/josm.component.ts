@@ -114,7 +114,7 @@ export class JosmComponent {
 
   constructor(
     private deviceService: DeviceDetectorService,
-    private editService: EditService,
+    private editService: EditService
   ) {
     this.browser = deviceService.browser;
   }

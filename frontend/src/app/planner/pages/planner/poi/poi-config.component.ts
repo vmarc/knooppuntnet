@@ -88,7 +88,10 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
   level = 0;
   private readonly subscriptions = new Subscriptions();
 
-  constructor(private mapService: MapService, private poiService: PoiService) {}
+  constructor(
+    private mapService: MapService,
+    private poiService: PoiService
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.add(

@@ -4,7 +4,10 @@ import { PlanUtil } from '../plan/plan-util';
 import { MapFeature } from './map-feature';
 
 export class NetworkNodeFeature extends MapFeature {
-  constructor(readonly node: PlanNode, public readonly proposed: boolean) {
+  constructor(
+    readonly node: PlanNode,
+    public readonly proposed: boolean
+  ) {
     super();
   }
 

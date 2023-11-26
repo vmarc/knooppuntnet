@@ -13,11 +13,9 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { actionLocationRoutesPageSize } from "../../analysis/location/store/location.actions";
-import { actionLocationNodesPageSize } from "../../analysis/location/store/location.actions";
 import { PoiMapService } from '../areas/poi-map.service';
 import { PoiService } from '../poi.service';
-import { actionLocationPoisPageSize } from "./poi.actions";
+import { actionLocationPoisPageSize } from './poi.actions';
 import { actionLocationPoiSummaryLocationsLoaded } from './poi.actions';
 import { actionLocationPoiSummaryCountryChanged } from './poi.actions';
 import { actionLocationPoiSummaryPageLoaded } from './poi.actions';
@@ -33,7 +31,6 @@ import { selectPoiAreasPage } from './poi.selectors';
 
 @Injectable()
 export class PoiEffects {
-
   // noinspection JSUnusedGlobalSymbols
   pageSize = createEffect(() => {
     return this.actions$.pipe(

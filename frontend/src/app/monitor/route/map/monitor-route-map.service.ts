@@ -53,7 +53,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   ];
 
   private readonly osmSegmentStyles = this.colors.map((color) =>
-    this.fixedStyle(color, 4),
+    this.fixedStyle(color, 4)
   );
 
   private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
@@ -84,7 +84,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
           minZoom: 0,
           maxZoom: ZoomLevel.vectorTileMaxOverZoom,
         }),
-      }),
+      })
     );
 
     this.map.addLayer(this.referenceLayer);
@@ -112,7 +112,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
         page.reference.referenceGeoJson,
         {
           featureProjection: 'EPSG:3857',
-        },
+        }
       );
       this.referenceLayer.getSource().addFeatures(features);
     }
@@ -204,7 +204,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       },
       {
         allowSignalWrites: true,
-      },
+      }
     );
   }
 

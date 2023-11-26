@@ -252,7 +252,10 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           [ngClass]="{ 'no-route-gap': row.gaps === undefined }"
         >
           <ng-container *ngIf="row.gaps !== undefined">
-            <kpn-monitor-route-gap [description]="row.gaps" [osmSegmentCount]="row.osmSegmentCount"/>
+            <kpn-monitor-route-gap
+              [description]="row.gaps"
+              [osmSegmentCount]="row.osmSegmentCount"
+            />
           </ng-container>
         </td>
       </ng-container>
@@ -415,7 +418,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
 
   displayedHeaders(admin: boolean) {
     return this.displayedColumns(admin).filter(
-      (name) => !this.columnsWithoutHeader.includes(name),
+      (name) => !this.columnsWithoutHeader.includes(name)
     );
   }
 

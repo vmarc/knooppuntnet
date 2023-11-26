@@ -20,7 +20,10 @@ import { PlannerOverlay } from './planner-overlay';
 import { PlannerRouteLayer } from './planner-route-layer';
 
 export class NetworkTypeData {
-  constructor(public plan: Plan, public commandStack: PlannerCommandStack) {}
+  constructor(
+    public plan: Plan,
+    public commandStack: PlannerCommandStack
+  ) {}
 }
 
 export class PlannerContext {

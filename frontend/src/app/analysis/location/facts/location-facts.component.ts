@@ -106,7 +106,10 @@ import { Store } from '@ngrx/store';
 export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
-  constructor(private editService: EditService, private store: Store) {}
+  constructor(
+    private editService: EditService,
+    private store: Store
+  ) {}
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);

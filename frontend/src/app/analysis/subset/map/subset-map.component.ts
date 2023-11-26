@@ -28,7 +28,10 @@ import { SubsetMapService } from './subset-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class SubsetMapComponent implements AfterViewInit, OnDestroy {
-  constructor(protected service: SubsetMapService, private store: Store) {}
+  constructor(
+    protected service: SubsetMapService,
+    private store: Store
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionSubsetMapViewInit());

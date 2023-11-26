@@ -188,15 +188,15 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   readonly referenceType = new FormControl<string>(null, Validators.required);
   readonly osmReferenceDate = new FormControl<Date>(
     null,
-    this.osmReferenceTimestampValidator(),
+    this.osmReferenceTimestampValidator()
   );
   readonly gpxReferenceDate = new FormControl<Date>(
     null,
-    this.gpxReferenceTimestampValidator(),
+    this.gpxReferenceTimestampValidator()
   );
   readonly referenceFilename = new FormControl<string>(
     null,
-    this.gpxReferenceFilenameValidator(),
+    this.gpxReferenceFilenameValidator()
   );
   readonly referenceFile = new FormControl<File>(null);
 
@@ -216,7 +216,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       relationIdKnown: this.relationIdKnown,
       relationId: this.relationId,
     },
-    this.relationIdFormValidator(),
+    this.relationIdFormValidator()
   );
 
   readonly referenceTypeForm = new FormGroup({
@@ -245,7 +245,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     },
     {
       asyncValidators: this.asyncUpdateRouteNameUniqueValidator(),
-    },
+    }
   );
 
   private readonly subscriptions = new Subscriptions();
@@ -254,7 +254,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   constructor(
     private monitorService: MonitorService,
-    private monitorWebsocketService: MonitorWebsocketService,
+    private monitorWebsocketService: MonitorWebsocketService
   ) {}
 
   ngOnInit(): void {
@@ -267,7 +267,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       this.gpxReferenceDate.setValue(new Date());
     } else {
       const initialGroup = this.routeGroups.find(
-        (g) => g.groupName === this.initialProperties.groupName,
+        (g) => g.groupName === this.initialProperties.groupName
       );
       this.groupForm.setValue({
         group: initialGroup,
@@ -289,10 +289,10 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       });
       this.referenceDetailsForm.patchValue({
         osmReferenceDate: DayUtil.toDate(
-          this.initialProperties.referenceTimestamp,
+          this.initialProperties.referenceTimestamp
         ),
         gpxReferenceDate: DayUtil.toDate(
-          this.initialProperties.referenceTimestamp,
+          this.initialProperties.referenceTimestamp
         ),
         referenceFilename: this.initialProperties.referenceFilename,
         referenceFile: null,
@@ -308,7 +308,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
         this.referenceFilename.updateValueAndValidity();
         this.gpxReferenceDate.updateValueAndValidity();
         this.osmReferenceDate.updateValueAndValidity();
-      }),
+      })
     );
   }
 
@@ -348,12 +348,12 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     } else if (this.referenceType.value === 'osm-past') {
       referenceType = 'osm';
       referenceTimestamp = TimestampUtil.toTimestamp(
-        this.osmReferenceDate.value,
+        this.osmReferenceDate.value
       );
     } else if (this.referenceType.value === 'gpx') {
       referenceType = 'gpx';
       referenceTimestamp = TimestampUtil.toTimestamp(
-        this.gpxReferenceDate.value,
+        this.gpxReferenceDate.value
       );
     } else if (this.referenceType.value === 'multi-gpx') {
       referenceType = 'multi-gpx';
@@ -361,13 +361,19 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
     let routeName = this.name.value;
     let newRouteName: string = undefined;
-    if (this.mode === 'update' && this.name.value !== this.initialProperties.name) {
+    if (
+      this.mode === 'update' &&
+      this.name.value !== this.initialProperties.name
+    ) {
       routeName = this.initialProperties.name;
       newRouteName = this.name.value;
     }
 
     let newGroupName: string = undefined;
-    if (this.mode === 'update' && this.group.value.groupName !== this.initialProperties.groupName) {
+    if (
+      this.mode === 'update' &&
+      this.group.value.groupName !== this.initialProperties.groupName
+    ) {
       newGroupName = this.group.value.groupName;
     }
 
@@ -458,7 +464,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
         this.previousValidationResult = null;
         return null;
       }),
-      catchError(() => of(null)),
+      catchError(() => of(null))
     );
   }
 

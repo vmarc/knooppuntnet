@@ -17,7 +17,7 @@ export class MonitorRouteGpxService {
   constructor(
     private navService: NavService,
     private monitorService: MonitorService,
-    private monitorWebsocketService: MonitorWebsocketService,
+    private monitorWebsocketService: MonitorWebsocketService
   ) {
     const groupName = this.navService.param('groupName');
     const routeName = this.navService.param('routeName');

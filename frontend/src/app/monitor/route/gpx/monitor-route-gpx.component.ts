@@ -2,7 +2,7 @@ import { NgForOf } from '@angular/common';
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AbstractControl } from "@angular/forms";
+import { AbstractControl } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 import { ValidatorFn } from '@angular/forms';
 import { Validators } from '@angular/forms';
@@ -132,11 +132,11 @@ export class MonitorRouteGpxComponent {
   readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
   readonly referenceFilename = new FormControl<string>(
     null,
-    Validators.required,
+    Validators.required
   );
   readonly referenceFile = new FormControl<File>(
     null,
-    this.referenceFileValidator(),
+    this.referenceFileValidator()
   );
 
   readonly form = new FormGroup({
@@ -147,12 +147,12 @@ export class MonitorRouteGpxComponent {
 
   constructor(
     protected service: MonitorRouteGpxService,
-    private monitorWebsocketService: MonitorWebsocketService,
+    private monitorWebsocketService: MonitorWebsocketService
   ) {}
 
   save(): void {
     const referenceTimestamp = TimestampUtil.toTimestamp(
-      this.gpxReferenceDate.value,
+      this.gpxReferenceDate.value
     );
     this.service.save(this.referenceFile.value, referenceTimestamp);
   }
@@ -163,7 +163,7 @@ export class MonitorRouteGpxComponent {
       const maxFileSize = maxFileSizeMb * 1024 * 1024;
       if (control.value) {
         if (control.value.size > maxFileSize) {
-          return { maxFileSizeExceeded: `${maxFileSizeMb}Mb`};
+          return { maxFileSizeExceeded: `${maxFileSizeMb}Mb` };
         }
       }
       return null;

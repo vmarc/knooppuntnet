@@ -32,7 +32,10 @@ export class EditService {
 
   private readonly configuration = new EditConfiguration();
 
-  constructor(private apiService: ApiService, private store: Store) {}
+  constructor(
+    private apiService: ApiService,
+    private store: Store
+  ) {}
 
   edit(parameters: EditParameters): void {
     this.store.dispatch(actionSharedHttpError({ httpError: null }));

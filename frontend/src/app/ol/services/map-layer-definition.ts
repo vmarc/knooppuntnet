@@ -1,3 +1,6 @@
 export class MapLayerDefinition {
-  constructor(public name: string, public translation: string) {}
+  constructor(
+    public name: string,
+    public translation: string
+  ) {}
 }

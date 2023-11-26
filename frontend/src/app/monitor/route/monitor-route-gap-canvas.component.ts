@@ -36,7 +36,7 @@ export class MonitorRouteGapCanvasComponent {
     new MonitorRouteGapBuilder(
       this.canvas,
       this.description,
-      this.osmSegmentCount,
+      this.osmSegmentCount
     ).draw();
   }
 }

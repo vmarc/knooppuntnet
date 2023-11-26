@@ -20,7 +20,10 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteLayers {
-  constructor(private i18nService: I18nService, private routeMap: RouteMap) {}
+  constructor(
+    private i18nService: I18nService,
+    private routeMap: RouteMap
+  ) {}
 
   build(): List<MapLayer> {
     let layers: MapLayer[] = [];

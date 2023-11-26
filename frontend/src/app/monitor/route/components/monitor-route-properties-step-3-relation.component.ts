@@ -188,7 +188,7 @@ export class MonitorRoutePropertiesStep3RelationComponent
     this.subscriptions.add(
       this.relationId.valueChanges.subscribe(() => {
         this.resetRouteInformation();
-      }),
+      })
     );
   }
 

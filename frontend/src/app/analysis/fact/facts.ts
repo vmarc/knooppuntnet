@@ -2,7 +2,10 @@ import { List, Map } from 'immutable';
 import { FactLevel } from './fact-level';
 
 class FactDefinition {
-  constructor(public name: string, public level: FactLevel) {}
+  constructor(
+    public name: string,
+    public level: FactLevel
+  ) {}
 }
 
 export class Facts {

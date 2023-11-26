@@ -6,7 +6,10 @@ import { PlanFlag } from '../plan/plan-flag';
 import { PlannerCommand } from './planner-command';
 
 export class PlannerCommandAddStartPoint implements PlannerCommand {
-  constructor(private node: PlanNode, private sourceFlag: PlanFlag) {}
+  constructor(
+    private node: PlanNode,
+    private sourceFlag: PlanFlag
+  ) {}
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandAddStartPoint');

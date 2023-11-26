@@ -108,16 +108,18 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationNodesPageIndex),
       ]),
-      mergeMap(([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
-        const actionPageSize = action['pageSize'];
-        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
-        const parameters: LocationNodesParameters = {
-          locationNodesType,
-          pageSize: requestPageSize,
-          pageIndex,
-        };
-        return this.apiService.locationNodes(locationKey, parameters);
-      }),
+      mergeMap(
+        ([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
+          const actionPageSize = action['pageSize'];
+          const requestPageSize = actionPageSize ? actionPageSize : pageSize;
+          const parameters: LocationNodesParameters = {
+            locationNodesType,
+            pageSize: requestPageSize,
+            pageIndex,
+          };
+          return this.apiService.locationNodes(locationKey, parameters);
+        }
+      ),
       map((response) => actionLocationNodesPageLoaded(response))
     );
   });
@@ -137,16 +139,18 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationRoutesPageIndex),
       ]),
-      mergeMap(([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
-        const actionPageSize = action['pageSize'];
-        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
-        const parameters: LocationRoutesParameters = {
-          locationRoutesType,
-          pageSize: requestPageSize,
-          pageIndex,
-        };
-        return this.apiService.locationRoutes(locationKey, parameters);
-      }),
+      mergeMap(
+        ([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+          const actionPageSize = action['pageSize'];
+          const requestPageSize = actionPageSize ? actionPageSize : pageSize;
+          const parameters: LocationRoutesParameters = {
+            locationRoutesType,
+            pageSize: requestPageSize,
+            pageIndex,
+          };
+          return this.apiService.locationRoutes(locationKey, parameters);
+        }
+      ),
       map((response) => actionLocationRoutesPageLoaded(response))
     );
   });

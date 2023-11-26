@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatTooltipModule } from "@angular/material/tooltip";
-import { ShowIfTruncatedDirective } from "./show-if-truncated.directive";
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ShowIfTruncatedDirective } from './show-if-truncated.directive';
 
 @Component({
   selector: 'kpn-ellipsis',
@@ -12,10 +12,6 @@ import { ShowIfTruncatedDirective } from "./show-if-truncated.directive";
     </div>
   `,
   standalone: true,
-  imports: [
-    MatTooltipModule,
-    ShowIfTruncatedDirective
-  ]
+  imports: [MatTooltipModule, ShowIfTruncatedDirective],
 })
-export class EllipsisComponent {
-}
+export class EllipsisComponent {}

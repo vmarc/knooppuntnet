@@ -156,7 +156,10 @@ export class SubsetFactDetailsComponent implements OnInit {
   refCount = 0;
   factCount = 0;
 
-  constructor(private editService: EditService, private store: Store) {}
+  constructor(
+    private editService: EditService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.refCount = this.calculateRefCount();

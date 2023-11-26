@@ -67,7 +67,10 @@ export class PlanResultMenuComponent {
     selectPreferencesInstructions
   );
 
-  constructor(private plannerService: PlannerService, private store: Store) {}
+  constructor(
+    private plannerService: PlannerService,
+    private store: Store
+  ) {}
 
   resultModeCompact(event) {
     this.handleResultMode(event, 'compact');

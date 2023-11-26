@@ -10,7 +10,10 @@ export class NavService {
   private readonly paramMap;
   private readonly queryParamMap;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     this.paramMap = toSignal(this.route.paramMap);
     this.queryParamMap = toSignal(this.route.queryParamMap);
   }

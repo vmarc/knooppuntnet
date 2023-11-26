@@ -85,7 +85,7 @@ export class MonitorRouteMapPageService {
         .routeMap(
           this.state().groupName,
           this.state().routeName,
-          subRelation.relationId,
+          subRelation.relationId
         )
         .subscribe((response) => {
           if (response.result) {

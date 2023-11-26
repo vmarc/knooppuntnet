@@ -25,7 +25,10 @@ export class JosmLinkComponent {
   @Input({ required: true }) elementId: number;
   @Input({ required: false }) full = false;
 
-  constructor(private apiService: ApiService, private dialog: MatDialog) {}
+  constructor(
+    private apiService: ApiService,
+    private dialog: MatDialog
+  ) {}
 
   edit(): void {
     const url =

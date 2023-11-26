@@ -40,7 +40,10 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() page: NetworkMapPage;
   @Input() mapPositionFromUrl: NetworkMapPosition;
 
-  constructor(protected service: NetworkMapService, private store: Store) {}
+  constructor(
+    protected service: NetworkMapService,
+    private store: Store
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionNetworkMapViewInit());

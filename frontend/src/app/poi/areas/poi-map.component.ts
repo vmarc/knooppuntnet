@@ -25,7 +25,10 @@ import { PoiMapService } from './poi-map.service';
   imports: [LayerSwitcherComponent],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
-  constructor(protected service: PoiMapService, private store: Store) {}
+  constructor(
+    protected service: PoiMapService,
+    private store: Store
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionPoiAreasPageMapViewInit());

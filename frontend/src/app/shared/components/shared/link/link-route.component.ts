@@ -11,7 +11,7 @@ import { NetworkType } from '@api/custom';
   template: `
     <a
       [routerLink]="'/analysis/route/' + routeId"
-      [state]="{networkType, routeName}"
+      [state]="{ networkType, routeName }"
       title="Open route page"
       i18n-title="@@link-route.title"
       >{{ linkTitle }}</a

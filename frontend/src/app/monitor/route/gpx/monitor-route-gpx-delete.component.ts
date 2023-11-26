@@ -146,7 +146,7 @@ export class MonitorRouteGpxDeleteComponent implements OnDestroy {
 
   constructor(
     protected service: MonitorRouteGpxService,
-    private monitorWebsocketService: MonitorWebsocketService,
+    private monitorWebsocketService: MonitorWebsocketService
   ) {
     this.monitorWebsocketService.reset();
   }

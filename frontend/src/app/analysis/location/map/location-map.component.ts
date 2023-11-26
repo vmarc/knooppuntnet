@@ -35,7 +35,10 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   @Input() bounds: Bounds;
   @Input() geoJson: string;
 
-  constructor(protected service: LocationMapService, private store: Store) {}
+  constructor(
+    protected service: LocationMapService,
+    private store: Store
+  ) {}
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionLocationMapViewInit());

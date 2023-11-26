@@ -3,7 +3,10 @@ import { Plan } from '../plan/plan';
 import { PlannerCommand } from './planner-command';
 
 export class PlannerCommandReverse implements PlannerCommand {
-  constructor(private readonly oldPlan: Plan, private readonly newPlan: Plan) {}
+  constructor(
+    private readonly oldPlan: Plan,
+    private readonly newPlan: Plan
+  ) {}
 
   do(context: PlannerContext) {
     context.debug('PlannerCommandReverse');
