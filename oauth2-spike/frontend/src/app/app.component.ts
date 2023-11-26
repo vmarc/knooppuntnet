@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { RouterOutlet } from '@angular/router';
+import { LinkLoginComponent } from "./pages/link-login.component";
 import { UserService } from "./service/user.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink],
+  imports: [CommonModule, RouterOutlet, RouterLink, LinkLoginComponent],
   template: `
     <p>knooppuntnet - oauth2 tryout</p>
     <p class="menu">
@@ -25,9 +26,7 @@ import { UserService } from "./service/user.service";
       <a (click)="logout()">logout</a>
     </p>
     <ng-template #notLoggedIn>
-      <p>
-        <a rel="nofollow noreferrer" (click)="login()">login</a>
-      </p>
+        <kpn-link-login/>
     </ng-template>
   `,
   styles: `
@@ -43,11 +42,6 @@ export class AppComponent {
 
   constructor(private userService: UserService) {
   }
-
-  login(): void {
-    this.userService.login();
-  }
-
 
   logout(): void {
     this.userService.logout();

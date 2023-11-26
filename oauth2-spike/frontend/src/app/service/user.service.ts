@@ -2,6 +2,7 @@ import { HttpParams } from "@angular/common/http";
 import { HttpClient } from "@angular/common/http";
 import { signal } from "@angular/core";
 import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 import { OAuthInfoEvent } from "angular-oauth2-oidc";
 import { OAuthSuccessEvent } from "angular-oauth2-oidc";
 import { OAuthService } from "angular-oauth2-oidc";
@@ -11,6 +12,7 @@ import { tap } from "rxjs";
 export class UserService {
 
   private showDebugInformation = true;
+  private returnUrl: string | undefined = undefined;
 
   private readonly _user = signal<string | null>(null);
   readonly user = this._user.asReadonly();
@@ -25,7 +27,7 @@ export class UserService {
     oidc: false, // added to avoid scope 'openid' to be added automatically in authorize request
   };
 
-  constructor(private http: HttpClient, private oauthService: OAuthService) {
+  constructor(private http: HttpClient, private oauthService: OAuthService, private router: Router) {
     this.initEventHandling();
   }
 
@@ -39,7 +41,10 @@ export class UserService {
         };
         this.oauthService.configure(authConfigWithClientId);
         this.oauthService.loadDiscoveryDocumentAndTryLogin();
-        this.oauthService.initCodeFlow();
+        if (this.returnUrl) {
+          console.log(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
+          this.oauthService.initCodeFlow(this.returnUrl);
+        }
       })
     ).subscribe();
   }
@@ -60,6 +65,11 @@ export class UserService {
         this.oauthService.loadDiscoveryDocumentAndTryLogin();
       })
     ).subscribe();
+  }
+
+  loginLinkClicked(): void {
+    this.returnUrl = this.router.url;
+    this.router.navigate(['/login']);
   }
 
   private initEventHandling(): void {
@@ -87,6 +97,10 @@ export class UserService {
         tap((username) => {
           this._user.set(username);
           // TODO handle UNAUTHORIZED
+          if (this.oauthService.state) {
+            const url = decodeURIComponent(this.oauthService.state);
+            this.router.navigateByUrl(url);
+          }
         })
       ).subscribe();
     }
