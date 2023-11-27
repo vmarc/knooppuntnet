@@ -20,9 +20,7 @@ import { MapService } from '../../services/map.service';
         <li i18n="@@breadcrumb.map">Map</li>
       </ul>
 
-      <kpn-page-header subject="planner" i18n="@@planner.map">
-        Map
-      </kpn-page-header>
+      <kpn-page-header subject="planner" i18n="@@planner.map"> Map </kpn-page-header>
       <kpn-icon-buttons>
         <kpn-icon-button
           routerLink="/map/cycling"

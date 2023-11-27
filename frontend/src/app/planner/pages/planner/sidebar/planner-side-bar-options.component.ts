@@ -16,29 +16,14 @@ import { Store } from '@ngrx/store';
   selector: 'kpn-planner-sidebar-options',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel
-      [expanded]="expanded$ | async"
-      (expandedChange)="expandedChanged($event)"
-    >
-      <mat-expansion-panel-header i18n="@@planner.options">
-        Options
-      </mat-expansion-panel-header>
+    <mat-expansion-panel [expanded]="expanded$ | async" (expandedChange)="expandedChanged($event)">
+      <mat-expansion-panel-header i18n="@@planner.options"> Options </mat-expansion-panel-header>
       <p>
-        <mat-checkbox
-          [checked]="showProposed$ | async"
-          (change)="showProposedChanged($event)"
-        >
-          <span i18n="@@planner.options.show-proposed"
-            >Show proposed routes</span
-          >
+        <mat-checkbox [checked]="showProposed$ | async" (change)="showProposedChanged($event)">
+          <span i18n="@@planner.options.show-proposed">Show proposed routes</span>
         </mat-checkbox>
-        <mat-checkbox
-          [checked]="planProposed$ | async"
-          (change)="planProposedChanged($event)"
-        >
-          <span i18n="@@planner.options.plan-proposed"
-            >Allow planning proposed routes</span
-          >
+        <mat-checkbox [checked]="planProposed$ | async" (change)="planProposedChanged($event)">
+          <span i18n="@@planner.options.plan-proposed">Allow planning proposed routes</span>
         </mat-checkbox>
       </p>
     </mat-expansion-panel>
@@ -64,14 +49,10 @@ export class PlannerSideBarOptionsComponent {
   }
 
   showProposedChanged(event: MatCheckboxChange) {
-    this.store.dispatch(
-      actionPreferencesShowProposed({ value: event.checked })
-    );
+    this.store.dispatch(actionPreferencesShowProposed({ value: event.checked }));
   }
 
   planProposedChanged(event: MatCheckboxChange) {
-    this.store.dispatch(
-      actionPreferencesPlanProposed({ value: event.checked })
-    );
+    this.store.dispatch(actionPreferencesPlanProposed({ value: event.checked }));
   }
 }

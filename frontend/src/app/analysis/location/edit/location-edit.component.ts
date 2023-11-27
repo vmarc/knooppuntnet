@@ -17,10 +17,7 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>
-      <mat-checkbox
-        [checked]="nodeSelection"
-        (change)="nodeSelectionChanged($event)"
-      >
+      <mat-checkbox [checked]="nodeSelection" (change)="nodeSelectionChanged($event)">
         {{ page.summary.nodeCount }}
         <span i18n="@@location-edit.nodes">nodes (quick)</span>
       </mat-checkbox>
@@ -35,20 +32,15 @@ import { BehaviorSubject } from 'rxjs';
       </mat-checkbox>
     </p>
     <p>
-      <mat-checkbox
-        [checked]="fullRouteSelection"
-        (change)="fullRouteSelectionChanged($event)"
-      >
+      <mat-checkbox [checked]="fullRouteSelection" (change)="fullRouteSelectionChanged($event)">
         {{ page.summary.routeCount }}
-        <span i18n="@@location-edit.full-routes"
-          >routes with ways (takes more time)</span
-        >
+        <span i18n="@@location-edit.full-routes">routes with ways (takes more time)</span>
       </mat-checkbox>
     </p>
     <p *ngIf="showEstimatedTime$ | async">
       <i i18n="@@location-edit.time-warning">
-        We estimate that it will take perhaps about {{ seconds }} seconds to
-        load all nodes and routes in the editor.
+        We estimate that it will take perhaps about {{ seconds }} seconds to load all nodes and
+        routes in the editor.
       </i>
     </p>
     <p>

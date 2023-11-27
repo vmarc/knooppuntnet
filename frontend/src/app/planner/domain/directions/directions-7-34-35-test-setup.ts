@@ -123,12 +123,7 @@ export class Directions7TestSetup {
               ],
             },
           ],
-          streets: [
-            'Bredestraat',
-            'Nieuwmoersesteenweg',
-            'Roosbroek',
-            'Schriek',
-          ],
+          streets: ['Bredestraat', 'Nieuwmoersesteenweg', 'Roosbroek', 'Schriek'],
           meters: 939,
         },
       ],

@@ -19,8 +19,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
         [checked]="isSelected()"
         (change)="selectedChanged($event)"
       >
-        {{ optionName(option)
-        }}<span class="option-count">{{ option.count }}</span>
+        {{ optionName(option) }}<span class="option-count">{{ option.count }}</span>
       </mat-checkbox>
     </div>
   `,

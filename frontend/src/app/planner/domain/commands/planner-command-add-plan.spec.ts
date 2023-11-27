@@ -13,13 +13,7 @@ describe('PlannerCommandAddPlan', () => {
     const startFlag = PlanFlag.start('startFlag', setup.node1.coordinate);
     const sinkFlag = PlanFlag.end('sinkFlag', setup.node2.coordinate);
 
-    const leg = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      sinkFlag,
-      null
-    );
+    const leg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag, null);
 
     const plan = new Plan(setup.node1, startFlag, List([leg]));
 

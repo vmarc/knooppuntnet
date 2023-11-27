@@ -23,10 +23,7 @@ import { RouteDiffsData } from './route-diffs-data';
       <div class="kpn-level-2-body">
         <div *ngFor="let ref of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-route-ref-header
-              [ref]="ref.ref"
-              [knownElements]="data.knownElements"
-            />
+            <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements" />
           </div>
           <div *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
             <kpn-meta-data [metaData]="ref.routeChangeInfo.before" />
@@ -36,13 +33,7 @@ import { RouteDiffsData } from './route-diffs-data';
     </div>
   `,
   standalone: true,
-  imports: [
-    IconInvestigateComponent,
-    LinkRouteRefHeaderComponent,
-    MetaDataComponent,
-    NgFor,
-    NgIf,
-  ],
+  imports: [IconInvestigateComponent, LinkRouteRefHeaderComponent, MetaDataComponent, NgFor, NgIf],
 })
 export class RouteDiffsRemovedComponent implements OnInit {
   @Input() data: RouteDiffsData;

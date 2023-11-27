@@ -11,10 +11,7 @@ import { surveyUnknown } from './main-style-colors';
 import { NodeStyle } from './node-style';
 
 export class SurveyDateStyle {
-  static surveyColor(
-    surveyDateValues: SurveyDateValues,
-    feature: FeatureLike
-  ): Color {
+  static surveyColor(surveyDateValues: SurveyDateValues, feature: FeatureLike): Color {
     let color = surveyUnknown; // survey date unknown
     const survey = feature.get('survey');
     if (survey) {
@@ -33,10 +30,7 @@ export class SurveyDateStyle {
     return color;
   }
 
-  static smallNodeStyle(
-    surveyDateValues: SurveyDateValues,
-    feature: FeatureLike
-  ): Style {
+  static smallNodeStyle(surveyDateValues: SurveyDateValues, feature: FeatureLike): Style {
     let style = NodeStyle.smallSurveyUnknown; // survey date unknown
     const survey = feature.get('survey');
     if (survey) {

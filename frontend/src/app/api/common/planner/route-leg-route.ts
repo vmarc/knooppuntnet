@@ -22,11 +22,7 @@ export class RouteLegRoute {
       RouteLegNode.fromJSON(jsonObject.sink),
       jsonObject.meters,
       jsonObject.segments
-        ? List(
-            jsonObject.segments.map((json: any) =>
-              RouteLegSegment.fromJSON(json)
-            )
-          )
+        ? List(jsonObject.segments.map((json: any) => RouteLegSegment.fromJSON(json)))
         : List(),
       jsonObject.streets ? List(jsonObject.streets) : List()
     );

@@ -27,20 +27,11 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     </div>
 
     <!-- networkNodesAdded -->
-    <div
-      *ngIf="networkChangeInfo.networkNodes.added.length > 0"
-      class="kpn-text-only-line"
-    >
-      <span
-        *ngIf="!isInitialValue()"
-        class="kpn-label"
-        i18n="@@network-changes.network-nodes.added"
+    <div *ngIf="networkChangeInfo.networkNodes.added.length > 0" class="kpn-text-only-line">
+      <span *ngIf="!isInitialValue()" class="kpn-label" i18n="@@network-changes.network-nodes.added"
         >Added node(s)</span
       >
-      <span
-        *ngIf="isInitialValue()"
-        class="kpn-label"
-        i18n="@@network-changes.network-nodes.list"
+      <span *ngIf="isInitialValue()" class="kpn-label" i18n="@@network-changes.network-nodes.list"
         >Nodes</span
       >
       <div class="kpn-comma-list">
@@ -51,20 +42,11 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     </div>
 
     <!-- routesAdded -->
-    <div
-      *ngIf="networkChangeInfo.routes.added.length > 0"
-      class="kpn-text-only-line"
-    >
-      <span
-        *ngIf="!isInitialValue()"
-        class="kpn-label"
-        i18n="@@network-changes.routes.added"
+    <div *ngIf="networkChangeInfo.routes.added.length > 0" class="kpn-text-only-line">
+      <span *ngIf="!isInitialValue()" class="kpn-label" i18n="@@network-changes.routes.added"
         >Added route(s)</span
       >
-      <span
-        *ngIf="isInitialValue()"
-        class="kpn-label"
-        i18n="@@network-changes.routes.list"
+      <span *ngIf="isInitialValue()" class="kpn-label" i18n="@@network-changes.routes.list"
         >Routes</span
       >
       <div class="kpn-comma-list">
@@ -87,9 +69,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 
     <!-- waysAdded -->
     <div *ngIf="networkChangeInfo.ways.added.length > 0">
-      <span i18n="@@network-changes.ways.added">
-        Added way member(s) in network relation
-      </span>
+      <span i18n="@@network-changes.ways.added"> Added way member(s) in network relation </span>
     </div>
 
     <!-- relationsAdded -->
@@ -101,16 +81,11 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 
     <!-- networkDataUpdate -->
     <div *ngIf="networkChangeInfo.networkDataUpdated">
-      <span i18n="@@network-changes.network-relation-updated">
-        Updated network relation
-      </span>
+      <span i18n="@@network-changes.network-relation-updated"> Updated network relation </span>
     </div>
 
     <!-- networkNodesUpdated -->
-    <div
-      *ngIf="networkChangeInfo.networkNodes.updated.length > 0"
-      class="kpn-line"
-    >
+    <div *ngIf="networkChangeInfo.networkNodes.updated.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.network-nodes.updated">
         Updated network node(s)
       </span>
@@ -123,9 +98,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 
     <!-- routesUpdated -->
     <div *ngIf="networkChangeInfo.routes.updated.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.routes.updated">
-        Updated route(s)
-      </span>
+      <span class="kpn-label" i18n="@@network-changes.routes.updated"> Updated route(s) </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.updated">
           <kpn-link-route
@@ -139,9 +112,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 
     <!-- nodesUpdated -->
     <div *ngIf="networkChangeInfo.nodes.updated.length > 0">
-      <span i18n="@@network-changes.nodes.updated">
-        Updated non-network node(s)
-      </span>
+      <span i18n="@@network-changes.nodes.updated"> Updated non-network node(s) </span>
     </div>
 
     <!-- waysUpdated -->
@@ -151,16 +122,11 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 
     <!-- relationsUpdated -->
     <div *ngIf="networkChangeInfo.relations.updated.length > 0">
-      <span i18n="@@network-changes.relations.updated">
-        Updated non-route relation(s)
-      </span>
+      <span i18n="@@network-changes.relations.updated"> Updated non-route relation(s) </span>
     </div>
 
     <!-- networkNodesRemoved -->
-    <div
-      *ngIf="networkChangeInfo.networkNodes.removed.length > 0"
-      class="kpn-line"
-    >
+    <div *ngIf="networkChangeInfo.networkNodes.removed.length > 0" class="kpn-line">
       <span class="kpn-label" i18n="@@network-changes.network-nodes.removed">
         Removed network node(s)
       </span>
@@ -173,9 +139,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 
     <!-- routesRemoved -->
     <div *ngIf="networkChangeInfo.routes.removed.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.routes.removed">
-        Removed route(s)
-      </span>
+      <span class="kpn-label" i18n="@@network-changes.routes.removed"> Removed route(s) </span>
       <div class="kpn-comma-list">
         <span *ngFor="let ref of networkChangeInfo.routes.removed">
           <kpn-link-route

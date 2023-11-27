@@ -22,9 +22,7 @@ export class OverviewListComponent implements OnInit {
 
   stats: Stat[];
 
-  constructor(
-    private overviewConfigurationService: OverviewConfigurationService
-  ) {}
+  constructor(private overviewConfigurationService: OverviewConfigurationService) {}
 
   ngOnInit(): void {
     this.stats = this.overviewConfigurationService.statisticConfigurations

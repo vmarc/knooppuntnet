@@ -24,19 +24,14 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
 
       <div class="kpn-comment kpn-spacer-above">
         <p i18n="@@monitor.about.text">
-          The route monitoring function allows you to compare a route geometry
-          in OpenStreetMap against a given reference geometry.
+          The route monitoring function allows you to compare a route geometry in OpenStreetMap
+          against a given reference geometry.
         </p>
       </div>
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
-  imports: [
-    MonitorPageMenuComponent,
-    PageComponent,
-    RouterLink,
-    SidebarComponent,
-  ],
+  imports: [MonitorPageMenuComponent, PageComponent, RouterLink, SidebarComponent],
 })
 export class MonitorAboutPageComponent {}

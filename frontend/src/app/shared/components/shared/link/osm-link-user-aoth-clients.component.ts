@@ -24,9 +24,7 @@ import { Store } from '@ngrx/store';
 })
 export class OsmLinkUserAothClientsComponent {
   readonly user = this.store.selectSignal(selectUserUser);
-  readonly link = computed(
-    () => `https://www.openstreetmap.org/user/${this.user()}/oauth_clients`
-  );
+  readonly link = computed(() => `https://www.openstreetmap.org/user/${this.user()}/oauth_clients`);
 
   constructor(private store: Store) {}
 }

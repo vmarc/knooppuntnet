@@ -24,10 +24,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
     }
   `,
   standalone: true,
-  imports: [
-    RouteAccessibleIndicatorComponent,
-    RouteInvestigateIndicatorComponent,
-  ],
+  imports: [RouteAccessibleIndicatorComponent, RouteInvestigateIndicatorComponent],
 })
 export class LocationRouteAnalysisComponent {
   @Input() route: LocationRouteInfo;

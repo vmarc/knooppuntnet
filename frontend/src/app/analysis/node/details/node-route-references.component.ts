@@ -10,14 +10,9 @@ import { IconRouteLinkComponent } from '@app/components/shared/link';
   selector: 'kpn-node-route-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="references.length === 0" i18n="@@node.route-references.none">
-      None
-    </p>
+    <p *ngIf="references.length === 0" i18n="@@node.route-references.none">None</p>
     <p *ngFor="let reference of references">
-      <kpn-icon-route-link
-        [reference]="reference"
-        [mixedNetworkScopes]="mixedNetworkScopes"
-      />
+      <kpn-icon-route-link [reference]="reference" [mixedNetworkScopes]="mixedNetworkScopes" />
     </p>
   `,
   standalone: true,

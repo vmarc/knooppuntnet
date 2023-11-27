@@ -70,9 +70,7 @@ export class PlanUtil {
   }
 
   static legEndRoutes(routeFeatures: RouteFeature[]): LegEnd {
-    const trackPathKeys = routeFeatures.map((routeFeature) =>
-      routeFeature.toTrackPathKey()
-    );
+    const trackPathKeys = routeFeatures.map((routeFeature) => routeFeature.toTrackPathKey());
     return {
       node: null,
       route: {
@@ -213,9 +211,7 @@ export class PlanUtil {
     const coordinates: Array<Coordinate> = [];
     coordinates.push(planRoute.sourceNode.coordinate);
     planRoute.segments.forEach((segment) =>
-      segment.fragments.forEach((fragment) =>
-        coordinates.push(fragment.coordinate)
-      )
+      segment.fragments.forEach((fragment) => coordinates.push(fragment.coordinate))
     );
     return List(coordinates);
   }
@@ -250,22 +246,10 @@ export class PlanUtil {
       segments: [segment],
       streets: [],
     };
-    return new PlanLeg(
-      featureId,
-      legKey,
-      source,
-      sink,
-      sinkFlag,
-      viaFlag,
-      List([route])
-    );
+    return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
   }
 
-  static leg(
-    data: PlanLegData,
-    sinkFlag: PlanFlag,
-    viaFlag: PlanFlag
-  ): PlanLeg {
+  static leg(data: PlanLegData, sinkFlag: PlanFlag, viaFlag: PlanFlag): PlanLeg {
     const legKey = PlanUtil.key(data.source, data.sink);
     return new PlanLeg(
       FeatureId.next(),

@@ -126,9 +126,7 @@ export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.subscriptions.add(
       this.store.select(selectPlannerNetworkType).subscribe((networkType) => {
-        this.pageService.nextToolbarBackgroundColor(
-          'toolbar-style-' + networkType
-        );
+        this.pageService.nextToolbarBackgroundColor('toolbar-style-' + networkType);
       })
     );
     this.subscriptions.add(

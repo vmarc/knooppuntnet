@@ -119,9 +119,7 @@ export class LocationPageHeaderComponent {
   readonly changesLink = this.link('changes');
   readonly editLink = this.link('edit');
 
-  readonly fullPageTitle = computed(
-    () => `${this.locationKey().name} | ${this.pageTitle}`
-  );
+  readonly fullPageTitle = computed(() => `${this.locationKey().name} | ${this.pageTitle}`);
 
   constructor(private store: Store) {}
 

@@ -16,27 +16,9 @@ describe('PlannerCommandSplitLeg', () => {
     const endFlag = PlanFlag.end('endFlag', [2, 2]);
     const viaFlag = PlanFlag.via('viaFlag', [3, 3]);
 
-    const oldLeg = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      endFlag,
-      null
-    );
-    const newLeg1 = PlanUtil.singleRoutePlanLeg(
-      '13',
-      setup.node1,
-      setup.node3,
-      viaFlag,
-      null
-    );
-    const newLeg2 = PlanUtil.singleRoutePlanLeg(
-      '32',
-      setup.node3,
-      setup.node2,
-      endFlag,
-      null
-    );
+    const oldLeg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, endFlag, null);
+    const newLeg1 = PlanUtil.singleRoutePlanLeg('13', setup.node1, setup.node3, viaFlag, null);
+    const newLeg2 = PlanUtil.singleRoutePlanLeg('32', setup.node3, setup.node2, endFlag, null);
 
     const plan = new Plan(setup.node1, sourceFlag, List([oldLeg]));
     setup.context.execute(new PlannerCommandAddPlan(plan));

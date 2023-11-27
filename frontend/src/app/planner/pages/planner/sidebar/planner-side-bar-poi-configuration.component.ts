@@ -15,9 +15,7 @@ import { MapPoiConfigComponent } from '../poi/map-poi-config.component';
       <mat-expansion-panel-header>
         <span i18n="@@planner.pois.title">Points of interest</span>
         &nbsp;&nbsp;
-        <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled"
-          >(Enabled/Disabled)</span
-        >
+        <span class="kpn-thin" i18n="@@planner.pois.enabled-disabled">(Enabled/Disabled)</span>
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
         <mat-checkbox
@@ -30,9 +28,7 @@ import { MapPoiConfigComponent } from '../poi/map-poi-config.component';
 
         <!-- TODO show warning only when zoom level not high enough to see the icons on the map -->
         <p>
-          <i i18n="@@planner.pois.zoom-in">
-            Zoom in to see the icons on the map.
-          </i>
+          <i i18n="@@planner.pois.zoom-in"> Zoom in to see the icons on the map. </i>
         </p>
 
         <kpn-map-poi-config />
@@ -43,12 +39,7 @@ import { MapPoiConfigComponent } from '../poi/map-poi-config.component';
     </mat-expansion-panel>
   `,
   standalone: true,
-  imports: [
-    MapPoiConfigComponent,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatExpansionModule,
-  ],
+  imports: [MapPoiConfigComponent, MatButtonModule, MatCheckboxModule, MatExpansionModule],
 })
 export class PlannerSideBarPoiConfigurationComponent {
   constructor(private poiService: PoiService) {}

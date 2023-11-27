@@ -22,10 +22,7 @@ import { OverviewValueComponent } from './overview-value.component';
         <kpn-network-type-icon [networkType]="networkType" />
       </td>
       <td class="value">
-        <kpn-overview-value
-          [stat]="stat"
-          [subset]="subset(country, networkType)"
-        />
+        <kpn-overview-value [stat]="stat" [subset]="subset(country, networkType)" />
       </td>
     </tr>
   `,
@@ -41,12 +38,7 @@ import { OverviewValueComponent } from './overview-value.component';
     }
   `,
   standalone: true,
-  imports: [
-    CountryNameComponent,
-    NetworkTypeIconComponent,
-    NgIf,
-    OverviewValueComponent,
-  ],
+  imports: [CountryNameComponent, NetworkTypeIconComponent, NgIf, OverviewValueComponent],
 })
 export class OverviewListStatRowComponent {
   @Input() rowspan: number = null;

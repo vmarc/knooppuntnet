@@ -19,11 +19,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
         <kpn-icon-investigate />
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
-        <kpn-osm-link-way
-          *ngFor="let wayId of wayIds"
-          [wayId]="wayId"
-          [title]="wayId.toString()"
-        />
+        <kpn-osm-link-way *ngFor="let wayId of wayIds" [wayId]="wayId" [title]="wayId.toString()" />
       </div>
     </div>
   `,

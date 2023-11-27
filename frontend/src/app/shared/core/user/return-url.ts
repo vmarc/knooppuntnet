@@ -19,27 +19,18 @@ export class ReturnUrl {
     } else {
       pageValue = url.substring(pageValueStart, pageValueEnd);
     }
-    const withQuestionMarksRestored = pageValue.replaceAll(
-      this.questionMarkReplacement,
-      '?'
-    );
+    const withQuestionMarksRestored = pageValue.replaceAll(this.questionMarkReplacement, '?');
     return withQuestionMarksRestored.replaceAll(this.ampersandReplacement, '&');
   }
 
   public static encode(url: string): string {
-    if (
-      url.includes(this.questionMarkReplacement) ||
-      url.includes(this.ampersandReplacement)
-    ) {
+    if (url.includes(this.questionMarkReplacement) || url.includes(this.ampersandReplacement)) {
       const error = 'Could not encode returnUrl';
       const reason = 'contains "~" and/or "," characters';
       console.log(`${error} (${reason}): "${url}"`);
       return '/';
     }
-    const withoutQuestionMarks = url.replaceAll(
-      '?',
-      this.questionMarkReplacement
-    );
+    const withoutQuestionMarks = url.replaceAll('?', this.questionMarkReplacement);
     return withoutQuestionMarks.replaceAll('&', this.ampersandReplacement);
   }
 }

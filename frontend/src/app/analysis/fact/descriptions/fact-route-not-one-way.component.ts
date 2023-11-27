@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-not-one-way">
-      The route is tagged as useable in one direction only, but the analysis
-      logic does find ways in both directions.
+      The route is tagged as useable in one direction only, but the analysis logic does find ways in
+      both directions.
     </p>
   `,
   standalone: true,

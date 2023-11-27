@@ -17,28 +17,19 @@ import { RouteDiffsData } from './route-diffs-data';
   template: `
     <div *ngIf="refs.length > 0" class="kpn-level-2">
       <div class="kpn-line kpn-level-2-header">
-        <span class="kpn-thick" i18n="@@route-diffs-added.title"
-          >Added routes</span
-        >
+        <span class="kpn-thick" i18n="@@route-diffs-added.title">Added routes</span>
         <span>({{ refs.length }})</span>
         <kpn-icon-happy />
       </div>
       <div class="kpn-level-2-body">
         <div *ngFor="let ref of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-route-ref-header
-              [ref]="ref.ref"
-              [knownElements]="data.knownElements"
-            />
+            <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements" />
           </div>
           <div *ngIf="ref.routeChangeInfo" class="kpn-level-3-body">
             <div *ngIf="ref.routeChangeInfo.after">
               <div class="kpn-thin">
-                <ng-container
-                  *ngIf="
-                    ref.routeChangeInfo.after.changeSetId === data.changeSetId
-                  "
-                >
+                <ng-container *ngIf="ref.routeChangeInfo.after.changeSetId === data.changeSetId">
                   <ng-container
                     *ngIf="ref.routeChangeInfo.after.version === 1"
                     i18n="@@route-diffs-added.new-relation"
@@ -49,19 +40,11 @@ import { RouteDiffsData } from './route-diffs-data';
                     *ngIf="ref.routeChangeInfo.after.version > 1"
                     i18n="@@route-diffs-added.updated-relation"
                   >
-                    Relation updated in this changeset v{{
-                      ref.routeChangeInfo.after.version
-                    }}
+                    Relation updated in this changeset v{{ ref.routeChangeInfo.after.version }}
                   </ng-container>
                 </ng-container>
-                <ng-container
-                  *ngIf="
-                    ref.routeChangeInfo.after.changeSetId !== data.changeSetId
-                  "
-                >
-                  <ng-container
-                    i18n="@@route-diffs-added.existing-relation"
-                    class="kpn-label"
+                <ng-container *ngIf="ref.routeChangeInfo.after.changeSetId !== data.changeSetId">
+                  <ng-container i18n="@@route-diffs-added.existing-relation" class="kpn-label"
                     >Existing relation
                   </ng-container>
                   <kpn-meta-data [metaData]="ref.routeChangeInfo.after" />

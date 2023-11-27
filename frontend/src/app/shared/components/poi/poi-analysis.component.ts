@@ -41,12 +41,7 @@ import { PoiService } from '@app/services';
     </div>
 
     <div *ngIf="poi.facebook || poi.twitter" class="item">
-      <a
-        *ngIf="poi.facebook"
-        [href]="poi.facebook"
-        target="_blank"
-        rel="nofollow noreferrer"
-      >
+      <a *ngIf="poi.facebook" [href]="poi.facebook" target="_blank" rel="nofollow noreferrer">
         <img
           src="/assets/images/icons/facebook.png"
           class="image"
@@ -54,18 +49,8 @@ import { PoiService } from '@app/services';
           title="Facebook"
         />
       </a>
-      <a
-        *ngIf="poi.twitter"
-        [href]="poi.twitter"
-        target="_blank"
-        rel="nofollow noreferrer"
-      >
-        <img
-          src="/assets/images/icons/twitter.png"
-          class="image"
-          alt="Twitter"
-          title="Twitter"
-        />
+      <a *ngIf="poi.twitter" [href]="poi.twitter" target="_blank" rel="nofollow noreferrer">
+        <img src="/assets/images/icons/twitter.png" class="image" alt="Twitter" title="Twitter" />
       </a>
     </div>
 
@@ -76,27 +61,17 @@ import { PoiService } from '@app/services';
     </div>
 
     <div *ngIf="poi.openingHours" class="item">
-      <span class="kpn-label" i18n="@@poi.detail.opengingHours"
-        >Opening hours</span
-      >
+      <span class="kpn-label" i18n="@@poi.detail.opengingHours">Opening hours</span>
       {{ poi.openingHours }}
     </div>
     <div *ngIf="poi.serviceTimes" class="item">
-      <span class="kpn-label" i18n="@@poi.detail.serviceHours"
-        >Service times</span
-      >
+      <span class="kpn-label" i18n="@@poi.detail.serviceHours">Service times</span>
       {{ poi.serviceTimes }}
     </div>
 
     <div *ngIf="poi.image" class="item">
       <a [href]="poi.image" target="_blank" rel="nofollow noreferrer">
-        <img
-          [src]="poi.imageThumbnail"
-          width="inherit"
-          height="100px"
-          alt="image"
-          class="image"
-        />
+        <img [src]="poi.imageThumbnail" width="inherit" height="100px" alt="image" class="image" />
       </a>
     </div>
 

@@ -5,8 +5,7 @@ export class EditConfiguration {
   readonly relationChunkSize = 50;
   readonly requestDelay = 200;
   readonly josmUrl = 'http://localhost:8111/';
-  readonly apiUrl =
-    this.josmUrl + 'import?url=https://api.openstreetmap.org/api/0.6';
+  readonly apiUrl = this.josmUrl + 'import?url=https://api.openstreetmap.org/api/0.6';
 
   seconds(parameters: EditParameters): number {
     let stepCount = 0;

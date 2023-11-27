@@ -31,11 +31,7 @@ export class NetworkMapService extends OpenlayersMapService {
     super();
   }
 
-  init(
-    networkId: number,
-    page: NetworkMapPage,
-    mapPositionFromUrl: NetworkMapPosition
-  ): void {
+  init(networkId: number, page: NetworkMapPage, mapPositionFromUrl: NetworkMapPosition): void {
     this.registerLayers(page);
 
     this.initMap(
@@ -77,10 +73,7 @@ export class NetworkMapService extends OpenlayersMapService {
           y: mapPosition.y,
           rotation: mapPosition.rotation,
         };
-        this.storage.set(
-          this.networkMapPositionKey,
-          JSON.stringify(networkMapPosition)
-        );
+        this.storage.set(this.networkMapPositionKey, JSON.stringify(networkMapPosition));
       }
     });
 
@@ -96,11 +89,7 @@ export class NetworkMapService extends OpenlayersMapService {
     registry.register([], OsmLayer.build(), false);
     const networkNodesLayers = [
       NetworkNodesBitmapTileLayer.build(page.summary.networkType),
-      NetworkNodesVectorTileLayer.build(
-        page.summary.networkType,
-        page.nodeIds,
-        page.routeIds
-      ),
+      NetworkNodesVectorTileLayer.build(page.summary.networkType, page.nodeIds, page.routeIds),
     ];
     registry.registerAll([], networkNodesLayers, true);
     registry.register([], NetworkNodesMarkerLayer.build(page.nodes), true);

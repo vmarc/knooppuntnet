@@ -61,9 +61,7 @@ import { RouteSummaryComponent } from './route-summary.component';
       />
 
       <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="!response.result" i18n="@@route.route-not-found">
-          Route not found
-        </div>
+        <div *ngIf="!response.result" i18n="@@route.route-not-found">Route not found</div>
 
         <div *ngIf="response.result as page">
           <kpn-data title="Summary" i18n-title="@@route.summary">
@@ -94,25 +92,16 @@ import { RouteSummaryComponent } from './route-summary.component';
             </div>
           </div>
 
-          <kpn-data
-            title="Relation last updated"
-            i18n-title="@@route.relation-last-updated"
-          >
+          <kpn-data title="Relation last updated" i18n-title="@@route.relation-last-updated">
             <kpn-timestamp [timestamp]="page.route.summary.timestamp" />
           </kpn-data>
 
           <kpn-data title="Network" i18n-title="@@route.network">
-            <kpn-route-network-references
-              [references]="page.networkReferences"
-            />
+            <kpn-route-network-references [references]="page.networkReferences" />
           </kpn-data>
 
           <div *ngIf="page.route.analysis as analysis">
-            <kpn-data
-              *ngIf="hasFreeNodes(analysis)"
-              title="Nodes"
-              i18n-title="@@route.nodes"
-            >
+            <kpn-data *ngIf="hasFreeNodes(analysis)" title="Nodes" i18n-title="@@route.nodes">
               <kpn-route-free-nodes [analysis]="analysis" />
             </kpn-data>
 
@@ -133,18 +122,12 @@ import { RouteSummaryComponent } from './route-summary.component';
             </kpn-data>
 
             <div *ngIf="analysis.map.redundantNodes.length > 0">
-              <kpn-data
-                title="Redundant node"
-                i18n-title="@@route.redundant-node"
-              >
+              <kpn-data title="Redundant node" i18n-title="@@route.redundant-node">
                 <kpn-route-redundant-nodes [analysis]="analysis" />
               </kpn-data>
             </div>
 
-            <kpn-data
-              title="Number of ways"
-              i18n-title="@@route.number-of-ways"
-            >
+            <kpn-data title="Number of ways" i18n-title="@@route.number-of-ways">
               {{ page.route.summary.wayCount }}
             </kpn-data>
           </div>
@@ -162,9 +145,7 @@ import { RouteSummaryComponent } from './route-summary.component';
 
           <div *ngIf="page.route.analysis && showRouteDetails$ | async">
             <kpn-data title="Structure" i18n-title="@@route.structure">
-              <kpn-route-structure
-                [structureStrings]="page.route.analysis.structureStrings"
-              />
+              <kpn-route-structure [structureStrings]="page.route.analysis.structureStrings" />
             </kpn-data>
           </div>
 
@@ -246,13 +227,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
     return page.route.facts.map((fact) => {
       if (fact === 'RouteUnexpectedNode') {
         const unexpectedNodeIds = page.route.analysis.unexpectedNodeIds;
-        return new FactInfo(
-          fact,
-          undefined,
-          undefined,
-          undefined,
-          unexpectedNodeIds
-        );
+        return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
       }
       if (fact === 'RouteUnexpectedRelation') {
         const unexpectedRelationIds = page.route.analysis.unexpectedRelationIds;
@@ -278,9 +253,7 @@ export class RoutePageComponent implements OnInit, OnDestroy {
   }
 
   symbolDescription(page: RouteDetailsPage): string {
-    const symbolTag = page.route.tags.tags.find(
-      (tag) => tag.key === 'osmc:symbol'
-    );
+    const symbolTag = page.route.tags.tags.find((tag) => tag.key === 'osmc:symbol');
     if (symbolTag) {
       return symbolTag.value;
     }

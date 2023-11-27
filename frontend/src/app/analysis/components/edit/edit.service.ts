@@ -44,10 +44,7 @@ export class EditService {
     const wayEdits = this.buildWayEdits(parameters);
     const relationEdits = this.buildRelationEdits(parameters);
     const fullRelationEdits = this.buildFullRelationEdits(parameters);
-    const edits = nodeEdits
-      .concat(wayEdits)
-      .concat(relationEdits)
-      .concat(fullRelationEdits);
+    const edits = nodeEdits.concat(wayEdits).concat(relationEdits).concat(fullRelationEdits);
     const setBounds = this.buildSetBounds(parameters);
     const steps = setBounds === null ? edits : edits.concat(setBounds);
 
@@ -102,9 +99,7 @@ export class EditService {
       const zoomUrl =
         this.configuration.josmUrl +
         `zoom?left=${parameters.bounds.minLon}&right=${parameters.bounds.maxLon}&top=${parameters.bounds.maxLat}&bottom=${parameters.bounds.minLat}`;
-      return this.apiService
-        .edit(zoomUrl)
-        .pipe(tap(() => this.updateProgress()));
+      return this.apiService.edit(zoomUrl).pipe(tap(() => this.updateProgress()));
     }
     return null;
   }
@@ -113,16 +108,9 @@ export class EditService {
     if (!parameters.nodeIds || parameters.nodeIds.length === 0) {
       return [];
     }
-    const nodeBatches = Range(
-      0,
-      parameters.nodeIds.length,
-      this.configuration.nodeChunkSize
-    )
+    const nodeBatches = Range(0, parameters.nodeIds.length, this.configuration.nodeChunkSize)
       .map((chunkStart) =>
-        parameters.nodeIds.slice(
-          chunkStart,
-          chunkStart + this.configuration.nodeChunkSize
-        )
+        parameters.nodeIds.slice(chunkStart, chunkStart + this.configuration.nodeChunkSize)
       )
       .toArray();
     return nodeBatches.map((nodeIds) => {
@@ -159,10 +147,7 @@ export class EditService {
       this.configuration.relationChunkSize
     )
       .map((chunkStart) =>
-        parameters.relationIds.slice(
-          chunkStart,
-          chunkStart + this.configuration.relationChunkSize
-        )
+        parameters.relationIds.slice(chunkStart, chunkStart + this.configuration.relationChunkSize)
       )
       .toArray();
     return relationBatches.map((relationIds) => {
@@ -175,9 +160,7 @@ export class EditService {
     });
   }
 
-  private buildFullRelationEdits(
-    parameters: EditParameters
-  ): Observable<string>[] {
+  private buildFullRelationEdits(parameters: EditParameters): Observable<string>[] {
     if (!parameters.fullRelation) {
       return [];
     }

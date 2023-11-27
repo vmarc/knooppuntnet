@@ -73,9 +73,7 @@ export class SubsetMapService extends OpenlayersMapService {
     });
     if (features) {
       const index = features.findIndex(
-        (feature) =>
-          NetworkMarkerLayer.networkMarker ===
-          feature.get(NetworkMarkerLayer.layer)
+        (feature) => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer)
       );
       if (index >= 0) {
         const networkId = +features[index].get(NetworkMarkerLayer.networkId);
@@ -92,12 +90,9 @@ export class SubsetMapService extends OpenlayersMapService {
     });
     if (features) {
       const index = features.findIndex(
-        (feature) =>
-          NetworkMarkerLayer.networkMarker ===
-          feature.get(NetworkMarkerLayer.layer)
+        (feature) => NetworkMarkerLayer.networkMarker === feature.get(NetworkMarkerLayer.layer)
       );
-      evt.map.getTargetElement().style.cursor =
-        index >= 0 ? 'pointer' : 'default';
+      evt.map.getTargetElement().style.cursor = index >= 0 ? 'pointer' : 'default';
     }
     return true; // propagate event
   }

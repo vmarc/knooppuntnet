@@ -18,9 +18,7 @@ export class MoveFirstLegSource {
           if (newLeg) {
             const oldSourceNode = this.context.plan.sourceNode;
             const oldSourceFlag = this.context.plan.sourceFlag;
-            const newSourceFlag = oldSourceFlag.withCoordinate(
-              newSourceNode.coordinate
-            );
+            const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
             const command = new PlannerCommandMoveFirstLegSource(
               oldLeg,
               oldSourceNode,
@@ -40,10 +38,7 @@ export class MoveFirstLegSource {
     }
   }
 
-  private buildNewLeg(
-    newSourceNode: PlanNode,
-    oldLeg: PlanLeg
-  ): Observable<PlanLeg> {
+  private buildNewLeg(newSourceNode: PlanNode, oldLeg: PlanLeg): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+newSourceNode.nodeId);
     return this.context
       .fetchLeg(source, oldLeg.sink)

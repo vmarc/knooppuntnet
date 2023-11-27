@@ -18,17 +18,14 @@ import { initialState } from './route.state';
 
 export const routeReducer = createReducer<RouteState>(
   initialState,
-  on(
-    actionRouteDetailsPageLoad,
-    (state, { routeId, routeName, networkType }): RouteState => {
-      return {
-        ...state,
-        routeId,
-        routeName,
-        networkType,
-      };
-    }
-  ),
+  on(actionRouteDetailsPageLoad, (state, { routeId, routeName, networkType }): RouteState => {
+    return {
+      ...state,
+      routeId,
+      routeName,
+      networkType,
+    };
+  }),
   on(
     actionRouteMapPageLoad,
     (state, { routeId }): RouteState => ({
@@ -37,11 +34,9 @@ export const routeReducer = createReducer<RouteState>(
     })
   ),
   on(actionRouteDetailsPageLoaded, (state, response): RouteState => {
-    const routeId =
-      response.result?.route.summary.id.toString() ?? state.routeId;
+    const routeId = response.result?.route.summary.id.toString() ?? state.routeId;
     const routeName = response.result?.route.summary.name ?? state.routeName;
-    const networkType =
-      response.result?.route.summary.networkType ?? state.networkType;
+    const networkType = response.result?.route.summary.networkType ?? state.networkType;
     const changeCount = response.result?.changeCount ?? state.changeCount;
     return {
       ...state,
@@ -58,27 +53,21 @@ export const routeReducer = createReducer<RouteState>(
       detailsPage: null,
     };
   }),
-  on(
-    actionRouteMapPageLoaded,
-    (state, { response, mapPositionFromUrl }): RouteState => {
-      const routeId =
-        response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
-      const routeName =
-        response.result?.routeMapInfo.routeName ?? state.routeName;
-      const networkType =
-        response.result?.routeMapInfo.networkType ?? state.networkType;
-      const changeCount = response.result?.changeCount ?? state.changeCount;
-      return {
-        ...state,
-        routeId,
-        routeName,
-        networkType,
-        changeCount,
-        mapPage: response,
-        mapPositionFromUrl,
-      };
-    }
-  ),
+  on(actionRouteMapPageLoaded, (state, { response, mapPositionFromUrl }): RouteState => {
+    const routeId = response.result?.routeMapInfo.routeId.toString() ?? state.routeId;
+    const routeName = response.result?.routeMapInfo.routeName ?? state.routeName;
+    const networkType = response.result?.routeMapInfo.networkType ?? state.networkType;
+    const changeCount = response.result?.changeCount ?? state.changeCount;
+    return {
+      ...state,
+      routeId,
+      routeName,
+      networkType,
+      changeCount,
+      mapPage: response,
+      mapPositionFromUrl,
+    };
+  }),
   on(actionRouteMapPageDestroy, (state): RouteState => {
     return {
       ...state,
@@ -95,13 +84,10 @@ export const routeReducer = createReducer<RouteState>(
     })
   ),
   on(actionRouteChangesPageLoaded, (state, response): RouteState => {
-    const routeId =
-      response.result?.routeNameInfo.routeId.toString() ?? state.routeId;
-    const routeName =
-      response.result?.routeNameInfo.routeName ?? state.routeName;
+    const routeId = response.result?.routeNameInfo.routeId.toString() ?? state.routeId;
+    const routeName = response.result?.routeNameInfo.routeName ?? state.routeName;
     const changeCount = response.result?.changeCount ?? 0;
-    const networkType =
-      response.result?.routeNameInfo.networkType ?? state.networkType;
+    const networkType = response.result?.routeNameInfo.networkType ?? state.networkType;
     return {
       ...state,
       routeId,

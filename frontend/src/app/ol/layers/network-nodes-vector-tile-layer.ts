@@ -8,11 +8,7 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkNodesVectorTileLayer {
-  static build(
-    networkType: NetworkType,
-    nodeIds: number[],
-    routeIds: number[]
-  ): MapLayer {
+  static build(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -28,10 +24,7 @@ export class NetworkNodesVectorTileLayer {
       renderMode: 'vector',
     });
 
-    const nodeMapStyle = new NetworkNodesMapStyle(
-      nodeIds,
-      routeIds
-    ).styleFunction();
+    const nodeMapStyle = new NetworkNodesMapStyle(nodeIds, routeIds).styleFunction();
     layer.setStyle(nodeMapStyle);
 
     return new MapLayer(

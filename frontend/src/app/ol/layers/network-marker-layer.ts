@@ -12,10 +12,7 @@ export class NetworkMarkerLayer {
 
   build(networks: SubsetMapNetwork[]): MapLayer {
     const markers = networks.map((network) => {
-      const coordinate = OlUtil.toCoordinate(
-        network.center.latitude,
-        network.center.longitude
-      );
+      const coordinate = OlUtil.toCoordinate(network.center.latitude, network.center.longitude);
       const marker = Marker.create('blue', coordinate);
       marker.set(NetworkMarkerLayer.networkId, network.id.toString());
       marker.set(NetworkMarkerLayer.layer, NetworkMarkerLayer.networkMarker);

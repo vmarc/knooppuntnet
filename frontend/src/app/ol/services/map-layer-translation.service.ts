@@ -65,9 +65,7 @@ export class MapLayerTranslationService {
       (definition) => definition.name === layerName
     );
     if (layerDefinition) {
-      const translation = this.i18nService.translation(
-        layerDefinition.translation
-      );
+      const translation = this.i18nService.translation(layerDefinition.translation);
       if (translation) {
         return translation;
       }

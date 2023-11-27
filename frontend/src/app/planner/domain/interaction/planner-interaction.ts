@@ -34,9 +34,7 @@ export class PlannerInteraction {
   private buildInteraction(): Interaction {
     return new Interaction({
       handleEvent: (evt: MapBrowserEvent<UIEvent>) => {
-        this.eventDebugLog(
-          evt.type + ', platformModifierKeyOnly=' + platformModifierKeyOnly(evt)
-        );
+        this.eventDebugLog(evt.type + ', platformModifierKeyOnly=' + platformModifierKeyOnly(evt));
 
         const ctrlState = platformModifierKeyOnly(evt);
         if (ctrlState === true || ctrlState === false) {
@@ -52,32 +50,19 @@ export class PlannerInteraction {
         }
 
         if (MapBrowserEventType.POINTERMOVE === evt.type) {
-          return this.engine.handleMoveEvent(
-            this.getFeaturesAt(evt),
-            evt.coordinate,
-            this.ctrl
-          );
+          return this.engine.handleMoveEvent(this.getFeaturesAt(evt), evt.coordinate, this.ctrl);
         }
 
         if (MapBrowserEventType.POINTERDRAG === evt.type) {
-          return this.engine.handleDragEvent(
-            this.getFeaturesAt(evt),
-            evt.coordinate
-          );
+          return this.engine.handleDragEvent(this.getFeaturesAt(evt), evt.coordinate);
         }
 
         if (MapBrowserEventType.POINTERUP === evt.type) {
-          return this.engine.handleUpEvent(
-            this.getFeaturesAt(evt),
-            evt.coordinate
-          );
+          return this.engine.handleUpEvent(this.getFeaturesAt(evt), evt.coordinate);
         }
 
         if (MapBrowserEventType.POINTERDOWN === evt.type) {
-          return this.engine.handleDownEvent(
-            this.getFeaturesAt(evt),
-            evt.coordinate
-          );
+          return this.engine.handleDownEvent(this.getFeaturesAt(evt), evt.coordinate);
         }
 
         // known unhandled events, propagated to other interactions
@@ -122,9 +107,7 @@ export class PlannerInteraction {
     const features = evt.map.getFeaturesAtPixel(evt.pixel);
     if (features) {
       return List(
-        features
-          .map((feature) => Features.mapFeature(feature))
-          .filter((f) => f !== null)
+        features.map((feature) => Features.mapFeature(feature)).filter((f) => f !== null)
       );
     }
     return List();
@@ -132,9 +115,7 @@ export class PlannerInteraction {
 
   private eventDebugLog(message: string): void {
     if (this.eventDebugLogEnabled) {
-      console.log(
-        `PlannerInteraction ${this.eventDebugLogCount++}: ${message}`
-      );
+      console.log(`PlannerInteraction ${this.eventDebugLogCount++}: ${message}`);
     }
   }
 }

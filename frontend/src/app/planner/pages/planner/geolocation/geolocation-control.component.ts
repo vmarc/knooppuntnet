@@ -46,10 +46,7 @@ export class GeolocationControlComponent {
     } else {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          const center = fromLonLat([
-            position.coords.longitude,
-            position.coords.latitude,
-          ]);
+          const center = fromLonLat([position.coords.longitude, position.coords.latitude]);
           this.action.emit(center);
         },
         (positionError: GeolocationPositionError) => {

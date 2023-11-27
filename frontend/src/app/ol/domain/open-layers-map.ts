@@ -13,13 +13,9 @@ export class OpenLayersMap {
   }
 
   init(pageService: PageService): void {
+    this.subscriptions.add(pageService.sidebarOpen.subscribe(() => this.updateSize()));
     this.subscriptions.add(
-      pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() => this.updateSize())
     );
   }
 

@@ -32,10 +32,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
       return !this.getter(element);
     }
     if (this.isLastMonth()) {
-      return this.sameAsOrYoungerThan(
-        element,
-        this.surveyDateInfo.lastMonthStart
-      );
+      return this.sameAsOrYoungerThan(element, this.surveyDateInfo.lastMonthStart);
     }
     if (this.isLastHalfYear()) {
       return this.isBetween(
@@ -77,39 +74,21 @@ export class SurveyDateFilter<T> extends Filter<T> {
       this.sameAsOrYoungerThan(e, this.surveyDateInfo.lastMonthStart)
     ).length;
     const lastHalfYearCount = filteredElements.filter((e) =>
-      this.isBetween(
-        e,
-        this.surveyDateInfo.lastMonthStart,
-        this.surveyDateInfo.lastHalfYearStart
-      )
+      this.isBetween(e, this.surveyDateInfo.lastMonthStart, this.surveyDateInfo.lastHalfYearStart)
     ).length;
     const lastYearCount = filteredElements.filter((e) =>
-      this.isBetween(
-        e,
-        this.surveyDateInfo.lastHalfYearStart,
-        this.surveyDateInfo.lastYearStart
-      )
+      this.isBetween(e, this.surveyDateInfo.lastHalfYearStart, this.surveyDateInfo.lastYearStart)
     ).length;
     const lastTwoYearsCount = filteredElements.filter((e) =>
-      this.isBetween(
-        e,
-        this.surveyDateInfo.lastYearStart,
-        this.surveyDateInfo.lastTwoYearsStart
-      )
+      this.isBetween(e, this.surveyDateInfo.lastYearStart, this.surveyDateInfo.lastTwoYearsStart)
     ).length;
     const olderCount = filteredElements.filter(
       (e) =>
-        !!this.getter(e) &&
-        Days.olderThan(this.getter(e), this.surveyDateInfo.lastTwoYearsStart)
+        !!this.getter(e) && Days.olderThan(this.getter(e), this.surveyDateInfo.lastTwoYearsStart)
     ).length;
 
     const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
-    const unknown = new FilterOption(
-      'unknown',
-      unknownCount,
-      this.isUnknown(),
-      this.selectUnknown
-    );
+    const unknown = new FilterOption('unknown', unknownCount, this.isUnknown(), this.selectUnknown);
     const lastMonth = new FilterOption(
       'lastMonth',
       lastMonthCount,
@@ -134,12 +113,7 @@ export class SurveyDateFilter<T> extends Filter<T> {
       this.isLastTwoYears(),
       this.selectLastTwoYears
     );
-    const older = new FilterOption(
-      'older',
-      olderCount,
-      this.isOlder(),
-      this.selectOlder
-    );
+    const older = new FilterOption('older', olderCount, this.isOlder(), this.selectOlder);
 
     return new FilterOptionGroup(
       this.name,

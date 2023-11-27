@@ -26,9 +26,7 @@ export class LocationService {
     this.summary$ = this._summary$.asObservable();
     this.locationKey$.subscribe((locationKey) => {
       if (locationKey !== null) {
-        const locationSummary = this.locationSummaries.get(
-          this._locationKey$.getValue().name
-        );
+        const locationSummary = this.locationSummaries.get(this._locationKey$.getValue().name);
         if (locationSummary) {
           this._summary$.next(locationSummary);
         }
@@ -59,10 +57,7 @@ export class LocationService {
   }
 
   nextSummary(locationName: string, locationSummary: LocationSummary) {
-    this.locationSummaries = this.locationSummaries.set(
-      locationName,
-      locationSummary
-    );
+    this.locationSummaries = this.locationSummaries.set(locationName, locationSummary);
     this._summary$.next(locationSummary);
   }
 

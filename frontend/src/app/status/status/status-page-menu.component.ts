@@ -21,9 +21,7 @@ import { StatusLinks } from './status-links';
       <kpn-page-menu-option [link]="links.week" [active]="periodType === 'week'"
         >Week
       </kpn-page-menu-option>
-      <kpn-page-menu-option
-        [link]="links.month"
-        [active]="periodType === 'month'"
+      <kpn-page-menu-option [link]="links.month" [active]="periodType === 'month'"
         >Month
       </kpn-page-menu-option>
       <kpn-page-menu-option [link]="links.year" [active]="periodType === 'year'"

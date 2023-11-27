@@ -99,10 +99,7 @@ export class MapClickService {
       window.open(externalUrl);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
-      setTimeout(
-        () => this.router.navigateByUrl(url, { state: { routeName } }),
-        250
-      );
+      setTimeout(() => this.router.navigateByUrl(url, { state: { routeName } }), 250);
     }
   }
 
@@ -115,10 +112,7 @@ export class MapClickService {
       window.open(externalUrl);
     } else {
       this.interaction.getMap().removeInteraction(this.interaction);
-      setTimeout(
-        () => this.router.navigateByUrl(url, { state: { nodeName } }),
-        250
-      );
+      setTimeout(() => this.router.navigateByUrl(url, { state: { nodeName } }), 250);
     }
   }
 

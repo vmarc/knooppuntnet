@@ -37,20 +37,12 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.nr">
-          Nr
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.nr">Nr</th>
         <td mat-cell *matCellDef="let poi">{{ poi.rowIndex + 1 }}</td>
       </ng-container>
 
       <ng-container matColumnDef="layer">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-pois.table.layer"
-        >
-          Layer
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.layer">Layer</th>
         <td mat-cell *matCellDef="let poi">
           <span *ngFor="let layer of poi.layers">
             {{ layer }}
@@ -59,22 +51,14 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       </ng-container>
 
       <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.id">
-          Id
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.id">Id</th>
         <td mat-cell *matCellDef="let poi">
-          <a [routerLink]="'/poi/' + poi.elementType + '/' + poi.elementId">{{
-            poi._id
-          }}</a>
+          <a [routerLink]="'/poi/' + poi.elementType + '/' + poi.elementId">{{ poi._id }}</a>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-pois.table.description"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.description">
           Description
         </th>
         <td mat-cell *matCellDef="let poi">
@@ -83,45 +67,28 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       </ng-container>
 
       <ng-container matColumnDef="address">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-pois.table.address"
-        >
-          Address
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.address">Address</th>
         <td mat-cell *matCellDef="let poi">
           {{ poi.address }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="link">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.link">
-          Link
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.link">Link</th>
         <td mat-cell *matCellDef="let poi">
           {{ poi.link ? 'yes' : '' }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="image">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-pois.table.image"
-        >
-          Image
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.image">Image</th>
         <td mat-cell *matCellDef="let poi">
           {{ poi.image ? 'yes' : '' }}
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr
-        mat-row
-        *matRowDef="let node; columns: displayedColumns$ | async"
-      ></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async"></tr>
     </table>
 
     <kpn-paginator
@@ -158,9 +125,7 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
     private store: Store
   ) {
     this.dataSource = new MatTableDataSource();
-    this.displayedColumns$ = pageWidthService.current$.pipe(
-      map(() => this.displayedColumns())
-    );
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {

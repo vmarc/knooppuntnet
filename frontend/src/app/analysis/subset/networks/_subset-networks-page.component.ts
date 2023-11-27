@@ -33,31 +33,22 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
       <kpn-error />
 
       <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div
-          *ngIf="response.result.networks.length === 0"
-          i18n="@@subset-networks.no-networks"
-        >
+        <div *ngIf="response.result.networks.length === 0" i18n="@@subset-networks.no-networks">
           No networks
         </div>
         <div *ngIf="response.result.networks.length > 0">
           <p>
-            <kpn-situation-on
-              [timestamp]="response.situationOn"
-            ></kpn-situation-on>
+            <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
           </p>
 
           <markdown i18n="@@subset-networks.summary">
-            _There are __{{ response.result.networkCount | integer }}__
-            networks, with a total of __{{
-              response.result.nodeCount | integer
-            }}__ nodes and __{{ response.result.routeCount | integer }}__ routes
-            with an overall length of __{{ response.result.km | integer }}__
-            km._
+            _There are __{{ response.result.networkCount | integer }}__ networks, with a total of
+            __{{ response.result.nodeCount | integer }}__ nodes and __{{
+              response.result.routeCount | integer
+            }}__ routes with an overall length of __{{ response.result.km | integer }}__ km._
           </markdown>
 
-          <ng-container
-            *ngIf="large$ | async; then table; else list"
-          ></ng-container>
+          <ng-container *ngIf="large$ | async; then table; else list"></ng-container>
           <ng-template #table>
             <kpn-subset-network-table [networks]="response.result.networks" />
           </ng-template>
@@ -93,9 +84,7 @@ export class SubsetNetworksPageComponent implements OnInit {
     private store: Store,
     private pageWidthService: PageWidthService
   ) {
-    this.large$ = pageWidthService.current$.pipe(
-      map(() => this.pageWidthService.isVeryLarge())
-    );
+    this.large$ = pageWidthService.current$.pipe(map(() => this.pageWidthService.isVeryLarge()));
   }
 
   ngOnInit(): void {

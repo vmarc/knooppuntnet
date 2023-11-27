@@ -18,9 +18,8 @@ import { VersionService } from '@app/services';
           This is an experimental version of the knooppuntnet website.
         </p>
         <p i18n="@@experimental.message-2">
-          The data may not be completely correct, and some functions may not
-          work as expected. Unless you are here for trying out new
-          functionality, you may be better off using the
+          The data may not be completely correct, and some functions may not work as expected.
+          Unless you are here for trying out new functionality, you may be better off using the
           <a [href]="link()">stable version</a> of knooppuntnet instead.
         </p>
         <a (click)="less()" i18n="@@experimental.less">less</a>

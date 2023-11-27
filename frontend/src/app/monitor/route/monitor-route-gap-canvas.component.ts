@@ -33,10 +33,6 @@ export class MonitorRouteGapCanvasComponent {
   @ViewChild('gapCanvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   private draw(): void {
-    new MonitorRouteGapBuilder(
-      this.canvas,
-      this.description,
-      this.osmSegmentCount
-    ).draw();
+    new MonitorRouteGapBuilder(this.canvas, this.description, this.osmSegmentCount).draw();
   }
 }

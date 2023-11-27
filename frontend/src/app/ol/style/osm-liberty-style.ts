@@ -14,8 +14,7 @@ export class OsmLibertyStyle {
     version: 8,
     name: 'OSM Liberty',
     metadata: {
-      'maputnik:license':
-        'https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md',
+      'maputnik:license': 'https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md',
       'maputnik:renderer': 'mbgljs',
       'openmaptiles:version': '3.x',
     },
@@ -225,11 +224,7 @@ export class OsmLibertyStyle {
         source: 'openmaptiles',
         'source-layer': 'aeroway',
         minzoom: 11,
-        filter: [
-          'all',
-          ['==', '$type', 'LineString'],
-          ['==', 'class', 'runway'],
-        ],
+        filter: ['all', ['==', '$type', 'LineString'], ['==', 'class', 'runway']],
         paint: {
           'line-color': '#f0ede9',
           'line-width': {
@@ -247,11 +242,7 @@ export class OsmLibertyStyle {
         source: 'openmaptiles',
         'source-layer': 'aeroway',
         minzoom: 11,
-        filter: [
-          'all',
-          ['==', '$type', 'LineString'],
-          ['==', 'class', 'taxiway'],
-        ],
+        filter: ['all', ['==', '$type', 'LineString'], ['==', 'class', 'taxiway']],
         paint: {
           'line-color': '#f0ede9',
           'line-width': {
@@ -294,11 +285,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'service', 'track'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'service', 'track']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#cfcdca',
@@ -338,11 +325,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'street', 'street_limited'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'street', 'street_limited']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#cfcdca',
@@ -368,11 +351,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'secondary', 'tertiary'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'secondary', 'tertiary']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#e9ac77',
@@ -390,11 +369,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'primary', 'trunk'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'primary', 'trunk']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#e9ac77',
@@ -488,11 +463,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'service', 'track'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'service', 'track']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#fff',
@@ -550,11 +521,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'secondary', 'tertiary'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'secondary', 'tertiary']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#fff4c6',
@@ -573,11 +540,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'primary', 'trunk'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'primary', 'trunk']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#fff4c6',
@@ -657,11 +620,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['in', 'class', 'transit'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['in', 'class', 'transit']],
         paint: {
           'line-color': '#bbb',
           'line-width': {
@@ -679,11 +638,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'tunnel'],
-          ['==', 'class', 'transit'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'tunnel'], ['==', 'class', 'transit']],
         paint: {
           'line-color': '#bbb',
           'line-dasharray': [0.2, 8],
@@ -763,15 +718,7 @@ export class OsmLibertyStyle {
         filter: [
           'all',
           ['!in', 'brunnel', 'bridge', 'tunnel'],
-          [
-            '!in',
-            'class',
-            'pedestrian',
-            'path',
-            'track',
-            'service',
-            'motorway',
-          ],
+          ['!in', 'class', 'pedestrian', 'path', 'track', 'service', 'motorway'],
           ['==', 'ramp', 1],
         ],
         layout: { 'line-cap': 'round', 'line-join': 'round' },
@@ -977,15 +924,7 @@ export class OsmLibertyStyle {
           'all',
           ['!in', 'brunnel', 'bridge', 'tunnel'],
           ['==', 'ramp', 1],
-          [
-            '!in',
-            'class',
-            'pedestrian',
-            'path',
-            'track',
-            'service',
-            'motorway',
-          ],
+          ['!in', 'class', 'pedestrian', 'path', 'track', 'service', 'motorway'],
         ],
         layout: { 'line-cap': 'round', 'line-join': 'round' },
         paint: {
@@ -1110,11 +1049,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['!in', 'brunnel', 'bridge', 'tunnel'],
-          ['==', 'class', 'rail'],
-        ],
+        filter: ['all', ['!in', 'brunnel', 'bridge', 'tunnel'], ['==', 'class', 'rail']],
         paint: {
           'line-color': '#bbb',
           'line-width': {
@@ -1132,11 +1067,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['!in', 'brunnel', 'bridge', 'tunnel'],
-          ['==', 'class', 'rail'],
-        ],
+        filter: ['all', ['!in', 'brunnel', 'bridge', 'tunnel'], ['==', 'class', 'rail']],
         paint: {
           'line-color': '#bbb',
           'line-dasharray': [0.2, 8],
@@ -1155,11 +1086,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['!in', 'brunnel', 'bridge', 'tunnel'],
-          ['==', 'class', 'transit'],
-        ],
+        filter: ['all', ['!in', 'brunnel', 'bridge', 'tunnel'], ['==', 'class', 'transit']],
         paint: {
           'line-color': '#bbb',
           'line-width': {
@@ -1177,11 +1104,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['!in', 'brunnel', 'bridge', 'tunnel'],
-          ['==', 'class', 'transit'],
-        ],
+        filter: ['all', ['!in', 'brunnel', 'bridge', 'tunnel'], ['==', 'class', 'transit']],
         paint: {
           'line-color': '#bbb',
           'line-dasharray': [0.2, 8],
@@ -1247,11 +1170,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'service', 'track'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'service', 'track']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#cfcdca',
@@ -1290,11 +1209,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'street', 'street_limited'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'street', 'street_limited']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': 'hsl(36, 6%, 74%)',
@@ -1343,11 +1258,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'secondary', 'tertiary'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'secondary', 'tertiary']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#e9ac77',
@@ -1365,11 +1276,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'primary', 'trunk'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'primary', 'trunk']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#e9ac77',
@@ -1462,11 +1369,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'service', 'track'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'service', 'track']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#fff',
@@ -1524,11 +1427,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'secondary', 'tertiary'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'secondary', 'tertiary']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#fea',
@@ -1547,11 +1446,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'brunnel', 'bridge'],
-          ['in', 'class', 'primary', 'trunk'],
-        ],
+        filter: ['all', ['==', 'brunnel', 'bridge'], ['in', 'class', 'primary', 'trunk']],
         layout: { 'line-join': 'round' },
         paint: {
           'line-color': '#fea',
@@ -1631,11 +1526,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'class', 'transit'],
-          ['==', 'brunnel', 'bridge'],
-        ],
+        filter: ['all', ['==', 'class', 'transit'], ['==', 'brunnel', 'bridge']],
         paint: {
           'line-color': '#bbb',
           'line-width': {
@@ -1653,11 +1544,7 @@ export class OsmLibertyStyle {
         type: 'line',
         source: 'openmaptiles',
         'source-layer': 'transportation',
-        filter: [
-          'all',
-          ['==', 'class', 'transit'],
-          ['==', 'brunnel', 'bridge'],
-        ],
+        filter: ['all', ['==', 'class', 'transit'], ['==', 'brunnel', 'bridge']],
         paint: {
           'line-color': '#bbb',
           'line-dasharray': [0.2, 8],
@@ -1877,16 +1764,7 @@ export class OsmLibertyStyle {
         'source-layer': 'place',
         filter: [
           'all',
-          [
-            'in',
-            'class',
-            'hamlet',
-            'island',
-            'islet',
-            'neighbourhood',
-            'quarter',
-            'suburb',
-          ],
+          ['in', 'class', 'hamlet', 'island', 'islet', 'neighbourhood', 'quarter', 'suburb'],
         ],
         layout: {
           'text-field': '{name_en}',

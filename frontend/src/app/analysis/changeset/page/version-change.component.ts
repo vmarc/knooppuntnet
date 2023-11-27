@@ -10,16 +10,10 @@ import { MetaDataComponent } from '@app/components/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-thin">
-      <ng-container
-        *ngIf="isNewVersion()"
-        i18n="@@version-change.relation-changed-to"
-      >
+      <ng-container *ngIf="isNewVersion()" i18n="@@version-change.relation-changed-to">
         Relation changed to v{{ after.version }}.
       </ng-container>
-      <span
-        *ngIf="!isNewVersion()"
-        i18n="@@version-change.relation-unchanged"
-        class="kpn-label"
+      <span *ngIf="!isNewVersion()" i18n="@@version-change.relation-unchanged" class="kpn-label"
         >Relation unchanged</span
       >
       <kpn-meta-data [metaData]="after" />

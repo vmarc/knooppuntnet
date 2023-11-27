@@ -9,9 +9,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
-export const actionRouteDetailsPageInit = createAction(
-  '[RouteDetailsPage] Init'
-);
+export const actionRouteDetailsPageInit = createAction('[RouteDetailsPage] Init');
 
 export const actionRouteDetailsPageLoad = createAction(
   '[RouteDetailsPage] Load',
@@ -23,9 +21,7 @@ export const actionRouteDetailsPageLoaded = createAction(
   props<ApiResponse<RouteDetailsPage>>()
 );
 
-export const actionRouteDetailsPageDestroy = createAction(
-  '[RouteDetailsPage] Destroy'
-);
+export const actionRouteDetailsPageDestroy = createAction('[RouteDetailsPage] Destroy');
 
 export const actionRouteMapPageInit = createAction('[RouteMapPage] Init');
 
@@ -46,9 +42,7 @@ export const actionRouteMapPageDestroy = createAction('[RouteMapPage] Destroy');
 
 export const actionRouteMapViewInit = createAction('[RouteMapPage] View init');
 
-export const actionRouteChangesPageInit = createAction(
-  '[RouteChangesPage] Init'
-);
+export const actionRouteChangesPageInit = createAction('[RouteChangesPage] Init');
 
 export const actionRouteChangesPageLoad = createAction(
   '[RouteChangesPage] Load',
@@ -60,9 +54,7 @@ export const actionRouteChangesPageLoaded = createAction(
   props<ApiResponse<RouteChangesPage>>()
 );
 
-export const actionRouteChangesPageDestroy = createAction(
-  '[RouteChangesPage] Destroy'
-);
+export const actionRouteChangesPageDestroy = createAction('[RouteChangesPage] Destroy');
 
 export const actionRouteChangesPageImpact = createAction(
   '[RouteChangesPage] Impact',

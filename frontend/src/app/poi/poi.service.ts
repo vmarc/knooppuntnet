@@ -34,9 +34,7 @@ export class PoiService {
     return this.http.post(url, parameters, { params: this.languageParams() });
   }
 
-  locationPoiSummary(
-    location: string
-  ): Observable<ApiResponse<LocationPoiSummaryPage>> {
+  locationPoiSummary(location: string): Observable<ApiResponse<LocationPoiSummaryPage>> {
     const url = `/api/pois/${location}/summary`;
     return this.http.post(url, {}, { params: this.languageParams() });
   }

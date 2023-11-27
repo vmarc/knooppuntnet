@@ -8,10 +8,7 @@ import { NetworkType } from '@api/custom';
   selector: 'kpn-link-network-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a
-      [routerLink]="'/analysis/network/' + networkId"
-      [state]="{ networkType, networkName }"
-    >
+    <a [routerLink]="'/analysis/network/' + networkId" [state]="{ networkType, networkName }">
       {{ networkName }}
     </a>
   `,

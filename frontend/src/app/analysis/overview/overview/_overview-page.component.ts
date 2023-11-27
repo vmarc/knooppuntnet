@@ -30,9 +30,7 @@ import { OverviewTableComponent } from './overview-table.component';
         <li i18n="@@breadcrumb.overview">Overview</li>
       </ul>
 
-      <kpn-page-header
-        subject="overview-in-numbers-page"
-        i18n="@@overview-page.title"
+      <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title"
         >Overview
       </kpn-page-header>
 
@@ -43,9 +41,7 @@ import { OverviewTableComponent } from './overview-table.component';
           <div class="situation-on">
             <kpn-situation-on [timestamp]="response.situationOn" />
           </div>
-          <ng-content
-            *ngIf="tableFormat$ | async; then table; else list"
-          ></ng-content>
+          <ng-content *ngIf="tableFormat$ | async; then table; else list"></ng-content>
           <ng-template #table>
             <kpn-overview-table [statistics]="response.result" />
           </ng-template>

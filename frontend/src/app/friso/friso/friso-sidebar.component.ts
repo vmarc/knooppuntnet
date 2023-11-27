@@ -31,8 +31,8 @@ import { selectFrisoMode } from '../store/friso.selectors';
             <span class="kpn-brackets">{{ 33 }}</span>
           </mat-radio-button>
           <div class="mode-comment">
-            Same as rename, but used for minor renames. This is when node
-            differs in name by only a few letters.
+            Same as rename, but used for minor renames. This is when node differs in name by only a
+            few letters.
           </div>
         </div>
         <div>
@@ -40,27 +40,21 @@ import { selectFrisoMode } from '../store/friso.selectors';
             <span>Removed</span>
             <span class="kpn-brackets">{{ 4104 }}</span>
           </mat-radio-button>
-          <div class="mode-comment">
-            Node is not present in import dataset, but is in OSM.
-          </div>
+          <div class="mode-comment">Node is not present in import dataset, but is in OSM.</div>
         </div>
         <div>
           <mat-radio-button value="added">
             <span>Added</span>
             <span class="kpn-brackets">{{ 3226 }}</span>
           </mat-radio-button>
-          <div class="mode-comment">
-            Node is not present in OSM, but is in the import dataset.
-          </div>
+          <div class="mode-comment">Node is not present in OSM, but is in the import dataset.</div>
         </div>
         <div>
           <mat-radio-button value="no-change">
             <span>No change</span>
             <span class="kpn-brackets">{{ 4611 }}</span>
           </mat-radio-button>
-          <div class="mode-comment">
-            Nothing is different between the OSM and import node.
-          </div>
+          <div class="mode-comment">Nothing is different between the OSM and import node.</div>
         </div>
         <div>
           <mat-radio-button value="moved-short-distance">

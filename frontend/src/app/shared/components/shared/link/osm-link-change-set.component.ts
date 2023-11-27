@@ -6,13 +6,7 @@ import { OsmLinkComponent } from './osm-link.component';
 @Component({
   selector: 'kpn-osm-link-change-set',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <kpn-osm-link
-      kind="changeset"
-      [elementId]="changeSetId.toString()"
-      title="osm"
-    />
-  `,
+  template: ` <kpn-osm-link kind="changeset" [elementId]="changeSetId.toString()" title="osm" /> `,
   standalone: true,
   imports: [OsmLinkComponent],
 })

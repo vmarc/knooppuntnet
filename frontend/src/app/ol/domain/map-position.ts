@@ -15,12 +15,7 @@ export class MapPosition {
     if (!jsonObject) {
       return undefined;
     }
-    return new MapPosition(
-      jsonObject.zoom,
-      jsonObject.x,
-      jsonObject.y,
-      jsonObject.rotation
-    );
+    return new MapPosition(jsonObject.zoom, jsonObject.x, jsonObject.y, jsonObject.rotation);
   }
 
   static fromQueryParam(queryParam: string): MapPosition | null {
@@ -55,10 +50,7 @@ export class MapPosition {
     return `${lat},${lng},${z}`;
   }
 
-  toNetworkMapPosition(
-    mapPosition: MapPosition,
-    networkId: number
-  ): NetworkMapPosition {
+  toNetworkMapPosition(mapPosition: MapPosition, networkId: number): NetworkMapPosition {
     return {
       networkId,
       zoom: mapPosition.zoom,

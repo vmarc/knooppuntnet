@@ -10,8 +10,7 @@ describe('returnUrl', () => {
   });
 
   it('encode url', () => {
-    const url =
-      '/analysis/network/1066154/changes?pageSize=25&pageIndex=0&impact=true';
+    const url = '/analysis/network/1066154/changes?pageSize=25&pageIndex=0&impact=true';
     expect(ReturnUrl.encode(url)).toEqual(
       '/analysis/network/1066154/changes~pageSize=25,pageIndex=0,impact=true'
     );

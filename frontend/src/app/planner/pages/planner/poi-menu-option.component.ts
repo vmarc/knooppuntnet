@@ -44,9 +44,7 @@ export class PoiMenuOptionComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.visible = this.store.selectSignal(
-      selectPlannerPoiGroupVisible(this.groupName)
-    );
+    this.visible = this.store.selectSignal(selectPlannerPoiGroupVisible(this.groupName));
   }
 
   enabledChanged(event: MatCheckboxChange): void {

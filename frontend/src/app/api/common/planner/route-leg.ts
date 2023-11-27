@@ -16,9 +16,7 @@ export class RouteLeg {
     return new RouteLeg(
       jsonObject.legId,
       jsonObject.routes
-        ? List(
-            jsonObject.routes.map((json: any) => RouteLegRoute.fromJSON(json))
-          )
+        ? List(jsonObject.routes.map((json: any) => RouteLegRoute.fromJSON(json)))
         : List()
     );
   }

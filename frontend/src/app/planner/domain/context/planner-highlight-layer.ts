@@ -16,21 +16,10 @@ export class PlannerHighlightLayer {
   private readonly yellow = 'rgba(255, 255, 0, 0.8)';
   private readonly blue = 'rgba(0, 0, 255, 0.5)';
 
-  private readonly routeStyle = PlannerHighlightLayer.buildRouteStyle(
-    this.yellow
-  );
-  private readonly smallNodeStyle = PlannerHighlightLayer.buildNodeStyle(
-    12,
-    this.yellow
-  );
-  private readonly largeNodeStyle = PlannerHighlightLayer.buildNodeStyle(
-    22,
-    this.yellow
-  );
-  private readonly mouseDownStyle = PlannerHighlightLayer.buildNodeStyle(
-    30,
-    this.blue
-  );
+  private readonly routeStyle = PlannerHighlightLayer.buildRouteStyle(this.yellow);
+  private readonly smallNodeStyle = PlannerHighlightLayer.buildNodeStyle(12, this.yellow);
+  private readonly largeNodeStyle = PlannerHighlightLayer.buildNodeStyle(22, this.yellow);
+  private readonly mouseDownStyle = PlannerHighlightLayer.buildNodeStyle(30, this.blue);
 
   private map: Map;
 
@@ -77,9 +66,7 @@ export class PlannerHighlightLayer {
         if ('true' === feature.get('mouse-down')) {
           return this.mouseDownStyle;
         }
-        return zoom >= this.largeMinZoomLevel
-          ? this.largeNodeStyle
-          : this.smallNodeStyle;
+        return zoom >= this.largeMinZoomLevel ? this.largeNodeStyle : this.smallNodeStyle;
       }
       return this.routeStyle;
     };

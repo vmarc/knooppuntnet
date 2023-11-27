@@ -14,35 +14,19 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       i18n-letter="@@route-connection.indicator.letter"
       [color]="color"
     >
-      <span
-        dialog-title
-        *ngIf="isBlue()"
-        i18n="@@route-connection-indicator.blue.title"
-      >
+      <span dialog-title *ngIf="isBlue()" i18n="@@route-connection-indicator.blue.title">
         OK - Connection
       </span>
 
-      <div
-        dialog-body
-        *ngIf="isBlue()"
-        i18n="@@route-connection-indicator.blue.text"
-      >
+      <div dialog-body *ngIf="isBlue()" i18n="@@route-connection-indicator.blue.text">
         This route is a connection to another network.
       </div>
 
-      <span
-        dialog-title
-        *ngIf="isGray()"
-        i18n="@@route-connection-indicator.gray.title"
-      >
+      <span dialog-title *ngIf="isGray()" i18n="@@route-connection-indicator.gray.title">
         OK - No connection
       </span>
 
-      <div
-        dialog-body
-        *ngIf="isGray()"
-        i18n="@@route-connection-indicator.gray.text"
-      >
+      <div dialog-body *ngIf="isGray()" i18n="@@route-connection-indicator.gray.text">
         This route is not a connection to another network.
       </div>
     </kpn-indicator-dialog>

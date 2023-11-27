@@ -35,31 +35,20 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
     <div class="kpn-detail">
       <span i18n="@@node.version">Version</span>
       {{ nodeChangeInfo.version }}
-      <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged"
-        >(Unchanged)</span
-      >
+      <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged">(Unchanged)</span>
     </div>
 
     <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
   `,
   standalone: true,
-  imports: [
-    ChangeHeaderComponent,
-    ChangeSetTagsComponent,
-    NgIf,
-    NodeChangeDetailComponent,
-  ],
+  imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NgIf, NodeChangeDetailComponent],
 })
 export class NodeChangeComponent {
   @Input() nodeChangeInfo: NodeChangeInfo;
 
   isVersionUnchanged(): boolean {
-    const before = this.nodeChangeInfo.before
-      ? this.nodeChangeInfo.before.version
-      : null;
-    const after = this.nodeChangeInfo.after
-      ? this.nodeChangeInfo.after.version
-      : null;
+    const before = this.nodeChangeInfo.before ? this.nodeChangeInfo.before.version : null;
+    const after = this.nodeChangeInfo.after ? this.nodeChangeInfo.after.version : null;
     return before && after && before === after;
   }
 

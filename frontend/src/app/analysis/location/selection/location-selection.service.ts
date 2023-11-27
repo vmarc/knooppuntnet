@@ -13,10 +13,7 @@ export class LocationSelectionService {
 
   constructor(private apiService: ApiService) {}
 
-  locations(
-    networkType: NetworkType,
-    country: Country
-  ): Observable<LocationNode> {
+  locations(networkType: NetworkType, country: Country): Observable<LocationNode> {
     const key = `${networkType}:${country}`;
     if (!this.locationsCache.has(key)) {
       const res = this.apiService.locations(networkType, country).pipe(

@@ -29,15 +29,9 @@ export const selectNodeChangesPage = createSelector(
   (state: NodeState) => state.changesPage
 );
 
-export const selectNodeId = createSelector(
-  selectNodeState,
-  (state: NodeState) => state.nodeId
-);
+export const selectNodeId = createSelector(selectNodeState, (state: NodeState) => state.nodeId);
 
-export const selectNodeName = createSelector(
-  selectNodeState,
-  (state: NodeState) => state.nodeName
-);
+export const selectNodeName = createSelector(selectNodeState, (state: NodeState) => state.nodeName);
 
 export const selectNodeChangeCount = createSelector(
   selectNodeState,
@@ -73,12 +67,8 @@ export const selectNodeNetworkTypes = createSelector(
   selectNodeDetailsPage,
   (response: ApiResponse<NodeDetailsPage>) => {
     if (response?.result) {
-      const networkTypes = response.result.nodeInfo.names.map(
-        (nodeName) => nodeName.networkType
-      );
-      return NetworkTypes.all.filter((networkType) =>
-        networkTypes.includes(networkType)
-      );
+      const networkTypes = response.result.nodeInfo.names.map((nodeName) => nodeName.networkType);
+      return NetworkTypes.all.filter((networkType) => networkTypes.includes(networkType));
     } else {
       return [];
     }

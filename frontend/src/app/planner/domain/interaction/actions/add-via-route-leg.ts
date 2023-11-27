@@ -49,11 +49,7 @@ export class AddViaRouteLeg {
       });
   }
 
-  private buildLeg(
-    source: LegEnd,
-    sink: LegEnd,
-    coordinate: Coordinate
-  ): Observable<PlanLeg> {
+  private buildLeg(source: LegEnd, sink: LegEnd, coordinate: Coordinate): Observable<PlanLeg> {
     return this.context.fetchLeg(source, sink).pipe(
       map((data) => {
         const sinkFlag = PlanUtil.endFlag(data.sinkNode.coordinate);

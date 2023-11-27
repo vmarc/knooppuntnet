@@ -10,9 +10,7 @@ export class LogUpdateService {
       console.log(`LogUpdateService: event ${event.type}`);
     });
     updates.unrecoverable.subscribe((event: UnrecoverableStateEvent) => {
-      console.log(
-        `LogUpdateService: UnrecoverableStateEvent, reason:  ${event.reason}`
-      );
+      console.log(`LogUpdateService: UnrecoverableStateEvent, reason:  ${event.reason}`);
     });
   }
 }

@@ -23,12 +23,7 @@ import { SymbolComponent } from '@app/symbol';
   template: `
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          class="nr"
-          i18n="@@monitor.group.route-table.nr"
-        >
+        <th mat-header-cell *matHeaderCellDef class="nr" i18n="@@monitor.group.route-table.nr">
           Nr
         </th>
         <td mat-cell *matCellDef="let route">
@@ -47,9 +42,7 @@ import { SymbolComponent } from '@app/symbol';
           Name
         </th>
         <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeLink(route)" [state]="route">{{
-            route.name
-          }}</a>
+          <a [routerLink]="routeLink(route)" [state]="route">{{ route.name }}</a>
         </td>
       </ng-container>
 
@@ -63,13 +56,7 @@ import { SymbolComponent } from '@app/symbol';
       </ng-container>
 
       <ng-container matColumnDef="map">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.map"
-        >
-          Map
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.map">Map</th>
         <td mat-cell *matCellDef="let route">
           <a
             [routerLink]="routeMapLink(route)"
@@ -82,11 +69,7 @@ import { SymbolComponent } from '@app/symbol';
       </ng-container>
 
       <ng-container matColumnDef="relationId">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.relation"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.relation">
           Relation
         </th>
         <td mat-cell *matCellDef="let route">
@@ -100,30 +83,16 @@ import { SymbolComponent } from '@app/symbol';
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.symbol"
-        >
-          Symbol
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.symbol">Symbol</th>
         <td mat-cell *matCellDef="let route" class="symbol">
           @if (route.symbol) {
-            <kpn-symbol
-              [description]="route.symbol"
-              [width]="25"
-              [height]="25"
-            />
+            <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
           }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.description"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.description">
           Description
         </th>
         <td mat-cell *matCellDef="let route">
@@ -194,22 +163,14 @@ import { SymbolComponent } from '@app/symbol';
               {{ route.deviationDistance | distance }}
             </span>
           }
-          @if (
-            route.referenceType &&
-            route.relationId &&
-            route.deviationCount === 0
-          ) {
+          @if (route.referenceType && route.relationId && route.deviationCount === 0) {
             <span> - </span>
           }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="osm-segment-count">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.osm-segment-count"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.osm-segment-count">
           Segments
         </th>
         <td mat-cell *matCellDef="let route">
@@ -222,11 +183,7 @@ import { SymbolComponent } from '@app/symbol';
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.actions"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.actions">
           Actions
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-action-cell">
@@ -356,9 +313,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   }
 
   displayedHeaders(admin: boolean): string[] {
-    return this.displayedColumns(admin).filter(
-      (name) => !this.columnsWithoutHeader.includes(name)
-    );
+    return this.displayedColumns(admin).filter((name) => !this.columnsWithoutHeader.includes(name));
   }
 
   routeLink(route: MonitorRouteDetail): string {

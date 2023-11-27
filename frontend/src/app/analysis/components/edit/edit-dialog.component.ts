@@ -18,15 +18,11 @@ import { EditService } from './edit.service';
   selector: 'kpn-edit-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div mat-dialog-title class="dialog" i18n="@@edit-dialog.title">
-      Load in editor
-    </div>
+    <div mat-dialog-title class="dialog" i18n="@@edit-dialog.title">Load in editor</div>
 
     <div mat-dialog-content>
       <p *ngIf="editService.showProgress$ | async">
-        <mat-progress-bar
-          [value]="editService.progress$ | async"
-        ></mat-progress-bar>
+        <mat-progress-bar [value]="editService.progress$ | async"></mat-progress-bar>
       </p>
       <p *ngIf="editService.error$ | async" i18n="@@edit-dialog.error">
         Sorry, could not load elements in editor.
@@ -36,31 +32,21 @@ import { EditService } from './edit.service';
       </p>
       <ul *ngIf="editService.errorCouldNotConnect$ | async">
         <li i18n="@@edit-dialog.editor-not-started">Editor not started?</li>
-        <li i18n="@@edit-dialog.remote-control-not-enabled">
-          Editor remote control not enabled?
-        </li>
+        <li i18n="@@edit-dialog.remote-control-not-enabled">Editor remote control not enabled?</li>
       </ul>
       <p *ngIf="editService.errorMessage$ | async as errorMessage">
         {{ errorMessage }}
       </p>
-      <p
-        *ngIf="editService.timeout$ | async"
-        class="timeout"
-        i18n="@@edit-dialog.timeout"
-      >
+      <p *ngIf="editService.timeout$ | async" class="timeout" i18n="@@edit-dialog.timeout">
         Timeout: editor not started, or editor remote control not enabled?
       </p>
     </div>
     <div mat-dialog-actions>
       <p *ngIf="editService.showProgress$ | async">
-        <button mat-raised-button (click)="cancel()" i18n="@@action.cancel">
-          Cancel
-        </button>
+        <button mat-raised-button (click)="cancel()" i18n="@@action.cancel">Cancel</button>
       </p>
       <p *ngIf="editService.error$ | async">
-        <button mat-raised-button (click)="close()" i18n="@@edit-dialog.close">
-          Close
-        </button>
+        <button mat-raised-button (click)="close()" i18n="@@edit-dialog.close">Close</button>
       </p>
     </div>
   `,
@@ -75,13 +61,7 @@ import { EditService } from './edit.service';
   `,
   providers: [EditService],
   standalone: true,
-  imports: [
-    AsyncPipe,
-    MatButtonModule,
-    MatDialogModule,
-    MatProgressBarModule,
-    NgIf,
-  ],
+  imports: [AsyncPipe, MatButtonModule, MatDialogModule, MatProgressBarModule, NgIf],
 })
 export class EditDialogComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();

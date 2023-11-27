@@ -15,18 +15,13 @@ export class DropLegOnNode {
   constructor(private readonly context: PlannerContext) {}
 
   drop(legDrag: PlannerDragLeg, connection: PlanNode): void {
-    const oldLeg = this.context.plan.legs.find(
-      (leg) => leg.featureId === legDrag.oldLegId
-    );
+    const oldLeg = this.context.plan.legs.find((leg) => leg.featureId === legDrag.oldLegId);
     if (oldLeg) {
       this.buildLeg1(oldLeg.sourceNode, connection)
         .pipe(
           switchMap((newLeg1) =>
             this.buildLeg2(connection, oldLeg.sinkNode).pipe(
-              map(
-                (newLeg2) =>
-                  new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2)
-              )
+              map((newLeg2) => new PlannerCommandSplitLeg(oldLeg, newLeg1, newLeg2))
             )
           )
         )
@@ -37,10 +32,7 @@ export class DropLegOnNode {
     }
   }
 
-  private buildLeg1(
-    sourceNode: PlanNode,
-    sinkNode: PlanNode
-  ): Observable<PlanLeg> {
+  private buildLeg1(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const sinkFlag = PlanUtil.viaFlag(sinkNode.coordinate);
@@ -50,20 +42,12 @@ export class DropLegOnNode {
       .pipe(map((data) => PlanUtil.leg(data, sinkFlag, null)));
   }
 
-  private buildLeg2(
-    sourceNode: PlanNode,
-    sinkNode: PlanNode
-  ): Observable<PlanLeg> {
+  private buildLeg2(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const isLastLeg =
-      sinkNode.featureId === this.context.plan.sinkNode().featureId;
+    const isLastLeg = sinkNode.featureId === this.context.plan.sinkNode().featureId;
     const sinkFlagType = isLastLeg ? PlanFlagType.end : PlanFlagType.via;
-    const sinkFlag = new PlanFlag(
-      sinkFlagType,
-      FeatureId.next(),
-      sinkNode.coordinate
-    );
+    const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
 
     return this.context
       .fetchLeg(source, sink)

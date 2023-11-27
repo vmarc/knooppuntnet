@@ -10,24 +10,10 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   selector: 'kpn-network-fact-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span
-      *ngIf="nodes.length === 1"
-      class="title kpn-label"
-      i18n="@@network-facts.node"
-      >Node</span
-    >
-    <span
-      *ngIf="nodes.length > 1"
-      class="title kpn-label"
-      i18n="@@network-facts.nodes"
-      >Nodes</span
-    >
+    <span *ngIf="nodes.length === 1" class="title kpn-label" i18n="@@network-facts.node">Node</span>
+    <span *ngIf="nodes.length > 1" class="title kpn-label" i18n="@@network-facts.nodes">Nodes</span>
     <div class="kpn-comma-list">
-      <kpn-link-node
-        *ngFor="let node of nodes"
-        [nodeId]="node.id"
-        [nodeName]="node.name"
-      />
+      <kpn-link-node *ngFor="let node of nodes" [nodeId]="node.id" [nodeName]="node.name" />
     </div>
   `,
   standalone: true,

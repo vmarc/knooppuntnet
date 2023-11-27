@@ -14,26 +14,16 @@ import { Store } from '@ngrx/store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="sidebar-section">
-      <div class="sidebar-section-title" i18n="@@analysis.strategy.title">
-        Analysis strategy
-      </div>
+      <div class="sidebar-section-title" i18n="@@analysis.strategy.title">Analysis strategy</div>
 
       <mat-radio-group [value]="strategy()" (change)="onStrategyChange($event)">
         <div>
-          <mat-radio-button
-            value="location"
-            title="Location"
-            i18n="@@analysis.by-location"
-          >
+          <mat-radio-button value="location" title="Location" i18n="@@analysis.by-location">
             Explore by location
           </mat-radio-button>
         </div>
         <div>
-          <mat-radio-button
-            value="network"
-            title="Network"
-            i18n="@@analysis.by-network"
-          >
+          <mat-radio-button value="network" title="Network" i18n="@@analysis.by-network">
             Explore by network
           </mat-radio-button>
         </div>
@@ -47,9 +37,7 @@ import { Store } from '@ngrx/store';
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
-  readonly strategy = this.store.selectSignal(
-    selectPreferencesAnalysisStrategy
-  );
+  readonly strategy = this.store.selectSignal(selectPreferencesAnalysisStrategy);
 
   constructor(private store: Store) {}
 

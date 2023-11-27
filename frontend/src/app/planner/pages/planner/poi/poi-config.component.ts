@@ -12,13 +12,7 @@ import { MapService } from '../../../services/map.service';
   template: `
     <div class="poi-config">
       <div class="col-icon">
-        <img
-          *ngIf="icon"
-          width="32"
-          height="37"
-          [src]="'assets/images/pois/' + icon"
-          alt="icon"
-        />
+        <img *ngIf="icon" width="32" height="37" [src]="'assets/images/pois/' + icon" alt="icon" />
       </div>
 
       <div class="col-name">
@@ -27,10 +21,7 @@ import { MapService } from '../../../services/map.service';
 
       <div>
         <div class="col-spacer"></div>
-        <mat-radio-group
-          [value]="levelString()"
-          (change)="levelChanged($event)"
-        >
+        <mat-radio-group [value]="levelString()" (change)="levelChanged($event)">
           <mat-radio-button
             value="0"
             title="Do not show this icon on the map"
@@ -101,9 +92,7 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
           this.icon = definition.icon;
           this.minLevel = definition.minLevel;
         } else {
-          console.log(
-            'DEBUG PoiConfigComponent definition not found name=' + this.poiId
-          );
+          console.log('DEBUG PoiConfigComponent definition not found name=' + this.poiId);
         }
       })
     );

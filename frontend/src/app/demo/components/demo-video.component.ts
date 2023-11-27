@@ -100,12 +100,8 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
   videoPlayerSourceRef: ElementRef;
 
   canPlayReceived = false;
-  readonly enabled$: Observable<boolean> = this.store.pipe(
-    select(selectDemoEnabled)
-  );
-  readonly disabled$: Observable<boolean> = this.enabled$.pipe(
-    map((enabled) => !enabled)
-  );
+  readonly enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
+  readonly disabled$: Observable<boolean> = this.enabled$.pipe(map((enabled) => !enabled));
 
   constructor(
     private store: Store,
@@ -125,9 +121,7 @@ export class DemoVideoComponent implements AfterViewInit, OnDestroy {
   }
 
   canPlayChanged(): void {
-    this.store.dispatch(
-      actionDemoCanPlay({ duration: this.demoService.duration })
-    );
+    this.store.dispatch(actionDemoCanPlay({ duration: this.demoService.duration }));
 
     this.canPlayReceived = true;
   }

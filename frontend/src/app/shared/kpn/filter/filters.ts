@@ -20,9 +20,7 @@ export class Filters<T> {
   }
 
   private filtered(elements: T[], filterCollection: List<Filter<T>>): T[] {
-    return elements.filter((element) =>
-      this.passesAll(element, filterCollection)
-    );
+    return elements.filter((element) => this.passesAll(element, filterCollection));
   }
 
   private passesAll(element: T, filterCollection: List<Filter<T>>): boolean {

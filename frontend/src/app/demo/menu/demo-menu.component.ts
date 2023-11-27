@@ -17,9 +17,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
       <div *ngIf="enabled(); then comment; else disabled"></div>
 
       <ng-template #comment>
-        <p i18n="@@demo.select-video">
-          Select a video on the left by clicking its play button.
-        </p>
+        <p i18n="@@demo.select-video">Select a video on the left by clicking its play button.</p>
       </ng-template>
 
       <ng-template #disabled>

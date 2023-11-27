@@ -124,26 +124,23 @@ export const networkReducer = createReducer<NetworkState>(
       },
     })
   ),
-  on(
-    actionNetworkChangesPageLoad,
-    (state, { networkId, changesParameters }): NetworkState => {
-      const summary: NetworkSummary = {
-        name: state.summary?.name,
-        networkType: state.summary?.networkType,
-        networkScope: null,
-        factCount: 0,
-        nodeCount: 0,
-        routeCount: 0,
-        changeCount: 0,
-      };
-      return {
-        ...state,
-        networkId,
-        summary,
-        changesParameters,
-      };
-    }
-  ),
+  on(actionNetworkChangesPageLoad, (state, { networkId, changesParameters }): NetworkState => {
+    const summary: NetworkSummary = {
+      name: state.summary?.name,
+      networkType: state.summary?.networkType,
+      networkScope: null,
+      factCount: 0,
+      nodeCount: 0,
+      routeCount: 0,
+      changeCount: 0,
+    };
+    return {
+      ...state,
+      networkId,
+      summary,
+      changesParameters,
+    };
+  }),
   on(
     actionNetworkChangesPageLoaded,
     (state, response): NetworkState => ({

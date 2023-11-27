@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-unused-segments">
-      The route contains ways or part of ways that are not used in the
-      connection between the end nodes.
+      The route contains ways or part of ways that are not used in the connection between the end
+      nodes.
     </p>
   `,
   standalone: true,

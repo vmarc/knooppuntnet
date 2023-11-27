@@ -28,19 +28,12 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
           <kpn-network-type-icon [networkType]="locationChanges.networkType" />
           <div class="location-names">
             <div
-              *ngFor="
-                let locationName of locationChanges.locationNames;
-                let i = index
-              "
+              *ngFor="let locationName of locationChanges.locationNames; let i = index"
               class="location-name"
             >
               <a
                 [routerLink]="
-                  locationLink(
-                    locationChanges.networkType,
-                    locationChanges.locationNames,
-                    i
-                  )
+                  locationLink(locationChanges.networkType, locationChanges.locationNames, i)
                 "
                 >{{ locationName }}</a
               >
@@ -91,18 +84,10 @@ export class ChangeLocationAnalysisSummaryComponent {
 
   constructor(private i18nService: I18nService) {}
 
-  locationLink(
-    networkType: NetworkType,
-    locationNames: string[],
-    index: number
-  ): string {
+  locationLink(networkType: NetworkType, locationNames: string[], index: number): string {
     const country = locationNames[0].toLowerCase();
-    const countryName = this.i18nService.translation(
-      '@@country.' + Util.safeGet(() => country)
-    );
-    const locationParts = [countryName].concat(
-      locationNames.slice(1, index + 1)
-    );
+    const countryName = this.i18nService.translation('@@country.' + Util.safeGet(() => country));
+    const locationParts = [countryName].concat(locationNames.slice(1, index + 1));
     const location = locationParts.join(':');
     return `/analysis/${networkType}/${country}/${location}/nodes`;
   }

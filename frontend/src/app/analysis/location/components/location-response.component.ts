@@ -10,10 +10,7 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response">
-      <kpn-situation-on
-        *ngIf="situationOnEnabled"
-        [timestamp]="response.situationOn"
-      />
+      <kpn-situation-on *ngIf="situationOnEnabled" [timestamp]="response.situationOn" />
       <div *ngIf="!response.result">
         <p i18n="@@location.location-not-found">Location not found</p>
       </div>

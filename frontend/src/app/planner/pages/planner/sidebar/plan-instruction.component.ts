@@ -23,14 +23,11 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
       {{ colour(instruction.colour) }}
     </div>
     <div *ngIf="!instruction.node && !instruction.colour" class="instruction">
-      <kpn-plan-instruction-command
-        [command]="instruction.command"
-      ></kpn-plan-instruction-command>
+      <kpn-plan-instruction-command [command]="instruction.command"></kpn-plan-instruction-command>
       <div>
         <div *ngIf="instruction.heading">
           <span class="kpn-label"
-            >{{ translate('head') }}
-            {{ translate('heading-' + instruction.heading) }}</span
+            >{{ translate('head') }} {{ translate('heading-' + instruction.heading) }}</span
           >
           <span *ngIf="instruction.street">
             {{ instruction.street }}

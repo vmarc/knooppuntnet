@@ -33,10 +33,7 @@ import { NetworkRoutesSidebarComponent } from './network-routes-sidebar.componen
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
           </p>
-          <div
-            *ngIf="response.result.routes.length === 0"
-            i18n="@@network-routes.no-routes"
-          >
+          <div *ngIf="response.result.routes.length === 0" i18n="@@network-routes.no-routes">
             No network routes in network
           </div>
           <kpn-network-route-table

@@ -28,10 +28,7 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
     <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo" />
 
     <div *ngIf="networkChangeInfo.after" class="kpn-detail">
-      <kpn-version-change
-        [before]="networkChangeInfo.before"
-        [after]="networkChangeInfo.after"
-      />
+      <kpn-version-change [before]="networkChangeInfo.before" [after]="networkChangeInfo.after" />
     </div>
 
     <kpn-cs-nc-nodes-removed [networkChangeInfo]="networkChangeInfo" />

@@ -14,21 +14,11 @@ import { MatStepperModule } from '@angular/material/stepper';
       <mat-label i18n="@@monitor.route.properties.comment.label"
         >Additional information about the route (optional):
       </mat-label>
-      <textarea
-        matInput
-        rows="4"
-        id="comment"
-        [formControl]="comment"
-      ></textarea>
+      <textarea matInput rows="4" id="comment" [formControl]="comment"></textarea>
     </mat-form-field>
 
     <div class="kpn-button-group">
-      <button
-        id="step6-back"
-        mat-stroked-button
-        matStepperPrevious
-        i18n="@@action.back"
-      >
+      <button id="step6-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
         Back
       </button>
     </div>

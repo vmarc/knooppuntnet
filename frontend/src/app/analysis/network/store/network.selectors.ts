@@ -4,8 +4,7 @@ import { createSelector } from '@ngrx/store';
 import { networkFeatureKey } from './network.state';
 import { NetworkState } from './network.state';
 
-export const selectNetworkState =
-  createFeatureSelector<NetworkState>(networkFeatureKey);
+export const selectNetworkState = createFeatureSelector<NetworkState>(networkFeatureKey);
 
 export const selectNetworkId = createSelector(
   selectNetworkState,

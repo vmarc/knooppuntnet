@@ -11,9 +11,7 @@ import { NodeNetworkReferenceComponent } from './node-network-reference.componen
   selector: 'kpn-node-network-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="references.length === 0" i18n="@@node.network-references.none">
-      None
-    </p>
+    <p *ngIf="references.length === 0" i18n="@@node.network-references.none">None</p>
     <p *ngFor="let reference of references">
       <kpn-node-network-reference
         [nodeInfo]="nodeInfo"

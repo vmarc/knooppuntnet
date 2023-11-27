@@ -27,16 +27,13 @@ export class MonitorRouteUpdatePageService {
       groupLink,
     }));
 
-    this.monitorService
-      .routeUpdatePage(groupName, routeName)
-      .subscribe((response) => {
-        const routeDescription =
-          response.result?.routeDescription ?? description;
-        this._state.update((state) => ({
-          ...state,
-          routeDescription,
-          response,
-        }));
-      });
+    this.monitorService.routeUpdatePage(groupName, routeName).subscribe((response) => {
+      const routeDescription = response.result?.routeDescription ?? description;
+      this._state.update((state) => ({
+        ...state,
+        routeDescription,
+        response,
+      }));
+    });
   }
 }

@@ -40,10 +40,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
       <h1>System</h1>
 
       <div *ngIf="page$ | async as page">
-        <kpn-status-page-menu
-          [links]="statusLinks"
-          [periodType]="page.periodType"
-        />
+        <kpn-status-page-menu [links]="statusLinks" [periodType]="page.periodType" />
 
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -68,42 +65,24 @@ import { StatusSidebarComponent } from './status-sidebar.component';
 
         <div class="chart-group">
           <h2>Analysis database</h2>
-          <kpn-docs-chart
-            [barChart]="page.analysisDocCount"
-            [xAxisLabel]="xAxisLabel"
-          />
-          <kpn-disk-size-chart
-            [barChart]="page.analysisDiskSize"
-            [xAxisLabel]="xAxisLabel"
-          />
+          <kpn-docs-chart [barChart]="page.analysisDocCount" [xAxisLabel]="xAxisLabel" />
+          <kpn-disk-size-chart [barChart]="page.analysisDiskSize" [xAxisLabel]="xAxisLabel" />
           <kpn-disk-size-external-chart
             [barChart]="page.analysisDiskSizeExternal"
             [xAxisLabel]="xAxisLabel"
           />
-          <kpn-data-size-chart
-            [barChart]="page.analysisDataSize"
-            [xAxisLabel]="xAxisLabel"
-          />
+          <kpn-data-size-chart [barChart]="page.analysisDataSize" [xAxisLabel]="xAxisLabel" />
         </div>
 
         <div class="chart-group">
           <h2>Changes database</h2>
-          <kpn-docs-chart
-            [barChart]="page.changesDocCount"
-            [xAxisLabel]="xAxisLabel"
-          />
-          <kpn-disk-size-chart
-            [barChart]="page.changesDiskSize"
-            [xAxisLabel]="xAxisLabel"
-          />
+          <kpn-docs-chart [barChart]="page.changesDocCount" [xAxisLabel]="xAxisLabel" />
+          <kpn-disk-size-chart [barChart]="page.changesDiskSize" [xAxisLabel]="xAxisLabel" />
           <kpn-disk-size-external-chart
             [barChart]="page.changesDiskSizeExternal"
             [xAxisLabel]="xAxisLabel"
           />
-          <kpn-data-size-chart
-            [barChart]="page.changesDataSize"
-            [xAxisLabel]="xAxisLabel"
-          />
+          <kpn-data-size-chart [barChart]="page.changesDataSize" [xAxisLabel]="xAxisLabel" />
         </div>
       </div>
       <kpn-status-sidebar sidebar />
@@ -168,13 +147,7 @@ export class SystemStatusPageComponent implements OnInit {
       mergeMap((parameters) =>
         this.apiService.systemStatus(parameters).pipe(
           map((r) => r.result),
-          tap(
-            (page) =>
-              (this.statusLinks = new StatusLinks(
-                page.timestamp,
-                '/status/system'
-              ))
-          )
+          tap((page) => (this.statusLinks = new StatusLinks(page.timestamp, '/status/system')))
         )
       )
     );

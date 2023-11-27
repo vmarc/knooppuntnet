@@ -18,8 +18,7 @@ export class InterpretedNetworkAttributes {
   private routePercentageOk() {
     if (this.network.routeCount > 0) {
       return (
-        (100 * (this.network.routeCount - this.network.brokenRouteCount)) /
-        this.network.routeCount
+        (100 * (this.network.routeCount - this.network.brokenRouteCount)) / this.network.routeCount
       );
     }
     return 0;

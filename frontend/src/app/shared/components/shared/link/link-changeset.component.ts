@@ -7,12 +7,9 @@ import { RouterLink } from '@angular/router';
   selector: 'kpn-link-changeset',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a
-      [routerLink]="
-        '/analysis/changeset/' + changeSetId + '/' + replicationNumber
-      "
-      >{{ changeSetId }}</a
-    >
+    <a [routerLink]="'/analysis/changeset/' + changeSetId + '/' + replicationNumber">{{
+      changeSetId
+    }}</a>
   `,
   standalone: true,
   imports: [RouterLink],

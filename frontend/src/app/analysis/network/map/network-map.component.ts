@@ -29,11 +29,7 @@ import { NetworkMapService } from './network-map.service';
     },
   ],
   standalone: true,
-  imports: [
-    LayerSwitcherComponent,
-    MapLinkMenuComponent,
-    NetworkControlComponent,
-  ],
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent, NetworkControlComponent],
 })
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() networkId: number;

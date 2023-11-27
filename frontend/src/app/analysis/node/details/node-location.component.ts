@@ -14,11 +14,9 @@ import { I18nService } from '@app/i18n';
   template: `
     <p *ngIf="!hasLocation()" i18n="@@node.location.none">None</p>
     <div class="kpn-comma-list">
-      <a
-        *ngFor="let name of locationNames(); let i = index"
-        [routerLink]="locationLink(i)"
-        >{{ name }}</a
-      >
+      <a *ngFor="let name of locationNames(); let i = index" [routerLink]="locationLink(i)">{{
+        name
+      }}</a>
     </div>
   `,
   standalone: true,
@@ -45,9 +43,7 @@ export class NodeLocationComponent {
 
   locationLink(index: number): string {
     const country = this.locations[0].toLowerCase();
-    const countryName = this.i18nService.translation(
-      '@@country.' + Util.safeGet(() => country)
-    );
+    const countryName = this.i18nService.translation('@@country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(
       this.locations.slice(1, this.locations.length - index)
     );

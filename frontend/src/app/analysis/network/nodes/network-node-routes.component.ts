@@ -18,16 +18,9 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       no routes
     </span>
 
-    <div
-      *ngIf="node.routeReferences.length > 0"
-      class="kpn-comma-list route-list"
-    >
+    <div *ngIf="node.routeReferences.length > 0" class="kpn-comma-list route-list">
       <span *ngFor="let ref of node.routeReferences">
-        <kpn-link-route
-          [routeId]="ref.id"
-          [routeName]="ref.name"
-          [networkType]="ref.networkType"
-        />
+        <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" [networkType]="ref.networkType" />
       </span>
     </div>
   `,

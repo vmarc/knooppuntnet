@@ -24,12 +24,7 @@ import { PlanActionsComponent } from './plan-actions.component';
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    NetworkTypeSelectorComponent,
-    NgIf,
-    PlanActionsComponent,
-  ],
+  imports: [AsyncPipe, NetworkTypeSelectorComponent, NgIf, PlanActionsComponent],
 })
 export class PlannerToolbarComponent {
   showNetworkTypeSelector$: Observable<boolean>;

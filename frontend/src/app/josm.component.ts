@@ -13,10 +13,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       <li class="level1">
         <span>Test existing situation</span>
         <ul>
-          <li>
-            Represents how the josm link is currently implemented in
-            knooppuntnet.
-          </li>
+          <li>Represents how the josm link is currently implemented in knooppuntnet.</li>
           <li>This is expected not to work in Safari.</li>
           <li>Link: <a rel="nofollow" (click)="josm1()">josm</a>.</li>
         </ul>
@@ -25,19 +22,14 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       <li class="level1">
         <span>Test browser tab</span>
         <ul>
+          <li>Test to see if opening in separate browser tab works on Safari.</li>
           <li>
-            Test to see if opening in separate browser tab works on Safari.
-          </li>
-          <li>
-            Still have to work out if we can show a user friendly message in
-            case JOSM is not started, or remote control not switched on.
-            Currently a standard browser error message will appear in the new
-            browser tab that is opened. Something more user friendly would be
+            Still have to work out if we can show a user friendly message in case JOSM is not
+            started, or remote control not switched on. Currently a standard browser error message
+            will appear in the new browser tab that is opened. Something more user friendly would be
             nice, but not sure this is technically possible.
           </li>
-          <li>
-            Still have to work out how to do multiple sequential requests.
-          </li>
+          <li>Still have to work out how to do multiple sequential requests.</li>
           <li>
             Link:
             <a [href]="url" target="josm">josm</a>.
@@ -55,20 +47,15 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       <li class="level1">
         <span>Test iframe</span>
         <ul>
+          <li>Test to see if talking to josm through iframe works on Safari.</li>
           <li>
-            Test to see if talking to josm through iframe works on Safari.
+            Still have to work out if we can show a user friendly message in case JOSM is not
+            started, or remote control not switched on. Currently no feedback at all.
           </li>
+          <li>Still have to work out how to do multiple sequential requests.</li>
           <li>
-            Still have to work out if we can show a user friendly message in
-            case JOSM is not started, or remote control not switched on.
-            Currently no feedback at all.
-          </li>
-          <li>
-            Still have to work out how to do multiple sequential requests.
-          </li>
-          <li>
-            Still need mechanism to keep re-using the same iframe instead of
-            creating a new one each time.
+            Still need mechanism to keep re-using the same iframe instead of creating a new one each
+            time.
           </li>
           <li>Link: <a rel="nofollow" (click)="josm3()">josm</a>.</li>
         </ul>
@@ -78,8 +65,8 @@ import { DeviceDetectorService } from 'ngx-device-detector';
         <span>Test browser</span>
         <ul>
           <li>
-            If we end up needing to do different logic for Safari, then we need
-            to be able to determine the current browser type.
+            If we end up needing to do different logic for Safari, then we need to be able to
+            determine the current browser type.
           </li>
           <li>Hopefully this will not be needed.</li>
           <li>
@@ -107,8 +94,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 export class JosmComponent {
   browser = '';
   iframeLoaded = false;
-  private url1 =
-    'http://127.0.0.1:8111/import?url=https://api.openstreetmap.org/api/0.6/relation/';
+  private url1 = 'http://127.0.0.1:8111/import?url=https://api.openstreetmap.org/api/0.6/relation/';
   private url2 = '/full';
   url = `${this.url1}272946${this.url2}`;
 

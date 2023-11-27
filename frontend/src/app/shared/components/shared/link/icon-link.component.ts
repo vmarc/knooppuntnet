@@ -21,12 +21,7 @@ import { NetworkTypeIconComponent } from '../network-type-icon.component';
     </div>
   `,
   standalone: true,
-  imports: [
-    NetworkScopeNameComponent,
-    NetworkTypeIconComponent,
-    NgIf,
-    RouterLink,
-  ],
+  imports: [NetworkScopeNameComponent, NetworkTypeIconComponent, NgIf, RouterLink],
 })
 export class IconLinkComponent implements OnInit {
   @Input({ required: true }) reference: Reference;

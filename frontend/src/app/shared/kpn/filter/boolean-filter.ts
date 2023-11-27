@@ -29,10 +29,7 @@ export class BooleanFilter<T> extends Filter<T> {
     const filteredElements = allFilters.filterExcept(elements, this);
     const yesElements = filteredElements.filter((e) => this.getter(e));
     const noElements = filteredElements.filter((e) => !this.getter(e));
-    const active =
-      filteredElements.length > 0 &&
-      yesElements.length > 0 &&
-      noElements.length > 0;
+    const active = filteredElements.length > 0 && yesElements.length > 0 && noElements.length > 0;
 
     if (active) {
       const allOption = new FilterOption(
@@ -49,12 +46,7 @@ export class BooleanFilter<T> extends Filter<T> {
         this.yes
       );
 
-      const noOption = new FilterOption(
-        'no',
-        noElements.length,
-        this.criterium === false,
-        this.no
-      );
+      const noOption = new FilterOption('no', noElements.length, this.criterium === false, this.no);
 
       return new FilterOptionGroup(this.name, allOption, yesOption, noOption);
     }

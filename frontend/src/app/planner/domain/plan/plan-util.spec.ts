@@ -65,33 +65,9 @@ describe('PlanUtil', () => {
     const viaLegEnd2 = PlanUtil.legEndNode(12);
     const endLegEnd = PlanUtil.legEndNode(13);
 
-    const leg1 = new PlanLeg(
-      '',
-      '',
-      startLegEnd,
-      viaLegEnd1,
-      null,
-      null,
-      List([route1])
-    );
-    const leg2 = new PlanLeg(
-      '',
-      '',
-      viaLegEnd1,
-      viaLegEnd2,
-      null,
-      null,
-      List([route2])
-    );
-    const leg3 = new PlanLeg(
-      '',
-      '',
-      viaLegEnd2,
-      endLegEnd,
-      null,
-      null,
-      List([route3])
-    );
+    const leg1 = new PlanLeg('', '', startLegEnd, viaLegEnd1, null, null, List([route1]));
+    const leg2 = new PlanLeg('', '', viaLegEnd1, viaLegEnd2, null, null, List([route2]));
+    const leg3 = new PlanLeg('', '', viaLegEnd2, endLegEnd, null, null, List([route3]));
 
     const startFlag = PlanFlag.start('n1', startNode.coordinate);
     const plan = new Plan(startNode, startFlag, List([leg1, leg2, leg3]));
@@ -141,15 +117,7 @@ describe('PlanUtil', () => {
       streets: [],
     };
 
-    const leg1 = new PlanLeg(
-      '1',
-      '',
-      null,
-      null,
-      null,
-      null,
-      List([route1, route2])
-    );
+    const leg1 = new PlanLeg('1', '', null, null, null, null, List([route1, route2]));
     const leg2 = new PlanLeg('2', '', null, null, null, null, List([route3]));
 
     const plan = new Plan(null, null, List([leg1, leg2]));

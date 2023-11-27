@@ -12,10 +12,7 @@ export class I18nService {
   private buildTranslations(): Map<string, string> {
     const keysAndValues: Array<[string, string]> = [];
 
-    keysAndValues.push([
-      '@@country.nl',
-      $localize`:@@country.nl:The Netherlands`,
-    ]);
+    keysAndValues.push(['@@country.nl', $localize`:@@country.nl:The Netherlands`]);
     keysAndValues.push(['@@country.be', $localize`:@@country.be:Belgium`]);
     keysAndValues.push(['@@country.de', $localize`:@@country.de:Germany`]);
     keysAndValues.push(['@@country.fr', $localize`:@@country.fr:France`]);
@@ -23,14 +20,8 @@ export class I18nService {
     keysAndValues.push(['@@country.es', $localize`:@@country.es:Spain`]);
     keysAndValues.push(['@@country.dk', $localize`:@@country.dk:Denmark`]);
 
-    keysAndValues.push([
-      '@@network-type.hiking',
-      $localize`:@@network-type.hiking:Hiking`,
-    ]);
-    keysAndValues.push([
-      '@@network-type.cycling',
-      $localize`:@@network-type.cycling:Cycling`,
-    ]);
+    keysAndValues.push(['@@network-type.hiking', $localize`:@@network-type.hiking:Hiking`]);
+    keysAndValues.push(['@@network-type.cycling', $localize`:@@network-type.cycling:Cycling`]);
     keysAndValues.push([
       '@@network-type.horse-riding',
       $localize`:@@network-type.horse-riding:Horse riding`,
@@ -39,27 +30,15 @@ export class I18nService {
       '@@network-type.motorboat',
       $localize`:@@network-type.motorboat:Motorboat`,
     ]);
-    keysAndValues.push([
-      '@@network-type.canoe',
-      $localize`:@@network-type.canoe:Canoe`,
-    ]);
+    keysAndValues.push(['@@network-type.canoe', $localize`:@@network-type.canoe:Canoe`]);
     keysAndValues.push([
       '@@network-type.inline-skating',
       $localize`:@@network-type.inline-skating:Inline skating`,
     ]);
 
-    keysAndValues.push([
-      '@@network-scope.local',
-      $localize`:@@network-scope.local:local`,
-    ]);
-    keysAndValues.push([
-      '@@network-scope.regional',
-      $localize`:@@network-scope.regional:regional`,
-    ]);
-    keysAndValues.push([
-      '@@network-scope.national',
-      $localize`:@@network-scope.national:national`,
-    ]);
+    keysAndValues.push(['@@network-scope.local', $localize`:@@network-scope.local:local`]);
+    keysAndValues.push(['@@network-scope.regional', $localize`:@@network-scope.regional:regional`]);
+    keysAndValues.push(['@@network-scope.national', $localize`:@@network-scope.national:national`]);
     keysAndValues.push([
       '@@network-scope.international',
       $localize`:@@network-scope.international:international`,
@@ -67,10 +46,7 @@ export class I18nService {
 
     keysAndValues.push(['@@subset.in', $localize`:@@subset.in:in`]);
 
-    keysAndValues.push([
-      '@@map.start-node',
-      $localize`:@@map.start-node:Start node`,
-    ]);
+    keysAndValues.push(['@@map.start-node', $localize`:@@map.start-node:Start node`]);
     keysAndValues.push(['@@map.end-node', $localize`:@@map.end-node:End node`]);
     keysAndValues.push([
       '@@map.start-tentacle-node',
@@ -80,15 +56,9 @@ export class I18nService {
       '@@map.end-tentacle-node',
       $localize`:@@map.end-tentacle-node:End tentacle node`,
     ]);
-    keysAndValues.push([
-      '@@map.redundant-node',
-      $localize`:@@map.redundant-node:Redundant node`,
-    ]);
+    keysAndValues.push(['@@map.redundant-node', $localize`:@@map.redundant-node:Redundant node`]);
 
-    keysAndValues.push([
-      '@@map.layer.free-path',
-      $localize`:@@map.layer.free-path:Path`,
-    ]);
+    keysAndValues.push(['@@map.layer.free-path', $localize`:@@map.layer.free-path:Path`]);
     keysAndValues.push([
       '@@map.layer.forward-route',
       $localize`:@@map.layer.forward-route:Forward route`,
@@ -105,18 +75,9 @@ export class I18nService {
       '@@map.layer.end-tentacle',
       $localize`:@@map.layer.end-tentacle:End tentacle`,
     ]);
-    keysAndValues.push([
-      '@@map.layer.unused',
-      $localize`:@@map.layer.unused:Unused`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.nodes',
-      $localize`:@@map.layer.nodes:Nodes`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.network',
-      $localize`:@@map.layer.network:Network`,
-    ]);
+    keysAndValues.push(['@@map.layer.unused', $localize`:@@map.layer.unused:Unused`]);
+    keysAndValues.push(['@@map.layer.nodes', $localize`:@@map.layer.nodes:Nodes`]);
+    keysAndValues.push(['@@map.layer.network', $localize`:@@map.layer.network:Network`]);
     keysAndValues.push([
       '@@map.layer.flanders-hiking',
       $localize`:@@map.layer.flanders-hiking:Toerisme Vlaanderen`,
@@ -129,36 +90,15 @@ export class I18nService {
       '@@map.layer.netherlands-hiking',
       $localize`:@@map.layer.netherlands-hiking:Netherlands routedatabank`,
     ]);
-    keysAndValues.push([
-      '@@map.layer.networks',
-      $localize`:@@map.layer.networks:Networks`,
-    ]);
+    keysAndValues.push(['@@map.layer.networks', $localize`:@@map.layer.networks:Networks`]);
 
-    keysAndValues.push([
-      '@@map.layer.unchanged',
-      $localize`:@@map.layer.unchanged:Unchanged`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.added',
-      $localize`:@@map.layer.added:Added`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.deleted',
-      $localize`:@@map.layer.deleted:Deleted`,
-    ]);
+    keysAndValues.push(['@@map.layer.unchanged', $localize`:@@map.layer.unchanged:Unchanged`]);
+    keysAndValues.push(['@@map.layer.added', $localize`:@@map.layer.added:Added`]);
+    keysAndValues.push(['@@map.layer.deleted', $localize`:@@map.layer.deleted:Deleted`]);
 
-    keysAndValues.push([
-      '@@map.layer.osm',
-      $localize`:@@map.layer.osm:OpenStreetMap`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.background',
-      $localize`:@@map.layer.background:Background`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.gpx',
-      $localize`:@@map.layer.gpx:Your GPX trace`,
-    ]);
+    keysAndValues.push(['@@map.layer.osm', $localize`:@@map.layer.osm:OpenStreetMap`]);
+    keysAndValues.push(['@@map.layer.background', $localize`:@@map.layer.background:Background`]);
+    keysAndValues.push(['@@map.layer.gpx', $localize`:@@map.layer.gpx:Your GPX trace`]);
     keysAndValues.push([
       '@@map.layer.tile-256-names',
       $localize`:@@map.layer.tile-256-names:Tilenames (256)`,
@@ -172,26 +112,14 @@ export class I18nService {
       $localize`:@@map.layer.other-routes:Other routes`,
     ]);
     keysAndValues.push(['@@map.layer.node', $localize`:@@map.layer.node:Node`]);
-    keysAndValues.push([
-      '@@map.layer.cycling',
-      $localize`:@@map.layer.cycling:Cycling`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.hiking',
-      $localize`:@@map.layer.hiking:Hiking`,
-    ]);
+    keysAndValues.push(['@@map.layer.cycling', $localize`:@@map.layer.cycling:Cycling`]);
+    keysAndValues.push(['@@map.layer.hiking', $localize`:@@map.layer.hiking:Hiking`]);
     keysAndValues.push([
       '@@map.layer.horse-riding',
       $localize`:@@map.layer.horse-riding:Horse riding`,
     ]);
-    keysAndValues.push([
-      '@@map.layer.motorboat',
-      $localize`:@@map.layer.motorboat:Motorboat`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.canoe',
-      $localize`:@@map.layer.canoe:Canoe`,
-    ]);
+    keysAndValues.push(['@@map.layer.motorboat', $localize`:@@map.layer.motorboat:Motorboat`]);
+    keysAndValues.push(['@@map.layer.canoe', $localize`:@@map.layer.canoe:Canoe`]);
     keysAndValues.push([
       '@@map.layer.inline-skating',
       $localize`:@@map.layer.inline-skating:Inline Skating`,
@@ -200,26 +128,14 @@ export class I18nService {
       '@@map.layer.nodes-and-routes',
       $localize`:@@map.layer.nodes-and-routes:Nodes and routes`,
     ]);
-    keysAndValues.push([
-      '@@map.layer.boundary',
-      $localize`:@@map.layer.boundary:Boundary`,
-    ]);
-    keysAndValues.push([
-      '@@map.layer.poi-areas',
-      $localize`:@@map.layer.poi-areas:Poi areas`,
-    ]);
+    keysAndValues.push(['@@map.layer.boundary', $localize`:@@map.layer.boundary:Boundary`]);
+    keysAndValues.push(['@@map.layer.poi-areas', $localize`:@@map.layer.poi-areas:Poi areas`]);
 
     keysAndValues.push(['@@filter.all', $localize`:@@filter.all:all`]);
     keysAndValues.push(['@@filter.yes', $localize`:@@filter.yes:yes`]);
     keysAndValues.push(['@@filter.no', $localize`:@@filter.no:no`]);
-    keysAndValues.push([
-      '@@filter.unknown',
-      $localize`:@@filter.unknown:unknown`,
-    ]);
-    keysAndValues.push([
-      '@@filter.proposed',
-      $localize`:@@filter.proposed:Proposed`,
-    ]);
+    keysAndValues.push(['@@filter.unknown', $localize`:@@filter.unknown:unknown`]);
+    keysAndValues.push(['@@filter.proposed', $localize`:@@filter.proposed:Proposed`]);
     keysAndValues.push([
       '@@filter.definedInNetworkRelation',
       $localize`:@@filter.definedInNetworkRelation:Defined in network relation`,
@@ -236,46 +152,16 @@ export class I18nService {
       '@@filter.integrityCheckFailed',
       $localize`:@@filter.integrityCheckFailed:Integrity check failed`,
     ]);
-    keysAndValues.push([
-      '@@filter.connection',
-      $localize`:@@filter.connection:Connection`,
-    ]);
-    keysAndValues.push([
-      '@@filter.investigate',
-      $localize`:@@filter.investigate:Investigate`,
-    ]);
-    keysAndValues.push([
-      '@@filter.accessible',
-      $localize`:@@filter.accessible:Accessible`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastUpdated',
-      $localize`:@@filter.lastUpdated:Last updated`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastSurvey',
-      $localize`:@@filter.lastSurvey:Survey`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastWeek',
-      $localize`:@@filter.lastWeek:last week`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastMonth',
-      $localize`:@@filter.lastMonth:last month`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastYear',
-      $localize`:@@filter.lastYear:last year`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastHalfYear',
-      $localize`:@@filter.lastHalfYear:last half year`,
-    ]);
-    keysAndValues.push([
-      '@@filter.lastTwoYears',
-      $localize`:@@filter.lastTwoYears:last two years`,
-    ]);
+    keysAndValues.push(['@@filter.connection', $localize`:@@filter.connection:Connection`]);
+    keysAndValues.push(['@@filter.investigate', $localize`:@@filter.investigate:Investigate`]);
+    keysAndValues.push(['@@filter.accessible', $localize`:@@filter.accessible:Accessible`]);
+    keysAndValues.push(['@@filter.lastUpdated', $localize`:@@filter.lastUpdated:Last updated`]);
+    keysAndValues.push(['@@filter.lastSurvey', $localize`:@@filter.lastSurvey:Survey`]);
+    keysAndValues.push(['@@filter.lastWeek', $localize`:@@filter.lastWeek:last week`]);
+    keysAndValues.push(['@@filter.lastMonth', $localize`:@@filter.lastMonth:last month`]);
+    keysAndValues.push(['@@filter.lastYear', $localize`:@@filter.lastYear:last year`]);
+    keysAndValues.push(['@@filter.lastHalfYear', $localize`:@@filter.lastHalfYear:last half year`]);
+    keysAndValues.push(['@@filter.lastTwoYears', $localize`:@@filter.lastTwoYears:last two years`]);
     keysAndValues.push(['@@filter.older', $localize`:@@filter.older:older`]);
     keysAndValues.push([
       '@@filter.roleConnection',

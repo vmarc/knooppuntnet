@@ -28,9 +28,7 @@ export class PdfColourBox {
     const colourSets = this.colourTagValue
       .split(';')
       .map((tabSubValue) =>
-        tabSubValue
-          .split('-')
-          .filter((tagColour) => this.knownColours.includes(tagColour))
+        tabSubValue.split('-').filter((tagColour) => this.knownColours.includes(tagColour))
       )
       .filter((c) => c.length > 0);
 
@@ -41,13 +39,7 @@ export class PdfColourBox {
         .map((c) => (c === 'grey' ? 'gray' : c))
         .forEach((colour, index) => {
           this.doc.setFillColor(colour);
-          this.doc.rect(
-            this.x,
-            this.y + colourHeight * index,
-            this.size,
-            colourHeight,
-            'F'
-          );
+          this.doc.rect(this.x, this.y + colourHeight * index, this.size, colourHeight, 'F');
         });
       this.doc.rect(this.x, this.y, this.size, this.size, 'S');
     }

@@ -22,9 +22,7 @@ import { MapLayerRegistry } from '../layers';
 import { OsmLayer } from '../layers';
 import { BackgroundLayer } from '../layers/';
 
-export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>(
-  'MAP_SERVICE_TOKEN'
-);
+export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>('MAP_SERVICE_TOKEN');
 
 @Injectable()
 export abstract class OpenlayersMapService {
@@ -47,13 +45,9 @@ export abstract class OpenlayersMapService {
   private readonly updatePositionHandler = () => this.updateMapPosition();
 
   constructor() {
+    this.subscriptions.add(this.pageService.sidebarOpen.subscribe(() => this.updateSize()));
     this.subscriptions.add(
-      this.pageService.sidebarOpen.subscribe(() => this.updateSize())
-    );
-    this.subscriptions.add(
-      fromEvent(window, 'webkitfullscreenchange').subscribe(() =>
-        this.updateSize()
-      )
+      fromEvent(window, 'webkitfullscreenchange').subscribe(() => this.updateSize())
     );
   }
 
@@ -117,21 +111,13 @@ export abstract class OpenlayersMapService {
     const visible = change.visible;
 
     const mapLayerStates = this._layerStates$.value.map((layerState) => {
-      if (
-        layerState.layerName == BackgroundLayer.id &&
-        layerName == OsmLayer.id &&
-        visible
-      ) {
+      if (layerState.layerName == BackgroundLayer.id && layerName == OsmLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
         };
       }
-      if (
-        layerState.layerName == OsmLayer.id &&
-        layerName == BackgroundLayer.id &&
-        visible
-      ) {
+      if (layerState.layerName == OsmLayer.id && layerName == BackgroundLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
@@ -159,18 +145,12 @@ export abstract class OpenlayersMapService {
         (layerState) => layerState.layerName === mapLayer.name
       );
       if (mapLayerState) {
-        const zoomInRange =
-          zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
+        const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
         const visible =
           zoomInRange &&
-          (mapLayerState.enabled ||
-            mapLayerState.layerName === mapLayer.name) &&
+          (mapLayerState.enabled || mapLayerState.layerName === mapLayer.name) &&
           mapLayerState.visible;
-        if (
-          visible &&
-          mapLayer.id.includes('vector') &&
-          mapLayer.layer.getVisible()
-        ) {
+        if (visible && mapLayer.id.includes('vector') && mapLayer.layer.getVisible()) {
           mapLayer.layer.changed();
         }
         mapLayer.layer.setVisible(visible);

@@ -11,9 +11,7 @@ import { NetworkTypeIconComponent } from '@app/components/shared';
   selector: 'kpn-route-network-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="references.length === 0" i18n="@@route.no-network-references">
-      None
-    </div>
+    <div *ngIf="references.length === 0" i18n="@@route.no-network-references">None</div>
     <div *ngFor="let reference of references" class="kpn-line">
       <kpn-network-type-icon [networkType]="reference.networkType" />
       <a

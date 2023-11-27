@@ -12,9 +12,7 @@ import { Tags } from '@api/custom';
   template: `
     <div *ngIf="hasTags()">
       <div class="tags">
-        <div *ngFor="let tag of tags()" class="tag">
-          {{ tag.key }} = {{ tag.value }}
-        </div>
+        <div *ngFor="let tag of tags()" class="tag">{{ tag.key }} = {{ tag.value }}</div>
       </div>
     </div>
   `,

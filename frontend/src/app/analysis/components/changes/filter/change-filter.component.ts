@@ -16,9 +16,7 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
     <div *ngIf="filterOptions && filterOptions.length > 0" class="filter">
       <div class="title" i18n="@@change-filter.title">Filter</div>
       <div class="row">
-        <div class="count-links" i18n="@@change-filter.legend">
-          impacted / all
-        </div>
+        <div class="count-links" i18n="@@change-filter.legend">impacted / all</div>
       </div>
       <div *ngFor="let option of filterOptions">
         <kpn-change-filter-period

@@ -16,16 +16,13 @@ import { PlannerState } from './planner-state';
 export const plannerReducer = createReducer<PlannerState>(
   initialState,
   on(actionPlannerLoad, (_, { state }): PlannerState => state),
-  on(
-    actionPlannerMapFinalized,
-    (state, { position, layerStates }): PlannerState => {
-      return {
-        ...state,
-        position,
-        layerStates,
-      };
-    }
-  ),
+  on(actionPlannerMapFinalized, (state, { position, layerStates }): PlannerState => {
+    return {
+      ...state,
+      position,
+      layerStates,
+    };
+  }),
   on(actionPlannerNetworkType, (state, { networkType }): PlannerState => {
     return {
       ...state,
@@ -75,22 +72,19 @@ export const plannerReducer = createReducer<PlannerState>(
       layerStates,
     })
   ),
-  on(
-    actionPlannerPoiGroupVisible,
-    (state, { groupName, visible }): PlannerState => {
-      const poiLayerStates = state.poiLayerStates.map((layerState) => {
-        if (layerState.layerName === groupName) {
-          return {
-            ...layerState,
-            visible,
-          };
-        }
-        return layerState;
-      });
-      return {
-        ...state,
-        poiLayerStates,
-      };
-    }
-  )
+  on(actionPlannerPoiGroupVisible, (state, { groupName, visible }): PlannerState => {
+    const poiLayerStates = state.poiLayerStates.map((layerState) => {
+      if (layerState.layerName === groupName) {
+        return {
+          ...layerState,
+          visible,
+        };
+      }
+      return layerState;
+    });
+    return {
+      ...state,
+      poiLayerStates,
+    };
+  })
 );

@@ -42,14 +42,8 @@ import { NetworkFactComponent } from './network-fact.component';
           </p>
 
           <kpn-items *ngIf="page.facts.length > 0">
-            <kpn-item
-              *ngFor="let fact of page.facts; let i = index"
-              [index]="i"
-            >
-              <kpn-network-fact
-                [fact]="fact"
-                [networkType]="page.summary.networkType"
-              />
+            <kpn-item *ngFor="let fact of page.facts; let i = index" [index]="i">
+              <kpn-network-fact [fact]="fact" [networkType]="page.summary.networkType" />
             </kpn-item>
           </kpn-items>
         </div>

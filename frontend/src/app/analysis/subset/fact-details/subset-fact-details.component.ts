@@ -171,9 +171,7 @@ export class SubsetFactDetailsComponent implements OnInit {
   }
 
   private calculateRefCount(): number {
-    return new Set(
-      this.page.networks.flatMap((n) => n.factRefs.map((r) => r.id))
-    ).size;
+    return new Set(this.page.networks.flatMap((n) => n.factRefs.map((r) => r.id))).size;
   }
 
   private calculateFactCount(): number {
@@ -210,9 +208,7 @@ export class SubsetFactDetailsComponent implements OnInit {
   }
 
   edit() {
-    const elementIds = this.page.networks
-      .flatMap((n) => n.factRefs)
-      .map((ref) => ref.id);
+    const elementIds = this.page.networks.flatMap((n) => n.factRefs).map((ref) => ref.id);
 
     let editParameters: EditParameters = null;
 

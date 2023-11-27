@@ -12,8 +12,7 @@ import { Util } from './util';
   template: `
     <ng-container *ngIf="country">{{ countryName() }}</ng-container>
     <ng-container *ngIf="!country" i18n="@@country.unsupported">
-      Unsupported (not Belgium, The Netherlands, Germany, France, Austria, Spain
-      or Denmark)
+      Unsupported (not Belgium, The Netherlands, Germany, France, Austria, Spain or Denmark)
     </ng-container>
   `,
   standalone: true,
@@ -25,8 +24,6 @@ export class CountryNameComponent {
   constructor(private i18nService: I18nService) {}
 
   countryName(): string {
-    return this.i18nService.translation(
-      '@@country.' + Util.safeGet(() => this.country)
-    );
+    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country));
   }
 }

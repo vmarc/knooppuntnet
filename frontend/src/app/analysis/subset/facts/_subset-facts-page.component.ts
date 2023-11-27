@@ -50,10 +50,7 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
         <div *ngIf="hasFacts(response)" class="kpn-line">
           <kpn-items>
             <kpn-item
-              *ngFor="
-                let factCount of response.result.factCounts;
-                let i = index
-              "
+              *ngFor="let factCount of response.result.factCounts; let i = index"
               [index]="i"
             >
               <div class="kpn-line">

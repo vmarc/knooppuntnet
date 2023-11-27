@@ -23,16 +23,10 @@ export class MonitorRouteMapStateService {
   readonly referenceVisible = computed(() => this._state().referenceVisible);
   readonly matchesVisible = computed(() => this._state().matchesVisible);
   readonly deviationsVisible = computed(() => this._state().deviationsVisible);
-  readonly osmRelationVisible = computed(
-    () => this._state().osmRelationVisible
-  );
+  readonly osmRelationVisible = computed(() => this._state().osmRelationVisible);
   readonly selectedDeviation = computed(() => this._state().selectedDeviation);
-  readonly selectedOsmSegment = computed(
-    () => this._state().selectedOsmSegment
-  );
-  readonly referenceAvailable = computed(
-    () => this._state().referenceAvailable
-  );
+  readonly selectedOsmSegment = computed(() => this._state().selectedOsmSegment);
+  readonly referenceAvailable = computed(() => this._state().referenceAvailable);
   readonly referenceLayerVisible = computed(
     () => this.mode() === MonitorMapMode.comparison && this.referenceVisible()
   );
@@ -79,17 +73,13 @@ export class MonitorRouteMapStateService {
     const selectedOsmSegmentParam = queryParams.get('selected-osm-segment');
     if (!isNaN(Number(selectedOsmSegmentParam))) {
       const id = +selectedOsmSegmentParam;
-      selectedOsmSegment = page.osmSegments.find(
-        (segment) => segment.id === id
-      );
+      selectedOsmSegment = page.osmSegments.find((segment) => segment.id === id);
     }
 
-    const referenceAvailable =
-      (page.reference?.referenceGeoJson.length ?? 0) > 0;
+    const referenceAvailable = (page.reference?.referenceGeoJson.length ?? 0) > 0;
     const referenceParam = queryParams.get('reference');
     let referenceVisible =
-      referenceAvailable &&
-      !(matchesVisible || deviationsVisible || osmRelationVisible);
+      referenceAvailable && !(matchesVisible || deviationsVisible || osmRelationVisible);
     if (referenceAvailable && referenceParam) {
       referenceVisible = referenceParam === 'true';
     }
@@ -109,8 +99,7 @@ export class MonitorRouteMapStateService {
   }
 
   pageChanged(page: MonitorRouteMapPage): void {
-    const referenceAvailable =
-      (page.reference?.referenceGeoJson.length ?? 0) > 0;
+    const referenceAvailable = (page.reference?.referenceGeoJson.length ?? 0) > 0;
 
     this._state.update((state) => ({
       ...state,

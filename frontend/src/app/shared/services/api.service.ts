@@ -68,11 +68,7 @@ export class ApiService {
     private http: HttpClient,
     markdownService: MarkdownService
   ) {
-    markdownService.renderer.link = (
-      href: string,
-      title: string,
-      text: string
-    ) =>
+    markdownService.renderer.link = (href: string, title: string, text: string) =>
       `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
   }
 
@@ -95,10 +91,7 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  subsetFactRefs(
-    subset: Subset,
-    factName: string
-  ): Observable<ApiResponse<SubsetFactRefs>> {
+  subsetFactRefs(subset: Subset, factName: string): Observable<ApiResponse<SubsetFactRefs>> {
     const url = this.subsetUrl(subset, factName) + '/refs';
     return this.http.get(url);
   }
@@ -111,16 +104,12 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  subsetOrphanNodes(
-    subset: Subset
-  ): Observable<ApiResponse<SubsetOrphanNodesPage>> {
+  subsetOrphanNodes(subset: Subset): Observable<ApiResponse<SubsetOrphanNodesPage>> {
     const url = this.subsetUrl(subset, 'orphan-nodes');
     return this.http.get(url);
   }
 
-  subsetOrphanRoutes(
-    subset: Subset
-  ): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
+  subsetOrphanRoutes(subset: Subset): Observable<ApiResponse<SubsetOrphanRoutesPage>> {
     const url = this.subsetUrl(subset, 'orphan-routes');
     return this.http.get(url);
   }
@@ -138,9 +127,7 @@ export class ApiService {
     return this.http.post(url, parameters);
   }
 
-  networkDetails(
-    networkId: number
-  ): Observable<ApiResponse<NetworkDetailsPage>> {
+  networkDetails(networkId: number): Observable<ApiResponse<NetworkDetailsPage>> {
     const url = `/api/network/${networkId}`;
     return this.http.get(url);
   }
@@ -214,9 +201,7 @@ export class ApiService {
     parameters: ChangesParameters
   ): Observable<ApiResponse<ChangesPage>> {
     const url = '/api/changes';
-    const params = new HttpParams()
-      .set('language', this.locale)
-      .set('strategy', strategy);
+    const params = new HttpParams().set('language', this.locale).set('strategy', strategy);
     return this.http.post(url, parameters, { params });
   }
 
@@ -236,9 +221,7 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  public mapRouteDetail(
-    routeId: number
-  ): Observable<ApiResponse<MapRouteDetail>> {
+  public mapRouteDetail(routeId: number): Observable<ApiResponse<MapRouteDetail>> {
     const url = `/api/route-detail/${routeId}`;
     return this.http.get(url);
   }
@@ -248,24 +231,17 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  public poi(
-    elementType: string,
-    elementId: number
-  ): Observable<ApiResponse<PoiPage>> {
+  public poi(elementType: string, elementId: number): Observable<ApiResponse<PoiPage>> {
     const url = `/api/poi/${elementType}/${elementId}`;
     return this.http.get(url);
   }
 
-  public leg(
-    legBuildParams: LegBuildParams
-  ): Observable<ApiResponse<PlanLegDetail>> {
+  public leg(legBuildParams: LegBuildParams): Observable<ApiResponse<PlanLegDetail>> {
     const url = `/api/leg`;
     return this.http.post(url, legBuildParams);
   }
 
-  public plan(
-    planParams: PlanParams
-  ): Observable<ApiResponse<PlanLegDetail[]>> {
+  public plan(planParams: PlanParams): Observable<ApiResponse<PlanLegDetail[]>> {
     const url = `/api/plan`;
     return this.http.post(url, planParams);
   }
@@ -298,16 +274,12 @@ export class ApiService {
     return this.http.post(url, parameters, { params: this.languageParams() });
   }
 
-  public locationFacts(
-    locationKey: LocationKey
-  ): Observable<ApiResponse<LocationFactsPage>> {
+  public locationFacts(locationKey: LocationKey): Observable<ApiResponse<LocationFactsPage>> {
     const url = this.locationUrl(locationKey, 'facts');
     return this.http.get(url, { params: this.languageParams() });
   }
 
-  public locationMap(
-    locationKey: LocationKey
-  ): Observable<ApiResponse<LocationMapPage>> {
+  public locationMap(locationKey: LocationKey): Observable<ApiResponse<LocationMapPage>> {
     const url = this.locationUrl(locationKey, 'map');
     return this.http.get(url, { params: this.languageParams() });
   }
@@ -320,9 +292,7 @@ export class ApiService {
     return this.http.post(url, parameters, { params: this.languageParams() });
   }
 
-  public locationEdit(
-    locationKey: LocationKey
-  ): Observable<ApiResponse<LocationEditPage>> {
+  public locationEdit(locationKey: LocationKey): Observable<ApiResponse<LocationEditPage>> {
     const url = this.locationUrl(locationKey, 'edit');
     return this.http.post(url, '', { params: this.languageParams() });
   }
@@ -339,16 +309,12 @@ export class ApiService {
     return this.http.post(url, parameters);
   }
 
-  public systemStatus(
-    parameters: PeriodParameters
-  ): Observable<ApiResponse<SystemStatusPage>> {
+  public systemStatus(parameters: PeriodParameters): Observable<ApiResponse<SystemStatusPage>> {
     const url = '/api/status/system';
     return this.http.post(url, parameters);
   }
 
-  public logStatus(
-    parameters: PeriodParameters
-  ): Observable<ApiResponse<LogPage>> {
+  public logStatus(parameters: PeriodParameters): Observable<ApiResponse<LogPage>> {
     const url = '/api/status/log';
     return this.http.post(url, parameters);
   }
@@ -363,10 +329,7 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  public poiDetail(
-    elementType: string,
-    elementId: number
-  ): Observable<ApiResponse<PoiDetail>> {
+  public poiDetail(elementType: string, elementId: number): Observable<ApiResponse<PoiDetail>> {
     const url = `/api/poi-detail/${elementType}/${elementId}`;
     return this.http.get(url, { params: this.languageParams() });
   }

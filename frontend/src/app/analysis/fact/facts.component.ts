@@ -26,27 +26,19 @@ import { Facts } from './facts';
         <kpn-fact-name [fact]="factInfo.fact"></kpn-fact-name>
         <div *ngIf="factInfo.networkRef" class="reference">
           <kpn-brackets>
-            <a
-              class="text"
-              [routerLink]="'/analysis/network/' + factInfo.networkRef.id"
-              >{{ factInfo.networkRef.name }}</a
-            >
+            <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{
+              factInfo.networkRef.name
+            }}</a>
           </kpn-brackets>
         </div>
         <div *ngIf="factInfo.routeRef" class="reference">
           <kpn-brackets>
-            <kpn-link-route
-              [routeId]="factInfo.routeRef.id"
-              [routeName]="factInfo.routeRef.name"
-            />
+            <kpn-link-route [routeId]="factInfo.routeRef.id" [routeName]="factInfo.routeRef.name" />
           </kpn-brackets>
         </div>
         <div *ngIf="factInfo.nodeRef" class="reference">
           <kpn-brackets>
-            <kpn-link-node
-              [nodeId]="factInfo.nodeRef.id"
-              [nodeName]="factInfo.nodeRef.name"
-            />
+            <kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name" />
           </kpn-brackets>
         </div>
       </div>

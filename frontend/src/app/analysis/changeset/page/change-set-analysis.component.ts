@@ -12,9 +12,7 @@ import { IconHappyComponent } from '@app/components/shared/icon';
   template: `
     <div *ngIf="isHappy()" class="kpn-line">
       <kpn-icon-happy />
-      <span i18n="@@change-set.header.analysis.happy">
-        This changeset brought improvements.
-      </span>
+      <span i18n="@@change-set.header.analysis.happy"> This changeset brought improvements. </span>
     </div>
 
     <div *ngIf="isInvestigate()" class="kpn-line">

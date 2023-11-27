@@ -7,9 +7,8 @@ import { MarkdownModule } from 'ngx-markdown';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.network-extra-member-node">
-      The network relation contains members of type *"node"* that are unexpected
-      (we expect only network nodes or information maps as members in the
-      network relation).
+      The network relation contains members of type *"node"* that are unexpected (we expect only
+      network nodes or information maps as members in the network relation).
     </markdown>
   `,
   standalone: true,

@@ -13,13 +13,8 @@ import { LegendIconComponent } from './legend-icon.component';
   selector: 'kpn-planner-sidebar-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel
-      [expanded]="expanded$ | async"
-      (expandedChange)="expandedChanged($event)"
-    >
-      <mat-expansion-panel-header i18n="@@planner.legend">
-        Legend
-      </mat-expansion-panel-header>
+    <mat-expansion-panel [expanded]="expanded$ | async" (expandedChange)="expandedChanged($event)">
+      <mat-expansion-panel-header i18n="@@planner.legend"> Legend </mat-expansion-panel-header>
 
       <div *ngIf="plannerMapMode() as mapMode">
         <div *ngIf="mapMode === 'surface'" class="legend">
@@ -47,9 +42,7 @@ import { LegendIconComponent } from './legend-icon.component';
           </div>
           <div>
             <kpn-legend-icon color="rgb(0, 200, 0)" />
-            <span i18n="@@planner.legend.survey.last-half-month"
-              >Last half year</span
-            >
+            <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(0, 150, 0)" />
@@ -57,9 +50,7 @@ import { LegendIconComponent } from './legend-icon.component';
           </div>
           <div>
             <kpn-legend-icon color="rgb(0, 90, 0)" />
-            <span i18n="@@planner.legend.survey.last-two-years"
-              >Last two years</span
-            >
+            <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
           </div>
           <div>
             <kpn-legend-icon color="rgb(150, 0, 0)" />
@@ -68,10 +59,7 @@ import { LegendIconComponent } from './legend-icon.component';
             >
           </div>
           <div>
-            <kpn-legend-icon
-              color="rgb(255, 255, 0)"
-              circleColor="rgb(225, 225, 0)"
-            />
+            <kpn-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
             <span i18n="@@planner.legend.survey.unknown">Unknown</span>
           </div>
         </div>
@@ -90,9 +78,7 @@ import { LegendIconComponent } from './legend-icon.component';
           </div>
           <div>
             <kpn-legend-icon color="rgb(187, 0, 0)" />
-            <span i18n="@@planner.legend.survey.review-orphan"
-              >Review Orphan</span
-            >
+            <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
           </div>
         </div>
 

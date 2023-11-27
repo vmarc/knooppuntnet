@@ -12,24 +12,12 @@ export class PlannerCommandMoveViaPoint implements PlannerCommand {
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandMoveViaPoint');
-    this.update(
-      context,
-      this.oldLeg1,
-      this.oldLeg2,
-      this.newLeg1,
-      this.newLeg2
-    );
+    this.update(context, this.oldLeg1, this.oldLeg2, this.newLeg1, this.newLeg2);
   }
 
   public undo(context: PlannerContext) {
     context.debug('PlannerCommandMoveViaPoint undo');
-    this.update(
-      context,
-      this.newLeg1,
-      this.newLeg2,
-      this.oldLeg1,
-      this.oldLeg2
-    );
+    this.update(context, this.newLeg1, this.newLeg2, this.oldLeg1, this.oldLeg2);
   }
 
   private update(

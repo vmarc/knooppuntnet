@@ -10,10 +10,7 @@ import { IconNetworkLinkComponent } from '@app/components/shared/link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <kpn-icon-network-link
-        [reference]="reference"
-        [mixedNetworkScopes]="mixedNetworkScopes"
-      />
+      <kpn-icon-network-link [reference]="reference" [mixedNetworkScopes]="mixedNetworkScopes" />
     </div>
   `,
   standalone: true,

@@ -23,10 +23,7 @@ import { NodeDiffsData } from './node-diffs-data';
       <div class="kpn-level-2-body">
         <div *ngFor="let nodeRef of refs" class="kpn-level-3">
           <div class="kpn-line kpn-level-3-header">
-            <kpn-link-node-ref-header
-              [ref]="nodeRef"
-              [knownElements]="data.knownElements"
-            />
+            <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data.knownElements" />
           </div>
           <div
             *ngFor="let nodeChangeInfo of data.findNodeChangeInfo(nodeRef)"
@@ -39,13 +36,7 @@ import { NodeDiffsData } from './node-diffs-data';
     </div>
   `,
   standalone: true,
-  imports: [
-    IconInvestigateComponent,
-    LinkNodeRefHeaderComponent,
-    MetaDataComponent,
-    NgFor,
-    NgIf,
-  ],
+  imports: [IconInvestigateComponent, LinkNodeRefHeaderComponent, MetaDataComponent, NgFor, NgIf],
 })
 export class NodeDiffsRemovedComponent implements OnInit {
   @Input() data: NodeDiffsData;

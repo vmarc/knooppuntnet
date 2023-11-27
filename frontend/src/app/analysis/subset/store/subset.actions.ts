@@ -15,9 +15,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
-export const actionSubsetNetworksPageInit = createAction(
-  '[SubsetNetworksPage] Init'
-);
+export const actionSubsetNetworksPageInit = createAction('[SubsetNetworksPage] Init');
 
 export const actionSubsetNetworksPageLoad = createAction(
   '[SubsetNetworksPage] Load',
@@ -51,9 +49,7 @@ export const actionSubsetFactRefsLoaded = createAction(
   props<ApiResponse<SubsetFactRefs>>()
 );
 
-export const actionSubsetFactDetailsPageInit = createAction(
-  '[SubsetFactDetailsPage] Init'
-);
+export const actionSubsetFactDetailsPageInit = createAction('[SubsetFactDetailsPage] Init');
 
 export const actionSubsetFactDetailsPageLoad = createAction(
   '[SubsetFactDetailsPage] Load',
@@ -65,9 +61,7 @@ export const actionSubsetFactDetailsPageLoaded = createAction(
   props<ApiResponse<SubsetFactDetailsPage>>()
 );
 
-export const actionSubsetOrphanNodesPageInit = createAction(
-  '[SubsetOrphanNodesPage] Init'
-);
+export const actionSubsetOrphanNodesPageInit = createAction('[SubsetOrphanNodesPage] Init');
 
 export const actionSubsetOrphanNodesPageLoad = createAction(
   '[SubsetOrphanNodesPage] Load',
@@ -79,9 +73,7 @@ export const actionSubsetOrphanNodesPageLoaded = createAction(
   props<ApiResponse<SubsetOrphanNodesPage>>()
 );
 
-export const actionSubsetOrphanRoutesPageInit = createAction(
-  '[SubsetOrphanRoutesPage] Init'
-);
+export const actionSubsetOrphanRoutesPageInit = createAction('[SubsetOrphanRoutesPage] Init');
 
 export const actionSubsetOrphanRoutesPageLoad = createAction(
   '[SubsetOrphanRoutesPage] Load',
@@ -105,18 +97,14 @@ export const actionSubsetMapPageLoaded = createAction(
   props<ApiResponse<SubsetMapPage>>()
 );
 
-export const actionSubsetMapViewInit = createAction(
-  '[SubsetMapPage] View init'
-);
+export const actionSubsetMapViewInit = createAction('[SubsetMapPage] View init');
 
 export const actionSubsetMapPageNetworkClicked = createAction(
   '[SubsetMapPage] Network clicked',
   props<{ networkId: number }>()
 );
 
-export const actionSubsetChangesPageInit = createAction(
-  '[SubsetChangesPage] Init'
-);
+export const actionSubsetChangesPageInit = createAction('[SubsetChangesPage] Init');
 
 export const actionSubsetChangesPageLoad = createAction(
   '[SubsetChangesPage] Load',

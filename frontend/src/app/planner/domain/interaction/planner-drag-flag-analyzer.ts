@@ -26,9 +26,7 @@ export class PlannerDragFlagAnalyzer {
       return null;
     }
 
-    const legIndex = legs.findIndex(
-      (leg) => flag.id === leg.sinkFlag?.featureId
-    );
+    const legIndex = legs.findIndex((leg) => flag.id === leg.sinkFlag?.featureId);
     if (legIndex >= 0) {
       const previousLeg = legs.get(legIndex);
       const nextLeg = legs.get(legIndex + 1);

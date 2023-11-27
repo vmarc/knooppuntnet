@@ -13,34 +13,16 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
   selector: 'kpn-monitor-route-properties-step-2-name',
   template: `
     <kpn-monitor-route-name [ngForm]="ngForm" [name]="name" />
-    <kpn-monitor-route-description
-      [ngForm]="ngForm"
-      [description]="description"
-    />
-    <kpn-form-status
-      formName="step2-form"
-      [statusChanges]="ngForm.statusChanges"
-    ></kpn-form-status>
+    <kpn-monitor-route-description [ngForm]="ngForm" [description]="description" />
+    <kpn-form-status formName="step2-form" [statusChanges]="ngForm.statusChanges"></kpn-form-status>
     <div class="kpn-button-group">
       @if (mode === 'update') {
-        <button
-          id="step2-back"
-          mat-stroked-button
-          matStepperPrevious
-          i18n="@@action.back"
-        >
+        <button id="step2-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
           Back
         </button>
       }
 
-      <button
-        id="step2-next"
-        mat-stroked-button
-        matStepperNext
-        i18n="@@action.next"
-      >
-        Next
-      </button>
+      <button id="step2-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,
   standalone: true,

@@ -9,9 +9,7 @@ import { FilterOptions } from '@app/kpn/filter';
   template: `
     <div class="row">
       <div class="title" i18n="@@filter.title">Filter</div>
-      <div class="total">
-        {{ filterOptions.filteredCount }}/{{ filterOptions.totalCount }}
-      </div>
+      <div class="total">{{ filterOptions.filteredCount }}/{{ filterOptions.totalCount }}</div>
     </div>
   `,
   styleUrl: './filter.scss',

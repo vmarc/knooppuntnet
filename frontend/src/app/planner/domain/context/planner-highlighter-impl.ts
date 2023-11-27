@@ -30,14 +30,12 @@ export class PlannerHighlighterImpl implements PlannerHighlighter {
       const renderFeature = routeFeature.feature as RenderFeature;
       const geometryType = renderFeature.getType();
       if (geometryType === 'LineString') {
-        const coordinates: number[] =
-          renderFeature.getOrientedFlatCoordinates();
+        const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
         const lineString = new LineString(coordinates, 'XY');
         const feature = new Feature(lineString);
         this.layer.highlightFeature(feature);
       } else if (geometryType === 'MultiLineString') {
-        const coordinates: number[] =
-          renderFeature.getOrientedFlatCoordinates();
+        const coordinates: number[] = renderFeature.getOrientedFlatCoordinates();
         const ends: number[] = [];
         renderFeature.getEnds().forEach((num) => {
           if (typeof num === 'number') {

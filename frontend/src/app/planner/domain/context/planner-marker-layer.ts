@@ -11,10 +11,7 @@ export abstract class PlannerMarkerLayer {
 
   abstract updateFlag(flag: PlanFlag): void;
 
-  abstract updateFlagCoordinate(
-    featureId: string,
-    coordinate: Coordinate
-  ): void;
+  abstract updateFlagCoordinate(featureId: string, coordinate: Coordinate): void;
 
   removePlan(plan: Plan): void {
     this.removeFlag(plan.sourceFlag);

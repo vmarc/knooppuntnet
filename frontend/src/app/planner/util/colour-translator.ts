@@ -8,8 +8,8 @@ export class ColourTranslator {
     const splitted = List<string>(colour.split(';'));
     const translatedColours = splitted.map((colourKey) => {
       const colourKeyElements = List<string>(colourKey.split('-'));
-      const translatedColourElements = colourKeyElements.map(
-        (colourKeyElement) => this.translateColour(colourKeyElement)
+      const translatedColourElements = colourKeyElements.map((colourKeyElement) =>
+        this.translateColour(colourKeyElement)
       );
       return translatedColourElements.join('-');
     });

@@ -25,18 +25,12 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
         <kpn-change-set-network [changeSetNetworkAction]="action" />
       </div>
 
-      <div
-        *ngFor="let orphanNodeChanges of changeSet.network.orphanNodeChanges"
-      >
+      <div *ngFor="let orphanNodeChanges of changeSet.network.orphanNodeChanges">
         <kpn-change-set-orphan-nodes [subsetElementRefs]="orphanNodeChanges" />
       </div>
 
-      <div
-        *ngFor="let orphanRouteChanges of changeSet.network.orphanRouteChanges"
-      >
-        <kpn-change-set-orphan-routes
-          [subsetElementRefs]="orphanRouteChanges"
-        />
+      <div *ngFor="let orphanRouteChanges of changeSet.network.orphanRouteChanges">
+        <kpn-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges" />
       </div>
     </div>
   `,
@@ -72,8 +66,6 @@ export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
   }
 
   private toNetworkActions(action: string, networks: ChangeSetNetwork[]) {
-    return networks.map(
-      (nc) => new ChangeSetNetworkAction(this.changeSet.key, action, nc)
-    );
+    return networks.map((nc) => new ChangeSetNetworkAction(this.changeSet.key, action, nc));
   }
 }

@@ -14,10 +14,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
   template: `
     <div>
       <div class="group-name">{{ groupName() }}</div>
-      <mat-radio-group
-        [value]="selection()"
-        (change)="selectionChanged($event)"
-      >
+      <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
         <mat-radio-button
           *ngFor="let option of group.options"
           [value]="option.name"

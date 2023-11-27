@@ -18,10 +18,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   template: `
     <kpn-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName" />
 
-    <kpn-page-header
-      [pageTitle]="subsetPageTitle()"
-      [subject]="'subset-' + pageName + '-page'"
-    >
+    <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName + '-page'">
       <span class="header-network-type-icon">
         <mat-icon [svgIcon]="networkType()" />
       </span>
@@ -30,11 +27,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
       </span>
     </kpn-page-header>
 
-    <kpn-subset-page-menu
-      [subset]="subset()"
-      [subsetInfo]="subsetInfo()"
-      [pageName]="pageName"
-    />
+    <kpn-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName" />
   `,
   standalone: true,
   imports: [
@@ -55,17 +48,13 @@ export class SubsetPageHeaderBlockComponent {
 
   readonly subsetName = computed(() => {
     const ss = this.subset();
-    const networkType = this.i18nService.translation(
-      '@@network-type.' + ss.networkType
-    );
+    const networkType = this.i18nService.translation('@@network-type.' + ss.networkType);
     const country = this.i18nService.translation('@@country.' + ss.country);
     const inWord = this.i18nService.translation('@@subset.in');
     return `${networkType} ${inWord} ${country}`;
   });
 
-  readonly subsetPageTitle = computed(
-    () => `${this.subsetName()} | ${this.pageTitle}`
-  );
+  readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle}`);
 
   constructor(
     private store: Store,

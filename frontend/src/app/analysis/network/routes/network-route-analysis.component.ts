@@ -14,10 +14,7 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
   template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route.investigate" />
-      <kpn-route-accessible-indicator
-        [accessible]="route.accessible"
-        [networkType]="networkType"
-      />
+      <kpn-route-accessible-indicator [accessible]="route.accessible" [networkType]="networkType" />
       <kpn-route-connection-indicator [route]="route" />
       <kpn-route-proposed-indicator [proposed]="route.proposed" />
     </div>

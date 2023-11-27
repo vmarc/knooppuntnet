@@ -7,9 +7,7 @@ export const actionSharedHttpError = createAction(
   props<{ httpError: string }>()
 );
 
-export const actionSharedSurveyDateInfoInit = createAction(
-  '[Shared] SurveyDateInfo init'
-);
+export const actionSharedSurveyDateInfoInit = createAction('[Shared] SurveyDateInfo init');
 
 export const actionSharedSurveyDateInfoLoaded = createAction(
   '[Shared] SurveyDateInfo loaded',

@@ -10,10 +10,7 @@ export class PdfTextDocumentModel {
 
   readonly xCumulativeDistance = PdfPage.spacer;
   readonly xCircleCenter =
-    this.xCumulativeDistance +
-    this.cumulativeDistanceWidth +
-    PdfPage.spacer +
-    this.circleRadius;
+    this.xCumulativeDistance + this.cumulativeDistanceWidth + PdfPage.spacer + this.circleRadius;
   readonly xNodeName = this.xCircleCenter + this.circleRadius + PdfPage.spacer;
   readonly xRouteInfo = this.xCircleCenter + PdfPage.spacer;
 
@@ -25,16 +22,14 @@ export class PdfTextDocumentModel {
     this.routeInfoWidth +
     PdfPage.spacer +
     PdfPage.spacer;
-  readonly rowHeight =
-    this.circleRadius + PdfPage.spacer + PdfPage.spacer + this.textHeight;
+  readonly rowHeight = this.circleRadius + PdfPage.spacer + PdfPage.spacer + this.textHeight;
   readonly xContentsLeftWithExtraMargin = PdfPage.xContentsLeft + 5;
 
   private readonly maxRowCount = Math.floor(
     (PdfPage.yContentsBottom - PdfPage.yContentsTop) / this.rowHeight
   );
   private readonly maxColumnCount = Math.floor(
-    (PdfPage.xContentsRight - this.xContentsLeftWithExtraMargin) /
-      this.columnWidth
+    (PdfPage.xContentsRight - this.xContentsLeftWithExtraMargin) / this.columnWidth
   );
   private readonly maxNodesPerPage = this.maxRowCount * this.maxColumnCount;
 
@@ -77,11 +72,7 @@ export class PdfTextDocumentModel {
     return columnCount;
   }
 
-  calculateRowCount(
-    pageNodesCount: number,
-    columnCount: number,
-    columnIndex: number
-  ): number {
+  calculateRowCount(pageNodesCount: number, columnCount: number, columnIndex: number): number {
     let rowCount = 0;
     if (columnIndex < columnCount - 1) {
       rowCount = this.maxRowCount;
@@ -100,10 +91,6 @@ export class PdfTextDocumentModel {
   }
 
   nodeIndex(pageIndex: number, columnIndex: number, rowIndex: number): number {
-    return (
-      pageIndex * this.maxNodesPerPage +
-      columnIndex * this.maxRowCount +
-      rowIndex
-    );
+    return pageIndex * this.maxNodesPerPage + columnIndex * this.maxRowCount + rowIndex;
   }
 }

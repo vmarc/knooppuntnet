@@ -52,9 +52,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     '#000075', // navy
   ];
 
-  private readonly osmSegmentStyles = this.colors.map((color) =>
-    this.fixedStyle(color, 4)
-  );
+  private readonly osmSegmentStyles = this.colors.map((color) => this.fixedStyle(color, 4));
 
   private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
   private readonly matchesLayer: VectorLayer<VectorSource<Geometry>>;
@@ -98,9 +96,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       const center: Coordinate = [mapPositionFromUrl.x, mapPositionFromUrl.y];
       this.map.getView().setCenter(center);
     } else {
-      this.map
-        .getView()
-        .fit(Util.toExtent(this.stateService.page().bounds, 0.05));
+      this.map.getView().fit(Util.toExtent(this.stateService.page().bounds, 0.05));
     }
     this.finalizeSetup(true);
   }
@@ -108,12 +104,9 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   pageChanged(page: MonitorRouteMapPage): void {
     this.referenceLayer.getSource().clear();
     if (page?.reference?.referenceGeoJson) {
-      const features = new GeoJSON().readFeatures(
-        page.reference.referenceGeoJson,
-        {
-          featureProjection: 'EPSG:3857',
-        }
-      );
+      const features = new GeoJSON().readFeatures(page.reference.referenceGeoJson, {
+        featureProjection: 'EPSG:3857',
+      });
       this.referenceLayer.getSource().addFeatures(features);
     }
 

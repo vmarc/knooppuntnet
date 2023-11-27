@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class NetworkNodesService {
   readonly filterOptions$: Observable<FilterOptions>;
-  private readonly _filterOptions$ = new BehaviorSubject<FilterOptions>(
-    FilterOptions.empty()
-  );
+  private readonly _filterOptions$ = new BehaviorSubject<FilterOptions>(FilterOptions.empty());
 
   constructor() {
     this.filterOptions$ = this._filterOptions$.asObservable();

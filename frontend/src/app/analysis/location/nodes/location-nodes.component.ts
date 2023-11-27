@@ -9,11 +9,7 @@ import { NgIf } from '@angular/common';
   selector: 'kpn-location-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngIf="page.nodes.length === 0"
-      class="kpn-spacer-above"
-      i18n="@@location-nodes.no-nodes"
-    >
+    <div *ngIf="page.nodes.length === 0" class="kpn-spacer-above" i18n="@@location-nodes.no-nodes">
       No nodes
     </div>
     <kpn-location-node-table

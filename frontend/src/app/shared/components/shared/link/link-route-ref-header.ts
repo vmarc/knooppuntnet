@@ -14,11 +14,7 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
   template: `
     <div class="kpn-line">
       <div class="kpn-thick">
-        <kpn-link-route
-          *ngIf="known"
-          [routeId]="ref.id"
-          [routeName]="ref.name"
-        ></kpn-link-route>
+        <kpn-link-route *ngIf="known" [routeId]="ref.id" [routeName]="ref.name"></kpn-link-route>
         <span *ngIf="!known">{{ ref.name }}</span>
       </div>
       <kpn-osm-link-relation

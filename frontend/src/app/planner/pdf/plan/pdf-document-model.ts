@@ -12,8 +12,7 @@ export class PdfDocumentModel {
   readonly legDistanceWidth = 5;
   readonly cumulativeDistanceHeight = 5;
   readonly totalRowHeight =
-    (PdfPage.yContentsBottom - PdfPage.yContentsTop + PdfPage.spacer) /
-    this.maxRowsPerPage;
+    (PdfPage.yContentsBottom - PdfPage.yContentsTop + PdfPage.spacer) / this.maxRowsPerPage;
   readonly rowHeight = this.totalRowHeight - PdfPage.spacer;
   readonly nodeNumberHeight = this.rowHeight - this.cumulativeDistanceHeight;
 
@@ -74,10 +73,7 @@ export class PdfDocumentModel {
 
   node(pageIndex: number, rowIndex: number, columnIndex: number): PdfPlanNode {
     const maxNodesPerPage = this.maxRowsPerPage * this.maxColumnCount;
-    const nodeIndex =
-      pageIndex * maxNodesPerPage +
-      rowIndex * this.maxColumnCount +
-      columnIndex;
+    const nodeIndex = pageIndex * maxNodesPerPage + rowIndex * this.maxColumnCount + columnIndex;
     return this.nodes.get(nodeIndex);
   }
 }

@@ -52,15 +52,9 @@ export class MainMapRouteStyle {
   ): Style {
     const color = this.routeColor(parameters, feature);
     const highligthed =
-      parameters.highlightedRouteId &&
-      feature.get('id').startsWith(parameters.highlightedRouteId);
+      parameters.highlightedRouteId && feature.get('id').startsWith(parameters.highlightedRouteId);
     const proposed = feature.get('state') === 'proposed';
-    return this.routeStyleBuilder.style(
-      color,
-      resolution,
-      highligthed,
-      proposed
-    );
+    return this.routeStyleBuilder.style(color, resolution, highligthed, proposed);
   }
 
   private initRouteSelectedStyle(): Style {
@@ -72,10 +66,7 @@ export class MainMapRouteStyle {
     });
   }
 
-  private routeColor(
-    parameters: MainMapStyleParameters,
-    feature: FeatureLike
-  ): Color {
+  private routeColor(parameters: MainMapStyleParameters, feature: FeatureLike): Color {
     let color = gray;
     if (parameters.mapMode === 'surface') {
       color = this.routeColorSurface(feature);
@@ -111,10 +102,7 @@ export class MainMapRouteStyle {
     return color;
   }
 
-  private routeColorSurvey(
-    parameters: MainMapStyleParameters,
-    feature: FeatureLike
-  ): Color {
+  private routeColorSurvey(parameters: MainMapStyleParameters, feature: FeatureLike): Color {
     return SurveyDateStyle.surveyColor(parameters.surveyDateValues, feature);
   }
 

@@ -51,12 +51,8 @@ import { LocationMapService } from './location-map.service';
   ],
 })
 export class LocationMapPageComponent implements OnInit, OnDestroy {
-  protected readonly apiResponse = this.store.selectSignal(
-    selectLocationMapPage
-  );
-  protected readonly networkType = this.store.selectSignal(
-    selectLocationNetworkType
-  );
+  protected readonly apiResponse = this.store.selectSignal(selectLocationMapPage);
+  protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
 
   constructor(
     private locationMapLayerService: LocationMapService,

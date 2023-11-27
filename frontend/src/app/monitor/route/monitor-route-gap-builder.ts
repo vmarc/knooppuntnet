@@ -127,10 +127,6 @@ export class MonitorRouteGapBuilder {
     this.context.font = '14px Roboto, sans-serif';
     this.context.fillStyle = 'rgba(0, 0, 0, 0.8)';
     this.context.textBaseline = 'middle';
-    this.context.fillText(
-      this.osmSegmentCount.toString(),
-      this.lineX + 8,
-      this.yText
-    );
+    this.context.fillText(this.osmSegmentCount.toString(), this.lineX + 8, this.yText);
   }
 }

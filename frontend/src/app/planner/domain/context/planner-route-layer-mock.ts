@@ -18,9 +18,7 @@ export class PlannerRouteLayerMock extends PlannerRouteLayer {
       let message = `the expected number of route legs (${count}) does not match the actual (${this.legs.size}) number of legs`;
       if (!this.legs.isEmpty()) {
         message += `, the route-layer contains following leg(s): `;
-        message += this.legs
-          .map((leg) => `${leg.featureId}(${leg.key})`)
-          .join(', ');
+        message += this.legs.map((leg) => `${leg.featureId}(${leg.key})`).join(', ');
       }
       throw new Error(message);
     }

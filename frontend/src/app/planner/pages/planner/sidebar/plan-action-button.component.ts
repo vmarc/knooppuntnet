@@ -69,13 +69,8 @@ export class PlanActionButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.showButtonText$ = this.pageWidthService.current$.pipe(
-      map(
-        (pageWidth) =>
-          pageWidth === PageWidth.veryLarge || pageWidth === PageWidth.large
-      )
+      map((pageWidth) => pageWidth === PageWidth.veryLarge || pageWidth === PageWidth.large)
     );
-    this.showButtonIcon$ = this.showButtonText$.pipe(
-      map((enabled) => !enabled)
-    );
+    this.showButtonIcon$ = this.showButtonText$.pipe(map((enabled) => !enabled));
   }
 }

@@ -19,14 +19,12 @@ export class Stat {
     if (!this.statisticValues) {
       return '-';
     }
-    const subsetStatisticValue = this.statisticValues.values.find(
-      (statisticValue) => {
-        return (
-          statisticValue.country === subset.country &&
-          statisticValue.networkType === subset.networkType
-        );
-      }
-    );
+    const subsetStatisticValue = this.statisticValues.values.find((statisticValue) => {
+      return (
+        statisticValue.country === subset.country &&
+        statisticValue.networkType === subset.networkType
+      );
+    });
     if (!subsetStatisticValue) {
       return '-';
     }

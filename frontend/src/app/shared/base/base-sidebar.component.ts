@@ -11,11 +11,7 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-sidebar>
-      <div
-        id="extraFunctions"
-        (click)="toggleExtraFunctions()"
-        class="extra-functions"
-      ></div>
+      <div id="extraFunctions" (click)="toggleExtraFunctions()" class="extra-functions"></div>
 
       <ul *ngIf="extraFunctionsEnabled">
         <li>

@@ -10,10 +10,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngFor="let elementId of elementIds">
-      <kpn-osm-link-relation
-        [relationId]="elementId"
-        [title]="elementId.toString()"
-      />
+      <kpn-osm-link-relation [relationId]="elementId" [title]="elementId.toString()" />
       <span class="kpn-brackets-link">
         <kpn-josm-relation [relationId]="elementId" />
       </span>

@@ -44,14 +44,9 @@ import { LocationOption } from './location-option';
           [displayWith]="displayName"
           (opened)="resetWarning()"
         >
-          <mat-option
-            *ngFor="let option of filteredOptions | async"
-            [value]="option"
-          >
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{ option.name }}
-            <span *ngIf="nodeCount(option) > 0" class="node-count"
-              >({{ nodeCount(option) }})</span
-            >
+            <span *ngIf="nodeCount(option) > 0" class="node-count">({{ nodeCount(option) }})</span>
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
@@ -69,11 +64,7 @@ import { LocationOption } from './location-option';
       >
         Please select a value from the list
       </p>
-      <button
-        mat-stroked-button
-        (submit)="select()"
-        i18n="@@location.selector.button"
-      >
+      <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">
         Location overview
       </button>
     </form>
@@ -141,8 +132,7 @@ export class LocationSelectorComponent implements OnInit {
       if (!(selection instanceof LocationOption)) {
         const normalized = Util.normalize(selection);
         const selectedLocationOptions = this.options.filter(
-          (locationOption) =>
-            locationOption.normalizedLocationName === normalized
+          (locationOption) => locationOption.normalizedLocationName === normalized
         );
         if (selectedLocationOptions.length > 0) {
           selection = selectedLocationOptions[0];
@@ -150,9 +140,7 @@ export class LocationSelectorComponent implements OnInit {
       }
       if (selection instanceof LocationOption) {
         const selectedLocationName =
-          selection.path.length > 0
-            ? selection.path + ':' + selection.name
-            : selection.name;
+          selection.path.length > 0 ? selection.path + ':' + selection.name : selection.name;
         this.selection.emit(selectedLocationName);
         this.warningSelectionMandatory = false;
         this.warningSelectionInvalid = false;
@@ -177,28 +165,18 @@ export class LocationSelectorComponent implements OnInit {
   private _filter(filterValue: string): LocationOption[] {
     const normalizedFilterValue = Util.normalize(filterValue);
     return this.options.filter(
-      (option) =>
-        option.normalizedLocationName.indexOf(normalizedFilterValue) >= 0
+      (option) => option.normalizedLocationName.indexOf(normalizedFilterValue) >= 0
     );
   }
 
   private toOptions(path: string, location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    if (
-      this.all ||
-      (location && location.nodeCount && location.nodeCount > 0)
-    ) {
+    if (this.all || (location && location.nodeCount && location.nodeCount > 0)) {
       const normalizedLocationName = Util.normalize(location.name);
       locationOptions.push(
-        new LocationOption(
-          location.name,
-          path,
-          normalizedLocationName,
-          location.nodeCount
-        )
+        new LocationOption(location.name, path, normalizedLocationName, location.nodeCount)
       );
-      const childPath =
-        path.length > 0 ? path + ':' + location.name : location.name;
+      const childPath = path.length > 0 ? path + ':' + location.name : location.name;
       if (location.children) {
         location.children.forEach((child) => {
           const childLocationOptions = this.toOptions(childPath, child);

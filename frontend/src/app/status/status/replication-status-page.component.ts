@@ -40,10 +40,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
       <h1>Replication</h1>
 
       <div *ngIf="page$ | async as page">
-        <kpn-status-page-menu
-          [links]="statusLinks"
-          [periodType]="page.periodType"
-        />
+        <kpn-status-page-menu [links]="statusLinks" [periodType]="page.periodType" />
 
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
@@ -52,14 +49,8 @@ import { StatusSidebarComponent } from './status-sidebar.component';
 
         <div class="chart-group">
           <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="xAxisLabel" />
-          <kpn-analysis-delay-chart
-            [barChart]="page.analysisDelay"
-            [xAxisLabel]="xAxisLabel"
-          />
-          <kpn-update-delay-chart
-            [barChart]="page.updateDelay"
-            [xAxisLabel]="xAxisLabel"
-          />
+          <kpn-analysis-delay-chart [barChart]="page.analysisDelay" [xAxisLabel]="xAxisLabel" />
+          <kpn-update-delay-chart [barChart]="page.updateDelay" [xAxisLabel]="xAxisLabel" />
           <kpn-replication-delay-chart
             [barChart]="page.replicationDelay"
             [xAxisLabel]="xAxisLabel"
@@ -145,13 +136,7 @@ export class ReplicationStatusPageComponent implements OnInit {
       mergeMap((parameters) =>
         this.apiService.replicationStatus(parameters).pipe(
           map((r) => r.result),
-          tap(
-            (page) =>
-              (this.statusLinks = new StatusLinks(
-                page.timestamp,
-                '/status/replication'
-              ))
-          )
+          tap((page) => (this.statusLinks = new StatusLinks(page.timestamp, '/status/replication')))
         )
       )
     );

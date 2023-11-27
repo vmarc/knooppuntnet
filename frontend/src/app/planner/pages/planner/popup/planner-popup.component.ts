@@ -9,12 +9,7 @@ import { PlannerPopupContentsComponent } from './planner-popup-contents.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div id="popup" class="ol-popup" [class.ol-popup-offset]="offset">
-      <a
-        href="#"
-        (click)="closePopup()"
-        id="popup-closer"
-        class="ol-popup-closer"
-      ></a>
+      <a href="#" (click)="closePopup()" id="popup-closer" class="ol-popup-closer"></a>
       <kpn-planner-popup-contents />
     </div>
   `,

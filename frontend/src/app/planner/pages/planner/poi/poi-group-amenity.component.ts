@@ -7,11 +7,7 @@ import { PoiGroupComponent } from './poi-group.component';
   selector: 'kpn-poi-group-amenity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group
-      name="amenity"
-      title="Amenity"
-      i18n-title="@@poi.group.amenity"
-    >
+    <kpn-poi-group name="amenity" title="Amenity" i18n-title="@@poi.group.amenity">
       <kpn-poi-config poiId="atm" />
       <kpn-poi-config poiId="bank" />
       <kpn-poi-config poiId="cinema" />

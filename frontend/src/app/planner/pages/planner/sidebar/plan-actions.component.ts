@@ -109,11 +109,7 @@ export class PlanActionsComponent implements OnInit {
     );
     this.showRedoButton$ = this.showUndoButton$;
     this.showResetButton$ = this.pageWidthService.current$.pipe(
-      map(
-        (pageWidth) =>
-          pageWidth !== PageWidth.verySmall &&
-          pageWidth !== PageWidth.veryVerySmall
-      )
+      map((pageWidth) => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall)
     );
     this.showReverseButton$ = this.showResetButton$;
   }

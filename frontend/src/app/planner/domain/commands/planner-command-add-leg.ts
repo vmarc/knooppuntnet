@@ -12,9 +12,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     const lastLeg = newLegs.last(null);
     if (lastLeg !== null) {
       const updatedLastLegSinkFlag =
-        lastLeg.viaFlag === null
-          ? lastLeg.sinkFlag.toVia()
-          : lastLeg.sinkFlag.toInvisible();
+        lastLeg.viaFlag === null ? lastLeg.sinkFlag.toVia() : lastLeg.sinkFlag.toInvisible();
       const updatedLastLeg = lastLeg.withSinkFlag(updatedLastLegSinkFlag);
       newLegs = newLegs.set(newLegs.size - 1, updatedLastLeg);
       context.markerLayer.updateFlag(updatedLastLeg.sinkFlag);

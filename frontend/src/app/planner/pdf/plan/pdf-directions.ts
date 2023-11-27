@@ -38,9 +38,7 @@ export class PdfDirections {
   }
 
   private calculatePageCount(): number {
-    let pageCount = Math.floor(
-      this.instructions.size / this.instructionsPerPage
-    );
+    let pageCount = Math.floor(this.instructions.size / this.instructionsPerPage);
     if (this.instructions.size % this.instructionsPerPage > 0) {
       pageCount++;
     }
@@ -108,9 +106,7 @@ export class PdfDirections {
     if (instruction.heading) {
       texts = texts.push(PlannerTranslations.translate('head'));
       texts = texts.push(' ');
-      texts = texts.push(
-        PlannerTranslations.translate('heading-' + instruction.heading)
-      );
+      texts = texts.push(PlannerTranslations.translate('heading-' + instruction.heading));
       if (instruction.street) {
         texts = texts.push(': ');
         texts = texts.push(instruction.street);

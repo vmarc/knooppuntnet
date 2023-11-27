@@ -31,9 +31,7 @@ export class PageWidthService {
       breakpointObserver.observe(largeMediaQuery)
     );
 
-    breakpointState$.subscribe(() =>
-      this.current$.next(this.currentPageWidth())
-    );
+    breakpointState$.subscribe(() => this.current$.next(this.currentPageWidth()));
   }
 
   currentPageWidth(): PageWidth {

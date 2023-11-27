@@ -15,9 +15,7 @@ import { MonitorGroupDetail } from '@api/common/monitor';
   template: `
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.name">
-          Name
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.name">Name</th>
         <td mat-cell *matCellDef="let group">
           <a [routerLink]="groupLink(group)" [state]="group">
             {{ group.name }}
@@ -26,11 +24,7 @@ import { MonitorGroupDetail } from '@api/common/monitor';
       </ng-container>
 
       <ng-container matColumnDef="description">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.table.description"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.description">
           Description
         </th>
         <td mat-cell *matCellDef="let group">
@@ -39,26 +33,14 @@ import { MonitorGroupDetail } from '@api/common/monitor';
       </ng-container>
 
       <ng-container matColumnDef="routeCount">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.table.routes"
-        >
-          Routes
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.routes">Routes</th>
         <td mat-cell *matCellDef="let group">
           {{ group.routeCount }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.table.actions"
-        >
-          Actions
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.actions">Actions</th>
         <td mat-cell *matCellDef="let group" class="kpn-action-cell">
           <a
             mat-icon-button

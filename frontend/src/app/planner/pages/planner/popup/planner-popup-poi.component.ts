@@ -26,9 +26,7 @@ import { MapService } from '../../../services/map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="response$ | async">
-      <div *ngIf="!poi" class="item" i18n="@@poi.detail.none">
-        No details available
-      </div>
+      <div *ngIf="!poi" class="item" i18n="@@poi.detail.none">No details available</div>
 
       <div *ngIf="poi">
         <kpn-poi-analysis [poi]="poi" />
@@ -37,10 +35,7 @@ import { MapService } from '../../../services/map.service';
           <kpn-tags-table [tags]="mainTags()" />
         </div>
 
-        <div
-          *ngIf="poi.extraTags && poi.extraTags.tags.length > 0"
-          class="item"
-        >
+        <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
           <kpn-tags-table [tags]="extraTags()" />
         </div>
 
@@ -103,10 +98,7 @@ export class PlannerPopupPoiComponent implements OnInit {
         this.poiClick = poiClick;
       }),
       mergeMap((poiClick) =>
-        this.apiService.poi(
-          poiClick.poiId.elementType,
-          poiClick.poiId.elementId
-        )
+        this.apiService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId)
       ),
       tap((response) => {
         if (response.result) {
@@ -134,9 +126,6 @@ export class PlannerPopupPoiComponent implements OnInit {
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(
-      () => this.plannerService.context.overlay.setPosition(coordinate, -45),
-      0
-    );
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -45), 0);
   }
 }

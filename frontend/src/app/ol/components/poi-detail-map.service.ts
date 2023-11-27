@@ -22,10 +22,7 @@ export class PoiDetailMapService extends OpenlayersMapService {
       maxZoom: ZoomLevel.maxZoom,
     };
 
-    const center = OlUtil.toCoordinate(
-      poiDetail.poi.latitude,
-      poiDetail.poi.longitude
-    );
+    const center = OlUtil.toCoordinate(poiDetail.poi.latitude, poiDetail.poi.longitude);
     viewOptions = {
       ...viewOptions,
       center,

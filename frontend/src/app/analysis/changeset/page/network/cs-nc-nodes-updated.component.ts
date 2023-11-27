@@ -13,9 +13,7 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
   template: `
     <div *ngIf="nodeIds.length > 0" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <span i18n="@@change-set.network-changes.updated-nodes"
-          >Updated non-network nodes</span
-        >
+        <span i18n="@@change-set.network-changes.updated-nodes">Updated non-network nodes</span>
         <span class="kpn-brackets kpn-thin">{{ nodeIds.length }}</span>
       </div>
       <div class="kpn-level-2-body kpn-comma-list">

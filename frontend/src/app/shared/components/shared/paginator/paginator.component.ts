@@ -67,20 +67,14 @@ export class PaginatorComponent implements AfterViewInit {
     this.matPaginator._intl.lastPageLabel = $localize`:@@paginator.last-page-label:Last page`;
 
     const of = $localize`:@@paginator.from:of`;
-    this.matPaginator._intl.getRangeLabel = (
-      page: number,
-      pageSize: number,
-      length: number
-    ) => {
+    this.matPaginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0 || pageSize === 0) {
         return `0 ${of} ${length}`;
       }
       const itemCount = Math.max(length, 0);
       const startIndex = page * pageSize;
       const endIndex =
-        startIndex < itemCount
-          ? Math.min(startIndex + pageSize, itemCount)
-          : startIndex + pageSize;
+        startIndex < itemCount ? Math.min(startIndex + pageSize, itemCount) : startIndex + pageSize;
       return `${startIndex + 1} - ${endIndex} ${of} ${length}`;
     };
   }

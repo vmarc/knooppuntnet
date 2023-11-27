@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.lost-hiking-node-tag">
-      This node is no longer a valid hikingnetwork node because the rwn_ref tag
-      has been removed.
+      This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.
     </p>
   `,
   standalone: true,

@@ -14,25 +14,17 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
     <table class="kpn-table">
       <thead>
         <tr>
-          <th colSpan="2" rowSpan="2" i18n="@@subset-networks.table.network">
-            Network
-          </th>
+          <th colSpan="2" rowSpan="2" i18n="@@subset-networks.table.network">Network</th>
           <th rowSpan="2" i18n="@@subset-networks.table.length">Length</th>
           <th rowSpan="2" i18n="@@subset-networks.table.nodes">Nodes</th>
           <th colSpan="3" i18n="@@subset-networks.table.routes">Routes</th>
-          <th colSpan="3" i18n="@@subset-networks.table.integrity">
-            Integrity
-          </th>
-          <th rowSpan="2" i18n="@@subset-networks.table.connections">
-            Connections
-          </th>
+          <th colSpan="3" i18n="@@subset-networks.table.integrity">Integrity</th>
+          <th rowSpan="2" i18n="@@subset-networks.table.connections">Connections</th>
         </tr>
         <tr>
           <th></th>
           <th colSpan="2" i18n="@@subset-networks.table.broken">Broken</th>
-          <th colSpan="2" i18n="@@subset-networks.table.integrity-nodes">
-            Nodes
-          </th>
+          <th colSpan="2" i18n="@@subset-networks.table.integrity-nodes">Nodes</th>
           <th i18n="@@subset-networks.table.ok">OK</th>
         </tr>
       </thead>
@@ -61,10 +53,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
           <td class="number-value">
             {{ network.brokenRouteCount }}
           </td>
-          <td
-            [ngClass]="{ 'kpn-warning': network.brokenRouteCount > 0 }"
-            class="number-value"
-          >
+          <td [ngClass]="{ 'kpn-warning': network.brokenRouteCount > 0 }" class="number-value">
             {{ network.brokenRoutePercentage }}
           </td>
           <td class="number-value">

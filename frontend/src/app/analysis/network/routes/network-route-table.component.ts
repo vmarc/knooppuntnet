@@ -55,12 +55,7 @@ import { NetworkRoutesService } from './network-routes.service';
 
     <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.nr"
-        >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.nr">
           Nr
         </th>
         <td mat-cell *matCellDef="let route; let i = index">
@@ -69,28 +64,14 @@ import { NetworkRoutesService } from './network-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-routes.table.analysis"
-        >
-          Analysis
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-network-route-analysis
-            [route]="route"
-            [networkType]="networkType"
-          />
+          <kpn-network-route-analysis [route]="route" [networkType]="networkType" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.symbol"
-        >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.symbol">
           Symbol
         </th>
         <td mat-cell *matCellDef="let route" class="symbol">
@@ -104,12 +85,7 @@ import { NetworkRoutesService } from './network-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="route">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.node"
-        >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.node">
           Route
         </th>
         <td mat-cell *matCellDef="let route">
@@ -136,12 +112,7 @@ import { NetworkRoutesService } from './network-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="role">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.role"
-        >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.role">
           Role
         </th>
         <td mat-cell *matCellDef="let route">
@@ -180,10 +151,7 @@ import { NetworkRoutesService } from './network-routes.service';
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr
-        mat-row
-        *matRowDef="let route; columns: displayedColumns$ | async"
-      ></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async"></tr>
     </table>
   `,
   styles: `
@@ -241,9 +209,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     private editService: EditService,
     private store: Store
   ) {
-    this.displayedColumns$ = pageWidthService.current$.pipe(
-      map(() => this.displayedColumns())
-    );
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -264,9 +230,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
         delay(0)
       )
       .subscribe((filter) => {
-        this.networkRoutesService.setFilterOptions(
-          filter.filterOptions(this.routes)
-        );
+        this.networkRoutesService.setFilterOptions(filter.filterOptions(this.routes));
       });
   }
 
@@ -283,9 +247,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   }
 
   edit(): void {
-    const relationIds = Util.currentPageItems(this.dataSource).map(
-      (route) => route.id
-    );
+    const relationIds = Util.currentPageItems(this.dataSource).map((route) => route.id);
     this.editService.edit({
       relationIds,
       fullRelation: true,
@@ -294,16 +256,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
 
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return [
-        'nr',
-        'analysis',
-        'symbol',
-        'route',
-        'distance',
-        'role',
-        'last-survey',
-        'last-edit',
-      ];
+      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'role', 'last-survey', 'last-edit'];
     }
 
     if (this.pageWidthService.isLarge()) {

@@ -13,10 +13,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   selector: 'kpn-network-type-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-button-toggle-group
-      [value]="networkType()"
-      (change)="networkTypeChanged($event)"
-    >
+    <mat-button-toggle-group [value]="networkType()" (change)="networkTypeChanged($event)">
       <mat-button-toggle value="cycling">
         <mat-icon svgIcon="cycling" />
       </mat-button-toggle>

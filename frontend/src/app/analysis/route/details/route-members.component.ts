@@ -97,10 +97,7 @@ import { LinkImageComponent } from './link-image.component';
                 </div>
               </td>
               <td *ngIf="networkType === 'cycling'">
-                <div
-                  *ngIf="member.oneWay === 'Forward'"
-                  i18n="@@route.members.table.one-way.yes"
-                >
+                <div *ngIf="member.oneWay === 'Forward'" i18n="@@route.members.table.one-way.yes">
                   Yes
                 </div>
                 <div

@@ -7,10 +7,7 @@ import { PlanUtil } from '../../domain/plan/plan-util';
 
 export class GpxWriter {
   write(plan: Plan, name: string): void {
-    const content = this.header()
-      .concat(this.body(plan, name))
-      .concat(this.footer())
-      .join('\n');
+    const content = this.header().concat(this.body(plan, name)).concat(this.footer()).join('\n');
     const blob = new Blob([content], { type: 'application/gpx' });
     const filename = name.replace(/ /g, '_') + '.gpx';
     saveAs(blob, filename);
@@ -48,18 +45,12 @@ export class GpxWriter {
   }
 
   private tracks(plan: Plan, name: string): List<string> {
-    const header = List([
-      `  <trk>`,
-      `    <name><![CDATA[${name}]]></name>`,
-      `    <trkseg>`,
-    ]);
+    const header = List([`  <trk>`, `    <name><![CDATA[${name}]]></name>`, `    <trkseg>`]);
 
     const footer = List([`    </trkseg>`, `  </trk>`]);
 
     const latLons = List([plan.sourceNode.latLon]).concat(
-      plan.legs.flatMap((leg) =>
-        leg.routes.flatMap((route) => PlanUtil.planRouteLatLons(route))
-      )
+      plan.legs.flatMap((leg) => leg.routes.flatMap((route) => PlanUtil.planRouteLatLons(route)))
     );
     const body = latLons.flatMap((latLon) => this.trackPoint(latLon));
     return header.concat(body).concat(footer);

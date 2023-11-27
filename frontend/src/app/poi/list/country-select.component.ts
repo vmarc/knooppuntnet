@@ -22,23 +22,14 @@ import { CountryName } from './country-name';
     <mat-form-field class="group">
       <mat-label i18n="@@country.selector.label">Country</mat-label>
       <mat-select [formControl]="selectedCountry">
-        <mat-option
-          *ngFor="let countryName of countryNames"
-          [value]="countryName.country"
-        >
+        <mat-option *ngFor="let countryName of countryNames" [value]="countryName.country">
           {{ countryName.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   `,
   standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
-    NgFor,
-    ReactiveFormsModule,
-  ],
+  imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, NgFor, ReactiveFormsModule],
 })
 export class CountrySelectComponent implements OnInit, OnDestroy {
   @Output() country = new EventEmitter<Country | null>();
@@ -57,9 +48,7 @@ export class CountrySelectComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.selectedCountry.valueChanges.subscribe((country) =>
-        this.country.emit(country)
-      )
+      this.selectedCountry.valueChanges.subscribe((country) => this.country.emit(country))
     );
   }
 

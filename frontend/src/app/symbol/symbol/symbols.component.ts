@@ -19,20 +19,14 @@ import { SymbolComponent } from './symbol.component';
       <div class="symbols">
         <div *ngFor="let symbol of backgroundSymbols" class="symbol">
           <div class="symbol-name">{{ symbol }}</div>
-          <kpn-symbol
-            [description]="backgroundShapeDescription(symbol)"
-            [grid]="true"
-          ></kpn-symbol>
+          <kpn-symbol [description]="backgroundShapeDescription(symbol)" [grid]="true"></kpn-symbol>
         </div>
       </div>
       <h2>Foreground shapes</h2>
       <div class="symbols">
         <div *ngFor="let symbol of symbols" class="symbol">
           <div class="symbol-name">{{ symbol }}</div>
-          <kpn-symbol
-            [description]="foregroundShapeDescription(symbol)"
-            [grid]="true"
-          ></kpn-symbol>
+          <kpn-symbol [description]="foregroundShapeDescription(symbol)" [grid]="true"></kpn-symbol>
         </div>
       </div>
       <h2>Wiki examples</h2>
@@ -51,10 +45,7 @@ import { SymbolComponent } from './symbol.component';
               {{ example.relationId }}
             </a>
           </div>
-          <kpn-symbol
-            [description]="example.description"
-            [grid]="true"
-          ></kpn-symbol>
+          <kpn-symbol [description]="example.description" [grid]="true"></kpn-symbol>
         </div>
       </div>
       <h2>Monitor examples</h2>
@@ -68,10 +59,7 @@ import { SymbolComponent } from './symbol.component';
             />
             <span>)</span>
           </div>
-          <kpn-symbol
-            [description]="example.description"
-            [grid]="true"
-          ></kpn-symbol>
+          <kpn-symbol [description]="example.description" [grid]="true"></kpn-symbol>
         </div>
       </div>
     </div>

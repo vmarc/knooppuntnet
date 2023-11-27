@@ -72,10 +72,7 @@ export class RouteMapService extends OpenlayersMapService {
       routeMapInfo.networkType,
       new NodeMapStyle().styleFunction()
     );
-    const routeLayers = new RouteLayers(
-      this.i18nService,
-      routeMapInfo.map
-    ).build();
+    const routeLayers = new RouteLayers(this.i18nService, routeMapInfo.map).build();
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);

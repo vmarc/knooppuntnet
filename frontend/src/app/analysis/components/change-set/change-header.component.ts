@@ -17,9 +17,7 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span *ngIf="changeKey.changeSetId === 0" i18n="@@change-header.start">
-        Start
-      </span>
+      <span *ngIf="changeKey.changeSetId === 0" i18n="@@change-header.start"> Start </span>
       <kpn-link-changeset
         *ngIf="changeKey.changeSetId > 0"
         [changeSetId]="changeKey.changeSetId"
@@ -72,9 +70,7 @@ export class ChangeHeaderComponent {
     this.timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
       map(() => this.timestampOnSeparateLine())
     );
-    this.timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(
-      map((value) => !value)
-    );
+    this.timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map((value) => !value));
   }
 
   private timestampOnSeparateLine() {

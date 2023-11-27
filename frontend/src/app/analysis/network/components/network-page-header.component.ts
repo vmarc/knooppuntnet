@@ -26,10 +26,7 @@ import { selectNetworkId } from '../store/network.selectors';
 
     <ng-container *ngIf="networkIdSignal() as networkId">
       <ng-container *ngIf="summarySignal() as summary">
-        <kpn-page-header
-          [pageTitle]="networkPageTitle(summary.name)"
-          subject="network-page"
-        >
+        <kpn-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
           <span class="header-network-type-icon">
             <mat-icon [svgIcon]="summary.networkType"></mat-icon>
           </span>

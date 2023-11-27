@@ -12,10 +12,7 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
   selector: 'kpn-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-slide-toggle
-      [checked]="impact"
-      (change)="onImpactChanged($event)"
-      i18n="@@changes.impact"
+    <mat-slide-toggle [checked]="impact" (change)="onImpactChanged($event)" i18n="@@changes.impact"
       >Impact
     </mat-slide-toggle>
 

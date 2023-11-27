@@ -47,15 +47,9 @@ export class TimestampFilter<T> extends Filter<T> {
     const filteredElements = allFilters.filterExcept(elements, this);
 
     const allCount = filteredElements.length;
-    const lastWeekCount = filteredElements.filter((e) =>
-      this.testLastWeek(e)
-    ).length;
-    const lastMonthCount = filteredElements.filter((e) =>
-      this.testLastMonth(e)
-    ).length;
-    const lastYearCount = filteredElements.filter((e) =>
-      this.testLastYear(e)
-    ).length;
+    const lastWeekCount = filteredElements.filter((e) => this.testLastWeek(e)).length;
+    const lastMonthCount = filteredElements.filter((e) => this.testLastMonth(e)).length;
+    const lastYearCount = filteredElements.filter((e) => this.testLastYear(e)).length;
     const olderCount = filteredElements.filter((e) => this.testOlder(e)).length;
 
     const all = new FilterOption('all', allCount, this.isAll(), this.selectAll);
@@ -77,21 +71,9 @@ export class TimestampFilter<T> extends Filter<T> {
       this.isLastYear(),
       this.selectLastYear
     );
-    const older = new FilterOption(
-      'older',
-      olderCount,
-      this.isOlder(),
-      this.selectOlder
-    );
+    const older = new FilterOption('older', olderCount, this.isOlder(), this.selectOlder);
 
-    return new FilterOptionGroup(
-      this.name,
-      all,
-      lastWeek,
-      lastMonth,
-      lastYear,
-      older
-    );
+    return new FilterOptionGroup(this.name, all, lastWeek, lastMonth, lastYear, older);
   }
 
   private sameAsOrYoungerThan(element: T, timestamp: Timestamp): boolean {
@@ -132,19 +114,11 @@ export class TimestampFilter<T> extends Filter<T> {
   }
 
   private testLastMonth(element: T): boolean {
-    return this.isBetween(
-      element,
-      this.timeInfo.lastMonthStart,
-      this.timeInfo.lastWeekStart
-    );
+    return this.isBetween(element, this.timeInfo.lastMonthStart, this.timeInfo.lastWeekStart);
   }
 
   private testLastYear(element: T): boolean {
-    return this.isBetween(
-      element,
-      this.timeInfo.lastYearStart,
-      this.timeInfo.lastMonthStart
-    );
+    return this.isBetween(element, this.timeInfo.lastYearStart, this.timeInfo.lastMonthStart);
   }
 
   private testOlder(element: T): boolean {

@@ -10,12 +10,9 @@ import { DialogComponent } from '@app/components/shared/dialog';
       <div mat-dialog-title i18n="@@geolocation-dialog.permission-denied.title">
         Permission denied
       </div>
-      <div
-        mat-dialog-content
-        i18n="@@geolocation-dialog.permission-denied.message"
-      >
-        We cannot determine your location. Knooppuntnet does not have the
-        permission to access your location.
+      <div mat-dialog-content i18n="@@geolocation-dialog.permission-denied.message">
+        We cannot determine your location. Knooppuntnet does not have the permission to access your
+        location.
       </div>
     </kpn-dialog>
   `,

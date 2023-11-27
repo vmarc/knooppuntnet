@@ -34,11 +34,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    const data = new RouteAccessibleData(
-      this.networkType,
-      this.accessible,
-      this.color
-    );
+    const data = new RouteAccessibleData(this.networkType, this.accessible, this.color);
     this.dialog.open(RouteAccessibleIndicatorDialogComponent, {
       data,
       autoFocus: false,
@@ -48,10 +44,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color = 'gray';
-    if (
-      'horse-riding' === this.networkType ||
-      'inline-skating' === this.networkType
-    ) {
+    if ('horse-riding' === this.networkType || 'inline-skating' === this.networkType) {
       color = 'gray';
     } else if (
       'cycling' === this.networkType ||

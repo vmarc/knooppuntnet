@@ -19,12 +19,7 @@ export class NetworkNodeFeature extends MapFeature {
     proposed: boolean
   ) {
     return new NetworkNodeFeature(
-      PlanUtil.planNodeWithCoordinate(
-        nodeId,
-        nodeName,
-        nodeLongName,
-        coordinate
-      ),
+      PlanUtil.planNodeWithCoordinate(nodeId, nodeName, nodeLongName, coordinate),
       proposed
     );
   }

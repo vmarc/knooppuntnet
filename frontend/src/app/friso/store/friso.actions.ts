@@ -9,10 +9,7 @@ export const actionFrisoMapInitialized = createAction(
 
 export const actionFrisoMapViewInit = createAction('[Friso] Map view init');
 
-export const actionFrisoMode = createAction(
-  '[Friso] Mode',
-  props<{ mode: string }>()
-);
+export const actionFrisoMode = createAction('[Friso] Mode', props<{ mode: string }>());
 
 export const actionFrisoNodeClicked = createAction(
   '[Friso] Node clicked',

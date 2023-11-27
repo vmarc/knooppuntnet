@@ -63,9 +63,7 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
 })
 export class PlanResultMenuComponent {
   readonly plannerResultMode = this.store.selectSignal(selectPlannerResultMode);
-  readonly instructions = this.store.selectSignal(
-    selectPreferencesInstructions
-  );
+  readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
 
   constructor(
     private plannerService: PlannerService,

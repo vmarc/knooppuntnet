@@ -20,9 +20,7 @@ export class MonitorGroupUpdatePageService {
   private initialName = '';
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
-      () => this.initialName
-    ),
+    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(() => this.initialName),
   });
   readonly description = new FormControl<string>('', [
     Validators.required,

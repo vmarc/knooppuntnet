@@ -50,22 +50,19 @@ export const nodeReducer = createReducer<NodeState>(
       detailsPage: null,
     };
   }),
-  on(
-    actionNodeMapPageLoaded,
-    (state, { response, mapPositionFromUrl }): NodeState => {
-      const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
-      const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
-      const changeCount = response.result?.changeCount ?? state.changeCount;
-      return {
-        ...state,
-        nodeId,
-        nodeName,
-        changeCount,
-        mapPage: response,
-        mapPositionFromUrl,
-      };
-    }
-  ),
+  on(actionNodeMapPageLoaded, (state, { response, mapPositionFromUrl }): NodeState => {
+    const nodeId = response.result?.nodeMapInfo.id.toString() ?? state.nodeId;
+    const nodeName = response.result?.nodeMapInfo.name ?? state.nodeName;
+    const changeCount = response.result?.changeCount ?? state.changeCount;
+    return {
+      ...state,
+      nodeId,
+      nodeName,
+      changeCount,
+      mapPage: response,
+      mapPositionFromUrl,
+    };
+  }),
   on(actionNodeMapPageDestroy, (state): NodeState => {
     return {
       ...state,

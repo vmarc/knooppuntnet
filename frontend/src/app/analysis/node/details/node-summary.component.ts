@@ -36,13 +36,9 @@ import { MarkdownModule } from 'ngx-markdown';
           <td>
             <div class="kpn-line">
               <kpn-network-type [networkType]="nodeName.networkType">
-                <span i18n="@@node.node" class="network-type"
-                  >network node</span
-                >
+                <span i18n="@@node.node" class="network-type">network node</span>
                 <span class="kpn-brackets">
-                  <kpn-network-scope-name
-                    [networkScope]="nodeName.networkScope"
-                  />
+                  <kpn-network-scope-name [networkScope]="nodeName.networkScope" />
                 </span>
               </kpn-network-type>
             </div>
@@ -69,8 +65,8 @@ import { MarkdownModule } from 'ngx-markdown';
       <p *ngIf="isProposed()" class="kpn-line">
         <mat-icon svgIcon="warning" style="min-width: 24px" />
         <markdown i18n="@@node.proposed">
-          Proposed: the network node is assumed to still be in a planning phase
-          and likely not signposted in the field.
+          Proposed: the network node is assumed to still be in a planning phase and likely not
+          signposted in the field.
         </markdown>
       </p>
     </div>

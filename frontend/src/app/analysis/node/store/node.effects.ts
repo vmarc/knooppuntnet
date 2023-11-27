@@ -82,8 +82,7 @@ export class NodeEffects {
         this.store.select(selectQueryParam('position')),
       ]),
       map(([_, nodeId, mapPositionString]) => {
-        const mapPositionFromUrl =
-          MapPosition.fromQueryParam(mapPositionString);
+        const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
         return actionNodeMapPageLoad({ nodeId, mapPositionFromUrl });
       })
     );
@@ -140,23 +139,15 @@ export class NodeEffects {
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
       ]),
-      map(
-        ([
-          _,
-          routeParams,
-          queryParams,
+      map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
+        const nodeId = routeParams['nodeId'];
+        const queryParamsWrapper = new PageParams(queryParams);
+        const changesParameters = queryParamsWrapper.changesParameters(
           preferencesImpact,
-          preferencesPageSize,
-        ]) => {
-          const nodeId = routeParams['nodeId'];
-          const queryParamsWrapper = new PageParams(queryParams);
-          const changesParameters = queryParamsWrapper.changesParameters(
-            preferencesImpact,
-            preferencesPageSize
-          );
-          return actionNodeChangesPageLoad({ nodeId, changesParameters });
-        }
-      )
+          preferencesPageSize
+        );
+        return actionNodeChangesPageLoad({ nodeId, changesParameters });
+      })
     );
   });
 
@@ -206,9 +197,7 @@ export class NodeEffects {
       mergeMap(([_, nodeId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
-          mergeMap(() =>
-            this.apiService.nodeChanges(nodeId, changesParameters)
-          ),
+          mergeMap(() => this.apiService.nodeChanges(nodeId, changesParameters)),
           map((response) => actionNodeChangesPageLoaded(response))
         );
       })

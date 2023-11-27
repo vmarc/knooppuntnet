@@ -35,20 +35,11 @@ export class MainMapNodeStyle {
 
     const large = resolution < this.largeMaxResolution;
     const styles = [];
-    const selectedStyle = this.determineNodeSelectedStyle(
-      parameters,
-      featureId,
-      large
-    );
+    const selectedStyle = this.determineNodeSelectedStyle(parameters, featureId, large);
     if (selectedStyle) {
       styles.push(selectedStyle);
     }
-    const style = this.determineNodeMainStyle(
-      parameters,
-      feature,
-      large,
-      title
-    );
+    const style = this.determineNodeMainStyle(parameters, feature, large, title);
     styles.push(style);
 
     if (large && subTitle) {
@@ -65,11 +56,7 @@ export class MainMapNodeStyle {
     large: boolean
   ): Style {
     let style = null;
-    if (
-      parameters.selectedNodeId &&
-      featureId &&
-      featureId === parameters.selectedNodeId
-    ) {
+    if (parameters.selectedNodeId && featureId && featureId === parameters.selectedNodeId) {
       if (large) {
         style = this.largeNodeSelectedStyle;
       } else {
@@ -169,18 +156,12 @@ export class MainMapNodeStyle {
     return style;
   }
 
-  private determineSmallNodeStyle(
-    parameters: MainMapStyleParameters,
-    feature: FeatureLike
-  ): Style {
+  private determineSmallNodeStyle(parameters: MainMapStyleParameters, feature: FeatureLike): Style {
     let style = NodeStyle.smallGray;
     if (parameters.mapMode === 'surface') {
       style = NodeStyle.smallGreen;
     } else if (parameters.mapMode === 'survey') {
-      style = SurveyDateStyle.smallNodeStyle(
-        parameters.surveyDateValues,
-        feature
-      );
+      style = SurveyDateStyle.smallNodeStyle(parameters.surveyDateValues, feature);
     } else if (parameters.mapMode === 'analysis') {
       style = this.smallNodeStyleAnalysis(feature);
     }

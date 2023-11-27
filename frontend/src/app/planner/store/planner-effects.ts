@@ -50,10 +50,7 @@ export class PlannerEffects {
       ]),
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       map(([_, routeParams, queryParams]) => {
-        const state = this.plannerMapService.toPlannerState(
-          routeParams,
-          queryParams
-        );
+        const state = this.plannerMapService.toPlannerState(routeParams, queryParams);
         return actionPlannerLoad({ state });
       })
     );

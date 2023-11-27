@@ -13,11 +13,7 @@ import { PlanUtil } from './plan-util';
 export class PlanBuilder {
   static build(planDetails: PlanLegDetail[], planString: string): Plan {
     const sourceNode = planDetails[0].routes[0].sourceNode;
-    const sourceFlag = new PlanFlag(
-      PlanFlagType.start,
-      FeatureId.next(),
-      sourceNode.coordinate
-    );
+    const sourceFlag = new PlanFlag(PlanFlagType.start, FeatureId.next(), sourceNode.coordinate);
 
     const legs: List<PlanLeg> = List(planDetails).map((planDetail, index) => {
       const lastLeg = index === planDetails.length - 1;

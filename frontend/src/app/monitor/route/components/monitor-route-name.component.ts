@@ -23,15 +23,16 @@ import { MatInputModule } from '@angular/material/input';
 
           @if (name.errors?.maxlength) {
             <div i18n="@@monitor.route.name.maxlength">
-              Too long (max= {{ name.errors.maxlength.requiredLength }},
-              actual={{ name.errors.maxlength.actualLength }}).
+              Too long (max= {{ name.errors.maxlength.requiredLength }}, actual={{
+                name.errors.maxlength.actualLength
+              }}).
             </div>
           }
 
           @if (name.errors?.routeNameNonUnique) {
             <div i18n="@@monitor.route.name.unique">
-              The route name should be unique within the group. A route with
-              this name already exists within this group.
+              The route name should be unique within the group. A route with this name already
+              exists within this group.
             </div>
           }
         </div>

@@ -5,13 +5,9 @@ import { createSelector } from '@ngrx/store';
 import { subsetFeatureKey } from './subset.state';
 import { SubsetState } from './subset.state';
 
-export const selectSubsetState =
-  createFeatureSelector<SubsetState>(subsetFeatureKey);
+export const selectSubsetState = createFeatureSelector<SubsetState>(subsetFeatureKey);
 
-export const selectSubset = createSelector(
-  selectSubsetState,
-  (state: SubsetState) => state.subset
-);
+export const selectSubset = createSelector(selectSubsetState, (state: SubsetState) => state.subset);
 
 export const selectSubsetInfo = createSelector(
   selectSubsetState,

@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.lost-inline-skate-node-tag">
-      This node is no longer a valid inline skating network node because the
-      rin_ref tag has been removed.
+      This node is no longer a valid inline skating network node because the rin_ref tag has been
+      removed.
     </p>
   `,
   standalone: true,

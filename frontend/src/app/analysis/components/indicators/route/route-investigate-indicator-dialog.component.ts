@@ -14,33 +14,17 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       i18n-letter="@@route-investigate-indicator.letter"
       [color]="color"
     >
-      <span
-        dialog-title
-        *ngIf="isGreen()"
-        i18n="@@route-investigate-indicator.green.title"
-      >
+      <span dialog-title *ngIf="isGreen()" i18n="@@route-investigate-indicator.green.title">
         OK - No facts
       </span>
-      <div
-        dialog-body
-        *ngIf="isGreen()"
-        i18n="@@route-investigate-indicator.green.text"
-      >
+      <div dialog-body *ngIf="isGreen()" i18n="@@route-investigate-indicator.green.text">
         No issues found during route analysis.
       </div>
 
-      <span
-        dialog-title
-        *ngIf="isRed()"
-        i18n="@@route-investigate-indicator.red.title"
-      >
+      <span dialog-title *ngIf="isRed()" i18n="@@route-investigate-indicator.red.title">
         Not OK - Investigate facts
       </span>
-      <div
-        dialog-body
-        *ngIf="isRed()"
-        i18n="@@route-investigate-indicator.red.text"
-      >
+      <div dialog-body *ngIf="isRed()" i18n="@@route-investigate-indicator.red.text">
         Something is wrong with this route.
       </div>
     </kpn-indicator-dialog>

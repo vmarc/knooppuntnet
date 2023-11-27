@@ -15,9 +15,7 @@ export class MainMapStyle {
   private subscriptions = new Subscriptions();
 
   constructor(private parameters$: Observable<MainMapStyleParameters>) {
-    this.subscriptions.add(
-      parameters$.subscribe((parameters) => (this.parameters = parameters))
-    );
+    this.subscriptions.add(parameters$.subscribe((parameters) => (this.parameters = parameters)));
 
     this.mainMapNodeStyle = new MainMapNodeStyle();
     this.mainMapRouteStyle = new MainMapRouteStyle();
@@ -42,17 +40,9 @@ export class MainMapStyle {
 
       if (show) {
         if (layer.includes('node')) {
-          return this.mainMapNodeStyle.nodeStyle(
-            this.parameters,
-            resolution,
-            feature
-          );
+          return this.mainMapNodeStyle.nodeStyle(this.parameters, resolution, feature);
         }
-        return this.mainMapRouteStyle.routeStyle(
-          this.parameters,
-          resolution,
-          feature
-        );
+        return this.mainMapRouteStyle.routeStyle(this.parameters, resolution, feature);
       } else {
         return this.invisible;
       }

@@ -14,12 +14,8 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   selector: 'kpn-node-integrity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p
-      *ngIf="!integrity || integrity.details.length === 0"
-      i18n="@@node.integrity.none"
-    >
-      There is no integrity information for this node (no
-      expected_??n_route_relations tag).
+    <p *ngIf="!integrity || integrity.details.length === 0" i18n="@@node.integrity.none">
+      There is no integrity information for this node (no expected_??n_route_relations tag).
     </p>
 
     <div *ngIf="integrity">
@@ -28,15 +24,12 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
           <kpn-network-type-icon [networkType]="detail.networkType" />
           <div class="detail-header-text">
             <span *ngIf="happy(detail)" i18n="@@node.integrity.ok">
-              The expected number of routes ({{ detail.expectedRouteCount }})
-              matches the number of routes found.
+              The expected number of routes ({{ detail.expectedRouteCount }}) matches the number of
+              routes found.
             </span>
             <span *ngIf="!happy(detail)" i18n="@@node.integrity.not-ok">
-              The actual number of routes in this node ({{
-                detail.routeRefs.length
-              }}) does not match the expected number of routes ({{
-                detail.expectedRouteCount
-              }}).
+              The actual number of routes in this node ({{ detail.routeRefs.length }}) does not
+              match the expected number of routes ({{ detail.expectedRouteCount }}).
             </span>
             <kpn-icon-happy *ngIf="happy(detail)" />
             <kpn-icon-investigate *ngIf="!happy(detail)" />

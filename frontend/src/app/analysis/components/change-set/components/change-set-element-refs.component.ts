@@ -13,10 +13,7 @@ import { ChangesSetElementRefComponent } from './change-set-element-ref.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <kpn-change-set-element-ref
-        *ngFor="let element of elements"
-        [element]="element"
-      />
+      <kpn-change-set-element-ref *ngFor="let element of elements" [element]="element" />
     </div>
   `,
   standalone: true,
@@ -39,17 +36,11 @@ export class ChangesSetElementRefsComponent implements OnInit {
     return removed.concat(added).concat(updated);
   }
 
-  private buildElements(
-    action: string,
-    refs: ChangeSetElementRef[]
-  ): ChangeSetElement[] {
+  private buildElements(action: string, refs: ChangeSetElementRef[]): ChangeSetElement[] {
     return refs.map((ref) => this.buildElement(action, ref));
   }
 
-  private buildElement(
-    action: string,
-    ref: ChangeSetElementRef
-  ): ChangeSetElement {
+  private buildElement(action: string, ref: ChangeSetElementRef): ChangeSetElement {
     return new ChangeSetElement(action, this.elementType, ref);
   }
 }

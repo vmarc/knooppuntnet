@@ -13,18 +13,9 @@ describe('PlannerCommandAddLeg', () => {
     const startFlag = PlanFlag.start('startFlag', setup.node1.coordinate);
     const sinkFlag = PlanFlag.end('sinkFlag', setup.node2.coordinate);
 
-    const leg = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      sinkFlag,
-      null
-    );
+    const leg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag, null);
 
-    const addStartCommand = new PlannerCommandAddStartPoint(
-      setup.node1,
-      startFlag
-    );
+    const addStartCommand = new PlannerCommandAddStartPoint(setup.node1, startFlag);
     setup.context.execute(addStartCommand);
 
     const command = new PlannerCommandAddLeg(leg);
@@ -79,32 +70,11 @@ describe('PlannerCommandAddLeg', () => {
     const sinkFlag2 = PlanFlag.end('sinkFlag2', [3, 3]);
     const sinkFlag3 = PlanFlag.end('sinkFlag3', [4, 4]);
 
-    const leg12 = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      sinkFlag1,
-      null
-    );
-    const leg23 = PlanUtil.singleRoutePlanLeg(
-      '23',
-      setup.node2,
-      setup.node3,
-      sinkFlag2,
-      null
-    );
-    const leg34 = PlanUtil.singleRoutePlanLeg(
-      '34',
-      setup.node3,
-      setup.node4,
-      sinkFlag3,
-      null
-    );
+    const leg12 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, sinkFlag1, null);
+    const leg23 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag2, null);
+    const leg34 = PlanUtil.singleRoutePlanLeg('34', setup.node3, setup.node4, sinkFlag3, null);
 
-    const addStartCommand = new PlannerCommandAddStartPoint(
-      setup.node1,
-      startFlag
-    );
+    const addStartCommand = new PlannerCommandAddStartPoint(setup.node1, startFlag);
     setup.context.execute(addStartCommand);
 
     setup.markerLayer.expectFlagCount(1);

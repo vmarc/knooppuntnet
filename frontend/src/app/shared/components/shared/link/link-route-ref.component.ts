@@ -13,11 +13,7 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-link-route *ngIf="known" [routeId]="ref.id" [routeName]="ref.name" />
-    <kpn-osm-link-relation
-      *ngIf="!known"
-      [relationId]="ref.id"
-      [title]="ref.name"
-    />
+    <kpn-osm-link-relation *ngIf="!known" [relationId]="ref.id" [title]="ref.name" />
   `,
   standalone: true,
   imports: [NgIf, LinkRouteComponent, OsmLinkRelationComponent],

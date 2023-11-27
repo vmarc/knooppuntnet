@@ -11,14 +11,10 @@ import { TagDiffs } from '@api/common/diff';
   template: `
     <div *ngIf="deletedTagDetails.length > 0">
       <div *ngIf="deletedTagDetails.length === 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.deleted-tag"
-          >Deleted tag</span
-        >
+        <span class="kpn-label" i18n="@@tag-diffs.deleted-tag">Deleted tag</span>
       </div>
       <div *ngIf="deletedTagDetails.length > 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.deleted-tags"
-          >Deleted tags</span
-        >
+        <span class="kpn-label" i18n="@@tag-diffs.deleted-tags">Deleted tags</span>
       </div>
       <div *ngFor="let tagDetail of deletedTagDetails" class="tag-detail">
         <div>
@@ -61,14 +57,10 @@ import { TagDiffs } from '@api/common/diff';
 
     <div *ngIf="updatedTagDetails.length > 0">
       <div *ngIf="updatedTagDetails.length === 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.updated-tag"
-          >Updated tag</span
-        >
+        <span class="kpn-label" i18n="@@tag-diffs.updated-tag">Updated tag</span>
       </div>
       <div *ngIf="updatedTagDetails.length > 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.updated-tags"
-          >Updated tags</span
-        >
+        <span class="kpn-label" i18n="@@tag-diffs.updated-tags">Updated tags</span>
       </div>
       <div *ngFor="let tagDetail of updatedTagDetails" class="tag-detail">
         <div>
@@ -162,9 +154,7 @@ export class TagDiffsTextComponent implements OnInit {
   sameTagDetails: TagDetail[];
 
   ngOnInit(): void {
-    const allTagDetails = this.tagDiffs.mainTags.concat(
-      this.tagDiffs.extraTags
-    );
+    const allTagDetails = this.tagDiffs.mainTags.concat(this.tagDiffs.extraTags);
     this.deletedTagDetails = allTagDetails.filter(
       (tagDetail) => tagDetail.action.name === 'Delete' /*TagDetailType.Delete*/
     );
@@ -172,8 +162,7 @@ export class TagDiffsTextComponent implements OnInit {
       (tagDetail) => tagDetail.action.name === 'Add' /* TagDetailType.Add*/
     );
     this.updatedTagDetails = allTagDetails.filter(
-      (tagDetail) =>
-        tagDetail.action.name === 'Update' /* TagDetailType.Update*/
+      (tagDetail) => tagDetail.action.name === 'Update' /* TagDetailType.Update*/
     );
     this.sameTagDetails = allTagDetails.filter(
       (tagDetail) => tagDetail.action.name === 'Same' /* TagDetailType.Same*/

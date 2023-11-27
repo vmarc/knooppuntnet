@@ -31,14 +31,7 @@ export class InterpretedTags {
   }
 
   static routeTags(tags: Tags): InterpretedTags {
-    const standardTagKeys = [
-      'ref',
-      'note',
-      'network',
-      'type',
-      'route',
-      'network:type',
-    ];
+    const standardTagKeys = ['ref', 'note', 'network', 'type', 'route', 'network:type'];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
@@ -64,33 +57,23 @@ export class InterpretedTags {
   standardTags(): Tag[] {
     const tagArray: Array<Tag> = [];
     this.standardTagKeys.forEach((key) => {
-      this.tags.tags
-        .filter((t) => t.key === key)
-        .forEach((x) => tagArray.push(x));
+      this.tags.tags.filter((t) => t.key === key).forEach((x) => tagArray.push(x));
     });
     return tagArray;
   }
 
   extraTags(): Tag[] {
-    const tags = this.tags.tags.filter(
-      (tag) => !this.standardTagKeys.includes(tag.key)
-    );
+    const tags = this.tags.tags.filter((tag) => !this.standardTagKeys.includes(tag.key));
     return List(tags)
       .sortBy((tag) => tag.key)
       .toArray();
   }
 
   hasStandardTags(): boolean {
-    return (
-      this.tags.tags.find((tag) => this.standardTagKeys.includes(tag.key)) !==
-      undefined
-    );
+    return this.tags.tags.find((tag) => this.standardTagKeys.includes(tag.key)) !== undefined;
   }
 
   hasExtraTags(): boolean {
-    return (
-      this.tags.tags.find((tag) => !this.standardTagKeys.includes(tag.key)) !==
-      undefined
-    );
+    return this.tags.tags.find((tag) => !this.standardTagKeys.includes(tag.key)) !== undefined;
   }
 }

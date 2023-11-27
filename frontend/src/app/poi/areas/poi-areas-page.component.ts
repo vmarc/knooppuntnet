@@ -20,8 +20,8 @@ import { PoiMapComponent } from './poi-map.component';
         <span i18n="@@poi-areas.title">Point of interest areas</span>
       </kpn-page-header>
       <p i18n="@@poi-areas.comment">
-        This map shows the bounding boxes that are used to determine where to
-        collect the point of interest information.
+        This map shows the bounding boxes that are used to determine where to collect the point of
+        interest information.
       </p>
 
       <div *ngIf="apiResponse() as response">

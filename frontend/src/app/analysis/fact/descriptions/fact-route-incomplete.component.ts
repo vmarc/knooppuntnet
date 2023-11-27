@@ -7,9 +7,8 @@ import { MarkdownModule } from 'ngx-markdown';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-incomplete">
-      The route is marked as having an incomplete definition. A route definition
-      is explicitely marked incomplete by adding a tag *"fixme"* with value
-      *"incomplete"* in the route relation.
+      The route is marked as having an incomplete definition. A route definition is explicitely
+      marked incomplete by adding a tag *"fixme"* with value *"incomplete"* in the route relation.
     </markdown>
   `,
   standalone: true,

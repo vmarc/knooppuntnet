@@ -84,9 +84,7 @@ export class PlannerRouteLayerImpl extends PlannerRouteLayer {
     this.removePlanLeg(leg.featureId);
     const feature = new Feature(
       new LineString(
-        leg.routes
-          .flatMap((route) => PlanUtil.planRouteCoordinates(route).toArray())
-          .toArray()
+        leg.routes.flatMap((route) => PlanUtil.planRouteCoordinates(route).toArray()).toArray()
       )
     );
     feature.setId(leg.featureId);

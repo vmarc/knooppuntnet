@@ -29,9 +29,7 @@ export class SubsetOrphanNodeFilter {
     this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.older })
   );
 
-  private readonly allFilters = new Filters<OrphanNodeInfo>(
-    this.lastUpdatedFilter
-  );
+  private readonly allFilters = new Filters<OrphanNodeInfo>(this.lastUpdatedFilter);
 
   constructor(
     private readonly timeInfo: TimeInfo,
@@ -45,14 +43,9 @@ export class SubsetOrphanNodeFilter {
 
   filterOptions(nodes: OrphanNodeInfo[]): FilterOptions {
     const totalCount = nodes.length;
-    const filteredCount = nodes.filter((node) =>
-      this.allFilters.passes(node)
-    ).length;
+    const filteredCount = nodes.filter((node) => this.allFilters.passes(node)).length;
 
-    const lastUpdated = this.lastUpdatedFilter.filterOptions(
-      this.allFilters,
-      nodes
-    );
+    const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
 
     const groups = List([lastUpdated]).filter((g) => g !== null);
 

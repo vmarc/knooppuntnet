@@ -15,20 +15,8 @@ describe('PlannerCommandReplaceLeg', () => {
     const oldSinkFlag = PlanFlag.end('oldSinkFlag', [2, 2]);
     const newSinkFlag = PlanFlag.end('newSinkFlag', [3, 3]);
 
-    const oldLeg = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      oldSinkFlag,
-      null
-    );
-    const newLeg = PlanUtil.singleRoutePlanLeg(
-      '13',
-      setup.node1,
-      setup.node3,
-      newSinkFlag,
-      null
-    );
+    const oldLeg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, oldSinkFlag, null);
+    const newLeg = PlanUtil.singleRoutePlanLeg('13', setup.node1, setup.node3, newSinkFlag, null);
 
     const plan = new Plan(setup.node1, sourceFlag, List([oldLeg]));
     setup.context.execute(new PlannerCommandAddPlan(plan));
@@ -66,11 +54,7 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expectEndFlag(
-      setup.context.plan.legs.get(0).sinkFlag,
-      'oldSinkFlag',
-      [2, 2]
-    );
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'oldSinkFlag', [2, 2]);
 
     command.do(setup.context);
 
@@ -102,13 +86,7 @@ describe('PlannerCommandReplaceLeg', () => {
     const newSinkFlag = PlanFlag.end('newSinkFlag', [3, 3]);
     const newViaFlag = PlanFlag.via('newViaFlag', [3.5, 3.5]);
 
-    const oldLeg = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      oldSinkFlag,
-      null
-    );
+    const oldLeg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, oldSinkFlag, null);
     const newLeg = PlanUtil.singleRoutePlanLeg(
       '13',
       setup.node1,
@@ -133,11 +111,7 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('13');
-    expectEndFlag(
-      setup.context.plan.legs.get(0).sinkFlag,
-      'newSinkFlag',
-      [3, 3]
-    );
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'newSinkFlag', [3, 3]);
 
     command.undo(setup.context);
 
@@ -150,11 +124,7 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expectEndFlag(
-      setup.context.plan.legs.get(0).sinkFlag,
-      'oldSinkFlag',
-      [2, 2]
-    );
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'oldSinkFlag', [2, 2]);
 
     command.do(setup.context);
 
@@ -168,10 +138,6 @@ describe('PlannerCommandReplaceLeg', () => {
     expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
     expect(setup.context.plan.legs.size).toEqual(1);
     expect(setup.context.plan.legs.get(0).featureId).toEqual('13');
-    expectEndFlag(
-      setup.context.plan.legs.get(0).sinkFlag,
-      'newSinkFlag',
-      [3, 3]
-    );
+    expectEndFlag(setup.context.plan.legs.get(0).sinkFlag, 'newSinkFlag', [3, 3]);
   });
 });

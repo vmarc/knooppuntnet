@@ -32,9 +32,7 @@ import { selectChangesPage } from '../store/changes.selectors';
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
-          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis"
-            >Analysis</a
-          >
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
         <li i18n="@@breadcrumb.changes">Changes</li>
       </ul>
@@ -51,8 +49,8 @@ import { selectChangesPage } from '../store/changes.selectors';
           i18n="@@changes-page.login-required"
           class="kpn-spacer-above"
         >
-          The details of the changes history are available to registered
-          OpenStreetMap contributors only, after
+          The details of the changes history are available to registered OpenStreetMap contributors
+          only, after
           <kpn-link-login />
           .
         </p>
@@ -72,10 +70,7 @@ import { selectChangesPage } from '../store/changes.selectors';
               [changeCount]="page.changes.length"
             >
               <kpn-items>
-                <kpn-item
-                  *ngFor="let changeSet of page.changes"
-                  [index]="changeSet.rowIndex"
-                >
+                <kpn-item *ngFor="let changeSet of page.changes" [index]="changeSet.rowIndex">
                   <kpn-change-network-analysis-summary
                     *ngIf="changeSet.network"
                     [changeSet]="changeSet"

@@ -44,13 +44,7 @@ export class ChangesEffects {
         this.store.select(selectPreferencesPageSize),
       ]),
       map(
-        ([
-          _,
-          queryParams,
-          preferencesAnalysisStrategy,
-          preferencesImpact,
-          preferencesPageSize,
-        ]) => {
+        ([_, queryParams, preferencesAnalysisStrategy, preferencesImpact, preferencesPageSize]) => {
           const pageParams = new PageParams(queryParams);
           const strategy = pageParams.strategy(preferencesAnalysisStrategy);
           const changesParameters = pageParams.changesParameters(

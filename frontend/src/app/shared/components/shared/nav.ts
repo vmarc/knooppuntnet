@@ -18,8 +18,6 @@ export class Nav {
   }
 
   public state(name: string): string {
-    return this.navigationState && this.navigationState[name]
-      ? this.navigationState[name]
-      : '';
+    return this.navigationState && this.navigationState[name] ? this.navigationState[name] : '';
   }
 }

@@ -13,20 +13,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
     const oldSinkFlag = PlanFlag.end('oldSinkFlag', [2, 2]);
     const newSinkFlag = PlanFlag.end('newSinkFlag', [2, 2]);
 
-    const oldLeg = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      oldSinkFlag,
-      null
-    );
-    const newLeg = PlanUtil.singleRoutePlanLeg(
-      '32',
-      setup.node3,
-      setup.node2,
-      newSinkFlag,
-      null
-    );
+    const oldLeg = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, oldSinkFlag, null);
+    const newLeg = PlanUtil.singleRoutePlanLeg('32', setup.node3, setup.node2, newSinkFlag, null);
 
     const oldSourceFlag = PlanFlag.start('oldStartFlag', [1, 1]);
     const newSourceFlag = PlanFlag.start('newStartFlag', [3, 3]);
@@ -97,13 +85,7 @@ describe('PlannerCommandMoveFirstLegSource', () => {
       oldSinkFlag,
       oldViaFlag
     );
-    const newLeg = PlanUtil.singleRoutePlanLeg(
-      '32',
-      setup.node3,
-      setup.node2,
-      newSinkFlag,
-      null
-    );
+    const newLeg = PlanUtil.singleRoutePlanLeg('32', setup.node3, setup.node2, newSinkFlag, null);
 
     const oldSourceFlag = PlanFlag.start('oldStartFlag', [1, 1]);
     const newSourceFlag = PlanFlag.start('newStartFlag', [3, 3]);

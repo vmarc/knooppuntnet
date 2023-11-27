@@ -32,12 +32,8 @@ export class PlannerService {
   private readonly cursor = new PlannerCursorImpl();
   private readonly elasticBand = new PlannerElasticBandImpl();
   private readonly highlightLayer = new PlannerHighlightLayer();
-  private readonly highlighter = new PlannerHighlighterImpl(
-    this.highlightLayer
-  );
-  private readonly legRepository = new PlannerLegRepositoryImpl(
-    this.apiService
-  );
+  private readonly highlighter = new PlannerHighlighterImpl(this.highlightLayer);
+  private readonly legRepository = new PlannerLegRepositoryImpl(this.apiService);
   private readonly overlay = new PlannerOverlayImpl(this.mapService);
   readonly context: PlannerContext = new PlannerContext(
     this.routeLayer,
@@ -77,9 +73,7 @@ export class PlannerService {
       .filter((segment) => !!segment.colour)
       .map((segment) => segment.colour);
     const distinctColours = PlanUtil.distinctColours(List(colourValues));
-    const colourGroups = distinctColours.map((colour) =>
-      PlannerTranslations.colour(colour)
-    );
+    const colourGroups = distinctColours.map((colour) => PlannerTranslations.colour(colour));
     return colourGroups.join(' > ');
   }
 }

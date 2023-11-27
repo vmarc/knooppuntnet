@@ -1,19 +1,11 @@
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
-export const actionDemoVideoPlayerAvailable = createAction(
-  '[Demo] Video player available'
-);
+export const actionDemoVideoPlayerAvailable = createAction('[Demo] Video player available');
 
-export const actionDemoCanPlay = createAction(
-  '[Demo] Can play',
-  props<{ duration: number }>()
-);
+export const actionDemoCanPlay = createAction('[Demo] Can play', props<{ duration: number }>());
 
-export const actionDemoTimeUpdate = createAction(
-  '[Demo] Time update',
-  props<{ time: number }>()
-);
+export const actionDemoTimeUpdate = createAction('[Demo] Time update', props<{ time: number }>());
 
 export const actionDemoUpdateProgress = createAction(
   '[Demo] Update progress',

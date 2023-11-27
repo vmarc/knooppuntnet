@@ -14,33 +14,17 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       i18n-letter="@@location-node-fact-indicator.letter"
       [color]="color"
     >
-      <span
-        dialog-title
-        *ngIf="isGreen()"
-        i18n="@@location-node-fact-indicator.green.title"
-      >
+      <span dialog-title *ngIf="isGreen()" i18n="@@location-node-fact-indicator.green.title">
         OK - No facts
       </span>
-      <div
-        dialog-body
-        *ngIf="isGreen()"
-        i18n="@@location-node-fact-indicator.green.text"
-      >
+      <div dialog-body *ngIf="isGreen()" i18n="@@location-node-fact-indicator.green.text">
         No particular facts were found during the analysis of this node.
       </div>
 
-      <span
-        dialog-title
-        *ngIf="isRed()"
-        i18n="@@location-node-fact-indicator.red.title"
-      >
+      <span dialog-title *ngIf="isRed()" i18n="@@location-node-fact-indicator.red.title">
         Facts
       </span>
-      <div
-        dialog-body
-        *ngIf="isRed()"
-        i18n="@@location-node-fact-indicator.red.text"
-      >
+      <div dialog-body *ngIf="isRed()" i18n="@@location-node-fact-indicator.red.text">
         One or more facts are generated as the result of the node analysis.
       </div>
     </kpn-indicator-dialog>

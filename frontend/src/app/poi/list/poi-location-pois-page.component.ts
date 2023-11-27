@@ -17,10 +17,7 @@ import { LocationPoisSidebarComponent } from './poi-location-pois-sidebar.compon
     <kpn-page>
       <div *ngIf="apiResponse() as response">
         <div *ngIf="response.result as page">
-          <kpn-poi-location-poi-table
-            [pois]="page.pois"
-            [poiCount]="page.poiCount"
-          />
+          <kpn-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
         </div>
       </div>
       <kpn-location-pois-sidebar sidebar />

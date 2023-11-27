@@ -18,10 +18,7 @@ import { Facts } from '../fact';
       <h1 i18n="@@fact-page.title">All facts</h1>
 
       <kpn-items>
-        <kpn-item
-          *ngFor="let factName of allFactNames(); let i = index"
-          [index]="i"
-        >
+        <kpn-item *ngFor="let factName of allFactNames(); let i = index" [index]="i">
           <p>
             <kpn-fact-name [fact]="factName" />
           </p>

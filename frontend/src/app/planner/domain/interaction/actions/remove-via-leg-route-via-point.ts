@@ -16,17 +16,9 @@ export class RemoveViaLegRouteViaPoint {
     );
 
     if (oldLeg2 != null) {
-      this.buildNewLeg(
-        oldLeg1.sourceNode,
-        oldLeg2.sinkNode,
-        oldLeg2.sinkFlag
-      ).subscribe({
+      this.buildNewLeg(oldLeg1.sourceNode, oldLeg2.sinkNode, oldLeg2.sinkFlag).subscribe({
         next: (newLeg) => {
-          const command = new PlannerCommandRemoveViaPoint(
-            oldLeg1,
-            oldLeg2,
-            newLeg
-          );
+          const command = new PlannerCommandRemoveViaPoint(oldLeg1, oldLeg2, newLeg);
           this.context.execute(command);
         },
         error: (error) => this.context.errorDialog(error),

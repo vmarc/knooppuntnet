@@ -71,10 +71,7 @@ export class MonitorService {
     return this.http.post<void>(url, properties);
   }
 
-  groupUpdate(
-    groupId: string,
-    properties: MonitorGroupProperties
-  ): Observable<void> {
+  groupUpdate(groupId: string, properties: MonitorGroupProperties): Observable<void> {
     const url = `/api/monitor/groups/${groupId}`;
     return this.http.put<void>(url, properties);
   }
@@ -92,17 +89,12 @@ export class MonitorService {
     return this.http.post(url, parameters);
   }
 
-  changes(
-    parameters: MonitorChangesParameters
-  ): Observable<ApiResponse<MonitorChangesPage>> {
+  changes(parameters: MonitorChangesParameters): Observable<ApiResponse<MonitorChangesPage>> {
     const url = `/api/monitor/changes`;
     return this.http.post(url, parameters);
   }
 
-  route(
-    groupName: string,
-    routeName: string
-  ): Observable<ApiResponse<MonitorRouteDetailsPage>> {
+  route(groupName: string, routeName: string): Observable<ApiResponse<MonitorRouteDetailsPage>> {
     const url = `/api/monitor/groups/${groupName}/routes/${routeName}`;
     return this.http.get<ApiResponse<MonitorRouteDetailsPage>>(url).pipe(
       tap((response) => {
@@ -158,9 +150,7 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  routeAddPage(
-    groupName: string
-  ): Observable<ApiResponse<MonitorRouteAddPage>> {
+  routeAddPage(groupName: string): Observable<ApiResponse<MonitorRouteAddPage>> {
     const url = `/api/monitor/route-add/${groupName}`;
     return this.http.get(url);
   }
@@ -178,9 +168,7 @@ export class MonitorService {
     return this.http.get(url);
   }
 
-  asyncGroupNameUniqueValidator(
-    initialGroupName: () => string
-  ): AsyncValidatorFn {
+  asyncGroupNameUniqueValidator(initialGroupName: () => string): AsyncValidatorFn {
     return (c: AbstractControl): Observable<ValidationErrors> => {
       if (!c.value || c.value.length === 0 || c.value === initialGroupName()) {
         return of(null);

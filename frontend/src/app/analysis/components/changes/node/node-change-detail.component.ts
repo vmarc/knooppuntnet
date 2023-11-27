@@ -25,14 +25,8 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
       <kpn-fact-name [fact]="fact" />
     </div>
 
-    <div
-      *ngFor="let change of nodeChangeInfo.connectionChanges"
-      class="kpn-detail"
-    >
-      <span
-        *ngIf="change.after"
-        i18n="@@node-change.belongs-to-another-network"
-        class="kpn-label"
+    <div *ngFor="let change of nodeChangeInfo.connectionChanges" class="kpn-detail">
+      <span *ngIf="change.after" i18n="@@node-change.belongs-to-another-network" class="kpn-label"
         >This node belongs to another network</span
       >
       <span
@@ -41,16 +35,10 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
         class="kpn-label"
         >This node no longer belongs to another network</span
       >
-      <kpn-link-network-details
-        [networkId]="change.ref.id"
-        [networkName]="change.ref.name"
-      />
+      <kpn-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
     </div>
 
-    <div
-      *ngFor="let change of nodeChangeInfo.roleConnectionChanges"
-      class="kpn-detail"
-    >
+    <div *ngFor="let change of nodeChangeInfo.roleConnectionChanges" class="kpn-detail">
       <span
         *ngIf="change.after"
         i18n="@@node-change.received-role-connection-in-network-relation"
@@ -63,20 +51,11 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
         class="kpn-label"
         >This node no longer has role "connection" in the network relation</span
       >
-      <kpn-link-network-details
-        [networkId]="change.ref.id"
-        [networkName]="change.ref.name"
-      />
+      <kpn-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
     </div>
 
-    <div
-      *ngFor="let change of nodeChangeInfo.definedInNetworkChanges"
-      class="kpn-detail"
-    >
-      <span
-        *ngIf="change.after"
-        i18n="@@node-change.added-to-network-relation"
-        class="kpn-label"
+    <div *ngFor="let change of nodeChangeInfo.definedInNetworkChanges" class="kpn-detail">
+      <span *ngIf="change.after" i18n="@@node-change.added-to-network-relation" class="kpn-label"
         >Added to network relation</span
       >
       <span
@@ -85,40 +64,26 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
         class="kpn-label"
         >Removed from network relation</span
       >
-      <kpn-link-network-details
-        [networkId]="change.ref.id"
-        [networkName]="change.ref.name"
-      />
+      <kpn-link-network-details [networkId]="change.ref.id" [networkName]="change.ref.name" />
     </div>
 
     <div *ngFor="let ref of nodeChangeInfo.addedToRoute" class="kpn-detail">
-      <span i18n="@@node-change.added-to-route" class="kpn-label"
-        >Added to route</span
-      >
+      <span i18n="@@node-change.added-to-route" class="kpn-label">Added to route</span>
       <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
     </div>
 
     <div *ngFor="let ref of nodeChangeInfo.addedToNetwork" class="kpn-detail">
-      <span i18n="@@node-change.added-to-network" class="kpn-label"
-        >Added to network</span
-      >
+      <span i18n="@@node-change.added-to-network" class="kpn-label">Added to network</span>
       <kpn-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
     </div>
 
     <div *ngFor="let ref of nodeChangeInfo.removedFromRoute" class="kpn-detail">
-      <span i18n="@@node-change.removed-from-route" class="kpn-label"
-        >Removed from route</span
-      >
+      <span i18n="@@node-change.removed-from-route" class="kpn-label">Removed from route</span>
       <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
     </div>
 
-    <div
-      *ngFor="let ref of nodeChangeInfo.removedFromNetwork"
-      class="kpn-detail"
-    >
-      <span i18n="@@node-change.removed-from-network" class="kpn-label"
-        >Removed from network</span
-      >
+    <div *ngFor="let ref of nodeChangeInfo.removedFromNetwork" class="kpn-detail">
+      <span i18n="@@node-change.removed-from-network" class="kpn-label">Removed from network</span>
       <kpn-link-network-details [networkId]="ref.id" [networkName]="ref.name" />
     </div>
 
@@ -158,9 +123,7 @@ export class NodeChangeDetailComponent implements OnInit {
   nodeMoved: NodeMoved;
 
   ngOnInit(): void {
-    this.initialTags = InterpretedTags.nodeTags(
-      this.nodeChangeInfo.initialTags
-    );
+    this.initialTags = InterpretedTags.nodeTags(this.nodeChangeInfo.initialTags);
     if (this.nodeChangeInfo.initialLatLon) {
       this.nodeMoved = {
         before: this.nodeChangeInfo.initialLatLon,

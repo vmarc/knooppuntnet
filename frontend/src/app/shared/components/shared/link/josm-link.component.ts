@@ -31,11 +31,8 @@ export class JosmLinkComponent {
   ) {}
 
   edit(): void {
-    const url =
-      'http://localhost:8111/import?url=https://api.openstreetmap.org/api/0.6';
-    const fullUrl = `${url}/${this.kind}/${this.elementId}${
-      this.full ? '/full' : ''
-    }`;
+    const url = 'http://localhost:8111/import?url=https://api.openstreetmap.org/api/0.6';
+    const fullUrl = `${url}/${this.kind}/${this.elementId}${this.full ? '/full' : ''}`;
     this.apiService.edit(fullUrl).subscribe({
       next: (result) => {},
       error: (err) => {

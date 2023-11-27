@@ -25,12 +25,7 @@ import { selectChangesFilterOptions } from '../store/changes.selectors';
     </kpn-sidebar>
   `,
   standalone: true,
-  imports: [
-    AnalysisStrategyComponent,
-    AsyncPipe,
-    ChangeFilterComponent,
-    SidebarComponent,
-  ],
+  imports: [AnalysisStrategyComponent, AsyncPipe, ChangeFilterComponent, SidebarComponent],
 })
 export class ChangesSidebarComponent {
   filterOptions$ = this.store

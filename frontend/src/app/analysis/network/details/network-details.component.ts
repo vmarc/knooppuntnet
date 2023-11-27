@@ -34,13 +34,8 @@ import { NetworkSummaryComponent } from './network-summary.component';
       </div>
     </div>
 
-    <kpn-data
-      title="Relation last updated"
-      i18n-title="@@network-details.relation-last-updated"
-    >
-      <kpn-timestamp
-        [timestamp]="response.result.attributes.relationLastUpdated"
-      />
+    <kpn-data title="Relation last updated" i18n-title="@@network-details.relation-last-updated">
+      <kpn-timestamp [timestamp]="response.result.attributes.relationLastUpdated" />
     </kpn-data>
 
     <kpn-data title="Tags" i18n-title="@@network-details.tags">
@@ -49,12 +44,7 @@ import { NetworkSummaryComponent } from './network-summary.component';
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   standalone: true,
-  imports: [
-    DataComponent,
-    NetworkSummaryComponent,
-    TagsTableComponent,
-    TimestampComponent,
-  ],
+  imports: [DataComponent, NetworkSummaryComponent, TagsTableComponent, TimestampComponent],
 })
 export class NetworkDetailsComponent implements OnInit {
   @Input() response: ApiResponse<NetworkDetailsPage>;

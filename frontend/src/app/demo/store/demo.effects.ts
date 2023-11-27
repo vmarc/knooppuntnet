@@ -28,9 +28,7 @@ export class DemoEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionDemoVideoPlayerAvailable),
-        mergeMap(() =>
-          this.store.pipe(filter(selectDemoEnabled), select(selectDemoVideo))
-        ),
+        mergeMap(() => this.store.pipe(filter(selectDemoEnabled), select(selectDemoVideo))),
         tap((video: string) => {
           this.demoService.setSource(`/videos/en/${video}.mp4`);
         })

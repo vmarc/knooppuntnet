@@ -14,12 +14,7 @@ export class RoutingUtil {
     const url = this.action.payload.routerState.url;
     if (url.length >= 4) {
       const language = url.substring(1, 3);
-      if (
-        language === 'en' ||
-        language === 'de' ||
-        language === 'fr' ||
-        language === 'nl'
-      ) {
+      if (language === 'en' || language === 'de' || language === 'fr' || language === 'nl') {
         console.log(`DEBUG LANGUAGE=${language}, url=${url}`);
         return language;
       }
@@ -33,10 +28,7 @@ export class RoutingUtil {
   }
 
   isNetworkChangesPage(): boolean {
-    return (
-      this.url().includes('/analysis/network/') &&
-      this.url().includes('/changes')
-    );
+    return this.url().includes('/analysis/network/') && this.url().includes('/changes');
   }
 
   isSubsetChangesPage(): boolean {

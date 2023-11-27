@@ -14,9 +14,7 @@ export class BackgroundLayer {
       styleUrl: '/assets/osm-liberty-style.json',
     });
 
-    layer
-      .getSource()
-      .setAttributions([osmAttribution, openMapTilesAttribution]);
+    layer.getSource().setAttributions([osmAttribution, openMapTilesAttribution]);
 
     return new MapLayer(this.id, this.id, -Infinity, Infinity, layer);
   }

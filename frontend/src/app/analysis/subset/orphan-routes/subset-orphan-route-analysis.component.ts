@@ -12,10 +12,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
   template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route.isBroken" />
-      <kpn-route-accessible-indicator
-        [accessible]="route.accessible"
-        [networkType]="networkType"
-      />
+      <kpn-route-accessible-indicator [accessible]="route.accessible" [networkType]="networkType" />
     </div>
   `,
   styles: `
@@ -24,10 +21,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
     }
   `,
   standalone: true,
-  imports: [
-    RouteAccessibleIndicatorComponent,
-    RouteInvestigateIndicatorComponent,
-  ],
+  imports: [RouteAccessibleIndicatorComponent, RouteInvestigateIndicatorComponent],
 })
 export class SubsetOrphanRouteAnalysisComponent {
   @Input() route: OrphanRouteInfo;

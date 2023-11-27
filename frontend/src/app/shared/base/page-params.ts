@@ -28,10 +28,7 @@ export class PageParams {
     return strategy;
   }
 
-  changesParameters(
-    preferencesImpact: boolean,
-    preferencesPageSize: number
-  ): ChangesParameters {
+  changesParameters(preferencesImpact: boolean, preferencesPageSize: number): ChangesParameters {
     let year: number;
     let month: number;
     let day: number;

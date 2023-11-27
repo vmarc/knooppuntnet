@@ -49,13 +49,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
     </kpn-page-menu>
   `,
   standalone: true,
-  imports: [
-    MatIconModule,
-    NgIf,
-    PageHeaderComponent,
-    PageMenuComponent,
-    PageMenuOptionComponent,
-  ],
+  imports: [MatIconModule, NgIf, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {
   @Input() routeId: string;

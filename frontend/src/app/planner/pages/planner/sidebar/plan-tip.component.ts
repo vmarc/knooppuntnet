@@ -25,12 +25,8 @@ import { PlannerService } from '../../../planner.service';
       >
         Zoom in or use magnifying glass to find the startnode of your route.
       </p>
-      <p
-        *ngIf="planPhaseEnum.clickStartNode === planPhase"
-        i18n="@@planner-tip.click-start-node"
-      >
-        Use zoom, pan or use magnifying glass to find and click the startnode of
-        your route.
+      <p *ngIf="planPhaseEnum.clickStartNode === planPhase" i18n="@@planner-tip.click-start-node">
+        Use zoom, pan or use magnifying glass to find and click the startnode of your route.
       </p>
       <p
         *ngIf="planPhaseEnum.zoomInClickEndNode === planPhase"
@@ -38,10 +34,7 @@ import { PlannerService } from '../../../planner.service';
       >
         Zoom in and click the endnode of your route.
       </p>
-      <p
-        *ngIf="planPhaseEnum.clickEndNode === planPhase"
-        i18n="@@planner-tip.click-end-node"
-      >
+      <p *ngIf="planPhaseEnum.clickEndNode === planPhase" i18n="@@planner-tip.click-end-node">
         Click the endnode of your route.
       </p>
       <p *ngIf="planPhaseEnum.extendRoute === planPhase">
@@ -102,8 +95,7 @@ export class PlanTipComponent implements OnInit {
   }
 
   more(): string {
-    const languageSpecificSubject =
-      this.i18nService.translation(`@@wiki.planner.edit`);
+    const languageSpecificSubject = this.i18nService.translation(`@@wiki.planner.edit`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 

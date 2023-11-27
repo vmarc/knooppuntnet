@@ -12,11 +12,6 @@ export class RouteLegNode {
     if (!jsonObject) {
       return undefined;
     }
-    return new RouteLegNode(
-      jsonObject.nodeId,
-      jsonObject.nodeName,
-      jsonObject.lat,
-      jsonObject.lon
-    );
+    return new RouteLegNode(jsonObject.nodeId, jsonObject.nodeName, jsonObject.lat, jsonObject.lon);
   }
 }

@@ -8,17 +8,12 @@ import { StatisticConfiguration } from '../domain/statistic-configuration';
   providedIn: 'root',
 })
 export class OverviewConfigurationService {
-  statisticConfigurations: List<StatisticConfiguration> = List(
-    this.buildStatisticConfigurations()
-  );
+  statisticConfigurations: List<StatisticConfiguration> = List(this.buildStatisticConfigurations());
 
   private buildStatisticConfigurations(): StatisticConfiguration[] {
-    const networks = (_factId: string, subset: Subset) =>
-      Subsets.key(subset) + '/networks';
-    const orphanNodes = (_factId: string, subset: Subset) =>
-      Subsets.key(subset) + '/orphan-nodes';
-    const orphanRoutes = (factId: string, subset: Subset) =>
-      Subsets.key(subset) + '/orphan-routes';
+    const networks = (_factId: string, subset: Subset) => Subsets.key(subset) + '/networks';
+    const orphanNodes = (_factId: string, subset: Subset) => Subsets.key(subset) + '/orphan-nodes';
+    const orphanRoutes = (factId: string, subset: Subset) => Subsets.key(subset) + '/orphan-routes';
     const factDetailCounts = (factId: string, subset: Subset) =>
       Subsets.key(subset) + '/facts/' + factId;
 

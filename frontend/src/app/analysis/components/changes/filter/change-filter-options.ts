@@ -28,39 +28,17 @@ export class ChangeFilterOptions {
               day,
               List(),
               () =>
-                update(
-                  this.updatedParameters(
-                    parameters,
-                    true,
-                    year.name,
-                    month.name,
-                    day.name
-                  )
-                ),
+                update(this.updatedParameters(parameters, true, year.name, month.name, day.name)),
               () =>
-                update(
-                  this.updatedParameters(
-                    parameters,
-                    false,
-                    year.name,
-                    month.name,
-                    day.name
-                  )
-                )
+                update(this.updatedParameters(parameters, false, year.name, month.name, day.name))
             )
         );
         return new ChangeFilterOption(
           'month',
           month,
           List(days),
-          () =>
-            update(
-              this.updatedParameters(parameters, true, year.name, month.name)
-            ),
-          () =>
-            update(
-              this.updatedParameters(parameters, false, year.name, month.name)
-            )
+          () => update(this.updatedParameters(parameters, true, year.name, month.name)),
+          () => update(this.updatedParameters(parameters, false, year.name, month.name))
         );
       });
 
@@ -111,12 +89,8 @@ export class ChangeFilterOptions {
     filter: ChangesFilter,
     update: (changesParameters: ChangesParameters) => void
   ): ChangeFilterOption {
-    const totalCount = Util.sum(
-      List(filter.periods.map((period) => period.totalCount))
-    );
-    const impactedCount = Util.sum(
-      List(filter.periods.map((period) => period.impactedCount))
-    );
+    const totalCount = Util.sum(List(filter.periods.map((period) => period.totalCount)));
+    const impactedCount = Util.sum(List(filter.periods.map((period) => period.impactedCount)));
 
     const all: ChangesFilterPeriod = {
       name: 0,

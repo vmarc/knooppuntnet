@@ -1,10 +1,7 @@
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
-export const actionUserInit = createAction(
-  '[User] Init',
-  props<{ user: string }>()
-);
+export const actionUserInit = createAction('[User] Init', props<{ user: string }>());
 
 export const actionUserLogin = createAction('[User] Login');
 
@@ -12,9 +9,7 @@ export const actionUserLogout = createAction('[User] Logout');
 
 export const actionUserAuthenticated = createAction('[User] Authenticated');
 
-export const actionUserLoginLinkClicked = createAction(
-  '[User] Login link clicked'
-);
+export const actionUserLoginLinkClicked = createAction('[User] Login link clicked');
 
 export const actionUserLoginReturnUrlRegistered = createAction(
   '[User] Login return url registered',
@@ -28,9 +23,7 @@ export const actionUserReceived = createAction(
 
 export const actionUserLoginCompleted = createAction('[User] Login completed');
 
-export const actionUserLogoutLinkClicked = createAction(
-  '[User] Logout link clicked'
-);
+export const actionUserLogoutLinkClicked = createAction('[User] Logout link clicked');
 
 export const actionUserLogoutReturnUrlRegistered = createAction(
   '[User] Logout return url registered',
@@ -39,6 +32,4 @@ export const actionUserLogoutReturnUrlRegistered = createAction(
 
 export const actionUserLoggedOut = createAction('[User] Logged out');
 
-export const actionUserLogoutCompleted = createAction(
-  '[User] Logout completed'
-);
+export const actionUserLogoutCompleted = createAction('[User] Logout completed');

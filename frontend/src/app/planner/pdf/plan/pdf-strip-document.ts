@@ -44,16 +44,11 @@ export class PdfStripDocument {
 
       for (let columnIndex = 0; columnIndex < columnCount; columnIndex++) {
         const xLeft =
-          this.model.xContentsLeftWithExtraMargin +
-          this.model.columnWidth * columnIndex;
+          this.model.xContentsLeftWithExtraMargin + this.model.columnWidth * columnIndex;
         const xRight = xLeft + this.model.columnWidth;
         this.drawLaneLine(xRight);
 
-        const rowCount = this.model.calculateRowCount(
-          pageNodesCount,
-          columnCount,
-          columnIndex
-        );
+        const rowCount = this.model.calculateRowCount(pageNodesCount, columnCount, columnIndex);
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
           const node = this.model.node(pageIndex, columnIndex, rowIndex);
           const y = PdfPage.yContentsTop + this.model.rowHeight * rowIndex;
@@ -67,8 +62,7 @@ export class PdfStripDocument {
     const xCircleCenter = x + PdfPage.spacer + this.model.circleRadius;
     const yCircleCenter = y + this.model.circleRadius;
 
-    const xCumulativeDistance =
-      xCircleCenter + this.model.circleRadius + PdfPage.spacer;
+    const xCumulativeDistance = xCircleCenter + this.model.circleRadius + PdfPage.spacer;
     const yDistance = yCircleCenter + this.model.circleRadius + PdfPage.spacer;
 
     if (node.flag) {
@@ -79,15 +73,9 @@ export class PdfStripDocument {
       this.doc.setFillColor(255, 255, 255);
     }
 
-    this.doc.circle(
-      xCircleCenter,
-      yCircleCenter,
-      this.model.circleRadius,
-      'FD'
-    );
+    this.doc.circle(xCircleCenter, yCircleCenter, this.model.circleRadius, 'FD');
 
-    const nodeName =
-      node.nodeName.length <= 3 ? node.nodeName : node.nodeName.slice(0, 3);
+    const nodeName = node.nodeName.length <= 3 ? node.nodeName : node.nodeName.slice(0, 3);
 
     this.doc.setFontSize(12);
     this.doc.text(nodeName, xCircleCenter, yCircleCenter, {
@@ -98,15 +86,10 @@ export class PdfStripDocument {
 
     if (node.distance !== null) {
       this.doc.setFontSize(8);
-      this.doc.text(
-        node.cumulativeDistance,
-        xCumulativeDistance,
-        yCircleCenter,
-        {
-          baseline: 'middle',
-          lineHeightFactor: 1,
-        }
-      );
+      this.doc.text(node.cumulativeDistance, xCumulativeDistance, yCircleCenter, {
+        baseline: 'middle',
+        lineHeightFactor: 1,
+      });
       this.doc.text(node.distance, xCircleCenter, yDistance, {
         align: 'center',
         baseline: 'top',

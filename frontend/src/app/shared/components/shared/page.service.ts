@@ -41,9 +41,7 @@ export class PageService {
   }
 
   setTitle(prefix: string): void {
-    const title = prefix
-      ? prefix + ' | ' + this.defaultTitle
-      : this.defaultTitle;
+    const title = prefix ? prefix + ' | ' + this.defaultTitle : this.defaultTitle;
     this.titleService.setTitle(title);
   }
 
@@ -62,9 +60,7 @@ export class PageService {
   }
 
   private sidebarOpenInitialState(): boolean {
-    const lastKnownSidebarOpen = this.browserStorageService.get(
-      this.sideBarOpenLocalStorageKey
-    );
+    const lastKnownSidebarOpen = this.browserStorageService.get(this.sideBarOpenLocalStorageKey);
     if (lastKnownSidebarOpen === null) {
       return this.sidebarOpenBasedOnPageWidth();
     }
@@ -81,9 +77,6 @@ export class PageService {
 
   private remember(sidebarOpen: boolean): void {
     const sidebarOpenOpenString = sidebarOpen === true ? 'true' : 'false';
-    this.browserStorageService.set(
-      this.sideBarOpenLocalStorageKey,
-      sidebarOpenOpenString
-    );
+    this.browserStorageService.set(this.sideBarOpenLocalStorageKey, sidebarOpenOpenString);
   }
 }

@@ -21,32 +21,17 @@ export class ChangeSetNetworkAction {
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <kpn-network-type-icon
-        [networkType]="changeSetNetworkAction.network.networkType"
-      />
+      <kpn-network-type-icon [networkType]="changeSetNetworkAction.network.networkType" />
       <span>{{ changeSetNetworkAction.action }}</span>
-      <a
-        [routerLink]="link()"
-        [fragment]="changeSetNetworkAction.network.networkId.toString()"
-      >
+      <a [routerLink]="link()" [fragment]="changeSetNetworkAction.network.networkId.toString()">
         {{ changeSetNetworkAction.network.networkName }}
       </a>
     </div>
-    <kpn-change-set-element-refs
-      elementType="node"
-      [changeSetElementRefs]="nodeChanges()"
-    />
-    <kpn-change-set-element-refs
-      elementType="route"
-      [changeSetElementRefs]="routeChanges()"
-    />
+    <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()" />
+    <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()" />
   `,
   standalone: true,
-  imports: [
-    ChangesSetElementRefsComponent,
-    NetworkTypeIconComponent,
-    RouterLink,
-  ],
+  imports: [ChangesSetElementRefsComponent, NetworkTypeIconComponent, RouterLink],
 })
 export class ChangesSetNetworkComponent {
   @Input() changeSetNetworkAction: ChangeSetNetworkAction;
@@ -68,8 +53,7 @@ export class ChangesSetNetworkComponent {
 
   link(): string {
     const changeSetId = this.changeSetNetworkAction.changeKey.changeSetId;
-    const replicationNumber =
-      this.changeSetNetworkAction.changeKey.replicationNumber;
+    const replicationNumber = this.changeSetNetworkAction.changeKey.replicationNumber;
     return `/analysis/changeset/${changeSetId}/${replicationNumber}`;
   }
 }

@@ -35,10 +35,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
     </div>
 
     <div *ngIf="fact.elements && fact.elementType === 'route'">
-      <kpn-network-fact-routes
-        [networkType]="networkType"
-        [routes]="fact.elements"
-      />
+      <kpn-network-fact-routes [networkType]="networkType" [routes]="fact.elements" />
     </div>
 
     <div *ngIf="fact.checks && fact.checks.length > 0">

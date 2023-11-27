@@ -7,8 +7,7 @@ import { MarkdownModule } from 'ngx-markdown';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <markdown i18n="@@fact.description.route-inaccessible">
-      Part of the route does not seem
-      [accessible](/en/docs/en.html#_accessible).
+      Part of the route does not seem [accessible](/en/docs/en.html#_accessible).
     </markdown>
   `,
   standalone: true,

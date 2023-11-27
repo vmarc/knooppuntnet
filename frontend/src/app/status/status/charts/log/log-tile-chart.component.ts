@@ -12,11 +12,7 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <h2>Tile</h2>
     <div class="chart">
-      <kpn-action-bar-chart
-        [barChart]="barChart"
-        [xAxisLabel]="xAxisLabel"
-        yAxisLabel="requests"
-      />
+      <kpn-action-bar-chart [barChart]="barChart" [xAxisLabel]="xAxisLabel" yAxisLabel="requests" />
     </div>
   `,
   standalone: true,

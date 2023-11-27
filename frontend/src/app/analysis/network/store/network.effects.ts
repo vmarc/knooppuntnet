@@ -168,10 +168,7 @@ export class NetworkEffects {
         if (mapPositionString) {
           const mapPosition = MapPosition.fromQueryParam(mapPositionString);
           if (mapPosition) {
-            mapPositionFromUrl = mapPosition.toNetworkMapPosition(
-              mapPosition,
-              +networkId
-            );
+            mapPositionFromUrl = mapPosition.toNetworkMapPosition(mapPosition, +networkId);
           }
         }
         return actionNetworkMapPageLoad({
@@ -210,11 +207,7 @@ export class NetworkEffects {
           this.store.select(selectNetworkMapPositionFromUrl),
         ]),
         tap(([_, networkId, response, mapPositionFromUrl]) => {
-          this.networkMapService.init(
-            networkId,
-            response.result,
-            mapPositionFromUrl
-          );
+          this.networkMapService.init(networkId, response.result, mapPositionFromUrl);
         })
       );
     },
@@ -233,23 +226,15 @@ export class NetworkEffects {
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
       ]),
-      map(
-        ([
-          _,
-          routeParams,
-          queryParams,
+      map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
+        const pageParams = new PageParams(routeParams, queryParams);
+        const networkId = pageParams.networkId();
+        const changesParameters = pageParams.changesParameters(
           preferencesImpact,
-          preferencesPageSize,
-        ]) => {
-          const pageParams = new PageParams(routeParams, queryParams);
-          const networkId = pageParams.networkId();
-          const changesParameters = pageParams.changesParameters(
-            preferencesImpact,
-            preferencesPageSize
-          );
-          return actionNetworkChangesPageLoad({ networkId, changesParameters });
-        }
-      )
+          preferencesPageSize
+        );
+        return actionNetworkChangesPageLoad({ networkId, changesParameters });
+      })
     );
   });
 
@@ -288,9 +273,7 @@ export class NetworkEffects {
       mergeMap(([_, networkId, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
-          mergeMap(() =>
-            this.apiService.networkChanges(+networkId, changesParameters)
-          ),
+          mergeMap(() => this.apiService.networkChanges(+networkId, changesParameters)),
           map((response) => actionNetworkChangesPageLoaded(response))
         );
       })

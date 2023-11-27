@@ -9,10 +9,7 @@ import { Tags } from '@api/custom';
   selector: 'kpn-tags-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container
-      *ngIf="tags.tags.length === 0"
-      i18n="@@tags.no-tags"
-      class="no-tags"
+    <ng-container *ngIf="tags.tags.length === 0" i18n="@@tags.no-tags" class="no-tags"
       >No tags
     </ng-container>
 

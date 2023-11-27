@@ -15,8 +15,8 @@ import { DayInputComponent } from '@app/components/shared/format';
   template: `
     <div [ngClass]="{ hidden: referenceType.value !== 'osm-now' }">
       <p i18n="@@monitor.route.properties.reference-details.osm-now">
-        The state of the OSM relation at this moment will be used as the
-        reference for the monitor analysis.
+        The state of the OSM relation at this moment will be used as the reference for the monitor
+        analysis.
       </p>
       <p i18n="@@monitor.route.properties.reference-details.osm-now.next-step">
         Continue with next step.
@@ -28,8 +28,7 @@ import { DayInputComponent } from '@app/components/shared/format';
         <p class="kpn-spacer-below">
           <span
             class="kpn-label"
-            i18n="
-              @@monitor.route.properties.reference-details.osm-now.timestamp"
+            i18n="@@monitor.route.properties.reference-details.osm-now.timestamp"
             >Current reference timestamp</span
           >
           {{ oldReferenceTimestamp | yyyymmddhhmm }}
@@ -37,8 +36,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       }
 
       <p i18n="@@monitor.route.properties.reference-details.day">
-        Select the date (midnight) of the route relation state that will serve
-        as a reference:
+        Select the date (midnight) of the route relation state that will serve as a reference:
       </p>
       <kpn-day-input
         id="osm-reference-date"
@@ -47,10 +45,7 @@ import { DayInputComponent } from '@app/components/shared/format';
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
 
-      @if (
-        osmReferenceDate.invalid &&
-        (osmReferenceDate.touched || ngForm.submitted)
-      ) {
+      @if (osmReferenceDate.invalid && (osmReferenceDate.touched || ngForm.submitted)) {
         <div class="kpn-form-error">
           @if (osmReferenceDate.errors?.required) {
             <div
@@ -97,9 +92,7 @@ import { DayInputComponent } from '@app/components/shared/format';
 
       @if (
         referenceFilename.invalid &&
-        (referenceFilename.dirty ||
-          referenceFilename.touched ||
-          ngForm.submitted)
+        (referenceFilename.dirty || referenceFilename.touched || ngForm.submitted)
       ) {
         <div class="kpn-form-error">
           @if (referenceFilename.errors?.required) {
@@ -114,8 +107,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       }
 
       <p i18n="@@monitor.route.properties.reference-details.gpx.reference-day">
-        Select the date at which the gpx trace was recorded or was known to be
-        valid:
+        Select the date at which the gpx trace was recorded or was known to be valid:
       </p>
       <kpn-day-input
         id="gpx-reference-date"
@@ -124,16 +116,10 @@ import { DayInputComponent } from '@app/components/shared/format';
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
 
-      @if (
-        gpxReferenceDate.invalid &&
-        (gpxReferenceDate.touched || ngForm.submitted)
-      ) {
+      @if (gpxReferenceDate.invalid && (gpxReferenceDate.touched || ngForm.submitted)) {
         <div class="kpn-form-error">
           @if (gpxReferenceDate.errors?.required) {
-            <div
-              id="reference-day.required"
-              i18n="@@monitor.route.reference-day.required"
-            >
+            <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
               Please provide a valid reference day
             </div>
           }
@@ -141,49 +127,25 @@ import { DayInputComponent } from '@app/components/shared/format';
       }
     </div>
 
-    <div
-      id="multi-gpx.comment"
-      [ngClass]="{ hidden: referenceType.value !== 'multi-gpx' }"
-    >
-      <p
-        i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.1"
-      >
+    <div id="multi-gpx.comment" [ngClass]="{ hidden: referenceType.value !== 'multi-gpx' }">
+      <p i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.1">
         Further reference details can be provided later.
       </p>
-      <p
-        i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.2"
-      >
-        The GPX traces per route in the superroute can be uploaded from the
-        route details page after saving this route definition.
+      <p i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.2">
+        The GPX traces per route in the superroute can be uploaded from the route details page after
+        saving this route definition.
       </p>
-      <p
-        i18n="@@monitor.route.properties.reference-details.multi-gpx.next-step"
-      >
+      <p i18n="@@monitor.route.properties.reference-details.multi-gpx.next-step">
         Continue with next step.
       </p>
     </div>
 
-    <kpn-form-status
-      formName="step5-form"
-      [statusChanges]="ngForm.statusChanges"
-    ></kpn-form-status>
+    <kpn-form-status formName="step5-form" [statusChanges]="ngForm.statusChanges"></kpn-form-status>
     <div class="kpn-button-group">
-      <button
-        id="step5-back"
-        mat-stroked-button
-        matStepperPrevious
-        i18n="@@action.back"
-      >
+      <button id="step5-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
         Back
       </button>
-      <button
-        id="step5-next"
-        mat-stroked-button
-        matStepperNext
-        i18n="@@action.next"
-      >
-        Next
-      </button>
+      <button id="step5-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,
   styles: `

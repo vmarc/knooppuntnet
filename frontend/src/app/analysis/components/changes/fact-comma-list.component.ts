@@ -24,13 +24,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
     </div>
   `,
   standalone: true,
-  imports: [
-    FactNameComponent,
-    IconHappyComponent,
-    IconInvestigateComponent,
-    NgFor,
-    NgIf,
-  ],
+  imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent, NgFor, NgIf],
 })
 export class FactCommaListComponent {
   @Input() title: string;

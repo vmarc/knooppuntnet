@@ -29,9 +29,7 @@ export class NodeMapStyle {
               title = name;
             }
 
-            const style = proposed
-              ? NodeStyle.proposedLargeGreen
-              : NodeStyle.largeGreen;
+            const style = proposed ? NodeStyle.proposedLargeGreen : NodeStyle.largeGreen;
 
             style.getText().setText(title);
 

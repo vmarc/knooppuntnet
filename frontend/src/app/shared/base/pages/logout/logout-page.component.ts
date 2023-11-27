@@ -19,9 +19,7 @@ import { Store } from '@ngrx/store';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-page-header subject="logout-page" i18n="@@logout.title"
-        >Logout
-      </kpn-page-header>
+      <kpn-page-header subject="logout-page" i18n="@@logout.title">Logout </kpn-page-header>
 
       <div *ngIf="loggedIn(); else notLoggedIn">
         <div class="note-page-contents">
@@ -32,28 +30,21 @@ import { Store } from '@ngrx/store';
           </p>
 
           <p i18n="@@logout.note.1">
-            This allows you to view extra information that is available to
-            OpenStreetMap users only.
+            This allows you to view extra information that is available to OpenStreetMap users only.
           </p>
 
           <p i18n="@@logout.note.2">
-            After logging out you can continue to use this website. However, the
-            additional information such as changesets, network changes, route
-            changes and node changes will not be visible anymore. Your personal
-            OpenStreetMap
+            After logging out you can continue to use this website. However, the additional
+            information such as changesets, network changes, route changes and node changes will not
+            be visible anymore. Your personal OpenStreetMap
             <kpn-osm-link-user-oath-clients></kpn-osm-link-user-oath-clients>
-            will still contain this application. The application can safely be
-            revoked. The authorization will not be used anymore. A new
-            authorization will be created when logging in again.
+            will still contain this application. The application can safely be revoked. The
+            authorization will not be used anymore. A new authorization will be created when logging
+            in again.
           </p>
         </div>
 
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="logout()"
-          i18n="@@logout.submit"
-        >
+        <button mat-raised-button color="primary" (click)="logout()" i18n="@@logout.submit">
           Logout
         </button>
       </div>
@@ -62,8 +53,7 @@ import { Store } from '@ngrx/store';
         <div>
           <p i18n="@@logout.not-logged-in">You are not logged in.</p>
           <p i18n="@@logout.login-comment">
-            You can <a routerLink="/login">login</a> to view extra information
-            that is available to
+            You can <a routerLink="/login">login</a> to view extra information that is available to
             <kpn-osm-website></kpn-osm-website>
             users only.
           </p>

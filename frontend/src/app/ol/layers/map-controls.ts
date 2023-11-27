@@ -12,10 +12,6 @@ export class MapControls {
     const attribution = new Attribution({
       collapsible: false,
     });
-    return defaultControls({ attribution: false }).extend([
-      fullScreen,
-      scaleLine,
-      attribution,
-    ]);
+    return defaultControls({ attribution: false }).extend([fullScreen, scaleLine, attribution]);
   }
 }

@@ -6,9 +6,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'kpn-link-login',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <a rel="nofollow noreferrer" (click)="login()" i18n="@@login">login</a>
-  `,
+  template: ` <a rel="nofollow noreferrer" (click)="login()" i18n="@@login">login</a> `,
   standalone: true,
 })
 export class LinkLoginComponent {

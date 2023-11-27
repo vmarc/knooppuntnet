@@ -8,8 +8,7 @@ import { MonitorService } from '../../monitor.service';
 @Injectable()
 export class MonitorRoutePropertiesStep3RelationService {
   private readonly monitorService = inject(MonitorService);
-  private readonly _apiResponse =
-    signal<ApiResponse<MonitorRouteInfoPage> | null>(null);
+  private readonly _apiResponse = signal<ApiResponse<MonitorRouteInfoPage> | null>(null);
   readonly apiResponse = this._apiResponse.asReadonly();
 
   getRouteInformation(relationId: number): void {

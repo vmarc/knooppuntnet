@@ -41,11 +41,7 @@ import { NodeMapComponent } from './node-map.component';
       <kpn-error />
 
       <div *ngIf="apiResponse() as response">
-        <div
-          *ngIf="!response.result"
-          class="kpn-spacer-above"
-          i18n="@@node.node-not-found"
-        >
+        <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@node.node-not-found">
           Node not found
         </div>
         <div *ngIf="response.result as page">
@@ -70,9 +66,7 @@ import { NodeMapComponent } from './node-map.component';
 export class NodeMapPageComponent implements OnInit, OnDestroy {
   protected readonly nodeId = this.store.selectSignal(selectNodeId);
   protected readonly nodeName = this.store.selectSignal(selectNodeName);
-  protected readonly changeCount = this.store.selectSignal(
-    selectNodeChangeCount
-  );
+  protected readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
   protected readonly apiResponse = this.store.selectSignal(selectNodeMapPage);
 
   constructor(private store: Store) {}

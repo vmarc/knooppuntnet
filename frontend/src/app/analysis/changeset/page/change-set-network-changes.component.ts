@@ -17,16 +17,11 @@ import { CsNcComponent } from './network/cs-nc.component';
   selector: 'kpn-change-set-network-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngFor="let networkChangeInfo of page.networkChanges"
-      class="kpn-level-1"
-    >
+    <div *ngFor="let networkChangeInfo of page.networkChanges" class="kpn-level-1">
       <a [id]="networkChangeInfo.networkId"></a>
       <div class="kpn-level-1-header">
         <div class="kpn-line">
-          <kpn-network-type-icon
-            [networkType]="networkChangeInfo.networkType"
-          />
+          <kpn-network-type-icon [networkType]="networkChangeInfo.networkType" />
           <span i18n="@@change-set.network-changes.network">Network</span>
           <kpn-link-network-details
             [networkId]="networkChangeInfo.networkId"
@@ -37,24 +32,14 @@ import { CsNcComponent } from './network/cs-nc.component';
       </div>
 
       <div class="kpn-level-1-body">
-        <kpn-cs-nc-component
-          [page]="page"
-          [networkChangeInfo]="networkChangeInfo"
-        />
+        <kpn-cs-nc-component [page]="page" [networkChangeInfo]="networkChangeInfo" />
       </div>
     </div>
   `,
   standalone: true,
-  imports: [
-    CsNcComponent,
-    LinkNetworkDetailsComponent,
-    NetworkTypeIconComponent,
-    NgFor,
-  ],
+  imports: [CsNcComponent, LinkNetworkDetailsComponent, NetworkTypeIconComponent, NgFor],
 })
-export class ChangeSetNetworkChangesComponent
-  implements OnDestroy, AfterViewInit
-{
+export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
   @Input({ required: true }) page: ChangeSetPage;
 
   private readonly subscriptions = new Subscriptions();

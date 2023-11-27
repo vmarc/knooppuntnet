@@ -18,14 +18,10 @@ import { MAP_SERVICE_TOKEN } from '../services';
       <ng-template matMenuContent>
         <div (mouseleave)="mouseLeavesMenu()">
           <button mat-menu-item (click)="goto('iD')">iD</button>
-          <button mat-menu-item (click)="goto('openstreetmap')">
-            OpenStreetMap
-          </button>
+          <button mat-menu-item (click)="goto('openstreetmap')">OpenStreetMap</button>
           <button mat-menu-item (click)="goto('mapillary')">Mapillary</button>
           <button mat-menu-item (click)="goto('google')">Google</button>
-          <button mat-menu-item (click)="goto('google-satellite')">
-            Google Satellite
-          </button>
+          <button mat-menu-item (click)="goto('google-satellite')">Google Satellite</button>
         </div>
       </ng-template>
     </mat-menu>
@@ -74,9 +70,7 @@ export class MapLinkMenuComponent {
 
   goto(target: string): void {
     const zoom = Math.round(this.openlayersMapService.map.getView().getZoom());
-    const center = toLonLat(
-      this.openlayersMapService.map.getView().getCenter()
-    );
+    const center = toLonLat(this.openlayersMapService.map.getView().getCenter());
     let url = '';
     if (target === 'openstreetmap') {
       url = `https://www.openstreetmap.org/#map=${zoom}/${center[1]}/${center[0]}`;

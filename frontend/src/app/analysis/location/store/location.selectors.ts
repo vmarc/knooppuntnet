@@ -5,8 +5,7 @@ import { createSelector } from '@ngrx/store';
 import { locationFeatureKey } from './location.state';
 import { LocationState } from './location.state';
 
-export const selectLocationState =
-  createFeatureSelector<LocationState>(locationFeatureKey);
+export const selectLocationState = createFeatureSelector<LocationState>(locationFeatureKey);
 
 export const selectLocationKey = createSelector(
   selectLocationState,

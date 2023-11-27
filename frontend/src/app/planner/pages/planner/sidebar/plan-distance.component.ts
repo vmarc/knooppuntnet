@@ -11,10 +11,8 @@ import { Plan } from '../../../domain/plan/plan';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div *ngIf="meters > 0" class="distance">
-      <span i18n="@@plan.distance" class="kpn-label">Distance</span
-      >{{ distance() }}
-      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span
-      >{{ unpaved() }}
+      <span i18n="@@plan.distance" class="kpn-label">Distance</span>{{ distance() }}
+      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{ unpaved() }}
     </div>
   `,
   styles: `

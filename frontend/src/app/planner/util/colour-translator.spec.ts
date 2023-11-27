@@ -8,9 +8,7 @@ describe('ColourTranslator', () => {
   });
 
   const expectTranslation = (source: string, expected: string) => {
-    expect(new ColourTranslator(translations).translate(source)).toEqual(
-      expected
-    );
+    expect(new ColourTranslator(translations).translate(source)).toEqual(expected);
   };
 
   it('translate', () => {

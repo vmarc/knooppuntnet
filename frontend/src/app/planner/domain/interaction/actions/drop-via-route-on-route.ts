@@ -14,23 +14,12 @@ import { PlanUtil } from '../../plan/plan-util';
 export class DropViaRouteOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
-  drop(
-    oldLeg: PlanLeg,
-    routeFeatures: List<RouteFeature>,
-    coordinate: Coordinate
-  ): void {
+  drop(oldLeg: PlanLeg, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
     this.buildViaRouteLeg(oldLeg, routeFeatures, coordinate)
       .pipe(
         switchMap((newLeg1) =>
-          this.buildNodeToNodeLeg(
-            newLeg1.sinkNode,
-            oldLeg.sinkNode,
-            oldLeg.sinkFlag
-          ).pipe(
-            map(
-              (newLeg2) =>
-                new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2)
-            )
+          this.buildNodeToNodeLeg(newLeg1.sinkNode, oldLeg.sinkNode, oldLeg.sinkFlag).pipe(
+            map((newLeg2) => new PlannerCommandMoveViaRoute(oldLeg, newLeg1, newLeg2))
           )
         )
       )

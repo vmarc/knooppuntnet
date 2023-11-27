@@ -14,42 +14,24 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
   selector: 'kpn-planner-sidebar-appearance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel
-      [expanded]="expanded$ | async"
-      (expandedChange)="expandedChanged($event)"
-    >
+    <mat-expansion-panel [expanded]="expanded$ | async" (expandedChange)="expandedChanged($event)">
       <mat-expansion-panel-header i18n="@@planner.appearance-options">
         Map appearance options
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-radio-group
-          [value]="mapMode$ | async"
-          (change)="modeChanged($event)"
-        >
+        <mat-radio-group [value]="mapMode$ | async" (change)="modeChanged($event)">
           <div>
-            <mat-radio-button
-              value="surface"
-              class="mode-radio-button"
-              i18n="@@planner.surface"
-            >
+            <mat-radio-button value="surface" class="mode-radio-button" i18n="@@planner.surface">
               Surface
             </mat-radio-button>
           </div>
           <div>
-            <mat-radio-button
-              value="survey"
-              class="mode-radio-button"
-              i18n="@@planner.survey"
-            >
+            <mat-radio-button value="survey" class="mode-radio-button" i18n="@@planner.survey">
               Date last survey
             </mat-radio-button>
           </div>
           <div>
-            <mat-radio-button
-              value="analysis"
-              class="mode-radio-button"
-              i18n="@@planner.quality"
-            >
+            <mat-radio-button value="analysis" class="mode-radio-button" i18n="@@planner.quality">
               Node and route quality status
             </mat-radio-button>
           </div>
@@ -63,16 +45,12 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
 export class PlannerSideBarAppearanceComponent {
   readonly mapMode$ = this.store.select(selectPlannerMapMode);
 
-  readonly expanded$ = this.store.select(
-    selectPreferencesShowAppearanceOptions
-  );
+  readonly expanded$ = this.store.select(selectPreferencesShowAppearanceOptions);
 
   constructor(private store: Store) {}
 
   expandedChanged(expanded: boolean): void {
-    this.store.dispatch(
-      actionPreferencesShowAppearanceOptions({ value: expanded })
-    );
+    this.store.dispatch(actionPreferencesShowAppearanceOptions({ value: expanded }));
   }
 
   modeChanged(event: MatRadioChange): void {

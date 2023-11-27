@@ -42,11 +42,7 @@ import { LocationFlatNode } from './location-flat-node';
         Collapse all
       </button>
       <mat-radio-group [value]="all" (change)="allChanged()">
-        <mat-radio-button
-          [value]="true"
-          class="location-button"
-          i18n="@@location.tree.all"
-        >
+        <mat-radio-button [value]="true" class="location-button" i18n="@@location.tree.all">
           All
         </mat-radio-button>
         <mat-radio-button
@@ -73,11 +69,7 @@ import { LocationFlatNode } from './location-flat-node';
         matTreeNodePadding
         [ngClass]="{ hidden: !all && expandableNode.nodeCount === 0 }"
       >
-        <div
-          mat-icon-button
-          matTreeNodeToggle
-          [attr.aria-label]="'toggle ' + expandableNode.name"
-        >
+        <div mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + expandableNode.name">
           <mat-icon
             svgIcon="expand"
             *ngIf="treeControl.isExpanded(expandableNode)"
@@ -120,14 +112,7 @@ import { LocationFlatNode } from './location-flat-node';
     }
   `,
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatRadioModule,
-    MatTreeModule,
-    NgClass,
-    NgIf,
-  ],
+  imports: [MatButtonModule, MatIconModule, MatRadioModule, MatTreeModule, NgClass, NgIf],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
@@ -191,13 +176,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
       const maxLevel = this.country === Country.fr ? 2 : 99;
       const hasChildren = !!node.children && node.children.length > 0;
       const expandable = hasChildren && level < maxLevel;
-      return new LocationFlatNode(
-        expandable,
-        node.path,
-        node.name,
-        node.nodeCount,
-        level
-      );
+      return new LocationFlatNode(expandable, node.path, node.name, node.nodeCount, level);
     };
   }
 }

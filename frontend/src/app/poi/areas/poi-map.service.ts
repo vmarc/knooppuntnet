@@ -39,11 +39,7 @@ export class PoiMapService extends OpenlayersMapService {
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
 
-    registry.register(
-      [],
-      NetworkBitmapTileLayer.build(NetworkType.cycling, 'analysis'),
-      true
-    );
+    registry.register([], NetworkBitmapTileLayer.build(NetworkType.cycling, 'analysis'), true);
 
     registry.register([], PoiAreasLayer.build(geoJson), true);
 

@@ -43,22 +43,13 @@ export class PdfTextDocument {
 
       for (let columnIndex = 0; columnIndex < columnCount; columnIndex++) {
         const xLeft =
-          this.model.xContentsLeftWithExtraMargin +
-          this.model.columnWidth * columnIndex;
+          this.model.xContentsLeftWithExtraMargin + this.model.columnWidth * columnIndex;
         const xRight = xLeft + this.model.columnWidth;
         this.drawLaneLine(xRight);
 
-        const rowCount = this.model.calculateRowCount(
-          pageNodesCount,
-          columnCount,
-          columnIndex
-        );
+        const rowCount = this.model.calculateRowCount(pageNodesCount, columnCount, columnIndex);
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-          const nodeIndex = this.model.nodeIndex(
-            pageIndex,
-            columnIndex,
-            rowIndex
-          );
+          const nodeIndex = this.model.nodeIndex(pageIndex, columnIndex, rowIndex);
           const node = this.model.node(pageIndex, columnIndex, rowIndex);
           const y = PdfPage.yContentsTop + this.model.rowHeight * rowIndex;
           this.drawNode(xLeft, y, node);
@@ -82,16 +73,11 @@ export class PdfTextDocument {
     const yRoute = y + circleHeigth + (this.model.rowHeight - circleHeigth) / 2;
 
     this.doc.setFontSize(8);
-    this.doc.text(
-      node.cumulativeDistance,
-      x + this.model.xCumulativeDistance,
-      yNode,
-      {
-        align: 'left',
-        baseline: 'middle',
-        lineHeightFactor: 1,
-      }
-    );
+    this.doc.text(node.cumulativeDistance, x + this.model.xCumulativeDistance, yNode, {
+      align: 'left',
+      baseline: 'middle',
+      lineHeightFactor: 1,
+    });
 
     if (node.flag) {
       this.doc.setLineWidth(0.8);
@@ -101,12 +87,7 @@ export class PdfTextDocument {
       this.doc.setFillColor(255, 255, 255);
     }
 
-    this.doc.circle(
-      x + this.model.xCircleCenter,
-      yNode,
-      this.model.circleRadius,
-      'FD'
-    );
+    this.doc.circle(x + this.model.xCircleCenter, yNode, this.model.circleRadius, 'FD');
 
     let nodeName = node.nodeName;
     if (node.nodeLongName) {
@@ -126,10 +107,7 @@ export class PdfTextDocument {
         routeInfo = routeInfo + '   ' + translatedColour;
       }
 
-      const routeInfoSplitted = this.doc.splitTextToSize(
-        routeInfo,
-        this.model.routeInfoWidth
-      );
+      const routeInfoSplitted = this.doc.splitTextToSize(routeInfo, this.model.routeInfoWidth);
 
       let yRouteInfo = yRoute;
       if (routeInfoSplitted.length > 1) {

@@ -38,10 +38,7 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   constructor(protected service: RouteChangeMapService) {}
 
   ngAfterViewInit(): void {
-    setTimeout(
-      () => this.service.init(this.geometryDiff, this.nodes, this.bounds),
-      1
-    );
+    setTimeout(() => this.service.init(this.geometryDiff, this.nodes, this.bounds), 1);
   }
 
   ngOnDestroy(): void {

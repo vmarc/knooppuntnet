@@ -24,25 +24,16 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
       Points of interest
     </mat-checkbox>
     <div>
-      <kpn-poi-menu-option
-        groupName="hiking-biking"
-        i18n="@@poi.group.hiking-biking"
-      >
+      <kpn-poi-menu-option groupName="hiking-biking" i18n="@@poi.group.hiking-biking">
         Hiking/biking
       </kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="landmarks" i18n="@@poi.group.landmarks">
         Landmarks
       </kpn-poi-menu-option>
-      <kpn-poi-menu-option
-        groupName="restaurants"
-        i18n="@@poi.group.restaurants"
-      >
+      <kpn-poi-menu-option groupName="restaurants" i18n="@@poi.group.restaurants">
         Restaurants
       </kpn-poi-menu-option>
-      <kpn-poi-menu-option
-        groupName="places-to-stay"
-        i18n="@@poi.group.places-to-stay"
-      >
+      <kpn-poi-menu-option groupName="places-to-stay" i18n="@@poi.group.places-to-stay">
         Places to stay
       </kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="tourism" i18n="@@poi.group.tourism">
@@ -51,9 +42,7 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
       <kpn-poi-menu-option groupName="amenity" i18n="@@poi.group.amenity">
         Amenity
       </kpn-poi-menu-option>
-      <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops">
-        Shops
-      </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops"> Shops </kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="foodshops" i18n="@@poi.group.foodshops">
         Foodshops
       </kpn-poi-menu-option>
@@ -73,12 +62,7 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    MatCheckboxModule,
-    MatDividerModule,
-    PoiMenuOptionComponent,
-  ],
+  imports: [AsyncPipe, MatCheckboxModule, MatDividerModule, PoiMenuOptionComponent],
 })
 export class PoiMenuComponent {
   readonly visible = this.store.selectSignal(selectPlannerPoisVisible);

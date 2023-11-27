@@ -6,9 +6,7 @@ import { Country } from '@api/custom';
 import { createAction } from '@ngrx/store';
 import { props } from '@ngrx/store';
 
-export const actionLocationPoisPageInit = createAction(
-  '[LocationPoisPage] Init'
-);
+export const actionLocationPoisPageInit = createAction('[LocationPoisPage] Init');
 
 export const actionLocationPoisPageLoaded = createAction(
   '[LocationPoisPage] Loaded',
@@ -25,9 +23,7 @@ export const actionLocationPoisPageSize = createAction(
   props<{ pageSize: number }>()
 );
 
-export const actionLocationPoiSummaryPageInit = createAction(
-  '[LocationPoiSummaryPage] Init'
-);
+export const actionLocationPoiSummaryPageInit = createAction('[LocationPoiSummaryPage] Init');
 
 export const actionLocationPoiSummaryPageLoaded = createAction(
   '[LocationPoiSummaryPage] Loaded',
@@ -51,6 +47,4 @@ export const actionPoiAreasPageLoaded = createAction(
   props<ApiResponse<string>>()
 );
 
-export const actionPoiAreasPageMapViewInit = createAction(
-  '[PoiAreasPage] View init'
-);
+export const actionPoiAreasPageMapViewInit = createAction('[PoiAreasPage] View init');

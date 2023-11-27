@@ -54,15 +54,10 @@ export class SubsetOrphanRouteFilter {
 
   filterOptions(routes: OrphanRouteInfo[]): FilterOptions {
     const totalCount = routes.length;
-    const filteredCount = routes.filter((route) =>
-      this.allFilters.passes(route)
-    ).length;
+    const filteredCount = routes.filter((route) => this.allFilters.passes(route)).length;
 
     const broken = this.brokenFilter.filterOptions(this.allFilters, routes);
-    const lastUpdated = this.lastUpdatedFilter.filterOptions(
-      this.allFilters,
-      routes
-    );
+    const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
 
     const groups = List([broken, lastUpdated]).filter((g) => g !== null);
 

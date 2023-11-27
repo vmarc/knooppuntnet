@@ -21,12 +21,12 @@ export class PoiGroupPreference {
     if (!jsonObject) {
       return undefined;
     }
-    const poiEntries: Array<[string, PoiPreference]> = Object.keys(
-      jsonObject.pois
-    ).map((poiName) => {
-      const poiPreference = PoiPreference.fromJSON(jsonObject.pois[poiName]);
-      return [poiName, poiPreference];
-    });
+    const poiEntries: Array<[string, PoiPreference]> = Object.keys(jsonObject.pois).map(
+      (poiName) => {
+        const poiPreference = PoiPreference.fromJSON(jsonObject.pois[poiName]);
+        return [poiName, poiPreference];
+      }
+    );
     const pois = Map(poiEntries);
     return new PoiGroupPreference(jsonObject.enabled, pois);
   }

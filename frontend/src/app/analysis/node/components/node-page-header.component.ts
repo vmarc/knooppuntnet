@@ -44,12 +44,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
     </kpn-page-menu>
   `,
   standalone: true,
-  imports: [
-    NgIf,
-    PageHeaderComponent,
-    PageMenuComponent,
-    PageMenuOptionComponent,
-  ],
+  imports: [NgIf, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {
   @Input() nodeId: string;

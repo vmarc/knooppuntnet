@@ -8,9 +8,7 @@ import { OsmLinkComponent } from './osm-link.component';
 @Component({
   selector: 'kpn-osm-link-user',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <kpn-osm-link kind="user" [elementId]="user()" [title]="user()" />
-  `,
+  template: ` <kpn-osm-link kind="user" [elementId]="user()" [title]="user()" /> `,
   standalone: true,
   imports: [OsmLinkComponent, AsyncPipe],
 })

@@ -53,36 +53,19 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
     <table mat-table matSort [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.nr">
-          Nr
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.nr">Nr</th>
         <td mat-cell *matCellDef="let route">{{ route.rowIndex + 1 }}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-routes.table.analysis"
-        >
-          Analysis
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-location-route-analysis
-            [route]="route"
-            [networkType]="networkType()"
-          />
+          <kpn-location-route-analysis [route]="route" [networkType]="networkType()" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-routes.table.symbol"
-        >
-          Symbol
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.symbol">Symbol</th>
         <td mat-cell *matCellDef="let route" class="symbol">
           <kpn-symbol
             *ngIf="route.symbol"
@@ -94,13 +77,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <ng-container matColumnDef="route">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-routes.table.route"
-        >
-          Route
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.route">Route</th>
         <td mat-cell *matCellDef="let route">
           <kpn-link-route
             [routeId]="route.id"
@@ -111,37 +88,21 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-routes.table.distance"
-        >
-          Distance
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">Distance</th>
         <td mat-cell *matCellDef="let route">
           <div class="distance">{{ (route.meters | integer) + ' m' }}</div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-routes.table.last-survey"
-        >
-          Survey
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-survey">Survey</th>
         <td mat-cell *matCellDef="let route">
           {{ route.lastSurvey | day }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@location-routes.table.last-edit"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-edit">
           Last edit
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
@@ -152,10 +113,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr
-        mat-row
-        *matRowDef="let route; columns: displayedColumns$ | async"
-      ></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async"></tr>
     </table>
 
     <kpn-paginator
@@ -220,9 +178,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
     private store: Store
   ) {
     this.dataSource = new MatTableDataSource();
-    this.displayedColumns$ = pageWidthService.current$.pipe(
-      map(() => this.displayedColumns())
-    );
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -254,15 +210,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   private displayedColumns() {
     if (this.pageWidthService.isVeryLarge()) {
-      return [
-        'nr',
-        'analysis',
-        'symbol',
-        'route',
-        'distance',
-        'last-survey',
-        'lastEdit',
-      ];
+      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'last-survey', 'lastEdit'];
     }
 
     if (this.pageWidthService.isLarge()) {

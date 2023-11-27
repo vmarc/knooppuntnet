@@ -23,11 +23,7 @@ export class DirectionsTestSetup {
     const leg7 = this.toLeg(Directions7TestSetup.json_34_35());
     const sourceNode = leg1.sourceNode;
     const sourceFlag = PlanFlag.start('s', sourceNode.coordinate);
-    return new Plan(
-      sourceNode,
-      sourceFlag,
-      List([leg1, leg2, leg3, leg4, leg5, leg6, leg7])
-    );
+    return new Plan(sourceNode, sourceFlag, List([leg1, leg2, leg3, leg4, leg5, leg6, leg7]));
   }
 
   private static toLeg(json): PlanLeg {

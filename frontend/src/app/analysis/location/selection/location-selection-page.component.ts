@@ -145,10 +145,7 @@ export class LocationSelectionPageComponent implements OnInit, OnDestroy {
         return { country: this.country, networkType: this.networkType };
       }),
       mergeMap((subset) =>
-        this.locationSelectionService.locations(
-          subset.networkType,
-          subset.country
-        )
+        this.locationSelectionService.locations(subset.networkType, subset.country)
       ),
       map((locationNode) => this.toLocalLocationNode([], locationNode))
     );

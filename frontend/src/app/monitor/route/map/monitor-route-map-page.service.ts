@@ -43,29 +43,27 @@ export class MonitorRouteMapPageService {
     if (routeMapPage) {
       this.mapService.pageChanged(routeMapPage);
     } else {
-      this.monitorService
-        .routeMap(groupName, routeName, relationId)
-        .subscribe((response) => {
-          if (response.result) {
-            const page = response.result;
-            if (page) {
-              let relationId = 0;
-              if (page.currentSubRelation) {
-                relationId = page.currentSubRelation.relationId;
-              } else if (page.relationId) {
-                relationId = page.relationId;
-              }
-              this._state.update((state) => ({
-                ...state,
-                routeDescription: page.routeDescription,
-              }));
-              this.pages.set(relationId, page);
-              const queryParams = this.navService.queryParams();
-              this.stateService.initialState(queryParams, page);
-              this.mapService.pageChanged(page);
+      this.monitorService.routeMap(groupName, routeName, relationId).subscribe((response) => {
+        if (response.result) {
+          const page = response.result;
+          if (page) {
+            let relationId = 0;
+            if (page.currentSubRelation) {
+              relationId = page.currentSubRelation.relationId;
+            } else if (page.relationId) {
+              relationId = page.relationId;
             }
+            this._state.update((state) => ({
+              ...state,
+              routeDescription: page.routeDescription,
+            }));
+            this.pages.set(relationId, page);
+            const queryParams = this.navService.queryParams();
+            this.stateService.initialState(queryParams, page);
+            this.mapService.pageChanged(page);
           }
-        });
+        }
+      });
     }
   }
 
@@ -82,11 +80,7 @@ export class MonitorRouteMapPageService {
       this.stateService.resetSelections();
     } else {
       this.monitorService
-        .routeMap(
-          this.state().groupName,
-          this.state().routeName,
-          subRelation.relationId
-        )
+        .routeMap(this.state().groupName, this.state().routeName, subRelation.relationId)
         .subscribe((response) => {
           if (response.result) {
             const page = response.result;

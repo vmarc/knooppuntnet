@@ -98,9 +98,7 @@ import { CountrySelectComponent } from './country-select.component';
 })
 export class LocationPoisSidebarComponent implements OnInit {
   readonly apiResponse = this.store.selectSignal(selectLocationPoiSummaryPage);
-  readonly locationNode = this.store.selectSignal(
-    selectLocationPoiSummaryLocationNode
-  );
+  readonly locationNode = this.store.selectSignal(selectLocationPoiSummaryLocationNode);
 
   country = Country.be;
 

@@ -28,14 +28,8 @@ import { LocationEditComponent } from './location-edit.component';
 
       <kpn-error />
 
-      <div
-        *ngIf="apiResponse() as response; else analyzing"
-        class="kpn-spacer-above"
-      >
-        <kpn-location-response
-          [situationOnEnabled]="false"
-          [response]="response"
-        >
+      <div *ngIf="apiResponse() as response; else analyzing" class="kpn-spacer-above">
+        <kpn-location-response [situationOnEnabled]="false" [response]="response">
           <p
             *ngIf="response.result.tooManyNodes"
             class="too-many-nodes"
@@ -43,9 +37,8 @@ import { LocationEditComponent } from './location-edit.component';
           >
             This location contains more than the maximum number of nodes ({{
               response.result.maxNodes
-            }}) that can be loaded in the editor in one go. This limitation is
-            to avoid overloading the OpenStreetMap api while loading the node
-            and route details from JOSM.
+            }}) that can be loaded in the editor in one go. This limitation is to avoid overloading
+            the OpenStreetMap api while loading the node and route details from JOSM.
           </p>
           <p
             *ngIf="response.result.tooManyNodes"
@@ -54,18 +47,11 @@ import { LocationEditComponent } from './location-edit.component';
           >
             Please select a location with less nodes.
           </p>
-          <kpn-location-edit
-            *ngIf="!response.result.tooManyNodes"
-            [page]="response.result"
-          />
+          <kpn-location-edit *ngIf="!response.result.tooManyNodes" [page]="response.result" />
         </kpn-location-response>
       </div>
       <ng-template #analyzing>
-        <p
-          *ngIf="noHttpError$ | async"
-          class="analyzing"
-          i18n="@@location-edit.analyzing"
-        >
+        <p *ngIf="noHttpError$ | async" class="analyzing" i18n="@@location-edit.analyzing">
           Analyzing location nodes and routes, please wait...
         </p>
       </ng-template>

@@ -53,23 +53,15 @@ export class PlannerContext {
     this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
     this.plan$ = this._plan$.asObservable();
     this.error$ = this._error$.asObservable();
-    this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(
-      new PlannerCommandStack()
-    );
+    this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
     this.subscriptions.add(
-      planProposed$.subscribe(
-        (planProposed) => (this.planProposed = planProposed)
-      )
+      planProposed$.subscribe((planProposed) => (this.planProposed = planProposed))
     );
 
-    networkType$
-      .pipe(first())
-      .subscribe((networkType) => (this.currentNetworkType = networkType));
+    networkType$.pipe(first()).subscribe((networkType) => (this.currentNetworkType = networkType));
 
     this.subscriptions.add(
-      networkType$.subscribe((networkType) =>
-        this.networkTypeChanged(networkType)
-      )
+      networkType$.subscribe((networkType) => this.networkTypeChanged(networkType))
     );
   }
 
@@ -131,11 +123,7 @@ export class PlannerContext {
     const newLegs = this.plan.legs.map((leg) =>
       leg.featureId === newLeg.featureId ? newLeg : leg
     );
-    const newPlan = new Plan(
-      this.plan.sourceNode,
-      this.plan.sourceFlag,
-      newLegs
-    );
+    const newPlan = new Plan(this.plan.sourceNode, this.plan.sourceFlag, newLegs);
     this.updatePlan(newPlan);
     this.routeLayer.addPlanLeg(newLeg);
   }
@@ -165,9 +153,6 @@ export class PlannerContext {
   }
 
   resetDragFlag(dragFlag: PlannerDragFlag): void {
-    this.markerLayer.updateFlagCoordinate(
-      dragFlag.planFlag.featureId,
-      dragFlag.oldNode.coordinate
-    );
+    this.markerLayer.updateFlagCoordinate(dragFlag.planFlag.featureId, dragFlag.oldNode.coordinate);
   }
 }

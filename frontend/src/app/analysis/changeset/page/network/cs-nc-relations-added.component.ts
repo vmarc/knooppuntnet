@@ -14,9 +14,7 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   template: `
     <div *ngIf="relationIds.length > 0" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <span i18n="@@change-set.network-changes.added-relations"
-          >Added non-route relations</span
-        >
+        <span i18n="@@change-set.network-changes.added-relations">Added non-route relations</span>
         <span class="kpn-brackets kpn-thin">{{ relationIds.length }}</span>
         <kpn-icon-investigate />
       </div>

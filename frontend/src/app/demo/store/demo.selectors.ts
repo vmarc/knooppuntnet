@@ -7,20 +7,11 @@ import { DemoState } from './demo.state';
 
 export const selectDemoState = createFeatureSelector<DemoState>(demoFeatureKey);
 
-export const selectDemo = createSelector(
-  selectDemoState,
-  (state: DemoState) => state
-);
+export const selectDemo = createSelector(selectDemoState, (state: DemoState) => state);
 
-export const selectDemoEnabled = createSelector(
-  selectDemo,
-  (state: DemoState) => state.enabled
-);
+export const selectDemoEnabled = createSelector(selectDemo, (state: DemoState) => state.enabled);
 
-export const selectDemoPlaying = createSelector(
-  selectDemo,
-  (state: DemoState) => state.playing
-);
+export const selectDemoPlaying = createSelector(selectDemo, (state: DemoState) => state.playing);
 
 export const selectDemoVideo = createSelector(
   selectRouteParams,
@@ -32,15 +23,9 @@ export const selectDemoVideoPlayButtonEnabled = createSelector(
   (state: DemoState) => state.videoPlayButtonEnabled
 );
 
-export const selectDemoTime = createSelector(
-  selectDemo,
-  (state: DemoState) => state.time
-);
+export const selectDemoTime = createSelector(selectDemo, (state: DemoState) => state.time);
 
-export const selectDemoDuration = createSelector(
-  selectDemo,
-  (state: DemoState) => state.duration
-);
+export const selectDemoDuration = createSelector(selectDemo, (state: DemoState) => state.duration);
 
 export const selectDemoProgress = createSelector(
   selectDemoTime,

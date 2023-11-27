@@ -12,26 +12,18 @@ import { AnalysisStrategy } from '@app/core';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
-export const actionLocationSelectionPageInit = createAction(
-  '[LocationSelectionPage] Init'
-);
+export const actionLocationSelectionPageInit = createAction('[LocationSelectionPage] Init');
 
-export const actionLocationSelectionPageDestroy = createAction(
-  '[LocationSelectionPage] Destroy'
-);
+export const actionLocationSelectionPageDestroy = createAction('[LocationSelectionPage] Destroy');
 
 export const actionLocationSelectionPageStrategy = createAction(
   '[LocationSelectionPage] Strategy',
   props<{ strategy: AnalysisStrategy }>()
 );
 
-export const actionLocationNodesPageInit = createAction(
-  '[LocationNodesPage] Init'
-);
+export const actionLocationNodesPageInit = createAction('[LocationNodesPage] Init');
 
-export const actionLocationNodesPageDestroy = createAction(
-  '[LocationNodesPage] Destroy'
-);
+export const actionLocationNodesPageDestroy = createAction('[LocationNodesPage] Destroy');
 
 export const actionLocationNodesType = createAction(
   '[LocationNodesPage] Type',
@@ -53,13 +45,9 @@ export const actionLocationNodesPageLoaded = createAction(
   props<ApiResponse<LocationNodesPage>>()
 );
 
-export const actionLocationRoutesPageInit = createAction(
-  '[LocationRoutesPage] Init'
-);
+export const actionLocationRoutesPageInit = createAction('[LocationRoutesPage] Init');
 
-export const actionLocationRoutesPageDestroy = createAction(
-  '[LocationRoutesPage] Destroy'
-);
+export const actionLocationRoutesPageDestroy = createAction('[LocationRoutesPage] Destroy');
 
 export const actionLocationRoutesType = createAction(
   '[LocationRoutesPage] Type',
@@ -81,13 +69,9 @@ export const actionLocationRoutesPageLoaded = createAction(
   props<ApiResponse<LocationRoutesPage>>()
 );
 
-export const actionLocationFactsPageInit = createAction(
-  '[LocationFactsPage] Init'
-);
+export const actionLocationFactsPageInit = createAction('[LocationFactsPage] Init');
 
-export const actionLocationFactsPageDestroy = createAction(
-  '[LocationFactsPage] Destroy'
-);
+export const actionLocationFactsPageDestroy = createAction('[LocationFactsPage] Destroy');
 
 export const actionLocationFactsPageLoaded = createAction(
   '[LocationFactsPage] Loaded',
@@ -96,13 +80,9 @@ export const actionLocationFactsPageLoaded = createAction(
 
 export const actionLocationMapPageInit = createAction('[LocationMapPage] Init');
 
-export const actionLocationMapViewInit = createAction(
-  '[LocationMapPage] ViewInit'
-);
+export const actionLocationMapViewInit = createAction('[LocationMapPage] ViewInit');
 
-export const actionLocationMapPageDestroy = createAction(
-  '[LocationMapPage] Destroy'
-);
+export const actionLocationMapPageDestroy = createAction('[LocationMapPage] Destroy');
 
 export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',
@@ -116,26 +96,18 @@ export const actionLocationMapPosition = createAction(
   props<{ mapPosition: MapPosition }>()
 );
 
-export const actionLocationChangesPageInit = createAction(
-  '[LocationChangesPage] Init'
-);
+export const actionLocationChangesPageInit = createAction('[LocationChangesPage] Init');
 
-export const actionLocationChangesPageDestroy = createAction(
-  '[LocationChangesPage] Destroy'
-);
+export const actionLocationChangesPageDestroy = createAction('[LocationChangesPage] Destroy');
 
 export const actionLocationChangesPageLoaded = createAction(
   '[LocationChangesPage] Loaded',
   props<ApiResponse<LocationChangesPage>>()
 );
 
-export const actionLocationEditPageInit = createAction(
-  '[LocationEditPage] Init'
-);
+export const actionLocationEditPageInit = createAction('[LocationEditPage] Init');
 
-export const actionLocationEditPageDestroy = createAction(
-  '[LocationEditPage] Destroy'
-);
+export const actionLocationEditPageDestroy = createAction('[LocationEditPage] Destroy');
 
 export const actionLocationEditPageLoaded = createAction(
   '[LocationEditPage] Loaded',

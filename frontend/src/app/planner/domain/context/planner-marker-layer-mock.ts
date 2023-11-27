@@ -6,10 +6,7 @@ import { PlanFlagType } from '../plan/plan-flag-type';
 import { PlannerMarkerLayer } from './planner-marker-layer';
 
 export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
-  private flags: PlanFlagMap<string, PlanFlag> = PlanFlagMap<
-    string,
-    PlanFlag
-  >();
+  private flags: PlanFlagMap<string, PlanFlag> = PlanFlagMap<string, PlanFlag>();
 
   addFlag(flag: PlanFlag): void {
     if (flag !== null) {
@@ -36,10 +33,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
   updateFlagCoordinate(featureId: string, coordinate: Coordinate): void {
     const oldFlag = this.flags.get(featureId);
     if (oldFlag) {
-      this.flags = this.flags.set(
-        featureId,
-        new PlanFlag(oldFlag.flagType, featureId, coordinate)
-      );
+      this.flags = this.flags.set(featureId, new PlanFlag(oldFlag.flagType, featureId, coordinate));
     }
   }
 
@@ -70,11 +64,7 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     this.expectFlagExists(PlanFlagType.invisible, featureId, coordinate);
   }
 
-  expectFlagExists(
-    flagType: PlanFlagType,
-    featureId: string,
-    coordinate: Coordinate
-  ): void {
+  expectFlagExists(flagType: PlanFlagType, featureId: string, coordinate: Coordinate): void {
     const flag = this.flags.get(featureId);
     if (!flag) {
       let message = `Cannot find flag with featureId "${featureId}"`;
@@ -119,22 +109,15 @@ export class PlannerMarkerLayerMock extends PlannerMarkerLayer {
     this.expectFlagCoordinateExists(PlanFlagType.invisible, coordinate);
   }
 
-  expectFlagCoordinateExists(
-    flagType: PlanFlagType,
-    coordinate: Coordinate
-  ): void {
+  expectFlagCoordinateExists(flagType: PlanFlagType, coordinate: Coordinate): void {
     const coordinateString = JSON.stringify(coordinate);
     const result = this.flags
       .valueSeq()
       .find(
-        (flag) =>
-          flag.flagType === flagType &&
-          JSON.stringify(flag.coordinate) === coordinateString
+        (flag) => flag.flagType === flagType && JSON.stringify(flag.coordinate) === coordinateString
       );
     if (!result) {
-      throw new Error(
-        `could not find flag with type ${flagType} and coordinate ${coordinate}`
-      );
+      throw new Error(`could not find flag with type ${flagType} and coordinate ${coordinate}`);
     }
   }
 

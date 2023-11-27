@@ -10,9 +10,8 @@ import { SidebarFooterComponent } from '@app/components/shared/sidebar';
     <div class="sidebar-footer">
       <div class="tips">
         <p i18n="@@node.details-sidebar.tip">
-          TIP: click on other nodes or routes in the map to go to the details of
-          these nodes or routes. Use ctrl-click to open to open these details in
-          another window.
+          TIP: click on other nodes or routes in the map to go to the details of these nodes or
+          routes. Use ctrl-click to open to open these details in another window.
         </p>
       </div>
       <kpn-sidebar-footer />

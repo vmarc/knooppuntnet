@@ -32,9 +32,7 @@ export class DocLinkComponent {
   constructor(private i18nService: I18nService) {}
 
   href(): string {
-    const languageSpecificSubject = this.i18nService.translation(
-      `@@wiki.${this.subject}`
-    );
+    const languageSpecificSubject = this.i18nService.translation(`@@wiki.${this.subject}`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 }

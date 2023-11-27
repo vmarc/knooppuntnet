@@ -7,9 +7,7 @@ import { RouterLink } from '@angular/router';
   selector: 'kpn-link-fact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a [routerLink]="'/analysis/' + fact + '/' + country + '/' + networkType">{{
-      fact
-    }}</a>
+    <a [routerLink]="'/analysis/' + fact + '/' + country + '/' + networkType">{{ fact }}</a>
   `,
   standalone: true,
   imports: [RouterLink],

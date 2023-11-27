@@ -5,18 +5,15 @@ import { List } from 'immutable';
 export class PdfStripDocumentModel {
   readonly textHeight = 8;
   readonly circleRadius = 5;
-  readonly columnWidth =
-    PdfPage.spacer + this.circleRadius + PdfPage.spacer + 20;
-  readonly rowHeight =
-    this.circleRadius + PdfPage.spacer + PdfPage.spacer + this.textHeight;
+  readonly columnWidth = PdfPage.spacer + this.circleRadius + PdfPage.spacer + 20;
+  readonly rowHeight = this.circleRadius + PdfPage.spacer + PdfPage.spacer + this.textHeight;
   readonly xContentsLeftWithExtraMargin = PdfPage.xContentsLeft + 14;
 
   private readonly maxRowCount = Math.floor(
     (PdfPage.yContentsBottom - PdfPage.yContentsTop) / this.rowHeight
   );
   private readonly maxColumnCount = Math.floor(
-    (PdfPage.xContentsRight - this.xContentsLeftWithExtraMargin) /
-      this.columnWidth
+    (PdfPage.xContentsRight - this.xContentsLeftWithExtraMargin) / this.columnWidth
   );
   private readonly maxNodesPerPage = this.maxRowCount * this.maxColumnCount;
 
@@ -59,11 +56,7 @@ export class PdfStripDocumentModel {
     return columnCount;
   }
 
-  calculateRowCount(
-    pageNodesCount: number,
-    columnCount: number,
-    columnIndex: number
-  ): number {
+  calculateRowCount(pageNodesCount: number, columnCount: number, columnIndex: number): number {
     let rowCount = 0;
     if (columnIndex < columnCount - 1) {
       rowCount = this.maxRowCount;
@@ -77,10 +70,7 @@ export class PdfStripDocumentModel {
   }
 
   node(pageIndex: number, columnIndex: number, rowIndex: number): PdfPlanNode {
-    const nodeIndex =
-      pageIndex * this.maxNodesPerPage +
-      columnIndex * this.maxRowCount +
-      rowIndex;
+    const nodeIndex = pageIndex * this.maxNodesPerPage + columnIndex * this.maxRowCount + rowIndex;
     return this.nodes.get(nodeIndex);
   }
 }

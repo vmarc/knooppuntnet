@@ -28,30 +28,18 @@ export class RemoveViaPoint {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
 
-    const sinkFlag = new PlanFlag(
-      oldLeg2.sinkFlag.flagType,
-      FeatureId.next(),
-      sinkNode.coordinate
-    );
+    const sinkFlag = new PlanFlag(oldLeg2.sinkFlag.flagType, FeatureId.next(), sinkNode.coordinate);
 
     this.buildLeg(source, sink, sinkFlag).subscribe({
       next: (newLeg) => {
-        const command = new PlannerCommandRemoveViaPoint(
-          oldLeg1,
-          oldLeg2,
-          newLeg
-        );
+        const command = new PlannerCommandRemoveViaPoint(oldLeg1, oldLeg2, newLeg);
         this.context.execute(command);
       },
       error: (error) => this.context.errorDialog(error),
     });
   }
 
-  private buildLeg(
-    source: LegEnd,
-    sink: LegEnd,
-    sinkFlag: PlanFlag
-  ): Observable<PlanLeg> {
+  private buildLeg(source: LegEnd, sink: LegEnd, sinkFlag: PlanFlag): Observable<PlanLeg> {
     return this.context
       .fetchLeg(source, sink)
       .pipe(map((data) => PlanUtil.leg(data, sinkFlag, null)));

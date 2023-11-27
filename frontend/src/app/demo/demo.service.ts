@@ -21,10 +21,7 @@ export class DemoService {
       });
   }
 
-  setVideoElement(
-    videoElement: HTMLVideoElement,
-    sourceElement: HTMLSourceElement
-  ): void {
+  setVideoElement(videoElement: HTMLVideoElement, sourceElement: HTMLSourceElement): void {
     this.videoElement = videoElement;
     this.sourceElement = sourceElement;
   }

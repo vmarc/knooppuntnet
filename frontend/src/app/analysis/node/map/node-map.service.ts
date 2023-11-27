@@ -46,10 +46,7 @@ export class NodeMapService extends OpenlayersMapService {
         zoom,
       };
     } else {
-      const center = OlUtil.toCoordinate(
-        nodeMapInfo.latitude,
-        nodeMapInfo.longitude
-      );
+      const center = OlUtil.toCoordinate(nodeMapInfo.latitude, nodeMapInfo.longitude);
       viewOptions = {
         ...viewOptions,
         center,
@@ -71,25 +68,17 @@ export class NodeMapService extends OpenlayersMapService {
     this.finalizeSetup(true);
   }
 
-  private registerLayers(
-    nodeMapInfo: NodeMapInfo,
-    defaultNetworkType: NetworkType
-  ): void {
+  private registerLayers(nodeMapInfo: NodeMapInfo, defaultNetworkType: NetworkType): void {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
 
     nodeMapInfo.networkTypes.forEach((networkType) => {
       const visible =
-        nodeMapInfo.networkTypes.length > 1
-          ? networkType == defaultNetworkType
-          : true;
+        nodeMapInfo.networkTypes.length > 1 ? networkType == defaultNetworkType : true;
       registry.register(
         [],
-        NetworkVectorTileLayer.build(
-          networkType,
-          new NodeMapStyle().styleFunction()
-        ),
+        NetworkVectorTileLayer.build(networkType, new NodeMapStyle().styleFunction()),
         visible
       );
     });

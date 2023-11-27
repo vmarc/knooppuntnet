@@ -48,11 +48,7 @@ import { Component } from '@angular/core';
               x="9.51719"
             />
           </g>
-          <g
-            fill-rule="evenodd"
-            transform="rotate(60.0279 8.03861 1044.32)"
-            [attr.fill]="color"
-          >
+          <g fill-rule="evenodd" transform="rotate(60.0279 8.03861 1044.32)" [attr.fill]="color">
             <rect
               style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;image-rendering:auto"
               height="1.21769"
@@ -68,11 +64,7 @@ import { Component } from '@angular/core';
               x="9.51719"
             />
           </g>
-          <g
-            fill-rule="evenodd"
-            transform="rotate(119.973 8.03261 1044.35)"
-            [attr.fill]="color"
-          >
+          <g fill-rule="evenodd" transform="rotate(119.973 8.03261 1044.35)" [attr.fill]="color">
             <rect
               style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;image-rendering:auto"
               height="1.21769"

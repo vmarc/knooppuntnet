@@ -49,9 +49,7 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
   imports: [NgIf, MatIconModule, AsyncPipe],
 })
 export class DemoVideoPlayButtonComponent {
-  readonly videoPlayButtonEnabled = this.store.selectSignal(
-    selectDemoVideoPlayButtonEnabled
-  );
+  readonly videoPlayButtonEnabled = this.store.selectSignal(selectDemoVideoPlayButtonEnabled);
 
   constructor(private store: Store) {}
 

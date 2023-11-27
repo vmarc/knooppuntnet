@@ -6,11 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <a
-      class="external"
-      rel="nofollow noreferrer"
-      href="https://www.openstreetmap.org"
-    >
+    <a class="external" rel="nofollow noreferrer" href="https://www.openstreetmap.org">
       OpenStreetMap
     </a>
   `,

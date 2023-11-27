@@ -13,8 +13,6 @@ export class MapGeocoder {
     });
 
     map.addControl(geocoder);
-    geocoder.on('addresschosen', (evt) =>
-      map.getView().animate({ center: evt.coordinate })
-    );
+    geocoder.on('addresschosen', (evt) => map.getView().animate({ center: evt.coordinate }));
   }
 }

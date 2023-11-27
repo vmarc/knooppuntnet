@@ -22,9 +22,7 @@ export class OverviewService {
     private pageWidthService: PageWidthService,
     private browserStorageService: BrowserStorageService
   ) {
-    this.formatPreference$ = new BehaviorSubject(
-      this.determineInitialPreference()
-    );
+    this.formatPreference$ = new BehaviorSubject(this.determineInitialPreference());
     this.tableFormat$ = combineLatest([
       this.formatPreference$,
       this.pageWidthService.current$,
@@ -44,15 +42,10 @@ export class OverviewService {
   }
 
   private determineInitialPreference(): string {
-    let initialFormatPreference = this.browserStorageService.get(
-      this.localStorageKey
-    );
+    let initialFormatPreference = this.browserStorageService.get(this.localStorageKey);
     if (initialFormatPreference === null) {
       initialFormatPreference = this.automatic;
-      this.browserStorageService.set(
-        this.localStorageKey,
-        initialFormatPreference
-      );
+      this.browserStorageService.set(this.localStorageKey, initialFormatPreference);
     }
     return initialFormatPreference;
   }

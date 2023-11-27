@@ -12,13 +12,8 @@ import { OverviewService } from '../overview.service';
   template: `
     <kpn-sidebar>
       <div class="options">
-        <div i18n="@@overview.sidebar.display-options" class="options-title">
-          Display options
-        </div>
-        <mat-radio-group
-          [value]="formatPreference$ | async"
-          (change)="optionChanged($event)"
-        >
+        <div i18n="@@overview.sidebar.display-options" class="options-title">Display options</div>
+        <mat-radio-group [value]="formatPreference$ | async" (change)="optionChanged($event)">
           <div>
             <mat-radio-button
               [value]="optionAutomatic"

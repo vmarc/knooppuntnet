@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.lost-horse-riding-node-tag">
-      This node is no longer a valid horse riding network node because the
-      rhn_ref tag has been removed.
+      This node is no longer a valid horse riding network node because the rhn_ref tag has been
+      removed.
     </p>
   `,
   standalone: true,

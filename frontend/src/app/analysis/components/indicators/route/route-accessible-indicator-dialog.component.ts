@@ -16,27 +16,15 @@ import { RouteAccessibleData } from './route-accessible-data';
       i18n-letter="@@route-accessible-indicator.letter"
       [color]="color"
     >
-      <span
-        dialog-title
-        *ngIf="isGray()"
-        i18n="@@route-accessible-indicator.gray.title"
-      >
+      <span dialog-title *ngIf="isGray()" i18n="@@route-accessible-indicator.gray.title">
         OK - Accessibility unknown
       </span>
 
-      <div
-        dialog-body
-        *ngIf="isGray()"
-        i18n="@@route-accessible-indicator.gray.text"
-      >
+      <div dialog-body *ngIf="isGray()" i18n="@@route-accessible-indicator.gray.text">
         Accessibility information is unknown for this type of route.
       </div>
 
-      <span
-        dialog-title
-        *ngIf="isGreen()"
-        i18n="@@route-accessible-indicator.green.title"
-      >
+      <span dialog-title *ngIf="isGreen()" i18n="@@route-accessible-indicator.green.title">
         OK - Accessible
       </span>
 
@@ -72,11 +60,7 @@ import { RouteAccessibleData } from './route-accessible-data';
         This route is completely accessible for canoe.
       </div>
 
-      <span
-        dialog-title
-        *ngIf="isRed()"
-        i18n="@@route-accessible-indicator.red.title"
-      >
+      <span dialog-title *ngIf="isRed()" i18n="@@route-accessible-indicator.red.title">
         Not OK - Not Accessible
       </span>
 

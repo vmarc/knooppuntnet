@@ -8,10 +8,7 @@ import { MapLayer } from './map-layer';
 
 export class NodeMarkerLayer {
   static build(nodeMapInfo: NodeMapInfo): MapLayer {
-    const coordinate = OlUtil.toCoordinate(
-      nodeMapInfo.latitude,
-      nodeMapInfo.longitude
-    );
+    const coordinate = OlUtil.toCoordinate(nodeMapInfo.latitude, nodeMapInfo.longitude);
     const marker = Marker.create('blue', coordinate);
 
     const source = new VectorSource();

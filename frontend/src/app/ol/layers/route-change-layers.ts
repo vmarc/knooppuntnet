@@ -23,18 +23,8 @@ export class RouteChangeLayers {
       5,
       [0, 0, 255]
     );
-    const added = this.segmentLayer(
-      '@@map.layer.added',
-      geometryDiff.after,
-      12,
-      [0, 255, 0]
-    );
-    const deleted = this.segmentLayer(
-      '@@map.layer.deleted',
-      geometryDiff.before,
-      3,
-      [255, 0, 0]
-    );
+    const added = this.segmentLayer('@@map.layer.added', geometryDiff.after, 12, [0, 255, 0]);
+    const deleted = this.segmentLayer('@@map.layer.deleted', geometryDiff.before, 3, [255, 0, 0]);
 
     return List([unchanged, added, deleted]).filter((layer) => layer !== null);
   }

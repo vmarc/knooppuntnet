@@ -4,18 +4,14 @@ import { createFeatureSelector } from '@ngrx/store';
 import { PlannerState } from './planner-state';
 import { plannerFeatureKey } from './planner-state';
 
-export const selectPlannerState =
-  createFeatureSelector<PlannerState>(plannerFeatureKey);
+export const selectPlannerState = createFeatureSelector<PlannerState>(plannerFeatureKey);
 
 export const selectPlannerNetworkType = createSelector(
   selectPlannerState,
   (state) => state.networkType
 );
 
-export const selectPlannerMapMode = createSelector(
-  selectPlannerState,
-  (state) => state.mapMode
-);
+export const selectPlannerMapMode = createSelector(selectPlannerState, (state) => state.mapMode);
 
 export const selectPlannerResultMode = createSelector(
   selectPlannerState,
@@ -42,19 +38,16 @@ export const selectPlannerLayerStates = createSelector(
   (state) => state.layerStates
 );
 
-export const selectPlannerPoisVisible = createSelector(
-  selectPlannerState,
-  (state) => {
-    let visible = false;
-    const poiLayerState = state.layerStates.find(
-      (ls) => ls.layerName == PoiTileLayerService.poiLayerName
-    );
-    if (poiLayerState) {
-      visible = poiLayerState.visible;
-    }
-    return visible;
+export const selectPlannerPoisVisible = createSelector(selectPlannerState, (state) => {
+  let visible = false;
+  const poiLayerState = state.layerStates.find(
+    (ls) => ls.layerName == PoiTileLayerService.poiLayerName
+  );
+  if (poiLayerState) {
+    visible = poiLayerState.visible;
   }
-);
+  return visible;
+});
 
 export const selectPlannerPoiLayerStates = createSelector(
   selectPlannerState,

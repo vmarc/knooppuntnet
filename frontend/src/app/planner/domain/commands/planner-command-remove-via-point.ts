@@ -26,9 +26,7 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     context.routeLayer.addPlanLeg(this.newLeg);
 
     const newLegs = context.plan.legs
-      .map((leg) =>
-        leg.featureId === this.oldLeg1.featureId ? this.newLeg : leg
-      )
+      .map((leg) => (leg.featureId === this.oldLeg1.featureId ? this.newLeg : leg))
       .filterNot((leg) => leg.featureId === this.oldLeg2.featureId);
     const newPlan = context.plan.withLegs(newLegs);
     context.updatePlan(newPlan);

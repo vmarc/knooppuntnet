@@ -27,17 +27,12 @@ export class PlanReverser {
     );
   }
 
-  private buildLegs(
-    oldLegs: List<PlanLeg>,
-    result: List<PlanLeg>
-  ): Observable<List<PlanLeg>> {
+  private buildLegs(oldLegs: List<PlanLeg>, result: List<PlanLeg>): Observable<List<PlanLeg>> {
     if (oldLegs.isEmpty()) {
       return of(result);
     }
     return this.buildLeg(oldLegs).pipe(
-      switchMap((newLegs) =>
-        this.buildLegs(oldLegs.shift(), result.concat(newLegs))
-      )
+      switchMap((newLegs) => this.buildLegs(oldLegs.shift(), result.concat(newLegs)))
     );
   }
 
@@ -63,16 +58,12 @@ export class PlanReverser {
         }
 
         if (!oldLeg.viaFlag) {
-          const updated = firstLeg.withSinkFlag(
-            firstLeg.sinkFlag.to(sinkFlagType)
-          );
+          const updated = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(sinkFlagType));
           return of(List([updated]));
         }
 
         if (firstLeg.sinkNode.nodeId === oldLeg.sourceNode.nodeId) {
-          const updated = firstLeg.withSinkFlag(
-            firstLeg.sinkFlag.to(sinkFlagType)
-          );
+          const updated = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(sinkFlagType));
           return of(List([updated]));
         }
 
@@ -82,9 +73,7 @@ export class PlanReverser {
           firstLegSinkFlagType = PlanFlagType.end;
         }
 
-        const updatedFirstLeg = firstLeg.withSinkFlag(
-          firstLeg.sinkFlag.to(firstLegSinkFlagType)
-        );
+        const updatedFirstLeg = firstLeg.withSinkFlag(firstLeg.sinkFlag.to(firstLegSinkFlagType));
 
         return this.buildExtraLeg(
           firstLeg.sinkNode.nodeId,
@@ -95,11 +84,7 @@ export class PlanReverser {
     );
   }
 
-  private buildFirstLeg(
-    source: LegEnd,
-    sink: LegEnd,
-    viaFlag: PlanFlag
-  ): Observable<PlanLeg> {
+  private buildFirstLeg(source: LegEnd, sink: LegEnd, viaFlag: PlanFlag): Observable<PlanLeg> {
     return this.context.fetchLeg(source, sink).pipe(
       map((data) => {
         const sinkFlag = PlanUtil.viaFlag(data.sinkNode.coordinate);
@@ -117,11 +102,7 @@ export class PlanReverser {
     const sink = PlanUtil.legEndNode(+sinkNodeId);
     return this.context.fetchLeg(source, sink).pipe(
       map((data) => {
-        const sinkFlag = new PlanFlag(
-          sinkFlagType,
-          FeatureId.next(),
-          data.sinkNode.coordinate
-        );
+        const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), data.sinkNode.coordinate);
         return PlanUtil.leg(data, sinkFlag, null);
       })
     );

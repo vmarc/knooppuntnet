@@ -76,9 +76,7 @@ export class LocationEffects {
       mergeMap(([{ strategy }, networkType, country]) => {
         const url = `/analysis/${networkType}/${country}/networks`;
         const promise = this.router.navigate([url]);
-        return from(promise).pipe(
-          map(() => actionPreferencesAnalysisStrategy({ strategy }))
-        );
+        return from(promise).pipe(map(() => actionPreferencesAnalysisStrategy({ strategy })));
       })
     );
   });
@@ -108,18 +106,16 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationNodesPageIndex),
       ]),
-      mergeMap(
-        ([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
-          const actionPageSize = action['pageSize'];
-          const requestPageSize = actionPageSize ? actionPageSize : pageSize;
-          const parameters: LocationNodesParameters = {
-            locationNodesType,
-            pageSize: requestPageSize,
-            pageIndex,
-          };
-          return this.apiService.locationNodes(locationKey, parameters);
-        }
-      ),
+      mergeMap(([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
+        const actionPageSize = action['pageSize'];
+        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
+        const parameters: LocationNodesParameters = {
+          locationNodesType,
+          pageSize: requestPageSize,
+          pageIndex,
+        };
+        return this.apiService.locationNodes(locationKey, parameters);
+      }),
       map((response) => actionLocationNodesPageLoaded(response))
     );
   });
@@ -139,18 +135,16 @@ export class LocationEffects {
         this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationRoutesPageIndex),
       ]),
-      mergeMap(
-        ([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
-          const actionPageSize = action['pageSize'];
-          const requestPageSize = actionPageSize ? actionPageSize : pageSize;
-          const parameters: LocationRoutesParameters = {
-            locationRoutesType,
-            pageSize: requestPageSize,
-            pageIndex,
-          };
-          return this.apiService.locationRoutes(locationKey, parameters);
-        }
-      ),
+      mergeMap(([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+        const actionPageSize = action['pageSize'];
+        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
+        const parameters: LocationRoutesParameters = {
+          locationRoutesType,
+          pageSize: requestPageSize,
+          pageIndex,
+        };
+        return this.apiService.locationRoutes(locationKey, parameters);
+      }),
       map((response) => actionLocationRoutesPageLoaded(response))
     );
   });
@@ -160,9 +154,7 @@ export class LocationEffects {
     return this.actions$.pipe(
       ofType(actionLocationFactsPageInit),
       concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([_, locationKey]) =>
-        this.apiService.locationFacts(locationKey)
-      ),
+      mergeMap(([_, locationKey]) => this.apiService.locationFacts(locationKey)),
       map((response) => actionLocationFactsPageLoaded(response))
     );
   });
@@ -198,9 +190,7 @@ export class LocationEffects {
         concatLatestFrom(() => [
           this.store.select(selectLocationKey),
           this.store.select(selectLocationMapPage),
-          this.store
-            .select(selectSharedSurveyDateInfo)
-            .pipe(filter((x) => x !== null)), // make sure surveyDateInfo is loaded
+          this.store.select(selectSharedSurveyDateInfo).pipe(filter((x) => x !== null)), // make sure surveyDateInfo is loaded
         ]),
         tap(([_, locationKey, response, surveyDateValues]) => {
           const geoJson = response.result.geoJson;

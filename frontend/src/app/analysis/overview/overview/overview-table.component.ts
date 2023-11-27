@@ -33,13 +33,11 @@ export class OverviewTableComponent implements OnInit {
   constructor(private overviewService: OverviewConfigurationService) {}
 
   ngOnInit(): void {
-    this.stats = this.overviewService.statisticConfigurations
-      .toArray()
-      .map((configuration) => {
-        const statisticValues = this.statistics.find(
-          (statisticValue) => statisticValue._id === configuration.id
-        );
-        return new Stat(statisticValues, configuration);
-      });
+    this.stats = this.overviewService.statisticConfigurations.toArray().map((configuration) => {
+      const statisticValues = this.statistics.find(
+        (statisticValue) => statisticValue._id === configuration.id
+      );
+      return new Stat(statisticValues, configuration);
+    });
   }
 }

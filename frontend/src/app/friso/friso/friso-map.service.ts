@@ -82,10 +82,7 @@ export class FrisoMapService extends OpenlayersMapService {
     const mainMapStyle = new MainMapStyle(parameters$);
 
     const networkLayers = [
-      NetworkVectorTileLayer.build(
-        NetworkType.hiking,
-        mainMapStyle.styleFunction()
-      ),
+      NetworkVectorTileLayer.build(NetworkType.hiking, mainMapStyle.styleFunction()),
       NetworkBitmapTileLayer.build(NetworkType.hiking, 'analysis'),
     ];
     registry.registerAll([], networkLayers, true);
@@ -128,14 +125,10 @@ export class FrisoMapService extends OpenlayersMapService {
       hitTolerance: 10,
     });
     if (features) {
-      const index = features.findIndex(
-        (feature) => !!feature.get('distance closest node')
-      );
+      const index = features.findIndex((feature) => !!feature.get('distance closest node'));
       if (index >= 0) {
         const name = features[index].get('rwn_ref');
-        const distanceClosestNode = features[index].get(
-          'distance closest node'
-        );
+        const distanceClosestNode = features[index].get('distance closest node');
         const node = new FrisoNode(name, Math.round(+distanceClosestNode));
         this.store.dispatch(actionFrisoNodeClicked({ node }));
         return false; // do not propagate event
@@ -150,8 +143,7 @@ export class FrisoMapService extends OpenlayersMapService {
     });
     if (features && features.length > 0) {
       const index = features.findIndex((feature) => !!feature.get('rwn_ref'));
-      evt.map.getTargetElement().style.cursor =
-        index >= 0 ? 'pointer' : 'default';
+      evt.map.getTargetElement().style.cursor = index >= 0 ? 'pointer' : 'default';
     }
     return true; // propagate event
   }

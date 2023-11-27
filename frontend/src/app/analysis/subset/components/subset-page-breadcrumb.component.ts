@@ -27,33 +27,16 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
         </a>
       </li>
       <li>
-        <span
-          *ngIf="pageName === 'networks'"
-          i18n="@@subset-page.menu.networks"
-        >
-          Networks
-        </span>
-        <span *ngIf="pageName === 'facts'" i18n="@@subset-page.menu.facts">
-          Facts
-        </span>
-        <span
-          *ngIf="pageName === 'orphan-nodes'"
-          i18n="@@subset-page.menu.orphan-nodes"
-        >
+        <span *ngIf="pageName === 'networks'" i18n="@@subset-page.menu.networks"> Networks </span>
+        <span *ngIf="pageName === 'facts'" i18n="@@subset-page.menu.facts"> Facts </span>
+        <span *ngIf="pageName === 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">
           Orphan nodes
         </span>
-        <span
-          *ngIf="pageName === 'orphan-routes'"
-          i18n="@@subset-page.menu.orphan-routes"
-        >
+        <span *ngIf="pageName === 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">
           Free routes
         </span>
-        <span *ngIf="pageName === 'map'" i18n="@@subset-page.menu.map">
-          Map
-        </span>
-        <span *ngIf="pageName === 'changes'" i18n="@@subset-page.menu.changes">
-          Changes
-        </span>
+        <span *ngIf="pageName === 'map'" i18n="@@subset-page.menu.map"> Map </span>
+        <span *ngIf="pageName === 'changes'" i18n="@@subset-page.menu.changes"> Changes </span>
       </li>
     </ul>
   `,

@@ -37,9 +37,7 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
 export class PlanResultComponent implements OnInit {
   readonly compact = this.store.selectSignal(selectPlannerResultModeCompact);
   readonly detailed = this.store.selectSignal(selectPlannerResultModeDetailed);
-  readonly instructions = this.store.selectSignal(
-    selectPlannerResultModeInstructions
-  );
+  readonly instructions = this.store.selectSignal(selectPlannerResultModeInstructions);
   plan$: Observable<Plan>;
 
   constructor(

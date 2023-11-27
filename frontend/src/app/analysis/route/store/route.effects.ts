@@ -81,8 +81,7 @@ export class RouteEffects {
       ofType(actionRouteDetailsPageLoaded),
       concatLatestFrom(() => this.store.select(selectRouteNetworkType)),
       map(([response, currentNetworkType]) => {
-        const networkType =
-          response?.result?.route.summary.networkType ?? currentNetworkType;
+        const networkType = response?.result?.route.summary.networkType ?? currentNetworkType;
         return actionPreferencesNetworkType({ networkType });
       })
     );
@@ -97,8 +96,7 @@ export class RouteEffects {
         this.store.select(selectQueryParam('position')),
       ]),
       map(([_, routeId, mapPositionString]) => {
-        const mapPositionFromUrl =
-          MapPosition.fromQueryParam(mapPositionString);
+        const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
         return actionRouteMapPageLoad({ routeId, mapPositionFromUrl });
       })
     );
@@ -127,8 +125,7 @@ export class RouteEffects {
       ofType(actionRouteMapPageLoaded),
       concatLatestFrom(() => this.store.select(selectRouteNetworkType)),
       map(([{ response }, currentNetworkType]) => {
-        const networkType =
-          response?.result?.routeMapInfo.networkType ?? currentNetworkType;
+        const networkType = response?.result?.routeMapInfo.networkType ?? currentNetworkType;
         return actionPreferencesNetworkType({ networkType });
       })
     );
@@ -144,10 +141,7 @@ export class RouteEffects {
           this.store.select(selectRouteMapPositionFromUrl),
         ]),
         map(([_, response, mapPositionFromUrl]) => {
-          this.routeMapService.init(
-            response.result.routeMapInfo,
-            mapPositionFromUrl
-          );
+          this.routeMapService.init(response.result.routeMapInfo, mapPositionFromUrl);
         })
       );
     },
@@ -166,23 +160,15 @@ export class RouteEffects {
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
       ]),
-      map(
-        ([
-          _,
-          routeParams,
-          queryParams,
+      map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
+        const pageParams = new PageParams(routeParams, queryParams);
+        const routeId = pageParams.routeId();
+        const changesParameters = pageParams.changesParameters(
           preferencesImpact,
-          preferencesPageSize,
-        ]) => {
-          const pageParams = new PageParams(routeParams, queryParams);
-          const routeId = pageParams.routeId();
-          const changesParameters = pageParams.changesParameters(
-            preferencesImpact,
-            preferencesPageSize
-          );
-          return actionRouteChangesPageLoad({ routeId, changesParameters });
-        }
-      )
+          preferencesPageSize
+        );
+        return actionRouteChangesPageLoad({ routeId, changesParameters });
+      })
     );
   });
 
@@ -236,8 +222,7 @@ export class RouteEffects {
       ofType(actionRouteChangesPageLoaded),
       concatLatestFrom(() => this.store.select(selectRouteNetworkType)),
       map(([response, currentNetworkType]) => {
-        const networkType =
-          response?.result?.routeNameInfo.networkType ?? currentNetworkType;
+        const networkType = response?.result?.routeNameInfo.networkType ?? currentNetworkType;
         return actionPreferencesNetworkType({ networkType });
       })
     );

@@ -8,10 +8,7 @@ import { PlannerState } from './planner-state';
 
 export const actionPlannerInit = createAction('[Planner] Init');
 
-export const actionPlannerLoad = createAction(
-  '[Planner] Load',
-  props<{ state: PlannerState }>()
-);
+export const actionPlannerLoad = createAction('[Planner] Load', props<{ state: PlannerState }>());
 
 export const actionPlannerMapViewInit = createAction('[Planner] MapViewInit');
 

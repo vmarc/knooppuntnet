@@ -53,12 +53,7 @@ import { NetworkNodesService } from './network-nodes.service';
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th
-          [attr.rowspan]="2"
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.nr"
-        >
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.nr">
           Nr
         </th>
         <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
@@ -83,29 +78,16 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <th
-          [attr.rowspan]="2"
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.node"
-        >
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.node">
           Node
         </th>
         <td mat-cell *matCellDef="let node">
-          <kpn-link-node
-            [nodeId]="node.detail.id"
-            [nodeName]="node.detail.name"
-          />
+          <kpn-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th
-          [attr.rowspan]="2"
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.name"
-        >
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.name">
           Name
         </th>
         <td mat-cell *matCellDef="let node">
@@ -114,11 +96,7 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="routes-expected">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.routes.expected"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.expected">
           Expected
         </th>
         <td mat-cell *matCellDef="let node">
@@ -127,13 +105,7 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="routes-actual">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.routes.actual"
-        >
-          Actual
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">Actual</th>
         <td mat-cell *matCellDef="let node">
           <kpn-network-node-routes [node]="node" />
         </td>
@@ -182,10 +154,7 @@ import { NetworkNodesService } from './network-nodes.service';
 
       <tr mat-header-row *matHeaderRowDef="headerColumns1$ | async"></tr>
       <tr mat-header-row *matHeaderRowDef="headerColumns2$ | async"></tr>
-      <tr
-        mat-row
-        *matRowDef="let node; columns: displayedColumns$ | async"
-      ></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async"></tr>
     </table>
 
     <!--    <kpn-paginator-->
@@ -241,15 +210,9 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     private editService: EditService,
     private store: Store
   ) {
-    this.headerColumns1$ = pageWidthService.current$.pipe(
-      map(() => this.headerColumns1())
-    );
-    this.headerColumns2$ = pageWidthService.current$.pipe(
-      map(() => this.headerColumns2())
-    );
-    this.displayedColumns$ = pageWidthService.current$.pipe(
-      map(() => this.displayedColumns())
-    );
+    this.headerColumns1$ = pageWidthService.current$.pipe(map(() => this.headerColumns1()));
+    this.headerColumns2$ = pageWidthService.current$.pipe(map(() => this.headerColumns2()));
+    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
   }
 
   ngOnInit(): void {
@@ -270,9 +233,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
         delay(0)
       )
       .subscribe((filter) => {
-        this.networkNodesService.setFilterOptions(
-          filter.filterOptions(this.nodes)
-        );
+        this.networkNodesService.setFilterOptions(filter.filterOptions(this.nodes));
       });
   }
 
@@ -285,9 +246,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   expectedRouteCount(node: NetworkNodeRow): string {
-    return node.detail.expectedRouteCount
-      ? node.detail.expectedRouteCount.toString()
-      : '-';
+    return node.detail.expectedRouteCount ? node.detail.expectedRouteCount.toString() : '-';
   }
 
   onPageSizeChange(pageSize: number) {
@@ -295,9 +254,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   edit(): void {
-    const nodeIds = Util.currentPageItems(this.dataSource).map(
-      (node) => node.detail.id
-    );
+    const nodeIds = Util.currentPageItems(this.dataSource).map((node) => node.detail.id);
     this.editService.edit({
       nodeIds,
     });
@@ -326,15 +283,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
 
   private headerColumns1() {
     if (this.pageWidthService.isVeryLarge()) {
-      return [
-        'nr',
-        'analysis',
-        'node',
-        'name',
-        'routes',
-        'last-survey',
-        'last-edit',
-      ];
+      return ['nr', 'analysis', 'node', 'name', 'routes', 'last-survey', 'last-edit'];
     }
 
     if (this.pageWidthService.isLarge()) {
@@ -345,10 +294,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   private headerColumns2() {
-    if (
-      this.pageWidthService.isVeryLarge() ||
-      this.pageWidthService.isLarge()
-    ) {
+    if (this.pageWidthService.isVeryLarge() || this.pageWidthService.isLarge()) {
       return ['routes-expected', 'routes-actual'];
     }
     return [];

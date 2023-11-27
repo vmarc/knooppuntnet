@@ -11,8 +11,8 @@ import { MarkdownModule } from 'ngx-markdown';
   template: `
     <markdown>
       <ng-container i18n="@@fact.description.route-unexpected-relation">
-        The route relation contains one or more unexpected relation members. In
-        route relations we expect only members of type *"way"* and *"node"*:
+        The route relation contains one or more unexpected relation members. In route relations we
+        expect only members of type *"way"* and *"node"*:
       </ng-container>
       <span class="kpn-sentence">
         <span class="kpn-comma-list">

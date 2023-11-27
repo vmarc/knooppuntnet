@@ -17,13 +17,8 @@ import { TagDiffsComponent } from '../tag-diffs.component';
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
-        <span class="kpn-label" i18n="@@route-change.way-update.title"
-          >Updated way</span
-        >
-        <kpn-osm-link-way
-          [wayId]="wayUpdate.id"
-          [title]="wayUpdate.id.toString()"
-        />
+        <span class="kpn-label" i18n="@@route-change.way-update.title">Updated way</span>
+        <kpn-osm-link-way [wayId]="wayUpdate.id" [title]="wayUpdate.id.toString()" />
       </div>
 
       <div class="kpn-level-4-body">
@@ -61,9 +56,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
         </div>
 
         <div *ngIf="wayUpdate.addedNodes.length > 0" class="kpn-detail">
-          <span class="kpn-label" i18n="@@route-change.way-update.added-nodes"
-            >Added node(s)</span
-          >
+          <span class="kpn-label" i18n="@@route-change.way-update.added-nodes">Added node(s)</span>
           <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)" />
         </div>
 
@@ -81,13 +74,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
     </div>
   `,
   standalone: true,
-  imports: [
-    MetaDataComponent,
-    NgIf,
-    NodeListComponent,
-    OsmLinkWayComponent,
-    TagDiffsComponent,
-  ],
+  imports: [MetaDataComponent, NgIf, NodeListComponent, OsmLinkWayComponent, TagDiffsComponent],
 })
 export class RouteChangeWayUpdatedComponent {
   @Input() wayUpdate: WayUpdate;

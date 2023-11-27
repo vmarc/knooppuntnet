@@ -17,11 +17,7 @@ import { PlannerDragFlag } from '../planner-drag-flag';
 export class DropViaNodeOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
-  drop(
-    dragFlag: PlannerDragFlag,
-    routeFeatures: List<RouteFeature>,
-    coordinate: Coordinate
-  ): void {
+  drop(dragFlag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
     const legs = this.context.plan.legs;
     const legIndex2 = legs.findIndex(
       (leg) => leg.sourceNode.featureId === dragFlag.oldNode.featureId
@@ -32,20 +28,10 @@ export class DropViaNodeOnRoute {
     this.buildNewLeg1(oldLeg1, routeFeatures, coordinate)
       .pipe(
         switchMap((newLeg1) =>
-          this.buildNewLeg2(
-            newLeg1.sinkNode,
-            oldLeg2.sinkNode,
-            oldLeg2.sinkFlag,
-            coordinate
-          ).pipe(
+          this.buildNewLeg2(newLeg1.sinkNode, oldLeg2.sinkNode, oldLeg2.sinkFlag, coordinate).pipe(
             map(
               (newLeg2) =>
-                new PlannerCommandMoveViaPointToViaRoute(
-                  oldLeg1,
-                  oldLeg2,
-                  newLeg1,
-                  newLeg2
-                )
+                new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2)
             )
           )
         )
@@ -66,16 +52,8 @@ export class DropViaNodeOnRoute {
   ): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+oldLeg1.sourceNode.nodeId);
     const sink = PlanUtil.legEndRoutes(routeFeatures.toArray());
-    const viaFlag = new PlanFlag(
-      PlanFlagType.via,
-      FeatureId.next(),
-      coordinate
-    );
-    const sinkFlag = new PlanFlag(
-      PlanFlagType.invisible,
-      FeatureId.next(),
-      coordinate
-    );
+    const viaFlag = new PlanFlag(PlanFlagType.via, FeatureId.next(), coordinate);
+    const sinkFlag = new PlanFlag(PlanFlagType.invisible, FeatureId.next(), coordinate);
 
     return this.context
       .fetchLeg(source, sink)
@@ -90,11 +68,7 @@ export class DropViaNodeOnRoute {
   ): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const viaFlag = new PlanFlag(
-      PlanFlagType.via,
-      FeatureId.next(),
-      coordinate
-    );
+    const viaFlag = new PlanFlag(PlanFlagType.via, FeatureId.next(), coordinate);
 
     return this.context
       .fetchLeg(source, sink)

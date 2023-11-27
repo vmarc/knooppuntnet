@@ -19,14 +19,8 @@ import { MapLayerTranslationService } from '../services';
   template: `
     <mat-menu #mapMenu="matMenu" class="map-control-menu">
       <ng-template matMenuContent>
-        <div
-          *ngIf="layerStates$ | async as layerStates"
-          (click)="$event.stopPropagation()"
-        >
-          <div
-            *ngFor="let layerState of layerStates"
-            [hidden]="!layerState.enabled"
-          >
+        <div *ngIf="layerStates$ | async as layerStates" (click)="$event.stopPropagation()">
+          <div *ngFor="let layerState of layerStates" [hidden]="!layerState.enabled">
             <mat-checkbox
               (click)="$event.stopPropagation()"
               [checked]="layerState.visible"
@@ -43,10 +37,7 @@ import { MapLayerTranslationService } from '../services';
       </ng-template>
     </mat-menu>
 
-    <div
-      class="ol-control map-control map-layers-control"
-      (click)="openPopupMenu()"
-    >
+    <div class="ol-control map-control map-layers-control" (click)="openPopupMenu()">
       <button
         [matMenuTriggerFor]="mapMenu"
         title="select the layers displayed in the map"
@@ -87,10 +78,7 @@ export class LayerSwitcherComponent {
     this.trigger.openMenu();
   }
 
-  layerVisibleChanged(
-    layerState: MapLayerState,
-    event: MatCheckboxChange
-  ): void {
+  layerVisibleChanged(layerState: MapLayerState, event: MatCheckboxChange): void {
     const change: MapLayerState = {
       ...layerState,
       visible: event.checked,

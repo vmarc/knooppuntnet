@@ -16,9 +16,7 @@ export class IntegerFormatPipe implements PipeTransform {
       if (this.locale === 'fr') {
         thousandsSeparator = ' ';
       }
-      return value
-        .toString()
-        .replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
     }
     return '';
   }

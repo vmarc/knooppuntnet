@@ -39,9 +39,7 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
-          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis"
-            >Analysis</a
-          >
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
         <li i18n="@@breadcrumb.route-changes">Route changes</li>
       </ul>
@@ -55,19 +53,13 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
       />
 
       <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div
-          *ngIf="!response.result; else routeFound"
-          i18n="@@route.route-not-found"
-        >
+        <div *ngIf="!response.result; else routeFound" i18n="@@route.route-not-found">
           Route not found
         </div>
         <ng-template #routeFound>
-          <div
-            *ngIf="loggedIn() === false; else changes"
-            i18n="@@route-changes.login-required"
-          >
-            The details of the route changes history is available to registered
-            OpenStreetMap contributors only, after
+          <div *ngIf="loggedIn() === false; else changes" i18n="@@route-changes.login-required">
+            The details of the route changes history is available to registered OpenStreetMap
+            contributors only, after
             <kpn-link-login></kpn-link-login>
             .
           </div>

@@ -40,9 +40,7 @@ export class RouteLayers {
 
   private buildFreePathsLayers(): MapLayer[] {
     return this.routeMap.freePaths.map((path) => {
-      const translatedTitle = this.i18nService.translation(
-        '@@map.layer.free-path'
-      );
+      const translatedTitle = this.i18nService.translation('@@map.layer.free-path');
       const name = `${translatedTitle} ${path.pathId}`;
       const source = new VectorSource();
       const layer = new VectorLayer({ source });
@@ -120,9 +118,7 @@ export class RouteLayers {
         source,
       });
       segments.forEach((segment) => {
-        source.addFeature(
-          this.segmentToFeature(name, [255, 0, 0, 0.3], segment)
-        );
+        source.addFeature(this.segmentToFeature(name, [255, 0, 0, 0.3], segment));
       });
       return MapLayer.simpleLayer(name, layer);
     }
@@ -130,21 +126,13 @@ export class RouteLayers {
   }
 
   private buildMarkerLayer(): MapLayer {
-    const freeNodeMarkers = this.buildMarkers(
-      this.routeMap.freeNodes,
-      'blue',
-      '@@map.free-node'
-    );
+    const freeNodeMarkers = this.buildMarkers(this.routeMap.freeNodes, 'blue', '@@map.free-node');
     const startNodeMarkers = this.buildMarkers(
       this.routeMap.startNodes,
       'green',
       '@@map.start-node'
     );
-    const endNodeMarkers = this.buildMarkers(
-      this.routeMap.endNodes,
-      'red',
-      '@@map.end-node'
-    );
+    const endNodeMarkers = this.buildMarkers(this.routeMap.endNodes, 'red', '@@map.end-node');
     const startTentacleNodeMarkers = this.buildMarkers(
       this.routeMap.startTentacleNodes,
       'orange',
@@ -193,31 +181,19 @@ export class RouteLayers {
     });
   }
 
-  private pathToFeature(
-    title: string,
-    color: Color,
-    path: TrackPath
-  ): Feature<Geometry> {
+  private pathToFeature(title: string, color: Color, path: TrackPath): Feature<Geometry> {
     const trackPointArray: Array<TrackPoint> = [];
     trackPointArray.push(path.segments[0].source);
     path.segments.forEach((segment) => {
-      segment.fragments.forEach((fragment) =>
-        trackPointArray.push(fragment.trackPoint)
-      );
+      segment.fragments.forEach((fragment) => trackPointArray.push(fragment.trackPoint));
     });
     const trackPoints = List(trackPointArray);
     return this.trackPointsToFeature(title, color, trackPoints);
   }
 
-  private segmentToFeature(
-    title: string,
-    color: Color,
-    segment: TrackSegment
-  ): Feature<Geometry> {
+  private segmentToFeature(title: string, color: Color, segment: TrackSegment): Feature<Geometry> {
     let trackPoints = List<TrackPoint>([segment.source]);
-    trackPoints = trackPoints.concat(
-      segment.fragments.map((fragment) => fragment.trackPoint)
-    );
+    trackPoints = trackPoints.concat(segment.fragments.map((fragment) => fragment.trackPoint));
     return this.trackPointsToFeature(title, color, trackPoints);
   }
 

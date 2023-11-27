@@ -58,9 +58,7 @@ import { NetworkMapComponent } from './network-map.component';
 export class NetworkMapPageComponent implements OnInit, OnDestroy {
   readonly networkId = this.store.selectSignal(selectNetworkId);
   readonly apiResponse = this.store.selectSignal(selectNetworkMapPage);
-  readonly mapPositionFromUrl = this.store.selectSignal(
-    selectNetworkMapPositionFromUrl
-  );
+  readonly mapPositionFromUrl = this.store.selectSignal(selectNetworkMapPositionFromUrl);
 
   constructor(private store: Store) {}
 

@@ -67,17 +67,13 @@ export class PlannerMapService extends OpenlayersMapService {
   ];
 
   private overlay: Overlay;
-  private readonly interaction = new PlannerInteraction(
-    this.plannerService.engine
-  );
+  private readonly interaction = new PlannerInteraction(this.plannerService.engine);
 
   private parameters$: Observable<MainMapStyleParameters> = combineLatest([
     this.store.select(selectPlannerMapMode),
     this.store.select(selectPreferencesShowProposed),
     this.mapService.highlightedRouteId$,
-    this.store
-      .select(selectSharedSurveyDateInfo)
-      .pipe(filter((x) => x !== null)),
+    this.store.select(selectSharedSurveyDateInfo).pipe(filter((x) => x !== null)),
   ]).pipe(
     map(([mapMode, showProposed, highlightedRouteId, surveyDateValues]) => {
       const selectedRouteId = '';
@@ -196,16 +192,12 @@ export class PlannerMapService extends OpenlayersMapService {
     this.subcriptions.add(
       this.mapPosition$
         .pipe(skip(1))
-        .subscribe((mapPosition) =>
-          this.store.dispatch(actionPlannerPosition({ mapPosition }))
-        )
+        .subscribe((mapPosition) => this.store.dispatch(actionPlannerPosition({ mapPosition })))
     );
     this.subcriptions.add(
       this.layerStates$
         .pipe(skip(1))
-        .subscribe((layerStates) =>
-          this.store.dispatch(actionPlannerLayerStates({ layerStates }))
-        )
+        .subscribe((layerStates) => this.store.dispatch(actionPlannerLayerStates({ layerStates })))
     );
   }
 
@@ -238,10 +230,7 @@ export class PlannerMapService extends OpenlayersMapService {
     }
   }
 
-  plannerUpdateLayerVisibility(
-    networkType: NetworkType,
-    mapMode: MapMode
-  ): void {
+  plannerUpdateLayerVisibility(networkType: NetworkType, mapMode: MapMode): void {
     const layerStates: MapLayerState[] = this.layerStates;
     const zoom = this.mapPosition.zoom;
 
@@ -261,11 +250,7 @@ export class PlannerMapService extends OpenlayersMapService {
           visible = false;
         } else {
           visible = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
-          if (
-            visible &&
-            mapLayer.id.includes('vector') &&
-            mapLayer.layer.getVisible()
-          ) {
+          if (visible && mapLayer.id.includes('vector') && mapLayer.layer.getVisible()) {
             mapLayer.layer.changed();
           }
         }
@@ -300,10 +285,7 @@ export class PlannerMapService extends OpenlayersMapService {
     });
   }
 
-  private registerLayers(
-    networkType: NetworkType,
-    urlLayerNames: string[]
-  ): MapLayerState[] {
+  private registerLayers(networkType: NetworkType, urlLayerNames: string[]): MapLayerState[] {
     const registry = new MapLayerRegistry();
     registry.register(urlLayerNames, BackgroundLayer.build(), true);
     registry.register(urlLayerNames, OsmLayer.build(), false);
@@ -340,12 +322,7 @@ export class PlannerMapService extends OpenlayersMapService {
 
     registry.register(urlLayerNames, TileDebug256Layer.build(), false);
     registry.register(urlLayerNames, TileDebug512Layer.build(), false);
-    registry.register(
-      urlLayerNames,
-      this.poiTileLayerService.buildLayer(),
-      true,
-      false
-    );
+    registry.register(urlLayerNames, this.poiTileLayerService.buildLayer(), true, false);
 
     this.register(registry);
     return registry.layerStates;
@@ -353,16 +330,8 @@ export class PlannerMapService extends OpenlayersMapService {
 
   private flandersOpenDataHikingLayers(): MapLayer[] {
     return [
-      new OpendataBitmapTileLayer().build(
-        NetworkType.hiking,
-        'flanders-hiking',
-        'flanders/hiking'
-      ),
-      new OpendataVectorTileLayer().build(
-        NetworkType.hiking,
-        'flanders-hiking',
-        'flanders/hiking'
-      ),
+      new OpendataBitmapTileLayer().build(NetworkType.hiking, 'flanders-hiking', 'flanders/hiking'),
+      new OpendataVectorTileLayer().build(NetworkType.hiking, 'flanders-hiking', 'flanders/hiking'),
     ];
   }
 
@@ -401,10 +370,7 @@ export class PlannerMapService extends OpenlayersMapService {
       NetworkBitmapTileLayer.build(networkType, 'surface'),
       NetworkBitmapTileLayer.build(networkType, 'survey'),
       NetworkBitmapTileLayer.build(networkType, 'analysis'),
-      NetworkVectorTileLayer.build(
-        networkType,
-        this.networkVectorLayerStyle.styleFunction()
-      ),
+      NetworkVectorTileLayer.build(networkType, this.networkVectorLayerStyle.styleFunction()),
     ];
   }
 
@@ -423,9 +389,7 @@ export class PlannerMapService extends OpenlayersMapService {
     const positionParam = queryParams['position'];
     let position = MapPosition.fromQueryParam(positionParam);
     if (!position) {
-      const mapPositionString = this.browserStorageService.get(
-        this.plannerPositionKey
-      );
+      const mapPositionString = this.browserStorageService.get(this.plannerPositionKey);
       if (mapPositionString) {
         position = MapPosition.fromQueryParam(mapPositionString);
       } else {

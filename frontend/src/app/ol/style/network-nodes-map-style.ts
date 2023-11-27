@@ -66,9 +66,7 @@ export class NetworkNodesMapStyle {
       }
       return style;
     }
-    return this.networkNodeIds.includes(nodeId)
-      ? this.smallNodeStyle
-      : this.smallNodeStyleGray;
+    return this.networkNodeIds.includes(nodeId) ? this.smallNodeStyle : this.smallNodeStyleGray;
   }
 
   private buildRouteStyle(feature: FeatureLike, resolution: number): Style {

@@ -29,9 +29,7 @@ export class PlanPrinter {
 
   private node(planNode: PlanNode): string {
     if (planNode) {
-      return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(
-        planNode.coordinate
-      )}`;
+      return `${planNode.nodeName}/${planNode.nodeId} ${this.out.coordinate(planNode.coordinate)}`;
     }
     return 'none';
   }

@@ -107,9 +107,7 @@ export class SubsetEffects {
     return this.actions$.pipe(
       ofType(actionSubsetFactRefsLoad),
       concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([action, subset]) =>
-        this.apiService.subsetFactRefs(subset, action.fact)
-      ),
+      mergeMap(([action, subset]) => this.apiService.subsetFactRefs(subset, action.fact)),
       map((response) => actionSubsetFactRefsLoaded(response))
     );
   });
@@ -164,10 +162,7 @@ export class SubsetEffects {
     return this.actions$.pipe(
       ofType(actionSubsetFactDetailsPageLoad),
       mergeMap((action) =>
-        this.apiService.subsetFactDetails(
-          action.subsetFact.subset,
-          action.subsetFact.factName
-        )
+        this.apiService.subsetFactDetails(action.subsetFact.subset, action.subsetFact.factName)
       ),
       map((response) => actionSubsetFactDetailsPageLoaded(response))
     );
@@ -243,10 +238,7 @@ export class SubsetEffects {
         ofType(actionSubsetMapViewInit),
         concatLatestFrom(() => [this.store.select(selectSubsetMapPage)]),
         tap(([_, response]) =>
-          this.subsetMapService.init(
-            response.result.networks,
-            response.result.bounds
-          )
+          this.subsetMapService.init(response.result.networks, response.result.bounds)
         )
       );
     },
@@ -262,9 +254,7 @@ export class SubsetEffects {
         ofType(actionSubsetMapPageNetworkClicked),
         concatLatestFrom(() => [this.store.select(selectSubsetMapPage)]),
         tap(([{ networkId }, response]) => {
-          const network = response.result.networks.find(
-            (n) => n.id === networkId
-          );
+          const network = response.result.networks.find((n) => n.id === networkId);
           if (network) {
             this.dialog.open(SubsetMapNetworkDialogComponent, {
               data: network,
@@ -290,23 +280,15 @@ export class SubsetEffects {
         this.store.select(selectPreferencesImpact),
         this.store.select(selectPreferencesPageSize),
       ]),
-      map(
-        ([
-          _,
-          routeParams,
-          queryParams,
+      map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
+        const pageParams = new PageParams(routeParams, queryParams);
+        const subset = pageParams.subset();
+        const changesParameters = pageParams.changesParameters(
           preferencesImpact,
-          preferencesPageSize,
-        ]) => {
-          const pageParams = new PageParams(routeParams, queryParams);
-          const subset = pageParams.subset();
-          const changesParameters = pageParams.changesParameters(
-            preferencesImpact,
-            preferencesPageSize
-          );
-          return actionSubsetChangesPageLoad({ subset, changesParameters });
-        }
-      )
+          preferencesPageSize
+        );
+        return actionSubsetChangesPageLoad({ subset, changesParameters });
+      })
     );
   });
 
@@ -345,9 +327,7 @@ export class SubsetEffects {
       mergeMap(([_, subset, changesParameters]) => {
         const promise = this.navigate(changesParameters);
         return from(promise).pipe(
-          mergeMap(() =>
-            this.apiService.subsetChanges(subset, changesParameters)
-          ),
+          mergeMap(() => this.apiService.subsetChanges(subset, changesParameters)),
           map((response) => actionSubsetChangesPageLoaded(response))
         );
       })

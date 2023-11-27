@@ -12,9 +12,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { props } from '@ngrx/store';
 import { createAction } from '@ngrx/store';
 
-export const actionNetworkDetailsPageInit = createAction(
-  '[NetworkDetailsPage] Init'
-);
+export const actionNetworkDetailsPageInit = createAction('[NetworkDetailsPage] Init');
 
 export const actionNetworkDetailsPageLoad = createAction(
   '[NetworkDetailsPage] Load',
@@ -30,13 +28,9 @@ export const actionNetworkDetailsPageLoaded = createAction(
   props<ApiResponse<NetworkDetailsPage>>()
 );
 
-export const actionNetworkDetailsPageDestroy = createAction(
-  '[NetworkDetailsPage] Destroy'
-);
+export const actionNetworkDetailsPageDestroy = createAction('[NetworkDetailsPage] Destroy');
 
-export const actionNetworkNodesPageInit = createAction(
-  '[NetworkNodesPage] Init'
-);
+export const actionNetworkNodesPageInit = createAction('[NetworkNodesPage] Init');
 
 export const actionNetworkNodesPageLoad = createAction(
   '[NetworkNodesPage] Load',
@@ -48,13 +42,9 @@ export const actionNetworkNodesPageLoaded = createAction(
   props<ApiResponse<NetworkNodesPage>>()
 );
 
-export const actionNetworkNodesPageDestroy = createAction(
-  '[NetworkNodesPage] Destroy'
-);
+export const actionNetworkNodesPageDestroy = createAction('[NetworkNodesPage] Destroy');
 
-export const actionNetworkRoutesPageInit = createAction(
-  '[NetworkRoutesPage] Init'
-);
+export const actionNetworkRoutesPageInit = createAction('[NetworkRoutesPage] Init');
 
 export const actionNetworkRoutesPageLoad = createAction(
   '[NetworkRoutesPage] Load',
@@ -66,13 +56,9 @@ export const actionNetworkRoutesPageLoaded = createAction(
   props<ApiResponse<NetworkRoutesPage>>()
 );
 
-export const actionNetworkRoutesPageDestroy = createAction(
-  '[NetworkRoutesPage] Destroy'
-);
+export const actionNetworkRoutesPageDestroy = createAction('[NetworkRoutesPage] Destroy');
 
-export const actionNetworkFactsPageInit = createAction(
-  '[NetworkFactsPage] Init'
-);
+export const actionNetworkFactsPageInit = createAction('[NetworkFactsPage] Init');
 
 export const actionNetworkFactsPageLoad = createAction(
   '[NetworkFactsPage] Load',
@@ -84,9 +70,7 @@ export const actionNetworkFactsPageLoaded = createAction(
   props<ApiResponse<NetworkFactsPage>>()
 );
 
-export const actionNetworkFactsPageDestroy = createAction(
-  '[NetworkFactsPage] Destroy'
-);
+export const actionNetworkFactsPageDestroy = createAction('[NetworkFactsPage] Destroy');
 
 export const actionNetworkMapPageInit = createAction('[NetworkMapPage] Init');
 
@@ -95,9 +79,7 @@ export const actionNetworkMapPageLoad = createAction(
   props<{ networkId: number; mapPositionFromUrl: NetworkMapPosition }>()
 );
 
-export const actionNetworkMapViewInit = createAction(
-  '[NetworkMapPage] ViewInit'
-);
+export const actionNetworkMapViewInit = createAction('[NetworkMapPage] ViewInit');
 
 export const actionNetworkMapPageLoaded = createAction(
   '[NetworkMapPage] Loaded',
@@ -107,13 +89,9 @@ export const actionNetworkMapPageLoaded = createAction(
   }>()
 );
 
-export const actionNetworkMapPageDestroy = createAction(
-  '[NetworkMapPage] Destroy'
-);
+export const actionNetworkMapPageDestroy = createAction('[NetworkMapPage] Destroy');
 
-export const actionNetworkChangesPageInit = createAction(
-  '[NetworkChangesPage] Init'
-);
+export const actionNetworkChangesPageInit = createAction('[NetworkChangesPage] Init');
 
 export const actionNetworkChangesPageLoad = createAction(
   '[NetworkChangesPage] Load',
@@ -125,9 +103,7 @@ export const actionNetworkChangesPageLoaded = createAction(
   props<ApiResponse<NetworkChangesPage>>()
 );
 
-export const actionNetworkChangesPageDestroy = createAction(
-  '[NetworkChangesPage] Destroy'
-);
+export const actionNetworkChangesPageDestroy = createAction('[NetworkChangesPage] Destroy');
 
 export const actionNetworkChangesPageSize = createAction(
   '[NetworkChangesPage] Page size',

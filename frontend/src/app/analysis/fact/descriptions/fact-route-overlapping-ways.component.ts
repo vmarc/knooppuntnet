@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-overlapping-ways">
-      No detailed route analysis is performed because the route contains
-      overlapping ways.
+      No detailed route analysis is performed because the route contains overlapping ways.
     </p>
   `,
   standalone: true,

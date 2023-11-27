@@ -17,9 +17,7 @@ import { PlanUtil } from './plan-util';
 
 export class PlanLegBuilder {
   static toPlanLeg2(routeLeg: RouteLeg): PlanLeg {
-    const routes = routeLeg.routes.map((routeLegRoute) =>
-      this.toPlanRoute(routeLegRoute)
-    );
+    const routes = routeLeg.routes.map((routeLegRoute) => this.toPlanRoute(routeLegRoute));
     const sourceNode = routes.get(0).sourceNode;
     const lastRoute: PlanRoute = routes.last();
     const sinkNode = lastRoute.sinkNode;
@@ -43,9 +41,7 @@ export class PlanLegBuilder {
   private static toPlanRoute(route: RouteLegRoute): PlanRoute {
     const source = this.toPlanNode(route.source);
     const sink = this.toPlanNode(route.sink);
-    const segments: List<PlanSegment> = route.segments.map((s) =>
-      this.toPlanSegment(s)
-    );
+    const segments: List<PlanSegment> = route.segments.map((s) => this.toPlanSegment(s));
     return {
       sourceNode: source,
       sinkNode: sink,

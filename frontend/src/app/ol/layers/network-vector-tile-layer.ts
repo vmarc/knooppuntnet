@@ -8,10 +8,7 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkVectorTileLayer {
-  public static oldBuild(
-    networkType: NetworkType,
-    styleFunction: StyleFunction
-  ): MapLayer {
+  public static oldBuild(networkType: NetworkType, styleFunction: StyleFunction): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -38,10 +35,7 @@ export class NetworkVectorTileLayer {
     );
   }
 
-  public static build(
-    networkType: NetworkType,
-    styleFunction: StyleFunction
-  ): MapLayer {
+  public static build(networkType: NetworkType, styleFunction: StyleFunction): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,

@@ -11,21 +11,14 @@ import { MatInputModule } from '@angular/material/input';
   template: `
     <div>
       <mat-form-field class="description">
-        <mat-label i18n="@@monitor.route.description.label"
-          >Description
-        </mat-label>
+        <mat-label i18n="@@monitor.route.description.label">Description </mat-label>
         <input matInput id="description" [formControl]="description" required />
       </mat-form-field>
 
-      @if (
-        description.invalid &&
-        (description.dirty || description.touched || ngForm.submitted)
-      ) {
+      @if (description.invalid && (description.dirty || description.touched || ngForm.submitted)) {
         <div class="kpn-form-error">
           @if (description.errors?.required) {
-            <div i18n="@@monitor.route.description.required">
-              Description is required.
-            </div>
+            <div i18n="@@monitor.route.description.required">Description is required.</div>
           }
 
           @if (description.errors?.maxlength) {

@@ -36,12 +36,9 @@ import { SubsetChangesSidebarComponent } from './subset-changes-sidebar.componen
       <kpn-error />
 
       <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p
-          *ngIf="loggedIn() === false; else changes"
-          i18n="@@subset-changes.login-required"
-        >
-          This details of the changes history are available to registered
-          OpenStreetMap contributors only, after
+        <p *ngIf="loggedIn() === false; else changes" i18n="@@subset-changes.login-required">
+          This details of the changes history are available to registered OpenStreetMap contributors
+          only, after
           <kpn-link-login />
           .
         </p>

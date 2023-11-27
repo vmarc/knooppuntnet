@@ -20,11 +20,7 @@ export class RouteLegSegment {
       jsonObject.surface,
       jsonObject.colour,
       jsonObject.fragments
-        ? List(
-            jsonObject.fragments.map((json: any) =>
-              RouteLegFragment.fromJSON(json)
-            )
-          )
+        ? List(jsonObject.fragments.map((json: any) => RouteLegFragment.fromJSON(json)))
         : List()
     );
   }

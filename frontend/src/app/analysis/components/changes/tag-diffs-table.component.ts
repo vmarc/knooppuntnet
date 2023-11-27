@@ -12,11 +12,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
     <div *ngIf="!!tagDiffs">
       <div class="title"></div>
 
-      <table
-        class="kpn-table"
-        title="Tag differences"
-        i18n-title="@@tag-diffs.table"
-      >
+      <table class="kpn-table" title="Tag differences" i18n-title="@@tag-diffs.table">
         <thead>
           <tr>
             <th></th>
@@ -74,8 +70,6 @@ export class TagDiffsTableComponent {
   @Input() tagDiffs: TagDiffs;
 
   hasSeparator(): boolean {
-    return (
-      this.tagDiffs.mainTags.length > 0 && this.tagDiffs.extraTags.length > 0
-    );
+    return this.tagDiffs.mainTags.length > 0 && this.tagDiffs.extraTags.length > 0;
   }
 }

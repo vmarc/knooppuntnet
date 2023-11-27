@@ -27,12 +27,6 @@ export class FrisoLayer {
       style: (feature) => style,
     });
 
-    return new MapLayer(
-      `friso-${name}-layer`,
-      name,
-      -Infinity,
-      Infinity,
-      layer
-    );
+    return new MapLayer(`friso-${name}-layer`, name, -Infinity, Infinity, layer);
   }
 }

@@ -25,8 +25,7 @@ export class MonitorGroupPageService {
     }));
 
     this.monitorService.group(groupName).subscribe((response) => {
-      const groupDescription =
-        response.result?.groupDescription ?? this.state().groupDescription;
+      const groupDescription = response.result?.groupDescription ?? this.state().groupDescription;
       this._state.update((state) => ({
         ...state,
         groupDescription,

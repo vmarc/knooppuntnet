@@ -9,8 +9,7 @@ export class LocationUrlMatcher {
     group: UrlSegmentGroup,
     route: Route
   ): UrlMatchResult {
-    const networkType =
-      /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(dk)/;
     const detail = /(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
@@ -43,11 +42,9 @@ export class LocationUrlMatcher {
     group: UrlSegmentGroup,
     route: Route
   ): UrlMatchResult {
-    const networkType =
-      /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
-    const target =
-      /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
+    const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (
       segments.length === 3 &&

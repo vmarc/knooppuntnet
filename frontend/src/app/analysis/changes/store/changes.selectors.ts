@@ -4,8 +4,7 @@ import { createFeatureSelector } from '@ngrx/store';
 import { changesFeatureKey } from './changes.state';
 import { ChangesState } from './changes.state';
 
-export const selectChangesState =
-  createFeatureSelector<ChangesState>(changesFeatureKey);
+export const selectChangesState = createFeatureSelector<ChangesState>(changesFeatureKey);
 
 export const selectChangesPage = createSelector(
   selectChangesState,

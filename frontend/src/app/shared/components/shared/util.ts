@@ -49,14 +49,8 @@ export class Util {
   public static toExtent(bounds: Bounds, delta: number): Extent {
     const latDelta = (bounds.maxLat - bounds.minLat) * delta;
     const lonDelta = (bounds.maxLon - bounds.minLon) * delta;
-    const southWest = fromLonLat([
-      bounds.minLon - lonDelta,
-      bounds.minLat - latDelta,
-    ]);
-    const northEast = fromLonLat([
-      bounds.maxLon + lonDelta,
-      bounds.maxLat + latDelta,
-    ]);
+    const southWest = fromLonLat([bounds.minLon - lonDelta, bounds.minLat - latDelta]);
+    const northEast = fromLonLat([bounds.maxLon + lonDelta, bounds.maxLat + latDelta]);
     return boundingExtent([southWest, northEast]);
   }
 
@@ -69,10 +63,7 @@ export class Util {
   }
 
   static hasTagDiffs(tagDiffs: TagDiffs): boolean {
-    return (
-      tagDiffs &&
-      (tagDiffs.mainTags.length > 0 || tagDiffs.extraTags.length > 0)
-    );
+    return tagDiffs && (tagDiffs.mainTags.length > 0 || tagDiffs.extraTags.length > 0);
   }
 
   static twoDigits(value: number): string {
@@ -81,14 +72,10 @@ export class Util {
 
   static paramsIn(routeSnapshot: ActivatedRouteSnapshot): Map<string, string> {
     let route = routeSnapshot;
-    let params = Map(
-      Object.keys(route.params).map((key) => [key, route.params[key]])
-    );
+    let params = Map(Object.keys(route.params).map((key) => [key, route.params[key]]));
     while (route.firstChild) {
       route = route.firstChild;
-      Object.keys(route.params).forEach(
-        (key) => (params = params.set(key, route.params[key]))
-      );
+      Object.keys(route.params).forEach((key) => (params = params.set(key, route.params[key])));
     }
     return params;
   }

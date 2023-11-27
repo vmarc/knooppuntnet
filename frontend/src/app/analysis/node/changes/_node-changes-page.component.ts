@@ -39,9 +39,7 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
-          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis"
-            >Analysis</a
-          >
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
         <li i18n="@@breadcrumb.node-changes">Node changes</li>
       </ul>
@@ -56,12 +54,7 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
       <kpn-error />
 
       <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p
-          *ngIf="!response.result; else nodeFound"
-          i18n="@@node.node-not-found"
-        >
-          Node not found
-        </p>
+        <p *ngIf="!response.result; else nodeFound" i18n="@@node.node-not-found">Node not found</p>
 
         <ng-template #nodeFound>
           <div
@@ -69,8 +62,8 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
             i18n="@@node.login-required"
             class="kpn-spacer-above"
           >
-            The details of the node changes history is available to registered
-            OpenStreetMap contributors only, after
+            The details of the node changes history is available to registered OpenStreetMap
+            contributors only, after
             <kpn-link-login></kpn-link-login>
             .
           </div>
@@ -78,9 +71,7 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
           <ng-template #changes>
             <div *ngIf="response.result as page">
               <p>
-                <kpn-situation-on
-                  [timestamp]="response.situationOn"
-                ></kpn-situation-on>
+                <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
               </p>
               <kpn-changes
                 [impact]="impact()"

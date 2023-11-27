@@ -40,8 +40,6 @@ export class MonitorRouteDeletePageService {
     const groupName = this.state().groupName;
     const routeName = this.state().routeName;
     const url = `/monitor/groups/${groupName}`;
-    this.monitorService
-      .routeDelete(groupName, routeName)
-      .subscribe(() => this.navService.go(url));
+    this.monitorService.routeDelete(groupName, routeName).subscribe(() => this.navService.go(url));
   }
 }

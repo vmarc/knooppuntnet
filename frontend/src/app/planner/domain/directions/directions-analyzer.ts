@@ -33,16 +33,13 @@ export class DirectionsAnalyzer {
               let command = 'continue';
               if (this.previousFragment == null) {
                 this.newInstruction();
-                this.setInstructionHeading(
-                  this.calculateHeading(fragment.orientation)
-                );
+                this.setInstructionHeading(this.calculateHeading(fragment.orientation));
                 this.setInstructionStreet(street);
                 this.setInstructionCommand(command);
                 this.addInstructionDistance(fragment.meters);
                 this.pushInstruction();
               } else {
-                const delta =
-                  fragment.orientation - this.previousFragment.orientation;
+                const delta = fragment.orientation - this.previousFragment.orientation;
                 command = this.calculateCommand(delta);
                 if (
                   this.isDifferentStreet(this.previousStreet, street) ||
@@ -74,14 +71,7 @@ export class DirectionsAnalyzer {
   }
 
   private newInstruction(): void {
-    this.currentInstruction = new PlanInstruction(
-      null,
-      null,
-      null,
-      null,
-      0,
-      null
-    );
+    this.currentInstruction = new PlanInstruction(null, null, null, null, 0, null);
   }
 
   private addColourInstruction(colour: string): void {
@@ -90,14 +80,7 @@ export class DirectionsAnalyzer {
   }
 
   private addNodeInstruction(nodeName: string): void {
-    const instruction = new PlanInstruction(
-      nodeName,
-      null,
-      null,
-      null,
-      null,
-      null
-    );
+    const instruction = new PlanInstruction(nodeName, null, null, null, null, null);
     this.addInstruction(instruction);
   }
 

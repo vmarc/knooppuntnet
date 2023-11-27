@@ -28,10 +28,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
             <span class="kpn-thin">{{ i + 1 }}</span>
           </td>
           <td>
-            <kpn-link-node
-              [nodeId]="check.nodeId"
-              [nodeName]="check.nodeName"
-            />
+            <kpn-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName" />
           </td>
           <td>
             {{ check.expected }}

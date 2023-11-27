@@ -40,11 +40,7 @@ import { RouteMapComponent } from './route-map.component';
       />
 
       <div *ngIf="apiResponse() as response">
-        <div
-          *ngIf="!response.result"
-          class="kpn-spacer-above"
-          i18n="@@route.route-not-found"
-        >
+        <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@route.route-not-found">
           Route not found
         </div>
         <div *ngIf="response.result">

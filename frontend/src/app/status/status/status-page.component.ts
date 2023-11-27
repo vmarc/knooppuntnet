@@ -69,10 +69,7 @@ export class StatusPageComponent implements OnInit {
       tap((response) => {
         if (response.result) {
           const timestamp = response.result.timestamp;
-          this.replicationLinks = new StatusLinks(
-            timestamp,
-            '/status/replication'
-          );
+          this.replicationLinks = new StatusLinks(timestamp, '/status/replication');
           this.systemLinks = new StatusLinks(timestamp, '/status/system');
           this.logLinks = new StatusLinks(timestamp, '/status/log');
         }

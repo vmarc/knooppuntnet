@@ -19,10 +19,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
     private store: Store
   ) {}
 
-  intercept(
-    request: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const result$ = next.handle(request).pipe(
       catchError((error) => {
         let httpError = 'error';
@@ -33,11 +30,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
             httpError = 'error-' + error.status;
           }
         }
-        if (
-          request.url.includes(
-            'import?url=https://api.openstreetmap.org/api/0.6'
-          )
-        ) {
+        if (request.url.includes('import?url=https://api.openstreetmap.org/api/0.6')) {
           return throwError(error);
         }
         this.store.dispatch(actionSharedHttpError({ httpError }));

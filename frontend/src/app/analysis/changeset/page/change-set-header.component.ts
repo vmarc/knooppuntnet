@@ -19,17 +19,14 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
           <td>
             <div class="kpn-line">
               <span>{{ page.summary.key.changeSetId }}</span>
-              <kpn-osm-link-change-set
-                [changeSetId]="page.summary.key.changeSetId"
-              />
+              <kpn-osm-link-change-set [changeSetId]="page.summary.key.changeSetId" />
               <span>
                 <a
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
                   [href]="
-                    'https://overpass-api.de/achavi/?changeset=' +
-                    page.summary.key.changeSetId
+                    'https://overpass-api.de/achavi/?changeset=' + page.summary.key.changeSetId
                   "
                   i18n="@@change-set.header.achavi"
                 >
@@ -41,10 +38,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
-                  [href]="
-                    'https://osmcha.org/changesets/' +
-                    page.summary.key.changeSetId
-                  "
+                  [href]="'https://osmcha.org/changesets/' + page.summary.key.changeSetId"
                   i18n="@@change-set.header.osmcha"
                 >
                   osmcha
@@ -81,12 +75,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
     </table>
   `,
   standalone: true,
-  imports: [
-    ChangeSetAnalysisComponent,
-    NgIf,
-    OsmLinkChangeSetComponent,
-    TimestampComponent,
-  ],
+  imports: [ChangeSetAnalysisComponent, NgIf, OsmLinkChangeSetComponent, TimestampComponent],
 })
 export class ChangeSetHeaderComponent {
   @Input() page: ChangeSetPage;
@@ -98,8 +87,7 @@ export class ChangeSetHeaderComponent {
   hasComment() {
     return (
       this.page.changeSetInfo &&
-      this.page.changeSetInfo.tags.tags.filter((t) => t.key === 'comment')
-        .length > 0
+      this.page.changeSetInfo.tags.tags.filter((t) => t.key === 'comment').length > 0
     );
   }
 

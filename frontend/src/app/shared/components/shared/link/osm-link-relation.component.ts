@@ -7,11 +7,7 @@ import { OsmLinkComponent } from './osm-link.component';
   selector: 'kpn-osm-link-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-osm-link
-      kind="relation"
-      [elementId]="relationId.toString()"
-      [title]="title"
-    />
+    <kpn-osm-link kind="relation" [elementId]="relationId.toString()" [title]="title" />
   `,
   standalone: true,
   imports: [OsmLinkComponent],

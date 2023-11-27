@@ -8,10 +8,7 @@ import { MapLayer } from './map-layer';
 
 export class PoiMarkerLayer {
   static build(poiDetail: PoiDetail): MapLayer {
-    const coordinate = OlUtil.toCoordinate(
-      poiDetail.poi.latitude,
-      poiDetail.poi.longitude
-    );
+    const coordinate = OlUtil.toCoordinate(poiDetail.poi.latitude, poiDetail.poi.longitude);
     const marker = Marker.create('blue', coordinate);
 
     const source = new VectorSource();

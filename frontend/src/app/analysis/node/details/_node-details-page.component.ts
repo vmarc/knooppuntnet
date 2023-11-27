@@ -38,9 +38,7 @@ import { NodeSummaryComponent } from './node-summary.component';
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
-          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis"
-            >Analysis</a
-          >
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
         <li i18n="@@breadcrumb.node">Node</li>
       </ul>
@@ -55,9 +53,7 @@ import { NodeSummaryComponent } from './node-summary.component';
       <kpn-error />
 
       <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="!response.result" i18n="@@node.node-not-found">
-          Node not found
-        </div>
+        <div *ngIf="!response.result" i18n="@@node.node-not-found">Node not found</div>
         <div *ngIf="response.result as page">
           <kpn-data title="Summary" i18n-title="@@node.summary">
             <kpn-node-summary [nodeInfo]="page.nodeInfo" />

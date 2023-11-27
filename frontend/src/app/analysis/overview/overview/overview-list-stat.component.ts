@@ -29,10 +29,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
 
       <div *ngIf="open" class="body">
         <div class="comment">
-          <markdown
-            *ngIf="stat.configuration.markdown"
-            [data]="comment(stat)"
-          ></markdown>
+          <markdown *ngIf="stat.configuration.markdown" [data]="comment(stat)"></markdown>
           <p *ngIf="!stat.configuration.markdown">
             {{ stat.configuration.comment }}
           </p>
@@ -92,12 +89,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
     }
   `,
   standalone: true,
-  imports: [
-    MarkdownModule,
-    MatIconModule,
-    NgIf,
-    OverviewListStatTableComponent,
-  ],
+  imports: [MarkdownModule, MatIconModule, NgIf, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
   @Input() stat: Stat;

@@ -7,12 +7,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
   template: `
     <p i18n="@@demo.disabled.text-1">Sorry.</p>
     <p i18n="@@demo.disabled.text-2">
-      Your window is currently not large enough to show the videos in good
-      quality.
+      Your window is currently not large enough to show the videos in good quality.
     </p>
     <p i18n="@@demo.disabled.text-3">
-      Please increase your browser window size, or use a device with a larger
-      display to view the videos.
+      Please increase your browser window size, or use a device with a larger display to view the
+      videos.
     </p>
   `,
   standalone: true,

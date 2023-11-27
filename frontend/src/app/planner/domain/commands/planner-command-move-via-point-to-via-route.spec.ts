@@ -16,20 +16,8 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
     const newViaFlag = PlanFlag.via('newViaFlag', [4.5, 4.5]);
     const newLeg1SinkFlag = PlanFlag.via('newLeg1SinkFlag', [4, 4]);
 
-    const oldLeg1 = PlanUtil.singleRoutePlanLeg(
-      '12',
-      setup.node1,
-      setup.node2,
-      oldViaFlag,
-      null
-    );
-    const oldLeg2 = PlanUtil.singleRoutePlanLeg(
-      '23',
-      setup.node2,
-      setup.node3,
-      sinkFlag,
-      null
-    );
+    const oldLeg1 = PlanUtil.singleRoutePlanLeg('12', setup.node1, setup.node2, oldViaFlag, null);
+    const oldLeg2 = PlanUtil.singleRoutePlanLeg('23', setup.node2, setup.node3, sinkFlag, null);
     const newLeg1 = PlanUtil.singleRoutePlanLeg(
       '14',
       setup.node1,
@@ -37,17 +25,9 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
       newLeg1SinkFlag,
       newViaFlag
     );
-    const newLeg2 = PlanUtil.singleRoutePlanLeg(
-      '43',
-      setup.node4,
-      setup.node3,
-      sinkFlag,
-      null
-    );
+    const newLeg2 = PlanUtil.singleRoutePlanLeg('43', setup.node4, setup.node3, sinkFlag, null);
 
-    setup.context.execute(
-      new PlannerCommandAddStartPoint(setup.node1, sourceFlag)
-    );
+    setup.context.execute(new PlannerCommandAddStartPoint(setup.node1, sourceFlag));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg1));
     setup.context.execute(new PlannerCommandAddLeg(oldLeg2));
 
@@ -73,12 +53,7 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
       expect(leg2.sinkNode.nodeId).toEqual('1003');
     }
 
-    const command = new PlannerCommandMoveViaPointToViaRoute(
-      oldLeg1,
-      oldLeg2,
-      newLeg1,
-      newLeg2
-    );
+    const command = new PlannerCommandMoveViaPointToViaRoute(oldLeg1, oldLeg2, newLeg1, newLeg2);
     setup.context.execute(command);
 
     setup.markerLayer.expectFlagCount(4);

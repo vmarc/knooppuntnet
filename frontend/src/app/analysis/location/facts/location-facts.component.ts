@@ -30,17 +30,11 @@ import { Store } from '@ngrx/store';
     </div>
 
     <kpn-items *ngIf="locationFacts.length > 0">
-      <kpn-item
-        *ngFor="let locationFact of locationFacts; let i = index"
-        [index]="i"
-      >
+      <kpn-item *ngFor="let locationFact of locationFacts; let i = index" [index]="i">
         <div class="kpn-line">
           <kpn-fact-name [fact]="locationFact.fact" />
           <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
-          <kpn-fact-level
-            [factLevel]="factLevel(locationFact.fact)"
-            class="level"
-          />
+          <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
           <a
             rel="nofollow"
             (click)="edit(locationFact)"
@@ -53,20 +47,14 @@ import { Store } from '@ngrx/store';
         <div class="description">
           <kpn-fact-description [factInfo]="factInfo(locationFact)" />
         </div>
-        <div
-          *ngIf="locationFact.elementType === 'route'"
-          class="elements kpn-comma-list"
-        >
+        <div *ngIf="locationFact.elementType === 'route'" class="elements kpn-comma-list">
           <kpn-link-route
             *ngFor="let ref of locationFact.refs"
             [routeId]="ref.id"
             [routeName]="ref.name"
           />
         </div>
-        <div
-          *ngIf="locationFact.elementType === 'node'"
-          class="elements kpn-comma-list"
-        >
+        <div *ngIf="locationFact.elementType === 'node'" class="elements kpn-comma-list">
           <kpn-link-node
             *ngFor="let ref of locationFact.refs"
             [nodeId]="ref.id"

@@ -49,16 +49,13 @@ export class MonitorGroupChangesPageService {
       pageIndex: this.state().pageIndex,
       impact: this.preferencesService.impact(),
     };
-    this.monitorService
-      .groupChanges(this.state().groupName, parameters)
-      .subscribe((response) => {
-        const groupDescription =
-          response?.result?.groupDescription ?? this.state().groupDescription;
-        this._state.update((state) => ({
-          ...state,
-          groupDescription,
-          response,
-        }));
-      });
+    this.monitorService.groupChanges(this.state().groupName, parameters).subscribe((response) => {
+      const groupDescription = response?.result?.groupDescription ?? this.state().groupDescription;
+      this._state.update((state) => ({
+        ...state,
+        groupDescription,
+        response,
+      }));
+    });
   }
 }

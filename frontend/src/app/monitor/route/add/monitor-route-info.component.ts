@@ -30,9 +30,7 @@ import { SymbolComponent } from '@app/symbol';
 
     @if (routeInfo.active && routeInfo.hasRouteTags) {
       <div>
-        <div class="section-title" i18n="@@monitor.relation.title">
-          Route information:
-        </div>
+        <div class="section-title" i18n="@@monitor.relation.title">Route information:</div>
 
         <div class="section-body">
           @if (routeInfo.ref) {

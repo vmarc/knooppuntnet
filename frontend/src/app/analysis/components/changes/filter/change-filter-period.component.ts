@@ -16,19 +16,13 @@ import { MonthComponent } from './month.component';
     <div class="row">
       <div [ngClass]="option.level">
         <kpn-month *ngIf="option.level === 'month'" [month]="option.month" />
-        <ng-container *ngIf="option.level !== 'month'">{{
-          option.name
-        }}</ng-container>
+        <ng-container *ngIf="option.level !== 'month'">{{ option.name }}</ng-container>
         <ng-container *ngIf="option.current">&nbsp;&larr;</ng-container>
       </div>
       <div class="count-links">
-        <a (click)="impactedCountClicked()" class="link">{{
-          option.impactedCount
-        }}</a>
+        <a (click)="impactedCountClicked()" class="link">{{ option.impactedCount }}</a>
         /
-        <a (click)="totalCountClicked()" class="link">{{
-          option.totalCount
-        }}</a>
+        <a (click)="totalCountClicked()" class="link">{{ option.totalCount }}</a>
       </div>
     </div>
   `,

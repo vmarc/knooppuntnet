@@ -6,8 +6,7 @@ import { Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@fact.description.route-without-ways">
-      The route does not contain any ways (we expect the route to contain at
-      least 1 way).
+      The route does not contain any ways (we expect the route to contain at least 1 way).
     </p>
   `,
   standalone: true,

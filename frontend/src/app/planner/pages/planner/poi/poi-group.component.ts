@@ -26,25 +26,13 @@ import { PoiService } from '@app/services';
         <div></div>
 
         <div>
-          <button
-            mat-stroked-button
-            (click)="showAllClicked()"
-            i18n="@@planner.pois.show-all"
-          >
+          <button mat-stroked-button (click)="showAllClicked()" i18n="@@planner.pois.show-all">
             Show all
           </button>
-          <button
-            mat-stroked-button
-            (click)="hideAllClicked()"
-            i18n="@@planner.pois.hide-all"
-          >
+          <button mat-stroked-button (click)="hideAllClicked()" i18n="@@planner.pois.hide-all">
             Hide all
           </button>
-          <button
-            mat-stroked-button
-            (click)="defaultClicked()"
-            i18n="@@planner.pois.default"
-          >
+          <button mat-stroked-button (click)="defaultClicked()" i18n="@@planner.pois.default">
             Default
           </button>
         </div>

@@ -46,9 +46,7 @@ export class Features {
   }
 
   static findRoutes(features: List<MapFeature>): List<RouteFeature> {
-    return features
-      .filter((f) => f instanceof RouteFeature)
-      .map((f) => f as RouteFeature);
+    return features.filter((f) => f instanceof RouteFeature).map((f) => f as RouteFeature);
   }
 
   static mapFeature(feature: FeatureLike): MapFeature {
@@ -84,21 +82,11 @@ export class Features {
         const point: Point = feature.getGeometry() as Point;
         const extent = point.getExtent();
         const coordinate: Coordinate = [extent[0], extent[1]];
-        return NetworkNodeFeature.create(
-          nodeId,
-          name,
-          nodeLongName,
-          coordinate,
-          proposed
-        );
+        return NetworkNodeFeature.create(nodeId, name, nodeLongName, coordinate, proposed);
       }
 
       const layerType = feature.get('type');
-      if (
-        'node' === layerType ||
-        'way' === layerType ||
-        'relation' === layerType
-      ) {
+      if ('node' === layerType || 'way' === layerType || 'relation' === layerType) {
         const poiId = feature.get('id');
         const point: Point = feature.getGeometry() as Point;
         const extent = point.getExtent();
@@ -111,18 +99,10 @@ export class Features {
         const routeName = feature.get('name');
         const oneWay = feature.get('oneway') === 'true';
         const dashIndex = segmentId.indexOf('-');
-        const routeId =
-          dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
+        const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
         const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
         const proposed = feature.get('state') === 'proposed';
-        return new RouteFeature(
-          +routeId,
-          +pathId,
-          routeName,
-          oneWay,
-          proposed,
-          feature
-        );
+        return new RouteFeature(+routeId, +pathId, routeName, oneWay, proposed, feature);
       }
     }
 

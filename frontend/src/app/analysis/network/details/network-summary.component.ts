@@ -14,11 +14,7 @@ import { MarkdownModule } from 'ngx-markdown';
   selector: 'kpn-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p
-      *ngIf="!page.active"
-      class="kpn-warning"
-      i18n="@@network-details.not-active"
-    >
+    <p *ngIf="!page.active" class="kpn-warning" i18n="@@network-details.not-active">
       This network is not active anymore.
     </p>
 
@@ -46,10 +42,7 @@ import { MarkdownModule } from 'ngx-markdown';
       <kpn-josm-relation [relationId]="page.attributes.id" />
     </p>
 
-    <p
-      *ngIf="page.active && page.attributes.brokenRouteCount > 0"
-      class="kpn-line"
-    >
+    <p *ngIf="page.active && page.attributes.brokenRouteCount > 0" class="kpn-line">
       <mat-icon svgIcon="warning" />
       <span i18n="@@network-details.contains-broken-routes"
         >This network contains broken (non-continuous) routes.</span
@@ -59,9 +52,8 @@ import { MarkdownModule } from 'ngx-markdown';
     <p *ngIf="page.active && isProposed()" class="kpn-line">
       <mat-icon svgIcon="warning" style="min-width: 24px" />
       <markdown i18n="@@network.proposed">
-        Proposed: this network has tag _"state=proposed"_. The network is
-        assumed to still be in a planning phase and likely not signposted in the
-        field.
+        Proposed: this network has tag _"state=proposed"_. The network is assumed to still be in a
+        planning phase and likely not signposted in the field.
       </markdown>
     </p>
   `,

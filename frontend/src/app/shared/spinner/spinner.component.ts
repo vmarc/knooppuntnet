@@ -21,8 +21,6 @@ export class SpinnerComponent implements OnInit {
   constructor(private spinnerService: SpinnerService) {}
 
   ngOnInit(): void {
-    this.showSpinner$ = this.spinnerService.spinnerState$.pipe(
-      debounceTime(300)
-    );
+    this.showSpinner$ = this.spinnerService.spinnerState$.pipe(debounceTime(300));
   }
 }

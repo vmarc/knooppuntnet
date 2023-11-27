@@ -40,48 +40,26 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-nodes.table.nr"
-        >
-          Nr
-        </th>
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.nr">Nr</th>
         <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-nodes.table.node"
-        >
-          Node
-        </th>
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.node">Node</th>
         <td mat-cell *matCellDef="let node">
           <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-nodes.table.name"
-        >
-          Name
-        </th>
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.name">Name</th>
         <td mat-cell *matCellDef="let node">
           {{ node.longName }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-nodes.table.last-survey"
-        >
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.last-survey">
           Survey
         </th>
         <td mat-cell *matCellDef="let node">
@@ -90,11 +68,7 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="last-edit">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-nodes.table.last-edit"
-        >
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.last-edit">
           Last edit
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
@@ -136,9 +110,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
-  private readonly filterCriteria$ = new BehaviorSubject(
-    new SubsetOrphanNodeFilterCriteria()
-  );
+  private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
 
   constructor(
     private subsetOrphanNodesService: SubsetOrphanNodesService,
@@ -150,15 +122,9 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$.subscribe((criteria) => {
-      const filter = new SubsetOrphanNodeFilter(
-        this.timeInfo,
-        criteria,
-        this.filterCriteria$
-      );
+      const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria$);
       this.dataSource.data = filter.filter(this.nodes);
-      this.subsetOrphanNodesService.filterOptions$.next(
-        filter.filterOptions(this.nodes)
-      );
+      this.subsetOrphanNodesService.filterOptions$.next(filter.filterOptions(this.nodes));
     });
   }
 
@@ -171,9 +137,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   }
 
   edit(): void {
-    const nodeIds = Util.currentPageItems(this.dataSource).map(
-      (node) => node.id
-    );
+    const nodeIds = Util.currentPageItems(this.dataSource).map((node) => node.id);
     this.editService.edit({
       nodeIds,
     });

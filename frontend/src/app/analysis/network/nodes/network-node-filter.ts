@@ -22,15 +22,14 @@ export class NetworkNodeFilter {
     this.update({ ...this.criteria, proposed: false })
   );
 
-  private readonly definedInNetworkRelationFilter =
-    new BooleanFilter<NetworkNodeRow>(
-      'definedInNetworkRelation',
-      this.criteria.definedInNetworkRelation,
-      (row) => row.detail.definedInRelation,
-      this.update({ ...this.criteria, definedInNetworkRelation: null }),
-      this.update({ ...this.criteria, definedInNetworkRelation: true }),
-      this.update({ ...this.criteria, definedInNetworkRelation: false })
-    );
+  private readonly definedInNetworkRelationFilter = new BooleanFilter<NetworkNodeRow>(
+    'definedInNetworkRelation',
+    this.criteria.definedInNetworkRelation,
+    (row) => row.detail.definedInRelation,
+    this.update({ ...this.criteria, definedInNetworkRelation: null }),
+    this.update({ ...this.criteria, definedInNetworkRelation: true }),
+    this.update({ ...this.criteria, definedInNetworkRelation: false })
+  );
 
   private readonly referencedInRouteFilter = new BooleanFilter<NetworkNodeRow>(
     'referencedInRoute',
@@ -68,18 +67,17 @@ export class NetworkNodeFilter {
     this.update({ ...this.criteria, integrityCheck: false })
   );
 
-  private readonly integrityCheckFailedFilter =
-    new BooleanFilter<NetworkNodeRow>(
-      'integrityCheckFailed',
-      this.criteria.integrityCheckFailed,
-      (row) =>
-        !!row.detail.expectedRouteCount
-          ? +row.detail.expectedRouteCount !== row.routeReferences.length
-          : false,
-      this.update({ ...this.criteria, integrityCheckFailed: null }),
-      this.update({ ...this.criteria, integrityCheckFailed: true }),
-      this.update({ ...this.criteria, integrityCheckFailed: false })
-    );
+  private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkNodeRow>(
+    'integrityCheckFailed',
+    this.criteria.integrityCheckFailed,
+    (row) =>
+      !!row.detail.expectedRouteCount
+        ? +row.detail.expectedRouteCount !== row.routeReferences.length
+        : false,
+    this.update({ ...this.criteria, integrityCheckFailed: null }),
+    this.update({ ...this.criteria, integrityCheckFailed: true }),
+    this.update({ ...this.criteria, integrityCheckFailed: false })
+  );
 
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkNodeRow>(
     this.criteria.lastUpdated,
@@ -151,42 +149,24 @@ export class NetworkNodeFilter {
 
   filterOptions(nodes: NetworkNodeRow[]): FilterOptions {
     const totalCount = nodes.length;
-    const filteredCount = nodes.filter((node) =>
-      this.allFilters.passes(node)
-    ).length;
+    const filteredCount = nodes.filter((node) => this.allFilters.passes(node)).length;
 
     const proposed = this.proposedFilter.filterOptions(this.allFilters, nodes);
 
-    const definedInNetworkRelation =
-      this.definedInNetworkRelationFilter.filterOptions(this.allFilters, nodes);
-    const referencedInRoute = this.referencedInRouteFilter.filterOptions(
+    const definedInNetworkRelation = this.definedInNetworkRelationFilter.filterOptions(
       this.allFilters,
       nodes
     );
-    const connection = this.connectionFilter.filterOptions(
-      this.allFilters,
-      nodes
-    );
-    const roleConnection = this.roleConnectionFilter.filterOptions(
-      this.allFilters,
-      nodes
-    );
-    const integrityCheck = this.integrityCheckFilter.filterOptions(
-      this.allFilters,
-      nodes
-    );
+    const referencedInRoute = this.referencedInRouteFilter.filterOptions(this.allFilters, nodes);
+    const connection = this.connectionFilter.filterOptions(this.allFilters, nodes);
+    const roleConnection = this.roleConnectionFilter.filterOptions(this.allFilters, nodes);
+    const integrityCheck = this.integrityCheckFilter.filterOptions(this.allFilters, nodes);
     const integrityCheckFailed = this.integrityCheckFailedFilter.filterOptions(
       this.allFilters,
       nodes
     );
-    const lastSurvey = this.lastSurveyFilter.filterOptions(
-      this.allFilters,
-      nodes
-    );
-    const lastUpdated = this.lastUpdatedFilter.filterOptions(
-      this.allFilters,
-      nodes
-    );
+    const lastSurvey = this.lastSurveyFilter.filterOptions(this.allFilters, nodes);
+    const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
 
     const groups = List([
       proposed,

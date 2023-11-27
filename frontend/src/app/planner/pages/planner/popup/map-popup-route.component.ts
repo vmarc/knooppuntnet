@@ -43,10 +43,7 @@ import { MapService } from '../../../services/map.service';
           i18n="@@map.route-popup.no-networks"
           >None</span
         >
-        <div
-          *ngFor="let ref of response.result.networkReferences"
-          class="reference"
-        >
+        <div *ngFor="let ref of response.result.networkReferences" class="reference">
           <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
         </div>
       </div>
@@ -100,9 +97,6 @@ export class MapPopupRouteComponent implements OnInit {
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(
-      () => this.plannerService.context.overlay.setPosition(coordinate, -12),
-      0
-    );
+    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -12), 0);
   }
 }

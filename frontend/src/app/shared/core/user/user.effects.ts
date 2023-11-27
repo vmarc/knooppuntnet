@@ -92,8 +92,7 @@ export class UserEffects {
         }),
         tap((response) => {
           window.location.href =
-            'https://www.openstreetmap.org/oauth/authorize?oauth_token=' +
-            response;
+            'https://www.openstreetmap.org/oauth/authorize?oauth_token=' + response;
         })
       );
     },

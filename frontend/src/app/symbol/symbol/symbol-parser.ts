@@ -93,10 +93,8 @@ export class SymbolParser {
       } else {
         const color = this.currentPart.substring(0, underscoreIndex);
         const shape = this.currentPart.substring(underscoreIndex + 1);
-        const backgroundShapeIndex =
-          SymbolShape.backgroundShapes.indexOf(shape);
-        const foregroundShapeIndex =
-          SymbolShape.foregroundShapes.indexOf(shape);
+        const backgroundShapeIndex = SymbolShape.backgroundShapes.indexOf(shape);
+        const foregroundShapeIndex = SymbolShape.foregroundShapes.indexOf(shape);
 
         if (backgroundShapeIndex >= 0) {
           this.description = {
@@ -185,8 +183,7 @@ export class SymbolParser {
         } else {
           const color = this.currentPart.substring(0, underscoreIndex);
           const shape = this.currentPart.substring(underscoreIndex + 1);
-          const foregroundShapeIndex =
-            SymbolShape.foregroundShapes.indexOf(shape);
+          const foregroundShapeIndex = SymbolShape.foregroundShapes.indexOf(shape);
           if (foregroundShapeIndex >= 0) {
             this.description = {
               ...this.description,
@@ -263,8 +260,7 @@ export class SymbolParser {
         } else {
           const color = this.currentPart.substring(0, underscoreIndex);
           const shape = this.currentPart.substring(underscoreIndex + 1);
-          const foregroundShapeIndex =
-            SymbolShape.foregroundShapes.indexOf(shape);
+          const foregroundShapeIndex = SymbolShape.foregroundShapes.indexOf(shape);
           if (foregroundShapeIndex >= 0) {
             this.description = {
               ...this.description,

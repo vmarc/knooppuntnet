@@ -35,9 +35,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
         {{ response.result.name }}
       </h2>
       <p>
-        <span class="kpn-label" i18n="@@map.node-popup.last-updated"
-          >Last updated</span
-        >
+        <span class="kpn-label" i18n="@@map.node-popup.last-updated">Last updated</span>
         <kpn-timestamp [timestamp]="response.result.lastUpdated" />
       </p>
 
@@ -59,10 +57,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
           i18n="@@map.node-popup.no-networks"
           >None</span
         >
-        <div
-          *ngFor="let ref of response.result.networkReferences"
-          class="reference"
-        >
+        <div *ngFor="let ref of response.result.networkReferences" class="reference">
           <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
         </div>
       </div>
@@ -74,10 +69,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
           i18n="@@map.node-popup.routes.none"
           >None</span
         >
-        <div
-          *ngFor="let ref of response.result.routeReferences"
-          class="reference"
-        >
+        <div *ngFor="let ref of response.result.routeReferences" class="reference">
           <kpn-link-route
             [routeId]="ref.id"
             [routeName]="ref.name"
@@ -106,14 +98,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    LinkRouteComponent,
-    NgFor,
-    NgIf,
-    RouterLink,
-    TimestampComponent,
-  ],
+  imports: [AsyncPipe, LinkRouteComponent, NgFor, NgIf, RouterLink, TimestampComponent],
 })
 export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
   response$: Observable<ApiResponse<MapNodeDetail>>;
@@ -133,19 +118,17 @@ export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
       filter((nodeClick) => nodeClick !== null),
       combineLatestWith(this.store.select(selectPlannerNetworkType)),
       switchMap(([nodeClick, networkType]) =>
-        this.apiService
-          .mapNodeDetail(networkType, +nodeClick.node.node.nodeId)
-          .pipe(
-            tap((response) => {
-              if (response.result) {
-                const coordinate = OlUtil.toCoordinate(
-                  response.result.latitude,
-                  response.result.longitude
-                );
-                this.openPopup(coordinate);
-              }
-            })
-          )
+        this.apiService.mapNodeDetail(networkType, +nodeClick.node.node.nodeId).pipe(
+          tap((response) => {
+            if (response.result) {
+              const coordinate = OlUtil.toCoordinate(
+                response.result.latitude,
+                response.result.longitude
+              );
+              this.openPopup(coordinate);
+            }
+          })
+        )
       )
     );
 
@@ -163,11 +146,7 @@ export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
   private openPopup(coordinate: Coordinate): void {
     const verticalOffset = this.zoomLevel <= 13 ? -13 : -24;
     setTimeout(
-      () =>
-        this.plannerService.context.overlay.setPosition(
-          coordinate,
-          verticalOffset
-        ),
+      () => this.plannerService.context.overlay.setPosition(coordinate, verticalOffset),
       0
     );
   }

@@ -10,9 +10,7 @@ export class PlannerMarkerLayerPrinter {
 
   layer(plannerMarkerLayer: PlannerMarkerLayer): Printer {
     if (plannerMarkerLayer instanceof PlannerMarkerLayerImpl) {
-      const features = (
-        plannerMarkerLayer as PlannerMarkerLayerImpl
-      ).features();
+      const features = (plannerMarkerLayer as PlannerMarkerLayerImpl).features();
       this.out.println(`markerLayer (${features.size} features)`);
       features.forEach((feature) => {
         const layer = feature.get('layer');
@@ -29,8 +27,6 @@ export class PlannerMarkerLayerPrinter {
   private printFlag(flag: Feature<Geometry>): void {
     const point = flag.getGeometry() as Point;
     const flagType = flag.get('flag-type');
-    this.out.println(
-      `  flag ${flagType} ${this.out.coordinate(point.getCoordinates())}`
-    );
+    this.out.println(`  flag ${flagType} ${this.out.coordinate(point.getCoordinates())}`);
   }
 }

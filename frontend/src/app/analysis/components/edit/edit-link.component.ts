@@ -10,13 +10,7 @@ import { EditService } from './edit.service';
   selector: 'kpn-edit-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a
-      rel="nofollow"
-      (click)="clicked()"
-      title="{{ linkTitle }}"
-      i18n="@@edit.link"
-      >edit</a
-    >
+    <a rel="nofollow" (click)="clicked()" title="{{ linkTitle }}" i18n="@@edit.link">edit</a>
   `,
   providers: [EditService],
   standalone: true,

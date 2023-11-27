@@ -43,40 +43,21 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-routes.table.nr"
-        >
-          Nr
-        </th>
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.nr">Nr</th>
         <td mat-cell *matCellDef="let i = index">{{ rowNumber(i) }}</td>
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@subset-orphan-routes.table.analysis"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@subset-orphan-routes.table.analysis">
           Analysis
         </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-subset-orphan-route-analysis
-            [route]="route"
-            [networkType]="networkType"
-          />
+          <kpn-subset-orphan-route-analysis [route]="route" [networkType]="networkType" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-routes.table.name"
-        >
-          Route
-        </th>
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.name">Route</th>
         <td mat-cell *matCellDef="let route">
           <kpn-link-route
             [routeId]="route.id"
@@ -87,11 +68,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-routes.table.distance"
-        >
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.distance">
           Distance
         </th>
         <td mat-cell *matCellDef="let route">
@@ -100,11 +77,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-routes.table.last-survey"
-        >
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.last-survey">
           Survey
         </th>
         <td mat-cell *matCellDef="let route">
@@ -113,11 +86,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="last-edit">
-        <th
-          *matHeaderCellDef
-          mat-header-cell
-          i18n="@@subset-orphan-routes.table.last-edit"
-        >
+        <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.last-edit">
           Last edit
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
@@ -168,20 +137,11 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   dataSource: MatTableDataSource<OrphanRouteInfo>;
 
-  displayedColumns = [
-    'nr',
-    'analysis',
-    'name',
-    'distance',
-    'last-survey',
-    'last-edit',
-  ];
+  displayedColumns = ['nr', 'analysis', 'name', 'distance', 'last-survey', 'last-edit'];
 
   readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
-  private readonly filterCriteria$ = new BehaviorSubject(
-    new SubsetOrphanRouteFilterCriteria()
-  );
+  private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 
   constructor(
     private subsetOrphanRoutesService: SubsetOrphanRoutesService,
@@ -193,15 +153,9 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
     this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$.subscribe((criteria) => {
-      const filter = new SubsetOrphanRouteFilter(
-        this.timeInfo,
-        criteria,
-        this.filterCriteria$
-      );
+      const filter = new SubsetOrphanRouteFilter(this.timeInfo, criteria, this.filterCriteria$);
       this.dataSource.data = filter.filter(this.orphanRoutes);
-      this.subsetOrphanRoutesService.filterOptions$.next(
-        filter.filterOptions(this.orphanRoutes)
-      );
+      this.subsetOrphanRoutesService.filterOptions$.next(filter.filterOptions(this.orphanRoutes));
     });
   }
 
@@ -214,9 +168,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   }
 
   edit(): void {
-    const routeIds = Util.currentPageItems(this.dataSource).map(
-      (orphanRoute) => orphanRoute.id
-    );
+    const routeIds = Util.currentPageItems(this.dataSource).map((orphanRoute) => orphanRoute.id);
     this.editService.edit({
       relationIds: routeIds,
       fullRelation: true,

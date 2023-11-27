@@ -44,11 +44,7 @@ export class PoiEffects {
   // noinspection JSUnusedGlobalSymbols
   locationPoisPageInit = createEffect(() => {
     return this.actions$.pipe(
-      ofType(
-        actionLocationPoisPageInit,
-        actionLocationPoisPageSize,
-        actionLocationPoisPageIndex
-      ),
+      ofType(actionLocationPoisPageInit, actionLocationPoisPageSize, actionLocationPoisPageIndex),
       concatLatestFrom(() => [
         this.store.select(selectRouteParam('location')),
         this.store.select(selectQueryParam('layers')),
@@ -83,9 +79,7 @@ export class PoiEffects {
       mergeMap((action) =>
         this.poiService
           .locations(action.country)
-          .pipe(
-            map((response) => actionLocationPoiSummaryLocationsLoaded(response))
-          )
+          .pipe(map((response) => actionLocationPoiSummaryLocationsLoaded(response)))
       )
     );
   });
@@ -95,9 +89,7 @@ export class PoiEffects {
     return this.actions$.pipe(
       ofType(actionPoiAreasPageInit),
       mergeMap(() =>
-        this.apiService
-          .poiAreas()
-          .pipe(map((response) => actionPoiAreasPageLoaded(response)))
+        this.apiService.poiAreas().pipe(map((response) => actionPoiAreasPageLoaded(response)))
       )
     );
   });

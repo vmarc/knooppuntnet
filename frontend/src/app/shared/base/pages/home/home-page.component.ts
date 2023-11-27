@@ -12,18 +12,10 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-page-header
-        [pageTitle]="null"
-        subject="home"
-        i18n="@@home.page-title"
+      <kpn-page-header [pageTitle]="null" subject="home" i18n="@@home.page-title"
         >Node networks
       </kpn-page-header>
-      <kpn-icon-button
-        routerLink="/map"
-        icon="map"
-        title="Map"
-        i18n-title="@@home.map"
-      />
+      <kpn-icon-button routerLink="/map" icon="map" title="Map" i18n-title="@@home.map" />
       <kpn-icon-button
         routerLink="/analysis"
         icon="analysis"
@@ -36,12 +28,7 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
         title="Monitor"
         i18n-title="@@home.monitor"
       />
-      <kpn-icon-button
-        routerLink="/demo"
-        icon="video"
-        title="Demo"
-        i18n-title="@@home.demo"
-      />
+      <kpn-icon-button routerLink="/demo" icon="video" title="Demo" i18n-title="@@home.demo" />
       <kpn-base-sidebar sidebar />
     </kpn-page>
   `,

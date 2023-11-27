@@ -153,9 +153,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   qrCode: string | ArrayBuffer = '';
 
-  readonly instructions = this.store.selectSignal(
-    selectPreferencesInstructions
-  );
+  readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
 
   constructor(
     private pdfService: PdfService,
@@ -190,31 +188,20 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   printStripDocument(): void {
-    this.pdfService.printStripDocument(
-      this.plannerService.context.plan,
-      this.routeName()
-    );
+    this.pdfService.printStripDocument(this.plannerService.context.plan, this.routeName());
   }
 
   printTextDocument(): void {
-    this.pdfService.printTextDocument(
-      this.plannerService.context.plan,
-      this.routeName()
-    );
+    this.pdfService.printTextDocument(this.plannerService.context.plan, this.routeName());
   }
 
   printInstructions(): void {
-    const instructions = new DirectionsAnalyzer().analyze(
-      this.plannerService.context.plan
-    );
+    const instructions = new DirectionsAnalyzer().analyze(this.plannerService.context.plan);
     this.pdfService.printInstructions(instructions, this.routeName());
   }
 
   gpx(): void {
-    this.pdfService.writeGpx(
-      this.plannerService.context.plan,
-      this.routeName()
-    );
+    this.pdfService.writeGpx(this.plannerService.context.plan, this.routeName());
   }
 
   nameChanged(event): void {
@@ -230,9 +217,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   private defaultName(): string {
     const source = this.plannerService.context.plan.sourceNode.nodeName;
-    const sink = PlanUtil.planSinkNode(
-      this.plannerService.context.plan
-    ).nodeName;
+    const sink = PlanUtil.planSinkNode(this.plannerService.context.plan).nodeName;
     return Util.today() + ' route ' + source + ' ' + sink;
   }
 
@@ -242,8 +227,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
     if (fragmentIndex > 0) {
       root = root.substring(0, fragmentIndex);
     }
-    return (
-      root + '?plan=' + PlanUtil.toUrlString(this.plannerService.context.plan)
-    );
+    return root + '?plan=' + PlanUtil.toUrlString(this.plannerService.context.plan);
   }
 }

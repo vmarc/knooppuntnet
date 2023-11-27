@@ -16,8 +16,6 @@ export class MonitorGroupsPageService {
   constructor() {
     this.monitorService
       .groups()
-      .subscribe((response) =>
-        this._state.update((state) => ({ ...state, response }))
-      );
+      .subscribe((response) => this._state.update((state) => ({ ...state, response })));
   }
 }

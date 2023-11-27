@@ -61,17 +61,10 @@ export class SymbolShape {
     ['wheel', this.drawWheel],
   ]);
 
-  static readonly backgroundShapes = Array.from(
-    this.backgroundShapeFunctions.keys()
-  );
-  static readonly foregroundShapes = Array.from(
-    this.foregroundShapeFunctions.keys()
-  );
+  static readonly backgroundShapes = Array.from(this.backgroundShapeFunctions.keys());
+  static readonly foregroundShapes = Array.from(this.foregroundShapeFunctions.keys());
 
-  static drawBackground(
-    context: CanvasRenderingContext2D,
-    shape: string
-  ): void {
+  static drawBackground(context: CanvasRenderingContext2D, shape: string): void {
     const drawFunction = this.backgroundShapeFunctions.get(shape);
     if (!drawFunction) {
       console.error(
@@ -82,10 +75,7 @@ export class SymbolShape {
     }
   }
 
-  static drawForeground(
-    context: CanvasRenderingContext2D,
-    shape: string
-  ): void {
+  static drawForeground(context: CanvasRenderingContext2D, shape: string): void {
     const drawFunction = this.foregroundShapeFunctions.get(shape);
     if (!drawFunction) {
       console.error(

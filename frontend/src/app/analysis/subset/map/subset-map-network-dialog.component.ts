@@ -2,11 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
 import { SubsetMapNetwork } from '@api/common/subset';
 
@@ -41,11 +37,7 @@ import { SubsetMapNetwork } from '@api/common/subset';
         </div>
       </div>
       <div mat-dialog-actions>
-        <button
-          mat-stroked-button
-          (click)="closeDialog()"
-          i18n="@@subset-map.dialog.close"
-        >
+        <button mat-stroked-button (click)="closeDialog()" i18n="@@subset-map.dialog.close">
           Close
         </button>
       </div>

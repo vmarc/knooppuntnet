@@ -122,32 +122,15 @@ export class NetworkRouteFilter {
 
   filterOptions(routes: NetworkRouteRow[]): FilterOptions {
     const totalCount = routes.length;
-    const filteredCount = routes.filter((route) =>
-      this.allFilters.passes(route)
-    ).length;
+    const filteredCount = routes.filter((route) => this.allFilters.passes(route)).length;
 
     const proposed = this.proposedFilter.filterOptions(this.allFilters, routes);
 
-    const investigate = this.investigateFilter.filterOptions(
-      this.allFilters,
-      routes
-    );
-    const accessible = this.accessibleFilter.filterOptions(
-      this.allFilters,
-      routes
-    );
-    const roleConnection = this.roleConnectionFilter.filterOptions(
-      this.allFilters,
-      routes
-    );
-    const lastSurvey = this.lastSurveyFilter.filterOptions(
-      this.allFilters,
-      routes
-    );
-    const lastUpdated = this.lastUpdatedFilter.filterOptions(
-      this.allFilters,
-      routes
-    );
+    const investigate = this.investigateFilter.filterOptions(this.allFilters, routes);
+    const accessible = this.accessibleFilter.filterOptions(this.allFilters, routes);
+    const roleConnection = this.roleConnectionFilter.filterOptions(this.allFilters, routes);
+    const lastSurvey = this.lastSurveyFilter.filterOptions(this.allFilters, routes);
+    const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
 
     const groups = List([
       proposed,

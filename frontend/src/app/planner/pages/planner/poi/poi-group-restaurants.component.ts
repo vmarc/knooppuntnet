@@ -7,11 +7,7 @@ import { PoiGroupComponent } from './poi-group.component';
   selector: 'kpn-poi-group-restaurants',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-poi-group
-      name="restaurants"
-      title="Restaurants"
-      i18n-title="@@poi.group.restaurants"
-    >
+    <kpn-poi-group name="restaurants" title="Restaurants" i18n-title="@@poi.group.restaurants">
       <kpn-poi-config poiId="bar" />
       <kpn-poi-config poiId="bbq" />
       <kpn-poi-config poiId="biergarten" />

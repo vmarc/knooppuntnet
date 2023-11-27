@@ -88,9 +88,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     return MapLayer.simpleLayer('not-ok-layer', layer);
   }
 
-  private buildOsmRelationLayer(
-    routeSegments: MonitorRouteSegment[]
-  ): MapLayer {
+  private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): MapLayer {
     const thickStyle = this.fixedStyle('yellow', 10);
     const features = [];
     routeSegments.forEach((segment) => {

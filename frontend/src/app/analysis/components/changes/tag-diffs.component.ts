@@ -16,10 +16,7 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
   template: `
     <div *ngIf="small$ | async; then small; else large"></div>
     <ng-template #small>
-      <kpn-tag-diffs-text
-        *ngIf="small$ | async; else large"
-        [tagDiffs]="tagDiffs"
-      />
+      <kpn-tag-diffs-text *ngIf="small$ | async; else large" [tagDiffs]="tagDiffs" />
     </ng-template>
     <ng-template #large>
       <div class="kpn-label" i18n="@@tag-diffs.title">Tag changes</div>

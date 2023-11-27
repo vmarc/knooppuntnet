@@ -2,8 +2,7 @@ import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 import { PreferencesState } from './preferences.state';
 
-export const selectPreferencesState =
-  createFeatureSelector<PreferencesState>('preferences');
+export const selectPreferencesState = createFeatureSelector<PreferencesState>('preferences');
 
 export const selectPreferencesAnalysisStrategy = createSelector(
   selectPreferencesState,

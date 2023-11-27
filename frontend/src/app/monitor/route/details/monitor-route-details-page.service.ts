@@ -26,8 +26,7 @@ export class MonitorRouteDetailsPageService {
       routeDescription,
     }));
     this.monitorService.route(groupName, routeName).subscribe((response) => {
-      const routeDescription =
-        response.result?.routeDescription ?? this.state().routeDescription;
+      const routeDescription = response.result?.routeDescription ?? this.state().routeDescription;
       this._state.update((state) => ({
         ...state,
         routeDescription,

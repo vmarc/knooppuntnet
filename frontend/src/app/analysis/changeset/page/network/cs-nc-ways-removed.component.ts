@@ -14,18 +14,12 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   template: `
     <div *ngIf="wayIds.length > 0" class="kpn-level-2">
       <div class="kpn-level-2-header kpn-line">
-        <span i18n="@@change-set.network-changes.removed-ways"
-          >Removed ways</span
-        >
+        <span i18n="@@change-set.network-changes.removed-ways">Removed ways</span>
         <span class="kpn-brackets kpn-thin">{{ wayIds.length }}</span>
         <kpn-icon-happy />
       </div>
       <div class="kpn-level-2-body kpn-comma-list">
-        <kpn-osm-link-way
-          *ngFor="let wayId of wayIds"
-          [wayId]="wayId"
-          [title]="wayId.toString()"
-        />
+        <kpn-osm-link-way *ngFor="let wayId of wayIds" [wayId]="wayId" [title]="wayId.toString()" />
       </div>
     </div>
   `,

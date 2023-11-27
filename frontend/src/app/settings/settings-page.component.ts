@@ -33,13 +33,12 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
           Navigation instructions
         </mat-slide-toggle>
         <p class="comment" i18n="@@settings.directions.comment.1">
-          You can enable this extra functionality in the planner to generate a
-          list with navigation instructions for the route you have planned.
+          You can enable this extra functionality in the planner to generate a list with navigation
+          instructions for the route you have planned.
         </p>
         <p class="comment" i18n="@@settings.directions.comment.2">
-          This functionality is still experimental and under development at this
-          moment and may not work completely ok yet. By default, this
-          functionality is not enabled.
+          This functionality is still experimental and under development at this moment and may not
+          work completely ok yet. By default, this functionality is not enabled.
         </p>
       </div>
 
@@ -56,10 +55,9 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
           Enables the option to select extra layers in the planner map.
         </p>
         <p class="comment" i18n="@@settings.extra-layers.comment.2">
-          These extra layers are intended for debugging purposes only, and are
-          not needed for normal planner use. The extra layers can show the tile
-          names and background tiles from OpenStreetMap (normally we use tiles
-          from our own server).
+          These extra layers are intended for debugging purposes only, and are not needed for normal
+          planner use. The extra layers can show the tile names and background tiles from
+          OpenStreetMap (normally we use tiles from our own server).
         </p>
       </div>
       <kpn-settings-sidebar sidebar />
@@ -91,22 +89,16 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
   ],
 })
 export class SettingsPageComponent {
-  readonly instructions = this.store.selectSignal(
-    selectPreferencesInstructions
-  );
+  readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
   readonly extraLayers = this.store.selectSignal(selectPreferencesExtraLayers);
 
   constructor(private store: Store) {}
 
   instructionsChanged(event: MatSlideToggleChange): void {
-    this.store.dispatch(
-      actionPreferencesInstructions({ instructions: event.checked })
-    );
+    this.store.dispatch(actionPreferencesInstructions({ instructions: event.checked }));
   }
 
   extraLayersChanged(event: MatSlideToggleChange): void {
-    this.store.dispatch(
-      actionPreferencesExtraLayers({ extraLayers: event.checked })
-    );
+    this.store.dispatch(actionPreferencesExtraLayers({ extraLayers: event.checked }));
   }
 }

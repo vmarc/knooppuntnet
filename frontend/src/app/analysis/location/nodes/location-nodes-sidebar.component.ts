@@ -16,9 +16,7 @@ import { selectLocationNodesPage } from '../store/location.selectors';
   template: `
     <kpn-sidebar>
       <div *ngIf="apiResponse() as response" class="filter">
-        <div class="title" i18n="@@location-nodes-sidebar.filter.title">
-          Filter
-        </div>
+        <div class="title" i18n="@@location-nodes-sidebar.filter.title">Filter</div>
 
         <mat-radio-group
           [value]="locationNodesType.all"
@@ -27,35 +25,26 @@ import { selectLocationNodesPage } from '../store/location.selectors';
           <div>
             <mat-radio-button [value]="locationNodesType.all">
               <span i18n="@@location-nodes-sidebar.filter.all">All</span
-              ><span class="kpn-brackets">{{
-                response.result.allNodeCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.allNodeCount }}</span>
             </mat-radio-button>
           </div>
           <div>
             <mat-radio-button [value]="locationNodesType.facts">
               <span i18n="@@location-nodes-sidebar.filter.facts">Facts</span
-              ><span class="kpn-brackets">{{
-                response.result.factsNodeCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.factsNodeCount }}</span>
             </mat-radio-button>
           </div>
           <div>
             <mat-radio-button [value]="locationNodesType.survey">
               <span i18n="@@location-nodes-sidebar.filter.survey">Survey</span
-              ><span class="kpn-brackets">{{
-                response.result.surveyNodeCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.surveyNodeCount }}</span>
             </mat-radio-button>
           </div>
           <div>
             <mat-radio-button [value]="locationNodesType.integrityCheckFailed">
-              <span
-                i18n="@@location-nodes-sidebar.filter.integrity-check-failed"
+              <span i18n="@@location-nodes-sidebar.filter.integrity-check-failed"
                 >Unexpected route count</span
-              ><span class="kpn-brackets">{{
-                response.result.integrityCheckFailedNodeCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.integrityCheckFailedNodeCount }}</span>
             </mat-radio-button>
           </div>
         </mat-radio-group>

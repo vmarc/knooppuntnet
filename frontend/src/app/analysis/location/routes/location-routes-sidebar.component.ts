@@ -16,9 +16,7 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
   template: `
     <kpn-sidebar>
       <div *ngIf="apiResponse() as response" class="filter">
-        <div class="title" i18n="@@location-routes-sidebar.filter.title">
-          Filter
-        </div>
+        <div class="title" i18n="@@location-routes-sidebar.filter.title">Filter</div>
 
         <mat-radio-group
           [value]="locationRoutesType.all"
@@ -27,34 +25,25 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
           <div>
             <mat-radio-button [value]="locationRoutesType.all">
               <span i18n="@@location-routes-sidebar.filter.all">All</span
-              ><span class="kpn-brackets">{{
-                response.result.allRouteCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.allRouteCount }}</span>
             </mat-radio-button>
           </div>
           <div>
             <mat-radio-button [value]="locationRoutesType.facts">
               <span i18n="@@location-routes-sidebar.filter.facts">Facts</span
-              ><span class="kpn-brackets">{{
-                response.result.factsRouteCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.factsRouteCount }}</span>
             </mat-radio-button>
           </div>
           <div>
             <mat-radio-button [value]="locationRoutesType.inaccessible">
-              <span i18n="@@location-routes-sidebar.filter.inaccessible"
-                >Inaccessible</span
-              ><span class="kpn-brackets">{{
-                response.result.inaccessibleRouteCount
-              }}</span>
+              <span i18n="@@location-routes-sidebar.filter.inaccessible">Inaccessible</span
+              ><span class="kpn-brackets">{{ response.result.inaccessibleRouteCount }}</span>
             </mat-radio-button>
           </div>
           <div>
             <mat-radio-button [value]="locationRoutesType.survey">
               <span i18n="@@location-routes-sidebar.filter.survey">Survey</span
-              ><span class="kpn-brackets">{{
-                response.result.surveyRouteCount
-              }}</span>
+              ><span class="kpn-brackets">{{ response.result.surveyRouteCount }}</span>
             </mat-radio-button>
           </div>
         </mat-radio-group>

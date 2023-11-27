@@ -10,11 +10,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   selector: 'kpn-location-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span
-      *ngIf="!hasRouteReferences()"
-      class="no-routes"
-      i18n="@@location-nodes.no-routes"
-    >
+    <span *ngIf="!hasRouteReferences()" class="no-routes" i18n="@@location-nodes.no-routes">
       no routes
     </span>
 

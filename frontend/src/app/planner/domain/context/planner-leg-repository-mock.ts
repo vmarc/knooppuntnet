@@ -10,11 +10,7 @@ import { PlannerLegRepository } from './planner-leg-repository';
 export class PlannerLegRepositoryMock implements PlannerLegRepository {
   private planLegDetails: Map<string, PlanLegData> = Map<string, PlanLegData>();
 
-  planLeg(
-    networkType: NetworkType,
-    source: LegEnd,
-    sink: LegEnd
-  ): Observable<PlanLegData> {
+  planLeg(networkType: NetworkType, source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     const key = PlanUtil.key(source, sink);
     const data = this.planLegDetails.get(key);
     if (!data) {
