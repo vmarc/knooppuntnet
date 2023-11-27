@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,36 +16,45 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
   selector: 'kpn-monitor-group-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
+    <kpn-page>
       <kpn-monitor-group-breadcrumb />
 
       <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
 
-      <div *ngIf="state.response as response" class="kpn-form">
-        <div *ngIf="!response.result">
-          <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
-        </div>
-        <div *ngIf="response.result as page">
-          <form [formGroup]="service.form" #ngForm="ngForm">
-            <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
-            <kpn-monitor-group-description
-              [ngForm]="ngForm"
-              [description]="service.description"
-            />
+      @if (service.state(); as state) {
+        @if (state.response; as response) {
+          <div class="kpn-form">
+            @if (!response.result) {
+              <div>
+                <p i18n="@@monitor.group.update.group-not-found">Group not found</p>
+              </div>
+            }
 
-            <div class="kpn-form-buttons">
-              <button
-                mat-stroked-button
-                (click)="service.update(page.groupId)"
-                i18n="@@monitor.group.update.action"
-              >
-                Update group
-              </button>
-              <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
-            </div>
-          </form>
-        </div>
-      </div>
+            @if (response.result; as page) {
+              <div>
+                <form [formGroup]="service.form" #ngForm="ngForm">
+                  <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
+                  <kpn-monitor-group-description
+                    [ngForm]="ngForm"
+                    [description]="service.description"
+                  />
+
+                  <div class="kpn-form-buttons">
+                    <button
+                      mat-stroked-button
+                      (click)="service.update(page.groupId)"
+                      i18n="@@monitor.group.update.action"
+                    >
+                      Update group
+                    </button>
+                    <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
+                  </div>
+                </form>
+              </div>
+            }
+          </div>
+        }
+      }
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
@@ -56,7 +65,6 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
     MonitorGroupBreadcrumbComponent,
     MonitorGroupDescriptionComponent,
     MonitorGroupNameComponent,
-    NgIf,
     PageComponent,
     ReactiveFormsModule,
     RouterLink,
@@ -64,5 +72,5 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
   ],
 })
 export class MonitorGroupUpdatePageComponent {
-  constructor(protected service: MonitorGroupUpdatePageService) {}
+  protected readonly service = inject(MonitorGroupUpdatePageService);
 }

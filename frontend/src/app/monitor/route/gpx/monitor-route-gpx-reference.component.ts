@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -50,38 +49,31 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
       {{ referenceFilename.value }}
     </div>
 
-    <div class="kpn-form-error">
+    @if (referenceFile.errors?.maxFileSizeExceeded) {
       <div
-        *ngIf="referenceFile.errors?.maxFileSizeExceeded"
-        i18n="
-          @@monitor.route.properties.reference-details.file.max-size-exceeded"
+        class="kpn-form-error"
+        i18n="@@monitor.route.properties.reference-details.file.max-size-exceeded"
       >
         Cannot upload this file. It is too big (maximum file size is
         {{ referenceFile.errors.maxFileSizeExceeded }}).
       </div>
-    </div>
+    }
 
-    <div
-      *ngIf="
-        referenceFilename.invalid &&
-        (referenceFilename.dirty ||
-          referenceFilename.touched ||
-          ngForm.submitted)
-      "
-      class="kpn-form-error"
-    >
-      <div
-        *ngIf="referenceFilename.errors?.required"
-        id="reference-filename.required"
-        i18n="@@monitor.route.reference-filename.required"
-      >
-        Reference filename is required
+    @if (
+      referenceFilename.invalid &&
+      (referenceFilename.dirty || referenceFilename.touched || ngForm.submitted)
+    ) {
+      <div class="kpn-form-error">
+        @if (referenceFilename.errors?.required) {
+          <div id="reference-filename.required" i18n="@@monitor.route.reference-filename.required">
+            Reference filename is required
+          </div>
+        }
       </div>
-    </div>
+    }
 
     <p i18n="@@monitor.route.properties.reference-details.gpx.reference-day">
-      Select the date at which the gpx trace was recorded or was known to be
-      valid:
+      Select the date at which the gpx trace was recorded or was known to be valid:
     </p>
     <kpn-day-input
       id="gpx-reference-date"
@@ -89,21 +81,16 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
       label="Reference day"
       i18n-label="@@monitor.route.properties.reference-details.day.label"
     />
-    <div
-      *ngIf="
-        gpxReferenceDate.invalid &&
-        (gpxReferenceDate.touched || ngForm.submitted)
-      "
-      class="kpn-form-error"
-    >
-      <div
-        *ngIf="gpxReferenceDate.errors?.required"
-        id="reference-day.required"
-        i18n="@@monitor.route.reference-day.required"
-      >
-        Please provide a valid reference day
+
+    @if (gpxReferenceDate.invalid && (gpxReferenceDate.touched || ngForm.submitted)) {
+      <div class="kpn-form-error">
+        @if (gpxReferenceDate.errors?.required) {
+          <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
+            Please provide a valid reference day
+          </div>
+        }
       </div>
-    </div>
+    }
   `,
   styles: `
     .file-input {
@@ -122,7 +109,6 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
     MonitorRouteDetailsReferenceComponent,
     MonitorRouteDetailsStructureComponent,
     MonitorRouteDetailsSummaryComponent,
-    NgIf,
     RouterLink,
   ],
 })

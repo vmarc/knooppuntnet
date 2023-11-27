@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
@@ -17,21 +16,16 @@ import { MonitorRouteGroup } from '@api/common/monitor';
     <mat-form-field class="group">
       <mat-label i18n="@@monitor.route.properties.group">Group</mat-label>
       <mat-select id="group-selector" [formControl]="group">
-        <mat-option *ngFor="let gr of routeGroups" [value]="gr">
-          {{ gr.groupName + ' - ' + gr.groupDescription }}
-        </mat-option>
+        @for (gr of routeGroups; track $index) {
+          <mat-option [value]="gr">
+            {{ gr.groupName + ' - ' + gr.groupDescription }}
+          </mat-option>
+        }
       </mat-select>
     </mat-form-field>
 
     <div class="kpn-button-group">
-      <button
-        id="step1-next"
-        mat-stroked-button
-        matStepperNext
-        i18n="@@action.next"
-      >
-        Next
-      </button>
+      <button id="step1-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,
   styles: `
@@ -46,7 +40,6 @@ import { MonitorRouteGroup } from '@api/common/monitor';
     MatOptionModule,
     MatSelectModule,
     MatStepperModule,
-    NgFor,
     ReactiveFormsModule,
   ],
 })

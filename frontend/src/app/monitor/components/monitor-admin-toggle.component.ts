@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -33,7 +34,7 @@ import { MonitorService } from '../monitor.service';
   imports: [MatSlideToggleModule, AsyncPipe],
 })
 export class MonitorAdminToggleComponent {
-  constructor(protected service: MonitorService) {}
+  protected readonly service = inject(MonitorService);
 
   adminChanged(event: MatSlideToggleChange): void {
     this.service.setAdmin(event.checked);

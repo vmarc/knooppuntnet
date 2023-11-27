@@ -1,5 +1,4 @@
 import { NgClass } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
@@ -26,13 +25,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
   template: `
     <table mat-table [dataSource]="dataSource">
       <ng-container matColumnDef="nr">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.nr"
-        >
-          Nr
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.nr">Nr</th>
         <td mat-cell *matCellDef="let row; let i = index">
           {{ i + 1 }}
         </td>
@@ -48,127 +41,108 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           Name
         </th>
         <td mat-cell *matCellDef="let row">
-          <div *ngIf="row.level === 1" class="level-1">{{ row.name }}</div>
-          <div *ngIf="row.level === 2" class="level-2">{{ row.name }}</div>
-          <div *ngIf="row.level === 3" class="level-3">{{ row.name }}</div>
-          <div *ngIf="row.level === 4" class="level-4">{{ row.name }}</div>
-          <div *ngIf="row.level === 5" class="level-5">{{ row.name }}</div>
+          @switch (row.level) {
+            @case (1) {
+              <div class="level-1">{{ row.name }}</div>
+            }
+            @case (2) {
+              <div class="level-2">{{ row.name }}</div>
+            }
+            @case (3) {
+              <div class="level-3">{{ row.name }}</div>
+            }
+            @case (4) {
+              <div class="level-4">{{ row.name }}</div>
+            }
+            @case (5) {
+              <div class="level-5">{{ row.name }}</div>
+            }
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="happy">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <mat-icon *ngIf="row.happy" svgIcon="happy"></mat-icon>
+          @if (row.happy) {
+            <mat-icon svgIcon="happy"></mat-icon>
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="map">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.map"
-        >
-          Map
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.map">Map</th>
         <td mat-cell *matCellDef="let row">
-          <a
-            *ngIf="row.showMap"
-            [routerLink]="mapLink()"
-            [queryParams]="subRelationQueryParams(row)"
-            i18n="@@monitor.group.route-table.map-link"
-          >
-            map
-          </a>
+          @if (row.showMap) {
+            <a
+              [routerLink]="mapLink()"
+              [queryParams]="subRelationQueryParams(row)"
+              i18n="@@monitor.group.route-table.map-link"
+            >
+              map
+            </a>
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="relation">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.relation"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.relation">
           Relation
         </th>
         <td mat-cell *matCellDef="let row">
-          <kpn-osm-link-relation
-            [relationId]="row.relationId"
-            [title]="row.relationId.toString()"
-          >
+          <kpn-osm-link-relation [relationId]="row.relationId" [title]="row.relationId.toString()">
           </kpn-osm-link-relation>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.symbol"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.symbol">
           Symbol
         </th>
         <td mat-cell *matCellDef="let row" class="symbol">
-          <kpn-symbol
-            *ngIf="row.symbol"
-            [description]="row.symbol"
-            [width]="25"
-            [height]="25"
-          />
+          @if (row.symbol) {
+            <kpn-symbol [description]="row.symbol" [width]="25" [height]="25" />
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="role">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.role"
-        >
-          Role
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.role">Role</th>
         <td mat-cell *matCellDef="let row">
           {{ row.role }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.distance"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.distance">
           Distance
         </th>
         <td mat-cell *matCellDef="let row">
           <div class="distance">
-            <span
-              *ngIf="row.osmDistanceSubRelations > 0"
-              class="cumulative-distance"
-              matTooltip="Total length of ways in all subrelations"
-            >
-              {{ row.osmDistanceSubRelations | distance }}
-            </span>
-            <span
-              *ngIf="row.osmDistanceSubRelations > 0 && row.osmDistance > 0"
-            >
-              /
-            </span>
-            <span
-              *ngIf="row.osmDistance > 0"
-              matTooltip="Total length of ways in this relation"
-            >
-              {{ row.osmDistance | distance }}
-            </span>
+            @if (row.osmDistanceSubRelations > 0) {
+              <span
+                class="cumulative-distance"
+                matTooltip="Total length of ways in all subrelations"
+              >
+                {{ row.osmDistanceSubRelations | distance }}
+              </span>
+            }
+
+            @if (row.osmDistanceSubRelations > 0 && row.osmDistance > 0) {
+              <span> / </span>
+            }
+
+            @if (row.osmDistance > 0) {
+              <span matTooltip="Total length of ways in this relation">
+                {{ row.osmDistance | distance }}
+              </span>
+            }
           </div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="survey">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.route.relation-table.survey"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.survey">
           Survey
         </th>
         <td mat-cell *matCellDef="let row">
@@ -186,27 +160,27 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           Reference
         </th>
         <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.physical">
+          @if (row.physical) {
             {{ row.referenceTimestamp | yyyymmdd }}
-          </ng-container>
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="reference-filename">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.physical">
+          @if (row.physical) {
             {{ row.referenceFilename }}
-          </ng-container>
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="reference-distance">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <ng-container *ngIf="row.physical">
+          @if (row.physical) {
             {{ row.referenceDistance | distance }}
-          </ng-container>
+          }
         </td>
       </ng-container>
 
@@ -220,56 +194,41 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           Deviations
         </th>
         <td mat-cell *matCellDef="let row">
-          <ng-container>
-            {{ row.deviationCount }}
-          </ng-container>
+          {{ row.deviationCount }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="deviation-distance">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
-          <ng-container>
-            <span *ngIf="row.deviationCount > 0">
-              {{ row.deviationDistance | distance }}
-            </span>
-            <span *ngIf="row.deviationCount === 0"> - </span>
-          </ng-container>
+          @if (row.deviationCount > 0) {
+            {{ row.deviationDistance | distance }}
+          } @else {
+            -
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="segments">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.segments"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.segments">
           Segments
         </th>
-        <td
-          mat-cell
-          *matCellDef="let row"
-          [ngClass]="{ 'no-route-gap': row.gaps === undefined }"
-        >
-          <ng-container *ngIf="row.gaps !== undefined">
+        <td mat-cell *matCellDef="let row" [ngClass]="{ 'no-route-gap': row.gaps === undefined }">
+          @if (row.gaps !== undefined) {
             <kpn-monitor-route-gap
               [description]="row.gaps"
               [osmSegmentCount]="row.osmSegmentCount"
             />
-          </ng-container>
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@monitor.group.route-table.actions"
-        >
+        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.route-table.actions">
           Actions
         </th>
         <td mat-cell *matCellDef="let row" class="kpn-action-cell">
-          <ng-container *ngIf="row.physical">
+          @if (row.physical) {
             <button
               mat-icon-button
               [routerLink]="uploadGpx()"
@@ -295,7 +254,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
             >
               <mat-icon svgIcon="garbage" />
             </button>
-          </ng-container>
+          }
         </td>
       </ng-container>
 
@@ -351,7 +310,6 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     MatTableModule,
     MatTooltipModule,
     MonitorRouteGapComponent,
-    NgIf,
     OsmLinkRelationComponent,
     RouterLink,
     TimestampDayPipe,
@@ -366,8 +324,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   @Input({ required: true }) structureRows: MonitorRouteRelationStructureRow[];
   @Input({ required: true }) referenceType: string;
 
-  readonly dataSource =
-    new MatTableDataSource<MonitorRouteRelationStructureRow>();
+  readonly dataSource = new MatTableDataSource<MonitorRouteRelationStructureRow>();
 
   private readonly mainColumns = [
     'nr',
@@ -381,17 +338,9 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     'survey',
   ];
 
-  private readonly referenceColumns = [
-    'reference-day',
-    'reference-filename',
-    'reference-distance',
-  ];
+  private readonly referenceColumns = ['reference-day', 'reference-filename', 'reference-distance'];
 
-  private readonly analysisColumns = [
-    'deviation-count',
-    'deviation-distance',
-    'segments',
-  ];
+  private readonly analysisColumns = ['deviation-count', 'deviation-distance', 'segments'];
 
   private readonly columnsWithoutHeader = [
     'happy',
@@ -417,9 +366,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   }
 
   displayedHeaders(admin: boolean) {
-    return this.displayedColumns(admin).filter(
-      (name) => !this.columnsWithoutHeader.includes(name)
-    );
+    return this.displayedColumns(admin).filter((name) => !this.columnsWithoutHeader.includes(name));
   }
 
   mapLink(): string {

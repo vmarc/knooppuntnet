@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -12,13 +11,11 @@ import { SymbolComponent } from '@app/symbol';
   selector: 'kpn-monitor-route-details-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p
-      *ngIf="!page.relationId"
-      i18n="@@monitor.route.details.relation-id-undefined"
-    >
-      Route relation has not been defined yet
-    </p>
-    <div *ngIf="page.relationId">
+    @if (!page.relationId) {
+      <p i18n="@@monitor.route.details.relation-id-undefined">
+        Route relation has not been defined yet
+      </p>
+    } @else {
       <p class="kpn-separated">
         <kpn-osm-link-relation
           [title]="page.relationId.toString()"
@@ -26,31 +23,29 @@ import { SymbolComponent } from '@app/symbol';
         />
         <kpn-josm-relation [relationId]="page.relationId" />
       </p>
+
       <p class="kpn-space-separated">
         <span>{{ page.wayCount }}</span>
         <span i18n="@@monitor.route.details.ways">ways</span>
       </p>
+
       <p>{{ page.osmDistance | distance }}</p>
-      <p
-        *ngIf="page.relationCount > 1"
-        class="kpn-small-spacer-above"
-        i18n="@@monitor.route.details.relations"
-      >
-        {{ page.relationCount }} relations in {{ page.relationLevels }} levels
-      </p>
-      <div *ngIf="page.symbol" class="kpn-small-spacer-above">
-        <kpn-symbol [description]="page.symbol" />
-      </div>
-    </div>
+
+      @if (page.relationCount > 1) {
+        <p class="kpn-small-spacer-above" i18n="@@monitor.route.details.relations">
+          {{ page.relationCount }} relations in {{ page.relationLevels }} levels
+        </p>
+      }
+
+      @if (page.symbol) {
+        <div class="kpn-small-spacer-above">
+          <kpn-symbol [description]="page.symbol" />
+        </div>
+      }
+    }
   `,
   standalone: true,
-  imports: [
-    DistancePipe,
-    JosmRelationComponent,
-    NgIf,
-    OsmLinkRelationComponent,
-    SymbolComponent,
-  ],
+  imports: [DistancePipe, JosmRelationComponent, OsmLinkRelationComponent, SymbolComponent],
 })
 export class MonitorRouteDetailsSummaryComponent {
   @Input({ required: true }) page: MonitorRouteDetailsPage;

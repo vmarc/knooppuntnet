@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteGapComponent } from './monitor-route-gap.component';
@@ -12,18 +11,16 @@ import { MonitorRouteGapComponent } from './monitor-route-gap.component';
     <div class="page">
       <h1>Monitor subrelation gap indicators</h1>
       <table class="kpn-table">
-        <tr *ngFor="let description of gapDescriptions" class="row">
-          <td>
-            {{ description }}
-          </td>
-          <td class="gap">
-            <kpn-monitor-route-gap
-              [description]="description"
-              [osmSegmentCount]="99"
-              name="name"
-            />
-          </td>
-        </tr>
+        @for (description of gapDescriptions; track $index) {
+          <tr class="row">
+            <td>
+              {{ description }}
+            </td>
+            <td class="gap">
+              <kpn-monitor-route-gap [description]="description" [osmSegmentCount]="99" />
+            </td>
+          </tr>
+        }
       </table>
     </div>
   `,
@@ -42,7 +39,7 @@ import { MonitorRouteGapComponent } from './monitor-route-gap.component';
     }
   `,
   standalone: true,
-  imports: [NgFor, MonitorRouteGapComponent],
+  imports: [MonitorRouteGapComponent],
 })
 export class MonitorRouteGapsComponent {
   readonly gapDescriptions = [

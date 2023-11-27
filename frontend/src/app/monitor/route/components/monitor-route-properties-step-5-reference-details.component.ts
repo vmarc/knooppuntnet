@@ -1,5 +1,4 @@
 import { NgClass } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
@@ -25,14 +24,17 @@ import { DayInputComponent } from '@app/components/shared/format';
     </div>
 
     <div [ngClass]="{ hidden: referenceType.value !== 'osm-past' }">
-      <p *ngIf="oldReferenceTimestamp" class="kpn-spacer-below">
-        <span
-          class="kpn-label"
-          i18n="@@monitor.route.properties.reference-details.osm-now.timestamp"
-          >Current reference timestamp</span
-        >
-        {{ oldReferenceTimestamp | yyyymmddhhmm }}
-      </p>
+      @if (oldReferenceTimestamp) {
+        <p class="kpn-spacer-below">
+          <span
+            class="kpn-label"
+            i18n="
+              @@monitor.route.properties.reference-details.osm-now.timestamp"
+            >Current reference timestamp</span
+          >
+          {{ oldReferenceTimestamp | yyyymmddhhmm }}
+        </p>
+      }
 
       <p i18n="@@monitor.route.properties.reference-details.day">
         Select the date (midnight) of the route relation state that will serve
@@ -44,21 +46,22 @@ import { DayInputComponent } from '@app/components/shared/format';
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
-      <div
-        *ngIf="
-          osmReferenceDate.invalid &&
-          (osmReferenceDate.touched || ngForm.submitted)
-        "
-        class="kpn-form-error"
-      >
-        <div
-          *ngIf="osmReferenceDate.errors?.required"
-          id="osm-reference-date-required-error"
-          i18n="@@monitor.route.reference-day.required"
-        >
-          Please provide a valid reference day
+
+      @if (
+        osmReferenceDate.invalid &&
+        (osmReferenceDate.touched || ngForm.submitted)
+      ) {
+        <div class="kpn-form-error">
+          @if (osmReferenceDate.errors?.required) {
+            <div
+              id="osm-reference-date-required-error"
+              i18n="@@monitor.route.reference-day.required"
+            >
+              Please provide a valid reference day
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
 
     <div [ngClass]="{ hidden: referenceType.value !== 'gpx' }">
@@ -91,23 +94,24 @@ import { DayInputComponent } from '@app/components/shared/format';
         >
         {{ referenceFilename.value }}
       </div>
-      <div
-        *ngIf="
-          referenceFilename.invalid &&
-          (referenceFilename.dirty ||
-            referenceFilename.touched ||
-            ngForm.submitted)
-        "
-        class="kpn-form-error"
-      >
-        <div
-          *ngIf="referenceFilename.errors?.required"
-          id="reference-filename.required"
-          i18n="@@monitor.route.reference-filename.required"
-        >
-          Reference filename is required
+
+      @if (
+        referenceFilename.invalid &&
+        (referenceFilename.dirty ||
+          referenceFilename.touched ||
+          ngForm.submitted)
+      ) {
+        <div class="kpn-form-error">
+          @if (referenceFilename.errors?.required) {
+            <div
+              id="reference-filename.required"
+              i18n="@@monitor.route.reference-filename.required"
+            >
+              Reference filename is required
+            </div>
+          }
         </div>
-      </div>
+      }
 
       <p i18n="@@monitor.route.properties.reference-details.gpx.reference-day">
         Select the date at which the gpx trace was recorded or was known to be
@@ -119,21 +123,22 @@ import { DayInputComponent } from '@app/components/shared/format';
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
-      <div
-        *ngIf="
-          gpxReferenceDate.invalid &&
-          (gpxReferenceDate.touched || ngForm.submitted)
-        "
-        class="kpn-form-error"
-      >
-        <div
-          *ngIf="gpxReferenceDate.errors?.required"
-          id="reference-day.required"
-          i18n="@@monitor.route.reference-day.required"
-        >
-          Please provide a valid reference day
+
+      @if (
+        gpxReferenceDate.invalid &&
+        (gpxReferenceDate.touched || ngForm.submitted)
+      ) {
+        <div class="kpn-form-error">
+          @if (gpxReferenceDate.errors?.required) {
+            <div
+              id="reference-day.required"
+              i18n="@@monitor.route.reference-day.required"
+            >
+              Please provide a valid reference day
+            </div>
+          }
         </div>
-      </div>
+      }
     </div>
 
     <div
@@ -193,7 +198,6 @@ import { DayInputComponent } from '@app/components/shared/format';
     MatButtonModule,
     MatStepperModule,
     NgClass,
-    NgIf,
     TimestampPipe,
   ],
 })

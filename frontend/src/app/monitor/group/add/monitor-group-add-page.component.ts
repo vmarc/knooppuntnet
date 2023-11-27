@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,18 +27,14 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
           Create a new group containing routes to be monitored.
         </p>
         <p i18n="@@monitor.group.add.comment.2">
-          Provide a short name (that will be used in the browser address), and a
-          title for the group (probably describing who will be maintaining the
-          route group).
+          Provide a short name (that will be used in the browser address), and a title for the group
+          (probably describing who will be maintaining the route group).
         </p>
       </div>
 
       <form [formGroup]="service.form" class="kpn-form" #ngForm="ngForm">
         <kpn-monitor-group-name [ngForm]="ngForm" [name]="service.name" />
-        <kpn-monitor-group-description
-          [ngForm]="ngForm"
-          [description]="service.description"
-        />
+        <kpn-monitor-group-description [ngForm]="ngForm" [description]="service.description" />
         <kpn-form-status
           formName="group-form"
           [statusChanges]="service.form.statusChanges"
@@ -67,7 +63,6 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
     MonitorGroupDescriptionComponent,
     MonitorGroupDescriptionComponent,
     MonitorGroupNameComponent,
-    NgIf,
     PageComponent,
     ReactiveFormsModule,
     RouterLink,
@@ -75,7 +70,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   ],
 })
 export class MonitorGroupAddPageComponent {
-  constructor(protected service: MonitorGroupAddPageService) {}
+  protected readonly service = inject(MonitorGroupAddPageService);
 
   add(): void {
     this.service.add();

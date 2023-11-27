@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { TimestampPipe } from '@app/components/shared/format';
@@ -16,25 +16,28 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <div *ngIf="service.page() !== null" class="control">
-        <kpn-monitor-route-map-control-mode />
-        <kpn-monitor-route-map-layers />
-        <kpn-monitor-route-map-control-josm />
-        <kpn-monitor-route-map-deviations
-          *ngIf="service.mode() === MonitorMapMode.comparison"
-        />
-        <kpn-monitor-route-map-osm-segments
-          *ngIf="service.mode() === MonitorMapMode.osmSegments"
-        />
-      </div>
-      <div
-        body-bottom
-        *ngIf="service.analysisTimestamp()"
-        class="analysis-timestamp"
-      >
-        <span class="kpn-label">Latest analysis</span>
-        <span>{{ service.analysisTimestamp() | yyyymmddhhmm }}</span>
-      </div>
+      @if (service.page() !== null) {
+        <div class="control">
+          <kpn-monitor-route-map-control-mode />
+          <kpn-monitor-route-map-layers />
+          <kpn-monitor-route-map-control-josm />
+          @switch (service.mode()) {
+            @case (MonitorMapMode.comparison) {
+              <kpn-monitor-route-map-deviations />
+            }
+            @case (MonitorMapMode.osmSegments) {
+              <kpn-monitor-route-map-osm-segments />
+            }
+          }
+        </div>
+      }
+
+      @if (service.analysisTimestamp(); as timestamp) {
+        <div body-bottom class="analysis-timestamp">
+          <span class="kpn-label">Latest analysis</span>
+          <span>{{ timestamp | yyyymmddhhmm }}</span>
+        </div>
+      }
     </kpn-sidebar>
   `,
   styles: `
@@ -54,13 +57,12 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     MonitorRouteMapDeviationsComponent,
     MonitorRouteMapLayersComponent,
     MonitorRouteMapOsmSegmentsComponent,
-    NgIf,
     SidebarComponent,
     TimestampPipe,
   ],
 })
 export class MonitorRouteMapSidebarComponent {
-  constructor(protected service: MonitorRouteMapStateService) {}
+  protected readonly service = inject(MonitorRouteMapStateService);
 
   protected readonly MonitorMapMode = MonitorMapMode;
 }

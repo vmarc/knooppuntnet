@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor } from '@angular/common';
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
@@ -17,19 +17,20 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       (selectionChange)="selectionChanged($event)"
       [hideSingleSelectionIndicator]="true"
     >
-      <mat-list-option
-        *ngFor="let segment of osmSegments()"
-        [value]="segment"
-        [selected]="mapStateService.selectedOsmSegment()?.id === segment.id"
-      >
-        <div class="segment">
-          <span class="segment-id">{{ segment.id }}</span>
-          <span class="segment-legend">
-            <kpn-legend-line [color]="segmentColor(segment)" />
-          </span>
-          <span>{{ segment.meters | distance }}</span>
-        </div>
-      </mat-list-option>
+      @for (segment of osmSegments(); track segment.id) {
+        <mat-list-option
+          [value]="segment"
+          [selected]="mapStateService.selectedOsmSegment()?.id === segment.id"
+        >
+          <div class="segment">
+            <span class="segment-id">{{ segment.id }}</span>
+            <span class="segment-legend">
+              <kpn-legend-line [color]="segmentColor(segment)" />
+            </span>
+            <span>{{ segment.meters | distance }}</span>
+          </div>
+        </mat-list-option>
+      }
     </mat-selection-list>
   `,
   styles: `
@@ -46,17 +47,15 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     }
   `,
   standalone: true,
-  imports: [MatListModule, NgFor, LegendLineComponent, AsyncPipe, DistancePipe],
+  imports: [MatListModule, LegendLineComponent, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
+  protected readonly mapStateService = inject(MonitorRouteMapStateService);
+  private readonly mapService = inject(MonitorRouteMapService);
+
   readonly osmSegments = computed(() => {
     return this.mapStateService.page()?.osmSegments ?? [];
   });
-
-  constructor(
-    protected mapStateService: MonitorRouteMapStateService,
-    private mapService: MonitorRouteMapService
-  ) {}
 
   selectionChanged(event: MatSelectionListChange): void {
     if (event.options.length > 0) {

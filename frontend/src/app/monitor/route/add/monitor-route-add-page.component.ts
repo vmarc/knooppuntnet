@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -14,39 +14,40 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
   selector: 'kpn-monitor-route-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
-          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </li>
-        <li>
-          <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
-        </li>
-        <li i18n="@@breadcrumb.monitor.route">Route</li>
-      </ul>
+    @if (service.state(); as state) {
+      <kpn-page>
+        <ul class="breadcrumb">
+          <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+          <li>
+            <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+          </li>
+          <li>
+            <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
+          </li>
+          <li i18n="@@breadcrumb.monitor.route">Route</li>
+        </ul>
 
-      <h1>{{ state.groupDescription }}&nbsp;</h1>
+        <h1>{{ state.groupDescription }}&nbsp;</h1>
 
-      <h2 i18n="@@monitor.route.add.title">Add route</h2>
+        <h2 i18n="@@monitor.route.add.title">Add route</h2>
 
-      <kpn-error />
+        <kpn-error />
 
-      <kpn-monitor-route-form
-        mode="add"
-        [groupName]="state.groupName"
-        [initialProperties]="{ groupName: state.groupName }"
-      />
+        <kpn-monitor-route-form
+          mode="add"
+          [groupName]="state.groupName"
+          [initialProperties]="{ groupName: state.groupName }"
+        />
 
-      <kpn-sidebar sidebar />
-    </kpn-page>
+        <kpn-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   providers: [MonitorRouteAddPageService, NavService],
   standalone: true,
   imports: [
     ErrorComponent,
     MonitorRoutePropertiesComponent,
-    NgIf,
     PageComponent,
     RouterLink,
     SidebarComponent,
@@ -54,5 +55,5 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
   ],
 })
 export class MonitorRouteAddPageComponent {
-  constructor(protected service: MonitorRouteAddPageService) {}
+  protected readonly service = inject(MonitorRouteAddPageService);
 }

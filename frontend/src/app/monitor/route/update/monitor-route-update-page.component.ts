@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -13,51 +13,44 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
   selector: 'kpn-monitor-route-update-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
-          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </li>
-        <li>
-          <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
-        </li>
-        <li i18n="@@breadcrumb.monitor.route">Route</li>
-      </ul>
+    @if (service.state(); as state) {
+      <kpn-page>
+        <ul class="breadcrumb">
+          <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+          <li>
+            <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+          </li>
+          <li>
+            <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
+          </li>
+          <li i18n="@@breadcrumb.monitor.route">Route</li>
+        </ul>
 
-      <h1>
-        <span class="kpn-label">{{ state.routeName }}</span>
-        <span> {{ state.routeDescription }}</span
-        >&nbsp;
-      </h1>
+        <h1>
+          <span class="kpn-label">{{ state.routeName }}</span>
+          <span>{{ state.routeDescription }}</span>
+        </h1>
 
-      <h2 i18n="@@monitor.route.update.title">Update route</h2>
+        <h2 i18n="@@monitor.route.update.title">Update route</h2>
 
-      <kpn-error />
+        <kpn-error />
 
-      <div *ngIf="state.response as response">
-        <kpn-monitor-route-form
-          mode="update"
-          [groupName]="state.groupName"
-          [initialProperties]="response.result.properties"
-          [routeGroups]="response.result.groups"
-        />
-      </div>
-
-      <kpn-sidebar sidebar />
-    </kpn-page>
+        @if (state.response; as response) {
+          <kpn-monitor-route-form
+            mode="update"
+            [groupName]="state.groupName"
+            [initialProperties]="response.result.properties"
+            [routeGroups]="response.result.groups"
+          />
+        }
+        <kpn-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   providers: [MonitorRouteUpdatePageService, NavService],
   standalone: true,
-  imports: [
-    ErrorComponent,
-    MonitorRouteFormComponent,
-    NgIf,
-    PageComponent,
-    RouterLink,
-    SidebarComponent,
-  ],
+  imports: [ErrorComponent, MonitorRouteFormComponent, PageComponent, RouterLink, SidebarComponent],
 })
 export class MonitorRouteUpdatePageComponent {
-  constructor(protected service: MonitorRouteUpdatePageService) {}
+  protected readonly service = inject(MonitorRouteUpdatePageService);
 }

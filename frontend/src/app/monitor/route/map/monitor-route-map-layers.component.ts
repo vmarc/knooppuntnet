@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,16 +19,12 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       >
         <div class="kpn-line">
           <kpn-legend-line color="blue"></kpn-legend-line>
-          <span
-            *ngIf="referenceType() === 'gpx' || referenceType() === 'multi-gpx'"
-            i18n="@@monitor.route.map-layers.reference.gpx"
-            >GPX Reference</span
-          >
-          <span
-            *ngIf="referenceType() === 'osm'"
-            i18n="@@monitor.route.map-layers.reference.osm"
-            >OSM reference</span
-          >
+          @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
+            <span i18n="@@monitor.route.map-layers.reference.gpx">GPX Reference</span>
+          }
+          @if (referenceType() === 'osm') {
+            <span i18n="@@monitor.route.map-layers.reference.osm">OSM reference</span>
+          }
         </div>
       </mat-checkbox>
 
@@ -39,18 +35,12 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       >
         <div class="kpn-line">
           <kpn-legend-line color="green" />
-          <span
-            *ngIf="referenceType() === 'gpx' || referenceType() === 'multi-gpx'"
-            i18n="@@monitor.route.map-layers.gpx-same-as-osm"
-          >
-            GPX same as OSM
-          </span>
-          <span
-            *ngIf="referenceType() === 'osm'"
-            i18n="@@monitor.route.map-layers.reference-same-as-osm"
-          >
-            Reference matches
-          </span>
+          @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
+            <span i18n="@@monitor.route.map-layers.gpx-same-as-osm"> GPX same as OSM </span>
+          }
+          @if (referenceType() === 'osm') {
+            <span i18n="@@monitor.route.map-layers.reference-same-as-osm"> Reference matches </span>
+          }
         </div>
       </mat-checkbox>
 
@@ -61,18 +51,14 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       >
         <div class="kpn-line">
           <kpn-legend-line color="red" />
-          <span
-            *ngIf="referenceType() === 'gpx' || referenceType() === 'multi-gpx'"
-            i18n="@@monitor.route.map-layers.deviations.gpx"
-          >
-            GPX where OSM is deviating
-          </span>
-          <span
-            *ngIf="referenceType() === 'osm'"
-            i18n="@@monitor.route.map-layers.deviations.osm"
-          >
-            Reference deviations
-          </span>
+          @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
+            <span i18n="@@monitor.route.map-layers.deviations.gpx">
+              GPX where OSM is deviating
+            </span>
+          }
+          @if (referenceType() === 'osm') {
+            <span i18n="@@monitor.route.map-layers.deviations.osm"> Reference deviations </span>
+          }
         </div>
       </mat-checkbox>
 
@@ -83,9 +69,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       >
         <div class="kpn-line">
           <kpn-legend-line color="gold" />
-          <span i18n="@@monitor.route.map-layers.osm-relation">
-            OSM relation
-          </span>
+          <span i18n="@@monitor.route.map-layers.osm-relation"> OSM relation </span>
         </div>
       </mat-checkbox>
     </div>
@@ -96,16 +80,14 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, MatCheckboxModule, LegendLineComponent],
+  imports: [MatCheckboxModule, LegendLineComponent],
 })
 export class MonitorRouteMapLayersComponent {
-  readonly referenceType = computed(
-    () => this.mapStateService.page().referenceType
-  );
+  protected readonly mapStateService = inject(MonitorRouteMapStateService);
+
+  readonly referenceType = computed(() => this.mapStateService.page().referenceType);
 
   readonly modeComparison = computed(
     () => this.mapStateService.mode() === MonitorMapMode.comparison
   );
-
-  constructor(protected mapStateService: MonitorRouteMapStateService) {}
 }

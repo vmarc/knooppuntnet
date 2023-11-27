@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -17,30 +17,30 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   selector: 'kpn-monitor-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <kpn-monitor-route-page-header
-        pageName="map"
-        [groupName]="state.groupName"
-        [routeName]="state.routeName"
-        [routeDescription]="state.routeDescription"
-        [subRelations]="subRelations()"
-        [previous]="previous()"
-        [next]="next()"
-        (selectSubRelation)="service.selectSubRelation($event)"
-      />
-      <div *ngIf="stateService.page() !== null">
-        <div
-          *ngIf="canDisplayMap(stateService.page()); then map; else noMap"
-        ></div>
-        <ng-template #noMap>
-          <p i18n="@@monitor.route.map.no-map">No map</p>
-        </ng-template>
-        <ng-template #map>
-          <kpn-monitor-route-map />
-        </ng-template>
-      </div>
-      <kpn-monitor-route-map-sidebar sidebar />
-    </kpn-page>
+    @if (service.state(); as state) {
+      <kpn-page>
+        <kpn-monitor-route-page-header
+          pageName="map"
+          [groupName]="state.groupName"
+          [routeName]="state.routeName"
+          [routeDescription]="state.routeDescription"
+          [subRelations]="subRelations()"
+          [previous]="previous()"
+          [next]="next()"
+          (selectSubRelation)="service.selectSubRelation($event)"
+        />
+
+        @if (stateService.page(); as page) {
+          @if (!canDisplayMap(page)) {
+            <p i18n="@@monitor.route.map.no-map">No map</p>
+          } @else {
+            <kpn-monitor-route-map />
+          }
+        }
+
+        <kpn-monitor-route-map-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   providers: [
     MonitorRouteMapPageService,
@@ -53,12 +53,14 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     MonitorRouteMapComponent,
     MonitorRouteMapSidebarComponent,
     MonitorRoutePageHeaderComponent,
-    NgIf,
     PageComponent,
     SidebarComponent,
   ],
 })
 export class MonitorRouteMapPageComponent {
+  protected readonly service = inject(MonitorRouteMapPageService);
+  protected readonly stateService = inject(MonitorRouteMapStateService);
+
   readonly subRelations = computed(() => {
     return this.stateService.page()?.subRelations ?? [];
   });
@@ -68,11 +70,6 @@ export class MonitorRouteMapPageComponent {
   readonly next = computed(() => {
     return this.stateService.page()?.nextSubRelation;
   });
-
-  constructor(
-    protected service: MonitorRouteMapPageService,
-    protected stateService: MonitorRouteMapStateService
-  ) {}
 
   canDisplayMap(page: MonitorRouteMapPage): boolean {
     return (

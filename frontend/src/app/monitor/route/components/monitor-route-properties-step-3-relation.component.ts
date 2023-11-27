@@ -1,8 +1,8 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { Input, OnInit } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -32,9 +32,7 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
           [value]="true"
           [checked]="relationIdKnown.value === true"
         >
-          <span i18n="@@monitor.route.properties.relation.question.yes">
-            Yes
-          </span>
+          <span i18n="@@monitor.route.properties.relation.question.yes"> Yes </span>
         </mat-radio-button>
         <mat-radio-button
           id="relation-id-known-no"
@@ -47,98 +45,71 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       </mat-radio-group>
     </div>
 
-    <div
-      *ngIf="relationIdKnown.value === false"
-      id="relation-id-unknown-comment"
-      class="comment"
-    >
-      <p i18n="@@monitor.route.properties.relation.ok">
-        OK, no problem: if you do not know the relation id right now, you can
-        still add it at any time later.
-      </p>
-      <p i18n="@@monitor.route.properties.relation.continue">
-        Continue with next step.
-      </p>
-    </div>
+    @if (relationIdKnown.value === false) {
+      <div id="relation-id-unknown-comment" class="comment">
+        <p i18n="@@monitor.route.properties.relation.ok">
+          OK, no problem: if you do not know the relation id right now, you can still add it at any
+          time later.
+        </p>
+        <p i18n="@@monitor.route.properties.relation.continue">Continue with next step.</p>
+      </div>
+    }
 
-    <div *ngIf="relationIdKnown.value === true">
-      <mat-form-field>
-        <mat-label i18n="@@monitor.route.properties.relation.label"
-          >Route relation id
-        </mat-label>
-        <input
-          matInput
-          type="number"
-          id="relation-id"
-          [formControl]="relationId"
-        />
-      </mat-form-field>
+    @if (relationIdKnown.value === true) {
       <div>
-        <button
-          mat-stroked-button
-          type="button"
-          id="verify"
-          (click)="getRouteInformation()"
-          i18n="@@monitor.route.properties.relation.action.verify"
-        >
-          Verify route relation id
-        </button>
-      </div>
-      <div *ngIf="apiResponse() as response">
-        <kpn-monitor-route-info [routeInfo]="response.result" />
-      </div>
-    </div>
+        <mat-form-field>
+          <mat-label i18n="@@monitor.route.properties.relation.label">Route relation id </mat-label>
+          <input matInput type="number" id="relation-id" [formControl]="relationId" />
+        </mat-form-field>
+        <div>
+          <button
+            mat-stroked-button
+            type="button"
+            id="verify"
+            (click)="getRouteInformation()"
+            i18n="@@monitor.route.properties.relation.action.verify"
+          >
+            Verify route relation id
+          </button>
+        </div>
 
-    <div
-      *ngIf="form.invalid && (form.dirty || form.touched || ngForm.submitted)"
-      id="relation.question-unanswered"
-      class="kpn-warning"
-    >
+        @if (apiResponse(); as response) {
+          <div>
+            <kpn-monitor-route-info [routeInfo]="response.result" />
+          </div>
+        }
+      </div>
+    }
+
+    @if (form.invalid && (form.dirty || form.touched || ngForm.submitted)) {
+      @if (form.errors.questionUnanswered) {}
       <p
-        *ngIf="form.errors.questionUnanswered"
+        id="relation.question-unanswered"
+        class="kpn-warning"
         i18n="@@monitor.route.properties.relation.question-unanswered"
       >
         Please answer the question
       </p>
-    </div>
+    }
 
-    <div
-      *ngIf="
-        form.invalid &&
-        (relationId.dirty || relationId.touched || ngForm.submitted)
-      "
-      class="kpn-error"
-    >
-      <p
-        *ngIf="form.errors?.relationIdMissing"
-        id="relation-id-missing-warning"
-        i18n="@@monitor.route.properties.relation.missing"
-      >
-        Provide a valid OSM route relation id
-      </p>
-    </div>
+    @if (form.invalid && (relationId.dirty || relationId.touched || ngForm.submitted)) {
+      @if (form.errors?.relationIdMissing) {
+        <p
+          id="relation-id-missing-warning"
+          class="kpn-error"
+          i18n="@@monitor.route.properties.relation.missing"
+        >
+          Provide a valid OSM route relation id
+        </p>
+      }
+    }
 
-    <kpn-form-status
-      formName="step3-form"
-      [statusChanges]="ngForm.statusChanges"
-    ></kpn-form-status>
+    <kpn-form-status formName="step3-form" [statusChanges]="ngForm.statusChanges"></kpn-form-status>
     <div class="kpn-button-group">
-      <button
-        id="step3-back"
-        mat-stroked-button
-        matStepperPrevious
-        i18n="@@action.back"
-      >
+      <button id="step3-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
         Back
       </button>
-      <button
-        id="step3-next"
-        mat-stroked-button
-        matStepperNext
-        i18n="@@action.next"
-      >
-        Next
-      </button>
+      <button id="step3-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,
   styles: `
@@ -167,13 +138,10 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
     MatRadioModule,
     MatStepperModule,
     MonitorRouteInfoComponent,
-    NgIf,
     ReactiveFormsModule,
   ],
 })
-export class MonitorRoutePropertiesStep3RelationComponent
-  implements OnInit, OnDestroy
-{
+export class MonitorRoutePropertiesStep3RelationComponent implements OnInit, OnDestroy {
   @Input({ required: true }) ngForm: FormGroupDirective;
   @Input({ required: true }) form: FormGroup;
   @Input({ required: true }) relationIdKnown: FormControl<boolean>;

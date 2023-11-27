@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { NavService } from '@app/components/shared';
@@ -19,77 +19,63 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   selector: 'kpn-monitor-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <kpn-monitor-route-page-header
-        pageName="details"
-        [groupName]="state.groupName"
-        [routeName]="state.routeName"
-        [routeDescription]="state.routeDescription"
-      />
+    @if (service.state(); as state) {
+      <kpn-page>
+        <kpn-monitor-route-page-header
+          pageName="details"
+          [groupName]="state.groupName"
+          [routeName]="state.routeName"
+          [routeDescription]="state.routeDescription"
+        />
 
-      <kpn-monitor-admin-toggle />
+        <kpn-monitor-admin-toggle />
 
-      <div *ngIf="state.response as response">
-        <div *ngIf="!response.result" i18n="@@monitor.route.details.not-found">
-          Route not found
-        </div>
+        @if (state.response; as response) {
+          @if (!response.result) {
+            <div class="kpn-error" i18n="@@monitor.route.details.not-found">Route not found</div>
+          }
 
-        <div *ngIf="response.result as page">
-          <kpn-data
-            title="Summary"
-            i18n-title="@@monitor.route.details.summary"
-          >
-            <kpn-monitor-route-details-summary [page]="page" />
-          </kpn-data>
+          @if (response.result; as page) {
+            <kpn-data title="Summary" i18n-title="@@monitor.route.details.summary">
+              <kpn-monitor-route-details-summary [page]="page" />
+            </kpn-data>
 
-          <kpn-data
-            title="Latest analysis"
-            i18n-title="@@monitor.route.details.analysis"
-          >
-            <kpn-monitor-route-details-timestamp [page]="page" />
-          </kpn-data>
+            <kpn-data title="Latest analysis" i18n-title="@@monitor.route.details.analysis">
+              <kpn-monitor-route-details-timestamp [page]="page" />
+            </kpn-data>
 
-          <kpn-data
-            title="Reference"
-            i18n-title="@@monitor.route.details.reference"
-          >
-            <kpn-monitor-route-details-reference [page]="page" />
-          </kpn-data>
+            <kpn-data title="Reference" i18n-title="@@monitor.route.details.reference">
+              <kpn-monitor-route-details-reference [page]="page" />
+            </kpn-data>
 
-          <kpn-data
-            *ngIf="page.relationId"
-            title="Analysis"
-            i18n-title="@@monitor.route.details.analysis"
-          >
-            <kpn-monitor-route-details-analysis [page]="page" />
-          </kpn-data>
+            @if (page.relationId) {
+              <kpn-data title="Analysis" i18n-title="@@monitor.route.details.analysis">
+                <kpn-monitor-route-details-analysis [page]="page" />
+              </kpn-data>
+            }
+            @if (page.comment) {
+              <kpn-data title="Comment" i18n-title="@@monitor.route.details.comment">
+                <markdown [data]="page.comment" />
+              </kpn-data>
+            }
 
-          <kpn-data
-            *ngIf="page.comment"
-            title="Comment"
-            i18n-title="@@monitor.route.details.comment"
-          >
-            <markdown [data]="page.comment" />
-          </kpn-data>
-
-          <kpn-data
-            *ngIf="page.structureRows"
-            title="Structure"
-            i18n-title="@@monitor.route.details.structure"
-          />
-          <div *ngIf="page.structureRows" class="structure">
-            <kpn-monitor-route-details-structure
-              [admin]="service.admin()"
-              [groupName]="page.groupName"
-              [routeName]="page.routeName"
-              [structureRows]="page.structureRows"
-              [referenceType]="page.referenceType"
-            />
-          </div>
-        </div>
-      </div>
-      <kpn-sidebar sidebar />
-    </kpn-page>
+            @if (page.structureRows) {
+              <kpn-data title="Structure" i18n-title="@@monitor.route.details.structure" />
+              <div class="structure">
+                <kpn-monitor-route-details-structure
+                  [admin]="service.admin()"
+                  [groupName]="page.groupName"
+                  [routeName]="page.routeName"
+                  [structureRows]="page.structureRows"
+                  [referenceType]="page.referenceType"
+                />
+              </div>
+            }
+          }
+        }
+        <kpn-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   styles: `
     .structure {
@@ -106,13 +92,12 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     MonitorRouteDetailsReferenceComponent,
     MonitorRouteDetailsStructureComponent,
     MonitorRouteDetailsSummaryComponent,
+    MonitorRouteDetailsTimestampComponent,
     MonitorRoutePageHeaderComponent,
-    NgIf,
     PageComponent,
     SidebarComponent,
-    MonitorRouteDetailsTimestampComponent,
   ],
 })
 export class MonitorRouteDetailsPageComponent {
-  constructor(protected service: MonitorRouteDetailsPageService) {}
+  protected readonly service = inject(MonitorRouteDetailsPageService);
 }

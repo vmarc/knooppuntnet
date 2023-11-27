@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
@@ -23,15 +22,17 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
       [statusChanges]="ngForm.statusChanges"
     ></kpn-form-status>
     <div class="kpn-button-group">
-      <button
-        *ngIf="mode === 'update'"
-        id="step2-back"
-        mat-stroked-button
-        matStepperPrevious
-        i18n="@@action.back"
-      >
-        Back
-      </button>
+      @if (mode === 'update') {
+        <button
+          id="step2-back"
+          mat-stroked-button
+          matStepperPrevious
+          i18n="@@action.back"
+        >
+          Back
+        </button>
+      }
+
       <button
         id="step2-next"
         mat-stroked-button
@@ -49,7 +50,6 @@ import { MonitorRouteNameComponent } from './monitor-route-name.component';
     MatStepperModule,
     MonitorRouteDescriptionComponent,
     MonitorRouteNameComponent,
-    NgIf,
     ReactiveFormsModule,
   ],
 })

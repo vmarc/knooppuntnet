@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +16,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   selector: 'kpn-monitor-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -24,46 +24,45 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
         </li>
         <li i18n="@@breadcrumb.monitor.group">Group</li>
       </ul>
+      @if (service.state(); as state) {
+        <h1 class="title">
+          <span class="kpn-label">{{ state.groupName }}</span>
+          <span>{{ state.groupDescription }}</span>
+        </h1>
 
-      <h1 class="title" *ngIf="state.groupName">
-        <span class="kpn-label">{{ state.groupName }}</span>
-        <span>{{ state.groupDescription }}</span>
-      </h1>
+        <kpn-monitor-group-page-menu pageName="routes" [groupName]="state.groupName" />
 
-      <kpn-monitor-group-page-menu
-        pageName="routes"
-        [groupName]="state.groupName"
-      />
+        <kpn-monitor-admin-toggle />
 
-      <kpn-monitor-admin-toggle />
-
-      <div *ngIf="state.response as response" class="kpn-form">
-        <ng-container *ngIf="response.result as page">
-          <div *ngIf="page.routes.length > 0; else noRoutes">
-            <kpn-monitor-group-route-table
-              [admin]="service.admin()"
-              [groupName]="page.groupName"
-              [routes]="page.routes"
-            />
+        @if (state.response; as response) {
+          <div class="kpn-form">
+            @if (response.result; as page) {
+              @if (page.routes.length > 0) {
+                <kpn-monitor-group-route-table
+                  [admin]="service.admin()"
+                  [groupName]="page.groupName"
+                  [routes]="page.routes"
+                />
+              } @else {
+                <div id="no-routes" i18n="@@monitor.group.no-routes">No routes in group</div>
+              }
+              @if (service.admin()) {
+                <div class="kpn-form-buttons">
+                  <button
+                    mat-stroked-button
+                    id="add-route"
+                    [routerLink]="addRouteLink(page)"
+                    type="button"
+                    i18n="@@monitor.group.action.add-route"
+                  >
+                    Add route
+                  </button>
+                </div>
+              }
+            }
           </div>
-          <ng-template #noRoutes>
-            <div id="no-routes" i18n="@@monitor.group.no-routes">
-              No routes in group
-            </div>
-          </ng-template>
-          <div *ngIf="service.admin()" class="kpn-form-buttons">
-            <button
-              mat-stroked-button
-              id="add-route"
-              [routerLink]="addRouteLink(page)"
-              type="button"
-              i18n="@@monitor.group.action.add-route"
-            >
-              Add route
-            </button>
-          </div>
-        </ng-container>
-      </div>
+        }
+      }
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
@@ -74,14 +73,13 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     MonitorAdminToggleComponent,
     MonitorGroupPageMenuComponent,
     MonitorGroupRouteTableComponent,
-    NgIf,
     PageComponent,
     RouterLink,
     SidebarComponent,
   ],
 })
 export class MonitorGroupPageComponent {
-  constructor(protected service: MonitorGroupPageService) {}
+  protected readonly service = inject(MonitorGroupPageService);
 
   addRouteLink(page: MonitorGroupPage): string {
     return `/monitor/admin/groups/${page.groupName}/routes/add`;

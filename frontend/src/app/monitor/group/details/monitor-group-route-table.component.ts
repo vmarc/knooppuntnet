@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
@@ -57,7 +56,9 @@ import { SymbolComponent } from '@app/symbol';
       <ng-container matColumnDef="happy">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          <mat-icon *ngIf="route.happy" svgIcon="happy" />
+          @if (route.happy) {
+            <mat-icon svgIcon="happy" />
+          }
         </td>
       </ng-container>
 
@@ -89,11 +90,12 @@ import { SymbolComponent } from '@app/symbol';
           Relation
         </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-osm-link-relation
-            *ngIf="!!route.relationId"
-            [relationId]="route.relationId"
-            [title]="route.relationId.toString()"
-          />
+          @if (route.relationId) {
+            <kpn-osm-link-relation
+              [relationId]="route.relationId"
+              [title]="route.relationId.toString()"
+            />
+          }
         </td>
       </ng-container>
 
@@ -106,12 +108,13 @@ import { SymbolComponent } from '@app/symbol';
           Symbol
         </th>
         <td mat-cell *matCellDef="let route" class="symbol">
-          <kpn-symbol
-            *ngIf="route.symbol"
-            [description]="route.symbol"
-            [width]="25"
-            [height]="25"
-          />
+          @if (route.symbol) {
+            <kpn-symbol
+              [description]="route.symbol"
+              [width]="25"
+              [height]="25"
+            />
+          }
         </td>
       </ng-container>
 
@@ -157,9 +160,11 @@ import { SymbolComponent } from '@app/symbol';
       <ng-container matColumnDef="reference-distance">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          <span *ngIf="route.referenceType">
-            {{ route.referenceDistance | distance }}
-          </span>
+          @if (route.referenceType) {
+            <span>
+              {{ route.referenceDistance | distance }}
+            </span>
+          }
         </td>
       </ng-container>
 
@@ -173,27 +178,29 @@ import { SymbolComponent } from '@app/symbol';
           Deviations
         </th>
         <td mat-cell *matCellDef="let route">
-          <span *ngIf="route.referenceType && route.relationId">
-            {{ route.deviationCount }}
-          </span>
+          @if (route.referenceType && route.relationId) {
+            <span>
+              {{ route.deviationCount }}
+            </span>
+          }
         </td>
       </ng-container>
 
       <ng-container matColumnDef="deviation-distance">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let route">
-          <span *ngIf="route.referenceType && route.deviationCount > 0">
-            {{ route.deviationDistance | distance }}
-          </span>
-          <span
-            *ngIf="
-              route.referenceType &&
-              route.relationId &&
-              route.deviationCount === 0
-            "
-          >
-            -
-          </span>
+          @if (route.referenceType && route.deviationCount > 0) {
+            <span>
+              {{ route.deviationDistance | distance }}
+            </span>
+          }
+          @if (
+            route.referenceType &&
+            route.relationId &&
+            route.deviationCount === 0
+          ) {
+            <span> - </span>
+          }
         </td>
       </ng-container>
 
@@ -206,9 +213,11 @@ import { SymbolComponent } from '@app/symbol';
           Segments
         </th>
         <td mat-cell *matCellDef="let route">
-          <span *ngIf="!!route.relationId">
-            {{ route.osmSegmentCount }}
-          </span>
+          @if (route.relationId) {
+            <span>
+              {{ route.osmSegmentCount }}
+            </span>
+          }
         </td>
       </ng-container>
 
@@ -298,7 +307,6 @@ import { SymbolComponent } from '@app/symbol';
     MatIconModule,
     MatTableModule,
     MatTooltipModule,
-    NgIf,
     OsmLinkRelationComponent,
     RouterLink,
     SymbolComponent,

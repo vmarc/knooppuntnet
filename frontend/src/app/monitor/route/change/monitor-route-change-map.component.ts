@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
@@ -29,14 +30,12 @@ import { MonitorRouteChangeMapService } from './monitor-route-change-map.service
   standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
-export class MonitorRouteChangeMapComponent
-  implements AfterViewInit, OnDestroy
-{
+export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy {
+  protected readonly service = inject(MonitorRouteChangeMapService);
+
   @Input({ required: true }) referenceJson: string;
   @Input({ required: true }) routeSegments: MonitorRouteSegment[];
   @Input({ required: true }) deviation: MonitorRouteDeviation;
-
-  constructor(protected service: MonitorRouteChangeMapService) {}
 
   ngAfterViewInit(): void {
     this.service.init(this.referenceJson, this.deviation, this.routeSegments);

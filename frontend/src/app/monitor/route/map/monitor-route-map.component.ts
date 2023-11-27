@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -11,7 +12,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   selector: 'kpn-monitor-route-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div [id]="service.mapId" class="kpn-map">
+    <div [id]="mapId" class="kpn-map">
       <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
@@ -26,7 +27,8 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
-  constructor(protected service: MonitorRouteMapService) {}
+  private readonly service = inject(MonitorRouteMapService);
+  protected readonly mapId = this.service.mapId;
 
   ngAfterViewInit(): void {
     this.service.init();

@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +16,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   selector: 'kpn-monitor-groups',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.monitor">Monitor</li>
@@ -27,36 +27,35 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
       <kpn-monitor-page-menu pageName="groups" />
       <kpn-error />
 
-      <ng-container *ngIf="state.response as response">
-        <ng-container *ngIf="response.result as page">
-          <div class="header">
-            <div id="routes-in-groups" i18n="@@monitor.groups.routes-in-groups">
-              {{ page.routeCount }} routes in {{ page.groups.length }} groups
+      @if (service.state(); as state) {
+        @if (state.response; as response) {
+          @if (response.result; as page) {
+            <div class="header">
+              <div id="routes-in-groups" i18n="@@monitor.groups.routes-in-groups">
+                {{ page.routeCount }} routes in {{ page.groups.length }} groups
+              </div>
+              <kpn-monitor-admin-toggle />
             </div>
-            <kpn-monitor-admin-toggle />
-          </div>
-          <div *ngIf="page.groups.length > 0; else noGroups">
-            <kpn-monitor-group-table
-              [admin]="service.admin()"
-              [groups]="page.groups"
-            />
-          </div>
-          <ng-template #noGroups>
-            <div id="no-groups" i18n="@@monitor.groups.no-groups">
-              No route groups
-            </div>
-          </ng-template>
-          <div *ngIf="service.admin()" class="kpn-spacer-above">
-            <button
-              mat-stroked-button
-              routerLink="/monitor/admin/groups/add"
-              i18n="@@monitor.groups.action.add"
-            >
-              Add group
-            </button>
-          </div>
-        </ng-container>
-      </ng-container>
+            @if (page.groups.length > 0) {
+              <kpn-monitor-group-table [admin]="service.admin()" [groups]="page.groups" />
+            } @else {
+              <div id="no-groups" i18n="@@monitor.groups.no-groups">No route groups</div>
+            }
+
+            @if (service.admin()) {
+              <div class="kpn-spacer-above">
+                <button
+                  mat-stroked-button
+                  routerLink="/monitor/admin/groups/add"
+                  i18n="@@monitor.groups.action.add"
+                >
+                  Add group
+                </button>
+              </div>
+            }
+          }
+        }
+      }
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
@@ -80,12 +79,11 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     MonitorAdminToggleComponent,
     MonitorGroupTableComponent,
     MonitorPageMenuComponent,
-    NgIf,
     PageComponent,
     RouterLink,
     SidebarComponent,
   ],
 })
 export class MonitorGroupsPageComponent {
-  constructor(protected service: MonitorGroupsPageService) {}
+  protected readonly service = inject(MonitorGroupsPageService);
 }

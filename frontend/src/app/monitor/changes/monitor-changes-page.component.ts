@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -16,7 +16,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   selector: 'kpn-monitor-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -30,34 +30,39 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
       <kpn-monitor-page-menu pageName="changes" />
       <kpn-error />
 
-      <div *ngIf="state.response as response">
-        <p *ngIf="!response.result" i18n="@@monitor.changes.no-changes">
-          No group changes
-        </p>
-        <div *ngIf="response.result as page" class="kpn-spacer-above">
-          <mat-slide-toggle
-            [checked]="service.impact()"
-            (change)="impactChanged($event)"
-            i18n="@@monitor.changes.impact"
-            >Impact
-          </mat-slide-toggle>
+      @if (service.state(); as state) {
+        @if (state.response; as response) {
+          @if (!response.result) {
+            <p i18n="@@monitor.changes.no-changes">No group changes</p>
+          }
 
-          <kpn-paginator
-            [pageSize]="service.pageSize()"
-            (pageSizeChange)="pageSizeChanged($event)"
-            [pageIndex]="page.pageIndex"
-            (pageIndexChange)="pageIndexChanged($event)"
-            [length]="page.totalChangeCount"
-            [showPageSizeSelection]="true"
-          />
+          @if (response.result; as page) {
+            <div class="kpn-spacer-above">
+              <mat-slide-toggle
+                [checked]="service.impact()"
+                (change)="impactChanged($event)"
+                i18n="@@monitor.changes.impact"
+                >Impact
+              </mat-slide-toggle>
 
-          <kpn-monitor-changes
-            [pageSize]="page.pageSize"
-            [pageIndex]="page.pageIndex"
-            [changes]="page.changes"
-          />
-        </div>
-      </div>
+              <kpn-paginator
+                [pageSize]="service.pageSize()"
+                (pageSizeChange)="pageSizeChanged($event)"
+                [pageIndex]="page.pageIndex"
+                (pageIndexChange)="pageIndexChanged($event)"
+                [length]="page.totalChangeCount"
+                [showPageSizeSelection]="true"
+              />
+
+              <kpn-monitor-changes
+                [pageSize]="page.pageSize"
+                [pageIndex]="page.pageIndex"
+                [changes]="page.changes"
+              />
+            </div>
+          }
+        }
+      }
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
@@ -68,7 +73,6 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorPageMenuComponent,
-    NgIf,
     PageComponent,
     PaginatorComponent,
     RouterLink,
@@ -76,7 +80,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   ],
 })
 export class MonitorChangesPageComponent {
-  constructor(protected service: MonitorChangesPageService) {}
+  protected readonly service = inject(MonitorChangesPageService);
 
   impactChanged(event: MatSlideToggleChange) {
     this.service.impactChanged(event.checked);

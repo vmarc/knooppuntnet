@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ViewChild } from '@angular/core';
 import { effect } from '@angular/core';
 import { inject } from '@angular/core';
@@ -21,55 +19,28 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   selector: 'kpn-monitor-route-map-deviations',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngIf="
-        referenceAvailable();
-        then showReferenceAvailable;
-        else showNoReference
-      "
-    ></div>
-    <ng-template #showNoReference>
+    @if (!referenceAvailable()) {
       <p i18n="@@monitor.route.map-deviations.no-reference">
         No reference, so no analysis results.
       </p>
-    </ng-template>
-    <ng-template #showReferenceAvailable>
-      <div
-        *ngIf="
-          osmRelationAvailable();
-          then showOsmRelationAvailable;
-          else showOsmRelationMissing
-        "
-      ></div>
-      <ng-template #showOsmRelationMissing>
+    } @else {
+      @if (!osmRelationAvailable()) {
         <p i18n="@@monitor.route.map-deviations.no-relation">
           OSM relation missing in route definition, so no analysis results.
         </p>
-      </ng-template>
-      <ng-template #showOsmRelationAvailable>
-        <p
-          *ngIf="osmRelationEmpty()"
-          i18n="@@monitor.route.map-deviations.relation-empty"
-        >
-          OSM relation empty, so no analysis results.
-        </p>
-        <div
-          *ngIf="
-            deviations().length > 0;
-            then showDeviations;
-            else showNoDeviations
-          "
-        ></div>
-        <ng-template #showNoDeviations>
+      } @else {
+        @if (osmRelationEmpty()) {
+          <p i18n="@@monitor.route.map-deviations.relation-empty">
+            OSM relation empty, so no analysis results.
+          </p>
+        }
+
+        @if (deviations().length === 0) {
           <p class="kpn-spacer-above kpn-line">
             <kpn-icon-happy />
-            <span i18n="@@monitor.route.map-deviations.no-deviations">
-              No deviations
-            </span>
+            <span i18n="@@monitor.route.map-deviations.no-deviations"> No deviations </span>
           </p>
-        </ng-template>
-
-        <ng-template #showDeviations>
+        } @else {
           <p class="segments-title">
             <span i18n="@@monitor.route.map-deviations.title">Deviations</span>
           </p>
@@ -78,11 +49,9 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
             <span class="segment-id">
               <kpn-legend-line color="red"></kpn-legend-line>
             </span>
-            <span
-              class="segment-deviation"
-              i18n="@@monitor.route.map-deviations.deviation"
-              >Deviation</span
-            >
+            <span class="segment-deviation" i18n="@@monitor.route.map-deviations.deviation">
+              Deviation
+            </span>
             <span i18n="@@monitor.route.map-deviations.length">Length</span>
           </div>
 
@@ -111,38 +80,33 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
             (selectionChange)="selectionChanged($event)"
             [hideSingleSelectionIndicator]="true"
           >
-            <mat-list-option
-              *ngFor="let deviation of deviations()"
-              [selected]="isDeviationSelected(deviation)"
-              [value]="deviation"
-            >
-              <div class="segment">
-                <span class="segment-id">{{ deviation.id }}</span>
-                <span
-                  *ngIf="deviation.distance === 2500"
-                  class="segment-deviation"
-                  >{{ longDistance }}</span
-                >
-                <span
-                  *ngIf="deviation.distance !== 2500"
-                  class="segment-deviation"
-                  >{{ deviation.distance | distance }}</span
-                >
-                <span>{{ deviation.meters | distance }}</span>
-                <button
-                  mat-icon-button
-                  [matMenuTriggerFor]="appMenu"
-                  [matMenuTriggerData]="{ deviation: deviation }"
-                  class="popup-menu"
-                >
-                  <mat-icon svgIcon="menu-dots"></mat-icon>
-                </button>
-              </div>
-            </mat-list-option>
+            @for (deviation of deviations(); track $index) {
+              <mat-list-option [selected]="isDeviationSelected(deviation)" [value]="deviation">
+                <div class="segment">
+                  <span class="segment-id">{{ deviation.id }}</span>
+
+                  @if (deviation.distance === 2500) {
+                    <span class="segment-deviation">{{ longDistance }}</span>
+                  } @else {
+                    <span class="segment-deviation">{{ deviation.distance | distance }}</span>
+                  }
+
+                  <span>{{ deviation.meters | distance }}</span>
+                  <button
+                    mat-icon-button
+                    [matMenuTriggerFor]="appMenu"
+                    [matMenuTriggerData]="{ deviation: deviation }"
+                    class="popup-menu"
+                  >
+                    <mat-icon svgIcon="menu-dots"></mat-icon>
+                  </button>
+                </div>
+              </mat-list-option>
+            }
           </mat-selection-list>
-        </ng-template>
-      </ng-template>
-    </ng-template>
+        }
+      }
+    }
   `,
   styles: `
     .segments-title {
@@ -179,8 +143,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     MatIconModule,
     MatListModule,
     MatMenuModule,
-    NgFor,
-    NgIf,
   ],
 })
 export class MonitorRouteMapDeviationsComponent {

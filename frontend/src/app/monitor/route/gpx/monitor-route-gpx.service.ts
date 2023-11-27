@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
@@ -11,14 +12,14 @@ import { initialState } from './monitor-route-gpx.state';
 
 @Injectable()
 export class MonitorRouteGpxService {
+  private readonly navService = inject(NavService);
+  private readonly monitorService = inject(MonitorService);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
+
   private readonly _state = signal<MonitorRouteGpxState>(initialState);
   readonly state = this._state.asReadonly();
 
-  constructor(
-    private navService: NavService,
-    private monitorService: MonitorService,
-    private monitorWebsocketService: MonitorWebsocketService
-  ) {
+  constructor() {
     const groupName = this.navService.param('groupName');
     const routeName = this.navService.param('routeName');
     const subRelationId = this.navService.queryParam('sub-relation-id');
@@ -33,14 +34,12 @@ export class MonitorRouteGpxService {
       routeLink,
     });
 
-    this.monitorService
-      .routeGpx(groupName, routeName, subRelationId)
-      .subscribe((response) => {
-        this._state.update((state) => ({
-          ...state,
-          response,
-        }));
-      });
+    this.monitorService.routeGpx(groupName, routeName, subRelationId).subscribe((response) => {
+      this._state.update((state) => ({
+        ...state,
+        response,
+      }));
+    });
   }
 
   save(file: File, referenceTimestamp: Timestamp): void {

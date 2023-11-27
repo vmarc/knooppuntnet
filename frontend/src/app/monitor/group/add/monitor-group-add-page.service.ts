@@ -8,14 +8,12 @@ import { MonitorService } from '../../monitor.service';
 
 @Injectable()
 export class MonitorGroupAddPageService {
-  private navService = inject(NavService);
-  private monitorService = inject(MonitorService);
+  private readonly navService = inject(NavService);
+  private readonly monitorService = inject(MonitorService);
 
   readonly name = new FormControl<string>('', {
     validators: [Validators.required, Validators.maxLength(15)],
-    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(
-      () => ''
-    ),
+    asyncValidators: this.monitorService.asyncGroupNameUniqueValidator(() => ''),
   });
 
   readonly description = new FormControl<string>('', [
@@ -30,9 +28,7 @@ export class MonitorGroupAddPageService {
 
   add(): void {
     if (this.form.valid) {
-      this.monitorService
-        .groupAdd(this.form.value)
-        .subscribe(() => this.navService.go('/monitor'));
+      this.monitorService.groupAdd(this.form.value).subscribe(() => this.navService.go('/monitor'));
     }
   }
 }

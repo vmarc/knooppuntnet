@@ -1,6 +1,5 @@
-import { NgIf } from '@angular/common';
-import { OnDestroy } from "@angular/core";
-import { OnInit } from "@angular/core";
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { signal } from '@angular/core';
 import { Input } from '@angular/core';
@@ -17,12 +16,13 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div #canvasWrapper class="canvasWrapper">
-      <kpn-monitor-route-gap-canvas
-        *ngIf="height() > 0"
-        [height]="height()"
-        [description]="description"
-        [osmSegmentCount]="osmSegmentCount"
-      />
+      @if (height() > 0) {
+        <kpn-monitor-route-gap-canvas
+          [height]="height()"
+          [description]="description"
+          [osmSegmentCount]="osmSegmentCount"
+        />
+      }
     </div>
   `,
   styles: `
@@ -32,9 +32,11 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
     }
   `,
   standalone: true,
-  imports: [NgIf, MonitorRouteGapCanvasComponent],
+  imports: [MonitorRouteGapCanvasComponent],
 })
-export class MonitorRouteGapComponent implements AfterViewInit, OnInit, OnDestroy {
+export class MonitorRouteGapComponent
+  implements AfterViewInit, OnInit, OnDestroy
+{
   @Input({ required: true }) description: string;
   @Input({ required: true }) osmSegmentCount: number;
   @ViewChild('canvasWrapper') canvasWrapper!: ElementRef<HTMLDivElement>;

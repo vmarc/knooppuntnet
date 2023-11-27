@@ -1,5 +1,4 @@
-import { NgForOf } from '@angular/common';
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -23,90 +22,69 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   selector: 'kpn-monitor-route-gpx-delete',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <kpn-monitor-route-gpx-breadcrumb
-        [groupName]="state.groupName"
-        [groupLink]="state.groupLink"
-        [routeName]="state.routeName"
-        [routeLink]="state.routeLink"
-      />
-
-      <div *ngIf="state.response as response">
-        <div
-          *ngIf="!response.result"
-          i18n="@@monitor.route.gpx-delete.not-found"
-        >
-          Route not found
-        </div>
-
-        <div *ngIf="response.result as page">
-          <h1>{{ page.subRelationDescription }}</h1>
-          <h2 i18n="@@monitor.route.gpx-delete.title">GPX reference</h2>
-
-          <div class="gpx-form">
-            <kpn-data
-              title="File"
-              i18n-title="@@monitor.route.gpx-delete.reference-filename"
-            >
-              {{ page.referenceFilename }}
-            </kpn-data>
-            <kpn-data
-              title="Reference day"
-              i18n-title="@@monitor.route.gpx-delete.reference-day"
-            >
-              {{ page.referenceTimestamp | yyyymmdd }}
-            </kpn-data>
-            <kpn-data
-              title="Distance"
-              i18n-title="@@monitor.route.gpx-delete.reference-distance"
-            >
-              {{ page.referenceDistance | distance }}
-            </kpn-data>
-          </div>
-
-          <div *ngIf="busy() === false" class="kpn-button-group">
-            <button mat-stroked-button (click)="delete()">
-              <span
-                class="delete-button"
-                i18n="@@monitor.route.gpx.delete.action"
-              >
-                Delete reference
-              </span>
-            </button>
-            <a
-              [routerLink]="state.routeLink"
-              id="cancel"
-              i18n="@@action.cancel"
-            >
-              Cancel
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="busy() === true">
-        <kpn-monitor-route-form-save-step
-          *ngFor="let step of steps()"
-          [step]="step"
+    @if (_state(); as state) {
+      <kpn-page>
+        <kpn-monitor-route-gpx-breadcrumb
+          [groupName]="state.groupName"
+          [groupLink]="state.groupLink"
+          [routeName]="state.routeName"
+          [routeLink]="state.routeLink"
         />
+        @if (state.response; as response) {
+          @if (!response.result) {
+            <div i18n="@@monitor.route.gpx-delete.not-found" class="kpn-error">Route not found</div>
+          }
+          @if (response.result; as page) {
+            <h1>{{ page.subRelationDescription }}</h1>
+            <h2 i18n="@@monitor.route.gpx-delete.title">GPX reference</h2>
 
-        <kpn-monitor-route-form-errors [errors]="errors()" />
+            <div class="gpx-form">
+              <kpn-data title="File" i18n-title="@@monitor.route.gpx-delete.reference-filename">
+                {{ page.referenceFilename }}
+              </kpn-data>
+              <kpn-data title="Reference day" i18n-title="@@monitor.route.gpx-delete.reference-day">
+                {{ page.referenceTimestamp | yyyymmdd }}
+              </kpn-data>
+              <kpn-data title="Distance" i18n-title="@@monitor.route.gpx-delete.reference-distance">
+                {{ page.referenceDistance | distance }}
+              </kpn-data>
+            </div>
 
-        <div class="kpn-button-group">
-          <button
-            mat-stroked-button
-            id="goto-analysis-result-button"
-            [routerLink]="state.routeLink"
-            [disabled]="done() === false"
-            i18n="@@monitor.route.gpx-delete.action.analysis-result"
-          >
-            Back to route details
-          </button>
-        </div>
-      </div>
+            @if (busy() === false) {
+              <div class="kpn-button-group">
+                <button mat-stroked-button (click)="delete()">
+                  <span class="delete-button" i18n="@@monitor.route.gpx.delete.action">
+                    Delete reference
+                  </span>
+                </button>
+                <a [routerLink]="state.routeLink" id="cancel" i18n="@@action.cancel"> Cancel </a>
+              </div>
+            }
+          }
+        }
 
-      <kpn-sidebar sidebar />
-    </kpn-page>
+        @if (busy() === true) {
+          @for (step of steps(); track $index) {
+            <kpn-monitor-route-form-save-step [step]="step" />
+          }
+          <kpn-monitor-route-form-errors [errors]="errors()" />
+
+          <div class="kpn-button-group">
+            <button
+              mat-stroked-button
+              id="goto-analysis-result-button"
+              [routerLink]="state.routeLink"
+              [disabled]="done() === false"
+              i18n="@@monitor.route.gpx-delete.action.analysis-result"
+            >
+              Back to route details
+            </button>
+          </div>
+        }
+
+        <kpn-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   styles: `
     .gpx-form {
@@ -127,7 +105,6 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     DistancePipe,
     MatButtonModule,
     MonitorRouteGpxBreadcrumbComponent,
-    NgIf,
     PageComponent,
     RouteSummaryComponent,
     RouterLink,
@@ -135,19 +112,20 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     TimestampDayPipe,
     MonitorRouteFormErrorsComponent,
     MonitorRouteFormSaveStepComponent,
-    NgForOf,
   ],
 })
 export class MonitorRouteGpxDeleteComponent implements OnDestroy {
-  readonly steps = this.monitorWebsocketService.steps;
-  readonly errors = this.monitorWebsocketService.errors;
-  readonly busy = this.monitorWebsocketService.busy;
-  readonly done = this.monitorWebsocketService.done;
+  private readonly service = inject(MonitorRouteGpxService);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  constructor(
-    protected service: MonitorRouteGpxService,
-    private monitorWebsocketService: MonitorWebsocketService
-  ) {
+  protected _state = this.service.state;
+
+  protected readonly steps = this.monitorWebsocketService.steps;
+  protected readonly errors = this.monitorWebsocketService.errors;
+  protected readonly busy = this.monitorWebsocketService.busy;
+  protected readonly done = this.monitorWebsocketService.done;
+
+  constructor() {
     this.monitorWebsocketService.reset();
   }
 

@@ -1,7 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
-import { NgFor } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -37,13 +35,11 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
     <mat-menu #appMenu="matMenu" class="sub-relation-menu">
       <ng-template matMenuContent>
-        <button
-          mat-menu-item
-          *ngFor="let subRelation of subRelations"
-          (click)="select(subRelation)"
-        >
-          {{ subRelation.name }}
-        </button>
+        @for (subRelation of subRelations; track $index) {
+          <button mat-menu-item (click)="select(subRelation)">
+            {{ subRelation.name }}
+          </button>
+        }
       </ng-template>
     </mat-menu>
 
@@ -66,29 +62,31 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
         Map
       </kpn-page-menu-option>
 
-      <kpn-monitor-sub-relation-menu-option
-        *ngIf="pageName === 'map'"
-        [routeSubRelation]="previous"
-        (selectSubRelation)="select($event)"
-        name="Previous"
-        i18n-name="@@monitor.route.menu.previous"
-      />
+      @if (pageName === 'map') {
+        <kpn-monitor-sub-relation-menu-option
+          [routeSubRelation]="previous"
+          (selectSubRelation)="select($event)"
+          name="Previous"
+          i18n-name="@@monitor.route.menu.previous"
+        />
 
-      <kpn-monitor-sub-relation-menu-option
-        *ngIf="pageName === 'map'"
-        [routeSubRelation]="next"
-        (selectSubRelation)="select($event)"
-        name="Next"
-        i18n-name="@@monitor.route.menu.next"
-      />
+        <kpn-monitor-sub-relation-menu-option
+          [routeSubRelation]="next"
+          (selectSubRelation)="select($event)"
+          name="Next"
+          i18n-name="@@monitor.route.menu.next"
+        />
 
-      <a
-        *ngIf="pageName === 'map'"
-        [ngClass]="{ disabled: subrelationsEmpty() }"
-        [matMenuTriggerFor]="appMenu"
-        i18n="@@monitor.route.menu.select"
-        >Select</a
-      >
+        @if (pageName === 'map') {
+          <a
+            [ngClass]="{ disabled: subrelationsEmpty() }"
+            [matMenuTriggerFor]="appMenu"
+            i18n="@@monitor.route.menu.select"
+          >
+            Select
+          </a>
+        }
+      }
     </kpn-page-menu>
 
     <kpn-error />
@@ -111,8 +109,6 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
     MatMenuModule,
     MonitorRouteSubRelationMenuOptionComponent,
     NgClass,
-    NgFor,
-    NgIf,
     PageMenuComponent,
     PageMenuOptionComponent,
     RouterLink,

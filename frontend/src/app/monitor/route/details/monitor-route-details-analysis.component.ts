@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -10,53 +9,44 @@ import { IconHappyComponent } from '@app/components/shared/icon';
   selector: 'kpn-monitor-route-details-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="page.happy" class="kpn-line">
-      <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
-      <kpn-icon-happy />
-    </p>
-    <div *ngIf="!page.happy">
+    @if (page.happy) {
+      <p class="kpn-line">
+        <span i18n="@@monitor.route.details.analysis.ok">All ok</span>
+        <kpn-icon-happy />
+      </p>
+    } @else {
       <p>
         <span class="kpn-space-separated">
           <span>{{ page.deviationCount }}</span>
-          <span
-            *ngIf="page.deviationCount === 1"
-            i18n="@@monitor.route.details.analysis.deviation"
-          >
-            deviation
-          </span>
-          <span
-            *ngIf="page.deviationCount !== 1"
-            i18n="@@monitor.route.details.analysis.deviations"
-          >
-            deviations
-          </span>
-          <span *ngIf="page.deviationCount > 0" class="kpn-brackets">
-            <span>{{ page.deviationDistance | distance }}</span>
-          </span>
+          @if (page.deviationCount === 1) {
+            <span i18n="@@monitor.route.details.analysis.deviation"> deviation </span>
+          }
+          @if (page.deviationCount !== 1) {
+            <span i18n="@@monitor.route.details.analysis.deviations"> deviations </span>
+          }
+          @if (page.deviationCount > 0) {
+            <span class="kpn-brackets">
+              <span>{{ page.deviationDistance | distance }}</span>
+            </span>
+          }
         </span>
       </p>
 
       <p>
         <span class="kpn-space-separated">
           <span>{{ page.osmSegmentCount }}</span>
-          <span
-            *ngIf="page.osmSegmentCount === 1"
-            i18n="@@monitor.route.details.analysis.osm-segment"
-          >
-            OSM segment
-          </span>
-          <span
-            *ngIf="page.osmSegmentCount !== 1"
-            i18n="@@monitor.route.details.analysis.osm-segments"
-          >
-            OSM segments
-          </span>
+          @if (page.osmSegmentCount === 1) {
+            <span i18n="@@monitor.route.details.analysis.osm-segment"> OSM segment </span>
+          }
+          @if (page.osmSegmentCount !== 1) {
+            <span i18n="@@monitor.route.details.analysis.osm-segments"> OSM segments </span>
+          }
         </span>
       </p>
-    </div>
+    }
   `,
   standalone: true,
-  imports: [NgIf, IconHappyComponent, DistancePipe],
+  imports: [IconHappyComponent, DistancePipe],
 })
 export class MonitorRouteDetailsAnalysisComponent {
   @Input({ required: true }) page: MonitorRouteDetailsPage;

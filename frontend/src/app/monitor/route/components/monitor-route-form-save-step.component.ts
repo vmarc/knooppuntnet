@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -13,9 +12,17 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
   template: `
     <div #stepDiv class="kpn-line kpn-spacer-below">
       <div class="icon">
-        <mat-spinner *ngIf="step.status === 'busy'" diameter="20"></mat-spinner>
-        <mat-icon *ngIf="step.status === 'todo'" svgIcon="dot" class="todo" />
-        <mat-icon *ngIf="step.status === 'done'" svgIcon="tick" class="done" />
+        @if (step.status === 'busy') {
+          <mat-spinner diameter="20"></mat-spinner>
+        }
+
+        @if (step.status === 'todo') {
+          <mat-icon svgIcon="dot" class="todo" />
+        }
+
+        @if (step.status === 'done') {
+          <mat-icon svgIcon="tick" class="done" />
+        }
       </div>
       <span>{{ step.description }}</span>
     </div>
@@ -37,7 +44,7 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
     }
   `,
   standalone: true,
-  imports: [MatIconModule, MatProgressSpinnerModule, NgIf],
+  imports: [MatIconModule, MatProgressSpinnerModule],
 })
 export class MonitorRouteFormSaveStepComponent implements AfterViewChecked {
   @Input({ required: true }) step: MonitorRouteSaveStep;

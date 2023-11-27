@@ -1,5 +1,4 @@
-import { NgForOf } from '@angular/common';
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
@@ -26,79 +25,76 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   selector: 'kpn-monitor-route-gpx',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <kpn-monitor-route-gpx-breadcrumb
-        [groupName]="state.groupName"
-        [groupLink]="state.groupLink"
-        [routeName]="state.routeName"
-        [routeLink]="state.routeLink"
-      />
-
-      <div *ngIf="state.response as response">
-        <div *ngIf="!response.result" i18n="@@monitor.route.gpx.not-found">
-          Route not found
-        </div>
-
-        <div *ngIf="response.result as page">
-          <h1>{{ page.subRelationDescription }}</h1>
-          <h2>GPX reference</h2>
-
-          <div class="gpx-form">
-            <form [formGroup]="form" #ngForm="ngForm">
-              <kpn-monitor-route-gpx-reference
-                [ngForm]="ngForm"
-                [gpxReferenceDate]="gpxReferenceDate"
-                [referenceFilename]="referenceFilename"
-                [referenceFile]="referenceFile"
-              />
-            </form>
-          </div>
-
-          <div *ngIf="busy() === false" class="kpn-button-group">
-            <button
-              mat-raised-button
-              id="save"
-              color="primary"
-              (click)="save()"
-              [disabled]="form.invalid"
-              i18n="@@action.upload"
-            >
-              Upload
-            </button>
-            <a
-              [routerLink]="state.routeLink"
-              id="cancel"
-              i18n="@@action.cancel"
-            >
-              Cancel
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="busy() === true">
-        <kpn-monitor-route-form-save-step
-          *ngFor="let step of steps()"
-          [step]="step"
+    @if (_state(); as state) {
+      <kpn-page>
+        <kpn-monitor-route-gpx-breadcrumb
+          [groupName]="state.groupName"
+          [groupLink]="state.groupLink"
+          [routeName]="state.routeName"
+          [routeLink]="state.routeLink"
         />
 
-        <kpn-monitor-route-form-errors [errors]="errors()" />
+        @if (state.response; as response) {
+          @if (!response.result) {
+            <div i18n="@@monitor.route.gpx.not-found" class="kpn-error">Route not found</div>
+          }
 
-        <div class="kpn-button-group">
-          <button
-            mat-stroked-button
-            id="goto-analysis-result-button"
-            [routerLink]="state.routeLink"
-            [disabled]="done() === false"
-            i18n="@@monitor.route.gpx-delete.action.analysis-result"
-          >
-            Back to route details
-          </button>
-        </div>
-      </div>
+          @if (response.result; as page) {
+            <h1>{{ page.subRelationDescription }}</h1>
+            <h2>GPX reference</h2>
 
-      <kpn-sidebar sidebar />
-    </kpn-page>
+            <div class="gpx-form">
+              <form [formGroup]="form" #ngForm="ngForm">
+                <kpn-monitor-route-gpx-reference
+                  [ngForm]="ngForm"
+                  [gpxReferenceDate]="gpxReferenceDate"
+                  [referenceFilename]="referenceFilename"
+                  [referenceFile]="referenceFile"
+                />
+              </form>
+            </div>
+
+            @if (busy() === false) {
+              <div class="kpn-button-group">
+                <button
+                  mat-raised-button
+                  id="save"
+                  color="primary"
+                  (click)="save()"
+                  [disabled]="form.invalid"
+                  i18n="@@action.upload"
+                >
+                  Upload
+                </button>
+                <a [routerLink]="state.routeLink" id="cancel" i18n="@@action.cancel"> Cancel </a>
+              </div>
+            }
+          }
+        }
+
+        @if (busy() === true) {
+          @for (step of steps(); track $index) {
+            <kpn-monitor-route-form-save-step [step]="step" />
+          }
+
+          <kpn-monitor-route-form-errors [errors]="errors()" />
+
+          <div class="kpn-button-group">
+            <button
+              mat-stroked-button
+              id="goto-analysis-result-button"
+              [routerLink]="state.routeLink"
+              [disabled]="done() === false"
+              i18n="@@monitor.route.gpx-delete.action.analysis-result"
+            >
+              Back to route details
+            </button>
+          </div>
+        }
+
+        <kpn-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   styles: `
     .gpx-form {
@@ -113,47 +109,37 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     MatButtonModule,
     MonitorRouteGpxBreadcrumbComponent,
     MonitorRouteGpxReferenceComponent,
-    NgIf,
     PageComponent,
     ReactiveFormsModule,
     RouterLink,
     SidebarComponent,
     MonitorRouteFormErrorsComponent,
     MonitorRouteFormSaveStepComponent,
-    NgForOf,
   ],
 })
 export class MonitorRouteGpxComponent {
-  readonly steps = this.monitorWebsocketService.steps;
-  readonly errors = this.monitorWebsocketService.errors;
-  readonly busy = this.monitorWebsocketService.busy;
-  readonly done = this.monitorWebsocketService.done;
+  private readonly service = inject(MonitorRouteGpxService);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
-  readonly referenceFilename = new FormControl<string>(
-    null,
-    Validators.required
-  );
-  readonly referenceFile = new FormControl<File>(
-    null,
-    this.referenceFileValidator()
-  );
+  protected readonly _state = this.service.state;
 
-  readonly form = new FormGroup({
+  protected readonly steps = this.monitorWebsocketService.steps;
+  protected readonly errors = this.monitorWebsocketService.errors;
+  protected readonly busy = this.monitorWebsocketService.busy;
+  protected readonly done = this.monitorWebsocketService.done;
+
+  protected readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
+  protected readonly referenceFilename = new FormControl<string>(null, Validators.required);
+  protected readonly referenceFile = new FormControl<File>(null, this.referenceFileValidator());
+
+  protected readonly form = new FormGroup({
     gpxReferenceDate: this.gpxReferenceDate,
     referenceFilename: this.referenceFilename,
     referenceFile: this.referenceFile,
   });
 
-  constructor(
-    protected service: MonitorRouteGpxService,
-    private monitorWebsocketService: MonitorWebsocketService
-  ) {}
-
   save(): void {
-    const referenceTimestamp = TimestampUtil.toTimestamp(
-      this.gpxReferenceDate.value
-    );
+    const referenceTimestamp = TimestampUtil.toTimestamp(this.gpxReferenceDate.value);
     this.service.save(this.referenceFile.value, referenceTimestamp);
   }
 

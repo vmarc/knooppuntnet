@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -11,17 +10,20 @@ import { TimestampPipe } from '@app/components/shared/format';
   selector: 'kpn-monitor-route-details-timestamp',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="page.analysisTimestamp" class="kpn-line">
-      <span>{{ page.analysisTimestamp | yyyymmddhhmm }}</span>
-      <span class="kpn-brackets">
-        <span>{{ analysisDuration }}</span
-        >&nbsp;<span i18n="@@monitor.route.details.seconds">seconds</span>
-      </span>
-    </p>
-    <p *ngIf="!page.analysisTimestamp">-</p>
+    @if (page.analysisTimestamp) {
+      <p class="kpn-line">
+        <span>{{ page.analysisTimestamp | yyyymmddhhmm }}</span>
+        <span class="kpn-brackets">
+          <span>{{ analysisDuration }}</span
+          >&nbsp;<span i18n="@@monitor.route.details.seconds">seconds</span>
+        </span>
+      </p>
+    } @else {
+      -
+    }
   `,
   standalone: true,
-  imports: [NgIf, TimestampPipe, IntegerFormatPipe],
+  imports: [TimestampPipe, IntegerFormatPipe],
 })
 export class MonitorRouteDetailsTimestampComponent implements OnInit {
   @Input() page: MonitorRouteDetailsPage;

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -16,22 +15,32 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <a [routerLink]="link()" class="kpn-thick">{{
-        changeSet.key.changeSetId
-      }}</a>
-      <span *ngIf="timestampOnSameLine$ | async" class="kpn-thin">{{
-        changeSet.key.timestamp
-      }}</span>
-      <kpn-icon-happy *ngIf="changeSet.happy" />
-      <kpn-icon-investigate *ngIf="changeSet.investigate" />
-    </div>
-    <div *ngIf="timestampOnSeparateLine$ | async">
-      <span class="kpn-thin">{{ changeSet.key.timestamp }}</span>
+      <a [routerLink]="link()" class="kpn-thick">{{ changeSet.key.changeSetId }}</a>
+
+      @if (timestampOnSameLine$ | async) {
+        <span class="kpn-thin">{{ changeSet.key.timestamp }}</span>
+      }
+
+      @if (changeSet.happy) {
+        <kpn-icon-happy />
+      }
+
+      @if (changeSet.investigate) {
+        <kpn-icon-investigate />
+      }
     </div>
 
-    <div *ngIf="changeSet.comment" class="comment">
-      {{ changeSet.comment }}
-    </div>
+    @if (timestampOnSeparateLine$ | async) {
+      <div>
+        <span class="kpn-thin">{{ changeSet.key.timestamp }}</span>
+      </div>
+    }
+
+    @if (changeSet.comment) {
+      <div class="comment">
+        {{ changeSet.comment }}
+      </div>
+    }
   `,
   styles: `
     .comment {
@@ -41,13 +50,7 @@ import { map } from 'rxjs/operators';
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    IconHappyComponent,
-    IconInvestigateComponent,
-    NgIf,
-    RouterLink,
-  ],
+  imports: [AsyncPipe, IconHappyComponent, IconInvestigateComponent, RouterLink],
 })
 export class MonitorChangeHeaderComponent {
   @Input({ required: true }) changeSet: MonitorRouteChangeSummary;
@@ -57,9 +60,7 @@ export class MonitorChangeHeaderComponent {
   readonly timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
     map(() => this.timestampOnSeparateLine())
   );
-  readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(
-    map((value) => !value)
-  );
+  readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map((value) => !value));
 
   link(): string {
     const key = this.changeSet.key;

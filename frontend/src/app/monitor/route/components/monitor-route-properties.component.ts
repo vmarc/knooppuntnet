@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -39,20 +39,22 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
   selector: 'kpn-monitor-route-properties',
   template: `
     <mat-stepper orientation="vertical" [linear]="initialProperties === null">
-      <mat-step
-        *ngIf="mode === 'update'"
-        label="Group"
-        i18n-label="@@monitor.route.properties.step.group"
-        [stepControl]="groupForm"
-      >
-        <form [formGroup]="groupForm" #ngGroupForm="ngForm">
-          <kpn-monitor-route-properties-step-1-group
-            [ngForm]="ngGroupForm"
-            [group]="group"
-            [routeGroups]="routeGroups"
-          />
-        </form>
-      </mat-step>
+      @if (mode === 'update') {
+        <mat-step
+          label="Group"
+          i18n-label="@@monitor.route.properties.step.group"
+          [stepControl]="groupForm"
+        >
+          <form [formGroup]="groupForm" #ngGroupForm="ngForm">
+            <kpn-monitor-route-properties-step-1-group
+              [ngForm]="ngGroupForm"
+              [group]="group"
+              [routeGroups]="routeGroups"
+            />
+          </form>
+        </mat-step>
+      }
+
       <mat-step
         label="Route name and description"
         i18n-label="@@monitor.route.properties.step.name-description"
@@ -98,10 +100,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
         i18n-label="@@monitor.route.properties.step.reference-details"
         [stepControl]="referenceDetailsForm"
       >
-        <form
-          [formGroup]="referenceDetailsForm"
-          #ngReferenceDetailsForm="ngForm"
-        >
+        <form [formGroup]="referenceDetailsForm" #ngReferenceDetailsForm="ngForm">
           <kpn-monitor-route-properties-step-5-reference-details
             [ngForm]="ngReferenceDetailsForm"
             [referenceType]="referenceType"
@@ -124,16 +123,12 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
       </mat-step>
     </mat-stepper>
 
-    <p
-      *ngIf="form.errors?.routeNameNonUnique"
-      class="kpn-form-error"
-      i18n="@@monitor.route.properties.name.unique"
-    >
-      The route name should be unique within its the group. A route with name
-      "{{ name.value }}" already exists within group "{{
-        group.value.groupName
-      }}".
-    </p>
+    @if (form.errors?.routeNameNonUnique) {
+      <p class="kpn-form-error" i18n="@@monitor.route.properties.name.unique">
+        The route name should be unique within its the group. A route with name "{{ name.value }}"
+        already exists within group "{{ group.value.groupName }}".
+      </p>
+    }
 
     <div class="kpn-button-group">
       <button
@@ -146,9 +141,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
       >
         Save
       </button>
-      <a [routerLink]="groupLink()" id="cancel" i18n="@@action.cancel">
-        Cancel
-      </a>
+      <a [routerLink]="groupLink()" id="cancel" i18n="@@action.cancel"> Cancel </a>
     </div>
   `,
   standalone: true,
@@ -161,12 +154,14 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
     MonitorRoutePropertiesStep4ReferenceTypeComponent,
     MonitorRoutePropertiesStep5ReferenceDetailsComponent,
     MonitorRoutePropertiesStep6CommentComponent,
-    NgIf,
     ReactiveFormsModule,
     RouterLink,
   ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
+  private readonly monitorService = inject(MonitorService);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
+
   @Input({ required: true }) mode: string;
   @Input({ required: true }) groupName: string;
   @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
@@ -186,18 +181,9 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   readonly relationIdKnown = new FormControl<boolean>(null);
   readonly relationId = new FormControl<number>(null);
   readonly referenceType = new FormControl<string>(null, Validators.required);
-  readonly osmReferenceDate = new FormControl<Date>(
-    null,
-    this.osmReferenceTimestampValidator()
-  );
-  readonly gpxReferenceDate = new FormControl<Date>(
-    null,
-    this.gpxReferenceTimestampValidator()
-  );
-  readonly referenceFilename = new FormControl<string>(
-    null,
-    this.gpxReferenceFilenameValidator()
-  );
+  readonly osmReferenceDate = new FormControl<Date>(null, this.osmReferenceTimestampValidator());
+  readonly gpxReferenceDate = new FormControl<Date>(null, this.gpxReferenceTimestampValidator());
+  readonly referenceFilename = new FormControl<string>(null, this.gpxReferenceFilenameValidator());
   readonly referenceFile = new FormControl<File>(null);
 
   readonly comment = new FormControl<string>(null);
@@ -252,11 +238,6 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   oldReferenceTimestamp: Timestamp = null;
 
-  constructor(
-    private monitorService: MonitorService,
-    private monitorWebsocketService: MonitorWebsocketService
-  ) {}
-
   ngOnInit(): void {
     this.monitorWebsocketService.reset();
     if (this.mode === 'add') {
@@ -288,12 +269,8 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
         referenceType: referenceType,
       });
       this.referenceDetailsForm.patchValue({
-        osmReferenceDate: DayUtil.toDate(
-          this.initialProperties.referenceTimestamp
-        ),
-        gpxReferenceDate: DayUtil.toDate(
-          this.initialProperties.referenceTimestamp
-        ),
+        osmReferenceDate: DayUtil.toDate(this.initialProperties.referenceTimestamp),
+        gpxReferenceDate: DayUtil.toDate(this.initialProperties.referenceTimestamp),
         referenceFilename: this.initialProperties.referenceFilename,
         referenceFile: null,
       });
@@ -347,33 +324,23 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
       referenceNow = true;
     } else if (this.referenceType.value === 'osm-past') {
       referenceType = 'osm';
-      referenceTimestamp = TimestampUtil.toTimestamp(
-        this.osmReferenceDate.value
-      );
+      referenceTimestamp = TimestampUtil.toTimestamp(this.osmReferenceDate.value);
     } else if (this.referenceType.value === 'gpx') {
       referenceType = 'gpx';
-      referenceTimestamp = TimestampUtil.toTimestamp(
-        this.gpxReferenceDate.value
-      );
+      referenceTimestamp = TimestampUtil.toTimestamp(this.gpxReferenceDate.value);
     } else if (this.referenceType.value === 'multi-gpx') {
       referenceType = 'multi-gpx';
     }
 
     let routeName = this.name.value;
     let newRouteName: string = undefined;
-    if (
-      this.mode === 'update' &&
-      this.name.value !== this.initialProperties.name
-    ) {
+    if (this.mode === 'update' && this.name.value !== this.initialProperties.name) {
       routeName = this.initialProperties.name;
       newRouteName = this.name.value;
     }
 
     let newGroupName: string = undefined;
-    if (
-      this.mode === 'update' &&
-      this.group.value.groupName !== this.initialProperties.groupName
-    ) {
+    if (this.mode === 'update' && this.group.value.groupName !== this.initialProperties.groupName) {
       newGroupName = this.group.value.groupName;
     }
 

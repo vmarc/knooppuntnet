@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,50 +14,46 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   selector: 'kpn-monitor-route-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page *ngIf="service.state() as state">
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
-          <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </li>
-        <li>
-          <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
-        </li>
-        <li i18n="@@breadcrumb.monitor.route">Route</li>
-      </ul>
+    @if (service.state(); as state) {
+      <kpn-page>
+        <ul class="breadcrumb">
+          <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+          <li>
+            <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+          </li>
+          <li>
+            <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
+          </li>
+          <li i18n="@@breadcrumb.monitor.route">Route</li>
+        </ul>
 
-      <h1>
-        <span class="kpn-label">{{ state.routeName }}</span>
-        <span>{{ state.routeDescription }}</span>
-      </h1>
+        <h1>
+          <span class="kpn-label">{{ state.routeName }}</span>
+          <span>{{ state.routeDescription }}</span>
+        </h1>
 
-      <h2 i18n="@@monitor.route.delete.title">Delete</h2>
+        <h2 i18n="@@monitor.route.delete.title">Delete</h2>
 
-      <kpn-error />
+        <kpn-error />
 
-      <div class="kpn-form">
-        <p i18n="@@monitor.route.delete.comment">
-          Remove this route from the monitor.
-        </p>
+        <div class="kpn-form">
+          <p i18n="@@monitor.route.delete.comment">Remove this route from the monitor.</p>
 
-        <p class="kpn-line">
-          <mat-icon svgIcon="warning" />
-          <span i18n="@@monitor.route.delete.warning"
-            >Attention: all history will be lost!</span
-          >
-        </p>
+          <p class="kpn-line">
+            <mat-icon svgIcon="warning" />
+            <span i18n="@@monitor.route.delete.warning">Attention: all history will be lost!</span>
+          </p>
 
-        <div class="kpn-form-buttons">
-          <button mat-stroked-button (click)="service.delete()">
-            <span class="kpn-warning" i18n="@@monitor.route.delete.action"
-              >Delete Route</span
-            >
-          </button>
-          <a [routerLink]="state.groupLink" i18n="@@action.cancel">Cancel</a>
+          <div class="kpn-form-buttons">
+            <button mat-stroked-button (click)="service.delete()">
+              <span class="kpn-warning" i18n="@@monitor.route.delete.action">Delete Route</span>
+            </button>
+            <a [routerLink]="state.groupLink" i18n="@@action.cancel">Cancel</a>
+          </div>
         </div>
-      </div>
-      <kpn-sidebar sidebar />
-    </kpn-page>
+        <kpn-sidebar sidebar />
+      </kpn-page>
+    }
   `,
   providers: [MonitorRouteDeletePageService, NavService],
   standalone: true,
@@ -65,12 +61,11 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
     ErrorComponent,
     MatButtonModule,
     MatIconModule,
-    NgIf,
     PageComponent,
     RouterLink,
     SidebarComponent,
   ],
 })
 export class MonitorRouteDeletePageComponent {
-  constructor(protected service: MonitorRouteDeletePageService) {}
+  protected readonly service = inject(MonitorRouteDeletePageService);
 }
