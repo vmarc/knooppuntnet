@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -32,11 +33,11 @@ import { LinkLogoutComponent } from './link-logout.component';
   imports: [LinkLoginComponent, RouterLink, RouterOutlet, LinkLogoutComponent],
 })
 export class PageComponent {
+  private readonly userService = inject(UserService);
+
   @Input({ required: true }) title: string = '';
 
-  user = this.userService.user;
-
-  constructor(private userService: UserService) {}
+  readonly user = this.userService.user;
 
   logout(): void {
     this.userService.logout();

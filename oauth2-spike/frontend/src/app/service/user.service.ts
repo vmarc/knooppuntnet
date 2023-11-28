@@ -1,15 +1,25 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { OAuthSuccessEvent } from 'angular-oauth2-oidc';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { map } from "rxjs";
+import { Observable } from "rxjs";
 import { tap } from 'rxjs';
 import { BrowserStorageService } from './browser-storage.service';
 
 @Injectable()
 export class UserService {
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
+  private readonly oauthService = inject(OAuthService);
+  private readonly browserStorageService = inject(BrowserStorageService);
+  private readonly document = inject(DOCUMENT);
+
   private showDebugInformation = true;
   private returnUrl: string | null = null;
 
@@ -18,7 +28,7 @@ export class UserService {
 
   private authConfig = {
     issuer: 'https://www.openstreetmap.org',
-    redirectUri: 'http://127.0.0.1:4200/authenticated', // TODO make dynamic (include redirectUrl)
+    redirectUri: this.composeRedirectUri(),
     responseType: 'code',
     scope: 'read_prefs',
     showDebugInformation: this.showDebugInformation,
@@ -26,26 +36,12 @@ export class UserService {
     oidc: false, // added to avoid scope 'openid' to be added automatically in authorize request
   };
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private oauthService: OAuthService,
-    private browserStorageService: BrowserStorageService,
-  ) {
+  constructor() {
     this.initEventHandling();
     this.initUser();
   }
 
-  cancelLogin(): void {
-    if (this.returnUrl) {
-      const url = this.returnUrl;
-      this.returnUrl = null;
-      this.router.navigateByUrl(url);
-    }
-  }
-
-  cancelLogout(): void {
-    // TODO same as cancelLogin()
+  navigateToReturnUrl(): void {
     if (this.returnUrl) {
       const url = this.returnUrl;
       this.returnUrl = null;
@@ -54,57 +50,34 @@ export class UserService {
   }
 
   login(): void {
-    this.http
-      .get('/api/client-id', { responseType: 'text' })
-      .pipe(
-        tap((clientId) => {
-          console.log(`clientId=${clientId}`);
-          const authConfigWithClientId = {
-            ...this.authConfig,
-            clientId: clientId,
-          };
-          this.oauthService.configure(authConfigWithClientId);
-          this.oauthService.loadDiscoveryDocumentAndTryLogin();
-          if (this.returnUrl) {
-            console.log(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
-            this.oauthService.initCodeFlow(this.returnUrl);
-          }
-        }),
-      )
-      .subscribe();
+    this.loadDiscoveryDocumentAndTryLogin().pipe(
+      tap(() => {
+        if (this.returnUrl) {
+          this.debug(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
+          this.oauthService.initCodeFlow(this.returnUrl);
+        }
+      })
+    ).subscribe();
+  }
+
+  authenticated(): void {
+    this.loadDiscoveryDocumentAndTryLogin().subscribe();
   }
 
   logout(): void {
     this.http
-      .get('/api/logout', { responseType: 'text' })
-      .pipe(
-        tap(() => {
-          this.updateUser(null);
-          if (this.returnUrl) {
-            const url = this.returnUrl;
-            this.returnUrl = null;
-            this.router.navigateByUrl(url);
-          }
-        }),
-      )
-      .subscribe();
-  }
-
-  authenticated(): void {
-    this.http
-      .get('/api/client-id', { responseType: 'text' })
-      .pipe(
-        tap((clientId) => {
-          console.log(`clientId=${clientId}`);
-          const authConfigWithClientId = {
-            ...this.authConfig,
-            clientId: clientId,
-          };
-          this.oauthService.configure(authConfigWithClientId);
-          this.oauthService.loadDiscoveryDocumentAndTryLogin();
-        }),
-      )
-      .subscribe();
+    .get('/api/logout', {responseType: 'text'})
+    .pipe(
+      tap(() => {
+        this.updateUser(null);
+        if (this.returnUrl) {
+          const url = this.returnUrl;
+          this.returnUrl = null;
+          this.router.navigateByUrl(url);
+        }
+      })
+    )
+    .subscribe();
   }
 
   loginLinkClicked(): void {
@@ -135,6 +108,22 @@ export class UserService {
     this._user.set(userFromStorage);
   }
 
+  private loadDiscoveryDocumentAndTryLogin(): Observable<void> {
+    return this.http
+    .get('/api/client-id', {responseType: 'text'})
+    .pipe(
+      map((clientId) => {
+        console.log(`clientId=${clientId}`);
+        const authConfigWithClientId = {
+          ...this.authConfig,
+          clientId: clientId,
+        };
+        this.oauthService.configure(authConfigWithClientId);
+        this.oauthService.loadDiscoveryDocumentAndTryLogin();
+      })
+    );
+  }
+
   private updateUser(user: string | null): void {
     // this.updateSentryUser(user);
     if (user) {
@@ -154,20 +143,40 @@ export class UserService {
     if (accessToken) {
       const params = new HttpParams().set('accessToken', accessToken);
       this.http
-        .get('/api/authenticated', { params: params, responseType: 'text' })
-        .pipe(
-          tap((username) => {
-            this.updateUser(username);
-            this.oauthService.logOut();
-            // TODO handle UNAUTHORIZED
-            if (this.oauthService.state) {
-              const url = decodeURIComponent(this.oauthService.state);
-              this.router.navigateByUrl(url);
-            }
-          }),
-        )
-        .subscribe();
+      .get('/api/authenticated', {params: params, responseType: 'text'})
+      .pipe(
+        tap((username) => {
+          this.updateUser(username);
+          this.oauthService.logOut();
+          // TODO handle UNAUTHORIZED
+          if (this.oauthService.state) {
+            const url = decodeURIComponent(this.oauthService.state);
+            this.router.navigateByUrl(url);
+          }
+        })
+      )
+      .subscribe();
     }
+  }
+
+  private composeRedirectUri() {
+    if (this.document.location.hostname === 'localhost') {
+      return `http://127.0.0.1:4000/authenticated`;
+    }
+    const origin = this.document.location.origin;
+    const path = this.document.location.pathname;
+    let language = '';
+    if (path.length >= 4) {
+      if (
+        path.startsWith('/en/') ||
+        path.startsWith('/nl/') ||
+        path.startsWith('/fr/') ||
+        path.startsWith('/de/')
+      ) {
+        language = path.substring(0, 3);
+      }
+    }
+    return `${origin}${language}/authenticated`;
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

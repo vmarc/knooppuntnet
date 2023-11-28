@@ -65,6 +65,8 @@
               "buildTarget": "frontend:build:production"
             },
             "development": {
+              "port": 4000,
+              "proxyConfig": "src/proxy-dev.conf.js",
               "buildTarget": "frontend:build:development"
             }
           },
@@ -100,7 +102,7 @@
             "lintFilePatterns": [
               "src/**/*.ts",
               "src/**/*.html"
-             ]
+            ]
           }
         }
       }

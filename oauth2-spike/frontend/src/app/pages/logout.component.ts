@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 
@@ -14,13 +15,13 @@ import { UserService } from '../service/user.service';
   `,
 })
 export class LogoutComponent {
-  constructor(private userService: UserService) {}
+  private readonly userService = inject(UserService);
 
   logout(): void {
     this.userService.logout();
   }
 
   cancel(): void {
-    this.userService.cancelLogout();
+    this.userService.navigateToReturnUrl();
   }
 }

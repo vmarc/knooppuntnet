@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
@@ -9,7 +10,7 @@ import { UserService } from '../service/user.service';
   standalone: true,
 })
 export class LinkLoginComponent {
-  constructor(private userService: UserService) {}
+  private readonly userService = inject(UserService);
 
   login(): void {
     this.userService.loginLinkClicked();

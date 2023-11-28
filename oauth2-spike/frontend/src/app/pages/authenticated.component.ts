@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
 
@@ -7,7 +8,9 @@ import { UserService } from '../service/user.service';
   template: ` <p>logging in...</p> `,
 })
 export class AuthenticatedComponent {
-  constructor(private userService: UserService) {
-    userService.authenticated();
+  private readonly userService = inject(UserService);
+
+  constructor() {
+    this.userService.authenticated();
   }
 }
