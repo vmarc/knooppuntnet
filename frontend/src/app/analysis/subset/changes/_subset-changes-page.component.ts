@@ -35,45 +35,45 @@ import { SubsetChangesSidebarComponent } from './subset-changes-sidebar.componen
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p *ngIf="loggedIn() === false; else changes" i18n="@@subset-changes.login-required">
-          This details of the changes history are available to registered OpenStreetMap contributors
-          only, after
-          <kpn-link-login />
-          .
-        </p>
-        <ng-template #changes>
-          <p>
-            <kpn-situation-on [timestamp]="response.situationOn" />
-          </p>
-          <kpn-changes
-            [impact]="impact()"
-            [pageSize]="pageSize()"
-            [pageIndex]="pageIndex()"
-            (impactChange)="onImpactChange($event)"
-            (pageSizeChange)="onPageSizeChange($event)"
-            (pageIndexChange)="onPageIndexChange($event)"
-            [totalCount]="response.result.changeCount"
-            [changeCount]="response.result.changes.length"
-          >
-            <kpn-items>
-              <kpn-item
-                *ngFor="let changeSet of response.result.changes"
-                [index]="changeSet.rowIndex"
-              >
-                <kpn-change-network-analysis-summary
-                  *ngIf="changeSet.network"
-                  [changeSet]="changeSet"
-                />
-                <kpn-change-location-analysis-summary
-                  *ngIf="changeSet.location"
-                  [changeSet]="changeSet"
-                />
-              </kpn-item>
-            </kpn-items>
-          </kpn-changes>
-        </ng-template>
-      </div>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (loggedIn() === false) {
+            <p i18n="@@subset-changes.login-required">
+              This details of the changes history are available to registered OpenStreetMap
+              contributors only, after
+              <kpn-link-login />
+              .
+            </p>
+          } @else {
+            <p>
+              <kpn-situation-on [timestamp]="response.situationOn" />
+            </p>
+            <kpn-changes
+              [impact]="impact()"
+              [pageSize]="pageSize()"
+              [pageIndex]="pageIndex()"
+              (impactChange)="onImpactChange($event)"
+              (pageSizeChange)="onPageSizeChange($event)"
+              (pageIndexChange)="onPageIndexChange($event)"
+              [totalCount]="response.result.changeCount"
+              [changeCount]="response.result.changes.length"
+            >
+              <kpn-items>
+                @for (changeSet of response.result.changes; track changeSet.rowIndex) {
+                  <kpn-item [index]="changeSet.rowIndex">
+                    @if (changeSet.network) {
+                      <kpn-change-network-analysis-summary [changeSet]="changeSet" />
+                    }
+                    @if (changeSet.location) {
+                      <kpn-change-location-analysis-summary [changeSet]="changeSet" />
+                    }
+                  </kpn-item>
+                }
+              </kpn-items>
+            </kpn-changes>
+          }
+        </div>
+      }
       <kpn-subset-changes-sidebar sidebar />
     </kpn-page>
   `,
@@ -87,8 +87,6 @@ import { SubsetChangesSidebarComponent } from './subset-changes-sidebar.componen
     ItemComponent,
     ItemsComponent,
     LinkLoginComponent,
-    NgFor,
-    NgIf,
     PageComponent,
     SituationOnComponent,
     SubsetChangesSidebarComponent,

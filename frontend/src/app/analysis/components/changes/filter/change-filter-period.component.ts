@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -15,9 +15,17 @@ import { MonthComponent } from './month.component';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="row">
       <div [ngClass]="option.level">
-        <kpn-month *ngIf="option.level === 'month'" [month]="option.month" />
-        <ng-container *ngIf="option.level !== 'month'">{{ option.name }}</ng-container>
-        <ng-container *ngIf="option.current">&nbsp;&larr;</ng-container>
+        @if (option.level === 'month') {
+          <kpn-month [month]="option.month" />
+        }
+
+        @if (option.level !== 'month') {
+          {{ option.name }}
+        }
+
+        @if (option.current) {
+          &nbsp;&larr;
+        }
       </div>
       <div class="count-links">
         <a (click)="impactedCountClicked()" class="link">{{ option.impactedCount }}</a>
@@ -28,7 +36,7 @@ import { MonthComponent } from './month.component';
   `,
   styleUrl: '../../filter/filter.scss',
   standalone: true,
-  imports: [NgClass, NgIf, MonthComponent],
+  imports: [NgClass, MonthComponent],
 })
 export class ChangeFilterPeriodComponent {
   @Input() option: ChangesFilterOption;

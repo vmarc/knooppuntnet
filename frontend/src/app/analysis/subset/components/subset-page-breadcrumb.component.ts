@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -27,21 +26,31 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
         </a>
       </li>
       <li>
-        <span *ngIf="pageName === 'networks'" i18n="@@subset-page.menu.networks"> Networks </span>
-        <span *ngIf="pageName === 'facts'" i18n="@@subset-page.menu.facts"> Facts </span>
-        <span *ngIf="pageName === 'orphan-nodes'" i18n="@@subset-page.menu.orphan-nodes">
-          Orphan nodes
-        </span>
-        <span *ngIf="pageName === 'orphan-routes'" i18n="@@subset-page.menu.orphan-routes">
-          Free routes
-        </span>
-        <span *ngIf="pageName === 'map'" i18n="@@subset-page.menu.map"> Map </span>
-        <span *ngIf="pageName === 'changes'" i18n="@@subset-page.menu.changes"> Changes </span>
+        @switch (pageName) {
+          @case ('networks') {
+            <span i18n="@@subset-page.menu.networks">Networks</span>
+          }
+          @case ('facts') {
+            <span i18n="@@subset-page.menu.facts">Facts</span>
+          }
+          @case ('orphan-nodes') {
+            <span i18n="@@subset-page.menu.orphan-nodes">Orphan nodes</span>
+          }
+          @case ('orphan-routes') {
+            <span i18n="@@subset-page.menu.orphan-routes">Free routes</span>
+          }
+          @case ('map') {
+            <span i18n="@@subset-page.menu.map">Map</span>
+          }
+          @case ('changes') {
+            <span i18n="@@subset-page.menu.changes">Changes</span>
+          }
+        }
       </li>
     </ul>
   `,
   standalone: true,
-  imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent, NgIf],
+  imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
 })
 export class SubsetPageBreadcrumbComponent {
   @Input() subset: Subset;

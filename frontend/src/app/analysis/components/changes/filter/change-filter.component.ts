@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -13,22 +11,26 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
   selector: 'kpn-change-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="filterOptions && filterOptions.length > 0" class="filter">
-      <div class="title" i18n="@@change-filter.title">Filter</div>
-      <div class="row">
-        <div class="count-links" i18n="@@change-filter.legend">impacted / all</div>
+    @if (filterOptions && filterOptions.length > 0) {
+      <div class="filter">
+        <div class="title" i18n="@@change-filter.title">Filter</div>
+        <div class="row">
+          <div class="count-links" i18n="@@change-filter.legend">impacted / all</div>
+        </div>
+        @for (option of filterOptions; track $index) {
+          <div>
+            <kpn-change-filter-period
+              [option]="option"
+              (optionSelected)="optionSelected.emit($event)"
+            />
+          </div>
+        }
       </div>
-      <div *ngFor="let option of filterOptions">
-        <kpn-change-filter-period
-          [option]="option"
-          (optionSelected)="optionSelected.emit($event)"
-        />
-      </div>
-    </div>
+    }
   `,
   styleUrl: '../../filter/filter.scss',
   standalone: true,
-  imports: [NgIf, NgFor, ChangeFilterPeriodComponent],
+  imports: [ChangeFilterPeriodComponent],
 })
 export class ChangeFilterComponent {
   @Input() filterOptions: ChangesFilterOption[];
