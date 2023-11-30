@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -12,19 +10,27 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   selector: 'kpn-fact-comma-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="hasFacts()" class="kpn-detail kpn-line">
-      {{ title }}:&nbsp;
-      <div class="kpn-comma-list">
-        <span *ngFor="let fact of facts">
-          <kpn-fact-name [fact]="fact" />
-        </span>
+    @if (hasFacts()) {
+      <div class="kpn-detail kpn-line">
+        {{ title }}:&nbsp;
+        <div class="kpn-comma-list">
+          @for (fact of facts; track $index) {
+            <span>
+              <kpn-fact-name [fact]="fact" />
+            </span>
+          }
+        </div>
+        @if (icon === 'happy') {
+          <kpn-icon-happy />
+        }
+        @if (icon === 'investigate') {
+          <kpn-icon-investigate />
+        }
       </div>
-      <kpn-icon-happy *ngIf="icon === 'happy'" />
-      <kpn-icon-investigate *ngIf="icon === 'investigate'" />
-    </div>
+    }
   `,
   standalone: true,
-  imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent, NgFor, NgIf],
+  imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent],
 })
 export class FactCommaListComponent {
   @Input() title: string;

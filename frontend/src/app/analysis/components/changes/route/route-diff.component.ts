@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -13,61 +11,68 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
   selector: 'kpn-route-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="!!diffs.nameDiff" class="kpn-detail" i18n="@@route-changes.route-diff.name-diff">
-      Route name changed from "{{ diffs.nameDiff.before }}" to "{{ diffs.nameDiff.after }}".
-    </div>
+    @if (diffs.nameDiff) {
+      <div class="kpn-detail" i18n="@@route-changes.route-diff.name-diff">
+        Route name changed from "{{ diffs.nameDiff.before }}" to "{{ diffs.nameDiff.after }}".
+      </div>
+    }
 
-    <div *ngIf="isRouteRoleAdded()" class="kpn-detail" i18n="@@route-changes.route-diff.role-added">
-      Route role "{{ diffs.roleDiff.after }}" added to networkrelation.
-    </div>
+    @if (isRouteRoleAdded()) {
+      <div class="kpn-detail" i18n="@@route-changes.route-diff.role-added">
+        Route role "{{ diffs.roleDiff.after }}" added to networkrelation.
+      </div>
+    }
 
-    <div
-      *ngIf="isRouteRoleDeleted()"
-      class="kpn-detail"
-      i18n="@@route-changes.route-diff.role-deleted"
-    >
-      Route role "{{ diffs.roleDiff.before }}" removed from networkrelation.
-    </div>
+    @if (isRouteRoleDeleted()) {
+      <div class="kpn-detail" i18n="@@route-changes.route-diff.role-deleted">
+        Route role "{{ diffs.roleDiff.before }}" removed from networkrelation.
+      </div>
+    }
 
-    <div
-      *ngIf="isRouteRoleUpdated()"
-      class="kpn-detail"
-      i18n="@@route-changes.route-diff.role-updated"
-    >
-      Route role in networkrelation changed from "{{ diffs.roleDiff.before }}" to "{{
-        diffs.roleDiff.after
-      }}".
-    </div>
-
+    @if (isRouteRoleUpdated()) {
+      <div class="kpn-detail" i18n="@@route-changes.route-diff.role-updated">
+        Route role in networkrelation changed from "{{ diffs.roleDiff.before }}" to "{{
+          diffs.roleDiff.after
+        }}".
+      </div>
+    }
     <kpn-fact-diffs [factDiffs]="diffs.factDiffs" />
 
-    <ng-container *ngFor="let nodeDiff of diffs.nodeDiffs">
-      <div *ngIf="nodeDiff.added.length > 0" class="kpn-detail">
-        <kpn-route-node-diff action="added" [title]="nodeDiff.title" [nodeRefs]="nodeDiff.added" />
-      </div>
-      <div *ngIf="nodeDiff.removed.length > 0" class="kpn-detail">
-        <kpn-route-node-diff
-          action="removed"
-          [title]="nodeDiff.title"
-          [nodeRefs]="nodeDiff.removed"
-        />
-      </div>
-    </ng-container>
+    @for (nodeDiff of diffs.nodeDiffs; track $index) {
+      @if (nodeDiff.added.length > 0) {
+        <div class="kpn-detail">
+          <kpn-route-node-diff
+            action="added"
+            [title]="nodeDiff.title"
+            [nodeRefs]="nodeDiff.added"
+          />
+        </div>
+      }
+      @if (nodeDiff.removed.length > 0) {
+        <div class="kpn-detail">
+          <kpn-route-node-diff
+            action="removed"
+            [title]="nodeDiff.title"
+            [nodeRefs]="nodeDiff.removed"
+          />
+        </div>
+      }
+    }
 
-    <div
-      *ngIf="diffs.memberOrderChanged"
-      class="kpn-detail"
-      i18n="@@route-changes.route-diff.member-order-changed"
-    >
-      Member order changed.
-    </div>
+    @if (diffs.memberOrderChanged) {
+      <div class="kpn-detail" i18n="@@route-changes.route-diff.member-order-changed">
+        Member order changed.
+      </div>
+    }
 
-    <div *ngIf="hasTagDiffs()">
-      <kpn-tag-diffs [tagDiffs]="diffs.tagDiffs" class="kpn-detail" />
-    </div>
+    @if (hasTagDiffs()) {
+      <div>
+        <kpn-tag-diffs [tagDiffs]="diffs.tagDiffs" class="kpn-detail" />
+      </div>
+    }
   `,
   standalone: true,
-  imports: [FactDiffsComponent, NgFor, NgIf, RouteNodeDiffComponent, TagDiffsComponent],
+  imports: [FactDiffsComponent, RouteNodeDiffComponent, TagDiffsComponent],
 })
 export class RouteDiffComponent {
   @Input() diffs: RouteDiff;

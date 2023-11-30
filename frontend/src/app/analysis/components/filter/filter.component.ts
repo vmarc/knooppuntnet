@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -12,23 +10,24 @@ import { FilterTitleComponent } from './filter-title.component';
   selector: 'kpn-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="filter" *ngIf="!filterOptions.isEmpty()">
-      <kpn-filter-title [filterOptions]="filterOptions" />
-      <div *ngFor="let group of filterOptions.groups">
-        <kpn-filter-checkbox-group *ngIf="group.name === 'role'" />
-        <kpn-filter-radio-group *ngIf="group.name !== 'role'" [group]="group" />
+    @if (!filterOptions.isEmpty()) {
+      <div class="filter">
+        <kpn-filter-title [filterOptions]="filterOptions" />
+        @for (group of filterOptions.groups) {
+          <div>
+            @if (group.name === 'role') {
+              <kpn-filter-checkbox-group />
+            } @else {
+              <kpn-filter-radio-group [group]="group" />
+            }
+          </div>
+        }
       </div>
-    </div>
+    }
   `,
   styleUrl: './filter.scss',
   standalone: true,
-  imports: [
-    FilterCheckboxGroupComponent,
-    FilterRadioGroupComponent,
-    FilterTitleComponent,
-    NgFor,
-    NgIf,
-  ],
+  imports: [FilterCheckboxGroupComponent, FilterRadioGroupComponent, FilterTitleComponent],
 })
 export class FilterComponent {
   @Input() filterOptions: FilterOptions;

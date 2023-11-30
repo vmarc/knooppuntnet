@@ -1,4 +1,4 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -9,9 +9,8 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
   selector: 'kpn-tag-diffs-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="!!tagDiffs">
+    @if (tagDiffs) {
       <div class="title"></div>
-
       <table class="kpn-table" title="Tag differences" i18n-title="@@tag-diffs.table">
         <thead>
           <tr>
@@ -22,36 +21,36 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
           </tr>
         </thead>
         <tbody>
-          <tr
-            *ngFor="let tagDetail of tagDiffs.mainTags"
-            [ngClass]="{ same: tagDetail.action.name === 'Same' }"
-          >
-            <td>
-              <kpn-tag-diff-action [action]="tagDetail.action" />
-            </td>
-            <td>{{ tagDetail.key }}</td>
-            <td>{{ tagDetail.valueBefore }}</td>
-            <td>{{ tagDetail.valueAfter }}</td>
-          </tr>
+          @for (tagDetail of tagDiffs.mainTags; track $index) {
+            <tr [ngClass]="{ same: tagDetail.action.name === 'Same' }">
+              <td>
+                <kpn-tag-diff-action [action]="tagDetail.action" />
+              </td>
+              <td>{{ tagDetail.key }}</td>
+              <td>{{ tagDetail.valueBefore }}</td>
+              <td>{{ tagDetail.valueAfter }}</td>
+            </tr>
+          }
 
-          <tr *ngIf="hasSeparator()">
-            <td colspan="4"></td>
-          </tr>
+          @if (hasSeparator()) {
+            <tr>
+              <td colspan="4"></td>
+            </tr>
+          }
 
-          <tr
-            *ngFor="let tagDetail of tagDiffs.extraTags"
-            [ngClass]="{ same: tagDetail.action.name === 'Same' }"
-          >
-            <td>
-              <kpn-tag-diff-action [action]="tagDetail.action" />
-            </td>
-            <td>{{ tagDetail.key }}</td>
-            <td>{{ tagDetail.valueBefore }}</td>
-            <td>{{ tagDetail.valueAfter }}</td>
-          </tr>
+          @for (tagDetail of tagDiffs.extraTags; track $index) {
+            <tr [ngClass]="{ same: tagDetail.action.name === 'Same' }">
+              <td>
+                <kpn-tag-diff-action [action]="tagDetail.action" />
+              </td>
+              <td>{{ tagDetail.key }}</td>
+              <td>{{ tagDetail.valueBefore }}</td>
+              <td>{{ tagDetail.valueAfter }}</td>
+            </tr>
+          }
         </tbody>
       </table>
-    </div>
+    }
   `,
   styles: `
     .title {
@@ -64,7 +63,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, NgClass, TagDiffActionComponent],
+  imports: [NgClass, TagDiffActionComponent],
 })
 export class TagDiffsTableComponent {
   @Input() tagDiffs: TagDiffs;

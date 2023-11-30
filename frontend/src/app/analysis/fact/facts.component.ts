@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -18,34 +16,50 @@ import { Facts } from './facts';
   selector: 'kpn-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="filteredFactInfos.length === 0" i18n="@@facts.none">None</div>
+    @if (filteredFactInfos.length === 0) {
+      <div i18n="@@facts.none">None</div>
+    }
 
-    <div *ngFor="let factInfo of filteredFactInfos" class="fact">
-      <div>
-        <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level" />
-        <kpn-fact-name [fact]="factInfo.fact"></kpn-fact-name>
-        <div *ngIf="factInfo.networkRef" class="reference">
-          <kpn-brackets>
-            <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{
-              factInfo.networkRef.name
-            }}</a>
-          </kpn-brackets>
+    @for (factInfo of filteredFactInfos; track $index) {
+      <div class="fact">
+        <div>
+          <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level" />
+          <kpn-fact-name [fact]="factInfo.fact"></kpn-fact-name>
+
+          @if (factInfo.networkRef) {
+            <div class="reference">
+              <kpn-brackets>
+                <a class="text" [routerLink]="'/analysis/network/' + factInfo.networkRef.id">{{
+                  factInfo.networkRef.name
+                }}</a>
+              </kpn-brackets>
+            </div>
+          }
+
+          @if (factInfo.routeRef) {
+            <div class="reference">
+              <kpn-brackets>
+                <kpn-link-route
+                  [routeId]="factInfo.routeRef.id"
+                  [routeName]="factInfo.routeRef.name"
+                />
+              </kpn-brackets>
+            </div>
+          }
+
+          @if (factInfo.nodeRef) {
+            <div class="reference">
+              <kpn-brackets>
+                <kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name" />
+              </kpn-brackets>
+            </div>
+          }
         </div>
-        <div *ngIf="factInfo.routeRef" class="reference">
-          <kpn-brackets>
-            <kpn-link-route [routeId]="factInfo.routeRef.id" [routeName]="factInfo.routeRef.name" />
-          </kpn-brackets>
-        </div>
-        <div *ngIf="factInfo.nodeRef" class="reference">
-          <kpn-brackets>
-            <kpn-link-node [nodeId]="factInfo.nodeRef.id" [nodeName]="factInfo.nodeRef.name" />
-          </kpn-brackets>
+        <div class="description">
+          <kpn-fact-description [factInfo]="factInfo" />
         </div>
       </div>
-      <div class="description">
-        <kpn-fact-description [factInfo]="factInfo" />
-      </div>
-    </div>
+    }
   `,
   styles: `
     .fact {
@@ -78,8 +92,6 @@ import { Facts } from './facts';
     FactNameComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    NgFor,
-    NgIf,
     RouterLink,
   ],
 })

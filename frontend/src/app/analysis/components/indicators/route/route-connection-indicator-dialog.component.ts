@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -14,34 +13,27 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       i18n-letter="@@route-connection.indicator.letter"
       [color]="color"
     >
-      <span dialog-title *ngIf="isBlue()" i18n="@@route-connection-indicator.blue.title">
-        OK - Connection
-      </span>
-
-      <div dialog-body *ngIf="isBlue()" i18n="@@route-connection-indicator.blue.text">
-        This route is a connection to another network.
-      </div>
-
-      <span dialog-title *ngIf="isGray()" i18n="@@route-connection-indicator.gray.title">
-        OK - No connection
-      </span>
-
-      <div dialog-body *ngIf="isGray()" i18n="@@route-connection-indicator.gray.text">
-        This route is not a connection to another network.
-      </div>
+      @switch (color) {
+        @case ('blue') {
+          <span dialog-title i18n="@@route-connection-indicator.blue.title"> OK - Connection </span>
+          <div dialog-body i18n="@@route-connection-indicator.blue.text">
+            This route is a connection to another network.
+          </div>
+        }
+        @case ('gray') {
+          <span dialog-title i18n="@@route-connection-indicator.gray.title">
+            OK - No connection
+          </span>
+          <div dialog-body i18n="@@route-connection-indicator.gray.text">
+            This route is not a connection to another network.
+          </div>
+        }
+      }
     </kpn-indicator-dialog>
   `,
   standalone: true,
-  imports: [IndicatorDialogComponent, NgIf],
+  imports: [IndicatorDialogComponent],
 })
 export class RouteConnectionIndicatorDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public color: string) {}
-
-  isBlue() {
-    return this.color === 'blue';
-  }
-
-  isGray() {
-    return this.color === 'gray';
-  }
 }

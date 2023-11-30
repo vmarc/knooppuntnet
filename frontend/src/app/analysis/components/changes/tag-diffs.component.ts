@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -14,17 +13,15 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
   selector: 'kpn-tag-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="small$ | async; then small; else large"></div>
-    <ng-template #small>
-      <kpn-tag-diffs-text *ngIf="small$ | async; else large" [tagDiffs]="tagDiffs" />
-    </ng-template>
-    <ng-template #large>
+    @if (small$ | async) {
+      <kpn-tag-diffs-text [tagDiffs]="tagDiffs" />
+    } @else {
       <div class="kpn-label" i18n="@@tag-diffs.title">Tag changes</div>
       <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs" />
-    </ng-template>
+    }
   `,
   standalone: true,
-  imports: [NgIf, TagDiffsTextComponent, TagDiffsTableComponent, AsyncPipe],
+  imports: [TagDiffsTextComponent, TagDiffsTableComponent, AsyncPipe],
 })
 export class TagDiffsComponent {
   @Input() tagDiffs: TagDiffs;

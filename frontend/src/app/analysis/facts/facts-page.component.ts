@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FactDescriptionComponent } from '@app/analysis/fact';
@@ -18,12 +17,14 @@ import { Facts } from '../fact';
       <h1 i18n="@@fact-page.title">All facts</h1>
 
       <kpn-items>
-        <kpn-item *ngFor="let factName of allFactNames(); let i = index" [index]="i">
-          <p>
-            <kpn-fact-name [fact]="factName" />
-          </p>
-          <kpn-fact-description [factInfo]="factInfo(factName)" />
-        </kpn-item>
+        @for (factName of allFactNames(); track $index) {
+          <kpn-item [index]="$index">
+            <p>
+              <kpn-fact-name [fact]="factName" />
+            </p>
+            <kpn-fact-description [factInfo]="factInfo(factName)" />
+          </kpn-item>
+        }
       </kpn-items>
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
@@ -35,7 +36,6 @@ import { Facts } from '../fact';
     FactNameComponent,
     ItemComponent,
     ItemsComponent,
-    NgFor,
     PageComponent,
   ],
 })

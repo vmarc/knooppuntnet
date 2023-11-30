@@ -1,7 +1,7 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Input } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { TagDetail } from '@api/common/diff';
 import { TagDiffs } from '@api/common/diff';
 
@@ -9,109 +9,125 @@ import { TagDiffs } from '@api/common/diff';
   selector: 'kpn-tag-diffs-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="deletedTagDetails.length > 0">
-      <div *ngIf="deletedTagDetails.length === 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.deleted-tag">Deleted tag</span>
+    @if (deletedTagDetails.length > 0) {
+      <div class="important-title">
+        @if (deletedTagDetails.length === 1) {
+          <span class="kpn-label" i18n="@@tag-diffs.deleted-tag">Deleted tag</span>
+        } @else {
+          <span class="kpn-label" i18n="@@tag-diffs.deleted-tags">Deleted tags</span>
+        }
       </div>
-      <div *ngIf="deletedTagDetails.length > 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.deleted-tags">Deleted tags</span>
-      </div>
-      <div *ngFor="let tagDetail of deletedTagDetails" class="tag-detail">
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
-          </div>
-          <div class="important-value">{{ tagDetail.key }}</div>
-        </div>
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.value">Value</span>
-          </div>
-          <div class="important-value">{{ tagDetail.valueBefore }}</div>
-        </div>
-      </div>
-    </div>
 
-    <div *ngIf="addedTagDetails.length > 0">
-      <div *ngIf="addedTagDetails.length === 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.added-tag">Added tag</span>
-      </div>
-      <div *ngIf="addedTagDetails.length > 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.added-tags">Added tags</span>
-      </div>
-      <div *ngFor="let tagDetail of addedTagDetails" class="tag-detail">
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
+      @for (tagDetail of deletedTagDetails; track $index) {
+        <div class="tag-detail">
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
+            </div>
+            <div class="important-value">{{ tagDetail.key }}</div>
           </div>
-          <div class="important-value">{{ tagDetail.key }}</div>
-        </div>
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.value">Value</span>
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.value">Value</span>
+            </div>
+            <div class="important-value">{{ tagDetail.valueBefore }}</div>
           </div>
-          <div class="important-value">{{ tagDetail.valueAfter }}</div>
         </div>
-      </div>
-    </div>
+      }
+    }
 
-    <div *ngIf="updatedTagDetails.length > 0">
-      <div *ngIf="updatedTagDetails.length === 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.updated-tag">Updated tag</span>
+    @if (addedTagDetails.length > 0) {
+      <div class="important-title">
+        @if (addedTagDetails.length === 1) {
+          <span class="kpn-label" i18n="@@tag-diffs.added-tag">Added tag</span>
+        } @else {
+          <span class="kpn-label" i18n="@@tag-diffs.added-tags">Added tags</span>
+        }
       </div>
-      <div *ngIf="updatedTagDetails.length > 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.updated-tags">Updated tags</span>
-      </div>
-      <div *ngFor="let tagDetail of updatedTagDetails" class="tag-detail">
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
-          </div>
-          <div class="important-value">{{ tagDetail.key }}</div>
-        </div>
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.before">Before</span>
-          </div>
-          <div class="important-value">{{ tagDetail.valueBefore }}</div>
-        </div>
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.after">After</span>
-          </div>
-          <div class="important-value">{{ tagDetail.valueAfter }}</div>
-        </div>
-      </div>
-    </div>
 
-    <div *ngIf="sameTagDetails.length > 0">
-      <div *ngIf="sameTagDetails.length === 1" class="title">
-        <span class="kpn-label" i18n="@@tag-diffs.same-tag">Same tag</span>
-      </div>
-      <div *ngIf="sameTagDetails.length > 1" class="important-title">
-        <span class="kpn-label" i18n="@@tag-diffs.same-tags">Same tags</span>
-      </div>
-      <div *ngFor="let tagDetail of sameTagDetails" class="tag-detail">
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
+      @for (tagDetail of addedTagDetails; track $index) {
+        <div class="tag-detail">
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
+            </div>
+            <div class="important-value">{{ tagDetail.key }}</div>
           </div>
-          <div class="value">{{ tagDetail.key }}</div>
-        </div>
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.before">Before</span>
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.value">Value</span>
+            </div>
+            <div class="important-value">{{ tagDetail.valueAfter }}</div>
           </div>
-          <div class="value">{{ tagDetail.valueBefore }}</div>
         </div>
-        <div>
-          <div class="label">
-            <span class="kpn-label" i18n="@@tag-diffs.after">After</span>
-          </div>
-          <div class="value">{{ tagDetail.valueAfter }}</div>
-        </div>
+      }
+    }
+
+    @if (updatedTagDetails.length > 0) {
+      <div class="important-title">
+        @if (updatedTagDetails.length === 1) {
+          <span class="kpn-label" i18n="@@tag-diffs.updated-tag">Updated tag</span>
+        } @else {
+          <span class="kpn-label" i18n="@@tag-diffs.updated-tags">Updated tags</span>
+        }
       </div>
-    </div>
+
+      @for (tagDetail of updatedTagDetails; track $index) {
+        <div class="tag-detail">
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
+            </div>
+            <div class="important-value">{{ tagDetail.key }}</div>
+          </div>
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.before">Before</span>
+            </div>
+            <div class="important-value">{{ tagDetail.valueBefore }}</div>
+          </div>
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.after">After</span>
+            </div>
+            <div class="important-value">{{ tagDetail.valueAfter }}</div>
+          </div>
+        </div>
+      }
+    }
+
+    @if (sameTagDetails.length > 0) {
+      <div class="title">
+        @if (sameTagDetails.length === 1) {
+          <span class="kpn-label" i18n="@@tag-diffs.same-tag">Same tag</span>
+        } @else {
+          <span class="kpn-label" i18n="@@tag-diffs.same-tags">Same tags</span>
+        }
+      </div>
+
+      @for (tagDetail of sameTagDetails; track $index) {
+        <div class="tag-detail">
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.key">Key</span>
+            </div>
+            <div class="value">{{ tagDetail.key }}</div>
+          </div>
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.before">Before</span>
+            </div>
+            <div class="value">{{ tagDetail.valueBefore }}</div>
+          </div>
+          <div>
+            <div class="label">
+              <span class="kpn-label" i18n="@@tag-diffs.after">After</span>
+            </div>
+            <div class="value">{{ tagDetail.valueAfter }}</div>
+          </div>
+        </div>
+      }
+    }
   `,
   styles: `
     .title {
@@ -143,7 +159,6 @@ import { TagDiffs } from '@api/common/diff';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor],
 })
 export class TagDiffsTextComponent implements OnInit {
   @Input() tagDiffs: TagDiffs;

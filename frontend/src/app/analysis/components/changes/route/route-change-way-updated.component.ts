@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -24,57 +23,62 @@ import { TagDiffsComponent } from '../tag-diffs.component';
       <div class="kpn-level-4-body">
         <div class="kpn-detail">
           <div class="kpn-thin">
-            <ng-container
-              *ngIf="isNewVersion(wayUpdate)"
-              i18n="@@route-change.way-update.changed-to"
-            >
-              Changed to v{{ wayUpdate.after.version }}
-            </ng-container>
-            <ng-container
-              *ngIf="!isNewVersion(wayUpdate)"
-              i18n="@@route-change.way-update.version-unchanged"
-            >
-              Way version unchanged
-            </ng-container>
+            @if (isNewVersion(wayUpdate)) {
+              <span i18n="@@route-change.way-update.changed-to">
+                Changed to v{{ wayUpdate.after.version }}
+              </span>
+            } @else {
+              <span i18n="@@route-change.way-update.version-unchanged">
+                Way version unchanged
+              </span>
+            }
             <kpn-meta-data [metaData]="wayUpdate.before" />
           </div>
         </div>
 
-        <div
-          *ngIf="wayUpdate.directionReversed"
-          class="kpn-detail"
-          i18n="@@route-change.way-update.direction-reversed"
-        >
-          Direction reversed
-        </div>
+        @if (wayUpdate.directionReversed) {
+          <div class="kpn-detail" i18n="@@route-change.way-update.direction-reversed">
+            Direction reversed
+          </div>
+        }
 
-        <div *ngIf="wayUpdate.removedNodes.length > 0" class="kpn-detail">
-          <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes"
-            >Removed node(s)</span
-          >
-          <kpn-node-list [nodeIds]="nodeIds(wayUpdate.removedNodes)" />
-        </div>
+        @if (wayUpdate.removedNodes.length > 0) {
+          <div class="kpn-detail">
+            <span class="kpn-label" i18n="@@route-change.way-update.removed-nodes">
+              Removed node(s)
+            </span>
+            <kpn-node-list [nodeIds]="nodeIds(wayUpdate.removedNodes)" />
+          </div>
+        }
 
-        <div *ngIf="wayUpdate.addedNodes.length > 0" class="kpn-detail">
-          <span class="kpn-label" i18n="@@route-change.way-update.added-nodes">Added node(s)</span>
-          <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)" />
-        </div>
+        @if (wayUpdate.addedNodes.length > 0) {
+          <div class="kpn-detail">
+            <span class="kpn-label" i18n="@@route-change.way-update.added-nodes"
+              >Added node(s)</span
+            >
+            <kpn-node-list [nodeIds]="nodeIds(wayUpdate.addedNodes)" />
+          </div>
+        }
 
-        <div *ngIf="wayUpdate.updatedNodes.length > 0" class="kpn-detail">
-          <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes"
-            >Updated node(s)</span
-          >
-          <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)" />
-        </div>
+        @if (wayUpdate.updatedNodes.length > 0) {
+          <div class="kpn-detail">
+            <span class="kpn-label" i18n="@@route-change.way-update.updated-nodes">
+              Updated node(s)
+            </span>
+            <kpn-node-list [nodeIds]="nodeUpdateIds(wayUpdate.updatedNodes)" />
+          </div>
+        }
 
-        <div *ngIf="hasTagDiffs()" class="kpn-detail">
-          <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs" />
-        </div>
+        @if (hasTagDiffs()) {
+          <div class="kpn-detail">
+            <kpn-tag-diffs [tagDiffs]="wayUpdate.tagDiffs" />
+          </div>
+        }
       </div>
     </div>
   `,
   standalone: true,
-  imports: [MetaDataComponent, NgIf, NodeListComponent, OsmLinkWayComponent, TagDiffsComponent],
+  imports: [MetaDataComponent, NodeListComponent, OsmLinkWayComponent, TagDiffsComponent],
 })
 export class RouteChangeWayUpdatedComponent {
   @Input() wayUpdate: WayUpdate;

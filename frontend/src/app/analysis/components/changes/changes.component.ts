@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -25,14 +24,18 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
       [showPageSizeSelection]="true"
     />
 
-    <div *ngIf="totalCount === 0" i18n="@@changes.no-changes">No changes</div>
+    @if (totalCount === 0) {
+      <div i18n="@@changes.no-changes">No changes</div>
+    }
 
-    <div *ngIf="changeCount > 0">
-      <ng-content></ng-content>
-    </div>
+    @if (changeCount > 0) {
+      <div>
+        <ng-content></ng-content>
+      </div>
+    }
   `,
   standalone: true,
-  imports: [MatSlideToggleModule, PaginatorComponent, NgIf],
+  imports: [MatSlideToggleModule, PaginatorComponent],
 })
 export class ChangesComponent {
   @Input() changeCount: number;

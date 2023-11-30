@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -8,9 +7,17 @@ import { FactLevel } from './fact-level';
   selector: 'kpn-fact-level',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="isInfo()" class="info circle"></div>
-    <div *ngIf="isError()" class="error circle"></div>
-    <div *ngIf="isOther()" class="other circle"></div>
+    @switch (factLevel) {
+      @case (FactLevel.info) {
+        <div class="info circle"></div>
+      }
+      @case (FactLevel.error) {
+        <div class="error circle"></div>
+      }
+      @case (FactLevel.other) {
+        <div class="other circle"></div>
+      }
+    }
   `,
   styles: `
     .circle {
@@ -33,20 +40,9 @@ import { FactLevel } from './fact-level';
     }
   `,
   standalone: true,
-  imports: [NgIf],
 })
 export class FactLevelComponent {
   @Input() factLevel: FactLevel;
 
-  isInfo(): boolean {
-    return this.factLevel === FactLevel.info;
-  }
-
-  isError(): boolean {
-    return this.factLevel === FactLevel.error;
-  }
-
-  isOther(): boolean {
-    return this.factLevel === FactLevel.other;
-  }
+  protected readonly FactLevel = FactLevel;
 }

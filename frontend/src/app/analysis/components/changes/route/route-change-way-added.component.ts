@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -19,20 +18,25 @@ import { TagsTableComponent } from '@app/components/shared/tags';
         <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()" />
       </div>
       <div class="kpn-level-4-body">
-        <div *ngIf="isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
-          <!-- eslint-disable @angular-eslint/template/i18n -->
-          <div class="kpn-thin">
-            [ v{{ wayInfo.version }}
-            <i i18n="@@route-change.way-added.this-changeset">this changeset</i>
-            ]
+        @if (isWayChangedInThisChangeset(wayInfo)) {
+          <div class="kpn-detail">
+            <!-- eslint-disable @angular-eslint/template/i18n -->
+            <div class="kpn-thin">
+              [ v{{ wayInfo.version }}
+              <i i18n="@@route-change.way-added.this-changeset">this changeset</i>
+              ]
+            </div>
+            <!-- eslint-enable @angular-eslint/template/i18n -->
           </div>
-          <!-- eslint-enable @angular-eslint/template/i18n -->
-        </div>
-        <div *ngIf="!isWayChangedInThisChangeset(wayInfo)" class="kpn-detail">
-          <div class="kpn-thin">
-            <kpn-meta-data [metaData]="wayInfo" />
+        }
+
+        @if (!isWayChangedInThisChangeset(wayInfo)) {
+          <div class="kpn-detail">
+            <div class="kpn-thin">
+              <kpn-meta-data [metaData]="wayInfo" />
+            </div>
           </div>
-        </div>
+        }
         <div class="kpn-detail">
           <kpn-tags-table [tags]="wayTags(wayInfo)" />
         </div>
@@ -40,7 +44,7 @@ import { TagsTableComponent } from '@app/components/shared/tags';
     </div>
   `,
   standalone: true,
-  imports: [OsmLinkWayComponent, NgIf, MetaDataComponent, TagsTableComponent],
+  imports: [OsmLinkWayComponent, MetaDataComponent, TagsTableComponent],
 })
 export class RouteChangeWayAddedComponent {
   @Input() wayInfo: WayInfo;

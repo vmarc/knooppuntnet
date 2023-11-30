@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,19 +10,17 @@ import { FactInfo } from '../fact-info';
   template: `
     <p class="kpn-sentence">
       <span class="kpn-label" i18n="@@fact.description.route-unexpected-node">
-        The route relation contains 1 or more unexpected nodes</span
-      >
+        The route relation contains 1 or more unexpected nodes
+      </span>
       <span class="kpn-comma-list">
-        <kpn-osm-link-node
-          *ngFor="let nodeId of factInfo.unexpectedNodeIds"
-          [nodeId]="nodeId"
-          [title]="nodeId.toString()"
-        />
+        @for (nodeId of factInfo.unexpectedNodeIds; track $index) {
+          <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
+        }
       </span>
     </p>
   `,
   standalone: true,
-  imports: [NgFor, OsmLinkNodeComponent],
+  imports: [OsmLinkNodeComponent],
 })
 export class FactRouteUnexpectedNodeComponent {
   @Input() factInfo: FactInfo;

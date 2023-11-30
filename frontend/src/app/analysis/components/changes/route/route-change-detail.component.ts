@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -16,42 +14,34 @@ import { RouteDiffComponent } from './route-diff.component';
   template: `
     <kpn-route-diff [diffs]="routeChangeInfo.diffs" />
 
-    <div
-      *ngIf="!routeChangeInfo.geometryDiff"
-      class="kpn-detail"
-      i18n="@@route-change.no-geometry-diff"
-    >
-      No geometry change
-    </div>
+    @if (!routeChangeInfo.geometryDiff) {
+      <div class="kpn-detail" i18n="@@route-change.no-geometry-diff">No geometry change</div>
+    }
 
-    <div *ngIf="routeChangeInfo.geometryDiff" class="kpn-detail">
-      <kpn-route-change-map
-        [geometryDiff]="routeChangeInfo.geometryDiff"
-        [nodes]="routeChangeInfo.nodes"
-        [bounds]="routeChangeInfo.bounds"
-      />
-    </div>
+    @if (routeChangeInfo.geometryDiff) {
+      <div class="kpn-detail">
+        <kpn-route-change-map
+          [geometryDiff]="routeChangeInfo.geometryDiff"
+          [nodes]="routeChangeInfo.nodes"
+          [bounds]="routeChangeInfo.bounds"
+        />
+      </div>
+    }
 
-    <kpn-route-change-way-removed
-      *ngFor="let removedWayInfo of routeChangeInfo.removedWays"
-      [wayInfo]="removedWayInfo"
-    />
+    @for (removedWayInfo of routeChangeInfo.removedWays; track $index) {
+      <kpn-route-change-way-removed [wayInfo]="removedWayInfo" />
+    }
 
-    <kpn-route-change-way-added
-      *ngFor="let addedWayInfo of routeChangeInfo.addedWays"
-      [routeChangeInfo]="routeChangeInfo"
-      [wayInfo]="addedWayInfo"
-    />
+    @for (addedWayInfo of routeChangeInfo.addedWays; track $index) {
+      <kpn-route-change-way-added [routeChangeInfo]="routeChangeInfo" [wayInfo]="addedWayInfo" />
+    }
 
-    <kpn-route-change-way-updated
-      *ngFor="let wayUpdate of routeChangeInfo.updatedWays"
-      [wayUpdate]="wayUpdate"
-    />
+    @for (wayUpdate of routeChangeInfo.updatedWays; track $index) {
+      <kpn-route-change-way-updated [wayUpdate]="wayUpdate" />
+    }
   `,
   standalone: true,
   imports: [
-    NgFor,
-    NgIf,
     RouteChangeMapComponent,
     RouteChangeWayAddedComponent,
     RouteChangeWayRemovedComponent,

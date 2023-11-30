@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -14,17 +13,15 @@ import { FilterOptionGroup } from '@app/kpn/filter';
   template: `
     <div>
       <div class="group-name">{{ groupName() }}</div>
-      <mat-checkbox
-        *ngFor="let option of group.options"
-        [checked]="isSelected()"
-        (change)="selectedChanged($event)"
-      >
-        {{ optionName(option) }}<span class="option-count">{{ option.count }}</span>
-      </mat-checkbox>
+      @for (option of group.options; track $index) {
+        <mat-checkbox [checked]="isSelected()" (change)="selectedChanged($event)">
+          {{ optionName(option) }}<span class="option-count">{{ option.count }}</span>
+        </mat-checkbox>
+      }
     </div>
   `,
   standalone: true,
-  imports: [NgFor, MatCheckboxModule],
+  imports: [MatCheckboxModule],
 })
 export class FilterCheckboxGroupComponent {
   @Input() group: FilterOptionGroup;

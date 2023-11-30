@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -15,22 +14,20 @@ import { FilterOptionGroup } from '@app/kpn/filter';
     <div>
       <div class="group-name">{{ groupName() }}</div>
       <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
-        <mat-radio-button
-          *ngFor="let option of group.options"
-          [value]="option.name"
-          [disabled]="option.count === 0"
-        >
-          <div class="filter-option">
-            <span class="option-name">{{ optionName(option) }}</span>
-            <span class="option-count">{{ option.count }}</span>
-          </div>
-        </mat-radio-button>
+        @for (option of group.options; track $index) {
+          <mat-radio-button [value]="option.name" [disabled]="option.count === 0">
+            <div class="filter-option">
+              <span class="option-name">{{ optionName(option) }}</span>
+              <span class="option-count">{{ option.count }}</span>
+            </div>
+          </mat-radio-button>
+        }
       </mat-radio-group>
     </div>
   `,
   styleUrl: './filter.scss',
   standalone: true,
-  imports: [MatRadioModule, NgFor],
+  imports: [MatRadioModule],
 })
 export class FilterRadioGroupComponent {
   @Input() group: FilterOptionGroup;
