@@ -136,7 +136,7 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
               osmDistance = 0,
               osmDistanceSubRelations = 0,
               gaps = None,
-              happy = false,
+              happy = true,
               relations = Seq.empty
             )
           ),

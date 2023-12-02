@@ -198,7 +198,7 @@ class MonitorRouteUpdateExecutor(
       addRouteWithMultiGpxReference()
     }
     else {
-      updateSubRelations()
+      updateSubRelationOsmReferences()
     }
 
     context.reporter.stepActive("save")
@@ -270,15 +270,15 @@ class MonitorRouteUpdateExecutor(
       oldStateIds = oldStateIds
     )
 
-    removeObsoleteReferences()
+    context = removeObsoleteReferences()
     removeObsoleteStates()
 
     if (context.isReferenceTypeGpx) {
       updateRouteWithGpxReference()
     }
     else {
-      if (context.isReferenceChanged()) {
-        updateSubRelations()
+      if (context.isReferenceTypeOsm && context.isReferenceChanged()) {
+        updateSubRelationOsmReferences()
       }
     }
 
@@ -613,7 +613,7 @@ class MonitorRouteUpdateExecutor(
     }
   }
 
-  private def updateSubRelations(): Unit = {
+  private def updateSubRelationOsmReferences(): Unit = {
     context.newRoute match {
       case None =>
       case Some(newRoute) =>
@@ -626,14 +626,14 @@ class MonitorRouteUpdateExecutor(
               Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
                 context.reporter.stepActive(mrr.relationId.toString)
                 val updateSingleRelationRoute = index == 0 && processList.size == 1
-                updateSubRelation(mrr, updateSingleRelationRoute)
+                updateSubRelationOsmReference(mrr, updateSingleRelationRoute)
               }
             }
         }
     }
   }
 
-  private def updateSubRelation(
+  private def updateSubRelationOsmReference(
     monitorRouteRelation: MonitorRouteRelation,
     updateSingleRelationRoute: Boolean
   ): Unit = {
@@ -650,6 +650,9 @@ class MonitorRouteUpdateExecutor(
         )
         monitorRouteRepository.deleteRouteReference(context.routeId, monitorRouteRelation.relationId)
         monitorRouteRepository.deleteRouteState(context.routeId, monitorRouteRelation.relationId)
+        context = context.copy(
+          stateChanged = true
+        )
         None
 
       case Some(subRelation) =>
@@ -1065,7 +1068,7 @@ class MonitorRouteUpdateExecutor(
                 newRoute.relation
               }
               val updatedRoute = newRoute.copy(
-                referenceDistance = if (context.isReferenceTypeMultiGpx) referenceDistance else 0,
+                referenceDistance = referenceDistance,
                 relation = updatedRelation
               )
               context = context.copy(
@@ -1361,26 +1364,38 @@ class MonitorRouteUpdateExecutor(
     }
   }
 
-  private def removeObsoleteReferences(): Unit = {
+  private def removeObsoleteReferences(): MonitorUpdateContext = {
     context.newRoute match {
-      case None =>
+      case None => context
       case Some(newRoute) =>
-        if (newRoute.referenceType == "osm") {
-          val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
-          if (allRelationIds.isEmpty) {
-            monitorRouteRepository.deleteRouteReferences(newRoute._id)
+        val oldReferenceType = context.oldRoute.map(_.referenceType)
+        if (newRoute.referenceType == "multi-gpx" && oldReferenceType != "multi-gpx") {
+          context.oldReferenceIds.foreach { referenceId =>
+            monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
           }
-          else {
-            val obsoleteReferenceIds = context.oldReferenceIds.filter { oldReferenceId =>
-              oldReferenceId.relationId match {
-                case Some(relationId) => !allRelationIds.contains(relationId)
-                case None => true
+          context.copy(
+            newRoute = Some(newRoute.copy(referenceDistance = 0))
+          )
+        }
+        else {
+          if (newRoute.referenceType == "osm") {
+            val allRelationIds = newRoute.relationId.toSeq ++ MonitorUtil.subRelationsIn(newRoute).map(_.relationId)
+            if (allRelationIds.isEmpty) {
+              monitorRouteRepository.deleteRouteReferences(newRoute._id)
+            }
+            else {
+              val obsoleteReferenceIds = context.oldReferenceIds.filter { oldReferenceId =>
+                oldReferenceId.relationId match {
+                  case Some(relationId) => !allRelationIds.contains(relationId)
+                  case None => true
+                }
+              }
+              obsoleteReferenceIds.foreach { referenceId =>
+                monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
               }
             }
-            obsoleteReferenceIds.foreach { referenceId =>
-              monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
-            }
           }
+          context
         }
     }
   }

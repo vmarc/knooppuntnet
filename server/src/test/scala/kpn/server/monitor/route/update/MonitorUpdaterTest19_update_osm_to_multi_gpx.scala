@@ -20,7 +20,7 @@ import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import org.scalatest.BeforeAndAfterEach
 
-class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
+class MonitorUpdaterTest19_update_osm_to_multi_gpx extends UnitTest with BeforeAndAfterEach with SharedTestObjects {
 
   private val log = new MockLog()
 
@@ -28,7 +28,7 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
     Time.clear()
   }
 
-  test("add route with osm reference, and change to reference type gpx afterwards") {
+  test("add route with osm reference, and change to reference type multi-gpx afterwards") {
 
     withDatabase() { database =>
 
@@ -105,7 +105,6 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
               role = None,
               survey = None,
               symbol = None,
-              // following reference fields are used for multi-gpx only
               referenceTimestamp = None,
               referenceFilename = None,
               referenceDistance = 0,
@@ -172,19 +171,6 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
 
       Time.set(Timestamp(2022, 8, 12, 12, 0, 0))
 
-      val gpx =
-        """
-          |<gpx>
-          |  <trk>
-          |    <trkseg>
-          |      <trkpt lat="51.4633666" lon="4.4553911"></trkpt>
-          |      <trkpt lat="51.4618272" lon="4.4562458"></trkpt>
-          |    </trkseg>
-          |  </trk>
-          |</gpx>
-          |""".stripMargin
-
-
       configuration.monitorRouteUpdateExecutor.execute(
         MonitorUpdateContext(
           "user2",
@@ -193,19 +179,16 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
             action = "update",
             groupName = group.name,
             routeName = "route-name",
-            referenceType = "gpx",
-            referenceTimestamp = Some(Timestamp(2022, 8, 1)),
+            referenceType = "multi-gpx",
             description = Some("route-description"),
             comment = Some("route-comment"),
             relationId = Some(1),
-            referenceFilename = Some("filename"),
-            referenceGpx = Some(gpx)
           )
         )
       )
 
       database.monitorRoutes.countDocuments(log) should equal(1)
-      database.monitorRouteReferences.countDocuments(log) should equal(1)
+      database.monitorRouteReferences.countDocuments(log) should equal(0)
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
@@ -222,10 +205,10 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
           symbol = None,
           analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
           analysisDuration = None,
-          referenceType = "gpx",
-          referenceTimestamp = Some(Timestamp(2022, 8, 1, 0, 0, 0)),
-          referenceFilename = Some("filename"),
-          referenceDistance = 181,
+          referenceType = "multi-gpx",
+          referenceTimestamp = None,
+          referenceFilename = None,
+          referenceDistance = 0,
           deviationDistance = 0,
           deviationCount = 0,
           osmWayCount = 1,
@@ -251,7 +234,6 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
               role = None,
               survey = None,
               symbol = None,
-              // following reference fields are used for multi-gpx only
               referenceTimestamp = None,
               referenceFilename = None,
               referenceDistance = 0,
@@ -270,31 +252,13 @@ class MonitorUpdaterTest19_update_osm_to_gpx extends UnitTest with BeforeAndAfte
         )
       )
 
-      val updatedReference = configuration.monitorRouteRepository.routeReference(updatedRoute._id, Some(1)).get
-      updatedReference.shouldMatchTo(
-        MonitorRouteReference(
-          addedReference._id,
-          routeId = addedRoute._id,
-          relationId = Some(1),
-          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
-          user = "user2",
-          referenceBounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-          referenceType = "gpx",
-          referenceTimestamp = Timestamp(2022, 8, 1, 0, 0, 0),
-          referenceDistance = 181,
-          referenceSegmentCount = 1,
-          referenceFilename = Some("filename"),
-          referenceGeoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
-        )
-      )
-
       val updatedState = configuration.monitorRouteRepository.routeState(updatedRoute._id, 1).get
       updatedState.shouldMatchTo(
         MonitorRouteState(
           addedState._id,
           routeId = addedRoute._id,
           relationId = 1,
-          timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
+          timestamp = Timestamp(2022, 8, 11, 12, 0, 0),
           wayCount = 1,
           startNodeId = Some(1001),
           endNodeId = Some(1002),

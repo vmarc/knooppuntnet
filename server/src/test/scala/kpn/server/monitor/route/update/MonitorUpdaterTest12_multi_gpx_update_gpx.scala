@@ -217,6 +217,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
         route.copy(
           analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
           analysisDuration = None,
+          referenceDistance = 181,
           relation = route.relation.map { relation =>
             relation.copy(
               happy = true,
@@ -297,6 +298,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
         route.copy(
           analysisTimestamp = Some(Timestamp(2022, 8, 13, 12, 0, 0)),
           analysisDuration = None,
+          referenceDistance = 181,
           relation = route.relation.map { relation =>
             relation.copy(
               happy = true,
