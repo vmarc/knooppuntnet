@@ -13,7 +13,7 @@ import { FilterTitleComponent } from './filter-title.component';
     @if (!filterOptions.isEmpty()) {
       <div class="filter">
         <kpn-filter-title [filterOptions]="filterOptions" />
-        @for (group of filterOptions.groups) {
+        @for (group of filterOptions.groups; track $index) {
           <div>
             @if (group.name === 'role') {
               <kpn-filter-checkbox-group />

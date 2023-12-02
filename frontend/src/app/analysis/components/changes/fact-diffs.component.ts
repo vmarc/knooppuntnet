@@ -71,7 +71,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
             <div>
               <span i18n="@@fact-diffs.remaining-facts" class="kpn-label">Remaining facts</span>
               <div class="kpn-comma-list">
-                @for (fact of factDiffs.remaining) {
+                @for (fact of factDiffs.remaining; track $index) {
                   <span>
                     <kpn-fact-name [fact]="fact" />
                   </span>
