@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,17 +9,18 @@ import { MetaDataComponent } from '@app/components/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-thin">
-      <ng-container *ngIf="isNewVersion()" i18n="@@version-change.relation-changed-to">
-        Relation changed to v{{ after.version }}.
-      </ng-container>
-      <span *ngIf="!isNewVersion()" i18n="@@version-change.relation-unchanged" class="kpn-label"
-        >Relation unchanged</span
-      >
+      @if (isNewVersion()) {
+        <span i18n="@@version-change.relation-changed-to">
+          Relation changed to v{{ after.version }}.
+        </span>
+      } @else {
+        <span i18n="@@version-change.relation-unchanged" class="kpn-label">Relation unchanged</span>
+      }
       <kpn-meta-data [metaData]="after" />
     </div>
   `,
   standalone: true,
-  imports: [NgIf, MetaDataComponent],
+  imports: [MetaDataComponent],
 })
 export class VersionChangeComponent {
   @Input() before: MetaData;

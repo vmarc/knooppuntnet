@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -59,12 +58,14 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
             {{ replicationName() }}
           </td>
         </tr>
-        <tr *ngIf="hasComment()">
-          <td i18n="@@change-set.header.comment">Comment</td>
-          <td>
-            {{ comment() }}
-          </td>
-        </tr>
+        @if (hasComment()) {
+          <tr>
+            <td i18n="@@change-set.header.comment">Comment</td>
+            <td>
+              {{ comment() }}
+            </td>
+          </tr>
+        }
         <tr>
           <td i18n="@@change-set.header.analysis">Analysis</td>
           <td>
@@ -75,7 +76,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
     </table>
   `,
   standalone: true,
-  imports: [ChangeSetAnalysisComponent, NgIf, OsmLinkChangeSetComponent, TimestampComponent],
+  imports: [ChangeSetAnalysisComponent, OsmLinkChangeSetComponent, TimestampComponent],
 })
 export class ChangeSetHeaderComponent {
   @Input() page: ChangeSetPage;

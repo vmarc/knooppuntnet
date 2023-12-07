@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -37,16 +36,17 @@ class ChangeSetKey {
         {{ changeSetTitle }}
       </h1>
 
-      <div *ngIf="response$ | async as response">
-        <div *ngIf="!response.result" i18n="@@changeset.not-found">Changeset not found</div>
-        <div *ngIf="response.result">
+      @if (response$ | async; as response) {
+        @if (!response.result) {
+          <div i18n="@@changeset.not-found">Changeset not found</div>
+        } @else {
           <kpn-change-set-header [page]="response.result" />
           <kpn-change-set-location-changes [changess]="response.result.summary.locationChanges" />
           <kpn-change-set-network-changes [page]="response.result" />
           <kpn-change-set-orphan-node-changes [page]="response.result" />
           <kpn-change-set-orphan-route-changes [page]="response.result" />
-        </div>
-      </div>
+        }
+      }
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
@@ -59,7 +59,6 @@ class ChangeSetKey {
     ChangeSetNetworkChangesComponent,
     ChangeSetOrphanNodeChangesComponent,
     ChangeSetOrphanRouteChangesComponent,
-    NgIf,
     PageComponent,
   ],
 })

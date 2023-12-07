@@ -11,24 +11,24 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   selector: 'kpn-cs-nc-relations-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="relationIds.length > 0" class="kpn-level-2">
-      <div class="kpn-level-2-header kpn-line">
-        <span i18n="@@change-set.network-changes.updated-relations"
-          >Updated non-route relations</span
-        >
-        <span class="kpn-brackets kpn-thin">{{ relationIds.length }}</span>
+    @if (relationIds.length > 0) {
+      <div class="kpn-level-2">
+        <div class="kpn-level-2-header kpn-line">
+          <span i18n="@@change-set.network-changes.updated-relations">
+            Updated non-route relations
+          </span>
+          <span class="kpn-brackets kpn-thin">{{ relationIds.length }}</span>
+        </div>
+        <div class="kpn-level-2-body kpn-comma-list">
+          @for (relationId of relationIds; track relationId) {
+            <kpn-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
+          }
+        </div>
       </div>
-      <div class="kpn-level-2-body kpn-comma-list">
-        <kpn-osm-link-relation
-          *ngFor="let relationId of relationIds"
-          [relationId]="relationId"
-          [title]="relationId.toString()"
-        />
-      </div>
-    </div>
+    }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, OsmLinkRelationComponent],
+  imports: [OsmLinkRelationComponent],
 })
 export class CsNcRelationsUpdatedComponent implements OnInit {
   @Input() networkChangeInfo: NetworkChangeInfo;

@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -12,19 +10,23 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   selector: 'kpn-cs-nc-ways-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="wayIds.length > 0" class="kpn-level-2">
-      <div class="kpn-level-2-header kpn-line">
-        <span i18n="@@change-set.network-changes.removed-ways">Removed ways</span>
-        <span class="kpn-brackets kpn-thin">{{ wayIds.length }}</span>
-        <kpn-icon-happy />
+    @if (wayIds.length > 0) {
+      <div class="kpn-level-2">
+        <div class="kpn-level-2-header kpn-line">
+          <span i18n="@@change-set.network-changes.removed-ways">Removed ways</span>
+          <span class="kpn-brackets kpn-thin">{{ wayIds.length }}</span>
+          <kpn-icon-happy />
+        </div>
+        <div class="kpn-level-2-body kpn-comma-list">
+          @for (wayId of wayIds; track wayId) {
+            <kpn-osm-link-way [wayId]="wayId" [title]="wayId.toString()" />
+          }
+        </div>
       </div>
-      <div class="kpn-level-2-body kpn-comma-list">
-        <kpn-osm-link-way *ngFor="let wayId of wayIds" [wayId]="wayId" [title]="wayId.toString()" />
-      </div>
-    </div>
+    }
   `,
   standalone: true,
-  imports: [NgIf, IconHappyComponent, NgFor, OsmLinkWayComponent],
+  imports: [IconHappyComponent, OsmLinkWayComponent],
 })
 export class CsNcWaysRemovedComponent implements OnInit {
   @Input() networkChangeInfo: NetworkChangeInfo;
