@@ -91,7 +91,6 @@ export const changesReducer = createReducer<ChangesState>(
     actionPreferencesAnalysisStrategy,
     (state, action): ChangesState => ({
       ...state,
-      // TODO strategy: action.strategy,
       changesParameters: {
         ...state.changesParameters,
         pageIndex: 0,

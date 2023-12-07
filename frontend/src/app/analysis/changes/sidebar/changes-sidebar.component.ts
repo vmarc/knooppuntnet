@@ -38,7 +38,7 @@ export class ChangesSidebarComponent {
     this.store.dispatch(actionChangesFilterOption({ option }));
   }
 
-  onStrategyChange(strategy: AnalysisStrategy) {
+  onStrategyChange(strategy: AnalysisStrategy): void {
     this.store.dispatch(actionChangesAnalysisStrategy({ strategy }));
   }
 }

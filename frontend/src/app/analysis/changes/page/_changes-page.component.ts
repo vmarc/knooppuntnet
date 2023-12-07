@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -43,48 +41,47 @@ import { selectChangesPage } from '../store/changes.selectors';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p
-          *ngIf="loggedIn() === false; else changes"
-          i18n="@@changes-page.login-required"
-          class="kpn-spacer-above"
-        >
-          The details of the changes history are available to registered OpenStreetMap contributors
-          only, after
-          <kpn-link-login />
-          .
-        </p>
-        <ng-template #changes>
-          <div *ngIf="response.result as page">
-            <p>
-              <kpn-situation-on [timestamp]="response.situationOn" />
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!loggedIn()) {
+            <p i18n="@@changes-page.login-required" class="kpn-spacer-above">
+              The details of the changes history are available to registered OpenStreetMap
+              contributors only, after
+              <kpn-link-login />
+              .
             </p>
-            <kpn-changes
-              [impact]="impact()"
-              [pageSize]="pageSize()"
-              [pageIndex]="pageIndex()"
-              (impactChange)="onImpactChange($event)"
-              (pageSizeChange)="onPageSizeChange($event)"
-              (pageIndexChange)="onPageIndexChange($event)"
-              [totalCount]="page.changeCount"
-              [changeCount]="page.changes.length"
-            >
-              <kpn-items>
-                <kpn-item *ngFor="let changeSet of page.changes" [index]="changeSet.rowIndex">
-                  <kpn-change-network-analysis-summary
-                    *ngIf="changeSet.network"
-                    [changeSet]="changeSet"
-                  />
-                  <kpn-change-location-analysis-summary
-                    *ngIf="changeSet.location"
-                    [changeSet]="changeSet"
-                  />
-                </kpn-item>
-              </kpn-items>
-            </kpn-changes>
-          </div>
-        </ng-template>
-      </div>
+          } @else {
+            @if (response.result; as page) {
+              <p>
+                <kpn-situation-on [timestamp]="response.situationOn" />
+              </p>
+              <kpn-changes
+                [impact]="impact()"
+                [pageSize]="pageSize()"
+                [pageIndex]="pageIndex()"
+                (impactChange)="onImpactChange($event)"
+                (pageSizeChange)="onPageSizeChange($event)"
+                (pageIndexChange)="onPageIndexChange($event)"
+                [totalCount]="page.changeCount"
+                [changeCount]="page.changes.length"
+              >
+                <kpn-items>
+                  @for (changeSet of page.changes; track $index) {
+                    <kpn-item [index]="changeSet.rowIndex">
+                      @if (changeSet.network) {
+                        <kpn-change-network-analysis-summary [changeSet]="changeSet" />
+                      }
+                      @if (changeSet.location) {
+                        <kpn-change-location-analysis-summary [changeSet]="changeSet" />
+                      }
+                    </kpn-item>
+                  }
+                </kpn-items>
+              </kpn-changes>
+            }
+          }
+        </div>
+      }
       <kpn-changes-sidebar sidebar />
     </kpn-page>
   `,
@@ -98,8 +95,6 @@ import { selectChangesPage } from '../store/changes.selectors';
     ItemComponent,
     ItemsComponent,
     LinkLoginComponent,
-    NgFor,
-    NgIf,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

@@ -100,7 +100,11 @@ export class ChangesEffects {
         this.store.select(selectPreferencesAnalysisStrategy),
         this.store.select(selectChangesParameters),
       ]),
-      mergeMap(([_, strategy, changesParameters]) => {
+      mergeMap(([action, preferredStrategy, changesParameters]) => {
+        let strategy = preferredStrategy;
+        if (action['strategy']) {
+          strategy = action['strategy'];
+        }
         const promise = this.navigate(strategy, changesParameters);
         return from(promise).pipe(
           mergeMap(() => this.apiService.changes(strategy, changesParameters)),

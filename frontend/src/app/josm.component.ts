@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { EditService } from '@app/components/shared';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -76,8 +75,11 @@ import { DeviceDetectorService } from 'ngx-device-detector';
           </li>
           <li>
             Second mechanism: this browser is
-            <span *ngIf="isSafari()">Safari</span>
-            <span *ngIf="!isSafari()">NOT Safari</span>.
+            @if (isSafari()) {
+              Safari
+            } @else {
+              NOT Safari
+            }
           </li>
         </ul>
       </li>
@@ -89,7 +91,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
     }
   `,
   standalone: true,
-  imports: [NgIf],
 })
 export class JosmComponent {
   browser = '';
