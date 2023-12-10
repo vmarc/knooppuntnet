@@ -14,11 +14,8 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
-import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
 import kpn.server.config.RequestContext
@@ -36,11 +33,8 @@ import kpn.server.monitor.route.MonitorRouteGpxPageBuilder
 import kpn.server.monitor.route.MonitorRouteInfoBuilder
 import kpn.server.monitor.route.MonitorRouteMapPageBuilder
 import kpn.server.monitor.route.MonitorRouteUpdatePageBuilder
-import kpn.server.monitor.route.update.OldMonitorRouteUpdater
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.stereotype.Component
-
-import scala.xml.Elem
 
 @Component
 class MonitorFacadeImpl(
@@ -57,8 +51,7 @@ class MonitorFacadeImpl(
   monitorRouteInfoBuilder: MonitorRouteInfoBuilder,
   monitorRepository: MonitorRepository,
   monitorGroupRepository: MonitorGroupRepository,
-  monitorRouteRepository: MonitorRouteRepository,
-  monitorUpdater: OldMonitorRouteUpdater
+  monitorRouteRepository: MonitorRouteRepository
 ) extends MonitorFacade {
 
   override def changes(parameters: MonitorChangesParameters): ApiResponse[MonitorChangesPage] = {
@@ -136,14 +129,6 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeResetSubRelationGpxReference(groupName: String, routeName: String, subRelationId: Long): Unit = {
-    val args = s"groupName=$groupName, routeName=$routeName, subRelationId=$subRelationId"
-    api.execute("monitor-route-gpx-delete", args) {
-      assertAdminUser(RequestContext.user)
-      monitorUpdater.resetSubRelationGpxReference(groupName, routeName, subRelationId)
-    }
-  }
-
   override def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage] = {
     val args = s"monitorRouteId=$monitorRouteId"
     api.execute("monitor-route-changes", args) {
@@ -191,28 +176,6 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeAdd(groupName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute("monitor-route-add", properties.name) {
-      assertAdminUser(RequestContext.user)
-      reply(
-        Some(
-          monitorUpdater.add(RequestContext.user.get, groupName, properties)
-        )
-      )
-    }
-  }
-
-  override def routeUpdate(groupName: String, routeName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute("monitor-route-update", s"$groupName:$routeName") {
-      assertAdminUser(RequestContext.user)
-      reply(
-        Some(
-          monitorUpdater.oldUpdate(RequestContext.user.get, groupName, routeName, properties)
-        )
-      )
-    }
-  }
-
   override def routeDelete(groupName: String, routeName: String): Unit = {
     api.execute("monitor-route-delete", s"$groupName:$routeName") {
       assertAdminUser(RequestContext.user)
@@ -221,43 +184,6 @@ class MonitorFacadeImpl(
           monitorRouteRepository.deleteRoute(route._id)
         }
       }
-    }
-  }
-
-  override def upload(
-    groupName: String,
-    routeName: String,
-    relationId: Option[Long],
-    referenceTimestamp: Timestamp,
-    filename: String,
-    xml: Elem
-  ): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute("monitor-route-upload", s"$groupName:$routeName") {
-      assertAdminUser(RequestContext.user)
-      reply(
-        Some(
-          monitorUpdater.upload(
-            RequestContext.user.get,
-            groupName,
-            routeName,
-            relationId,
-            referenceTimestamp,
-            filename,
-            xml
-          )
-        )
-      )
-    }
-  }
-
-  override def routeAnalyze(
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): ApiResponse[MonitorRouteSaveResult] = {
-    api.execute("monitor-route-analyze", s"$groupName:$routeName") {
-      assertAdminUser(user)
-      monitorUpdater.analyze(groupName, routeName)
     }
   }
 

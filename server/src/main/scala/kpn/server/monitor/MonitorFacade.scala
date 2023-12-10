@@ -18,9 +18,6 @@ import kpn.api.common.monitor.MonitorRouteProperties
 import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Timestamp
-
-import scala.xml.Elem
 
 trait MonitorFacade {
 
@@ -46,8 +43,6 @@ trait MonitorFacade {
 
   def routeGpx(groupName: String, routeName: String, subRelationId: Long): ApiResponse[MonitorRouteGpxPage]
 
-  def routeResetSubRelationGpxReference(groupName: String, routeName: String, subRelationId: Long): Unit
-
   def routeChanges(monitorRouteId: String, parameters: MonitorChangesParameters): ApiResponse[MonitorRouteChangesPage]
 
   def routeChange(routeId: Long, changeSetId: Long, replicationId: Long): ApiResponse[MonitorRouteChangePage]
@@ -58,26 +53,7 @@ trait MonitorFacade {
 
   def routeUpdatePage(groupName: String, routeName: String): ApiResponse[MonitorRouteUpdatePage]
 
-  def routeAdd(groupName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteSaveResult]
-
-  def routeUpdate(groupName: String, routeName: String, properties: MonitorRouteProperties): ApiResponse[MonitorRouteSaveResult]
-
   def routeDelete(groupName: String, routeName: String): Unit
-
-  def upload(
-    groupName: String,
-    routeName: String,
-    relationId: Option[Long],
-    referenceTimestamp: Timestamp,
-    filename: String,
-    xml: Elem
-  ): ApiResponse[MonitorRouteSaveResult]
-
-  def routeAnalyze(
-    user: Option[String],
-    groupName: String,
-    routeName: String
-  ): ApiResponse[MonitorRouteSaveResult]
 
   def routeNames(groupName: String): ApiResponse[Seq[String]]
 

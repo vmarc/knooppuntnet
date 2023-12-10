@@ -14,12 +14,8 @@ import kpn.api.common.monitor.MonitorRouteDetailsPage
 import kpn.api.common.monitor.MonitorRouteGpxPage
 import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
-import kpn.api.common.monitor.MonitorRouteProperties
-import kpn.api.common.monitor.MonitorRouteSaveResult
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.core.common.Time
-import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -27,11 +23,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.multipart.MultipartFile
-
-import scala.xml.XML
 
 @RestController
 @RequestMapping(Array("/api/monitor"))
@@ -91,23 +83,6 @@ class MonitorController(facade: MonitorFacade) {
     facade.route(groupName, routeName)
   }
 
-  @PostMapping(value = Array("groups/{groupName}"))
-  def routeAdd(
-    @PathVariable groupName: String,
-    @RequestBody properties: MonitorRouteProperties
-  ): ApiResponse[MonitorRouteSaveResult] = {
-    facade.routeAdd(groupName, properties)
-  }
-
-  @PutMapping(value = Array("groups/{groupName}/routes/{routeName}"))
-  def routeUpdate(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-    @RequestBody properties: MonitorRouteProperties
-  ): ApiResponse[MonitorRouteSaveResult] = {
-    facade.routeUpdate(groupName, routeName, properties)
-  }
-
   @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}"))
   def routeDelete(
     @PathVariable groupName: String,
@@ -140,15 +115,6 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable subRelationId: Long
   ): ApiResponse[MonitorRouteGpxPage] = {
     facade.routeGpx(groupName, routeName, subRelationId)
-  }
-
-  @DeleteMapping(value = Array("groups/{groupName}/routes/{routeName}/gpx/{subRelationId}"))
-  def routeSubRelationGpxDelete(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-    @PathVariable subRelationId: Long
-  ): Unit = {
-    facade.routeResetSubRelationGpxReference(groupName, routeName, subRelationId)
   }
 
   @PostMapping(value = Array("groups/{groupName}/routes/{monitorRouteId}/changes"))
@@ -185,53 +151,6 @@ class MonitorController(facade: MonitorFacade) {
   @GetMapping(value = Array("route-info/{routeId}"))
   def routeInfo(@PathVariable routeId: Long): ApiResponse[MonitorRouteInfoPage] = {
     facade.routeInfo(routeId)
-  }
-
-  @PostMapping(value = Array(s"groups/{groupName}/routes/{routeName}/upload"))
-  def routeGpxUpload(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-    @RequestParam("file") file: MultipartFile
-  ): ApiResponse[MonitorRouteSaveResult] = {
-
-    val xml = XML.load(file.getInputStream)
-
-    facade.upload(
-      groupName,
-      routeName,
-      None,
-      Time.now, // TODO should get reference timestamp from client !!!
-      file.getOriginalFilename,
-      xml
-    )
-  }
-
-  @PostMapping(value = Array(s"groups/{groupName}/routes/{routeName}/upload/{relationId}"))
-  def routeSubRelationGpxUpload(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-    @PathVariable relationId: Long,
-    @RequestParam("file") file: MultipartFile
-  ): ApiResponse[MonitorRouteSaveResult] = {
-
-    val xml = XML.load(file.getInputStream)
-
-    facade.upload(
-      groupName,
-      routeName,
-      Some(relationId),
-      Time.now, // TODO should get reference timestamp from client !!!
-      file.getOriginalFilename,
-      xml
-    )
-  }
-
-  @PostMapping(value = Array("groups/{groupName}/routes/{routeName}/analyze"))
-  def routeAnalyze(
-    @PathVariable groupName: String,
-    @PathVariable routeName: String,
-  ): Unit = {
-    facade.routeAnalyze(CurrentUser.name, groupName, routeName)
   }
 
   @GetMapping(value = Array("groups/{groupName}/route-names"))
