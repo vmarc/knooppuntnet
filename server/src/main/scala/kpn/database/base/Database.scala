@@ -28,10 +28,6 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
-import kpn.server.monitor.domain.OldMonitorRoute
-import kpn.server.monitor.domain.OldMonitorRouteReference
-import kpn.server.monitor.domain.OldMonitorRouteReferenceRelation
-import kpn.server.monitor.domain.OldMonitorRouteState
 import org.mongodb.scala.MongoCollection
 
 import scala.reflect.ClassTag
@@ -82,17 +78,9 @@ trait Database {
 
   def monitorRoutes: DatabaseCollection[MonitorRoute]
 
-  def oldMonitorRoutes: DatabaseCollection[OldMonitorRoute]
-
   def monitorRouteReferences: DatabaseCollection[MonitorRouteReference]
 
-  def oldMonitorRouteReferences: DatabaseCollection[OldMonitorRouteReference]
-
-  def oldMonitorRouteReferenceRelations: DatabaseCollection[OldMonitorRouteReferenceRelation]
-
   def monitorRouteStates: DatabaseCollection[MonitorRouteState]
-
-  def oldMonitorRouteStates: DatabaseCollection[OldMonitorRouteState]
 
   def monitorRouteChanges: DatabaseCollection[MonitorRouteChange]
 

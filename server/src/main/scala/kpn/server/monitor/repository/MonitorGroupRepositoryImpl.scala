@@ -6,7 +6,6 @@ import kpn.database.base.Database
 import kpn.database.base.ObjectIdId
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
-import kpn.server.monitor.domain.OldMonitorRoute
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.sort
@@ -77,12 +76,5 @@ class MonitorGroupRepositoryImpl(database: Database) extends MonitorGroupReposit
       )
     )
     database.monitorRoutes.aggregate[ObjectIdId](pipeline, log).map(_._id)
-  }
-
-  override def oldGroupRoutes(groupId: ObjectId): Seq[OldMonitorRoute] = {
-    database.oldMonitorRoutes.find[OldMonitorRoute](
-      equal("groupId", groupId.raw),
-      log
-    )
   }
 }
