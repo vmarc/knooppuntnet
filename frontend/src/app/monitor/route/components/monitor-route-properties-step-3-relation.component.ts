@@ -82,14 +82,15 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
     }
 
     @if (form.invalid && (form.dirty || form.touched || ngForm.submitted)) {
-      @if (form.errors.questionUnanswered) {}
-      <p
-        id="relation.question-unanswered"
-        class="kpn-warning"
-        i18n="@@monitor.route.properties.relation.question-unanswered"
-      >
-        Please answer the question
-      </p>
+      @if (form.errors.questionUnanswered) {
+        <p
+          id="relation.question-unanswered"
+          class="kpn-warning"
+          i18n="@@monitor.route.properties.relation.question-unanswered"
+        >
+          Please answer the question
+        </p>
+      }
     }
 
     @if (form.invalid && (relationId.dirty || relationId.touched || ngForm.submitted)) {
