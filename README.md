@@ -201,7 +201,7 @@ documented [planner interaction tests](https://github.com/vmarc/knooppuntnet/blo
 
 <a name="credits"></a>
 
-Knooppuntnet is haapy to be using an [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) from JetBrains who provided an [open source license](https://jb.gg/OpenSourceSupport).
+Knooppuntnet is happy to use an [IDE](https://en.wikipedia.org/wiki/Integrated_development_environment) from JetBrains who provided an [open source license](https://jb.gg/OpenSourceSupport).
 
 <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg"  width="250">
 
