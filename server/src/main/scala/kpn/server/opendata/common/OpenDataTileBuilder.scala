@@ -2,6 +2,7 @@ package kpn.server.opendata.common
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -17,7 +18,8 @@ class OpenDataTileBuilder {
   private val log = Log(classOf[OpenDataTileBuilder])
   private val tileCalculator = new TileCalculatorImpl()
   private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-  private val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+  private val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+  private val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
 
   def build(nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute], dir: String): Unit = {
 

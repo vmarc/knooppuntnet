@@ -6,6 +6,7 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -77,7 +78,8 @@ object TileTool {
       val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
       val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
       val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-      val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+      val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+      val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
       new TilesBuilder(
         bitmapTileFileRepository,
         vectorTileFileRepository,

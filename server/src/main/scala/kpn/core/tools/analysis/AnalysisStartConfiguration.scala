@@ -36,6 +36,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
@@ -85,7 +86,8 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   private val routeTileAnalyzer = {
-    val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+    val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
     new RouteTileAnalyzer(routeTileCalculator)
   }
 

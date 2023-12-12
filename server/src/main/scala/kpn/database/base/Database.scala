@@ -23,6 +23,7 @@ import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRelation
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
@@ -85,6 +86,8 @@ trait Database {
   def monitorRouteChanges: DatabaseCollection[MonitorRouteChange]
 
   def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry]
+
+  def monitorRelations: DatabaseCollection[MonitorRelation]
 
   def statistics: DatabaseCollection[StatisticLongValues]
 

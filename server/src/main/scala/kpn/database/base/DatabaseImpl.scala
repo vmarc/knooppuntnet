@@ -23,6 +23,7 @@ import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.monitor.domain.MonitorGroup
+import kpn.server.monitor.domain.MonitorRelation
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
@@ -140,6 +141,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRouteChangeGeometry]("monitor-route-change-geometries"))
+  }
+
+  override def monitorRelations: DatabaseCollection[MonitorRelation] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorRelation]("monitor-relations"))
   }
 
   override def statistics: DatabaseCollection[StatisticLongValues] = {

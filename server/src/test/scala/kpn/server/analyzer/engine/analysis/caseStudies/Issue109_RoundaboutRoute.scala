@@ -11,6 +11,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 
@@ -23,7 +24,8 @@ class Issue109_RoundaboutRoute extends UnitTest {
     val analysisContext = new AnalysisContext()
     val locationAnalyzer = new LocationAnalyzerFixed()
     val tileCalculator = new TileCalculatorImpl()
-    val routeTileCalculator = new RouteTileCalculatorImpl(tileCalculator)
+    val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
