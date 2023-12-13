@@ -5,6 +5,7 @@ import { Params } from '@angular/router';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
+import { NetworkMarkerLayer } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
@@ -12,11 +13,15 @@ import { OsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { NavService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
+import { MapBrowserEvent } from 'ol';
 import { Coordinate } from 'ol/coordinate';
+import { FeatureLike } from 'ol/Feature';
 import { GeoJSON } from 'ol/format';
 import { Geometry } from 'ol/geom';
+import Interaction from 'ol/interaction/Interaction';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';
+import MapBrowserEventType from 'ol/MapBrowserEventType';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
@@ -99,6 +104,9 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     } else {
       this.map.getView().fit(Util.toExtent(this.stateService.page().bounds, 0.05));
     }
+
+    this.map.addInteraction(this.buildInteraction());
+
     this.finalizeSetup(true);
   }
 
@@ -273,5 +281,49 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       'sub-relation-id': state.page?.currentSubRelation?.relationId,
     };
     this.setQueryParams(queryParams);
+  }
+
+  private oldRrelationIdString = '';
+
+  private buildInteraction(): Interaction {
+    return new Interaction({
+      handleEvent: (event: MapBrowserEvent<MouseEvent>) => {
+        if (MapBrowserEventType.POINTERMOVE === event.type) {
+          const features: FeatureLike[] = event.map.getFeaturesAtPixel(event.pixel, {
+            hitTolerance: 10,
+          });
+          const relationIds: string[] = [];
+          if (features && features.length > 0) {
+            features.forEach((feature) => {
+              const layer = feature.get('layer');
+              if (layer === 'xx') {
+                const id = feature.get('id');
+                relationIds.push(id);
+              }
+            });
+          }
+          event.map.getTargetElement().style.cursor =
+            relationIds.length >= 1 ? 'pointer' : 'default';
+          if (relationIds.length >= 1) {
+            const uniqueRelationIds: number[] = [];
+            relationIds
+              .map((r) => +r)
+              .forEach((relationId) => {
+                if (!uniqueRelationIds.includes(relationId)) {
+                  uniqueRelationIds.push(relationId);
+                }
+              });
+            uniqueRelationIds.sort((a, b) => a - b);
+            const relationIdString = JSON.stringify(uniqueRelationIds);
+            if (this.oldRrelationIdString !== relationIdString) {
+              this.oldRrelationIdString = relationIdString;
+              console.log('relationIds=' + relationIdString);
+            }
+          }
+          return true; // propagate event
+        }
+        return true; // propagate event
+      },
+    });
   }
 }
