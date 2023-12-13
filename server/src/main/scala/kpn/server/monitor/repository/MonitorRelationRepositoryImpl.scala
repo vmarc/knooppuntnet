@@ -11,6 +11,8 @@ import org.mongodb.scala.model.Accumulators.addToSet
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.include
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Filters.regex
 
 class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationRepository {
 
@@ -28,6 +30,33 @@ class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationR
         )
       ),
       unwind("$tiles"),
+      group(
+        "$tiles",
+        addToSet("relationIds", "$_id")
+      ),
+      project(
+        fields(
+          excludeId(),
+          computed("name", "$_id"),
+          include("relationIds")
+        )
+      ),
+    )
+    database.monitorRelations.aggregate[MonitorTileData](pipeline, log)
+  }
+
+  def tilesZoomLevel(zoomLevel: Long): Seq[MonitorTileData] = {
+
+    val pipeline = Seq(
+      project(
+        fields(
+          include("tiles")
+        )
+      ),
+      unwind("$tiles"),
+      filter(
+        regex("tiles", s"^${zoomLevel}-")
+      ),
       group(
         "$tiles",
         addToSet("relationIds", "$_id")

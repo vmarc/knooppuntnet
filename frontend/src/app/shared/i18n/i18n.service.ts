@@ -98,6 +98,7 @@ export class I18nService {
 
     keysAndValues.push(['@@map.layer.osm', $localize`:@@map.layer.osm:OpenStreetMap`]);
     keysAndValues.push(['@@map.layer.background', $localize`:@@map.layer.background:Background`]);
+    keysAndValues.push(['@@map.layer.monitor', $localize`:@@map.layer.monitor:All monitor routes`]);
     keysAndValues.push(['@@map.layer.gpx', $localize`:@@map.layer.gpx:Your GPX trace`]);
     keysAndValues.push([
       '@@map.layer.tile-256-names',

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { I18nService } from '@app/i18n';
 import { BackgroundLayer } from '../layers';
 import { OsmLayer } from '../layers';
+import { MonitorLayer } from '../layers/monitor-layer';
 import { MapLayerDefinition } from './map-layer-definition';
 
 @Injectable({
@@ -11,6 +12,7 @@ export class MapLayerTranslationService {
   readonly mapLayerDefinitions: MapLayerDefinition[] = [
     { name: BackgroundLayer.id, translation: '@@map.layer.background' },
     { name: OsmLayer.id, translation: '@@map.layer.osm' },
+    { name: MonitorLayer.id, translation: '@@map.layer.monitor' },
     { name: 'cycling', translation: '@@network-type.cycling' },
     { name: 'hiking', translation: '@@network-type.hiking' },
     { name: 'horse-riding', translation: '@@network-type.horse-riding' },

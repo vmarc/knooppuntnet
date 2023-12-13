@@ -21,6 +21,7 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
+import { MonitorLayer } from '../../../ol/layers/monitor-layer';
 import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapState } from './monitor-route-map-state';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
@@ -158,6 +159,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
+    registry.register([], MonitorLayer.build(), true);
     this.register(registry);
   }
 
