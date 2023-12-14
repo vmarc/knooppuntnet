@@ -13,7 +13,6 @@ export class MonitorLayer {
 
   static build(): MapLayer {
     const source = new VectorTile({
-      tileSize: 512,
       minZoom: 2,
       maxZoom: 14,
       format: new MVT(),

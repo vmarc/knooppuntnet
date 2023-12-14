@@ -5,6 +5,7 @@ import { Params } from '@angular/router';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
+import { TileDebug256Layer } from '@app/ol/layers';
 import { NetworkMarkerLayer } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
@@ -168,6 +169,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
     registry.register([], MonitorLayer.build(), true);
+    registry.register([], TileDebug256Layer.build(), false);
     this.register(registry);
   }
 
@@ -296,7 +298,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
           if (features && features.length > 0) {
             features.forEach((feature) => {
               const layer = feature.get('layer');
-              if (layer === 'xx') {
+              if (layer === 'relation') {
                 const id = feature.get('id');
                 relationIds.push(id);
               }

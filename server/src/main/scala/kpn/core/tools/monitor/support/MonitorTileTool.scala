@@ -5,9 +5,8 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.Id
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.tiles.domain.Line
-import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.toWorldCoordinates
+import kpn.server.analyzer.engine.tiles.domain.NewTile
 import kpn.server.monitor.repository.MonitorRelationRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
@@ -23,6 +22,7 @@ import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
+import no.ecc.vectortile.VectorTileEncoder
 
 import java.io.File
 
@@ -36,7 +36,7 @@ case class OsmSegments(
 )
 
 case class TileRelationSegment(
-  lines: Seq[Line]
+  worldCoordinates: Seq[Coordinate]
 )
 
 case class TileRelationData(
@@ -45,7 +45,6 @@ case class TileRelationData(
 )
 
 object MonitorTileTool {
-
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>
       val config = new MonitorTileToolConfig(database)
@@ -81,7 +80,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
         tileDatas.zipWithIndex.foreach { case (tileData, index) =>
           Log.context(s"${index + 1}/${tileDatas.size}") {
             val Array(z, x, y) = tileData.name.split("-").map(namePart => java.lang.Integer.parseInt(namePart))
-            val tile = new Tile(z, x, y)
+            val tile = new NewTile(z, x, y)
             val tileRelationDatas = tileData.relationIds.flatMap { relationId =>
               allRelationDatas.get(relationId)
             }
@@ -95,7 +94,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     }
   }
 
-  private def build(tile: Tile, tileRelationDatas: Seq[TileRelationData]): Array[Byte] = {
+  private def build(tile: NewTile, tileRelationDatas: Seq[TileRelationData]): Array[Byte] = {
 
     val geometryFactory = new GeometryFactory
 
@@ -103,24 +102,15 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
 
     tileRelationDatas.foreach { tileRelationData =>
       tileRelationData.segments.foreach { segment =>
-        val coordinates = segment.lines.flatMap { line =>
-          Seq(
-            new Coordinate(tile.scaleLon(line.p1.x), tile.scaleLat(line.p1.y)),
-            new Coordinate(tile.scaleLon(line.p2.x), tile.scaleLat(line.p2.y))
-          )
-        }
-        val lineString = geometryFactory.createLineString(coordinates.toArray)
-        val userData = Seq(
-          Some("id" -> tileRelationData.relationId.toString),
-          //        Some("name" -> tileRoute.routeName),
-          //        Some("oneway" -> segment.oneWay.toString),
-          //        Some("surface" -> segment.surface),
-        ).flatten.toMap
-        encoder.addLineStringFeature("xx", userData, lineString)
+        val scaledCoordinates = tile.scale(segment.worldCoordinates)
+        val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
+        val userData = new java.util.HashMap[String, String]()
+        userData.put("id", tileRelationData.relationId.toString)
+        encoder.addFeature("relation", userData, lineString)
       }
     }
 
-    encoder.encode
+    encoder.encode()
   }
 
   private def readOsmSegments(relationId: Long): Seq[OsmSegments] = {
@@ -167,14 +157,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
           val segments = geoJsons.flatMap { geoJson =>
             val geometry = GeoJSONReader.parseGeometry(geoJson)
             geometry match {
-              case lineString: LineString =>
-                val points = (0 until lineString.getNumPoints).map { index =>
-                  lineString.getPointN(index)
-                }
-                val lines = points.sliding(2).toSeq.map { case Seq(p1, p2) =>
-                  Line(p1.getX, p1.getY, p2.getX, p2.getY)
-                }
-                Some(TileRelationSegment(lines))
+              case lineString: LineString => Some(TileRelationSegment(toWorldCoordinates(lineString)))
               case _ => None
             }
           }
@@ -185,7 +168,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     }
   }
 
-  private def writeTile(tile: Tile, tileBytes: Array[Byte]): Unit = {
+  private def writeTile(tile: NewTile, tileBytes: Array[Byte]): Unit = {
     val fileName = s"/kpn/tiles/monitor/${tile.z}/${tile.x}/${tile.y}.mvt"
     val file = new File(fileName)
     if (file.exists()) {
