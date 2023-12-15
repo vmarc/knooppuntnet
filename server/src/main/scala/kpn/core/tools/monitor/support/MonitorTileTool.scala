@@ -6,7 +6,7 @@ import kpn.database.base.Database
 import kpn.database.base.Id
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.toWorldCoordinates
-import kpn.server.analyzer.engine.tiles.domain.NewTile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.monitor.repository.MonitorRelationRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import org.apache.commons.io.FileUtils
@@ -79,14 +79,18 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
         val tileDatas = config.relationRepository.tilesZoomLevel(zoomLevel)
         tileDatas.zipWithIndex.foreach { case (tileData, index) =>
           Log.context(s"${index + 1}/${tileDatas.size}") {
-            val Array(z, x, y) = tileData.name.split("-").map(namePart => java.lang.Integer.parseInt(namePart))
-            val tile = new NewTile(z, x, y)
-            val tileRelationDatas = tileData.relationIds.flatMap { relationId =>
-              allRelationDatas.get(relationId)
-            }
-            if (tileRelationDatas.nonEmpty) {
-              val tileBytes = build(tile, tileRelationDatas)
-              writeTile(tile, tileBytes)
+            try {
+              val Array(z, x, y) = tileData.name.split("-").map(namePart => java.lang.Integer.parseInt(namePart))
+              val tile = new Tile(z, x, y)
+              val tileRelationDatas = tileData.relationIds.flatMap { relationId =>
+                allRelationDatas.get(relationId)
+              }
+              if (tileRelationDatas.nonEmpty) {
+                val tileBytes = build(tile, tileRelationDatas)
+                writeTile(tile, tileBytes)
+              }
+            } catch {
+              case e: NumberFormatException =>
             }
           }
         }
@@ -94,7 +98,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     }
   }
 
-  private def build(tile: NewTile, tileRelationDatas: Seq[TileRelationData]): Array[Byte] = {
+  private def build(tile: Tile, tileRelationDatas: Seq[TileRelationData]): Array[Byte] = {
 
     val geometryFactory = new GeometryFactory
 
@@ -163,12 +167,12 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
           }
           (relationId -> TileRelationData(relationId, segments))
         }.toMap
-        (s"loaded ${testRelationIds.size} relations", result)
+        (s"loaded ${relationIds.size} relations", result)
       }
     }
   }
 
-  private def writeTile(tile: NewTile, tileBytes: Array[Byte]): Unit = {
+  private def writeTile(tile: Tile, tileBytes: Array[Byte]): Unit = {
     val fileName = s"/kpn/tiles/monitor/${tile.z}/${tile.x}/${tile.y}.mvt"
     val file = new File(fileName)
     if (file.exists()) {

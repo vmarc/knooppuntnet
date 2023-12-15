@@ -1,55 +1,45 @@
 package kpn.core.tools.monitor.support
 
+import kpn.core.data.Data
 import kpn.core.loadOld.Parser
-import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelationTopLevel
+import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculator
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
-import kpn.server.analyzer.engine.tiles.domain.Line
-import kpn.server.analyzer.engine.tiles.domain.Point
-import kpn.server.monitor.repository.MonitorGroupRepository
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
-import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
 import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRelation
-import kpn.server.monitor.repository.MonitorRelationRepository
 import kpn.server.monitor.repository.MonitorRelationRepositoryImpl
 import kpn.server.monitor.route.update.RelationTopLevelDataBuilder
+import org.locationtech.jts.geom.LineSegment
 
 import scala.xml.XML
+
+class MonitorCreateRelationsToolConfig(database: Database) {
+  val groupRepository = new MonitorGroupRepositoryImpl(database)
+  val routeRepository = new MonitorRouteRepositoryImpl(database)
+  val relationRepository = new MonitorRelationRepositoryImpl(database)
+  val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(new TileCalculatorImpl())
+}
 
 object MonitorCreateRelationsTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>
-      val groupRepository = new MonitorGroupRepositoryImpl(database)
-      val routeRepository = new MonitorRouteRepositoryImpl(database)
-      val relationRepository = new MonitorRelationRepositoryImpl(database)
-      val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-      val linesTileCalculator = new OldLinesTileCalculatorImpl(new OldTileCalculatorImpl())
-      val tool = new MonitorCreateRelationsTool(
-        groupRepository,
-        routeRepository,
-        relationRepository,
-        overpassQueryExecutor,
-        linesTileCalculator
-      )
+      val config = new MonitorCreateRelationsToolConfig(database)
+      val tool = new MonitorCreateRelationsTool(config)
       tool.createMonitorRelations()
     }
   }
 }
 
-class MonitorCreateRelationsTool(
-  groupRepository: MonitorGroupRepository,
-  routeRepository: MonitorRouteRepository,
-  relationRepository: MonitorRelationRepository,
-  overpassQueryExecutor: OverpassQueryExecutor,
-  linesTileCalculator: OldLinesTileCalculator
-) {
+class MonitorCreateRelationsTool(config: MonitorCreateRelationsToolConfig) {
 
   def createMonitorRelations(): Unit = {
     val relationIds = collectionRelationIds()
@@ -57,14 +47,14 @@ class MonitorCreateRelationsTool(
     relationIds.zipWithIndex.foreach { case (relationId, index) =>
       println(s"${index + 1}/${relationIds.size}")
       val monitorRelation = createMonitorRelation(relationId)
-      relationRepository.save(monitorRelation)
+      config.relationRepository.save(monitorRelation)
     }
   }
 
   private def collectionRelationIds(): Seq[Long] = {
-    val ids = groupRepository.groups().sortBy(_.name) flatMap { group =>
+    val ids = config.groupRepository.groups().sortBy(_.name).flatMap { group =>
       println(s"group ${group.name}")
-      groupRepository.groupRoutes(group._id).sortBy(_.name).flatMap { route =>
+      config.groupRepository.groupRoutes(group._id).sortBy(_.name).flatMap { route =>
         println(s"  route ${route.name}")
         route.relation.toSeq.map(_.relationId) ++
           MonitorUtil.subRelationsIn(route).map(_.relationId)
@@ -74,29 +64,41 @@ class MonitorCreateRelationsTool(
   }
 
   private def createMonitorRelation(relationId: Long): MonitorRelation = {
-    val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelationTopLevel(relationId))
-    val xml = XML.loadString(xmlString)
-    val rawData = new Parser().parse(xml.head)
-    val data = new RelationTopLevelDataBuilder(rawData, relationId).data
-    val nodes = data.nodes.values.toSeq
-    val ways = data.ways.values.toSeq
-    val nodeIds = nodes.map(_.id).toSet
-    val wayIds = ways.map(_.id).toSet
-    val subRelationIds = data.relations.values.flatMap(_.raw.relationMembers.map(_.ref)).toSet
-    val elementIds = ElementIds(nodeIds, wayIds, subRelationIds)
-    val tiles = ways.flatMap { way =>
-      val lines = way.nodes.sliding(2).map { case Seq(node1, node2) =>
-        Line(Point(node1.lon, node1.lat), Point(node2.lon, node2.lat))
-      }.toSeq
-      (2 to 14).flatMap { z =>
-        linesTileCalculator.tiles(z, lines)
-      }
-    }.distinct.sortBy(tile => (tile.z, tile.x, tile.y))
-
+    val data = monitorRelationData(relationId)
+    val elementIds = determineElementIds(data)
+    val tiles = determineTiles(data)
     MonitorRelation(
       relationId,
       tiles.map(_.name),
       elementIds
     )
+  }
+
+  private def monitorRelationData(relationId: Long): Data = {
+    val xmlString = config.overpassQueryExecutor.executeQuery(None, QueryRelationTopLevel(relationId))
+    val xml = XML.loadString(xmlString)
+    val rawData = new Parser().parse(xml.head)
+    new RelationTopLevelDataBuilder(rawData, relationId).data
+  }
+
+  private def determineElementIds(data: Data): ElementIds = {
+    val nodes = data.nodes.values.toSeq
+    val ways = data.ways.values.toSeq
+    val nodeIds = nodes.map(_.id).toSet
+    val wayIds = ways.map(_.id).toSet
+    val subRelationIds = data.relations.values.flatMap(_.raw.relationMembers.map(_.ref)).toSet
+    ElementIds(nodeIds, wayIds, subRelationIds)
+  }
+
+  private def determineTiles(data: Data): Seq[Tile] = {
+    data.ways.values.toSeq.flatMap { way =>
+      val worldCoordinates = wayToWorldCoordinates(way)
+      val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
+        new LineSegment(c1, c2)
+      }.toSeq
+      (2 to 14).flatMap { z =>
+        config.lineSegmentTileCalculator.tiles(z, lineSegments)
+      }
+    }.distinct.sortBy(tile => (tile.z, tile.x, tile.y))
   }
 }

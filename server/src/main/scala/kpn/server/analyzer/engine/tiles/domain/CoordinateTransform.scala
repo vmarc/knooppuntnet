@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.tiles.domain
 
+import kpn.api.common.data.Way
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineString
 
@@ -66,4 +67,9 @@ object CoordinateTransform {
       new Coordinate(x, y)
     }
   }
+
+  def wayToWorldCoordinates(way: Way): Seq[Coordinate] = {
+    way.nodes.toArray.map(node => new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat)))
+  }
+
 }
