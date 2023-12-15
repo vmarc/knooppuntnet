@@ -40,12 +40,16 @@ class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends Line
     xDelta: Int,
     yDelta: Int
   ): Unit = {
-    val adjecentTile = tileCalculator.tileXY(tile.z, tile.x + xDelta, tile.y + yDelta)
-    if (!foundTiles.map(_.name).contains(adjecentTile.name)) {
-      if (lineSegments.exists(_.intersection(side) != null)) {
-        tileQueue += adjecentTile
-        foundTiles += adjecentTile
-        ()
+    val x = tile.x + xDelta
+    val y = tile.y + yDelta
+    if (x >= 0 && y >= 0) {
+      val adjecentTile = tileCalculator.tileXY(tile.z, x, y)
+      if (!foundTiles.map(_.name).contains(adjecentTile.name)) {
+        if (lineSegments.exists(_.intersection(side) != null)) {
+          tileQueue += adjecentTile
+          foundTiles += adjecentTile
+          ()
+        }
       }
     }
   }
