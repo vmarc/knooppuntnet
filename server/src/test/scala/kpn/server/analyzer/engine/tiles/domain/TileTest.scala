@@ -13,10 +13,10 @@ class TileTest extends UnitTest {
 
     val essen = LatLonImpl("51.46774", "4.46839")
 
-    Tile.x(z, essen.lon) should equal(x)
-    Tile.y(z, essen.lat) should equal(y)
+    OldTile.x(z, essen.lon) should equal(x)
+    OldTile.y(z, essen.lat) should equal(y)
 
-    val tile = new Tile(z, x, y)
+    val tile = new OldTile(z, x, y)
 
     tile.bounds.xMin should equal(4.43847 +- 0.00001)
     tile.bounds.xMax should equal(4.48242 +- 0.00001)

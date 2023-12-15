@@ -10,7 +10,7 @@ class RouteTileCalculatorTest extends UnitTest {
 
   val t = new TestTileSetup()
 
-  val linesTileCalculator = new LinesTileCalculatorImpl(t.tileCalculator)
+  val linesTileCalculator = new OldLinesTileCalculatorImpl(t.tileCalculator)
   val calculator = new RouteTileCalculatorImpl(linesTileCalculator)
 
   test("single tile route") {

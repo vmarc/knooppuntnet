@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.core.poi.PoiInfo
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 
 case class PoiTileData(
-  tile: Tile,
+  tile: OldTile,
   pois: Seq[PoiInfo]
 )

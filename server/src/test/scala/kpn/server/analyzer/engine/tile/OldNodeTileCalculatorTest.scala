@@ -6,11 +6,11 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTile
 import kpn.server.analyzer.engine.tiles.TestTileSetup
 
-class NodeTileCalculatorTest extends UnitTest {
+class OldNodeTileCalculatorTest extends UnitTest {
 
   val t = new TestTileSetup()
 
-  val calculator = new NodeTileCalculatorImpl(t.tileCalculator)
+  val calculator = new OldNodeTileCalculatorImpl(t.tileCalculator)
 
   test("test") {
 

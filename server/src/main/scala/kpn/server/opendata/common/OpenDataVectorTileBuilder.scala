@@ -1,6 +1,6 @@
 package kpn.server.opendata.common
 
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -8,7 +8,7 @@ import org.locationtech.jts.geom.Point
 
 class OpenDataVectorTileBuilder {
 
-  def build(tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
+  def build(tile: OldTile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
 
     val geometryFactory = new GeometryFactory
 

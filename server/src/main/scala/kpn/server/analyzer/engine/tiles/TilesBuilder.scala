@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.tiles
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tile.OldNodeTileCalculator
 import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
@@ -16,7 +16,7 @@ class TilesBuilder(
   bitmapTileFileRepository: TileFileRepository,
   vectorTileFileRepository: TileFileRepository,
   tileFileBuilder: TileFileBuilder,
-  nodeTileCalculator: NodeTileCalculator,
+  nodeTileCalculator: OldNodeTileCalculator,
   routeTileCalculator: RouteTileCalculator
 ) {
 

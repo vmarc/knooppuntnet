@@ -10,9 +10,9 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 
 import scala.xml.InputSource
 import scala.xml.XML
@@ -24,8 +24,8 @@ object CaseStudy {
     val routeRelation = load(filename)
     val analysisContext = new AnalysisContext()
     val locationAnalyzer = new LocationAnalyzerFixed()
-    val tileCalculator = new TileCalculatorImpl()
-    val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+    val tileCalculator = new OldTileCalculatorImpl()
+    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer)

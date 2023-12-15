@@ -36,10 +36,10 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
 import kpn.server.repository.AnalysisRepository
@@ -69,11 +69,11 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val locationAnalyzer = new LocationAnalyzerImpl(true)
 
-  private val tileCalculator = new TileCalculatorImpl()
+  private val tileCalculator = new OldTileCalculatorImpl()
 
   private val nodeAnalyzer: NodeAnalyzer = {
     val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(locationAnalyzer)
-    val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+    val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
     val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationAnalyzer)
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
@@ -86,7 +86,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   private val routeTileAnalyzer = {
-    val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
     new RouteTileAnalyzer(routeTileCalculator)
   }

@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
-import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tile.OldNodeTileCalculator
 import org.springframework.stereotype.Component
 
 @Component
-class NodeTileAnalyzerImpl(nodeTileCalculator: NodeTileCalculator) extends NodeTileAnalyzer {
+class NodeTileAnalyzerImpl(nodeTileCalculator: OldNodeTileCalculator) extends NodeTileAnalyzer {
   override def analyze(analysis: NodeAnalysis): NodeAnalysis = {
     val tiles = (ZoomLevel.nodeMinZoom to ZoomLevel.vectorTileMaxZoom).flatMap { z =>
       nodeTileCalculator.tiles(z, analysis.node)

@@ -1,3 +1,3 @@
 package kpn.server.analyzer.engine.tiles.domain
 
-case class TileRoutes(tile: Tile, routes: Seq[TileDataRoute])
+case class TileRoutes(tile: OldTile, routes: Seq[TileDataRoute])

@@ -2,16 +2,16 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.springframework.stereotype.Component
 
 @Component
-class LinesTileCalculatorImpl(tileCalculator: TileCalculator) extends LinesTileCalculator {
+class OldLinesTileCalculatorImpl(tileCalculator: OldTileCalculator) extends OldLinesTileCalculator {
 
-  override def tiles(z: Int, lines: Seq[Line]): Seq[Tile] = {
+  override def tiles(z: Int, lines: Seq[Line]): Seq[OldTile] = {
 
-    val tileQueue = scala.collection.mutable.Queue[Tile]()
-    val foundTiles = scala.collection.mutable.Set[Tile]()
+    val tileQueue = scala.collection.mutable.Queue[OldTile]()
+    val foundTiles = scala.collection.mutable.Set[OldTile]()
 
     val tiles = lines.flatMap(_.points).map { p: Point =>
       tileCalculator.tileLonLat(z, p.x, p.y)
@@ -31,10 +31,10 @@ class LinesTileCalculatorImpl(tileCalculator: TileCalculator) extends LinesTileC
   }
 
   private def explore(
-    tileQueue: scala.collection.mutable.Queue[Tile],
-    foundTiles: scala.collection.mutable.Set[Tile],
+    tileQueue: scala.collection.mutable.Queue[OldTile],
+    foundTiles: scala.collection.mutable.Set[OldTile],
     lines: Seq[Line],
-    tile: Tile,
+    tile: OldTile,
     side: Line,
     xDelta: Int,
     yDelta: Int

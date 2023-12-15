@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles.raster
 
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 
@@ -76,11 +76,11 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
     }
   }
 
-  private def lngToPixel(tile: Tile, lng: Double): Int = {
+  private def lngToPixel(tile: OldTile, lng: Double): Int = {
     ((lng - tile.bounds.xMin) * width / (tile.bounds.xMax - tile.bounds.xMin)).round.toInt
   }
 
-  private def latToPixel(tile: Tile, lat: Double): Int = {
+  private def latToPixel(tile: OldTile, lat: Double): Int = {
     (height - ((lat - tile.bounds.yMin) * height / (tile.bounds.yMax - tile.bounds.yMin))).round.toInt
   }
 

@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
@@ -17,7 +17,7 @@ class RouteSegmentBuilder(zoomLevel: Int) {
 
   private val distanceTolerance = {
     val tileX = (zoomLevel - 7) * 65
-    (Tile.lon(zoomLevel, tileX + 1) - Tile.lon(zoomLevel, tileX)) / 256d
+    (OldTile.lon(zoomLevel, tileX + 1) - OldTile.lon(zoomLevel, tileX)) / 256d
   }
 
   private val geometryFactory = new GeometryFactory

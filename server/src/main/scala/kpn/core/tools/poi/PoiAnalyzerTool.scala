@@ -15,8 +15,8 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiScopeAnalyzerImpl
-import kpn.server.analyzer.engine.tile.TileCalculator
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculator
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepository
@@ -37,7 +37,7 @@ object PoiAnalyzerTool {
           val poiRepository = new PoiRepositoryImpl(poiDatabase)
           val locationAnalyzer = new LocationAnalyzerImpl(true)
           val poiScopeAnalyzer = new PoiScopeAnalyzerImpl(locationAnalyzer)
-          val tileCalculator: TileCalculator = new TileCalculatorImpl()
+          val tileCalculator: OldTileCalculator = new OldTileCalculatorImpl()
           val masterPoiAnalyzer = new MasterPoiAnalyzerImpl()
           val tool = new PoiAnalyzerTool(
             poiLoader,
@@ -65,7 +65,7 @@ class PoiAnalyzerTool(
   poiLoader: PoiLoader,
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiRepository: PoiRepository,
-  tileCalculator: TileCalculator,
+  tileCalculator: OldTileCalculator,
   locationAnalyzer: LocationAnalyzer,
   masterPoiAnalyzer: MasterPoiAnalyzer
 ) {

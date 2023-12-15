@@ -11,8 +11,8 @@ import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.OsmChange
-import kpn.server.analyzer.engine.tile.TileCalculator
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tile.OldTileCalculator
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.MockTaskRepository
@@ -27,8 +27,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
-    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new OldTile(13, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new OldTile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
 
@@ -133,8 +133,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
-    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new OldTile(13, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new OldTile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("node", 123)).returns(None)
 
@@ -192,8 +192,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.poiRepository.get _).when(PoiRef("node", 123)).returns(Some(existingPoi()))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 1, 1))
-    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 1, 1))
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new OldTile(13, 1, 1))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new OldTile(14, 1, 1))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-1-1", "14-1-1"))
     (t.knownPoiCache.contains _).when(PoiRef("node", 123)).returns(true)
 
@@ -453,8 +453,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     (t.knownPoiCache.contains _).when(PoiRef("way", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
-    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new OldTile(13, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new OldTile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("way", 123)).returns(None)
     (t.poiQueryExecutor.centers _).when("way", Seq(123L)).returns(
@@ -552,8 +552,8 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     (t.knownPoiCache.contains _).when(PoiRef("relation", 123)).returns(false)
     (t.poiScopeAnalyzer.inScope _).when(*).returns(true)
-    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new Tile(13, 0, 0))
-    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new Tile(14, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(13, *, *).returns(new OldTile(13, 0, 0))
+    (t.tileCalculator.tileLonLat _).when(14, *, *).returns(new OldTile(14, 0, 0))
     (t.tileCalculator.poiTiles _).when(*, *).returns(Seq("13-0-0", "14-0-0"))
     (t.poiRepository.get _).when(PoiRef("relation", 123)).returns(None)
     (t.poiQueryExecutor.centers _).when("relation", Seq(123L)).returns(
@@ -623,7 +623,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val poiRepository: PoiRepository = stub[PoiRepository]
     val knownPoiCache: KnownPoiCache = stub[KnownPoiCache]
-    val tileCalculator: TileCalculator = stub[TileCalculator]
+    val tileCalculator: OldTileCalculator = stub[OldTileCalculator]
     val taskRepository: TaskRepository = new MockTaskRepository()
     val poiQueryExecutor: PoiQueryExecutor = stub[PoiQueryExecutor]
     val poiScopeAnalyzer: PoiScopeAnalyzer = stub[PoiScopeAnalyzer]

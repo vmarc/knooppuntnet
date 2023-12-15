@@ -6,7 +6,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.repository.NodeRepository
@@ -22,7 +22,7 @@ class TileUpdaterImpl(
   routeRepository: RouteRepository,
   tileRepository: TileRepository,
   tileFileBuilder: TileFileBuilder,
-  tileCalculator: TileCalculator,
+  tileCalculator: OldTileCalculator,
   tileDataNodeBuilder: TileDataNodeBuilder
 ) extends TileUpdater {
 
@@ -58,14 +58,14 @@ class TileUpdaterImpl(
       updateTile(networkType, tile)
     }
 
-    private def updateTile(networkType: NetworkType, tile: Tile): Unit = {
+    private def updateTile(networkType: NetworkType, tile: OldTile): Unit = {
       val tileDataNodes = collectTileDataNodes(networkType, tile)
       val tileDataRoutes = collectTileDataRoutes(networkType, tile)
       val tileData = TileData(networkType, tile, tileDataNodes, tileDataRoutes)
       tileFileBuilder.build(tileData)
     }
 
-    private def collectTileDataNodes(networkType: NetworkType, tile: Tile): Seq[TileDataNode] = {
+    private def collectTileDataNodes(networkType: NetworkType, tile: OldTile): Seq[TileDataNode] = {
       val nodeIds = tileRepository.nodeIds(networkType, tile)
       nodeIds.flatMap { nodeId =>
         nodeCache.getOrElseUpdate(
@@ -80,7 +80,7 @@ class TileUpdaterImpl(
       }
     }
 
-    private def collectTileDataRoutes(networkType: NetworkType, tile: Tile): Seq[TileDataRoute] = {
+    private def collectTileDataRoutes(networkType: NetworkType, tile: OldTile): Seq[TileDataRoute] = {
       val routeIds = tileRepository.routeIds(networkType, tile)
       routeIds.flatMap { routeId =>
         routeCache.getOrElseUpdate(

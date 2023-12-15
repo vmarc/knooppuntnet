@@ -5,12 +5,12 @@ import kpn.core.poi.PoiInfo
 import kpn.server.analyzer.engine.tiles.domain.TilePois
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.NodeTileCalculator
+import kpn.server.analyzer.engine.tile.OldNodeTileCalculator
 
 class PoiTilesBuilder(
   tileBuilder: PoiVectorTileBuilder,
   tileFileRepository: TileFileRepository,
-  nodeTileCalculator: NodeTileCalculator
+  nodeTileCalculator: OldNodeTileCalculator
 ) {
 
   private val log = Log(classOf[PoiTilesBuilder])

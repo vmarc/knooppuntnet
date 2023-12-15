@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles.vector
 
 import kpn.server.analyzer.engine.tiles.PoiTileData
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -14,7 +14,7 @@ class PoiVectorTileBuilder {
 
   def build(data: PoiTileData): Array[Byte] = {
     val geometryFactory = new GeometryFactory
-    val encoder = new VectorTileEncoder(Tile.POI_CLIP_BUFFER)
+    val encoder = new VectorTileEncoder(OldTile.POI_CLIP_BUFFER)
     data.pois.foreach { poi =>
       val x = data.tile.scaleLon(poi.lon)
       val y = data.tile.scaleLat(poi.lat)

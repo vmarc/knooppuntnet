@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.poi
 
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.TileCalculator
+import kpn.server.analyzer.engine.tile.OldTileCalculator
 import kpn.server.analyzer.engine.tiles.PoiTileData
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 @Component
 class PoiTileBuilderImpl(
   poiRepository: PoiRepository,
-  tileCalculator: TileCalculator,
+  tileCalculator: OldTileCalculator,
   vectorTileRepository: TileFileRepository,
   poiVectorTileBuilder: PoiVectorTileBuilder
 ) extends PoiTileBuilder {

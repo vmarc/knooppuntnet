@@ -6,9 +6,9 @@ import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.tile.LinesTileCalculator
-import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldLinesTileCalculator
+import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.monitor.repository.MonitorGroupRepository
@@ -30,7 +30,7 @@ object MonitorCreateRelationsTool {
       val routeRepository = new MonitorRouteRepositoryImpl(database)
       val relationRepository = new MonitorRelationRepositoryImpl(database)
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-      val linesTileCalculator = new LinesTileCalculatorImpl(new TileCalculatorImpl())
+      val linesTileCalculator = new OldLinesTileCalculatorImpl(new OldTileCalculatorImpl())
       val tool = new MonitorCreateRelationsTool(
         groupRepository,
         routeRepository,
@@ -48,7 +48,7 @@ class MonitorCreateRelationsTool(
   routeRepository: MonitorRouteRepository,
   relationRepository: MonitorRelationRepository,
   overpassQueryExecutor: OverpassQueryExecutor,
-  linesTileCalculator: LinesTileCalculator
+  linesTileCalculator: OldLinesTileCalculator
 ) {
 
   def createMonitorRelations(): Unit = {

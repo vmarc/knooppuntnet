@@ -9,7 +9,7 @@ import scala.math.tan
 import scala.math.toDegrees
 import scala.math.toRadians
 
-object Tile {
+object OldTile {
 
   val EXTENT: Int = 4096
 
@@ -45,50 +45,50 @@ object Tile {
 
 }
 
-class Tile(val z: Int, val x: Int, val y: Int) { // TODO MAP make case class
+class OldTile(val z: Int, val x: Int, val y: Int) { // TODO MAP make case class
 
   val name: String = s"$z-$x-$y"
 
   override def equals(obj: Any): Boolean = {
-    obj.isInstanceOf[Tile] && obj.asInstanceOf[Tile].name == name
+    obj.isInstanceOf[OldTile] && obj.asInstanceOf[OldTile].name == name
   }
 
   override def hashCode(): Int = name.hashCode()
 
   val bounds: Rectangle = {
 
-    val xMin = Tile.lon(z, x)
-    val xMax = Tile.lon(z, x + 1)
-    val yMin = Tile.lat(z, y + 1)
-    val yMax = Tile.lat(z, y)
+    val xMin = OldTile.lon(z, x)
+    val xMax = OldTile.lon(z, x + 1)
+    val yMin = OldTile.lat(z, y + 1)
+    val yMax = OldTile.lat(z, y)
 
     Rectangle(xMin, xMax, yMin, yMax)
   }
 
   val clipBounds: Rectangle = {
-    buildPoiClipBounds(Tile.CLIP_BUFFER)
+    buildPoiClipBounds(OldTile.CLIP_BUFFER)
   }
 
   val poiClipBounds: Rectangle = {
-    buildPoiClipBounds(Tile.POI_CLIP_BUFFER)
+    buildPoiClipBounds(OldTile.POI_CLIP_BUFFER)
   }
 
   private def buildPoiClipBounds(clipBuffer: ClipBuffer): Rectangle = {
-    val xMin = bounds.xMin - ((bounds.xMax - bounds.xMin) * clipBuffer.left / Tile.EXTENT)
-    val xMax = bounds.xMax + ((bounds.xMax - bounds.xMin) * clipBuffer.right / Tile.EXTENT)
-    val yMin = bounds.yMin - ((bounds.yMax - bounds.yMin) * clipBuffer.bottom / Tile.EXTENT)
-    val yMax = bounds.yMax + ((bounds.yMax - bounds.yMin) * clipBuffer.top / Tile.EXTENT)
+    val xMin = bounds.xMin - ((bounds.xMax - bounds.xMin) * clipBuffer.left / OldTile.EXTENT)
+    val xMax = bounds.xMax + ((bounds.xMax - bounds.xMin) * clipBuffer.right / OldTile.EXTENT)
+    val yMin = bounds.yMin - ((bounds.yMax - bounds.yMin) * clipBuffer.bottom / OldTile.EXTENT)
+    val yMax = bounds.yMax + ((bounds.yMax - bounds.yMin) * clipBuffer.top / OldTile.EXTENT)
     Rectangle(xMin, xMax, yMin, yMax)
   }
 
   override def toString: String = s"${this.getClass.getSimpleName}($name)"
 
   def scaleLat(lat: Double): Double = {
-    Tile.EXTENT - ((lat - bounds.yMin) * Tile.EXTENT / (bounds.yMax - bounds.yMin))
+    OldTile.EXTENT - ((lat - bounds.yMin) * OldTile.EXTENT / (bounds.yMax - bounds.yMin))
   }
 
   def scaleLon(lon: Double): Double = {
-    (lon - bounds.xMin) * Tile.EXTENT / (bounds.xMax - bounds.xMin)
+    (lon - bounds.xMin) * OldTile.EXTENT / (bounds.xMax - bounds.xMin)
   }
 
   def lngToPixel(width: Int, lng: Double): Int = {

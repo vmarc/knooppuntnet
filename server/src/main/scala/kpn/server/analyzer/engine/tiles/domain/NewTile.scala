@@ -17,7 +17,7 @@ class NewTile(val z: Int, val x: Int, val y: Int) {
 
 
   override def equals(obj: Any): Boolean = {
-    obj.isInstanceOf[Tile] && obj.asInstanceOf[Tile].name == name
+    obj.isInstanceOf[OldTile] && obj.asInstanceOf[OldTile].name == name
   }
 
   override def hashCode(): Int = name.hashCode()

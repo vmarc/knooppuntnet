@@ -14,7 +14,7 @@ import kpn.core.poi.PoiDefinition
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.changes.changes.OsmChange
-import kpn.server.analyzer.engine.tile.TileCalculator
+import kpn.server.analyzer.engine.tile.OldTileCalculator
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component
 class PoiChangeAnalyzerImpl(
   knownPoiCache: KnownPoiCache,
   poiRepository: PoiRepository,
-  tileCalculator: TileCalculator,
+  tileCalculator: OldTileCalculator,
   taskRepository: TaskRepository,
   poiScopeAnalyzer: PoiScopeAnalyzer,
   poiQueryExecutor: PoiQueryExecutor,

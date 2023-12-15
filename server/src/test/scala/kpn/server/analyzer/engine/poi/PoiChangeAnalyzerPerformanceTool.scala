@@ -11,7 +11,7 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.changes.changes.OsmChange
 import kpn.server.analyzer.engine.changes.OsmChangeRepository
 import kpn.server.analyzer.engine.changes.changes.OsmChangeParser
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
 import kpn.server.repository.PoiRepositoryImpl
 import kpn.server.repository.TaskRepository
@@ -121,7 +121,7 @@ object PoiChangeAnalyzerPerformanceTool {
       val osmChangeRepository = new OsmChangeRepositoryTestImpl()
       val knownPoiCache = new KnownPoiCacheTestImpl()
       val poiRepository = new PoiRepositoryTestImpl(database)
-      val tileCalculator = new TileCalculatorImpl()
+      val tileCalculator = new OldTileCalculatorImpl()
       val taskRepository = new TaskRepositoryTestImpl()
       val poiQueryExecutor = new PoiQueryExecutorImpl(overpassQueryExecutor)
       val locationAnalyzer = new LocationAnalyzerImpl(analyzerEnabled = true)

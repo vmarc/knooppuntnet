@@ -3,24 +3,24 @@ package kpn.server.analyzer.engine.tile
 import kpn.api.common.LatLon
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.poi.PoiDefinition
-import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.domain.TileCache
+import kpn.server.analyzer.engine.tiles.domain.OldTile
+import kpn.server.analyzer.engine.tiles.domain.OldTileCache
 import org.springframework.stereotype.Component
 
 @Component
-class TileCalculatorImpl extends TileCalculator {
+class OldTileCalculatorImpl extends OldTileCalculator {
 
-  private val cache = new TileCache()
+  private val cache = new OldTileCache()
 
-  def tileLonLat(z: Int, lon: Double, lat: Double): Tile = {
+  def tileLonLat(z: Int, lon: Double, lat: Double): OldTile = {
     cache(z, lon, lat)
   }
 
-  def tileXY(z: Int, x: Int, y: Int): Tile = {
+  def tileXY(z: Int, x: Int, y: Int): OldTile = {
     cache(z, x, y)
   }
 
-  def tileNamed(tileName: String): Tile = {
+  def tileNamed(tileName: String): OldTile = {
     cache(tileName)
   }
 
@@ -47,7 +47,7 @@ class TileCalculatorImpl extends TileCalculator {
     tiles.map(_.name)
   }
 
-  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[Tile] = {
+  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[OldTile] = {
     val tile = tileXY(z, x, y)
     if (tile.poiClipBounds.contains(lon, lat)) Some(tile) else None
   }

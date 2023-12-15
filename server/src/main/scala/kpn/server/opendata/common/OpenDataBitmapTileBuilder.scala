@@ -1,6 +1,6 @@
 package kpn.server.opendata.common
 
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 
 import java.awt.BasicStroke
 import java.awt.Color
@@ -15,7 +15,7 @@ class OpenDataBitmapTileBuilder {
   private val width = 256
   private val height = 256
 
-  def build(tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
+  def build(tile: OldTile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
     val image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     val g = createGraphics(image)
     g.setColor(Color.red)
@@ -29,7 +29,7 @@ class OpenDataBitmapTileBuilder {
     toByteArray(image)
   }
 
-  private def drawRoutes(g: Graphics2D, tile: Tile, routes: Seq[OpenDataRoute]): Unit = {
+  private def drawRoutes(g: Graphics2D, tile: OldTile, routes: Seq[OpenDataRoute]): Unit = {
 
     val lineWidth = if (tile.z < 9) {
       0.5f
@@ -59,7 +59,7 @@ class OpenDataBitmapTileBuilder {
     }
   }
 
-  private def drawNodes(g: Graphics2D, tile: Tile, nodes: Seq[OpenDataNode]): Unit = {
+  private def drawNodes(g: Graphics2D, tile: OldTile, nodes: Seq[OpenDataNode]): Unit = {
 
     nodes.foreach { node =>
 

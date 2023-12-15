@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
 import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
@@ -13,11 +13,11 @@ import org.locationtech.jts.geom.TopologyException
 import org.locationtech.jts.io.ParseException
 import org.locationtech.jts.io.WKTReader
 
-class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
+class VectorTileEncoder(clipBuffer: ClipBuffer = OldTile.CLIP_BUFFER) {
 
   private val layers = new VectorTileLayers()
 
-  private val extent = Tile.EXTENT
+  private val extent = OldTile.EXTENT
 
   private val tileEnvelope: Polygon = buildTileEnvelope()
 

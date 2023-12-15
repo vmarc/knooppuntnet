@@ -6,10 +6,10 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.LinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzer
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
@@ -73,12 +73,12 @@ object TileTool {
     }
 
     val tilesBuilder: TilesBuilder = {
-      val tileCalculator = new TileCalculatorImpl()
+      val tileCalculator = new OldTileCalculatorImpl()
       val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
       val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
       val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-      val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-      val linesTileCalculator = new LinesTileCalculatorImpl(tileCalculator)
+      val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
+      val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
       val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
       new TilesBuilder(
         bitmapTileFileRepository,

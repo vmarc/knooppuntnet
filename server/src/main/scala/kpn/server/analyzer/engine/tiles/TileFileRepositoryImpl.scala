@@ -4,7 +4,7 @@ import java.io.File
 
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.TileName
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 
@@ -14,7 +14,7 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
 
   private val log = Log(classOf[TileFileRepositoryImpl])
 
-  override def saveOrUpdate(tileType: String, tile: Tile, tileBytes: Array[Byte]): Unit = {
+  override def saveOrUpdate(tileType: String, tile: OldTile, tileBytes: Array[Byte]): Unit = {
 
     val fileName = toFileName(tileType, tile)
     val file = new File(fileName)
@@ -36,7 +36,7 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
     }
   }
 
-  override def deleteTile(tileType: String, tile: Tile): Unit = {
+  override def deleteTile(tileType: String, tile: OldTile): Unit = {
     delete(Seq(s"${tileType.replaceAll("/", "-")}-${tile.name}"))
   }
 
@@ -67,7 +67,7 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
     }
   }
 
-  private def toFileName(tileType: String, tile: Tile) = {
+  private def toFileName(tileType: String, tile: OldTile) = {
     s"$root/$tileType/${tile.z}/${tile.x}/${tile.y}.$extension"
   }
 

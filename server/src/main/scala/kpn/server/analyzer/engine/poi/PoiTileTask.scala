@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.poi
 
-import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 
 object PoiTileTask {
 
@@ -10,7 +10,7 @@ object PoiTileTask {
     task.substring(prefix.length)
   }
 
-  def withTile(tile: Tile): String = {
+  def withTile(tile: OldTile): String = {
     withTileName(tile.name)
   }
 

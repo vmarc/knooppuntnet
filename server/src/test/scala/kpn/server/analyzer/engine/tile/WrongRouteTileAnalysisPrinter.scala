@@ -13,7 +13,7 @@ object WrongRouteTileAnalysisPrinter {
 
 class WrongRouteTileAnalysisPrinter {
 
-  private val tileCalculator = new TileCalculatorImpl()
+  private val tileCalculator = new OldTileCalculatorImpl()
 
   def print(): Unit = {
 
