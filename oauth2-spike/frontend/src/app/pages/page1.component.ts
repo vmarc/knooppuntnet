@@ -1,12 +1,12 @@
-import { inject } from "@angular/core";
-import { OnDestroy } from "@angular/core";
-import { OnInit } from "@angular/core";
-import { Component } from "@angular/core";
-import { PageComponent } from "./page.component";
-import { Page1Service } from "./page1.service";
+import { inject } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PageComponent } from './page.component';
+import { Page1Service } from './page1.service';
 
 @Component({
-  selector: "kpn-page-1",
+  selector: 'kpn-page-1',
   template: `
     <kpn-page title="Page1">
       <p>page one</p>
@@ -34,5 +34,4 @@ export class Page1Component implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     console.log(`Page1Component.ngOnDestroy()`);
   }
-
 }

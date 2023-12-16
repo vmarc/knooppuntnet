@@ -1,10 +1,10 @@
-import { inject } from "@angular/core";
-import { Component } from "@angular/core";
-import { PageComponent } from "./page.component";
-import { Page2Service } from "./page2.service";
+import { inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { PageComponent } from './page.component';
+import { Page2Service } from './page2.service';
 
 @Component({
-  selector: "kpn-page-2",
+  selector: 'kpn-page-2',
   standalone: true,
   template: `
     <kpn-page title="Page2">
