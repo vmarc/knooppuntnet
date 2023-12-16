@@ -168,8 +168,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
-    registry.register([], MonitorLayer.build(), true);
-    registry.register([], TileDebug256Layer.build(), false);
+    // registry.register([], MonitorLayer.build(), true);
+    // registry.register([], TileDebug256Layer.build(), false);
     this.register(registry);
   }
 

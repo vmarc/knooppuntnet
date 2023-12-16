@@ -18,6 +18,12 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     <kpn-sidebar>
       @if (service.page() !== null) {
         <div class="control">
+          @if (service.analysisTimestamp(); as timestamp) {
+            <div class="analysis-timestamp">
+              <span class="kpn-label">Latest analysis</span>
+              <span>{{ timestamp | yyyymmddhhmm }}</span>
+            </div>
+          }
           <kpn-monitor-route-map-control-mode />
           <kpn-monitor-route-map-layers />
           <kpn-monitor-route-map-control-josm />
@@ -31,13 +37,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
           }
         </div>
       }
-
-      @if (service.analysisTimestamp(); as timestamp) {
-        <div body-bottom class="analysis-timestamp">
-          <span class="kpn-label">Latest analysis</span>
-          <span>{{ timestamp | yyyymmddhhmm }}</span>
-        </div>
-      }
     </kpn-sidebar>
   `,
   styles: `
@@ -46,8 +45,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     }
 
     .analysis-timestamp {
-      padding: 3em 1em 1em;
-      text-align: center;
+      padding-bottom: 1em;
     }
   `,
   standalone: true,
