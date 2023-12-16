@@ -195,12 +195,18 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       const mode = this.stateService.mode();
       this.osmRelationLayer.changed();
     });
-    effect(() => {
-      const focusBounds = this.stateService.focus();
-      if (this.map !== null && focusBounds !== null) {
-        this.map.getView().fit(Util.toExtent(focusBounds, 0.1));
+    effect(
+      () => {
+        const focusBounds = this.stateService.focus();
+        if (this.map !== null && focusBounds !== null) {
+          this.map.getView().fit(Util.toExtent(focusBounds, 0.1));
+          this.stateService.focusChanged(null);
+        }
+      },
+      {
+        allowSignalWrites: true,
       }
-    });
+    );
     effect(
       () => {
         if (this.stateService.page() !== null) {

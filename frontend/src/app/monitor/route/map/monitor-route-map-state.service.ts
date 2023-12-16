@@ -80,7 +80,9 @@ export class MonitorRouteMapStateService {
     const referenceParam = queryParams.get('reference');
     let referenceVisible =
       referenceAvailable && !(matchesVisible || deviationsVisible || osmRelationVisible);
-    if (referenceAvailable && referenceParam) {
+    if (referenceAvailable && page.osmSegments.length === 0) {
+      referenceVisible = true;
+    } else if (referenceAvailable && referenceParam) {
       referenceVisible = referenceParam === 'true';
     }
 
