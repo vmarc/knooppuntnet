@@ -11,6 +11,10 @@ import scala.math.toRadians
 
 object OldTile {
 
+  def apply(z: Int, x: Int, y: Int): OldTile = {
+    new OldTile(z, x, y)
+  }
+
   val EXTENT: Int = 4096
 
   val CLIP_BUFFER: ClipBuffer = ClipBuffer(
@@ -66,14 +70,14 @@ class OldTile(val z: Int, val x: Int, val y: Int) { // TODO MAP make case class
   }
 
   val clipBounds: Rectangle = {
-    buildPoiClipBounds(OldTile.CLIP_BUFFER)
+    buildClipBounds(OldTile.CLIP_BUFFER)
   }
 
   val poiClipBounds: Rectangle = {
-    buildPoiClipBounds(OldTile.POI_CLIP_BUFFER)
+    buildClipBounds(OldTile.POI_CLIP_BUFFER)
   }
 
-  private def buildPoiClipBounds(clipBuffer: ClipBuffer): Rectangle = {
+  private def buildClipBounds(clipBuffer: ClipBuffer): Rectangle = {
     val xMin = bounds.xMin - ((bounds.xMax - bounds.xMin) * clipBuffer.left / OldTile.EXTENT)
     val xMax = bounds.xMax + ((bounds.xMax - bounds.xMin) * clipBuffer.right / OldTile.EXTENT)
     val yMin = bounds.yMin - ((bounds.yMax - bounds.yMin) * clipBuffer.bottom / OldTile.EXTENT)

@@ -2,6 +2,8 @@ package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.LatLonImpl
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 
 class TileTest extends UnitTest {
 
@@ -13,19 +15,19 @@ class TileTest extends UnitTest {
 
     val essen = LatLonImpl("51.46774", "4.46839")
 
-    OldTile.x(z, essen.lon) should equal(x)
-    OldTile.y(z, essen.lat) should equal(y)
+    Tile.tileX(z, lonToWorldX(essen.lon)) should equal(x)
+    Tile.tileY(z, latToWorldY(essen.lat)) should equal(y)
 
-    val tile = new OldTile(z, x, y)
+    val tile = Tile(z, x, y)
 
-    tile.bounds.xMin should equal(4.43847 +- 0.00001)
-    tile.bounds.xMax should equal(4.48242 +- 0.00001)
-    tile.bounds.yMin should equal(51.45400 +- 0.00001)
-    tile.bounds.yMax should equal(51.48138 +- 0.00001)
+    tile.worldXMin should equal(lonToWorldX(4.43847) +- 0.001)
+    tile.worldXMax should equal(lonToWorldX(4.48242) +- 0.001)
+    tile.worldYMin should equal(latToWorldY(51.45400) +- 0.001)
+    tile.worldYMax should equal(latToWorldY(51.48138) +- 0.001)
 
-    tile.clipBounds.xMin should equal(4.43607 +- 0.00001)
-    tile.clipBounds.xMax should equal(4.48482 +- 0.00001)
-    tile.clipBounds.yMin should equal(51.45250 +- 0.00001)
-    tile.clipBounds.yMax should equal(51.48288 +- 0.00001)
+    tile.clipBounds.xMin should equal(lonToWorldX(4.43607) +- 0.001)
+    tile.clipBounds.xMax should equal(lonToWorldX(4.48482) +- 0.001)
+    tile.clipBounds.yMin should equal(latToWorldY(51.45250) +- 0.001)
+    tile.clipBounds.yMax should equal(latToWorldY(51.48288) +- 0.001)
   }
 }

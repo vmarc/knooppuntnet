@@ -125,10 +125,10 @@ class TileFileRepositoryTest extends UnitTest {
 
       val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
 
-      repo.saveOrUpdate("cycling/survey", new OldTile(11, 12, 13), Array())
+      repo.saveOrUpdate("cycling/survey", OldTile(11, 12, 13), Array())
       assert(file.exists())
 
-      repo.deleteTile("cycling/survey", new OldTile(11, 12, 13))
+      repo.deleteTile("cycling/survey", OldTile(11, 12, 13))
       assert(!file.exists())
     }
     finally {

@@ -24,6 +24,6 @@ class OldTileCache {
   }
 
   private def getTile(tileName: String, z: Int, x: Int, y: Int): OldTile = {
-    tiles.getOrElseUpdate(tileName, new OldTile(z, x, y))
+    tiles.getOrElseUpdate(tileName, OldTile(z, x, y))
   }
 }
