@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { PageComponent } from './page.component';
-import { Page2Service } from './page2.service';
+import { Page2Store } from './page2.store';
 
 @Component({
   selector: 'kpn-page-2',
@@ -15,9 +15,9 @@ import { Page2Service } from './page2.service';
     </kpn-page>
   `,
   imports: [PageComponent],
-  providers: [Page2Service],
+  providers: [Page2Store],
 })
 export class Page2Component {
-  private readonly service = inject(Page2Service);
-  readonly page = this.service.page;
+  private readonly store = inject(Page2Store);
+  readonly page = this.store.page;
 }

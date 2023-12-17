@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { UserStore } from '../service/user.store';
 import { LinkLoginComponent } from './link-login.component';
 import { LinkLogoutComponent } from './link-logout.component';
 
@@ -34,10 +35,11 @@ import { LinkLogoutComponent } from './link-logout.component';
 })
 export class PageComponent {
   private readonly userService = inject(UserService);
+  private readonly userStore = inject(UserStore);
 
   @Input({ required: true }) title: string = '';
 
-  readonly user = this.userService.user;
+  readonly user = this.userStore.user;
 
   logout(): void {
     this.userService.logout();

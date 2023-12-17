@@ -3,7 +3,7 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { PageComponent } from './page.component';
-import { Page1Service } from './page1.service';
+import { Page1Store } from './page1.store';
 
 @Component({
   selector: 'kpn-page-1',
@@ -15,13 +15,13 @@ import { Page1Service } from './page1.service';
       }
     </kpn-page>
   `,
-  providers: [Page1Service],
+  providers: [Page1Store],
   standalone: true,
   imports: [PageComponent],
 })
 export class Page1Component implements OnInit, OnDestroy {
-  private readonly service = inject(Page1Service);
-  readonly page = this.service.page;
+  private readonly store = inject(Page1Store);
+  readonly page = this.store.page;
 
   constructor() {
     console.log(`Page1Component.constructor()`);

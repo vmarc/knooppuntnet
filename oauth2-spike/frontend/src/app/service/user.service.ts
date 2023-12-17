@@ -13,9 +13,12 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs';
 import { BrowserStorageService } from './browser-storage.service';
 import { Subscriptions } from './subscriptions';
+import { UserStore } from './user.store';
 
 @Injectable()
 export class UserService implements OnDestroy {
+  private readonly userStore = inject(UserStore);
+
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly oauthService = inject(OAuthService);
@@ -27,11 +30,6 @@ export class UserService implements OnDestroy {
   private readonly oldLocalStorageUserKey = 'user';
   private showDebugInformation = true;
   private returnUrl: string | null = null;
-
-  private readonly _user = signal<string | null>(null);
-  readonly user = this._user.asReadonly();
-  private readonly _error = signal<string | null>(null);
-  readonly error = this._error.asReadonly();
 
   private authConfig = {
     issuer: 'https://www.openstreetmap.org',
@@ -135,7 +133,7 @@ export class UserService implements OnDestroy {
     this.browserStorageService.remove(this.oldLocalStorageUserKey);
     const userFromStorage = this.browserStorageService.get(this.localStorageUserKey);
     // this.updateSentryUser(userFromStorage);
-    this._user.set(userFromStorage);
+    this.userStore.updateUser(userFromStorage);
     this.debug(`user from storage: ${userFromStorage}`);
   }
 
@@ -164,7 +162,7 @@ export class UserService implements OnDestroy {
       this.browserStorageService.remove(this.localStorageUserKey);
       // Sentry.setUser(null);
     }
-    this._user.set(user);
+    this.userStore.updateUser(user);
   }
 
   private tokenReceived(): void {
