@@ -1,6 +1,8 @@
+import { OnDestroy } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { UserService } from '../service/user.service';
+import { UserStore } from '../service/user.store';
 
 @Component({
   selector: 'kpn-login',
@@ -14,10 +16,23 @@ import { UserService } from '../service/user.service';
       <button (click)="login()">login</button>
       <a (click)="cancel()">cancel</a>
     </div>
+    @if (error(); as message) {
+      <p class="error">
+        {{ message }}
+      </p>
+    }
+    @if (errorDetail(); as message) {
+      <p class="error">
+        {{ message }}
+      </p>
+    }
   `,
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   private readonly userService = inject(UserService);
+  private readonly userStore = inject(UserStore);
+  readonly error = this.userStore.error;
+  readonly errorDetail = this.userStore.errorDetail;
 
   login(): void {
     this.userService.login();
@@ -25,5 +40,10 @@ export class LoginComponent {
 
   cancel(): void {
     this.userService.navigateToReturnUrl();
+  }
+
+  ngOnDestroy() {
+    this.userStore.updateError(null);
+    this.userStore.updateErrorDetail(null);
   }
 }

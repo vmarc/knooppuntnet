@@ -9,14 +9,18 @@ import { signalStore } from '@ngrx/signals';
 export interface UserState {
   user: string | null;
   error: string | null;
+  errorDetail: string | null;
 }
+
+const initialState: UserState = {
+  user: null,
+  error: null,
+  errorDetail: null,
+};
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
-  withState<UserState>({
-    user: null,
-    error: null,
-  }),
+  withState<UserState>(initialState),
   withComputed(({ user }) => ({
     loggedIn: computed(() => user !== null),
   })),
@@ -27,6 +31,9 @@ export const UserStore = signalStore(
       },
       updateError: (error: string | null) => {
         patchState(state, { error });
+      },
+      updateErrorDetail: (errorDetail: string | null) => {
+        patchState(state, { errorDetail });
       },
     };
   }),

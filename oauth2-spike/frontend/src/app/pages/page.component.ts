@@ -36,10 +36,9 @@ import { LinkLogoutComponent } from './link-logout.component';
 export class PageComponent {
   private readonly userService = inject(UserService);
   private readonly userStore = inject(UserStore);
+  readonly user = this.userStore.user;
 
   @Input({ required: true }) title: string = '';
-
-  readonly user = this.userStore.user;
 
   logout(): void {
     this.userService.logout();

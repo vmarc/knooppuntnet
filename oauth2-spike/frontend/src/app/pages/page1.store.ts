@@ -5,29 +5,24 @@ import { patchState } from '@ngrx/signals';
 import { withMethods } from '@ngrx/signals';
 import { withState } from '@ngrx/signals';
 import { signalStore } from '@ngrx/signals';
-import { tap } from 'rxjs';
 
 export interface Page1State {
   page: string | null;
 }
 
+const initialState: Page1State = {
+  page: null,
+};
+
 export const Page1Store = signalStore(
-  { providedIn: 'root' },
-  withState<Page1State>({
-    page: null,
-  }),
+  withState<Page1State>(initialState),
   withMethods((state) => {
     const http = inject(HttpClient);
     return {
       load: () => {
-        http
-          .get('/api/page1', { responseType: 'text' })
-          .pipe(
-            tap((page) => {
-              patchState(state, { page });
-            })
-          )
-          .subscribe();
+        http.get('/api/page1', { responseType: 'text' }).subscribe((page) => {
+          patchState(state, { page });
+        });
       },
     };
   }),
