@@ -35,7 +35,7 @@
     "@ngrx/router-store": "17.0.0",
     "@ngrx/store": "17.0.0",
     "@ngrx/store-devtools": "17.0.0",
-    "@sentry/angular-ivy": "^7.81.0",
+    "@sentry/angular-ivy": "^7.91.0",
     "@swimlane/ngx-charts": "^20.5.0",
     "@types/file-saver": "^2.0.5",
     "canvg": "^4.0.1",

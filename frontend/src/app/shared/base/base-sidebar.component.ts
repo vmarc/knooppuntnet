@@ -1,6 +1,6 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 
@@ -13,23 +13,28 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
     <kpn-sidebar>
       <div id="extraFunctions" (click)="toggleExtraFunctions()" class="extra-functions"></div>
 
-      <ul *ngIf="extraFunctionsEnabled">
-        <li>
-          <p>
-            <a routerLink="/poi/areas">Point of interest areas</a>
-          </p>
-        </li>
-        <li>
-          <p>
-            <a routerLink="/status">Status</a>
-          </p>
-        </li>
-        <li>
-          <p>
-            <a routerLink="/symbols">Symbols</a>
-          </p>
-        </li>
-      </ul>
+      @if (extraFunctionsEnabled) {
+        <ul>
+          <li>
+            <p>
+              <a routerLink="/poi/areas">Point of interest areas</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a routerLink="/status">Status</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a routerLink="/symbols">Symbols</a>
+            </p>
+          </li>
+          <li>
+            <button mat-stroked-button (click)="forceError()">Sentry, force error</button>
+          </li>
+        </ul>
+      }
     </kpn-sidebar>
   `,
   styles: `
@@ -40,12 +45,16 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
     }
   `,
   standalone: true,
-  imports: [SidebarComponent, NgIf, RouterLink],
+  imports: [SidebarComponent, RouterLink, MatButtonModule],
 })
 export class BaseSidebarComponent {
   extraFunctionsEnabled = false;
 
   toggleExtraFunctions(): void {
     this.extraFunctionsEnabled = !this.extraFunctionsEnabled;
+  }
+
+  forceError(): void {
+    throw new Error('Forced error to verify Sentry reporting');
   }
 }
