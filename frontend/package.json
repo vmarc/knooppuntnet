@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "scripts": {
     "prettier-check": "prettier --check --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
     "prettier-write": "prettier --write --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
@@ -88,5 +88,12 @@
     "svg-inline-loader": "^0.8.2",
     "ts-node": "~10.9.1",
     "typescript": "5.2.2"
+  },
+  "overrides": {
+    "ngrx-store-localstorage": {
+      "@angular/common": "$@angular/common",
+      "@angular/core": "$@angular/core",
+      "@ngrx/store": "$@ngrx/store"
+    }
   }
 }
