@@ -35,6 +35,9 @@ export const UserStore = signalStore(
       updateErrorDetail: (errorDetail: string | null) => {
         patchState(state, { errorDetail });
       },
+      resetError: () => {
+        patchState(state, { error: null, errorDetail: null });
+      },
     };
   }),
   withHooks({

@@ -1,9 +1,10 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserService } from '../service/user.service';
+import { UserService } from './user.service';
+import { UserErrorComponent } from './user-error.component';
 
 @Component({
-  selector: 'kpn-logout',
+  selector: 'kpn-user-logout',
   standalone: true,
   template: `
     <h1>Logout</h1>
@@ -12,9 +13,11 @@ import { UserService } from '../service/user.service';
       <button (click)="logout()">logout</button>
       <a (click)="cancel()">cancel</a>
     </div>
+    <kpn-user-error />
   `,
+  imports: [UserErrorComponent],
 })
-export class LogoutComponent {
+export class UserLogoutComponent {
   private readonly userService = inject(UserService);
 
   logout(): void {

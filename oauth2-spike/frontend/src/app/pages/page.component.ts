@@ -3,10 +3,10 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { UserService } from '../service/user.service';
-import { UserStore } from '../service/user.store';
-import { LinkLoginComponent } from './link-login.component';
-import { LinkLogoutComponent } from './link-logout.component';
+import { UserService } from '../user/user.service';
+import { UserStore } from '../user/user.store';
+import { UserLinkLoginComponent } from '../user/user-link-login.component';
+import { UserLinkLogoutComponent } from '../user/user-link-logout.component';
 
 @Component({
   selector: 'kpn-page',
@@ -25,13 +25,13 @@ import { LinkLogoutComponent } from './link-logout.component';
 
     @if (user(); as name) {
       <p>Logged in as: {{ name }}</p>
-      <kpn-link-logout />
+      <kpn-user-link-logout />
     } @else {
       <p>Not logged in</p>
-      <kpn-link-login />
+      <kpn-user-link-login />
     }
   `,
-  imports: [LinkLoginComponent, RouterLink, RouterOutlet, LinkLogoutComponent],
+  imports: [RouterLink, RouterOutlet, UserLinkLoginComponent, UserLinkLogoutComponent],
 })
 export class PageComponent {
   private readonly userService = inject(UserService);

@@ -90,8 +90,7 @@ class AuthenticationController(oauthClientId: String, crypto: Crypto, cryptoKey:
   @GetMapping(value = Array("/api/logout"))
   @ResponseBody def logout(response: HttpServletResponse): ResponseEntity[_] = {
     log.info("GET logout()")
-    // TODO accessToken from cookie, and then issue revoke on openstreetmap.org
-    response.addCookie(createCookie("", 0))
+    response.addCookie(createCookie("", 0)) // erase cookie on browser
     new ResponseEntity[String]("", HttpStatus.OK)
   }
 

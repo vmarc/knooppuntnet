@@ -16,8 +16,8 @@ import { catchError } from 'rxjs';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs';
-import { BrowserStorageService } from './browser-storage.service';
-import { Subscriptions } from './subscriptions';
+import { BrowserStorageService } from '../service/browser-storage.service';
+import { Subscriptions } from '../service/subscriptions';
 import { UserStore } from './user.store';
 
 interface AuthorizationError {
@@ -69,8 +69,7 @@ export class UserService implements OnDestroy {
   }
 
   login(): void {
-    this.userStore.updateError(null);
-    this.userStore.updateErrorDetail(null);
+    this.userStore.resetError();
     this.loadDiscoveryDocumentAndTryLogin().subscribe(() => {
       if (this.returnUrl) {
         this.debug(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
@@ -86,23 +85,29 @@ export class UserService implements OnDestroy {
   logout(): void {
     this.http
       .get('/api/logout', { responseType: 'text' }) // erase the cookie
-      .pipe(
-        // TODO catchError !!!
-        tap(() => {
-          this.updateUser(null);
-          if (this.returnUrl) {
-            const url = this.returnUrl;
-            this.returnUrl = null;
-            this.debug(`navigateByUrl(${url})`);
-            this.router.navigateByUrl(url);
-          }
-        })
-      )
       .subscribe({
-        next: (v) => this.debug('logout() next', v),
-        error: (e) => this.debug('logout() error', e),
-        complete: () => this.debug('logout() completed.'),
+        next: () => this.logoutUser(),
+        error: (error) => this.logoutError(error),
       });
+  }
+
+  private logoutUser(): void {
+    this.updateUser(null);
+    if (this.returnUrl) {
+      const url = this.returnUrl;
+      this.returnUrl = null;
+      this.debug(`navigateByUrl(${url})`);
+      this.router.navigateByUrl(url);
+    }
+  }
+
+  private logoutError(error: any): void {
+    if (error instanceof HttpErrorResponse) {
+      const httpErrorResponse = error as HttpErrorResponse;
+      this.userStore.updateError('Could not logout');
+      this.userStore.updateErrorDetail(httpErrorResponse.message);
+    }
+    this.debug('logout() error', error);
   }
 
   loginLinkClicked(): void {
@@ -252,11 +257,7 @@ export class UserService implements OnDestroy {
             }
           })
         )
-        .subscribe({
-          next: (v) => this.debug('/api/authenticated HTTP response', v),
-          error: (e) => this.debug('/api/authenticated HTTP Error', e),
-          complete: () => this.debug('/api/authenticated HTTP request completed.'),
-        });
+        .subscribe();
     }
   }
 

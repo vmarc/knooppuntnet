@@ -4,7 +4,7 @@ import { provideRouter } from '@angular/router';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 
 import { routes } from './app.routes';
-import { UserService } from './service/user.service';
+import { UserService } from './user/user.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [

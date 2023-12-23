@@ -1,13 +1,12 @@
+import { OnDestroy } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserService } from '../service/user.service';
-import { UserStore } from '../service/user.store';
+import { UserStore } from './user.store';
 
 @Component({
-  selector: 'kpn-authenticated',
+  selector: 'kpn-user-error',
   standalone: true,
   template: `
-    <p>logging in...</p>
     @if (error(); as message) {
       <p class="error">
         {{ message }}
@@ -20,13 +19,12 @@ import { UserStore } from '../service/user.store';
     }
   `,
 })
-export class AuthenticatedComponent {
-  private readonly userService = inject(UserService);
+export class UserErrorComponent implements OnDestroy {
   private readonly userStore = inject(UserStore);
   readonly error = this.userStore.error;
   readonly errorDetail = this.userStore.errorDetail;
 
-  constructor() {
-    this.userService.authenticated();
+  ngOnDestroy() {
+    this.userStore.resetError();
   }
 }
