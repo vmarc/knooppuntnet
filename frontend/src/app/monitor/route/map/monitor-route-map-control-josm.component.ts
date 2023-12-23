@@ -93,7 +93,11 @@ export class MonitorRouteMapControlJosmComponent {
   }
 
   josmLoadRouteRelation(): void {
-    const relationIds = [this.stateService.page().relationId];
+    let relationId = this.stateService.page().currentSubRelation?.relationId;
+    if (!relationId) {
+      relationId = this.stateService.page().relationId;
+    }
+    const relationIds = [relationId];
     this.editService.edit({
       relationIds,
       fullRelation: true,
