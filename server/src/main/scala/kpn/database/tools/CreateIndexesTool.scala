@@ -37,7 +37,7 @@ object CreateIndexesTool {
   )
 
   def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-experimental") { database =>
+    Mongo.executeIn("kpn-monitor") { database =>
       new CreateIndexesTool(database).createIndexes()
     }
   }
@@ -315,6 +315,18 @@ class CreateIndexesTool(database: Database) {
         database.pois,
         "location.names",
         "layers"
+      ),
+      Index(
+        database.monitorRoutes,
+        "groupId-id",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "groupId",
+          ),
+          Indexes.ascending(
+            "_id"
+          )
+        )
       ),
       Index(
         database.monitorRouteStates,

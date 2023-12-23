@@ -3,6 +3,7 @@ package kpn.server.monitor.repository
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.monitor.MonitorChangesParameters
+import kpn.api.common.monitor.MonitorRouteDetail
 import kpn.api.common.monitor.MonitorRouteSegmentInfo
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -480,6 +481,31 @@ class MonitorRouteRepositoryImpl(database: Database) extends MonitorRouteReposit
       ),
     )
     database.monitorRoutes.aggregate[MonitorGroupRouteCount](pipeline, log)
+  }
+
+  override def groupRouteDetails(groupId: ObjectId): Seq[MonitorRouteDetail] = {
+    val pipeline = Seq(
+      filter(
+        equal("groupId", groupId.raw)
+      ),
+      project(
+        fields(
+          excludeId(),
+          include("name"),
+          include("description"),
+          include("symbol"),
+          include("relationId"),
+          include("referenceType"),
+          include("referenceTimestamp"),
+          include("referenceDistance"),
+          include("deviationDistance"),
+          include("deviationCount"),
+          include("osmSegmentCount"),
+          include("happy"),
+        )
+      )
+    )
+    database.monitorRoutes.aggregate[MonitorRouteDetail](pipeline, log)
   }
 
   override def groupChangesCount(groupName: String, parameters: MonitorChangesParameters): Long = {
