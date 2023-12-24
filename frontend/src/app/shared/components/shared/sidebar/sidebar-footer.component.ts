@@ -1,15 +1,12 @@
-import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { LinkLoginComponent } from '@app/components/shared/link';
-import { LinkLogoutComponent } from '@app/components/shared/link';
-import { selectUserUser } from '@app/core';
-import { selectUserLoggedIn } from '@app/core';
 import { VersionService } from '@app/services';
-import { Store } from '@ngrx/store';
+import { UserLinkLogoutComponent } from '../../../user';
+import { UserLinkLoginComponent } from '../../../user';
+import { UserStore } from '../../../user/user.store';
 
 @Component({
   selector: 'kpn-sidebar-footer',
@@ -29,18 +26,19 @@ import { Store } from '@ngrx/store';
         {{ version() }}
       </p>
 
-      <ng-container *ngIf="loginEnabled">
-        <p *ngIf="loggedIn(); else notLoggedIn">
-          {{ user() }}
-          <br />
-          <kpn-link-logout />
-        </p>
-        <ng-template #notLoggedIn>
+      @if (loginEnabled) {
+        @if (loggedIn()) {
           <p>
-            <kpn-link-login />
+            {{ user() }}
+            <br />
+            <kpn-user-link-logout />
           </p>
-        </ng-template>
-      </ng-container>
+        } @else {
+          <p>
+            <kpn-user-link-login />
+          </p>
+        }
+      }
     </div>
   `,
   styles: `
@@ -57,18 +55,18 @@ import { Store } from '@ngrx/store';
     }
   `,
   standalone: true,
-  imports: [NgIf, LinkLogoutComponent, LinkLoginComponent, AsyncPipe],
+  imports: [UserLinkLoginComponent, UserLinkLogoutComponent],
 })
 export class SidebarFooterComponent {
-  @Input({ required: false }) loginEnabled = true;
+  private readonly userStore = inject(UserStore);
+  readonly loggedIn = this.userStore.loggedIn;
+  readonly user = this.userStore.user;
 
-  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
-  readonly user = this.store.selectSignal(selectUserUser);
+  @Input({ required: false }) loginEnabled = true;
 
   constructor(
     private router: Router,
-    private versionService: VersionService,
-    private store: Store
+    private versionService: VersionService
   ) {}
 
   version(): string {

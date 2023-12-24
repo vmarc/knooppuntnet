@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -10,11 +11,11 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { LinkLoginComponent } from '@app/components/shared/link';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { UserLinkLoginComponent } from '../../../shared/user';
+import { UserStore } from '../../../shared/user/user.store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { actionNodeChangesPageDestroy } from '../store/node.actions';
 import { actionNodeChangesPageSize } from '../store/node.actions';
@@ -64,7 +65,7 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
           >
             The details of the node changes history is available to registered OpenStreetMap
             contributors only, after
-            <kpn-link-login></kpn-link-login>
+            <kpn-user-link-login />
             .
           </div>
 
@@ -106,7 +107,6 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    LinkLoginComponent,
     NgFor,
     NgIf,
     NodeChangeComponent,
@@ -115,19 +115,21 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
     PageComponent,
     RouterLink,
     SituationOnComponent,
+    UserLinkLoginComponent,
   ],
 })
 export class NodeChangesPageComponent implements OnInit, OnDestroy {
+  private readonly userStore = inject(UserStore);
+  readonly loggedIn = this.userStore.loggedIn;
+
+  private readonly store = inject(Store);
   readonly nodeId = this.store.selectSignal(selectNodeId);
   readonly nodeName = this.store.selectSignal(selectNodeName);
   readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
   readonly impact = this.store.selectSignal(selectNodeChangesPageImpact);
   readonly pageSize = this.store.selectSignal(selectNodeChangesPageSize);
   readonly pageIndex = this.store.selectSignal(selectNodeChangesPageIndex);
-  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
   readonly apiResponse = this.store.selectSignal(selectNodeChangesPage);
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeChangesPageInit());

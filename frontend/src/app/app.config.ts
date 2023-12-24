@@ -26,7 +26,6 @@ import { PageWidthService } from '@app/components/shared';
 import { reducers } from '@app/core';
 import { metaReducers } from '@app/core';
 import { SharedEffects } from '@app/core';
-import { UserEffects } from '@app/core';
 import { I18nService } from '@app/i18n';
 import { VersionService } from '@app/services';
 import { ApiService } from '@app/services';
@@ -41,8 +40,10 @@ import { provideRouterStore } from '@ngrx/router-store';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as Sentry from '@sentry/angular-ivy';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { MarkdownModule } from 'ngx-markdown';
 import { environment } from '../environments/environment';
+import { UserService } from './shared/user';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -95,6 +96,8 @@ export const appConfig: ApplicationConfig = {
     MatDialog,
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
+    provideOAuthClient(),
+    { provide: UserService },
     provideStore(reducers, {
       metaReducers,
       runtimeChecks: {
@@ -106,7 +109,7 @@ export const appConfig: ApplicationConfig = {
         strictActionTypeUniqueness: true,
       },
     }),
-    provideEffects([SharedEffects, UserEffects]),
+    provideEffects([SharedEffects]),
     provideRouterStore(),
     provideStoreDevtools({
       name: 'Knooppuntnet',

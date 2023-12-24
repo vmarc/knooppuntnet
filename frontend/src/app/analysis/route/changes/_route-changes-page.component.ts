@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -9,11 +10,11 @@ import { RouterLink } from '@angular/router';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { LinkLoginComponent } from '@app/components/shared/link';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { UserLinkLoginComponent } from '../../../shared/user';
+import { UserStore } from '../../../shared/user/user.store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteChangesPageDestroy } from '../store/route.actions';
 import { actionRouteChangesPageSize } from '../store/route.actions';
@@ -60,7 +61,7 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
           <div *ngIf="loggedIn() === false; else changes" i18n="@@route-changes.login-required">
             The details of the route changes history is available to registered OpenStreetMap
             contributors only, after
-            <kpn-link-login></kpn-link-login>
+            <kpn-user-link-login />
             .
           </div>
           <ng-template #changes>
@@ -100,7 +101,6 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
-    LinkLoginComponent,
     NgFor,
     NgIf,
     PageComponent,
@@ -109,9 +109,14 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
     RoutePageHeaderComponent,
     RouterLink,
     SituationOnComponent,
+    UserLinkLoginComponent,
   ],
 })
 export class RouteChangesPageComponent implements OnInit, OnDestroy {
+  private readonly userStore = inject(UserStore);
+  readonly loggedIn = this.userStore.loggedIn;
+
+  private readonly store = inject(Store);
   readonly routeId = this.store.selectSignal(selectRouteId);
   readonly routeName = this.store.selectSignal(selectRouteName);
   readonly networkType = this.store.selectSignal(selectRouteNetworkType);
@@ -119,10 +124,7 @@ export class RouteChangesPageComponent implements OnInit, OnDestroy {
   readonly impact = this.store.selectSignal(selectRouteChangesPageImpact);
   readonly pageSize = this.store.selectSignal(selectRouteChangesPageSize);
   readonly pageIndex = this.store.selectSignal(selectRouteChangesPageIndex);
-  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
   readonly apiResponse = this.store.selectSignal(selectRouteChangesPage);
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteChangesPageInit());

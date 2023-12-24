@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -7,12 +8,12 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { LinkLoginComponent } from '@app/components/shared/link';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { UserLinkLoginComponent } from '../../../shared/user';
+import { UserStore } from '../../../shared/user/user.store';
 import { ChangesSidebarComponent } from '../sidebar/changes-sidebar.component';
 import { actionChangesPageSize } from '../store/changes.actions';
 import { actionChangesImpact } from '../store/changes.actions';
@@ -47,7 +48,7 @@ import { selectChangesPage } from '../store/changes.selectors';
             <p i18n="@@changes-page.login-required" class="kpn-spacer-above">
               The details of the changes history are available to registered OpenStreetMap
               contributors only, after
-              <kpn-link-login />
+              <kpn-user-link-login />
               .
             </p>
           } @else {
@@ -94,21 +95,22 @@ import { selectChangesPage } from '../store/changes.selectors';
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    LinkLoginComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,
     SituationOnComponent,
+    UserLinkLoginComponent,
   ],
 })
 export class ChangesPageComponent implements OnInit {
+  private readonly userStore = inject(UserStore);
+  readonly loggedIn = this.userStore.loggedIn;
+
+  private readonly store = inject(Store);
   readonly apiResponse = this.store.selectSignal(selectChangesPage);
   readonly impact = this.store.selectSignal(selectChangesImpact);
   readonly pageSize = this.store.selectSignal(selectChangesPageSize);
   readonly pageIndex = this.store.selectSignal(selectChangesPageIndex);
-  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionChangesPageInit());

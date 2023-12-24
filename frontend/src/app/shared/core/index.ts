@@ -17,10 +17,3 @@ export * from './shared/shared.effects';
 export * from './shared/shared.reducer';
 export * from './shared/shared.selectors';
 export * from './shared/survey-date-values';
-
-export * from './user/return-url';
-export { UserState } from './user/user.state';
-export * from './user/user.actions';
-export * from './user/user.effects';
-export * from './user/user.reducer';
-export * from './user/user.selectors';

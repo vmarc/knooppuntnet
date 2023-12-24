@@ -43,6 +43,7 @@
     "immutable": "^5.0.0-beta.4",
     "jspdf": "^2.5.1",
     "marked": "^9.0.0",
+    "@ngrx/signals": "^17.0.1",
     "ngrx-store-localstorage": "^16.0.0",
     "ngx-clipboard": "^16.0.0",
     "ngx-cookie-service": "^17.0.0",
@@ -51,6 +52,7 @@
     "ol": "8.1.0",
     "ol-geocoder": "4.3.1",
     "ol-mapbox-style": "12.0.0",
+    "angular-oauth2-oidc": "^15.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

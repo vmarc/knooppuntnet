@@ -1,6 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { NgFor } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,11 +9,11 @@ import { OnInit } from '@angular/core';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { LinkLoginComponent } from '@app/components/shared/link';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { UserLinkLoginComponent } from '../../../shared/user';
+import { UserStore } from '../../../shared/user/user.store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { actionNetworkChangesImpact } from '../store/network.actions';
 import { actionNetworkChangesPageDestroy } from '../store/network.actions';
@@ -45,7 +46,7 @@ import { NetworkChangesSidebarComponent } from './network-changes-sidebar.compon
           <div *ngIf="loggedIn() === false; else changes" i18n="@@network-changes.login-required">
             The details of network changes history are available to registered OpenStreetMap
             contributors only, after
-            <kpn-link-login />
+            <kpn-user-link-login />
             .
           </div>
           <ng-template #changes>
@@ -83,7 +84,6 @@ import { NetworkChangesSidebarComponent } from './network-changes-sidebar.compon
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
-    LinkLoginComponent,
     NetworkChangeSetComponent,
     NetworkChangesSidebarComponent,
     NetworkPageHeaderComponent,
@@ -91,16 +91,18 @@ import { NetworkChangesSidebarComponent } from './network-changes-sidebar.compon
     NgIf,
     PageComponent,
     SituationOnComponent,
+    UserLinkLoginComponent,
   ],
 })
 export class NetworkChangesPageComponent implements OnInit, OnDestroy {
+  private readonly userStore = inject(UserStore);
+  readonly loggedIn = this.userStore.loggedIn;
+
+  private readonly store = inject(Store);
   readonly apiResponse = this.store.selectSignal(selectNetworkChangesPage);
   readonly impact = this.store.selectSignal(selectNetworkChangesImpact);
   readonly pageSize = this.store.selectSignal(selectNetworkChangesPageSize);
   readonly pageIndex = this.store.selectSignal(selectNetworkChangesPageIndex);
-  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkChangesPageInit());

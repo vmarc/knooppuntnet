@@ -1,19 +1,23 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
-import { actionUserAuthenticated } from '@app/core';
-import { Store } from '@ngrx/store';
+import { UserService } from '../../../user';
+import { UserErrorComponent } from '../../../user/user-error.component';
 
 @Component({
   selector: 'kpn-authenticate-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <span i18n="@@authenticate-page.title"> Logging in... </span> `,
+  template: `
+    <p i18n="@@authenticate-page.title">Logging in...</p>
+    <kpn-user-error />
+  `,
   standalone: true,
+  imports: [UserErrorComponent],
 })
-export class AuthenticatePageComponent implements OnInit {
-  constructor(private store: Store) {}
+export class AuthenticatePageComponent {
+  private readonly userService = inject(UserService);
 
-  ngOnInit(): void {
-    this.store.dispatch(actionUserAuthenticated());
+  constructor() {
+    this.userService.authenticated();
   }
 }

@@ -1,4 +1,5 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
@@ -7,11 +8,11 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { LinkLoginComponent } from '@app/components/shared/link';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectUserLoggedIn } from '@app/core';
 import { Store } from '@ngrx/store';
+import { UserLinkLoginComponent } from '../../../shared/user';
+import { UserStore } from '../../../shared/user/user.store';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetChangesPageSize } from '../store/subset.actions';
 import { actionSubsetChangesPageImpact } from '../store/subset.actions';
@@ -41,7 +42,7 @@ import { SubsetChangesSidebarComponent } from './subset-changes-sidebar.componen
             <p i18n="@@subset-changes.login-required">
               This details of the changes history are available to registered OpenStreetMap
               contributors only, after
-              <kpn-link-login />
+              <kpn-user-link-login />
               .
             </p>
           } @else {
@@ -86,21 +87,22 @@ import { SubsetChangesSidebarComponent } from './subset-changes-sidebar.componen
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    LinkLoginComponent,
     PageComponent,
     SituationOnComponent,
     SubsetChangesSidebarComponent,
     SubsetPageHeaderBlockComponent,
+    UserLinkLoginComponent,
   ],
 })
 export class SubsetChangesPageComponent implements OnInit {
+  private readonly userStore = inject(UserStore);
+  readonly loggedIn = this.userStore.loggedIn;
+
+  private readonly store = inject(Store);
   readonly impact = this.store.selectSignal(selectSubsetChangesPageImpact);
   readonly pageSize = this.store.selectSignal(selectSubsetChangesPageSize);
   readonly pageIndex = this.store.selectSignal(selectSubsetChangesPageIndex);
-  readonly loggedIn = this.store.selectSignal(selectUserLoggedIn);
   readonly apiResponse = this.store.selectSignal(selectSubsetChangesPage);
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetChangesPageInit());

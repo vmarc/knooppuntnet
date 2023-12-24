@@ -1,11 +1,12 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { actionUserLogin } from '@app/core';
-import { Store } from '@ngrx/store';
+import { UserService } from '../../../user';
+import { UserErrorComponent } from '../../../user/user-error.component';
 
 @Component({
   selector: 'kpn-login-page',
@@ -44,19 +45,34 @@ import { Store } from '@ngrx/store';
         </p>
       </div>
 
-      <button mat-raised-button color="primary" (click)="login()" i18n="@@login.submit">
-        Login
-      </button>
+      <div class="kpn-button-group">
+        <button mat-raised-button color="primary" (click)="login()" i18n="@@login.submit">
+          Login
+        </button>
+        <a (click)="cancel()">cancel</a>
+        <kpn-user-error />
+      </div>
+
       <kpn-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
-  imports: [MatButtonModule, PageComponent, PageHeaderComponent, SidebarComponent],
+  imports: [
+    MatButtonModule,
+    PageComponent,
+    PageHeaderComponent,
+    SidebarComponent,
+    UserErrorComponent,
+  ],
 })
 export class LoginPageComponent {
-  constructor(private store: Store) {}
+  private readonly userService = inject(UserService);
 
-  login() {
-    this.store.dispatch(actionUserLogin());
+  login(): void {
+    this.userService.login();
+  }
+
+  cancel(): void {
+    this.userService.navigateToReturnUrl();
   }
 }

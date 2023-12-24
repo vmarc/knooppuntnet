@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { selectUserUser } from '@app/core';
-import { Store } from '@ngrx/store';
+import { UserStore } from '../../../user/user.store';
 
 @Component({
   selector: 'kpn-osm-link-user-oath-clients',
@@ -23,8 +23,8 @@ import { Store } from '@ngrx/store';
   imports: [AsyncPipe],
 })
 export class OsmLinkUserAothClientsComponent {
-  readonly user = this.store.selectSignal(selectUserUser);
-  readonly link = computed(() => `https://www.openstreetmap.org/user/${this.user()}/oauth_clients`);
-
-  constructor(private store: Store) {}
+  private readonly userStore = inject(UserStore);
+  readonly link = computed(
+    () => `https://www.openstreetmap.org/user/${this.userStore.user()}/oauth_clients`
+  );
 }

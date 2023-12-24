@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { selectUserUser } from '@app/core';
-import { Store } from '@ngrx/store';
+import { UserStore } from '../../../user/user.store';
 import { OsmLinkComponent } from './osm-link.component';
 
 @Component({
@@ -13,7 +13,6 @@ import { OsmLinkComponent } from './osm-link.component';
   imports: [OsmLinkComponent, AsyncPipe],
 })
 export class OsmLinkUserComponent {
-  readonly user = this.store.selectSignal(selectUserUser);
-
-  constructor(private store: Store) {}
+  private readonly userStore = inject(UserStore);
+  readonly user = this.userStore.user;
 }
