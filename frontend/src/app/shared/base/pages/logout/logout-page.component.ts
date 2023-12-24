@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -12,6 +10,7 @@ import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { UserService } from '../../../user';
+import { UserErrorComponent } from '../../../user/user-error.component';
 import { UserStore } from '../../../user/user.store';
 
 @Component({
@@ -51,6 +50,9 @@ import { UserStore } from '../../../user/user.store';
             </button>
             <a (click)="cancel()">cancel</a>
           </div>
+          <div>
+            <kpn-user-error />
+          </div>
         } @else {
           <div>
             <p i18n="@@logout.not-logged-in">You are not logged in.</p>
@@ -68,9 +70,7 @@ import { UserStore } from '../../../user/user.store';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     MatButtonModule,
-    NgIf,
     OsmLinkUserAothClientsComponent,
     OsmLinkUserComponent,
     OsmWebsiteComponent,
@@ -78,6 +78,7 @@ import { UserStore } from '../../../user/user.store';
     PageHeaderComponent,
     RouterLink,
     SidebarComponent,
+    UserErrorComponent,
   ],
 })
 export class LogoutPageComponent {

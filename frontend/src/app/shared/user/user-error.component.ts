@@ -8,12 +8,12 @@ import { UserStore } from './user.store';
   standalone: true,
   template: `
     @if (error(); as message) {
-      <p class="error">
+      <p class="kpn-warning">
         {{ message }}
       </p>
     }
     @if (errorDetail(); as message) {
-      <p class="error">
+      <p class="kpn-warning">
         {{ message }}
       </p>
     }

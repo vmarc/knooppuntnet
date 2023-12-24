@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { HttpContext } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
@@ -7,6 +8,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrowserStorageService } from '@app/services';
+import { LOCAL_ERROR_HANDLING } from '@app/spinner';
 import { Subscriptions } from '@app/util';
 import { OAuthErrorEvent } from 'angular-oauth2-oidc';
 import { OAuthInfoEvent } from 'angular-oauth2-oidc';
@@ -51,6 +53,8 @@ export class UserService implements OnDestroy {
     oidc: false, // added to avoid scope 'openid' to be added automatically in authorize request
   };
 
+  private readonly locationErrorHandlingContext = new HttpContext().set(LOCAL_ERROR_HANDLING, true);
+
   constructor() {
     this.initEventHandling();
     this.initUser();
@@ -70,11 +74,19 @@ export class UserService implements OnDestroy {
 
   login(): void {
     this.userStore.resetError();
-    this.loadDiscoveryDocumentAndTryLogin().subscribe(() => {
-      if (this.returnUrl) {
-        this.debug(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
-        this.oauthService.initCodeFlow(this.returnUrl);
-      }
+    this.loadDiscoveryDocumentAndTryLogin().subscribe({
+      next: () => {
+        if (this.returnUrl) {
+          this.debug(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
+          this.oauthService.initCodeFlow(this.returnUrl);
+        }
+      },
+      error: () => {
+        console.log(`TODO login() error !!!`);
+      },
+      complete: () => {
+        console.log(`TODO login() complete !!!`);
+      },
     });
   }
 
@@ -83,8 +95,9 @@ export class UserService implements OnDestroy {
   }
 
   logout(): void {
+    const context = this.locationErrorHandlingContext;
     this.http
-      .get('/api/logout', { responseType: 'text' }) // erase the cookie
+      .get('/api/logout', { context, responseType: 'text' }) // erase the cookie
       .subscribe({
         next: () => this.logoutUser(),
         error: (error) => this.logoutError(error),
@@ -206,7 +219,9 @@ export class UserService implements OnDestroy {
   }
 
   private loadClientId(): Observable<string | null> {
-    return this.http.get('/api/client-id', { responseType: 'text' }).pipe(
+    const context = this.locationErrorHandlingContext;
+    return this.http.get('/api/client-id', { context, responseType: 'text' }).pipe(
+      tap(() => console.log(`loadCLientId() returned`)),
       catchError((error) => {
         console.log([`loadCLientId() error`, error]);
         if (error instanceof HttpErrorResponse) {
@@ -238,8 +253,9 @@ export class UserService implements OnDestroy {
     this.debug(`received accessToken: ${accessToken}`);
     if (accessToken) {
       const params = new HttpParams().set('accessToken', accessToken);
+      const context = this.locationErrorHandlingContext;
       this.http
-        .get('/api/authenticated', { params: params, responseType: 'text' })
+        .get('/api/authenticated', { context, params, responseType: 'text' })
         .pipe(
           catchError((error) => {
             if (error instanceof HttpErrorResponse) {

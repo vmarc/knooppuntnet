@@ -50,8 +50,8 @@ import { UserErrorComponent } from '../../../user/user-error.component';
           Login
         </button>
         <a (click)="cancel()">cancel</a>
-        <kpn-user-error />
       </div>
+      <kpn-user-error />
 
       <kpn-sidebar sidebar />
     </kpn-page>
