@@ -29,6 +29,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorTask
 import org.mongodb.scala.MongoCollection
 
 import scala.reflect.ClassTag
@@ -88,6 +89,8 @@ trait Database {
   def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry]
 
   def monitorRelations: DatabaseCollection[MonitorRelation]
+
+  def monitorTasks: DatabaseCollection[MonitorTask]
 
   def statistics: DatabaseCollection[StatisticLongValues]
 

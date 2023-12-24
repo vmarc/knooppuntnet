@@ -29,6 +29,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
+import kpn.server.monitor.domain.MonitorTask
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
@@ -145,6 +146,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def monitorRelations: DatabaseCollection[MonitorRelation] = {
     new DatabaseCollectionImpl(database.getCollection[MonitorRelation]("monitor-relations"))
+  }
+
+  override def monitorTasks: DatabaseCollection[MonitorTask] = {
+    new DatabaseCollectionImpl(database.getCollection[MonitorTask]("monitor-tasks"))
   }
 
   override def statistics: DatabaseCollection[StatisticLongValues] = {
